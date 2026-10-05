@@ -70,14 +70,15 @@ def main():
     parser.add_argument('--check', action='store_true')
     parser.add_argument('--preview', type=Path)
     args = parser.parse_args()
+    # Since 2026-10-05 render() is only the plate (round-1 texture) under the round-5 motif; the item texture is
+    # written and checked by horseshoe_template_motif_round5_2026_10_05.py (--install / --check).
     result = render(args.jar)
     if args.check:
-        assert Image.open(TARGET).convert('RGBA').tobytes() == result.tobytes(), 'STALE: horseshoe_smithing_template.png'
-    else:
-        result.save(TARGET)
+        from horseshoe_template_motif_round5_2026_10_05 import INSTALLED, texture
+        assert Image.open(TARGET).convert('RGBA').tobytes() == texture(INSTALLED).tobytes(),             'STALE: horseshoe_smithing_template.png'
     if args.preview:
         preview(args.preview, result)
-    print('Horseshoe template: OK (Basic silhouette, Vanilla palettes, transparent borders)')
+    print('Horseshoe template plate: OK (Basic silhouette, Vanilla palettes, transparent borders)')
 
 
 if __name__ == '__main__':

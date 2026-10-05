@@ -11,8 +11,12 @@ motif (two or more iron neighbours) take the shadow rim.
 Shapes are round 4's iron cells (H keeps its dark groove, B its dark calkins), moved down one pixel.
 Background rules and checks are round 2's (pixel-identical plate).
 
-Usage (Pillow): python tools/textures/horseshoe_template_motif_round5_2026_10_05.py [preview png]
-Not installed - the owner picks one."""
+Owner's choice 2026-10-05: H, then "maybe 2 px wider" -> H7 (iron 7x5, same groove and notch), INSTALLED below.
+Back to the 5x5 H: INSTALLED = 'H', then --install H.
+
+Usage (Pillow): python tools/textures/horseshoe_template_motif_round5_2026_10_05.py
+    [--preview [PNG]] [--wide-preview] [--install LETTER] [--check]"""
+import argparse
 import os
 import sys
 from io import BytesIO
@@ -28,6 +32,18 @@ import horseshoe_template_motif_round4_2026_10_05 as r4  # noqa: E402
 PREVIEW = r'C:\Users\o_o\code\minecraft-mods\previews\hufeisen-vorlage-runde5-vorschau.png'
 SHADOW, LIGHT = 'p', 'c'          # rim colours (copper ramp)
 DARK, MID, BRIGHT = 'M', 'L', 'H'  # iron faces
+INSTALLED = 'H7'
+WIDE_PREVIEW = os.path.join(os.path.dirname(PREVIEW), 'hufeisen-vorlage-H-breiter-vorschau.png')
+# Owner on R5-H: "maybe 2 px wider" - same groove, 2 px arms, 3 px opening; iron 7x5, centred.
+H7 = ('H7', 'Gefalzt (Nut), 2 px breiter', 'R5-H mit 7x5 Eisen', [
+    '.........',
+    '.HS...SM.',
+    '.HD...DM.',
+    '.HS...SM.',
+    '.LDDDDDM.',
+    '..MMMMM..',
+    '.........',
+])
 
 
 def shape(letter, grid):
@@ -36,7 +52,7 @@ def shape(letter, grid):
     for r, row in enumerate(grid):
         for c, s in enumerate(row):
             if s in 'HLMSDK':
-                keep = s == 'D' or (letter == 'H' and s == 'S') or (letter == 'B' and r == 1)
+                keep = s == 'D' or (letter[0] == 'H' and s == 'S') or (letter == 'B' and r == 1)
                 cells[(c, r + 1)] = s if keep else None
     assert max(r for _, r in cells) < r2.FIELD_H, letter
     return cells
@@ -78,8 +94,51 @@ def vanilla(name):
         return Image.open(BytesIO(z.read(f'assets/minecraft/textures/item/{name}.png'))).convert('RGBA')
 
 
+def texture(letter):
+    grid = H7[3] if letter == 'H7' else {v[0]: v[3] for v in r4.VARIANTS}[letter]
+    im, motif = r2.render(engrave(letter, shape(letter, grid)))
+    r2.check(im, motif)
+    return im
+
+
+def wide_preview(path=WIDE_PREVIEW):
+    s, pad = 16, 20
+    t = 16 * s
+    img = Image.new('RGB', (pad + 3 * (t + 12), 50 + t + 50), (198, 198, 198))
+    d = ImageDraw.Draw(img)
+    d.text((pad, 12), 'Hufeisen-Vorlage H: Runde 5 (5x5) | 2 px breiter (7x5, eingebaut) | Vanilla-Netherit',
+           fill=(20, 20, 20))
+    d.text((pad, 28), '16x gross, darunter 1x im Inventar-Slot. Hintergrund pixelgleich.', fill=(60, 60, 60))
+    for k, (im, cap) in enumerate(((texture('H'), 'R5-H 5x5'), (texture('H7'), 'H 7x5'),
+                                   (vanilla('netherite_upgrade_smithing_template'), 'Vanilla'))):
+        x = pad + k * (t + 12)
+        r3.tile(d, img, im, x, 50, s)
+        d.text((x + 26, 50 + t + 10), cap, fill=(30, 30, 30))
+    img.save(path)
+    print('Vorschau:', path)
+
+
 def main():
-    path = sys.argv[1] if len(sys.argv) > 1 else PREVIEW
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--preview', nargs='?', const=PREVIEW, help='round-5 sheet with all letters')
+    ap.add_argument('--wide-preview', action='store_true', help='R5-H against the 7x5 H')
+    ap.add_argument('--install', choices=[v[0] for v in r4.VARIANTS] + ['H7'], help='write that motif to the item')
+    ap.add_argument('--check', action='store_true', help='fail unless the item texture is INSTALLED')
+    args = ap.parse_args()
+    if args.wide_preview:
+        wide_preview()
+    if args.install:
+        texture(args.install).save(r2.TARGET)
+        print('installed', args.install, '->', r2.TARGET)
+    if args.check:
+        ok = Image.open(r2.TARGET).convert('RGBA').tobytes() == texture(INSTALLED).tobytes()
+        assert ok, f'STALE: horseshoe_smithing_template.png is not round-5 {INSTALLED}'
+        print('Horseshoe template: OK', INSTALLED)
+    if args.preview:
+        sheet(args.preview)
+
+
+def sheet(path):
     rows = []
     for letter, title, desc, grid in r4.VARIANTS:
         cells = shape(letter, grid)
@@ -107,7 +166,7 @@ def main():
     d.text((pad, 28), '16x gross, darunter 1x im Inventar-Slot. Je Buchstabe: Runde 4 | Runde 5. NICHT eingebaut.',
            fill=(60, 60, 60))
     for k, (im, cap) in enumerate(((vanilla('netherite_upgrade_smithing_template'), 'Vanilla Netherit-Vorlage'),
-                                   (r2.installed(), 'jetzt eingebaut'))):
+                                   (r2.installed(), 'vor Runde 2 eingebaut'))):
         x = pad + k * (t + 12)
         r3.tile(d, img, im, x, 60, s)
         d.text((x + 26, 60 + t + 10), cap, fill=(30, 30, 30))

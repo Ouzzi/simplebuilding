@@ -37,3 +37,12 @@ lassen, nur das Hufeisenmotiv schoener, wieder 10 Vorschlaege. Nur Vorschau + Ge
 - Pixelanalyse Netherit-Vorlage: Plattenpixel ueber dem Pfeil dunkelster Plattenton, darunter heller Plattenton;
   im Motiv obere/linke/untere Kanten dunkel, rechts mittel, innen hell. Uebertragen mit Kupfer-Rand (138,65,41 /
   231,124,86) und Eisen 168/216/255; R4-Formen 1 px tiefer (Eisen y 6..10), Groesse unveraendert.
+
+## Einbau (2026-10-05, Besitzer: R5-H, "evtl. 2 px breiter")
+- Neue Fassung H7 (Eisen 7x5, Nut + Kerbe wie R5) in `horseshoe_template_motif_round5_2026_10_05.py`
+  (`INSTALLED = 'H7'`, `--install`, `--check`, `--wide-preview`), Vorschau `previews\hufeisen-vorlage-H-breiter-vorschau.png`.
+  Zurueck auf R5-H: `INSTALLED = 'H'` + `--install H`.
+- Plattenreferenz der Runden ist jetzt das gerenderte Runde-1-Bild (`horseshoe_template_2026_10_02.render()`), nicht
+  die Datei - sonst waere der Hintergrundvergleich nach dem Einbau zirkulaer. `horseshoe_textures.py` (Vorlage D) und
+  `horseshoe_template_2026_10_02.py --check` pruefen gegen die Runde-5-Wahl; 10_02 schreibt die Datei nicht mehr.
+- Einzige Textur-Orte: Modul simpleriding + Wiki-Asset (per `wiki/generate.py --all`). Keine SB-Kopie.

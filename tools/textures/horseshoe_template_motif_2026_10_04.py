@@ -132,7 +132,10 @@ VARIANTS = [
 
 
 def installed():
-    return Image.open(TARGET).convert('RGBA')
+    """The plate as installed before these rounds (round-1 texture of horseshoe_template_2026_10_02.py), rendered
+    rather than read from TARGET so the background reference stays fixed once a round-5 motif is installed."""
+    from horseshoe_template_2026_10_02 import render
+    return render()
 
 
 def base():
