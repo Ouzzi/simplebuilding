@@ -44,24 +44,8 @@ def main():
     inset = Image.new('RGBA', (16, 16))
     inset.paste(silent, (0, -1))
     silent = inset
-    yarn = Image.new('RGBA', (16, 16))
-    draw = ImageDraw.Draw(yarn)
-    rows = [(4, 6, 10), (5, 4, 11), (6, 3, 12), (7, 3, 12), (8, 3, 12),
-            (9, 3, 12), (10, 4, 11), (11, 5, 10), (12, 6, 9)]
-    for y, left, right in rows:
-        for x in range(left, right + 1):
-            edge = x in (left, right) or y in (4, 12)
-            color = '#a6a39b' if edge else '#e3e0d6'
-            if not edge and (x + y) % 3 == 0:
-                color = '#bebbb2'
-            if not edge and x < 8 and y < 8:
-                color = '#f3f0e6' if (x + y) % 3 else '#bdbab1'
-            draw.point((x, y), fill=color)
-    draw.line([(6, 5), (8, 5), (10, 6), (11, 8), (11, 9)], fill='#f3f0e6', width=1)
-    draw.line([(5, 7), (6, 9), (8, 11)], fill='#c0bdb4', width=1)
-    # Short loose strand; one-pixel margin on every side, no dark corner fill.
-    draw.line([(10, 11), (12, 12), (13, 12), (13, 10)], fill='#c9c6bc', width=1)
-    draw.point((12, 11), fill='#ebe8de')
+    # 2026-10-05: the owner's own drawing, colours on the vanilla white wool (owner_round_2026_10_05.py).
+    yarn = Image.open(Path(__file__).resolve().parent / 'hand' / 'yarn_ball.png').convert('RGBA')
 
     for name, im in [('block/silent_dandelion', silent), ('item/yarn_ball', yarn)]:
         path = ASSETS / f'textures/{name}.png'
