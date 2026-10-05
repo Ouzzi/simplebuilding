@@ -69,5 +69,5 @@ Datagen 26.3, Wiki `--all` + `--all --check`. Kein Client (Optik/Glow/Fluid-Rend
   (Enderit-Tiegel/-Fass/-Eimer wie Enderit-Ofen, Kupfer-Eimer 8 Scheine; gefüllte Eimer/Seelen-Lava ausgeschlossen),
   Wiki (SB-Feature `crucible_parts`, simplelib `reinforced_cauldron`, Glow), Platzhalter-Texturen + Vorschläge A–C.
 - Abweichungen: Axt-Weg Quarzblock→Quarz nicht gebaut (Quarzblock entsteht nur aus Seelen-Lava, die es nur mit SB gibt);
-  Kupfer-/Enderit-Eimer wirken nicht mit Vanilla-Kesseln/Werfern (nur verstärkter Kessel); Seelen-Lava-Konfig noch
+  Kupfer-/Enderit-Eimer wirken mit Vanilla-Kessel (Mixin), Werfern (Dispenser-Verhalten) und verstärktem Kessel; Seelen-Lava-Konfig noch
   fest (Konstanten in `SoulLava`, innerhalb der Plangrenzen); Nebel bleibt Lava-Orange; Jade nicht erweitert.

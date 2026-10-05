@@ -587,6 +587,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_sledgehammer_crushes_quartz_block_into_four_quartz", CrucibleTests::sledgehammerCrushesQuartzBlockIntoFourQuartz)
                     .build(),
+            GameTestSpec.named("crucible_game_test_vanilla_cauldron_takes_copper_and_enderite_buckets", CrucibleTests::vanillaCauldronTakesCopperAndEnderiteBuckets)
+                    .build(),
             GameTestSpec.named("hammock_game_test_hangs_only_between_two_anchors_two_to_four_apart", HammockTests::hangsOnlyBetweenTwoAnchorsTwoToFourApart)
                     .build(),
             GameTestSpec.named("hammock_game_test_cloth_hangs_in_the_middle_at_every_gap", HammockTests::clothHangsInTheMiddleAtEveryGap)

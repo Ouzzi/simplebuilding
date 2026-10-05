@@ -5,6 +5,7 @@
   "mixins": [
     "JukeboxSongPlayerSpeakerMixin",
     "NoteBlockSpeakerMixin",
+    "CauldronBucketMixin",
     "SilentDandelionMixin",
     "SoulLavaFortressMixin",
     "SoulLavaSpringMixin",

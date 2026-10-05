@@ -287,4 +287,23 @@ public final class CrucibleTests {
         helper.assertTrue(quartz == SledgehammerItem.QUARTZ_BLOCK_QUARTZ, "quartz dropped: " + quartz);
         helper.succeed();
     }
+
+    /** Vanilla cauldron: the copper bucket pours lava and breaks, the Enderite bucket takes it back (owner 33/36). */
+    public static void vanillaCauldronTakesCopperAndEnderiteBuckets(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        BlockPos pos = new BlockPos(2, 1, 2);
+        helper.setBlock(pos, Blocks.CAULDRON);
+        BlockPos abs = helper.absolutePos(pos);
+        ServerPlayer player = player(helper, new ItemStack(ModFluids.COPPER_LAVA_BUCKET), ItemStack.EMPTY);
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
+        level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
+        helper.assertBlockPresent(Blocks.LAVA_CAULDRON, pos);
+        helper.assertTrue(player.getMainHandItem().isEmpty(), "copper bucket broke on lava");
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModFluids.ENDERITE_BUCKET));
+        level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
+        helper.assertBlockPresent(Blocks.CAULDRON, pos);
+        helper.assertTrue(player.getMainHandItem().is(ModFluids.ENDERITE_LAVA_BUCKET), "enderite bucket took the lava");
+        helper.succeed();
+    }
 }

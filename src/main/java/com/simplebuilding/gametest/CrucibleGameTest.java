@@ -70,4 +70,9 @@ public final class CrucibleGameTest {
     public void sledgehammerCrushesQuartzBlockIntoFourQuartz(GameTestHelper helper) {
         CrucibleTests.sledgehammerCrushesQuartzBlockIntoFourQuartz(helper);
     }
+
+    @GameTest
+    public void vanillaCauldronTakesCopperAndEnderiteBuckets(GameTestHelper helper) {
+        CrucibleTests.vanillaCauldronTakesCopperAndEnderiteBuckets(helper);
+    }
 }
