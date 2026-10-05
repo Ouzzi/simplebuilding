@@ -1,4 +1,4 @@
-"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4|--v5|--v6] [--shapes]
+"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4|--v5|--v6|--v7] [--shapes]
 
 v2 (2026-10-05): sandwich/bread, bread half, knife, board and cake slice come from the v2 section with
 variants A/B/C (STYLE picks the built-in one); --old=<copy of the previous textures> writes the comparison
@@ -299,7 +299,7 @@ def cauldron_textures():
 # Each group has variants A/B/C; STYLE picks the built-in one (the owner may switch a letter and rerun).
 # Screenshots of other mods were inspiration only (rounded golden bread, visible filling edge, clear
 # shading); every sprite here is drawn from scratch with vanilla palettes.
-STYLE = {'sandwich': 'v6', 'bread_half': 'C2W', 'knife': 'S', 'board': 'v4', 'cake': 'A'}  # v6 choice (2026-10-05)
+STYLE = {'sandwich': 'v7', 'bread_half': 'C2W', 'knife': 'S', 'board': 'v4', 'cake': 'A'}  # v7 choice (2026-10-05)
 
 # vanilla bread ramp (item/bread.png) + crumb tones
 BR = {'K': '3f2e0e', 'E': '574114', 'F': '654b17', 'D': '8c661e', 'd': 'a27924', 'g': 'bc8927', 'h': 'd6a640',
@@ -1059,10 +1059,15 @@ KEY_ITEMS = {
 }
 X0, X1 = 1, 14
 BASE_TILT = 0.0   # v6: level, the dome gives the shape (v5 used 0.2)
+BASE_RUN = 5      # v7: tilted to the left in clean runs of 5 columns (0 = use BASE_TILT)
+FWD = 1           # v7: forward lean - more of the top crust visible (0 = v5)
 
 
 def _base(x):
-    """Row of the bottom bun's upper surface in column x (tilted: lower on the left)."""
+    """Row of the bottom bun's upper surface in column x (tilted: lower on the left). v7: equal pixel runs
+    (BASE_RUN columns per step) so every layer is one clean diagonal band without stair artefacts."""
+    if BASE_RUN:
+        return 13 - (x - X0) // BASE_RUN
     return int(round(12.4 - (x - 7.5) * BASE_TILT))
 
 
@@ -1133,14 +1138,21 @@ def bun_top_v5(n):
     cells = {}
     for x in range(X0, X1 + 1):
         t = (x - 7.5) / 7.0
-        h = max(1, int(round(5.2 * math.sqrt(max(0.0, 1 - t * t)))))
+        hf = (5.2 + 0.4 * FWD) * math.sqrt(max(0.0, 1 - t * t))
         low = _top_row(x, n)
+        if BASE_RUN:
+            # smooth crown: the top edge follows the continuous slope, not the stepped base
+            slope_f = 13 - (x - X0) / BASE_RUN
+            top = int(round(low + (slope_f - _base(x)) - hf + 1))
+            h = max(1, low - top + 1)
+        else:
+            h = max(1, int(round(hf)))
         for k in range(h):
             cells[(x, low - k)] = (k, h, t)
     for (x, y), (k, h, t) in cells.items():
         edge = (x, y - 1) not in cells or (x - 1, y) not in cells or (x + 1, y) not in cells
         bottom_row = k == 0
-        light = (k / max(1, h - 1)) * 0.8 - t * 0.35
+        light = (k / max(1, h - 1)) * (0.8 + 0.15 * FWD) - t * 0.35
         idx = 2 + int(round(light * 4))
         if (x * 5 + y * 3) % 11 == 0:
             idx -= 1
@@ -1155,6 +1167,44 @@ def bun_top_v5(n):
         top_y = min(y for (cx, y) in cells if cx == x)
         put(im, x, top_y + 1, hx('fde9b0'))
     return im
+
+
+def sandwich_v7(keys, buttered=False, run=5, fwd=1):
+    """v5 sandwich leaning left (BASE_RUN) and forward (FWD); the layers' front rows are shaded darker."""
+    global BASE_RUN, FWD
+    keep = BASE_RUN, FWD
+    BASE_RUN, FWD = run, fwd
+    try:
+        return sandwich_v5(keys, buttered)
+    finally:
+        BASE_RUN, FWD = keep
+
+
+def preview_v7(path):
+    s = 10
+    cell = 16 * s + 16
+    combos = [['beef_cooked'], ['pork_cooked', 'cheese'], ['salmon_cooked', 'kelp', 'cheese'],
+              ['chicken_cooked', 'cheese', 'beetroot', 'potato'], ['beef_cooked', 'cheese', 'carrot', 'kelp', 'golden']]
+    global BASE_TILT
+    keep = BASE_TILT
+    BASE_TILT = 0.2
+    v5 = [sandwich_v7([], True, 0, 0)] + [sandwich_v7(c, False, 0, 0) for c in combos]
+    BASE_TILT = keep
+    rows = [('v5 (bisher, Basis)', v5)]
+    for run, label in ((7, 'v7 leicht (Stufe alle 7 px)'), (5, 'v7 mittel * eingebaut (alle 5 px)'), (4, 'v7 stark (alle 4 px)')):
+        rows.append((label + ' - nach links + vorne geneigt', [sandwich_v7([], True, run)] + [sandwich_v7(c, False, run) for c in combos]))
+    sheet = Image.new('RGBA', (20 + 6 * cell, 30 + len(rows) * (cell + 40)), (139, 139, 139, 255))
+    dr = ImageDraw.Draw(sheet)
+    dr.text((10, 8), 'Simple Sandwiches v7 - Butterbrot, 1-5 Zutaten; 10x, darunter 1x', fill=(0, 0, 0, 255))
+    for r, (title, ims) in enumerate(rows):
+        y = 30 + r * (cell + 40)
+        dr.text((10, y), title, fill=(0, 0, 0, 255))
+        for c, im in enumerate(ims):
+            x = 10 + c * cell
+            sheet.alpha_composite(im.resize((16 * s, 16 * s), Image.NEAREST), (x, y + 14))
+            sheet.alpha_composite(im, (x, y + 18 + 16 * s))
+    sheet.save(path)
+    print('preview v7:', path)
 
 
 def sandwich_v5(keys, buttered=False):
@@ -1542,7 +1592,7 @@ def all_textures():
     files[item('sandwich/bottom')] = bun_bottom_v5(False)
     files[item('sandwich/bottom_buttered')] = bun_bottom_v5(True)
     for n in range(6):
-        files[item(f'sandwich/top_{n}')] = bun_top_v6(n)
+        files[item(f'sandwich/top_{n}')] = bun_top_v5(n)
     for key in KEYS:
         for pos in range(5):
             files[item(f'sandwich/layer_{pos}_{key}')] = filling_v5(key, pos)
@@ -1620,6 +1670,8 @@ def main():
     old = next((a.split('=', 1)[1] for a in sys.argv if a.startswith('--old=')), None)
     if '--shapes' in sys.argv:
         preview_shapes(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'brot-formen-vorschau.png'))
+    if '--v7' in sys.argv:
+        preview_v7(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'sandwiches-v7-vorschau.png'))
     if '--v6' in sys.argv:
         d = os.path.dirname(os.path.abspath(PREVIEW))
         preview_v6(os.path.join(d, 'sandwiches-v6-vorschau.png'), os.path.join(d, 'sandwich-zutaten-schnipsel.png'))
