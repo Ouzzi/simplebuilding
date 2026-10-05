@@ -4138,7 +4138,7 @@ MOD_BOOK_STYLE = {
 }
 
 
-MOD_BOOK_CONTRAST = 1.25
+MOD_BOOK_CONTRAST = 1.35  # +25 % war in der Vorschau kaum sichtbar (Einband dunkel, Motiv nah am Einband)
 
 
 def mod_book_textures():
@@ -4147,7 +4147,7 @@ def mod_book_textures():
         rel = f"item/enchanted_book_{n}.png"
         # Besitzer 2026-10-04: nicht beauftragt - zurueck zu seinen alten Buechern (hand/q1/books/). Die
         # Vanilla-Grundbuch-Fassung bleibt ueber MOD_BOOK_STYLE/styled_book erreichbar (Vorschau).
-        # Besitzer 2026-10-05: "kontrastreicher" - Einband/Motiv +25 % um den Mittelwert, graue Seiten bleiben.
+        # Besitzer 2026-10-05: "kontrastreicher" - Einband/Motiv +35 % um den Mittelwert, graue Seiten bleiben.
         out[rel] = more_contrast(Image.open(os.path.join(HAND, "q1", "books", f"enchanted_book_{n}.png")).convert("RGBA"),
                                  MOD_BOOK_CONTRAST, keep=lambda p: p[0] == p[1] == p[2])
         MAIN_TREE_ONLY.add(rel)

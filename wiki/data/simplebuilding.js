@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 315,
+      "count": 318,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -9745,6 +9745,45 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:fire_chip",
+      "name": {
+        "en_us": "Fire Chip",
+        "de_de": "Feuerkugelsplitter"
+      },
+      "texture": "assets/textures/item/fire_chip.png",
+      "craftedBy": [
+        "simplebuilding:fire_chip"
+      ],
+      "usedIn": [
+        "simplebuilding:fire_charge_from_fire_chips"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A piece of a fire charge: one fire charge gives 4 Fire Chips, 4 chips in a 2x2 give the fire charge back.",
+          "details": [
+            "Right-click on a lying small-parts pile with unlit candles lights them like a fire charge and uses up one chip.",
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+          ]
+        },
+        "de": {
+          "summary": "Ein Stück Feuerkugel: eine Feuerkugel ergibt 4 Feuerkugelsplitter, 4 Splitter im 2x2-Feld wieder die Feuerkugel.",
+          "details": [
+            "Rechtsklick auf einen liegenden Kleinteil-Haufen mit erloschenen Kerzen zündet sie wie eine Feuerkugel an und verbraucht einen Splitter.",
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:flint_chip",
       "name": {
         "en_us": "Flint Chip",
@@ -10848,6 +10887,46 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
           "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/root.json",
           "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_start.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ice_chip",
+      "name": {
+        "en_us": "Ice Chip",
+        "de_de": "Eissplitter"
+      },
+      "texture": "assets/textures/item/ice_chip.png",
+      "craftedBy": [
+        "simplebuilding:ice_chip",
+        "simplebuilding:ice_chip_from_packed_ice"
+      ],
+      "usedIn": [
+        "simplebuilding:ice_from_ice_chips"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A splinter of ice: one ice gives 4 Ice Chips, one packed ice 9; 4 chips in a 2x2 give one ice back.",
+          "details": [
+            "Right-click on a lying small-parts pile with burning candles puts them out and uses up one chip.",
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+          ]
+        },
+        "de": {
+          "summary": "Ein Splitter Eis: ein Eis ergibt 4 Eissplitter, ein Packeis 9; 4 Splitter im 2x2-Feld wieder ein Eis.",
+          "details": [
+            "Rechtsklick auf einen liegenden Kleinteil-Haufen mit brennenden Kerzen löscht sie und verbraucht einen Splitter.",
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -14958,6 +15037,42 @@ window.WIKI_DATA = {
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:obsidian_chip",
+      "name": {
+        "en_us": "Obsidian Chip",
+        "de_de": "Obsidiansplitter"
+      },
+      "texture": "assets/textures/item/obsidian_chip.png",
+      "craftedBy": [
+        "simplebuilding:obsidian_chip"
+      ],
+      "usedIn": [
+        "simplebuilding:obsidian_from_obsidian_chips"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A shard of volcanic glass: one obsidian gives 9 Obsidian Chips, 9 chips in the crafting grid give the obsidian back.",
+          "details": [
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+          ]
+        },
+        "de": {
+          "summary": "Ein Splitter Vulkanglas: ein Obsidian ergibt 9 Obsidiansplitter, 9 Splitter im Handwerksfeld wieder den Obsidian.",
+          "details": [
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
+        ]
       },
       "hasCustomBehaviour": false
     },
@@ -38461,6 +38576,80 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:fire_charge_from_fire_chips",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:fire_charge",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fire_charge_from_fire_chips.json",
+      "ingredients": [
+        "simplebuilding:fire_chip"
+      ],
+      "pattern": [
+        "CC",
+        "CC"
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:fire_chip"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:fire_chip",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:fire_chip",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:fire_chip",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fire_chip.json",
+      "ingredients": [
+        "minecraft:fire_charge"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:fire_charge"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:coal",
+            "count": 0.333
+          },
+          {
+            "id": "minecraft:gunpowder",
+            "count": 0.333
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 0.167
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:fletching/amethyst_blaze_rod_feather",
       "type": "simplebuilding:fletching",
       "category": null,
@@ -40996,6 +41185,103 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ice_chip",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ice_chip",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ice_chip.json",
+      "ingredients": [
+        "minecraft:ice"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:ice"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ice_chip_from_packed_ice",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ice_chip",
+        "count": 9
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ice_chip_from_packed_ice.json",
+      "ingredients": [
+        "minecraft:packed_ice"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:packed_ice"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ice_from_ice_chips",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:ice",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ice_from_ice_chips.json",
+      "ingredients": [
+        "simplebuilding:ice_chip"
+      ],
+      "pattern": [
+        "CC",
+        "CC"
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:ice_chip"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 4
           }
         ]
       }
@@ -45556,6 +45842,73 @@ window.WIKI_DATA = {
         ],
         "tagExamples": [
           "#minecraft:planks"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:obsidian_chip",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:obsidian_chip",
+        "count": 9
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/obsidian_chip.json",
+      "ingredients": [
+        "minecraft:obsidian"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:obsidian"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:obsidian",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:obsidian_from_obsidian_chips",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:obsidian",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/obsidian_from_obsidian_chips.json",
+      "ingredients": [
+        "simplebuilding:obsidian_chip"
+      ],
+      "pattern": [
+        "CCC",
+        "CCC",
+        "CCC"
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:obsidian_chip"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:obsidian_chip",
+            "count": 9
+          }
         ]
       }
     },
@@ -65435,6 +65788,18 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:flint_chip",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:obsidian_chip",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:fire_chip",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ice_chip",
           "required": true
         },
         {
@@ -94165,9 +94530,9 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 259,
+    "items": 262,
     "blocks": 208,
-    "recipes": 613,
+    "recipes": 620,
     "lootTables": 204,
     "trades": 20,
     "enchantments": 19,

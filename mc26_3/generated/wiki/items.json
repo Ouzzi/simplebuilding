@@ -737,6 +737,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:fire_chip"
+    },
+    {
       "id": "simplebuilding:flint_chip"
     },
     {
@@ -809,6 +812,9 @@
     },
     {
       "id": "simplebuilding:husk_head"
+    },
+    {
+      "id": "simplebuilding:ice_chip"
     },
     {
       "id": "simplebuilding:infused_potion_pad",
@@ -1097,6 +1103,9 @@
     },
     {
       "id": "simplebuilding:note_amplifier"
+    },
+    {
+      "id": "simplebuilding:obsidian_chip"
     },
     {
       "durability": 128,
