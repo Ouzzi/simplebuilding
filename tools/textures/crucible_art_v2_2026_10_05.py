@@ -28,11 +28,13 @@ ROOT = p.ROOT
 LIB = p.LIB
 SB = p.SB
 LIB_MODELS = ROOT / 'modules/simplelib/generated/resources/assets/simplelib/models/block'
-PREVIEW = Path('C:/Users/o_o/code/minecraft-mods/previews/crucible-art-v2-vorschau.png')
+PREVIEW = Path('C:/Users/o_o/code/minecraft-mods/previews/crucible-art-v3-vorschau.png')
 SB_CHESTS = ROOT / 'src/main/resources/assets/simplebuilding/textures/entity/chest'
 
 # Owner picks / our pick among the drawn variants (see preview).
-CHOICE = {'crucible': 'C', 'copper_bucket': 'A', 'enderite_bucket': 'B'}
+CHOICE = {'crucible': 'B', 'copper_bucket': 'C', 'enderite_bucket': 'A'}  # owner choice v3 (2026-10-05)
+# Filled Enderite buckets are animated (owner v3): liquid drifts, one crystal rivet glints at a time.
+BUCKET_FRAMES, BUCKET_FRAMETIME = 8, 3
 
 lum = p.crucibles.lum
 IRON = p.ramp(p.vanilla('block/cauldron_side'))
@@ -421,15 +423,27 @@ def copper_bucket(material, variant, content=None):
     return fill_liquid(img, area, content)
 
 
-def enderite_bucket(variant, content=None):
+def enderite_bucket(variant, content=None, frame=None):
+    """frame None = still image; 0..BUCKET_FRAMES-1 = animation frame of a filled bucket."""
     src = 'item/' + ({None: 'bucket', 'water': 'water_bucket', 'lava': 'lava_bucket', 'soul_lava': 'lava_bucket'}[content])
     base = p.bucket(ENDERITE, content)
+    if frame is not None and content:
+        # Liquid motion: each row's liquid tones drift sideways (cyclic, seamless over the loop).
+        a = np.array(base)
+        mask = p.liquid_mask(p.vanilla(src))
+        for y in range(16):
+            xs = np.nonzero(mask[y])[0]
+            if len(xs) > 1:
+                shift = (frame * (1 if y % 2 else -1)) % len(xs)
+                a[y, xs] = np.roll(a[y, xs], shift, axis=0)
+        base = Image.fromarray(a).copy()
     d = ImageDraw.Draw(base)
     light, crystal, deep = rgba(ENDERITE[-2]), rgba(CRYSTAL), rgba(ENDERITE[1])
     if variant == 'A':
-        # Crystal rivets along the front rim, sparkles like the Enderite chest.
-        for x in (4, 7, 10):
-            d.point((x, 7), fill=crystal)
+        # Crystal rivets along the front rim, sparkles like the Enderite chest; animated: one glint wanders.
+        for i, x in enumerate((4, 7, 10)):
+            glint = frame is not None and content and frame % 4 == i
+            d.point((x, 7), fill=(255, 236, 255, 255) if glint else crystal if frame is None or not content else light)
         for c in ((5, 10), (9, 12)):
             d.point(c, fill=light)
     elif variant == 'B':
@@ -465,7 +479,13 @@ def bucket_resources(copper_variant, enderite_variant):
             out[SB / f'item/copper_{suffix}_{stage}.png'] = copper_bucket(material, copper_variant, content)
     for content in (None, 'water', 'lava', 'soul_lava'):
         suffix = (content + '_' if content else '') + 'bucket'
-        out[SB / f'item/enderite_{suffix}.png'] = enderite_bucket(enderite_variant, content)
+        if content:
+            strip = Image.new('RGBA', (16, 16 * BUCKET_FRAMES))
+            for f in range(BUCKET_FRAMES):
+                strip.paste(enderite_bucket(enderite_variant, content, f), (0, 16 * f))
+            out[SB / f'item/enderite_{suffix}.png'] = strip
+        else:
+            out[SB / f'item/enderite_{suffix}.png'] = enderite_bucket(enderite_variant, content)
     return out
 
 
@@ -649,9 +669,12 @@ def preview():
         cells.append(('1x', checker(big(enderite_bucket(variant), 2))))
         cells.append(('alt', checker(big(p.load(SB / 'item/enderite_bucket.png'), 10))))
         rows.append((f'Enderit-Eimer {variant}', cells))
+    for content in ('water', 'lava', 'soul_lava'):
+        rows.append((f'Enderit A anim. {content}', [(f'f{f}', checker(big(enderite_bucket('A', content, f), 6)))
+                                                    for f in range(BUCKET_FRAMES)]))
     rows.append(('Vanilla', [('Eimer', checker(big(p.vanilla('item/bucket'), 10))),
                              ('alt Kupfer', checker(big(p.load(SB / 'item/copper_bucket_0.png'), 10)))]))
-    names = 'Tiegel: Kessel-Modell (Fuss -2, Boden -1, Bauch voll, Hals -1 px) mit B Rippen / C Stufenbeschlag'
+    names = 'v3 Besitzerwahl - Tiegel: Kessel-Modell (Fuss -2, Boden -1, Bauch voll, Hals -1 px) mit B Rippen / C Stufenbeschlag'
     sheet = label_sheet(rows, names + f' | eingebaut: Tiegel {CHOICE["crucible"]}, Kupfer-Eimer '
                         f'{CHOICE["copper_bucket"]}, Enderit-Eimer {CHOICE["enderite_bucket"]}')
     PREVIEW.parent.mkdir(parents=True, exist_ok=True)
@@ -682,7 +705,7 @@ def validate(path, img):
     assert img.mode == 'RGBA', path
     assert set(np.unique(a[:, :, 3])) <= {0, 255}, path
     if path.parent.name == 'item':
-        assert img.size == (16, 16), path
+        assert img.width == 16 and img.height in (16, 16 * BUCKET_FRAMES), path
         alpha = a[:, :, 3]
         assert not (alpha[0].any() or alpha[-1].any() or alpha[:, 0].any() or alpha[:, -1].any()), path
     elif 'soul_lava' in path.name:
@@ -704,6 +727,14 @@ def main():
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
             img.save(path)
+        meta = path.with_name(path.name + '.mcmeta')
+        if path.parent.name == 'item' and img.height > 16:
+            text = json.dumps({'animation': {'frametime': BUCKET_FRAMETIME, 'interpolate': False}}, indent=2) + '\n'
+            if check:
+                if not meta.exists() or meta.read_text(encoding='utf-8').replace('\r\n', '\n') != text:
+                    bad.append(meta)
+            else:
+                meta.write_text(text, encoding='utf-8', newline='\n')
     if check:
         for path in bad:
             print('out of date:', path.relative_to(ROOT))
