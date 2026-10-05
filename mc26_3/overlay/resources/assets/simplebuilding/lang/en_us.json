@@ -78,6 +78,7 @@
   "simplebuilding.testcentre.machines.push13": "pushes 13?",
   "simplebuilding.testcentre.machines.auto_smither": "flip the lever: smiths once",
   "simplebuilding.testcentre.machines.hammocks": "Hammocks",
+  "simplebuilding.testcentre.machines.hammocks.gap": "%s free (main axis)",
   "simplebuilding.testcentre.machines.hammocks.sub": "rest: time runs faster",
   "simplebuilding.testcentre.machines.standing_rods": "Standing rods",
   "simplebuilding.testcentre.machines.standing_rods.sub": "sneak + right-click on a top",
