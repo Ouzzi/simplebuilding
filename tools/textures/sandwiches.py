@@ -1,4 +1,4 @@
-"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3]
+"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4]
 
 v2 (2026-10-05): sandwich/bread, bread half, knife, board and cake slice come from the v2 section with
 variants A/B/C (STYLE picks the built-in one); --old=<copy of the previous textures> writes the comparison
@@ -298,7 +298,7 @@ def cauldron_textures():
 # Each group has variants A/B/C; STYLE picks the built-in one (the owner may switch a letter and rerun).
 # Screenshots of other mods were inspiration only (rounded golden bread, visible filling edge, clear
 # shading); every sprite here is drawn from scratch with vanilla palettes.
-STYLE = {'sandwich': 'D', 'bread_half': 'C2', 'knife': 'S', 'board': 'R', 'cake': 'A'}  # v3 choice (2026-10-05)
+STYLE = {'sandwich': 'F', 'bread_half': 'C2', 'knife': 'V', 'board': 'v4', 'cake': 'A'}  # v4 choice (2026-10-05)
 
 # vanilla bread ramp (item/bread.png) + crumb tones
 BR = {'K': '3f2e0e', 'E': '574114', 'F': '654b17', 'D': '8c661e', 'd': 'a27924', 'g': 'bc8927', 'h': 'd6a640',
@@ -789,28 +789,268 @@ def preview_v3(path, old_dir):
     print('preview v3:', path)
 
 
+# === v4 (owner feedback round 3, 2026-10-05) ============================================================
+# Appetising colours: warm, saturated bun ramp (gold to orange-brown) with clear highlights, juicy fillings,
+# a green lettuce leaf hanging out once there is any filling (style reference: sub / Farmer's Delight
+# sandwiches - only the look, drawn from scratch). Same overlay principle as v3.
+BUN_WARM = ['3a1d08', '6a3410', '9a5418', 'c2741f', 'dc9030', 'eeae48', 'f9d27a']
+UNDER_WARM = ['2a1406', '4a250c', '6e3a14', '8a4e1c', 'a8662a']
+LETTUCE = ['1d5e18', '2f8a22', '4cb436', '7ad65a']
+BUN_GEOMETRY['F'] = BUN_GEOMETRY['D']
+
+
+def _vivid(c, sat=1.35, light=1.06):
+    r, g, b, a = c
+    m = (r + g + b) / 3
+    out = [max(0, min(255, int((m + (v - m) * sat) * light))) for v in (r, g, b)]
+    return tuple(out) + (a,)
+
+
+def bun_top_v4(style='F', lettuce=False):
+    T, _, _, _ = _masks(style)
+    g = BUN_GEOMETRY[style]['top']
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for (x, y) in T:
+        dx, dy = (x + 0.5 - g[0]) / g[2], (y + 0.5 - g[1]) / g[3]
+        light = 0.55 - 0.45 * dx - 0.6 * dy - 0.3 * (dx * dx + dy * dy)
+        idx = int(round(2 + light * 4))
+        if (x * 7 + y * 3) % 13 == 0:
+            idx -= 1
+        idx = max(2, min(len(BUN_WARM) - 1, idx))
+        if _outline_shade(T, x, y):
+            idx = 0 if dy > 0 or dx > 0.3 else 1
+        im.putpixel((x, y), hx(BUN_WARM[idx]))
+    # glossy highlight streak on the upper left of the dome
+    for p in sorted(T, key=lambda p: (p[0] - g[0] + 2.5) ** 2 + (p[1] - g[1] + 2.0) ** 2)[:3]:
+        if not _outline_shade(T, *p):
+            im.putpixel(p, hx('fde9b0'))
+    if lettuce:
+        # lettuce leaf hanging out on the right, drawn over the fillings (top_1..top_5 only)
+        _, B, F, _ = _masks(style)
+        seam = sorted(p for p in F if p[0] >= 11 and (p[0], p[1] - 1) in T)
+        for i, (x, y) in enumerate(seam):
+            im.putpixel((x, y), hx(LETTUCE[2 if (x + y) % 2 else 3]))
+            if (x, y + 1) not in B and y + 1 < 16:
+                im.putpixel((x, y + 1), hx(LETTUCE[1 if (x + y) % 2 else 0]))
+            if x % 2 == 1 and y + 2 < 16 and (x, y + 2) not in B and (x, y + 2) not in T:
+                im.putpixel((x, y + 2), hx(LETTUCE[0]))
+    return im
+
+
+def bun_bottom_v4(style='F', buttered=False):
+    _, B, F, _ = _masks(style)
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for (x, y) in B:
+        edge = _outline_shade(B | F, x, y)
+        lower = (x, y + 1) not in B
+        idx = 0 if (edge and lower) else 1 if lower or edge else 2 + ((x + y) % 3 == 0)
+        im.putpixel((x, y), hx(UNDER_WARM[idx]))
+    for (x, y) in B:
+        if (x, y - 1) in F:
+            im.putpixel((x, y), hx('f6d84a' if buttered else 'f2dcae'))
+    return im
+
+
+def filling_v4(key, pos, style='F'):
+    base = filling_v3(key, pos, style)
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for y in range(16):
+        for x in range(16):
+            c = base.getpixel((x, y))
+            if c[3]:
+                im.putpixel((x, y), _vivid(c))
+    return im
+
+
+def sandwich_v4(keys, buttered=False, style='F'):
+    im = bun_bottom_v4(style, buttered)
+    for i, k in enumerate(keys):
+        im.alpha_composite(filling_v4(k, i, style))
+    im.alpha_composite(bun_top_v4(style, bool(keys)))
+    return im
+
+
+def _knife_sprite(heel, length, widths, handle):
+    """Diagonal kitchen knife like a Vanilla tool icon: spine highlight, steel body, bright edge, outline;
+    wooden handle with a steel bolster."""
+    pal = {'o': hx('2e2e33'), 'L': hx('f7f7f7'), 'm': hx('c9ccd2'), 'n': hx('a3a7ae'), 'e': hx('ffffff'),
+           'g': hx('6f737a'), 'w': hx('7a4e24'), 'W': hx('a06a34'), 'k': hx('3a230e')}
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    hx0, hy0 = heel
+    for i in range(length):
+        y = hy0 - i
+        w = widths[i]
+        xs = hx0 + i
+        run = ['L'] + ['m' if j % 2 == 0 else 'n' for j in range(w - 2)] + (['e'] if w > 1 else [])
+        put(im, xs - 1, y, pal['o'])
+        for j, ch in enumerate(run):
+            put(im, xs + j, y, pal[ch])
+        put(im, xs + len(run), y, pal['o'])
+    tip_x = hx0 + length - 1
+    put(im, tip_x, hy0 - length, pal['o'])
+    put(im, tip_x + 1, hy0 - length, pal['o'])
+    # bolster + handle down-left of the heel
+    put(im, hx0 - 1, hy0 + 1, pal['g'])
+    put(im, hx0, hy0 + 1, pal['g'])
+    put(im, hx0 + 1, hy0 + 1, pal['o'])
+    for k in range(handle):
+        x, y = hx0 - 2 - k, hy0 + 2 + k
+        put(im, x, y, pal['W'])
+        put(im, x + 1, y, pal['w'])
+    put(im, hx0 - 2 - handle, hy0 + 2 + handle, pal['k'])
+    put(im, hx0 - 1 - handle, hy0 + 2 + handle, pal['k'])
+    return im
+
+
+KNIFE_V4 = {
+    'V': lambda: _knife_sprite((6, 9), 8, [4, 4, 4, 3, 3, 3, 2, 2], 3),   # wide chef's blade
+    'W': lambda: _knife_sprite((6, 9), 7, [3, 3, 3, 3, 3, 2, 2], 3),      # slightly slimmer
+}
+
+
+def board_v4(wood):
+    """In-world look of the owner's picture: 2 px thick plate with a raised 1 px rim, lengthwise grain
+    in plank segments, small see-through hole near one end, darker wood on the side faces.
+    Model: plate x1..15 z2..14 y0..2 + rim frame y2..3 (1 px wide). Top texture: rim ring x 1/14, y 2/13.
+    Side texture rows: 13 = rim, 14-15 = plate."""
+    planks, (k, d, m, l, w) = plank_ramp(wood)
+    rnd = random.Random(sum(map(ord, wood)) * 11)
+    im = Image.new('RGBA', (16, 16), m)
+    for y in range(16):
+        seg = rnd.randrange(16)
+        for x in range(16):
+            tone = [m, l, m, d][(y + (1 if (x + seg) % 9 == 0 else 0)) % 4] if y % 2 else [l, m, l, m][(x // 5 + y) % 4]
+            if (x + seg) % 8 == 0:
+                tone = d  # plank segment joint
+            if rnd.random() < 0.05:
+                tone = l
+            im.putpixel((x, y), tone)
+    for x in range(1, 15):
+        im.putpixel((x, 2), w)
+        im.putpixel((x, 13), d)
+    for y in range(2, 14):
+        im.putpixel((1, y), l)
+        im.putpixel((14, y), d)
+    for x in range(2, 14):
+        im.putpixel((x, 3), shade(im.getpixel((x, 3)), 0.78))
+    for y in range(3, 13):
+        im.putpixel((2, y), shade(im.getpixel((2, y)), 0.85))
+    for p in ((3, 7), (3, 8)):
+        im.putpixel(p, k[:3] + (0,))
+    side = Image.new('RGBA', (16, 16), d)
+    for x in range(16):
+        for y in range(13):
+            side.putpixel((x, y), planks.getpixel((x, y)))
+        side.putpixel((x, 13), m if x % 4 else d)
+        side.putpixel((x, 14), d if x % 5 else k)
+        side.putpixel((x, 15), shade(d, 0.8) if x % 3 else k)
+    return im, side
+
+
+BOARD_ELEMENTS_V4 = [(1, 0, 2, 15, 2, 14), (1, 2, 2, 15, 3, 3), (1, 2, 13, 15, 3, 14), (1, 2, 3, 2, 3, 13),
+                     (14, 2, 3, 15, 3, 13)]
+
+
+def render_board_iso(top, side, scale=10):
+    """Rough in-world view: voxelises the board model, draws it isometrically on a stone block."""
+    vox = {}
+    for (x0, y0, z0, x1, y1, z1) in BOARD_ELEMENTS_V4:
+        for x in range(x0, x1):
+            for y in range(y0, y1):
+                for z in range(z0, z1):
+                    vox[(x, y + 16, z)] = True
+    stone = {(x, y, z): True for x in range(16) for y in range(16) for z in range(16)
+             if x in (0, 15) or y == 15 or z == 15}
+    W, H = 16 * 2 * scale // 2 + 34 * scale, 40 * scale
+    img = Image.new('RGBA', (int(34 * scale), int(36 * scale)), (139, 139, 139, 255))
+    dr = ImageDraw.Draw(img)
+    ox, oy = 17 * scale, 4 * scale
+
+    def proj(x, y, z):
+        return (ox + (x - z) * scale, oy + (x + z) * scale * 0.5 - y * scale + 18 * scale)
+
+    def face(pts, col):
+        dr.polygon([proj(*p) for p in pts], fill=col)
+
+    def tex(im, u, v, f):
+        c = im.getpixel((u % 16, v % 16))
+        if c[3] == 0:
+            return None
+        return shade(c, f)
+
+    cells = sorted(set(vox) | set(stone), key=lambda p: (p[0] + p[2], p[1]))
+    for (x, y, z) in cells:
+        board = (x, y, z) in vox
+        if board:
+            top_c = tex(top, x, z, 1.0) if (x, y + 1, z) not in vox else None
+            south = tex(side, x, 15 - (y - 16) - 0 if False else 15 - (y - 16), 0.8) if (x, y, z + 1) not in vox else None
+            east = tex(side, 15 - z, 15 - (y - 16), 0.65) if (x + 1, y, z) not in vox else None
+        else:
+            g = 120 + ((x * 3 + y * 5 + z * 7) % 4) * 8
+            top_c = (g, g, g, 255) if y == 15 else None
+            south = (g - 25, g - 25, g - 25, 255) if z == 15 else None
+            east = (g - 40, g - 40, g - 40, 255) if x == 15 else None
+        if top_c:
+            face([(x, y + 1, z), (x + 1, y + 1, z), (x + 1, y + 1, z + 1), (x, y + 1, z + 1)], top_c)
+        if south:
+            face([(x, y, z + 1), (x + 1, y, z + 1), (x + 1, y + 1, z + 1), (x, y + 1, z + 1)], south)
+        if east:
+            face([(x + 1, y, z), (x + 1, y, z + 1), (x + 1, y + 1, z + 1), (x + 1, y + 1, z)], east)
+    return img
+
+
+def preview_v4(path):
+    s = 10
+    combos = [['meat_cooked'], ['meat_cooked', 'cheese'], ['fish_cooked', 'cheese', 'carrot'],
+              ['meat_raw', 'cheese', 'beetroot', 'potato'], ['meat_cooked', 'cheese', 'carrot', 'beetroot', 'golden']]
+    rows = [('Sandwich F * (warm, Salatblatt ab 1 Zutat ueber allem): 1-5 Zutaten, Butter bei 2', [sandwich_v4(c, i == 1) for i, c in enumerate(combos)]),
+            ('zum Vergleich v3 D', [sandwich_v3(c, i == 1, 'D') for i, c in enumerate(combos)]),
+            ('Messer V * | W | alt S', [KNIFE_V4['V'](), KNIFE_V4['W'](), knife('S')]),
+            ('Brett v4 Textur oben (Eiche, Fichte, Kirsche) + Seite', [board_v4(w)[0] for w in ('oak', 'spruce', 'cherry')] + [board_v4('oak')[1]])]
+    cell = 16 * s + 16
+    iso = [render_board_iso(*board_v4(w), scale=6) for w in ('oak', 'spruce', 'cherry')]
+    width = max(20 + 5 * cell, 20 + 3 * (iso[0].width + 10))
+    height = 30 + len(rows) * (cell + 40) + iso[0].height + 40
+    sheet = Image.new('RGBA', (width, height), (139, 139, 139, 255))
+    dr = ImageDraw.Draw(sheet)
+    dr.text((10, 8), 'Simple Sandwiches v4 - 10x gross, darunter 1x; * = eingebaut', fill=(0, 0, 0, 255))
+    for r, (title, ims) in enumerate(rows):
+        y = 30 + r * (cell + 40)
+        dr.text((10, y), title, fill=(0, 0, 0, 255))
+        for c, im in enumerate(ims):
+            x = 10 + c * cell
+            sheet.alpha_composite(im.resize((16 * s, 16 * s), Image.NEAREST), (x, y + 14))
+            sheet.alpha_composite(im, (x, y + 18 + 16 * s))
+    y = 30 + len(rows) * (cell + 40)
+    dr.text((10, y), 'Brett im Spiel (grobe Iso-Ansicht des Modells auf einem Steinblock): Eiche, Fichte, Kirsche', fill=(0, 0, 0, 255))
+    for i, im in enumerate(iso):
+        sheet.alpha_composite(im, (10 + i * (im.width + 10), y + 16))
+    sheet.save(path)
+    print('preview v4:', path)
+
+
 # --- write -----------------------------------------------------------------------------------------
 def all_textures():
     files = {}
     item = lambda n: os.path.join(OUT, 'item', *n.split('/')) + '.png'
     block = lambda n: os.path.join(OUT, 'block', *n.split('/')) + '.png'
-    files[item('knife')] = knife()
+    files[item('knife')] = KNIFE_V4[STYLE['knife']]() if STYLE['knife'] in KNIFE_V4 else knife()
     files[item('cheese_slice')] = CHEESE_SLICE
     files[item('butter_slice')] = BUTTER_SLICE
     files[item('cake_slice')] = cake_slice()
     files[item('board/bread_half')] = bread_half()
     st = STYLE['sandwich']
-    files[item('sandwich/bottom')] = bun_bottom_v3(st, False)
-    files[item('sandwich/bottom_buttered')] = bun_bottom_v3(st, True)
+    files[item('sandwich/bottom')] = bun_bottom_v4(st, False)
+    files[item('sandwich/bottom_buttered')] = bun_bottom_v4(st, True)
     for n in range(6):
-        files[item(f'sandwich/top_{n}')] = bun_top_v3(st)
+        files[item(f'sandwich/top_{n}')] = bun_top_v4(st, n > 0)
     for key in KEYS:
         for pos in range(5):
-            files[item(f'sandwich/layer_{pos}_{key}')] = filling_v3(key, pos, st)
+            files[item(f'sandwich/layer_{pos}_{key}')] = filling_v4(key, pos, st)
     for name, im in cheese_textures().items():
         files[block(name)] = im
     for wood in WOODS:
-        t, s = board_v3(wood, STYLE['board'])
+        t, s = board_v4(wood)
         files[block(f'{wood}_cutting_board')] = t
         files[block(f'{wood}_cutting_board_side')] = s
     for name, im in cauldron_textures().items():
@@ -879,7 +1119,9 @@ def main():
         return
     print(f'{len(changed)} of {len(files)} sandwich textures written')
     old = next((a.split('=', 1)[1] for a in sys.argv if a.startswith('--old=')), None)
-    if '--v3' in sys.argv:
+    if '--v4' in sys.argv:
+        preview_v4(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'sandwiches-v4-vorschau.png'))
+    elif '--v3' in sys.argv:
         preview_v3(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'sandwiches-v3-vorschau.png'), old)
     elif old:
         preview_v2(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'sandwiches-v2-vorschau.png'), old)

@@ -57,6 +57,19 @@ public class KnifeItem extends Item {
                 .withStyle(net.minecraft.ChatFormatting.GRAY));
     }
 
+    /** Spreading butter on the board plays a wiping motion (Vanilla brush animation) while the click is held. */
+    public static final int SPREAD_TICKS = 20;
+
+    @Override
+    public net.minecraft.world.item.ItemUseAnimation getUseAnimation(ItemStack stack) {
+        return net.minecraft.world.item.ItemUseAnimation.BRUSH;
+    }
+
+    @Override
+    public int getUseDuration(ItemStack stack, net.minecraft.world.entity.LivingEntity user) {
+        return SPREAD_TICKS;
+    }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();

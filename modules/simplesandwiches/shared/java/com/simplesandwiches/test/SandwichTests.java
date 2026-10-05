@@ -286,6 +286,9 @@ public final class SandwichTests {
         p.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.BUTTER_SLICE, 2));
         click(h, p, pos);
         h.assertTrue(board.buttered() && p.getOffhandItem().getCount() == 1, "knife + butter slice butters the bread");
+        h.assertTrue(p.isUsingItem() && p.getUseItem().getItem() instanceof KnifeItem
+                && p.getUseItem().getUseAnimation() == net.minecraft.world.item.ItemUseAnimation.BRUSH, "spreading plays the wiping (brush) motion");
+        p.stopUsingItem();
         p.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
         Item[] layers = {Items.COOKED_BEEF, ModItems.CHEESE_SLICE, Items.CARROT, Items.APPLE, Items.COOKED_CHICKEN};
         for (Item layer : layers) {

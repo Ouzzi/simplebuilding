@@ -48,8 +48,8 @@ import net.minecraft.util.RandomSource;
  */
 public class CuttingBoardBlock extends Block implements EntityBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
-    private static final VoxelShape SHAPE_NS = Block.box(1, 0, 2, 15, 2, 14);
-    private static final VoxelShape SHAPE_EW = Block.box(2, 0, 1, 14, 2, 15);
+    private static final VoxelShape SHAPE_NS = Block.box(1, 0, 2, 15, 3, 14);
+    private static final VoxelShape SHAPE_EW = Block.box(2, 0, 1, 14, 3, 15);
 
     /** Every board action; {@link #plan} decides without side effects (also used for hand hints). */
     public enum Action { NONE, PUT_BREAD, PUT_SANDWICH, OPEN_LOAF, TAKE_BREAD, BUTTER, ADD_INGREDIENT, FULL, POP_INGREDIENT,
@@ -156,6 +156,7 @@ public class CuttingBoardBlock extends Block implements EntityBlock {
             return level.isClientSide() && claims(main) ? InteractionResult.SUCCESS : InteractionResult.PASS;
         }
         Action action = plan(board, main, off);
+        if (action == Action.BUTTER) spreadMotion(player, main);
         if (level.isClientSide()) return action != Action.NONE || claims(main) ? InteractionResult.SUCCESS : InteractionResult.PASS;
         if (action == Action.NONE) return claims(main) ? InteractionResult.CONSUME : InteractionResult.PASS;
         ServerLevel server = (ServerLevel) level;
@@ -186,6 +187,7 @@ public class CuttingBoardBlock extends Block implements EntityBlock {
                 damageKnife(player, knifeInMain ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
                 board.setButtered(true);
                 sound(level, pos, SoundEvents.HONEYCOMB_WAX_ON, 1.2F);
+                butterSmear(server, pos, board.getBlockState().getValue(FACING));
             }
             case ADD_INGREDIENT -> {
                 board.addIngredient(main);
@@ -231,6 +233,29 @@ public class CuttingBoardBlock extends Block implements EntityBlock {
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!player.getMainHandItem().isEmpty()) return InteractionResult.PASS;
         return interact(level, pos, player);
+    }
+
+    /**
+     * Owner 2026-10-05: spreading butter gets its own wiping motion. Both sides start using the knife
+     * (BRUSH animation, {@link KnifeItem#getUseAnimation}) and swing the butter hand; the use ends when
+     * the click is released and does nothing else.
+     */
+    private static void spreadMotion(Player player, ItemStack main) {
+        boolean knifeInMain = main.getItem() instanceof KnifeItem;
+        player.startUsingItem(knifeInMain ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
+        InteractionHand butterHand = knifeInMain ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
+        player.swing(butterHand, player.getItemInHand(butterHand).getInteractAnimation(), true);
+    }
+
+    /** Small butter crumbs along the bread, in the board's direction. */
+    private static void butterSmear(ServerLevel level, BlockPos pos, Direction facing) {
+        Direction across = facing.getClockWise();
+        for (int i = -2; i <= 2; i++) {
+            double t = i * 0.08;
+            level.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, ModItems.BUTTER_SLICE),
+                    pos.getX() + 0.5 + across.getStepX() * t, pos.getY() + 0.12, pos.getZ() + 0.5 + across.getStepZ() * t,
+                    2, 0.03, 0.01, 0.03, 0.02);
+        }
     }
 
     private static void damageKnife(Player player, InteractionHand hand) {
