@@ -485,7 +485,8 @@ public final class ConfigOptionTests {
             Map.entry(BuiltInLootTables.NETHER_BRIDGE, Map.of(ModItems.GOLD_CORE, new Budget(0.0125, 0.0205))),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, Map.of(ModItems.DIAMOND_CORE, new Budget(0.0072, 0.0138))),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, Map.of(ModItems.DIAMOND_CORE, new Budget(0.0072, 0.0138))),
-            Map.entry(BuiltInLootTables.END_CITY_TREASURE, Map.of(ModItems.ENDERITE_CORE, new Budget(0.0006, 0.0023))));
+            Map.entry(BuiltInLootTables.END_CITY_TREASURE, Map.of(ModItems.ENDERITE_CORE,
+                    McVersion.GADGET_REWORK ? new Budget(0.003, 0.0072) : new Budget(0.0006, 0.0023))));
 
     /** Seed for the loot rolls, so a failure is reproducible instead of a coin flip. */
     private static final long POOL_ROLL_SEED = 20260904L;
@@ -2202,8 +2203,8 @@ public final class ConfigOptionTests {
     }
 
     /**
-     * The building cores are very rare in chests (owner 2026-09-27), the Enderite core rarest of
-     * all: every table the mod edits is rolled like {@link #CORE_CHESTS} chests - every mod pool
+     * The building cores are very rare in chests; 26.3 uses the owner's updated Enderite chance.
+     * Every table the mod edits is rolled like {@link #CORE_CHESTS} chests - every mod pool
      * once per chest, fixed seed - and each core's share per chest has to land in its
      * {@link #CORE_CHANCES} band. A core in a table without a band is a failure as well, which
      * covers the copper core (no chest at all) and the Enderite core outside the End City.
@@ -2214,9 +2215,12 @@ public final class ConfigOptionTests {
      * cent, kept both green.
      *
      * <p>What breaks it: a core chance raised or lowered out of its band, a core in a new table, or
-     * an Enderite core no longer rarer than every other core.
+     * on the older line, an Enderite core no longer rarer than every other core.
      */
     public static void buildingCoresAreVeryRareInLootChests(GameTestHelper helper) {
+        helper.assertTrue(ModLootTableModifications.ENDERITE_CORE_CHANCE == 0.005f
+                        && ModLootTableModifications.LEGACY_ENDERITE_CORE_CHANCE == 0.00175f,
+                "owner-approved Enderite chance must be 0.5% on 26.3 and remain 0.175% on 26.2");
         HolderLookup.Provider registries = helper.getLevel().registryAccess();
         boolean original = Simplebuilding.getConfig().worldGen.enableLootTableChanges;
         helper.runBeforeTestEnd(() -> Simplebuilding.getConfig().worldGen.enableLootTableChanges = original);
@@ -2270,7 +2274,7 @@ public final class ConfigOptionTests {
             Simplebuilding.getConfig().worldGen.enableLootTableChanges = original;
         }
         helper.assertTrue(problems.isEmpty(), "core loot chances are off:\n" + String.join("\n", problems));
-        helper.assertTrue(commonestEnderite > 0 && commonestEnderite < rarestOther,
+        helper.assertTrue(commonestEnderite > 0 && (McVersion.GADGET_REWORK || commonestEnderite < rarestOther),
                 "the Enderite core is no longer the rarest core in chests: " + commonestEnderite
                         + " per chest against " + rarestOther + " for the rarest other core");
         helper.succeed();

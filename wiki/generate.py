@@ -1679,7 +1679,7 @@ def collect_obtain(roots: dict, line: str, items, blocks, enchantments, check: b
     if loot_file is None:
         problems.append("loot/ModLootTableModifications.java not found in any code root - loot sources missing")
     else:
-        parsed, loot_problems = obtain_sources.parse_mod_loot(loot_file, item_ids, ench_ids, NS)
+        parsed, loot_problems = obtain_sources.parse_mod_loot(loot_file, item_ids, ench_ids, NS, version_flags(roots))
         for source in parsed:
             source["source"] = rel(loot_file)
         sources += parsed

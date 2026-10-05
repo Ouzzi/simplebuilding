@@ -84,7 +84,8 @@ class DocumentedNumbersTests(unittest.TestCase):
             "gold_core": ("structure:bastion", 12.5, [8.7, 21.1, 33.6, 46.1, 58.6, 71.2]),
             "diamond_core": ("structure:trial_chambers", 21.0, [14.6, 35.3, 56.2, 77.2, 98.2, 119.2]),
             "netherite_core": ("structure:bastion", 24.9, [17.2, 41.7, 66.5, 91.3, 116.2, 141.0]),
-            "enderite_core": ("structure:end_city", 38.1, [26.4, 63.9, 101.9, 139.9, 177.9, 216.0]),
+            # 26.3: 15 chests/hour at 0.5%; gamma medians for the first six successes.
+            "enderite_core": ("structure:end_city", 13.3, [9.2, 22.4, 35.7, 49.0, 62.3, 75.6]),
         }
         for item, (key, mean, medians) in cases.items():
             row, _ = self.row(f"simplebuilding:{item}", key)
@@ -140,7 +141,7 @@ class DocumentedNumbersTests(unittest.TestCase):
     def test_draft_values_change_the_result(self):
         vid = "const:ModLootTableModifications.ENDERITE_CORE_CHANCE"
         before, _ = self.row("simplebuilding:enderite_core", "structure:end_city")
-        ctx = self.service.ctx({vid: 0.0035})
+        ctx = self.service.ctx({vid: 0.01})
         after = next(r for r in model.item_report(ctx, "simplebuilding:enderite_core")["rows"] if r["key"] == "structure:end_city")
         self.assertAlmostEqual(after["mean"][0], before["mean"][0] / 2, delta=0.05)
 

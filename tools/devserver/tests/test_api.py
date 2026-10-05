@@ -100,7 +100,7 @@ class ApiTests(unittest.TestCase):
     def test_calculators(self):
         status, rep = self.json("/api/calc", {"item": "simplebuilding:enderite_core", "overrides": {}})
         self.assertEqual(status, 200)
-        self.assertAlmostEqual(rep["best"]["mean"][0] if rep["best"]["key"] == "structure:end_city" else rep["rows"][0]["mean"][0], 38.1, delta=0.1)
+        self.assertAlmostEqual(rep["best"]["mean"][0] if rep["best"]["key"] == "structure:end_city" else rep["rows"][0]["mean"][0], 13.3, delta=0.1)
         status, rev = self.json("/api/reverse", {"item": "simplebuilding:enderite_core", "row": "structure:end_city",
                                                   "tunable": {"id": "const:ModLootTableModifications.ENDERITE_CORE_CHANCE"},
                                                   "k": 1, "stat": "mean", "hours": 45, "overrides": {}})

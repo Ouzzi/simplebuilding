@@ -17,11 +17,11 @@ class ExtractTests(unittest.TestCase):
         v = self.values["const:ModLootTableModifications.ENDERITE_CORE_CHANCE"]
         self.assertEqual(v["category"], "loot")
         self.assertEqual(v["type"], "prob")
-        self.assertAlmostEqual(v["value"], 0.00175)
+        self.assertAlmostEqual(v["value"], 0.005)
         self.assertTrue(v["source"]["file"].endswith("ModLootTableModifications.java"))
         raw = (helpers.REPO / v["source"]["file"]).read_text(encoding="utf-8")
         a, b = v["source"]["span"]
-        self.assertEqual(raw[a:b], "0.00175f")  # der Bereich zeigt genau auf das Literal
+        self.assertEqual(raw[a:b], "0.005f")  # der Bereich zeigt genau auf das Literal
         for name in ("IRON_CORE_CHANCE", "IRON_CORE_MINESHAFT_CHANCE", "GOLD_CORE_BASTION_CHANCE", "GOLD_CORE_FORTRESS_CHANCE",
                      "DIAMOND_CORE_CHANCE", "NETHERITE_CORE_CHANCE"):
             self.assertIn(f"const:ModLootTableModifications.{name}", self.values)
@@ -133,15 +133,23 @@ class ExtractTests(unittest.TestCase):
             recs = [v for v in self.values.values() if v["category"] == cat and v["apply"] == "mod"]
             self.assertGreater(len(recs), 50, cat)
             for v in recs:
-                self.assertIn("26.2", v["lines"], v["id"])
+                if v["id"] == "const:ModLootTableModifications.ENDERITE_CORE_CHANCE":
+                    self.assertEqual(v["lines"], ["26.3", "26.4"])
+                else:
+                    self.assertIn("26.2", v["lines"], v["id"])
                 if "1.21.11" not in v["lines"]:
                     # Hauptlinie 26.3 zuerst (2026-09-29): was der 1.21.11-Port-Run noch nachzieht, steht als Hinweis
                     # in der Zentrale ("nicht gefunden") statt still zu fehlen.
                     notes = v["source"].get("twinNotes", [])
-                    self.assertTrue(any(n.startswith("1.21.11:") and "nicht gefunden" in n for n in notes), v["id"])
+                    self.assertTrue(any(n.startswith("1.21.11:") and ("nicht gefunden" in n or "weicht ab" in n)
+                                        for n in notes), v["id"])
         core = self.values["const:ModLootTableModifications.ENDERITE_CORE_CHANCE"]
-        self.assertEqual([t["mc"] for t in core["source"]["twins"]], ["1.21.11"])
-        self.assertTrue(core["source"]["twins"][0]["file"].startswith("mc1_21_11/"))
+        self.assertEqual(core["source"].get("twins", []), [])
+        self.assertEqual(core["source"].get("twinsDiffer", []), [])
+        self.assertTrue(any("0.00175" in note for note in core["source"]["twinNotes"]))
+        legacy = self.values["const:ModLootTableModifications.LEGACY_ENDERITE_CORE_CHANCE"]
+        self.assertTrue(legacy["readonly"])
+        self.assertEqual(legacy["apply"], "plan")
         # Erze: 26.2 + Overlay 26.3 (gilt auch für 26.4) + 1.21.11
         size = self.values["worldgen:simplebuilding:astralit_ore:config.size"]
         self.assertEqual(size["lines"], ["26.2", "26.3", "26.4", "1.21.11"])

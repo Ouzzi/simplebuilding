@@ -36,17 +36,17 @@ class SolverTests(unittest.TestCase):
         res = self.solve(item="simplebuilding:enderite_core", row="structure:end_city", stat="mean", k=1, hours=20)
         self.assertTrue(res["feasible"], res["message"])
         self.assertEqual([l["id"] for l in res["lines"]], [ENDERITE])
-        self.assertAlmostEqual(res["current"], 38.1, delta=0.1)
+        self.assertAlmostEqual(res["current"], 13.3, delta=0.1)
         # neu gerechnet = Ziel (Chance auf 4 gültige Stellen gerundet)
         self.assertAlmostEqual(self.recompute(res), 20.0, delta=20.0 * 0.001)
         self.assertAlmostEqual(res["achieved"], self.recompute(res), places=9)
         line = res["lines"][0]
-        self.assertEqual(line["old"], 0.00175)
+        self.assertEqual(line["old"], 0.005)
         self.assertAlmostEqual(line["new"], 1 / (15 * 20), delta=2e-6)
         self.assertEqual(line["apply"], "mod")
         self.assertTrue(line["applyNow"])
         self.assertTrue(any(s["file"].endswith("ModLootTableModifications.java") and s["line"] for s in line["sites"]))
-        self.assertIn("1.21.11", " ".join(s["mc"] for s in line["sites"]))
+        self.assertNotIn("1.21.11", " ".join(s["mc"] for s in line["sites"]))
         # alle anderen Zeiten folgen: das 2. Stück dauert jetzt doppelt so lange wie das 1. (Poisson, 1 je Treffer)
         row = next(r for r in res["after"]["rows"] if r["key"] == "structure:end_city")
         self.assertAlmostEqual(row["mean"][0], res["achieved"], places=6)
@@ -221,16 +221,16 @@ class NothingWrittenWithoutConfirmTests(unittest.TestCase):
         changes = [{"id": l["id"], "value": res["values"][l["id"]], "expected": l["old"]} for l in res["lines"]]
         pv = self.s.preview({"baseVersion": 0, "changes": changes})
         self.assertFalse(pv["errors"])
-        self.assertEqual(pv["summary"][0]["old"], 0.00175)
+        self.assertEqual(pv["summary"][0]["old"], 0.005)
         self.assertEqual(self.s.store.state()["version"], 0)
         for rel, data in self.before.items():
             self.assertEqual((self.repo / rel).read_bytes(), data, rel)
-        # erst die Bestätigung (save) schreibt - in beide Linien
+        # Erst save schreibt; die abweichende alte Linie bleibt unverändert.
         out = self.s.save({"baseVersion": 0, "changes": changes, "message": "Zielzeit 20 h"})
         self.assertEqual(out["version"], 1)
         literal = f"{res['values'][ENDERITE]:g}"
-        for rel in (LOOT, LOOT_1211):
-            self.assertIn(f"ENDERITE_CORE_CHANCE = {literal}", (self.repo / rel).read_text(encoding="utf-8"), rel)
+        self.assertIn(f"ENDERITE_CORE_CHANCE = {literal}", (self.repo / LOOT).read_text(encoding="utf-8"))
+        self.assertEqual((self.repo / LOOT_1211).read_bytes(), self.before[LOOT_1211])
         # neu eingelesen ergibt der gespeicherte Stand die Zielzeit
         t = model.metric(self.s.ctx(), "simplebuilding:enderite_core", "structure:end_city", "targeted", "mean", 1)
         self.assertAlmostEqual(t, 20.0, delta=0.02)

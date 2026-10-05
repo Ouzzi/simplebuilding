@@ -1,5 +1,17 @@
 # Baukerne: wie selten sind sie? (Stand 2026-09-28)
 
+## Aktueller Besitzerentscheid 2026-10-05 (nur 26.3)
+
+Der neue Auftrag übernimmt die dokumentierte Handelskorrektur und zweite Eisenquelle sowie
+die bereits eingebauten Eisen-/Gold-/Diamant-/Netherit-Chancen aus §5.3. Der Steinmetz verkauft
+weiterhin keine Kerne; die Mine bleibt die zweite Eisenquelle mit 0,5 %.
+**Enderit erhält jetzt 0,5 % je End-City-Kiste** statt 0,175 %. Auf 26.2 bleibt 0,175 % bis zum Port.
+Beleg: `ModLootTableModifications.ENDERITE_CORE_CHANCE` und die Versionswahl im End-City-Pool;
+`ConfigOptionTests.buildingCoresAreVeryRareInLootChests` prüft beide Zweige und die tatsächlichen Würfe.
+Die Tabellen unten bleiben als historische Herleitung erhalten. Die früheren Enderit-Zeitangaben
+gelten nicht für den neuen Wert. Bei den damaligen angenommenen 15 Kisten/h ergibt sich rechnerisch
+ein Mittel von 13,3 h; dies ist weiterhin eine Modellannahme, keine gemessene Spielzeit.
+
 Analyse fuer den Besitzer. **Umgesetzt am 2026-09-28 ("Zeitalter B"), siehe Abschnitt 5.3** - die
 Abschnitte 1 bis 5.2 beschreiben den Stand *vor* dieser Umsetzung und bleiben als Herleitung stehen.
 Herstellung ueber den Netherstern (Wither) ist wie gewuenscht ausgeklammert.
