@@ -148,24 +148,9 @@ def soul_burn():
 
 def resources():
     """Return (destination, generated image, reference image) without writing."""
+    # Crucible/barrel/soul lava/bucket textures moved to crucible_art_v2_2026_10_05.py (owner choice 2026-10-05);
+    # this script still owns the Seelenbrand icon and the reinforced cauldron.
     rows = []
-    for family, textures in (('crucible', enderite_crucible()), ('barrel', enderite_barrel())):
-        for part, img in textures.items():
-            old = load(LIB / f'{"netherite" if family == "crucible" else "reinforced"}_{family}_{part}.png')
-            rows.append((SB / f'block/enderite_{family}_{part}.png', img, old))
-    for kind in ('still', 'flow'):
-        old = vanilla('block/lava_' + kind)
-        rows.append((SB / f'block/soul_lava_{kind}.png', remap(old, SOUL), old))
-    rows.append((SB / 'item/soul_lava_bucket.png', bucket(content='soul_lava'), vanilla('item/lava_bucket')))
-    for stage, name in enumerate(('copper_block', 'exposed_copper', 'weathered_copper', 'oxidized_copper')):
-        colors = ramp(vanilla('block/' + name))
-        for content in (None, 'water', 'lava'):
-            suffix = (content + '_' if content else '') + 'bucket'
-            rows.append((SB / f'item/copper_{suffix}_{stage}.png', bucket(colors, content), vanilla('item/' + suffix)))
-    for content in (None, 'water', 'lava', 'soul_lava'):
-        suffix = (content + '_' if content else '') + 'bucket'
-        old = vanilla('item/' + ('lava_bucket' if content == 'soul_lava' else suffix))
-        rows.append((SB / f'item/enderite_{suffix}.png', bucket(ENDERITE, content), old))
     burn_reference = Image.new('RGBA', (18, 18))
     burn_reference.paste(vanilla('block/soul_fire_0').crop((0, 0, 16, 16)), (1, 1))
     rows.append((SB / 'mob_effect/soul_burn.png', soul_burn(), burn_reference))
@@ -214,7 +199,7 @@ def sheet(path, title, labels, rows):
 def main():
     check = '--check' in sys.argv
     rows = resources()
-    assert len({path for path, _, _ in rows}) == 34
+    assert len({path for path, _, _ in rows}) == 5
     for path, img, old in rows:
         validate(path, img)
         if path.parent.name != 'mob_effect':
