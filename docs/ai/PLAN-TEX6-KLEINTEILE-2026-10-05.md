@@ -15,7 +15,7 @@ Branch `claude-tex6` (von `cb466f86`, dazu Cherry-Pick der Runde-5-Generatoren `
    die neuen Bilder als veraltet melden).
 4. **Kontrast**: Modul-Handbücher (`module_guide_books_2026_10_05.py`): Deckeltöne S/L/C/D um ihren Mittelwert ×1,6
    (bei ×1,25 kaum sichtbar, weil C und D fast gleich sind), dazu das ganze Icon ×1,2. Mod-Verzauberungsbücher des
-   Besitzers (`generate_textures.py`, Quelle bleibt `hand/q1/books`): Einband/Motiv ×1,25 um den Mittelwert, graue
+   Besitzers (`generate_textures.py`, Quelle bleibt `hand/q1/books`): Einband/Motiv ×1,35 um den Mittelwert (×1,25 war in der Vorschau kaum sichtbar), graue
    Seiten unverändert. Form/Motiv unverändert. Helfer `more_contrast`/`spread` in `texture_round6`.
 5. **Simple-Riding-Bücher**: neue Motive im Stil der Besitzerbücher (dessen Buchkörper `linear`, Einband umgefärbt,
    Motiv in hellen Einbandtönen), je 3 Varianten. Eingebaut: Leaping A (Hufeisen-Bogen mit Nägeln, Sprungkraft-Grün),
