@@ -17,6 +17,41 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class SledgehammerGameTest {
 
     @GameTest
+    public void hammerChipsCreativeHasNoWear(GameTestHelper helper) {
+        SledgehammerTests.hammerChipsCreativeHasNoWear(helper);
+    }
+
+    @GameTest
+    public void hammerChipsIceYieldsFour(GameTestHelper helper) {
+        SledgehammerTests.hammerChipsIceYieldsFour(helper);
+    }
+
+    @GameTest
+    public void hammerChipsMixedPilePreservesOtherParts(GameTestHelper helper) {
+        SledgehammerTests.hammerChipsMixedPilePreservesOtherParts(helper);
+    }
+
+    @GameTest
+    public void hammerChipsObsidianYieldsNine(GameTestHelper helper) {
+        SledgehammerTests.hammerChipsObsidianYieldsNine(helper);
+    }
+
+    @GameTest
+    public void hammerChipsPackedIceYieldsNine(GameTestHelper helper) {
+        SledgehammerTests.hammerChipsPackedIceYieldsNine(helper);
+    }
+
+    @GameTest
+    public void hammerChipsPlacedFireChargeYieldsFour(GameTestHelper helper) {
+        SledgehammerTests.hammerChipsPlacedFireChargeYieldsFour(helper);
+    }
+
+    @GameTest
+    public void hammerChipsWallAndCeilingFireCharges(GameTestHelper helper) {
+        SledgehammerTests.hammerChipsWallAndCeilingFireCharges(helper);
+    }
+
+    @GameTest
     public void sledgehammerFieldSkipsAirGapsAndUnbreakableBlocks(GameTestHelper helper) {
         SledgehammerTests.sledgehammerFieldSkipsAirGapsAndUnbreakableBlocks(helper);
     }

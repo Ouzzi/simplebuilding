@@ -110,6 +110,149 @@ import net.minecraft.world.phys.Vec3;
  */
 public final class SledgehammerTests {
 
+    public static void hammerChipsIceYieldsFour(GameTestHelper helper) {
+        hammerChipsBlock(helper, Blocks.ICE, ModItems.ICE_CHIP, 4);
+    }
+
+    public static void hammerChipsPackedIceYieldsNine(GameTestHelper helper) {
+        hammerChipsBlock(helper, Blocks.PACKED_ICE, ModItems.ICE_CHIP, 9);
+    }
+
+    public static void hammerChipsObsidianYieldsNine(GameTestHelper helper) {
+        hammerChipsBlock(helper, Blocks.OBSIDIAN, ModItems.OBSIDIAN_CHIP, 9);
+    }
+
+    private static void hammerChipsBlock(GameTestHelper helper, Block source, Item output, int count) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) { helper.succeed(); return; }
+        BlockPos pos = new BlockPos(2, 2, 2);
+        ServerPlayer player = chipPlayer(helper);
+        ItemStack hammer = new ItemStack(ModItems.STONE_SLEDGEHAMMER);
+        helper.setBlock(pos, source);
+        player.setGameMode(GameType.ADVENTURE);
+        useChipHammer(helper, player, hammer, pos);
+        helper.assertBlockPresent(source, pos);
+        helper.assertTrue(hammer.getDamageValue() == 0 && chipDrops(helper, output) == 0, "adventure consumed resources");
+        player.setGameMode(GameType.SURVIVAL);
+        helper.assertTrue(useChipHammer(helper, player, hammer, pos).consumesAction(), "hammer did not handle source block");
+        helper.assertBlockPresent(Blocks.AIR, pos);
+        helper.assertTrue(chipDrops(helper, output) == count, "incorrect chip count");
+        helper.assertTrue(chipDrops(helper, source.asItem()) == 0, "source block also dropped");
+        helper.assertTrue(hammer.getDamageValue() == 1, "one strike must cost one durability");
+        helper.assertTrue(player.getCooldowns().isOnCooldown(hammer), "missing cooldown");
+        helper.setBlock(pos, source);
+        useChipHammer(helper, player, hammer, pos);
+        helper.assertBlockPresent(source, pos);
+        helper.assertTrue(chipDrops(helper, output) == count && hammer.getDamageValue() == 1, "cooldown allowed another strike");
+        helper.succeed();
+    }
+
+    public static void hammerChipsPlacedFireChargeYieldsFour(GameTestHelper helper) {
+        hammerChipsFire(helper, false);
+    }
+
+    public static void hammerChipsMixedPilePreservesOtherParts(GameTestHelper helper) {
+        hammerChipsFire(helper, true);
+    }
+
+    private static void hammerChipsFire(GameTestHelper helper, boolean mixed) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) { helper.succeed(); return; }
+        ServerPlayer player = chipPlayer(helper);
+        BlockPos support = new BlockPos(2, 1, 2);
+        BlockPos pos = support.above();
+        helper.setBlock(support, Blocks.STONE);
+        ItemStack charges = new ItemStack(Items.FIRE_CHARGE, 2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, charges);
+        player.setShiftKeyDown(true);
+        helper.assertTrue(com.simplebuilding.util.PlacedTemplates.isPlaceableSmall(charges), "fire charge missing from placeable tag");
+        var placed = charges.getItem().useOn(topClick(helper, player, support));
+        helper.assertTrue(placed != null && placed.consumesAction() && charges.getCount() == 1, "placing fire charge must consume one");
+        var pile = (com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(pos));
+        if (mixed) {
+            pile.add(new ItemStack(Items.FIRE_CHARGE));
+            pile.add(new ItemStack(ModItems.MUSIC_DISC_DRIFTWOOD));
+        }
+        player.setShiftKeyDown(false);
+        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        player.setGameMode(GameType.ADVENTURE);
+        useChipHammer(helper, player, hammer, pos);
+        helper.assertTrue(pile.parts().size() == (mixed ? 3 : 1) && chipDrops(helper, ModItems.FIRE_CHIP) == 0,
+                "adventure changed placed fire charge");
+        player.setGameMode(GameType.SURVIVAL);
+        useChipHammer(helper, player, hammer, pos);
+        helper.assertTrue(chipDrops(helper, ModItems.FIRE_CHIP) == 4 && chipDrops(helper, Items.FIRE_CHARGE) == 0, "fire charge duplicated or wrong output");
+        helper.assertTrue(hammer.getDamageValue() == 1, "fire charge strike must cost one durability");
+        if (mixed) {
+            helper.assertTrue(pile.parts().size() == 2 && pile.parts().getFirst().is(Items.FIRE_CHARGE)
+                    && pile.parts().getLast().is(ModItems.MUSIC_DISC_DRIFTWOOD), "mixed pile lost an unrelated part");
+            useChipHammer(helper, player, hammer, pos);
+            helper.assertTrue(pile.parts().size() == 2 && chipDrops(helper, ModItems.FIRE_CHIP) == 4, "cooldown consumed another fire charge");
+        } else {
+            helper.assertBlockPresent(Blocks.AIR, pos);
+            useChipHammer(helper, player, hammer, pos);
+            helper.assertTrue(chipDrops(helper, ModItems.FIRE_CHIP) == 4, "removed fire charge was processed twice");
+        }
+        helper.succeed();
+    }
+
+    public static void hammerChipsWallAndCeilingFireCharges(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) { helper.succeed(); return; }
+        ServerPlayer player = chipPlayer(helper);
+        player.setShiftKeyDown(true);
+        int expected = 0;
+        for (Direction face : List.of(Direction.NORTH, Direction.DOWN)) {
+            BlockPos support = new BlockPos(2, 3, 2);
+            helper.setBlock(support, Blocks.STONE);
+            BlockPos abs = helper.absolutePos(support);
+            ItemStack charge = new ItemStack(Items.FIRE_CHARGE);
+            player.setItemInHand(InteractionHand.MAIN_HAND, charge);
+            var hit = new BlockHitResult(Vec3.atCenterOf(abs).add(new Vec3(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5)), face, abs, false);
+            var placed = charge.getItem().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit));
+            helper.assertTrue(placed != null && placed.consumesAction() && charge.isEmpty(), "wall/ceiling placement failed");
+            ItemStack hammer = new ItemStack(expected == 0 ? ModItems.IRON_SLEDGEHAMMER : ModItems.COPPER_SLEDGEHAMMER);
+            useChipHammer(helper, player, hammer, support.relative(face));
+            expected += 4;
+            helper.assertBlockPresent(Blocks.AIR, support.relative(face));
+            helper.assertTrue(chipDrops(helper, ModItems.FIRE_CHIP) == expected && chipDrops(helper, Items.FIRE_CHARGE) == 0, "wall/ceiling fire charge duplicated");
+        }
+        helper.succeed();
+    }
+
+    public static void hammerChipsCreativeHasNoWear(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) { helper.succeed(); return; }
+        ServerPlayer player = chipPlayer(helper);
+        player.setGameMode(GameType.CREATIVE);
+        BlockPos pos = new BlockPos(2, 2, 2);
+        helper.setBlock(pos, Blocks.OBSIDIAN);
+        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        useChipHammer(helper, player, hammer, pos);
+        helper.assertBlockPresent(Blocks.AIR, pos);
+        helper.assertTrue(hammer.getDamageValue() == 0 && chipDrops(helper, ModItems.OBSIDIAN_CHIP) == 9, "creative conversion or durability incorrect");
+        helper.succeed();
+    }
+
+    private static InteractionResult useChipHammer(GameTestHelper helper, ServerPlayer player, ItemStack hammer, BlockPos pos) {
+        player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
+        UseOnContext context = topClick(helper, player, pos);
+        var state = helper.getBlockState(pos);
+        var hit = new BlockHitResult(context.getClickLocation(), Direction.UP, helper.absolutePos(pos), false);
+        InteractionResult blockResult = state.useItemOn(hammer, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit);
+        return blockResult.consumesAction() ? blockResult : hammer.getItem().useOn(context);
+    }
+
+    private static ServerPlayer chipPlayer(GameTestHelper helper) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        Vec3 at = helper.absoluteVec(new Vec3(2.5, 1.0, 4.5));
+        player.setPos(at.x, at.y, at.z);
+        return player;
+    }
+
+    private static int chipDrops(GameTestHelper helper, Item item) {
+        return helper.getLevel().getEntitiesOfClass(ItemEntity.class,
+                new net.minecraft.world.phys.AABB(helper.absolutePos(new BlockPos(2, 2, 2))).inflate(3))
+                .stream().filter(entity -> entity.getItem().is(item)).mapToInt(entity -> entity.getItem().getCount()).sum();
+    }
+
     private SledgehammerTests() {
     }
 
