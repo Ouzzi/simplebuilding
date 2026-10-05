@@ -78,6 +78,7 @@ public final class SandwichTests {
         ALL.put("board_break_drops", SandwichTests::boardBreakDrops);
         ALL.put("knife_cake_slices", SandwichTests::knifeCakeSlices);
         ALL.put("knife_melon_and_tools", SandwichTests::knifeMelonAndTools);
+        ALL.put("knife_recipe_shape", SandwichTests::knifeRecipeShape);
         ALL.put("slice_block_cutting", SandwichTests::sliceBlockCutting);
         ALL.put("cauldron_butter", SandwichTests::cauldronButter);
         ALL.put("cauldron_cheese_spoils", SandwichTests::cauldronCheeseSpoils);
@@ -365,6 +366,26 @@ public final class SandwichTests {
         BlockState after = h.getLevel().getBlockState(h.absolutePos(pos));
         h.assertTrue(after.is(Blocks.CAKE) && after.getValue(CakeBlock.BITES) == 1, "candle cake becomes a cut cake");
         h.assertItemEntityPresent(Items.CANDLE, pos, 2.0);
+        h.succeed();
+    }
+
+    static void knifeRecipeShape(GameTestHelper h) {
+        var level = h.getLevel();
+        var recipes = level.getServer().getRecipeManager();
+        var empty = ItemStack.EMPTY;
+        var nugget = new ItemStack(Items.IRON_NUGGET);
+        var stick = new ItemStack(Items.STICK);
+        for (var slots : List.of(List.of(empty, empty, nugget, empty, nugget, nugget, stick, nugget, empty),
+                List.of(nugget, empty, empty, nugget, nugget, empty, empty, nugget, stick))) {
+            var input = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, slots);
+            var output = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, level)
+                    .orElseThrow().value().assemble(input);
+            h.assertTrue(output.is(ModItems.KNIFE) && output.getCount() == 1, "four nuggets and one stick craft one knife, also mirrored");
+        }
+        var old = net.minecraft.world.item.crafting.CraftingInput.of(3, 3,
+                List.of(empty, empty, nugget, empty, nugget, empty, stick, empty, empty));
+        h.assertTrue(recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, old, level).isEmpty(),
+                "old two-nugget pattern must not craft a knife");
         h.succeed();
     }
 

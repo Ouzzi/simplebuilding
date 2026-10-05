@@ -28,5 +28,6 @@
   "tooltip.simplesandwiches.buttered": "Buttered",
   "tooltip.simplesandwiches.effect": "%s (%s) %s%%",
   "tooltip.simplesandwiches.food": "Hunger %s, saturation %s",
+  "tooltip.simplesandwiches.knife.recipe": "Craft with a stick at bottom left and four iron nuggets at top right, center, middle right and bottom center.",
   "tooltip.simplesandwiches.layer": "- %s"
 }

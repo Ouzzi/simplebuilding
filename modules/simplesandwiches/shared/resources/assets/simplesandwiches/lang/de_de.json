@@ -28,5 +28,6 @@
   "tooltip.simplesandwiches.buttered": "Gebuttert",
   "tooltip.simplesandwiches.effect": "%s (%s) %s%%",
   "tooltip.simplesandwiches.food": "Hunger %s, Sättigung %s",
+  "tooltip.simplesandwiches.knife.recipe": "Herstellung: Stock unten links; vier Eisennuggets oben rechts, in der Mitte, rechts mittig und unten mittig.",
   "tooltip.simplesandwiches.layer": "- %s"
 }
