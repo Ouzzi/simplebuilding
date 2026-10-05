@@ -1,4 +1,4 @@
-"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4|--v5]
+"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4|--v5] [--shapes]
 
 v2 (2026-10-05): sandwich/bread, bread half, knife, board and cake slice come from the v2 section with
 variants A/B/C (STYLE picks the built-in one); --old=<copy of the previous textures> writes the comparison
@@ -1209,6 +1209,176 @@ def preview_v5(path_main, path_snippets):
     print('preview v5:', path_main, path_snippets)
 
 
+# === bread shape proposals A-D (owner 2026-10-05: "better bread, odd shape") - preview only ================
+# Same v5 colours and snippet principle; only the silhouette changes. Not built in (owner chooses).
+BREAD_SHAPES = {
+    # A: classic oval loaf (Vanilla bread silhouette), level so the layers stay straight
+    'A': dict(x0=1, x1=14, tilt=0.0, base=12.3, dome=4.4, power=0.5, under=2, seeds=False, toast=False),
+    # B: round burger bun with sesame seeds, level
+    'B': dict(x0=2, x1=13, tilt=0.0, base=11.6, dome=6.0, power=0.45, under=3, seeds=True, toast=False),
+    # C: long sub / baguette, low flat dome
+    'C': dict(x0=0, x1=15, tilt=0.0, base=12.4, dome=3.4, power=0.3, under=2, seeds=False, toast=False),
+    # D: toast triangle seen from the side (crust along the slope)
+    'D': dict(x0=2, x1=14, tilt=0.0, base=12.4, dome=7.0, power=1.0, under=2, seeds=False, toast=True),
+}
+
+
+def _sb(shape, x):
+    c = BREAD_SHAPES[shape]
+    return int(round(c['base'] - (x - (c['x0'] + c['x1']) / 2) * c['tilt']))
+
+
+def _s_layer_rows(shape, x, p):
+    b = _sb(shape, x)
+    return [b - 2, b - 1] if p == 0 else [b - 2 - p]
+
+
+def shape_bottom(shape, buttered=False):
+    c = BREAD_SHAPES[shape]
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for x in range(c['x0'], c['x1'] + 1):
+        b = _sb(shape, x)
+        end = x in (c['x0'], c['x1'])
+        if not end:
+            put(im, x, b, hx('f6d84a' if buttered else 'f2dcae'))
+        for k in range(1, c['under'] + 1):
+            inset = k if not c['toast'] else 0
+            if c['x0'] + inset <= x <= c['x1'] - inset:
+                put(im, x, b + k, hx(UNDER_WARM[0 if k == c['under'] else 2 if x % 3 else 3]))
+    return im
+
+
+def shape_filling(shape, key, p):
+    c = BREAD_SHAPES[shape]
+    pal, rows = LAYERS[key]
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    lit = [ch for ch in rows[0] if ch != '.'] or ['3']
+    dark = [ch for ch in rows[1] if ch != '.'] or ['2']
+    x0, x1 = c['x0'], c['x1']
+    for x in range(x0, x1 + 1):
+        rr = _s_layer_rows(shape, x, p)
+        for i, y in enumerate(rr):
+            src = rows[1] if (len(rr) == 2 and i == 1) else rows[0]
+            pool = dark if src is rows[1] else lit
+            ch = src[x] if src[x] != '.' else pool[(x + p) % len(pool)]
+            col = _vivid(hx(pal[ch]))
+            if len(rr) == 2 and i == 1:
+                col = shade(col, 0.85)
+            if x in (x0, x1):
+                col = shade(col, 0.75)
+            put(im, x, y, col)
+    if key in GREEN_KEYS:
+        for k, x in enumerate(range(x1 - 3, x1 + 2)):
+            y = _s_layer_rows(shape, min(x, x1), p)[-1] + (1 if k % 2 else 0)
+            put(im, x, y, hx(LETTUCE[2 if k % 2 else 3]))
+            put(im, x, y + 1, hx(LETTUCE[1 if k % 2 else 0]))
+    return im
+
+
+def shape_top(shape, n):
+    c = BREAD_SHAPES[shape]
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    cells = {}
+    x0, x1 = c['x0'], c['x1']
+    mid, half = (x0 + x1) / 2, (x1 - x0) / 2 + 0.5
+    for x in range(x0, x1 + 1):
+        t = (x - mid) / half
+        if c['toast']:
+            h = max(1, int(round(1 + (c['dome'] - 1) * (x - x0) / (x1 - x0))))
+        else:
+            h = max(1, int(round(c['dome'] * max(0.0, 1 - abs(t) ** 2) ** c['power'])))
+        low = _sb(shape, x) - (0 if n == 0 else 2 + (n - 1)) - 1
+        for k in range(h):
+            cells[(x, low - k)] = (k, h, t)
+    for (x, y), (k, h, t) in cells.items():
+        edge = (x, y - 1) not in cells or (x - 1, y) not in cells or (x + 1, y) not in cells
+        if c['toast']:
+            # crumb face with a crust along the slope and the right side
+            idx = None
+            col = hx('f2dcae') if (x + y) % 5 else hx('e6c890')
+            if edge:
+                col = hx(BUN_WARM[2 if (x, y - 1) not in cells else 1])
+            if k == 0:
+                col = hx(BUN_WARM[1])
+            put(im, x, y, col)
+            continue
+        light = (k / max(1, h - 1)) * 0.8 - t * 0.35
+        idx = max(2, min(len(BUN_WARM) - 1, 2 + int(round(light * 4)) - ((x * 5 + y * 3) % 11 == 0)))
+        if k == 0:
+            idx = 1
+        if edge and k:
+            idx = 0 if t > 0.2 or k < h - 1 else 1
+        put(im, x, y, hx(BUN_WARM[idx]))
+    if not c['toast']:
+        for x in range(int(mid) - 3, int(mid)):
+            top_y = min(y for (cx, y) in cells if cx == x)
+            put(im, x, top_y + 1, hx('fde9b0'))
+    if c['seeds']:
+        for (x, y), (k, h, t) in cells.items():
+            if 1 < k < h - 1 and (x * 3 + y * 7) % 9 == 0:
+                put(im, x, y, hx('fff4d6'))
+    return im
+
+
+def shape_sandwich(shape, keys, buttered=False):
+    im = shape_bottom(shape, buttered)
+    for i, k in enumerate(keys):
+        im.alpha_composite(shape_filling(shape, k, i))
+    im.alpha_composite(shape_top(shape, len(keys)))
+    return im
+
+
+def shape_half(shape):
+    """Bread half on the board (top view of the cut face) in the same shape family."""
+    pal = BR_WARM
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    def inside(x, y):
+        if shape == 'A':
+            return ((x - 7.5) / 4.6) ** 2 + ((y - 7.5) / 6.8) ** 2 <= 1
+        if shape == 'B':
+            return ((x - 7.5) / 6.2) ** 2 + ((y - 7.5) / 6.2) ** 2 <= 1
+        if shape == 'C':
+            return ((x - 7.5) / 3.4) ** 2 + ((y - 7.5) / 7.6) ** 4 <= 1
+        return False  # D: built below
+    cells = {(x, y) for y in range(16) for x in range(16) if inside(x, y)}
+    if shape == 'D':
+        cells = {(x, y) for y in range(2, 14) for x in range(2, 2 + (y - 1))}  # right-angled toast triangle
+    for (x, y) in cells:
+        ring = any((x + dx, y + dy) not in cells for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+        ring2 = not ring and any((x + dx, y + dy) not in cells for dx, dy in ((2, 0), (-2, 0), (0, 2), (0, -2)))
+        if ring:
+            col = pal['E']
+        elif ring2:
+            col = pal['g'] if (x + y) % 3 else pal['d']
+        else:
+            col = pal['C'] if (x * 3 + y * 5) % 7 else pal['p']
+        im.putpixel((x, y), hx(col))
+    return im
+
+
+def preview_shapes(path):
+    s = 12
+    cell = 16 * s + 14
+    examples = [[], ['meat_cooked'], ['meat_cooked', 'cheese', 'kelp'], ['meat_raw', 'cheese', 'beetroot', 'potato', 'golden']]
+    labels = ['leer', '1 Zutat', '3 Zutaten', '5 Zutaten', 'Brothaelfte']
+    names = {'A': 'A ovales Broetchen (Vanilla-Brot-Silhouette)', 'B': 'B rundes Burger-Broetchen (Sesam)',
+             'C': 'C langes Baguette/Sub', 'D': 'D Toastscheiben-Dreieck'}
+    sheet = Image.new('RGBA', (20 + 5 * cell, 30 + 4 * (cell + 40)), (139, 139, 139, 255))
+    dr = ImageDraw.Draw(sheet)
+    dr.text((10, 8), 'Brot-Formen A-D (Farben v5, nicht eingebaut - bitte waehlen): 12x, daneben 1x', fill=(0, 0, 0, 255))
+    for r, shape in enumerate('ABCD'):
+        y = 30 + r * (cell + 40)
+        dr.text((10, y), names[shape], fill=(0, 0, 0, 255))
+        ims = [shape_sandwich(shape, e, False) for e in examples] + [shape_half(shape)]
+        for c, (im, label) in enumerate(zip(ims, labels)):
+            x = 10 + c * cell
+            sheet.alpha_composite(im.resize((16 * s, 16 * s), Image.NEAREST), (x, y + 14))
+            sheet.alpha_composite(im, (x, y + 18 + 16 * s))
+            dr.text((x + 22, y + 18 + 16 * s), label, fill=(0, 0, 0, 255))
+    sheet.save(path)
+    print('preview shapes:', path)
+
+
 # --- write -----------------------------------------------------------------------------------------
 def all_textures():
     files = {}
@@ -1298,6 +1468,8 @@ def main():
         return
     print(f'{len(changed)} of {len(files)} sandwich textures written')
     old = next((a.split('=', 1)[1] for a in sys.argv if a.startswith('--old=')), None)
+    if '--shapes' in sys.argv:
+        preview_shapes(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'brot-formen-vorschau.png'))
     if '--v5' in sys.argv:
         d = os.path.dirname(os.path.abspath(PREVIEW))
         preview_v5(os.path.join(d, 'sandwiches-v5-vorschau.png'), os.path.join(d, 'sandwich-zutaten-schnipsel.png'))
