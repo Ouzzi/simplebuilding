@@ -134,14 +134,30 @@ public class CuttingBoardBlock extends Block implements EntityBlock {
         }
     }
 
-    /** Runs one board click for {@code player}. Mutates only on the server; both sides return the same result. */
+    /**
+     * Items the board takes precedence for over their own use (eating): bread, sandwiches, knives,
+     * butter and sandwich ingredients. Sneaking still bypasses the board (Vanilla rule).
+     */
+    public static boolean claims(ItemStack stack) {
+        return stack.is(Items.BREAD) || stack.getItem() instanceof SandwichItem || stack.getItem() instanceof KnifeItem
+                || stack.is(ModItems.BUTTER_SLICE) || SandwichFormula.isIngredient(stack);
+    }
+
+    /**
+     * Runs one board click for {@code player}. Mutates only on the server. The client may see an
+     * outdated board (or none yet); for board items it always consumes the click and leaves the
+     * decision to the server, so it never falls through to {@code useItem} and starts eating
+     * (owner bug 2026-10-05: bread was eaten instead of laid on the board).
+     */
     public static InteractionResult interact(Level level, BlockPos pos, Player player) {
-        if (!(level.getBlockEntity(pos) instanceof CuttingBoardBlockEntity board)) return InteractionResult.PASS;
         ItemStack main = player.getMainHandItem();
         ItemStack off = player.getOffhandItem();
+        if (!(level.getBlockEntity(pos) instanceof CuttingBoardBlockEntity board)) {
+            return level.isClientSide() && claims(main) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+        }
         Action action = plan(board, main, off);
-        if (action == Action.NONE) return InteractionResult.PASS;
-        if (level.isClientSide()) return InteractionResult.SUCCESS;
+        if (level.isClientSide()) return action != Action.NONE || claims(main) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+        if (action == Action.NONE) return claims(main) ? InteractionResult.CONSUME : InteractionResult.PASS;
         ServerLevel server = (ServerLevel) level;
         switch (action) {
             case PUT_BREAD -> {

@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
@@ -28,7 +28,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * Cheese or butter block of 16 one-pixel slices. The knife cuts one slice off the clicked face
  * (top or a side); the first cut fixes the direction until the block is whole again, so the
  * remaining shape is always a box. A matching slice puts one back. Breaking drops the block when
- * whole, otherwise the remaining slices (loot tables, generated).
+ * whole, otherwise the block item keeps its state (slices + cut, loot {@code copy_state}); Vanilla
+ * {@code BlockItem} restores it on placement. Slices come off only with the knife. Cheese is
+ * springy like a bed (properties in {@link com.simplesandwiches.registry.ModBlocks}).
  */
 public class SliceBlock extends Block {
     public static final int MAX = 16;
@@ -63,10 +65,12 @@ public class SliceBlock extends Block {
     }
 
     private final Supplier<Item> slice;
+    private final Supplier<SoundEvent> cutSound;
 
-    public SliceBlock(Properties properties, Supplier<Item> slice) {
+    public SliceBlock(Properties properties, Supplier<Item> slice, Supplier<SoundEvent> cutSound) {
         super(properties);
         this.slice = slice;
+        this.cutSound = cutSound;
         registerDefaultState(stateDefinition.any().setValue(SLICES, MAX).setValue(CUT, Cut.UP));
     }
 
@@ -125,7 +129,7 @@ public class SliceBlock extends Block {
                 ItemStack piece = new ItemStack(slice());
                 player.getInventory().placeItemBackInInventory(piece, net.minecraft.util.Prediction.SERVER_ONLY);
                 stack.hurtAndBreak(1, player, hand);
-                level.playSound(null, pos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 0.7F, 1.5F);
+                level.playSound(null, pos, cutSound.get(), SoundSource.BLOCKS, 0.8F, 0.9F + level.getRandom().nextFloat() * 0.2F);
                 CuttingBoardBlock.crumbs((ServerLevel) level, pos, new ItemStack(slice()));
             }
             return InteractionResult.SUCCESS;

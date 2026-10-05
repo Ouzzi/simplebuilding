@@ -2,6 +2,7 @@ package com.simplesandwiches.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.simplesandwiches.Sandwiches;
 import com.simplesandwiches.block.CuttingBoardBlock;
 import com.simplesandwiches.block.CuttingBoardBlockEntity;
 import com.simplesandwiches.registry.ModItems;
@@ -16,6 +17,7 @@ import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -23,13 +25,15 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Draws what lies on a cutting board: the loaf, or the opened bread with butter and the ingredients
- * stacked flat on top of each other, or the closed sandwich. Loader-neutral; registered per loader.
+ * Draws what lies on a cutting board: the loaf; the opened bread as two halves side by side with
+ * butter and the ingredients stacked flat on the left half; or the closed sandwich. Loader-neutral; registered per loader.
  */
 public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlockEntity, CuttingBoardRenderer.State> {
     private static final float BOARD_TOP = 2.0F / 16.0F;
     private static final float LAYER = 0.035F;
     private static final float SCALE = 0.55F;
+    /** Bread halves: each drawn at this scale, this far left/right of the board centre. */
+    private static final float HALF_SCALE = 0.5F, HALF_OFFSET = 0.16F, TOPPING_SCALE = 0.38F;
 
     private final ItemModelResolver resolver;
 
@@ -37,9 +41,12 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
         this.resolver = context.itemModelResolver();
     }
 
+    /** One flat item on the board: board-local offset (x across, z along), layer height, scale, own yaw. */
+    public record Placed(ItemStackRenderState item, float x, float z, int layer, float scale, float spin) {}
+
     public static class State extends BlockEntityRenderState {
         public float yaw;
-        public final List<ItemStackRenderState> layers = new ArrayList<>();
+        public final List<Placed> items = new ArrayList<>();
     }
 
     @Override
@@ -47,41 +54,52 @@ public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlo
         return new State();
     }
 
+    /** The opened bread: a Vanilla bread stack drawn with the module's bread-half item model. */
+    static ItemStack breadHalf() {
+        ItemStack half = new ItemStack(Items.BREAD);
+        half.set(DataComponents.ITEM_MODEL, Sandwiches.id("board/bread_half"));
+        return half;
+    }
+
     @Override
     public void extractRenderState(CuttingBoardBlockEntity board, State state, float partialTicks, Vec3 camera,
                                    ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(board, state, partialTicks, camera, breakProgress);
-        state.layers.clear();
+        state.items.clear();
         state.yaw = -board.getBlockState().getValue(CuttingBoardBlock.FACING).toYRot();
-        List<ItemStack> stacks = new ArrayList<>();
+        int seed = (int) board.getBlockPos().asLong();
         switch (board.stage()) {
-            case LOAF -> stacks.add(new ItemStack(Items.BREAD));
+            case LOAF -> add(state, board, new ItemStack(Items.BREAD), 0, 0, 0, SCALE, 0, seed);
             case OPEN -> {
-                stacks.add(new ItemStack(Items.BREAD));
-                if (board.buttered()) stacks.add(new ItemStack(ModItems.BUTTER_SLICE));
-                stacks.addAll(board.ingredients());
+                // Owner 2026-10-05: cut bread lies as two halves side by side; toppings go on the left half.
+                add(state, board, breadHalf(), -HALF_OFFSET, 0, 0, HALF_SCALE, 0, seed++);
+                add(state, board, breadHalf(), HALF_OFFSET, 0, 0, HALF_SCALE, 180, seed++);
+                int layer = 1;
+                if (board.buttered()) add(state, board, new ItemStack(ModItems.BUTTER_SLICE), -HALF_OFFSET, 0, layer++, TOPPING_SCALE, 0, seed++);
+                for (ItemStack stack : board.ingredients()) add(state, board, stack, -HALF_OFFSET, 0, layer++, TOPPING_SCALE, 0, seed++);
             }
-            case CLOSED -> stacks.add(board.sandwich());
+            case CLOSED -> add(state, board, board.sandwich(), 0, 0, 0, SCALE, 0, seed);
             default -> {}
         }
-        int seed = (int) board.getBlockPos().asLong();
-        for (ItemStack stack : stacks) {
-            ItemStackRenderState layer = new ItemStackRenderState();
-            resolver.updateForTopItem(layer, stack, ItemDisplayContext.FIXED, board.getLevel(), null, seed++);
-            state.layers.add(layer);
-        }
+    }
+
+    private void add(State state, CuttingBoardBlockEntity board, ItemStack stack, float x, float z, int layer, float scale, float spin, int seed) {
+        ItemStackRenderState item = new ItemStackRenderState();
+        resolver.updateForTopItem(item, stack, ItemDisplayContext.FIXED, board.getLevel(), null, seed);
+        state.items.add(new Placed(item, x, z, layer, scale, spin));
     }
 
     @Override
     public void submit(State state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
-        for (int i = 0; i < state.layers.size(); i++) {
+        for (Placed placed : state.items) {
             poseStack.pushPose();
-            poseStack.translate(0.5F, BOARD_TOP + 0.01F + i * LAYER, 0.5F);
+            poseStack.translate(0.5F, 0.0F, 0.5F);
             poseStack.rotate(Axis.YP.rotationDegrees(state.yaw));
+            poseStack.translate(placed.x(), BOARD_TOP + 0.01F + placed.layer() * LAYER, placed.z());
+            poseStack.rotate(Axis.YP.rotationDegrees(placed.spin()));
             poseStack.rotate(Axis.XP.rotationDegrees(90.0F));
-            float scale = SCALE * (i == 0 ? 1.0F : 0.85F);
-            poseStack.scale(scale, scale, scale);
-            state.layers.get(i).submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+            poseStack.scale(placed.scale(), placed.scale(), placed.scale());
+            placed.item().submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.popPose();
         }
     }

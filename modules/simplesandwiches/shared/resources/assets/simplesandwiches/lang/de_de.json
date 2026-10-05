@@ -30,6 +30,8 @@
   "tooltip.simplesandwiches.food": "Hunger %s, Sättigung %s",
   "tooltip.simplesandwiches.layer": "- %s",
   "tooltip.simplesandwiches.knife.recipe": "Herstellung: Stock unten links; vier Eisennuggets oben rechts, in der Mitte, rechts mittig und unten mittig.",
+  "subtitles.simplesandwiches.block.butter_block.cut": "Butter wird geschnitten",
+  "subtitles.simplesandwiches.block.cheese_block.cut": "Käse wird geschnitten",
   "item.simplesandwiches.guide_book": "Simple-Sandwiches-Handbuch",
   "simplesandwiches.guide.page.1.title": "Simple Sandwiches",
   "simplesandwiches.guide.page.1": "Sandwiches auf dem Schneidebrett, ein Küchenmesser, Käse und Butter aus dem Kessel und Essen direkt aus Bündeln.",

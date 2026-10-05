@@ -26,6 +26,7 @@ public final class SandwichesNeoForge {
         bus.addListener((RegisterEvent event) -> {
             var key = event.getRegistryKey();
             if (key.equals(Registries.DATA_COMPONENT_TYPE)) ModComponents.register();
+            if (key.equals(Registries.SOUND_EVENT)) com.simplesandwiches.registry.ModSounds.register();
             if (key.equals(Registries.BLOCK)) ModBlocks.register();
             if (key.equals(Registries.ITEM)) ModItems.register();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {

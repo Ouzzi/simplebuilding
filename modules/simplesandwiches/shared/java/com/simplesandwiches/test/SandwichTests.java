@@ -77,10 +77,14 @@ public final class SandwichTests {
         ALL.put("board_full_cycle", SandwichTests::boardFullCycle);
         ALL.put("board_butter_only_first", SandwichTests::boardButterOnlyFirst);
         ALL.put("board_break_drops", SandwichTests::boardBreakDrops);
+        ALL.put("board_priority_over_eating", SandwichTests::boardPriorityOverEating);
         ALL.put("knife_cake_slices", SandwichTests::knifeCakeSlices);
         ALL.put("knife_melon_and_tools", SandwichTests::knifeMelonAndTools);
         ALL.put("knife_recipe_shape", SandwichTests::knifeRecipeShape);
         ALL.put("slice_block_cutting", SandwichTests::sliceBlockCutting);
+        ALL.put("slice_block_keeps_state", SandwichTests::sliceBlockKeepsState);
+        ALL.put("cheese_bounces_like_bed", SandwichTests::cheeseBouncesLikeBed);
+        ALL.put("cut_sounds_registered", SandwichTests::cutSoundsRegistered);
         ALL.put("cauldron_butter", SandwichTests::cauldronButter);
         ALL.put("cauldron_cheese_spoils", SandwichTests::cauldronCheeseSpoils);
         ALL.put("cauldron_ripens_in_world", SandwichTests::cauldronRipensInWorld);
@@ -313,6 +317,51 @@ public final class SandwichTests {
         h.succeed();
     }
 
+    /**
+     * Owner bug 2026-10-05: a hungry player ate the bread instead of laying it on the board. Goes
+     * through the real server path ({@code ServerPlayerGameMode.useItemOn}, then {@code useItem}
+     * only when the block did not consume the click, as the client does).
+     */
+    static void boardPriorityOverEating(GameTestHelper h) {
+        BlockPos pos = new BlockPos(2, 2, 2);
+        CuttingBoardBlockEntity board = board(h, pos);
+        ServerPlayer p = player(h, pos);
+        h.assertTrue(p.getFoodData().needsFood(), "player is hungry");
+        BlockPos abs = h.absolutePos(pos);
+        BlockHitResult hit = new BlockHitResult(new Vec3(abs.getX() + 0.5, abs.getY() + 2.0 / 16.0, abs.getZ() + 0.5), Direction.UP, abs, false);
+        java.util.function.Supplier<InteractionResult> rightClick = () -> {
+            InteractionResult r = p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, hit);
+            if (!r.consumesAction() && !p.getMainHandItem().isEmpty()) r = p.gameMode.useItem(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND);
+            return r;
+        };
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BREAD, 3));
+        rightClick.get();
+        h.assertTrue(board.stage() == Stage.LOAF && p.getMainHandItem().getCount() == 2, "hungry player lays the bread on the board");
+        h.assertTrue(!p.isUsingItem(), "no eating started");
+        rightClick.get();
+        h.assertTrue(board.stage() == Stage.LOAF && p.getMainHandItem().getCount() == 2 && !p.isUsingItem(),
+                "second bread on a loaded board: board keeps the click, nothing eaten");
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.KNIFE));
+        rightClick.get();
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.COOKED_BEEF, 2));
+        rightClick.get();
+        h.assertTrue(board.ingredients().size() == 1 && !p.isUsingItem(), "ingredient laid, not eaten");
+        p.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        rightClick.get();
+        rightClick.get();
+        ItemStack sandwich = p.getMainHandItem().copy();
+        h.assertTrue(sandwich.getItem() instanceof SandwichItem, "sandwich taken");
+        rightClick.get();
+        h.assertTrue(board.stage() == Stage.CLOSED && !p.isUsingItem(), "sandwich put back, not eaten");
+        for (ItemStack s : List.of(new ItemStack(Items.BREAD), sandwich, new ItemStack(Items.APPLE), new ItemStack(ModItems.CHEESE_SLICE),
+                new ItemStack(ModItems.BUTTER_SLICE), new ItemStack(ModItems.KNIFE))) {
+            h.assertTrue(CuttingBoardBlock.claims(s), "client keeps the click on the board for " + s);
+        }
+        h.assertTrue(!CuttingBoardBlock.claims(new ItemStack(Items.STONE)) && !CuttingBoardBlock.claims(new ItemStack(Items.MUSHROOM_STEW)),
+                "other items fall through");
+        h.succeed();
+    }
+
     static void boardButterOnlyFirst(GameTestHelper h) {
         BlockPos pos = new BlockPos(2, 2, 2);
         CuttingBoardBlockEntity board = board(h, pos);
@@ -428,7 +477,7 @@ public final class SandwichTests {
         h.assertTrue(s.getValue(SliceBlock.SLICES) == 13 && s.getValue(SliceBlock.CUT) == SliceBlock.Cut.UP, "side cut refused once cut from the top");
         h.assertTrue(count(p, ModItems.CHEESE_SLICE) == 3, "three cheese slices");
         var drops = net.minecraft.world.level.block.Block.getDrops(h.getLevel().getBlockState(h.absolutePos(pos)), h.getLevel(), h.absolutePos(pos), null);
-        h.assertTrue(drops.size() == 1 && drops.get(0).is(ModItems.CHEESE_SLICE) && drops.get(0).getCount() == 13, "partial block drops its 13 slices: " + drops);
+        h.assertTrue(drops.size() == 1 && drops.get(0).is(ModItems.CHEESE_BLOCK) && drops.get(0).has(DataComponents.BLOCK_STATE), "partial block drops itself with its state: " + drops);
         p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.CHEESE_SLICE, 3));
         for (int i = 0; i < 3; i++) click(h, p, pos, Direction.UP);
         s = h.getLevel().getBlockState(h.absolutePos(pos));
@@ -441,6 +490,56 @@ public final class SandwichTests {
         for (int i = 0; i < 15; i++) click(h, p, pos, Direction.EAST);
         h.assertTrue(h.getLevel().getBlockState(h.absolutePos(pos)).isAir(), "16 slices per block");
         near(h, ModBlocks.BUTTER_BLOCK.getFriction(), 0.9, "butter is slippery (0.9)");
+        h.succeed();
+    }
+
+    /** Owner 2026-10-05: breaking keeps the cut state in the item; placing restores it (cheese and butter). */
+    static void sliceBlockKeepsState(GameTestHelper h) {
+        for (SliceBlock block : List.of(ModBlocks.CHEESE_BLOCK, ModBlocks.BUTTER_BLOCK)) {
+            BlockPos pos = new BlockPos(2, 2, 2);
+            BlockPos abs = h.absolutePos(pos);
+            h.setBlock(pos.below(), Blocks.STONE);
+            h.setBlock(pos, block.defaultBlockState().setValue(SliceBlock.SLICES, 9).setValue(SliceBlock.CUT, SliceBlock.Cut.NORTH));
+            var drops = net.minecraft.world.level.block.Block.getDrops(h.getLevel().getBlockState(abs), h.getLevel(), abs, null);
+            h.assertTrue(drops.size() == 1 && drops.get(0).is(block.asItem()) && drops.get(0).getCount() == 1, "cut block drops itself: " + drops);
+            ItemStack item = drops.get(0);
+            var stored = item.get(DataComponents.BLOCK_STATE);
+            h.assertTrue(stored != null && "9".equals(stored.properties().get("slices")) && "north".equals(stored.properties().get("cut")),
+                    "item keeps slices and cut: " + stored);
+            h.setBlock(pos, Blocks.AIR);
+            ServerPlayer p = player(h, pos.below());
+            p.setItemInHand(InteractionHand.MAIN_HAND, item);
+            BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs).relative(Direction.DOWN, 0.5), Direction.UP, abs.below(), false);
+            p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, hit);
+            BlockState placed = h.getLevel().getBlockState(abs);
+            h.assertTrue(placed.is(block) && placed.getValue(SliceBlock.SLICES) == 9 && placed.getValue(SliceBlock.CUT) == SliceBlock.Cut.NORTH,
+                    "placing restores the cut block: " + placed);
+            h.setBlock(pos, block);
+            drops = net.minecraft.world.level.block.Block.getDrops(h.getLevel().getBlockState(abs), h.getLevel(), abs, null);
+            h.assertTrue(drops.size() == 1 && ItemStack.isSameItemSameComponents(drops.get(0), new ItemStack(block)),
+                    "whole block drops a plain block item (stacks with new ones)");
+            p.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+            click(h, p, pos, Direction.UP);
+            h.assertTrue(h.getLevel().getBlockState(abs).getValue(SliceBlock.SLICES) == 16, "no slice without a knife");
+            h.setBlock(pos, Blocks.AIR);
+            h.setBlock(pos.below(), Blocks.AIR);
+        }
+        h.succeed();
+    }
+
+    /** Owner 2026-10-05: cheese is springy like a bed (same Vanilla properties as a bed). */
+    static void cheeseBouncesLikeBed(GameTestHelper h) {
+        near(h, ModBlocks.CHEESE_BLOCK.getBounceRestitution(), Blocks.BED.pick(net.minecraft.world.item.DyeColor.WHITE).getBounceRestitution(), "cheese bounce = bed bounce");
+        near(h, ModBlocks.CHEESE_BLOCK.getFallDistanceReduction(), Blocks.BED.pick(net.minecraft.world.item.DyeColor.WHITE).getFallDistanceReduction(), "cheese fall reduction = bed");
+        near(h, ModBlocks.BUTTER_BLOCK.getBounceRestitution(), 0.0, "butter does not bounce");
+        h.succeed();
+    }
+
+    static void cutSoundsRegistered(GameTestHelper h) {
+        for (String name : List.of("block.butter_block.cut", "block.cheese_block.cut")) {
+            h.assertTrue(BuiltInRegistries.SOUND_EVENT.containsKey(com.simplesandwiches.Sandwiches.id(name)), "sound registered: " + name);
+        }
+        h.assertTrue(com.simplesandwiches.registry.ModSounds.BUTTER_CUT != com.simplesandwiches.registry.ModSounds.CHEESE_CUT, "two own sounds");
         h.succeed();
     }
 

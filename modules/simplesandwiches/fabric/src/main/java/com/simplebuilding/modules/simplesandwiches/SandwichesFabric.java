@@ -17,6 +17,7 @@ public final class SandwichesFabric implements ModInitializer {
     public void onInitialize() {
         Sandwiches.init(FabricLoader.getInstance().getConfigDir());
         ModComponents.register();
+        com.simplesandwiches.registry.ModSounds.register();
         ModBlocks.register();
         ModItems.register();
         ModBlockEntities.register(FabricBlockEntityTypeBuilder.create(CuttingBoardBlockEntity::new, ModBlocks.boards()).build());

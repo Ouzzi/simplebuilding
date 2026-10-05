@@ -54,7 +54,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "title": "Cutting board",
         "summary": "Place bread, open with the knife, add toppings, then close and collect with an empty hand.",
         "details": [
-          "All wood variants face horizontally and require support below. Use a knife on the loaf to open it. Before adding ingredients, hold a knife and butter slice in opposite hands to butter the bread, consuming one slice.",
+          "All wood variants face horizontally and require support below. Use a knife on the loaf to cut it into two halves. Holding bread, a sandwich, an ingredient, butter or a knife, a click on the board always acts on the board instead of eating (sneak to bypass). Before adding ingredients, hold a knife and butter slice in opposite hands to butter the bread, consuming one slice.",
           "Add ingredients with the main hand; the knife retrieves the top ingredient. An empty main hand closes the sandwich; another use collects it. A knife reopens it. Finished sandwiches can be placed back onto empty boards; unopened bread can be retrieved with an empty hand.",
           "Opening, buttering, removing a topping and reopening each cost one knife durability. Feedback uses sounds and particles."
         ]
@@ -63,7 +63,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "title": "Schneidebrett",
         "summary": "Brot auflegen, mit dem Messer öffnen, belegen und mit leerer Hand schließen und entnehmen.",
         "details": [
-          "Alle Holzvarianten richten sich horizontal aus und benötigen einen tragenden Block darunter. Das Brot mit dem Messer öffnen. Vor dem Belegen Messer und Butterscheibe in entgegengesetzten Händen halten, um das Brot unter Verbrauch einer Scheibe zu bestreichen.",
+          "Alle Holzvarianten richten sich horizontal aus und benötigen einen tragenden Block darunter. Das Brot mit dem Messer in zwei Hälften schneiden. Mit Brot, Sandwich, Zutat, Butter oder Messer in der Hand wirkt ein Klick aufs Brett immer aufs Brett statt zu essen (Schleichen umgeht das). Vor dem Belegen Messer und Butterscheibe in entgegengesetzten Händen halten, um das Brot unter Verbrauch einer Scheibe zu bestreichen.",
           "Zutaten mit der Haupthand auflegen; das Messer nimmt die oberste Zutat zurück. Eine leere Haupthand schließt das Sandwich; eine weitere Benutzung entnimmt es. Das Messer öffnet es wieder. Fertige Sandwiches lassen sich auf leere Bretter zurücklegen; ungeöffnetes Brot mit leerer Hand zurücknehmen.",
           "Öffnen, Bestreichen, Entfernen einer Zutat und erneutes Öffnen kosten jeweils einen Haltbarkeitspunkt. Rückmeldung erfolgt durch Sounds und Partikel."
         ]
@@ -107,7 +107,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "details": [
           "Fill an empty cauldron with a milk bucket. Milk becomes butter after four stages: 3,000 ticks by default (2.5 minutes at 20 ticks per second), butterTicks 200–24,000. Butter never spoils. An empty bucket recovers milk before it becomes butter or starts curdling.",
           "Add one fermented spider eye to milk to start cheese ripening: 9,000 ticks by default (7.5 minutes), cheeseTicks 600–72,000. Harvest butter or cheese with an empty main hand. Cheese spoils after another 1,800 ticks by default (1.5 minutes), cheeseHarvestWindowTicks 200–12,000. An empty hand or bucket empties spoiled milk without a reward. Ripening uses scheduled block ticks, with configured ripening times divided into four whole-tick intervals.",
-          "Cheese and butter blocks contain 16 slices. A knife cuts one slice from the top or a side for one durability; the first cut fixes the direction until full again. A matching slice restores one layer. Butter block friction is 0.9.",
+          "Cheese and butter blocks contain 16 slices. A knife cuts one slice from the top or a side for one durability; the first cut fixes the direction until full again. A matching slice restores one layer. Slices only come off with a knife; breaking a cut block keeps its state in the dropped block item, and placing it restores the cut block. Cheese is springy like a bed (bounce 0.75, half fall distance). Butter block friction is 0.9.",
           "Cheese slices restore 2 hunger and 1.2 saturation. Butter slices are not edible; use with a knife to butter opened bread before toppings."
         ]
       },
@@ -117,7 +117,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "details": [
           "Einen leeren Kessel mit einem Milcheimer füllen. Milch wird nach vier Stufen zu Butter: standardmäßig 3.000 Ticks (2,5 Minuten bei 20 Ticks pro Sekunde), butterTicks 200–24.000. Butter verdirbt nie. Ein leerer Eimer holt Milch zurück, bevor sie Butter wird oder zu gerinnen beginnt.",
           "Ein fermentiertes Spinnenauge zur Milch geben, um Käse zu erzeugen: standardmäßig 9.000 Ticks (7,5 Minuten), cheeseTicks 600–72.000. Butter oder Käse mit leerer Haupthand ernten. Käse verdirbt standardmäßig nach weiteren 1.800 Ticks (1,5 Minuten), cheeseHarvestWindowTicks 200–12.000. Eine leere Hand oder ein Eimer leert verdorbene Milch ohne Ertrag. Reifung nutzt geplante Blockticks; eingestellte Reifezeiten werden in vier ganzzahlige Tickintervalle geteilt.",
-          "Käse- und Butterblöcke enthalten 16 Scheiben. Das Messer schneidet von oben oder seitlich eine Scheibe für einen Haltbarkeitspunkt ab; der erste Schnitt legt die Richtung fest, bis der Block wieder voll ist. Eine passende Scheibe ergänzt eine Schicht. Butterblock-Reibung: 0,9.",
+          "Käse- und Butterblöcke enthalten 16 Scheiben. Das Messer schneidet von oben oder seitlich eine Scheibe für einen Haltbarkeitspunkt ab; der erste Schnitt legt die Richtung fest, bis der Block wieder voll ist. Eine passende Scheibe ergänzt eine Schicht. Scheiben gibt es nur mit dem Messer; ein angeschnittener Block behält beim Abbauen seinen Zustand im Block-Item und stellt ihn beim Platzieren wieder her. Käse federt wie ein Bett (Abprall 0,75, halbe Fallhöhe). Butterblock-Reibung: 0,9.",
           "Käsescheiben geben 2 Hunger und 1,2 Sättigung. Butterscheiben sind nicht essbar; mit dem Messer vor den Zutaten auf geöffnetes Brot streichen."
         ]
       },
@@ -799,21 +799,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "rolls": 1,
           "items": [
             "simplesandwiches:butter_block",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice",
-            "simplesandwiches:butter_slice"
+            "simplesandwiches:butter_block"
           ],
           "conditions": [],
           "functions": []
@@ -830,21 +816,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "rolls": 1,
           "items": [
             "simplesandwiches:cheese_block",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice",
-            "simplesandwiches:cheese_slice"
+            "simplesandwiches:cheese_block"
           ],
           "conditions": [],
           "functions": []

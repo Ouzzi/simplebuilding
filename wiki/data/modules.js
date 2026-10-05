@@ -248,7 +248,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "7551d5d82f7b"
+    "dataHash": "f2b4c2edcfdf"
   },
   {
     "id": "simplelib",
