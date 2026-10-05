@@ -745,7 +745,7 @@ window.WIKI_DATA = {
           "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
           "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
           "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
-          "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
+          "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll: iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, Enderite 0.5 % per end city chest on 26.3 (owner 2026-10-05; 26.2 remains at 0.175 %). The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) contains historical estimates based on assumed search rates, not measured playtime; its 2026-10-05 addendum updates Enderite."
         ]
       },
       "de": {
@@ -757,7 +757,7 @@ window.WIKI_DATA = {
           "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
           "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
           "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
-          "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
+          "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf: Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,5 % je Endsiedlungs-Truhe auf 26.3 (Besitzer 2026-10-05; 26.2 bleibt bei 0,175 %). Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) enthält historische Schätzungen aus angenommenen Suchraten, keine gemessene Spielzeit; der Nachtrag 2026-10-05 aktualisiert Enderit."
         ]
       }
     },
@@ -2567,7 +2567,7 @@ window.WIKI_DATA = {
           "Diamond Pebbles (nine make a Cracked Diamond, which smelts into a diamond) are the common filler: ancient city 2-5, buried treasure 2-6, dungeon 1-3, shipwreck treasure 1-4, abandoned mineshaft 1-3, common/rare trial chamber vault 2-4 and fishing treasure 1-3.",
           "Ruined portals roll 0 to 1 time from Netherite Nuggets 1-2 weight 3, Gold Chisel 3, Netherite Carrot 2, empty 12.",
           "Fishing: every treasure catch rolls the mod pool once more - Fast Chiseling I book 3, Constructor's Touch I book 2, Deep Pockets I book 2, Linear I book 2, 1-3 Diamond Pebbles 4, empty 20 - so roughly two treasure catches in five bring an extra mod item.",
-          "Building cores are rare in chests (owner 2026-09-28, \"age B\"); each sits in a pool of its own with one chance per chest: Iron Core 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, Gold Core 1.25 % per bastion chest (treasure room included) and 1.65 % per nether fortress chest, Diamond Core 1.05 % per ominous or rare vault, Netherite Core 6 % in the bastion treasure room only, Enderite Core 0.175 % per end city chest (the rarest, about 1 % per city). The Copper Core is in no chest (only the wandering trader sells it, rarely).",
+          "Building cores are rare in chests (owner 2026-09-28, \"age B\"); each sits in a pool of its own with one chance per chest: Iron Core 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, Gold Core 1.25 % per bastion chest (treasure room included) and 1.65 % per nether fortress chest, Diamond Core 1.05 % per ominous or rare vault, Netherite Core 6 % in the bastion treasure room only, Enderite Core 0.5 % per end city chest on 26.3 (26.2: 0.175 %). The Copper Core is in no chest (only the wandering trader sells it, rarely).",
           "Trades: no mod trade has a reputation discount above 0.2 (vanilla's value for books and enchanted tools), and every item a trader buys costs more emeralds to buy back than the trader pays, so buying and selling in a loop loses emeralds. The mason sells no cores (since 2026-09-28); the wandering trader sells copper, iron, gold and diamond cores rarely and dearly (24/32/48/64 emeralds), the Radius book for 40 emeralds and 3 Diamond Pebbles for 5 emeralds.",
           "The mod's loot is not written into the vanilla tables: each vanilla table the mod has loot for gets one pool that rolls the mod's table simplebuilding:inject/<vanilla path> (for example data/simplebuilding/loot_table/inject/chests/end_city_treasure.json). A datapack changes or empties the mod's loot for a chest by overriding that file. The building core pools carry the loot condition simplebuilding:core_chance, which multiplies the chance with the config factor buildingCoreLootChanceMultiplier when the chest is rolled."
         ]
@@ -2582,7 +2582,7 @@ window.WIKI_DATA = {
           "Diamantkiesel (neun ergeben einen rissigen Diamanten, der zu einem Diamanten geschmolzen wird) sind der häufige Füller: Antike Stadt 2–5, vergrabener Schatz 2–6, Verlies 1–3, Schiffswrack-Schatz 1–4, verlassene Mine 1–3, normaler/seltener Prüfungskammer-Tresor 2–4 und Angel-Schatz 1–3.",
           "Portalruinen würfeln 0 bis 1 Mal aus Netheritklumpen 1–2 Gewicht 3, Goldmeißel 3, Netheritkarotte 2, leer 12.",
           "Angeln: Jeder Schatzfang würfelt den Mod-Pool einmal zusätzlich – Buch Schnelles Meißeln I 3, Buch Berührung des Konstrukteurs I 2, Buch Tiefe Taschen I 2, Buch Linear I 2, 1–3 Diamantkiesel 4, leer 20 –, sodass etwa zwei von fünf Schatzfängen ein zusätzliches Mod-Item bringen.",
-          "Baukerne sind in Truhen selten (Besitzer 28.09.2026, „Zeitalter B“); jeder liegt in einem eigenen Pool mit genau einer Chance pro Kiste: Eisenkern 1,5 % je Waldanwesen-Kiste und 0,5 % je Kiste einer verlassenen Mine, Goldkern 1,25 % je Bastion-Kiste (Schatzraum eingeschlossen) und 1,65 % je Netherfestungs-Kiste, Diamantkern 1,05 % je unheilvollem oder seltenem Tresor, Netheritkern 6 % nur im Bastion-Schatzraum, Enderitkern 0,175 % je Endsiedlungs-Kiste (der seltenste, etwa 1 % pro Stadt). Der Kupferkern liegt in keiner Kiste (nur der fahrende Händler verkauft ihn, selten).",
+          "Baukerne sind in Truhen selten (Besitzer 28.09.2026, „Zeitalter B“); jeder liegt in einem eigenen Pool mit genau einer Chance pro Kiste: Eisenkern 1,5 % je Waldanwesen-Kiste und 0,5 % je Kiste einer verlassenen Mine, Goldkern 1,25 % je Bastion-Kiste (Schatzraum eingeschlossen) und 1,65 % je Netherfestungs-Kiste, Diamantkern 1,05 % je unheilvollem oder seltenem Tresor, Netheritkern 6 % nur im Bastion-Schatzraum, Enderitkern 0,5 % je Endsiedlungs-Kiste auf 26.3 (26.2: 0,175 %). Der Kupferkern liegt in keiner Kiste (nur der fahrende Händler verkauft ihn, selten).",
           "Handel: Kein Mod-Angebot hat einen Rabattfaktor über 0,2 (der Vanilla-Wert für Bücher und verzauberte Werkzeuge), und jedes Item, das ein Händler ankauft, kostet beim Rückkauf mehr Smaragde, als er zahlt – Kaufen und Verkaufen im Kreis verliert also Smaragde. Der Steinmetz verkauft keine Kerne (seit 2026-09-28); der fahrende Händler verkauft Kupfer-, Eisen-, Gold- und Diamantkerne selten und teuer (24/32/48/64 Smaragde), das Radius-Buch für 40 Smaragde und 3 Diamantkiesel für 5 Smaragde.",
           "Die Beute der Mod wird nicht in die Vanilla-Tabellen geschrieben: jede Vanilla-Tabelle, für die die Mod Beute hat, bekommt einen Pool, der die Tabelle simplebuilding:inject/<Vanilla-Pfad> der Mod würfelt (zum Beispiel data/simplebuilding/loot_table/inject/chests/end_city_treasure.json). Ein Datapack ändert oder leert die Mod-Beute einer Truhe, indem es diese Datei überschreibt. Die Kern-Pools tragen die Loot-Bedingung simplebuilding:core_chance, die die Chance beim Würfeln mit dem Config-Faktor buildingCoreLootChanceMultiplier multipliert."
         ]
@@ -3766,7 +3766,7 @@ window.WIKI_DATA = {
             "Sounds at the dot, audible to players nearby: a quiet hum about once a second while the beam hits anything, a clearly audible sizzle while ice, snow or a sponge heats up and a crackle while something is about to burn or ignite (also creatures), each at most every 8 ticks; the finishing sound of every effect stays.",
             "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
             "MC 26.3 recipe: \" NA\" / \"RC \" / \"I  \" (N = iron nugget, A = amethyst shard, R = redstone, C = Iron Core, I = Iron Rod). One nugget and one redstone; the fields right of and below the core are empty.",
-            "Charge defaults to 640, with 4 spent per started second of aiming and 5 per effect. Empty rods do not break. At an anvil, 16 amethyst shards fully recharge a rod without levels; creative players spend no charge.",
+            "Charge defaults to 640, with 4 spent per started second of aiming and 5 per effect. Empty rods do not break. At an anvil, 16 amethyst shards fully recharge a rod without levels; creative players spend no charge. On 26.3 the repair material tag simplebuilding:repairs_resonance_rod contains amethyst shards and controls both the repair component and anvil recharging.",
             "Constructor's Touch enables distance, target and height measurement in the common HUD panel. The server stores the last measurement on the item. The item id stays simplebuilding:amethyst_lens.",
             "Recipe on MC 26.2: IIR / ICA / IIR (I = iron ingot, R = redstone, C = Iron Core, A = amethyst shard), rotated clockwise from the earlier recipe."
           ]
@@ -3780,7 +3780,7 @@ window.WIKI_DATA = {
             "Lebewesen: Spieler und Mobs fangen Feuer (4 s), wenn der Strahl auf ihnen ruht, brauchen dafür aber doppelt so lange wie ein brennbarer Block im selben Abstand (aus der Nähe 6 s). Nicht: feuerfeste oder unverwundbare Wesen, Wesen im Wasser oder Regen, Spieler im Kreativ- oder Zuschauermodus, andere Spieler nur, wo PvP erlaubt ist (Spielregel pvp, Server-Einstellung, Team-Freundfeuer). Gesucht wird bis 64 Blöcke entlang des Strahls.",
             "Klänge am Punkt, für Spieler in der Nähe hörbar: ein leises Summen etwa einmal pro Sekunde, solange der Strahl etwas trifft, ein deutliches Zischen, während Eis, Schnee oder ein Schwamm heiß wird, und ein Knistern, während etwas gleich brennt oder zündet (auch Lebewesen), jeweils höchstens alle 8 Ticks; der Abschlussklang jeder Wirkung bleibt.",
             "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
-            "Standardladung 640: Zielen verbraucht 4 je angefangener Sekunde, eine Wirkung weitere 5. Leer zerbricht der Stab nicht. Am Amboss laden 16 Amethystscherben ihn ohne Levelkosten ganz auf; Kreativspieler verbrauchen keine Ladung.",
+            "Standardladung 640: Zielen verbraucht 4 je angefangener Sekunde, eine Wirkung weitere 5. Leer zerbricht der Stab nicht. Am Amboss laden 16 Amethystscherben ihn ohne Levelkosten ganz auf; Kreativspieler verbrauchen keine Ladung. Auf 26.3 enthält der Reparaturmaterial-Tag simplebuilding:repairs_resonance_rod Amethystscherben und steuert sowohl die Reparaturkomponente als auch das Aufladen am Amboss.",
             "Berührung des Konstrukteurs zeigt Entfernung, Ziel und Höhe im gemeinsamen Anzeigefeld. Der Server speichert die letzte Messung am Item. Die Item-ID bleibt simplebuilding:amethyst_lens.",
             "Rezept auf MC 26.3: „ NA“ / „RC “ / „I  “ (N = Eisennugget, A = Amethystscherbe, R = Redstone, C = Eisenkern, I = Eisenstab). Je ein Nugget und Redstone; rechts und unter dem Kern bleibt es frei. MC 26.2 bleibt IIR / ICA / IIR (I = Eisenbarren)."
           ]
@@ -5552,7 +5552,7 @@ window.WIKI_DATA = {
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
             "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
             "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
-            "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
+            "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll: iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, Enderite 0.5 % per end city chest on 26.3 (owner 2026-10-05; 26.2 remains at 0.175 %). The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) contains historical estimates based on assumed search rates, not measured playtime; its 2026-10-05 addendum updates Enderite."
           ]
         },
         "de": {
@@ -5563,7 +5563,7 @@ window.WIKI_DATA = {
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
             "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
-            "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
+            "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf: Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,5 % je Endsiedlungs-Truhe auf 26.3 (Besitzer 2026-10-05; 26.2 bleibt bei 0,175 %). Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) enthält historische Schätzungen aus angenommenen Suchraten, keine gemessene Spielzeit; der Nachtrag 2026-10-05 aktualisiert Enderit."
           ]
         },
         "sources": [
@@ -6731,7 +6731,7 @@ window.WIKI_DATA = {
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
             "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
             "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
-            "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
+            "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll: iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, Enderite 0.5 % per end city chest on 26.3 (owner 2026-10-05; 26.2 remains at 0.175 %). The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) contains historical estimates based on assumed search rates, not measured playtime; its 2026-10-05 addendum updates Enderite."
           ]
         },
         "de": {
@@ -6742,7 +6742,7 @@ window.WIKI_DATA = {
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
             "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
-            "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
+            "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf: Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,5 % je Endsiedlungs-Truhe auf 26.3 (Besitzer 2026-10-05; 26.2 bleibt bei 0,175 %). Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) enthält historische Schätzungen aus angenommenen Suchraten, keine gemessene Spielzeit; der Nachtrag 2026-10-05 aktualisiert Enderit."
           ]
         },
         "sources": [
@@ -8493,7 +8493,7 @@ window.WIKI_DATA = {
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
             "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
             "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
-            "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
+            "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll: iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, Enderite 0.5 % per end city chest on 26.3 (owner 2026-10-05; 26.2 remains at 0.175 %). The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) contains historical estimates based on assumed search rates, not measured playtime; its 2026-10-05 addendum updates Enderite."
           ]
         },
         "de": {
@@ -8504,7 +8504,7 @@ window.WIKI_DATA = {
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
             "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
-            "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
+            "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf: Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,5 % je Endsiedlungs-Truhe auf 26.3 (Besitzer 2026-10-05; 26.2 bleibt bei 0,175 %). Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) enthält historische Schätzungen aus angenommenen Suchraten, keine gemessene Spielzeit; der Nachtrag 2026-10-05 aktualisiert Enderit."
           ]
         },
         "sources": [
@@ -9764,6 +9764,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A piece of a fire charge: one fire charge gives 4 Fire Chips, 4 chips in a 2x2 give the fire charge back.",
           "details": [
+            "Sneak + right-click to place a Fire Charge, then right-click it with any sledgehammer to get 4 Fire Chips. In a mixed pile, only the most recently placed Fire Charge is consumed; other parts stay. Works on floors, walls, and ceilings. Each strike costs 1 durability in Survival and has a 0.5-second cooldown. Crafting recipes remain available.",
             "Right-click on a lying small-parts pile with unlit candles lights them like a fire charge and uses up one chip.",
             "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
           ]
@@ -9771,6 +9772,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ein Stück Feuerkugel: eine Feuerkugel ergibt 4 Feuerkugelsplitter, 4 Splitter im 2x2-Feld wieder die Feuerkugel.",
           "details": [
+            "Feuerkugel mit Schleichen + Rechtsklick ablegen, dann mit einem beliebigen Vorschlaghammer rechtsklicken: 4 Feuerkugelsplitter. Im gemischten Haufen wird nur die zuletzt abgelegte Feuerkugel verbraucht; andere Teile bleiben. Funktioniert auf Boden, Wand und Decke. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
             "Rechtsklick auf einen liegenden Kleinteil-Haufen mit erloschenen Kerzen zündet sie wie eine Feuerkugel an und verbraucht einen Splitter.",
             "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
           ]
@@ -9780,7 +9782,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -10359,7 +10362,7 @@ window.WIKI_DATA = {
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
             "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
             "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
-            "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
+            "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll: iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, Enderite 0.5 % per end city chest on 26.3 (owner 2026-10-05; 26.2 remains at 0.175 %). The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) contains historical estimates based on assumed search rates, not measured playtime; its 2026-10-05 addendum updates Enderite."
           ]
         },
         "de": {
@@ -10370,7 +10373,7 @@ window.WIKI_DATA = {
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
             "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
-            "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
+            "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf: Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,5 % je Endsiedlungs-Truhe auf 26.3 (Besitzer 2026-10-05; 26.2 bleibt bei 0,175 %). Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) enthält historische Schätzungen aus angenommenen Suchraten, keine gemessene Spielzeit; der Nachtrag 2026-10-05 aktualisiert Enderit."
           ]
         },
         "sources": [
@@ -10912,6 +10915,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A splinter of ice: one ice gives 4 Ice Chips, one packed ice 9; 4 chips in a 2x2 give one ice back.",
           "details": [
+            "Right-click an Ice block with any sledgehammer to get 4 Ice Chips, or Packed Ice to get 9. The block is consumed. Each strike costs 1 durability in Survival and has a 0.5-second cooldown. Crafting recipes remain available.",
             "Right-click on a lying small-parts pile with burning candles puts them out and uses up one chip.",
             "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
           ]
@@ -10919,6 +10923,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ein Splitter Eis: ein Eis ergibt 4 Eissplitter, ein Packeis 9; 4 Splitter im 2x2-Feld wieder ein Eis.",
           "details": [
+            "Mit einem beliebigen Vorschlaghammer auf einen Eisblock rechtsklicken: 4 Eissplitter; auf Packeis: 9 Eissplitter. Der Block wird verbraucht. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
             "Rechtsklick auf einen liegenden Kleinteil-Haufen mit brennenden Kerzen löscht sie und verbraucht einen Splitter.",
             "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
           ]
@@ -10928,7 +10933,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -11435,7 +11441,7 @@ window.WIKI_DATA = {
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
             "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
             "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
-            "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
+            "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll: iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, Enderite 0.5 % per end city chest on 26.3 (owner 2026-10-05; 26.2 remains at 0.175 %). The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) contains historical estimates based on assumed search rates, not measured playtime; its 2026-10-05 addendum updates Enderite."
           ]
         },
         "de": {
@@ -11446,7 +11452,7 @@ window.WIKI_DATA = {
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
             "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
-            "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
+            "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf: Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,5 % je Endsiedlungs-Truhe auf 26.3 (Besitzer 2026-10-05; 26.2 bleibt bei 0,175 %). Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) enthält historische Schätzungen aus angenommenen Suchraten, keine gemessene Spielzeit; der Nachtrag 2026-10-05 aktualisiert Enderit."
           ]
         },
         "sources": [
@@ -13616,7 +13622,7 @@ window.WIKI_DATA = {
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
             "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
             "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
-            "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
+            "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll: iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, Enderite 0.5 % per end city chest on 26.3 (owner 2026-10-05; 26.2 remains at 0.175 %). The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) contains historical estimates based on assumed search rates, not measured playtime; its 2026-10-05 addendum updates Enderite."
           ]
         },
         "de": {
@@ -13627,7 +13633,7 @@ window.WIKI_DATA = {
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
             "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
-            "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
+            "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf: Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,5 % je Endsiedlungs-Truhe auf 26.3 (Besitzer 2026-10-05; 26.2 bleibt bei 0,175 %). Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) enthält historische Schätzungen aus angenommenen Suchraten, keine gemessene Spielzeit; der Nachtrag 2026-10-05 aktualisiert Enderit."
           ]
         },
         "sources": [
@@ -15104,12 +15110,14 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A shard of volcanic glass: one obsidian gives 9 Obsidian Chips, 9 chips in the crafting grid give the obsidian back.",
           "details": [
+            "Right-click an Obsidian block with any sledgehammer to get 9 Obsidian Chips. The block is consumed. Each strike costs 1 durability in Survival and has a 0.5-second cooldown. Crafting recipes remain available.",
             "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
           ]
         },
         "de": {
           "summary": "Ein Splitter Vulkanglas: ein Obsidian ergibt 9 Obsidiansplitter, 9 Splitter im Handwerksfeld wieder den Obsidian.",
           "details": [
+            "Mit einem beliebigen Vorschlaghammer auf einen Obsidianblock rechtsklicken: 9 Obsidiansplitter. Der Block wird verbraucht. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
             "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
           ]
         },
@@ -15117,7 +15125,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -66101,6 +66110,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "minecraft:fire_charge",
+          "required": true
+        },
+        {
           "id": "simplebuilding:stone_pebble",
           "required": true
         },
@@ -66295,6 +66308,17 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/range_enchantable.json"
+    },
+    {
+      "id": "simplebuilding:item/repairs_resonance_rod",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:amethyst_shard",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/repairs_resonance_rod.json"
     },
     {
       "id": "simplebuilding:item/sledgehammer_tools",
@@ -66820,8 +66844,8 @@ window.WIKI_DATA = {
     },
     {
       "range": [
-        0,
-        null
+        0.0,
+        10.0
       ],
       "side": "server",
       "reload": "no",
@@ -66838,13 +66862,13 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Building Wand Hunger Multiplier",
       "labelDe": "Hunger-Faktor des Baustabs",
-      "tooltip": "Multiplies the food exhaustion of every block\npast the free allowance (see Building Wand\nHunger Cost). 0.5 = half as hungry, 2 = twice\nas hungry, 0 = building is free. The free\nallowance itself stays. Server-side. Default:\n1.0.",
-      "tooltipDe": "Multipliziert die Erschöpfung jedes Blocks\nüber dem Freibetrag (siehe Hungerkosten des\nBaustabs). 0,5 = halb so hungrig, 2 = doppelt\nso hungrig, 0 = Bauen kostet nichts. Der\nFreibetrag bleibt. Serverseitig. Standard:\n1,0."
+      "tooltip": "Server-side. On 26.3: 0 to 10.\nMultiplies the food exhaustion of every block\npast the free allowance (see Building Wand\nHunger Cost). 0.5 = half as hungry, 2 = twice\nas hungry, 0 = building is free. The free\nallowance itself stays. Server-side. Default:\n1.0.",
+      "tooltipDe": "Serverseitig. Auf 26.3: 0 bis 10.\nMultipliziert die Erschöpfung jedes Blocks\nüber dem Freibetrag (siehe Hungerkosten des\nBaustabs). 0,5 = halb so hungrig, 2 = doppelt\nso hungrig, 0 = Bauen kostet nichts. Der\nFreibetrag bleibt. Serverseitig. Standard:\n1,0."
     },
     {
       "range": [
-        0,
-        null
+        0.0,
+        4.0
       ],
       "side": "server",
       "reload": "no",
@@ -66861,13 +66885,13 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Attractor Range Multiplier",
       "labelDe": "Reichweiten-Faktor des Attraktors",
-      "tooltip": "Multiplies how far the Attractor pulls items\n(3 blocks, +1.5 per Range level, at most 7.5;\nnever beyond 12 after this factor). 2 = twice\nas far, 0 = the Attractor pulls nothing.\nServer-side. Default: 1.0.",
-      "tooltipDe": "Faktor darauf, wie weit der Attractor Items\nzieht (3 Blöcke, +1,5 je Stufe Reichweite,\nhöchstens 7,5; nach diesem Faktor nie über\n12). 2 = doppelt so weit, 0 = der Attractor\nzieht nichts. Serverseitig. Standard: 1.0."
+      "tooltip": "Server-side. On 26.3: 0 to 4.\nMultiplies how far the Attractor pulls items\n(3 blocks, +1.5 per Range level, at most 7.5;\nnever beyond 12 after this factor). 2 = twice\nas far, 0 = the Attractor pulls nothing.\nServer-side. Default: 1.0.",
+      "tooltipDe": "Serverseitig. Auf 26.3: 0 bis 4.\nFaktor darauf, wie weit der Attractor Items\nzieht (3 Blöcke, +1,5 je Stufe Reichweite,\nhöchstens 7,5; nach diesem Faktor nie über\n12). 2 = doppelt so weit, 0 = der Attractor\nzieht nichts. Serverseitig. Standard: 1.0."
     },
     {
       "range": [
         0.0,
-        null
+        4096.0
       ],
       "side": "server",
       "reload": "no",
@@ -66884,8 +66908,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Rotator Charge per Turn",
       "labelDe": "Rotator-Ladung je Drehung",
-      "tooltip": "Charge one turn of the Rotator uses up (a\nfull Rotator holds 1024, 16 Ender Pearls\nrefill it). 0 = turning is free, 2 = half as\nmany turns per charge. Unbreaking still\napplies. Server-side. Default: 1.",
-      "tooltipDe": "Ladung, die eine Drehung des Rotators\nverbraucht (voll sind 1024, 16 Enderperlen\nladen auf). 0 = Drehen kostet nichts, 2 =\nhalb so viele Drehungen je Ladung.\nHaltbarkeit wirkt weiter. Serverseitig.\nStandard: 1."
+      "tooltip": "Server-side. On 26.3: 0 to 4096.\nCharge one turn of the Rotator uses up (a\nfull Rotator holds 1024, 16 Ender Pearls\nrefill it). 0 = turning is free, 2 = half as\nmany turns per charge. Unbreaking still\napplies. Server-side. Default: 1.",
+      "tooltipDe": "Serverseitig. Auf 26.3: 0 bis 4096.\nLadung, die eine Drehung des Rotators\nverbraucht (voll sind 1024, 16 Enderperlen\nladen auf). 0 = Drehen kostet nichts, 2 =\nhalb so viele Drehungen je Ladung.\nHaltbarkeit wirkt weiter. Serverseitig.\nStandard: 1."
     },
     {
       "range": null,
@@ -67563,7 +67587,7 @@ window.WIKI_DATA = {
     {
       "range": [
         0.0,
-        null
+        2560.0
       ],
       "side": "server",
       "reload": "no",
@@ -67580,13 +67604,13 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab",
       "label": "Charge per Second of Beaming",
       "labelDe": "Ladung je Sekunde Strahlen",
-      "tooltip": "Charge the rod uses up for every started\nsecond of beaming (a full rod holds 640, one\namethyst shard recharges 40). 0 = beaming is\nfree. Default: 4.",
-      "tooltipDe": "Ladung, die der Stab je angefangener Sekunde\nStrahlen verbraucht (voll sind 640, eine\nAmethystscherbe lädt 40 auf). 0 = Strahlen\nkostet nichts. Standard: 4."
+      "tooltip": "Server-side. On 26.3: 0 to 2560.\nCharge the rod uses up for every started\nsecond of beaming (a full rod holds 640, one\namethyst shard recharges 40). 0 = beaming is\nfree. Default: 4.",
+      "tooltipDe": "Serverseitig. Auf 26.3: 0 bis 2560.\nLadung, die der Stab je angefangener Sekunde\nStrahlen verbraucht (voll sind 640, eine\nAmethystscherbe lädt 40 auf). 0 = Strahlen\nkostet nichts. Standard: 4."
     },
     {
       "range": [
         0.0,
-        null
+        2560.0
       ],
       "side": "server",
       "reload": "no",
@@ -67603,8 +67627,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab",
       "label": "Charge per Effect",
       "labelDe": "Ladung je Wirkung",
-      "tooltip": "Charge used up each time the beam melts,\nlights, dries or ignites something. 0 =\neffects are free. Default: 5.",
-      "tooltipDe": "Ladung, die jedes Schmelzen, Anzünden oder\nTrocknen durch den Strahl verbraucht. 0 =\nWirkungen kosten nichts. Standard: 5."
+      "tooltip": "Server-side. On 26.3: 0 to 2560.\nCharge used up each time the beam melts,\nlights, dries or ignites something. 0 =\neffects are free. Default: 5.",
+      "tooltipDe": "Serverseitig. Auf 26.3: 0 bis 2560.\nLadung, die jedes Schmelzen, Anzünden oder\nTrocknen durch den Strahl verbraucht. 0 =\nWirkungen kosten nichts. Standard: 5."
     },
     {
       "range": [
@@ -68255,8 +68279,8 @@ window.WIKI_DATA = {
     },
     {
       "range": [
-        0,
-        null
+        0.0,
+        1000.0
       ],
       "side": "server",
       "reload": "yes",
@@ -68273,8 +68297,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Building Core Loot Chance Multiplier",
       "labelDe": "Baukern-Beutechancen-Faktor",
-      "tooltip": "Multiplies the (very small) chance of\nbuilding cores in loot chests, at most one\nper chest. 0 = no cores in chests. Applies on\nworld start or /reload. Default: 1.0.",
-      "tooltipDe": "Multipliziert die (sehr kleine) Chance auf\nBaukerne in Beutetruhen, höchstens einer je\nTruhe. 0 = keine Kerne in Truhen. Gilt beim\nWeltstart oder /reload. Standard: 1,0."
+      "tooltip": "Server-side. On 26.3: 0 to 1000.\nMultiplies the (very small) chance of\nbuilding cores in loot chests, at most one\nper chest. 0 = no cores in chests. Applies on\nworld start or /reload. Default: 1.0.",
+      "tooltipDe": "Serverseitig. Auf 26.3: 0 bis 1000.\nMultipliziert die (sehr kleine) Chance auf\nBaukerne in Beutetruhen, höchstens einer je\nTruhe. 0 = keine Kerne in Truhen. Gilt beim\nWeltstart oder /reload. Standard: 1,0."
     },
     {
       "range": null,
@@ -86042,8 +86066,8 @@ window.WIKI_DATA = {
           "en": "End city",
           "de": "Endsiedlung"
         },
-        "chance": 0.18,
-        "perChest": 0.0018,
+        "chance": 0.5,
+        "perChest": 0.005,
         "count": [
           1,
           1
@@ -86053,15 +86077,15 @@ window.WIKI_DATA = {
         "rolls": {
           "type": "binomial",
           "n": 1,
-          "p": 0.00175
+          "p": 0.005
         },
         "pool": 1,
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "expectedAttempts": {
-          "first": 571.4285714285619,
-          "sixth": 3428.571428571371
+          "first": 199.99999999999983,
+          "sixth": 1199.9999999999989
         }
       },
       {
@@ -95109,7 +95133,7 @@ window.WIKI_DATA = {
     "lootTables": 206,
     "trades": 20,
     "enchantments": 19,
-    "tags": 47,
+    "tags": 48,
     "config": 213,
     "inWorld": 463,
     "advancements": 127,

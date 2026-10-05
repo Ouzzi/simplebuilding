@@ -238,6 +238,8 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
     protected net.minecraft.world.InteractionResult useItemOn(ItemStack stack, BlockState state, net.minecraft.world.level.Level level,
                                                               BlockPos pos, net.minecraft.world.entity.player.Player player,
                                                               net.minecraft.world.InteractionHand hand, net.minecraft.world.phys.BlockHitResult hit) {
+        var chips = com.simplebuilding.util.SledgehammerChips.tryCrush(new net.minecraft.world.item.context.UseOnContext(player, hand, hit));
+        if (chips.consumesAction()) return chips;
         if (com.simplebuilding.util.ShulkerShells.upgrade(level, pos, player, stack)) {
             return net.minecraft.world.InteractionResult.SUCCESS;
         }

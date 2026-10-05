@@ -153,7 +153,8 @@ def _entry(expr: str, constants: dict, prefix_ids: dict) -> dict | None:
     return None
 
 
-def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str) -> tuple[list[dict], list[str]]:
+def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
+                   version_flags: dict[str, bool] | None = None) -> tuple[list[dict], list[str]]:
     """The mod's loot pools as sources: one per (table, pool entry); problems for anything unparsed."""
     problems: list[str] = []
     raw = path.read_text(encoding="utf-8")
@@ -223,7 +224,13 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str) 
             if call.group(0).startswith("rareCore"):
                 parts = [a.strip() for a in args.split(",")]
                 owner, const = parts[1].split(".")
-                pools.append({"rolls": {"type": "binomial", "n": 1, "p": _number(parts[2], constants)},
+                chance = parts[2]
+                choice = re.fullmatch(r"McVersion\.(\w+)\s*\?\s*(\w+)\s*:\s*(\w+)", chance)
+                if choice:
+                    # Direct callers default to the main line; generation supplies the actual flags.
+                    enabled = True if version_flags is None else version_flags[choice[1]]
+                    chance = choice[2] if enabled else choice[3]
+                pools.append({"rolls": {"type": "binomial", "n": 1, "p": _number(chance, constants)},
                               "entries": [{"item": item_id(owner, const), "weight": 1, "count": [1, 1]}]})
                 continue
             # headPool(registry, EntityTypes.SPIDER, TweaksItems.SPIDER_HEAD): one mob head per victim (charged creeper)

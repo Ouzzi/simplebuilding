@@ -2055,6 +2055,15 @@ public final class TweaksTests {
      * Stapels wird verbraucht. Redstone laedt nicht mehr.
      */
     public static void anvilRechargeWithAmethystShardsCostsNoLevels(GameTestHelper helper) {
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            ItemStack rod = new ItemStack(TweaksItems.LASER_POINTER);
+            helper.assertTrue(new ItemStack(Items.AMETHYST_SHARD).is(com.simplebuilding.util.ModTags.Items.REPAIRS_RESONANCE_ROD),
+                    "amethyst shards are missing from the resonance rod repair tag");
+            helper.assertTrue(rod.isValidRepairItem(new ItemStack(Items.AMETHYST_SHARD)), "rod repair component rejects amethyst");
+            helper.assertTrue(!rod.isValidRepairItem(new ItemStack(Items.REDSTONE)), "rod repair component still accepts redstone");
+            helper.assertTrue(new ItemStack(ModItems.ROTATOR).is(com.simplebuilding.util.ModTags.Items.XP_REPAIR_INCOMPATIBLE),
+                    "rotator must remain incompatible with Mending");
+        }
         ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
         player.experienceLevel = 0;
 

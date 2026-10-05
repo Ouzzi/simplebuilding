@@ -210,9 +210,9 @@ TEMPLATES = {
 
 
 def template_item(variant):
-    if variant == 'D':
-        from horseshoe_template_2026_10_02 import render
-        return render()
+    if variant == 'D':   # Basic-Upgrade plate with the owner's round-5 motif (horseshoe_template_motif_round5_*)
+        from horseshoe_template_motif_round5_2026_10_05 import INSTALLED, texture
+        return texture(INSTALLED)
     slab, accent = TEMPLATES[variant]
     sp, ap = [_hex(c) for c in slab], [_hex(c) for c in accent]
     img = shade_mask(SLAB, slab)

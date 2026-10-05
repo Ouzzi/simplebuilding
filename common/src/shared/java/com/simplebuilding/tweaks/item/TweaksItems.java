@@ -40,7 +40,7 @@ public final class TweaksItems {
     public static final Item SPAWN_ELYTRA = register("spawn_elytra",
             p -> new SpawnElytraItem(p.stacksTo(1).fireResistant()));
     public static final Item LASER_POINTER = register("amethyst_lens",
-            // "Amethystlinse"; die Haltbarkeit ist die Ladung (nie zerbrechend, Redstone im Amboss
+            // Resonanzstab: Die Haltbarkeit ist die Ladung (nie zerbrechend, Amethyst im Amboss
             // laedt auf, siehe LaserPointerItem). Rezept in ModRecipeProvider.
             p -> new LaserPointerItem(p.durability(LaserPointerItem.MAX_CHARGE)));
     public static final Item ECHO_COMPASS = register("echo_sounder",

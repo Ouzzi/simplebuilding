@@ -3,7 +3,7 @@
 Owner 2026-10-05: "Why did you use existing enchanted-book textures for Simple Riding? Please make new ones." The
 earlier version (contrast-boosted copies of the double_jump / range books) is replaced by new motifs in the style of
 the owner's books, drawn in texture_round6_2026_10_05.py (three variants each, INSTALL picks the built-in one):
-Leaping = horseshoe arch with nails on jump-boost green, Tailwind = wind strokes with a curl on pale wind teal.
+Leaping C = small horseshoe with takeoff strokes on jump-boost green, Tailwind = wind strokes with a curl on pale wind teal.
 """
 import argparse
 import os
@@ -37,15 +37,17 @@ def main():
             x = 20 + col * 300
             sheet.paste(sprite.resize((256, 256), Image.Resampling.NEAREST), (x, y),
                         sprite.getchannel('A').resize((256, 256), Image.Resampling.NEAREST))
-            mark = ' (eingebaut)' if variant == round6.INSTALL[name] else ''
+            mark = ' (eingebaut)' if variant == round6.INSTALL[name] else (' (vorher)' if variant == 'A' else '')
             draw.text((x, y + 262), f'{name} {variant}: {round6.RIDING_MOTIFS[name][variant][0]}{mark}', fill='white')
         installed = round6.riding_book(name, round6.INSTALL[name])
-        path = ASSETS / f'textures/item/enchanted_book_{name}.png'
-        if args.check:
-            with Image.open(path) as current:
-                assert current.size == (16, 16) and current.convert('RGBA').tobytes() == installed.tobytes(), path
-        else:
-            installed.save(path)
+        for path in (ASSETS / f'textures/item/enchanted_book_{name}.png',
+                     ROOT / f'wiki/assets/textures/simpleriding/item/enchanted_book_{name}.png'):
+            if args.check:
+                with Image.open(path) as current:
+                    assert current.size == (16, 16) and current.convert('RGBA').tobytes() == installed.tobytes(), path
+            else:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                installed.save(path)
     if not args.check:
         args.preview.parent.mkdir(parents=True, exist_ok=True)
         sheet.save(args.preview)

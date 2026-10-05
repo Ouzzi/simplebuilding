@@ -272,7 +272,7 @@ RIDING_STYLE = {
     'leaping': (0.30, 0.62, 1.0),   # jump-boost green
     'tailwind': (0.52, 0.5, 1.05),  # pale wind teal
 }
-INSTALL = {'leaping': 'A', 'tailwind': 'A'}
+INSTALL = {'leaping': 'C', 'tailwind': 'A'}
 
 
 def riding_book(name, variant):

@@ -139,6 +139,32 @@ Maschinen); `ConfigOptionTests` pinnt jedes Feld samt Reiter.
 
 ## Neue Option hinzufügen – Checkliste
 
+### Run-D-Abgleich am 2026-10-05
+
+Der ursprüngliche Umbau ist in `5a432d6d2` und der Tabelle „Neu im Umbau“ oben belegt.
+Der spätere Queue-Verweis auf **zwölf zusätzliche Ideen** enthält keine Aufzählung;
+ohne Originalquelle ist deren vollständige Umsetzung nicht nachgewiesen.
+Bereits vorhandene Run-D-Optionen werden nicht als zwölf neue Optionen ausgegeben.
+
+Auf 26.3 sind zusätzlich die bisher fehlenden Obergrenzen beim Laden und im tatsächlichen
+Zugriff abgesichert. Defaults und Optionspfade bleiben erhalten; alle sechs wirken serverseitig:
+
+| Pfad | Bereich | Standard |
+|---|---|---|
+| `tools.wandHungerMultiplier` | 0–10 | 1 |
+| `tools.magnetRangeMultiplier` | 0–4; absolut weiterhin höchstens 12 Blöcke | 1 |
+| `tools.rotatorChargePerTurn` | 0–4096 | 1 |
+| `worldGen.buildingCoreLootChanceMultiplier` | 0–1000; höchstens ein Kern je Kiste | 1 |
+| `tweaks.laserPointer.chargePerSecond` | 0–2560 | 4 |
+| `tweaks.laserPointer.effectCost` | 0–2560 | 5 |
+
+Nicht endliche Faktoren fallen auf 1 zurück; negative Werte werden 0. Die vorhandenen
+ConfigOptions-Metadaten und Tests prüfen die Serverseite. Die Wiki-Config-Tabelle liest die
+Grenzen aus den Validierungen; EN/DE-Tooltips nennen sie an beiden Sprachorten.
+Die bereits begrenzten Teleporter-, Pad-, Echolot-, Befehls- und XP-Optionen bleiben erhalten.
+
+### Checkliste
+
 0. Gameplay-Stellschraube für Server/Modpacks? Dann in `ServerTuningConfig` (Reiter `server`), lesen
    über `ServerTuning.get()`, Grenze in `validate()` und als Konstante in `ServerTuning`; der Client
    bekommt den Wert automatisch.

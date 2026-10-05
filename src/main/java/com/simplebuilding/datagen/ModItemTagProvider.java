@@ -38,6 +38,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            builder(ModTags.Items.REPAIRS_RESONANCE_ROD).add(key(Items.AMETHYST_SHARD));
+        }
         if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
             for (var chest : java.util.List.of(ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST)) {
                 builder(net.minecraft.tags.TagKey.<Item>create(net.minecraft.core.registries.Registries.ITEM,
@@ -329,7 +332,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 net.minecraft.world.item.Items.NETHERITE_INGOT, net.minecraft.world.item.Items.COPPER_NUGGET, net.minecraft.world.item.Items.IRON_NUGGET,
                 net.minecraft.world.item.Items.GOLD_NUGGET, net.minecraft.world.item.Items.DIAMOND, net.minecraft.world.item.Items.EMERALD,
                 net.minecraft.world.item.Items.LAPIS_LAZULI, net.minecraft.world.item.Items.AMETHYST_SHARD, net.minecraft.world.item.Items.QUARTZ,
-                net.minecraft.world.item.Items.PRISMARINE_SHARD, net.minecraft.world.item.Items.ECHO_SHARD,
+                net.minecraft.world.item.Items.PRISMARINE_SHARD, net.minecraft.world.item.Items.ECHO_SHARD, net.minecraft.world.item.Items.FIRE_CHARGE,
                 com.simplebuilding.items.ModItems.STONE_PEBBLE, com.simplebuilding.items.ModItems.FLINT_CHIP,
                 com.simplebuilding.items.ModItems.OBSIDIAN_CHIP, com.simplebuilding.items.ModItems.FIRE_CHIP,
                 com.simplebuilding.items.ModItems.ICE_CHIP,

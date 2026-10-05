@@ -231,6 +231,12 @@ public class SimplebuildingConfig implements ConfigData {
         return Double.isFinite(value) ? Math.max(0.0, value) : fallback;
     }
 
+    /** Run-D bounds on the main line; older lines retain their pre-port behavior. */
+    public static double bounded(double value, double min, double max, double fallback) {
+        return com.simplebuilding.tweaks.TweaksConfig.capped(value, min,
+                com.simplebuilding.version.McVersion.GADGET_REWORK ? max : Double.MAX_VALUE, fallback);
+    }
+
     public static class Tools {
         // --- Spielmechanik (Server) ---
 
@@ -288,10 +294,10 @@ public class SimplebuildingConfig implements ConfigData {
         public boolean placedPartParticles = true;
 
         void validate() {
-            wandHungerMultiplier = nonNegative(wandHungerMultiplier, 1.0);
+            wandHungerMultiplier = bounded(wandHungerMultiplier, 0, 10, 1.0);
             transformHintStrength = Math.max(0, Math.min(100, transformHintStrength));
-            magnetRangeMultiplier = nonNegative(magnetRangeMultiplier, 1.0);
-            rotatorChargePerTurn = Math.max(0, rotatorChargePerTurn);
+            magnetRangeMultiplier = bounded(magnetRangeMultiplier, 0, 4, 1.0);
+            rotatorChargePerTurn = (int) bounded(rotatorChargePerTurn, 0, 4096, 1);
         }
     }
 
@@ -311,7 +317,7 @@ public class SimplebuildingConfig implements ConfigData {
         public boolean enableWanderingTrades = true;
 
         void validate() {
-            buildingCoreLootChanceMultiplier = nonNegative(buildingCoreLootChanceMultiplier, 1.0);
+            buildingCoreLootChanceMultiplier = bounded(buildingCoreLootChanceMultiplier, 0, 1000, 1.0);
         }
     }
 }

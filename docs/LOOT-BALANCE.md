@@ -32,7 +32,7 @@ Gilt für beide MC-Linien (26.2 und 1.21.11) und alle Loader; Quelle ist
 | Tabelle | Würfe | Inhalt | Leer | Ø |
 |---|---|---|---|---|
 | Stronghold-Bibliothek | 0–2 | Reichweite II 4, Baumeister 3, Vielseitigkeit I 4 / II 2 | 12 | 0,52 |
-| End City | 15 % / 30 % / 1 / 0–3 | Schrott; Template; Roh-Enderit 4 (1–2), Enderit-Nugget 6 (2–5), Astralitstaub 6 (2–6), Nihilit-Splitter 6 (1–4) [leer 14]; Enderit-Kern 0,175 % (eigener Pool); Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, Brücke 4, Diamant-Baustab* 6, Diamant-Vorschlaghammer* 8, Enderit-Apfel 3, verz. Enderit-Apfel 1 | 40 | 1,88 |
+| End City | 15 % / 30 % / 1 / 0–3 | Schrott; Template; Roh-Enderit 4 (1–2), Enderit-Nugget 6 (2–5), Astralitstaub 6 (2–6), Nihilit-Splitter 6 (1–4) [leer 14]; Enderit-Kern auf 26.3 0,5 % (26.2: 0,175 %; eigener Pool); Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, Brücke 4, Diamant-Baustab* 6, Diamant-Vorschlaghammer* 8, Enderit-Apfel 3, verz. Enderit-Apfel 1 | 40 | 1,88 |
 | Ancient City | 0–2 | Tiefe Taschen II 5, Radius 4, Oktant* 2, Diamant-Vorschlaghammer 3, Köcher* 3, Netherit-Apfel 2, verz. Netherit-Apfel 1, Netherit-Nugget 4 (1–3), Diamantkiesel 6 (2–5) | 28 | 0,52 |
 | Bastion (alle Kisten) | 0–2 | Trichter I 5, Durchbruch I 5, Gold-Vorschlaghammer 6, Netherit-Nugget 12 (1–4), Netherit-Karotte 6 (1–2); Goldkern 1,25 % (eigener Pool) | 25 | 0,58 |
 | + nur Bastion-Schatz | 1 | Netherit-Apfel 4, verz. Netherit-Apfel 2, Durchbruch II 3; Netheritkern 6 % (eigener Pool) | 7 | +0,57 |
@@ -76,7 +76,7 @@ Jeder Kern liegt in einem eigenen Pool (`ModLootTableModifications#rareCore`: ei
 | Goldkern | Netherfestung | 1,65 % | ~4–6 % je Festung |
 | Diamantkern | Tresor unheilvoll und selten | 1,05 % | ~1 % je Tresor-Öffnung |
 | Netheritkern | nur Bastion-Schatzraum | 6 % (bis 2026-09-27 ~12 %, dann 4 %) | 6 % je Schatz-Bastion |
-| Enderit-Kern | Endsiedlung (End City) | 0,175 % (2026-09-27: 0,25 %) | ~1 % je Stadt (4–8 Kisten) |
+| Enderit-Kern | Endsiedlung (End City) | 26.3: 0,5 % (Besitzer 2026-10-05); 26.2: 0,175 % | ~2–4 % je Stadt mit 4–8 Kisten auf 26.3 |
 
 Vorher (Gewichte in den Mehrwurf-Pools): Eisenkern ~1,8 %, Goldkern ~1,7 % (Bastion) / ~2,5 %
 (Festung), Diamantkern ~1,8 %, Netheritkern ~12 % pro Kiste. Test:

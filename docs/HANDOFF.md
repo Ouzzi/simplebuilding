@@ -5,6 +5,19 @@ Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alte
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
 
+## Worker-Nachtrag 2026-10-05: Hängematten-Testcenter
+
+Branch `gpt-hammocktc`: 22 beschriftete, getrennte Beispiele rechts der Maschinen:
+gerade X/Z und 45 Grad jeweils 2/3/4 frei, sechs schräge Winkel, Zaun/Holz,
+fünf Doppelstabarten und Netheritstab auf Holz, alle 16 Farben. Kein Kupferstab,
+damit die Blitzstation funktioniert. Aufbau prüft intakte BE-Verknüpfungen;
+Szenariotest prüft Varianten, Anker, Farben, Schilder und Überschneidungen.
+Fabric/NeoForge **1932/1932, alles gruen**, je acht Testcenter-Tests grün.
+`check -q -PskipWiki` samt 26.2-/Forge-26.3-Compiles: **GRADLE_EXIT=0**;
+Wiki --all/--all --check grün, kein Inhaltsdiff. Kein Client/Push;
+Neubau in der Besitzerwelt und Sichtabnahme offen. Belege:
+`docs/ai/PLAN-HAENGEMATTEN-TESTCENTER-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-05: NeoForge-Modul-Gate
 
 Branch `gpt-neorun`: `loadedMods.add(simplelib)` verwarf die Gradle-Konvention;
@@ -590,3 +603,9 @@ Simple Dimensions auf codex-port-dimensions implementiert: drei Dimensionen, sec
 - Ausgabe gelesen: 889/889 alles gruen (2026-10-01T01-43-00Z-7974; Basis 801), weitere Forge-Module/Normalregressionen 326/326 (2026-10-01T01-48-47Z-7d7a). Finaler Cleanup auf drei Loadern 264/264 (2026-10-01T02-03-44Z-90ee), Forge-Wiederholung 88/88 (2026-10-01T02-11-47Z-315a); vier Serverkonfigurationen nach beiden Laeufen byteidentisch. Sounds mit Visuals 17/17 (2026-10-01T02-13-59Z-1192), normaler Forge-Entwicklungsstart mit Claims-Filter 4/4 (2026-10-01T02-15-19Z-efa1). Keine ausgelassenen Faelle in den vollstaendigen Katalogen. Insgesamt 1039 unterschiedliche Forge-Faelle belegt.
 - Testzentralen in isolierten Fabric-/NeoForge-Serverwelten neu gebaut, volle SimpleBuilding-Item-/Blockabdeckung 10/10 alles gruen (2026-10-01T02-16-20Z-36d6); Forge-Abdeckung im vollen Basislauf. Wiki --all generiert/geprueft, 45 Tooltests gruen, Handbuecher 0 Probleme. Default-check und -Pforge263=true check jeweils Exit 0; 26.2-Kompilierung erhalten. Elf Distributables auf API/Loader/native GUI-Klassen/EN-DE untersucht; zehn echte Forge-Startpfade nur mit Mod-JARs statt Entwicklungsordnern/losen APIs.
 - Pruefnachweis mit exakten Dateien/Run-IDs: docs/FORGE-FOLLOWUP-RESULTS.md. Serielle Clientbefehle: docs/FORGE-26.3.md. Offen beim Orchestrator: kompletter zusammengefuehrter Normal-/integration-263-Lauf und Clients. Nicht geprueft: GUI-Bedienung/Darstellung, echte Client-Pakete, Portal-Farben/Audio, Fremdmodpacks, Besitzerwelten, separater Produktionsinstaller-/normaler Dedicated-Server-Start. Forge nicht automatisch aktivieren.
+
+## CHIPS2 (2026-10-05, gpt-chips2)
+- Leaping C / Tailwind A über INSTALL und Riding-Wrapper, beide Wiki-PNGs; Vorschau `C:/Users/o_o/code/minecraft-mods/previews/riding-chips2-vorschau.png` (16x, alt/A neben neu/C).
+- Vorschlaghammer in der Welt: Eis 4, Packeis 9 Eissplitter; Obsidian 9 Obsidiansplitter; abgelegte Feuerkugel 4 Feuerkugelsplitter. Vorhandene Ablege-Konvention statt neuer ItemEntity-/Amboss-Mechanik. Ein Schlag, 1 Haltbarkeit, 10 Ticks Pause; Schutzregeln und Haufenreste bleiben erhalten. JEI/Wiki und EN/DE in beiden Bäumen.
+- Ausgabe gelesen: `alles gruen: 1986/1986 bestanden, 0 rot` (Run `2026-10-05T10-36-10Z-7dfc`: Fabric 973, NeoForge 973, Riding 40); alle sieben neuen Tests und Testzentralen-Aufbau/Abdeckung auf beiden Hauptloadern grün. Vollständiges `check -q` samt 26.2-Fabric/NeoForge- und 26.3-Forge-Compiles: `GATE_EXIT=0`. Datagen nur 26.3, Wiki --all/--all --check und Texturen grün.
+- Plan/Belege: `docs/ai/PLAN-CHIPS2-2026-10-02.md`. Nur Branch-Commit, kein Push, keine Clients. Besitzerwelt unverändert; Ingame-Sichtabnahme bleibt offen.
