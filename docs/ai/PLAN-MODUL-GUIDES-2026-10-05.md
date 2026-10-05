@@ -73,3 +73,14 @@ Installation nur, wenn `ftbquests` geladen ist (Loader prüft), kopiert nur fehl
 - FTB-Quests-Format ohne installierte FTB Quests nicht im Spiel prüfbar (Format von SB übernommen).
 - Kapitel ohne Gruppe: FTB legt es in die Standardgruppe (angenommen, nicht geprüft).
 - Recipe-Konflikte: alle Kombinationen Buch + X sind frei (Vanilla und SB geprüft).
+
+## Ergebnis (2026-10-05, Branch `claude-guides2`)
+- Umgesetzt wie geplant. Abweichungen: Rezepte/Itemmodelle der Module von `tools/guides/module_guides.py` geschrieben
+  (keine Modul-Datagen); der Generator pflegt auch die Wiki-Notiz `<ns>:guide_book` in `manual.json`; vier
+  Modul-`check_data.py` und vier Launch-Tests erlauben das Guide-Item; Riding/Money/Fun/Sandwiches zeigen das Buch
+  zuerst im eigenen Reiter, QoL/Models/Dimensions/Tweaks am Ende von „Werkzeuge & Hilfsmittel“.
+- Tests: Modul-Targets fabric/neoforge-263 aller zehn Module grün (586 Tests, nach Fix der Launch-Tests 178/178 im
+  Nachlauf), fabric-263 940/940, `gradlew check` grün (inkl. checkModuleData, checkModuleGuides), 26.2- und
+  Forge-26.3-Compile grün, Wiki `--all` + `--all --check` grün.
+- Nicht getestet: Client (Buchansicht, Seitenumbruch, `/simplevisuals guide`, `/simplesounds guide`), echte FTB-Quests-
+  Installation, Forge-/neoforge-263-Kerntargets und Forge-Modultests.
