@@ -29,7 +29,8 @@ import org.jetbrains.annotations.Nullable;
  * butter and the ingredients stacked flat on the left half; or the closed sandwich. Loader-neutral; registered per loader.
  */
 public class CuttingBoardRenderer implements BlockEntityRenderer<CuttingBoardBlockEntity, CuttingBoardRenderer.State> {
-    private static final float BOARD_TOP = 2.0F / 16.0F;
+    /** Items lie on the plate inside the 1 px rim. */
+    private static final float BOARD_TOP = 1.0F / 16.0F;
     private static final float LAYER = 0.035F;
     private static final float SCALE = 0.55F;
     /** Bread halves: each drawn at this scale, this far left/right of the board centre. */

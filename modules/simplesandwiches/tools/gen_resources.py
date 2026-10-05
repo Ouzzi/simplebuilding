@@ -102,8 +102,10 @@ def resources():
         asset(f"models/block/{name}", {
             "parent": "minecraft:block/block",
             "textures": {"top": f"{NS}:block/{name}", "side": f"{NS}:block/{name}_side", "particle": "#top"},
-            # Base plate plus a 1 px inset top plate: a visible stepped edge (owner 2026-10-05: less flat).
-            "elements": [cuboid([1, 0, 2, 15, 1, 14]), cuboid([2, 1, 3, 14, 2, 13])],
+            # Owner picture 2026-10-05: flat 1 px plate with a raised 1 px rim (frame) around it.
+            "elements": [cuboid([1, 0, 2, 15, 1, 14]),
+                         cuboid([1, 1, 2, 15, 2, 3]), cuboid([1, 1, 13, 15, 2, 14]),
+                         cuboid([1, 1, 3, 2, 2, 13]), cuboid([14, 1, 3, 15, 2, 13])],
         })
         item(name, f"block/{name}")
         data(f"recipe/{name}", {

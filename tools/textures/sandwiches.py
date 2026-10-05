@@ -1,4 +1,4 @@
-"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>]
+"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3]
 
 v2 (2026-10-05): sandwich/bread, bread half, knife, board and cake slice come from the v2 section with
 variants A/B/C (STYLE picks the built-in one); --old=<copy of the previous textures> writes the comparison
@@ -18,6 +18,7 @@ drawn here as small ASCII sprites (own shapes, not recolours).
 The vanilla textures dir is e.g. an unpacked client jar's assets/minecraft/textures. --check only
 compares and exits 1 when a file would change."""
 import io
+import math
 import os
 import random
 import sys
@@ -297,7 +298,7 @@ def cauldron_textures():
 # Each group has variants A/B/C; STYLE picks the built-in one (the owner may switch a letter and rerun).
 # Screenshots of other mods were inspiration only (rounded golden bread, visible filling edge, clear
 # shading); every sprite here is drawn from scratch with vanilla palettes.
-STYLE = {'sandwich': 'A', 'bread_half': 'A', 'knife': 'A', 'board': 'A', 'cake': 'A'}
+STYLE = {'sandwich': 'D', 'bread_half': 'C2', 'knife': 'S', 'board': 'R', 'cake': 'A'}  # v3 choice (2026-10-05)
 
 # vanilla bread ramp (item/bread.png) + crumb tones
 BR = {'K': '3f2e0e', 'E': '574114', 'F': '654b17', 'D': '8c661e', 'd': 'a27924', 'g': 'bc8927', 'h': 'd6a640',
@@ -583,6 +584,211 @@ def preview_v2(path, old_dir):
     print('preview v2:', os.path.abspath(path))
 
 
+# === v3 (owner feedback 2026-10-05, round 2) ============================================================
+# Sandwich in the style of a round, tilted bun (reference: a Farmer's-Delight-like chicken sandwich - style
+# only, drawn here from scratch): golden domed top bun, dark underside, the filling shows along the seam and
+# pokes out at the edge. Built from overlays: bottom bun + one filling snippet per layer + top bun.
+#   layer 0 fills the whole seam, layers 1..4 lay snippets over their own seam segment and stick out a little,
+#   so every ingredient group stays recognisable.
+
+
+def _ellipse(cx, cy, ax, ay, angle):
+    ca, sa = math.cos(math.radians(angle)), math.sin(math.radians(angle))
+    def inside(x, y, grow=0.0):
+        dx, dy = x + 0.5 - cx, y + 0.5 - cy
+        u, v = dx * ca + dy * sa, -dx * sa + dy * ca
+        return (u / (ax + grow)) ** 2 + (v / (ay + grow)) ** 2 <= 1.0
+    return inside
+
+
+# geometry per variant: top bun, bottom bun, filling body (all ellipses: cx, cy, ax, ay, angle)
+BUN_GEOMETRY = {
+    'D': {'top': (7.6, 5.6, 6.9, 4.4, -20), 'bottom': (8.6, 11.4, 6.2, 2.6, -12), 'fill': (8.5, 9.0, 7.7, 4.4, -15)},
+    'E': {'top': (8.0, 5.8, 7.2, 4.1, -8), 'bottom': (8.2, 11.6, 6.6, 2.5, -5), 'fill': (8.1, 9.4, 7.9, 4.0, -7)},
+}
+# seam segments of layers 1..4 (x ranges) and where each pokes out (pixels just outside the filling body)
+SEGMENTS = {1: (10, 15), 2: (0, 5), 3: (5, 10), 4: (8, 13)}
+TOP_RAMP = ['3f2e0e', '654b17', '8c661e', 'a27924', 'bc8927', 'd6a640', 'e8c060']
+UNDER_RAMP = ['2e2008', '3f2e0e', '574114', '654b17', '8c661e']
+
+
+def _masks(style):
+    g = BUN_GEOMETRY[style]
+    top, bottom, fill = (_ellipse(*g[k]) for k in ('top', 'bottom', 'fill'))
+    cells = [(x, y) for y in range(16) for x in range(16)]
+    T = {p for p in cells if top(*p)}
+    body = {p for p in cells if fill(*p)} - T
+    under = {p for p in cells if bottom(*p)} - T
+    # the filling is the 2-row seam right under the top bun plus whatever of its body sticks out past the bottom bun
+    seam = {(x, y) for (x, y) in body if (x, y - 1) in T or (x, y - 2) in T}
+    F = seam | (body - under)
+    B = under - F
+    return T, B, F, top
+
+
+def _outline_shade(mask, x, y):
+    """0 = interior, 1 = edge pixel (some 4-neighbour outside the mask)."""
+    return int(any((x + dx, y + dy) not in mask for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))))
+
+
+def bun_top_v3(style):
+    T, _, _, top = _masks(style)
+    g = BUN_GEOMETRY[style]['top']
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for (x, y) in T:
+        # light from the upper left: brightness by position across the dome
+        dx, dy = (x + 0.5 - g[0]) / g[2], (y + 0.5 - g[1]) / g[3]
+        light = 0.55 - 0.45 * dx - 0.55 * dy - 0.35 * (dx * dx + dy * dy)
+        idx = int(round(2 + light * 4))
+        if (x * 7 + y * 3) % 11 == 0:
+            idx -= 1  # crust texture
+        idx = max(2, min(len(TOP_RAMP) - 1, idx))
+        if _outline_shade(T, x, y):
+            idx = 0 if dy > 0 or dx > 0.3 else 1
+        im.putpixel((x, y), hx(TOP_RAMP[idx]))
+    return im
+
+
+def bun_bottom_v3(style, buttered=False):
+    _, B, F, _ = _masks(style)
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for (x, y) in B:
+        edge = _outline_shade(B | F, x, y)
+        lower = (x, y + 1) not in B
+        idx = 0 if (edge and lower) else 1 if lower or edge else 2 + ((x + y) % 3 == 0)
+        im.putpixel((x, y), hx(UNDER_RAMP[idx]))
+    # cut face of the bottom bun right under the filling: crumb (or butter)
+    for (x, y) in B:
+        if (x, y - 1) in F:
+            im.putpixel((x, y), hx('ecc94e' if buttered else 'e2c486'))
+    return im
+
+
+def _filling_colour(key, x, y, below):
+    pal, rows = LAYERS[key]
+    row = rows[1 if below else 0]
+    ch = row[x] if row[x] != '.' else row[(x + 3) % 16] if row[(x + 3) % 16] != '.' else '3'
+    c = hx(pal[ch])
+    return shade(c, 0.82 if below else 1.0)
+
+
+def filling_v3(key, pos, style):
+    _, B, F, _ = _masks(style)
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    if pos == 0:
+        seg = (0, 15)
+    else:
+        seg = SEGMENTS[pos]
+    lo, hi = seg
+    for (x, y) in F:
+        if lo <= x <= hi:
+            below = (x, y + 1) in B or (x, y + 1) not in F
+            im.putpixel((x, y), _filling_colour(key, x, y, below))
+    if pos > 0:
+        # poke out past the outline inside the segment: lettuce frills, cheese drips, meat edges
+        out = [(x, y) for (x, y) in F if lo <= x <= hi]
+        rnd = random.Random(pos * 31 + len(key))
+        border = sorted({(x + dx, y + dy) for (x, y) in out for dx, dy in ((1, 0), (0, 1), (1, 1))
+                         if (x + dx, y + dy) not in F and (x + dx, y + dy) not in B and 0 <= x + dx < 16 and 0 <= y + dy < 16
+                         and lo <= x + dx <= hi + 1})
+        for p in rnd.sample(border, min(4, len(border))):
+            im.putpixel(p, shade(_filling_colour(key, p[0], p[1], True), 0.9))
+    return im
+
+
+def sandwich_v3(keys, buttered=False, style='D'):
+    im = bun_bottom_v3(style, buttered)
+    for i, k in enumerate(keys):
+        im.alpha_composite(filling_v3(k, i, style))
+    im.alpha_composite(bun_top_v3(style))
+    return im
+
+
+# bread half C, tips two pixels flatter (owner)
+BREAD_HALF['C2'] = ['................', '.....FEEEEF.....', '....EgddddgE....', '...EgdCCCCdgE...', '...EdCCcCCCdE...',
+                    '..EgdCCCCpCdgE..', '..EdCCpCCCCCdE..', '..EdCCCCCcCCdE..', '..EdCcCCCCCCdE..', '..EdCCCCpCCCdE..',
+                    '..EgdCCCCCCdgE..', '...EdCCcCCCdE...', '...EgdCCCCdgE...', '....EgddddgE....', '.....FEEEEF.....',
+                    '................']
+
+# smaller, slimmer kitchen knives (about 11 px long)
+KNIVES['S'] = ['................', '................', '................', '............oo..', '...........oLo..',
+               '..........oLeo..', '.........oLeo...', '........oLeo....', '.......oLmeo....', '......oLmeo.....',
+               '.....oggoo......', '....hwo.........', '...hrh..........', '..kwh...........', '..kk............',
+               '................']
+KNIVES['T'] = ['................', '................', '................', '................', '...........oo...',
+               '..........oLo...', '.........oLeo...', '........oLeo....', '.......oLeo.....', '......oLmo......',
+               '.....ogoo.......', '....hwo.........', '...hrh..........', '..kwh...........', '..kk............',
+               '................']
+
+
+def board_v3(wood, style='R'):
+    """Board after the owner's picture: flat plate with a raised 1 px rim, grain along the length, a small
+    hole at one corner. Model: base plate x1..15 z2..14 (1 px) + rim frame (1 px wide, 1 px high).
+    Top texture: rim = outer ring (x 1/14, y 2/13), plate inside. Side rows: 14 = rim, 15 = base plate."""
+    planks, (k, d, m, l, w) = plank_ramp(wood)
+    rnd = random.Random(sum(map(ord, wood)) * 7)
+    im = Image.new('RGBA', (16, 16), m)
+    tones = [m, l, m, d, m, l, m, m, d, l, m, m, l, m, d, m]
+    for y in range(16):
+        for x in range(16):
+            c = tones[(y + (x // 6 if style == 'R' else 0)) % 16]
+            r = rnd.random()
+            if r < 0.07:
+                c = d
+            elif r < 0.12:
+                c = l
+            im.putpixel((x, y), c)
+    for x in range(1, 15):
+        im.putpixel((x, 2), l)
+        im.putpixel((x, 13), d)
+    for y in range(2, 14):
+        im.putpixel((1, y), l)
+        im.putpixel((14, y), d)
+    for x in range(2, 14):
+        im.putpixel((x, 3), shade(im.getpixel((x, 3)), 0.8))  # shadow of the rim on the plate
+    for y in range(3, 13):
+        im.putpixel((2, y), shade(im.getpixel((2, y)), 0.85))
+    # small hole near a corner (transparent: see-through on cutout, dark otherwise)
+    hole = [(3, 4), (4, 4)] if style == 'R' else [(3, 4)]
+    for p in hole:
+        im.putpixel(p, k[:3] + (0,))
+    side = Image.new('RGBA', (16, 16), m)
+    for x in range(16):
+        for y in range(14):
+            side.putpixel((x, y), planks.getpixel((x, y)))
+        side.putpixel((x, 14), l if x % 4 else m)
+        side.putpixel((x, 15), d if x % 6 else k)
+    return im, side
+
+
+def preview_v3(path, old_dir):
+    s = 10
+    combos = [['meat_cooked'], ['meat_cooked', 'kelp'], ['meat_cooked', 'cheese', 'kelp'],
+              ['fish_cooked', 'cheese', 'carrot', 'kelp'], ['meat_raw', 'cheese', 'kelp', 'beetroot', 'golden']]
+    rows = []
+    for st in ('D', 'E'):
+        rows.append((f'Sandwich {st}' + (' *' if STYLE['sandwich'] == st else '') + ': 1-5 Zutaten (Butter bei 2)',
+                     [sandwich_v3(c, i == 1, st) for i, c in enumerate(combos)]))
+    rows.append(('Brothaelfte C2 (Spitzen flacher)' + (' *' if STYLE['bread_half'] == 'C2' else '') + ' | alt C',
+                 [bread_half('C2'), bread_half('C')]))
+    rows.append(('Messer S' + (' *' if STYLE['knife'] == 'S' else '') + ' | T | alt A', [knife('S'), knife('T'), knife('A')]))
+    rows.append(('Brett R (Eiche, Fichte, Kirsche, Karmesin) *', [board_v3(w, 'R')[0] for w in ('oak', 'spruce', 'cherry', 'crimson')]))
+    rows.append(('Kuchenstueck A (bleibt)', [cake_slice('A')]))
+    cell = 16 * s + 16
+    sheet = Image.new('RGBA', (20 + 5 * cell, 30 + len(rows) * (cell + 40)), (139, 139, 139, 255))
+    dr = ImageDraw.Draw(sheet)
+    dr.text((10, 8), 'Simple Sandwiches v3 - 10x gross, darunter 1x; * = eingebaut', fill=(0, 0, 0, 255))
+    for r, (title, ims) in enumerate(rows):
+        y = 30 + r * (cell + 40)
+        dr.text((10, y), title, fill=(0, 0, 0, 255))
+        for c, im in enumerate(ims):
+            x = 10 + c * cell
+            sheet.alpha_composite(im.resize((16 * s, 16 * s), Image.NEAREST), (x, y + 14))
+            sheet.alpha_composite(im, (x, y + 18 + 16 * s))
+    sheet.save(path)
+    print('preview v3:', path)
+
+
 # --- write -----------------------------------------------------------------------------------------
 def all_textures():
     files = {}
@@ -594,17 +800,17 @@ def all_textures():
     files[item('cake_slice')] = cake_slice()
     files[item('board/bread_half')] = bread_half()
     st = STYLE['sandwich']
-    files[item('sandwich/bottom')] = bottom_v2(False, st)
-    files[item('sandwich/bottom_buttered')] = bottom_v2(True, st)
+    files[item('sandwich/bottom')] = bun_bottom_v3(st, False)
+    files[item('sandwich/bottom_buttered')] = bun_bottom_v3(st, True)
     for n in range(6):
-        files[item(f'sandwich/top_{n}')] = top_v2(n, st)
+        files[item(f'sandwich/top_{n}')] = bun_top_v3(st)
     for key in KEYS:
         for pos in range(5):
-            files[item(f'sandwich/layer_{pos}_{key}')] = layer_v2(key, pos, st)
+            files[item(f'sandwich/layer_{pos}_{key}')] = filling_v3(key, pos, st)
     for name, im in cheese_textures().items():
         files[block(name)] = im
     for wood in WOODS:
-        t, s = board_v2(wood)
+        t, s = board_v3(wood, STYLE['board'])
         files[block(f'{wood}_cutting_board')] = t
         files[block(f'{wood}_cutting_board_side')] = s
     for name, im in cauldron_textures().items():
@@ -673,7 +879,9 @@ def main():
         return
     print(f'{len(changed)} of {len(files)} sandwich textures written')
     old = next((a.split('=', 1)[1] for a in sys.argv if a.startswith('--old=')), None)
-    if old:
+    if '--v3' in sys.argv:
+        preview_v3(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'sandwiches-v3-vorschau.png'), old)
+    elif old:
         preview_v2(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'sandwiches-v2-vorschau.png'), old)
 
 
