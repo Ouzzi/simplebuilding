@@ -2167,7 +2167,9 @@ def end_palette_textures():
                                                         ENDERITE_UPGRADE_TEMPLATE_PAL, False)
     tex["item/basic_upgrade_template.png"] = render("basic_upgrade_template", UPGRADE_TEMPLATE,
                                                      BASIC_UPGRADE_TEMPLATE_PAL, False)
-    tex["item/diamond_pebble.png"] = render("diamond_pebble", DIAMOND_PEBBLE, DIAMOND_PEBBLE_PAL, False)
+    # 2026-10-05: Besitzer-Zeichnung auf der Vanilla-Diamantpalette (owner_round_2026_10_05.py); die Datei im
+    # Hauptbaum ist jetzt die Quelle statt der Pixelkarte DIAMOND_PEBBLE (Scrap-Kontur ebenfalls von dort).
+    hand_drawn(tex, "item/diamond_pebble.png")
     tex.update(building_core_textures())
     # 2026-10-03: die Besitzer-Motive auf Hintergrund A (trim_templates_owner_2026_10_03.py) ersetzen die Pixelkarte
     # PULSATING_TRIM_TEMPLATE; die Datei im Hauptbaum ist jetzt die Quelle (wie bei glowing/emitting).
