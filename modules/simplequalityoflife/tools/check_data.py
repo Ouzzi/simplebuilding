@@ -31,8 +31,9 @@ assert len(manual['features'])>=35
 for feature in manual['features']:
  assert feature['en']['summary'] and feature['de']['summary']
  for source in feature['sources']:assert (MODULE.parents[1]/source).is_file(),source
-assert not list((MODULE/'shared/resources/assets/simplequalityoflife/items').glob('*.json')), 'No invented items'
-assert not any(k.startswith(('item.','block.','itemgroup.')) for k in en), 'No stale registry names'
+# The only item is the generated guide (tools/guides/module_guides.py).
+assert [p.stem for p in (MODULE/'shared/resources/assets/simplequalityoflife/items').glob('*.json')]==['guide_book'], 'No invented items besides the guide'
+assert not any(k.startswith(('item.','block.','itemgroup.')) and k!='item.simplequalityoflife.guide_book' for k in en), 'No stale registry names'
 mix=unique(MODULE/'shared/resources/simplequalityoflife-common.mixins.json')
 for name in mix['mixins']+mix['client']:assert (MODULE/'shared/java/com/simplequalityoflife/mixin'/Path(name.replace('.','/')+'.java')).is_file()
 print('simplequalityoflife: bilingual config/wiki, source evidence, mixin catalogue and empty registry inventory valid')
