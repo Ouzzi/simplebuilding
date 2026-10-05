@@ -4,6 +4,20 @@ Zuerst `AGENTS.md` vollständig lesen, dann diese Datei und `docs/ai/WORKFLOW.md
 Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alten Run-Berichten.
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
+
+## Worker-Nachtrag 2026-10-05: Forge Auto Smither
+
+Branch `gpt-forgesmither`: Forge erbte einen unsided `InvWrapper`, der zuerst
+Eingaben entnahm und die Ausgabe nach 20 Ticks noch liegen liess. Ein enger
+Forge-Mixin verwendet jetzt `SidedInvWrapper` mit den vorhandenen Seitenregeln;
+Capability-Lebenszyklus bleibt bei Vanilla/Forge. Der reale Trichtertest behaelt
+seine 20-Tick-Frist und prueft zusaetzlich den Basis-Slot.
+Forge-Filter **6/6**, volle Fabric-/NeoForge-/Forge-26.3-Suiten **2839/2839,
+alles gruen**, inklusive Testzentralen-Neubau und Item-/Block-Abdeckung.
+`check -q -PskipWiki` und Pflicht-Compiles: **GRADLE_EXIT=0** nach Wiederholung
+eines Manifest-Downloadfehlers. Kein Client/Push/Port; Belege:
+`docs/ai/PLAN-FORGE-AUTO-SMITHER-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-05: Befunde 11/12
 
 Branch `gpt-befunde`: Visuals/Sounds melden Fehler über GameTestHelper.assertTrue/fail.
