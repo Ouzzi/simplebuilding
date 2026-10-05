@@ -361,3 +361,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Crucible P6 (2026-10-05)
 - [x] `claude-crucibleart-gpt`: Seelen-Lava-Server-Config, Jade-Tiegelstatus und JEI-Schmelztiegelkategorie umgesetzt. Fabric-Tests Crucible 16/16, Config 15/15, Testzentrale 7/7; Pflicht-Compiles, Wiki, JUnit (inkl. Jade-Split) und einzelne Gate-Prüfungen grün. Gesamtcheck dreimal am 600-s-Limit beendet, kein grüner Gesamt-Gate-Abschluss. Plan/Belege: `docs/ai/PLAN-CRUCIBLE-P6-2026-10-05.md`. Kein Push/Client/Artwork.
+## Checker und Crafter-UI (2026-10-05, gpt-checkui)
+- [x] Netherziegel-/rote-Netherziegel-Quarz-Checker vollständig integriert; EN/DE, Wiki, Money und Testzentralen-Abdeckung. 2881/2881 Server grün, check -q und 26.2-Compile grün. Plan PLAN-CHECKER-2026-10-02.md.
+- [x] Auto Smither im Crafter-Stil: zentrierter Titel, drei Geisterbild-Eingaben, großer Ergebnisrahmen, exakte Slotpositionen. Alle Auto-Smither-Tests auf drei Loadern und volles Gate grün. Plan PLAN-SMITHER-CRAFTER-UI-2026-10-02.md. Keine Clienttests, kein Push; Sichtabnahme offen.

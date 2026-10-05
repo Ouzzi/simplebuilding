@@ -100,6 +100,7 @@
     "simplebuilding:light_gray_hammock",
     "simplebuilding:lime_hammock",
     "simplebuilding:magenta_hammock",
+    "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:nether_dimensional_scrap",
     "simplebuilding:netherite_backpack",
     "simplebuilding:netherite_blast_furnace",
@@ -163,6 +164,7 @@
     "simplebuilding:purple_hammock",
     "simplebuilding:purpur_quartz_checker",
     "simplebuilding:red_hammock",
+    "simplebuilding:red_nether_brick_quartz_checker",
     "simplebuilding:reinforced_backpack",
     "simplebuilding:reinforced_blast_furnace",
     "simplebuilding:reinforced_chest",
@@ -940,6 +942,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:nether_brick_quartz_checker"
+    },
+    {
       "id": "simplebuilding:nether_dimensional_scrap"
     },
     {
@@ -1293,6 +1298,9 @@
     {
       "id": "simplebuilding:red_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_quartz_checker"
     },
     {
       "id": "simplebuilding:reinforced_backpack",

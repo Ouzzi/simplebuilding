@@ -1727,11 +1727,10 @@ public final class DataIntegrityTests {
     }
 
     /**
-     * All seven quartz checkers - purpur, lapis, blackstone, resin, nihilith, astralit and ender
-     * quartz - are mined with a pickaxe and drop themselves. They copy blocks that need the right
-     * tool, so without {@code minecraft:mineable/pickaxe} breaking one gave nothing. The two new
-     * ones are crafted like the others, two of the material diagonal to two quartz blocks, four at
-     * a time: nihilith shards, astralit dust and ender quartz stand in for the coloured block.
+     * All quartz checkers are mined with a pickaxe and drop themselves. Their copied block
+     * properties require the right tool, so a missing {@code minecraft:mineable/pickaxe} tag
+     * prevents drops. Two matching materials diagonal to two quartz blocks make four checkers;
+     * nether bricks and red nether bricks must produce their own variant, never the resin one.
      *
      * <p>What breaks this test: a checker missing from the pickaxe tag or its loot table, and a
      * missing or changed recipe for the new checkers.
@@ -1742,7 +1741,7 @@ public final class DataIntegrityTests {
         StringBuilder actual = new StringBuilder();
         StringBuilder expected = new StringBuilder();
         for (Block checker : List.of(ModBlocks.PURPUR_QUARTZ_CHECKER, ModBlocks.LAPIS_QUARTZ_CHECKER,
-                ModBlocks.BLACKSTONE_QUARTZ_CHECKER, ModBlocks.RESIN_QUARTZ_CHECKER,
+                ModBlocks.BLACKSTONE_QUARTZ_CHECKER, ModBlocks.RESIN_QUARTZ_CHECKER, ModBlocks.NETHER_BRICK_QUARTZ_CHECKER, ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER,
                 ModBlocks.NIHILITH_QUARTZ_CHECKER, ModBlocks.ASTRALIT_QUARTZ_CHECKER, ModBlocks.ENDER_QUARTZ_CHECKER,
                 ModBlocks.POLISHED_ASTRALIT_CHECKER, ModBlocks.POLISHED_NIHILITH_CHECKER, ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER)) {
             BlockState state = checker.defaultBlockState();
@@ -1760,10 +1759,8 @@ public final class DataIntegrityTests {
         ItemStack quartz = new ItemStack(Items.QUARTZ_BLOCK);
         Map<Item, String> checkerOf = new LinkedHashMap<>();
         checkerOf.put(Items.RESIN_BRICKS, "simplebuilding:resin_quartz_checker");
-        ItemStack placeholder = new ItemStack(Items.RED_NETHER_BRICKS);
-        CraftingInput oldResin = CraftingInput.of(2, 2, List.of(placeholder, quartz, quartz, placeholder));
-        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, oldResin, level).isEmpty(),
-                "red nether bricks still craft the resin checker");
+        checkerOf.put(Items.NETHER_BRICKS, "simplebuilding:nether_brick_quartz_checker");
+        checkerOf.put(Items.RED_NETHER_BRICKS, "simplebuilding:red_nether_brick_quartz_checker");
         checkerOf.put(ModItems.NIHILITH_SHARD, "simplebuilding:nihilith_quartz_checker");
         checkerOf.put(ModItems.ASTRALIT_DUST, "simplebuilding:astralit_quartz_checker");
         checkerOf.put(ModItems.ENDER_QUARTZ, "simplebuilding:ender_quartz_checker");
@@ -2945,7 +2942,7 @@ public final class DataIntegrityTests {
                 List.of(ModItems.POLISHED_ENDER_QUARTZ, ModItems.POLISHED_ENDER_QUARTZ_STAIRS, ModItems.POLISHED_ENDER_QUARTZ_SLAB,
                         ModItems.POLISHED_ENDER_QUARTZ_WALL),
                 List.of(ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
-                        ModItems.RESIN_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
+                        ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
                         ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
                         ModItems.POLISHED_ENDER_QUARTZ_CHECKER),
                 List.of(ModItems.SUSPENDED_SAND, ModItems.SUSPENDED_GRAVEL, gap, ModItems.LEVITATING_SAND, ModItems.LEVITATING_GRAVEL),

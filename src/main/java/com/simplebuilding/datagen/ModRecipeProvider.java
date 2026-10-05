@@ -1002,6 +1002,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 createCheckerRecipe(output, ModBlocks.LAPIS_QUARTZ_CHECKER, Items.LAPIS_BLOCK);
                 createCheckerRecipe(output, ModBlocks.BLACKSTONE_QUARTZ_CHECKER, Items.BLACKSTONE);
                 createCheckerRecipe(output, ModBlocks.RESIN_QUARTZ_CHECKER, Items.RESIN_BRICKS);
+                createCheckerRecipe(output, ModBlocks.NETHER_BRICK_QUARTZ_CHECKER, Items.NETHER_BRICKS);
+                createCheckerRecipe(output, ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER, Items.RED_NETHER_BRICKS);
                 // End-Schachbretter: Splitter bzw. Staub stehen direkt fuer den farbigen Block
                 createCheckerRecipe(output, ModBlocks.NIHILITH_QUARTZ_CHECKER, ModItems.NIHILITH_SHARD);
                 createCheckerRecipe(output, ModBlocks.ASTRALIT_QUARTZ_CHECKER, ModItems.ASTRALIT_DUST);

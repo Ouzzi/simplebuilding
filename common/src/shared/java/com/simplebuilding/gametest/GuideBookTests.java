@@ -411,7 +411,7 @@ public final class GuideBookTests {
         for (Item item : List.of(ModItems.VELOCITY_GAUGE, ModItems.CONSTRUCTION_LIGHT, ModItems.NETHERITE_APPLE,
                 ModItems.NETHERITE_CARROT, ModItems.ENDERITE_APPLE, ModItems.ENDERITE_CARROT, ModItems.ENDERITE_SPEAR,
                 com.simplebuilding.tweaks.item.TweaksItems.BLAZE_HEAD, ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER,
-                ModItems.BLACKSTONE_QUARTZ_CHECKER, ModItems.RESIN_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
+                ModItems.BLACKSTONE_QUARTZ_CHECKER, ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
                 ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER,
                 ModItems.POLISHED_NIHILITH_CHECKER, ModItems.POLISHED_ENDER_QUARTZ_CHECKER, ModItems.GUIDE_BOOK_ADMIN)) {
             if (!onScreen.contains(item) && item != ModItems.GUIDE_BOOK_ADMIN) {

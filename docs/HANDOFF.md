@@ -24,6 +24,34 @@ Keine Testabschwaechung, kein Client/Push/Port. Besitzer prueft nach Uebernahme
 zwei frische Starts, Eingang/Respawn und Dialogfreiheit. Belege:
 `docs/ai/PLAN-HUB-TESTWORLD-2026-10-02.md`.
 
+## Worker-Nachtrag 2026-10-05: Auto Smither im Crafter-Stil
+
+Branch `gpt-checkui`: Crafter-Hintergrund, drei Eingaben links (26/44/62,35),
+großer Ergebnisrahmen rechts (Item bei 134,35), dynamisch zentrierter Titel.
+Geisterbilder und bedingter Fehlerpfeil erhalten; Generator prüft alle 40 Slots.
+Bestehende Ausgabe-/Trichterregeln einschließlich Forge-SidedInvWrapper unverändert.
+Alle vier Auto-Smither-Tests auf jedem Loader bestanden; volle Serversuiten
+**2881/2881, alles gruen**, Testzentralen-Neubau und Item-/Blockabdeckung grün.
+`check -q`: **GATE_EXIT=0**, 26.2-Compiles und Wiki --all/--all --check grün.
+Kein Client/Push; Ingame-Sichtabnahme beim Besitzer offen.
+Vorschau: `C:/Users/o_o/code/minecraft-mods/previews/auto-smither-crafter-ui-vorschau.png`.
+Belege: `docs/ai/PLAN-SMITHER-CRAFTER-UI-2026-10-02.md`.
+
+## Worker-Nachtrag 2026-10-05: Netherziegel-Checker
+
+Branch `gpt-checkui`: Netherziegel- und rote-Netherziegel-Quarz-Schachbretter
+vollständig in die bestehende 26.2/26.3-Familie integriert, ohne neues Flag.
+Datagen nur 26.3; eigene Texturen und 16x-Vorschau, EN/DE an beiden Orten,
+Handbuch/Wiki, Kreativ-/Suchtab, Spitzhacke/Drops, Rezepte und Money-Steinmetzangebote.
+Checker-Filter **3/3**, volle Fabric-/NeoForge-/Forge-26.3-Suiten **2881/2881,
+alles gruen**, einschließlich Testzentralen-Neubau und Item-/Blockabdeckung.
+`check -q`: **GATE_EXIT=0**, 26.2-Compiles **COMPILE262_EXIT=0**,
+Wiki --all/--all --check grün; 55 Wiki-Unit-Tests bestanden.
+Keine Clients, kein Push, keine Änderung an 1.21.11/26.4. Zwei bestehende deutsche
+Handbuch-Themenlisten bleiben zu lang; Checker-Seiten passen EN/DE.
+Vorschau: `C:/Users/o_o/code/minecraft-mods/previews/netherziegel-checker-vorschau.png`.
+Belege: `docs/ai/PLAN-CHECKER-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-05: Forge Crucible
 
 Branch `gpt-forgecrucible`: SimpleLib war als Jar-in-Jar geladen, aber Forge

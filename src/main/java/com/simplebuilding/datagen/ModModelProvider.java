@@ -85,6 +85,8 @@ public class ModModelProvider extends FabricModelProvider {
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.LAPIS_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.BLACKSTONE_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.RESIN_QUARTZ_CHECKER);
+        registerMirroredChecker(blockStateModelGenerator, ModBlocks.NETHER_BRICK_QUARTZ_CHECKER);
+        registerMirroredChecker(blockStateModelGenerator, ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.NIHILITH_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.ASTRALIT_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.ENDER_QUARTZ_CHECKER);
