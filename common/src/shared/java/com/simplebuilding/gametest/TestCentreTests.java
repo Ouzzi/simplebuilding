@@ -135,6 +135,9 @@ public final class TestCentreTests {
 
     /** Jedes Mod-Item und jeder Mod-Block steht in einem Abschnitt (ausser den begruendeten Ausnahmen). */
     public static void everyModItemAndBlockHasItsPlaceInTheTestCentre(GameTestHelper helper) {
+        helper.assertTrue(TestCentreLayout.EXCLUDED.containsKey("simplebuilding:soul_lava")
+                        == com.simplebuilding.version.McVersion.CRUCIBLE,
+                "soul lava exclusion must follow the Crucible registration flag");
         TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
         List<String> problems = new ArrayList<>();
         for (Item item : plan.leftovers()) {
