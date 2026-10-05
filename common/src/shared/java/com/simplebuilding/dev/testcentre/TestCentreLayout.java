@@ -51,13 +51,20 @@ public final class TestCentreLayout {
      * Mod-Items und -Bloecke, die bewusst NICHT in der Zentrale stehen, mit Grund. Jede Ausnahme muss
      * hier stehen - der Abdeckungstest liest genau diese Liste.
      */
-    public static final Map<String, String> EXCLUDED = Map.of(
+    public static final Map<String, String> EXCLUDED;
+
+    static {
+        Map<String, String> excluded = new LinkedHashMap<>(Map.of(
             "simplebuilding:creative_spacer", "Platzhalter der Kreativ-Tabs, kein Spielinhalt",
             "simplebuilding:reinforced_piston_head", "technischer Block (Kopf der verstaerkten Kolben), kein Item",
             "simplebuilding:netherite_piston_head", "technischer Block (Kopf des Netherit-Kolbens), kein Item",
             "simplebuilding:enderite_piston_head", "technischer Block (Kopf des Enderit-Kolbens), kein Item",
-            "simplebuilding:funny_stick", "Easter Egg, bewusst versteckt (Spoiler in docs/SIMPLETWEAKS-UEBERNAHME.md)",
-            "simplebuilding:soul_lava", "Fluessigkeitsblock wie Lava; die Station zeigt sie im verstaerkten Kessel, Eimer liegen in der Truhe");
+            "simplebuilding:funny_stick", "Easter Egg, bewusst versteckt (Spoiler in docs/SIMPLETWEAKS-UEBERNAHME.md)"));
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            excluded.put("simplebuilding:soul_lava", "Fluessigkeitsblock wie Lava; die Station zeigt sie im verstaerkten Kessel, Eimer liegen in der Truhe");
+        }
+        EXCLUDED = Map.copyOf(excluded);
+    }
 
     /**
      * Mod-Bloecke, die nur im Rahmen stehen und nirgends gesetzt werden: Pads mit Wirkung auf die

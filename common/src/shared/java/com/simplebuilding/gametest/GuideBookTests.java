@@ -226,6 +226,9 @@ public final class GuideBookTests {
         if (!com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             disabledChapters.addAll(List.of("book.simplebuilding.gadgets.13", "book.simplebuilding.gadgets.14"));
         }
+        if (!com.simplebuilding.version.McVersion.CRUCIBLE) {
+            disabledChapters.addAll(List.of("book.simplebuilding.machines.9", "book.simplebuilding.machines.10"));
+        }
         for (String chapter : disabledChapters) {
             helper.assertTrue(!used.contains(chapter + ".title") && !used.contains(chapter + ".text"),
                     "disabled chapter is still shown: " + chapter);

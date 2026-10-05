@@ -5,6 +5,20 @@ Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alte
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
 
+## Worker-Nachtrag 2026-10-05: 26.2-Nachtserie Folgefix
+
+Branch `gpt-line262b`: Die Testzentralen-Ausnahme fuer Soul Lava folgt jetzt
+`McVersion.CRUCIBLE`. Maschinenkapitel 9/10 waren bereits korrekt ausgeblendet;
+der Handbuchtest prueft sie nun explizit als deaktivierte Kapitel. Alle aktiven
+Sprachschluessel und Registry-Abdeckungen bleiben streng geprueft, zusaetzlicher
+Test fuer die flagabhaengige Soul-Lava-Ausnahme. Kein Feature-Port/Lang-Diff.
+
+26.2 Fabric/NeoForge/Forge **2932/2932, alles gruen**; 26.3 Fabric/NeoForge
+**1954/1954, alles gruen**, jeweils inklusive Testzentralen-Neubau und Abdeckung.
+`check -q -PskipWiki`, 26.2-Compiles und Forge-26.3-Compile: **GRADLE_EXIT=0**.
+Wiki --all/--all --check gruen, kein Inhaltsdiff. Kein Datagen/Client/Push;
+Besitzerwelt-Neubau bleibt offen. Belege: `docs/ai/PLAN-LINE262B-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-05: Cover Option B und Configs
 
 Branch `gpt-coverconf`: 26.3 entfernt Cover aus Außenposten/Waldanwesen, Gewichte
