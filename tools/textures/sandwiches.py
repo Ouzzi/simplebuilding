@@ -1,4 +1,4 @@
-"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4]
+"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4|--v5]
 
 v2 (2026-10-05): sandwich/bread, bread half, knife, board and cake slice come from the v2 section with
 variants A/B/C (STYLE picks the built-in one); --old=<copy of the previous textures> writes the comparison
@@ -298,7 +298,7 @@ def cauldron_textures():
 # Each group has variants A/B/C; STYLE picks the built-in one (the owner may switch a letter and rerun).
 # Screenshots of other mods were inspiration only (rounded golden bread, visible filling edge, clear
 # shading); every sprite here is drawn from scratch with vanilla palettes.
-STYLE = {'sandwich': 'F', 'bread_half': 'C2', 'knife': 'V', 'board': 'v4', 'cake': 'A'}  # v4 choice (2026-10-05)
+STYLE = {'sandwich': 'v5', 'bread_half': 'C2W', 'knife': 'S', 'board': 'v4', 'cake': 'A'}  # v5 choice (2026-10-05)
 
 # vanilla bread ramp (item/bread.png) + crumb tones
 BR = {'K': '3f2e0e', 'E': '574114', 'F': '654b17', 'D': '8c661e', 'd': 'a27924', 'g': 'bc8927', 'h': 'd6a640',
@@ -403,8 +403,16 @@ BREAD_HALF = {
 }
 
 
+# warm (v4) colours for the bread half, matching sandwich F (owner: the warm look is the default)
+BR_WARM = dict(BR, K='3a1d08', F='3a1d08', E='6a3410', D='9a5418', d='c2741f', g='dc9030', h='eeae48',
+               C='f8e2b0', c='eccf92', p='d9b070')
+
+
 def bread_half(style=None):
-    return sprite(BREAD_HALF[style or STYLE['bread_half']], BR)
+    style = style or STYLE['bread_half']
+    if style.endswith('W'):
+        return sprite(BREAD_HALF[style[:-1]], BR_WARM)
+    return sprite(BREAD_HALF[style], BR)
 
 
 # --- knife (handle bottom-left, blade up-right) ----------------------------------------------------------
@@ -1029,6 +1037,178 @@ def preview_v4(path):
     print('preview v4:', path)
 
 
+# === v5 (owner 2026-10-05): the sandwich grows with its contents, lettuce only with greens ===============
+# Tilted bun (rising to the right), warm v4 colours. Bottom bun fixed; layer p is its own stripe right above
+# layer p-1 (layer 0: 2 rows, every further layer 1 row), so each ingredient shows as a stripe with a few
+# drips/frills; the top bun sits on the highest layer (top_<n> = lifted by n layers). Green ingredients
+# (GREEN_KEYS) add a lettuce frill hanging out on the right; nothing else shows green.
+GREEN_KEYS = ('kelp', 'beetroot', 'generic')   # dried kelp, beetroot leaves, unknown (mostly plant) food
+KEY_ITEMS = {
+    'meat_raw': 'roh: Rind, Schwein, Hammel, Kaninchen, Huhn',
+    'meat_cooked': 'Steak, gebr. Schwein, Hammel, Kaninchen, Huhn',
+    'fish_raw': 'Kabeljau, Lachs, Tropenfisch, Kugelfisch',
+    'fish_cooked': 'gebr. Kabeljau, gebr. Lachs',
+    'potato': 'Kartoffel, Ofenkartoffel, giftige Kartoffel',
+    'carrot': 'Karotte', 'golden': 'goldene Karotte, (verz.) goldener Apfel', 'apple': 'Apfel',
+    'melon': 'Melonenscheibe', 'berries': 'Suess-/Leuchtbeeren', 'beetroot': 'Rote Bete',
+    'kelp': 'getrockneter Seetang', 'cookie': 'Keks', 'pie': 'Kuerbiskuchen', 'chorus': 'Chorusfrucht',
+    'spider_eye': 'Spinnenauge', 'rotten': 'verrottetes Fleisch', 'cheese': 'Kaesescheibe',
+    'cake': 'Kuchenstueck', 'netherite': 'SB: Netherit-Apfel/-Karotte (+verz.)',
+    'enderite': 'SB: Enderit-Apfel/-Karotte (+verz.)', 'generic': 'alles andere (andere Mods, Datapacks)',
+}
+X0, X1 = 1, 14
+
+
+def _base(x):
+    """Row of the bottom bun's upper surface in column x (tilted: lower on the left)."""
+    return int(round(12.4 - (x - 7.5) * 0.2))
+
+
+def _layer_rows(x, p):
+    b = _base(x)
+    return [b - 2, b - 1] if p == 0 else [b - 2 - p]
+
+
+def _top_row(x, n):
+    """Lowest row of the top bun (it rests on the highest layer)."""
+    return _base(x) - (0 if n == 0 else 2 + (n - 1)) - 1
+
+
+def _span(x, inset):
+    return X0 + inset <= x <= X1 - inset
+
+
+def bun_bottom_v5(buttered=False):
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for x in range(16):
+        b = _base(x)
+        if _span(x, 1):
+            put(im, x, b, hx('f6d84a' if buttered else 'f2dcae'))       # cut face (crumb / butter)
+        if _span(x, 1):
+            put(im, x, b + 1, hx(UNDER_WARM[2 if x % 3 else 3]))
+        if _span(x, 2):
+            put(im, x, b + 2, hx(UNDER_WARM[0]))
+        if x in (X0 + 1, X1 - 1):
+            put(im, x, b + 1, hx(UNDER_WARM[1]))
+    return im
+
+
+def filling_v5(key, p):
+    pal, rows = LAYERS[key]
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    rnd = random.Random(sum(map(ord, key)) + p * 17)
+    lit = [ch for ch in rows[0] if ch != '.'] or ['3']
+    dark = [ch for ch in rows[1] if ch != '.'] or ['2']
+    for x in range(X0, X1 + 1):
+        rr = _layer_rows(x, p)
+        for i, y in enumerate(rr):
+            src = rows[0] if (i == 0 and len(rr) == 2) or len(rr) == 1 else rows[1]
+            ch = src[x] if src[x] != '.' else (lit if src is rows[0] else dark)[(x + p) % len((lit if src is rows[0] else dark))]
+            c = _vivid(hx(pal[ch]))
+            if i == len(rr) - 1 and len(rr) == 2:
+                c = shade(c, 0.85)
+            if x in (X0, X1):
+                c = shade(c, 0.75)
+            put(im, x, y, c)
+    # a few drips / edges hanging over the layer below or past the ends
+    if key in ('cheese', 'golden', 'melon', 'berries', 'pie', 'cake'):
+        # soft fillings: one drip over the edge
+        x = rnd.randrange(X0 + 2, X1 - 1)
+        put(im, x, _layer_rows(x, p)[-1] + 1, shade(_vivid(hx(pal['2'])), 0.9))
+    end = X1 + 1 if p % 2 == 0 else X0 - 1
+    put(im, end, _layer_rows(min(max(end, X0), X1), p)[0], shade(_vivid(hx(pal['3'])), 0.85))
+    if key in GREEN_KEYS:
+        # lettuce frill hanging out on the right side of this layer
+        for k, x in enumerate(range(X1 - 3, X1 + 2)):
+            y = _layer_rows(min(x, X1), p)[-1] + (1 if k % 2 else 0)
+            put(im, x, y, hx(LETTUCE[2 if k % 2 else 3]))
+            put(im, x, y + 1, hx(LETTUCE[1 if k % 2 else 0]))
+    return im
+
+
+def bun_top_v5(n):
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    cells = {}
+    for x in range(X0, X1 + 1):
+        t = (x - 7.5) / 7.0
+        h = max(1, int(round(5.2 * math.sqrt(max(0.0, 1 - t * t)))))
+        low = _top_row(x, n)
+        for k in range(h):
+            cells[(x, low - k)] = (k, h, t)
+    for (x, y), (k, h, t) in cells.items():
+        edge = (x, y - 1) not in cells or (x - 1, y) not in cells or (x + 1, y) not in cells
+        bottom_row = k == 0
+        light = (k / max(1, h - 1)) * 0.8 - t * 0.35
+        idx = 2 + int(round(light * 4))
+        if (x * 5 + y * 3) % 11 == 0:
+            idx -= 1
+        idx = max(2, min(len(BUN_WARM) - 1, idx))
+        if bottom_row:
+            idx = 1 if 0 < x < 15 else 0
+        if edge and not bottom_row:
+            idx = 0 if t > 0.2 or k < h - 1 else 1
+        put(im, x, y, hx(BUN_WARM[idx]))
+    # glossy highlight on the upper left of the dome
+    for x in (5, 6, 7):
+        top_y = min(y for (cx, y) in cells if cx == x)
+        put(im, x, top_y + 1, hx('fde9b0'))
+    return im
+
+
+def sandwich_v5(keys, buttered=False):
+    im = bun_bottom_v5(buttered)
+    for i, k in enumerate(keys):
+        im.alpha_composite(filling_v5(k, i))
+    im.alpha_composite(bun_top_v5(len(keys)))
+    return im
+
+
+def preview_v5(path_main, path_snippets):
+    combos = [['meat_cooked'], ['meat_cooked', 'cheese'], ['fish_cooked', 'kelp', 'cheese'],
+              ['meat_raw', 'cheese', 'beetroot', 'potato'], ['meat_cooked', 'cheese', 'carrot', 'kelp', 'golden']]
+    s = 10
+    cell = 16 * s + 16
+    sheet = Image.new('RGBA', (20 + 6 * cell, 30 + 2 * (cell + 40) + 40), (139, 139, 139, 255))
+    dr = ImageDraw.Draw(sheet)
+    dr.text((10, 8), 'Simple Sandwiches v5 - Butterbrot, 1-5 Zutaten (Hoehe waechst), Salat nur bei Gruenzeug; Messer S, Brothaelfte warm',
+            fill=(0, 0, 0, 255))
+    items = [sandwich_v5([], True)] + [sandwich_v5(c, i == 1) for i, c in enumerate(combos)]
+    labels = ['Butterbrot'] + ['+'.join(c) for c in combos]
+    for i, (im, label) in enumerate(zip(items, labels)):
+        x, y = 10 + i * cell, 30
+        sheet.alpha_composite(im.resize((16 * s, 16 * s), Image.NEAREST), (x, y))
+        sheet.alpha_composite(im, (x, y + 16 * s + 4))
+        dr.text((x + 20, y + 16 * s + 4), label[:26], fill=(0, 0, 0, 255))
+    y = 30 + cell + 40
+    for i, im in enumerate([knife('S'), bread_half('C2W'), cake_slice('A')]):
+        sheet.alpha_composite(im.resize((16 * s, 16 * s), Image.NEAREST), (10 + i * cell, y))
+    sheet.save(path_main)
+    # snippet overview: every filling group alone on the bottom bun, large, with its items
+    s2, cols = 8, 4
+    cw, ch = 16 * s2 + 250, 16 * s2 + 20
+    rows_n = (len(KEYS) + cols - 1) // cols
+    sheet = Image.new('RGBA', (20 + cols * cw, 40 + rows_n * ch + cell + 40), (139, 139, 139, 255))
+    dr = ImageDraw.Draw(sheet)
+    dr.text((10, 8), 'Sandwich-Zutaten-Schnipsel (Schicht 1 auf der Brot-Unterseite) - Gruppe und Items; gruen = Salat-Deko',
+            fill=(0, 0, 0, 255))
+    for i, key in enumerate(KEYS):
+        x, y = 10 + (i % cols) * cw, 30 + (i // cols) * ch
+        im = bun_bottom_v5()
+        im.alpha_composite(filling_v5(key, 0))
+        sheet.alpha_composite(im.resize((16 * s2, 16 * s2), Image.NEAREST), (x, y))
+        dr.text((x + 16 * s2 + 6, y + 30), key + (' (gruen)' if key in GREEN_KEYS else ''), fill=(0, 0, 0, 255))
+        text = KEY_ITEMS[key]
+        for j in range(0, len(text), 34):
+            dr.text((x + 16 * s2 + 6, y + 46 + j // 34 * 12), text[j:j + 34], fill=(30, 30, 30, 255))
+    y = 40 + rows_n * ch
+    dr.text((10, y), 'Beispiele 1-5 Zutaten', fill=(0, 0, 0, 255))
+    for i, (im, label) in enumerate(zip(items[1:], labels[1:])):
+        sheet.alpha_composite(im.resize((16 * s, 16 * s), Image.NEAREST), (10 + i * (cell + 30), y + 14))
+        dr.text((10 + i * (cell + 30), y + 18 + 16 * s), label[:30], fill=(0, 0, 0, 255))
+    sheet.save(path_snippets)
+    print('preview v5:', path_main, path_snippets)
+
+
 # --- write -----------------------------------------------------------------------------------------
 def all_textures():
     files = {}
@@ -1039,14 +1219,13 @@ def all_textures():
     files[item('butter_slice')] = BUTTER_SLICE
     files[item('cake_slice')] = cake_slice()
     files[item('board/bread_half')] = bread_half()
-    st = STYLE['sandwich']
-    files[item('sandwich/bottom')] = bun_bottom_v4(st, False)
-    files[item('sandwich/bottom_buttered')] = bun_bottom_v4(st, True)
+    files[item('sandwich/bottom')] = bun_bottom_v5(False)
+    files[item('sandwich/bottom_buttered')] = bun_bottom_v5(True)
     for n in range(6):
-        files[item(f'sandwich/top_{n}')] = bun_top_v4(st, n > 0)
+        files[item(f'sandwich/top_{n}')] = bun_top_v5(n)
     for key in KEYS:
         for pos in range(5):
-            files[item(f'sandwich/layer_{pos}_{key}')] = filling_v4(key, pos, st)
+            files[item(f'sandwich/layer_{pos}_{key}')] = filling_v5(key, pos)
     for name, im in cheese_textures().items():
         files[block(name)] = im
     for wood in WOODS:
@@ -1119,7 +1298,10 @@ def main():
         return
     print(f'{len(changed)} of {len(files)} sandwich textures written')
     old = next((a.split('=', 1)[1] for a in sys.argv if a.startswith('--old=')), None)
-    if '--v4' in sys.argv:
+    if '--v5' in sys.argv:
+        d = os.path.dirname(os.path.abspath(PREVIEW))
+        preview_v5(os.path.join(d, 'sandwiches-v5-vorschau.png'), os.path.join(d, 'sandwich-zutaten-schnipsel.png'))
+    elif '--v4' in sys.argv:
         preview_v4(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'sandwiches-v4-vorschau.png'))
     elif '--v3' in sys.argv:
         preview_v3(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'sandwiches-v3-vorschau.png'), old)

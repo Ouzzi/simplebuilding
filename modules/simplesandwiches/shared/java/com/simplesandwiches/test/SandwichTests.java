@@ -85,6 +85,7 @@ public final class SandwichTests {
         ALL.put("slice_block_keeps_state", SandwichTests::sliceBlockKeepsState);
         ALL.put("cheese_bounces_like_bed", SandwichTests::cheeseBouncesLikeBed);
         ALL.put("cut_sounds_registered", SandwichTests::cutSoundsRegistered);
+        ALL.put("sandwich_warms_in_crucible", SandwichTests::sandwichWarmsInCrucible);
         ALL.put("cauldron_butter", SandwichTests::cauldronButter);
         ALL.put("cauldron_cheese_spoils", SandwichTests::cauldronCheeseSpoils);
         ALL.put("cauldron_ripens_in_world", SandwichTests::cauldronRipensInWorld);
@@ -535,6 +536,44 @@ public final class SandwichTests {
         near(h, ModBlocks.CHEESE_BLOCK.getBounceRestitution(), Blocks.BED.pick(net.minecraft.world.item.DyeColor.WHITE).getBounceRestitution(), "cheese bounce = bed bounce");
         near(h, ModBlocks.CHEESE_BLOCK.getFallDistanceReduction(), Blocks.BED.pick(net.minecraft.world.item.DyeColor.WHITE).getFallDistanceReduction(), "cheese fall reduction = bed");
         near(h, ModBlocks.BUTTER_BLOCK.getBounceRestitution(), 0.0, "butter does not bounce");
+        h.succeed();
+    }
+
+    /**
+     * Owner 2026-10-05: sandwiches are warm food exactly like the rest (SimpleLib warm mechanic). Coupled
+     * only through ids: tag simplelib:warmable_food, block simplelib:iron_crucible, component simplelib:warm.
+     * Without SimpleLib (standalone) only the tag entry is checked.
+     */
+    static void sandwichWarmsInCrucible(GameTestHelper h) {
+        ItemStack sandwich = SandwichFormula.create(contents(false, Items.COOKED_BEEF, ModItems.CHEESE_SLICE));
+        var warmable = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "warmable_food"));
+        h.assertTrue(sandwich.is(warmable), "sandwich is warmable food");
+        var crucibleId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "iron_crucible");
+        var warmId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "warm");
+        if (!BuiltInRegistries.BLOCK.containsKey(crucibleId) || !BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(warmId)) {
+            h.succeed();
+            return;
+        }
+        BlockPos pos = new BlockPos(1, 2, 1);
+        h.setBlock(pos.below(), Blocks.CAMPFIRE);
+        h.setBlock(pos, BuiltInRegistries.BLOCK.getValue(crucibleId));
+        BlockPos abs = h.absolutePos(pos);
+        var be = h.getLevel().getBlockEntity(abs);
+        h.assertTrue(be instanceof net.minecraft.world.Container, "crucible container");
+        net.minecraft.world.Container crucible = (net.minecraft.world.Container) be;
+        crucible.setItem(2, sandwich.copyWithCount(3));
+        BlockState state = h.getLevel().getBlockState(abs);
+        @SuppressWarnings("unchecked")
+        var ticker = (net.minecraft.world.level.block.entity.BlockEntityTicker<net.minecraft.world.level.block.entity.BlockEntity>)
+                ((net.minecraft.world.level.block.EntityBlock) state.getBlock()).getTicker(h.getLevel(), state, be.getType());
+        h.assertTrue(ticker != null, "crucible ticks");
+        for (int i = 0; i < 210; i++) ticker.tick(h.getLevel(), abs, state, be);
+        ItemStack warm = crucible.getItem(2);
+        h.assertTrue(warm.getItem() instanceof SandwichItem && warm.getCount() == 3
+                && warm.has(BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(warmId)), "sandwich stack warmed in the crucible: " + warm);
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        h.assertTrue(warm.getUseDuration(player) < sandwich.getUseDuration(player), "warm sandwich is eaten faster");
         h.succeed();
     }
 

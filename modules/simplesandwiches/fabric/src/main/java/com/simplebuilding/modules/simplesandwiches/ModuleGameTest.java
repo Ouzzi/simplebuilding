@@ -120,4 +120,9 @@ public final class ModuleGameTest {
     public void cutSoundsRegistered(GameTestHelper h) {
         SandwichTests.ALL.get("cut_sounds_registered").accept(h);
     }
+
+    @GameTest
+    public void sandwichWarmsInCrucible(GameTestHelper h) {
+        SandwichTests.ALL.get("sandwich_warms_in_crucible").accept(h);
+    }
 }
