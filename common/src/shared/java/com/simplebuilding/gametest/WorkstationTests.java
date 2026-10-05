@@ -212,12 +212,15 @@ public final class WorkstationTests {
         helper.assertTrue(AutoSmitherBlock.smith(helper.getBlockState(smitherPos), helper.getLevel(), helper.absolutePos(smitherPos)),
                 "smithing succeeds");
         helper.assertTrue(menu.getSlot(AutoSmitherMenu.RESULT_SLOT).getItem().is(Items.NETHERITE_PICKAXE), "finished output is stored");
+        // Keep every input occupied while the real hopper extracts the finished result.
+        smither.setItem(AutoSmitherBlockEntity.BASE_SLOT, new ItemStack(Items.DIAMOND_PICKAXE));
         helper.setBlock(smitherPos.below(), Blocks.HOPPER);
         helper.startSequence().thenExecuteAfter(20, () -> {
             helper.assertTrue(smither.getItem(AutoSmitherBlockEntity.RESULT_SLOT).isEmpty(), "hopper removed output");
             helper.assertValueEqual(helper.getBlockEntity(smitherPos.below(), HopperBlockEntity.class).countItem(Items.NETHERITE_PICKAXE),
                     1, "hopper contains the finished result");
             helper.assertValueEqual(smither.getItem(0).getCount(), 2, "hopper did not take templates");
+            helper.assertTrue(smither.getItem(AutoSmitherBlockEntity.BASE_SLOT).is(Items.DIAMOND_PICKAXE), "hopper did not take the base");
             helper.assertValueEqual(smither.getItem(2).getCount(), 3, "hopper did not take additions");
         }).thenSucceed();
     }
