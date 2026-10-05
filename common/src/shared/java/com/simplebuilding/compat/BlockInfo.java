@@ -57,6 +57,7 @@ public final class BlockInfo {
         OWNER("owner", true),
         PAD_STATUS("pad_status", true),
         HOPPER_FILTER("hopper_filter", true),
+        CRUCIBLE("crucible", true),
         PISTON_DURABILITY("piston_durability", false),
         CHEST_SLOTS("chest_slots", false),
         FURNACE_SPEED("furnace_speed", false);
@@ -153,6 +154,7 @@ public final class BlockInfo {
             case OWNER -> be instanceof OwnedBlockEntity;
             case PAD_STATUS -> be instanceof LaunchpadBlockEntity || be instanceof PotionPadBlockEntity || be instanceof ChunkLoaderBlockEntity;
             case HOPPER_FILTER -> be instanceof ModHopperBlockEntity;
+            case CRUCIBLE -> com.simplebuilding.crucible.CrucibleCompat.crucibleSlots(be.getBlockState().getBlock()) > 0;
             default -> false;
         };
     }
@@ -167,6 +169,14 @@ public final class BlockInfo {
                 }
             }
             case PAD_STATUS -> padStatus(be, lines);
+            case CRUCIBLE -> {
+                int[] status = com.simplebuilding.crucible.CrucibleCompat.status(be);
+                if (status.length == 4) {
+                    lines.add(Line.of("jade.simplebuilding.crucible.heat", Arg.translatable("crucible.simplebuilding.heat." + status[0])));
+                    lines.add(Line.of("jade.simplebuilding.crucible.slots", Arg.literal(status[1]), Arg.literal(status[2])));
+                    if (status[3] >= 0) lines.add(Line.of("jade.simplebuilding.crucible.remaining", Arg.literal((status[3] + 19L) / 20)));
+                }
+            }
             case HOPPER_FILTER -> {
                 if (be instanceof ModHopperBlockEntity hopper) {
                     hopperFilter(hopper, lines);

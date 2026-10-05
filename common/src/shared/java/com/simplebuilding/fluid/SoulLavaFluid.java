@@ -31,8 +31,8 @@ import org.jspecify.annotations.Nullable;
 /**
  * Soul lava (plan section 9, owner round 2 answers 25-31): lava's behaviour with
  * <ul>
- *   <li>a short, slow flow: {@link SoulLava#FLOW_OVERWORLD} blocks (Nether {@link SoulLava#FLOW_NETHER}), every
- *       {@link SoulLava#TICK_DELAY_OVERWORLD} (Nether {@link SoulLava#TICK_DELAY_NETHER}) ticks - drop-off 1 plus a
+ *   <li>a short, slow flow: {@link SoulLava#flowOverworld()} blocks (Nether {@link SoulLava#flowNether()}), every
+ *       {@link SoulLava#tickDelayOverworld()} (Nether {@link SoulLava#tickDelayNether()}) ticks - drop-off 1 plus a
  *       minimum level, so any reach 1..7 works;</li>
  *   <li>nothing replaces it, not even water flowing in (the water side turns, see {@link SoulLavaBlock});</li>
  *   <li>touching burns twice as long plus Seelenbrand ({@link SoulLava#touch});</li>
@@ -64,7 +64,7 @@ public abstract class SoulLavaFluid extends FlowingFluid {
 
     /** Horizontal reach in blocks in this level. */
     public static int reach(LevelReader level) {
-        return nether(level) ? SoulLava.FLOW_NETHER : SoulLava.FLOW_OVERWORLD;
+        return nether(level) ? SoulLava.flowNether() : SoulLava.flowOverworld();
     }
 
     @Override
@@ -181,7 +181,7 @@ public abstract class SoulLavaFluid extends FlowingFluid {
 
     @Override
     public int getTickDelay(LevelReader level) {
-        return nether(level) ? SoulLava.TICK_DELAY_NETHER : SoulLava.TICK_DELAY_OVERWORLD;
+        return nether(level) ? SoulLava.tickDelayNether() : SoulLava.tickDelayOverworld();
     }
 
     @Override

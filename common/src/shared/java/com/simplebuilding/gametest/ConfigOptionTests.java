@@ -88,6 +88,83 @@ import net.minecraft.world.phys.Vec3;
  */
 public final class ConfigOptionTests {
 
+    /** All soul lava bounds, including non-finite probabilities and missing groups. */
+    public static void soulLavaBoundsAreClamped(GameTestHelper helper) {
+        var config = new com.simplebuilding.config.ServerTuningConfig();
+        String[] names = {"flowOverworld", "flowNether", "tickDelayOverworld", "tickDelayNether", "burnSeconds",
+                "soulBurnSeconds", "soulBurnIntervalTicks", "fuelMultiplier"};
+        int[] minimum = {1, 1, 20, 10, 5, 5, 20, 1};
+        int[] maximum = {4, 7, 200, 200, 60, 300, 200, 20};
+        try {
+            for (int i = 0; i < names.length; i++) {
+                var field = config.soulLava.getClass().getField(names[i]);
+                field.setInt(config.soulLava, Integer.MIN_VALUE);
+                config.validate();
+                helper.assertTrue(field.getInt(config.soulLava) == minimum[i], names[i] + " lower bound");
+                field.setInt(config.soulLava, Integer.MAX_VALUE);
+                config.validate();
+                helper.assertTrue(field.getInt(config.soulLava) == maximum[i], names[i] + " upper bound");
+            }
+            String[] chances = {"soulBurnChance", "springChance", "fortressChance"};
+            double[] caps = {1.0, 0.05, 0.5};
+            double[] defaults = {0.5, 0.005, 0.1};
+            for (int i = 0; i < chances.length; i++) {
+                var field = config.soulLava.getClass().getField(chances[i]);
+                for (double value : new double[] {-1, 2, Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY}) {
+                    field.setDouble(config.soulLava, value);
+                    config.validate();
+                    double expected = !Double.isFinite(value) ? defaults[i] : value < 0 ? 0 : caps[i];
+                    helper.assertTrue(field.getDouble(config.soulLava) == expected, chances[i] + " clamp " + value);
+                }
+            }
+        } catch (ReflectiveOperationException e) {
+            throw new AssertionError(e);
+        }
+        config.soulLava = null;
+        config.validate();
+        helper.assertTrue(config.soulLava != null && config.soulLava.fuelMultiplier == 10, "missing group restored");
+        helper.assertTrue(com.simplebuilding.config.ConfigOptions.RESTART_REQUIRED.contains("server.soulLava.fuelMultiplier"), "fuel requires restart");
+        helper.succeed();
+    }
+
+    /** Change live values synchronously, then restore before another test can tick. */
+    public static void soulLavaUsesServerValues(GameTestHelper helper) {
+        var server = com.simplebuilding.config.ServerTuning.local();
+        var previous = server.soulLava;
+        try {
+            server.soulLava = new com.simplebuilding.config.ServerTuningConfig.SoulLava();
+            var lava = server.soulLava;
+            lava.flowOverworld = 4;
+            lava.flowNether = 7;
+            lava.tickDelayOverworld = 90;
+            lava.tickDelayNether = 40;
+            lava.burnSeconds = 50;
+            lava.soulBurnSeconds = 120;
+            lava.soulBurnIntervalTicks = 100;
+            lava.soulBurnChance = 0.25;
+            lava.fuelMultiplier = 3;
+            lava.springChance = 0.02;
+            lava.fortressChance = 0.3;
+            for (var field : lava.getClass().getFields()) {
+                Object actual = com.simplebuilding.fluid.SoulLava.class.getMethod(field.getName()).invoke(null);
+                helper.assertTrue(actual.equals(field.get(lava)), "live getter " + field.getName());
+            }
+            helper.assertTrue(com.simplebuilding.fluid.SoulLavaFluid.reach(helper.getLevel()) == 4, "fluid reads configured reach");
+            helper.assertTrue(com.simplebuilding.fluid.SoulLava.soulBurnTicks() == 2400, "effect seconds converted to ticks");
+            helper.assertTrue(com.simplebuilding.fluid.SoulLava.fuelTicks() == 60000, "fuel multiplier applies to 20000 ticks");
+            if (McVersion.CRUCIBLE) {
+                helper.assertTrue(com.simplebuilding.fluid.ModFluids.SOUL_LAVA.getTickDelay(helper.getLevel()) == 90, "fluid reads delay");
+            }
+            lava.flowOverworld = Integer.MAX_VALUE;
+            helper.assertTrue(com.simplebuilding.fluid.SoulLavaFluid.reach(helper.getLevel()) == 4, "getter clamps unvalidated values");
+        } catch (ReflectiveOperationException e) {
+            throw new AssertionError(e);
+        } finally {
+            server.soulLava = previous;
+        }
+        helper.succeed();
+    }
+
     private ConfigOptionTests() {
     }
 
@@ -424,6 +501,19 @@ public final class ConfigOptionTests {
      * {@link #everyConfigOptionKeepsItsPersistedNameAndDefault}.
      */
     private static final Set<String> EXPECTED_OPTIONS = Set.of(
+            "server.soulLava group:SoulLava",
+            "server.soulLava.flowOverworld int=2",
+            "server.soulLava.flowNether int=5",
+            "server.soulLava.tickDelayOverworld int=45",
+            "server.soulLava.tickDelayNether int=20",
+            "server.soulLava.burnSeconds int=30",
+            "server.soulLava.soulBurnSeconds int=60",
+            "server.soulLava.soulBurnIntervalTicks int=60",
+            "server.soulLava.soulBurnChance double=0.5",
+            "server.soulLava.fuelMultiplier int=10",
+            "server.soulLava.springChance double=0.005",
+            "server.soulLava.fortressChance double=0.1",
+
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
             "root.airJumpCooldownTicks int=400",

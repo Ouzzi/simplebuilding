@@ -30,12 +30,11 @@ public record CrucibleJob(int ticks, ItemStack result, float experience, HeatLev
     /** The job for {@code stack} at {@code heat}, or null when the crucible cannot do anything with it. */
     public static @Nullable CrucibleJob find(ServerLevel level, ItemStack stack, HeatLevel heat) {
         if (stack.isEmpty()) return null;
-        boolean extreme = stack.is(LibTags.NEEDS_EXTREME_HEAT);
         SingleRecipeInput input = new SingleRecipeInput(stack);
         CrucibleJob allowed = null;
         CrucibleJob lowest = null;
         for (RecipeType<? extends AbstractCookingRecipe> type : TYPES) {
-            CrucibleJob job = of(level, type, input, extreme);
+            CrucibleJob job = of(level, type, input);
             if (job == null) continue;
             if (job.allowedAt(heat)) {
                 if (allowed == null || job.ticks < allowed.ticks) allowed = job;
@@ -54,14 +53,19 @@ public record CrucibleJob(int ticks, ItemStack result, float experience, HeatLev
 
     @SuppressWarnings("unchecked")
     private static @Nullable CrucibleJob of(ServerLevel level, RecipeType<? extends AbstractCookingRecipe> type,
-                                           SingleRecipeInput input, boolean extreme) {
+                                           SingleRecipeInput input) {
         Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> found =
                 level.recipeAccess().getRecipeFor((RecipeType<AbstractCookingRecipe>) type, input, level);
         if (found.isEmpty()) return null;
         AbstractCookingRecipe recipe = found.get().value();
         ItemStack result = recipe.assemble(input);
         if (result.isEmpty()) return null;
-        HeatLevel need = extreme ? HeatLevel.EXTREME : HeatLevel.required(type);
+        HeatLevel need = requiredHeat(input.item(), type);
         return new CrucibleJob(Math.max(1, recipe.cookingTime()), result, recipe.experience(), need, false);
+    }
+
+    /** Shared by actual cooking and partner recipe displays. */
+    public static HeatLevel requiredHeat(ItemStack input, RecipeType<?> type) {
+        return input.is(LibTags.NEEDS_EXTREME_HEAT) ? HeatLevel.EXTREME : HeatLevel.required(type);
     }
 }

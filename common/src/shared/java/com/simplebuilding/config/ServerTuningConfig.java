@@ -10,7 +10,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
  * Vorhersage mit den Werten des Servers ({@link ServerTuning#get()}); die eigene Datei eines Clients
  * hat hier nichts zu sagen. Ausnahme: {@link Charges} legt die Haltbarkeit von Gegenstaenden fest,
  * die beim Start registriert wird - Neustart noetig, und Client und Server muessen dieselbe Datei
- * haben (Modpack).
+ * haben (Modpack). Dasselbe gilt fuer {@code soulLava.fuelMultiplier}, die Brenndauer der Eimer.
  *
  * <p>Standard = bisheriges Verhalten (einzige gewollte Aenderung: Chunk-Loader laufen nur, solange
  * ihr Besitzer online ist, Besitzer-Entscheidung). Jede Geschwindigkeit und Reichweite hat eine
@@ -24,6 +24,9 @@ public class ServerTuningConfig {
 
     @ConfigEntry.Gui.CollapsibleObject(startExpanded = true)
     public Features features = new Features();
+
+    @ConfigEntry.Gui.CollapsibleObject
+    public SoulLava soulLava = new SoulLava();
 
     @ConfigEntry.Gui.CollapsibleObject
     public ChunkLoaders chunkLoaders = new ChunkLoaders();
@@ -75,6 +78,19 @@ public class ServerTuningConfig {
 
     /** Begrenzt handeditierte oder per Befehl gesetzte Werte; fehlende Gruppen neu. */
     public void validate() {
+        if (soulLava == null) soulLava = new SoulLava();
+        soulLava.flowOverworld = clamp(soulLava.flowOverworld, 1, 4);
+        soulLava.flowNether = clamp(soulLava.flowNether, 1, 7);
+        soulLava.tickDelayOverworld = clamp(soulLava.tickDelayOverworld, 20, 200);
+        soulLava.tickDelayNether = clamp(soulLava.tickDelayNether, 10, 200);
+        soulLava.burnSeconds = clamp(soulLava.burnSeconds, 5, 60);
+        soulLava.soulBurnSeconds = clamp(soulLava.soulBurnSeconds, 5, 300);
+        soulLava.soulBurnIntervalTicks = clamp(soulLava.soulBurnIntervalTicks, 20, 200);
+        soulLava.soulBurnChance = clamp(soulLava.soulBurnChance, 0.0, 1.0, 0.5);
+        soulLava.fuelMultiplier = clamp(soulLava.fuelMultiplier, 1, 20);
+        soulLava.springChance = clamp(soulLava.springChance, 0.0, 0.05, 0.005);
+        soulLava.fortressChance = clamp(soulLava.fortressChance, 0.0, 0.5, 0.1);
+
         if (features == null) features = new Features();
         if (machines != null) machines.endSignalRange = clamp(machines.endSignalRange, 1, 15);
         if (machines != null) machines.endPistonCooldownTicks = clamp(machines.endPistonCooldownTicks, 4, 100);
@@ -344,6 +360,32 @@ public class ServerTuningConfig {
         public int rotatorMaxCharge = 1024;
         @ConfigEntry.Gui.Tooltip
         public int echoSounderMaxCharge = 1500;
+    }
+
+    public static class SoulLava {
+        @ConfigEntry.Gui.Tooltip
+        public int flowOverworld = 2;
+        @ConfigEntry.Gui.Tooltip
+        public int flowNether = 5;
+        @ConfigEntry.Gui.Tooltip
+        public int tickDelayOverworld = 45;
+        @ConfigEntry.Gui.Tooltip
+        public int tickDelayNether = 20;
+        @ConfigEntry.Gui.Tooltip
+        public int burnSeconds = 30;
+        @ConfigEntry.Gui.Tooltip
+        public int soulBurnSeconds = 60;
+        @ConfigEntry.Gui.Tooltip
+        public int soulBurnIntervalTicks = 60;
+        @ConfigEntry.Gui.Tooltip
+        public double soulBurnChance = 0.5;
+        /** Registration-time value: restart and matching client/server files required. */
+        @ConfigEntry.Gui.Tooltip
+        public int fuelMultiplier = 10;
+        @ConfigEntry.Gui.Tooltip
+        public double springChance = 0.005;
+        @ConfigEntry.Gui.Tooltip
+        public double fortressChance = 0.1;
     }
 
     public static class Tools {

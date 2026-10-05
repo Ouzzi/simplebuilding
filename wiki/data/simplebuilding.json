@@ -3716,9 +3716,10 @@
         "summary": "SimpleBuilding's part of the SimpleLib crucibles: the Enderite tier, sledgehammer ways, soul lava as extreme heat, copper and Enderite buckets.",
         "details": [
           "Enderite crucible (27 slots, double stacks, 8x) and Enderite barrel. The sledgehammer replaces SimpleLib's axe ways: building the iron crucible on an iron block (4 heavy weighted pressure plates, then 2 iron rods or iron ingots; 2 durability per strike), attaching a barrel (6 strikes) and upgrading at twice the cost of a furnace (2 material, twice the strikes): Iron to Reinforced with cracked diamonds, to Netherite with netherite nuggets (diamond hammer), to Enderite with Enderite nuggets (Netherite hammer); copper to reinforced to Enderite barrel. A cauldron becomes a reinforced cauldron with 4 cracked diamonds.",
-          "Soul lava: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for a minute: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts. It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
-          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks. The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes one stage per pour unless waxed (axe in the off hand scrapes, honeycomb waxes), pours water only as a flowing block and breaks when pouring lava. A soul lava bucket burns 10 times as long as a lava bucket.",
-          "The sledgehammer crushes a quartz block into 4 quartz."
+          "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for a minute: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts. It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
+          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks. The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes one stage per pour unless waxed (axe in the off hand scrapes, honeycomb waxes), pours water only as a flowing block and breaks when pouring lava. By default, a soul lava bucket burns 10 times as long as a lava bucket.",
+          "The sledgehammer crushes a quartz block into 4 quartz.",
+          "Server config server.soulLava controls flow, delays, burn and soul burn, world generation chances and bucket fuel within hard limits. Fuel changes require a restart and matching client/server files. Jade shows heat, occupied slots and the shortest remaining time of a running slot, including tier speed and the two-block heat penalty. JEI shows the fastest cooking recipe per input and required heat, plus warming for tagged food without a cooking recipe; displayed time assumes an iron crucible at minimum heat without a distance penalty."
         ]
       },
       "de": {
@@ -3726,9 +3727,10 @@
         "summary": "SimpleBuildings Teil der SimpleLib-Schmelztiegel: Enderit-Stufe, Vorschlaghammer-Wege, Seelen-Lava als extreme Hitze, Kupfer- und Enderit-Eimer.",
         "details": [
           "Enderit-Schmelztiegel (27 Plätze, doppelte Stapel, 8×) und Enderit-Fass. Der Vorschlaghammer ersetzt SimpleLibs Axt-Wege: Bau des Eisen-Schmelztiegels auf einem Eisenblock (4 schwere Wägeplatten, dann 2 Eisenstäbe oder Eisenbarren; 2 Haltbarkeit je Schlag), Fass anbringen (6 Schläge) und Aufwerten zum doppelten Preis eines Ofens (2 Material, doppelte Schläge): Eisen zu Verstärkt mit Rissigen Diamanten, zu Netherit mit Netheritklumpen (Diamant-Hammer), zu Enderit mit Enderitklumpen (Netherit-Hammer); Kupfer- zu Verstärktem zu Enderit-Fass. Ein Kessel wird mit 4 Rissigen Diamanten zum verstärkten Kessel.",
-          "Seelen-Lava: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt eine Minute Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt. Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
-          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie. Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert je Ausgießen um eine Stufe, außer er ist gewachst (Axt in der Nebenhand schabt, Honigwabe wachst), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava. Ein Seelen-Lava-Eimer brennt 10-mal so lange wie ein Lavaeimer.",
-          "Der Vorschlaghammer zerschlägt einen Quarzblock zu 4 Quarz."
+          "Seelen-Lava mit Standardwerten: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt eine Minute Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt. Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
+          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie. Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert je Ausgießen um eine Stufe, außer er ist gewachst (Axt in der Nebenhand schabt, Honigwabe wachst), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer.",
+          "Der Vorschlaghammer zerschlägt einen Quarzblock zu 4 Quarz.",
+          "Die Server-Config server.soulLava regelt Fließweite, Verzögerungen, Brand und Seelenbrand, Weltgenerierungschancen und Eimer-Brennstoff innerhalb harter Grenzen. Brennstoffänderungen brauchen einen Neustart und gleiche Client-/Server-Dateien. Jade zeigt Hitze, belegte Plätze und die kürzeste Restzeit eines laufenden Platzes einschließlich Stufentempo und Hitzeabschlag bei zwei Blöcken Abstand. JEI zeigt je Eingabe und nötiger Hitze das schnellste Kochrezept sowie Aufwärmen für markiertes Essen ohne Kochrezept; die angezeigte Zeit gilt für einen Eisen-Tiegel bei Mindesthitze ohne Abstandsabschlag."
         ]
       }
     }
@@ -68203,6 +68205,259 @@
       "tooltipDe": "In so vielen Blöcken um einen Stroh-\nRüstungsständer oder eine Trainingspuppe\nzertrampeln Tiere und Monster kein\nAckerland (Spieler schon). 0 = aus,\nhöchstens 16. Serverseitig. Standard: 8."
     },
     {
+      "range": [
+        1.0,
+        4.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.flowOverworld",
+      "shortName": "flowOverworld",
+      "type": "int",
+      "default": "2",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Overworld Flow Distance",
+      "labelDe": "Fließweite Oberwelt",
+      "tooltip": "Server-side. Range: 1 to 4. Default: 2.",
+      "tooltipDe": "Serverseitig. Bereich: 1 bis 4. Standard: 2."
+    },
+    {
+      "range": [
+        1.0,
+        7.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.flowNether",
+      "shortName": "flowNether",
+      "type": "int",
+      "default": "5",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Nether Flow Distance",
+      "labelDe": "Fließweite Nether",
+      "tooltip": "Server-side. Range: 1 to 7. Default: 5.",
+      "tooltipDe": "Serverseitig. Bereich: 1 bis 7. Standard: 5."
+    },
+    {
+      "range": [
+        20.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.tickDelayOverworld",
+      "shortName": "tickDelayOverworld",
+      "type": "int",
+      "default": "45",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Overworld Tick Delay",
+      "labelDe": "Fließverzögerung Oberwelt",
+      "tooltip": "Server-side. Range: 20 to 200. Default: 45.",
+      "tooltipDe": "Serverseitig. Bereich: 20 bis 200. Standard: 45."
+    },
+    {
+      "range": [
+        10.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.tickDelayNether",
+      "shortName": "tickDelayNether",
+      "type": "int",
+      "default": "20",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Nether Tick Delay",
+      "labelDe": "Fließverzögerung Nether",
+      "tooltip": "Server-side. Range: 10 to 200. Default: 20.",
+      "tooltipDe": "Serverseitig. Bereich: 10 bis 200. Standard: 20."
+    },
+    {
+      "range": [
+        5.0,
+        60.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.burnSeconds",
+      "shortName": "burnSeconds",
+      "type": "int",
+      "default": "30",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Burn Duration (seconds)",
+      "labelDe": "Brenndauer (Sekunden)",
+      "tooltip": "Server-side. Range: 5 to 60. Default: 30.",
+      "tooltipDe": "Serverseitig. Bereich: 5 bis 60. Standard: 30."
+    },
+    {
+      "range": [
+        5.0,
+        300.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.soulBurnSeconds",
+      "shortName": "soulBurnSeconds",
+      "type": "int",
+      "default": "60",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Soul Burn Duration (seconds)",
+      "labelDe": "Seelenbranddauer (Sekunden)",
+      "tooltip": "Server-side. Range: 5 to 300. Default: 60.",
+      "tooltipDe": "Serverseitig. Bereich: 5 bis 300. Standard: 60."
+    },
+    {
+      "range": [
+        20.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.soulBurnIntervalTicks",
+      "shortName": "soulBurnIntervalTicks",
+      "type": "int",
+      "default": "60",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Soul Burn Interval (ticks)",
+      "labelDe": "Seelenbrandintervall (Ticks)",
+      "tooltip": "Server-side. Range: 20 to 200. Default: 60.",
+      "tooltipDe": "Serverseitig. Bereich: 20 bis 200. Standard: 60."
+    },
+    {
+      "range": [
+        0.0,
+        1.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.soulBurnChance",
+      "shortName": "soulBurnChance",
+      "type": "double",
+      "default": "0.5",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Soul Burn Damage Chance",
+      "labelDe": "Seelenbrand-Schadenschance",
+      "tooltip": "Server-side. Range: 0.0 to 1.0. Default: 0.5.",
+      "tooltipDe": "Serverseitig. Bereich: 0.0 bis 1.0. Standard: 0.5."
+    },
+    {
+      "range": [
+        1.0,
+        20.0
+      ],
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.fuelMultiplier",
+      "shortName": "fuelMultiplier",
+      "type": "int",
+      "default": "10",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Fuel Multiplier (restart required)",
+      "labelDe": "Brennstofffaktor (Neustart nötig)",
+      "tooltip": "Server-side. Range: 1 to 20. Multiplies 20,000 ticks. Requires restart and matching client/server config files. Default: 10.",
+      "tooltipDe": "Serverseitig. Bereich: 1 bis 20. Multipliziert 20.000 Ticks. Neustart und gleiche Config auf Client und Server nötig. Standard: 10."
+    },
+    {
+      "range": [
+        0.0,
+        0.05
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.springChance",
+      "shortName": "springChance",
+      "type": "double",
+      "default": "0.005",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Nether Spring Chance",
+      "labelDe": "Chance für Netherquellen",
+      "tooltip": "Server-side. Range: 0.0 to 0.05. Default: 0.005.",
+      "tooltipDe": "Serverseitig. Bereich: 0.0 bis 0.05. Standard: 0.005."
+    },
+    {
+      "range": [
+        0.0,
+        0.5
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.fortressChance",
+      "shortName": "fortressChance",
+      "type": "double",
+      "default": "0.1",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Fortress Well Chance",
+      "labelDe": "Chance für Festungsbrunnen",
+      "tooltip": "Server-side. Range: 0.0 to 0.5. Default: 0.1.",
+      "tooltipDe": "Serverseitig. Bereich: 0.0 bis 0.5. Standard: 0.1."
+    },
+    {
       "range": null,
       "side": "server",
       "reload": "no",
@@ -94169,7 +94424,7 @@
     "trades": 20,
     "enchantments": 19,
     "tags": 47,
-    "config": 202,
+    "config": 213,
     "inWorld": 463,
     "advancements": 127,
     "features": 48,

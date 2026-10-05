@@ -96,6 +96,7 @@ public final class ConfigOptions {
      * the End ores are added to the biomes when the world loads. The command says a restart is needed.
      */
     public static final Set<String> RESTART_REQUIRED = Set.of(
+            "server.soulLava.fuelMultiplier",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",

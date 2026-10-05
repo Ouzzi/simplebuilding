@@ -7,6 +7,16 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class CrucibleGameTest {
 
     @GameTest
+    public void jadeReportsHeatSlotsAndShortestRemainingTime(GameTestHelper helper) {
+        CrucibleTests.jadeReportsHeatSlotsAndShortestRemainingTime(helper);
+    }
+
+    @GameTest
+    public void recipeHeatAndCatalogMatchCookingRules(GameTestHelper helper) {
+        CrucibleTests.recipeHeatAndCatalogMatchCookingRules(helper);
+    }
+
+    @GameTest
     public void enderiteTiersHaveTwentySevenSlotsAndDoubleStacks(GameTestHelper helper) {
         CrucibleTests.enderiteTiersHaveTwentySevenSlotsAndDoubleStacks(helper);
     }

@@ -46,6 +46,11 @@ public class SimplebuildingJadePlugin implements IWailaPlugin {
 
     @Override
     public void register(IWailaCommonRegistration registration) {
+        // The 1.21.11 copy also compiles this plugin, but has no crucible topic or bridge.
+        for (BlockInfo.Topic topic : BlockInfo.Topic.values()) {
+            if (topic.id().equals("crucible")) registration.registerBlockDataProvider(
+                    DATA.get(topic), net.minecraft.world.level.block.entity.BlockEntity.class);
+        }
         registration.registerBlockDataProvider(DATA.get(BlockInfo.Topic.OWNER), OwnedBlockEntity.class);
         BlockInfoServerProvider pads = DATA.get(BlockInfo.Topic.PAD_STATUS);
         registration.registerBlockDataProvider(pads, LaunchpadBlockEntity.class);
@@ -56,6 +61,9 @@ public class SimplebuildingJadePlugin implements IWailaPlugin {
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
+        for (BlockInfo.Topic topic : BlockInfo.Topic.values()) {
+            if (topic.id().equals("crucible")) registration.registerBlockComponent(PROVIDERS.get(topic), Block.class);
+        }
         // Server topics: the tooltip only shows what the server sent, so any block may ask.
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.OWNER), Block.class);
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.PAD_STATUS), Block.class);
