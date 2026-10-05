@@ -1,0 +1,22 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplesandwiches"
+version="${version}"
+displayName="Simple Sandwiches"
+description="Sandwiches built on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles."
+[[dependencies.simplesandwiches]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[mixins]]
+config="simplesandwiches.mixins.json"
+
+[[dependencies.simplesandwiches]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

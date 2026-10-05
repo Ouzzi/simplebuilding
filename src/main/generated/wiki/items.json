@@ -72,6 +72,7 @@
     "simplebuilding:layered_astralit",
     "simplebuilding:levitating_gravel",
     "simplebuilding:levitating_sand",
+    "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:netherite_backpack",
     "simplebuilding:netherite_blast_furnace",
     "simplebuilding:netherite_chest",
@@ -118,6 +119,7 @@
     "simplebuilding:polished_nihilith_wall",
     "simplebuilding:potion_pad",
     "simplebuilding:purpur_quartz_checker",
+    "simplebuilding:red_nether_brick_quartz_checker",
     "simplebuilding:reinforced_backpack",
     "simplebuilding:reinforced_blast_furnace",
     "simplebuilding:reinforced_chest",
@@ -787,6 +789,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:nether_brick_quartz_checker"
+    },
+    {
       "id": "simplebuilding:netherite_apple"
     },
     {
@@ -1088,6 +1093,9 @@
     },
     {
       "id": "simplebuilding:raw_enderite"
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_quartz_checker"
     },
     {
       "id": "simplebuilding:reinforced_backpack",

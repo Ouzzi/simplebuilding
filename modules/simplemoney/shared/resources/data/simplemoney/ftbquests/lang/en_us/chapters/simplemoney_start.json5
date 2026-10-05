@@ -1,0 +1,10 @@
+{
+	"chapter.54407FC62A887BB4.title": "{\"translate\": \"quests.simplemoney.start.title\"}",
+	"chapter.54407FC62A887BB4.chapter_subtitle": [
+		"{\"translate\": \"quests.simplemoney.start.subtitle\"}"
+	],
+	"quest.00EF213D12C0AC83.title": "{\"translate\": \"quests.simplemoney.start.welcome.title\"}",
+	"quest.00EF213D12C0AC83.quest_desc": [
+		"{\"translate\": \"quests.simplemoney.start.welcome.description\"}"
+	]
+}

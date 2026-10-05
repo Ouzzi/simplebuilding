@@ -23,6 +23,7 @@ public class HammockBlock extends HorizontalDirectionalBlock {
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
     public static final double SLEEP_HEIGHT = 0.25;
+    public static final int CHECK_TICKS = 10;
     public static final MapCodec<HammockBlock> CODEC = com.simplebuilding.version.BlockCodecs.simple(p -> new HammockBlock(DyeColor.WHITE, p));
 
     private final DyeColor color;
@@ -31,7 +32,7 @@ public class HammockBlock extends HorizontalDirectionalBlock {
         super(properties);
         this.color = color;
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PART, BedPart.HEAD)
-                .setValue(OCCUPIED, false));
+                .setValue(OCCUPIED, false).setValue(HammockLayout.STRAIGHT, true));
     }
 
     public MapCodec<HammockBlock> codec() {
@@ -44,7 +45,7 @@ public class HammockBlock extends HorizontalDirectionalBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, PART, OCCUPIED);
+        builder.add(FACING, PART, OCCUPIED, HammockLayout.STRAIGHT);
     }
 
     /** No hammocks on 26.2. */

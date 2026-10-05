@@ -24,3 +24,10 @@ mandatory=true
 versionRange="[1,)"
 ordering="AFTER"
 side="BOTH"
+
+[[dependencies.simpletweaks]]
+modId="simpledimension"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

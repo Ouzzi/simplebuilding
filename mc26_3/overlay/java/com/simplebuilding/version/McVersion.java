@@ -33,6 +33,10 @@ import java.util.stream.Stream;
  * common/src/mc26_2/java for the contract; both must keep the same public signatures.
  */
 public final class McVersion {
+    /** Safe hub test-world spawn and explicit dev-only warning acknowledgment (26.3 first). */
+    public static final boolean HUB_TEST_WORLD = true;
+    /** Vanilla 26.3 guide examples: straw beds and the Dappled Forest wood set. */
+    public static final boolean VANILLA_26_3_CONTENT = true;
     /** Redstone variants of the three chest tiers (26.3 first). */
     public static final boolean TRAPPED_TIERED_CHESTS = true;
     public static final boolean SILENT_DANDELION = true;
@@ -55,6 +59,7 @@ public final class McVersion {
     public static final boolean VANILLA_DYEING = true;
     /** Iron Rod and the reworked gadget recipes (clock in the gauge, recovery compass in the detector, iron rods) (2026-10-02). */
     public static final boolean GADGET_REWORK = true;
+    public static final boolean EXPENSIVE_TEMPLATES = true;
     /** Rare structure finds: better loot chests and tiered end city shulkers with their shells (2026-10-02). */
     public static final boolean RARE_STRUCTURE_FINDS = true;
 
@@ -74,8 +79,14 @@ public final class McVersion {
     public static final boolean TRAINING_DUMMY = true;
     /** Hammock (2026-10-02): needs vanilla's AbstractBedBlock (26.3); resting by day speeds the clock up. */
     public static final boolean HAMMOCK = true;
+    /** Standing rods (2026-10-04): stick, bone, blaze/breeze/diamond rod stand upright (sneak + right-click on a top). */
+    public static final boolean STANDING_RODS = true;
     /** Dimension music discs with B-sides (sledgehammer flip) and the Astralit/Nihilit speakers (2026-10-03). */
     public static final boolean MUSIC_DISCS = true;
+    /** Astral rail (boosts towards a raised top speed) and Nihil rail (brakes to a stop), fed by their End channel (2026-10-04). */
+    public static final boolean END_RAILS = true;
+    /** Crucible SB parts (2026-10-05): Enderite crucible/barrel, sledgehammer ways, soul lava, copper/enderite buckets (needs SimpleLib, 26.3 only). */
+    public static final boolean CRUCIBLE = true;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = true;
 
@@ -282,5 +293,12 @@ public final class McVersion {
     /** Pistons can neither push nor pull the block (26.3 renamed BLOCK to IMMOVEABLE). */
     public static net.minecraft.world.level.material.PushReaction immovable() {
         return net.minecraft.world.level.material.PushReaction.IMMOVEABLE;
+    }
+
+    /** Furnace fuel of an item (26.3: the cooking_fuel component with a fixed burn time; 26.2: nothing). */
+    public static net.minecraft.world.item.Item.Properties cookingFuel(net.minecraft.world.item.Item.Properties properties, int ticks) {
+        return properties.component(net.minecraft.core.component.DataComponents.COOKING_FUEL,
+                new net.minecraft.world.item.component.CookingFuel(new net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt.Constant(ticks),
+                        new net.minecraft.world.level.storage.loot.providers.number.floats.ResolvableFloat.Constant(1.0F)));
     }
 }

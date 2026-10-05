@@ -18,6 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.RecipeBookMenu;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.SmithingMenu;
@@ -44,6 +45,32 @@ public final class WorkstationTests {
         ResourceKey<Recipe<?>> key = ResourceKey.create(Registries.RECIPE, Identifier.withDefaultNamespace(path));
         return helper.getLevel().getServer().getRecipeManager().byKey(key)
                 .orElseThrow(() -> helper.assertionException("missing vanilla recipe " + path));
+    }
+
+    public static void smithingRecipeBookHidesDummyDisplays(GameTestHelper helper) {
+        if (!McVersion.SMITHING_RECIPE_BOOK) {
+            helper.succeed();
+            return;
+        }
+        var recipes = helper.getLevel().getServer().getRecipeManager();
+        var player = helper.makeMockServerPlayerInLevel();
+        for (var id : com.simplebuilding.util.TrimUpgrades.DUMMY_RECIPES) {
+            var key = ResourceKey.create(Registries.RECIPE, id);
+            var recipe = recipes.byKey(key).orElseThrow();
+            helper.assertTrue(recipe.value() instanceof SmithingRecipe, "slot-enabling recipe still exists: " + id);
+            player.getRecipeBook().add(key); // Models an already unlocked recipe in an existing save.
+            helper.assertTrue(player.getRecipeBook().contains(key), "existing unlock retained");
+            List<RecipeDisplayEntry> displays = new ArrayList<>();
+            recipes.listDisplaysForRecipe(key, displays::add);
+            helper.assertTrue(displays.isEmpty(), "dummy has no display, even when already unlocked: " + id);
+        }
+        var upgrade = vanillaRecipe(helper, "netherite_chestplate_smithing");
+        List<RecipeDisplayEntry> displays = new ArrayList<>();
+        recipes.listDisplaysForRecipe(upgrade.id(), displays::add);
+        helper.assertFalse(displays.isEmpty(), "real smithing recipes remain visible");
+        helper.assertTrue(recipes.getRecipeFromDisplay(displays.getFirst().id()).parent().id().equals(upgrade.id()),
+                "display IDs still resolve to the correct recipe");
+        helper.succeed();
     }
 
     /**
@@ -150,7 +177,7 @@ public final class WorkstationTests {
 
     /**
      * Trichter legen nach Vanillas Schmiede-Mengen ein (Vorlage, Basis, Material), Fremdes bleibt draussen, herausziehen
-     * geht nicht; das Menue zeigt die Vorschau des Ergebnisses.
+     * geht nur aus dem gespeicherten Ergebnisslot.
      */
     public static void autoSmitherSortsHopperInput(GameTestHelper helper) {
         if (!McVersion.AUTO_SMITHER) {
@@ -169,14 +196,135 @@ public final class WorkstationTests {
                 && smither.getItem(AutoSmitherBlockEntity.TEMPLATE_SLOT).getCount() == 3, "templates in the template slot");
         helper.assertTrue(smither.getItem(AutoSmitherBlockEntity.BASE_SLOT).is(Items.DIAMOND_PICKAXE), "pickaxe in the base slot");
         helper.assertTrue(smither.getItem(AutoSmitherBlockEntity.ADDITION_SLOT).is(Items.NETHERITE_INGOT), "ingots in the addition slot");
-        for (int slot = 0; slot < AutoSmitherBlockEntity.SIZE; slot++) {
-            helper.assertFalse(smither.canTakeItemThroughFace(slot, smither.getItem(slot), Direction.DOWN), "hoppers cannot pull slot " + slot);
+        for (Direction side : Direction.values()) {
+            for (int slot : smither.getSlotsForFace(side)) {
+                helper.assertTrue(smither.canTakeItemThroughFace(slot, smither.getItem(slot), side)
+                        == (slot == AutoSmitherBlockEntity.RESULT_SLOT), "only output can be extracted from " + side);
+            }
+            helper.assertFalse(smither.canPlaceItemThroughFace(AutoSmitherBlockEntity.RESULT_SLOT,
+                    new ItemStack(Items.NETHERITE_INGOT), side), "no insertion into output from " + side);
         }
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         AutoSmitherMenu menu = new AutoSmitherMenu(3, player.getInventory(), smither, new SimpleContainerData(1));
-        helper.assertTrue(menu.getSlot(AutoSmitherMenu.RESULT_SLOT).getItem().is(Items.NETHERITE_PICKAXE),
-                "the menu previews the result: " + menu.getSlot(AutoSmitherMenu.RESULT_SLOT).getItem());
-        helper.assertFalse(menu.getSlot(AutoSmitherMenu.RESULT_SLOT).mayPickup(player), "the preview cannot be taken");
+        helper.assertFalse(menu.getSlot(AutoSmitherMenu.RESULT_SLOT).hasItem(), "no free preview result");
+        helper.assertTrue(menu.getSlot(AutoSmitherMenu.RESULT_SLOT).mayPickup(player), "finished output can be taken");
+        helper.assertFalse(menu.hasRecipeError(), "valid recipe has no error");
+        helper.assertTrue(AutoSmitherBlock.smith(helper.getBlockState(smitherPos), helper.getLevel(), helper.absolutePos(smitherPos)),
+                "smithing succeeds");
+        helper.assertTrue(menu.getSlot(AutoSmitherMenu.RESULT_SLOT).getItem().is(Items.NETHERITE_PICKAXE), "finished output is stored");
+        // Keep every input occupied while the real hopper extracts the finished result.
+        smither.setItem(AutoSmitherBlockEntity.BASE_SLOT, new ItemStack(Items.DIAMOND_PICKAXE));
+        helper.setBlock(smitherPos.below(), Blocks.HOPPER);
+        helper.startSequence().thenExecuteAfter(20, () -> {
+            helper.assertTrue(smither.getItem(AutoSmitherBlockEntity.RESULT_SLOT).isEmpty(), "hopper removed output");
+            helper.assertValueEqual(helper.getBlockEntity(smitherPos.below(), HopperBlockEntity.class).countItem(Items.NETHERITE_PICKAXE),
+                    1, "hopper contains the finished result");
+            helper.assertValueEqual(smither.getItem(0).getCount(), 2, "hopper did not take templates");
+            helper.assertTrue(smither.getItem(AutoSmitherBlockEntity.BASE_SLOT).is(Items.DIAMOND_PICKAXE), "hopper did not take the base");
+            helper.assertValueEqual(smither.getItem(2).getCount(), 3, "hopper did not take additions");
+        }).thenSucceed();
+    }
+
+    /** Exercise the server click dispatcher, not just the slot predicate. */
+    public static void autoSmitherOutputRejectsInsertion(GameTestHelper helper) {
+        if (!McVersion.AUTO_SMITHER) {
+            helper.succeed();
+            return;
+        }
+        BlockPos pos = new BlockPos(1, 2, 1);
+        helper.setBlock(pos, ModBlocks.AUTO_SMITHER);
+        AutoSmitherBlockEntity smither = helper.getBlockEntity(pos, AutoSmitherBlockEntity.class);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        AutoSmitherMenu menu = new AutoSmitherMenu(3, player.getInventory(), smither, new SimpleContainerData(1));
+        int output = AutoSmitherMenu.RESULT_SLOT;
+        helper.assertFalse(menu.getSlot(output).mayPlace(new ItemStack(Items.NETHERITE_INGOT)), "output rejects placement");
+        for (int button : new int[]{0, 1}) {
+            menu.setCarried(new ItemStack(Items.NETHERITE_INGOT, 8));
+            menu.clicked(output, button, ContainerInput.PICKUP, player);
+            helper.assertFalse(menu.getSlot(output).hasItem(), "normal click cannot insert");
+            helper.assertValueEqual(menu.getCarried().getCount(), 8, "cursor is unchanged");
+        }
+        menu.setCarried(ItemStack.EMPTY);
+        for (int hotbar = 0; hotbar < 9; hotbar++) {
+            player.getInventory().setItem(hotbar, new ItemStack(Items.NETHERITE_INGOT));
+            menu.clicked(output, hotbar, ContainerInput.SWAP, player);
+            helper.assertFalse(menu.getSlot(output).hasItem(), "number key cannot insert");
+        }
+        player.getInventory().setItem(40, new ItemStack(Items.NETHERITE_INGOT));
+        menu.clicked(output, 40, ContainerInput.SWAP, player);
+        helper.assertFalse(menu.getSlot(output).hasItem(), "offhand swap cannot insert");
+        smither.setItem(2, new ItemStack(Items.NETHERITE_INGOT, 64));
+        menu.clicked(31, 0, ContainerInput.QUICK_MOVE, player);
+        helper.assertFalse(menu.getSlot(output).hasItem(), "shift click cannot insert when input is full");
+        player.setGameMode(GameType.CREATIVE);
+        for (int mode : new int[]{0, 1, 2}) {
+            menu.setCarried(new ItemStack(Items.NETHERITE_INGOT, 8));
+            menu.clicked(-999, mode * 4, ContainerInput.QUICK_CRAFT, player);
+            menu.clicked(output, mode * 4 + 1, ContainerInput.QUICK_CRAFT, player);
+            menu.clicked(-999, mode * 4 + 2, ContainerInput.QUICK_CRAFT, player);
+            helper.assertFalse(menu.getSlot(output).hasItem(), "drag cannot insert");
+        }
+        player.setGameMode(GameType.SURVIVAL);
+        menu.setCarried(new ItemStack(Items.NETHERITE_INGOT));
+        menu.clicked(output, 0, ContainerInput.PICKUP_ALL, player);
+        helper.assertFalse(menu.getSlot(output).hasItem(), "double click cannot insert");
+
+        player.getInventory().clearContent();
+        menu.setCarried(ItemStack.EMPTY);
+        smither.setItem(output, new ItemStack(Items.NETHERITE_SWORD));
+        menu.clicked(output, 0, ContainerInput.PICKUP, player);
+        helper.assertTrue(menu.getCarried().is(Items.NETHERITE_SWORD), "normal click takes output");
+        menu.setCarried(ItemStack.EMPTY);
+        smither.setItem(output, new ItemStack(Items.NETHERITE_SWORD));
+        menu.clicked(output, 0, ContainerInput.QUICK_MOVE, player);
+        helper.assertFalse(menu.getSlot(output).hasItem(), "shift click takes output");
+        helper.assertValueEqual(player.getInventory().countItem(Items.NETHERITE_SWORD), 1, "shift click preserves result");
+        smither.setItem(output, new ItemStack(Items.NETHERITE_SWORD));
+        player.getInventory().setItem(0, ItemStack.EMPTY);
+        menu.clicked(output, 0, ContainerInput.SWAP, player);
+        helper.assertTrue(player.getInventory().getItem(0).is(Items.NETHERITE_SWORD), "empty hotbar key takes output");
+        smither.setItem(output, new ItemStack(Items.NETHERITE_SWORD));
+        player.getInventory().setItem(0, new ItemStack(Items.NETHERITE_INGOT));
+        menu.clicked(output, 0, ContainerInput.SWAP, player);
+        helper.assertTrue(smither.getItem(output).is(Items.NETHERITE_SWORD), "occupied hotbar cannot replace output");
+        helper.assertTrue(player.getInventory().getItem(0).is(Items.NETHERITE_INGOT), "hotbar item stays");
+        helper.succeed();
+    }
+
+    public static void autoSmitherOutputCapacityAndRecipeError(GameTestHelper helper) {
+        if (!McVersion.AUTO_SMITHER) {
+            helper.succeed();
+            return;
+        }
+        BlockPos pos = new BlockPos(1, 2, 1);
+        helper.setBlock(pos, ModBlocks.AUTO_SMITHER);
+        AutoSmitherBlockEntity smither = helper.getBlockEntity(pos, AutoSmitherBlockEntity.class);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        AutoSmitherMenu menu = new AutoSmitherMenu(3, player.getInventory(), smither, new SimpleContainerData(1));
+        helper.assertFalse(menu.hasRecipeError(), "empty inputs have no error");
+        smither.setItem(0, new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 2));
+        smither.setItem(1, new ItemStack(Items.DIAMOND_SWORD));
+        smither.setItem(2, new ItemStack(Items.NETHERITE_INGOT, 2));
+        smither.setItem(3, new ItemStack(Items.NETHERITE_SWORD));
+        helper.assertFalse(AutoSmitherBlock.smith(helper.getBlockState(pos), helper.getLevel(), helper.absolutePos(pos)), "full output stops crafting");
+        helper.assertValueEqual(smither.getItem(0).getCount(), 2, "full output consumes no template");
+        helper.assertTrue(smither.getItem(1).is(Items.DIAMOND_SWORD), "full output consumes no base");
+        helper.assertValueEqual(smither.getItem(2).getCount(), 2, "full output consumes no addition");
+        helper.assertValueEqual(smither.redstoneSignal(), 15, "output does not increase comparator beyond 15");
+        menu.broadcastChanges();
+        helper.assertFalse(menu.hasRecipeError(), "full output is not an invalid recipe");
+        smither.setItem(1, new ItemStack(Items.STICK));
+        menu.broadcastChanges();
+        helper.assertTrue(menu.hasRecipeError(), "invalid complete inputs show error even with old output");
+        smither.setItem(2, ItemStack.EMPTY);
+        menu.broadcastChanges();
+        helper.assertFalse(menu.hasRecipeError(), "incomplete inputs hide error");
+        int[][] positions = {{26, 35}, {44, 35}, {62, 35}, {134, 35}, {8, 84}, {8, 142}};
+        int[] indices = {0, 1, 2, 3, 4, 31};
+        for (int i = 0; i < indices.length; i++) {
+            helper.assertValueEqual(menu.getSlot(indices[i]).x, positions[i][0], "vanilla slot x");
+            helper.assertValueEqual(menu.getSlot(indices[i]).y, positions[i][1], "vanilla slot y");
+        }
         helper.succeed();
     }
 }

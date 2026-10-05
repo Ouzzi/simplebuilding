@@ -4,6 +4,7 @@ public final class ModuleNeoTests {
  private record Case(String name,java.util.function.Consumer<GameTestHelper> body){}
  private static Identifier id(String name){return Identifier.fromNamespaceAndPath("simplesounds",name);}
  private static final List<Case> CASES=List.of(
+new Case("module_game_test_guide_book",h->{com.simplebuilding.modules.simplesounds.guide.SoundsGuide.gameTest(h);}),
 new Case("module_game_test_launch_smoke",h->{SoundTests.launch(h);}),
 new Case("module_game_test_config_bounds",h->{SoundTests.bounds(h);}),
 new Case("module_game_test_sound_flood_safety",h->{SoundTests.flood(h);}),

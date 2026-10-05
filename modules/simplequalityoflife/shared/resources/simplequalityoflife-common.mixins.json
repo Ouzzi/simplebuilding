@@ -24,11 +24,16 @@
     "VaultSharedDataAccessor",
     "PlayerEntityCrawlMixin",
     "LivingEntityJumpMixin",
-    "ClimbPacketMixin"
+    "ClimbPacketMixin",
+    "ContainerMenuLinkedMixin",
+    "ServerPlayerLinkedMixin",
+    "ItemUsePortableMixin"
   ],
   "client": [
     "client.ClientWeatherMixin",
-    "client.VisualRainMixin"
+    "client.VisualRainMixin",
+    "client.ContainerScreenLinkedMixin",
+    "client.SlotPositionAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -31,6 +31,8 @@ public final class LocalCommands {
     .then(RequiredArgumentBuilder.<S,Integer>argument("y",com.mojang.brigadier.arguments.IntegerArgumentType.integer()).executes(ctx->{
      Visuals.CONFIG.visuals.pickupNotifier.pickupNotifierOffsetX=com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(ctx,"x");
      Visuals.CONFIG.visuals.pickupNotifier.pickupNotifierOffsetY=com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(ctx,"y");Visuals.save();return 1;}))))));
+  // The guide (no item: client-only mod) opens in the Vanilla book screen.
+  root.then(LiteralArgumentBuilder.<S>literal("guide").executes(ctx->{var mc=net.minecraft.client.Minecraft.getInstance();mc.schedule(()->mc.gui.setScreen(new net.minecraft.client.gui.screens.inventory.BookViewScreen(new net.minecraft.client.gui.screens.inventory.BookViewScreen.BookAccess(com.simplevisuals.guide.VisualsGuide.pages()))));return 1;}));
   dispatcher.register(root);
  }
  private static <S> void add(LiteralArgumentBuilder<S> root,String path,ConfigOptions.Option option,java.util.function.BiConsumer<S,Component> feedback){

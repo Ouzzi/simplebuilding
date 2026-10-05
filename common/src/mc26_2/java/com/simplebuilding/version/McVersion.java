@@ -38,6 +38,10 @@ import java.util.stream.Stream;
  * overlay class has a counterpart on the other line.
  */
 public final class McVersion {
+    /** Safe hub test-world spawn and explicit dev-only warning acknowledgment (26.3 first). */
+    public static final boolean HUB_TEST_WORLD = false;
+    /** Vanilla 26.3 guide examples: straw beds and the Dappled Forest wood set. */
+    public static final boolean VANILLA_26_3_CONTENT = false;
     /** Redstone variants of the three chest tiers (26.3 first). */
     public static final boolean TRAPPED_TIERED_CHESTS = false;
     public static final boolean SILENT_DANDELION = false;
@@ -60,6 +64,7 @@ public final class McVersion {
     public static final boolean VANILLA_DYEING = false;
     /** Iron Rod and the reworked gadget recipes (clock in the gauge, recovery compass in the detector, iron rods) (2026-10-02). */
     public static final boolean GADGET_REWORK = false;
+    public static final boolean EXPENSIVE_TEMPLATES = false;
     /** Rare structure finds: better loot chests and tiered end city shulkers with their shells (2026-10-02). */
     public static final boolean RARE_STRUCTURE_FINDS = false;
 
@@ -79,8 +84,14 @@ public final class McVersion {
     public static final boolean TRAINING_DUMMY = false;
     /** Hammock (2026-10-02): needs vanilla's AbstractBedBlock (26.3); resting by day speeds the clock up. */
     public static final boolean HAMMOCK = false;
+    /** Standing rods (2026-10-04): main line 26.3 only until the port run. */
+    public static final boolean STANDING_RODS = false;
     /** Dimension music discs with B-sides (sledgehammer flip) and the Astralit/Nihilit speakers (2026-10-03). */
     public static final boolean MUSIC_DISCS = false;
+    /** Astral rail (boosts towards a raised top speed) and Nihil rail (brakes to a stop), fed by their End channel (2026-10-04). */
+    public static final boolean END_RAILS = false;
+    /** Crucible SB parts: 26.3 only (SimpleLib is not built for 26.2). */
+    public static final boolean CRUCIBLE = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = false;
 
@@ -244,5 +255,10 @@ public final class McVersion {
     /** Pistons can neither push nor pull the block (26.3 renamed BLOCK to IMMOVEABLE). */
     public static net.minecraft.world.level.material.PushReaction immovable() {
         return net.minecraft.world.level.material.PushReaction.BLOCK;
+    }
+
+    /** Furnace fuel of an item: 26.2 has no cooking_fuel component (crucible items are 26.3 only). */
+    public static net.minecraft.world.item.Item.Properties cookingFuel(net.minecraft.world.item.Item.Properties properties, int ticks) {
+        return properties;
     }
 }

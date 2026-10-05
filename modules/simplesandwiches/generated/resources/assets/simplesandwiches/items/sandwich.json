@@ -1,0 +1,893 @@
+{
+  "model": {
+    "models": [
+      {
+        "index": 0,
+        "on_false": {
+          "model": "simplesandwiches:item/sandwich/bottom",
+          "type": "minecraft:model"
+        },
+        "on_true": {
+          "model": "simplesandwiches:item/sandwich/bottom_buttered",
+          "type": "minecraft:model"
+        },
+        "property": "minecraft:custom_model_data",
+        "type": "minecraft:condition"
+      },
+      {
+        "cases": [
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_meat_raw",
+              "type": "minecraft:model"
+            },
+            "when": "meat_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_meat_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "meat_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_fish_raw",
+              "type": "minecraft:model"
+            },
+            "when": "fish_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_fish_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "fish_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_potato",
+              "type": "minecraft:model"
+            },
+            "when": "potato"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_carrot",
+              "type": "minecraft:model"
+            },
+            "when": "carrot"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_golden",
+              "type": "minecraft:model"
+            },
+            "when": "golden"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_apple",
+              "type": "minecraft:model"
+            },
+            "when": "apple"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_melon",
+              "type": "minecraft:model"
+            },
+            "when": "melon"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_berries",
+              "type": "minecraft:model"
+            },
+            "when": "berries"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_beetroot",
+              "type": "minecraft:model"
+            },
+            "when": "beetroot"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_kelp",
+              "type": "minecraft:model"
+            },
+            "when": "kelp"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_cookie",
+              "type": "minecraft:model"
+            },
+            "when": "cookie"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_pie",
+              "type": "minecraft:model"
+            },
+            "when": "pie"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_chorus",
+              "type": "minecraft:model"
+            },
+            "when": "chorus"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_spider_eye",
+              "type": "minecraft:model"
+            },
+            "when": "spider_eye"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_rotten",
+              "type": "minecraft:model"
+            },
+            "when": "rotten"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_cheese",
+              "type": "minecraft:model"
+            },
+            "when": "cheese"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_cake",
+              "type": "minecraft:model"
+            },
+            "when": "cake"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_netherite",
+              "type": "minecraft:model"
+            },
+            "when": "netherite"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_enderite",
+              "type": "minecraft:model"
+            },
+            "when": "enderite"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_generic",
+              "type": "minecraft:model"
+            },
+            "when": "generic"
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:empty"
+        },
+        "index": 0,
+        "property": "minecraft:custom_model_data",
+        "type": "minecraft:select"
+      },
+      {
+        "cases": [
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_meat_raw",
+              "type": "minecraft:model"
+            },
+            "when": "meat_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_meat_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "meat_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_fish_raw",
+              "type": "minecraft:model"
+            },
+            "when": "fish_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_fish_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "fish_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_potato",
+              "type": "minecraft:model"
+            },
+            "when": "potato"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_carrot",
+              "type": "minecraft:model"
+            },
+            "when": "carrot"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_golden",
+              "type": "minecraft:model"
+            },
+            "when": "golden"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_apple",
+              "type": "minecraft:model"
+            },
+            "when": "apple"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_melon",
+              "type": "minecraft:model"
+            },
+            "when": "melon"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_berries",
+              "type": "minecraft:model"
+            },
+            "when": "berries"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_beetroot",
+              "type": "minecraft:model"
+            },
+            "when": "beetroot"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_kelp",
+              "type": "minecraft:model"
+            },
+            "when": "kelp"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_cookie",
+              "type": "minecraft:model"
+            },
+            "when": "cookie"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_pie",
+              "type": "minecraft:model"
+            },
+            "when": "pie"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_chorus",
+              "type": "minecraft:model"
+            },
+            "when": "chorus"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_spider_eye",
+              "type": "minecraft:model"
+            },
+            "when": "spider_eye"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_rotten",
+              "type": "minecraft:model"
+            },
+            "when": "rotten"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_cheese",
+              "type": "minecraft:model"
+            },
+            "when": "cheese"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_cake",
+              "type": "minecraft:model"
+            },
+            "when": "cake"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_netherite",
+              "type": "minecraft:model"
+            },
+            "when": "netherite"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_enderite",
+              "type": "minecraft:model"
+            },
+            "when": "enderite"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_generic",
+              "type": "minecraft:model"
+            },
+            "when": "generic"
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:empty"
+        },
+        "index": 1,
+        "property": "minecraft:custom_model_data",
+        "type": "minecraft:select"
+      },
+      {
+        "cases": [
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_meat_raw",
+              "type": "minecraft:model"
+            },
+            "when": "meat_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_meat_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "meat_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_fish_raw",
+              "type": "minecraft:model"
+            },
+            "when": "fish_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_fish_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "fish_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_potato",
+              "type": "minecraft:model"
+            },
+            "when": "potato"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_carrot",
+              "type": "minecraft:model"
+            },
+            "when": "carrot"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_golden",
+              "type": "minecraft:model"
+            },
+            "when": "golden"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_apple",
+              "type": "minecraft:model"
+            },
+            "when": "apple"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_melon",
+              "type": "minecraft:model"
+            },
+            "when": "melon"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_berries",
+              "type": "minecraft:model"
+            },
+            "when": "berries"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_beetroot",
+              "type": "minecraft:model"
+            },
+            "when": "beetroot"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_kelp",
+              "type": "minecraft:model"
+            },
+            "when": "kelp"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_cookie",
+              "type": "minecraft:model"
+            },
+            "when": "cookie"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_pie",
+              "type": "minecraft:model"
+            },
+            "when": "pie"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_chorus",
+              "type": "minecraft:model"
+            },
+            "when": "chorus"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_spider_eye",
+              "type": "minecraft:model"
+            },
+            "when": "spider_eye"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_rotten",
+              "type": "minecraft:model"
+            },
+            "when": "rotten"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_cheese",
+              "type": "minecraft:model"
+            },
+            "when": "cheese"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_cake",
+              "type": "minecraft:model"
+            },
+            "when": "cake"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_netherite",
+              "type": "minecraft:model"
+            },
+            "when": "netherite"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_enderite",
+              "type": "minecraft:model"
+            },
+            "when": "enderite"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_generic",
+              "type": "minecraft:model"
+            },
+            "when": "generic"
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:empty"
+        },
+        "index": 2,
+        "property": "minecraft:custom_model_data",
+        "type": "minecraft:select"
+      },
+      {
+        "cases": [
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_meat_raw",
+              "type": "minecraft:model"
+            },
+            "when": "meat_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_meat_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "meat_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_fish_raw",
+              "type": "minecraft:model"
+            },
+            "when": "fish_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_fish_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "fish_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_potato",
+              "type": "minecraft:model"
+            },
+            "when": "potato"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_carrot",
+              "type": "minecraft:model"
+            },
+            "when": "carrot"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_golden",
+              "type": "minecraft:model"
+            },
+            "when": "golden"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_apple",
+              "type": "minecraft:model"
+            },
+            "when": "apple"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_melon",
+              "type": "minecraft:model"
+            },
+            "when": "melon"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_berries",
+              "type": "minecraft:model"
+            },
+            "when": "berries"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_beetroot",
+              "type": "minecraft:model"
+            },
+            "when": "beetroot"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_kelp",
+              "type": "minecraft:model"
+            },
+            "when": "kelp"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_cookie",
+              "type": "minecraft:model"
+            },
+            "when": "cookie"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_pie",
+              "type": "minecraft:model"
+            },
+            "when": "pie"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_chorus",
+              "type": "minecraft:model"
+            },
+            "when": "chorus"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_spider_eye",
+              "type": "minecraft:model"
+            },
+            "when": "spider_eye"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_rotten",
+              "type": "minecraft:model"
+            },
+            "when": "rotten"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_cheese",
+              "type": "minecraft:model"
+            },
+            "when": "cheese"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_cake",
+              "type": "minecraft:model"
+            },
+            "when": "cake"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_netherite",
+              "type": "minecraft:model"
+            },
+            "when": "netherite"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_enderite",
+              "type": "minecraft:model"
+            },
+            "when": "enderite"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_generic",
+              "type": "minecraft:model"
+            },
+            "when": "generic"
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:empty"
+        },
+        "index": 3,
+        "property": "minecraft:custom_model_data",
+        "type": "minecraft:select"
+      },
+      {
+        "cases": [
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_meat_raw",
+              "type": "minecraft:model"
+            },
+            "when": "meat_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_meat_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "meat_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_fish_raw",
+              "type": "minecraft:model"
+            },
+            "when": "fish_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_fish_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "fish_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_potato",
+              "type": "minecraft:model"
+            },
+            "when": "potato"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_carrot",
+              "type": "minecraft:model"
+            },
+            "when": "carrot"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_golden",
+              "type": "minecraft:model"
+            },
+            "when": "golden"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_apple",
+              "type": "minecraft:model"
+            },
+            "when": "apple"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_melon",
+              "type": "minecraft:model"
+            },
+            "when": "melon"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_berries",
+              "type": "minecraft:model"
+            },
+            "when": "berries"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_beetroot",
+              "type": "minecraft:model"
+            },
+            "when": "beetroot"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_kelp",
+              "type": "minecraft:model"
+            },
+            "when": "kelp"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_cookie",
+              "type": "minecraft:model"
+            },
+            "when": "cookie"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_pie",
+              "type": "minecraft:model"
+            },
+            "when": "pie"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_chorus",
+              "type": "minecraft:model"
+            },
+            "when": "chorus"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_spider_eye",
+              "type": "minecraft:model"
+            },
+            "when": "spider_eye"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_rotten",
+              "type": "minecraft:model"
+            },
+            "when": "rotten"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_cheese",
+              "type": "minecraft:model"
+            },
+            "when": "cheese"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_cake",
+              "type": "minecraft:model"
+            },
+            "when": "cake"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_netherite",
+              "type": "minecraft:model"
+            },
+            "when": "netherite"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_enderite",
+              "type": "minecraft:model"
+            },
+            "when": "enderite"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_generic",
+              "type": "minecraft:model"
+            },
+            "when": "generic"
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:empty"
+        },
+        "index": 4,
+        "property": "minecraft:custom_model_data",
+        "type": "minecraft:select"
+      },
+      {
+        "cases": [
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/top_0",
+              "type": "minecraft:model"
+            },
+            "when": "0"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/top_1",
+              "type": "minecraft:model"
+            },
+            "when": "1"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/top_2",
+              "type": "minecraft:model"
+            },
+            "when": "2"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/top_3",
+              "type": "minecraft:model"
+            },
+            "when": "3"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/top_4",
+              "type": "minecraft:model"
+            },
+            "when": "4"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/top_5",
+              "type": "minecraft:model"
+            },
+            "when": "5"
+          }
+        ],
+        "fallback": {
+          "model": "simplesandwiches:item/sandwich/top_0",
+          "type": "minecraft:model"
+        },
+        "index": 5,
+        "property": "minecraft:custom_model_data",
+        "type": "minecraft:select"
+      }
+    ],
+    "type": "minecraft:composite"
+  }
+}

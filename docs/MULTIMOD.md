@@ -49,7 +49,7 @@ The harness test requires SimpleBuilding and wiringexample and proves storing/re
 token in a SimpleBuilding reinforced hopper through public registry ids and Vanilla Container.
 It has its own namespace, catalogue, report and target; existing counts/default targets are unchanged.
 The generic cross-mod harness above is Fabric-only. Simple Money also has a dedicated
-NeoForge module-test runtime under integration/run-neoforge-263; this is not a general
+NeoForge module-test runtime under `integration/run-neoforge-263/simplemoney`; this is not a general
 NeoForge cross-mod integration launcher. See docs/modules/simplemoney.md.
 
 ## Dev mods and Launch Hub
@@ -124,6 +124,12 @@ config, enchantments, advancements, quests, inWorld and obtain sections may be e
 must be produced from actual registries/data, never a second hand-maintained balance source.
 Absent sections are empty. Module textures are isolated under `assets/textures/<id>/`.
 
+Client item-model aliases without a registered item belong in the module manual's
+`modelOnly` object (`"mod:model_id": "code-backed reason"`). Each alias must have an
+item definition. This excludes only model-file inventory evidence; matching language
+keys, registry exports or literal registrations still count and report a conflict.
+Do not use this field to hide a registered item from documentation.
+
 Pure Python verification: `python -m unittest discover -s wiki/tests -v` (also in `check`).
 The wiki switcher persists `?mod=<id>` and guarded localStorage. Existing SimpleBuilding
 query/hash links remain valid. Cross-module chapter references use full registry ids in
@@ -184,6 +190,22 @@ frame is a valid sky portal depends on the server's portal configs (`DimensionRu
 server from its config directory and never sent to clients), so a client-side predicate would be
 wrong on every dedicated server.
 
+## Module guide books (framework 0.1.3)
+
+Every module carries its own guide, no SimpleBuilding needed (plan:
+`docs/ai/PLAN-MODUL-GUIDES-2026-10-05.md`). `python tools/guides/module_guides.py` is the single source
+(`--check` runs in `gradlew check` as `checkModuleGuides`): per module it writes
+`<package>/guide/<Name>Guide.java` from `tools/guides/ModuleGuide.java.in`, the EN/DE pages
+(`<ns>.guide.page.<n>` and `.title`, from the module's `wiki/manual.json` features), a shapeless recipe
+"book + one typical Vanilla item" with its recipe unlock, the item model, the wiki note and an FTB Quests
+start chapter (`data/<ns>/ftbquests/`). The item is a Vanilla `WrittenBookItem` with a resolved default
+`written_book_content`, so Vanilla opens it on every loader and old books show updated pages. Loaders call
+`<Name>Guide.register()` in item registration and, only when `ftbquests` is loaded,
+`<Name>Guide.installQuests(configDir)` (`framework` `ModuleQuestDefaults`: copy missing files once, marker
+`<ns>.installed`). Client-only mods (Simple Visuals, Simple Sounds) register no item; their pages open with
+the local command `/<ns> guide`. Textures: `tools/textures/module_guide_books_2026_10_05.py`.
+Change texts in `manual.json`, then rerun the generator. When `simplelib` lands, the template moves there.
+
 ## Plugin-style test registration
 
 Adding a module touches only `modules/<id>/` and the manifest. `tools/newmod.py`
@@ -202,6 +224,22 @@ An optional `tests` object in each manifest entry declares:
   `:integration`; their run configurations are created from the declared task names.
   NeoForge adapters and runs live in the module. Forge remains explicitly opt-in.
 - `requires` and `devMods`: ids required in the integration selection for the suite.
+- `standalone` (principle 8, `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`): the same catalogue with only
+  this module loaded. `requires` may name only the module's own hard `requires` (Simple Tweaks:
+  `simplebuilding`, a declared add-on; optional partners such as Simple Dimensions stay out), `devMods`
+  the hard libraries (usually `cloth_config`), optional `reason`. `loaders` declares exactly
+  `fabric: :integration:run<Id>StandaloneGameTest` and `neoforge: <project>:runModuleStandaloneGameTest`
+  plus reports; `{"exempt": "<reason>"}` opts out with a stated reason. Target ids are
+  `module-<id>-standalone-<loader>-263` (`run.py --targets standalone`, Hub preset "standalone").
+  Fabric syncs only those jars into `integration/run-standalone-fabric-263/<id>/mods` and runs from
+  the `standalone` source set, whose classpath drops `:framework`, `:common` and the harness, so a
+  module that does not bundle `framework` fails here. NeoForge (`gradle/module-neoforge.gradle`) sets
+  `loadedMods` to the module plus `standalone.requires`, game directory
+  `integration/run-standalone-neoforge-263/<id>`; there `framework` stays on the dev classpath, and a
+  partner must never be a classpath dependency (`runtimeOnly project(...)`), or it loads anyway.
+  Tests that need a partner check it first (shared tests: registry namespace present, e.g.
+  `isModLoaded("simplebuilding")`; loader switches like `Riding.SIMPLEBUILDING` where they exist) and
+  pass with a `[standalone] ... skipping` log line, or use a Vanilla stand-in.
 - Optional `client`: `entrypoints`, `sources`, `screenshots`, and
   `task: ":integration:runClientGameTest"`. Sources live in `modules/<id>/clienttest/java`.
   Target `module-<id>-client-263` sets `-PmoduleClientTest=<id>`; only that module's
@@ -218,8 +256,12 @@ Launch Hub derives module test targets from `tests.loaders` and queues selected
 suites after `integration-263`. `launch_targets.json` contains base launch lines,
 without a second module registration. Reports and client screenshot expectations
 remain isolated per target. Fabric run tasks form a `mustRunAfter` chain, as do
-NeoForge module tasks, preventing simultaneous use of each shared integration
-test directory even under `--parallel`.
+NeoForge module tasks. Fabric still shares its integration test directory; NeoForge
+uses `integration/run-neoforge-263/<id>` per module, with the existing ordering retained
+to limit concurrent servers. Standalone directories remain separate. Mods are supplied
+by Gradle; module runs do not inherit `mods/` or `defaultconfigs/` from the parent directory.
+Run `gradlew -I tools/testrunner/check_neoforge_runs.gradle checkModuleNeoForgeRuns`
+to verify the evaluated directories and mod lists without starting a server.
 
 ## Repeatable experimental Forge module adapter (26.3)
 

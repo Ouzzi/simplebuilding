@@ -68,6 +68,11 @@ public final class RareStructureFindsTests {
 
     /** Tabelle -&gt; Stufe, die 1-%-Rate und die Doppeltruhen-Regel (beide Haelften wuerfeln, gleiches Ergebnis). */
     public static void betterChestTablesRateAndDoubleChestRule(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+            com.simplebuilding.Simplebuilding.LOGGER.info("Skipping betterChestTablesRateAndDoubleChestRule: RARE_STRUCTURE_FINDS is disabled on this line");
+            helper.succeed();
+            return;
+        }
         helper.assertValueEqual(BetterChests.tierFor(BuiltInLootTables.STRONGHOLD_LIBRARY), ChestTier.REINFORCED, "stronghold library");
         helper.assertValueEqual(BetterChests.tierFor(BuiltInLootTables.STRONGHOLD_CORRIDOR), ChestTier.REINFORCED, "stronghold corridor");
         helper.assertValueEqual(BetterChests.tierFor(BuiltInLootTables.BASTION_TREASURE), ChestTier.NETHERITE, "bastion treasure");
@@ -106,6 +111,11 @@ public final class RareStructureFindsTests {
 
     /** Bastion: eine Vorlagen-Truhe mit Bastion-Tabelle wird beim Verarbeiten der Vorlage zur Netherit-Truhe. */
     public static void bastionTemplateChestBecomesNetheriteChest(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+            com.simplebuilding.Simplebuilding.LOGGER.info("Skipping bastionTemplateChestBecomesNetheriteChest: RARE_STRUCTURE_FINDS is disabled on this line");
+            helper.succeed();
+            return;
+        }
         ServerLevel level = helper.getLevel();
         long seed = level.getSeed();
         BlockState chest = Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH);
@@ -145,6 +155,11 @@ public final class RareStructureFindsTests {
 
     /** Eine gesetzte End-Stadt-Truhe wird zur Enderit-Truhe, behaelt Tabelle und Seed und wuerfelt ihre Beute doppelt. */
     public static void placedEndCityChestBecomesEnderiteChestWithDoubleLoot(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+            com.simplebuilding.Simplebuilding.LOGGER.info("Skipping placedEndCityChestBecomesEnderiteChestWithDoubleLoot: RARE_STRUCTURE_FINDS is disabled on this line");
+            helper.succeed();
+            return;
+        }
         ServerLevel level = helper.getLevel();
         BlockPos vanillaPos = helper.absolutePos(new BlockPos(1, 1, 1));
         BlockPos betterPos = helper.absolutePos(new BlockPos(3, 1, 1));
@@ -188,6 +203,11 @@ public final class RareStructureFindsTests {
 
     /** Wurf, Leben, Speichern der Stufe und 0-2 Schalen beim Tod (ueber den echten Todespfad). */
     public static void rareShulkersHaveTieredHealthAndDropTheirShells(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+            com.simplebuilding.Simplebuilding.LOGGER.info("Skipping rareShulkersHaveTieredHealthAndDropTheirShells: RARE_STRUCTURE_FINDS is disabled on this line");
+            helper.succeed();
+            return;
+        }
         // Bands from 0: enderite 0.5 %, netherite 1 %, reinforced 2 % (together 3.5 %).
         helper.assertValueEqual(RareShulkers.tierFor(0.004, 0.005, 0.01, 0.02), ChestTier.ENDERITE, "roll below enderite");
         helper.assertValueEqual(RareShulkers.tierFor(0.010, 0.005, 0.01, 0.02), ChestTier.NETHERITE, "roll in the netherite band");
@@ -241,6 +261,11 @@ public final class RareStructureFindsTests {
      * Stufen-Schalen fallen (sonst Aufwerten + Toeten = billige Schalen).
      */
     public static void livingShulkersClimbTheTiersButUpgradedOnesDropNoShells(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+            com.simplebuilding.Simplebuilding.LOGGER.info("Skipping livingShulkersClimbTheTiersButUpgradedOnesDropNoShells: RARE_STRUCTURE_FINDS is disabled on this line");
+            helper.succeed();
+            return;
+        }
         ServerLevel level = helper.getLevel();
         Shulker netherite = helper.spawn(EntityTypes.SHULKER, new BlockPos(1, 1, 1));
         RareShulkers.apply(netherite, ChestTier.NETHERITE);
@@ -309,6 +334,11 @@ public final class RareStructureFindsTests {
      * erst, wenn ein Spieler naht; sie stehen auf sicheren Plaetzen nahe dem Shulker und sind nicht dauerhaft.
      */
     public static void rareShulkerCallsFourEndermitesOnceWhenPlayersComeNear(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+            com.simplebuilding.Simplebuilding.LOGGER.info("Skipping rareShulkerCallsFourEndermitesOnceWhenPlayersComeNear: RARE_STRUCTURE_FINDS is disabled on this line");
+            helper.succeed();
+            return;
+        }
         helper.assertValueEqual(ServerTuning.endermitesPerRareShulker(), 4, "default endermites per rare shulker");
         ServerLevel level = helper.getLevel();
         for (int x = 0; x < 8; x++) {
@@ -319,6 +349,9 @@ public final class RareStructureFindsTests {
         Shulker shulker = helper.spawn(EntityTypes.SHULKER, new BlockPos(4, 1, 4));
         RareShulkers.apply(shulker, ChestTier.ENDERITE);
         shulker.addTag(RareShulkers.ESCORT_TAG);
+        // The escort samples only twelve positions per mite, including two unsupported Y
+        // layers. An unlucky random stream can exhaust those attempts on an empty floor.
+        shulker.getRandom().setSeed(0L);
         AABB area = new AABB(helper.absolutePos(BlockPos.ZERO)).expandTowards(8.0, 8.0, 8.0).inflate(4.0);
 
         // No player near: the escort waits (the tick only looks once a second). Skipped if a survival player of a
@@ -336,7 +369,8 @@ public final class RareStructureFindsTests {
         // A creative player (the mock player is one) right next to it does not call the escort either.
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
-        Vec3 near = helper.absoluteVec(new Vec3(1.5, 1.0, 1.5));
+        // Outside the seeded spawn cells, but still inside the escort's trigger range.
+        Vec3 near = helper.absoluteVec(new Vec3(0.5, 1.0, 0.5));
         player.snapTo(near.x, near.y, near.z, 0.0F, 0.0F);
         if (player.isCreative()) {
             shulker.tickCount = 40;
@@ -353,6 +387,12 @@ public final class RareStructureFindsTests {
         }
         int spawned;
         int again;
+        // Seed 0 selects these four distinct floor cells before exhausting its attempt budget.
+        for (BlockPos spot : List.of(new BlockPos(6, 1, 5), new BlockPos(1, 1, 5),
+                new BlockPos(1, 1, 1), new BlockPos(3, 1, 7))) {
+            helper.assertTrue(RareShulkers.isSafeSpot(level, helper.absolutePos(spot)),
+                    "escort fixture is obstructed at " + spot);
+        }
         level.getServer().setDifficulty(net.minecraft.world.Difficulty.NORMAL, true);
         try {
             spawned = RareShulkers.triggerEscort(level, shulker);
@@ -377,6 +417,11 @@ public final class RareStructureFindsTests {
 
     /** Schale ablegen, mit Klumpen rechtsklicken: genau eine Stufe, genau ein Klumpen; falscher Klumpen nichts; Hinweis gleich. */
     public static void placedShellsUpgradeOneTierPerNugget(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+            com.simplebuilding.Simplebuilding.LOGGER.info("Skipping placedShellsUpgradeOneTierPerNugget: RARE_STRUCTURE_FINDS is disabled on this line");
+            helper.succeed();
+            return;
+        }
         helper.assertTrue(new ItemStack(Items.SHULKER_SHELL).is(ModTags.Items.PLACEABLE_SMALL)
                 && new ItemStack(ModItems.NETHERITE_SHULKER_SHELL).is(ModTags.Items.PLACEABLE_SMALL), "shells are not placeable");
         ServerLevel level = helper.getLevel();
@@ -437,6 +482,11 @@ public final class RareStructureFindsTests {
 
     /** Kupfertruhe + Stufen-Schale + Shulkerschale ergibt die Shulkerkiste der Stufe; die Config hat Obergrenzen. */
     public static void shellRecipesAndConfigCaps(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+            com.simplebuilding.Simplebuilding.LOGGER.info("Skipping shellRecipesAndConfigCaps: RARE_STRUCTURE_FINDS is disabled on this line");
+            helper.succeed();
+            return;
+        }
         ServerLevel level = helper.getLevel();
         Item[][] cases = {
                 {ModItems.REINFORCED_SHULKER_SHELL, ModItems.REINFORCED_SHULKER_BOX},

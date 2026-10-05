@@ -423,7 +423,7 @@ async function viewLaunch(root) {
       row.append(
         h('span', { class: 'lname' }, entry.loader.charAt(0).toUpperCase() + entry.loader.slice(1), live),
         h('span', { class: 'actions' },
-          mk('Client + frische Testwelt', () => doLaunch(entry.id, 'client_fresh'), true, 'Standard: entfernt den Fingerabdruck der Testwelt, das Testzentrum baut sich beim Betreten neu'),
+          mk('Client + frische Testwelt', () => doLaunch(entry.id, 'client_fresh'), true, 'Archiviert die alte Testwelt und erzeugt eine neue Welt mit Testzentrum'),
           mk('Client', () => doLaunch(entry.id, 'client')), mk('Server', () => doLaunch(entry.id, 'server')),
           mk('Tests', () => doTests({ mode: 'targets', targets: [entry.testTarget] }), false, 'Server-Tests dieses Ziels'),
           mk('Client-Tests', () => doTests({ mode: 'targets', targets: [entry.clientTestTarget] }), false, entry.clientTestTarget ? 'Client-Suite (steuert Maus und Fokus)' : 'Fuer dieses Ziel gibt es keine Client-Suite'),

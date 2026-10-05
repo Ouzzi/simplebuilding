@@ -65,7 +65,7 @@ def main():
     mod, vanilla = v3.guide_books()
     save(mod, 'item/guide_book')
     save(vanilla, 'item/guide_book_vanilla_start')
-    save(orb_strip(), 'item/sage_orb')
+    save(orb_strip(), 'item/sage_orb')  # superseded 2026-10-05: run sage_orb_smaller_2026_10_04.py --install A afterwards
     with open(os.path.join(T, 'item', 'sage_orb.png.mcmeta'), 'w', encoding='utf-8') as f:
         json.dump({'animation': {'frametime': 2, 'interpolate': True}}, f, indent=2)  # 2026-10-02: slower (sage_ore_smaller)
         f.write('\n')

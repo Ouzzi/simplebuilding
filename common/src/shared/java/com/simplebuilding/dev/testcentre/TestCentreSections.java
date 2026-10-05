@@ -988,23 +988,55 @@ public final class TestCentreSections {
             c.sign(sx, 0, pz - 1, Direction.NORTH, ModBlocks.AUTO_SMITHER.getName(),
                     TcText.t("machines.auto_smither", "flip the lever: smiths once"));
         }
-        // Haengematten: alle 16 Farben zwischen Zaunpfosten (2 frei), die letzte ueber 3 Bloecke mit Seilstueck.
-        // Tagsueber hinlegen beschleunigt die Zeit (advance_time an, genug Spieler).
+        // Haengematten (v3): 13 Farben zwischen Zaunpfosten mit 2 freien Bloecken, dann 3 und 4 frei (mittig), die letzte
+        // diagonal (zwei Klicks); dahinter zwei schraege (3:1 und 5:2, jeder Winkel per zwei Klicks). Hinlegen
+        // beschleunigt die Uhr (advance_time an, genug Spieler), tags und nachts.
         if (!ModBlocks.HAMMOCKS.isEmpty()) {
             int hx = (ModBlocks.AUTO_SMITHER != null ? px + 4 : px + 1);
             c.sign(hx, 0, pz - 1, Direction.NORTH, TcText.bold(TcText.t("machines.hammocks", "Hammocks")),
-                    TcText.t("machines.hammocks.sub", "rest by day: time runs faster"));
+                    TcText.t("machines.hammocks.sub", "rest: time runs faster"));
             for (int i = 0; i < ModBlocks.HAMMOCKS.size(); i++) {
                 int col = hx + 1 + i;
-                int gap = i == ModBlocks.HAMMOCKS.size() - 1 ? com.simplebuilding.blocks.custom.HammockLayout.MAX_GAP
-                        : com.simplebuilding.blocks.custom.HammockLayout.MIN_GAP;
-                for (int z : new int[]{pz, pz + gap + 1}) {
-                    c.place(col, 0, z, Blocks.OAK_FENCE);
-                    c.place(col, 1, z, Blocks.OAK_FENCE);
+                boolean diagonal = i == ModBlocks.HAMMOCKS.size() - 1;
+                int gap = diagonal ? 2 : i == 13 ? 3 : i == 14 ? 4 : 2;
+                var spot = new com.simplebuilding.blocks.custom.HammockLayout.Spot(new net.minecraft.core.BlockPos(col, 1, pz),
+                        diagonal ? gap + 1 : 0, gap + 1);
+                for (net.minecraft.core.BlockPos anchor : List.of(spot.anchor(), spot.otherAnchor())) {
+                    c.place(anchor.getX(), 0, anchor.getZ(), Blocks.OAK_FENCE);
+                    c.place(anchor.getX(), 1, anchor.getZ(), Blocks.OAK_FENCE);
                 }
-                com.simplebuilding.blocks.custom.HammockLayout.states(ModBlocks.HAMMOCKS.get(i), ModBlocks.HAMMOCK_ROPE,
-                        new com.simplebuilding.blocks.custom.HammockLayout.Spot(new net.minecraft.core.BlockPos(col, 1, pz + 1), Direction.SOUTH, gap))
-                        .forEach((pos, state) -> c.place(pos.getX(), pos.getY(), pos.getZ(), state));
+                c.hammock(spot, ModBlocks.HAMMOCKS.get(i));
+            }
+            // schraeg (v3): 3:1 und 5:2 hinter der Reihe (z = pz + 6 .. pz + 8), rot und blau
+            int[][] slants = {{3, 1}, {5, 2}};
+            for (int k = 0; k < slants.length; k++) {
+                var spot = new com.simplebuilding.blocks.custom.HammockLayout.Spot(
+                        new net.minecraft.core.BlockPos(hx + 1 + k * 7, 1, pz + 6), slants[k][0], slants[k][1]);
+                for (net.minecraft.core.BlockPos anchor : List.of(spot.anchor(), spot.otherAnchor())) {
+                    c.place(anchor.getX(), 0, anchor.getZ(), Blocks.OAK_FENCE);
+                    c.place(anchor.getX(), 1, anchor.getZ(), Blocks.OAK_FENCE);
+                }
+                c.hammock(spot, ModBlocks.HAMMOCKS.get(k == 0 ? 5 : 12));
+            }
+            // Aufgestellte Staebe (2026-10-04) gleich hinter der diagonalen Haengematte (reicht bis hx + 19): die fuenf
+            // Staebe einzeln, dahinter eine weisse Haengematte zwischen Pfosten aus je zwei aufgestellten Stoecken.
+            if (ModBlocks.STANDING_ROD != null) {
+                int sx = hx + 21;
+                c.sign(sx, 0, pz - 1, Direction.NORTH, TcText.bold(TcText.t("machines.standing_rods", "Standing rods")),
+                        TcText.t("machines.standing_rods.sub", "sneak + right-click on a top"),
+                        TcText.t("machines.standing_rods.sub2", "they hold hammocks"));
+                var rods = com.simplebuilding.blocks.custom.StandingRodBlock.Rod.values();
+                for (int i = 0; i < rods.length; i++) {
+                    c.place(sx + 1 + i, 0, pz, ModBlocks.STANDING_ROD.defaultBlockState()
+                            .setValue(com.simplebuilding.blocks.custom.StandingRodBlock.ROD, rods[i]));
+                }
+                int hcol = sx + 1 + rods.length + 1;
+                var rodSpot = new com.simplebuilding.blocks.custom.HammockLayout.Spot(new net.minecraft.core.BlockPos(hcol, 1, pz), 0, 3);
+                for (net.minecraft.core.BlockPos anchor : List.of(rodSpot.anchor(), rodSpot.otherAnchor())) {
+                    c.place(anchor.getX(), 0, anchor.getZ(), ModBlocks.STANDING_ROD.defaultBlockState());
+                    c.place(anchor.getX(), 1, anchor.getZ(), ModBlocks.STANDING_ROD.defaultBlockState());
+                }
+                c.hammock(rodSpot, ModBlocks.HAMMOCKS.get(0));
             }
         }
         return c;
@@ -1321,6 +1353,33 @@ public final class TestCentreSections {
                 c.place(3, 0, z + gap, Blocks.SANDSTONE);
                 c.place(3, 0, z - gap, Blocks.SANDSTONE);
             }
+        }
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            // Astral-/Nihil-Schienen (2026-10-04): Teststrecke Ost-West. Stein als Anschlag, 14 Astral-Schienen mit
+            // Astral-Pulver daneben (Schalter aus), 12 ungespeiste Astral-Schienen zum Ausrollen mit hoher Grenze,
+            // 4 Nihil-Schienen mit Nihil-Pulver (Schalter aus), 4 normale Schienen, Stein als Ende.
+            int z = 19;
+            BlockState astralRail = ModBlocks.ASTRAL_RAIL.defaultBlockState()
+                    .setValue(com.simplebuilding.blocks.custom.EndRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+            BlockState nihilRail = ModBlocks.NIHIL_RAIL.defaultBlockState()
+                    .setValue(com.simplebuilding.blocks.custom.EndRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+            BlockState rail = Blocks.RAIL.defaultBlockState()
+                    .setValue(net.minecraft.world.level.block.RailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+            for (int x = 0; x <= 35; x++) for (int dz = 0; dz <= 1; dz++) c.place(x, -1, z + dz, Blocks.STONE);
+            c.place(0, 0, z, Blocks.STONE);
+            c.place(0, 0, z + 1, ModBlocks.ASTRALIT_SWITCH);
+            for (int x = 1; x <= 14; x++) {
+                c.place(x, 0, z, astralRail);
+                c.place(x, 0, z + 1, ModBlocks.ASTRAL_REDSTONE);
+            }
+            for (int x = 15; x <= 26; x++) c.place(x, 0, z, astralRail);
+            for (int x = 27; x <= 30; x++) {
+                c.place(x, 0, z, nihilRail);
+                c.place(x, 0, z + 1, ModBlocks.NIHIL_REDSTONE);
+            }
+            c.place(31, 0, z + 1, ModBlocks.NIHILITH_SWITCH);
+            for (int x = 31; x <= 34; x++) c.place(x, 0, z, rail);
+            c.place(35, 0, z, Blocks.STONE);
         }
         int wallZ = 3;
         List<TcCanvas.Line> lines = new ArrayList<>();

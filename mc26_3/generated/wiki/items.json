@@ -3,6 +3,7 @@
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_piston",
     "simplebuilding:astral_purpur_block",
+    "simplebuilding:astral_rail",
     "simplebuilding:astral_redstone",
     "simplebuilding:astral_vault",
     "simplebuilding:astralit_block",
@@ -56,10 +57,12 @@
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
     "simplebuilding:enderite_backpack",
+    "simplebuilding:enderite_barrel",
     "simplebuilding:enderite_blast_furnace",
     "simplebuilding:enderite_block",
     "simplebuilding:enderite_chest",
     "simplebuilding:enderite_chunk_loader",
+    "simplebuilding:enderite_crucible",
     "simplebuilding:enderite_elytra_pad",
     "simplebuilding:enderite_flypad",
     "simplebuilding:enderite_furnace",
@@ -97,6 +100,7 @@
     "simplebuilding:light_gray_hammock",
     "simplebuilding:lime_hammock",
     "simplebuilding:magenta_hammock",
+    "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:nether_dimensional_scrap",
     "simplebuilding:netherite_backpack",
     "simplebuilding:netherite_blast_furnace",
@@ -117,7 +121,9 @@
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_piston",
     "simplebuilding:nihil_purpur_block",
+    "simplebuilding:nihil_rail",
     "simplebuilding:nihil_redstone",
+    "simplebuilding:nihil_vault",
     "simplebuilding:nihilith_block",
     "simplebuilding:nihilith_brick_slab",
     "simplebuilding:nihilith_brick_stairs",
@@ -158,6 +164,7 @@
     "simplebuilding:purple_hammock",
     "simplebuilding:purpur_quartz_checker",
     "simplebuilding:red_hammock",
+    "simplebuilding:red_nether_brick_quartz_checker",
     "simplebuilding:reinforced_backpack",
     "simplebuilding:reinforced_blast_furnace",
     "simplebuilding:reinforced_chest",
@@ -181,12 +188,14 @@
     "simplebuilding:silverfish_wall_head",
     "simplebuilding:slime_head",
     "simplebuilding:slime_wall_head",
+    "simplebuilding:soul_lava",
     "simplebuilding:spawn_teleporter",
     "simplebuilding:spawn_teleporter_tier_2",
     "simplebuilding:spawn_teleporter_tier_3",
     "simplebuilding:spawn_teleporter_tier_4",
     "simplebuilding:spider_head",
     "simplebuilding:spider_wall_head",
+    "simplebuilding:standing_rod",
     "simplebuilding:stellar_flypad",
     "simplebuilding:stray_skull",
     "simplebuilding:stray_wall_skull",
@@ -217,6 +226,9 @@
     },
     {
       "id": "simplebuilding:astral_purpur_block"
+    },
+    {
+      "id": "simplebuilding:astral_rail"
     },
     {
       "id": "simplebuilding:astral_redstone"
@@ -315,6 +327,10 @@
       "id": "simplebuilding:construction_light"
     },
     {
+      "id": "simplebuilding:copper_bucket",
+      "maxStackSize": 16
+    },
+    {
       "durability": 1520,
       "enchantability": 18,
       "id": "simplebuilding:copper_building_wand",
@@ -334,6 +350,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:copper_lava_bucket",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:copper_pressure_plate"
     },
     {
@@ -350,6 +370,10 @@
       "durability": 192,
       "enchantability": 18,
       "id": "simplebuilding:copper_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:copper_water_bucket",
       "maxStackSize": 1
     },
     {
@@ -502,6 +526,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:enderite_barrel"
+    },
+    {
       "id": "simplebuilding:enderite_blast_furnace"
     },
     {
@@ -512,6 +539,10 @@
       "enchantability": 18,
       "id": "simplebuilding:enderite_boots",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_bucket",
+      "maxStackSize": 16
     },
     {
       "durability": 20000,
@@ -554,6 +585,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:enderite_crucible"
+    },
+    {
       "id": "simplebuilding:enderite_elytra_pad",
       "maxStackSize": 1
     },
@@ -590,6 +624,10 @@
     },
     {
       "id": "simplebuilding:enderite_launchpad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_lava_bucket",
       "maxStackSize": 1
     },
     {
@@ -657,6 +695,10 @@
       "id": "simplebuilding:enderite_smoker"
     },
     {
+      "id": "simplebuilding:enderite_soul_lava_bucket",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:enderite_spawn_teleporter",
       "maxStackSize": 1
     },
@@ -683,6 +725,10 @@
       "id": "simplebuilding:enderite_upgrade_template"
     },
     {
+      "id": "simplebuilding:enderite_water_bucket",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:enderman_head"
     },
     {
@@ -691,6 +737,9 @@
     {
       "id": "simplebuilding:fine_elytra_pad",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:fire_chip"
     },
     {
       "id": "simplebuilding:flint_chip"
@@ -765,6 +814,9 @@
     },
     {
       "id": "simplebuilding:husk_head"
+    },
+    {
+      "id": "simplebuilding:ice_chip"
     },
     {
       "id": "simplebuilding:infused_potion_pad",
@@ -890,6 +942,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:nether_brick_quartz_checker"
+    },
+    {
       "id": "simplebuilding:nether_dimensional_scrap"
     },
     {
@@ -1010,7 +1065,13 @@
       "id": "simplebuilding:nihil_purpur_block"
     },
     {
+      "id": "simplebuilding:nihil_rail"
+    },
+    {
       "id": "simplebuilding:nihil_redstone"
+    },
+    {
+      "id": "simplebuilding:nihil_vault"
     },
     {
       "id": "simplebuilding:nihilith_block"
@@ -1047,6 +1108,9 @@
     },
     {
       "id": "simplebuilding:note_amplifier"
+    },
+    {
+      "id": "simplebuilding:obsidian_chip"
     },
     {
       "durability": 128,
@@ -1236,6 +1300,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:red_nether_brick_quartz_checker"
+    },
+    {
       "id": "simplebuilding:reinforced_backpack",
       "maxStackSize": 1
     },
@@ -1319,6 +1386,10 @@
     },
     {
       "id": "simplebuilding:slime_head"
+    },
+    {
+      "id": "simplebuilding:soul_lava_bucket",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:spawn_elytra",

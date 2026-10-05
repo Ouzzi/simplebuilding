@@ -1086,11 +1086,23 @@ public final class ItemRenderingClientTest {
         script.command("item replace entity @a weapon.offhand with simplebuilding:enderite_nugget 4");
         script.awaitPackets();
         assertHammerHint(script, false);
-        awaitTheChiselTiltAt(script, 0.0f);
+        if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) {
+            // 26.3 (owner backlog Q5): the hammer fits, only the material of this stage is missing,
+            // so the full hint goes and the half strength partial hint stays - the tilt keeps its
+            // 1.0 and the mixin's scale halves it.
+            assertPartialHammerHint(script);
+            awaitTheHintScaleAt(script, 0.5f);
+            awaitTheChiselTiltAt(script, 1.0f);
+        } else {
+            awaitTheChiselTiltAt(script, 0.0f);
+        }
         script.command("item replace entity @a weapon.offhand with simplebuilding:netherite_nugget 4");
         script.awaitPackets();
         assertHammerHint(script, true);
         script.idle("let the hint tilt build up again", HAND_SETTLE_TICKS);
+        if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) {
+            awaitTheHintScaleAt(script, 1.0f);
+        }
         awaitTheChiselTiltAt(script, 1.0f);
         clearToastsAndChat(script);
         Later<Path> beforeBlows = script.shot("hammer-d-before-blows");
@@ -1178,6 +1190,34 @@ public final class ItemRenderingClientTest {
                         + ". " + TestScene.describeAim(client));
             }
         });
+    }
+
+    /**
+     * 26.3 only: the hand hint's own partial predicate ({@code TransformTargets.partialTransformTarget})
+     * holds for the hammer while the off hand carries a nugget of another tier.
+     */
+    private static void assertPartialHammerHint(Script script) {
+        script.act("the sledgehammer partial hint predicate reads true", client -> {
+            boolean partial = client.player != null && client.level != null
+                    && client.hitResult instanceof net.minecraft.world.phys.BlockHitResult hit
+                    && com.simplebuilding.util.TransformTargets.partialTransformTarget(client.level, hit, client.player,
+                            net.minecraft.world.InteractionHand.MAIN_HAND);
+            if (!partial) {
+                throw new AssertionError("TransformTargets.partialTransformTarget is false for the main hand but this step "
+                        + "needs the half strength hint of a hammer without this stage's material: main hand "
+                        + client.player.getMainHandItem() + ", off hand " + client.player.getOffhandItem() + ", target "
+                        + client.level.getBlockState(TestScene.TARGET) + ". " + TestScene.describeAim(client));
+            }
+        });
+    }
+
+    /** Waits until the mixin's main hand hint scale (1.0 full, 0.5 partial) reads {@code expected}. */
+    private static void awaitTheHintScaleAt(Script script, float expected) {
+        script.await("the main hand hint scale is " + expected, 200,
+                client -> Math.abs(rendererFloat(client, "mainScale", "the hint scale") - expected) <= 0.001f,
+                client -> "the main hand hint scale is " + rendererFloat(client, "mainScale", "the hint scale")
+                        + " instead of " + expected + " - either the renderer is not producing frames or the "
+                        + "partial hint no longer halves the tilt");
     }
 
     /** Blows the integrated server has saved on the target furnace, 0 if none. */

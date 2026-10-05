@@ -937,7 +937,7 @@
       },
       "source": "modules/simpleriding/generated/resources/data/simpleriding/recipe/enderite_horseshoe_smithing.json",
       "ingredients": [
-        "simplebuilding:enderite_ingot",
+        "#c:ingots/enderite",
         "simpleriding:horseshoe_smithing_template",
         "simpleriding:netherite_horseshoe"
       ],
@@ -949,32 +949,7 @@
           "simpleriding:netherite_horseshoe"
         ],
         "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleriding:horseshoe_smithing_template",
-            "count": 3
-          },
-          {
-            "id": "minecraft:diamond",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.111
-          }
+          "#c:ingots/enderite"
         ]
       }
     },
@@ -1018,6 +993,46 @@
           {
             "id": "minecraft:iron_ingot",
             "count": 0.111
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleriding:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleriding:guide_book",
+        "count": 1
+      },
+      "source": "modules/simpleriding/shared/resources/data/simpleriding/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:hay_block"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:hay_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:wheat",
+            "count": 9
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
           }
         ]
       }
@@ -1289,7 +1304,7 @@
       "replace": false,
       "values": [
         {
-          "id": "simplebuilding:enderite_ingot",
+          "id": "#c:ingots/enderite",
           "required": false
         }
       ],
@@ -1591,6 +1606,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleriding:guide_book",
+      "name": {
+        "en_us": "Simple Riding Guide",
+        "de_de": "Simple-Riding-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleriding/shared/java/com/simpleriding/guide/RidingGuide.java",
+          "modules/simpleriding/shared/resources/data/simpleriding/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + hay bale. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Riding\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Heuballen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Riding\" eins."
+        }
+      },
+      "texture": "assets/textures/simpleriding/item/guide_book.png",
+      "craftedBy": [
+        "simpleriding:guide_book"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleriding:horseshoe_smithing_template",
       "name": {
         "en_us": "Horseshoe Upgrade",
@@ -1687,12 +1726,12 @@
   "incompleteProse": {},
   "counts": {
     "features": 34,
-    "recipes": 7,
+    "recipes": 8,
     "lootTables": 0,
     "tags": 7,
     "advancements": 1,
     "enchantments": 2,
-    "items": 7,
+    "items": 8,
     "blocks": 0,
     "trades": 0,
     "config": 0,

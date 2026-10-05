@@ -4,6 +4,9 @@ Regeln: AGENTS.md; aktueller Bestand/Belege in docs/HANDOFF.md. Worker committen
 ihrem Branch ohne Push/Merge. Alte Wellen und Run-Details sind in der Git-Historie erhalten.
 Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
+## Worker Befunde 11/12 (2026-10-05)
+- [x] Visuals/Sounds auf GameTest-Assertions umgestellt; Riding-Handling prüft alle Vanilla-Stufen standalone, Enderit nur mit SB. Branch `gpt-befunde`: Module 296/296, Kern 1890/1890 grün, Gate mit `-PskipWiki` grün; kein Push.
+
 ## Integriert / implementiert
 - [x] Wellen 1–23: Werkzeuge, Lager/Maschinen, Config/Modpack, Erfolge/Quests, Immersion,
   Balancing-Zentrale und frühere Ports (historische Gate-Zahlen nicht als aktuelles Gate verwenden).
@@ -27,6 +30,16 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Claims-Folgeschutz für Crafter, Kupfergolem-Transfers und Blitz-Blockänderungen; 100/100 Modultests. Claims bleiben wegen weiterer offener Pfade AUS.
 
 ## Offen (inklusive Besitzerpunkte)
+- [x] NeoForge-Modul-Gate: implizite Mod-Liste beim SimpleLib-Nachladen erhalten und Spielordner je Modul isolieren. Money/Dimensions zweimal 61/61, alle 21 Modulziele 617/617, Kern 962/962 und `check -q -PskipWiki` samt Pflicht-Compiles gruen. Worker `gpt-neorun`, Plan `docs/ai/PLAN-NEOFORGE-MODULE-RUNS-2026-10-02.md`, kein Push/Client.
+- [x] Launch-Hub `client_fresh`: echte frische Welt mit Archiv, sicherer Testzentralen-Spawn und dev-only Experimental-Bestaetigung. Worker `gpt-hubworld`: Server 1922/1922, Gate/Pflicht-Compiles/Wiki gruen; neue Hub-Tests 5/5, volle Hub-Suite 86/87 wegen unveraendertem SimpleLib-Standalone-Manifestfehler. Besitzer-Clientabnahme offen; Plan `docs/ai/PLAN-HUB-TESTWORLD-2026-10-02.md`, kein Push.
+- [x] 26.2-Nachtserie ohne Feature-Port repariert: Flags/Erwartungen, Handbuch-/Upgrade-Daten und Forge-Hooks; 26.2 Fabric/NeoForge/Forge 2836/2836 und 26.3-Gegenprobe 1890/1890 gruen; Forge-26.3-Compile und `check -q -PskipWiki` Exit 0. Worker `gpt-line262`, Plan `docs/ai/PLAN-LINE262-2026-10-02.md`; kein Push/Datagen/Client.
+- [x] Auto Smither 26.3: entnehmbare, gegen Einlegen gesperrte Ausgabe; Trichterseiten, Kapazitaetsschutz und Vanilla-GUI korrigiert. 1872/1872 Servertests und Compile-/check-Gate gruen. Plan/Vorschau: `docs/ai/PLAN-AUTO-SMITHER-2026-10-02.md`; Client-Sichtabnahme offen, kein Push.
+- [x] Besitzer-Abgleich 2026-10-05 (`gpt-gaps`), Messer: vier Nuggets nach Sollmuster, EN/DE und Wiki korrigiert, Generatorcheck und je 18/18 Fabric-/NeoForge-Tests grün. Plan: `docs/ai/PLAN-BESITZER-LUECKEN-2026-10-02.md`; kein Push/Client.
+- [x] Besitzer-Abgleich 2026-10-05 (`gpt-gaps`), Schmiedebuch: drei Upgrade-Platzhalter serverseitig ohne Displays, Slot-Rezepte und Handbuchfreischaltung erhalten; Hauptmod je 941/941 und Abschluss-Gate grün. Sichtabnahme offen.
+- [x] Besitzer-Abgleich 2026-10-05 (`gpt-gaps`), Money: Nihil-Gewölbe analog Astralgewölbe (37 Scheine, Bestand 1, 10 % Chance), Generator/Daten-/Balancechecks und je 18/18 Fabric-/NeoForge-Tests grün. Abschluss aller drei Aufgaben: 1954/1954 Server, `check -q` und geforderte Compiles grün; kein Push/Client.
+- [x] Wackelige GameTests: Testzentrale-Knoepfe, Claims-Attractor, Shulker-Endermiten, Magnet-Pickup und Palette abgesichert; dreifache Wiederholungen je Loader, Basis 1814/1814, SimpleTweaks 104/104 und Gradle-Gate gruen. Belege: `docs/ai/PLAN-FLAKY-GAMETESTS-2026-10-02.md`; Worker-Branch, kein Push/Port.
+- [x] Simple Riding: Leaping-/Tailwind-Buecher aus Vorschlag B mit weiteren 25 % Kontrast; Generator, Modulmodelle, Vorschau, Wiki-Modellalias-Vertrag, 78/78 Modultests und volles Gate gruen (2026-10-04, gpt-books). Client-Sichtabnahme und 26.2-Port bleiben offen.
+- [x] Launch-Hub offline: unnoetiges Forge 26.2 auslassen, DNS-/erzwungenen Offline-Modus und klare Mavenizer-Meldung; 78 Hub-Tests, Offline-Fabric-Compile und Clientvorbereitung inkl. Assets gruen, kein Clientstart. Worker `gpt-hubclient`, Belege: `docs/ai/PLAN-HUB-OFFLINE-2026-10-02.md`.
 - [x] B8: Item-spezifische EN/DE-Zusätze für die 17 Wiki-Familien, einschließlich Alt-IDs; Rezept- und Zahlenkorrekturen gegen 26.3-Quellen. Wiki-Generator und Python-Tests im Worker-Worktree geprüft, kein Port/Push.
 - [x] Strahlschalter-Rezeptfilter berücksichtigt amethyst_lens und die alte laser_pointer-ID (RecipeFilter.java).
 - [x] Serielle Fabric-/NeoForge-26.3-Clientprüfung und gezielte Nachprüfung der belegten Testfehler; Dimensions/QoL/Sounds/Visuals-Smokes: `docs/ai/CLIENT-ACCEPTANCE-2026-10-01.md`.
@@ -49,12 +62,12 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Config-Seite: Wertebereich (min ... max aus @BoundedDiscrete/validate()), Client/Server und "wirkt bei /reload" als eigene Spalten. Quellenbasiert; Teilgrenzen und nicht belegte Metadaten ausdrücklich unbekannt. Plan/Prüfstand: `docs/ai/PLAN-WIKI-IDEEN-2026-10-03.md`.
 - [x] Leere Listen/Filterergebnisse erklären den nächsten Schritt; Filter zurücksetzen mit Fokuswiederherstellung.
 - [ ] Offen beim Besitzer: Kern-Chancen-Vorschlag fuer Eisen/Gold/Diamant/Netherit uebernehmen?
-- [ ] Vorlagen teurer machen (mehrere Materialien statt 1 Glowstone/Tintenbeutel/Echoscherbe)
+- [x] Vorlagen teurer machen (26.3): Mehrfach-Materialien + Diamanten, Kopien nach Vanilla-Muster; 1834/1834 Server grün, Gesamt-Gate grün. Plan/Balance/Offenes: `docs/ai/PLAN-VORLAGEN-TEURER-2026-10-04.md`. Besitzer-Abnahme und Port-Run offen.
 - [ ] Punkte 64-69: Sprachen, Attractor mit Ladung, neue Bloecke, Baustab ueber Planer, Kern-Module, Rucksack-Sortierung/Multi-Mod-Repo
 - [ ] Port-Run 26.2/1.21.11/26.4 erst nach Besitzer-Abnahme; Faktenpass und aktuelles 26.3-Gate siehe HANDOFF.
 - [ ] Besitzer-Abnahme des bereits implementierten Zeilen-Layouts in allen Kreativreitern.
 - [ ] 26.4: Forge einschalten sobald Build da (-Pmc264_forge_version), Cloth-Config-Screen/Dev-Mods sobald 26.4-Builds da, NeoForge-26.4-Linie
-- [ ] Baustab V1: normale Flaechen ueber den Blaupausen-Planer (Schutzpruefung pro Position) - ca. 40 Tests pinnen das heutige Verhalten
+- [x] Baustab V1: normale Flaechen ueber den Blaupausen-Planer (Schutzpruefung pro Position) - ca. 40 Tests pinnen das heutige Verhalten
 - [ ] Kerne als Baustab-Module + eigene Funktionen (Vorschlaege in docs/BAUWERKZEUGE-INTERAKTIONEN.md) - Besitzer: erst spaeter
 - [ ] Kerne: Netherstern nur ab Diamant, Netherit-/Enderit-Baustab aus Kern, goldener Baustab mehr Haltbarkeit - nicht gewaehlt, spaeter neu besprechen
 - [ ] Rucksack-Sortierung (Reihenfolge vorbereitet), sobald eine Sortierfunktion kommt
@@ -90,7 +103,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] 4. QUALITY OF LIFE Haltbarkeitsbonus: gilt auch fuer Mod-Werkzeuge (SimpleBuilding und andere), aber der Standard ist 1 (kein Bonus); per Config erhoehbar (serverseitig, harte Obergrenze). Brief: docs/ai/briefs/next-small.md.
 - [x] 5. SOUNDS: Intensitaet an die Stufe von Simple Visuals koppeln (Off/Subtle/Normal/Strong/Maximum); ohne Visuals gilt eine eigene Einstellung. Brief: docs/ai/briefs/next-small.md.
 - [x] 6. FORGE spaeter: Forge 26.3 auch fuer Dimensions, Cloth-Dialog auf Forge und die Frage der Standardaktivierung kommen nach 1 bis 5.
-- [ ] Noch offen: Echolot 3 Sekunden halten oder Ein-Klick? Morgenbericht der Sprach-Bridge ja oder nein?
+- [x] Noch offen: Echolot 3 Sekunden halten oder Ein-Klick? Morgenbericht der Sprach-Bridge ja oder nein? → Besitzer: „ja und ja“ (3 s halten bleibt), Morgenbericht vorerst nicht relevant.
 
 ## Orchestrator-Abschluss 2026-10-01
 
@@ -266,9 +279,9 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 ## Besitzer 2026-10-04 (Nachtrag 7)
 
-- [ ] Lautsprecher-Texturen dezenter: vom Notenblock ausgehen und daraus eine neue Textur machen; die dunklen Spots des Notenblocks durch Pixel der jeweiligen Rohmaterial-Textur (Astralit/Nihilit) ersetzen. Je 5 Vorschläge, alle Blockseiten gleiche Textur.
+- [x] Lautsprecher-Texturen dezenter: vom Notenblock ausgehen und daraus eine neue Textur machen; die dunklen Spots des Notenblocks durch Pixel der jeweiligen Rohmaterial-Textur (Astralit/Nihilit) ersetzen. Je 5 Vorschläge, alle Blockseiten gleiche Textur.
 - [x] Schallplatten: auch Track 3 und 4 erlauben, falls vorhanden (Vorschlaghammer-Zyklus 1 → 2 → 3 → 4 → 1, nur über vorhandene Tracks). (claude-audio: Track 3/4 entstehen per Import-Skript; echte Musik importiert)
-- [ ] Lautsprecher verketten: Noten- bzw. Plattenspieler-Verstärker sollen sich gegenseitig weitergeben (nicht unbedingt lauter, aber der Sound erreicht den Spieler über mehrere Lautsprecher hinweg – eine große Villa beschallen).
+- [x] Lautsprecher verketten: Noten- bzw. Plattenspieler-Verstärker sollen sich gegenseitig weitergeben (nicht unbedingt lauter, aber der Sound erreicht den Spieler über mehrere Lautsprecher hinweg – eine große Villa beschallen).
 - [x] Lautsprecher verketten: (claude-audio: BFS-Kette, server.speakers.maxChain 16/64, je Spieler nächster Abspielpunkt; Hör-Abnahme offen) Noten- bzw. Plattenspieler-Verstärker sollen sich gegenseitig weitergeben (nicht unbedingt lauter, aber der Sound erreicht den Spieler über mehrere Lautsprecher hinweg – eine große Villa beschallen).
 
 ## Besitzer 2026-10-04 (Nachtrag 8)
@@ -277,18 +290,78 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Astral-/Nihil-Kolben: Variante C eingebaut (previews/kolben-C-eingebaut.png).
 - [x] Texfix-Rücksetzung: spawn_elytra, brick_snowball, alle 7 Simple-Money-Items und die 19 Mod-Verzauberungsbücher wieder auf die Fassung vor dem Textur-Audit (vanilla_style_2026_10_02.py „keep“, generate_textures.py liest hand/q1/books); Vorschau previews/texfix-ruecksetzung.png (inkl. farbreduzierter Vorschläge).
 - [ ] Texfix-Entscheidung Besitzer: 52 noch aktive Texfix-Texturen (raw_enderite, Pads, Teleporter, Chunk-Loader, Launchpads, Kupferplatten) – previews/texfix-revert-uebersicht.png, Nummern nennen; Liste: tools/textures/texfix_audit_2026_10_04.py.
-- [ ] Hufeisen-Vorlage: 10 Vorschläge (previews/hufeisen-vorlage-10-vorschau.png) – Besitzer wählt.
-- [ ] Simple-Riding-Bücher (Leaping, Tailwind): Vorschläge aus den alten SB-Büchern (previews/simpleriding-buecher-vorschau.png) – Besitzer wählt; Einbau braucht ein eigenes Buchmodell-Mapping im Modul.
-- [ ] NEUES MODUL „Simple Sandwiches“ (Konzept + Fragebogen zuerst):
+- [ ] Hufeisen-Vorlage: 10 Vorschläge (previews/hufeisen-vorlage-10-vorschau.png) – Besitzer wählt. → Runde 3 (kleiner, previews/hufeisen-vorlage-runde3-vorschau.png, Branch claude-horseshoe2 aff11c2d) wartet auf Besitzerwahl.
+- [x] Simple-Riding-Bücher (Leaping, Tailwind): Vorschläge aus den alten SB-Büchern (previews/simpleriding-buecher-vorschau.png) – Besitzer wählt; Einbau braucht ein eigenes Buchmodell-Mapping im Modul.
+- [x] NEUES MODUL „Simple Sandwiches“ (Konzept + Fragebogen zuerst):
+- [x] NEUES MODUL „Simple Sandwiches“ – gebaut auf Branch `claude-sandwiches` (Plan `docs/ai/PLAN-SIMPLE-SANDWICHES-2026-10-04.md` §19), Merge + Client-Abnahme offen. Essenskorb laut Besitzer gestrichen → Essen direkt aus dem Bündel:
   - Sandwiches aus Brot + bis zu 5 Zutaten (Kabeljau, Lachs, Kaninchen, Huhn, Hammel, Schwein, Steak, Kartoffel, Karotte, Apfel, Melone, Spinnenauge, verrottetes Fleisch …, auch goldene/verzauberte Früchte; mit SimpleBuilding auch Netherit-/Enderit-Äpfel usw.). Effekte der Zutaten werden kombiniert (Wahrscheinlichkeiten übernommen), Sättigung/Hunger addiert – mehr auf einmal gegen Zubereitungszeit. Nur gleiche Sandwiches stapelbar. Item-Textur zeigt, was drin ist.
   - Schneidebrett (Block) + Messer (Eisenstufe, wie Schere): Rezept Stock unten links, Nuggets Mitte, rechts oben, unten Mitte, rechts Mitte. ~1/3 Angriffsschaden des Eisenschwerts, wirkt nur auf ausgewählte Dinge: Brot aufschneiden, Butter schmieren, Käse/Melonen/Kuchen schneiden (Kuchenstücke in der Hand essbar), Spinnweben zerstören, Bambus schneller abbauen.
   - Ablauf: Brot aufs Brett, mit Messer aufschneiden, Zutaten stapeln sich im Inneren (voll = keine mehr), mit Messer rückwärts wieder herausnehmen, Butter muss zuerst geschmiert werden; mit leerer Hand zuklappen und herausnehmen, mit Messer wieder öffnen.
   - Butter und Käse im Kessel herstellen (Konzept nötig). Käse = platzierbarer ganzer Block, von oben/seitlich in 16 Scheiben schneidbar, Scheiben stapeln zu 64; Butter ebenso, etwas weniger rutschig als Eis. Butter in Haupt-/Nebenhand + Messer = Brot beschmieren; Butter verstärkt Sandwich-Effekte um 10 % (Dauer, Sättigung, Hunger). Käse = Zutat.
   - Essenskorb (Picknickkorb-Optik): trägt 5 Stacks Essen wie ein Bündel, oberstes Item sichtbar, essbar oder wechselbar, Tooltip wie Bündel.
-- [ ] Hängematte: bei 3 Blöcken Abstand nicht zentriert → zentrieren; Abstand auf 2–4 erweitern; auch diagonal (erst einen Anker, dann den anderen anklicken); Rezept mit 2. Faden; ersetzt keinen Schlaf, lässt aber auch nachts die Zeit schneller laufen.
-- [ ] Nihil-Gewölbe („Nihil Vault“): wie das Astralgewölbe, aber eine weltweit geteilte Enderkiste (Größe wie Enderkiste), jeder hat Zugriff.
-- [ ] Simple QoL: Mit leerer Hand Schleich-Rechtsklick auf eine Truhe merkt sie vor (Partikel an der Hand); öffnet man danach eine 2. Truhe oder GUI (Werkbank usw.), werden beide GUIs untereinander angezeigt (Umräumen, aus Truhe craften). Reichweite ~64 Blöcke.
-- [ ] Simple QoL: „Easy Shulkers“ und „Easy Ender Chests“ übernehmen (aus dem Inventar öffnen).
-- [ ] Geschwindigkeitsmesser-Rezept: freie Felder mit Kupfer-Nuggets füllen, dann das Muster um einen Slot im Uhrzeigersinn rotieren.
-- [ ] Astral-/Nihil-Schienen: bremsen bzw. beschleunigen; Höchstgeschwindigkeit anheben mit realistischer Reibung (je schneller, desto mehr Boost nötig, asymptotische Annäherung); Astral-Schienen boosten stärker als Antriebsschienen.
-- [ ] Harz-Schachbrett: Rezept nutzt noch den Platzhalter rote Netherziegel → auf Harzziegel (resin_bricks) umstellen.
+- [x] Hängematte: bei 3 Blöcken Abstand nicht zentriert → zentrieren; Abstand auf 2–4 erweitern; auch diagonal (erst einen Anker, dann den anderen anklicken); Rezept mit 2. Faden; ersetzt keinen Schlaf, lässt aber auch nachts die Zeit schneller laufen.
+- [x] Nihil-Gewölbe („Nihil Vault“): wie das Astralgewölbe, aber eine weltweit geteilte Enderkiste (Größe wie Enderkiste), jeder hat Zugriff.
+- [x] Simple QoL: Mit leerer Hand Schleich-Rechtsklick auf eine Truhe merkt sie vor (Partikel an der Hand); öffnet man danach eine 2. Truhe oder GUI (Werkbank usw.), werden beide GUIs untereinander angezeigt (Umräumen, aus Truhe craften). Reichweite ~64 Blöcke. (claude-qolgui: Panel oben/seitlich mit Scrollen, Server-Config 64 (8–128); Rezeptbuch aus Truhe bewusst nicht; Client-Sicht offen)
+- [x] Simple QoL: „Easy Shulkers“ und „Easy Ender Chests“ übernehmen (aus dem Inventar öffnen). (claude-qolgui: Luft + Inventar-Rechtsklick, Slot gesperrt, inkl. Stufen-Shulker; Kreativreiter ausgenommen)
+- [x] Geschwindigkeitsmesser-Rezept: freie Felder mit Kupfer-Nuggets füllen, dann das Muster um einen Slot im Uhrzeigersinn rotieren. (`claude-gpt-gauge`: 26.3 `NAN / NCN / NKN`, sechs Kupfernuggets; 26.2 unverändert. Prüfstand: `docs/ai/PLAN-GAUGE-RESIN-2026-10-02.md`.)
+- [x] Astral-/Nihil-Schienen: bremsen bzw. beschleunigen; Höchstgeschwindigkeit anheben mit realistischer Reibung (je schneller, desto mehr Boost nötig, asymptotische Annäherung); Astral-Schienen boosten stärker als Antriebsschienen.
+- [x] Harz-Schachbrett: Rezept nutzt noch den Platzhalter rote Netherziegel → auf Harzziegel (resin_bricks) umstellen. (`claude-gpt-gauge`: 26.2/26.3 inklusive Freischaltung und EN/DE-Prosa; 1.21.11 bleibt Port-Run. Prüfstand wie oben.)
+
+## Besitzer 2026-10-04 (Nachtrag Modul-Unabhängigkeit)
+Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `claude-modprinciples` gefixt).
+- [x] Standalone-Testziel je Modul: `modules.json` `tests.standalone` (nur Modul + harte Libs), Testrunner `module_targets` erzeugt `module-<id>-standalone-fabric-263` (+ NeoForge mit `loadedMods=[nur Modul]`); Integrations-Targets bleiben. (claude-standalone, 20 Targets grün)
+- [x] Modul-Tests ohne SB lauffähig machen: SB-Asserts hinter `isModLoaded("simplebuilding")` oder in Integrations-Katalog (QoL, Money, Models, Dimensions, Fun, Riding – Zeilen in der Prinzipien-Datei, Befund 3). (claude-standalone; dabei Befunde 9/10 gefixt)
+- [x] Optionale Partner in Loader-Metadaten nachziehen (`suggests` / `type="optional"`, Forge `mandatory=false`) und `tools/multimod.py` prüft Gleichstand mit `modules.json optional` (Befund 5). `gpt-modmeta`: einschließlich ModMenu, Claim-Mod-Erkennung und `simpledimensions`/`simpledimension`-Zuordnung; Prüfstand in `docs/ai/PLAN-MODMETA-2026-10-02.md`.
+- [ ] Simple Riding: Enderit-Hufeisen über `#c:ingots/enderite` statt fester SB-ID (Condition bleibt; Befund 6).
+- [x] Simple Riding: Enderit-Hufeisen-Rezept und optionaler Reparaturtag über `#c:ingots/enderite` statt fester SB-ID (Conditions bleiben; Befund 6). SB liefert den Tag bereits; Forge-Konverter und alle drei Riding-Serverziele geprüft.
+- [ ] Simple Sandwiches (Branch `claude-sandwiches`): Crucible-Grundrezept mit Axt, SB-Variante mit `#simplebuilding:sledgehammer_tools` nur hinter `mod_loaded` (Regel 5).
+
+## Nachtrag 10 (Besitzer 2026-10-04 nachts)
+- [ ] Hängematte in beliebigem Winkel platzierbar (nicht nur gerade/45°).
+- [ ] Trainingspuppe-Icon A–C und Sage Orb kleiner A–C (previews/trainingspuppe-textur-vorschau.png, previews/sage-orb-vorschau.png, Branch claude-tex5 7686802f) – Besitzer wählt.
+- [ ] Auto Smither: Ergebnis-Slot nicht befüllbar, UI an Vanilla-Schmiedetisch angleichen (GPT gpt-smither).
+- [ ] Tooltips Basic/Enderite Upgrade Template; Amplifier immer volle Lautstärke; Erz-Ausbeutebonus der Öfen entfernen (GPT gpt-small9).
+- [x] Senkrechte Stäbe (Stock, Knochen, Lohen-, Böen-, Diamantstab) inkl. Hängematten-Anker (claude-rods3 f01726cb, gemergt).
+- [~] Crucible (Plan docs/ai/PLAN-CRUCIBLE-2026-10-04.md, Fragebogen komplett beantwortet) – Umsetzung läuft auf claude-crucible.
+- [ ] Guide-Buch je Modul + FTB-Quest „Buch gratis“ je Modul + gemeinsame Bibliothek (Guide-Plan Schritt 3/4) – Agent claude-guides2.
+- [ ] Messer-Rezept wie Besitzer-Diktat (`  N / NN / SN `), Schmiedetisch-Rezeptbuch ohne `*_armor_upgrade_dummy`, Nihil-Gewölbe-Preis/Handel in Simple Money – GPT gpt-gaps.
+## Besitzerauftrag small9 (2026-10-04)
+- [x] Basic-/Enderite-Tooltips wie Vanilla, EN/DE, Strukturtest.
+- [x] Verstärker innerhalb der Hörweite immer voller Pegel.
+- [x] Ofen-Ausbeutebonus entfernen; doppelte XP behalten, Altwelten-Fixtures geprüft.
+  Belege: `docs/ai/PLAN-SMALL9-2026-10-02.md`; 1870/1870 Server grün, Gesamt-Gate grün.
+  Sicht-/Hörabnahme und Testzentrale in der Besitzerwelt bleiben offen; kein Client/Push.
+
+- [ ] Crucible / Schmelztiegel (Konzept + Fragebogen zuerst: `docs/ai/PLAN-CRUCIBLE-2026-10-04.md`, Branch `claude-crucible`):
+  - [ ] Neue Ofen-Station, so schnell wie ein normaler Ofen, gart mehrere verschiedene Dinge parallel; Ergebnisse in den nächsten freien Slot.
+  - [ ] Stufen (Runde 1): Eisen 6, Verstärkt 9, Netherit 18, Enderit 27 (nur SB, doppelte Stackgröße); Tempo wie die SB-Ofen-Stufen (1×/2×/4×/8×), Hitzefaktor niedrig 0,5× … extrem 1×.
+  - [ ] Herstellung in der Welt: Vorschlaghammer auf Eisenblock, Eisenbarren in der Nebenhand; 4 Schläge = 4 Wände (Eisen-Druckplatten), 2 Schläge = 2 Griffe (Eisenstäbe). Höhere Stufen wie die Ofen-Aufwertungen.
+  - [ ] Slot-Indikator im Slot-Hintergrund: gart = heller + Fortschritt; kein Platz = rot (gestoppt); zu wenig Hitze = blau.
+  - [ ] Kein Brennstoff, sondern Hitzequelle: Lagerfeuer/Magma = mittel, Lava = hoch, Seelen-Lava = extrem; niedrige Stufe (Fackel/Kerze/Seelenfeuer) vorgeschlagen.
+  - [ ] Seelen-Lava (neue Flüssigkeit): Quell- und Fließblock nicht ersetz-/überbaubar, entfernen nur durch Aufnehmen der Quelle mit Eimer. Weltgenerierung nur im Nether: ca. 0,5 % statt einer Lava-Tasche, in Netherfestungen 10 % Chance je Lavaquellen-Raum; sonst nirgends.
+  - [ ] Kupfer-Eimer: nimmt keine Seelen-Lava, nur normale Lava, zerbricht beim Ausgießen von Lava. Eisen-Eimer zerbricht beim Ausgießen von Seelen-Lava. Enderit-Eimer (Schmiedetisch, direkt vom Eisen-Eimer) zerbricht nicht.
+  - [ ] Warmes Essen: Tiegel wärmt Sandwiches und andere warme Speisen auf; warm 15 % schneller essbar; bleibt ca. einen halben Tag-Nacht-Zyklus warm, im Bündel ca. 2 Zyklen; beim Stapeln Mittelwert der Wärme; Glow um die Items (Stärke ~ Restwärme).
+  - [ ] Auch im Modul Simple Sandwiches (eigenständig spielbar): Tiegel + Warm-Food; ohne SB mit der Axt statt dem Vorschlaghammer. Aufteilung SB/Modul/Bibliothek `simplelib` siehe Plan §3 und `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`.
+  - [x] Fragebogen Runde 1 (F1–F37) beantwortet, eingearbeitet (Plan §2; gemeinsamer Kern als Bibliothek, seit Runde 2 `simplelib`, Dorf-Feldküche neu).
+  - [x] Fragebogen Runde 2, Fragen 1–31 beantwortet und eingearbeitet (Plan §2b: Bibliothek `simplelib`, Axt als Vanilla-Ersatz für den Vorschlaghammer, Hitzestufen neu als Frage 51, BER-Inhalt sichtbar, Seelen-Lava 2/5, Seelenbrand, verstärkter Kessel).
+  - [ ] Ofen-Ausbeutebonus (Netherit-/Enderit-Schmelzofen, `FurnaceTierPerks`) aus SB entfernen – macht ein anderer Helfer im Code (Runde 2 Frage 1).
+  - [ ] Kupfer-Fass (Kupfer/Verstärkt/Enderit, 9 Slots) per Vorschlaghammer (ohne SB Axt) in 6 Schlägen an den Tiegel anbringen, sichtbar verbunden; Tiegel-GUI zeigt die 9 Fass-Felder; Ergebnisse zuerst ins Fass; Trichter unter dem Fass (Plan §8a).
+  - [ ] Seelen-Lava: 4× entflammbarer als Lava, doppelte Zündreichweite; „schmilzt 10× mehr“ (★ Brennstoff 10× Lava, Plan §9/§10).
+  - [ ] Besitzer beantwortet die offenen Fragen 32–61, danach Umsetzung.
+  - [x] P5/P6 Textur-Platzhalter (2026-10-05, `claude-crucible-gpt`): 34 PNGs und zwei Vanilla-Animationsmetadaten; Enderit-Tiegel/Fass, Seelenlava, Kupfer-/Enderit-Eimer, Seelenbrand und verstaerkter Kessel. Vier A/B/C-Vergleichstafeln nur in `C:/Users/o_o/code/minecraft-mods/previews/`; Auswahl und Ingame-Abnahme offen.
+  - [x] Eimer-Nacharbeit 2026-10-05 (`claude-crucible-gpt`): Kupfer-/Enderit-Eimer erhalten Vanilla-Kontur und alle Schattierungen der Oeffnung; Wasser/Lava unveraendert. Pixelchecks, Texturgenerator --check, Wiki --check und Gradle check -q gruen (Java 25, vorgegebenes Python im PATH). 16x Alt/Neu und deutlich eigene A/B/C-Beschlaege unter `previews/eimer-*-vorschau.png`; Vorschlaege nicht eingebaut, Besitzer-Abnahme offen.
+## Forge Auto Smither (Besitzer 2026-10-05)
+- [x] Forge 26.3 Auto Smither: Forge-Capability nutzt vorhandene Seitenregeln; Trichter entnehmen nur Ergebnisse, alle drei Eingaben bleiben erhalten. Filter 6/6, volle Server 2839/2839 und `check -q -PskipWiki` gruen. Branch `gpt-forgesmither`, Belege: `docs/ai/PLAN-FORGE-AUTO-SMITHER-2026-10-02.md`; kein Push/Client.
+
+## Guides Schritt 3/4 (Besitzer 2026-10-01: „Zu jeder Mod ein herstellbarer Guide, mit FTB Quests am Anfang gratis“)
+- [x] Guide-Buch je Modul (Branch `claude-guides2`, Plan `docs/ai/PLAN-MODUL-GUIDES-2026-10-05.md`): Vanilla-Buchansicht mit EN/DE-Seiten aus `wiki/manual.json`, Rezept Buch + Vanilla-Item, FTB-Startquest schenkt das Buch (nur mit FTB Quests), Texturen A–H (`previews/modul-buecher-vorschau.png`); Visuals/Sounds als Client-Mods ohne Item über `/simplevisuals guide` bzw. `/simplesounds guide`. Generator `tools/guides/module_guides.py` (`checkModuleGuides`). Offen: Merge, Client-Sichtabnahme (Seitenumbruch, Befehle), FTB-Quests im echten Spiel, Umzug der Vorlage nach `simplelib`.
+## Besitzer 2026-10-04 (Nachtrag 9)
+
+## Forge Crucible (Besitzer 2026-10-05)
+- [x] Forge 26.3: fehlende SimpleLib-Pack-Metadaten ergaenzt; Vorschlaghammer baut Crucible wieder. Bautest prueft Tags, echten Item-Aufruf und jeden Schlag. Forge-Filter 14/14, volle drei Serverziele 2881/2881, Gate und Pflicht-Compiles gruen. Branch gpt-forgecrucible; Plan docs/ai/PLAN-FORGE-CRUCIBLE-2026-10-02.md; kein Push/Client.
+
+## Crucible P6 (2026-10-05)
+- [x] `claude-crucibleart-gpt`: Seelen-Lava-Server-Config, Jade-Tiegelstatus und JEI-Schmelztiegelkategorie umgesetzt. Fabric-Tests Crucible 16/16, Config 15/15, Testzentrale 7/7; Pflicht-Compiles, Wiki, JUnit (inkl. Jade-Split) und einzelne Gate-Prüfungen grün. Gesamtcheck dreimal am 600-s-Limit beendet, kein grüner Gesamt-Gate-Abschluss. Plan/Belege: `docs/ai/PLAN-CRUCIBLE-P6-2026-10-05.md`. Kein Push/Client/Artwork.
+## Checker und Crafter-UI (2026-10-05, gpt-checkui)
+- [x] Netherziegel-/rote-Netherziegel-Quarz-Checker vollständig integriert; EN/DE, Wiki, Money und Testzentralen-Abdeckung. 2881/2881 Server grün, check -q und 26.2-Compile grün. Plan PLAN-CHECKER-2026-10-02.md.
+- [x] Auto Smither im Crafter-Stil: zentrierter Titel, drei Geisterbild-Eingaben, großer Ergebnisrahmen, exakte Slotpositionen. Alle Auto-Smither-Tests auf drei Loadern und volles Gate grün. Plan PLAN-SMITHER-CRAFTER-UI-2026-10-02.md. Keine Clienttests, kein Push; Sichtabnahme offen.

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "content=empty": {
+      "model": "simplelib:block/reinforced_cauldron"
+    },
+    "content=water": {
+      "model": "simplelib:block/reinforced_cauldron_water"
+    },
+    "content=lava": {
+      "model": "simplelib:block/reinforced_cauldron_lava"
+    },
+    "content=powder_snow": {
+      "model": "simplelib:block/reinforced_cauldron_powder_snow"
+    },
+    "content=extreme": {
+      "model": "simplelib:block/reinforced_cauldron_extreme"
+    }
+  }
+}

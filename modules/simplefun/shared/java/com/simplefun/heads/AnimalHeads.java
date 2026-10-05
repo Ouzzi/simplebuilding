@@ -53,6 +53,7 @@ public final class AnimalHeads {
   }
 
   public static void items() {
+    com.simplefun.guide.FunGuide.register();
     for (var t : AnimalHead.values()) {
       var k = ResourceKey.create(Registries.ITEM, id(t.path()));
       ITEMS.put(
@@ -87,11 +88,12 @@ public final class AnimalHeads {
   }
 
   /**
-   * Only the mod's own items: the brick snowball, then the heads. The vanilla ingredients (bricks,
+   * Only the mod's own items: the guide, the brick snowball, then the heads. The vanilla ingredients (bricks,
    * snowball, feather, ...) stay in their vanilla tabs.
    */
   public static List<ItemStack> tabStacks() {
     var out = new ArrayList<ItemStack>();
+    if (com.simplefun.guide.FunGuide.book() != null) out.add(com.simplefun.guide.FunGuide.stack());
     out.add(new ItemStack(com.simplefun.registry.ModItems.BRICK_SNOWBALL));
     out.addAll(headStacks());
     return List.copyOf(out);

@@ -48,14 +48,13 @@ SPECTRAL = {
 # Besitzer 2026-10-04: diese Restyles waren nicht beauftragt - zurueck zur Fassung vor dem Audit ("keep" = die
 # unveraenderte Vorlage aus hand/q1). Nur raw_enderite bleibt im Vanilla-Stil (Entscheidung offen, siehe
 # previews/texfix-revert-uebersicht.png).
+# Fasern: seit Runde 6 (2026-10-05) aus texture_round6_2026_10_05.py (Besitzerwahl Mischung I/J), nicht mehr hier.
 SPECS = {
     f"{MONEY}/blank_note.png": ("keep", "blank_note.png", None),
     f"{MONEY}/refined_blank_note.png": ("keep", "refined_blank_note.png", None),
     f"{MONEY}/special_paper.png": ("keep", "special_paper.png", None),
     f"{MONEY}/money_bill.png": ("keep", "money_bill.png", None),
     f"{MONEY}/raw_bill.png": ("keep", "raw_bill.png", None),
-    f"{MONEY}/resin_fiber.png": ("keep", "resin_fiber.png", None),
-    f"{MONEY}/special_fiber.png": ("keep", "special_fiber.png", None),
     f"{FUN}/brick_snowball.png": ("keep", "brick_snowball.png", None),
     f"{SB}/raw_enderite.png": ("restyle", "raw_enderite.png", ([R["enderite"][:9]], 0, None)),
     f"{SB}/spawn_elytra.png": ("keep", "spawn_elytra.png", None),

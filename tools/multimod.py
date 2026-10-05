@@ -2,6 +2,7 @@
 import json
 import re
 import subprocess
+import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,6 +59,9 @@ def validate_tests(entry, tests, root):
         values = tests.get(field, [])
         if not isinstance(values, list) or any(not isinstance(value, str) or not ID.fullmatch(value) for value in values):
             raise ValueError(f'Invalid test {field}: {mid}')
+    standalone = tests.get('standalone')
+    if standalone is not None:
+        validate_standalone(entry, standalone, root)
     client = tests.get('client')
     if client is not None:
         if not isinstance(client, dict) or not client.get('entrypoints') or any(not re.fullmatch(r'[A-Za-z_][\w]*(?:\.[A-Za-z_][\w]*)+', value) for value in client['entrypoints']):
@@ -66,6 +70,66 @@ def validate_tests(entry, tests, root):
             validate_relative_path(client.get(field), root, f'{mid}: client {field}')
         if client.get('task') != ':integration:runClientGameTest':
             raise ValueError(f'Invalid client smoke task: {mid}')
+
+
+def validate_optional_metadata(entry, modules, root):
+    """Keep add-on metadata aligned with manifest partners, using actual loader IDs."""
+    if not entry['paths']['root'].startswith('modules/'):
+        return
+    aliases = {module['id']: module.get('modId', module['id']) for module in modules}
+    expected = {aliases.get(mid, mid) for mid in entry['optional']}
+    owner = entry.get('modId', entry['id'])
+    for loader in entry['loaders']:
+        resources = root / entry['paths'][loader] / 'src/main/resources'
+        if loader == 'fabric':
+            path = resources / 'fabric.mod.json'
+            data = read(path)
+            actual = set(data.get('suggests', {}))
+            required = set(data.get('depends', {}))
+        else:
+            path = resources / 'META-INF' / ('neoforge.mods.toml' if loader == 'neoforge' else 'mods.toml')
+            data = tomllib.loads(path.read_text(encoding='utf-8'))
+            dependencies = data.get('dependencies', {}).get(owner, [])
+            optional = [dep['modId'] for dep in dependencies if
+                        (dep.get('type') == 'optional' if loader == 'neoforge' else dep.get('mandatory') is False)]
+            actual = set(optional)
+            required = {dep['modId'] for dep in dependencies if
+                        (dep.get('type', 'required') == 'required' if loader == 'neoforge' else dep.get('mandatory') is True)}
+            if len(optional) != len(actual):
+                raise ValueError(f'Duplicate optional dependencies: {path}')
+        if actual != expected or expected & required:
+            raise ValueError(f'Optional dependencies differ: {entry["id"]}/{loader}: '
+                             f'missing={sorted(expected - actual)}, extra={sorted(actual - expected)}, '
+                             f'required={sorted(expected & required)}')
+
+
+def validate_standalone(entry, standalone, root):
+    """Principle 8: a standalone suite loads only the module and its hard requirements."""
+    mid = entry['id']
+    if not isinstance(standalone, dict):
+        raise ValueError(f'Invalid standalone tests: {mid}')
+    if 'exempt' in standalone:
+        if set(standalone) != {'exempt'} or not isinstance(standalone['exempt'], str) or not standalone['exempt'].strip():
+            raise ValueError(f'Standalone exemption needs only a reason: {mid}')
+        return
+    for field in ('requires', 'devMods'):
+        values = standalone.get(field, [])
+        if not isinstance(values, list) or any(not isinstance(v, str) or not ID.fullmatch(v) for v in values) or mid in values:
+            raise ValueError(f'Invalid standalone {field}: {mid}')
+    extra = set(standalone.get('requires', [])) - set(entry.get('requires', []))
+    if extra:
+        raise ValueError(f'Standalone may only add hard requirements: {mid}: {sorted(extra)}')
+    if 'reason' in standalone and (not isinstance(standalone['reason'], str) or not standalone['reason'].strip()):
+        raise ValueError(f'Invalid standalone reason: {mid}')
+    suites = standalone.get('loaders')
+    if not isinstance(suites, dict) or not suites or not set(suites) <= set(entry['loaders']) - {'forge'}:
+        raise ValueError(f'Invalid standalone loaders: {mid}')
+    for loader, spec in suites.items():
+        expected = (f':integration:run{mid.capitalize()}StandaloneGameTest' if loader == 'fabric'
+                    else entry['projects'][loader] + ':runModuleStandaloneGameTest')
+        if not isinstance(spec, dict) or spec.get('task') != expected:
+            raise ValueError(f'Invalid standalone task: {mid}/{loader} (expected {expected})')
+        validate_relative_path(spec.get('report'), root, f'{mid}: standalone report')
 
 
 def registries(root=ROOT):
@@ -142,6 +206,8 @@ def registries(root=ROOT):
                         value = source['local']
                         if not isinstance(value, str) or not value.endswith('.jar') or '\\' in value or ':' in value or value.startswith('/') or '..' in value.split('/'):
                             raise ValueError(f'local JAR path must remain inside the repository: {mid}')
+    for entry in modules:
+        validate_optional_metadata(entry, modules, root)
     return modules, dev
 
 def validate_selection(value, root=ROOT):

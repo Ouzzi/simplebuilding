@@ -11,7 +11,8 @@ def pairs_hook(pairs):
 def read(p):return json.loads(p.read_text(encoding='utf-8'),object_pairs_hook=pairs_hook)
 en,de=[read(M/f'shared/resources/assets/simplemodels/lang/{locale}.json') for locale in ('en_us','de_de')]
 assert en.keys()==de.keys()
-assert all(k.startswith('simplemodels.') and v for k,v in en.items())
+# The generated guide (tools/guides/module_guides.py) adds its item name and FTB quest texts.
+assert all(k.startswith(('simplemodels.','item.simplemodels.guide_book','quests.simplemodels.start.')) and v for k,v in en.items())
 policy=(M/'shared/java/com/simplebuilding/modules/simplemodels/ModelPolicy.java').read_text()
 fields=re.findall(r'public (?:boolean|int) (\w+) = (\w+);',policy)
 constants=dict(re.findall(r'public static final int (\w+) = (\d+);',policy))

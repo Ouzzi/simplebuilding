@@ -217,8 +217,23 @@ public final class GuideBookTests {
                 problems.add(name + " (item name) missing in en_us or de_de");
             }
         }
+        // Shared translations also describe chapters whose feature is disabled on this line.
+        Set<String> disabledChapters = new LinkedHashSet<>();
+        if (!com.simplebuilding.version.McVersion.END_SYSTEMS) {
+            disabledChapters.addAll(List.of("book.simplebuilding.storage.10", "book.simplebuilding.end.9"));
+        }
+        if (!com.simplebuilding.version.McVersion.END_RAILS) disabledChapters.add("book.simplebuilding.end.10");
+        if (!com.simplebuilding.version.McVersion.SILENT_DANDELION) {
+            disabledChapters.addAll(List.of("book.simplebuilding.gadgets.13", "book.simplebuilding.gadgets.14"));
+        }
+        for (String chapter : disabledChapters) {
+            helper.assertTrue(!used.contains(chapter + ".title") && !used.contains(chapter + ".text"),
+                    "disabled chapter is still shown: " + chapter);
+        }
         for (String key : en.keySet()) {
-            if (key.startsWith("book.simplebuilding.") && !used.contains(key)) {
+            boolean disabled = disabledChapters.stream().anyMatch(chapter ->
+                    key.equals(chapter + ".title") || key.equals(chapter + ".text"));
+            if (key.startsWith("book.simplebuilding.") && !used.contains(key) && !disabled) {
                 problems.add(key + " is in en_us but on no page");
             }
         }
@@ -396,7 +411,7 @@ public final class GuideBookTests {
         for (Item item : List.of(ModItems.VELOCITY_GAUGE, ModItems.CONSTRUCTION_LIGHT, ModItems.NETHERITE_APPLE,
                 ModItems.NETHERITE_CARROT, ModItems.ENDERITE_APPLE, ModItems.ENDERITE_CARROT, ModItems.ENDERITE_SPEAR,
                 com.simplebuilding.tweaks.item.TweaksItems.BLAZE_HEAD, ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER,
-                ModItems.BLACKSTONE_QUARTZ_CHECKER, ModItems.RESIN_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
+                ModItems.BLACKSTONE_QUARTZ_CHECKER, ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
                 ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER,
                 ModItems.POLISHED_NIHILITH_CHECKER, ModItems.POLISHED_ENDER_QUARTZ_CHECKER, ModItems.GUIDE_BOOK_ADMIN)) {
             if (!onScreen.contains(item) && item != ModItems.GUIDE_BOOK_ADMIN) {

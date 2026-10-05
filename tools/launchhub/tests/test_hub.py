@@ -6,6 +6,7 @@ import os
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 HUB = Path(__file__).resolve().parents[1]
@@ -102,6 +103,11 @@ class RunRecordTests(unittest.TestCase):
 
 
 class TargetTests(unittest.TestCase):
+    def setUp(self):
+        online = patch.object(targets, 'gradle_offline', return_value=False)
+        online.start()
+        self.addCleanup(online.stop)
+
     def test_catalogue_matches_runner_ids(self):
         run = targets.runner()
         data = targets.load_launch()

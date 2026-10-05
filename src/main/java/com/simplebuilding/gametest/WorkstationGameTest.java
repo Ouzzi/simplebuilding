@@ -10,6 +10,21 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class WorkstationGameTest {
 
     @GameTest
+    public void autoSmitherOutputRejectsInsertion(GameTestHelper helper) {
+        WorkstationTests.autoSmitherOutputRejectsInsertion(helper);
+    }
+
+    @GameTest
+    public void autoSmitherOutputCapacityAndRecipeError(GameTestHelper helper) {
+        WorkstationTests.autoSmitherOutputCapacityAndRecipeError(helper);
+    }
+
+    @GameTest
+    public void smithingRecipeBookHidesDummyDisplays(GameTestHelper helper) {
+        WorkstationTests.smithingRecipeBookHidesDummyDisplays(helper);
+    }
+
+    @GameTest
     public void smithingRecipeBookPlacesDamagedGear(GameTestHelper helper) {
         WorkstationTests.smithingRecipeBookPlacesDamagedGear(helper);
     }

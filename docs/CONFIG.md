@@ -158,3 +158,23 @@ Maschinen); `ConfigOptionTests` pinnt jedes Feld samt Reiter.
 `RecipeFilter.removes` prüft beim Strahlschalter noch `laser_pointer`. Das aktuelle
 Resonanzstab-Rezept `amethyst_lens` bleibt deshalb verfügbar, obwohl die Benutzung
 abgeschaltet wird. Dieser Faktenpass dokumentiert die Abweichung und ändert kein Gameplay.
+
+## Seelen-Lava (`server.soulLava`, 26.3)
+
+Alle Werte sind serverseitig und werden auf folgende Grenzen beschränkt:
+
+| Feld | Standard | Grenzen |
+|---|---|---|
+| `flowOverworld` | 2 | 1..4 |
+| `flowNether` | 5 | 1..7 |
+| `tickDelayOverworld` | 45 | 20..200 |
+| `tickDelayNether` | 20 | 10..200 |
+| `burnSeconds` | 30 | 5..60 |
+| `soulBurnSeconds` | 60 | 5..300 |
+| `soulBurnIntervalTicks` | 60 | 20..200 |
+| `soulBurnChance` | 0.5 | 0.0..1.0 |
+| `fuelMultiplier` | 10 | 1..20 |
+| `springChance` | 0.005 | 0.0..0.05 |
+| `fortressChance` | 0.1 | 0.0..0.5 |
+
+`fuelMultiplier` multipliziert 20.000 Ticks und wird bei der Item-Registrierung gelesen: Neustart und gleiche Modpack-Config auf Server und Client erforderlich. Normale Lava-Eimer bleiben bei 20.000 Ticks. Alle anderen Werte werden zur Laufzeit gelesen; bereits geplante Fluid-Ticks behalten zunächst ihre Verzögerung. Auf 26.2 ist keine Seelen-Lava registriert.

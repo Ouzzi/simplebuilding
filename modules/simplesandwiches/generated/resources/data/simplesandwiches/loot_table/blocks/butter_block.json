@@ -1,0 +1,42 @@
+{
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "children": [
+            {
+              "condition": {
+                "blocks": "simplesandwiches:butter_block",
+                "state": {
+                  "slices": "16"
+                },
+                "type": "minecraft:match_block"
+              },
+              "name": "simplesandwiches:butter_block",
+              "type": "minecraft:item"
+            },
+            {
+              "modifier": {
+                "block": "simplesandwiches:butter_block",
+                "properties": [
+                  "slices",
+                  "cut"
+                ],
+                "type": "minecraft:copy_state"
+              },
+              "name": "simplesandwiches:butter_block",
+              "type": "minecraft:item"
+            }
+          ],
+          "type": "minecraft:alternatives"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simplesandwiches:blocks/butter_block",
+  "type": "minecraft:block"
+}

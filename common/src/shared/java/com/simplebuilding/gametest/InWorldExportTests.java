@@ -283,12 +283,18 @@ public final class InWorldExportTests {
                 {net.minecraft.world.item.Items.GLOWSTONE_DUST, ModItems.EMITTING_TRIM_TEMPLATE}}) {
             Item result = (Item) upgrade[1];
             InWorldRecipeCatalog.Entry entry = byId.get("trim_template/" + InWorldTransformations.id(result));
-            helper.assertTrue(entry != null && entry.inputs().size() == 2
+            boolean expensive = com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES;
+            helper.assertTrue(entry != null && entry.inputs().size() == (expensive ? 4 : 2)
                             && entry.inputs().get(0).items().size() == 18
                             && entry.inputs().get(0).items().contains(net.minecraft.world.item.Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE)
                             && !entry.inputs().get(0).items().contains(ModItems.GLOWING_TRIM_TEMPLATE)
                             && entry.inputs().get(1).items().equals(java.util.List.of((Item) upgrade[0]))
-                            && entry.inputs().get(1).count() == 1
+                            && entry.inputs().get(1).count() == (expensive ? 2 : 1)
+                            && (!expensive || (entry.inputs().get(2).items().equals(java.util.List.of(net.minecraft.world.item.Items.DIAMOND))
+                                && entry.inputs().get(2).count() == 4
+                                && entry.inputs().get(3).items().equals(java.util.List.of(result == ModItems.GLOWING_TRIM_TEMPLATE
+                                    ? net.minecraft.world.item.Items.GLOWSTONE : net.minecraft.world.item.Items.BLAZE_POWDER))
+                                && entry.inputs().get(3).count() == 2))
                             && entry.output().items().get(0) == result && entry.output().count() == 1
                             && entry.tools().size() == hammers.size() && entry.tools().containsAll(hammers)
                             && entry.tools().contains(ModItems.STONE_SLEDGEHAMMER),

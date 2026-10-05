@@ -1,6 +1,8 @@
 plugins { id 'net.fabricmc.fabric-loom' }
 ext.moduleVersion = '1.0.5'
 apply from: rootProject.file('gradle/module-fabric.gradle')
+// Bundles the shared framework API (guide-book quest installer) for standalone runs.
+dependencies { include project(':framework') }
 
 
 repositories { maven { url = "https://maven.shedaniel.me/" }; maven { url = "https://maven.terraformersmc.com/releases/" } }

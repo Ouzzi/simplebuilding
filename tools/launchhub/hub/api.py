@@ -219,7 +219,7 @@ class Hub(ModsMixin, OfflineMixin):
             raise HubError(409, f"A server is already running; all servers use port {data['serverPort']}. Stop it first.")
         self.require_disk(self.repo, ws)
         warnings = self._lock_warnings(workspace)
-        world_mode = body.get("world", "rebuild")
+        world_mode = body.get("world", "recreate")
         if world_mode not in ("rebuild", "recreate"):
             raise HubError(400, "world must be rebuild or recreate")
         if workspace == "gate" and not ws.exists() and not settings.dry_run():
@@ -272,21 +272,30 @@ class Hub(ModsMixin, OfflineMixin):
 
     @staticmethod
     def _prepare_world(world: Path, mode: str, log, world_name: str) -> bool:
-        stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S-%f")
         if not world.exists():
             log(f"[hub] world '{world_name}' does not exist yet - the client creates it on start (flat, creative, cheats on)")
             return True
         marker = paths.safe_join(world, "simplebuilding_testcentre.txt")
         if mode == "rebuild":
             if marker.exists():
-                marker.unlink()
-                log("[hub] removed simplebuilding_testcentre.txt: the test centre rebuilds itself on the first join")
+                # Keep the origin: deleting it makes the heightmap see the old building as terrain.
+                parts = marker.read_text(encoding="utf-8").split()
+                origin = [int(value) for value in parts[:3]]
+                if len(origin) != 3:
+                    raise ValueError("invalid test centre origin; use a fresh world instead")
+                marker.write_text(" ".join(map(str, origin)) + "\n", encoding="utf-8")
+                log("[hub] cleared the fingerprint, kept the origin: the test centre rebuilds on the first join")
             else:
                 log("[hub] no fingerprint file: the test centre builds itself on the first join")
             return True
         parking = paths.safe_join(world.parent.parent, "hub-old-worlds")
         parking.mkdir(exist_ok=True)
         target = parking / f"{world_name}-{stamp}"
+        suffix = 1
+        while target.exists():
+            target = parking / f"{world_name}-{stamp}-{suffix}"
+            suffix += 1
         world.rename(target)
         log(f"[hub] moved the old world to {target} (delete it yourself when you no longer need it); the client creates a new one")
         return True
@@ -329,7 +338,8 @@ class Hub(ModsMixin, OfflineMixin):
         for ids, pattern in groups:
             argv = targets.test_argv(ws, ids, pattern)
             label = f"tests {','.join(ids)}" + (f" filter {pattern}" if pattern else "")
-            steps.append({"label": label, "argv": argv, "cwd": str(ws), "env": env or {}, "continue": True})
+            steps.append({"label": label, "argv": argv, "cwd": str(ws),
+                          "env": (env or {}) | targets.test_env(ids), "continue": True})
         return steps
 
     def run_tests(self, body: dict) -> dict:

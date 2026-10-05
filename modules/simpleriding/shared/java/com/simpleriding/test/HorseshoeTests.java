@@ -55,10 +55,11 @@ public final class HorseshoeTests {
  private static double modifier(LivingEntity e,Holder<net.minecraft.world.entity.ai.attributes.Attribute> attribute,Identifier id){var m=e.getAttribute(attribute).getModifier(id);return m==null?0:m.amount();}
 
  public static void items(GameTestHelper h){
-  h.assertTrue(Riding.SIMPLEBUILDING,"Test environment loads SimpleBuilding");
-  h.assertTrue(Horseshoes.ITEMS.size()==6&&Horseshoes.TEMPLATE!=null,"Six tiers and the template are registered");
+  // Principle 5: Enderite shoes are registered only with SimpleBuilding.
+  h.assertTrue(Horseshoes.ITEMS.size()==(Riding.SIMPLEBUILDING?6:5)&&Horseshoes.TEMPLATE!=null,"Every available tier and the template are registered");
+  h.assertTrue(Horseshoes.ITEMS.containsKey(Tier.ENDERITE)==Riding.SIMPLEBUILDING,"Enderite tier follows SimpleBuilding");
   int[] durability={120,180,80,400,500,620};
-  for(Tier t:Tier.values()){
+  for(Tier t:Horseshoes.ITEMS.keySet()){
    var stack=new ItemStack(shoe(t));
    h.assertTrue(BuiltInRegistries.ITEM.getKey(shoe(t)).equals(Riding.id(t.itemName())),"Registry id "+t);
    h.assertTrue(stack.getMaxDamage()==durability[t.ordinal()]&&stack.getMaxStackSize()==1,"Durability and stack size "+t);
@@ -70,12 +71,12 @@ public final class HorseshoeTests {
    h.assertTrue(fireproof==(t==Tier.NETHERITE||t==Tier.ENDERITE),"Fire resistance only for Netherite/Enderite "+t);
   }
   h.assertTrue(new ItemStack(shoe(Tier.IRON)).isValidRepairItem(new ItemStack(Items.IRON_INGOT)),"Iron repairs iron horseshoes");
-  h.assertTrue(new ItemStack(shoe(Tier.ENDERITE)).isValidRepairItem(new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_ingot")))),"Enderite ingot repairs Enderite horseshoes");
+  if(Riding.SIMPLEBUILDING)h.assertTrue(new ItemStack(shoe(Tier.ENDERITE)).isValidRepairItem(new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_ingot")))),"Enderite ingot repairs Enderite horseshoes");
   var menu=new AnvilMenu(0,h.makeMockPlayer(net.minecraft.world.level.GameType.CREATIVE).getInventory());
   menu.getSlot(0).set(new ItemStack(shoe(Tier.DIAMOND)));menu.getSlot(1).set(EnchantmentHelper.createBook(new EnchantmentInstance(ench(h,Enchantments.MENDING),1)));menu.createResult();
   h.assertTrue(EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.MENDING),menu.getSlot(2).getItem())==1,"Real anvil applies Mending");
   h.assertTrue(!EnchantmentHelper.selectEnchantment(net.minecraft.util.RandomSource.create(3),new ItemStack(shoe(Tier.IRON)),30,java.util.stream.Stream.of(ench(h,Enchantments.UNBREAKING))).isEmpty(),"Enchanting table offers Unbreaking");
-  h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().filter(i->i.getNamespace().equals("simpleriding")).count()==7,"Exactly the seven R1 items");
+  h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().filter(i->i.getNamespace().equals("simpleriding")&&!i.getPath().equals("guide_book")).count()==(Riding.SIMPLEBUILDING?7:6),"Exactly the R1 items (Enderite only with SimpleBuilding; plus the guide)");
   h.succeed();
  }
 
@@ -92,8 +93,12 @@ public final class HorseshoeTests {
   var diamond=new ItemStack(shoe(Tier.DIAMOND));diamond.enchant(ench(h,Enchantments.UNBREAKING),3);diamond.setDamageValue(7);
   var netherite=smith(h,"netherite_horseshoe_smithing",diamond,new ItemStack(Items.NETHERITE_INGOT));
   h.assertTrue(netherite.is(shoe(Tier.NETHERITE))&&EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.UNBREAKING),netherite)==3&&netherite.getDamageValue()==7,"Netherite upgrade keeps enchantments and wear");
-  var enderite=smith(h,"enderite_horseshoe_smithing",netherite,new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_ingot"))));
+  if(Riding.SIMPLEBUILDING){
+  var enderiteIngot=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_ingot")));
+  h.assertTrue(enderiteIngot.is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,Identifier.parse("c:ingots/enderite"))),"SimpleBuilding publishes the common Enderite ingot tag");
+  var enderite=smith(h,"enderite_horseshoe_smithing",netherite,enderiteIngot);
   h.assertTrue(enderite.is(shoe(Tier.ENDERITE))&&EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.UNBREAKING),enderite)==3,"Enderite upgrade with SimpleBuilding");
+  }else h.assertTrue(h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,Riding.id("enderite_horseshoe_smithing"))).isEmpty(),"Without SimpleBuilding the Enderite recipe stays unloaded");
   var wrong=new SmithingRecipeInput(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),new ItemStack(Items.IRON_INGOT),new ItemStack(Items.IRON_NUGGET));
   h.assertTrue(h.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.SMITHING,wrong,h.getLevel()).isEmpty(),"Other templates do not make horseshoes");
   ItemStack c=new ItemStack(Items.COPPER_INGOT),t=new ItemStack(Horseshoes.TEMPLATE),i=new ItemStack(Items.IRON_INGOT);
@@ -146,27 +151,37 @@ public final class HorseshoeTests {
  }
 
  public static void handling(GameTestHelper h){
+  handling(h,Tier.COPPER,.099);
+  handling(h,Tier.IRON,.136);
+  handling(h,Tier.GOLDEN,.175);
+  handling(h,Tier.DIAMOND,.216);
+  handling(h,Tier.NETHERITE,.258);
+  if(Riding.SIMPLEBUILDING)handling(h,Tier.ENDERITE,.3);
+  h.succeed();
+ }
+
+ /** Fixed full-set shares include the server's rounding to permille. */
+ private static void handling(GameTestHelper h,Tier tier,double share){
   var original=Riding.CONFIG;
   try{
    var c=new RidingConfig();Riding.CONFIG=c;
    var bare=h.spawn(EntityTypes.HORSE,2,2,2);var in=new Vec3(1,0,-1);
    h.assertTrue(Horseshoes.handling(bare,in).equals(in),"No shoes, Vanilla steering");
-   var horse=shod(h,Tier.ENDERITE,Tier.ENDERITE,Tier.ENDERITE,Tier.ENDERITE);var p=rider(h,horse);RidingEffects.tick(horse);
-   close(Horseshoes.handlingShare(Horseshoes.code(horse)),.3,h,"Server publishes the handling share");
+   var horse=shod(h,tier,tier,tier,tier);var p=rider(h,horse);RidingEffects.tick(horse);
+   close(Horseshoes.handlingShare(Horseshoes.code(horse)),share,h,"Server publishes the handling share for "+tier);
    var out=Horseshoes.handling(horse,new Vec3(.5,0,-.25));
-   close(out.x,.8,h,"Sideways share 0.5 -> 0.8");close(out.z,-.4,h,"Backward share 0.25 -> 0.4");
+   close(out.x,.5+share,h,"Sideways share for "+tier);close(out.z,-.25-share/2,h,"Backward share for "+tier);
    close(Horseshoes.handling(horse,new Vec3(0,0,.98)).z,.98,h,"Forward input unchanged");
    c.horseshoes.handlingBonus=0;
-   close(Horseshoes.handling(horse,new Vec3(.5,0,0)).x,.8,h,"Only the synced server value counts");
+   close(Horseshoes.handling(horse,new Vec3(.5,0,0)).x,.5+share,h,"Only the synced server value counts");
    RidingEffects.tick(horse);close(Horseshoes.handling(horse,new Vec3(.5,0,0)).x,.5,h,"Server config change reaches the synced value");
    c.horseshoes.handlingBonus=.3f;RidingEffects.tick(horse);
    p.xxa=1;p.zza=-1;
    var method=AbstractHorse.class.getDeclaredMethod("getRiddenInput",Player.class,Vec3.class);method.setAccessible(true);
    var real=(Vec3)method.invoke(horse,p,Vec3.ZERO);
-   close(real.x,.8,h,"Real ridden input uses the mixin");close(real.z,-.4,h,"Real backward input");
+   close(real.x,.5+share,h,"Real ridden input uses the mixin for "+tier);close(real.z,-.25-share/2,h,"Real backward input for "+tier);
    h.assertTrue(Double.isNaN(Horseshoes.handling(horse,new Vec3(Double.NaN,0,0)).x),"Nonfinite input is not amplified");
   }catch(ReflectiveOperationException e){throw new IllegalStateException(e);}finally{Riding.CONFIG=original;}
-  h.succeed();
  }
 
  public static void menu(GameTestHelper h){

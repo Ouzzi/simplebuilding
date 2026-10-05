@@ -85,6 +85,12 @@ public final class SimplebuildingNeoForgeClient {
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerConditionalItemProperties);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerTooltipComponents);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerBlockTints);
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P5: soul lava rendering (turquoise lava textures).
+            modEventBus.addListener((net.neoforged.neoforge.client.event.RegisterFluidModelsEvent event) -> event.register(
+                    com.simplebuilding.client.render.SoulLavaModel.unbaked(), com.simplebuilding.fluid.ModFluids.SOUL_LAVA,
+                    com.simplebuilding.fluid.ModFluids.FLOWING_SOUL_LAVA));
+        }
         NeoForge.EVENT_BUS.addListener(this::onClientTick);
         NeoForge.EVENT_BUS.addListener(this::onSubmitCustomGeometry);
         NeoForge.EVENT_BUS.addListener(this::onExtractLevelRenderState);
@@ -125,6 +131,8 @@ public final class SimplebuildingNeoForgeClient {
         // Kleinteile auf einem Fleck: liegende Teile als Platten, Eier als 3D-Ei.
         if (NeoForgeModRegistries.PLACED_SMALL_PARTS_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.PLACED_SMALL_PARTS_BE.get(), com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
+        if (NeoForgeModRegistries.HAMMOCK_BE != null) event.registerBlockEntityRenderer(
+                NeoForgeModRegistries.HAMMOCK_BE.get(), com.simplebuilding.client.render.HammockRenderer::new);
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) event.registerBlockEntityRenderer(
                 net.minecraft.world.level.block.entity.BlockEntityTypes.ENDER_CHEST, com.simplebuilding.client.render.AstralVaultRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.

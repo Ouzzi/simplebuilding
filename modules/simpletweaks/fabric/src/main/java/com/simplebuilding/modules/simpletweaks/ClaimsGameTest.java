@@ -13,7 +13,8 @@ public final class ClaimsGameTest {
  @GameTest public void claimsEnvironmentConnectedPistons(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_connected_pistons").accept(h); }
  @GameTest public void claimsEnvironmentCustomPistons(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_custom_pistons").accept(h); }
  @GameTest public void claimsEnvironmentCustomHoppers(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_custom_hoppers").accept(h); }
- @GameTest public void claimsEnvironmentAttractor(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_attractor").accept(h); }
+ // Match NeoForge's 100 ticks: item queries must see both boundary chunks first.
+ @GameTest(maxTicks=100) public void claimsEnvironmentAttractor(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_attractor").accept(h); }
  @GameTest public void claimsEnvironmentDisabled(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_disabled").accept(h); }
  @GameTest public void claimsEnvironmentPickup(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_pickup").accept(h); }
  @GameTest public void claimsEnvironmentExplosionFire(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_explosion_fire").accept(h); }

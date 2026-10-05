@@ -4,6 +4,206 @@ Zuerst `AGENTS.md` vollständig lesen, dann diese Datei und `docs/ai/WORKFLOW.md
 Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alten Run-Berichten.
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
+
+## Worker-Nachtrag 2026-10-05: NeoForge-Modul-Gate
+
+Branch `gpt-neorun`: `loadedMods.add(simplelib)` verwarf die Gradle-Konvention;
+Money/Dimensions luden nur SimpleLib und fanden keine eigenen Tests (Exit -1).
+Die 21 erfolgreichen Tests im Sammellog gehoerten zu SimpleLib, die Claims-Fehler
+zu absichtlichen Negativtests. Die gemeinsame Konvention erhaelt jetzt die
+effektive Mod-Liste. Modul-Spielordner liegen unter
+`integration/run-neoforge-263/<id>`; Standalone bleibt getrennt. Leere alte
+`mods/`-/`defaultconfigs/`-Ordner brauchen keine Migration. Bestehende Reihenfolge
+der Integrationsserver bleibt erhalten; keine Dateikollision als Ursache behauptet.
+
+Money/Dimensions zweimal **61/61**, alle 21 Modul-/Standalone-Ziele **617/617**,
+Kern-NeoForge **962/962**, jeweils `alles gruen`, inklusive Testzentralen-Neubau
+und Item-/Block-Abdeckung. `check -q -PskipWiki` und Pflicht-Compiles:
+**GRADLE_EXIT=0**. Zusaetzliche Gradle-Konfigurationspruefung kontrolliert 21
+effektive Mod-Listen und eindeutige Ordner. Kein Client/Push/Port;
+Belege: `docs/ai/PLAN-NEOFORGE-MODULE-RUNS-2026-10-02.md`.
+
+## Worker-Nachtrag 2026-10-05: Hub-Testwelt
+
+Branch `gpt-hubworld`: `client_fresh` archiviert die gesamte alte Welt und erzeugt
+per QuickPlay eine neue. Explizites Rebuild behaelt den Ursprung. Der bisher
+ungeladene Ursprungschunk lieferte y=-64 (Boden unbaubar bei -65); Chunk-Laden,
+Reparatur alter Urspruenge, sichere Eingangsplattform, Teleport und Weltspawn mit
+Radius 0 beheben den Void-Start. Experimental-Lifecycle-Bestaetigungen entfallen
+nur im expliziten Hub-Dev-Client auf 26.3; normale Installationen bleiben unveraendert.
+
+Fabric-Filter **8/8**, volle Fabric-/NeoForge-Suiten **1922/1922, alles gruen**,
+einschliesslich Neubau und Item-/Block-Abdeckung. `check -q -PskipWiki`, 26.2-
+Compiles und Forge-26.3-Compile: **GRADLE_EXIT=0**. Hub-Client-Property auf allen
+drei Loadern ohne Clientstart geprueft; Server erhalten es nicht. Wiki --all und
+--all --check gruen, kein Inhaltsdiff. Neue Hub-Tests **5/5**, Gesamtsuite **86/87**:
+unveraenderter Bestandsfehler `simplelib needs tests.standalone (principle 8)`.
+Keine Testabschwaechung, kein Client/Push/Port. Besitzer prueft nach Uebernahme
+zwei frische Starts, Eingang/Respawn und Dialogfreiheit. Belege:
+`docs/ai/PLAN-HUB-TESTWORLD-2026-10-02.md`.
+
+## Worker-Nachtrag 2026-10-05: Auto Smither im Crafter-Stil
+
+Branch `gpt-checkui`: Crafter-Hintergrund, drei Eingaben links (26/44/62,35),
+großer Ergebnisrahmen rechts (Item bei 134,35), dynamisch zentrierter Titel.
+Geisterbilder und bedingter Fehlerpfeil erhalten; Generator prüft alle 40 Slots.
+Bestehende Ausgabe-/Trichterregeln einschließlich Forge-SidedInvWrapper unverändert.
+Alle vier Auto-Smither-Tests auf jedem Loader bestanden; volle Serversuiten
+**2881/2881, alles gruen**, Testzentralen-Neubau und Item-/Blockabdeckung grün.
+`check -q`: **GATE_EXIT=0**, 26.2-Compiles und Wiki --all/--all --check grün.
+Kein Client/Push; Ingame-Sichtabnahme beim Besitzer offen.
+Vorschau: `C:/Users/o_o/code/minecraft-mods/previews/auto-smither-crafter-ui-vorschau.png`.
+Belege: `docs/ai/PLAN-SMITHER-CRAFTER-UI-2026-10-02.md`.
+
+## Worker-Nachtrag 2026-10-05: Netherziegel-Checker
+
+Branch `gpt-checkui`: Netherziegel- und rote-Netherziegel-Quarz-Schachbretter
+vollständig in die bestehende 26.2/26.3-Familie integriert, ohne neues Flag.
+Datagen nur 26.3; eigene Texturen und 16x-Vorschau, EN/DE an beiden Orten,
+Handbuch/Wiki, Kreativ-/Suchtab, Spitzhacke/Drops, Rezepte und Money-Steinmetzangebote.
+Checker-Filter **3/3**, volle Fabric-/NeoForge-/Forge-26.3-Suiten **2881/2881,
+alles gruen**, einschließlich Testzentralen-Neubau und Item-/Blockabdeckung.
+`check -q`: **GATE_EXIT=0**, 26.2-Compiles **COMPILE262_EXIT=0**,
+Wiki --all/--all --check grün; 55 Wiki-Unit-Tests bestanden.
+Keine Clients, kein Push, keine Änderung an 1.21.11/26.4. Zwei bestehende deutsche
+Handbuch-Themenlisten bleiben zu lang; Checker-Seiten passen EN/DE.
+Vorschau: `C:/Users/o_o/code/minecraft-mods/previews/netherziegel-checker-vorschau.png`.
+Belege: `docs/ai/PLAN-CHECKER-2026-10-02.md`.
+
+## Worker-Nachtrag 2026-10-05: Forge Crucible
+
+Branch `gpt-forgecrucible`: SimpleLib war als Jar-in-Jar geladen, aber Forge
+verwarf den Datenpack wegen fehlender `pack.mcmeta`. Dadurch fehlte
+`simplelib:crucible_walls` und der erste Vorschlaghammer-Bauschlag wurde ignoriert.
+Forge-Pack-Metadaten ergaenzt; Bautest prueft beide Material-Tags, den echten
+Item-Aufruf und den Haltbarkeitsverbrauch jedes Schlags.
+Forge-Crucible **14/14**, volle Fabric-/NeoForge-/Forge-26.3-Suiten
+**2881/2881, alles gruen**, inklusive Testzentralen-Neubau und Item-/Block-Abdeckung.
+`check -q -PskipWiki` und Pflicht-Compiles: **GRADLE_EXIT=0**.
+Wiki --all/--all --check gruen, kein inhaltlicher Wiki-Diff.
+Kein Client/Push/Port; Belege: `docs/ai/PLAN-FORGE-CRUCIBLE-2026-10-02.md`.
+
+## Worker-Nachtrag 2026-10-05: Forge Auto Smither
+
+Branch `gpt-forgesmither`: Forge erbte einen unsided `InvWrapper`, der zuerst
+Eingaben entnahm und die Ausgabe nach 20 Ticks noch liegen liess. Ein enger
+Forge-Mixin verwendet jetzt `SidedInvWrapper` mit den vorhandenen Seitenregeln;
+Capability-Lebenszyklus bleibt bei Vanilla/Forge. Der reale Trichtertest behaelt
+seine 20-Tick-Frist und prueft zusaetzlich den Basis-Slot.
+Forge-Filter **6/6**, volle Fabric-/NeoForge-/Forge-26.3-Suiten **2839/2839,
+alles gruen**, inklusive Testzentralen-Neubau und Item-/Block-Abdeckung.
+`check -q -PskipWiki` und Pflicht-Compiles: **GRADLE_EXIT=0** nach Wiederholung
+eines Manifest-Downloadfehlers. Kein Client/Push/Port; Belege:
+`docs/ai/PLAN-FORGE-AUTO-SMITHER-2026-10-02.md`.
+
+## Worker-Nachtrag 2026-10-05: Befunde 11/12
+
+Branch `gpt-befunde`: Visuals/Sounds melden Fehler über GameTestHelper.assertTrue/fail.
+Riding-Handling prüft alle fünf Vanilla-Stufen auch standalone, Enderit zusätzlich nur mit SB.
+Zwölf Modulziele Fabric/NeoForge 26.3 **296/296, alles gruen**; Kernserver **1890/1890, alles gruen**
+einschließlich Testzentralen-Neubau und Item-/Block-Abdeckung. `check -q -PskipWiki` sowie
+26.2 Fabric/NeoForge- und Forge-26.3-Compile **GRADLE_EXIT=0**. Befundliste/externe Memory aktualisiert.
+Kein Client, Push oder Port; Wiki wird zentral regeneriert. Belege und initiale Dateisperre:
+`docs/ai/PLAN-BEFUNDE-11-12-2026-10-02.md`.
+
+## Worker-Nachtrag 2026-10-05: 26.2-Linie ohne Feature-Port repariert
+
+Branch `gpt-line262`, Basis `6735bc9b`: Tests nach Versionsflags getrennt,
+26.2-Handbuchbeispiele berichtigt, historische Upgrade-Fixture erhalten und
+aktuelle Writer-Fixture ergaenzt. Forge registriert nun die bestehenden
+Suchreiter-, Shulkerkisten- und Breeze-Farmland-Hooks.
+
+Volle 26.2-Suiten Fabric/NeoForge/Forge: **2836/2836, alles gruen**;
+26.3-Gegenprobe Fabric/NeoForge: **1890/1890, alles gruen**. Testzentralen-Neubau
+und Item-/Block-Abdeckung bestanden. Forge-26.3-Compile und
+`check -q -PskipWiki`: **GRADLE_EXIT=0**. Wiki --all/--all --check gruen,
+ohne inhaltlichen Wiki-Diff.
+Die geaenderten 26.2-Handbuchseiten passen in EN/DE (je 12 Zeilen).
+Zwei bekannte deutsche Themenlisten-Ueberlaengen der 26.3-Pruefung bleiben offen.
+Kein Client, Datagen, Push oder Merge. Ursachen und Belege:
+`docs/ai/PLAN-LINE262-2026-10-02.md`.
+
+## Worker-Nachtrag 2026-10-04: Auto Smither
+
+Branch `gpt-smither`: gespeicherte, nur entnehmbare Ausgabe statt gesperrter
+Rezeptvorschau. Fronttransfer bleibt; Rest bleibt im Ausgang. Volle/inkompatible
+Ausgabe stoppt ohne Verbrauch. Spieler-Klickwege und Trichterseiten abgesichert.
+Vanilla-Slot-/Labelpositionen und Geisterbilder bestaetigt; Hammer-Dekoration und
+Crafter-Redstone-Symbol entfernt, Fehlerpfeil nur bei ungueltigem vollstaendigem Rezept.
+Generator und 16-fache A/B-Vorschau: `tools/textures/auto_smither_gui.py`,
+`C:/Users/o_o/code/minecraft-mods/previews/auto-smither-gui-vorschau.png`.
+
+Filter 8/8, volle Fabric-/NeoForge-Suiten **1872/1872, alles gruen**; Testzentrale
+gebaut und alle Items/Bloecke abgedeckt. 26.2 Fabric/NeoForge-Compile,
+Forge-26.3-Compile und `check -q`: **GRADLE_EXIT=0**, einschliesslich 54 Wiki-Tests.
+Wiki/GUI/allgemeine Texturpruefung gruen. Der erste Gateversuch scheiterte an
+373 reinen CRLF-Abweichungen des Sandwich-Bytechecks; lokal normalisiert, kein
+inhaltlicher Modul-Diff. Belege/Abweichungen: `docs/ai/PLAN-AUTO-SMITHER-2026-10-02.md`.
+Kein Clientstart, Port, Merge oder Push. Sichtabnahme/Besitzerwelt bleiben offen.
+Der gemeldete Einlegefehler war im Ausgangscode bereits gesperrt und dort nicht
+reproduzierbar; der neue entnehmbare Ausgabe-Vertrag ist jetzt explizit getestet.
+
+
+## Worker-Nachtrag 2026-10-04: small9
+
+Branch `gpt-small9`: Basic-/Enderite-Aufwertungen nutzen echte Vanilla-Schmiedevorlagen
+mit EN/DE-Tooltips. Verstärker spielen innerhalb bestehender Hörweite ohne Pegelverlust;
+Noten nutzen ein S2C-Payload für alle drei Loader, Musik eine explizite Hörweitengrenze.
+Der Ofen-Ausbeutebonus entfällt; alte Bonuszähler werden ignoriert, doppelte XP bleibt.
+JEI, Handbuch, beide Sprachorte und belegte Wiki-Prosa aktualisiert.
+Server Fabric/NeoForge 26.3: **1870/1870, alles gruen**; Testzentrale und Itemabdeckung grün.
+26.3-Datagen, 26.2-Compiles, Forge-26.3-Compile, `check -q` und checkBalance grün;
+Wiki --all/--all --check und 55 Wiki-Tests grün. Je Aufgabe ein Commit, kein Push/Merge.
+Sicht-/Hörabnahme und Besitzerwelt offen; zwei bekannte deutsche Handbuch-Themenlisten
+laufen weiterhin über. Details: `docs/ai/PLAN-SMALL9-2026-10-02.md`.
+
+
+## Worker-Nachtrag 2026-10-05: Besitzer-Abgleich (`gpt-gaps`)
+
+- Küchenmesser: ein Stock und vier Eisennuggets (`"  N"/" NN"/"SN "`),
+  Rezeptgenerator, EN/DE-Tooltip, Wiki, Plan F8 und neuer Rezept-GameTest abgeglichen.
+- Schmiedebuch: drei Upgrade-Dummies erzeugen auf 26.3 keine Displays mehr;
+  Slot-Rezepte bleiben erhalten. JEI nutzt dieselbe ID-Liste. Handbuch-Reiter
+  werden auch bei gelernten Rezepten ohne Display weiterhin freigeschaltet.
+- Money: Nihil-Gewölbe wie Astralgewölbe, Standardpreis 37 Scheine, Bestand 1,
+  Angebotschance 10 %, bedingt durch Mod und Handelskonfiguration.
+- Serverlauf `2026-10-04T23-16-05Z-953c`: **1954/1954, alles gruen**.
+  Hauptmod je 941/941, Sandwiches und Money je Loader 18/18. Testzentralen-Neubau
+  und vollständige Item-/Blockabdeckung auf beiden Hauptloadern bestanden.
+- Datagen nur 26.3 sowie Wiki venv `--all` und uv `--all --check` grün.
+  `check -q`, 26.2 Fabric/NeoForge-Compile und Forge-26.3-Compile: `GATE_EXIT=0`.
+  `checkBalance`: 223 erzeugte Stellen, 0 Fehler; 54 Wiki-Unittests: `OK`.
+- Kein Push/Merge, keine Client-Tests, keine Besitzerwelt verändert. Sichtabnahme,
+  Testzentrale in der Besitzerwelt und Forge-Laufzeit bleiben offen.
+  Details und Fehlersuche: `docs/ai/PLAN-BESITZER-LUECKEN-2026-10-02.md`.
+
+## Worker-Nachtrag 2026-10-04: wackelige GameTests
+
+Branch `claude-gpt-flaky`: Knopf-Ausfuehrung bedingt abwarten, eigene Scoreboard-Zaehler und
+entfernten Testbereich samt Tickwarteschlangen bereinigen; Claims-Attractor erst bei sichtbaren
+Grenz-Probes pruefen; Shulker-Seed/freie Spawnzellen, gemeinsame Magnet-Taktung und gemischte
+Palette-Testflaechen. Keine Gameplay-Aenderungen oder abgeschwaechten Assertions.
+Alle fuenf Gruppen dreimal je Fabric/NeoForge gruen; volle Basis 1814/1814 und SimpleTweaks
+104/104 gruen. `check -q`, 26.2 Fabric/NeoForge-Compile und Forge-26.3-Compile gruen.
+Testzentralen-Neubau/Item-Abdeckung bestanden. Kein Clientstart, Port, Merge oder Push.
+Plan, Ursachen, Diagnoselaeufe und Beleg-IDs: `docs/ai/PLAN-FLAKY-GAMETESTS-2026-10-02.md`.
+Separater Handbuchcheck meldet zwei bestehende deutsche Themenlisten-Ueberlaengen; unveraendert.
+
+## Vorlagenkosten 26.3 (2026-10-04, Worker claude-gpt-templates)
+
+- `EXPENSIVE_TEMPLATES`: 26.3 true, 26.2 false. Glowing/Emitting kosten zusätzlich
+  vier Diamanten und zwei thematische Materialien; Nebenhand-Katalysator je zweimal.
+  Pulsating: zwei Echoscherben, zwei Sculk, vier Diamanten und ein zurückbleibender Hammer.
+- Kopien der drei Effektvorlagen: sieben Diamanten, Basisblock, Vorlage ergeben zwei.
+  Basic-Kopie jetzt sieben Diamanten statt Gold; Enderite und Rüstungsanwendung unverändert.
+- Datagen nur 26.3, EN/DE, JEI/REI-Export, Wiki und Rezept-/Verbrauchstests aktualisiert.
+  Vollständige Fabric-/NeoForge-Suiten: **1834/1834, alles gruen**; Testzentrale aufgebaut,
+  alle Mod-Items/-Blöcke abgedeckt. Gesamt-Gate inklusive checkBalance, 26.2-Compile und
+  Forge-26.3-Compile: **GRADLE_EXIT=0**. Wiki --all/--all --check und 50 Wiki-Tests grün.
+- Details, Balance, Testläufe und Grenzen: `docs/ai/PLAN-VORLAGEN-TEURER-2026-10-04.md`.
+  Besitzer-/Sichtabnahme und Port-Run offen; zwei bestehende deutsche Handbuchüberläufe.
+  Nur Worker-Branch, kein Push.
+
 ## Stand Abend 2026-09-30 (Orchestrator)
 
 Aktueller Nachtrag 2026-10-01: Folgewelle auf `09567ce3` mit GREEN gepusht;
@@ -62,8 +262,8 @@ Die detaillierten früheren Laufberichte bleiben in der Git-Historie dieser Date
   `laser_pointer` Legacy-Alias. Rezept IIR/ICA/IIR: Eisenbarren, Redstone, Eisenkern,
   Amethystscherbe. 640 Ladung standardmäßig, 4 je Sekunde; 16 Scherben laden voll.
   Der alte Configschlüssel `beamCostPerSecond` wird nicht gelesen; `chargePerSecond` gilt.
-- Velocity Gauge: „ NA“/„NCN“/„KN “, vier Kupfernuggets, Amethystscherbe oben rechts,
-  Kompass Mitte, Kupferkern unten links. Oktant: „ NR“/„NCN“/„GNL“, vier Goldnuggets,
+- Velocity Gauge 26.3 (Nachtrag 8): „NAN“/„NCN“/„NKN“, sechs Kupfernuggets, Amethystscherbe oben mittig,
+  Uhr Mitte, Kupferkern unten mittig. 26.2 behält „ NA“/„NCN“/„KN “ und Kompass. Oktant: „ NR“/„NCN“/„GNL“, vier Goldnuggets,
   Blitzableiter oben rechts, Goldkern unten links, Leine unten rechts, Kompass Mitte.
 - Echo Sounder: NNN/NRN/ENN, sieben Enderitklumpen, Bergungskompass, Enderitkern.
   **Aktueller Code verlangt 3 Sekunden Halten** (`EchoCompassItem.use`, `releaseUsing`,

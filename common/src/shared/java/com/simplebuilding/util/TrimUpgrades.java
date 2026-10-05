@@ -16,6 +16,12 @@ import org.jetbrains.annotations.Nullable;
  * dasselbe Ergebnis (Ruestung mit Wirkung statt der Vorlage, die das Platzhalter-Rezept nennt).
  */
 public final class TrimUpgrades {
+    /** Slot-enabling placeholders, never recipe-book or JEI results. */
+    public static final List<net.minecraft.resources.Identifier> DUMMY_RECIPES = List.of(
+            net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "glowing_armor_upgrade_dummy"),
+            net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "emitting_armor_upgrade_dummy"),
+            net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "pulsating_armor_upgrade_dummy"));
+
     /** Hoechste (und einzige) Glowing-Stufe - Glowing II gibt es nicht mehr (Besitzer 2026-09-29). */
     public static final int MAX_GLOW_LEVEL = GlowingTrimUtils.MAX_GLOW_LEVEL;
     /** Hoechste Strahlkraft (Emitting). */

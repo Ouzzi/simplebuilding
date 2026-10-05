@@ -2,6 +2,8 @@ package com.simplebuilding.modules.simpleriding;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class RidingGameTest {
+ @GameTest(maxTicks=100) public void bookModels(GameTestHelper h){com.simpleriding.test.RidingBookTests.models(h);}
+ @GameTest(maxTicks=100) public void guideBook(GameTestHelper h){com.simpleriding.guide.RidingGuide.gameTest(h);}
  @GameTest(maxTicks=100) public void launch(GameTestHelper h){com.simpleriding.test.RidingTests.launch(h);}
  @GameTest(maxTicks=100) public void armorAndAnvil(GameTestHelper h){com.simpleriding.test.RidingTests.armorAndAnvil(h);}
  @GameTest(maxTicks=100) public void horseSpeedAndCleanup(GameTestHelper h){com.simpleriding.test.RidingTests.horseSpeedAndCleanup(h);}

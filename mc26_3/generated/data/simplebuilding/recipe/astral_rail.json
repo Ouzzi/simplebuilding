@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "R": "simplebuilding:astral_redstone",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "G G",
+    "GSG",
+    "GRG"
+  ],
+  "result": {
+    "count": 6,
+    "id": "simplebuilding:astral_rail"
+  }
+}

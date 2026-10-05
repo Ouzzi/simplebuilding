@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "simplelib",
+  "version": "${version}",
+  "name": "SimpleLib",
+  "description": "Shared content of the Simple mods: crucibles with heat sources and warm food. Bundled by SimpleBuilding and Simple Sandwiches.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplelib.SimpleLibFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplelib.SimpleLibFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplelib.ModuleGameTest"
+    ]
+  },
+  "mixins": [
+    "simplelib.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

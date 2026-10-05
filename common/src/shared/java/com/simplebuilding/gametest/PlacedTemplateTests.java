@@ -198,7 +198,18 @@ public final class PlacedTemplateTests {
      * gilt nur fuer aufwertbare Vorlagen.
      */
     public static void placedTrimTemplatesNeedThreeHammerHits(GameTestHelper helper) {
-        ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
+        // makeMockServerPlayerInLevel hard-codes gameMode() to CREATIVE even after setGameMode.
+        var cookie = net.minecraft.server.network.CommonListenerCookie.createInitial(
+                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "template-costs"), false);
+        ServerLevel testLevel = helper.getLevel();
+        ServerPlayer player = new ServerPlayer(testLevel.getServer(), testLevel, cookie.gameProfile(), cookie.clientInformation());
+        var connection = new net.minecraft.network.Connection(net.minecraft.network.protocol.PacketFlow.SERVERBOUND);
+        new io.netty.channel.embedded.EmbeddedChannel(connection);
+        testLevel.getServer().getPlayerList().placeNewPlayer(connection, player, cookie);
+        Vec3 spawn = helper.absoluteVec(new Vec3(3.5, 2.0, 3.5));
+        player.snapTo(spawn.x, spawn.y, spawn.z, 0.0F, 0.0F);
+        helper.runBeforeTestEnd(() -> testLevel.getServer().getPlayerList().remove(player));
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
         player.setShiftKeyDown(true);
         helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
         helper.setBlock(new BlockPos(3, 1, 1), Blocks.STONE);
@@ -216,6 +227,15 @@ public final class PlacedTemplateTests {
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GLOWSTONE_DUST, 8));
 
+        if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+            helper.assertTrue(!PlacedTemplates.hit(level, first, player) && hammer.getDamageValue() == 0,
+                    "missing extra materials must not count a hit or damage the hammer");
+            player.getInventory().setItem(9, new ItemStack(Items.DIAMOND, 3));
+            player.getInventory().setItem(10, new ItemStack(Items.BLAZE_POWDER, 2));
+            helper.assertTrue(!PlacedTemplates.hit(level, first, player), "three diamonds accepted instead of four");
+            player.getInventory().setItem(11, new ItemStack(Items.DIAMOND));
+        }
+
         helper.assertTrue(PlacedTemplates.isHammerTarget(level, first, player), "a placed trim template is no hammer target");
         helper.assertTrue(!PlacedTemplates.isHammerTarget(level, upgrade, player), "a placed upgrade template counts as hammer target");
         BlockState state = level.getBlockState(first);
@@ -224,6 +244,15 @@ public final class PlacedTemplateTests {
 
         // Der echte Linksklick, dreimal.
         for (int hit = 1; hit <= PlacedTemplates.PLACED_HITS; hit++) {
+            if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES && hit == PlacedTemplates.PLACED_HITS) {
+                ItemStack material = player.getInventory().getItem(10);
+                player.getInventory().setItem(10, ItemStack.EMPTY);
+                int damage = hammer.getDamageValue();
+                helper.assertTrue(!PlacedTemplates.hit(level, first, player) && hammer.getDamageValue() == damage
+                                && player.getOffhandItem().getCount() == 8,
+                        "removing materials before the final hit must prevent upgrading and any charge");
+                player.getInventory().setItem(10, material);
+            }
             player.gameMode.handleBlockBreakAction(first, ServerboundPlayerActionPacket.Action.START_DESTROY_BLOCK, Direction.UP,
                     level.getMaxY(), hit);
             BlockState now = level.getBlockState(first);
@@ -233,6 +262,15 @@ public final class PlacedTemplateTests {
             helper.assertTrue(held.is(expected), "after hit " + hit + " the template is " + held + " instead of " + expected);
         }
         // Seit der Rahmen-Weg entfallen ist (Q3, 2026-10-02), loest die abgelegte Vorlage den Fortschritt aus.
+        if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+            helper.assertTrue(player.getOffhandItem().getCount() == 6
+                            && player.getInventory().countItem(Items.DIAMOND) == 0
+                            && player.getInventory().countItem(Items.BLAZE_POWDER) == 0,
+                    "Emitting must consume two dust, four split-stack diamonds and two blaze powder");
+            player.getInventory().setItem(9, new ItemStack(Items.DIAMOND, 4));
+            player.getInventory().setItem(10, new ItemStack(Items.BLAZE_POWDER, 2));
+            player.getInventory().setItem(11, new ItemStack(Items.GLOWSTONE, 2));
+        }
         var glowUp = level.getServer().getAdvancements().get(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "hammer/glow_up"));
         helper.assertTrue(glowUp != null && player.getAdvancements().getOrStartProgress(glowUp).isDone(),
                 "upgrading a placed template did not grant the Glow Up advancement");
@@ -251,6 +289,13 @@ public final class PlacedTemplateTests {
             level.getBlockState(second).attack(level, second, player);
         }
         helper.assertTrue(be.getTemplate().is(ModItems.GLOWING_TRIM_TEMPLATE), "glow ink made " + be.getTemplate());
+        if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+            helper.assertTrue(player.getOffhandItem().getCount() == 6
+                            && player.getInventory().countItem(Items.DIAMOND) == 0
+                            && player.getInventory().countItem(Items.GLOWSTONE) == 0
+                            && player.getInventory().countItem(Items.BLAZE_POWDER) == 2,
+                    "Glowing must consume only its materials, once on the final hit");
+        }
 
         // Aufwertungsvorlage: kein Schlag, nichts aendert sich.
         level.getBlockState(upgrade).attack(level, upgrade, player);
@@ -259,6 +304,17 @@ public final class PlacedTemplateTests {
                 "a hammer hit counted on an upgrade template: " + upgradeBe.hits() + ", " + upgradeBe.getTemplate());
 
         // Ohne Material in der Nebenhand ist es ein gewoehnlicher Block.
+        if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+            be.setTemplate(new ItemStack(Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE));
+            player.setGameMode(net.minecraft.world.level.GameType.CREATIVE);
+            player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GLOW_INK_SAC));
+            int damage = hammer.getDamageValue();
+            for (int i = 0; i < PlacedTemplates.PLACED_HITS; i++) PlacedTemplates.hit(level, second, player);
+            helper.assertTrue(be.getTemplate().is(ModItems.GLOWING_TRIM_TEMPLATE)
+                            && player.getOffhandItem().getCount() == 1 && hammer.getDamageValue() == damage,
+                    "creative upgrade must require no extra materials and consume nothing");
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        }
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
         helper.assertTrue(!PlacedTemplates.isHammerStance(player) && level.getBlockState(upgrade).getDestroyProgress(player, level, upgrade) > 0.0F,
                 "without a catalyst the placed template cannot be mined");
@@ -754,7 +810,7 @@ public final class PlacedTemplateTests {
     }
 
     /**
-     * Small parts (owner 2026-10-02): sneak + right-click lays a stick or a Stone Pebble on the floor (a small-parts pile)
+     * Small parts (owner 2026-10-02): sneak + right-click lays an iron ingot or a Stone Pebble on the floor (a small-parts pile)
      * and uses one; server.features.placeVanillaItems off keeps vanilla items in hand, server.features.placeDisabledItems
      * blocks single IDs.
      */
@@ -779,16 +835,16 @@ public final class PlacedTemplateTests {
             helper.setBlock(floor, Blocks.STONE);
             helper.setBlock(floor.above(), Blocks.AIR);
             player.setShiftKeyDown(true);
-            ItemStack sticks = new ItemStack(Items.STICK, 3);
+            ItemStack sticks = new ItemStack(Items.IRON_INGOT, 3);
             InteractionResult result = use(helper, player, sticks, floor, Direction.UP);
-            helper.assertTrue(result.consumesAction(), "sneak + right-click with a stick answered " + result);
-            helper.assertValueEqual(parts(helper, floor.above()), List.of(Items.STICK), "parts lying on the stone");
-            helper.assertValueEqual(sticks.getCount(), 2, "sticks left in hand");
+            helper.assertTrue(result.consumesAction(), "sneak + right-click with an iron ingot answered " + result);
+            helper.assertValueEqual(parts(helper, floor.above()), List.of(Items.IRON_INGOT), "parts lying on the stone");
+            helper.assertValueEqual(sticks.getCount(), 2, "iron ingots left in hand (sticks stand up on a top since 2026-10-04)");
             // on a wall a small part still lies alone like a template
             helper.setBlock(floor.north(), Blocks.AIR);
             InteractionResult wall = use(helper, player, sticks, floor, Direction.NORTH);
-            helper.assertTrue(wall.consumesAction() && template(helper, floor.north()).is(Items.STICK)
-                    && helper.getBlockState(floor.north()).getValue(PlacedTemplateBlock.FACE) == AttachFace.WALL, "no stick lies on the wall: " + wall);
+            helper.assertTrue(wall.consumesAction() && template(helper, floor.north()).is(Items.IRON_INGOT)
+                    && helper.getBlockState(floor.north()).getValue(PlacedTemplateBlock.FACE) == AttachFace.WALL, "no ingot lies on the wall: " + wall);
             features.placeVanillaItems = false;
             helper.assertFalse(PlacedTemplates.isPlaceableSmall(new ItemStack(Items.STICK)), "vanilla parts off: stick");
             helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(ModItems.STONE_PEBBLE)), "vanilla parts off: the pebble stays placeable");
@@ -1065,10 +1121,10 @@ public final class PlacedTemplateTests {
         BlockPos floor = new BlockPos(1, 1, 1);
         helper.setBlock(floor, Blocks.STONE);
         helper.setBlock(floor.above(), Blocks.AIR);
-        for (Item item : List.of(Items.BONE, Items.FEATHER, Items.GLOWSTONE_DUST, Items.NETHER_STAR)) {
+        for (Item item : List.of(Items.FEATHER, Items.BONE, Items.GLOWSTONE_DUST, Items.NETHER_STAR)) {
             helper.assertTrue(use(helper, player, new ItemStack(item, 2), floor, Direction.UP).consumesAction(), item + " was not laid down");
         }
-        helper.assertValueEqual(parts(helper, floor.above()), List.of(Items.BONE, Items.FEATHER, Items.GLOWSTONE_DUST, Items.NETHER_STAR),
+        helper.assertValueEqual(parts(helper, floor.above()), List.of(Items.FEATHER, Items.BONE, Items.GLOWSTONE_DUST, Items.NETHER_STAR),
                 "the mixed new parts");
         helper.assertTrue(com.simplebuilding.util.PlacedPartParticles.glowOf(new ItemStack(Items.GLOWSTONE_DUST)) != null, "glowstone dust has no particle");
         helper.assertTrue(com.simplebuilding.util.PlacedPartParticles.glowOf(new ItemStack(Items.NETHER_STAR)) != null, "the nether star has no particle");
@@ -1197,6 +1253,40 @@ public final class PlacedTemplateTests {
         BlockPos dry = pile(helper, new BlockPos(6, 1, 5), new ItemStack(Items.SEA_PICKLE), new ItemStack(ModItems.FLINT_CHIP));
         helper.assertValueEqual(helper.getBlockState(dry).getLightEmission(), 0, "light of a dry pickle");
         helper.assertValueEqual(helper.getBlockState(dry).getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.PICKLES), 1, "pickle count");
+        helper.succeed();
+    }
+
+    /**
+     * Fire and ice chips (owner 2026-10-05): a fire chip lights the candles of a pile like a fire charge and is used up, an
+     * ice chip puts burning candles out and is used up; an ice chip on unlit candles does nothing. The chips lie down
+     * like every small part (placeable_small tag).
+     */
+    public static void fireChipsLightAndIceChipsPutOutPiledCandles(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        for (Item chip : List.of(ModItems.FIRE_CHIP, ModItems.ICE_CHIP, ModItems.OBSIDIAN_CHIP)) {
+            helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(chip)), "chip does not lie down: " + chip);
+        }
+        ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 4.5));
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        BlockPos spot = pile(helper, new BlockPos(1, 1, 1), new ItemStack(Items.CANDLE), new ItemStack(ModItems.OBSIDIAN_CHIP));
+        ItemStack ice = new ItemStack(ModItems.ICE_CHIP, 2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, ice);
+        helper.getBlockState(spot).useItemOn(ice, helper.getLevel(), player, InteractionHand.MAIN_HAND, hitTop(helper, spot));
+        helper.assertValueEqual(ice.getCount(), 2, "ice chips used on unlit candles");
+        ItemStack fire = new ItemStack(ModItems.FIRE_CHIP, 2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, fire);
+        InteractionResult lit = helper.getBlockState(spot).useItemOn(fire, helper.getLevel(), player, InteractionHand.MAIN_HAND, hitTop(helper, spot));
+        helper.assertTrue(lit.consumesAction(), "the fire chip answered " + lit);
+        helper.assertTrue(helper.getBlockState(spot).getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.LIT), "the fire chip did not light the candle");
+        helper.assertValueEqual(fire.getCount(), 1, "fire chips left");
+        player.setItemInHand(InteractionHand.MAIN_HAND, ice);
+        InteractionResult out = helper.getBlockState(spot).useItemOn(ice, helper.getLevel(), player, InteractionHand.MAIN_HAND, hitTop(helper, spot));
+        helper.assertTrue(out.consumesAction(), "the ice chip answered " + out);
+        helper.assertFalse(helper.getBlockState(spot).getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.LIT), "the ice chip did not put the candle out");
+        helper.assertValueEqual(ice.getCount(), 1, "ice chips left");
         helper.succeed();
     }
 

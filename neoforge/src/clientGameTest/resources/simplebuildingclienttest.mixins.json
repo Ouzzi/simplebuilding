@@ -8,7 +8,8 @@
     "KeyboardHandlerAccessor",
     "InputConstantsMixin",
     "PingHandledMixin",
-    "WindowFocusMixin"
+    "WindowFocusMixin",
+    "WindowSizeMixin"
   ],
   "injectors": {
     "defaultRequire": 1

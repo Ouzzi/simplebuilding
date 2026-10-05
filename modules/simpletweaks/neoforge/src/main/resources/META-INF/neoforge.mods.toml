@@ -21,3 +21,10 @@ config="simpletweaks.mixins.json"
 
 [[mixins]]
 config="simpletweaks.claims.mixins.json"
+
+[[dependencies.simpletweaks]]
+modId="simpledimension"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

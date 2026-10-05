@@ -1,4 +1,6 @@
-group = 'com.simplebuilding.modules'
+// Unique group per module: all loader projects are named 'neoforge', and a shared group would let Gradle
+// resolve one module in place of another (e.g. a module that nests SimpleLib, principle 6a).
+group = 'com.simplebuilding.modules.' + project.parent.name
 base { archivesName = project.parent.name + '-26.3-' + project.name }
 version = project.findProperty('moduleVersion') ?: '0.1.0'
 java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
@@ -8,7 +10,52 @@ dependencies { implementation project(':framework') }
 neoForge {
     version = rootProject.mc263_neoforge_version
     mods { "${project.parent.name}" { sourceSet sourceSets.main } }
+    // The test runner starts module projects in parallel; never share worlds, configs or logs.
+    runs.configureEach {
+        gameDirectory = rootProject.layout.projectDirectory.dir("integration/run-neoforge-263/${project.parent.name}")
+    }
 }
 processResources { filesMatching('META-INF/neoforge.mods.toml') { expand version: project.version } }
 
 sourceSets.main.resources.srcDir '../generated/resources'
+
+// Principle 8 (docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md): standalone GameTest run with only this
+// module plus its declared hard module requirements, in its own game directory. The mod list is
+// fixed after the module script added its integration partners to the mods container.
+def standaloneEntry = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json'))
+        .modules.find { it.projects?.neoforge == project.path }
+def standaloneSpec = standaloneEntry?.tests?.standalone?.loaders?.neoforge
+if (standaloneSpec) {
+    def namespace = standaloneEntry.tests.namespace ?: standaloneEntry.id
+    neoForge.runs {
+        moduleStandaloneGameTest {
+            type = 'gameTestServer'
+            gameDirectory = rootProject.layout.projectDirectory.dir("integration/run-standalone-neoforge-263/${standaloneEntry.id}")
+            programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: "${namespace}:*").toString(),
+                    '--report', rootProject.file(standaloneSpec.report).absolutePath
+        }
+    }
+    afterEvaluate {
+        def allowed = [project.parent.name] + (standaloneEntry.tests.standalone.requires ?: [])
+        neoForge.runs.moduleStandaloneGameTest.loadedMods = neoForge.mods.matching { it.name in allowed }.toList()
+    }
+}
+// SimpleBuilding 26.3 needs SimpleLib at runtime (principle 6a, nested in production). A module whose dev/test runs
+// load SimpleBuilding from its sourceSet loads SimpleLib the same way; so does a module that nests SimpleLib itself
+// (its standalone run included - a nested lib counts as part of the module).
+afterEvaluate {
+    if (project.path == ':modules:simplelib:neoforge') return
+    boolean nestsLib = configurations.jarJar.dependencies.any { it instanceof org.gradle.api.artifacts.ProjectDependency && it.path == ':modules:simplelib:neoforge' }
+    boolean hasSb = neoForge.mods.any { it.name.startsWith('simplebuilding') }
+    if (!nestsLib && !hasSb) return
+    if (neoForge.mods.findByName('simplelib') == null) {
+        neoForge.mods.create('simplelib') { sourceSet rootProject.project(':modules:simplelib:neoforge').sourceSets.main }
+    }
+    neoForge.runs.configureEach { run ->
+        if (run.loadedMods.get().any { it.name.startsWith('simplebuilding') } || (nestsLib && run.name == 'moduleStandaloneGameTest')) {
+            // add() discards a ListProperty convention (all mods) on its first explicit mutation.
+            // Preserve that effective list as well as explicitly selected integration/standalone mods.
+            run.loadedMods.set((run.loadedMods.get() + [neoForge.mods.simplelib]).unique())
+        }
+    }
+}

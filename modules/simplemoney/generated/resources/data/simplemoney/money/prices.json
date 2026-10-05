@@ -1673,6 +1673,17 @@
       "chance": 0.1
     },
     {
+      "item": "simplebuilding:nihil_vault",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplebuilding:nihilith_block",
       "tier": 4,
       "hours": 25.0,
@@ -2355,6 +2366,28 @@
       "chance": 1
     },
     {
+      "item": "simplebuilding:nether_brick_quartz_checker",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuilding:red_nether_brick_quartz_checker",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
       "item": "simplebuilding:resin_quartz_checker",
       "tier": 0,
       "hours": 0.5,
@@ -2619,6 +2652,50 @@
       "chance": 1
     },
     {
+      "item": "simplebuilding:enderite_crucible",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuilding:enderite_barrel",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuilding:enderite_bucket",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuilding:copper_bucket",
+      "tier": 0,
+      "hours": 1.0,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
       "item": "simplefun:brick_snowball",
       "tier": 0,
       "hours": 0.5,
@@ -2672,6 +2749,215 @@
       "level": 4,
       "stock": 1,
       "chance": 0.1
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 1.0,
+      "item": "simplesandwiches:knife",
+      "level": 1,
+      "merchant": "toolsmith",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 1
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 0.5,
+      "item": "simplesandwiches:oak_cutting_board",
+      "level": 1,
+      "merchant": "butcher",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 0
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 0.5,
+      "item": "simplesandwiches:spruce_cutting_board",
+      "level": 1,
+      "merchant": "butcher",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 0
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 0.5,
+      "item": "simplesandwiches:birch_cutting_board",
+      "level": 1,
+      "merchant": "butcher",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 0
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 0.5,
+      "item": "simplesandwiches:jungle_cutting_board",
+      "level": 1,
+      "merchant": "butcher",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 0
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 0.5,
+      "item": "simplesandwiches:acacia_cutting_board",
+      "level": 1,
+      "merchant": "butcher",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 0
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 0.5,
+      "item": "simplesandwiches:dark_oak_cutting_board",
+      "level": 1,
+      "merchant": "butcher",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 0
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 0.5,
+      "item": "simplesandwiches:mangrove_cutting_board",
+      "level": 1,
+      "merchant": "butcher",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 0
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 0.5,
+      "item": "simplesandwiches:cherry_cutting_board",
+      "level": 1,
+      "merchant": "butcher",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 0
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 0.5,
+      "item": "simplesandwiches:pale_oak_cutting_board",
+      "level": 1,
+      "merchant": "butcher",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 0
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 0.5,
+      "item": "simplesandwiches:poplar_cutting_board",
+      "level": 1,
+      "merchant": "butcher",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 0
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 0.5,
+      "item": "simplesandwiches:bamboo_cutting_board",
+      "level": 1,
+      "merchant": "butcher",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 0
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 3.0,
+      "item": "simplesandwiches:crimson_cutting_board",
+      "level": 2,
+      "merchant": "butcher",
+      "safetyFloor": 12,
+      "stock": 2,
+      "tier": 2
+    },
+    {
+      "chance": 1,
+      "craft": 3,
+      "hours": 3.0,
+      "item": "simplesandwiches:warped_cutting_board",
+      "level": 2,
+      "merchant": "butcher",
+      "safetyFloor": 12,
+      "stock": 2,
+      "tier": 2
+    },
+    {
+      "chance": 1,
+      "craft": 0,
+      "hours": 1.0,
+      "item": "simplesandwiches:cheese_block",
+      "level": 2,
+      "merchant": "farmer",
+      "safetyFloor": 32,
+      "stock": 2,
+      "tier": 1
+    },
+    {
+      "chance": 1,
+      "craft": 0,
+      "hours": 1.0,
+      "item": "simplesandwiches:butter_block",
+      "level": 2,
+      "merchant": "farmer",
+      "safetyFloor": 24,
+      "stock": 2,
+      "tier": 1
+    },
+    {
+      "chance": 1,
+      "craft": 0,
+      "hours": 1.0,
+      "item": "simplesandwiches:cheese_slice",
+      "level": 1,
+      "merchant": "farmer",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 1
+    },
+    {
+      "chance": 1,
+      "craft": 0,
+      "hours": 1.0,
+      "item": "simplesandwiches:butter_slice",
+      "level": 1,
+      "merchant": "farmer",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 1
+    },
+    {
+      "chance": 1,
+      "craft": 0,
+      "hours": 1.0,
+      "item": "simplesandwiches:cake_slice",
+      "level": 1,
+      "merchant": "farmer",
+      "safetyFloor": 8,
+      "stock": 2,
+      "tier": 1
     }
   ]
 }

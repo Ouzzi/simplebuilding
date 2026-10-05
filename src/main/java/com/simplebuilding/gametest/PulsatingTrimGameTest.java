@@ -11,6 +11,16 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class PulsatingTrimGameTest {
 
     @GameTest
+    public void upgradeTemplatesUseVanillaTooltipStructure(GameTestHelper helper) {
+        PulsatingTrimTests.upgradeTemplatesUseVanillaTooltipStructure(helper);
+    }
+
+    @GameTest
+    public void templateRecipesRequireEveryMaterialAndCopyExactlyOne(GameTestHelper helper) {
+        PulsatingTrimTests.templateRecipesRequireEveryMaterialAndCopyExactlyOne(helper);
+    }
+
+    @GameTest
     public void thePulsatingTemplateIsCraftedFromAnEchoShardAndAnySledgehammerThatStays(GameTestHelper helper) {
         PulsatingTrimTests.thePulsatingTemplateIsCraftedFromAnEchoShardAndAnySledgehammerThatStays(helper);
     }

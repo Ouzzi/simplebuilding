@@ -450,6 +450,10 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuilding/nihil_vault",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplebuilding/nihilith_block",
       "required": false
     },
@@ -595,6 +599,18 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/suspended_sand",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_crucible",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_barrel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_bucket",
       "required": false
     },
     {

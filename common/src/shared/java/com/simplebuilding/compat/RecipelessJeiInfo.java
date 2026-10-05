@@ -38,6 +38,13 @@ public final class RecipelessJeiInfo {
             map.put("sage_ore", List.of(ModBlocks.SAGE_ORE, ModBlocks.DEEPSLATE_SAGE_ORE));
             map.put("sage_orb", List.of(ModItems.SAGE_ORB));
         }
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P5: gefuellte Eimer entstehen nur durch Schoepfen (kein Rezept).
+            map.put("soul_lava_bucket", List.of(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET));
+            map.put("copper_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET));
+            map.put("enderite_crucible", List.of(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible(), com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel()));
+            map.put("enderite_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET));
+        }
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             map.put("dimensional_scrap", List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP));
         }
@@ -47,8 +54,15 @@ public final class RecipelessJeiInfo {
     /** Usage hints for craftable items, separate from the recipeless coverage contract. */
     public static Map<String, List<ItemLike>> supplementalPages() {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
+        map.put("furnace_tiers", List.of(ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE,
+                ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER,
+                ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE));
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             map.put("velocity_gauge", List.of(ModItems.VELOCITY_GAUGE));
+        }
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            map.put("copper_bucket", List.of(com.simplebuilding.fluid.ModFluids.COPPER_BUCKET));
+            map.put("enderite_bucket", List.of(com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET));
         }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             map.put("silent_dandelion", List.of(ModItems.SILENT_DANDELION));
@@ -60,7 +74,16 @@ public final class RecipelessJeiInfo {
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             map.put("end_signals", List.of(ModItems.NIHIL_REDSTONE, ModItems.ASTRAL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));
             map.put("astral_vault", List.of(ModItems.ASTRAL_VAULT));
+            map.put("nihil_vault", List.of(ModItems.NIHIL_VAULT));
             map.put("end_pistons", List.of(ModItems.ASTRAL_PISTON, ModItems.NIHIL_PISTON));
+        }
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            map.put("end_rails", List.of(ModItems.ASTRAL_RAIL, ModItems.NIHIL_RAIL));
+        }
+        if (com.simplebuilding.version.McVersion.STANDING_RODS) {
+            // Aufgestellte Staebe (2026-10-04): Schleichen + Rechtsklick auf eine Oberseite stellt sie senkrecht auf.
+            map.put("standing_rods", List.of(net.minecraft.world.item.Items.STICK, net.minecraft.world.item.Items.BONE,
+                    net.minecraft.world.item.Items.BLAZE_ROD, net.minecraft.world.item.Items.BREEZE_ROD, ModItems.DIAMOND_ROD));
         }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Fundorte und B-Seite der Platten (2026-10-03), Wirkung der Lautsprecher.

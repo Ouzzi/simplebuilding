@@ -150,9 +150,13 @@ public final class DataIntegrityTests {
         Set<String> blocks = new java.util.HashSet<>(Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
                 "placed_smithing_template", "placed_blueprint", "placed_bundle", "placed_egg", "placed_small_parts",
                 // the ropes of a hammock (end and span), placed and dropped with their hammock
-                "hammock_rope"));
+                "hammock_rope",
+                // a stick/bone/blaze/breeze/diamond rod standing upright: placed and dropped as the rod item itself
+                "standing_rod"));
         blocks.addAll(wallVariants().keySet());
         blocks.add("potted_silent_dandelion");
+        // Crucible P5: the soul lava fluid block (like vanilla lava, only a bucket form).
+        blocks.add("soul_lava");
         return Set.copyOf(blocks);
     }
 
@@ -175,7 +179,11 @@ public final class DataIntegrityTests {
             // drops the parts stored in its block entity, eggs only with silk touch (PlacedSmallPartsBlock#getDrops)
             "placed_small_parts",
             // hammock ropes: the hammock drops from its cloth head only (HammockLayout)
-            "hammock_rope");
+            "hammock_rope",
+            // drops the rod item of its state (StandingRodBlock#getDrops)
+            "standing_rod",
+            // soul lava (Crucible P5): a fluid block like vanilla lava, removed only by scooping
+            "soul_lava");
 
     /**
      * The blocks that do <em>not</em> drop themselves, and what they drop instead without Silk
@@ -1550,6 +1558,12 @@ public final class DataIntegrityTests {
         }
         // Aus Simple Tweaks uebernommen, eigene Registrierung (com.simplebuilding.tweaks).
         items.addAll(com.simplebuilding.tweaks.item.TweaksItems.all());
+        // Crucible P5 (26.3): Eimer (ModFluids) und Enderit-Tiegel/-Fass (CrucibleCompat), zur Laufzeit registriert.
+        if (McVersion.CRUCIBLE) {
+            items.addAll(com.simplebuilding.fluid.ModFluids.buckets());
+            items.add(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible().asItem());
+            items.add(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel().asItem());
+        }
         // Ende der versteckten Easter-Kette (com.simplebuilding.tweaks.easter), eigene Registrierung.
         items.add(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick());
         return items;
@@ -1578,6 +1592,11 @@ public final class DataIntegrityTests {
         }
         blocks.addAll(com.simplebuilding.tweaks.block.TweaksBlocks.all());
         blocks.addAll(com.simplebuilding.tweaks.block.TweaksBlocks.heads());
+        if (McVersion.CRUCIBLE) {
+            blocks.add(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible());
+            blocks.add(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel());
+            blocks.add(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BLOCK);
+        }
         return blocks;
     }
 
@@ -1708,11 +1727,10 @@ public final class DataIntegrityTests {
     }
 
     /**
-     * All seven quartz checkers - purpur, lapis, blackstone, resin, nihilith, astralit and ender
-     * quartz - are mined with a pickaxe and drop themselves. They copy blocks that need the right
-     * tool, so without {@code minecraft:mineable/pickaxe} breaking one gave nothing. The two new
-     * ones are crafted like the others, two of the material diagonal to two quartz blocks, four at
-     * a time: nihilith shards, astralit dust and ender quartz stand in for the coloured block.
+     * All quartz checkers are mined with a pickaxe and drop themselves. Their copied block
+     * properties require the right tool, so a missing {@code minecraft:mineable/pickaxe} tag
+     * prevents drops. Two matching materials diagonal to two quartz blocks make four checkers;
+     * nether bricks and red nether bricks must produce their own variant, never the resin one.
      *
      * <p>What breaks this test: a checker missing from the pickaxe tag or its loot table, and a
      * missing or changed recipe for the new checkers.
@@ -1723,7 +1741,7 @@ public final class DataIntegrityTests {
         StringBuilder actual = new StringBuilder();
         StringBuilder expected = new StringBuilder();
         for (Block checker : List.of(ModBlocks.PURPUR_QUARTZ_CHECKER, ModBlocks.LAPIS_QUARTZ_CHECKER,
-                ModBlocks.BLACKSTONE_QUARTZ_CHECKER, ModBlocks.RESIN_QUARTZ_CHECKER,
+                ModBlocks.BLACKSTONE_QUARTZ_CHECKER, ModBlocks.RESIN_QUARTZ_CHECKER, ModBlocks.NETHER_BRICK_QUARTZ_CHECKER, ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER,
                 ModBlocks.NIHILITH_QUARTZ_CHECKER, ModBlocks.ASTRALIT_QUARTZ_CHECKER, ModBlocks.ENDER_QUARTZ_CHECKER,
                 ModBlocks.POLISHED_ASTRALIT_CHECKER, ModBlocks.POLISHED_NIHILITH_CHECKER, ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER)) {
             BlockState state = checker.defaultBlockState();
@@ -1740,6 +1758,9 @@ public final class DataIntegrityTests {
 
         ItemStack quartz = new ItemStack(Items.QUARTZ_BLOCK);
         Map<Item, String> checkerOf = new LinkedHashMap<>();
+        checkerOf.put(Items.RESIN_BRICKS, "simplebuilding:resin_quartz_checker");
+        checkerOf.put(Items.NETHER_BRICKS, "simplebuilding:nether_brick_quartz_checker");
+        checkerOf.put(Items.RED_NETHER_BRICKS, "simplebuilding:red_nether_brick_quartz_checker");
         checkerOf.put(ModItems.NIHILITH_SHARD, "simplebuilding:nihilith_quartz_checker");
         checkerOf.put(ModItems.ASTRALIT_DUST, "simplebuilding:astralit_quartz_checker");
         checkerOf.put(ModItems.ENDER_QUARTZ, "simplebuilding:ender_quartz_checker");
@@ -2398,9 +2419,14 @@ public final class DataIntegrityTests {
                 modItems.add(id);
             }
         }
-        // Das Zeilen-Layout nutzen alle Tabs (Besitzer 2026-09-28 "Zeilen-Layout fuer alle Tabs").
-        if (!spacers.keySet().equals(Set.of(ModItemGroupsContent.Tab.values()))) {
-            problems.add("creative_spacer fills " + spacers.keySet() + " instead of every tab");
+        // The arrows tab is deliberately empty until fletching is enabled on this line.
+        Set<ModItemGroupsContent.Tab> paddedTabs = java.util.EnumSet.allOf(ModItemGroupsContent.Tab.class);
+        if (!McVersion.FLETCHING) {
+            paddedTabs.remove(ModItemGroupsContent.Tab.ARROWS);
+            helper.assertTrue(ModItemGroupsContent.arrowsRows().isEmpty(), "disabled arrows tab is not empty");
+        }
+        if (!spacers.keySet().equals(paddedTabs)) {
+            problems.add("creative_spacer fills " + spacers.keySet() + " instead of " + paddedTabs);
         }
         // Bewusst doppelt (Besitzer 2026-09-28): Kupfer-, Eisen- und Enderit-Kern stehen als Freischalt-Zutat
         // neben Chunk-Loader, Launchpad und Flypad in SimplePads - und bei den Kernen in SimpleMaterials.
@@ -2782,7 +2808,7 @@ public final class DataIntegrityTests {
                 McVersion.END_SYSTEMS
                         ? List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
                                 ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST, gap,
-                                Items.ENDER_CHEST, ModItems.ASTRAL_VAULT)
+                                Items.ENDER_CHEST, ModItems.ASTRAL_VAULT, ModItems.NIHIL_VAULT)
                         : List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
                                 ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST),
                 // 26.3: nach einer Luecke die drei Stufen-Shulkerschalen (seltene Strukturfunde, 2026-10-02).
@@ -2804,12 +2830,25 @@ public final class DataIntegrityTests {
             expected.add(List.of(ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, ModItems.NIHIL_PISTON, gap,
                     ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP, ModItems.ASTRAL_PISTON));
         }
+        if (McVersion.END_RAILS) {
+            // Astral-/Nihil-Schienen (2026-10-04) als eigene Zeile direkt unter den End-Signalen.
+            expected.add(List.of(ModItems.NIHIL_RAIL, ModItems.ASTRAL_RAIL));
+        }
         if (McVersion.TRAINING_DUMMY) {
             expected.add(List.of(ModItems.STRAW_ARMOR_STAND, ModItems.TRAINING_DUMMY));
         }
         if (McVersion.HAMMOCK) {
             // Haengematten (2026-10-02): 16 Farben in Vanillas Bett-Reihenfolge, 9 + 7.
             expected.add(ModItems.HAMMOCKS);
+        }
+        if (McVersion.CRUCIBLE) {
+            // Crucible P5: Enderit-Tiegel und -Fass, dann die Eimer (Kupfer, Seelen-Lava, Luecke, Enderit).
+            expected.add(List.of(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible().asItem(),
+                    com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel().asItem()));
+            expected.add(List.of(com.simplebuilding.fluid.ModFluids.COPPER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, gap,
+                    com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET));
         }
         if (McVersion.MUSIC_DISCS) {
             expected.add(List.of(ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));
@@ -2903,7 +2942,7 @@ public final class DataIntegrityTests {
                 List.of(ModItems.POLISHED_ENDER_QUARTZ, ModItems.POLISHED_ENDER_QUARTZ_STAIRS, ModItems.POLISHED_ENDER_QUARTZ_SLAB,
                         ModItems.POLISHED_ENDER_QUARTZ_WALL),
                 List.of(ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
-                        ModItems.RESIN_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
+                        ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
                         ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
                         ModItems.POLISHED_ENDER_QUARTZ_CHECKER),
                 List.of(ModItems.SUSPENDED_SAND, ModItems.SUSPENDED_GRAVEL, gap, ModItems.LEVITATING_SAND, ModItems.LEVITATING_GRAVEL),
@@ -2960,13 +2999,19 @@ public final class DataIntegrityTests {
         // Nach allen Erz-Zeilen die Kleinteile, der Eisenstab nach einer Luecke daneben (Audit 2026-10-02).
         List<Item> parts = new ArrayList<>();
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
-            parts.addAll(List.of(ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP));
+            parts.addAll(List.of(ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP, ModItems.OBSIDIAN_CHIP, ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            if (!parts.isEmpty()) {
+            // Die Staebe laufen nur dann nach einer Luecke in der Kleinteil-Zeile weiter, wenn sie dort hineinpassen
+            // (Row#besides); seit den Splittern (2026-10-05) stehen sie in einer eigenen Zeile.
+            List<Item> rods = List.of(ModItems.IRON_ROD, ModItems.GOLD_ROD, ModItems.DIAMOND_ROD, ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD);
+            if (!parts.isEmpty() && parts.size() + 1 + rods.size() <= 9) {
                 parts.add(gap);
+            } else if (!parts.isEmpty()) {
+                expected.add(parts);
+                parts = new ArrayList<>();
             }
-            parts.addAll(List.of(ModItems.IRON_ROD, ModItems.GOLD_ROD, ModItems.DIAMOND_ROD, ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));
+            parts.addAll(rods);
         }
         if (!parts.isEmpty()) {
             expected.add(parts);

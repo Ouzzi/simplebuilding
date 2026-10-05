@@ -44,5 +44,22 @@
   "command.simpletweaks.claim.identity": "Use an online player name or a full nonzero UUID for an offline player. Unknown names and selectors are not accepted.",
   "command.simpletweaks.claim.updated": "Claim permissions saved.",
   "command.simpletweaks.claim.denied": "Change refused: ownership, trust limit, cooldown, or unchanged permissions. Only explicit OP4 admin removal bypasses ownership.",
-  "command.simpletweaks.claim.list": "Showing %s claims (maximum %s)."
+  "command.simpletweaks.claim.list": "Showing %s claims (maximum %s).",
+  "item.simpletweaks.guide_book": "Simple Tweaks Guide",
+  "simpletweaks.guide.page.1.title": "Simple Tweaks",
+  "simpletweaks.guide.page.1": "Legacy compatibility and staged server-authoritative claims, disabled by default.",
+  "simpletweaks.guide.page.2.title": "Legacy World Compatibility",
+  "simpletweaks.guide.page.2": "An exact whitelist resolves old item, block, block entity, and component names to",
+  "simpletweaks.guide.page.3.title": "Legacy World Compatibility",
+  "simpletweaks.guide.page.3": "existing SimpleBuilding registries. Saving uses the current names. No duplicate gameplay content is registered.",
+  "simpletweaks.guide.page.4.title": "Claims: Disabled by Default",
+  "simpletweaks.guide.page.4": "Stages 1–3, 5 and 6 plus partial stage-4 protection are implemented: atomic claims, Vanilla/tool checks, owner trust, OP4 administration and the Dimensions adapter.",
+  "simpletweaks.guide.page.5.title": "Claims: Disabled by Default",
+  "simpletweaks.guide.page.5": "Automation still has unsupported paths, including lightning secondary effects and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data.",
+  "simpletweaks.guide.page.6.title": "Claims: Disabled by Default",
+  "simpletweaks.guide.page.6": "Development tests only. Default: false.",
+  "quests.simpletweaks.start.title": "Welcome to Simple Tweaks",
+  "quests.simpletweaks.start.subtitle": "Your free guide",
+  "quests.simpletweaks.start.welcome.title": "A free guide",
+  "quests.simpletweaks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Tweaks Guide as a reward. You can also craft it from a book and paper."
 }

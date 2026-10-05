@@ -29,7 +29,7 @@ public final class RecipeFilter {
     public static boolean anyDisabled() {
         ServerTuningConfig.Features f = ServerTuning.get().features;
         TweaksConfig t = SimpleTweaks.config();
-        return !f.endSignals || !f.endPistons || !f.astralVault || !f.backpack || !f.attractor || !f.echoSounder || !f.blueprint || !f.oreDetector || !f.levitatingBlocks
+        return !f.endSignals || !f.endPistons || !f.endRails || !f.astralVault || !f.nihilVault || !f.backpack || !f.attractor || !f.echoSounder || !f.blueprint || !f.oreDetector || !f.levitatingBlocks
                 || !t.pads.enableChunkLoaders || !t.pads.enableElytraPads || !t.pads.enableFlypads
                 || !t.pads.enableSpawnTeleporters || !t.pads.enableLaunchpads || !t.pads.enablePotionPads
                 || !t.laserPointer.enable;
@@ -44,7 +44,9 @@ public final class RecipeFilter {
         ServerTuningConfig.Features f = ServerTuning.get().features;
         TweaksConfig t = SimpleTweaks.config();
         return (!f.astralVault && p.equals("astral_vault"))
+                || (!f.nihilVault && p.equals("nihil_vault"))
                 || (!f.endPistons && (p.equals("astral_piston") || p.equals("nihil_piston")))
+                || (!f.endRails && (p.equals("astral_rail") || p.equals("nihil_rail")))
                 || (!f.endSignals && java.util.Set.of("nihil_redstone", "astral_redstone", "nihilith_switch", "astralit_switch", "nihilith_lamp", "astralit_lamp").contains(p))
                 || (!f.backpack && p.contains("backpack"))
                 || (!f.attractor && (p.contains("magnet") || p.contains("attractor")))

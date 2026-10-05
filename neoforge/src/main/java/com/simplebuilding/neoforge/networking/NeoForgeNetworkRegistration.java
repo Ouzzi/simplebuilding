@@ -115,6 +115,8 @@ public final class NeoForgeNetworkRegistration {
         }));
         registrar.playToClient(com.simplebuilding.networking.DataTablesSyncPayload.ID, com.simplebuilding.networking.DataTablesSyncPayload.CODEC,
                 (payload, context) -> context.enqueueWork(() -> com.simplebuilding.data.ModDataTables.receive(payload)));
+        registrar.playToClient(AmplifiedNotePayload.ID, AmplifiedNotePayload.CODEC,
+                (payload, context) -> context.enqueueWork(() -> com.simplebuilding.client.AmplifiedNoteSound.play(payload)));
         registrar.playToClient(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC, (payload, context) -> context.enqueueWork(() -> {
             if (context.player() instanceof SurvivalTracerAccessor accessor) {
                 accessor.simplebuilding$setCurrentValues(payload.currentDist(), payload.currentTime(), payload.currentHostile(), payload.currentPassive(), payload.currentDamage());

@@ -260,6 +260,14 @@ public final class InWorldTransformations {
             JsonObject entry = new JsonObject();
             entry.addProperty("catalyst", id(upgrade.getKey()));
             entry.addProperty("catalystCount", SledgehammerEntityInteraction.CATALYST_COST);
+            JsonArray materials = new JsonArray();
+            for (var material : SledgehammerEntityInteraction.extraMaterials(upgrade.getKey()).entrySet()) {
+                JsonObject cost = new JsonObject();
+                cost.addProperty("id", id(material.getKey()));
+                cost.addProperty("count", material.getValue());
+                materials.add(cost);
+            }
+            entry.add("extraMaterials", materials);
             entry.addProperty("result", id(upgrade.getValue()));
             upgrades.add(entry);
         }

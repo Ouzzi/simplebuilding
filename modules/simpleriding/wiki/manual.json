@@ -1,5 +1,9 @@
 {
   "_readme": "Bilingual, code-backed module chapters. Items: the R1 horseshoes and their smithing template only.",
+  "modelOnly": {
+    "simpleriding:enchanted_book_leaping": "RidingBookModels selects this render model for minecraft:enchanted_book with stored Leaping; no separate item is registered.",
+    "simpleriding:enchanted_book_tailwind": "RidingBookModels selects this render model for minecraft:enchanted_book with stored Tailwind; no separate item is registered."
+  },
   "features": [
     {
       "id": "tailwind",
@@ -821,6 +825,18 @@
     }
   ],
   "notes": {
+    "simpleriding:guide_book": {
+      "sources": [
+        "modules/simpleriding/shared/java/com/simpleriding/guide/RidingGuide.java",
+        "modules/simpleriding/shared/resources/data/simpleriding/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + hay bale. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Riding\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Heuballen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Riding\" eins."
+      }
+    },
     "*_horseshoe": {
       "sources": [
         "modules/simpleriding/shared/java/com/simpleriding/Horseshoes.java"

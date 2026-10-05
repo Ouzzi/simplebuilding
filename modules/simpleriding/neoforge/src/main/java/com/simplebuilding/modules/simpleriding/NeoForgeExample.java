@@ -8,6 +8,7 @@ import net.minecraft.core.registries.Registries;
   RidingNeoAttachments.register(bus);
   Riding.CONFIG=RidingConfig.load(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
   Riding.SIMPLEBUILDING=net.neoforged.fml.ModList.get().isLoaded("simplebuilding");
+  if(net.neoforged.fml.ModList.get().isLoaded("ftbquests"))com.simpleriding.guide.RidingGuide.installQuests(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
   bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e)->{
    if(e.getRegistryKey().equals(Registries.LOOT_FUNCTION_TYPE))net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.LOOT_FUNCTION_TYPE,Riding.id("weighted_enchant"),WeightedEnchantFunction.MAP_CODEC);
    if(e.getRegistryKey().equals(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.CONDITION_CODECS))e.register(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.CONDITION_CODECS,Riding.id("trades_enabled"),()->RidingNeoData.CODEC);

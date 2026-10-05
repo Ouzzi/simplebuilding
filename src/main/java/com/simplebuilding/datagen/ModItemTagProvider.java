@@ -54,6 +54,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             }
             builder(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(key(ModItems.MUSIC_DISC_DRIFTWOOD)).add(key(ModItems.MUSIC_DISC_DAYBREAK));
         }
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            builder(ItemTags.RAILS).add(key(ModItems.ASTRAL_RAIL)).add(key(ModItems.NIHIL_RAIL));
+        }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             builder(ModTags.Items.PLACEABLE_SMALL).add(key(ModItems.YARN_BALL));
             builder(BlockItemTags.SMALL_FLOWERS.item()).add(key(ModItems.SILENT_DANDELION));
@@ -297,15 +300,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.ENDERITE_LEGGINGS))
                 .add(key(ModItems.ENDERITE_BOOTS));
 
-        // Ofen-Boni (FurnaceTierPerks): mehr Ausbeute im Netherit- und Enderit-Schmelzofen nur fuer
-        // Rohmetalle; der rissige Diamant bekommt keinen Bonus, weil er sich verlustfrei im Kreis
-        // fuehren laesst (Diamantblock -> 81 Splitter -> 9 rissige Diamanten -> 9 Diamanten).
-        // Roh-Enderit bleibt bewusst draussen: die Stunde im Schmelzofen soll eine Stunde bleiben.
-        builder(ModTags.Items.BLAST_FURNACE_BONUS)
-                .add(key(Items.RAW_IRON))
-                .add(key(Items.RAW_GOLD))
-                .add(key(Items.RAW_COPPER));
-
+        // No double experience for the lossless cracked-diamond crafting cycle.
         builder(ModTags.Items.FURNACE_BONUS_EXCLUDED)
                 .add(key(ModItems.CRACKED_DIAMOND));
 
@@ -336,6 +331,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 net.minecraft.world.item.Items.LAPIS_LAZULI, net.minecraft.world.item.Items.AMETHYST_SHARD, net.minecraft.world.item.Items.QUARTZ,
                 net.minecraft.world.item.Items.PRISMARINE_SHARD, net.minecraft.world.item.Items.ECHO_SHARD,
                 com.simplebuilding.items.ModItems.STONE_PEBBLE, com.simplebuilding.items.ModItems.FLINT_CHIP,
+                com.simplebuilding.items.ModItems.OBSIDIAN_CHIP, com.simplebuilding.items.ModItems.FIRE_CHIP,
+                com.simplebuilding.items.ModItems.ICE_CHIP,
                 com.simplebuilding.items.ModItems.DIAMOND_PEBBLE, com.simplebuilding.items.ModItems.NETHERITE_NUGGET,
                 com.simplebuilding.items.ModItems.ENDERITE_NUGGET, com.simplebuilding.items.ModItems.ENDERITE_INGOT)) {
             tag.add(BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow());

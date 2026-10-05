@@ -5,6 +5,11 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 public final class ModuleGameTest {
   @GameTest
+  public void guideBook(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("guide_book").accept(h);
+  }
+
+  @GameTest
   public void launch(GameTestHelper h) {
     com.simplefun.test.FunTests.ALL.get("launch").accept(h);
   }

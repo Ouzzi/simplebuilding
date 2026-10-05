@@ -1,0 +1,16 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.147'
+}
+apply from: rootProject.file('gradle/module-neoforge.gradle')
+// Bundles the shared framework API (guide-book quest installer) for standalone runs.
+dependencies { jarJar project(':framework') }
+// SimpleLib (crucibles, warm food) nested per principle 6a.
+dependencies { jarJar project(':modules:simplelib:neoforge') }
+
+neoForge.runs {
+    moduleIntegrationGameTest {
+        type = 'gameTestServer'
+        programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simplesandwiches:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
+    }
+}

@@ -83,6 +83,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Kleinteile auf einem Fleck: liegende Teile als Platten, Eier als 3D-Ei.
         if (com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_SMALL_PARTS_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_SMALL_PARTS_BE, com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
+        // Haengematte: das Kopfteil zeichnet die ganze Matte entlang der Ankerlinie (jeder Winkel).
+        if (com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE, com.simplebuilding.client.render.HammockRenderer::new);
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 net.minecraft.world.level.block.entity.BlockEntityTypes.ENDER_CHEST, com.simplebuilding.client.render.AstralVaultRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
@@ -93,6 +96,11 @@ public class SimplebuildingClient implements ClientModInitializer {
                 com.simplebuilding.blocks.entity.ModBlockEntities.TIERED_SHULKER_BOX_BE, com.simplebuilding.client.render.TieredShulkerBoxRenderer::new);
         // Der getragene Rucksack bzw. Koecher auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
         // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity.
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P5: soul lava rendering (turquoise lava textures).
+            net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry.register(com.simplebuilding.fluid.ModFluids.SOUL_LAVA,
+                    com.simplebuilding.fluid.ModFluids.FLOWING_SOUL_LAVA, com.simplebuilding.client.render.SoulLavaModel.unbaked());
+        }
         net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
                 java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
@@ -303,6 +311,8 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Datapack tables of the server (chisel transformations, sledgehammer upgrades).
         ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.networking.DataTablesSyncPayload.ID, (payload, context) ->
                 context.client().execute(() -> com.simplebuilding.data.ModDataTables.receive(payload)));
+        ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.networking.AmplifiedNotePayload.ID,
+                (payload, context) -> context.client().execute(() -> com.simplebuilding.client.AmplifiedNoteSound.play(payload)));
         ClientPlayNetworking.registerGlobalReceiver(SurvivalSyncPayload.ID, (payload, context) -> {
             context.client().execute(() -> {
                 if (context.player() instanceof SurvivalTracerAccessor accessor) {

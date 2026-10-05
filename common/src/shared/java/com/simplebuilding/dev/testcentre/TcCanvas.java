@@ -93,6 +93,16 @@ public final class TcCanvas {
         place(x, y, z, block.defaultBlockState());
     }
 
+    /**
+     * Eine Haengematte der Farbe {@code cloth} zwischen den (schon gesetzten) Ankern {@code spot}: ihre Bloecke als
+     * {@link TcOp.Place}, dann der Verknuepfungsschritt {@link TcOp.Hammock} fuer die Block-Entities.
+     */
+    public void hammock(com.simplebuilding.blocks.custom.HammockLayout.Spot spot, Block cloth) {
+        com.simplebuilding.blocks.custom.HammockLayout.states(cloth, com.simplebuilding.blocks.ModBlocks.HAMMOCK_ROPE, spot)
+                .forEach((pos, state) -> place(pos.getX(), pos.getY(), pos.getZ(), state));
+        add(new TcOp.Hammock(spot.anchor(), spot.dx(), spot.dz()));
+    }
+
     public void fill(int x0, int y0, int z0, int x1, int y1, int z1, BlockState state) {
         for (int x = Math.min(x0, x1); x <= Math.max(x0, x1); x++) {
             for (int y = Math.min(y0, y1); y <= Math.max(y0, y1); y++) {

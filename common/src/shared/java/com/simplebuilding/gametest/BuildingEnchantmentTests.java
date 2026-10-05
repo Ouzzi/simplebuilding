@@ -744,6 +744,7 @@ public final class BuildingEnchantmentTests {
         player.getInventory().setItem(2, new ItemStack(Items.GLASS, 16));
 
         // --- the plain wand repeats the first block it finds ---
+        origin = mixedPaletteOrigin(helper, player, plainWand, diameter);
         Map<BlockPos, BlockState> plain = BuildingWandItem.getPreviewStates(
                 helper.getLevel(), player, plainWand, origin, Direction.NORTH, diameter);
         helper.assertValueEqual(plain.size(), 9,
@@ -758,10 +759,7 @@ public final class BuildingEnchantmentTests {
                 helper.getLevel(), player, paletteWand, origin, Direction.NORTH, diameter);
         helper.assertValueEqual(palette.size(), 9,
                 "Color Palette changed how many blocks the wand previews");
-        // paletteIndex hashes the absolute position, and the test structure lands somewhere new on
-        // every run - so "both blocks appear" holds only if the nine positions happen to hash to both
-        // entries (it did not on one gate run). Check what paletteIndex assigns instead, and that the
-        // two carried blocks are the only ones used.
+        // The selected fixture contains both hash values, regardless of the room's world position.
         Set<Block> bothBlocks = Set.of(Blocks.OAK_PLANKS, Blocks.GLASS);
         for (Map.Entry<BlockPos, BlockState> entry : palette.entrySet()) {
             Block expectedHere = BuildingWandItem.paletteIndex(entry.getKey(), 2) == 0 ? Blocks.OAK_PLANKS : Blocks.GLASS;
@@ -771,6 +769,7 @@ public final class BuildingEnchantmentTests {
         }
         helper.assertTrue(bothBlocks.containsAll(distinctBlocks(palette)),
                 "Color Palette used a block that is not carried: " + distinctBlocks(palette));
+        helper.assertValueEqual(distinctBlocks(palette), bothBlocks, "Color Palette must use both carried blocks");
 
         // --- and does so deterministically, or the preview would flicker every frame ---
         Map<BlockPos, BlockState> again = BuildingWandItem.getPreviewStates(
@@ -782,6 +781,7 @@ public final class BuildingEnchantmentTests {
         Map<BlockPos, BlockState> floor = BuildingWandItem.getPreviewStates(
                 helper.getLevel(), player, paletteWand, origin, Direction.UP, diameter);
         helper.assertValueEqual(floor.size(), 9, "Color Palette changed how many blocks the floor preview holds");
+        helper.assertValueEqual(distinctBlocks(floor), bothBlocks, "Color Palette must mix a flat floor too");
         for (Map.Entry<BlockPos, BlockState> entry : floor.entrySet()) {
             Block expectedHere = BuildingWandItem.paletteIndex(entry.getKey(), 2) == 0 ? Blocks.OAK_PLANKS : Blocks.GLASS;
             helper.assertValueEqual(entry.getValue().getBlock(), expectedHere,
@@ -812,7 +812,7 @@ public final class BuildingEnchantmentTests {
                 "the plain wand preferred the hotbar over the off hand and previewed "
                         + offhandFirstBlocks + "; the off hand is supposed to be searched first");
 
-        // Both blocks must be collected, but all nine positions can hash to the same entry.
+        // Both blocks must be collected in order and appear in the mixed fixture.
         helper.assertValueEqual(BuildingWandItem.paletteStacks(player, paletteWand).stream()
                         .map(ItemStack::getItem).toList(), List.of(Items.BRICKS, Items.OAK_PLANKS),
                 "Color Palette must collect the off hand before the hotbar");
@@ -822,8 +822,10 @@ public final class BuildingEnchantmentTests {
         helper.assertValueEqual(offhandPalette.size(), 9, "Color Palette must preview the whole off hand plane");
         helper.assertTrue(Set.of(Blocks.BRICKS, Blocks.OAK_PLANKS).containsAll(offhandPaletteBlocks),
                 "Color Palette used an uncarried block: " + offhandPaletteBlocks);
+        helper.assertValueEqual(offhandPaletteBlocks, Set.of(Blocks.BRICKS, Blocks.OAK_PLANKS),
+                "Color Palette must show both off hand and hotbar blocks");
 
-        // Each position must use that ordering, even when every hash selects the same entry.
+        // Each position must use that ordering.
         for (Map.Entry<BlockPos, BlockState> entry : offhandPalette.entrySet()) {
             Block expectedHere = BuildingWandItem.paletteIndex(entry.getKey(), 2) == 0
                     ? Blocks.BRICKS
@@ -836,6 +838,25 @@ public final class BuildingEnchantmentTests {
         }
 
         helper.succeed();
+    }
+
+    /** Select by hash coverage, not by the enchanted preview we are testing. */
+    private static BlockPos mixedPaletteOrigin(GameTestHelper helper, ServerPlayer player,
+                                               ItemStack plainWand, int diameter) {
+        for (int x = 2; x <= 5; x++) {
+            for (int z = 2; z <= 5; z++) {
+                BlockPos candidate = helper.absolutePos(new BlockPos(x, 3, z));
+                boolean mixed = true;
+                for (Direction face : List.of(Direction.NORTH, Direction.UP)) {
+                    var positions = BuildingWandItem.getPreviewStates(helper.getLevel(), player,
+                            plainWand, candidate, face, diameter).keySet();
+                    mixed &= positions.size() == 9 && positions.stream()
+                            .map(pos -> BuildingWandItem.paletteIndex(pos, 2)).distinct().count() == 2;
+                }
+                if (mixed) return candidate;
+            }
+        }
+        throw helper.assertionException("no 3x3 wall/floor fixture covers both palette indices");
     }
 
     // =====================================================================================

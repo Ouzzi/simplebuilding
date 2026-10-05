@@ -10,7 +10,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
  * Vorhersage mit den Werten des Servers ({@link ServerTuning#get()}); die eigene Datei eines Clients
  * hat hier nichts zu sagen. Ausnahme: {@link Charges} legt die Haltbarkeit von Gegenstaenden fest,
  * die beim Start registriert wird - Neustart noetig, und Client und Server muessen dieselbe Datei
- * haben (Modpack).
+ * haben (Modpack). Dasselbe gilt fuer {@code soulLava.fuelMultiplier}, die Brenndauer der Eimer.
  *
  * <p>Standard = bisheriges Verhalten (einzige gewollte Aenderung: Chunk-Loader laufen nur, solange
  * ihr Besitzer online ist, Besitzer-Entscheidung). Jede Geschwindigkeit und Reichweite hat eine
@@ -24,6 +24,9 @@ public class ServerTuningConfig {
 
     @ConfigEntry.Gui.CollapsibleObject(startExpanded = true)
     public Features features = new Features();
+
+    @ConfigEntry.Gui.CollapsibleObject
+    public SoulLava soulLava = new SoulLava();
 
     @ConfigEntry.Gui.CollapsibleObject
     public ChunkLoaders chunkLoaders = new ChunkLoaders();
@@ -75,9 +78,27 @@ public class ServerTuningConfig {
 
     /** Begrenzt handeditierte oder per Befehl gesetzte Werte; fehlende Gruppen neu. */
     public void validate() {
+        if (soulLava == null) soulLava = new SoulLava();
+        soulLava.flowOverworld = clamp(soulLava.flowOverworld, 1, 4);
+        soulLava.flowNether = clamp(soulLava.flowNether, 1, 7);
+        soulLava.tickDelayOverworld = clamp(soulLava.tickDelayOverworld, 20, 200);
+        soulLava.tickDelayNether = clamp(soulLava.tickDelayNether, 10, 200);
+        soulLava.burnSeconds = clamp(soulLava.burnSeconds, 5, 60);
+        soulLava.soulBurnSeconds = clamp(soulLava.soulBurnSeconds, 5, 300);
+        soulLava.soulBurnIntervalTicks = clamp(soulLava.soulBurnIntervalTicks, 20, 200);
+        soulLava.soulBurnChance = clamp(soulLava.soulBurnChance, 0.0, 1.0, 0.5);
+        soulLava.fuelMultiplier = clamp(soulLava.fuelMultiplier, 1, 20);
+        soulLava.springChance = clamp(soulLava.springChance, 0.0, 0.05, 0.005);
+        soulLava.fortressChance = clamp(soulLava.fortressChance, 0.0, 0.5, 0.1);
+
         if (features == null) features = new Features();
         if (machines != null) machines.endSignalRange = clamp(machines.endSignalRange, 1, 15);
         if (machines != null) machines.endPistonCooldownTicks = clamp(machines.endPistonCooldownTicks, 4, 100);
+        if (machines != null) {
+            machines.astralRailMaxSpeed = clamp(machines.astralRailMaxSpeed, 8, 20);
+            machines.astralRailBoost = clamp(machines.astralRailBoost, 0.07, 0.25, 0.12);
+            machines.nihilRailBrake = clamp(machines.nihilRailBrake, 0.02, 0.4, 0.08);
+        }
         if (chunkLoaders == null) chunkLoaders = new ChunkLoaders();
         if (dimensionLocks == null) dimensionLocks = new DimensionLocks();
         if (laser == null) laser = new Laser();
@@ -172,8 +193,14 @@ public class ServerTuningConfig {
         /** Astral-/Nihil-Kolben bewegen Bloecke (nur mit endSignals); aus: sie bleiben stehen, Rezepte fallen weg. */
         @ConfigEntry.Gui.Tooltip
         public boolean endPistons = true;
+        /** Astral-/Nihil-Schienen beschleunigen bzw. bremsen (nur mit endSignals); aus: normale Schienen, Rezepte fallen weg. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean endRails = true;
         @ConfigEntry.Gui.Tooltip
         public boolean astralVault = true;
+        /** Nihil-Gewoelbe (weltweit geteilter Inhalt); aus: Oeffnen gesperrt, Inhalt bleibt, Rezept faellt weg. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean nihilVault = true;
         /** Die Verzauberung Luftsprung wirkt (unabhaengig vom Client-Schalter enableDoubleJump). */
         @ConfigEntry.Gui.Tooltip
         public boolean airJump = true;
@@ -335,6 +362,32 @@ public class ServerTuningConfig {
         public int echoSounderMaxCharge = 1500;
     }
 
+    public static class SoulLava {
+        @ConfigEntry.Gui.Tooltip
+        public int flowOverworld = 2;
+        @ConfigEntry.Gui.Tooltip
+        public int flowNether = 5;
+        @ConfigEntry.Gui.Tooltip
+        public int tickDelayOverworld = 45;
+        @ConfigEntry.Gui.Tooltip
+        public int tickDelayNether = 20;
+        @ConfigEntry.Gui.Tooltip
+        public int burnSeconds = 30;
+        @ConfigEntry.Gui.Tooltip
+        public int soulBurnSeconds = 60;
+        @ConfigEntry.Gui.Tooltip
+        public int soulBurnIntervalTicks = 60;
+        @ConfigEntry.Gui.Tooltip
+        public double soulBurnChance = 0.5;
+        /** Registration-time value: restart and matching client/server files required. */
+        @ConfigEntry.Gui.Tooltip
+        public int fuelMultiplier = 10;
+        @ConfigEntry.Gui.Tooltip
+        public double springChance = 0.005;
+        @ConfigEntry.Gui.Tooltip
+        public double fortressChance = 0.1;
+    }
+
     public static class Tools {
         /** Shared held/placed attractor dead zone, in blocks (0.5 to 2). */
         @ConfigEntry.Gui.Tooltip
@@ -372,6 +425,15 @@ public class ServerTuningConfig {
         /** Wartezeit nach dem Ausloesen eines Astral-/Nihil-Kolbens, 4..100 Ticks. */
         @ConfigEntry.Gui.Tooltip
         public int endPistonCooldownTicks = 8;
+        /** Hoechstgeschwindigkeit auf flachen Astral-Schienen in Bloecken pro Sekunde, 8..20 (Vanilla 8). */
+        @ConfigEntry.Gui.Tooltip
+        public int astralRailMaxSpeed = 16;
+        /** Schub einer gespeisten Astral-Schiene je Tick, 0,07..0,25 (Antriebsschiene 0,06); sinkt mit (v/vmax)^2. */
+        @ConfigEntry.Gui.Tooltip
+        public double astralRailBoost = 0.12;
+        /** Fester Bremsanteil einer gespeisten Nihil-Schiene je Tick, 0,02..0,4 (dazu 20 % Reibung). */
+        @ConfigEntry.Gui.Tooltip
+        public double nihilRailBrake = 0.08;
         @ConfigEntry.Gui.Tooltip
         public int reinforcedHopperSpeed = 2;
         @ConfigEntry.Gui.Tooltip

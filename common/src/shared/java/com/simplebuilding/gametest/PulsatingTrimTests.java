@@ -40,6 +40,38 @@ public final class PulsatingTrimTests {
     private PulsatingTrimTests() {
     }
 
+    public static void upgradeTemplatesUseVanillaTooltipStructure(GameTestHelper helper) {
+        List<net.minecraft.network.chat.Component> vanilla = new ArrayList<>();
+        Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE.appendHoverText(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                Item.TooltipContext.of(helper.getLevel()), net.minecraft.world.item.component.TooltipDisplay.DEFAULT,
+                vanilla::add, net.minecraft.world.item.TooltipFlag.NORMAL);
+        for (Item item : List.of(ModItems.BASIC_UPGRADE_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE)) {
+            helper.assertTrue(item instanceof net.minecraft.world.item.SmithingTemplateItem, "upgrade must be a smithing template");
+            List<net.minecraft.network.chat.Component> lines = new ArrayList<>();
+            item.appendHoverText(new ItemStack(item), Item.TooltipContext.of(helper.getLevel()),
+                    net.minecraft.world.item.component.TooltipDisplay.DEFAULT, lines::add, net.minecraft.world.item.TooltipFlag.NORMAL);
+            helper.assertValueEqual(lines.size(), 6, "Vanilla template tooltip line count");
+            for (int index : List.of(0, 1, 2, 4)) {
+                helper.assertTrue(lines.get(index).equals(vanilla.get(index)), "Vanilla heading/spacing at " + index);
+            }
+            for (int index : List.of(3, 5)) {
+                String suffix = index == 3 ? ".applies_to" : ".ingredients";
+                var expected = net.minecraft.network.chat.CommonComponents.space().append(
+                        net.minecraft.network.chat.Component.translatable(item.getDescriptionId() + suffix)
+                                .withStyle(net.minecraft.ChatFormatting.BLUE));
+                helper.assertTrue(lines.get(index).equals(expected), "blue indented description " + suffix);
+            }
+            for (String language : List.of("en_us", "de_de")) {
+                JsonObject translations = lang(helper, language);
+                for (String suffix : List.of(".applies_to", ".ingredients", ".base_slot_description", ".additions_slot_description")) {
+                    String key = item.getDescriptionId() + suffix;
+                    helper.assertTrue(translations.has(key) && !translations.get(key).getAsString().isBlank(), language + " missing " + key);
+                }
+            }
+        }
+        helper.succeed();
+    }
+
     /**
      * Echoscherbe + Vorschlaghammer (jede Stufe, beide Reihenfolgen) ergibt die Vorlage. Der Hammer
      * bleibt als Rest im Raster und verliert {@link SledgehammerCrafting#CRAFT_DAMAGE} Haltbarkeit; ein
@@ -54,7 +86,7 @@ public final class PulsatingTrimTests {
                 hammer.setDamageValue(3);
                 List<ItemStack> grid = hammerFirst ? List.of(hammer, new ItemStack(Items.ECHO_SHARD))
                         : List.of(new ItemStack(Items.ECHO_SHARD), hammer);
-                CraftingInput input = CraftingInput.of(2, 1, grid);
+                CraftingInput input = pulsatingInput(grid);
                 Optional<RecipeHolder<CraftingRecipe>> match = find(helper, input);
                 if (match.isEmpty()) {
                     problems.add(grid + " crafts nothing");
@@ -79,7 +111,7 @@ public final class PulsatingTrimTests {
         // Ein Hammer kurz vor dem Bruch bricht beim Herstellen.
         ItemStack worn = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
         worn.setDamageValue(worn.getMaxDamage() - SledgehammerCrafting.CRAFT_DAMAGE);
-        CraftingInput wornInput = CraftingInput.of(2, 1, List.of(worn, new ItemStack(Items.ECHO_SHARD)));
+        CraftingInput wornInput = pulsatingInput(List.of(worn, new ItemStack(Items.ECHO_SHARD)));
         Optional<RecipeHolder<CraftingRecipe>> wornMatch = find(helper, wornInput);
         if (wornMatch.isEmpty()) {
             problems.add("a worn hammer + echo shard crafts nothing");
@@ -104,6 +136,54 @@ public final class PulsatingTrimTests {
             }
         }
         helper.assertTrue(problems.isEmpty(), problems.size() + " crafting problems: " + problems);
+        helper.succeed();
+    }
+
+    private static CraftingInput pulsatingInput(List<ItemStack> tools) {
+        if (!com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) return CraftingInput.of(2, 1, tools);
+        List<ItemStack> grid = new ArrayList<>(tools);
+        grid.add(new ItemStack(Items.ECHO_SHARD));
+        grid.add(new ItemStack(Items.SCULK));
+        grid.add(new ItemStack(Items.SCULK));
+        for (int i = 0; i < 4; i++) grid.add(new ItemStack(Items.DIAMOND));
+        return CraftingInput.of(3, 3, grid);
+    }
+
+    public static void templateRecipesRequireEveryMaterialAndCopyExactlyOne(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+            helper.succeed();
+            return;
+        }
+        CraftingInput complete = pulsatingInput(List.of(new ItemStack(ModItems.IRON_SLEDGEHAMMER), new ItemStack(Items.ECHO_SHARD)));
+        for (int slot = 0; slot < 9; slot++) {
+            List<ItemStack> grid = new ArrayList<>();
+            for (int i = 0; i < 9; i++) grid.add(i == slot ? ItemStack.EMPTY : complete.getItem(i).copy());
+            helper.assertTrue(find(helper, CraftingInput.of(3, 3, grid)).isEmpty(), "missing Pulsating ingredient " + slot + " accepted");
+        }
+        helper.assertTrue(find(helper, CraftingInput.of(2, 1,
+                List.of(new ItemStack(ModItems.IRON_SLEDGEHAMMER), new ItemStack(Items.ECHO_SHARD)))).isEmpty(), "old cheap Pulsating recipe accepted");
+        for (Item[] pair : new Item[][]{
+                {ModItems.GLOWING_TRIM_TEMPLATE, Items.GLOWSTONE},
+                {ModItems.EMITTING_TRIM_TEMPLATE, Items.MAGMA_BLOCK},
+                {ModItems.PULSATING_TRIM_TEMPLATE, Items.SCULK},
+                {ModItems.BASIC_UPGRADE_TEMPLATE, Items.IRON_BLOCK},
+                {ModItems.ENDERITE_UPGRADE_TEMPLATE, Items.END_STONE}}) {
+            List<ItemStack> grid = new ArrayList<>();
+            for (int slot = 0; slot < 9; slot++) grid.add(new ItemStack(slot == 1 ? pair[0] : slot == 4 ? pair[1] : Items.DIAMOND));
+            CraftingInput input = CraftingInput.of(3, 3, grid);
+            var recipe = find(helper, input);
+            helper.assertTrue(recipe.isPresent(), "no duplication recipe for " + pair[0]);
+            ItemStack result = recipe.get().value().assemble(input);
+            helper.assertTrue(result.is(pair[0]) && result.getCount() == 2, "copy must produce exactly two templates: " + result);
+            helper.assertTrue(recipe.get().value().getRemainingItems(input).stream().allMatch(ItemStack::isEmpty), "copy returned extra ingredients");
+            for (int slot = 0; slot < 9; slot++) {
+                List<ItemStack> missing = new ArrayList<>(grid);
+                missing.set(slot, ItemStack.EMPTY);
+                helper.assertTrue(find(helper, CraftingInput.of(3, 3, missing)).isEmpty(), "copy accepted missing ingredient " + slot);
+            }
+            helper.assertTrue(find(helper, CraftingInput.of(2, 1,
+                    List.of(new ItemStack(pair[0]), new ItemStack(pair[1])))).isEmpty(), "cheap template + material copy accepted");
+        }
         helper.succeed();
     }
 

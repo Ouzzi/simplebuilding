@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simplevisuals;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
+ @GameTest public void guideBook(GameTestHelper h){com.simplevisuals.guide.VisualsGuide.gameTest(h);}
  @GameTest public void launchSmoke(GameTestHelper h){com.simplevisuals.test.VisualsTests.launch(h);}
  @GameTest public void configBoundsAndLegacyKeys(GameTestHelper h){com.simplevisuals.test.VisualsTests.config(h);}
  @GameTest public void configAndLanguageCompleteness(GameTestHelper h){com.simplevisuals.test.VisualsTests.language(h);}

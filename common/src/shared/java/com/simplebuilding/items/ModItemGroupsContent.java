@@ -274,7 +274,7 @@ public final class ModItemGroupsContent {
                         ModItems.POLISHED_ENDER_QUARTZ_WALL),
                 CreativeTabLayout.Row.of("checkers",
                         ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
-                        ModItems.RESIN_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
+                        ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
                         ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
                         ModItems.POLISHED_ENDER_QUARTZ_CHECKER),
                 CreativeTabLayout.Row.of("gravity_blocks",
@@ -319,8 +319,10 @@ public final class ModItemGroupsContent {
                 ModItems.ENDER_QUARTZ));
         // Erst alle Erz-Zeilen zusammen, dann die kleinen Bauteile (Audit 2026-10-02).
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
-            // Ablegbare Kleinteile (2026-10-02): Steinkiesel und Feuersteinsplitter.
-            rows.add(CreativeTabLayout.Row.of("small_parts", ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP));
+            // Ablegbare Kleinteile (2026-10-02): Steinkiesel und Feuersteinsplitter; Obsidian-, Feuerkugel- und
+            // Eissplitter seit 2026-10-05.
+            rows.add(CreativeTabLayout.Row.of("small_parts", ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP,
+                    ModItems.OBSIDIAN_CHIP, ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             // Material-Staebe (2026-10-02): Eisen-, Gold-, Netherit- und Enderitstab stehen wie ein Blitzableiter
@@ -404,8 +406,13 @@ public final class ModItemGroupsContent {
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             // Endertruhe und Astral-Lager nach einer Luecke neben den Truhen (Audit 2026-10-02).
             int chests = rows.indexOf(rows.stream().filter(row -> row.name().equals("chests")).findFirst().orElseThrow());
-            rows.add(chests + 1, CreativeTabLayout.Row.besides("astral_storage", Items.ENDER_CHEST, ModItems.ASTRAL_VAULT));
+            rows.add(chests + 1, CreativeTabLayout.Row.besides("astral_storage", Items.ENDER_CHEST, ModItems.ASTRAL_VAULT, ModItems.NIHIL_VAULT));
             rows.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, ModItems.NIHIL_PISTON, CreativeTabLayout.GAP, ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP, ModItems.ASTRAL_PISTON));
+        }
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            // Astral-/Nihil-Schienen (2026-10-04) als eigene Zeile direkt unter den End-Signalen, Nihil zuerst wie dort.
+            int signals = rows.indexOf(rows.stream().filter(row -> row.name().equals("end_signals")).findFirst().orElseThrow());
+            rows.add(signals + 1, CreativeTabLayout.Row.of("end_rails", ModItems.NIHIL_RAIL, ModItems.ASTRAL_RAIL));
         }
         if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
             int shulkers = rows.indexOf(rows.stream().filter(row -> row.name().equals("shulker_boxes")).findFirst().orElseThrow());
@@ -419,6 +426,16 @@ public final class ModItemGroupsContent {
         if (com.simplebuilding.version.McVersion.HAMMOCK) {
             // Haengematten (2026-10-02): 16 Farben in Vanillas Bett-Reihenfolge, laufen in die naechste Zeile weiter.
             rows.add(CreativeTabLayout.Row.of("hammocks", ModItems.HAMMOCKS.toArray(net.minecraft.world.level.ItemLike[]::new)));
+        }
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P5 (2026-10-05): Tiegel-Stufen (Eisen bis Netherit aus SimpleLib), Faesser, verstaerkter Kessel; Eimer.
+            // Nur SB-Items in SB-Tabs: die SimpleLib-Stufen stehen in deren eigenem Tab.
+            rows.add(CreativeTabLayout.Row.of("crucibles", com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible().asItem(),
+                    com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel().asItem()));
+            rows.add(CreativeTabLayout.Row.of("buckets", com.simplebuilding.fluid.ModFluids.COPPER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, CreativeTabLayout.GAP,
+                    com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET));
         }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Lautsprecher (2026-10-03): Astralit (Plattenspieler), Nihilit (Notenblock).

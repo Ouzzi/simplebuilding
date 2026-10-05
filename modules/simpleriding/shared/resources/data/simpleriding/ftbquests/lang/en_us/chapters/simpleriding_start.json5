@@ -1,0 +1,10 @@
+{
+	"chapter.7AC594DCC1975157.title": "{\"translate\": \"quests.simpleriding.start.title\"}",
+	"chapter.7AC594DCC1975157.chapter_subtitle": [
+		"{\"translate\": \"quests.simpleriding.start.subtitle\"}"
+	],
+	"quest.0E414D2B675B5E8A.title": "{\"translate\": \"quests.simpleriding.start.welcome.title\"}",
+	"quest.0E414D2B675B5E8A.quest_desc": [
+		"{\"translate\": \"quests.simpleriding.start.welcome.description\"}"
+	]
+}

@@ -24,6 +24,7 @@ import java.util.function.Consumer;
 public final class QolTests {
  public static final Map<String,Consumer<GameTestHelper>> ALL=new LinkedHashMap<>();
  static {
+  ALL.put("guide_book",com.simplequalityoflife.guide.QolGuide::gameTest);
   ALL.put("launch",QolTests::launch);ALL.put("config_bounds",QolTests::configBounds);ALL.put("config_lang",QolTests::configLang);
   ALL.put("crawl",QolTests::crawl);ALL.put("climb_packets",QolTests::climbPackets);ALL.put("climb_mechanics",QolTests::climbMechanics);
   ALL.put("powder_snow",QolTests::powderSnow);ALL.put("farmland",QolTests::farmland);ALL.put("hoe_harvest",QolTests::hoeHarvest);
@@ -32,16 +33,21 @@ public final class QolTests {
   ALL.put("vault",QolTests::vault);ALL.put("vegetation",QolTests::vegetation);ALL.put("cross_mod",QolTests::crossMod);
   ALL.put("real_movement_packets",QolTests::realMovementPackets);ALL.put("vault_persistence",QolTests::vaultPersistence);
   ALL.put("gold_trim",QolTests::goldTrim);ALL.put("anvil_repair_cost",QolTests::anvilRepairCost);ALL.put("thrift",QolTests::thrift);ALL.put("feature_switches",QolTests::featureSwitches);ALL.put("sharpness_action",QolTests::sharpnessAction);
+  ALL.put("linked_mark",ContainerTests::linkedMark);ALL.put("linked_range",ContainerTests::linkedRange);ALL.put("linked_transfer",ContainerTests::linkedTransfer);ALL.put("portable_shulker",ContainerTests::portableShulker);ALL.put("portable_ender_chest",ContainerTests::portableEnderChest);
  }
  public static Identifier id(String s){return Identifier.fromNamespaceAndPath("simplequalityoflife",s);}
+ /** Principle 8 (standalone): a content mod is loaded when it owns registry ids; loader-neutral for shared tests. */
+ public static boolean isModLoaded(String mod){return BuiltInRegistries.ITEM.keySet().stream().anyMatch(i->i.getNamespace().equals(mod))||BuiltInRegistries.BLOCK.keySet().stream().anyMatch(i->i.getNamespace().equals(mod));}
+ /** Without the partner the coupling cannot be observed: pass with a log note instead of failing. */
+ public static boolean partnerMissing(net.minecraft.gametest.framework.GameTestHelper h,String mod,String what){if(isModLoaded(mod))return false;com.mojang.logging.LogUtils.getLogger().info("[standalone] {} not loaded - skipping {}",mod,what);h.succeed();return true;}
  private static void close(GameTestHelper h,double a,double b,String msg){h.assertTrue(Math.abs(a-b)<0.00001,msg+": "+a+" / "+b);}
  private static Player player(GameTestHelper h,BlockPos pos){var p=h.makeMockPlayer(GameType.SURVIVAL);p.setPos(Vec3.atCenterOf(h.absolutePos(pos)));return p;}
  private static ItemStack enchanted(GameTestHelper h,Item item,ResourceKey<Enchantment> key){var s=new ItemStack(item);s.enchant(h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key),3);return s;}
  private static void configured(Runnable body){var c=Simplequalityoflife.getConfig();var old=c.qOL;boolean snow=c.frostWalkerWalkOnPowderSnow;try{c.qOL=new SimplequalityoflifeConfig.QOL();body.run();}finally{c.qOL=old;c.frostWalkerWalkOnPowderSnow=snow;}}
  public static void launch(GameTestHelper h){
-  for(var registry:List.of(BuiltInRegistries.ITEM,BuiltInRegistries.BLOCK,BuiltInRegistries.ENTITY_TYPE))h.assertTrue(registry.keySet().stream().noneMatch(i->i.getNamespace().equals("simplequalityoflife")),"No invented registry content");
+  for(var registry:List.<net.minecraft.core.Registry<?>>of(BuiltInRegistries.ITEM,BuiltInRegistries.BLOCK,BuiltInRegistries.ENTITY_TYPE))h.assertTrue(registry.keySet().stream().noneMatch(i->i.getNamespace().equals("simplequalityoflife")&&!(registry==BuiltInRegistries.ITEM&&i.getPath().equals("guide_book"))),"No invented registry content (only the guide item)");
   var root=h.getLevel().getServer().getCommands().getDispatcher().getRoot();h.assertTrue(root.getChild("crawl")!=null&&root.getChild("simplequalityoflife")!=null,"Both commands registered");
-  h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplebuilding:reinforced_hopper")),"SimpleBuilding is loaded in module instance");
+  if(isModLoaded("simplebuilding"))h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplebuilding:reinforced_hopper")),"SimpleBuilding content visible when loaded");
   h.assertTrue(h.getLevel().getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE,Identifier.parse("minecraft:blocks/wheat")))!=net.minecraft.world.level.storage.loot.LootTable.EMPTY,"Crop loot loads");h.succeed();
  }
  public static void configBounds(GameTestHelper h){
@@ -56,7 +62,7 @@ public final class QolTests {
     String p=(object==c?"":"qOL.")+field.getName();String key="text.autoconfig.simplequalityoflife.option."+p;
     for(var lang:List.of(en,de)){h.assertTrue(lang.has(key)&&lang.has(key+".@Tooltip"),"Name/tooltip "+p);h.assertTrue(lang.get(key+".@Tooltip").getAsString().replace(" ", "").contains(gson.toJson(field.get(object)).replace(" ", "")),"Default in tooltip "+p);}
    }
-   for(String tab:List.of("movement","interaction","mobs","weather","vaults"))h.assertTrue(en.has("simplequalityoflife.config.tab."+tab)&&de.has("simplequalityoflife.config.tab."+tab),"Tab "+tab);
+   for(String tab:List.of("movement","interaction","mobs","weather","vaults","containers"))h.assertTrue(en.has("simplequalityoflife.config.tab."+tab)&&de.has("simplequalityoflife.config.tab."+tab),"Tab "+tab);
    var loaded=gson.fromJson("{\"frostWalkerWalkOnPowderSnow\":false,\"qOL\":{\"ladderClimbingSpeed\":0.3}}",SimplequalityoflifeConfig.class);loaded.normalize();h.assertTrue(!loaded.frostWalkerWalkOnPowderSnow&&loaded.qOL.enableHoeHarvest,"Legacy keys and missing defaults");close(h,loaded.qOL.ladderClimbingSpeed,.3,"Legacy value");
   }catch(Exception e){throw new IllegalStateException(e);}h.succeed();
  }
@@ -94,7 +100,8 @@ public final class QolTests {
   foreign.set(DataComponents.TOOL,vanilla.get(DataComponents.TOOL));
   var c=Simplequalityoflife.getConfig().qOL;
   close(h,c.fullDurabilityBonusMultiplier,1,"Fresh server default has no bonus");
-  for(var stack:List.of(vanilla,new ItemStack(Items.DIAMOND_SWORD),hammer,foreign)){
+  // The SimpleBuilding hammer joins only when SimpleBuilding is loaded (standalone: Vanilla and component tools).
+  for(var stack:isModLoaded("simplebuilding")?List.of(vanilla,new ItemStack(Items.DIAMOND_SWORD),hammer,foreign):List.of(vanilla,new ItemStack(Items.DIAMOND_SWORD),foreign)){
    h.assertTrue(stack.isDamageableItem(),"All tool kinds are damageable");
    p.setItemSlot(EquipmentSlot.MAINHAND,stack);c.enableFullDurabilityBonus=false;
    double damage=p.getAttributeValue(Attributes.ATTACK_DAMAGE);float mining=p.getDestroySpeed(Blocks.STONE.defaultBlockState());
@@ -123,7 +130,7 @@ public final class QolTests {
  public static void weather(GameTestHelper h){configured(()->{try{var world=h.getLevel();var data=world.getWeatherData();data.setRaining(true);data.setThundering(true);world.setRainLevel(1);world.setThunderLevel(1);Simplequalityoflife.getConfig().qOL.disableWeather=true;var method=world.getClass().getDeclaredMethod("advanceWeatherCycle");method.setAccessible(true);method.invoke(world);h.assertTrue(!data.isRaining()&&!data.isThundering(),"Actual server weather hook clears both");}catch(Exception e){throw new IllegalStateException(e);}});h.succeed();}
  public static void vault(GameTestHelper h){configured(()->{var data=new VaultServerData();var cooldown=(IVaultCooldown)data;var uuid=UUID.randomUUID();h.assertTrue(cooldown.hasLootedRecently(uuid,100),"Missing legacy timestamp starts cooldown");cooldown.markLooted(uuid,100);h.assertTrue(cooldown.hasLootedRecently(uuid,99)&&cooldown.hasLootedRecently(uuid,100+23999),"Rollback/early repeat refused");Simplequalityoflife.getConfig().qOL.vaultCooldownDays=1;h.assertTrue(!cooldown.hasLootedRecently(uuid,100+24000),"Exact cooldown expiry");var copy=new VaultServerData();((IVaultCooldown)copy).setLootTimesMap(cooldown.getLootTimesMap());h.assertTrue(((IVaultCooldown)copy).getLootTimesMap().get(uuid)==100,"UUID/time map preserved");});h.succeed();}
  public static void vegetation(GameTestHelper h){h.assertTrue(VegetationUtil.isCuttable(Blocks.SHORT_GRASS.defaultBlockState())&&VegetationUtil.isCuttable(Blocks.DANDELION.defaultBlockState()),"Grass/flowers supported");h.assertTrue(!VegetationUtil.isCuttable(Blocks.WATER.defaultBlockState())&&!VegetationUtil.isCuttable(Blocks.STONE.defaultBlockState()),"Fluids and building blocks excluded");h.succeed();}
- public static void crossMod(GameTestHelper h){configured(()->{
+ public static void crossMod(GameTestHelper h){if(partnerMissing(h,"simplebuilding","QoL cross-mod checks"))return;configured(()->{
   var block=BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplebuilding:reinforced_furnace"));h.assertTrue(block!=Blocks.AIR,"Public SimpleBuilding furnace ID");var pos=new BlockPos(2,2,2);h.setBlock(pos,block);var p=player(h,pos);p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.LAVA_BUCKET));h.assertTrue(FurnaceLavaFillHandler.onRightClickBlock(p,InteractionHand.MAIN_HAND,h.absolutePos(pos),Direction.UP)==InteractionResult.SUCCESS,"Foreign furnace follows Vanilla fuel interface");h.assertTrue(((AbstractFurnaceBlockEntity)h.getLevel().getBlockEntity(h.absolutePos(pos))).getItem(1).is(Items.LAVA_BUCKET),"Foreign fuel slot updated");
   var hammer=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:diamond_sledgehammer")));h.assertTrue(hammer.isDamageableItem(),"Public foreign damageable tool ID");p.setItemSlot(EquipmentSlot.MAINHAND,hammer);Simplequalityoflife.getConfig().qOL.enableFullDurabilityBonus=false;double base=p.getAttributeValue(Attributes.ATTACK_DAMAGE);Simplequalityoflife.getConfig().qOL.enableFullDurabilityBonus=true;Simplequalityoflife.getConfig().qOL.fullDurabilityBonusMultiplier=1.5;close(h,p.getAttributeValue(Attributes.ATTACK_DAMAGE),base*1.5,"Foreign tool receives exactly one capped bonus");
   var farm=new BlockPos(3,2,2);h.setBlock(farm,Blocks.FARMLAND);p=h.makeMockPlayer(GameType.CREATIVE);p.setPos(Vec3.atCenterOf(h.absolutePos(farm.above())));p.setItemSlot(EquipmentSlot.HEAD,new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:breeze_head"))));p.setItemSlot(EquipmentSlot.FEET,enchanted(h,Items.DIAMOND_BOOTS,Enchantments.FEATHER_FALLING));var absolute=h.absolutePos(farm);Blocks.FARMLAND.fallOn(h.getLevel(),h.getLevel().getBlockState(absolute),absolute,p,100);h.assertTrue(h.getLevel().getBlockState(absolute).is(Blocks.FARMLAND),"Both farmland protections coexist");Simplequalityoflife.getConfig().qOL.preventFarmlandTrampleWithFeatherFalling=false;Blocks.FARMLAND.fallOn(h.getLevel(),h.getLevel().getBlockState(absolute),absolute,p,100);h.assertTrue(h.getLevel().getBlockState(absolute).is(Blocks.FARMLAND),"Disabling Feather Falling preserves Breeze head protection");
@@ -157,7 +164,7 @@ public final class QolTests {
   menu.getSlot(1).set(book);var enchantedSword=menu.getSlot(2).getItem();
   h.assertTrue(enchantedSword.getOrDefault(DataComponents.REPAIR_COST,0)==7,"enchanting raises the cost like vanilla (3 -> 7), got "+enchantedSword.getOrDefault(DataComponents.REPAIR_COST,0));
   // SimpleBuilding has the same rule under its own switch; with it loaded the vanilla fallback is not observable here.
-  boolean sb;try{Class.forName("com.simplebuilding.Simplebuilding");sb=true;}catch(ClassNotFoundException e){sb=false;}
+  boolean sb=isModLoaded("simplebuilding");
   if(!sb){Simplequalityoflife.getConfig().qOL.anvilRepairKeepsCost=false;menu.getSlot(1).set(new ItemStack(Items.DIAMOND));
   h.assertTrue(menu.getSlot(2).getItem().getOrDefault(DataComponents.REPAIR_COST,0)==7,"switched off: vanilla raises the repair cost to 7");}
  });h.succeed();}

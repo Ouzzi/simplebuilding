@@ -85,6 +85,25 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .unlockedBy("has_yarn_ball", has(ModItems.YARN_BALL)).save(output);
                 }
 
+                if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+                    // Splitter-Kleinteile (2026-10-05), wie Feuersteinsplitter/Steinkiesel: Material -> Splitter -> zurueck.
+                    // Jeder Rueckweg kostet mindestens so viel wie der Hinweg (kein Vermehren; Packeis 9 Eis -> 9 Splitter).
+                    shapeless(RecipeCategory.MISC, ModItems.FIRE_CHIP, 4).requires(Items.FIRE_CHARGE)
+                            .unlockedBy(getHasName(Items.FIRE_CHARGE), has(Items.FIRE_CHARGE)).save(output);
+                    shaped(RecipeCategory.MISC, Items.FIRE_CHARGE).pattern("CC").pattern("CC").define('C', ModItems.FIRE_CHIP)
+                            .unlockedBy(getHasName(ModItems.FIRE_CHIP), has(ModItems.FIRE_CHIP)).save(output, "fire_charge_from_fire_chips");
+                    shapeless(RecipeCategory.MISC, ModItems.ICE_CHIP, 4).requires(Items.ICE)
+                            .unlockedBy(getHasName(Items.ICE), has(Items.ICE)).save(output);
+                    shapeless(RecipeCategory.MISC, ModItems.ICE_CHIP, 9).requires(Items.PACKED_ICE)
+                            .unlockedBy(getHasName(Items.PACKED_ICE), has(Items.PACKED_ICE)).save(output, "ice_chip_from_packed_ice");
+                    shaped(RecipeCategory.MISC, Items.ICE).pattern("CC").pattern("CC").define('C', ModItems.ICE_CHIP)
+                            .unlockedBy(getHasName(ModItems.ICE_CHIP), has(ModItems.ICE_CHIP)).save(output, "ice_from_ice_chips");
+                    shapeless(RecipeCategory.MISC, ModItems.OBSIDIAN_CHIP, 9).requires(Items.OBSIDIAN)
+                            .unlockedBy(getHasName(Items.OBSIDIAN), has(Items.OBSIDIAN)).save(output);
+                    shaped(RecipeCategory.MISC, Items.OBSIDIAN).pattern("CCC").pattern("CCC").pattern("CCC").define('C', ModItems.OBSIDIAN_CHIP)
+                            .unlockedBy(getHasName(ModItems.OBSIDIAN_CHIP), has(ModItems.OBSIDIAN_CHIP)).save(output, "obsidian_from_obsidian_chips");
+                }
+
                 // Befiederungstisch (B14): ein Rezept je Teile-Kombination, nur fuer das Vanilla-Rezeptbuch des Tisches.
                 // Kein Freischalt-Advancement: das Oeffnen des Tisches schaltet alle frei (FletchingRecipes.unlockAll).
                 if (com.simplebuilding.version.McVersion.FLETCHING) {
@@ -108,6 +127,22 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                                 .define('K', astral ? Items.PISTON : Items.STICKY_PISTON)
                                 .unlockedBy(getHasName(astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE),
                                         has(astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE))
+                                .save(output);
+                    }
+                }
+                // Astral-/Nihil-Schienen (2026-10-04) wie die Antriebsschiene: 6 Gold, Stock, und statt Redstone der
+                // Redstone des Kanals (Astralitstaub bzw. Nihilitsplitter steckt darin) - 6 Stueck.
+                if (com.simplebuilding.version.McVersion.END_RAILS) {
+                    for (boolean astral : new boolean[]{true, false}) {
+                        Item redstone = astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE;
+                        shaped(RecipeCategory.TRANSPORTATION, astral ? ModItems.ASTRAL_RAIL : ModItems.NIHIL_RAIL, 6)
+                                .pattern("G G")
+                                .pattern("GSG")
+                                .pattern("GRG")
+                                .define('G', Items.GOLD_INGOT)
+                                .define('S', Items.STICK)
+                                .define('R', redstone)
+                                .unlockedBy(getHasName(redstone), has(redstone))
                                 .save(output);
                     }
                 }
@@ -184,22 +219,26 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 .unlocks("has_pulsating_template", has(ModItems.PULSATING_TRIM_TEMPLATE))
                 .save(output, "pulsating_armor_upgrade_dummy");
 
-                // Die Vorlage selbst: Echoscherbe + beliebiger Vorschlaghammer an der Werkbank. Der Hammer
-                // bleibt im Raster und verliert Haltbarkeit (ShapelessRecipeMixin / SledgehammerCrafting).
-                shapeless(RecipeCategory.MISC, ModItems.PULSATING_TRIM_TEMPLATE)
+                // Der Hammer bleibt beschaedigt im Raster; 26.2 behaelt das alte Rezept.
+                var pulsating = shapeless(RecipeCategory.MISC, ModItems.PULSATING_TRIM_TEMPLATE)
                         .requires(Ingredient.of(itemRegistry.getOrThrow(com.simplebuilding.util.ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)))
-                        .requires(Items.ECHO_SHARD)
-                        .unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD))
-                        .save(output);
+                        .requires(Items.ECHO_SHARD);
+                if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+                    pulsating.requires(Items.ECHO_SHARD).requires(Items.SCULK, 2).requires(Items.DIAMOND, 4);
+                    copyTrimTemplate(ModItems.GLOWING_TRIM_TEMPLATE, Items.GLOWSTONE);
+                    copyTrimTemplate(ModItems.EMITTING_TRIM_TEMPLATE, Items.MAGMA_BLOCK);
+                    copyTrimTemplate(ModItems.PULSATING_TRIM_TEMPLATE, Items.SCULK);
+                }
+                pulsating.unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD)).save(output);
 
-                // Haengematten (2026-10-02): Stock, Faden, Stock ueber drei Wolle einer Farbe; Faerben wie Betten
+                // Haengematten (2026-10-02, v2 2026-10-04): Faden, Stock, Faden ueber drei Wolle einer Farbe; Faerben wie Betten
                 // (jede andere Haengematte + Farbstoff).
                 if (com.simplebuilding.version.McVersion.HAMMOCK) {
                     for (Item hammock : ModItems.HAMMOCKS) {
                         DyeColor color = ((com.simplebuilding.blocks.custom.HammockBlock) ((net.minecraft.world.item.BlockItem) hammock).getBlock()).getColor();
                         Item wool = Items.WOOL.pick(color);
                         shaped(RecipeCategory.DECORATIONS, hammock)
-                                .pattern("/F/")
+                                .pattern("F/F")
                                 .pattern("WWW")
                                 .define('/', Items.STICK)
                                 .define('F', Items.STRING)
@@ -343,13 +382,13 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // VELOCITY_GAUGE
                 // =================================================================
-                // 26.3 Nachtrag 4: 90 Grad gegen den Uhrzeigersinn, Amethyst oben links, Kupferkern unten rechts.
-                // Die vier Kupfernuggets bleiben um die Uhr; 26.2 behaelt Ausrichtung und Kompass.
+                // 26.3 Nachtrag 8: Leerstellen fuellen, Rand einen Slot im Uhrzeigersinn drehen.
+                // Sechs Kupfernuggets; Amethyst oben mittig, Kupferkern unten mittig. 26.2 bleibt unveraendert.
                 Item gaugeCentre = com.simplebuilding.version.McVersion.GADGET_REWORK ? Items.CLOCK : Items.COMPASS;
                 shaped(RecipeCategory.TOOLS, ModItems.VELOCITY_GAUGE)
-                        .pattern(com.simplebuilding.version.McVersion.GADGET_REWORK ? "AN " : " NA")
+                        .pattern(com.simplebuilding.version.McVersion.GADGET_REWORK ? "NAN" : " NA")
                         .pattern("NCN")
-                        .pattern(com.simplebuilding.version.McVersion.GADGET_REWORK ? " NK" : "KN ")
+                        .pattern(com.simplebuilding.version.McVersion.GADGET_REWORK ? "NKN" : "KN ")
                         .define('C', gaugeCentre)
                         .define('A', Items.AMETHYST_SHARD)
                         .define('N', Items.COPPER_NUGGET)
@@ -386,6 +425,24 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
                         .save(output);
 
+                // Crucible P5 (Besitzer 32/35): Kupfer-Eimer wie der Eisen-Eimer aus drei Kupferbarren; Enderit-Eimer = Eisen-Eimer
+                // umringt von acht Enderit-Nuggets.
+                if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+                    shaped(RecipeCategory.TOOLS, com.simplebuilding.fluid.ModFluids.COPPER_BUCKET)
+                            .pattern("C C")
+                            .pattern(" C ")
+                            .define('C', Items.COPPER_INGOT)
+                            .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT))
+                            .save(output);
+                    shaped(RecipeCategory.TOOLS, com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET)
+                            .pattern("NNN")
+                            .pattern("NBN")
+                            .pattern("NNN")
+                            .define('N', ModItems.ENDERITE_NUGGET)
+                            .define('B', Items.BUCKET)
+                            .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
+                            .save(output);
+                }
                 // Eisenstab (2026-10-02): wie der Blitzableiter, drei Eisenbarren uebereinander.
                 if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
                     shaped(RecipeCategory.REDSTONE, ModItems.IRON_ROD)
@@ -720,7 +777,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .pattern("ABA")
                         .pattern("ACA")
                         .pattern("AAA")
-                        .define('A', Items.GOLD_INGOT) // 7 Gold
+                        .define('A', com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES ? Items.DIAMOND : Items.GOLD_INGOT)
                         .define('B', ModItems.BASIC_UPGRADE_TEMPLATE) // Das Original
                         .define('C', Items.IRON_BLOCK) // Iron Block Core
                         .unlockedBy(getHasName(ModItems.BASIC_UPGRADE_TEMPLATE), has(ModItems.BASIC_UPGRADE_TEMPLATE)).save(output);
@@ -944,8 +1001,9 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 createCheckerRecipe(output, ModBlocks.PURPUR_QUARTZ_CHECKER, Items.PURPUR_BLOCK);
                 createCheckerRecipe(output, ModBlocks.LAPIS_QUARTZ_CHECKER, Items.LAPIS_BLOCK);
                 createCheckerRecipe(output, ModBlocks.BLACKSTONE_QUARTZ_CHECKER, Items.BLACKSTONE);
-                // Resin Placeholder (z.B. Red Nether Bricks)
-                createCheckerRecipe(output, ModBlocks.RESIN_QUARTZ_CHECKER, Items.RED_NETHER_BRICKS);
+                createCheckerRecipe(output, ModBlocks.RESIN_QUARTZ_CHECKER, Items.RESIN_BRICKS);
+                createCheckerRecipe(output, ModBlocks.NETHER_BRICK_QUARTZ_CHECKER, Items.NETHER_BRICKS);
+                createCheckerRecipe(output, ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER, Items.RED_NETHER_BRICKS);
                 // End-Schachbretter: Splitter bzw. Staub stehen direkt fuer den farbigen Block
                 createCheckerRecipe(output, ModBlocks.NIHILITH_QUARTZ_CHECKER, ModItems.NIHILITH_SHARD);
                 createCheckerRecipe(output, ModBlocks.ASTRALIT_QUARTZ_CHECKER, ModItems.ASTRALIT_DUST);
@@ -1414,6 +1472,14 @@ public class ModRecipeProvider extends RecipeProviderCompat {
             }
 
             // --- Helpers ---
+            private void copyTrimTemplate(Item template, Item block) {
+                shaped(RecipeCategory.MISC, template, 2)
+                        .pattern("DTD").pattern("DBD").pattern("DDD")
+                        .define('D', Items.DIAMOND).define('T', template).define('B', block)
+                        .unlockedBy(getHasName(template), has(template))
+                        .save(output, getItemName(template) + "_duplication");
+            }
+
             private void createSmithingTransform(RecipeOutput exporter, Item template, Item base, Item addition, RecipeCategory category, Item result) {
                 SmithingTransformRecipeBuilder.smithing(
                                 Ingredient.of(template),

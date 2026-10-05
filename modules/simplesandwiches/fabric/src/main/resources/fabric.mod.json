@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "simplesandwiches",
+  "version": "${version}",
+  "name": "Simple Sandwiches",
+  "description": "Sandwiches built on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplesandwiches.SandwichesFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplesandwiches.SandwichesFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplesandwiches.ModuleGameTest"
+    ]
+  },
+  "mixins": [
+    "simplesandwiches.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "simplebuilding": "*"
+  }
+}

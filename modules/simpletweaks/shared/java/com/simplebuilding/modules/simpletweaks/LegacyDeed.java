@@ -18,6 +18,7 @@ import java.util.function.Consumer;
  */
 public final class LegacyDeed {
     public static void register() {
+        com.simplebuilding.modules.simpletweaks.guide.TweaksGuide.register();
         var id = Identifier.fromNamespaceAndPath("simpletweaks", "claim_deed");
         Registry.register(BuiltInRegistries.ITEM, id, new Item(new Item.Properties().stacksTo(16).setId(ResourceKey.create(Registries.ITEM, id))) {
             @Override public net.minecraft.world.InteractionResult use(net.minecraft.world.level.Level level, net.minecraft.world.entity.player.Player user, net.minecraft.world.InteractionHand hand) {

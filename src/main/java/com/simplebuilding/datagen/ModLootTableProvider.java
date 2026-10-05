@@ -60,6 +60,10 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             dropSelf(ModBlocks.ASTRAL_PISTON);
             dropSelf(ModBlocks.NIHIL_PISTON);
         }
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            dropSelf(ModBlocks.ASTRAL_RAIL);
+            dropSelf(ModBlocks.NIHIL_RAIL);
+        }
         // Aus Simple Tweaks: jede Platte droppt sich selbst (wie dort).
         com.simplebuilding.tweaks.block.TweaksBlocks.all().forEach(this::dropSelf);
         // Mob-Koepfe: der Wandkopf teilt die Tabelle des stehenden (wie Vanillas wallVariant).
@@ -70,6 +74,11 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         // Definiert, dass diese Blöcke sich selbst droppen, wenn sie abgebaut werden
         dropSelf(ModBlocks.CONSTRUCTION_LIGHT);
         if (ModBlocks.IRON_ROD != null) dropSelf(ModBlocks.IRON_ROD);
+        if (com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible() != null) {
+            // Crucible P5: der Inhalt droppt ueber die Block-Entity (SimpleLib), der Block selbst hier.
+            dropSelf(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible());
+            dropSelf(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel());
+        }
         if (ModBlocks.AUTO_SMITHER != null) dropSelf(ModBlocks.AUTO_SMITHER);
         if (ModBlocks.JUKEBOX_AMPLIFIER != null) dropSelf(ModBlocks.JUKEBOX_AMPLIFIER);
         if (ModBlocks.NOTE_AMPLIFIER != null) dropSelf(ModBlocks.NOTE_AMPLIFIER);
@@ -129,6 +138,8 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(ModBlocks.LAPIS_QUARTZ_CHECKER);
         dropSelf(ModBlocks.BLACKSTONE_QUARTZ_CHECKER);
         dropSelf(ModBlocks.RESIN_QUARTZ_CHECKER);
+        dropSelf(ModBlocks.NETHER_BRICK_QUARTZ_CHECKER);
+        dropSelf(ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER);
         dropSelf(ModBlocks.NIHILITH_QUARTZ_CHECKER);
         dropSelf(ModBlocks.ASTRALIT_QUARTZ_CHECKER);
         dropSelf(ModBlocks.ENDER_QUARTZ_CHECKER);

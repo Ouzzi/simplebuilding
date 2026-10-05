@@ -85,6 +85,8 @@ public class ModModelProvider extends FabricModelProvider {
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.LAPIS_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.BLACKSTONE_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.RESIN_QUARTZ_CHECKER);
+        registerMirroredChecker(blockStateModelGenerator, ModBlocks.NETHER_BRICK_QUARTZ_CHECKER);
+        registerMirroredChecker(blockStateModelGenerator, ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.NIHILITH_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.ASTRALIT_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.ENDER_QUARTZ_CHECKER);
@@ -744,6 +746,12 @@ public class ModModelProvider extends FabricModelProvider {
         // Layout-Platzhalter der Kreativ-Tabs: zeichnet nichts (minecraft:empty).
         itemModelGenerator.itemModelOutput.accept(ModItems.CREATIVE_SPACER, new net.minecraft.client.renderer.item.EmptyModel.Unbaked());
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_PEBBLE, ModelTemplates.FLAT_ITEM);
+        if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            // Splitter-Kleinteile (2026-10-05); Steinkiesel/Feuersteinsplitter haben handgeschriebene Modelle im Overlay.
+            for (net.minecraft.world.item.Item chip : java.util.List.of(ModItems.FIRE_CHIP, ModItems.ICE_CHIP, ModItems.OBSIDIAN_CHIP)) {
+                itemModelGenerator.generateFlatItem(chip, ModelTemplates.FLAT_ITEM);
+            }
+        }
         itemModelGenerator.generateFlatItem(ModItems.CRACKED_DIAMOND, ModelTemplates.FLAT_ITEM);
 
         // Hoppers hier auch, da Generated Item Model für Inventory

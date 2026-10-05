@@ -89,6 +89,8 @@ public final class TestCentreKits {
                 }
                 case TcOp.Command command -> {
                 }
+                case TcOp.Hammock hammock -> {
+                }
             }
         }
         List<ItemStack> candidates = new ArrayList<>();

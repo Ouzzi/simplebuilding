@@ -1624,6 +1624,8 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "simplebuilding:reinforced_smoker: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
           "simplebuilding:reinforced_sticky_piston: tier 0, hours 0.5, craft 2; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:resin_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
+          "simplebuilding:nether_brick_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
+          "simplebuilding:red_nether_brick_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:rotator: tier 1, hours 6.7, craft 6; 16 bills; toolsmith 2; stock 2; chance 1.",
           "simplebuilding:shulker_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
           "simplebuilding:silverfish_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
@@ -1868,6 +1870,8 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "simplebuilding:reinforced_smoker: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
           "simplebuilding:reinforced_sticky_piston: Stufe 0, Stunden 0.5, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:resin_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplebuilding:nether_brick_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
+          "simplebuilding:red_nether_brick_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:rotator: Stufe 1, Stunden 6.7, Rezeptplaetze 6; 16 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
           "simplebuilding:shulker_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
           "simplebuilding:silverfish_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
@@ -2110,6 +2114,8 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_smoker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_sticky_piston.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/resin_quartz_checker.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nether_brick_quartz_checker.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/red_nether_brick_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/rotator.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/shulker_head.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/silverfish_head.json",
@@ -2350,6 +2356,8 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "simplebuilding:reinforced_smoker",
         "simplebuilding:reinforced_sticky_piston",
         "simplebuilding:resin_quartz_checker",
+        "simplebuilding:nether_brick_quartz_checker",
+        "simplebuilding:red_nether_brick_quartz_checker",
         "simplebuilding:rotator",
         "simplebuilding:shulker_head",
         "simplebuilding:silverfish_head",
@@ -2612,6 +2620,46 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           {
             "id": "minecraft:bone",
             "count": 0.333
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemoney:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplemoney:guide_book",
+        "count": 1
+      },
+      "source": "modules/simplemoney/shared/resources/data/simplemoney/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:gold_nugget"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:gold_nugget"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 0.111
           }
         ]
       }
@@ -3074,6 +3122,30 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       ]
     },
     {
+      "id": "simplemoney:guide_book",
+      "name": {
+        "en_us": "Simple Money Guide",
+        "de_de": "Simple-Money-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemoney/shared/java/com/simplemoney/guide/MoneyGuide.java",
+          "modules/simplemoney/shared/resources/data/simplemoney/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + gold nugget. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Money\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Goldklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Money\" eins."
+        }
+      },
+      "texture": "assets/textures/simplemoney/item/guide_book.png",
+      "craftedBy": [
+        "simplemoney:guide_book"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplemoney:money_bill",
       "name": {
         "en_us": "Money Bill",
@@ -3331,12 +3403,12 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
   "incompleteProse": {},
   "counts": {
     "features": 68,
-    "recipes": 8,
+    "recipes": 9,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
-    "items": 7,
+    "items": 8,
     "blocks": 0,
     "trades": 0,
     "config": 0,

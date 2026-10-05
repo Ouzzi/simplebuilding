@@ -61,6 +61,8 @@ import net.minecraft.world.phys.Vec3;
  *
  * <p>The one exception is {@link #magnetInTheOffHandDragsLooseItemsIntoTheInventory}, which has to
  * take the real route: only vanilla can answer whether an off hand stack is ticked at all.
+ * It advances the connection and item physics together within one server tick, so neighboring
+ * tests and asynchronous chunk readiness cannot change their relative cadence.
  *
  * <h2>Which half is vanilla's</h2>
  *
@@ -308,12 +310,17 @@ public final class MagnetTests {
                 "test setup broken: the player already carries a diamond, so the assertion below "
                         + "would pass without the magnet doing anything");
 
-        helper.succeedWhen(() -> {
+        // Drive both halves once per step. Polling only the player's connection left item
+        // physics to the world's asynchronous chunk/entity-ticking readiness and tick order.
+        for (int tick = 0; tick < OFF_HAND_MAX_TICKS
+                && !player.getInventory().contains(stack -> stack.is(Items.DIAMOND)); tick++) {
             player.connection.tick();
-            helper.assertTrue(player.getInventory().contains(stack -> stack.is(Items.DIAMOND)),
+            if (target.isAlive()) target.tick();
+        }
+        helper.assertTrue(player.getInventory().contains(stack -> stack.is(Items.DIAMOND)),
                     "the off hand magnet did not bring the diamond in; it is still at "
                             + target.position() + " with motion " + target.getDeltaMovement());
-        });
+        helper.succeed();
     }
 
     // =====================================================================================

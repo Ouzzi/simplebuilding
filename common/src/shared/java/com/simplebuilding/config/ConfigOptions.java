@@ -76,7 +76,7 @@ public final class ConfigOptions {
      * once, the recipes with the next datapack load. The command says so.
      */
     public static final Set<String> RECIPES_ON_RELOAD = Set.of(
-            "server.features.endSignals", "server.features.astralVault", "server.features.endPistons",
+            "server.features.endSignals", "server.features.astralVault", "server.features.nihilVault", "server.features.endPistons", "server.features.endRails",
             "server.features.backpack",
             "server.features.attractor",
             "server.features.echoSounder",
@@ -96,6 +96,7 @@ public final class ConfigOptions {
      * the End ores are added to the biomes when the world loads. The command says a restart is needed.
      */
     public static final Set<String> RESTART_REQUIRED = Set.of(
+            "server.soulLava.fuelMultiplier",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",

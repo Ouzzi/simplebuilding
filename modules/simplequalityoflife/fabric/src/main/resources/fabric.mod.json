@@ -27,5 +27,9 @@
   },
   "mixins": [
     "simplequalityoflife-common.mixins.json"
-  ]
+  ],
+  "suggests": {
+    "simplebuilding": "*",
+    "modmenu": "*"
+  }
 }

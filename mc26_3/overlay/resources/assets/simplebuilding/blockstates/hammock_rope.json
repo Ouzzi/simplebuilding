@@ -1,34 +1,7 @@
 {
   "variants": {
-    "facing=north,kind=end": {
-      "model": "simplebuilding:block/hammock_rope_end"
-    },
-    "facing=north,kind=span": {
-      "model": "simplebuilding:block/hammock_rope_span"
-    },
-    "facing=east,kind=end": {
-      "model": "simplebuilding:block/hammock_rope_end",
-      "y": 90
-    },
-    "facing=east,kind=span": {
-      "model": "simplebuilding:block/hammock_rope_span",
-      "y": 90
-    },
-    "facing=south,kind=end": {
-      "model": "simplebuilding:block/hammock_rope_end",
-      "y": 180
-    },
-    "facing=south,kind=span": {
-      "model": "simplebuilding:block/hammock_rope_span",
-      "y": 180
-    },
-    "facing=west,kind=end": {
-      "model": "simplebuilding:block/hammock_rope_end",
-      "y": 270
-    },
-    "facing=west,kind=span": {
-      "model": "simplebuilding:block/hammock_rope_span",
-      "y": 270
+    "": {
+      "model": "simplebuilding:block/hammock_rope"
     }
   }
 }

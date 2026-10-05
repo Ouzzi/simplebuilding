@@ -13,18 +13,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SmithingTemplateItem;
 
 /**
- * Bildschirm des Auto-Schmieds: Vanillas Schmiedetisch-Hintergrund mit denselben wechselnden Slot-Silhouetten, rechts
- * die Redstone-Anzeige des Crafters (leuchtet, solange ein Signal anliegt). Keine Knoepfe: geschmiedet wird per Redstone.
+ * Crafter layout with three smithing inputs and cycling silhouettes.
+ * Only invalid recipes show the smithing error arrow; redstone controls crafting.
  */
 public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> {
-    private static final Identifier BACKGROUND = Identifier.withDefaultNamespace("textures/gui/container/smithing.png");
-    private static final Identifier POWERED = Identifier.withDefaultNamespace("container/crafter/powered_redstone");
-    private static final Identifier UNPOWERED = Identifier.withDefaultNamespace("container/crafter/unpowered_redstone");
+    private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath("simplebuilding", "textures/gui/container/auto_smither.png");
+    private static final Identifier ERROR = Identifier.withDefaultNamespace("container/smithing/error");
     private static final List<Identifier> TEMPLATE_ICONS = List.of(
             Identifier.withDefaultNamespace("container/slot/smithing_template_armor_trim"),
             Identifier.withDefaultNamespace("container/slot/smithing_template_netherite_upgrade"));
-    private static final int REDSTONE_X = 133;
-    private static final int REDSTONE_Y = 48;
 
     private final CyclingSlotBackground templateIcon = new CyclingSlotBackground(0);
     private final CyclingSlotBackground baseIcon = new CyclingSlotBackground(1);
@@ -32,8 +29,15 @@ public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> 
 
     public AutoSmitherScreen(AutoSmitherMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, 176, 166);
-        this.titleLabelX = 44;
-        this.titleLabelY = 15;
+        this.titleLabelY = 6;
+        this.inventoryLabelX = 8;
+        this.inventoryLabelY = 72;
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        this.titleLabelX = (this.imageWidth - this.font.width(this.title)) / 2;
     }
 
     @Override
@@ -53,7 +57,9 @@ public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> 
         this.templateIcon.extractRenderState(this.menu, graphics, a, this.leftPos, this.topPos);
         this.baseIcon.extractRenderState(this.menu, graphics, a, this.leftPos, this.topPos);
         this.additionIcon.extractRenderState(this.menu, graphics, a, this.leftPos, this.topPos);
-        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.menu.isPowered() ? POWERED : UNPOWERED,
-                this.leftPos + REDSTONE_X, this.topPos + REDSTONE_Y, 16, 16);
+        if (this.menu.hasRecipeError()) {
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, ERROR,
+                    this.leftPos + 91, this.topPos + 33, 28, 21);
+        }
     }
 }

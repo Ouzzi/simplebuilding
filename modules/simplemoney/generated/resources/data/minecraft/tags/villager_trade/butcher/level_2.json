@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:links/simplesandwiches/crimson_cutting_board",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/warped_cutting_board",
+      "required": false
+    }
+  ]
+}

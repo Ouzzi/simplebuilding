@@ -204,7 +204,11 @@ public final class ImmersionTests {
         expectLines(helper, TweaksBlocks.POTION_PAD, "Tier I of III", "Effects: up to 30 s; capped by the potion.", "Cooldown afterward: about 60 s.");
         expectLines(helper, ModBlocks.ENDERITE_FURNACE, "Works 8× as fast", "Double experience");
         expectLines(helper, ModBlocks.REINFORCED_SMOKER, "Works 2× as fast");
-        expectLines(helper, ModBlocks.NETHERITE_BLAST_FURNACE, "Works 4× as fast", "+25% output from raw metals");
+        expectLines(helper, ModBlocks.NETHERITE_BLAST_FURNACE, "Works 4× as fast", "Double experience");
+        for (var furnace : List.of(ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE)) {
+            helper.assertValueEqual(InfoTooltips.lines(new ItemStack(furnace)).size(), 2,
+                    "blast furnace tooltip contains only speed and experience");
+        }
         expectLines(helper, ModBlocks.REINFORCED_HOPPER, "Moves an item every 4 ticks", "Filter in its menu: exact or type match");
         expectLines(helper, ModBlocks.ENDERITE_HOPPER, "Moves an item every tick");
         expectLines(helper, ModBlocks.REINFORCED_STICKY_PISTON, "Pushes up to 18 blocks");

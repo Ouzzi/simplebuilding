@@ -2187,6 +2187,7 @@ public final class HudAndTooltipClientTest {
     private static void oreDetectorGlintMarksTheCalibratedSlot(Script script) {
         TestScene.build(script, "minecraft:stone", "survival");
         script.act("freeze the glimmer clock two steps into its lap", client -> OreDetectorGlint.clock = () -> GLINT_FROZEN_MILLIS);
+        holdItemAtlasAnimations(script, true);
         script.command("item replace entity @a hotbar.0 with " + DETECTOR_UNCALIBRATED);
         script.command("item replace entity @a hotbar.1 with " + DETECTOR_UNCALIBRATED);
         script.awaitPackets();
@@ -2247,6 +2248,39 @@ public final class HudAndTooltipClientTest {
 
         closeScreen(script);
         script.act("let the glimmer clock run again", client -> OreDetectorGlint.clock = Util::getMillis);
+        holdItemAtlasAnimations(script, false);
+    }
+
+    /**
+     * Stops (or restarts) every animated texture of the items atlas by taking the atlas out of the
+     * texture manager's tick list. The resting ore detector pulses ({@code detector.png.mcmeta}: two
+     * interpolated frames, sixteen ticks each, owner 2026-10-02), so two shots of the very same
+     * inventory twenty ticks apart differ by its icon - the night run of 2026-10-05 measured 112
+     * changed pixels where the noise floor allows 60. The pulse is a texture animation and nothing
+     * this test claims anything about; like the glimmer clock it is held still for the scene, so every
+     * difference left is the glimmer. What is drawn is the frame the pulse stood on - the detectors
+     * still render, only no longer change between two shots.
+     */
+    private static void holdItemAtlasAnimations(Script script, boolean hold) {
+        script.act(hold ? "hold the item atlas animations still (the resting detector pulses)"
+                : "let the item atlas animations run again", client -> {
+            net.minecraft.client.renderer.texture.TextureManager manager = client.getTextureManager();
+            Object atlas = manager.getTexture(net.minecraft.client.renderer.texture.TextureAtlas.LOCATION_ITEMS);
+            try {
+                java.lang.reflect.Field field = manager.getClass().getDeclaredField("tickableTextures");
+                field.setAccessible(true);
+                @SuppressWarnings("unchecked")
+                java.util.Set<Object> ticking = (java.util.Set<Object>) field.get(manager);
+                boolean changed = hold ? ticking.remove(atlas) : ticking.add(atlas);
+                if (!changed) {
+                    throw new AssertionError("The items atlas was " + (hold ? "not" : "already") + " in the texture "
+                            + "manager's tick list, so its animations could not be " + (hold ? "held" : "restarted"));
+                }
+            } catch (ReflectiveOperationException e) {
+                throw new AssertionError("TextureManager has no readable tickableTextures set, so the animated item "
+                        + "textures cannot be held still for the glimmer scene", e);
+            }
+        });
     }
 
     /**

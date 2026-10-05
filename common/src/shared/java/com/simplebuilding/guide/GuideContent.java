@@ -157,7 +157,7 @@ public final class GuideContent {
                 ch("minecraft:writable_book", List.of(), List.of("simplebuilding:blueprint", "minecraft:oak_planks")),
                 ch("minecraft:cartography_table", List.of(), List.of("minecraft:cartography_table", "simplebuilding:octant", "simplebuilding:blueprint")),
                 ch("simplebuilding:construction_light", List.of("simplebuilding:construction_light"), List.of()),
-                ch("simplebuilding:purpur_quartz_checker", List.of("simplebuilding:purpur_quartz_checker", "simplebuilding:lapis_quartz_checker"), List.of("simplebuilding:blackstone_quartz_checker", "simplebuilding:resin_quartz_checker", "simplebuilding:astralit_quartz_checker", "simplebuilding:nihilith_quartz_checker", "simplebuilding:ender_quartz_checker", "simplebuilding:polished_astralit_checker", "simplebuilding:polished_nihilith_checker", "simplebuilding:polished_ender_quartz_checker")),
+                ch("simplebuilding:purpur_quartz_checker", List.of("simplebuilding:purpur_quartz_checker", "simplebuilding:lapis_quartz_checker"), List.of("simplebuilding:blackstone_quartz_checker", "simplebuilding:resin_quartz_checker", "simplebuilding:nether_brick_quartz_checker", "simplebuilding:red_nether_brick_quartz_checker", "simplebuilding:astralit_quartz_checker", "simplebuilding:nihilith_quartz_checker", "simplebuilding:ender_quartz_checker", "simplebuilding:polished_astralit_checker", "simplebuilding:polished_nihilith_checker", "simplebuilding:polished_ender_quartz_checker")),
                 ch("minecraft:shears", List.of(), List.of("minecraft:shears", "minecraft:white_wool", "minecraft:string", "minecraft:cauldron")))));
         STYLES.put(GuideBooks.Book.STORAGE, new BookStyle(0xC99A62, List.of(
                 ch("simplebuilding:reinforced_bundle", List.of("simplebuilding:reinforced_bundle"), List.of("simplebuilding:netherite_bundle", "simplebuilding:enderite_bundle")),
@@ -247,7 +247,7 @@ public final class GuideContent {
                 ch("minecraft:stone_pickaxe", List.of("minecraft:wooden_pickaxe", "minecraft:stone_pickaxe"), List.of("minecraft:cobblestone", "minecraft:stone_axe", "minecraft:stone_shovel")),
                 ch("minecraft:torch", List.of("minecraft:torch", "minecraft:charcoal"), List.of("minecraft:coal")),
                 ch("minecraft:cooked_beef", List.of("minecraft:cooked_beef", "minecraft:bread"), List.of("minecraft:cooked_porkchop", "minecraft:baked_potato")),
-                ch("minecraft:white_bed", List.of("minecraft:white_bed", "minecraft:straw_bed"), List.of("minecraft:white_wool", "minecraft:hay_block")),
+                ch("minecraft:white_bed", com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT ? List.of("minecraft:white_bed", "minecraft:straw_bed") : List.of("minecraft:white_bed"), List.of("minecraft:white_wool", "minecraft:hay_block")),
                 ch("minecraft:furnace", List.of("minecraft:furnace", "minecraft:iron_ingot@iron_ingot_from_smelting_raw_iron"), List.of("minecraft:smoker", "minecraft:blast_furnace")),
                 ch("minecraft:iron_pickaxe", List.of("minecraft:iron_pickaxe", "minecraft:shield"), List.of("minecraft:iron_sword", "minecraft:bucket")),
                 ch("minecraft:chest", List.of("minecraft:chest", "minecraft:barrel"), List.of("minecraft:bundle", "minecraft:copper_chest")),
@@ -256,7 +256,11 @@ public final class GuideContent {
         STYLES.put(GuideBooks.Book.VANILLA_OVERWORLD, new BookStyle(0x6FB35A, List.of(
                 ch("minecraft:grass_block", List.of(), List.of("minecraft:grass_block", "minecraft:sand", "minecraft:snow_block", "minecraft:mud")),
                 ch("minecraft:oak_sapling", List.of("minecraft:bone_meal"), List.of("minecraft:oak_sapling", "minecraft:cherry_sapling", "minecraft:pale_oak_sapling", "minecraft:mangrove_propagule")),
-                ch("minecraft:poplar_sapling", List.of("minecraft:poplar_planks"), List.of("minecraft:poplar_log", "minecraft:orange_poplar_leaves", "minecraft:red_shrub", "minecraft:shelf_mushroom")),
+                ch(com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT ? "minecraft:poplar_sapling" : "minecraft:oak_sapling",
+                        com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT ? List.of("minecraft:poplar_planks") : List.of("minecraft:oak_planks"),
+                        com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT
+                                ? List.of("minecraft:poplar_log", "minecraft:orange_poplar_leaves", "minecraft:red_shrub", "minecraft:shelf_mushroom")
+                                : List.of("minecraft:oak_log", "minecraft:birch_sapling", "minecraft:spruce_sapling", "minecraft:dark_oak_sapling")),
                 ch("minecraft:emerald_ore", List.of(), List.of("minecraft:emerald_ore", "minecraft:iron_ore", "minecraft:powder_snow_bucket")),
                 ch("minecraft:bell", List.of(), List.of("minecraft:bell", "minecraft:iron_block", "minecraft:carved_pumpkin")),
                 ch("minecraft:chiseled_sandstone", List.of(), List.of("minecraft:tnt", "minecraft:mossy_cobblestone", "minecraft:cauldron", "minecraft:dark_oak_log")),
@@ -276,7 +280,7 @@ public final class GuideContent {
                 ch("minecraft:trial_key", List.of("minecraft:mace"), List.of("minecraft:trial_key", "minecraft:ominous_trial_key", "minecraft:heavy_core", "minecraft:breeze_rod")),
                 ch("minecraft:water_bucket", List.of(), List.of("minecraft:water_bucket", "minecraft:cobblestone", "minecraft:torch", "minecraft:bread")))));
         STYLES.put(GuideBooks.Book.VANILLA_OCEAN, new BookStyle(0x3FA3C9, List.of(
-                ch("minecraft:oak_boat", List.of("minecraft:oak_boat", "minecraft:oak_chest_boat"), List.of("minecraft:bamboo_raft", "minecraft:poplar_boat")),
+                ch("minecraft:oak_boat", List.of("minecraft:oak_boat", "minecraft:oak_chest_boat"), com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT ? List.of("minecraft:bamboo_raft", "minecraft:poplar_boat") : List.of("minecraft:bamboo_raft")),
                 ch("minecraft:turtle_helmet", List.of("minecraft:turtle_helmet"), List.of("minecraft:turtle_scute", "minecraft:potion")),
                 ch("minecraft:brain_coral_block", List.of(), List.of("minecraft:brain_coral_block", "minecraft:kelp", "minecraft:seagrass", "minecraft:sea_pickle")),
                 ch("minecraft:heart_of_the_sea", List.of(), List.of("minecraft:map", "minecraft:heart_of_the_sea", "minecraft:chest")),
@@ -354,13 +358,27 @@ public final class GuideContent {
             chapters.add(ch("simplebuilding:silent_dandelion", List.of(), List.of("minecraft:flower_pot")));
             STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
         }
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P6 (Besitzer 48 A): Handbuch-Kapitel Enderit-Tiegel/Seelen-Lava und Eimer.
+            GuideBooks.Book book = GuideBooks.Book.MACHINES;
+            BookStyle old = STYLES.get(book);
+            var chapters = new ArrayList<>(old.chapters());
+            chapters.add(ch("simplebuilding:enderite_crucible", List.of(), List.of("simplebuilding:enderite_crucible", "simplebuilding:enderite_barrel",
+                    "simplebuilding:soul_lava_bucket", "minecraft:iron_block", "minecraft:heavy_weighted_pressure_plate")));
+            chapters.add(ch("simplebuilding:enderite_bucket", List.of("simplebuilding:copper_bucket", "simplebuilding:enderite_bucket"),
+                    List.of("simplebuilding:soul_lava_bucket")));
+            STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
+        }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             for (GuideBooks.Book book : List.of(GuideBooks.Book.STORAGE, GuideBooks.Book.END)) {
                 BookStyle old = STYLES.get(book);
                 var chapters = new ArrayList<>(old.chapters());
                 chapters.add(book == GuideBooks.Book.STORAGE
-                        ? ch("simplebuilding:astral_vault", List.of("simplebuilding:astral_vault"), List.of("minecraft:ender_chest"))
+                        ? ch("simplebuilding:astral_vault", List.of("simplebuilding:astral_vault", "simplebuilding:nihil_vault"), List.of("minecraft:ender_chest"))
                         : ch("simplebuilding:nihil_redstone", List.of("simplebuilding:nihil_redstone", "simplebuilding:astral_redstone", "simplebuilding:nihilith_switch", "simplebuilding:astralit_switch", "simplebuilding:nihilith_lamp", "simplebuilding:astralit_lamp", "simplebuilding:astral_piston", "simplebuilding:nihil_piston"), List.of()));
+                if (com.simplebuilding.version.McVersion.END_RAILS && book != GuideBooks.Book.STORAGE) {
+                    chapters.add(ch("simplebuilding:astral_rail", List.of("simplebuilding:astral_rail", "simplebuilding:nihil_rail"), List.of("minecraft:powered_rail")));
+                }
                 STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
             }
         }

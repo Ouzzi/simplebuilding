@@ -101,7 +101,44 @@
       }
     }
   ],
-  "recipes": [],
+  "recipes": [
+    {
+      "id": "simpletweaks:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpletweaks:guide_book",
+        "count": 1
+      },
+      "source": "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:paper"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:paper"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 4
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          }
+        ]
+      }
+    }
+  ],
   "lootTables": [],
   "tags": [],
   "advancements": [],
@@ -125,6 +162,30 @@
       "texture": "assets/textures/simpletweaks/item/claim_deed.png",
       "craftedBy": [],
       "usedIn": []
+    },
+    {
+      "id": "simpletweaks:guide_book",
+      "name": {
+        "en_us": "Simple Tweaks Guide",
+        "de_de": "Simple-Tweaks-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/guide/TweaksGuide.java",
+          "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+        }
+      },
+      "texture": "assets/textures/simpletweaks/item/guide_book.png",
+      "craftedBy": [
+        "simpletweaks:guide_book"
+      ],
+      "usedIn": []
     }
   ],
   "blocks": [],
@@ -143,12 +204,12 @@
   "incompleteProse": {},
   "counts": {
     "features": 3,
-    "recipes": 0,
+    "recipes": 1,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
-    "items": 1,
+    "items": 2,
     "blocks": 0,
     "trades": 0,
     "config": 0,

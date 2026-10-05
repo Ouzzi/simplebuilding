@@ -6,6 +6,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.version.McVersion;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -28,7 +29,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.level.storage.LevelResource;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * {@code /sbtestcentre} - baut die Testzentrale. Braucht Befehlsrechte (Stufe 2), damit auch die
@@ -203,17 +208,51 @@ public final class TestCentreCommand {
         }
     }
 
-    static BlockPos savedOrDefaultOrigin(ServerLevel level) {
+    public static BlockPos savedOrDefaultOrigin(ServerLevel level) {
         Path file = originFile(level.getServer());
         if (Files.isRegularFile(file)) {
             try {
                 String[] parts = Files.readString(file, StandardCharsets.UTF_8).trim().split("\\s+");
-                return new BlockPos(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+                BlockPos saved = new BlockPos(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+                if (!McVersion.HUB_TEST_WORLD || saved.getY() > level.getMinY()) {
+                    return saved;
+                }
+                Simplebuilding.LOGGER.warn("Test centre origin {} has no room for its floor; resolving the terrain height", saved);
             } catch (IOException | RuntimeException e) {
                 Simplebuilding.LOGGER.warn("Unreadable test centre origin in {}, using the default", file, e);
             }
         }
-        return new BlockPos(0, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, 0, 0), 0);
+        if (McVersion.HUB_TEST_WORLD) {
+            // Level.getHeight returns minY for an unloaded chunk. A floor at minY - 1 cannot exist.
+            level.getChunk(0, 0);
+        }
+        int height = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, 0, 0);
+        return new BlockPos(0, McVersion.HUB_TEST_WORLD ? Math.max(level.getMinY() + 1, height) : height, 0);
+    }
+
+    /** Safe landing for automatic development-world builds, including the delayed rebuild window. */
+    public static void arriveAtEntrance(ServerLevel level, TestCentreLayout.Plan plan, ServerPlayer player) {
+        BlockPos entrance = plan.entrance();
+        if (McVersion.HUB_TEST_WORLD) {
+            // The old centre can be missing or have been built below minY. Provide footing before teleporting.
+            for (int x = -1; x <= 1; x++) {
+                for (int z = -1; z <= 1; z++) {
+                    BlockPos feet = entrance.offset(x, 0, z);
+                    level.setBlock(feet.below(), TestCentreBuilder.FLOOR, TestCentreBuilder.QUIET);
+                    level.setBlock(feet, Blocks.AIR.defaultBlockState(), TestCentreBuilder.QUIET);
+                    level.setBlock(feet.above(), Blocks.AIR.defaultBlockState(), TestCentreBuilder.QUIET);
+                }
+            }
+            level.setRespawnData(LevelData.RespawnData.of(level.dimension(), entrance, 0.0f, 0.0f));
+            level.getGameRules().set(GameRules.RESPAWN_RADIUS, 0, level.getServer());
+        }
+        if (player != null && player.level() == level) {
+            player.teleportTo(entrance.getX() + 0.5, entrance.getY(), entrance.getZ() + 0.5);
+            if (McVersion.HUB_TEST_WORLD) {
+                player.setDeltaMovement(Vec3.ZERO);
+                player.resetFallDistance();
+            }
+        }
     }
 
     static void saveOrigin(MinecraftServer server, BlockPos origin, String fingerprint) {
@@ -258,13 +297,13 @@ public final class TestCentreCommand {
         BlockPos origin = savedOrDefaultOrigin(level);
         TestCentreLayout.Plan plan = plan(level, origin);
         if (built && plan.fingerprint().equals(savedFingerprint(server))) {
+            if (McVersion.HUB_TEST_WORLD) {
+                arriveAtEntrance(level, plan, player);
+            }
             return;
         }
         if (built) {
-            if (player.level() == level) {
-                BlockPos entrance = plan.entrance();
-                player.teleportTo(entrance.getX() + 0.5, entrance.getY(), entrance.getZ() + 0.5);
-            }
+            arriveAtEntrance(level, plan, player);
             pending = new PendingRebuild(server, server.getTickCount() + REBUILD_DELAY_TICKS, player.getUUID());
             player.sendSystemMessage(TcText.t("command.outdated", "The test centre is older than the code - rebuilding in 3 s")
                     .withStyle(ChatFormatting.GOLD));
@@ -273,10 +312,7 @@ public final class TestCentreCommand {
         TestCentreBuilder.Result result = TestCentreBuilder.build(level, plan);
         saveOrigin(server, origin, plan.fingerprint());
         Simplebuilding.LOGGER.info("Built the test centre at {} ({} steps, {} ms)", origin, result.ops(), result.millis());
-        if (player.level() == level) {
-            BlockPos entrance = plan.entrance();
-            player.teleportTo(entrance.getX() + 0.5, entrance.getY(), entrance.getZ() + 0.5);
-        }
+        arriveAtEntrance(level, plan, player);
         player.sendSystemMessage(TcText.t("command.autobuilt", "Test centre built - /sbtestcentre for more")
                 .withStyle(ChatFormatting.GREEN));
     }
@@ -302,6 +338,9 @@ public final class TestCentreCommand {
         saveOrigin(server, origin, plan.fingerprint());
         Simplebuilding.LOGGER.info("Rebuilt the outdated test centre at {} ({} steps, {} ms)", origin, result.ops(), result.millis());
         ServerPlayer player = server.getPlayerList().getPlayer(job.player());
+        if (McVersion.HUB_TEST_WORLD) {
+            arriveAtEntrance(level, plan, player);
+        }
         if (player != null) {
             player.sendSystemMessage(TcText.t("command.rebuilt", "Test centre rebuilt to match the code")
                     .withStyle(ChatFormatting.GREEN));

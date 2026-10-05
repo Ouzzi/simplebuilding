@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[66,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplelib"
+version="${version}"
+displayName="SimpleLib"
+description="Shared content of the Simple mods: crucibles with heat sources and warm food. Bundled by SimpleBuilding and Simple Sandwiches."
+[[dependencies.simplelib]]
+modId="forge"
+mandatory=true
+versionRange="[66,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplelib]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"

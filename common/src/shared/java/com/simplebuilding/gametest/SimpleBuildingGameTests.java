@@ -64,13 +64,26 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("end_systems_game_test_piston_pushes_all_six_at_once", EndSystemsTests::pistonPushesAllSixAtOnce).maxTicks(100).build(),
             GameTestSpec.named("end_systems_game_test_piston_never_chains", EndSystemsTests::pistonNeverChains).maxTicks(100).build(),
             GameTestSpec.named("end_systems_game_test_nihil_pulls_across_the_gap", EndSystemsTests::nihilPullsAcrossTheGap).maxTicks(100).build(),
+            GameTestSpec.named("end_systems_game_test_nihil_vault_config_and_blocked_lid", EndSystemsTests::nihilVaultConfigAndBlockedLid).build(),
+            GameTestSpec.named("end_systems_game_test_nihil_vault_no_dupe_with_concurrent_menus", EndSystemsTests::nihilVaultNoDupeWithConcurrentMenus).build(),
+            GameTestSpec.named("end_systems_game_test_nihil_vault_persists_and_break_keeps_contents", EndSystemsTests::nihilVaultPersistsAndBreakKeepsContents).build(),
+            GameTestSpec.named("end_systems_game_test_nihil_vault_shares_between_vaults_and_players", EndSystemsTests::nihilVaultSharesBetweenVaultsAndPlayers).build(),
             GameTestSpec.named("end_systems_game_test_piston_leaves_immovables_alone", EndSystemsTests::pistonLeavesImmovablesAlone).maxTicks(100).build(),
             GameTestSpec.named("end_systems_game_test_two_pistons_move_one_block_once", EndSystemsTests::twoPistonsMoveOneBlockOnce).maxTicks(100).build(),
             GameTestSpec.named("end_systems_game_test_piston_fires_on_rising_edge_only", EndSystemsTests::pistonFiresOnRisingEdgeOnly).maxTicks(100).build(),
             GameTestSpec.named("end_systems_game_test_piston_ignores_vanilla_and_other_channel", EndSystemsTests::pistonIgnoresVanillaAndOtherChannel).maxTicks(100).build(),
+            GameTestSpec.named("end_systems_game_test_astral_boost_approaches_top_speed_without_passing_it", EndSystemsTests::astralBoostApproachesTopSpeedWithoutPassingIt).build(),
+            GameTestSpec.named("end_systems_game_test_astral_boosts_more_than_apowered_rail", EndSystemsTests::astralBoostsMoreThanAPoweredRail).build(),
+            GameTestSpec.named("end_systems_game_test_nihil_brake_stops_smoothly", EndSystemsTests::nihilBrakeStopsSmoothly).build(),
+            GameTestSpec.named("end_systems_game_test_end_rail_config_is_clamped", EndSystemsTests::endRailConfigIsClamped).build(),
+            GameTestSpec.named("end_systems_game_test_end_rail_is_fed_only_by_its_own_channel", EndSystemsTests::endRailIsFedOnlyByItsOwnChannel).maxTicks(100).build(),
+            GameTestSpec.named("end_systems_game_test_astral_rail_launches_acart_past_vanilla_speed", EndSystemsTests::astralRailLaunchesACartPastVanillaSpeed).maxTicks(140).build(),
+            GameTestSpec.named("end_systems_game_test_nihil_rail_stops_and_fast_cart_takes_acurve", EndSystemsTests::nihilRailStopsAndFastCartTakesACurve).maxTicks(120).build(),
             GameTestSpec.named("smoke_game_test_mod_items_are_registered", SmokeTests::modItemsAreRegistered)
                     .build(),
             GameTestSpec.named("test_centre_game_test_every_mod_item_and_block_has_its_place_in_the_test_centre", TestCentreTests::everyModItemAndBlockHasItsPlaceInTheTestCentre)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_fresh_world_origin_and_entrance_are_safe", TestCentreTests::freshWorldOriginAndEntranceAreSafe)
                     .build(),
             GameTestSpec.named("test_centre_game_test_the_whole_centre_builds_and_matches_its_plan", TestCentreTests::theWholeCentreBuildsAndMatchesItsPlan)
                     .build(),
@@ -550,17 +563,71 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
                     .build(),
-            GameTestSpec.named("hammock_game_test_hangs_only_between_two_anchors_two_or_three_apart", HammockTests::hangsOnlyBetweenTwoAnchorsTwoOrThreeApart)
+            GameTestSpec.named("crucible_game_test_copper_bucket_rules", CrucibleTests::copperBucketRules)
                     .build(),
+            GameTestSpec.named("crucible_game_test_enderite_tiers_have_twenty_seven_slots_and_double_stacks", CrucibleTests::enderiteTiersHaveTwentySevenSlotsAndDoubleStacks)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_fire_resistance_only_blocks_soul_burn_damage", CrucibleTests::fireResistanceOnlyBlocksSoulBurnDamage)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_iron_bucket_breaks_on_soul_lava_enderite_never", CrucibleTests::ironBucketBreaksOnSoulLavaEnderiteNever)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_jade_reports_heat_slots_and_shortest_remaining_time", CrucibleTests::jadeReportsHeatSlotsAndShortestRemainingTime)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_recipe_heat_and_catalog_match_cooking_rules", CrucibleTests::recipeHeatAndCatalogMatchCookingRules)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_reinforced_cauldron_holds_soul_lava", CrucibleTests::reinforcedCauldronHoldsSoulLava)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_sledgehammer_builds_the_iron_crucible", CrucibleTests::sledgehammerBuildsTheIronCrucible)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_sledgehammer_crushes_quartz_block_into_four_quartz", CrucibleTests::sledgehammerCrushesQuartzBlockIntoFourQuartz)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_sledgehammer_upgrades_cost_double", CrucibleTests::sledgehammerUpgradesCostDouble)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_soul_lava_flows_two_blocks_in_the_overworld", CrucibleTests::soulLavaFlowsTwoBlocksInTheOverworld)
+                    .maxTicks(300).build(),
+            GameTestSpec.named("crucible_game_test_soul_lava_heats_extreme_flowing_high", CrucibleTests::soulLavaHeatsExtremeFlowingHigh)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_soul_lava_is_not_replaceable", CrucibleTests::soulLavaIsNotReplaceable)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_touching_soul_lava_burns_longer_and_gives_soul_burn", CrucibleTests::touchingSoulLavaBurnsLongerAndGivesSoulBurn)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_vanilla_cauldron_takes_copper_and_enderite_buckets", CrucibleTests::vanillaCauldronTakesCopperAndEnderiteBuckets)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_water_touching_soul_lava_turns_to_quartz_or_blackstone", CrucibleTests::waterTouchingSoulLavaTurnsToQuartzOrBlackstone)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_hangs_only_between_two_anchors_two_to_four_apart", HammockTests::hangsOnlyBetweenTwoAnchorsTwoToFourApart)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_cloth_hangs_in_the_middle_at_every_gap", HammockTests::clothHangsInTheMiddleAtEveryGap)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_diagonal_hammock_needs_two_clicks", HammockTests::diagonalHammockNeedsTwoClicks)
+                    .maxTicks(60).build(),
             GameTestSpec.named("hammock_game_test_losing_an_anchor_drops_the_hammock_once", HammockTests::losingAnAnchorDropsTheHammockOnce)
                     .build(),
             GameTestSpec.named("hammock_game_test_breaking_one_part_drops_once_except_in_creative", HammockTests::breakingOnePartDropsOnceExceptInCreative)
                     .build(),
-            GameTestSpec.named("hammock_game_test_resting_by_day_keeps_the_phantom_timer_and_speeds_the_clock", HammockTests::restingByDayKeepsThePhantomTimerAndSpeedsTheClock)
+            GameTestSpec.named("hammock_game_test_resting_keeps_the_phantom_timer_and_speeds_the_clock", HammockTests::restingKeepsThePhantomTimerAndSpeedsTheClock)
                     .build(),
-            GameTestSpec.named("hammock_game_test_clock_speeds_up_only_by_day_with_enough_resters", HammockTests::clockSpeedsUpOnlyByDayWithEnoughResters)
+            GameTestSpec.named("hammock_game_test_clock_speeds_up_with_enough_resters_day_and_night", HammockTests::clockSpeedsUpWithEnoughRestersDayAndNight)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_recipe_takes_two_strings_one_stick_and_three_wool", HammockTests::recipeTakesTwoStringsOneStickAndThreeWool)
                     .build(),
             GameTestSpec.named("hammock_game_test_time_factor_is_capped_on_the_server", HammockTests::timeFactorIsCappedOnTheServer)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_cloth_middle_sits_between_the_anchors_in_every_direction", HammockTests::clothMiddleSitsBetweenTheAnchorsInEveryDirection)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_hangs_between_standing_rod_posts", HammockTests::hangsBetweenStandingRodPosts)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_slanted_hammocks_hang_with_two_clicks", HammockTests::slantedHammocksHangWithTwoClicks)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_slanted_hammock_falls_once_when_its_anchor_or_rope_goes", HammockTests::slantedHammockFallsOnceWhenItsAnchorOrRopeGoes)
+                    .maxTicks(60).build(),
+            GameTestSpec.named("standing_rod_game_test_every_rod_stands_up_on_top_when_sneaking", StandingRodTests::everyRodStandsUpOnTopWhenSneaking)
+                    .build(),
+            GameTestSpec.named("standing_rod_game_test_rods_drop_themselves_and_stack_into_posts", StandingRodTests::rodsDropThemselvesAndStackIntoPosts)
+                    .build(),
+            GameTestSpec.named("standing_rod_game_test_blaze_rod_glows_and_rods_hold_water", StandingRodTests::blazeRodGlowsAndRodsHoldWater)
+                    .build(),
+            GameTestSpec.named("standing_rod_game_test_piles_take_rods_and_the_server_options_gate_them", StandingRodTests::pilesTakeRodsAndTheServerOptionsGateThem)
                     .build(),
             GameTestSpec.named("training_dummy_game_test_pumpkin_turns_the_straw_stand_into_training_dummy", TrainingDummyTests::pumpkinTurnsTheStrawStandIntoTrainingDummy)
                     .build(),
@@ -580,7 +647,13 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("training_dummy_game_test_the_archery_station_has_every_arrow_and_its_dummies", TrainingDummyTests::theArcheryStationHasEveryArrowAndItsDummies)
                     .build(),
+            GameTestSpec.named("workstation_game_test_smithing_recipe_book_hides_dummy_displays", WorkstationTests::smithingRecipeBookHidesDummyDisplays)
+                    .build(),
             GameTestSpec.named("workstation_game_test_smithing_recipe_book_places_damaged_gear", WorkstationTests::smithingRecipeBookPlacesDamagedGear)
+                    .build(),
+            GameTestSpec.named("workstation_game_test_auto_smither_output_capacity_and_recipe_error", WorkstationTests::autoSmitherOutputCapacityAndRecipeError)
+                    .build(),
+            GameTestSpec.named("workstation_game_test_auto_smither_output_rejects_insertion", WorkstationTests::autoSmitherOutputRejectsInsertion)
                     .build(),
             GameTestSpec.named("workstation_game_test_auto_smither_smiths_once_per_pulse", WorkstationTests::autoSmitherSmithsOncePerPulse)
                     .maxTicks(200).build(),
@@ -615,31 +688,35 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("ore_gen_and_item_frame_game_test_brush_reveal_is_wired_to_an_interface_nothing_implements", OreGenAndItemFrameTests::brushRevealIsWiredToAnInterfaceNothingImplements)
                     .rotation(Rotation.NONE)
                     .build(),
-            GameTestSpec.named("config_option_game_test_bundle_click_inversion_follows_the_configured_option", ConfigOptionTests::bundleClickInversionFollowsTheConfiguredOption)
-                    .build(),
-            GameTestSpec.named("config_option_game_test_loot_table_changes_stop_when_the_option_is_switched_off", ConfigOptionTests::lootTableChangesStopWhenTheOptionIsSwitchedOff)
-                    .build(),
-            GameTestSpec.named("config_option_game_test_loot_balance_keeps_every_chest_within_its_budget", ConfigOptionTests::lootBalanceKeepsEveryChestWithinItsBudget)
-                    .build(),
             GameTestSpec.named("config_option_game_test_building_cores_are_very_rare_in_loot_chests", ConfigOptionTests::buildingCoresAreVeryRareInLootChests)
                     .build(),
-            GameTestSpec.named("config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders", ConfigOptionTests::tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders)
+            GameTestSpec.named("config_option_game_test_bundle_click_inversion_follows_the_configured_option", ConfigOptionTests::bundleClickInversionFollowsTheConfiguredOption)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_core_loot_chance_follows_its_multiplier", ConfigOptionTests::coreLootChanceFollowsItsMultiplier)
                     .build(),
             GameTestSpec.named("config_option_game_test_every_config_option_keeps_its_persisted_name_and_default", ConfigOptionTests::everyConfigOptionKeepsItsPersistedNameAndDefault)
                     .build(),
             GameTestSpec.named("config_option_game_test_every_option_has_name_tooltip_and_tab", ConfigOptionTests::everyOptionHasNameTooltipAndTab)
                     .build(),
-            GameTestSpec.named("config_option_game_test_the_config_command_reaches_every_option", ConfigOptionTests::theConfigCommandReachesEveryOption)
+            GameTestSpec.named("config_option_game_test_loot_balance_keeps_every_chest_within_its_budget", ConfigOptionTests::lootBalanceKeepsEveryChestWithinItsBudget)
                     .build(),
-            GameTestSpec.named("config_option_game_test_new_tool_options_change_what_the_tools_do", ConfigOptionTests::newToolOptionsChangeWhatTheToolsDo)
+            GameTestSpec.named("config_option_game_test_loot_table_changes_stop_when_the_option_is_switched_off", ConfigOptionTests::lootTableChangesStopWhenTheOptionIsSwitchedOff)
                     .build(),
             GameTestSpec.named("config_option_game_test_new_pad_options_change_what_the_pads_do", ConfigOptionTests::newPadOptionsChangeWhatThePadsDo)
                     .build(),
+            GameTestSpec.named("config_option_game_test_new_tool_options_change_what_the_tools_do", ConfigOptionTests::newToolOptionsChangeWhatTheToolsDo)
+                    .build(),
             GameTestSpec.named("config_option_game_test_new_tweak_options_change_what_the_tweaks_do", ConfigOptionTests::newTweakOptionsChangeWhatTheTweaksDo)
                     .build(),
-            GameTestSpec.named("config_option_game_test_core_loot_chance_follows_its_multiplier", ConfigOptionTests::coreLootChanceFollowsItsMultiplier)
+            GameTestSpec.named("config_option_game_test_soul_lava_bounds_are_clamped", ConfigOptionTests::soulLavaBoundsAreClamped)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_soul_lava_uses_server_values", ConfigOptionTests::soulLavaUsesServerValues)
                     .build(),
             GameTestSpec.named("config_option_game_test_the_air_jump_cooldown_travels_from_server_to_client", ConfigOptionTests::theAirJumpCooldownTravelsFromServerToClient)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_the_config_command_reaches_every_option", ConfigOptionTests::theConfigCommandReachesEveryOption)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders", ConfigOptionTests::tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders)
                     .build(),
             GameTestSpec.named("air_jump_game_test_the_cooldown_is_twenty_seconds_at_level_one_and_ten_at_level_two", AirJumpTests::theCooldownIsTwentySecondsAtLevelOneAndTenAtLevelTwo)
                     .build(),
@@ -1164,6 +1241,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("world_and_player_game_test_mod_loot_pools_keep_their_exact_count_and_the_air_jump_book_weights", WorldAndPlayerTests::modLootPoolsKeepTheirExactCountAndTheAirJumpBookWeights)
                     .build(),
+            GameTestSpec.named("building_wand_game_test_planner_keeps_the_click_face_and_rechecks_build_rights", BuildingWandTests::plannerKeepsTheClickFaceAndRechecksBuildRights)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_planner_preserves_waterlogging_and_named_containers", BuildingWandTests::plannerPreservesWaterloggingAndNamedContainers)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_planner_rechecks_protection_and_replacement_between_rings", BuildingWandTests::plannerRechecksProtectionAndReplacementBetweenRings)
+                    .build(),
             GameTestSpec.named("building_wand_game_test_off_hand_click_is_passed_on_and_the_wand_stops_outside_both_hands", BuildingWandTests::offHandClickIsPassedOnAndTheWandStopsOutsideBothHands)
                     .build(),
             GameTestSpec.named("building_wand_game_test_clicked_face_sets_the_plane_until_an_axis_mode_overrides_it", BuildingWandTests::clickedFaceSetsThePlaneUntilAnAxisModeOverridesIt)
@@ -1462,8 +1545,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("smelting_game_test_upper_tier_furnaces_pay_double_experience", SmeltingTests::upperTierFurnacesPayDoubleExperience)
                     .maxTicks(SmeltingTests.EXPERIENCE_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("smelting_game_test_blast_furnace_bonus_pays_raw_metals_every_fourth_or_second_smelt", SmeltingTests::blastFurnaceBonusPaysRawMetalsEveryFourthOrSecondSmelt)
-                    .maxTicks(SmeltingTests.BONUS_MAX_TICKS)
+            GameTestSpec.named("smelting_game_test_blast_furnaces_keep_recipe_output_and_discard_legacy_bonus", SmeltingTests::blastFurnacesKeepRecipeOutputAndDiscardLegacyBonus)
+                    .maxTicks(SmeltingTests.OUTPUT_MAX_TICKS)
                     .build(),
             GameTestSpec.named("trade_offer_game_test_master_book_trade_draws_every_enchantment_in_its_pool", TradeOfferTests::masterBookTradeDrawsEveryEnchantmentInItsPool)
                     .build(),
@@ -1736,6 +1819,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_template_game_test_mixed_candles_light_and_go_out_and_pickles_glow_only_under_water", PlacedTemplateTests::mixedCandlesLightAndGoOutAndPicklesGlowOnlyUnderWater)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_fire_chips_light_and_ice_chips_put_out_piled_candles", PlacedTemplateTests::fireChipsLightAndIceChipsPutOutPiledCandles)
+                    .build(),
             GameTestSpec.named("placed_template_game_test_old_piles_load_unlit_and_the_candle_models_are_the_vanilla_ones", PlacedTemplateTests::oldPilesLoadUnlitAndTheCandleModelsAreTheVanillaOnes)
                     .build(),
             GameTestSpec.named("placed_template_game_test_small_parts_lie_down_and_the_server_options_gate_them", PlacedTemplateTests::smallPartsLieDownAndTheServerOptionsGateThem)
@@ -1761,6 +1846,10 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(PlacedTemplateTests.ATTRACTOR_MAX_TICKS)
                     .build(),
             GameTestSpec.named("placed_template_game_test_locked_octants_are_placed_and_right_click_toggles_the_outline_per_player", PlacedTemplateTests::lockedOctantsArePlacedAndRightClickTogglesTheOutlinePerPlayer)
+                    .build(),
+            GameTestSpec.named("pulsating_trim_game_test_upgrade_templates_use_vanilla_tooltip_structure", PulsatingTrimTests::upgradeTemplatesUseVanillaTooltipStructure)
+                    .build(),
+            GameTestSpec.named("pulsating_trim_game_test_template_recipes_require_every_material_and_copy_exactly_one", PulsatingTrimTests::templateRecipesRequireEveryMaterialAndCopyExactlyOne)
                     .build(),
             GameTestSpec.named("pulsating_trim_game_test_the_pulsating_template_is_crafted_from_an_echo_shard_and_any_sledgehammer_that_stays", PulsatingTrimTests::thePulsatingTemplateIsCraftedFromAnEchoShardAndAnySledgehammerThatStays)
                     .build(),

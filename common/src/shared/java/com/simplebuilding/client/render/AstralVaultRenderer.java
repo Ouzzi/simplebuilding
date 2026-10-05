@@ -19,9 +19,10 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-/** Delegates vanilla chests unchanged; the vault shares the vanilla animated lid model. */
+/** Delegates vanilla chests unchanged; the Astral and Nihil vaults share the vanilla animated lid model. */
 public class AstralVaultRenderer extends ChestRenderer<EnderChestBlockEntity> {
     private static final SpriteId SPRITE = Sheets.CHEST_MAPPER.apply(Identifier.fromNamespaceAndPath("simplebuilding", "astral_vault"));
+    private static final SpriteId NIHIL_SPRITE = Sheets.CHEST_MAPPER.apply(Identifier.fromNamespaceAndPath("simplebuilding", "nihil_vault"));
     private final SpriteGetter sprites;
     private final ChestModel model;
     public AstralVaultRenderer(BlockEntityRendererProvider.Context context) {
@@ -29,12 +30,13 @@ public class AstralVaultRenderer extends ChestRenderer<EnderChestBlockEntity> {
         sprites = context.sprites();
         model = LAYERS.map(layer -> new ChestModel(context.bakeLayer(layer))).select(ChestType.SINGLE);
     }
-    public static class State extends ChestRenderState { public boolean vault; }
+    public static class State extends ChestRenderState { public boolean vault; public boolean nihil; }
     @Override public ChestRenderState createRenderState() { return new State(); }
     @Override public void extractRenderState(EnderChestBlockEntity chest, ChestRenderState state, float partialTicks, Vec3 camera,
             ModelFeatureRenderer.@Nullable CrumblingOverlay overlay) {
         super.extractRenderState(chest, state, partialTicks, camera, overlay);
-        ((State) state).vault = chest.getBlockState().getBlock() instanceof AstralVaultBlock;
+        ((State) state).nihil = chest.getBlockState().getBlock() instanceof com.simplebuilding.blocks.custom.NihilVaultBlock;
+        ((State) state).vault = ((State) state).nihil || chest.getBlockState().getBlock() instanceof AstralVaultBlock;
     }
     @Override public void submit(ChestRenderState state, PoseStack pose, SubmitNodeCollector collector, CameraRenderState camera) {
         if (!((State) state).vault) { super.submit(state, pose, collector, camera); return; }
@@ -42,7 +44,7 @@ public class AstralVaultRenderer extends ChestRenderer<EnderChestBlockEntity> {
         pose.mulPose(ChestRenderer.modelTransformation(state.facing));
         float closed = 1.0F - state.open;
         McClientVersion.submitChestModel(collector, model, 1.0F - closed * closed * closed, pose,
-                state.lightCoords, SPRITE, sprites, state.breakProgress);
+                state.lightCoords, ((State) state).nihil ? NIHIL_SPRITE : SPRITE, sprites, state.breakProgress);
         pose.popPose();
     }
 }

@@ -4,11 +4,12 @@ plugins {
 }
 ext.moduleVersion = '1.3.0'
 apply from: rootProject.file('gradle/module-neoforge.gradle')
+// Bundles the shared framework API (guide-book quest installer) for standalone runs.
+dependencies { jarJar project(':framework') }
 
 neoForge.runs {
     moduleIntegrationGameTest {
         type = 'gameTestServer'
-        gameDirectory = rootProject.layout.projectDirectory.dir('integration/run-neoforge-263')
         programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simplefun:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
     }
 }

@@ -51,8 +51,7 @@ import net.minecraft.world.phys.Vec3;
  * progress is written back into the container data - one tick per server tick for the reinforced
  * tier, three for the netherite one, seven for the enderite one - but only
  * {@code if (isBurning && cookTime > 0 && totalTime > 0)}, and never past {@code totalTime - 1}.
- * The upper tiers' rewards (double experience, more output from raw metals in the netherite and
- * enderite blast furnace, see {@code FurnaceTierPerks}) sit in {@code setRecipeUsed}; this file
+ * The upper tiers' double experience (see {@code FurnaceTierPerks}) sits in {@code setRecipeUsed}; this file
  * does not measure them yet. The netherite and enderite devices have no crafting recipe - they are
  * hammered in the world ({@code SledgehammerUpgrades}). Everything else about these blocks is
  * registration data.

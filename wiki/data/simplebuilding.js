@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 302,
+      "count": 320,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -473,7 +473,7 @@ window.WIKI_DATA = {
           "Water does not wash it away: a template can be placed into water (it becomes waterlogged), and flowing water runs around it. Breaking it - by hand, explosion, piston or by taking away the block it lies on - drops exactly the stored template with all its data (name, enchantments). Middle-click picks the template itself.",
           "A placed template carries the name of the template it holds (for example \"Glowing Armor Trim\", or its anvil name) wherever the game or a mod like Jade names the block.",
           "Blueprints can be placed the same way: sneak + right-click lays one flat on the floor, on a wall or under the ceiling as a thin plate showing the blueprint's current look. It keeps all its data (code, title, author) and drops itself when broken; its hitbox is the plate, and it is named like the blueprint.",
-          "Placed armor trim templates can be upgraded with the sledgehammer (the only way to do it) with 5 hits: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the fifth turns it into the Glowing or Emitting Armor Trim and uses up the off-hand item (not in creative). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target.",
+          "Placed armor trim templates can be upgraded with the sledgehammer (initial creation) with 5 hits: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the fifth turns it into the Glowing or Emitting Armor Trim and consumes 2 off-hand catalysts plus 4 diamonds and 2 glowstone blocks (Glowing) or 2 blaze powder (Emitting) from the inventory on 26.3 (not in creative; 26.2 still uses 1 catalyst). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target. All materials must be available before each hit; only the final hit consumes them.",
           "Hint: while a player holding Glow Ink Sac or Glowstone Dust (either hand) is within 6 blocks, an upgradable placed template shows a few sparks circling over it every half second and chimes quietly at most every 3 seconds.",
           "The Attractor can be placed the same way (sneak + right-click) and then pulls loose items toward itself, see the Attractor chapter.",
           "A locked Octant can be put down the same way (sneak + right-click; an unlocked one still sets Pos 2 with that click) and keeps its corners, shape and color. Right-click the placed octant to show its selection for yourself - corners and the full figure, as at the cartography table - and right-click again to hide it. While it is shown for you, the placed octant also glows in its color through walls, so you can find it again to switch it off. The switch is per player: others only see what they switched on themselves. It is saved with the block and also works while the mod's highlights are hidden with the toggle key."
@@ -488,7 +488,7 @@ window.WIKI_DATA = {
           "Wasser spült sie nicht weg: Eine Vorlage lässt sich ins Wasser legen (sie wird wassergefüllt), und fließendes Wasser läuft um sie herum. Abbauen – von Hand, durch Explosion, Kolben oder indem man den Block darunter wegnimmt – gibt genau die gespeicherte Vorlage mit allen Daten (Name, Verzauberungen) zurück. Die mittlere Maustaste nimmt die Vorlage selbst.",
           "Eine abgelegte Vorlage trägt den Namen der Vorlage, die sie hält (etwa „Leuchtender Rüstungsbesatz“ oder ihren Amboss-Namen), überall dort, wo das Spiel oder eine Mod wie Jade den Block benennt.",
           "Blaupausen lassen sich genauso ablegen: Schleichen + Rechtsklick legt eine flach auf den Boden, an die Wand oder unter die Decke, als dünne Platte in ihrem aktuellen Aussehen. Sie behält alle Daten (Code, Titel, Autor) und fällt beim Abbauen als sie selbst heraus; ihre Trefferform ist die Platte, und sie heißt wie die Blaupause.",
-          "Abgelegte Rüstungsbesatz-Vorlagen lassen sich mit dem Vorschlaghammer aufwerten (der einzige Weg dafür), mit 5 Schlägen: Vorschlaghammer in der Haupthand, Leuchttintenbeutel oder Glowstonestaub in der Nebenhand, Linksklick auf die Vorlage. Jeder Schlag gibt Funken und einen höher werdenden Klang; der fünfte macht daraus die leuchtende bzw. strahlende Besatzvorlage und verbraucht das Item aus der Nebenhand (nicht im Kreativmodus). Nach 5 Sekunden ohne Schlag oder bei einem anderen Material beginnt die Zählung von vorn. Mit Hammer und Material in den Händen lässt sich die Vorlage nicht abbauen; der Hammer neigt sich zu ihr wie zu jedem anderen gültigen Ziel.",
+          "Abgelegte Rüstungsbesatz-Vorlagen lassen sich mit dem Vorschlaghammer aufwerten (Erstherstellung), mit 5 Schlägen: Vorschlaghammer in der Haupthand, Leuchttintenbeutel oder Glowstonestaub in der Nebenhand, Linksklick auf die Vorlage. Jeder Schlag gibt Funken und einen höher werdenden Klang; der fünfte macht daraus die leuchtende bzw. strahlende Besatzvorlage und verbraucht auf 26.3 2 Nebenhand-Katalysatoren sowie 4 Diamanten und 2 Glowstone-Blöcke (Leuchtend) bzw. 2 Lohenpulver (Strahlend) aus dem Inventar (nicht im Kreativmodus; 26.2 weiterhin 1 Katalysator). Nach 5 Sekunden ohne Schlag oder bei einem anderen Material beginnt die Zählung von vorn. Mit Hammer und Material in den Händen lässt sich die Vorlage nicht abbauen; der Hammer neigt sich zu ihr wie zu jedem anderen gültigen Ziel. Alle Materialien müssen vor jedem Schlag vorhanden sein; erst der letzte verbraucht sie.",
           "Hinweis: Solange ein Spieler mit Leuchttintenbeutel oder Glowstonestaub (in einer der beiden Hände) höchstens 6 Blöcke entfernt ist, kreisen über einer aufwertbaren abgelegten Vorlage alle halbe Sekunde ein paar Funken, und höchstens alle 3 Sekunden klingt sie leise.",
           "Der Attraktor lässt sich genauso ablegen (Schleichen + Rechtsklick) und zieht dann lose Items zu sich, siehe das Kapitel zum Attraktor.",
           "Ein gesperrter Oktant lässt sich genauso ablegen (Schleichen + Rechtsklick; ein ungesperrter setzt mit diesem Klick weiter Pos 2) und behält Ecken, Form und Farbe. Rechtsklick auf den abgelegten Oktanten blendet seine Auswahl für dich ein – Ecken und die ganze Figur, wie am Kartentisch –, ein zweiter Rechtsklick blendet sie wieder aus. Solange sie für dich eingeblendet ist, leuchtet der abgelegte Oktant außerdem in seiner Farbe durch Wände, damit du ihn zum Ausschalten wiederfindest. Der Schalter gilt je Spieler: andere sehen nur, was sie selbst eingeschaltet haben. Er wird mit dem Block gespeichert und wirkt auch, wenn die Hervorhebungen der Mod per Taste ausgeblendet sind."
@@ -1614,13 +1614,12 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
         "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
         "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
-        "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
         "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
         "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
       ],
       "en": {
         "title": "Faster Furnaces: Reinforced, Netherite and Enderite",
-        "summary": "SimpleBuilding adds three upgraded tiers to the furnace, the blast furnace and the smoker: Reinforced, Netherite and Enderite. They use the same recipe types and menus as their vanilla counterparts but run 2, 4 and 8 times as fast, and the mod's blast furnaces and smokers burn fuel twice as long as the vanilla ones. The Reinforced tier is crafted from the vanilla machine plus Cracked Diamonds; the Netherite and Enderite tiers have no crafting recipe and are hammered in the world with a sledgehammer and a nugget. Netherite and Enderite machines give double experience, and their blast furnaces extra output from raw metals.",
+        "summary": "SimpleBuilding adds three upgraded tiers to the furnace, the blast furnace and the smoker: Reinforced, Netherite and Enderite. They use the same recipe types and menus as their vanilla counterparts but run 2, 4 and 8 times as fast, and the mod's blast furnaces and smokers burn fuel twice as long as the vanilla ones. The Reinforced tier is crafted from the vanilla machine plus Cracked Diamonds; the Netherite and Enderite tiers have no crafting recipe and are hammered in the world with a sledgehammer and a nugget. Netherite and Enderite machines give double experience; output counts stay unchanged.",
         "details": [
           "Nine blocks: Reinforced, Netherite and Enderite Furnace, Blast Furnace and Smoker.",
           "Every tier runs the vanilla furnace logic (AbstractFurnaceBlockEntity.serverTick) and uses the same menu as the matching vanilla machine (FurnaceMenu, BlastFurnaceMenu, SmokerMenu).",
@@ -1637,10 +1636,10 @@ window.WIKI_DATA = {
           "Fuel: the speed-up costs no fuel, so every tier gets more smelts out of one piece of fuel. The mod's blast furnaces and smokers also burn fuel for the full furnace duration (coal 1600 ticks), while vanilla's blast furnace and smoker halve it (their getBurnDuration returns half; the mod's block entities do not override it). Per item the Reinforced tier therefore needs about a quarter of a vanilla blast furnace's or smoker's fuel, the Netherite tier about an eighth and the Enderite tier about a fourteenth on a 100 tick recipe (a sixteenth on long ones, since the last step is always vanilla's single tick); the mod furnaces need about half, a quarter and an eighth of a vanilla furnace's fuel.",
           "While burning, all nine give off light level 13, like the vanilla furnace.",
           "Each tier carries its own menu title: the shared block entity reads the block state, so a Netherite Furnace opens a screen titled \"Netherite Furnace\" the Enderite tier one titled \"Enderite Furnace\" and the Reinforced tier one titled \"Reinforced Furnace\"; all nine container keys are defined in en_us and de_de.",
-          "The furnace code (block classes, block entities, registration in ModBlocks and ModItems) is identical in both supported Minecraft versions (26.2 under common/src/shared and 1.21.11 under mc1_21_11/shared).",
+          "26.3 and 26.2 share the furnace implementation; the separate 1.21.11 port is unchanged.",
           "Rewards of the upper tiers (FurnaceTierPerks, called from setRecipeUsed): every item a Netherite or Enderite furnace, smoker or blast furnace finishes counts its recipe twice, so taking the result out pays double experience.",
-          "The Netherite Blast Furnace gives one extra item on every 4th finished smelt (+25 %), the Enderite Blast Furnace on every 2nd (+50 %) - but only for recipes whose ingredient consists only of items in simplebuilding:blast_furnace_bonus: Raw Iron, Raw Gold and Raw Copper. If the result slot is full the bonus waits for the next such smelt; the count is saved with the block (simplebuilding:bonus_progress).",
-          "Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded) get neither double experience nor extra output: a diamond block crushed into 81 pebbles makes 9 Cracked Diamonds and those make 9 diamonds again, so any bonus would be an endless source. Raw Enderite Fragments and Raw Enderite Scrap are not in the bonus tag either.",
+          "All furnace tiers produce exactly the recipe output, without bonus ingots. Netherite and Enderite keep double experience, except for excluded ingredients. Old bonus counters are ignored when loading and omitted when saving.",
+          "Cracked diamonds (simplebuilding:furnace_bonus_excluded) do not give double experience: their lossless diamond crafting cycle must not create an XP farm.",
           "Enderite Scrap: a Raw Enderite Fragment no longer smelts on its own (since 2026-09-29). Three Raw Enderite Fragments stacked in a crafting column make one Raw Enderite Scrap (item id layered_raw_enderite), and blasting that takes 144000 ticks for one Enderite Scrap and 10 experience - twice the 72000 ticks per scrap of the old direct route, and three Raw Enderite Fragments per scrap instead of one (cooking recipes can only give a single item on 1.21.11, so all lines give one). That is two hours in a vanilla blast furnace, one in the Reinforced, 30 minutes in the Netherite and about 15 minutes in the Enderite Blast Furnace, the last two with double experience. It is a blasting recipe only, so furnaces and smokers cannot process it.",
           "Cook times above 32767 ticks: vanilla saves the four furnace timers as shorts and sends the menu data as shorts, which would cut 72000 down to 6464. AbstractFurnaceBlockEntityMixin saves them as ints under the same keys (NeoForge and Forge already do that themselves), and AbstractFurnaceMenuMixin divides long times before they are sent, keeping the ratio the progress arrow and the flame are drawn from; both apply to every furnace, vanilla ones included.",
           "Changing between the tiers of one family - by hammering or by /setblock in replace mode - keeps the block entity with its contents (shouldChangedStateKeepBlockEntity); the block entity types accept all three tiers on every loader.",
@@ -1650,7 +1649,7 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Schnellere Öfen: Verstärkt, Netherit und Enderit",
-        "summary": "SimpleBuilding fügt zu Ofen, Schmelzofen und Räucherofen je drei aufgewertete Stufen hinzu: Verstärkt, Netherit und Enderit. Sie nutzen dieselben Rezepttypen und Menüs wie ihre Vorbilder, arbeiten aber doppelt, viermal und achtmal so schnell, und Schmelz- und Räucheröfen der Mod lassen Brennstoff doppelt so lange brennen wie die Vanilla-Geräte. Die Verstärkt-Stufe entsteht aus dem normalen Gerät und Rissigen Diamanten; Netherit- und Enderit-Stufe haben kein Werkbankrezept und werden in der Welt mit Vorschlaghammer und Klumpen geschmiedet. Netherit- und Enderit-Geräte geben doppelte Erfahrung, ihre Schmelzöfen zusätzliche Ausbeute aus Rohmetallen.",
+        "summary": "SimpleBuilding fügt zu Ofen, Schmelzofen und Räucherofen je drei aufgewertete Stufen hinzu: Verstärkt, Netherit und Enderit. Sie nutzen dieselben Rezepttypen und Menüs wie ihre Vorbilder, arbeiten aber doppelt, viermal und achtmal so schnell, und Schmelz- und Räucheröfen der Mod lassen Brennstoff doppelt so lange brennen wie die Vanilla-Geräte. Die Verstärkt-Stufe entsteht aus dem normalen Gerät und Rissigen Diamanten; Netherit- und Enderit-Stufe haben kein Werkbankrezept und werden in der Welt mit Vorschlaghammer und Klumpen geschmiedet. Netherit- und Enderit-Geräte geben doppelte Erfahrung; die Ausgabemengen bleiben unverändert.",
         "details": [
           "Neun Blöcke: Verstärkter Ofen, Netheritofen, Enderitofen, Verstärkter Schmelzofen, Netherit-Schmelzofen, Enderit-Schmelzofen, Verstärkter Räucherofen, Netherit-Räucherofen, Enderit-Räucherofen.",
           "Jede Stufe nutzt die normale Ofenlogik (AbstractFurnaceBlockEntity.serverTick) und dasselbe Menü wie das jeweilige Vanilla-Gerät (FurnaceMenu, BlastFurnaceMenu, SmokerMenu).",
@@ -1667,10 +1666,10 @@ window.WIKI_DATA = {
           "Brennstoff: Die Beschleunigung kostet keinen Brennstoff, jede Stufe holt also mehr Vorgänge aus einem Stück Brennstoff. Schmelz- und Räucheröfen der Mod lassen Brennstoff außerdem die volle Ofendauer brennen (Kohle 1600 Ticks), während Vanillas Schmelzofen und Räucherofen sie halbieren (ihr getBurnDuration liefert die Hälfte; die Block-Entities der Mod überschreiben es nicht). Pro Gegenstand braucht die Verstärkt-Stufe deshalb etwa ein Viertel des Brennstoffs eines Vanilla-Schmelz- oder -Räucherofens, die Netherit-Stufe etwa ein Achtel und die Enderit-Stufe bei einem 100-Tick-Rezept etwa ein Vierzehntel (bei langen Rezepten ein Sechzehntel, weil den letzten Schritt immer Vanillas einzelner Tick macht); die Mod-Öfen brauchen etwa die Hälfte, ein Viertel und ein Achtel des Brennstoffs eines Vanilla-Ofens.",
           "Im Betrieb leuchten alle neun mit Stärke 13, wie der Vanilla-Ofen.",
           "Jede Stufe hat ihre eigene Menü-Überschrift: die gemeinsame Block-Entity liest den Blockzustand, ein Netheritofen öffnet also ein Fenster mit dem Titel „Netheritofen“, die Enderit-Stufe eines mit „Enderitofen“, die Verstärkt-Stufe eines mit „Verstärkter Ofen“; alle neun Container-Schlüssel sind in en_us und de_de vorhanden.",
-          "Der Code für die Öfen (Block-Klassen, Block-Entities, Registrierung in ModBlocks und ModItems) ist in beiden unterstützten Minecraft-Linien (26.2 unter common/src/shared und 1.21.11 unter mc1_21_11/shared) identisch.",
+          "26.3 und 26.2 teilen sich die Ofenimplementierung; der separate 1.21.11-Port bleibt unverändert.",
           "Belohnungen der oberen Stufen (FurnaceTierPerks, aufgerufen aus setRecipeUsed): Jeder Gegenstand, den ein Netherit- oder Enderit-Ofen, -Räucherofen oder -Schmelzofen fertigstellt, zählt sein Rezept doppelt, beim Herausnehmen gibt es also doppelte Erfahrung.",
-          "Der Netherit-Schmelzofen gibt bei jedem 4. fertigen Schmelzvorgang einen Gegenstand mehr (+25 %), der Enderit-Schmelzofen bei jedem 2. (+50 %) - aber nur für Rezepte, deren Zutat ausschließlich aus Gegenständen im Tag simplebuilding:blast_furnace_bonus besteht: Roheisen, Rohgold und Rohkupfer. Ist der Ausgabeslot voll, wartet der Bonus auf den nächsten solchen Vorgang; der Zähler wird mit dem Block gespeichert (simplebuilding:bonus_progress).",
-          "Rissige Diamanten (Tag simplebuilding:furnace_bonus_excluded) bekommen weder doppelte Erfahrung noch mehr Ausbeute: Ein zu 81 Kieseln zerschlagener Diamantblock ergibt 9 Rissige Diamanten und die wieder 9 Diamanten, jeder Bonus wäre also eine Endlosquelle. Rohe Enderitfragmente und Rohe Enderitplatten stehen ebenfalls nicht im Bonus-Tag.",
+          "Alle Ofenstufen liefern genau die Rezeptausbeute ohne Bonusbarren. Netherit und Enderit behalten doppelte Erfahrung, außer bei ausgeschlossenen Zutaten. Alte Bonuszähler werden beim Laden ignoriert und beim Speichern weggelassen.",
+          "Rissige Diamanten (simplebuilding:furnace_bonus_excluded) geben keine doppelte Erfahrung: Ihr verlustfreier Diamant-Kreislauf darf keine Erfahrungsfarm erzeugen.",
           "Enderitplatten: Ein Rohes Enderitfragment schmilzt seit 2026-09-29 nicht mehr allein. Drei Rohe Enderitfragmente übereinander in der Werkbank ergeben Rohe Enderitplatten (Item-Kennung layered_raw_enderite), und die brauchen im Schmelzofen 144000 Ticks für eine Enderitplatte und 10 Erfahrung - doppelt so lange je Platte wie die 72000 Ticks des alten Direktwegs, und drei Rohe Enderitfragmente je Platte statt einem (Kochrezepte können auf 1.21.11 nur ein einzelnes Item liefern, darum liefern alle Linien eines). Das sind zwei Stunden im Vanilla-Schmelzofen, eine im verstärkten, 30 Minuten im Netherit- und rund 15 Minuten im Enderit-Schmelzofen, die letzten beiden mit doppelter Erfahrung. Es ist nur ein Schmelzofen-Rezept, Öfen und Räucheröfen können es nicht verarbeiten.",
           "Kochzeiten über 32767 Ticks: Vanilla speichert die vier Ofen-Zeiten als short und schickt die Menüdaten als short, aus 72000 würde so 6464. AbstractFurnaceBlockEntityMixin speichert sie als int unter denselben Schlüsseln (NeoForge und Forge tun das bereits selbst), und AbstractFurnaceMenuMixin teilt lange Zeiten vor dem Senden herunter und erhält das Verhältnis, aus dem Pfeil und Flamme gezeichnet werden; beide gelten für jeden Ofen, auch für die Vanilla-Öfen.",
           "Ein Wechsel zwischen den Stufen einer Familie - durch Hämmern oder per /setblock im Modus replace - behält die Block-Entity samt Inhalt (shouldChangedStateKeepBlockEntity); die Block-Entity-Typen nehmen auf jedem Loader alle drei Stufen an.",
@@ -2814,6 +2813,7 @@ window.WIKI_DATA = {
         "simplebuilding:pulsating_trim_template"
       ],
       "sources": [
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
         "common/src/shared/java/com/simplebuilding/util/GlowingTrimUtils.java",
         "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
@@ -2847,6 +2847,7 @@ window.WIKI_DATA = {
         "title": "Glowing Armor and a Wearable Light Source",
         "summary": "With the Emitting Armor Trim and Glowstone Dust, an armor piece becomes a wearable light source at the smithing table: the server continuously places an invisible light block at the wearer's head height - and on a mob, an armor stand or in an item frame the piece shines as well, with faint glints marking it as radiant. The Glowing Armor Trim with a Glow Ink Sac, by contrast, only makes the trim glow visually, without giving off any light.",
         "details": [
+          "26.3 duplication: one template + 7 diamonds + one base block yields 2 templates. Base blocks: Glowing = glowstone; Emitting = magma block; Pulsating = sculk; Basic Upgrade = iron block; Enderite Upgrade = end stone. Basic used 7 gold ingots before; Enderite is unchanged. Armor application at the smithing table still consumes one template and one matching material.",
           "Raising radiance: in the smithing table, Emitting Armor Trim + armor piece + Glowstone Dust raises the piece's radiance (NBT key \"SimpleBuildingEmissionLevel\") by 1, up to a maximum of 5; at level 5 no result is produced any more.",
           "The mod's check accepts every item in the #minecraft:trimmable_armor tag as well as any item that carries an equippable component.",
           "The four quivers carry an equippable component as well, so the check accepts them: at the smithing table the Reinforced Quiver and the Netherite Quiver take radiance and glow just like an armor piece. The plain Quiver and the Enderite Quiver do not - the smithing table's base slot only accepts items that are the base ingredient of some smithing recipe; the Enderite Quiver only ever appears as a result, and the plain Quiver is the base of none, because the Netherite Quiver is smithed from the Reinforced Quiver.",
@@ -2866,7 +2867,7 @@ window.WIKI_DATA = {
           "When a player changes dimension, their light block in the old dimension is removed at once (it used to stay behind).",
           "Radiant pieces are recognisable, but only just: worn armor (on players, mobs and armor stands) and item frames holding a radiant piece now and then give off a faint warm glint (the wax-on particle). The chance per tick is 0.005 per radiance level of the whole wearer, capped at 0.025 - one glint about every 10 seconds at level 1 and at most one about every 2 seconds, which a single piece at level 5 already reaches. More radiant pieces therefore do not add up: a full set at level 5 glints no more often than one piece at level 5. Invisible wearers show none.",
           "Mobs wearing radiant armor light their way as well: the block above a mob's head is lit like a player's (checked every 4 server ticks so the light follows it), saved with the mob and removed when it despawns or dies. Only players use the per-tick table; every other wearer stores its light block itself.",
-          "Pulsating Armor Trim (owner 2026-09-28): crafted at a crafting table from an Echo Shard and any sledgehammer - the hammer stays in the grid and loses 1 durability (a hammer on its last point breaks). At the smithing table, Pulsating Armor Trim + armor piece + Echo Shard makes the trim pulse (component simplebuilding:pulsating, once per piece): without Glowing only the saturation pulses - every 2.4 seconds the trim fades smoothly from full color to gray and back, each pixel keeping its brightness; light and brightness stay exactly as without the upgrade. Only together with Glowing (either level) does the brightness swing: the trim's light rises and falls between 1 and 15 in the same 2.4 second rhythm. Tooltip \"Pulsating\" (dark aqua) plus a gray line naming the effect (\"Its colors fade to gray and back\" or, with Glowing, \"Its glow swells and fades\"). The template shows a warden face with glowing antennae in the deep dark colors of sculk and deepslate, in the same frame as the Glowing and Emitting templates.",
+          "Pulsating Armor Trim (owner 2026-09-28): crafted at a crafting table from 2 Echo Shards, 2 sculk, 4 diamonds and any sledgehammer on 26.3 (26.2: 1 Echo Shard and a hammer) - the hammer stays in the grid and loses 1 durability (a hammer on its last point breaks). At the smithing table, Pulsating Armor Trim + armor piece + Echo Shard makes the trim pulse (component simplebuilding:pulsating, once per piece): without Glowing only the saturation pulses - every 2.4 seconds the trim fades smoothly from full color to gray and back, each pixel keeping its brightness; light and brightness stay exactly as without the upgrade. Only together with Glowing (either level) does the brightness swing: the trim's light rises and falls between 1 and 15 in the same 2.4 second rhythm. Tooltip \"Pulsating\" (dark aqua) plus a gray line naming the effect (\"Its colors fade to gray and back\" or, with Glowing, \"Its glow swells and fades\"). The template shows a warden face with glowing antennae in the deep dark colors of sculk and deepslate, in the same frame as the Glowing and Emitting templates.",
           "JEI shows the three upgrades at the smithing table with the upgraded armor piece as the result (template + armor + material -> the same armor with the effect); the placeholder recipes, whose result is the template itself, are hidden there."
         ]
       },
@@ -2874,6 +2875,7 @@ window.WIKI_DATA = {
         "title": "Leuchtende Rüstung und Lichtquelle am Körper",
         "summary": "Mit dem „Strahlenden Rüstungsbesatz“ und Glowstone-Staub wird ein Rüstungsteil am Schmiedetisch zur tragbaren Lichtquelle: Der Server setzt laufend einen unsichtbaren Lichtblock auf Kopfhöhe des Trägers – auch an einem Mob, auf einem Rüstungsständer oder in einem Rahmen leuchtet das Teil, und feine Funken weisen es als strahlend aus. Der „Leuchtende Rüstungsbesatz“ mit Leuchttintenbeutel lässt dagegen nur den Besatz optisch leuchten, ohne Licht abzugeben.",
         "details": [
+          "Vervielfältigung auf 26.3: eine Vorlage + 7 Diamanten + ein Basisblock ergibt 2 Vorlagen. Basisblöcke: Leuchtend = Glowstone; Strahlend = Magmablock; Pulsierend = Sculk; Basis-Aufwertung = Eisenblock; Enderit-Aufwertung = Endstein. Basis brauchte vorher 7 Goldbarren; Enderit bleibt unverändert. Die Anwendung auf Rüstung am Schmiedetisch verbraucht weiterhin eine Vorlage und ein passendes Material.",
           "Strahlkraft aufwerten: Im Schmiedetisch „Strahlender Rüstungsbesatz“ + Rüstungsteil + Glowstone-Staub erhöht die Strahlkraft des Teils (NBT-Schlüssel „SimpleBuildingEmissionLevel“) um 1, bis höchstens 5; bei Stufe 5 entsteht kein Ergebnis mehr.",
           "Gültig sind alle Teile im Tag #minecraft:trimmable_armor sowie jedes Item mit Ausrüstungs-Komponente (equippable).",
           "Auch die vier Köcher tragen eine Ausrüstungs-Komponente, die Prüfung nimmt sie also an: Am Schmiedetisch bekommen Verstärkter Köcher und Netheritköcher Strahlkraft und Leuchten wie ein Rüstungsteil. Köcher und Enderitköcher nicht - der Basis-Slot des Schmiedetischs nimmt nur Gegenstände an, die in irgendeinem Schmiederezept als Basis stehen; der Enderitköcher kommt dort nur als Ergebnis vor, und der einfache Köcher ist Basis keines Rezepts, weil der Netheritköcher aus dem Verstärkten Köcher geschmiedet wird.",
@@ -2893,7 +2895,7 @@ window.WIKI_DATA = {
           "Wechselt ein Spieler die Dimension, wird sein Lichtblock in der alten Dimension sofort entfernt (früher blieb er stehen).",
           "Strahlende Teile sind erkennbar, aber nur dezent: getragene Rüstung (an Spielern, Mobs und Rüstungsständern) und Rahmen mit einem strahlenden Teil geben ab und zu einen feinen, warmen Funken ab (Partikel „Wachs“). Die Chance je Tick ist 0,005 je Strahlkraft-Stufe des ganzen Trägers, höchstens 0,025 – auf Stufe 1 etwa alle 10 Sekunden ein Funke, höchstens etwa einer alle 2 Sekunden, was schon ein einzelnes Teil auf Stufe 5 erreicht. Mehr strahlende Teile addieren sich also nicht: eine volle Ausrüstung auf Stufe 5 funkelt nicht öfter als ein Teil auf Stufe 5. Unsichtbare Träger zeigen keine.",
           "Auch Mobs mit strahlender Rüstung leuchten: Der Block über dem Kopf eines Mobs wird wie beim Spieler erhellt (alle 4 Server-Ticks geprüft, damit das Licht folgt), mit dem Mob gespeichert und entfernt, wenn er verschwindet oder stirbt. Nur Spieler laufen über die Tick-Tabelle; jeder andere Träger speichert seinen Lichtblock selbst.",
-          "Pulsierender Rüstungsbesatz (Besitzer 2026-09-28): an der Werkbank aus einer Echoscherbe und einem beliebigen Vorschlaghammer - der Hammer bleibt im Raster und verliert 1 Haltbarkeit (ein Hammer auf dem letzten Punkt bricht). Am Schmiedetisch macht Pulsierender Rüstungsbesatz + Rüstungsteil + Echoscherbe den Besatz pulsierend (Komponente simplebuilding:pulsating, einmal je Teil): ohne Leuchten pulsiert nur die Sättigung - alle 2,4 Sekunden verblasst der Besatz weich von voller Farbe zu Grau und zurück, jeder Pixel behält dabei seine Helligkeit; Licht und Helligkeit bleiben genau wie ohne die Aufwertung. Nur zusammen mit dem Leuchtenden Rüstungsbesatz (jede Stufe) schwankt die Helligkeit: das Licht des Besatzes steigt und fällt im selben 2,4-Sekunden-Takt zwischen 1 und 15. Tooltip „Pulsierend“ (dunkeltürkis) und eine graue Zeile mit der Wirkung („Seine Farben verblassen zu Grau und kehren zurück“ bzw. mit Leuchten „Sein Leuchten schwillt an und ab“). Die Vorlage zeigt ein Wärter-Gesicht mit leuchtenden Fühlern in den Farben der Tiefen Dunkelheit (Sculk, Tiefenschiefer), im selben Rahmen wie die leuchtende und die strahlende Vorlage.",
+          "Pulsierender Rüstungsbesatz (Besitzer 2026-09-28): an der Werkbank auf 26.3 aus 2 Echoscherben, 2 Sculk, 4 Diamanten und einem beliebigen Vorschlaghammer (26.2: 1 Echoscherbe und Hammer) - der Hammer bleibt im Raster und verliert 1 Haltbarkeit (ein Hammer auf dem letzten Punkt bricht). Am Schmiedetisch macht Pulsierender Rüstungsbesatz + Rüstungsteil + Echoscherbe den Besatz pulsierend (Komponente simplebuilding:pulsating, einmal je Teil): ohne Leuchten pulsiert nur die Sättigung - alle 2,4 Sekunden verblasst der Besatz weich von voller Farbe zu Grau und zurück, jeder Pixel behält dabei seine Helligkeit; Licht und Helligkeit bleiben genau wie ohne die Aufwertung. Nur zusammen mit dem Leuchtenden Rüstungsbesatz (jede Stufe) schwankt die Helligkeit: das Licht des Besatzes steigt und fällt im selben 2,4-Sekunden-Takt zwischen 1 und 15. Tooltip „Pulsierend“ (dunkeltürkis) und eine graue Zeile mit der Wirkung („Seine Farben verblassen zu Grau und kehren zurück“ bzw. mit Leuchten „Sein Leuchten schwillt an und ab“). Die Vorlage zeigt ein Wärter-Gesicht mit leuchtenden Fühlern in den Farben der Tiefen Dunkelheit (Sculk, Tiefenschiefer), im selben Rahmen wie die leuchtende und die strahlende Vorlage.",
           "JEI zeigt die drei Aufwertungen am Schmiedetisch mit dem aufgewerteten Rüstungsteil als Ergebnis (Vorlage + Rüstung + Material -> dieselbe Rüstung mit Wirkung); die Platzhalter-Rezepte, deren Ergebnis die Vorlage selbst ist, sind dort ausgeblendet."
         ]
       }
@@ -3489,6 +3491,50 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "end_rails",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndRailBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndRailPhysics.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/mixin/MinecartBehaviorEndRailMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AbstractMinecartEndRailMixin.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
+        "mc26_3/generated/data/simplebuilding/recipe/astral_rail.json",
+        "mc26_3/generated/data/simplebuilding/recipe/nihil_rail.json"
+      ],
+      "related": [
+        "simplebuilding:astral_rail",
+        "simplebuilding:nihil_rail",
+        "simplebuilding:astral_redstone",
+        "simplebuilding:nihil_redstone"
+      ],
+      "en": {
+        "title": "Astral and Nihil Rails",
+        "summary": "Straight rails of the two End channels: the Astral Rail raises the minecart top speed and boosts towards it, the Nihil Rail brakes to a stop.",
+        "details": [
+          "Recipe like the powered rail: six gold ingots, a stick and Astral Redstone (Astral Rail) or Nihil Redstone (Nihil Rail) make 6 rails. They are straight only (no curves) and minecarts treat them as rails.",
+          "Power comes from the rail's own channel like a lamp: Astral or Nihil Redstone or a switch of the same channel on a horizontal neighbor. Vanilla redstone, the other channel and neighboring rails do not power it. The rail checks its neighbors every two game ticks while a source of its channel lies next to it.",
+          "Astral Rail: on a flat Astral Rail the top speed is server.machines.astralRailMaxSpeed blocks per second (default 16, clamped to 8–20; vanilla 8), or the experimental max_minecart_speed game rule if that is higher. On slopes, in water and on every other rail the vanilla limit applies, so a fast cart meets the normal limit again before a curve. Unpowered it is a plain rail that keeps the cart's momentum; momentum above the limit is cut to the limit.",
+          "Powered Astral Rail: every game tick the cart gains boost × (1 − (speed / top speed)²), boost = server.machines.astralRailBoost (default 0.12 blocks per tick, clamped to 0.07–0.25, at most a quarter of the top speed). That is more than a powered rail's 0.06 when slow and less the faster the cart goes; the speed approaches the top speed and never reaches it. Vanilla friction still applies. A cart standing still is pushed away from a solid block at one end of the rail, like on a powered rail.",
+          "Powered Nihil Rail: every game tick the cart keeps 80 % of its speed minus server.machines.nihilRailBrake (default 0.08 blocks per tick, clamped to 0.02–0.4); below 0.03 it stops and is held while the power stays on. Unpowered, carts roll through.",
+          "server.features.endRails (default true) needs server.features.endSignals as well; switched off, both rails act as plain rails and their recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astral- und Nihil-Schienen",
+        "summary": "Gerade Schienen der beiden End-Kanäle: die Astral-Schiene hebt das Höchsttempo der Lore an und beschleunigt darauf zu, die Nihil-Schiene bremst bis zum Halt.",
+        "details": [
+          "Rezept wie die Antriebsschiene: sechs Goldbarren, ein Stock und Astral-Redstone (Astral-Schiene) bzw. Nihil-Redstone (Nihil-Schiene) ergeben 6 Schienen. Sie sind nur gerade (keine Kurven), Loren behandeln sie als Schienen.",
+          "Strom kommt wie bei einer Lampe aus dem eigenen Kanal: Astral- bzw. Nihil-Redstone oder ein Schalter desselben Kanals auf einem waagerechten Nachbarfeld. Vanilla-Redstone, der andere Kanal und benachbarte Schienen speisen sie nicht. Die Schiene prüft ihre Nachbarn alle zwei Spielticks, solange eine Quelle ihres Kanals daneben liegt.",
+          "Astral-Schiene: auf einer flachen Astral-Schiene beträgt das Höchsttempo server.machines.astralRailMaxSpeed Blöcke pro Sekunde (Standard 16, begrenzt auf 8–20; Vanilla 8) oder die experimentelle Spielregel max_minecart_speed, wenn sie höher ist. Auf Steigungen, im Wasser und auf allen anderen Schienen gilt die Vanilla-Grenze, eine schnelle Lore trifft vor einer Kurve also wieder auf die normale Grenze. Ungespeist ist sie eine normale Schiene, die den Schwung erhält; Schwung über der Grenze wird auf die Grenze gekappt.",
+          "Gespeiste Astral-Schiene: jeden Spieltick gewinnt die Lore Schub × (1 − (Tempo / Höchsttempo)²), Schub = server.machines.astralRailBoost (Standard 0,12 Blöcke pro Tick, begrenzt auf 0,07–0,25, höchstens ein Viertel des Höchsttempos). Langsam ist das mehr als die 0,06 einer Antriebsschiene, je schneller die Lore, desto weniger; das Tempo nähert sich dem Höchsttempo und erreicht es nie. Die Vanilla-Reibung wirkt weiter. Eine stehende Lore wird wie auf einer Antriebsschiene von einem festen Block am Schienenende weggeschoben.",
+          "Gespeiste Nihil-Schiene: jeden Spieltick behält die Lore 80 % ihres Tempos abzüglich server.machines.nihilRailBrake (Standard 0,08 Blöcke pro Tick, begrenzt auf 0,02–0,4); unter 0,03 hält sie an und bleibt stehen, solange der Strom anliegt. Ungespeist rollen Loren durch.",
+          "server.features.endRails (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet sind beide Schienen normale Schienen und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    {
       "id": "astral_vault",
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/AstralVaultBlock.java",
@@ -3517,6 +3563,37 @@ window.WIKI_DATA = {
           "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
           "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
           "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    {
+      "id": "nihil_vault",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/NihilVaultBlock.java",
+        "common/src/shared/java/com/simplebuilding/util/NihilVaultStorage.java",
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+      ],
+      "related": [
+        "simplebuilding:nihil_vault"
+      ],
+      "en": {
+        "title": "Nihil Vault",
+        "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+        "details": [
+          "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+          "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
+          "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
+          "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Nihil-Gewölbe",
+        "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+        "details": [
+          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+          "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
+          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
+          "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
       }
     },
@@ -3600,8 +3677,8 @@ window.WIKI_DATA = {
         "details": [
           "End disc (tracks Heavy Heart, Monolith, Iron Sonata) in end city chests (4 %), Nether disc (Riffstorm, Rally) in bastion chests (4 %), Overworld disc Rainfall/Storytime in woodland mansion chests (5 %) and Overworld disc Soft Breeze/Blockwood in ancient city chests (2.5 %). Both Overworld discs also drop when a skeleton kills a creeper, like vanilla discs. The tooltip names the track a disc plays.",
           "Tracks: a placed disc (sneak + right-click on the ground) switches to its next track with a right-click of a sledgehammer - B-side, then tracks 3 and 4 where they exist, then the first again (1 durability each).",
-          "Jukebox Amplifier (eight planks around Astralit Dust) makes a directly adjacent jukebox louder and heard farther; Note Amplifier (eight planks around a Nihilit Shard) does the same for a note block. Each amplifier of the right kind adds 50 % volume (server.speakers.boostPercent, at most 50 %); at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off). Same sound at the same time - no echo, no delay.",
-          "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+          "Jukebox Amplifiers (eight planks around Astralit Dust) extend jukebox reach; Note Amplifiers (eight planks around a Nihilit Shard) extend note block reach. Each matching neighbor adds 50% reach, at most 2 count by default (server limits: 50%, 3 neighbors). Playback stays at full volume within range.",
+          "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
           "A jukebox counts its amplifiers when a song starts, a note block on every note."
         ]
       },
@@ -3611,9 +3688,52 @@ window.WIKI_DATA = {
         "details": [
           "End-Platte (Tracks Heavy Heart, Monolith, Iron Sonata) in Endsiedlungs-Truhen (4 %), Nether-Platte (Riffstorm, Rally) in Bastion-Truhen (4 %), Oberwelt-Platte Rainfall/Storytime in Waldanwesen-Truhen (5 %) und Oberwelt-Platte Soft Breeze/Blockwood in Truhen der Antiken Stätte (2,5 %). Beide Oberwelt-Platten fallen auch, wenn ein Skelett einen Creeper tötet, wie Vanilla-Platten. Der Tooltip nennt den Track der Platte.",
           "Tracks: eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wechselt mit einem Rechtsklick des Vorschlaghammers zum nächsten Track - B-Seite, dann Track 3 und 4, wo es sie gibt, dann wieder der erste (je 1 Haltbarkeit).",
-          "Musik-Verstärker (acht Bretter um Astralitstaub) macht einen direkt angrenzenden Plattenspieler lauter und weiter hÃ¶rbar; Noten-Verstärker (acht Bretter um einen Nihilitsplitter) dasselbe fÃ¼r einen Notenblock. Jeder passende Verstärker gibt 50 % LautstÃ¤rke dazu (server.speakers.boostPercent, hÃ¶chstens 50 %); hÃ¶chstens 2 zÃ¤hlen (server.speakers.maxSpeakers, hÃ¶chstens 3, 0 = aus). Derselbe Klang zur selben Zeit - kein Echo, keine VerzÃ¶gerung.",
-          "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+          "Musik-Verstärker (acht Bretter um Astralitstaub) erweitern die Hörweite von Plattenspielern; Noten-Verstärker (acht Bretter um einen Nihilitsplitter) die von Notenblöcken. Jeder passende Nachbar erhöht die Hörweite um 50 %, standardmäßig zählen höchstens 2 (Servergrenzen: 50 %, 3 Nachbarn). Die Wiedergabe bleibt innerhalb der Hörweite bei vollem Pegel.",
+          "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
           "Ein Plattenspieler zÃ¤hlt seine Verstärker beim Start eines StÃ¼cks, ein Notenblock bei jeder Note."
+        ]
+      }
+    },
+    {
+      "id": "crucible_parts",
+      "sources": [
+        "mc26_3/overlay/java/com/simplebuilding/crucible/CrucibleCompat.java",
+        "common/src/shared/java/com/simplebuilding/fluid/SoulLavaFluid.java",
+        "common/src/shared/java/com/simplebuilding/fluid/SoulLavaBlock.java",
+        "common/src/shared/java/com/simplebuilding/fluid/SoulLava.java",
+        "common/src/shared/java/com/simplebuilding/fluid/ModBucketItem.java",
+        "common/src/shared/java/com/simplebuilding/effect/SoulBurnEffect.java",
+        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/SoulLavaSpringMixin.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/SoulLavaFortressMixin.java"
+      ],
+      "related": [
+        "simplebuilding:enderite_crucible",
+        "simplebuilding:enderite_barrel",
+        "simplebuilding:soul_lava_bucket",
+        "simplebuilding:copper_bucket",
+        "simplebuilding:enderite_bucket"
+      ],
+      "en": {
+        "title": "Crucibles, soul lava and buckets",
+        "summary": "SimpleBuilding's part of the SimpleLib crucibles: the Enderite tier, sledgehammer ways, soul lava as extreme heat, copper and Enderite buckets.",
+        "details": [
+          "Enderite crucible (27 slots, double stacks, 8x) and Enderite barrel. The sledgehammer replaces SimpleLib's axe ways: building the iron crucible on an iron block (4 heavy weighted pressure plates, then 2 iron rods or iron ingots; 2 durability per strike), attaching a barrel (6 strikes) and upgrading at twice the cost of a furnace (2 material, twice the strikes): Iron to Reinforced with cracked diamonds, to Netherite with netherite nuggets (diamond hammer), to Enderite with Enderite nuggets (Netherite hammer); copper to reinforced to Enderite barrel. A cauldron becomes a reinforced cauldron with 4 cracked diamonds.",
+          "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for a minute: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts. It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
+          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks. The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes one stage per pour unless waxed (axe in the off hand scrapes, honeycomb waxes), pours water only as a flowing block and breaks when pouring lava. By default, a soul lava bucket burns 10 times as long as a lava bucket.",
+          "The sledgehammer crushes a quartz block into 4 quartz.",
+          "Server config server.soulLava controls flow, delays, burn and soul burn, world generation chances and bucket fuel within hard limits. Fuel changes require a restart and matching client/server files. Jade shows heat, occupied slots and the shortest remaining time of a running slot, including tier speed and the two-block heat penalty. JEI shows the fastest cooking recipe per input and required heat, plus warming for tagged food without a cooking recipe; displayed time assumes an iron crucible at minimum heat without a distance penalty."
+        ]
+      },
+      "de": {
+        "title": "Schmelztiegel, Seelen-Lava und Eimer",
+        "summary": "SimpleBuildings Teil der SimpleLib-Schmelztiegel: Enderit-Stufe, Vorschlaghammer-Wege, Seelen-Lava als extreme Hitze, Kupfer- und Enderit-Eimer.",
+        "details": [
+          "Enderit-Schmelztiegel (27 Plätze, doppelte Stapel, 8×) und Enderit-Fass. Der Vorschlaghammer ersetzt SimpleLibs Axt-Wege: Bau des Eisen-Schmelztiegels auf einem Eisenblock (4 schwere Wägeplatten, dann 2 Eisenstäbe oder Eisenbarren; 2 Haltbarkeit je Schlag), Fass anbringen (6 Schläge) und Aufwerten zum doppelten Preis eines Ofens (2 Material, doppelte Schläge): Eisen zu Verstärkt mit Rissigen Diamanten, zu Netherit mit Netheritklumpen (Diamant-Hammer), zu Enderit mit Enderitklumpen (Netherit-Hammer); Kupfer- zu Verstärktem zu Enderit-Fass. Ein Kessel wird mit 4 Rissigen Diamanten zum verstärkten Kessel.",
+          "Seelen-Lava mit Standardwerten: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt eine Minute Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt. Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
+          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie. Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert je Ausgießen um eine Stufe, außer er ist gewachst (Axt in der Nebenhand schabt, Honigwabe wachst), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer.",
+          "Der Vorschlaghammer zerschlägt einen Quarzblock zu 4 Quarz.",
+          "Die Server-Config server.soulLava regelt Fließweite, Verzögerungen, Brand und Seelenbrand, Weltgenerierungschancen und Eimer-Brennstoff innerhalb harter Grenzen. Brennstoffänderungen brauchen einen Neustart und gleiche Client-/Server-Dateien. Jade zeigt Hitze, belegte Plätze und die kürzeste Restzeit eines laufenden Platzes einschließlich Stufentempo und Hitzeabschlag bei zwei Blöcken Abstand. JEI zeigt je Eingabe und nötiger Hitze das schnellste Kochrezept sowie Aufwärmen für markiertes Essen ohne Kochrezept; die angezeigte Zeit gilt für einen Eisen-Tiegel bei Mindesthitze ohne Abstandsabschlag."
         ]
       }
     }
@@ -3739,6 +3859,20 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_rail",
+      "name": {
+        "en_us": "Astral Rail",
+        "de_de": "Astral-Schiene"
+      },
+      "texture": "assets/textures/block/astral_rail.png",
+      "craftedBy": [
+        "simplebuilding:astral_rail"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_redstone",
       "name": {
         "en_us": "Astral Redstone",
@@ -3750,6 +3884,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
+        "simplebuilding:astral_rail",
         "simplebuilding:astralit_lamp",
         "simplebuilding:astralit_switch"
       ],
@@ -4080,18 +4215,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/astralit_quartz_checker.json"
         ],
         "en": {
-          "summary": "Astralit Quartz Checker: craft 4 from 2 Astralit Dust and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Astralit Quartz Checker: craft 4 from 2 Astralit Dust and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Astralit-Quarz-Schachbrett: 2 Astralitstaub und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Astralit-Quarz-Schachbrett: 2 Astralitstaub und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -4158,26 +4293,28 @@ window.WIKI_DATA = {
       "icon": "assets/textures/render/auto_smither.png",
       "note": {
         "en": {
-          "summary": "The Auto Smither is the Crafter of the smithing table: a redstone pulse smiths once from the template, base and addition inside it and pushes the result out of its front.",
+          "summary": "The Auto Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
           "details": [
-            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. The result goes into a container in front of it, otherwise it flies out as an item. Without a matching recipe it only clicks.",
-            "Hoppers and droppers fill it from any side: templates go into the template slot, gear into the base slot and materials into the addition slot, using the same checks as the smithing table. Nothing can be pulled out again.",
-            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled slot (0 to 15).",
+            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. Results go into a container in front, with any remainder kept in the output slot. Without a matching recipe or enough output space it only clicks and consumes nothing.",
+            "Hoppers and droppers fill the three input slots from any side, using the smithing table's item checks. Only finished results can be pulled out. Players can take results but cannot place anything in the output slot.",
+            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled input slot (0 to 15). The error arrow appears only when all three inputs are present but their recipe is invalid.",
             "Recipe: iron ingots around a smithing table, redstone, a dropper and redstone in the bottom row - like the Crafter."
           ]
         },
         "de": {
-          "summary": "Der Auto-Schmied ist der Crafter des Schmiedetischs: ein Redstone-Impuls schmiedet einmal aus der Vorlage, der Basis und dem Material darin und schiebt das Ergebnis vorn heraus.",
+          "summary": "Der Auto-Schmied schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Material. Fertige Ergebnisse gehen in einen Behälter vor ihm oder bleiben im Ausgabeslot.",
           "details": [
-            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Das Ergebnis geht in einen Behälter vor ihm, sonst fliegt es als Item heraus. Ohne passendes Rezept klickt er nur.",
-            "Trichter und Spender befüllen ihn von jeder Seite: Vorlagen kommen in den Vorlagen-Slot, Ausrüstung in den Basis-Slot und Materialien in den Material-Slot, mit denselben Prüfungen wie am Schmiedetisch. Herausziehen lässt sich nichts.",
-            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Slot (0 bis 15).",
+            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Ergebnisse gehen in einen Behälter vor ihm, der Rest bleibt im Ausgabeslot. Ohne passendes Rezept oder genügend Ausgabeplatz klickt er nur und verbraucht nichts.",
+            "Trichter und Spender befüllen die drei Eingabeslots von jeder Seite mit denselben Item-Prüfungen wie am Schmiedetisch. Nur fertige Ergebnisse lassen sich herausziehen. Spieler können Ergebnisse entnehmen, aber nichts in den Ausgabeslot legen.",
+            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Eingabeslot (0 bis 15). Der Fehlerpfeil erscheint nur bei drei belegten Eingaben ohne gültiges Rezept.",
             "Rezept: Eisenbarren um einen Schmiedetisch, unten Redstone, ein Spender und Redstone - wie beim Crafter."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/AutoSmitherBlock.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutoSmitherBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/AutoSmitherScreen.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
@@ -4438,25 +4575,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -4468,9 +4607,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -4499,18 +4643,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/blackstone_quartz_checker.json"
         ],
         "en": {
-          "summary": "Blackstone Quartz Checker: craft 4 from 2 Blackstone blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Blackstone Quartz Checker: craft 4 from 2 Blackstone blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Schwarzstein-Quarz-Schachbrett: 2 Schwarzsteinblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Schwarzstein-Quarz-Schachbrett: 2 Schwarzsteinblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -4553,25 +4697,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -4583,9 +4729,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -4675,25 +4826,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -4705,9 +4858,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -4875,6 +5033,23 @@ window.WIKI_DATA = {
             "Ohne Baulicht im Umkreis von 14 Blöcken läuft die Vanilla-Prüfung unverändert."
           ]
         }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:copper_bucket",
+      "name": {
+        "en_us": "Copper Bucket",
+        "de_de": "Kupfer-Eimer"
+      },
+      "texture": "assets/textures/item/copper_bucket_0.png",
+      "craftedBy": [
+        "simplebuilding:copper_bucket"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
       },
       "hasCustomBehaviour": false
     },
@@ -5398,6 +5573,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:copper_lava_bucket",
+      "name": {
+        "en_us": "Copper Lava Bucket",
+        "de_de": "Kupfer-Lavaeimer"
+      },
+      "texture": "assets/textures/item/copper_lava_bucket_0.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:copper_sledgehammer",
       "name": {
         "en_us": "Copper Sledgehammer",
@@ -5609,6 +5799,21 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:copper_water_bucket",
+      "name": {
+        "en_us": "Copper Water Bucket",
+        "de_de": "Kupfer-Wassereimer"
+      },
+      "texture": "assets/textures/item/copper_water_bucket_0.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:cracked_diamond",
@@ -5824,25 +6029,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -5854,9 +6061,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -6912,10 +7124,12 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/emitting_trim_template.png",
       "craftedBy": [
-        "simplebuilding:emitting_armor_upgrade_dummy"
+        "simplebuilding:emitting_armor_upgrade_dummy",
+        "simplebuilding:emitting_trim_template_duplication"
       ],
       "usedIn": [
-        "simplebuilding:emitting_armor_upgrade_dummy"
+        "simplebuilding:emitting_armor_upgrade_dummy",
+        "simplebuilding:emitting_trim_template_duplication"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -7186,18 +7400,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/ender_quartz_checker.json"
         ],
         "en": {
-          "summary": "Ender Quartz Checker: craft 4 from 2 Ender Quartz and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Ender Quartz Checker: craft 4 from 2 Ender Quartz and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Enderquarz-Schachbrett: 2 Enderquarz und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Enderquarz-Schachbrett: 2 Enderquarz und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -7493,19 +7707,18 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
           "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
-          "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
           "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
         ],
         "en": {
-          "summary": "The Enderite Blast Furnace is the fastest blast furnace tier: 8 times the vanilla speed, double experience, extra output from raw metals. It is hammered out of a Netherite Blast Furnace.",
+          "summary": "The Enderite Blast Furnace is the fastest blast furnace tier: 8 times the vanilla speed, double experience and unchanged recipe output. It is hammered out of a Netherite Blast Furnace.",
           "details": [
             "Behaves like a vanilla blast furnace: same recipe type (RecipeType.BLASTING) and the same menu (BlastFurnaceMenu); same block class (ModBlastFurnaceBlock) and block entity (ModBlastFurnaceBlockEntity) as the Reinforced and Netherite tiers, which read the block state to tell the tiers apart.",
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 7 extra progress ticks per server tick (extraTicks = 7), capped at total time minus 1 - 8 times the vanilla speed; a 200 tick recipe finishes in 26 ticks, a 100 tick recipe in 14.",
             "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
-            "Extra output: every 2nd finished smelt of a recipe whose ingredient is only Raw Iron, Raw Gold or Raw Copper (tag simplebuilding:blast_furnace_bonus) yields one item more (+50 %); with a full result slot the bonus waits for the next one, and the count is saved with the block.",
-            "Enderite Scrap (72000 ticks in a vanilla blast furnace) takes 9001 ticks here, about 7.5 minutes, and pays 20 experience instead of 10.",
+            "All furnace tiers produce exactly the recipe output, without bonus ingots. Netherite and Enderite keep double experience, except for excluded ingredients. Old bonus counters are ignored when loading and omitted when saving.",
+            "Layered Raw Enderite has a blasting recipe time of 144000 ticks and produces one Enderite Scrap. This tier speeds up cooking and pays 20 experience instead of 10.",
             "Menu title: \"Enderite Blast Furnace\" (translation key container.simplebuilding.enderite_blast_furnace).",
             "Made only in the world: hold right-click for 5 seconds on a placed Netherite Blast Furnace with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items, cooking progress and stored experience stay in the block.",
             "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla blast furnace (ofFullCopy(Blocks.BLAST_FURNACE)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. It gives off light level 13 while it burns.",
@@ -7523,13 +7736,13 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Enderit-Schmelzofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung, zusätzliche Ausbeute aus Rohmetallen. Er wird aus einem Netherit-Schmelzofen geschmiedet.",
+          "summary": "Der Enderit-Schmelzofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung und unveränderte Rezeptausbeute. Er wird aus einem Netherit-Schmelzofen geschmiedet.",
           "details": [
             "Verhält sich wie ein Vanilla-Schmelzofen: gleicher Rezepttyp (RecipeType.BLASTING) und dasselbe Menü (BlastFurnaceMenu); dieselbe Blockklasse (ModBlastFurnaceBlock) und Block-Entity (ModBlastFurnaceBlockEntity) wie Verstärkt- und Netherit-Stufe, die Stufe wird am Blockzustand unterschieden.",
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 7 zusätzliche Fortschritts-Ticks (extraTicks = 7), gedeckelt auf Gesamtzeit minus 1 - achtfache Vanilla-Geschwindigkeit; ein 200-Tick-Rezept ist nach 26 Ticks fertig, ein 100-Tick-Rezept nach 14.",
             "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
-            "Mehr Ausbeute: Jeder 2. fertige Schmelzvorgang eines Rezepts, dessen Zutat nur Roheisen, Rohgold oder Rohkupfer ist (Tag simplebuilding:blast_furnace_bonus), gibt einen Gegenstand mehr (+50 %); bei vollem Ausgabeslot wartet der Bonus auf den nächsten, der Zähler wird mit dem Block gespeichert.",
-            "Enderitplatten (72000 Ticks im Vanilla-Schmelzofen) braucht hier 9001 Ticks, rund 7,5 Minuten, und bringt 20 statt 10 Erfahrung.",
+            "Alle Ofenstufen liefern genau die Rezeptausbeute ohne Bonusbarren. Netherit und Enderit behalten doppelte Erfahrung, außer bei ausgeschlossenen Zutaten. Alte Bonuszähler werden beim Laden ignoriert und beim Speichern weggelassen.",
+            "Rohe Enderitplatten haben eine Schmelzofen-Rezeptzeit von 144000 Ticks und ergeben eine Enderitplatte. Diese Stufe beschleunigt das Schmelzen und gibt 20 statt 10 Erfahrung.",
             "Menü-Titel: „Enderit-Schmelzofen“ (Übersetzungsschlüssel container.simplebuilding.enderite_blast_furnace).",
             "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderitklumpen in der Nebenhand auf einen gesetzten Netherit-Schmelzofen halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Klumpen wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Inhalt, Kochfortschritt und gespeicherte Erfahrung bleiben im Block.",
             "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Schmelzofen kopiert (ofFullCopy(Blocks.BLAST_FURNACE)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. Beim Brennen leuchtet er mit Stärke 13.",
@@ -7582,6 +7795,23 @@ window.WIKI_DATA = {
         "durability": 546,
         "enchantability": 18,
         "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_bucket",
+      "name": {
+        "en_us": "Enderite Bucket",
+        "de_de": "Enderit-Eimer"
+      },
+      "texture": "assets/textures/item/enderite_bucket.png",
+      "craftedBy": [
+        "simplebuilding:enderite_bucket"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
       },
       "hasCustomBehaviour": false
     },
@@ -8562,6 +8792,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_lava_bucket",
+      "name": {
+        "en_us": "Enderite Lava Bucket",
+        "de_de": "Enderit-Lavaeimer"
+      },
+      "texture": "assets/textures/item/enderite_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_leggings",
       "name": {
         "en_us": "Enderite Leggings",
@@ -8639,8 +8884,10 @@ window.WIKI_DATA = {
         "simplebuilding:astral_vault",
         "simplebuilding:echo_sounder",
         "simplebuilding:enderite_apple",
+        "simplebuilding:enderite_bucket",
         "simplebuilding:enderite_carrot",
-        "simplebuilding:enderite_ingot_from_nugget"
+        "simplebuilding:enderite_ingot_from_nugget",
+        "simplebuilding:nihil_vault"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -9336,6 +9583,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_soul_lava_bucket",
+      "name": {
+        "en_us": "Enderite Soul Lava Bucket",
+        "de_de": "Enderit-Seelen-Lava-Eimer"
+      },
+      "texture": "assets/textures/item/enderite_soul_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_spear",
       "name": {
         "en_us": "Enderite Spear",
@@ -9470,6 +9732,60 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_water_bucket",
+      "name": {
+        "en_us": "Enderite Water Bucket",
+        "de_de": "Enderit-Wassereimer"
+      },
+      "texture": "assets/textures/item/enderite_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:fire_chip",
+      "name": {
+        "en_us": "Fire Chip",
+        "de_de": "Feuerkugelsplitter"
+      },
+      "texture": "assets/textures/item/fire_chip.png",
+      "craftedBy": [
+        "simplebuilding:fire_chip"
+      ],
+      "usedIn": [
+        "simplebuilding:fire_charge_from_fire_chips"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A piece of a fire charge: one fire charge gives 4 Fire Chips, 4 chips in a 2x2 give the fire charge back.",
+          "details": [
+            "Right-click on a lying small-parts pile with unlit candles lights them like a fire charge and uses up one chip.",
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+          ]
+        },
+        "de": {
+          "summary": "Ein Stück Feuerkugel: eine Feuerkugel ergibt 4 Feuerkugelsplitter, 4 Splitter im 2x2-Feld wieder die Feuerkugel.",
+          "details": [
+            "Rechtsklick auf einen liegenden Kleinteil-Haufen mit erloschenen Kerzen zündet sie wie eine Feuerkugel an und verbraucht einen Splitter.",
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:flint_chip",
       "name": {
         "en_us": "Flint Chip",
@@ -9532,10 +9848,12 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/glowing_trim_template.png",
       "craftedBy": [
-        "simplebuilding:glowing_armor_upgrade_dummy"
+        "simplebuilding:glowing_armor_upgrade_dummy",
+        "simplebuilding:glowing_trim_template_duplication"
       ],
       "usedIn": [
-        "simplebuilding:glowing_armor_upgrade_dummy"
+        "simplebuilding:glowing_armor_upgrade_dummy",
+        "simplebuilding:glowing_trim_template_duplication"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -10347,25 +10665,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -10377,9 +10697,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -10418,25 +10743,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -10448,9 +10775,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -10557,6 +10889,46 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
           "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/root.json",
           "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_start.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ice_chip",
+      "name": {
+        "en_us": "Ice Chip",
+        "de_de": "Eissplitter"
+      },
+      "texture": "assets/textures/item/ice_chip.png",
+      "craftedBy": [
+        "simplebuilding:ice_chip",
+        "simplebuilding:ice_chip_from_packed_ice"
+      ],
+      "usedIn": [
+        "simplebuilding:ice_from_ice_chips"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A splinter of ice: one ice gives 4 Ice Chips, one packed ice 9; 4 chips in a 2x2 give one ice back.",
+          "details": [
+            "Right-click on a lying small-parts pile with burning candles puts them out and uses up one chip.",
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+          ]
+        },
+        "de": {
+          "summary": "Ein Splitter Eis: ein Eis ergibt 4 Eissplitter, ein Packeis 9; 4 Splitter im 2x2-Feld wieder ein Eis.",
+          "details": [
+            "Rechtsklick auf einen liegenden Kleinteil-Haufen mit brennenden Kerzen löscht sie und verbraucht einen Splitter.",
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -11368,8 +11740,8 @@ window.WIKI_DATA = {
           "summary": "A directly adjacent jukebox plays louder and is heard farther - the same sound at the same time, no echo.",
           "details": [
             "Recipe: eight planks of any wood around Astralit Dust.",
-            "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
-            "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+            "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
+            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
             "A jukebox counts its amplifiers when a song starts, a note block on every note."
           ]
         },
@@ -11378,8 +11750,8 @@ window.WIKI_DATA = {
           "summary": "Ein direkt angrenzender Plattenspieler spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
-            "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
-            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+            "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
+            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -11410,18 +11782,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/lapis_quartz_checker.json"
         ],
         "en": {
-          "summary": "Lapis Quartz Checker: craft 4 from 2 Lapis Lazuli Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Lapis Quartz Checker: craft 4 from 2 Lapis Lazuli Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Lapis-Quarz-Schachbrett: 2 Lapislazuliblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Lapis-Quarz-Schachbrett: 2 Lapislazuliblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -11712,25 +12084,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -11742,9 +12116,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -11783,25 +12162,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -11813,9 +12194,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -11854,25 +12240,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -11884,9 +12272,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -11925,25 +12318,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -11955,9 +12350,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -12187,6 +12587,50 @@ window.WIKI_DATA = {
       "trades": [],
       "properties": {
         "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nether_brick_quartz_checker",
+      "name": {
+        "en_us": "Nether Brick Quartz Checker",
+        "de_de": "Netherziegel-Quarz-Schachbrett"
+      },
+      "texture": "assets/textures/block/nether_brick_quartz_checker.png",
+      "craftedBy": [
+        "simplebuilding:nether_brick_quartz_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nether_brick_quartz_checker.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/nether_brick_quartz_checker.json"
+        ],
+        "en": {
+          "summary": "Nether Brick Quartz Checker: craft 4 from 2 Nether Bricks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5.",
+            "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
+          ]
+        },
+        "de": {
+          "summary": "Netherziegel-Quarz-Schachbrett: 2 Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
+            "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
+          ]
+        }
       },
       "hasCustomBehaviour": false
     },
@@ -12442,7 +12886,7 @@ window.WIKI_DATA = {
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the creative tab \"SimpleMachines\", next to the hoppers and pistons.",
             "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
-            "Extra output: every 4th finished smelt of a recipe whose ingredient is only Raw Iron, Raw Gold or Raw Copper (tag simplebuilding:blast_furnace_bonus) yields one item more (+25 %); with a full result slot the bonus waits for the next one. Enderite Scrap takes 18001 ticks (15 minutes) here instead of an hour in a vanilla blast furnace."
+            "All furnace tiers produce exactly the recipe output, without bonus ingots. Netherite and Enderite keep double experience, except for excluded ingredients. Old bonus counters are ignored when loading and omitted when saving."
           ],
           "controls": [
             "Right-click the block to open the blast furnace menu (useWithoutItem; the menu is only opened on the server side)."
@@ -12469,7 +12913,7 @@ window.WIKI_DATA = {
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab „SimpleMachines“ zusammen mit Trichtern und Kolben.",
             "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
-            "Mehr Ausbeute: Jeder 4. fertige Schmelzvorgang eines Rezepts, dessen Zutat nur Roheisen, Rohgold oder Rohkupfer ist (Tag simplebuilding:blast_furnace_bonus), gibt einen Gegenstand mehr (+25 %); bei vollem Ausgabeslot wartet der Bonus auf den nächsten. Enderitplatten braucht hier 18001 Ticks (15 Minuten) statt einer Stunde im Vanilla-Schmelzofen."
+            "Alle Ofenstufen liefern genau die Rezeptausbeute ohne Bonusbarren. Netherit und Enderit behalten doppelte Erfahrung, außer bei ausgeschlossenen Zutaten. Alte Bonuszähler werden beim Laden ignoriert und beim Speichern weggelassen."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Schmelzofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
@@ -12500,7 +12944,6 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
-          "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
           "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
           "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json"
@@ -14181,6 +14624,20 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_rail",
+      "name": {
+        "en_us": "Nihil Rail",
+        "de_de": "Nihil-Schiene"
+      },
+      "texture": "assets/textures/block/nihil_rail.png",
+      "craftedBy": [
+        "simplebuilding:nihil_rail"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihil_redstone",
       "name": {
         "en_us": "Nihil Redstone",
@@ -14192,6 +14649,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:nihil_piston",
+        "simplebuilding:nihil_rail",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:nihilith_switch"
       ],
@@ -14225,6 +14683,48 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_vault",
+      "name": {
+        "en_us": "Nihil Vault",
+        "de_de": "Nihil-Gewölbe"
+      },
+      "texture": "assets/textures/block/nihil_vault.png",
+      "craftedBy": [
+        "simplebuilding:nihil_vault"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_vault.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/NihilVaultBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/NihilVaultStorage.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Nihil Vault",
+          "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+          "details": [
+            "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+            "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
+            "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
+            "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Nihil-Gewölbe",
+          "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+          "details": [
+            "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+            "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
+            "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
+            "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:nihilith_block",
@@ -14447,18 +14947,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/nihilith_quartz_checker.json"
         ],
         "en": {
-          "summary": "Nihilit Quartz Checker: craft 4 from 2 Nihilit Shards and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Nihilit Quartz Checker: craft 4 from 2 Nihilit Shards and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Nihilit-Quarz-Schachbrett: 2 Nihilitsplitter und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Nihilit-Quarz-Schachbrett: 2 Nihilitsplitter und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -14480,6 +14980,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_end_stone",
         "simplebuilding:nihil_purpur_block",
         "simplebuilding:nihil_redstone",
+        "simplebuilding:nihil_vault",
         "simplebuilding:nihilith_block",
         "simplebuilding:nihilith_block_from_end_stone",
         "simplebuilding:nihilith_brick_slab_from_end_stone_brick_slab",
@@ -14567,8 +15068,8 @@ window.WIKI_DATA = {
           "summary": "A directly adjacent note block plays louder and is heard farther - the same sound at the same time, no echo.",
           "details": [
             "Recipe: eight planks of any wood around a Nihilit Shard.",
-            "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
-            "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+            "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
+            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
             "A jukebox counts its amplifiers when a song starts, a note block on every note."
           ]
         },
@@ -14577,11 +15078,47 @@ window.WIKI_DATA = {
           "summary": "Ein direkt angrenzender Notenblock spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
-            "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
-            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+            "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
+            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:obsidian_chip",
+      "name": {
+        "en_us": "Obsidian Chip",
+        "de_de": "Obsidiansplitter"
+      },
+      "texture": "assets/textures/item/obsidian_chip.png",
+      "craftedBy": [
+        "simplebuilding:obsidian_chip"
+      ],
+      "usedIn": [
+        "simplebuilding:obsidian_from_obsidian_chips"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A shard of volcanic glass: one obsidian gives 9 Obsidian Chips, 9 chips in the crafting grid give the obsidian back.",
+          "details": [
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+          ]
+        },
+        "de": {
+          "summary": "Ein Splitter Vulkanglas: ein Obsidian ergibt 9 Obsidiansplitter, 9 Splitter im Handwerksfeld wieder den Obsidian.",
+          "details": [
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
+        ]
       },
       "hasCustomBehaviour": false
     },
@@ -15141,25 +15678,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -15171,9 +15710,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -15212,25 +15756,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -15242,9 +15788,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -15427,18 +15978,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
         ],
         "en": {
-          "summary": "Polished Ender Quartz Checker: craft 4 from 2 Polished Ender Quartz blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Polished Ender Quartz Checker: craft 4 from 2 Polished Ender Quartz blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Poliertes Enderquarz-Schachbrett: 2 polierte Enderquarzblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Poliertes Enderquarz-Schachbrett: 2 polierte Enderquarzblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -15613,10 +16164,12 @@ window.WIKI_DATA = {
       "texture": "assets/textures/item/pulsating_trim_template.png",
       "craftedBy": [
         "simplebuilding:pulsating_armor_upgrade_dummy",
-        "simplebuilding:pulsating_trim_template"
+        "simplebuilding:pulsating_trim_template",
+        "simplebuilding:pulsating_trim_template_duplication"
       ],
       "usedIn": [
-        "simplebuilding:pulsating_armor_upgrade_dummy"
+        "simplebuilding:pulsating_armor_upgrade_dummy",
+        "simplebuilding:pulsating_trim_template_duplication"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -15655,25 +16208,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -15685,9 +16240,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -15716,18 +16276,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/purpur_quartz_checker.json"
         ],
         "en": {
-          "summary": "Purpur Quartz Checker: craft 4 from 2 Purpur Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Purpur Quartz Checker: craft 4 from 2 Purpur Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Purpur-Quarz-Schachbrett: 2 Purpurblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Purpur-Quarz-Schachbrett: 2 Purpurblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -15942,25 +16502,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -15972,10 +16534,59 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_quartz_checker",
+      "name": {
+        "en_us": "Red Nether Brick Quartz Checker",
+        "de_de": "Rotes Netherziegel-Quarz-Schachbrett"
+      },
+      "texture": "assets/textures/block/red_nether_brick_quartz_checker.png",
+      "craftedBy": [
+        "simplebuilding:red_nether_brick_quartz_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/red_nether_brick_quartz_checker.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/red_nether_brick_quartz_checker.json"
+        ],
+        "en": {
+          "summary": "Red Nether Brick Quartz Checker: craft 4 from 2 Red Nether Bricks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5.",
+            "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
+          ]
+        },
+        "de": {
+          "summary": "Rotes Netherziegel-Quarz-Schachbrett: 2 rote Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
+            "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
+          ]
+        }
       },
       "hasCustomBehaviour": false
     },
@@ -17279,18 +17890,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/resin_quartz_checker.json"
         ],
         "en": {
-          "summary": "Resin Quartz Checker: craft 4 from 2 Red Nether Bricks blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Resin Quartz Checker: craft 4 from 2 Resin Bricks blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Harz-Quarz-Schachbrett: 2 rote Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Harz-Quarz-Schachbrett: 2 Harzziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -17531,6 +18142,21 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:soul_lava_bucket",
+      "name": {
+        "en_us": "Soul Lava Bucket",
+        "de_de": "Seelen-Lava-Eimer"
+      },
+      "texture": "assets/textures/item/soul_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
       },
       "hasCustomBehaviour": false
     },
@@ -18321,7 +18947,7 @@ window.WIKI_DATA = {
             "The item id stays simplebuilding:velocity_gauge.",
             "Right-click with the Gauge in the main hand toggles auto-walk (a click sound confirms). Switching the main-hand slot or item stops it; changing the off hand does not. An open screen releases the key.",
             "With Constructor's Touch, auto-walk follows dirt paths and rails: where the way ends straight ahead and continues on exactly one side, the view turns that way.",
-            "MC 26.3 recipe: \"AN \" / \"NCN\" / \" NK\" (A = amethyst shard, N = copper nugget, C = clock, K = Copper Core), rotated 90 degrees counterclockwise. MC 26.2 keeps \" NA\" / \"NCN\" / \"KN \" with a compass. Vanilla also accepts horizontally mirrored recipes."
+            "MC 26.3 recipe: \"NAN\" / \"NCN\" / \"NKN\" (A = amethyst shard, N = copper nugget, C = clock, K = Copper Core), with six copper nuggets after filling the empty slots and shifting the outer ring one slot clockwise. MC 26.2 keeps \" NA\" / \"NCN\" / \"KN \" with a compass. Vanilla also accepts horizontally mirrored recipes."
           ]
         },
         "de": {
@@ -18332,7 +18958,7 @@ window.WIKI_DATA = {
             "Die Item-ID bleibt simplebuilding:velocity_gauge.",
             "Rechtsklick mit der Messuhr in der Haupthand schaltet das automatische Laufen um (ein Klickton bestätigt). Ein Wechsel von Haupthand-Slot oder -Item beendet es, ein Wechsel der Nebenhand nicht. Ein offener Bildschirm lässt die Taste los.",
             "Mit Berührung des Konstrukteurs folgt das Laufen Trampelpfaden und Schienen: Endet der Weg geradeaus und geht genau auf einer Seite weiter, dreht sich der Blick dorthin.",
-            "Rezept auf MC 26.3: „AN “ / „NCN“ / „ NK“ (A = Amethystscherbe, N = Kupfernugget, C = Uhr, K = Kupferkern), 90 Grad gegen den Uhrzeigersinn gedreht. MC 26.2 behält „ NA“ / „NCN“ / „KN “ mit Kompass. Vanilla erlaubt auch horizontal gespiegelte Rezepte."
+            "Rezept auf MC 26.3: „NAN“ / „NCN“ / „NKN“ (A = Amethystscherbe, N = Kupfernugget, C = Uhr, K = Kupferkern), mit sechs Kupfernuggets nach Auffüllen der Leerstellen und Verschieben des Randes um einen Slot im Uhrzeigersinn. MC 26.2 behält „ NA“ / „NCN“ / „KN “ mit Kompass. Vanilla erlaubt auch horizontal gespiegelte Rezepte."
           ]
         },
         "sources": [
@@ -18380,25 +19006,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -18410,9 +19038,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -18487,25 +19120,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -18517,9 +19152,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -18594,6 +19234,25 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_rail",
+      "name": {
+        "en_us": "Astral Rail",
+        "de_de": "Astral-Schiene"
+      },
+      "texture": "assets/textures/block/astral_rail.png",
+      "craftedBy": [
+        "simplebuilding:astral_rail"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/astral_rail.png",
+      "lootTable": "simplebuilding:blocks/astral_rail",
+      "drops": [
+        "simplebuilding:astral_rail"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_redstone",
       "name": {
         "en_us": "Astral Redstone",
@@ -18605,6 +19264,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
+        "simplebuilding:astral_rail",
         "simplebuilding:astralit_lamp",
         "simplebuilding:astralit_switch"
       ],
@@ -18948,18 +19608,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/astralit_quartz_checker.json"
         ],
         "en": {
-          "summary": "Astralit Quartz Checker: craft 4 from 2 Astralit Dust and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Astralit Quartz Checker: craft 4 from 2 Astralit Dust and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Astralit-Quarz-Schachbrett: 2 Astralitstaub und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Astralit-Quarz-Schachbrett: 2 Astralitstaub und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -19034,26 +19694,28 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "The Auto Smither is the Crafter of the smithing table: a redstone pulse smiths once from the template, base and addition inside it and pushes the result out of its front.",
+          "summary": "The Auto Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
           "details": [
-            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. The result goes into a container in front of it, otherwise it flies out as an item. Without a matching recipe it only clicks.",
-            "Hoppers and droppers fill it from any side: templates go into the template slot, gear into the base slot and materials into the addition slot, using the same checks as the smithing table. Nothing can be pulled out again.",
-            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled slot (0 to 15).",
+            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. Results go into a container in front, with any remainder kept in the output slot. Without a matching recipe or enough output space it only clicks and consumes nothing.",
+            "Hoppers and droppers fill the three input slots from any side, using the smithing table's item checks. Only finished results can be pulled out. Players can take results but cannot place anything in the output slot.",
+            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled input slot (0 to 15). The error arrow appears only when all three inputs are present but their recipe is invalid.",
             "Recipe: iron ingots around a smithing table, redstone, a dropper and redstone in the bottom row - like the Crafter."
           ]
         },
         "de": {
-          "summary": "Der Auto-Schmied ist der Crafter des Schmiedetischs: ein Redstone-Impuls schmiedet einmal aus der Vorlage, der Basis und dem Material darin und schiebt das Ergebnis vorn heraus.",
+          "summary": "Der Auto-Schmied schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Material. Fertige Ergebnisse gehen in einen Behälter vor ihm oder bleiben im Ausgabeslot.",
           "details": [
-            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Das Ergebnis geht in einen Behälter vor ihm, sonst fliegt es als Item heraus. Ohne passendes Rezept klickt er nur.",
-            "Trichter und Spender befüllen ihn von jeder Seite: Vorlagen kommen in den Vorlagen-Slot, Ausrüstung in den Basis-Slot und Materialien in den Material-Slot, mit denselben Prüfungen wie am Schmiedetisch. Herausziehen lässt sich nichts.",
-            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Slot (0 bis 15).",
+            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Ergebnisse gehen in einen Behälter vor ihm, der Rest bleibt im Ausgabeslot. Ohne passendes Rezept oder genügend Ausgabeplatz klickt er nur und verbraucht nichts.",
+            "Trichter und Spender befüllen die drei Eingabeslots von jeder Seite mit denselben Item-Prüfungen wie am Schmiedetisch. Nur fertige Ergebnisse lassen sich herausziehen. Spieler können Ergebnisse entnehmen, aber nichts in den Ausgabeslot legen.",
+            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Eingabeslot (0 bis 15). Der Fehlerpfeil erscheint nur bei drei belegten Eingaben ohne gültiges Rezept.",
             "Rezept: Eisenbarren um einen Schmiedetisch, unten Redstone, ein Spender und Redstone - wie beim Crafter."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/AutoSmitherBlock.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutoSmitherBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/AutoSmitherScreen.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
@@ -19264,7 +19926,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/black_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -19274,25 +19935,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -19304,9 +19967,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -19339,18 +20007,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/blackstone_quartz_checker.json"
         ],
         "en": {
-          "summary": "Blackstone Quartz Checker: craft 4 from 2 Blackstone blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Blackstone Quartz Checker: craft 4 from 2 Blackstone blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Schwarzstein-Quarz-Schachbrett: 2 Schwarzsteinblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Schwarzstein-Quarz-Schachbrett: 2 Schwarzsteinblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -19449,7 +20117,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/blue_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -19459,25 +20126,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -19489,9 +20158,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -19585,7 +20259,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/brown_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -19595,25 +20268,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -19625,9 +20300,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -20050,7 +20730,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/cyan_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -20060,25 +20739,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -20090,9 +20771,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -20535,18 +21221,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/ender_quartz_checker.json"
         ],
         "en": {
-          "summary": "Ender Quartz Checker: craft 4 from 2 Ender Quartz and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Ender Quartz Checker: craft 4 from 2 Ender Quartz and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Enderquarz-Schachbrett: 2 Enderquarz und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Enderquarz-Schachbrett: 2 Enderquarz und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -20795,6 +21481,23 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_barrel",
+      "name": {
+        "en_us": "Enderite Barrel",
+        "de_de": "Enderit-Fass"
+      },
+      "texture": "assets/textures/block/enderite_barrel_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_barrel.png",
+      "lootTable": "simplebuilding:blocks/enderite_barrel",
+      "drops": [
+        "simplebuilding:enderite_barrel"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_blast_furnace",
       "name": {
         "en_us": "Enderite Blast Furnace",
@@ -20828,19 +21531,18 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
           "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
-          "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
           "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
         ],
         "en": {
-          "summary": "The Enderite Blast Furnace is the fastest blast furnace tier: 8 times the vanilla speed, double experience, extra output from raw metals. It is hammered out of a Netherite Blast Furnace.",
+          "summary": "The Enderite Blast Furnace is the fastest blast furnace tier: 8 times the vanilla speed, double experience and unchanged recipe output. It is hammered out of a Netherite Blast Furnace.",
           "details": [
             "Behaves like a vanilla blast furnace: same recipe type (RecipeType.BLASTING) and the same menu (BlastFurnaceMenu); same block class (ModBlastFurnaceBlock) and block entity (ModBlastFurnaceBlockEntity) as the Reinforced and Netherite tiers, which read the block state to tell the tiers apart.",
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 7 extra progress ticks per server tick (extraTicks = 7), capped at total time minus 1 - 8 times the vanilla speed; a 200 tick recipe finishes in 26 ticks, a 100 tick recipe in 14.",
             "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
-            "Extra output: every 2nd finished smelt of a recipe whose ingredient is only Raw Iron, Raw Gold or Raw Copper (tag simplebuilding:blast_furnace_bonus) yields one item more (+50 %); with a full result slot the bonus waits for the next one, and the count is saved with the block.",
-            "Enderite Scrap (72000 ticks in a vanilla blast furnace) takes 9001 ticks here, about 7.5 minutes, and pays 20 experience instead of 10.",
+            "All furnace tiers produce exactly the recipe output, without bonus ingots. Netherite and Enderite keep double experience, except for excluded ingredients. Old bonus counters are ignored when loading and omitted when saving.",
+            "Layered Raw Enderite has a blasting recipe time of 144000 ticks and produces one Enderite Scrap. This tier speeds up cooking and pays 20 experience instead of 10.",
             "Menu title: \"Enderite Blast Furnace\" (translation key container.simplebuilding.enderite_blast_furnace).",
             "Made only in the world: hold right-click for 5 seconds on a placed Netherite Blast Furnace with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items, cooking progress and stored experience stay in the block.",
             "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla blast furnace (ofFullCopy(Blocks.BLAST_FURNACE)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. It gives off light level 13 while it burns.",
@@ -20858,13 +21560,13 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Enderit-Schmelzofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung, zusätzliche Ausbeute aus Rohmetallen. Er wird aus einem Netherit-Schmelzofen geschmiedet.",
+          "summary": "Der Enderit-Schmelzofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung und unveränderte Rezeptausbeute. Er wird aus einem Netherit-Schmelzofen geschmiedet.",
           "details": [
             "Verhält sich wie ein Vanilla-Schmelzofen: gleicher Rezepttyp (RecipeType.BLASTING) und dasselbe Menü (BlastFurnaceMenu); dieselbe Blockklasse (ModBlastFurnaceBlock) und Block-Entity (ModBlastFurnaceBlockEntity) wie Verstärkt- und Netherit-Stufe, die Stufe wird am Blockzustand unterschieden.",
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 7 zusätzliche Fortschritts-Ticks (extraTicks = 7), gedeckelt auf Gesamtzeit minus 1 - achtfache Vanilla-Geschwindigkeit; ein 200-Tick-Rezept ist nach 26 Ticks fertig, ein 100-Tick-Rezept nach 14.",
             "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
-            "Mehr Ausbeute: Jeder 2. fertige Schmelzvorgang eines Rezepts, dessen Zutat nur Roheisen, Rohgold oder Rohkupfer ist (Tag simplebuilding:blast_furnace_bonus), gibt einen Gegenstand mehr (+50 %); bei vollem Ausgabeslot wartet der Bonus auf den nächsten, der Zähler wird mit dem Block gespeichert.",
-            "Enderitplatten (72000 Ticks im Vanilla-Schmelzofen) braucht hier 9001 Ticks, rund 7,5 Minuten, und bringt 20 statt 10 Erfahrung.",
+            "Alle Ofenstufen liefern genau die Rezeptausbeute ohne Bonusbarren. Netherit und Enderit behalten doppelte Erfahrung, außer bei ausgeschlossenen Zutaten. Alte Bonuszähler werden beim Laden ignoriert und beim Speichern weggelassen.",
+            "Rohe Enderitplatten haben eine Schmelzofen-Rezeptzeit von 144000 Ticks und ergeben eine Enderitplatte. Diese Stufe beschleunigt das Schmelzen und gibt 20 statt 10 Erfahrung.",
             "Menü-Titel: „Enderit-Schmelzofen“ (Übersetzungsschlüssel container.simplebuilding.enderite_blast_furnace).",
             "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderitklumpen in der Nebenhand auf einen gesetzten Netherit-Schmelzofen halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Klumpen wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Inhalt, Kochfortschritt und gespeicherte Erfahrung bleiben im Block.",
             "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Schmelzofen kopiert (ofFullCopy(Blocks.BLAST_FURNACE)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. Beim Brennen leuchtet er mit Stärke 13.",
@@ -20885,7 +21587,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:blast_furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:116",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:86",
         "extraTicks": 7,
         "cookingTicksPerTick": 8
       },
@@ -21031,6 +21733,23 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_crucible",
+      "name": {
+        "en_us": "Enderite Crucible",
+        "de_de": "Enderit-Schmelztiegel"
+      },
+      "texture": "assets/textures/block/enderite_crucible_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_crucible.png",
+      "lootTable": "simplebuilding:blocks/enderite_crucible",
+      "drops": [
+        "simplebuilding:enderite_crucible"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -22256,7 +22975,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/gray_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -22266,25 +22984,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -22296,9 +23016,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -22332,7 +23057,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/green_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -22342,25 +23066,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -22372,9 +23098,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -22389,13 +23120,12 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "icon": "assets/textures/render/block/hammock_rope.png",
       "note": {
         "en": {
-          "summary": "The ropes of a hammock: one above each cloth block up to its anchor, and a rope span when the anchors are 3 blocks apart. No item and no drops; it falls with its hammock, and a click on it lies you down like a click on the cloth."
+          "summary": "The upper layer of a hammock: an invisible rope block in every cell the line between the anchors passes through; the cloth head draws the whole hammock, ropes included. No item and no drops; it falls with its hammock, and a click on it lies you down like a click on the cloth."
         },
         "de": {
-          "summary": "Die Seile einer Hängematte: je eines über jedem Tuchblock bis zu seinem Anker und ein Seilstück, wenn die Anker 3 Blöcke auseinander liegen. Kein Item und keine Drops; es fällt mit seiner Hängematte, ein Klick darauf legt dich hin wie ein Klick aufs Tuch."
+          "summary": "Die obere Lage einer Hängematte: ein unsichtbarer Seilblock in jeder Zelle, durch die die Linie zwischen den Ankern läuft; das Kopfteil zeichnet die ganze Hängematte samt Seilen. Kein Item und keine Drops; er fällt mit seiner Hängematte, ein Klick darauf legt dich hin wie ein Klick aufs Tuch."
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/HammockRopeBlock.java",
@@ -22575,8 +23305,8 @@ window.WIKI_DATA = {
           "summary": "A directly adjacent jukebox plays louder and is heard farther - the same sound at the same time, no echo.",
           "details": [
             "Recipe: eight planks of any wood around Astralit Dust.",
-            "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
-            "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+            "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
+            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
             "A jukebox counts its amplifiers when a song starts, a note block on every note."
           ]
         },
@@ -22585,8 +23315,8 @@ window.WIKI_DATA = {
           "summary": "Ein direkt angrenzender Plattenspieler spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
-            "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
-            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+            "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
+            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -22621,18 +23351,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/lapis_quartz_checker.json"
         ],
         "en": {
-          "summary": "Lapis Quartz Checker: craft 4 from 2 Lapis Lazuli Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Lapis Quartz Checker: craft 4 from 2 Lapis Lazuli Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Lapis-Quarz-Schachbrett: 2 Lapislazuliblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Lapis-Quarz-Schachbrett: 2 Lapislazuliblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -22926,7 +23656,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/light_blue_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -22936,25 +23665,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -22966,9 +23697,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -23002,7 +23738,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/light_gray_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -23012,25 +23747,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -23042,9 +23779,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -23078,7 +23820,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/lime_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -23088,25 +23829,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -23118,9 +23861,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -23154,7 +23902,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/magenta_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -23164,25 +23911,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -23194,10 +23943,63 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nether_brick_quartz_checker",
+      "name": {
+        "en_us": "Nether Brick Quartz Checker",
+        "de_de": "Netherziegel-Quarz-Schachbrett"
+      },
+      "texture": "assets/textures/block/nether_brick_quartz_checker.png",
+      "craftedBy": [
+        "simplebuilding:nether_brick_quartz_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nether_brick_quartz_checker.png",
+      "lootTable": "simplebuilding:blocks/nether_brick_quartz_checker",
+      "drops": [
+        "simplebuilding:nether_brick_quartz_checker"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/nether_brick_quartz_checker.json"
+        ],
+        "en": {
+          "summary": "Nether Brick Quartz Checker: craft 4 from 2 Nether Bricks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5.",
+            "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
+          ]
+        },
+        "de": {
+          "summary": "Netherziegel-Quarz-Schachbrett: 2 Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
+            "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
+          ]
+        }
       },
       "hasCustomBehaviour": false
     },
@@ -23452,7 +24254,7 @@ window.WIKI_DATA = {
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the creative tab \"SimpleMachines\", next to the hoppers and pistons.",
             "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
-            "Extra output: every 4th finished smelt of a recipe whose ingredient is only Raw Iron, Raw Gold or Raw Copper (tag simplebuilding:blast_furnace_bonus) yields one item more (+25 %); with a full result slot the bonus waits for the next one. Enderite Scrap takes 18001 ticks (15 minutes) here instead of an hour in a vanilla blast furnace."
+            "All furnace tiers produce exactly the recipe output, without bonus ingots. Netherite and Enderite keep double experience, except for excluded ingredients. Old bonus counters are ignored when loading and omitted when saving."
           ],
           "controls": [
             "Right-click the block to open the blast furnace menu (useWithoutItem; the menu is only opened on the server side)."
@@ -23479,7 +24281,7 @@ window.WIKI_DATA = {
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab „SimpleMachines“ zusammen mit Trichtern und Kolben.",
             "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
-            "Mehr Ausbeute: Jeder 4. fertige Schmelzvorgang eines Rezepts, dessen Zutat nur Roheisen, Rohgold oder Rohkupfer ist (Tag simplebuilding:blast_furnace_bonus), gibt einen Gegenstand mehr (+25 %); bei vollem Ausgabeslot wartet der Bonus auf den nächsten. Enderitplatten braucht hier 18001 Ticks (15 Minuten) statt einer Stunde im Vanilla-Schmelzofen."
+            "Alle Ofenstufen liefern genau die Rezeptausbeute ohne Bonusbarren. Netherit und Enderit behalten doppelte Erfahrung, außer bei ausgeschlossenen Zutaten. Alte Bonuszähler werden beim Laden ignoriert und beim Speichern weggelassen."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Schmelzofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
@@ -23510,7 +24312,6 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
-          "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
           "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
           "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json"
@@ -23519,7 +24320,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:blast_furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:111",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:81",
         "extraTicks": 3,
         "cookingTicksPerTick": 4
       },
@@ -24637,6 +25438,25 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_rail",
+      "name": {
+        "en_us": "Nihil Rail",
+        "de_de": "Nihil-Schiene"
+      },
+      "texture": "assets/textures/block/nihil_rail.png",
+      "craftedBy": [
+        "simplebuilding:nihil_rail"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/nihil_rail.png",
+      "lootTable": "simplebuilding:blocks/nihil_rail",
+      "drops": [
+        "simplebuilding:nihil_rail"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihil_redstone",
       "name": {
         "en_us": "Nihil Redstone",
@@ -24648,6 +25468,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:nihil_piston",
+        "simplebuilding:nihil_rail",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:nihilith_switch"
       ],
@@ -24685,6 +25506,52 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_vault",
+      "name": {
+        "en_us": "Nihil Vault",
+        "de_de": "Nihil-Gewölbe"
+      },
+      "texture": "assets/textures/block/nihil_vault.png",
+      "craftedBy": [
+        "simplebuilding:nihil_vault"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_vault.png",
+      "lootTable": "simplebuilding:blocks/nihil_vault",
+      "drops": [
+        "simplebuilding:nihil_vault"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/NihilVaultBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/NihilVaultStorage.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Nihil Vault",
+          "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+          "details": [
+            "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+            "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
+            "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
+            "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Nihil-Gewölbe",
+          "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+          "details": [
+            "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+            "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
+            "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
+            "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:nihilith_block",
@@ -24944,18 +25811,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/nihilith_quartz_checker.json"
         ],
         "en": {
-          "summary": "Nihilit Quartz Checker: craft 4 from 2 Nihilit Shards and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Nihilit Quartz Checker: craft 4 from 2 Nihilit Shards and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Nihilit-Quarz-Schachbrett: 2 Nihilitsplitter und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Nihilit-Quarz-Schachbrett: 2 Nihilitsplitter und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -25041,8 +25908,8 @@ window.WIKI_DATA = {
           "summary": "A directly adjacent note block plays louder and is heard farther - the same sound at the same time, no echo.",
           "details": [
             "Recipe: eight planks of any wood around a Nihilit Shard.",
-            "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
-            "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+            "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
+            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
             "A jukebox counts its amplifiers when a song starts, a note block on every note."
           ]
         },
@@ -25051,8 +25918,8 @@ window.WIKI_DATA = {
           "summary": "Ein direkt angrenzender Notenblock spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
-            "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
-            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+            "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
+            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -25088,7 +25955,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/orange_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -25098,25 +25964,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -25128,9 +25996,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -25215,7 +26088,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/pink_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -25225,25 +26097,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -25255,9 +26129,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -25387,7 +26266,8 @@ window.WIKI_DATA = {
             "More small parts: bones, feathers, arrows and spectral arrows, blaze and breeze rods, glowstone dust, glow ink sacs, prismarine crystals, nether stars, rabbit's feet, turtle and armadillo scutes, disc fragments, ghast tears and the mod's Nihilith Shards, Astralit Dust, Ender Quartz, Raw Enderite, Enderite Scrap, Cracked Diamonds and Sage Orbs.",
             "Candles and sea pickles mix in: alone they stay the vanilla blocks. Sneak + right-click with another part on a vanilla candle or sea pickle block (or the block below it) turns it into a spot with each candle or pickle as one part, keeping lit candles lit and water; a candle of the same color on candles, or a sea pickle on sea pickles, stays vanilla. On a spot, candles and pickles are added like any part. They stand as the vanilla models.",
             "Light like vanilla: lit candles give 3 per candle, sea pickles under water 3 + 3 per pickle, dry pickles none. Flint and steel, a fire charge or a burning projectile light the candles (not under water); an empty hand puts them out, and so does water flowing in. Lit candles show the vanilla flame and smoke.",
-            "Glowing parts (glowstone dust, glow ink sac, prismarine crystals, nether star, blaze rod, echo shard, Astralit Dust, Sage Orb) now and then show a subtle vanilla particle; the client option \"Glow Particles on Placed Parts\" (tools.placedPartParticles, on by default) turns that off."
+            "Glowing parts (glowstone dust, glow ink sac, prismarine crystals, nether star, blaze rod, echo shard, Astralit Dust, Sage Orb) now and then show a subtle vanilla particle; the client option \"Glow Particles on Placed Parts\" (tools.placedPartParticles, on by default) turns that off.",
+            "Since 2026-10-04 a stick, bone, blaze rod or breeze rod clicked on a free top stands upright instead (see Standing Rod); on a pile, a wall or a ceiling it still lies down."
           ]
         },
         "de": {
@@ -25400,7 +26280,8 @@ window.WIKI_DATA = {
             "Weitere Kleinteile: Knochen, Federn, Pfeile und Spektralpfeile, Lohen- und Böenruten, Glowstonestaub, Leuchttintenbeutel, Prismarinkristalle, Nethersterne, Hasenpfoten, Schildkröten- und Gürteltier-Hornschilde, Plattenbruchstücke, Ghast-Tränen sowie die Nihilithsplitter, Astralitstaub, Enderquarz, Rohenderit, Enderitschrott, Rissige Diamanten und Weisheitskugeln der Mod.",
             "Kerzen und Seegurken mischen mit: allein bleiben sie die Vanilla-Blöcke. Schleichen + Rechtsklick mit einem anderen Teil auf einen Vanilla-Kerzen- oder -Seegurkenblock (oder den Block darunter) macht daraus einen Fleck, jede Kerze bzw. Gurke ein Teil; brennende Kerzen brennen weiter, Wasser bleibt. Eine gleichfarbige Kerze auf Kerzen oder eine Seegurke auf Seegurken bleibt Vanilla. Auf einen Fleck legen sich Kerzen und Gurken wie jedes Teil. Sie stehen als die Vanilla-Modelle.",
             "Licht wie bei Vanilla: brennende Kerzen geben 3 je Kerze, Seegurken unter Wasser 3 + 3 je Gurke, trockene Gurken nichts. Feuerzeug, Feuerkugel oder ein brennendes Geschoss zünden die Kerzen an (nicht unter Wasser); die leere Hand löscht sie, ebenso hineinlaufendes Wasser. Brennende Kerzen zeigen die Vanilla-Flamme und Rauch.",
-            "Leuchtende Teile (Glowstonestaub, Leuchttintenbeutel, Prismarinkristalle, Netherstern, Lohenrute, Echoscherbe, Astralitstaub, Weisheitskugel) zeigen ab und zu einen dezenten Vanilla-Partikel; die Client-Option „Glanz-Partikel an abgelegten Teilen“ (tools.placedPartParticles, standardmäßig an) schaltet das ab."
+            "Leuchtende Teile (Glowstonestaub, Leuchttintenbeutel, Prismarinkristalle, Netherstern, Lohenrute, Echoscherbe, Astralitstaub, Weisheitskugel) zeigen ab und zu einen dezenten Vanilla-Partikel; die Client-Option „Glanz-Partikel an abgelegten Teilen“ (tools.placedPartParticles, standardmäßig an) schaltet das ab.",
+            "Seit 2026-10-04 stellt sich ein Stock, Knochen, eine Lohen- oder Böenrute auf einer freien Oberseite senkrecht auf (siehe Aufgestellter Stab); auf einem Häufchen, an Wand oder Decke legt er sich weiter hin."
           ]
         },
         "sources": [
@@ -25664,18 +26545,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
         ],
         "en": {
-          "summary": "Polished Ender Quartz Checker: craft 4 from 2 Polished Ender Quartz blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Polished Ender Quartz Checker: craft 4 from 2 Polished Ender Quartz blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Poliertes Enderquarz-Schachbrett: 2 polierte Enderquarzblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Poliertes Enderquarz-Schachbrett: 2 polierte Enderquarzblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -25986,7 +26867,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/purple_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -25996,25 +26876,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -26026,9 +26908,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -26061,18 +26948,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/purpur_quartz_checker.json"
         ],
         "en": {
-          "summary": "Purpur Quartz Checker: craft 4 from 2 Purpur Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Purpur Quartz Checker: craft 4 from 2 Purpur Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Purpur-Quarz-Schachbrett: 2 Purpurblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Purpur-Quarz-Schachbrett: 2 Purpurblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -26110,7 +26997,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/red_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -26120,25 +27006,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -26150,10 +27038,63 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_quartz_checker",
+      "name": {
+        "en_us": "Red Nether Brick Quartz Checker",
+        "de_de": "Rotes Netherziegel-Quarz-Schachbrett"
+      },
+      "texture": "assets/textures/block/red_nether_brick_quartz_checker.png",
+      "craftedBy": [
+        "simplebuilding:red_nether_brick_quartz_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/red_nether_brick_quartz_checker.png",
+      "lootTable": "simplebuilding:blocks/red_nether_brick_quartz_checker",
+      "drops": [
+        "simplebuilding:red_nether_brick_quartz_checker"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/red_nether_brick_quartz_checker.json"
+        ],
+        "en": {
+          "summary": "Red Nether Brick Quartz Checker: craft 4 from 2 Red Nether Bricks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5.",
+            "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
+          ]
+        },
+        "de": {
+          "summary": "Rotes Netherziegel-Quarz-Schachbrett: 2 rote Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
+            "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
+          ]
+        }
       },
       "hasCustomBehaviour": false
     },
@@ -26430,7 +27371,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:blast_furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:113",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:83",
         "extraTicks": 1,
         "cookingTicksPerTick": 2
       },
@@ -27450,18 +28391,18 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/resin_quartz_checker.json"
         ],
         "en": {
-          "summary": "Resin Quartz Checker: craft 4 from 2 Red Nether Bricks blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+          "summary": "Resin Quartz Checker: craft 4 from 2 Resin Bricks blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Harz-Quarz-Schachbrett: 2 rote Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+          "summary": "Harz-Quarz-Schachbrett: 2 Harzziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -27642,6 +28583,18 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/slime_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:soul_lava",
+      "name": {
+        "en_us": "Soul Lava",
+        "de_de": "Seelen-Lava"
+      },
+      "texture": "assets/textures/block/soul_lava_still.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
       "hasCustomBehaviour": false
     },
     {
@@ -27919,6 +28872,45 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/spider_head.png",
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:standing_rod",
+      "name": {
+        "en_us": "Standing Rod",
+        "de_de": "Aufgestellter Stab"
+      },
+      "texture": "assets/textures/block/standing_blaze_rod.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/standing_rod.png",
+      "note": {
+        "en": {
+          "summary": "A stick, bone, blaze rod, breeze rod or diamond rod standing upright: sneak + right-click on the top of a block. A thin column made from the item's own pixels (the lightning rod's stem without its head); it drops the rod itself.",
+          "details": [
+            "It needs a floor that holds its middle (like a candle) or another standing rod below: stacked rods make posts. Breaking it - or losing the floor - drops the rod; no tool needed, pistons pop it, it can stand in water.",
+            "Only the blaze rod glows, a little (light 5). The thin shape collides, so a standing rod holds a hammock like any other anchor - two stacked sticks are a post on rope height.",
+            "Without sneaking the item behaves as usual. Stick, bone, blaze and breeze rod still lie down when clicked on a pile of small parts (they are added to it), a wall or a ceiling; the server options server.features.placeVanillaItems and placeDisabledItems apply to standing rods too.",
+            "The end rod, lightning rod, the metal rods and bamboo already are blocks; arrows do not stand."
+          ]
+        },
+        "de": {
+          "summary": "Ein Stock, Knochen, eine Lohenrute, Böenrute oder ein Diamantstab senkrecht aufgestellt: Schleichen + Rechtsklick auf die Oberseite eines Blocks. Eine dünne Säule aus den Pixeln des Items (der Stiel des Blitzableiters ohne Kopf); sie droppt den Stab selbst.",
+          "details": [
+            "Braucht einen Boden, der seine Mitte trägt (wie eine Kerze), oder einen aufgestellten Stab darunter: gestapelt ergeben sie Pfosten. Abbauen - oder ein fehlender Boden - droppt den Stab; kein Werkzeug nötig, Kolben stoßen ihn ab, er kann im Wasser stehen.",
+            "Nur die Lohenrute leuchtet, leicht (Licht 5). Die dünne Form hat Kollision, daher trägt ein aufgestellter Stab eine Hängematte wie jeder andere Anker - zwei gestapelte Stöcke sind ein Pfosten auf Seilhöhe.",
+            "Ohne Schleichen verhält sich das Item wie gewohnt. Stock, Knochen, Lohen- und Böenrute legen sich weiter hin, wenn man auf ein Häufchen Kleinteile (sie kommen dazu), eine Wand oder Decke klickt; die Server-Optionen server.features.placeVanillaItems und placeDisabledItems gelten auch für aufgestellte Stäbe.",
+            "Endstab, Blitzableiter, die Metallstäbe und Bambus sind schon Blöcke; Pfeile stehen nicht."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/StandingRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "tools/textures/standing_rods_2026_10_04.py"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:stellar_flypad",
@@ -28478,7 +29470,6 @@ window.WIKI_DATA = {
         "simplebuilding:yellow_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/white_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -28488,25 +29479,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -28518,9 +29511,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -28554,7 +29552,6 @@ window.WIKI_DATA = {
         "simplebuilding:white_hammock_from_dye"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/yellow_hammock.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -28564,25 +29561,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -28594,9 +29593,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/HammockBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockShape.java",
+          "common/src/shared/java/com/simplebuilding/client/render/HammockRenderer.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -28959,6 +29963,62 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:astralit_dust",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_rail",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_rail",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_rail.json",
+      "ingredients": [
+        "minecraft:gold_ingot",
+        "minecraft:stick",
+        "simplebuilding:astral_redstone"
+      ],
+      "pattern": [
+        "G G",
+        "GSG",
+        "GRG"
+      ],
+      "key": {
+        "G": [
+          "minecraft:gold_ingot"
+        ],
+        "R": [
+          "simplebuilding:astral_redstone"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
           }
         ]
       }
@@ -30513,9 +31573,9 @@ window.WIKI_DATA = {
         "id": "simplebuilding:basic_upgrade_template",
         "count": 2
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/basic_upgrade_template.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/basic_upgrade_template.json",
       "ingredients": [
-        "minecraft:gold_ingot",
+        "minecraft:diamond",
         "minecraft:iron_block",
         "simplebuilding:basic_upgrade_template"
       ],
@@ -30526,7 +31586,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "A": [
-          "minecraft:gold_ingot"
+          "minecraft:diamond"
         ],
         "B": [
           "simplebuilding:basic_upgrade_template"
@@ -30535,9 +31595,56 @@ window.WIKI_DATA = {
           "minecraft:iron_block"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:diamond",
+                "minecraft:iron_block",
+                "simplebuilding:basic_upgrade_template"
+              ],
+              "other": [
+                "minecraft:gold_ingot",
+                "minecraft:iron_block",
+                "simplebuilding:basic_upgrade_template"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "A": [
+                  "minecraft:diamond"
+                ],
+                "B": [
+                  "simplebuilding:basic_upgrade_template"
+                ],
+                "C": [
+                  "minecraft:iron_block"
+                ]
+              },
+              "other": {
+                "A": [
+                  "minecraft:gold_ingot"
+                ],
+                "B": [
+                  "simplebuilding:basic_upgrade_template"
+                ],
+                "C": [
+                  "minecraft:iron_block"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/basic_upgrade_template.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ]
     },
@@ -30617,7 +31724,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -30639,7 +31746,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:ink_sac",
@@ -30647,7 +31754,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -30710,7 +31817,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:ink_sac",
@@ -30718,7 +31825,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -30904,7 +32011,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -30926,7 +32033,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:lapis_lazuli",
@@ -30934,7 +32041,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -30997,7 +32104,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:lapis_lazuli",
@@ -31005,7 +32112,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -31470,7 +32577,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -31492,7 +32599,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cocoa_beans",
@@ -31500,7 +32607,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -31563,7 +32670,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cocoa_beans",
@@ -31571,7 +32678,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -32430,6 +33537,41 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:copper_bucket",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:copper_bucket",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/copper_bucket.json",
+      "ingredients": [
+        "minecraft:copper_ingot"
+      ],
+      "pattern": [
+        "C C",
+        " C "
+      ],
+      "key": {
+        "C": [
+          "minecraft:copper_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:copper_building_wand",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -32982,7 +34124,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -33004,7 +34146,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus",
@@ -33016,7 +34158,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -33079,7 +34221,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus",
@@ -33091,7 +34233,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -33800,6 +34942,41 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:emitting_trim_template_duplication",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:emitting_trim_template",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/emitting_trim_template_duplication.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:magma_block",
+        "simplebuilding:emitting_trim_template"
+      ],
+      "pattern": [
+        "DTD",
+        "DBD",
+        "DDD"
+      ],
+      "key": {
+        "B": [
+          "minecraft:magma_block"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "T": [
+          "simplebuilding:emitting_trim_template"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -35726,6 +36903,50 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:enderite_bucket",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_bucket",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_bucket.json",
+      "ingredients": [
+        "minecraft:bucket",
+        "simplebuilding:enderite_nugget"
+      ],
+      "pattern": [
+        "NNN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "B": [
+          "minecraft:bucket"
+        ],
+        "N": [
+          "simplebuilding:enderite_nugget"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 0.889
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:enderite_building_wand_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -37541,6 +38762,80 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:fire_charge_from_fire_chips",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:fire_charge",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fire_charge_from_fire_chips.json",
+      "ingredients": [
+        "simplebuilding:fire_chip"
+      ],
+      "pattern": [
+        "CC",
+        "CC"
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:fire_chip"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:fire_chip",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:fire_chip",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:fire_chip",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fire_chip.json",
+      "ingredients": [
+        "minecraft:fire_charge"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:fire_charge"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:coal",
+            "count": 0.333
+          },
+          {
+            "id": "minecraft:gunpowder",
+            "count": 0.333
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 0.167
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:fletching/amethyst_blaze_rod_feather",
       "type": "simplebuilding:fletching",
       "category": null,
@@ -39198,6 +40493,41 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:glowing_trim_template_duplication",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:glowing_trim_template",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/glowing_trim_template_duplication.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:glowstone",
+        "simplebuilding:glowing_trim_template"
+      ],
+      "pattern": [
+        "DTD",
+        "DBD",
+        "DDD"
+      ],
+      "key": {
+        "B": [
+          "minecraft:glowstone"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "T": [
+          "simplebuilding:glowing_trim_template"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:gold_building_wand",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -39540,7 +40870,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -39562,7 +40892,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:ink_sac",
@@ -39574,7 +40904,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -39637,19 +40967,19 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:ink_sac",
             "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          },
-          {
             "id": "minecraft:bone",
             "count": 0.167
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
           }
         ]
       }
@@ -39790,7 +41120,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -39812,7 +41142,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus",
@@ -39820,7 +41150,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -39883,7 +41213,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus",
@@ -39891,7 +41221,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -40041,6 +41371,103 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ice_chip",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ice_chip",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ice_chip.json",
+      "ingredients": [
+        "minecraft:ice"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:ice"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ice_chip_from_packed_ice",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ice_chip",
+        "count": 9
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ice_chip_from_packed_ice.json",
+      "ingredients": [
+        "minecraft:packed_ice"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:packed_ice"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ice_from_ice_chips",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:ice",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ice_from_ice_chips.json",
+      "ingredients": [
+        "simplebuilding:ice_chip"
+      ],
+      "pattern": [
+        "CC",
+        "CC"
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:ice_chip"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 4
           }
         ]
       }
@@ -40971,7 +42398,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -40993,7 +42420,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:blue_orchid",
@@ -41001,7 +42428,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41064,7 +42491,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:blue_orchid",
@@ -41072,7 +42499,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41213,7 +42640,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -41235,7 +42662,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:azure_bluet",
@@ -41243,7 +42670,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41306,7 +42733,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:azure_bluet",
@@ -41314,7 +42741,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41455,7 +42882,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -41477,7 +42904,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus",
@@ -41489,7 +42916,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41552,19 +42979,19 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus",
             "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          },
-          {
             "id": "minecraft:bone",
             "count": 0.167
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
           }
         ]
       }
@@ -41705,7 +43132,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -41727,7 +43154,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:allium",
@@ -41735,7 +43162,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41798,7 +43225,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:allium",
@@ -41806,7 +43233,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41984,6 +43411,50 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:redstone",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nether_brick_quartz_checker",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nether_brick_quartz_checker",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/nether_brick_quartz_checker.json",
+      "ingredients": [
+        "minecraft:nether_bricks",
+        "minecraft:quartz_block"
+      ],
+      "pattern": [
+        "BQ",
+        "QB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:nether_bricks"
+        ],
+        "Q": [
+          "minecraft:quartz_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 8
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 8
           }
         ]
       }
@@ -43083,6 +44554,62 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:nihil_rail",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_rail",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_rail.json",
+      "ingredients": [
+        "minecraft:gold_ingot",
+        "minecraft:stick",
+        "simplebuilding:nihil_redstone"
+      ],
+      "pattern": [
+        "G G",
+        "GSG",
+        "GRG"
+      ],
+      "key": {
+        "G": [
+          "minecraft:gold_ingot"
+        ],
+        "R": [
+          "simplebuilding:nihil_redstone"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nihil_redstone",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -43117,6 +44644,66 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_vault",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_vault",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_vault.json",
+      "ingredients": [
+        "minecraft:ender_chest",
+        "simplebuilding:enderite_nugget",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        "NAN",
+        "NEN",
+        "NAN"
+      ],
+      "key": {
+        "A": [
+          "simplebuilding:nihilith_shard"
+        ],
+        "N": [
+          "simplebuilding:enderite_nugget"
+        ],
+        "E": [
+          "minecraft:ender_chest"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:obsidian",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 0.667
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 0.5
           }
         ]
       }
@@ -44489,6 +46076,73 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:obsidian_chip",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:obsidian_chip",
+        "count": 9
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/obsidian_chip.json",
+      "ingredients": [
+        "minecraft:obsidian"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:obsidian"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:obsidian",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:obsidian_from_obsidian_chips",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:obsidian",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/obsidian_from_obsidian_chips.json",
+      "ingredients": [
+        "simplebuilding:obsidian_chip"
+      ],
+      "pattern": [
+        "CCC",
+        "CCC",
+        "CCC"
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:obsidian_chip"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:obsidian_chip",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:octant",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -45652,7 +47306,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -45674,7 +47328,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:open_eyeblossom",
@@ -45682,7 +47336,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -45745,7 +47399,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:open_eyeblossom",
@@ -45753,7 +47407,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -45894,7 +47548,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -45916,7 +47570,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus_flower",
@@ -45924,7 +47578,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -45987,7 +47641,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus_flower",
@@ -45995,7 +47649,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -48209,10 +49863,12 @@ window.WIKI_DATA = {
         "id": "simplebuilding:pulsating_trim_template",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/pulsating_trim_template.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pulsating_trim_template.json",
       "ingredients": [
         "#simplebuilding:sledgehammer_tools",
-        "minecraft:echo_shard"
+        "minecraft:diamond",
+        "minecraft:echo_shard",
+        "minecraft:sculk"
       ],
       "ingredientGroups": [
         [
@@ -48220,23 +49876,114 @@ window.WIKI_DATA = {
         ],
         [
           "minecraft:echo_shard"
+        ],
+        [
+          "minecraft:echo_shard"
+        ],
+        [
+          "minecraft:sculk"
+        ],
+        [
+          "minecraft:sculk"
+        ],
+        [
+          "minecraft:diamond"
+        ],
+        [
+          "minecraft:diamond"
+        ],
+        [
+          "minecraft:diamond"
+        ],
+        [
+          "minecraft:diamond"
         ]
       ],
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "#simplebuilding:sledgehammer_tools"
+                ],
+                [
+                  "minecraft:echo_shard"
+                ],
+                [
+                  "minecraft:echo_shard"
+                ],
+                [
+                  "minecraft:sculk"
+                ],
+                [
+                  "minecraft:sculk"
+                ],
+                [
+                  "minecraft:diamond"
+                ],
+                [
+                  "minecraft:diamond"
+                ],
+                [
+                  "minecraft:diamond"
+                ],
+                [
+                  "minecraft:diamond"
+                ]
+              ],
+              "other": [
+                [
+                  "#simplebuilding:sledgehammer_tools"
+                ],
+                [
+                  "minecraft:echo_shard"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "#simplebuilding:sledgehammer_tools",
+                "minecraft:diamond",
+                "minecraft:echo_shard",
+                "minecraft:sculk"
+              ],
+              "other": [
+                "#simplebuilding:sledgehammer_tools",
+                "minecraft:echo_shard"
+              ]
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/pulsating_trim_template.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
             "id": "minecraft:cobblestone",
             "count": 2
           },
           {
             "id": "minecraft:echo_shard",
-            "count": 1
+            "count": 2
+          },
+          {
+            "id": "minecraft:sculk",
+            "count": 2
           },
           {
             "id": "minecraft:iron_ingot",
@@ -48251,6 +49998,41 @@ window.WIKI_DATA = {
           "#simplebuilding:sledgehammer_tools"
         ]
       }
+    },
+    {
+      "id": "simplebuilding:pulsating_trim_template_duplication",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:pulsating_trim_template",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pulsating_trim_template_duplication.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:sculk",
+        "simplebuilding:pulsating_trim_template"
+      ],
+      "pattern": [
+        "DTD",
+        "DBD",
+        "DDD"
+      ],
+      "key": {
+        "B": [
+          "minecraft:sculk"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "T": [
+          "simplebuilding:pulsating_trim_template"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
     },
     {
       "id": "simplebuilding:purple_dyed_storage",
@@ -48328,7 +50110,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -48350,7 +50132,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:beetroot",
@@ -48362,7 +50144,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -48425,7 +50207,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:beetroot",
@@ -48437,7 +50219,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -48748,7 +50530,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -48770,7 +50552,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:beetroot",
@@ -48778,7 +50560,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -48841,7 +50623,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:beetroot",
@@ -48849,7 +50631,55 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_quartz_checker",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:red_nether_brick_quartz_checker",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/red_nether_brick_quartz_checker.json",
+      "ingredients": [
+        "minecraft:quartz_block",
+        "minecraft:red_nether_bricks"
+      ],
+      "pattern": [
+        "BQ",
+        "QB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:red_nether_bricks"
+        ],
+        "Q": [
+          "minecraft:quartz_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 8
+          },
+          {
+            "id": "minecraft:nether_wart",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherrack",
+            "count": 4
           }
         ]
       }
@@ -50301,7 +52131,7 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/recipe/resin_quartz_checker.json",
       "ingredients": [
         "minecraft:quartz_block",
-        "minecraft:red_nether_bricks"
+        "minecraft:resin_bricks"
       ],
       "pattern": [
         "BQ",
@@ -50309,14 +52139,53 @@ window.WIKI_DATA = {
       ],
       "key": {
         "B": [
-          "minecraft:red_nether_bricks"
+          "minecraft:resin_bricks"
         ],
         "Q": [
           "minecraft:quartz_block"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:quartz_block",
+                "minecraft:resin_bricks"
+              ],
+              "other": [
+                "minecraft:quartz_block",
+                "minecraft:red_nether_bricks"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "B": [
+                  "minecraft:resin_bricks"
+                ],
+                "Q": [
+                  "minecraft:quartz_block"
+                ]
+              },
+              "other": {
+                "B": [
+                  "minecraft:red_nether_bricks"
+                ],
+                "Q": [
+                  "minecraft:quartz_block"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/resin_quartz_checker.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ],
@@ -50328,12 +52197,8 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "minecraft:nether_wart",
-            "count": 4
-          },
-          {
-            "id": "minecraft:netherrack",
-            "count": 4
+            "id": "minecraft:resin_clump",
+            "count": 8
           }
         ]
       }
@@ -52982,9 +54847,9 @@ window.WIKI_DATA = {
         "simplebuilding:copper_core"
       ],
       "pattern": [
-        "AN ",
+        "NAN",
         "NCN",
-        " NK"
+        "NKN"
       ],
       "key": {
         "A": [
@@ -53059,9 +54924,9 @@ window.WIKI_DATA = {
             {
               "field": "pattern",
               "this": [
-                "AN ",
+                "NAN",
                 "NCN",
-                " NK"
+                "NKN"
               ],
               "other": [
                 "QAQ",
@@ -53126,9 +54991,9 @@ window.WIKI_DATA = {
             {
               "field": "pattern",
               "this": [
-                "AN ",
+                "NAN",
                 "NCN",
-                " NK"
+                "NKN"
               ],
               "other": [
                 " NA",
@@ -53148,7 +55013,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:copper_ingot",
-            "count": 4.444
+            "count": 4.667
           },
           {
             "id": "minecraft:gold_ingot",
@@ -53409,7 +55274,7 @@ window.WIKI_DATA = {
         "minecraft:white_wool"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -53431,11 +55296,11 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -53498,7 +55363,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:azure_bluet",
@@ -53510,7 +55375,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -53685,7 +55550,7 @@ window.WIKI_DATA = {
         "minecraft:yellow_wool"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -53707,7 +55572,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:dandelion",
@@ -53715,7 +55580,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -53778,7 +55643,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:dandelion",
@@ -53786,7 +55651,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -53943,6 +55808,42 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/recipe/backpack_dyed.json",
       "ingredients": [],
       "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:basic_upgrade_template",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:basic_upgrade_template",
+        "count": 2
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/basic_upgrade_template.json",
+      "ingredients": [
+        "minecraft:gold_ingot",
+        "minecraft:iron_block",
+        "simplebuilding:basic_upgrade_template"
+      ],
+      "pattern": [
+        "ABA",
+        "ACA",
+        "AAA"
+      ],
+      "key": {
+        "A": [
+          "minecraft:gold_ingot"
+        ],
+        "B": [
+          "simplebuilding:basic_upgrade_template"
+        ],
+        "C": [
+          "minecraft:iron_block"
+        ]
+      },
+      "lines": [
+        "1.21.11",
         "26.2"
       ]
     },
@@ -55099,6 +57000,33 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:pulsating_trim_template",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:pulsating_trim_template",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/pulsating_trim_template.json",
+      "ingredients": [
+        "#simplebuilding:sledgehammer_tools",
+        "minecraft:echo_shard"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:sledgehammer_tools"
+        ],
+        [
+          "minecraft:echo_shard"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:quiver_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -55186,6 +57114,36 @@ window.WIKI_DATA = {
       "ingredients": [],
       "lines": [
         "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:resin_quartz_checker",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:resin_quartz_checker",
+        "count": 4
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/resin_quartz_checker.json",
+      "ingredients": [
+        "minecraft:quartz_block",
+        "minecraft:red_nether_bricks"
+      ],
+      "pattern": [
+        "BQ",
+        "QB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:red_nether_bricks"
+        ],
+        "Q": [
+          "minecraft:quartz_block"
+        ]
+      },
+      "lines": [
+        "1.21.11"
       ]
     },
     {
@@ -55421,6 +57379,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/astral_rail",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_rail"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_rail.json"
     },
     {
       "id": "simplebuilding:blocks/astral_redstone",
@@ -56201,6 +58175,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_backpack.json"
     },
     {
+      "id": "simplebuilding:blocks/enderite_barrel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:enderite_barrel"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_barrel.json"
+    },
+    {
       "id": "simplebuilding:blocks/enderite_blast_furnace",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -56263,6 +58253,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_chunk_loader.json"
+    },
+    {
+      "id": "simplebuilding:blocks/enderite_crucible",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:enderite_crucible"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_crucible.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_elytra_pad",
@@ -56793,6 +58799,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/magenta_hammock.json"
     },
     {
+      "id": "simplebuilding:blocks/nether_brick_quartz_checker",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nether_brick_quartz_checker"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nether_brick_quartz_checker.json"
+    },
+    {
       "id": "simplebuilding:blocks/nether_dimensional_scrap",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -57097,6 +59119,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_purpur_block.json"
     },
     {
+      "id": "simplebuilding:blocks/nihil_rail",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_rail"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_rail.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihil_redstone",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -57113,6 +59151,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihil_redstone.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_vault",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_vault"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihil_vault.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_block",
@@ -57686,6 +59742,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/red_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/red_nether_brick_quartz_checker",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:red_nether_brick_quartz_checker"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/red_nether_brick_quartz_checker.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_backpack",
@@ -62061,6 +64133,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:nihil_vault",
+          "required": true
+        },
+        {
           "id": "#simplebuilding:piston_breachable_extra",
           "required": true
         }
@@ -62233,25 +64309,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/backpacks.json"
-    },
-    {
-      "id": "simplebuilding:item/blast_furnace_bonus",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:raw_iron",
-          "required": true
-        },
-        {
-          "id": "minecraft:raw_gold",
-          "required": true
-        },
-        {
-          "id": "minecraft:raw_copper",
-          "required": true
-        }
-      ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json"
     },
     {
       "id": "simplebuilding:item/building_wand_enchantable",
@@ -63196,6 +65253,14 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:nether_brick_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:red_nether_brick_quartz_checker",
+          "required": true
+        },
+        {
           "id": "simplebuilding:rotator",
           "required": true
         },
@@ -63332,6 +65397,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_barrel",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_blast_furnace",
           "required": true
         },
@@ -63341,6 +65410,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_boots",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_bucket",
           "required": true
         },
         {
@@ -63373,6 +65446,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_crucible",
           "required": true
         },
         {
@@ -63409,6 +65486,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_launchpad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_lava_bucket",
           "required": true
         },
         {
@@ -63464,6 +65545,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_soul_lava_bucket",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_spawn_teleporter",
           "required": true
         },
@@ -63477,6 +65562,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_trapped_chest",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_water_bucket",
           "required": true
         }
       ],
@@ -63507,6 +65596,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_barrel",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_blast_furnace",
           "required": true
         },
@@ -63516,6 +65609,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_boots",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_bucket",
           "required": true
         },
         {
@@ -63548,6 +65645,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_crucible",
           "required": true
         },
         {
@@ -63584,6 +65685,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_launchpad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_lava_bucket",
           "required": true
         },
         {
@@ -63643,6 +65748,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_soul_lava_bucket",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_spawn_teleporter",
           "required": true
         },
@@ -63660,6 +65769,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_upgrade_template",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_water_bucket",
           "required": true
         },
         {
@@ -63993,6 +66106,18 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:flint_chip",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:obsidian_chip",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:fire_chip",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ice_chip",
           "required": true
         },
         {
@@ -66466,6 +68591,26 @@ window.WIKI_DATA = {
       "reload": "recipes",
       "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.features.endRails",
+      "shortName": "endRails",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "End Rails",
+      "labelDe": "End-Schienen",
+      "tooltip": "Astral rails boost and Nihil rails brake.\nOff: they act as plain rails. Recipes\nupdate on datapack reload. Default: true.",
+      "tooltipDe": "Astral-Schienen beschleunigen, Nihil-Schienen\nbremsen. Aus: normale Schienen. Rezepte nach\nDatenpaket-Neuladen. Standard: true."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.astralVault",
       "shortName": "astralVault",
       "type": "boolean",
@@ -66479,6 +68624,26 @@ window.WIKI_DATA = {
       "labelDe": "Astralgewölbe",
       "tooltip": "Enable Astral Vault use. Disabling preserves\ncontents. Recipes update on datapack reload.\nDefault: true.",
       "tooltipDe": "Astralgewoelbe aktivieren. Abschalten bewahrt\nden Inhalt. Rezepte nach Datenpaket-Neuladen.\nStandard: true."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.features.nihilVault",
+      "shortName": "nihilVault",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Nihil Vault",
+      "labelDe": "Nihil-Gewölbe",
+      "tooltip": "Enable Nihil Vault use. Disabling preserves\ncontents. Recipes update on datapack reload.\nDefault: true.",
+      "tooltipDe": "Nihil-Gewoelbe aktivieren. Abschalten bewahrt\nden Inhalt. Rezepte nach Datenpaket-Neuladen.\nStandard: true."
     },
     {
       "range": null,
@@ -66722,6 +68887,259 @@ window.WIKI_DATA = {
       "labelDe": "Vogelscheuchen-Umkreis",
       "tooltip": "Within this many blocks of a Straw Armor\nStand or Training Dummy, animals and\nmonsters do not trample farmland\n(players still do). 0 = off, max 16.\nServer-side. Default: 8.",
       "tooltipDe": "In so vielen Blöcken um einen Stroh-\nRüstungsständer oder eine Trainingspuppe\nzertrampeln Tiere und Monster kein\nAckerland (Spieler schon). 0 = aus,\nhöchstens 16. Serverseitig. Standard: 8."
+    },
+    {
+      "range": [
+        1.0,
+        4.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.flowOverworld",
+      "shortName": "flowOverworld",
+      "type": "int",
+      "default": "2",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Overworld Flow Distance",
+      "labelDe": "Fließweite Oberwelt",
+      "tooltip": "Server-side. Range: 1 to 4. Default: 2.",
+      "tooltipDe": "Serverseitig. Bereich: 1 bis 4. Standard: 2."
+    },
+    {
+      "range": [
+        1.0,
+        7.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.flowNether",
+      "shortName": "flowNether",
+      "type": "int",
+      "default": "5",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Nether Flow Distance",
+      "labelDe": "Fließweite Nether",
+      "tooltip": "Server-side. Range: 1 to 7. Default: 5.",
+      "tooltipDe": "Serverseitig. Bereich: 1 bis 7. Standard: 5."
+    },
+    {
+      "range": [
+        20.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.tickDelayOverworld",
+      "shortName": "tickDelayOverworld",
+      "type": "int",
+      "default": "45",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Overworld Tick Delay",
+      "labelDe": "Fließverzögerung Oberwelt",
+      "tooltip": "Server-side. Range: 20 to 200. Default: 45.",
+      "tooltipDe": "Serverseitig. Bereich: 20 bis 200. Standard: 45."
+    },
+    {
+      "range": [
+        10.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.tickDelayNether",
+      "shortName": "tickDelayNether",
+      "type": "int",
+      "default": "20",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Nether Tick Delay",
+      "labelDe": "Fließverzögerung Nether",
+      "tooltip": "Server-side. Range: 10 to 200. Default: 20.",
+      "tooltipDe": "Serverseitig. Bereich: 10 bis 200. Standard: 20."
+    },
+    {
+      "range": [
+        5.0,
+        60.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.burnSeconds",
+      "shortName": "burnSeconds",
+      "type": "int",
+      "default": "30",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Burn Duration (seconds)",
+      "labelDe": "Brenndauer (Sekunden)",
+      "tooltip": "Server-side. Range: 5 to 60. Default: 30.",
+      "tooltipDe": "Serverseitig. Bereich: 5 bis 60. Standard: 30."
+    },
+    {
+      "range": [
+        5.0,
+        300.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.soulBurnSeconds",
+      "shortName": "soulBurnSeconds",
+      "type": "int",
+      "default": "60",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Soul Burn Duration (seconds)",
+      "labelDe": "Seelenbranddauer (Sekunden)",
+      "tooltip": "Server-side. Range: 5 to 300. Default: 60.",
+      "tooltipDe": "Serverseitig. Bereich: 5 bis 300. Standard: 60."
+    },
+    {
+      "range": [
+        20.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.soulBurnIntervalTicks",
+      "shortName": "soulBurnIntervalTicks",
+      "type": "int",
+      "default": "60",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Soul Burn Interval (ticks)",
+      "labelDe": "Seelenbrandintervall (Ticks)",
+      "tooltip": "Server-side. Range: 20 to 200. Default: 60.",
+      "tooltipDe": "Serverseitig. Bereich: 20 bis 200. Standard: 60."
+    },
+    {
+      "range": [
+        0.0,
+        1.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.soulBurnChance",
+      "shortName": "soulBurnChance",
+      "type": "double",
+      "default": "0.5",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Soul Burn Damage Chance",
+      "labelDe": "Seelenbrand-Schadenschance",
+      "tooltip": "Server-side. Range: 0.0 to 1.0. Default: 0.5.",
+      "tooltipDe": "Serverseitig. Bereich: 0.0 bis 1.0. Standard: 0.5."
+    },
+    {
+      "range": [
+        1.0,
+        20.0
+      ],
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.fuelMultiplier",
+      "shortName": "fuelMultiplier",
+      "type": "int",
+      "default": "10",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Fuel Multiplier (restart required)",
+      "labelDe": "Brennstofffaktor (Neustart nötig)",
+      "tooltip": "Server-side. Range: 1 to 20. Multiplies 20,000 ticks. Requires restart and matching client/server config files. Default: 10.",
+      "tooltipDe": "Serverseitig. Bereich: 1 bis 20. Multipliziert 20.000 Ticks. Neustart und gleiche Config auf Client und Server nötig. Standard: 10."
+    },
+    {
+      "range": [
+        0.0,
+        0.05
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.springChance",
+      "shortName": "springChance",
+      "type": "double",
+      "default": "0.005",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Nether Spring Chance",
+      "labelDe": "Chance für Netherquellen",
+      "tooltip": "Server-side. Range: 0.0 to 0.05. Default: 0.005.",
+      "tooltipDe": "Serverseitig. Bereich: 0.0 bis 0.05. Standard: 0.005."
+    },
+    {
+      "range": [
+        0.0,
+        0.5
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.soulLava.fortressChance",
+      "shortName": "fortressChance",
+      "type": "double",
+      "default": "0.1",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Soul Lava",
+      "groupDe": "Seelen-Lava",
+      "label": "Fortress Well Chance",
+      "labelDe": "Chance für Festungsbrunnen",
+      "tooltip": "Server-side. Range: 0.0 to 0.5. Default: 0.1.",
+      "tooltipDe": "Serverseitig. Bereich: 0.0 bis 0.5. Standard: 0.1."
     },
     {
       "range": null,
@@ -67056,10 +69474,10 @@ window.WIKI_DATA = {
       "categoryDe": "Server & Modpack-Tuning",
       "group": "Amplifiers",
       "groupDe": "Musik- und Noten-Verstärker",
-      "label": "Boost per Amplifier (%)",
-      "labelDe": "Lautstärke-Plus je Verstärker (%)",
-      "tooltip": "Volume and reach added per amplifier,\n0 to 50 % of vanilla.\nServer-side. Default: 50.",
-      "tooltipDe": "Lautstärke und Reichweite je Verstärker,\n0 bis 50 % von Vanilla.\nServerseitig. Standard: 50."
+      "label": "Added reach per amplifier (%)",
+      "labelDe": "Hörweiten-Plus je Verstärker (%)",
+      "tooltip": "Reach added per amplifier,\n0 to 50% of vanilla. Full volume within range.\nServer-side. Default: 50.",
+      "tooltipDe": "Zusätzliche Hörweite je Verstärker,\n0 bis 50 % von Vanilla. Voller Pegel in Hörweite.\nServerseitig. Standard: 50."
     },
     {
       "range": [
@@ -67620,6 +70038,75 @@ window.WIKI_DATA = {
       "labelDe": "End-Kolben-Abklingzeit (4–100)",
       "tooltip": "Ticks a piston waits after firing,\nlimited to 4-100. Default: 8.",
       "tooltipDe": "Ticks Wartezeit nach dem Ausloesen,\nbegrenzt auf 4-100. Standard: 8."
+    },
+    {
+      "range": [
+        8.0,
+        20.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.machines.astralRailMaxSpeed",
+      "shortName": "astralRailMaxSpeed",
+      "type": "int",
+      "default": "16",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "Astral Rail Top Speed (8–20)",
+      "labelDe": "Astral-Schiene Höchsttempo (8–20)",
+      "tooltip": "Blocks per second on flat Astral rails,\nlimited to 8-20 (vanilla 8). Default: 16.",
+      "tooltipDe": "Blöcke pro Sekunde auf flachen Astral-Schienen,\nbegrenzt auf 8-20 (Vanilla 8). Standard: 16."
+    },
+    {
+      "range": [
+        0.07,
+        0.25
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.machines.astralRailBoost",
+      "shortName": "astralRailBoost",
+      "type": "double",
+      "default": "0.12",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "Astral Rail Boost (0.07–0.25)",
+      "labelDe": "Astral-Schiene Schub (0,07–0,25)",
+      "tooltip": "Push per tick at standstill, shrinking\nwith (speed/top speed)². Powered rail: 0.06.\nDefault: 0.12.",
+      "tooltipDe": "Schub je Tick aus dem Stand, sinkt mit\n(Tempo/Höchsttempo)². Antriebsschiene: 0,06.\nStandard: 0,12."
+    },
+    {
+      "range": [
+        0.02,
+        0.4
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.machines.nihilRailBrake",
+      "shortName": "nihilRailBrake",
+      "type": "double",
+      "default": "0.08",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "Nihil Rail Brake (0.02–0.4)",
+      "labelDe": "Nihil-Schiene Bremse (0,02–0,4)",
+      "tooltip": "Fixed braking per tick on top of 20%\nfriction, limited to 0.02-0.4. Default: 0.08.",
+      "tooltipDe": "Feste Bremsung je Tick zusätzlich zu 20 %\nReibung, begrenzt auf 0,02-0,4. Standard: 0,08."
     },
     {
       "range": [
@@ -69226,7 +71713,7 @@ window.WIKI_DATA = {
             "details": [
               "Glow Ink Sac gives the Glowing Trim Template, Glowstone Dust the Emitting Trim Template.",
               "Every item whose id contains trim_smithing_template counts as a template - all vanilla armor trim templates.",
-              "Each hit costs 1 hammer durability (five in total), the fifth hit uses up one off-hand item; nothing in creative mode.",
+              "Each hit costs 1 hammer durability (five in total). On 26.3, the fifth hit consumes 2 off-hand catalysts, 4 diamonds and 2 glowstone blocks (Glowing) or 2 blaze powder (Emitting) from the inventory. All materials must be present before each hit. Creative consumes nothing; 26.2 still uses 1 catalyst.",
               "Without a hit for 5 seconds, or with another material, the count starts over. Templates already hanging in item frames stay as they are."
             ]
           },
@@ -69236,7 +71723,7 @@ window.WIKI_DATA = {
             "details": [
               "Leuchttintenbeutel ergibt die leuchtende Besatzvorlage, Glowstonestaub die strahlende.",
               "Als Vorlage zählt jedes Item, dessen Id trim_smithing_template enthält - alle Rüstungsbesatz-Vorlagen aus Vanilla.",
-              "Jeder Schlag kostet 1 Hammerhaltbarkeit (insgesamt fünf), der fünfte verbraucht ein Item aus der Nebenhand; im Kreativmodus nichts.",
+              "Jeder Schlag kostet 1 Hammerhaltbarkeit (insgesamt fünf). Auf 26.3 verbraucht der fünfte Schlag 2 Nebenhand-Katalysatoren, 4 Diamanten und 2 Glowstone-Blöcke (Leuchtend) bzw. 2 Lohenpulver (Strahlend) aus dem Inventar. Alle Materialien müssen vor jedem Schlag vorhanden sein. Kreativ verbraucht nichts; 26.2 braucht weiterhin 1 Katalysator.",
               "Ohne Schlag für 5 Sekunden oder mit einem anderen Material beginnt die Zählung von vorn. Vorlagen, die schon in Rahmen hängen, bleiben unverändert."
             ]
           }
@@ -70276,7 +72763,15 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:glow_ink_sac",
-            "count": 1
+            "count": 2
+          },
+          {
+            "count": 4,
+            "id": "minecraft:diamond"
+          },
+          {
+            "count": 2,
+            "id": "minecraft:glowstone"
           }
         ],
         "tools": [
@@ -70312,7 +72807,15 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:glowstone_dust",
-            "count": 1
+            "count": 2
+          },
+          {
+            "count": 4,
+            "id": "minecraft:diamond"
+          },
+          {
+            "count": 2,
+            "id": "minecraft:blaze_powder"
           }
         ],
         "tools": [
@@ -86973,6 +89476,8 @@ window.WIKI_DATA = {
             "simplebuilding:lapis_quartz_checker",
             "simplebuilding:blackstone_quartz_checker",
             "simplebuilding:resin_quartz_checker",
+            "simplebuilding:nether_brick_quartz_checker",
+            "simplebuilding:red_nether_brick_quartz_checker",
             "simplebuilding:astralit_quartz_checker",
             "simplebuilding:nihilith_quartz_checker",
             "simplebuilding:ender_quartz_checker",
@@ -88614,6 +91119,32 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/hammer/stair_master.json"
     },
     {
+      "id": "simplebuilding:machines/bottomless_bucket",
+      "parent": "simplebuilding:machines/soul_scooper",
+      "icon": "simplebuilding:enderite_bucket",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Unbreakable Bucket",
+        "de_de": "Unzerbrechlicher Eimer"
+      },
+      "description": {
+        "en_us": "Get an Enderite bucket, which carries soul lava and never breaks",
+        "de_de": "Besorge dir einen Enderit-Eimer, der Seelen-Lava trägt und nie zerbricht"
+      },
+      "criteria": [
+        {
+          "name": "enderite_bucket",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_bucket"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/generated/data/simplebuilding/advancement/machines/bottomless_bucket.json"
+    },
+    {
       "id": "simplebuilding:machines/end_of_the_line",
       "parent": "simplebuilding:machines/forged_in_place",
       "icon": "simplebuilding:enderite_furnace",
@@ -88686,6 +91217,30 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/machines/good_as_new.json"
     },
     {
+      "id": "simplebuilding:machines/hot_pot",
+      "parent": "simplebuilding:machines/reinforcements",
+      "icon": "simplelib:iron_crucible",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Hot Pot",
+        "de_de": "Heißer Topf"
+      },
+      "description": {
+        "en_us": "Build an iron crucible on an iron block with the sledgehammer",
+        "de_de": "Baue mit dem Vorschlaghammer einen Eisen-Schmelztiegel auf einem Eisenblock"
+      },
+      "criteria": [
+        {
+          "name": "crucible_built",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "crucible_built"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/generated/data/simplebuilding/advancement/machines/hot_pot.json"
+    },
+    {
       "id": "simplebuilding:machines/reinforcements",
       "parent": "simplebuilding:hammer/cracked_up",
       "icon": "simplebuilding:reinforced_furnace",
@@ -88716,6 +91271,30 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/machines/reinforcements.json"
+    },
+    {
+      "id": "simplebuilding:machines/soul_scooper",
+      "parent": "simplebuilding:machines/hot_pot",
+      "icon": "simplebuilding:soul_lava_bucket",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Soul Scooper",
+        "de_de": "Seelenschöpfer"
+      },
+      "description": {
+        "en_us": "Scoop a soul lava source with a bucket",
+        "de_de": "Schöpfe eine Seelen-Lava-Quelle mit einem Eimer"
+      },
+      "criteria": [
+        {
+          "name": "soul_lava_scooped",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "soul_lava_scooped"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/generated/data/simplebuilding/advancement/machines/soul_scooper.json"
     },
     {
       "id": "simplebuilding:mining/all_in_vein",
@@ -88814,6 +91393,29 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/nether/nugget_of_wisdom.json"
+    },
+    {
+      "id": "simplebuilding:nihil_vault",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:nihil_vault",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Nihil Vault",
+        "de_de": "Nihil-Gewölbe"
+      },
+      "description": {
+        "en_us": "Craft a vault whose 27 slots every player in the world shares.",
+        "de_de": "Stelle ein Gewölbe her, dessen 27 Plaetze alle Spieler der Welt teilen."
+      },
+      "criteria": [
+        {
+          "name": "nihil_vault",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/nihil_vault.json"
     },
     {
       "id": "simplebuilding:octant/colour_coded",
@@ -92501,17 +95103,17 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 248,
-    "blocks": 201,
-    "recipes": 605,
-    "lootTables": 199,
+    "items": 264,
+    "blocks": 210,
+    "recipes": 622,
+    "lootTables": 206,
     "trades": 20,
     "enchantments": 19,
-    "tags": 48,
-    "config": 197,
+    "tags": 47,
+    "config": 213,
     "inWorld": 463,
-    "advancements": 123,
-    "features": 45,
+    "advancements": 127,
+    "features": 48,
     "undocumented": 0,
     "incompleteProse": 0
   },

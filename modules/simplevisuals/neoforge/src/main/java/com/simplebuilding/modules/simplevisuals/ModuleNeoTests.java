@@ -4,6 +4,7 @@ public final class ModuleNeoTests {
  private record Case(String name,java.util.function.Consumer<GameTestHelper> body){}
  private static Identifier id(String name){return Identifier.fromNamespaceAndPath("simplevisuals",name);}
  private static final List<Case> CASES=List.of(
+new Case("module_game_test_guide_book",h->{com.simplevisuals.guide.VisualsGuide.gameTest(h);}),
 new Case("module_game_test_launch_smoke",h->{com.simplevisuals.test.VisualsTests.launch(h);}),
 new Case("module_game_test_config_bounds_and_legacy_keys",h->{com.simplevisuals.test.VisualsTests.config(h);}),
 new Case("module_game_test_config_and_language_completeness",h->{com.simplevisuals.test.VisualsTests.language(h);}),

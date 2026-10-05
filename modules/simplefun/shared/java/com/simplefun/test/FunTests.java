@@ -22,11 +22,16 @@ import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.phys.*;
 
 public final class FunTests {
+ /** Principle 8 (standalone): a content mod is loaded when it owns registry ids; loader-neutral for shared tests. */
+ public static boolean isModLoaded(String mod){return BuiltInRegistries.ITEM.keySet().stream().anyMatch(i->i.getNamespace().equals(mod))||BuiltInRegistries.BLOCK.keySet().stream().anyMatch(i->i.getNamespace().equals(mod));}
+ /** Without the partner the coupling cannot be observed: pass with a log note instead of failing. */
+ public static boolean partnerMissing(net.minecraft.gametest.framework.GameTestHelper h,String mod,String what){if(isModLoaded(mod))return false;com.mojang.logging.LogUtils.getLogger().info("[standalone] {} not loaded - skipping {}",mod,what);h.succeed();return true;}
   public static final Map<String, java.util.function.Consumer<GameTestHelper>> ALL =
       new LinkedHashMap<>();
 
   static {
     ALL.put("launch", FunTests::launch);
+    ALL.put("guide_book", com.simplefun.guide.FunGuide::gameTest);
     ALL.put("recipe", FunTests::recipe);
     ALL.put("config_bounds", FunTests::configBounds);
     ALL.put("yeet", FunTests::yeet);
@@ -433,6 +438,7 @@ public final class FunTests {
   }
 
   public static void crossMod(GameTestHelper h) {
+    if (partnerMissing(h, "simplebuilding", "heads in SimpleBuilding storage")) return;
     var id = Identifier.parse("simplebuilding:reinforced_hopper");
     h.assertTrue(BuiltInRegistries.BLOCK.containsKey(id), "SimpleBuilding loaded");
     h.setBlock(new BlockPos(2, 2, 2), BuiltInRegistries.BLOCK.getValue(id));

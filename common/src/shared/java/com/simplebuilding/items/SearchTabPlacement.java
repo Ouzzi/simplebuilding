@@ -91,9 +91,14 @@ public final class SearchTabPlacement {
             out.add(Placement.after(REDSTONE_BLOCKS, Items.REDSTONE, ModItems.NIHIL_REDSTONE, ModItems.ASTRAL_REDSTONE));
             out.add(Placement.after(REDSTONE_BLOCKS, Items.LEVER, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH));
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.REDSTONE_LAMP, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));
-            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.ENDER_CHEST, ModItems.ASTRAL_VAULT));
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.ENDER_CHEST, ModItems.ASTRAL_VAULT, ModItems.NIHIL_VAULT));
             // End-Kolben vor dem Schleimblock, also hinter den Kolbenstufen der Mod (die stehen hinter dem Klebekolben).
             out.add(Placement.before(REDSTONE_BLOCKS, Items.SLIME_BLOCK, ModItems.NIHIL_PISTON, ModItems.ASTRAL_PISTON));
+        }
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            // Schienen wie Vanilla in beiden Tabs hinter der Antriebsschiene; Redstone kommt im Suchtab zuerst.
+            out.add(Placement.after(REDSTONE_BLOCKS, Items.POWERED_RAIL, ModItems.ASTRAL_RAIL, ModItems.NIHIL_RAIL));
+            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.POWERED_RAIL, ModItems.ASTRAL_RAIL, ModItems.NIHIL_RAIL).asSecondary());
         }
 
         // --- Bausteine: End-Paletten hinter Purpur, Enderquarz und Schachbretter hinter Glattquarz,
@@ -118,7 +123,7 @@ public final class SearchTabPlacement {
                 ModItems.POLISHED_ENDER_QUARTZ_SLAB, ModItems.POLISHED_ENDER_QUARTZ_WALL, ModItems.ENDER_QUARTZ_PILLAR,
                 ModItems.CHISELED_ENDER_QUARTZ_BRICKS,
                 ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
-                ModItems.RESIN_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
+                ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
                 ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
                 ModItems.POLISHED_ENDER_QUARTZ_CHECKER));
         // Kupfer folgt in der Erz-Reihenfolge auf Stein: die acht Kupferplatten hinter der Steinplatte.
@@ -151,7 +156,8 @@ public final class SearchTabPlacement {
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.BED.pick(DyeColor.PINK), ModItems.HAMMOCKS.toArray(ItemLike[]::new)));
         }
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
-            out.add(Placement.after(INGREDIENTS, Items.FLINT, ModItems.FLINT_CHIP, ModItems.STONE_PEBBLE));
+            out.add(Placement.after(INGREDIENTS, Items.FLINT, ModItems.FLINT_CHIP, ModItems.STONE_PEBBLE, ModItems.OBSIDIAN_CHIP,
+                    ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
         }
         if (com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
             out.add(Placement.after(INGREDIENTS, Items.SHULKER_SHELL, ModItems.REINFORCED_SHULKER_SHELL,
@@ -170,6 +176,13 @@ public final class SearchTabPlacement {
             out.add(Placement.after(TOOLS_AND_UTILITIES, Items.MUSIC_DISC_BOUNCE,
                     com.simplebuilding.util.MusicDiscs.items().toArray(ItemLike[]::new)));
             out.add(Placement.after(REDSTONE_BLOCKS, Items.JUKEBOX, ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));
+        }
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P5: Eimer hinter dem Pulverschnee-Eimer, Enderit-Tiegel/-Fass hinter dem Ofen-Block-Reihenende (Fass).
+            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.POWDER_SNOW_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.buckets().toArray(ItemLike[]::new)));
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.BARREL, com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible(),
+                    com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel()));
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             out.add(Placement.after(NATURAL_BLOCKS, Items.DEEPSLATE_DIAMOND_ORE, ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM));

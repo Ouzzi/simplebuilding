@@ -42,7 +42,13 @@ public class ModBlocks {
     // die Lampe, bewegen beim Einschalten je einen Block in alle 6 Richtungen; selbst unverschiebbar.
     public static final Block NIHIL_PISTON = McVersion.END_SYSTEMS ? registerBlock("nihil_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(false, s.strength(1.5F).sound(SoundType.AMETHYST).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
     public static final Block ASTRAL_PISTON = McVersion.END_SYSTEMS ? registerBlock("astral_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(true, s.strength(1.5F).sound(SoundType.AMETHYST).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
+    // Astral-/Nihil-Schienen (2026-10-04, docs/ai/PLAN-ASTRAL-NIHIL-SCHIENEN-2026-10-02.md): gerade Schienen mit den
+    // Eigenschaften der Antriebsschiene, gespeist ueber den eigenen End-Kanal; Physik in EndRailPhysics.
+    public static final Block NIHIL_RAIL = McVersion.END_RAILS ? registerBlock("nihil_rail", Blocks.POWERED_RAIL, s -> new com.simplebuilding.blocks.custom.EndRailBlock(false, s)) : null;
+    public static final Block ASTRAL_RAIL = McVersion.END_RAILS ? registerBlock("astral_rail", Blocks.POWERED_RAIL, s -> new com.simplebuilding.blocks.custom.EndRailBlock(true, s)) : null;
     public static final Block ASTRAL_VAULT = McVersion.END_SYSTEMS ? registerBlock("astral_vault", Blocks.ENDER_CHEST, s -> new AstralVaultBlock(s.strength(50.0F, 1200.0F))) : null;
+    // Nihil-Gewoelbe (2026-10-04, docs/ai/PLAN-NIHIL-GEWOELBE-2026-10-02.md): eine weltweit geteilte Endertruhe.
+    public static final Block NIHIL_VAULT = McVersion.END_SYSTEMS ? registerBlock("nihil_vault", Blocks.ENDER_CHEST, s -> new com.simplebuilding.blocks.custom.NihilVaultBlock(s.strength(50.0F, 1200.0F))) : null;
 
 
 
@@ -219,6 +225,13 @@ public class ModBlocks {
             .mapColor(MapColor.COLOR_BLACK).forceSolidOn().requiresCorrectToolForDrops().strength(50.0F, 1200.0F)
             .sound(SoundType.NETHERITE_BLOCK).noOcclusion())) : null;
 
+    // Aufgestellte Staebe (2026-10-04, McVersion.STANDING_RODS): Stock, Knochen, Lohen-/Boeen-/Diamantstab senkrecht;
+    // ein Block, der Zustand rod waehlt Modell, Licht, Klang und Drop (StandingRodBlock). Kein Block-Item.
+    public static final Block STANDING_ROD = McVersion.STANDING_RODS ? registerBlock("standing_rod", s -> new com.simplebuilding.blocks.custom.StandingRodBlock(s
+            .strength(0.3F).noLootTable().noOcclusion().mapColor(MapColor.NONE)
+            .lightLevel(com.simplebuilding.blocks.custom.StandingRodBlock::light)
+            .pushReaction(McVersion.PUSH_DESTROYS))) : null;
+
     // Haengematten (2026-10-02, McVersion.HAMMOCK): 16 Farben wie Betten, haengen zwischen zwei Ankern (HammockLayout).
     // Untere Lage = Tuch, obere = Seile; nur das untere Kopfteil hat Beute (das Item). Bei 3 Bloecken Abstand
     // ueberbrueckt das Seilstueck (ohne Item/Beute) den Rest bis zum Kopf-Anker.
@@ -246,6 +259,16 @@ public class ModBlocks {
             BLACK_HAMMOCK, BROWN_HAMMOCK, RED_HAMMOCK, ORANGE_HAMMOCK, YELLOW_HAMMOCK, LIME_HAMMOCK, GREEN_HAMMOCK, CYAN_HAMMOCK,
             LIGHT_BLUE_HAMMOCK, BLUE_HAMMOCK, PURPLE_HAMMOCK, MAGENTA_HAMMOCK, PINK_HAMMOCK) : List.of();
 
+    /** Die Bloecke mit Haengematten-Block-Entity (HammockBlockEntity): alle Tuchfarben und das Seil; leer ohne McVersion.HAMMOCK. */
+    public static Block[] hammockBlockEntityBlocks() {
+        if (!McVersion.HAMMOCK) {
+            return new Block[0];
+        }
+        List<Block> blocks = new java.util.ArrayList<>(HAMMOCKS);
+        blocks.add(HAMMOCK_ROPE);
+        return blocks.toArray(new Block[0]);
+    }
+
     private static Block hammock(net.minecraft.world.item.DyeColor color) {
         if (!McVersion.HAMMOCK) {
             return null;
@@ -271,6 +294,8 @@ public class ModBlocks {
     public static final Block LAPIS_QUARTZ_CHECKER = registerBlock("lapis_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LAPIS_BLOCK).setId(keyOf("lapis_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
     public static final Block BLACKSTONE_QUARTZ_CHECKER = registerBlock("blackstone_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_BLACKSTONE).setId(keyOf("blackstone_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
     public static final Block RESIN_QUARTZ_CHECKER = registerBlock("resin_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RESIN_BRICKS).setId(keyOf("resin_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
+    public static final Block NETHER_BRICK_QUARTZ_CHECKER = registerBlock("nether_brick_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_BRICKS).setId(keyOf("nether_brick_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
+    public static final Block RED_NETHER_BRICK_QUARTZ_CHECKER = registerBlock("red_nether_brick_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_NETHER_BRICKS).setId(keyOf("red_nether_brick_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
 
     // --- 2. ASTRAL & NIHIL VARIANTS ---
     public static final Block ASTRAL_PURPUR_BLOCK = registerBlock("astral_purpur_block", unused -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK).lightLevel(state -> 10).setId(keyOf("astral_purpur_block"))));
@@ -473,6 +498,12 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         Simplebuilding.LOGGER.info("Registering Mod Blocks for " + Simplebuilding.MOD_ID);
+        if (McVersion.CRUCIBLE) {
+            // Crucible P5: soul lava (fluids first; on Forge already in the FLUID event) and the SimpleLib-based blocks.
+            com.simplebuilding.fluid.ModFluids.registerFluids();
+            com.simplebuilding.fluid.ModFluids.registerBlocks();
+            com.simplebuilding.crucible.CrucibleCompat.registerBlocks();
+        }
     }
 
     /** Vanillas Shulkerkisten-Eigenschaften, mit der Offen-Pruefung gegen die Block-Entity der Stufen. */

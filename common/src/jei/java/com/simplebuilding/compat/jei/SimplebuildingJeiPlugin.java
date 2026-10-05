@@ -76,6 +76,7 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
             registration.addRecipeCategories(new InWorldCategory(kind, gui, catalog().of(kind)));
         }
         registration.addRecipeCategories(new MobDropCategory(gui));
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) registration.addRecipeCategories(new CrucibleCategory(gui));
     }
 
     @Override
@@ -127,6 +128,14 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
     @Override
     public void onRuntimeAvailable(IJeiRuntime runtime) {
         IRecipeManager recipes = runtime.getRecipeManager();
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            List<net.minecraft.world.item.crafting.AbstractCookingRecipe> cooking = new ArrayList<>();
+            recipes.createRecipeLookup(RecipeTypes.CAMPFIRE_COOKING).get().forEach(holder -> cooking.add(holder.value()));
+            recipes.createRecipeLookup(RecipeTypes.SMOKING).get().forEach(holder -> cooking.add(holder.value()));
+            recipes.createRecipeLookup(RecipeTypes.SMELTING).get().forEach(holder -> cooking.add(holder.value()));
+            recipes.createRecipeLookup(RecipeTypes.BLASTING).get().forEach(holder -> cooking.add(holder.value()));
+            recipes.addRecipes(CrucibleCategory.TYPE, com.simplebuilding.compat.CrucibleRecipeCatalog.build(cooking));
+        }
         List<RecipeHolder<SmithingRecipe>> dummies = recipes.createRecipeLookup(RecipeTypes.SMITHING).get()
                 .filter(holder -> TrimUpgradeSmithingExtension.DUMMIES.contains(holder.id().identifier()))
                 .toList();
@@ -146,6 +155,13 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            for (String id : List.of("simplelib:iron_crucible", "simplelib:reinforced_crucible",
+                    "simplelib:netherite_crucible", "simplebuilding:enderite_crucible")) {
+                Item item = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.parse(id));
+                if (item != net.minecraft.world.item.Items.AIR) registration.addCraftingStation(CrucibleCategory.TYPE, item);
+            }
+        }
         registration.addCraftingStation(MobDropCategory.TYPE, net.minecraft.world.item.Items.CREEPER_SPAWN_EGG);
         for (InWorldRecipeCatalog.Kind kind : InWorldRecipeCatalog.Kind.values()) {
             for (Item tool : catalog().toolsOf(kind)) {

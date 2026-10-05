@@ -39,12 +39,24 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                         net.minecraft.resources.Identifier.fromNamespaceAndPath("c", "chests"))).add(key(chest));
             }
         }
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P5: Enderit-Tiegel und -Fass wie die Enderit-Oefen (Spitzhacke, ab Diamant).
+            for (Block block : java.util.List.of(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible(), com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel())) {
+                builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block));
+                builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(block));
+            }
+        }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             builder(BlockTags.SMALL_FLOWERS).add(key(ModBlocks.SILENT_DANDELION));
             builder(BlockTags.FLOWER_POTS).add(key(ModBlocks.POTTED_SILENT_DANDELION));
         }
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            // Astral-/Nihil-Schienen: Minecarts fahren nur auf minecraft:rails; abbauen wie die Vanilla-Schienen.
+            builder(BlockTags.RAILS).add(key(ModBlocks.ASTRAL_RAIL)).add(key(ModBlocks.NIHIL_RAIL));
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_RAIL)).add(key(ModBlocks.NIHIL_RAIL));
+        }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
-            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_VAULT))
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_VAULT)).add(key(ModBlocks.NIHIL_VAULT))
                     .add(key(ModBlocks.ASTRAL_PISTON)).add(key(ModBlocks.NIHIL_PISTON));
             // Astral-/Nihil-Kolben: zusaetzlich zu ihren festen Regeln (unzerstoerbar, Block-Entity, Kolben,
             // Doppelbloecke, BLOCK/DESTROY) nie bewegt - Portalrahmen, verstaerkter Tiefenschiefer, Durchbruch-Extras.
@@ -54,6 +66,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                     .add(key(Blocks.BEDROCK))
                     .add(key(Blocks.ENDER_CHEST))
                     .add(key(ModBlocks.ASTRAL_VAULT))
+                    .add(key(ModBlocks.NIHIL_VAULT))
                     .forceAddTag(ModTags.Blocks.PISTON_BREACHABLE_EXTRA);
         }
         // Dimensions-Schrott: Spitzhacke (Enderit prueft der Block selbst), immun gegen Wither und Drache.
@@ -140,6 +153,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(key(ModBlocks.LAPIS_QUARTZ_CHECKER))
                 .add(key(ModBlocks.BLACKSTONE_QUARTZ_CHECKER))
                 .add(key(ModBlocks.RESIN_QUARTZ_CHECKER))
+                .add(key(ModBlocks.NETHER_BRICK_QUARTZ_CHECKER))
+                .add(key(ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER))
                 .add(key(ModBlocks.NIHILITH_QUARTZ_CHECKER))
                 .add(key(ModBlocks.ASTRALIT_QUARTZ_CHECKER))
                 .add(key(ModBlocks.ENDER_QUARTZ_CHECKER))

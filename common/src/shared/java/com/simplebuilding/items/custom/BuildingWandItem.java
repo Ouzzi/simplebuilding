@@ -1,5 +1,6 @@
 package com.simplebuilding.items.custom;
 
+import com.simplebuilding.blueprint.BlueprintBuilder;
 import com.simplebuilding.enchantment.ModEnchantments;
 import java.util.*;
 import net.minecraft.core.BlockPos;
@@ -694,7 +695,15 @@ public class BuildingWandItem extends Item {
         BlockState clicked = plan.clickedState(world);
 
         int placedThisStep = 0;
-        for (BlockPos rawPos : stepPositions) {
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            placedThisStep = placePlannedStep(world, player, stack, slot, nbt, plan, stepPositions,
+                    targetBlock, hasMasterBuilder, hasColorPalette, clicked);
+            if (!getBlockBoolean(nbt)) {
+                com.simplebuilding.advancement.ModCounters.add(player, com.simplebuilding.advancement.ModCounters.WAND_BLOCKS, placedThisStep);
+                setNbt(stack, nbt);
+                return;
+            }
+        } else for (BlockPos rawPos : stepPositions) {
             // Jede Stelle einzeln wie beim Blaupausen-Bau: Welthoehe, Weltgrenze, geladener Chunk,
             // Spawn-Schutz und Claim-Mods. Frueher fragte nur Vanilla beim Klickblock.
             if (!mayBuildAt(world, player, rawPos, plan.placeFace, stack)) continue;
@@ -724,25 +733,8 @@ public class BuildingWandItem extends Item {
             if (stateToPlace.is(com.simplebuilding.util.ModTags.Blocks.BUILDING_WAND_BLACKLIST)) continue;
             if (!com.simplebuilding.util.BuildPermissions.mayPlace(world, player, rawPos, stateToPlace)) continue;
 
-            if (world.setBlock(rawPos, stateToPlace, 3)) {
+            if (placeWandBlock(world, player, stack, slot, nbt, rawPos, stateToPlace, placeItem, material)) {
                 placedThisStep++;
-                WandPlacement.afterPlace(world, player, rawPos, stateToPlace, placeItem);
-                com.simplebuilding.stats.ModStats.award(player, com.simplebuilding.stats.ModStats.WAND_BLOCKS_PLACED);
-                WandUndo.record(player, world, rawPos, stateToPlace, placeItem.getItem(),
-                        !player.getAbilities().instabuild && material != null ? 1 : 0);
-                SoundType soundGroup = stateToPlace.getSoundType();
-                world.playSound(null, rawPos, soundGroup.getPlaceSound(), SoundSource.BLOCKS, (soundGroup.getVolume() + 1.0F) / 2.0F, soundGroup.getPitch() * 0.8F);
-                if (!player.getAbilities().instabuild && material != null) {
-                    material.consume();
-                    // Billed to the slot the wand is ticking in: it builds from the off hand too,
-                    // and naming MAINHAND here made a break in the off hand take the main hand
-                    // item's attribute modifiers with it (LivingEntity#onEquippedItemBroken).
-                    // EXPERIMENTELL: Bloecke ueber dem Freibetrag des Klicks kosten Erschoepfung (WandHunger).
-                    int hungerCount = nbt.getIntOr("HungerCount", 0) + 1;
-                    nbt.putInt("HungerCount", hungerCount);
-                    com.simplebuilding.util.WandHunger.exhaust(player, this, hungerCount);
-                    stack.hurtAndBreak(1, player, slot);
-                }
             }
         }
 
@@ -757,6 +749,69 @@ public class BuildingWandItem extends Item {
         setNbt(stack, nbt);
     }
 
+    /** Keep the existing ring/line schedule, but visit every 26.3 cell through the blueprint planner. */
+    private int placePlannedStep(ServerLevel world, ServerPlayer player, ItemStack stack, EquipmentSlot slot,
+                                 CompoundTag nbt, Plan plan, List<BlockPos> positions, Block targetBlock,
+                                 boolean hasMasterBuilder, boolean hasColorPalette, BlockState clicked) {
+        class WandStep extends BlueprintBuilder.ItemLayout implements BlueprintBuilder.Placer {
+            private MaterialResult material;
+            private ItemStack placeItem;
+
+            WandStep() {
+                super(positions, plan.placeFace);
+            }
+
+            @Override
+            public BlockState state(int i) {
+                BlockPos pos = pos(i);
+                Block want = targetBlock;
+                if (hasColorPalette) {
+                    List<ItemStack> palette = findAllBuildingBlocks(player, stack, hasMasterBuilder);
+                    want = palette.isEmpty() ? null : ((BlockItem) palette.get(paletteIndex(pos, palette.size())).getItem()).getBlock();
+                }
+                material = want == null ? null : findSpecificMaterial(player, stack, want, hasMasterBuilder);
+                if (material == null && !player.getAbilities().instabuild) {
+                    nbt.putBoolean("Active", false);
+                    stop();
+                    return null;
+                }
+                placeItem = material != null ? material.item : new ItemStack(want != null ? want : Blocks.STONE);
+                return WandPlacement.stateFor(world, player, placeItem, pos, plan.placeFace, plan.hitRel, clicked);
+            }
+
+            @Override
+            public boolean place(BlockPos pos, BlockState state) {
+                return placeWandBlock(world, player, stack, slot, nbt, pos, state, placeItem, material);
+            }
+        }
+        WandStep step = new WandStep();
+        BlueprintBuilder.Planner planner = new BlueprintBuilder.Planner(world, player, stack, step);
+        planner.run(positions.size(), positions.size(), step);
+        return planner.result().placed();
+    }
+
+    /** Placement effects and charging are identical for the legacy and planned item paths. */
+    private boolean placeWandBlock(ServerLevel world, ServerPlayer player, ItemStack stack, EquipmentSlot slot,
+                                   CompoundTag nbt, BlockPos pos, BlockState state, ItemStack placeItem,
+                                   MaterialResult material) {
+        if (!world.setBlock(pos, state, 3)) return false;
+        WandPlacement.afterPlace(world, player, pos, state, placeItem);
+        com.simplebuilding.stats.ModStats.award(player, com.simplebuilding.stats.ModStats.WAND_BLOCKS_PLACED);
+        WandUndo.record(player, world, pos, state, placeItem.getItem(),
+                !player.getAbilities().instabuild && material != null ? 1 : 0);
+        SoundType sound = state.getSoundType();
+        world.playSound(null, pos, sound.getPlaceSound(), SoundSource.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
+        if (!player.getAbilities().instabuild && material != null) {
+            material.consume();
+            int hungerCount = nbt.getIntOr("HungerCount", 0) + 1;
+            nbt.putInt("HungerCount", hungerCount);
+            com.simplebuilding.util.WandHunger.exhaust(player, this, hungerCount);
+            // Charge the actual hand; breaking an off-hand wand must not strip main-hand attributes.
+            stack.hurtAndBreak(1, player, slot);
+        }
+        return true;
+    }
+
     /**
      * Ob der Stab fuer diesen Spieler an {@code pos} setzen darf - dieselbe Pruefung wie
      * {@code BlueprintBuilder}: innerhalb der Welthoehe und der Weltgrenze, im geladenen Chunk, nicht
@@ -764,9 +819,7 @@ public class BuildingWandItem extends Item {
      * Audit 2026-09-26, P2 #6: Flaeche und Bruecke bauten in geschuetzte Gebiete.
      */
     public static boolean mayBuildAt(Level level, Player player, BlockPos pos, Direction face, ItemStack wand) {
-        return level.isInWorldBounds(pos) && level.getWorldBorder().isWithinBounds(pos) && level.isLoaded(pos)
-                && level.mayInteract(player, pos) && player.mayUseItemAt(pos, face, wand)
-                && com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos);
+        return BlueprintBuilder.mayBuildAt(level, player, pos, face, wand);
     }
 
     public static List<BlockPos> getBuildingPositions(Level world, Player player, ItemStack wandStack, BlockPos originPos, Direction face, int maxDiameter, BlockHitResult hitResult) {

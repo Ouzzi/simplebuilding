@@ -210,12 +210,78 @@ window.WIKI_MODULE_DATA["simplemodels"] = {
       "related": []
     }
   ],
-  "recipes": [],
+  "recipes": [
+    {
+      "id": "simplemodels:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplemodels:guide_book",
+        "count": 1
+      },
+      "source": "modules/simplemodels/shared/resources/data/simplemodels/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:item_frame"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:item_frame"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 2
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1
+          }
+        ]
+      }
+    }
+  ],
   "lootTables": [],
   "tags": [],
   "advancements": [],
   "enchantments": [],
-  "items": [],
+  "items": [
+    {
+      "id": "simplemodels:guide_book",
+      "name": {
+        "en_us": "Simple Models Guide",
+        "de_de": "Simple-Models-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/guide/ModelsGuide.java",
+          "modules/simplemodels/shared/resources/data/simplemodels/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + item frame. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Models\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rahmen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Models\" eins."
+        }
+      },
+      "texture": "assets/textures/simplemodels/item/guide_book.png",
+      "craftedBy": [
+        "simplemodels:guide_book"
+      ],
+      "usedIn": []
+    }
+  ],
   "blocks": [],
   "trades": [],
   "config": [],
@@ -232,12 +298,12 @@ window.WIKI_MODULE_DATA["simplemodels"] = {
   "incompleteProse": {},
   "counts": {
     "features": 14,
-    "recipes": 0,
+    "recipes": 1,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
-    "items": 0,
+    "items": 1,
     "blocks": 0,
     "trades": 0,
     "config": 0,

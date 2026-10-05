@@ -1,0 +1,18 @@
+{
+  "block.butter_block.cut": {
+    "sounds": [
+      "simplesandwiches:block/butter_cut1",
+      "simplesandwiches:block/butter_cut2",
+      "simplesandwiches:block/butter_cut3"
+    ],
+    "subtitle": "subtitles.simplesandwiches.block.butter_block.cut"
+  },
+  "block.cheese_block.cut": {
+    "sounds": [
+      "simplesandwiches:block/cheese_cut1",
+      "simplesandwiches:block/cheese_cut2",
+      "simplesandwiches:block/cheese_cut3"
+    ],
+    "subtitle": "subtitles.simplesandwiches.block.cheese_block.cut"
+  }
+}

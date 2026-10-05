@@ -28,7 +28,12 @@
     "simpledimension.mixins.json"
   ],
   "suggests": {
+    "simplebuilding": "*",
     "modmenu": "*",
-    "simplebuilding": "*"
+    "flan": "*",
+    "ftbchunks": "*",
+    "openpartiesandclaims": "*",
+    "griefdefender": "*",
+    "claimchunk": "*"
   }
 }

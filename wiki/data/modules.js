@@ -66,7 +66,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "2deaafcde7e7"
+    "dataHash": "59bdf64a0ffe"
   },
   {
     "id": "simpleriding",
@@ -83,9 +83,10 @@ window.WIKI_MODULES = [
       "cloth_config"
     ],
     "optional": [
-      "simplebuilding"
+      "simplebuilding",
+      "modmenu"
     ],
-    "dataHash": "1d3a6ea48df3"
+    "dataHash": "814349a1b94c"
   },
   {
     "id": "simplemodels",
@@ -103,7 +104,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "c8c701aaff8e"
+    "dataHash": "076d6b404111"
   },
   {
     "id": "simplefun",
@@ -124,7 +125,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "98fd106c3edf"
+    "dataHash": "824399af1451"
   },
   {
     "id": "simplevisuals",
@@ -183,9 +184,10 @@ window.WIKI_MODULES = [
       "cloth_config"
     ],
     "optional": [
-      "simplebuilding"
+      "simplebuilding",
+      "modmenu"
     ],
-    "dataHash": "2da1acc5a9ce"
+    "dataHash": "b982189d3a90"
   },
   {
     "id": "simpletweaks",
@@ -201,8 +203,10 @@ window.WIKI_MODULES = [
     "requires": [
       "simplebuilding"
     ],
-    "optional": [],
-    "dataHash": "947979185638"
+    "optional": [
+      "simpledimensions"
+    ],
+    "dataHash": "20ecb63a9a29"
   },
   {
     "id": "simpledimensions",
@@ -220,8 +224,45 @@ window.WIKI_MODULES = [
     ],
     "optional": [
       "simplebuilding",
-      "modmenu"
+      "modmenu",
+      "flan",
+      "ftbchunks",
+      "openpartiesandclaims",
+      "griefdefender",
+      "claimchunk"
     ],
-    "dataHash": "ab7cf583e62b"
+    "dataHash": "336c09c2aa9f"
+  },
+  {
+    "id": "simplesandwiches",
+    "displayName": "Simple Sandwiches",
+    "description": "Sandwiches on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding"
+    ],
+    "dataHash": "f2b4c2edcfdf"
+  },
+  {
+    "id": "simplelib",
+    "displayName": "SimpleLib",
+    "description": "Shared content bundled by SimpleBuilding and Simple Sandwiches: crucibles heated by the block below, and warm food.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "a4efa5e989ea"
   }
 ];

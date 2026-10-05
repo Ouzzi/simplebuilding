@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ice_chip": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:ice_chip"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:ice_from_ice_chips"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ice_chip"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:ice_from_ice_chips"
+    ]
+  }
+}

@@ -109,7 +109,10 @@ public class ModItems {
     public static final Item ASTRALIT_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_lamp", s -> new BlockItem(ModBlocks.ASTRALIT_LAMP, s)) : null;
     public static final Item NIHIL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_piston", s -> new BlockItem(ModBlocks.NIHIL_PISTON, s)) : null;
     public static final Item ASTRAL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_piston", s -> new BlockItem(ModBlocks.ASTRAL_PISTON, s)) : null;
+    public static final Item NIHIL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? registerItem("nihil_rail", s -> new BlockItem(ModBlocks.NIHIL_RAIL, s)) : null;
+    public static final Item ASTRAL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? registerItem("astral_rail", s -> new BlockItem(ModBlocks.ASTRAL_RAIL, s)) : null;
     public static final Item ASTRAL_VAULT = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_vault", s -> new BlockItem(ModBlocks.ASTRAL_VAULT, s)) : null;
+    public static final Item NIHIL_VAULT = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_vault", s -> new BlockItem(ModBlocks.NIHIL_VAULT, s)) : null;
 
 
 
@@ -180,6 +183,8 @@ public class ModItems {
     public static final Item BLACKSTONE_QUARTZ_CHECKER = registerItem("blackstone_quartz_checker", s -> new BlockItem(ModBlocks.BLACKSTONE_QUARTZ_CHECKER, s));
 
     public static final Item RESIN_QUARTZ_CHECKER = registerItem("resin_quartz_checker", s -> new BlockItem(ModBlocks.RESIN_QUARTZ_CHECKER, s));
+    public static final Item NETHER_BRICK_QUARTZ_CHECKER = registerItem("nether_brick_quartz_checker", s -> new BlockItem(ModBlocks.NETHER_BRICK_QUARTZ_CHECKER, s));
+    public static final Item RED_NETHER_BRICK_QUARTZ_CHECKER = registerItem("red_nether_brick_quartz_checker", s -> new BlockItem(ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER, s));
 
     public static final Item NIHILITH_QUARTZ_CHECKER = registerItem("nihilith_quartz_checker", s -> new BlockItem(ModBlocks.NIHILITH_QUARTZ_CHECKER, s));
 
@@ -257,9 +262,22 @@ public class ModItems {
 
     // Upgrade Templates
 
-    public static final Item BASIC_UPGRADE_TEMPLATE = registerItem("basic_upgrade_template", settings -> new Item(settings.stacksTo(64).rarity(UNCOMMON)));
+    public static final Item BASIC_UPGRADE_TEMPLATE = registerItem("basic_upgrade_template", settings -> upgradeTemplate("basic_upgrade_template", settings));
 
-    public static final Item ENDERITE_UPGRADE_TEMPLATE = registerItem("enderite_upgrade_template", s -> new Item(s.rarity(UNCOMMON)));
+    public static final Item ENDERITE_UPGRADE_TEMPLATE = registerItem("enderite_upgrade_template", settings -> upgradeTemplate("enderite_upgrade_template", settings));
+
+    private static SmithingTemplateItem upgradeTemplate(String id, Item.Properties settings) {
+        String key = "item.simplebuilding." + id;
+        return new SmithingTemplateItem(
+                Component.translatable(key + ".applies_to").withStyle(ChatFormatting.BLUE),
+                Component.translatable(key + ".ingredients").withStyle(ChatFormatting.BLUE),
+                Component.translatable(key + ".base_slot_description"),
+                Component.translatable(key + ".additions_slot_description"),
+                List.of(Identifier.withDefaultNamespace("container/slot/pickaxe"),
+                        Identifier.withDefaultNamespace("container/slot/chestplate")),
+                List.of(Identifier.withDefaultNamespace("container/slot/ingot")),
+                settings.stacksTo(64).rarity(UNCOMMON));
+    }
 
     // Unsichtbarer Platzhalter fuer das Zeilen-Layout der Kreativ-Tabs (CreativeTabLayout); nicht erhaeltlich.
     public static final Item CREATIVE_SPACER = registerItem("creative_spacer", s -> new CreativeSpacerItem(s
@@ -290,6 +308,15 @@ public class ModItems {
     /** Feuersteinsplitter: vier aus einem Feuerstein (2026-10-02). */
     public static final Item FLINT_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
             ? registerItem("flint_chip", settings -> new Item(settings)) : null;
+    /** Feuerkugelsplitter: vier aus einer Feuerkugel, zuendet Kerzen eines Kleinteil-Haufens an (2026-10-05). */
+    public static final Item FIRE_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
+            ? registerItem("fire_chip", settings -> new Item(settings)) : null;
+    /** Eissplitter: vier aus Eis, neun aus Packeis, loescht Kerzen eines Kleinteil-Haufens (2026-10-05). */
+    public static final Item ICE_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
+            ? registerItem("ice_chip", settings -> new Item(settings)) : null;
+    /** Obsidiansplitter: neun aus einem Obsidian, neun zurueck zum Obsidian (2026-10-05). */
+    public static final Item OBSIDIAN_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
+            ? registerItem("obsidian_chip", settings -> new Item(settings)) : null;
 
     /** Eisenstab (2026-10-02): Blitzableiter aus Eisen, Zutat fuer Resonanzstab und Rotator. */
     public static final Item IRON_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
@@ -1185,6 +1212,13 @@ public class ModItems {
     public static void registerModItems() {
 
         Simplebuilding.LOGGER.info("Registering Mod Items for " + Simplebuilding.MOD_ID);
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P5: buckets, Enderite crucible/barrel items, then plug SB into SimpleLib (axe ways off, hammer, buckets).
+            com.simplebuilding.fluid.ModFluids.registerItems();
+            com.simplebuilding.fluid.BucketDispensing.register();
+            com.simplebuilding.crucible.CrucibleCompat.registerItems();
+            com.simplebuilding.crucible.CrucibleCompat.init();
+        }
 
 
 

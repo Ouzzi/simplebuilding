@@ -84,6 +84,18 @@
     }
   ],
   "notes": {
+    "simpletweaks:guide_book": {
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/guide/TweaksGuide.java",
+        "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+      }
+    },
     "simpletweaks:claim_deed": {
       "en": {
         "summary": "Legacy deed from existing worlds or /give. Stack size 16. Original texture and custom data are retained. No recipe. Claims are disabled by default; enabled deeds request ownership from the server."

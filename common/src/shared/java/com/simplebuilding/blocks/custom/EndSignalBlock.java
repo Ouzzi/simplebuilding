@@ -93,9 +93,34 @@ public class EndSignalBlock extends Block {
                 : Math.max(0, Math.min(range(), neighbor.getValue(POWER)) - (kind == Kind.POWDER ? 1 : 0));
     }
 
-    /** True for any signal block (powder, switch, lamp) of the same channel. */
+    /** True for any signal block (powder, switch, lamp, piston) or End rail of the same channel. */
     public boolean sameChannel(BlockState other) {
-        return other.getBlock() instanceof EndSignalBlock block && block.astral == astral;
+        return (other.getBlock() instanceof EndSignalBlock block && block.astral == astral)
+                || (other.getBlock() instanceof EndRailBlock rail && rail.astral() == astral);
+    }
+
+    /**
+     * What a receiver of this channel that is not a signal block itself (the End rails) takes from its horizontal
+     * neighbours, exactly like a lamp: a switch hands over its full range, powder its power (capped at the range).
+     */
+    public static int receiverPower(boolean astral, LevelReader level, BlockPos pos) {
+        int power = 0;
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            BlockState neighbor = level.getBlockState(pos.relative(direction));
+            if (!(neighbor.getBlock() instanceof EndSignalBlock other) || other.astral != astral) continue;
+            if (other.kind == Kind.SWITCH) power = Math.max(power, neighbor.getValue(ENABLED) ? range() : 0);
+            else if (other.kind == Kind.POWDER) power = Math.max(power, Math.min(range(), neighbor.getValue(POWER)));
+        }
+        return power;
+    }
+
+    /** True while a powder or switch of this channel lies next to {@code pos} (the End rails only poll then). */
+    public static boolean hasSourceNeighbour(boolean astral, LevelReader level, BlockPos pos) {
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            if (level.getBlockState(pos.relative(direction)).getBlock() instanceof EndSignalBlock other && other.astral == astral
+                    && (other.kind == Kind.SWITCH || other.kind == Kind.POWDER)) return true;
+        }
+        return false;
     }
 
     /** Visual connections; only powder has any (see {@link EndSignalPowderBlock}). */

@@ -8,9 +8,9 @@
     "N": "minecraft:copper_nugget"
   },
   "pattern": [
-    "AN ",
+    "NAN",
     "NCN",
-    " NK"
+    "NKN"
   ],
   "result": {
     "id": "simplebuilding:velocity_gauge"

@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simpletweaks;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
+ @GameTest public void guideBook(GameTestHelper h) { CompatibilityTests.TESTS.get("guide_book").accept(h); }
  @GameTest public void bootAndNoDuplicateRegistrations(GameTestHelper h) { CompatibilityTests.TESTS.get("boot_and_no_duplicate_registrations").accept(h); }
  @GameTest public void everyLegacyRegistryLookup(GameTestHelper h) { CompatibilityTests.TESTS.get("every_legacy_registry_lookup").accept(h); }
  @GameTest public void everyOldItemDecodesAndSavesCanonicalId(GameTestHelper h) { CompatibilityTests.TESTS.get("every_old_item_decodes_and_saves_canonical_id").accept(h); }

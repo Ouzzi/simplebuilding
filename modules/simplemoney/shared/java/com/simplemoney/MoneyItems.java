@@ -52,6 +52,6 @@ public final class MoneyItems {
   }
  }
  public static void registerTab(CreativeModeTab.Builder builder) {
-  Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,Identifier.fromNamespaceAndPath("simplemoney","money_items"),builder.icon(()->new ItemStack(ITEMS.get("money_bill"))).title(Component.translatable("itemgroup.simplemoney.money_items")).displayItems((p,o)->tabStacks().forEach(o::accept)).build());
+  Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,Identifier.fromNamespaceAndPath("simplemoney","money_items"),builder.icon(()->new ItemStack(ITEMS.get("money_bill"))).title(Component.translatable("itemgroup.simplemoney.money_items")).displayItems((p,o)->{if(com.simplemoney.guide.MoneyGuide.book()!=null)o.accept(com.simplemoney.guide.MoneyGuide.stack());tabStacks().forEach(o::accept);}).build());
  }
 }

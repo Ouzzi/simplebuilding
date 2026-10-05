@@ -24,6 +24,14 @@
     {
       "id": "simplemoney:links/simplebuilding/velocity_gauge",
       "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/copper_bucket",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/knife",
+      "required": false
     }
   ]
 }

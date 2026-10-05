@@ -5,6 +5,20 @@ bindet an 127.0.0.1, lehnt fremde Host-Header ab. Neben Wiki (8765) und Balancin
 Eintrag in `launch.json`; die einzelnen Client-/Server-Einträge sind dort entfernt, ihre Gradle-Befehle stehen als Daten in
 `tools/launchhub/launch_targets.json`.
 
+## Starts ohne Netz
+
+Client-, Server- und Integrationsstarts sowie ausgewaehlte Tests lassen das unbenoetigte
+Forge-26.2-Projekt mit `-PskipForge262=true` aus. Ein DNS-Check auf `piston-meta.mojang.com`
+wartet maximal 0,5 Sekunden und cached das Ergebnis 15 Sekunden. Bei DNS-Fehler/Timeout
+oder `SIMPLEBUILDING_GRADLE_OFFLINE=1` wird Gradle mit `--offline` gestartet.
+DNS-Erfolg garantiert keine Internetverbindung; die Umgebungsvariable erzwingt den Modus.
+Gradle-Abhaengigkeiten, Minecraft-Manifeste und Assets muessen bereits lokal vorhanden sein.
+Loom 1.17.20 uebernimmt Gradles Offline-Modus; eine weitere Loom-Option ist nicht erforderlich.
+Forge-26.2-Starts/Tests und das vollstaendige `check` werden offline vor dem Prozessstart mit
+`Forge 26.2 braucht Netz (Mavenizer)` abgelehnt. Das vollstaendige Gate verliert dadurch
+keine Forge-Abdeckung. Der Hub setzt beim Testrunner zusaetzlich
+`SIMPLEBUILDING_SKIP_FORGE262=1`, wenn kein Forge-26.2-Target ausgewaehlt ist.
+
 ## Bereiche
 
 Auf der Startseite enthält „Mods für den Start“ die einklappbare Auswahl der
@@ -19,6 +33,10 @@ Presets bleiben im Bereich „Mods“. Ältere Minecraft-Linien sind unveränder
 - **Tests**: „Alle Tests ausführen“ (Vorauswahl 26.3 Fabric + NeoForge; Voreinstellungen für alle Server-Linien und Client-Suiten),
   Filterlauf, nur Fehlgeschlagene, Einzeltest nochmal, Auswahl mehrerer Tests. Kacheln je Ziel mit Sparkline, Trend,
   „Vor dem Push“-Liste, Tabelle mit Suche, Gruppierung nach Testklasse, „nur rote“, „nur wackelige“.
+  Voreinstellung **„Every module alone (standalone)“** wählt alle `module-<id>-standalone-<loader>-263`-Ziele
+  (Prinzip 8, `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`): jedes Modul nur mit seinen harten Abhängigkeiten,
+  eigener Lauf- und Weltordner. Die Ziele kommen wie alle Modul-Ziele aus `modules.json` (`tests.standalone`);
+  auf der Kommandozeile `python tools/testrunner/run.py --targets standalone`.
 - **Fehlschlaege**: aktuell rote Tests (neueste Aufzeichnung je Test), seit welchem Lauf rot, Fehlertext, Markdown kopieren.
 - **Verlauf**: Läufe, Detail, Markdown-Export, zwei Läufe vergleichen (neu rot / neu grün).
 - **KI-Fixes**: Anbieter-Status, Jobs mit Log, Branch, Commit, geänderten Dateien, Merge-Vorschau, Diff.
@@ -48,10 +66,32 @@ Tastatur: `r` Fehlgeschlagene wiederholen, `a` alle (26.3), `/` Suche, `1`–`7`
 ## Frische Testwelt
 `/sbtestcentre build` läuft in Entwicklungsumgebungen beim ersten Betreten einer Welt namens `SB-Testzentrale` von selbst
 (`TestCentreCommand.onPlayerJoin`; erkennt „alt“ am Fingerabdruck in `simplebuilding_testcentre.txt`, siehe `docs/TESTZENTRALE.md`).
-Der Hub löscht deshalb vor dem Start nur diese Datei (`world: rebuild`, Standard) – das Testzentrum baut sich neu. Optional
-`world: recreate` verschiebt die Welt nach `<Laufordner>/hub-old-worlds/`. Eine neue Welt selbst kann der Hub nicht anlegen
-(kein Headless-Weg; einmal Flachland, Kreativ, Cheats an). Existiert die Welt, hängt der Hub `--args=--quickPlaySingleplayer
-SB-Testzentrale` an (abschaltbar). Client-Tests einzeln: Feld „Client-Testnamen“ setzt `SIMPLEBUILDING_CLIENT_ONLY`.
+„Client + frische Testwelt“ (`client_fresh`) verwendet standardmäßig `world: recreate`:
+Die gesamte bisherige Welt einschließlich Spielerstand wandert nach
+`<Laufordner>/hub-old-worlds/SB-Testzentrale-<Zeitstempel>`. Vorhandene Archive werden
+nicht überschrieben. Der freigewordene Ordner `saves/SB-Testzentrale` wird per
+`--quickPlaySingleplayer SB-Testzentrale` neu erzeugt: neuer Zufallsseed, Flachland,
+Kreativ, friedlich, Cheats an, keine Strukturen. QuickPlay muss dafür eingeschaltet
+sein; andernfalls weist der Hub auf die nötige manuelle Welterstellung hin.
+
+Explizites `world: rebuild` behält Welt und Spielerstand und entwertet nur den
+Fingerabdruck. Die gespeicherten Ursprungskoordinaten bleiben erhalten, damit ein
+Neubau nicht auf dem Dach der bisherigen Zentrale beginnt.
+
+Auf 26.3 lädt die automatische Testzentrale den Ursprungschunk vor der Höhenabfrage.
+Ungültige alte Ursprünge bei oder unter der minimalen Bauhöhe werden repariert.
+Beim Betreten sowie nach einem verzögerten Neubau landet der Spieler auf einer
+freien Eingangsplattform; Fallbewegung und Fallstrecke werden zurückgesetzt.
+Der Weltspawn liegt dort mit Respawn-Radius 0. Auch während der drei Sekunden vor
+einem Neubau steht dort ein sicherer Boden.
+
+Nur Hub-Clientstarts auf 26.3 erhalten über `-Phub_client=true` das JVM-Property
+`-Dsimplebuilding.hub=true`. Der Client-Mixin bestätigt experimentelle Registry-
+Lifecycles nur bei diesem Property **und** einer Entwicklungsumgebung automatisch.
+Normale Installationen und direkte Gradle-Starts ohne Opt-in behalten die Warnung.
+Versions-, veraltete Weltformat-, Datapack- und Speicherprüfungen bleiben erhalten;
+die Weltvorlage nutzt `WorldDataConfiguration.DEFAULT` ohne zusätzliche experimentelle
+Feature-Packs. Client-Tests einzeln: Feld „Client-Testnamen“ setzt `SIMPLEBUILDING_CLIENT_ONLY`.
 
 ## KI-Fix
 „Mit KI beheben“ nimmt die ausgewählten roten Tests (Standard alle), baut den Prompt aus `tools/launchhub/prompt_template.md`

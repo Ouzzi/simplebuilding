@@ -20,7 +20,7 @@
     }
   ],
   "type": "minecraft:smithing_transform",
-  "addition": "simplebuilding:enderite_ingot",
+  "addition": "#c:ingots/enderite",
   "base": "simpleriding:netherite_horseshoe",
   "result": {
     "id": "simpleriding:enderite_horseshoe"

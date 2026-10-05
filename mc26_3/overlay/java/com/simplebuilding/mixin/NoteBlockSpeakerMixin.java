@@ -14,10 +14,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
- * Noten-Verstärker (2026-10-03): der Notenblock spielt seinen Ton mit der verstaerkten Lautstaerke
- * ({@link SpeakerBoost#noteBlockVolume}) - derselbe Ton zur selben Zeit, nur weiter hoerbar. Haengt eine Kette von
- * Noten-Verstärkern am Notenblock (2026-10-04), bekommt jeder Spieler den Ton genau einmal vom naechsten
- * Abspielpunkt ({@link SpeakerBoost#playChained}); sonst bleibt es bei Vanillas Rundsendung. Der Server entscheidet.
+ * The server selects listeners using the existing amplifier range and chain. Each receives one
+ * unattenuated note from the nearest playback point, including direct amplification without a chain.
+ * Note blocks without active amplifiers keep vanilla broadcasting.
  */
 @Mixin(NoteBlock.class)
 public abstract class NoteBlockSpeakerMixin {
@@ -29,7 +28,7 @@ public abstract class NoteBlockSpeakerMixin {
         float boosted = volume * SpeakerBoost.multiplier(level, pos, SpeakerBoost.Source.NOTE_BLOCK);
         if (level instanceof net.minecraft.server.level.ServerLevel server) {
             java.util.List<BlockPos> chain = SpeakerBoost.cachedChain(server, pos, SpeakerBoost.Source.NOTE_BLOCK);
-            if (!chain.isEmpty()) {
+            if (!chain.isEmpty() || boosted > volume) {
                 SpeakerBoost.playChained(server, except, pos, chain, sound, source, boosted, pitch, seed);
                 return;
             }

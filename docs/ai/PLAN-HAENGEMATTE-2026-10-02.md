@@ -88,3 +88,46 @@ Datagen, Wiki-Check. Nicht ohne Client prüfbar: Aussehen von Modell/Pose/Abdunk
 - Nicht getestet: Aussehen von Modell, Icons, Liegepose und Abdunkeln im Client; Zuschauer-Ausschluss nur per Code
   (Mock-Spieler können keine Zuschauer sein); echtes Weiterlaufen der Uhr (Testserver hat `advance_time` aus, geprüft
   wird die berechnete Tick-Zahl); Forge-26.3-GameTests nicht gelaufen (nur Compile); Mehrspieler mit echten Clients.
+
+## v2 nach Besitzer-Rückmeldung (2026-10-04)
+Wünsche: immer mittig, Abstand 2–4, diagonal per Zwei-Klick, 2. Faden im Rezept, Zeitraffer auch nachts.
+
+### Entscheidungen
+- **Geometrie in Linien-Einheiten**: Anker A und B auf Seilhöhe, dazwischen g = 2…4 freie Zellen in Richtung s
+  (gerade: `facing`; diagonal 45°: `facing` + `facing.getClockWise()`). Das Tuch ist immer 2 Blöcke (32 px) lang und
+  liegt mittig zwischen den Ankern; die Seile laufen beidseitig symmetrisch vom Spreizholz zum Anker.
+- **Zustände statt Ketten**: jeder Block trägt `facing`, `diagonal`, `gap`, `index` und kann damit die ganze Matte samt
+  Ankern berechnen. Obere Lage = Seilblock in allen g Zellen (Enden zeichnen das Seil, die Mitte ist unsichtbar),
+  untere Lage = Tuchblöcke nur unter dem Tuch (g=2: 0,1; g=3: 0,1,2; g=4: 1,2); das Kopfteil (Liegeplatz, Beute,
+  zeichnet das Tuch) ist die Zelle mit dem Kopfpunkt (Tuchmitte + 8 px): g=2 → 1, g=3 → 1, g=4 → 2.
+- **Zerfall**: gerade Nachbarn wie bisher sofort über `updateShape`; zusätzlich plant jeder entfernte Teil eine Prüfung
+  aller übrigen Zellen ein (diagonale Zellen berühren sich nur an Kanten) und das Kopfteil prüft sich alle 10 Ticks
+  selbst samt Ankern (der diagonale Anker ist kein Flächennachbar). Beute weiter nur am Kopfteil.
+- **Rendering = Blockmodelle, kein BE-Renderer**: 26.3 kann Element-Rotationen um mehrere Achsen (`x/y/z`) und Elemente
+  von −16 bis 32 px; damit zeichnet das Kopfteil das ganze Tuch (Durchhang 22,5°, diagonal zusätzlich 45° gedreht) und
+  jede End-Seilzelle ihr Seil bis zum Spreizholz. Statisch gebacken (kein Code je Frame, kein Renderer-Register auf drei
+  Loadern, Shader-/Culling-fest), vollständig vom Generator erzeugt und in der Vorschau mit derselben Matrix geprüft.
+- **Liegen diagonal/mittig**: Vanilla kennt nur 4 Liegerichtungen und legt den Spieler auf die Zellmitte. Ein
+  Client-Mixin (`LivingEntityRenderer`) dreht Liegende in diagonalen Matten um −45° und verschiebt das Modell auf die
+  Tuchmitte (g=3: ½ Block; diagonal: Kopfversatz entlang der Diagonale). Server-Position und Hitbox bleiben Vanilla.
+- **Zwei-Klick**: Klick auf einen Anker hängt sofort gerade auf, wenn es passt; sonst merkt sich das Item den Anker
+  (`custom_data`, Partikel am Anker nur für den Spieler); der Klick auf den zweiten Anker hängt gerade oder diagonal
+  auf. Abbruch: derselbe Anker erneut, Item nicht mehr in der Haupthand, andere Dimension, 30 s, Anker weg.
+- **Rezept**: `F/F` über `WWW` (Faden, Stock, Faden; 3 Wolle).
+- **Nachts**: nutzbar und beschleunigt rund um die Uhr (Dimension mit Tagesuhr); kein Tagessprung, kein Spawnpunkt,
+  Phantom-Zähler wie bisher, Monster-Regel bleibt; Anteil-Regel unverändert.
+- **Faktor**: Standard 8, Config 1–20. Beschleunigt wird **nur die Weltuhr** (Tageszeit, Sonne/Mond, davon abhängige
+  Dinge wie Mondphase/Monster-Licht), nicht der Spieltick (Wetter-Timer, Pflanzen, Öfen, Redstone laufen normal).
+  Empfehlung: so lassen – Tick-Beschleunigung hieße Server-Last ×Faktor für alle und wäre ein Farm-/Ofen-Exploit.
+
+### Stand v2 (2026-10-04)
+- Umgesetzt wie oben. Zusatz: Schleich-Klick auf einen Anker merkt ihn immer (für gezielt gerade Zwei-Klick-Spannung,
+  wenn ein Ein-Klick-Treffer stören würde). Testzentrale: 13 × 2 frei, je eine mit 3 und 4 frei, eine diagonal.
+- Tests: 9 GameTests `hammock_*` (Abstände 1–5, Mitte/Kopfversatz, diagonal per zwei Klicks inkl. Anker-Verlust über
+  die 10-Tick-Prüfung, Ankerverlust gerade 2/4, Abbau Überleben/Kreativ, Liegen + Phantom + kein Spawnpunkt +
+  Zeitraffer-Rechnung, Anteil-Regel Tag/Nacht, Rezept neu/alt, Config-Grenzen). Volle Suite fabric-263, neoforge-263,
+  forge-263: 2758/2758 „alles gruen“. Wiki `--all --check` grün; Vorschau `previews/haengematte-v2-vorschau.png`.
+- Nicht getestet: Client-Sicht (Modelle, gedrehte/verschobene Liegepose – nur rechnerisch in der Vorschau mit
+  derselben Rotationsmatrix geprüft), echtes Weiterlaufen der Uhr (Testserver `advance_time` aus), Partikel-Hinweis.
+- Bekannte Grenzen: bei diagonalen Matten ragen Tuch/Seile optisch in die Nachbarzellen der Ecken (die bleiben frei
+  belegbar); Liegende stehen serverseitig auf der Zellmitte (nur das Zeichnen ist verschoben).

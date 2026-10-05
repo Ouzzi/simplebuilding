@@ -1,6 +1,5 @@
 {
-  "parent": "simplebuilding:block/hammock_cloth_template",
   "textures": {
-    "wool": "minecraft:block/gray_wool"
+    "particle": "minecraft:block/gray_wool"
   }
 }

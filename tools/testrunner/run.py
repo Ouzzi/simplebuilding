@@ -68,7 +68,8 @@ DATA_DIR = TESTING / "data"
 RUNS_IN_UI = 20
 
 #: Per target. A hung Minecraft server would otherwise hold the whole run.
-DEFAULT_TIMEOUT_SECONDS = 20 * 60
+#: A cold first client run (fresh compile + asset download) took 25 min on 2026-10-05.
+DEFAULT_TIMEOUT_SECONDS = 40 * 60
 
 MOD_ID = "simplebuilding"
 
@@ -309,6 +310,12 @@ def module_targets(root=REPO):
                 label=f"{module['displayName']} {loader} integration", loader=loader,
                 gradle_task=spec["task"], report=spec["report"],
                 catalogue=tests["catalogues"][0], gradle_args=tuple(args), **common))
+        # Principle 8: the same catalogue, run with only the module and its hard requirements.
+        for loader, spec in tests.get("standalone", {}).get("loaders", {}).items():
+            result.append(Target(id=f"module-{module['id']}-standalone-{loader}-263",
+                label=f"{module['displayName']} {loader} standalone", loader=loader,
+                gradle_task=spec["task"], report=spec["report"],
+                catalogue=tests["catalogues"][0], **common))
         client = tests.get("client")
         if client:
             result.append(Target(id=f"module-{module['id']}-client-263",
@@ -319,6 +326,8 @@ def module_targets(root=REPO):
 
 
 MODULE_TARGETS = module_targets()
+#: Principle 8: every module alone (plus hard requirements). Selected with --targets standalone.
+STANDALONE_TARGETS = tuple(t for t in MODULE_TARGETS if "-standalone-" in t.id)
 # Forge 26.3 is part of the main line (owner decision 2026-10-01) and of the gate.
 FORGE263_TARGETS = (Target(
     id="forge-263", label="Forge - MC 26.3", loader="forge", mc_line="26.3",
@@ -363,10 +372,13 @@ def gradlew() -> list[str]:
     warmed Gradle cache instead of failing on a download (tools/testrunner/offline_gate.ps1). It also
     leaves the 26.2 :forge project out (-PskipForge262, see settings.gradle): configuring it always
     runs ForgeGradle's Mavenizer, which downloads the launcher manifest and has no offline switch in
-    ForgeGradle 7. Forge targets themselves therefore still need the network.
+    ForgeGradle 7. Forge 26.2 targets themselves therefore still need the network.
+    The hub also sets SIMPLEBUILDING_SKIP_FORGE262=1 for unrelated targets while online.
     """
     offline = (["--offline", "-PskipForge262=true"]
                if os.environ.get("SIMPLEBUILDING_GRADLE_OFFLINE") == "1" else [])
+    if os.environ.get("SIMPLEBUILDING_SKIP_FORGE262") == "1" and "-PskipForge262=true" not in offline:
+        offline.append("-PskipForge262=true")
     if os.name == "nt":
         return [str(REPO / "gradlew.bat"), *offline]
     return ["./gradlew", *offline]
@@ -590,8 +602,13 @@ SHARED_CLIENT_SOURCES = {
 SKIPPED_SHOTS = {
     # The mega-guide screen is a 26.3 feature, pending the separate port run.
     "26.2": {"mega-guide-locked", "mega-guide-unlocked"},
-    # No Cloth Config for 26.4 yet: the config screen is hidden and not tested there.
-    "26.4-snapshot": {"screen-h-mod-config"},
+    # McVersion.SMITHING_RECIPE_BOOK (owner 2026-10-02): the vanilla recipe book replaced the trim
+    # reference button in the smithing table, so ModScreensClientTest checks the book and returns
+    # before the button path that takes this shot.
+    "26.3": {"screen-g-trim-reference"},
+    # No Cloth Config for 26.4 yet: the config screen is hidden and not tested there. 26.4 builds on
+    # the 26.3 overlay, so the smithing recipe book is there too.
+    "26.4-snapshot": {"screen-h-mod-config", "screen-g-trim-reference"},
 }
 
 
@@ -1449,7 +1466,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--targets",
         default="all",
         help=("comma separated target ids; 'all' (default) runs the four server targets, "
-              "'client' only the client ones, 'everything' both; the experimental 26.4 snapshot "
+              "'client' only the client ones, 'everything' both, 'standalone' every module alone; the experimental 26.4 snapshot "
               "targets only by id, 'snapshot' or 'everything-plus-snapshot': "
               + ", ".join(t.id for t in ALL_TARGETS)),
     )
@@ -1477,6 +1494,8 @@ def select_targets(spec: str) -> list[Target]:
         return list(TARGETS)
     if spec.strip() == "snapshot":
         return list(SNAPSHOT_TARGETS)
+    if spec.strip() == "standalone":
+        return list(STANDALONE_TARGETS)
     if spec.strip() == "everything-plus-snapshot":
         return list(ALL_TARGETS)
     chosen: list[Target] = []

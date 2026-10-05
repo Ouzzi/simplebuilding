@@ -77,7 +77,16 @@ def check():
     assets = MODULE / 'shared/resources/assets/simpleriding'
     tiers = ['copper', 'iron', 'golden', 'diamond', 'netherite', 'enderite']
     items = [t + '_horseshoe' for t in tiers] + ['horseshoe_smithing_template']
-    assert sorted(p.stem for p in assets.glob('items/*.json')) == sorted(items), 'exactly the R1 horseshoe item models'
+    books = ['enchanted_book_leaping', 'enchanted_book_tailwind']
+    # guide_book: the generated module guide (tools/guides/module_guides.py).
+    assert sorted(p.stem for p in assets.glob('items/*.json')) == sorted(items + books + ['guide_book']), 'horseshoes, Riding book models and the guide'
+    for book in books:
+        assert read(assets / f'items/{book}.json')['model'] == {'type': 'minecraft:model', 'model': f'simpleriding:item/{book}'}
+        assert read(assets / f'models/item/{book}.json') == {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'simpleriding:item/{book}'}}
+        png = (assets / f'textures/item/{book}.png').read_bytes()
+        assert png[:8] == b'\x89PNG\r\n\x1a\n' and int.from_bytes(png[16:20], 'big') == int.from_bytes(png[20:24], 'big') == 16
+    assert not (assets.parent / 'minecraft/items/enchanted_book.json').exists(), 'do not replace other mods book selection'
+    assert 'client.RidingBookModelMixin' in read(MODULE / 'shared/resources/simpleriding.mixins.json')['client']
     for item in items:
         assert read(assets / f'items/{item}.json')['model']['model'] == f'simpleriding:item/{item}'
         assert (assets / f'textures/item/{item}.png').is_file()
@@ -92,12 +101,16 @@ def check():
     for tier, base, addition in [('copper', 'minecraft:copper_ingot', 'minecraft:iron_nugget'), ('iron', 'minecraft:iron_ingot', 'minecraft:iron_nugget'),
                                  ('golden', 'minecraft:gold_ingot', 'minecraft:iron_nugget'), ('diamond', 'minecraft:diamond', 'minecraft:iron_nugget'),
                                  ('netherite', 'simpleriding:diamond_horseshoe', 'minecraft:netherite_ingot'),
-                                 ('enderite', 'simpleriding:netherite_horseshoe', 'simplebuilding:enderite_ingot')]:
+                                 ('enderite', 'simpleriding:netherite_horseshoe', '#c:ingots/enderite')]:
         recipe = read(recipes / f'{tier}_horseshoe_smithing.json')
         assert recipe['type'] == 'minecraft:smithing_transform' and recipe['template'] == template
         assert recipe['base'] == base and recipe['addition'] == addition and recipe['result']['id'] == f'simpleriding:{tier}_horseshoe'
     enderite = read(recipes / 'enderite_horseshoe_smithing.json')
     assert enderite['fabric:load_conditions'][0]['values'] == ['simplebuilding'] and enderite['neoforge:conditions'][0]['modid'] == 'simplebuilding'
+    assert enderite['forge:conditions'] == [{'type': 'forge:mod_loaded', 'modid': 'simplebuilding'}]
+    assert read(resources / 'simpleriding/tags/item/repairs_enderite_horseshoe.json')['values'] == [
+        {'id': '#c:ingots/enderite', 'required': False}]
+    assert 'simplebuilding:enderite_ingot' in read(ROOT / 'src/main/resources/data/c/tags/item/ingots/enderite.json')['values']
     duplicate = read(recipes / 'horseshoe_smithing_template.json')
     assert duplicate['pattern'] == ['#S#', '#C#', '###'] and duplicate['key'] == {'#': 'minecraft:copper_ingot', 'C': 'minecraft:iron_ingot', 'S': template}
     assert duplicate['result'] == {'count': 2, 'id': template}

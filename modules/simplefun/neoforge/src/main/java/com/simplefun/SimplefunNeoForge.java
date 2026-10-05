@@ -25,6 +25,8 @@ public class SimplefunNeoForge {
   public SimplefunNeoForge(IEventBus modBus, ModContainer modContainer, Dist dist) {
     SimplefunCommon.init();
     com.simplebuilding.modules.simplefun.ModuleNeoTests.register(modBus);
+    if (net.neoforged.fml.ModList.get().isLoaded("ftbquests"))
+      com.simplefun.guide.FunGuide.installQuests(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
 
     SimplefunAttachments.ATTACHMENT_TYPES.register(modBus);
 

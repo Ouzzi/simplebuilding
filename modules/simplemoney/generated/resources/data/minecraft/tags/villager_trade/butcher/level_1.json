@@ -1,0 +1,49 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:links/simplesandwiches/oak_cutting_board",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/spruce_cutting_board",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/birch_cutting_board",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/jungle_cutting_board",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/acacia_cutting_board",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/dark_oak_cutting_board",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/mangrove_cutting_board",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/cherry_cutting_board",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/pale_oak_cutting_board",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/poplar_cutting_board",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/bamboo_cutting_board",
+      "required": false
+    }
+  ]
+}
