@@ -5,6 +5,19 @@ Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alte
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
 
+## Worker-Nachtrag 2026-10-05: Hängematten-Testcenter
+
+Branch `gpt-hammocktc`: 22 beschriftete, getrennte Beispiele rechts der Maschinen:
+gerade X/Z und 45 Grad jeweils 2/3/4 frei, sechs schräge Winkel, Zaun/Holz,
+fünf Doppelstabarten und Netheritstab auf Holz, alle 16 Farben. Kein Kupferstab,
+damit die Blitzstation funktioniert. Aufbau prüft intakte BE-Verknüpfungen;
+Szenariotest prüft Varianten, Anker, Farben, Schilder und Überschneidungen.
+Fabric/NeoForge **1932/1932, alles gruen**, je acht Testcenter-Tests grün.
+`check -q -PskipWiki` samt 26.2-/Forge-26.3-Compiles: **GRADLE_EXIT=0**;
+Wiki --all/--all --check grün, kein Inhaltsdiff. Kein Client/Push;
+Neubau in der Besitzerwelt und Sichtabnahme offen. Belege:
+`docs/ai/PLAN-HAENGEMATTEN-TESTCENTER-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-05: NeoForge-Modul-Gate
 
 Branch `gpt-neorun`: `loadedMods.add(simplelib)` verwarf die Gradle-Konvention;

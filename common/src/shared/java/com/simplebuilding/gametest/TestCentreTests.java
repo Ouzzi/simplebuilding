@@ -236,6 +236,12 @@ public final class TestCentreTests {
                         helper.assertTrue(!found.isEmpty() && OctantShape.bounds(OctantShape.data(found.getFirst().getItem())) != null,
                                 "the octant frame at " + frame.pos() + " holds no octant with both corners");
                     }
+                    if (op instanceof TcOp.Hammock hammock) {
+                        var spot = new com.simplebuilding.blocks.custom.HammockLayout.Spot(
+                                hammock.pos(), hammock.dx(), hammock.dz());
+                        helper.assertTrue(com.simplebuilding.blocks.custom.HammockLayout.intact(level, spot.clothHead()),
+                                "built hammock is not linked or its anchor is invalid: " + spot);
+                    }
                 }
             }
             int drops = level.getEntitiesOfClass(ItemEntity.class, area).size();
@@ -593,6 +599,9 @@ public final class TestCentreTests {
         TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), origin);
         TcContext ctx = new TcContext(helper.getLevel().registryAccess());
         List<String> problems = new ArrayList<>();
+        if (!ModBlocks.HAMMOCKS.isEmpty()) {
+            assertHammockExhibits(helper, plan);
+        }
 
         // Verzauberungen.
         List<ItemStack> handsOn = new ArrayList<>();
@@ -701,6 +710,77 @@ public final class TestCentreTests {
 
     /** Nach der ersten Ausfuehrung noch weitere Ticks auf doppelte/fremde Ausfuehrungen pruefen. */
     static final int CHECK_AFTER = 3;
+    /** Every requested layout has its own labeled, disjoint bay; all colors and anchor types appear. */
+    private static void assertHammockExhibits(GameTestHelper helper, TestCentreLayout.Plan plan) {
+        var machines = plan.section("machines");
+        Map<BlockPos, BlockState> blocks = new HashMap<>();
+        Map<BlockPos, Integer> writes = new HashMap<>();
+        Map<BlockPos, TcOp.Sign> signs = new HashMap<>();
+        for (var section : plan.sections()) {
+            if (!section.id().equals("machines")) {
+                helper.assertTrue(!machines.box(plan.origin()).intersects(section.box(plan.origin())),
+                        "machines overlap section " + section.id());
+            }
+            for (TcOp op : section.ops()) {
+                if (op instanceof TcOp.Place place) {
+                    blocks.put(place.pos(), place.state());
+                    writes.merge(place.pos(), 1, Integer::sum);
+                }
+                if (op instanceof TcOp.Sign sign) signs.put(sign.pos(), sign);
+            }
+        }
+        var spans = new HashSet<String>();
+        var colors = new HashSet<Block>();
+        var anchors = new HashSet<BlockState>();
+        var occupied = new HashSet<BlockPos>();
+        int count = 0;
+        for (TcOp op : machines.ops()) {
+            if (!(op instanceof TcOp.Hammock hammock)) continue;
+            count++;
+            var spot = new com.simplebuilding.blocks.custom.HammockLayout.Spot(hammock.pos(), hammock.dx(), hammock.dz());
+            helper.assertTrue(spot.valid(), "invalid exhibit span " + spot);
+            String span = hammock.dx() + ":" + hammock.dz();
+            spans.add(span);
+            colors.add(blocks.get(spot.clothHead()).getBlock());
+            var cells = new ArrayList<>(spot.cells());
+            for (BlockPos anchor : List.of(spot.anchor(), spot.otherAnchor())) {
+                BlockState post = blocks.get(anchor);
+                anchors.add(post);
+                helper.assertTrue(post != null && (post.is(ModBlocks.NETHERITE_ROD)
+                                ? Blocks.OAK_LOG.defaultBlockState() : post).equals(blocks.get(anchor.below())),
+                        "exhibit post is not two blocks tall: " + anchor);
+                cells.add(anchor);
+                cells.add(anchor.below());
+            }
+            for (BlockPos cell : cells) {
+                helper.assertTrue(occupied.add(cell) && writes.getOrDefault(cell, 0) == 1 && !signs.containsKey(cell),
+                        "hammock exhibit overlaps another placement at " + cell);
+                helper.assertTrue(machines.box(plan.origin()).isInside(cell), "exhibit outside machines: " + cell);
+            }
+            BlockPos label = new BlockPos(Math.min(spot.anchor().getX(), spot.otherAnchor().getX()),
+                    spot.anchor().getY() - 1, spot.anchor().getZ() - 1);
+            TcOp.Sign sign = signs.get(label);
+            helper.assertTrue(sign != null && sign.lines().size() == 4 && sign.lines().getFirst().getString().equals(span)
+                            && sign.lines().stream().noneMatch(line -> line.getString().isBlank()),
+                    "missing four-line hammock label for " + spot);
+        }
+        helper.assertTrue(count == 22, "expected 22 hammock exhibits, got " + count);
+        helper.assertTrue(spans.containsAll(List.of("3:0", "4:0", "5:0", "0:3", "0:4", "0:5",
+                "3:3", "4:4", "5:5", "3:1", "4:1", "5:2", "3:2", "4:3", "-3:2")),
+                "missing hammock lengths, axes or angles: " + spans);
+        helper.assertTrue(colors.containsAll(ModBlocks.HAMMOCKS), "not all hammock colors are displayed");
+        helper.assertTrue(anchors.contains(Blocks.OAK_FENCE.defaultBlockState())
+                        && anchors.contains(Blocks.OAK_LOG.defaultBlockState())
+                        && anchors.contains(ModBlocks.NETHERITE_ROD.defaultBlockState()
+                                .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING, Direction.UP)),
+                "missing fence, log or netherite anchor");
+        for (var rod : com.simplebuilding.blocks.custom.StandingRodBlock.Rod.values()) {
+            helper.assertTrue(anchors.contains(ModBlocks.STANDING_ROD.defaultBlockState()
+                            .setValue(com.simplebuilding.blocks.custom.StandingRodBlock.ROD, rod)),
+                    "missing standing rod anchor: " + rod);
+        }
+    }
+
     // Serial execution needs a command tick, three observation ticks and a release tick
     // per button, plus asynchronous loading of the remote centre. The old 600 covered
     // only the fixed four-tick schedule and could expire before the final buttons.

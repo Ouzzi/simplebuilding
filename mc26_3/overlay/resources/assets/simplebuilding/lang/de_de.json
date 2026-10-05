@@ -78,6 +78,7 @@
   "simplebuilding.testcentre.machines.push13": "schiebt 13?",
   "simplebuilding.testcentre.machines.auto_smither": "Hebel umlegen: schmiedet einmal",
   "simplebuilding.testcentre.machines.hammocks": "Hängematten",
+  "simplebuilding.testcentre.machines.hammocks.gap": "%s frei (Hauptachse)",
   "simplebuilding.testcentre.machines.hammocks.sub": "hinlegen: Zeit läuft schneller",
   "simplebuilding.testcentre.machines.standing_rods": "Aufgestellte Stäbe",
   "simplebuilding.testcentre.machines.standing_rods.sub": "Schleichen + Rechtsklick oben",
