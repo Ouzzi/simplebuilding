@@ -1,19 +1,15 @@
 """Usage: python tools/textures/hammock.py [client.jar] [preview.png]
 
-Hammock (owner queue 2026-10-02, v2 2026-10-04, docs/ai/PLAN-HAENGEMATTE-2026-10-02.md). Writes into
-mc26_3/overlay/resources/assets/simplebuilding/:
+Hammock (owner queue 2026-10-02, v2 2026-10-04, v3 any angle 2026-10-04; docs/ai/PLAN-HAENGEMATTE-2026-10-02.md and
+docs/ai/PLAN-HAENGEMATTE-WINKEL-2026-10-02.md). Writes into mc26_3/overlay/resources/assets/simplebuilding/:
 - textures/block/hammock_rope.png: a twisted string rope in the tones of vanilla item/string;
 - textures/item/<colour>_hammock.png: 16 icons, the sagging cloth in the three main tones of the vanilla wool texture of
   that colour, spreaders in the tones of stripped oak, ropes like the block rope;
-- block models in the canonical frame (facing south: the line runs to +z, diagonally to -x/+z): per layout (straight or
-  diagonal, 2 to 4 free cells) one cloth template drawn by the cloth head (two blocks of cloth in the middle between the
-  anchors, sagging 22.5 degrees, stripped-oak spreaders, diagonal turned -45 degrees about y - 26.3 rotates elements
-  about x and y at once) with one child per colour that swaps in the vanilla wool texture, and one rope end drawn by the
-  first rope cell (two ropes from the spreader ends up to a knot at the anchor and a tie into it); the far rope end is
-  the same model turned 180 degrees; the other cells use an empty model;
-- blockstates (y = facing's rotation - 180) and the item definitions and item models.
-With a preview path it draws a sheet: icons, rope texture and the hammocks (2, 3, 4 straight, side and top views;
-diagonal 2 and 4, side view along the line and top view), computed with the same element rotations as the game.
+- block models without elements (only the particle texture: wool of the colour, the rope) and one-variant blockstates -
+  since v3 the cloth head's block-entity renderer (HammockRenderer) draws the whole hammock at any angle; the item
+  definitions and item models.
+With a preview path it draws a sheet: hammocks at several angles (top view with the occupied cells, side view along
+the line), computed with a mirror of HammockLayout (cells) and HammockShape (boxes), plus the icons and the rope.
 """
 import io
 import json
@@ -30,17 +26,16 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
 OUT = os.path.join(ROOT, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding')
 COLOURS = ['white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple',
            'blue', 'brown', 'green', 'red', 'black']
-# Creative-tab order (vanilla's gameplay colour order), used for the preview letters.
+# Creative-tab order (vanilla's gameplay colour order), used for the preview.
 TAB_ORDER = ['white', 'light_gray', 'gray', 'black', 'brown', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan',
              'light_blue', 'blue', 'purple', 'magenta', 'pink']
-ROTATION = {'north': 0, 'east': 90, 'south': 180, 'west': 270}
+# Old v2 layout models, removed by this generator (the renderer draws every angle).
+OLD_LAYOUTS = ['2', '3', '4', 'diagonal_2', 'diagonal_3', 'diagonal_4']
 
-SAG = 22.5                                    # cloth angle
-HALF = 16 * math.cos(math.radians(SAG))       # horizontal half length of the cloth (14.78 px)
-SPREADER_Y = 9.5                              # middle of the spreader bar, lower layer
-KNOT_Y = 8                                    # rope height in the anchor's (upper) layer
-TIE = 7                                       # rope length into the anchor's block (straight; diagonal x sqrt 2)
-GAPS = (2, 3, 4)
+SAG = 22.5                                    # cloth angle (HammockLayout.SAG_DEGREES)
+PX = 1 / 16
+REACH = math.cos(math.radians(SAG)) + PX      # HammockLayout.CLOTH_REACH
+HALF = math.cos(math.radians(SAG))            # HammockShape.HALF
 
 
 def lum(p):
@@ -103,163 +98,135 @@ def icon(wool, wood, rope):
     return im
 
 
-# --- models ------------------------------------------------------------------------------------------------------
+# --- geometry: mirror of HammockLayout (cells) and HammockShape (boxes) ---------------------------------------------
 
-def faces(texture, uv=None, skip=()):
-    out = {}
-    for f in ['north', 'east', 'south', 'west', 'up', 'down']:
-        if f in skip:
-            continue
-        face = {'texture': texture}
-        if uv:
-            face['uv'] = uv[f] if isinstance(uv, dict) else uv
-        out[f] = face
+def line_cells(dx, dz):
+    """HammockLayout.lineCells: cells the line between the anchor centres crosses inside, with entry/exit times."""
+    ax, az = abs(dx), abs(dz)
+    sx, sz = (dx > 0) - (dx < 0), (dz > 0) - (dz < 0)
+    big = 1 << 62
+    out, cx, cz, kx, kz, t_in = [], 0, 0, 1, 1, 0.0
+    while kx <= ax or kz <= az:
+        tx = (2 * kx - 1) * az if kx <= ax and ax else big
+        tz = (2 * kz - 1) * ax if kz <= az and az else big
+        nx, nz = cx, cz
+        if tx == tz:
+            t = (2 * kx - 1) / (2 * ax)
+            nx, nz, kx, kz = nx + sx, nz + sz, kx + 1, kz + 1
+        elif tx < tz:
+            t = (2 * kx - 1) / (2 * ax)
+            nx, kx = nx + sx, kx + 1
+        else:
+            t = (2 * kz - 1) / (2 * az)
+            nz, kz = nz + sz, kz + 1
+        out.append((cx, cz, t_in, t))
+        cx, cz, t_in = nx, nz, t
+    out.append((cx, cz, t_in, 1.0))
     return out
 
 
-def cloth_cells(gap):
-    return {2: [0, 1], 3: [0, 1, 2], 4: [1, 2]}[gap]
+def cells(dx, dz):
+    """Rope cells, cloth cells and the cloth head relative to the first anchor (x, z; cloth one layer down)."""
+    length = math.hypot(dx, dz)
+    line = line_cells(dx, dz)
+    rope = [(c[0], c[1]) for c in line[1:-1]]
+    r = REACH / length
+    cloth = [(c[0], c[1]) for c in line[1:-1] if c[3] > 0.5 - r and c[2] < 0.5 + r]
+    t = 0.5 + 0.5 / length - 1e-9
+    head = next((c[0], c[1]) for c in line if c[3] >= t)
+    return rope, cloth, head
 
 
-def head_cell(gap):
-    return 2 if gap == 4 else 1
+def _norm(v):
+    n = math.sqrt(sum(x * x for x in v))
+    return [x / n for x in v]
 
 
-def frame(diagonal, cell):
-    """Line frame in the coordinates of `cell` (canonical, facing south): origin on the first anchor's face (corner),
-    unit vector u along the line, p across it, cell length along the line."""
-    if diagonal:
-        r = 1 / math.sqrt(2)
-        return (16 + 16 * cell, -16 * cell), (-r, r), (r, r), 16 * math.sqrt(2)
-    return (8, -16 * cell), (0, 1), (1, 0), 16
+def _cross(a, b):
+    return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]
 
 
-def at(origin, u, p, t, w=0.0):
-    return origin[0] + t * u[0] + w * p[0], origin[1] + t * u[1] + w * p[1]
+def _frame(a, b):
+    na = _norm(a)
+    d = sum(na[i] * b[i] for i in range(3))
+    nb = _norm([b[i] - d * na[i] for i in range(3)])
+    c = _cross(na, nb)
+    if c[1] < 0:
+        nb = [-x for x in nb]
+        c = _cross(na, nb)
+    return na, nb, c
 
 
-def r1(v):
-    return round(v, 4)
+def _add(p, *terms):
+    out = list(p)
+    for v, k in terms:
+        for i in range(3):
+            out[i] += v[i] * k
+    return out
 
 
-def cloth_template(diagonal, gap):
-    o, u, p, cell = frame(diagonal, head_cell(gap))
-    cx, cz = at(o, u, p, gap * cell / 2)
-    yaw = -45 if diagonal else 0
-
-    def tilted(name, x0, y0, x1, y1, toward_b, uv):
-        z0, z1 = (cz, cz + 16) if toward_b else (cz - 16, cz)
-        rot = {'origin': [r1(cx), 3, r1(cz)], 'x': -SAG if toward_b else SAG, 'y': yaw, 'z': 0}
-        return {'name': name, 'from': [r1(cx + x0), y0, r1(z0)], 'to': [r1(cx + x1), y1, r1(z1)], 'rotation': rot,
-                'faces': faces('#wool', uv)}
-
-    cloth_uv = {'up': [2, 0, 14, 16], 'down': [2, 0, 14, 16], 'north': [2, 7, 14, 8], 'south': [2, 7, 14, 8],
-                'east': [0, 7, 16, 8], 'west': [0, 7, 16, 8]}
-    side_uv = {'up': [1, 0, 2, 16], 'down': [1, 0, 2, 16], 'north': [1, 5, 2, 8], 'south': [1, 5, 2, 8],
-               'east': [0, 5, 16, 8], 'west': [0, 5, 16, 8]}
-    elements = []
-    for toward_b in (False, True):
-        tag = 'b' if toward_b else 'a'
-        elements.append(tilted('cloth_' + tag, -6, 3, 6, 4, toward_b, cloth_uv))
-        elements.append(tilted('side_left_' + tag, -7, 3, -6, 6, toward_b, side_uv))
-        elements.append(tilted('side_right_' + tag, 6, 3, 7, 6, toward_b, side_uv))
-        z = cz + HALF if toward_b else cz - HALF
-        elements.append({'name': 'spreader_' + tag, 'from': [r1(cx - 8), SPREADER_Y - 1, r1(z - 1)],
-                         'to': [r1(cx + 8), SPREADER_Y + 1, r1(z + 1)],
-                         'rotation': {'origin': [r1(cx), 3, r1(cz)], 'x': 0, 'y': yaw, 'z': 0},
-                         'faces': faces('#bar', {'up': [0, 0, 16, 2], 'down': [0, 2, 16, 4], 'north': [0, 4, 16, 6],
-                                                 'south': [0, 6, 16, 8], 'east': [0, 0, 2, 2], 'west': [2, 0, 4, 2]})})
-    return {'ambientocclusion': False, 'textures': {'particle': '#wool', 'bar': 'minecraft:block/stripped_oak_log'},
-            'elements': elements}
-
-
-def strand(name, a, b):
-    """A rope strand from point a (bottom) to point b (top): a column along +y turned about x, then z."""
-    d = [b[i] - a[i] for i in range(3)]
-    length = math.sqrt(sum(v * v for v in d))
-    dx, dy, dz = (v / length for v in d)
-    alpha = math.degrees(math.asin(dz))
-    gamma = math.degrees(math.atan2(-dx, dy))
-    uv = {'north': [7, 0, 8, 15], 'south': [8, 0, 9, 15], 'east': [9, 0, 10, 15], 'west': [10, 0, 11, 15],
-          'up': [7, 0, 8, 1], 'down': [8, 0, 9, 1]}
-    return {'name': name, 'from': [r1(a[0] - 0.5), r1(a[1]), r1(a[2] - 0.5)],
-            'to': [r1(a[0] + 0.5), r1(a[1] + length), r1(a[2] + 0.5)],
-            'rotation': {'origin': [r1(a[0]), r1(a[1]), r1(a[2])], 'x': r1(alpha), 'y': 0, 'z': r1(gamma)},
-            'faces': faces('#rope', uv)}
+def boxes(dx, dz):
+    """HammockShape.boxes with the first anchor block at (0, 0, 0) (its centre at x = z = 0.5): tuples
+    (part, centre, a, b, c, ha, hb, hc)."""
+    length = math.hypot(dx, dz)
+    ux, uz = dx / length, dz / length
+    mx, mz = 0.5 + dx / 2, 0.5 + dz / 2
+    cloth_y = -1.0
+    across = [-uz, 0, ux]
+    exit_ = 0.5 / max(abs(ux), abs(uz))
+    knot_y = 8 * PX
+    spreader_y = cloth_y + 9.5 * PX
+    sag = math.radians(SAG)
+    out = []
+    for s in (-1, 1):
+        tilt = [s * ux * math.cos(sag), math.sin(sag), s * uz * math.cos(sag)]
+        f = _frame(tilt, across)
+        origin = [mx, cloth_y + 3 * PX, mz]
+        out.append(('cloth', _add(origin, (f[0], 0.5), (f[2], 0.5 * PX)), f[0], f[1], f[2], 0.5, 6 * PX, 0.5 * PX))
+        for side in (-1, 1):
+            out.append(('hem', _add(origin, (f[0], 0.5), (f[2], 1.5 * PX), (f[1], side * 6.5 * PX)), f[0], f[1], f[2],
+                        0.5, 0.5 * PX, 1.5 * PX))
+        u = [s * ux, 0, s * uz]
+        flat = _frame(u, across)
+        spreader = [mx + s * HALF * ux, spreader_y, mz + s * HALF * uz]
+        out.append(('spreader', spreader, flat[0], flat[1], flat[2], PX, 8 * PX, PX))
+        knot = [mx + s * (length / 2 - exit_) * ux, knot_y, mz + s * (length / 2 - exit_) * uz]
+        for side in (-1, 1):
+            start = _add(spreader, (across, side * 7 * PX))
+            d = [knot[i] - start[i] for i in range(3)]
+            ln = math.sqrt(sum(x * x for x in d))
+            direction = [x / ln for x in d]
+            fr = _frame(direction, [-direction[2], 0, direction[0]])
+            out.append(('rope', [(start[i] + knot[i]) / 2 for i in range(3)], fr[0], fr[1], fr[2], ln / 2, 0.5 * PX, 0.5 * PX))
+        out.append(('knot', _add(knot, (flat[0], -0.25 * PX)), flat[0], flat[1], flat[2], 1.25 * PX, PX, 1.25 * PX))
+        tie = exit_ * 7 / 8
+        out.append(('tie', _add(knot, (flat[0], tie / 2)), flat[0], flat[1], flat[2], tie / 2, 0.5 * PX, 0.5 * PX))
+    return out
 
 
-def rope_end(diagonal, gap):
-    o, u, p, cell = frame(diagonal, 0)
-    knot = (o[0], KNOT_Y, o[1])
-    start = gap * cell / 2 - HALF
-    y = SPREADER_Y - 16
-    elements = []
-    for name, w in (('rope_left', -7), ('rope_right', 7)):
-        ex, ez = at(o, u, p, start, w)
-        elements.append(strand(name, (ex, y, ez), knot))
-    yaw = -45 if diagonal else 0
-    # 7 px: reaches a 2 px thin rod (7..9) - standing rods, lightning-rod stems, iron bars; 1 px vanishes in a fence post
-    tie = TIE * math.sqrt(2) if diagonal else TIE
-    elements.append({'name': 'knot', 'from': [r1(knot[0] - 1), 6.75, r1(knot[2] - 1)],
-                     'to': [r1(knot[0] + 1), 9.25, r1(knot[2] + 1.5)],
-                     'rotation': {'origin': [r1(knot[0]), KNOT_Y, r1(knot[2])], 'x': 0, 'y': yaw, 'z': 0},
-                     'faces': faces('#rope', [4, 4, 6, 6])})
-    # into the anchor's block up to a fence post or thin rod; hidden inside full blocks
-    elements.append({'name': 'tie', 'from': [r1(knot[0] - 0.5), 7.5, r1(knot[2] - tie)], 'to': [r1(knot[0] + 0.5), 8.5, r1(knot[2])],
-                     'rotation': {'origin': [r1(knot[0]), KNOT_Y, r1(knot[2])], 'x': 0, 'y': yaw, 'z': 0},
-                     'faces': faces('#rope', {'north': [7, 7, 8, 8], 'south': [8, 7, 9, 8], 'east': [0, 7, TIE, 8],
-                                              'west': [0, 8, TIE, 9], 'up': [7, 0, 8, TIE], 'down': [8, 0, 9, TIE]}, skip=('south',))})
-    return {'ambientocclusion': False, 'textures': {'particle': '#rope', 'rope': 'simplebuilding:block/hammock_rope'},
-            'elements': elements}
+def corners(box):
+    _, c, a, b, cc, ha, hb, hc = box
+    return [[c[k] + i * ha * a[k] + j * hb * b[k] + m * hc * cc[k] for k in range(3)]
+            for i in (-1, 1) for j in (-1, 1) for m in (-1, 1)]
 
 
-def check_bounds(model, name):
-    for el in model['elements']:
-        for v in el['from'] + el['to']:
-            assert -16 <= v <= 32, (name, el['name'], v)
+def symmetric(dx, dz):
+    """Largest mismatch (blocks) between the drawn corners and their mirror image through the middle."""
+    length = math.hypot(dx, dz)
+    ux, uz = dx / length, dz / length
+    mx, mz = 0.5 + dx / 2, 0.5 + dz / 2
+    pts = []
+    for box in boxes(dx, dz):
+        for p in corners(box):
+            t = (p[0] - mx) * ux + (p[2] - mz) * uz
+            w = -(p[0] - mx) * uz + (p[2] - mz) * ux
+            pts.append((round(t, 7), round(w, 7), round(p[1], 7)))
+    mirror = sorted((-t, -w, y) for t, w, y in pts)
+    pts.sort()
+    return max(max(abs(p[i] - q[i]) for i in range(3)) for p, q in zip(pts, mirror))
 
 
-def layout_name(diagonal, gap):
-    return ('diagonal_' if diagonal else '') + str(gap)
-
-
-def y_of(facing):
-    return (ROTATION[facing] - 180) % 360
-
-
-def variant(model, y):
-    v = {'model': model}
-    if y:
-        v['y'] = y
-    return v
-
-
-def blockstate_hammock(colour):
-    variants = {'part=foot': {'model': 'simplebuilding:block/hammock_empty'}}
-    for facing in ROTATION:
-        for diagonal in (False, True):
-            for gap in GAPS:
-                key = 'diagonal=%s,facing=%s,gap=%d,part=head' % (str(diagonal).lower(), facing, gap)
-                variants[key] = variant('simplebuilding:block/%s_hammock_%s' % (colour, layout_name(diagonal, gap)), y_of(facing))
-    return {'variants': variants}
-
-
-def blockstate_rope():
-    variants = {}
-    for facing in ROTATION:
-        for diagonal in (False, True):
-            for gap in GAPS:
-                for index in range(4):
-                    key = 'diagonal=%s,facing=%s,gap=%d,index=%d' % (str(diagonal).lower(), facing, gap, index)
-                    model = 'simplebuilding:block/hammock_rope_%s' % layout_name(diagonal, gap)
-                    if index == 0:
-                        variants[key] = variant(model, y_of(facing))
-                    elif index == gap - 1:
-                        variants[key] = variant(model, (y_of(facing) + 180) % 360)
-                    else:
-                        variants[key] = {'model': 'simplebuilding:block/hammock_rope_link'}
-    return {'variants': variants}
-
+# --- files -------------------------------------------------------------------------------------------------------
 
 def write_json(rel, data):
     path = os.path.join(OUT, rel)
@@ -269,59 +236,22 @@ def write_json(rel, data):
         f.write('\n')
 
 
+def remove(rel):
+    path = os.path.join(OUT, rel)
+    if os.path.exists(path):
+        os.remove(path)
+
+
 def save(rel, im):
     path = os.path.join(OUT, 'textures', rel)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     im.save(path)
 
 
-# --- preview: the same element rotations as the game (joml rotationZYX, right-handed) -------------------------------
-
-def rot_x(v, a):
-    c, s = math.cos(a), math.sin(a)
-    return v[0], v[1] * c - v[2] * s, v[1] * s + v[2] * c
-
-
-def rot_y(v, a):
-    c, s = math.cos(a), math.sin(a)
-    return v[0] * c + v[2] * s, v[1], -v[0] * s + v[2] * c
-
-
-def rot_z(v, a):
-    c, s = math.cos(a), math.sin(a)
-    return v[0] * c - v[1] * s, v[0] * s + v[1] * c, v[2]
-
-
-def element_corners(el):
-    (x0, y0, z0), (x1, y1, z1) = el['from'], el['to']
-    pts = [(x, y, z) for x in (x0, x1) for y in (y0, y1) for z in (z0, z1)]
-    rot = el.get('rotation')
-    if not rot:
-        return pts
-    o = rot['origin']
-    out = []
-    for q in pts:
-        v = (q[0] - o[0], q[1] - o[1], q[2] - o[2])
-        if 'axis' in rot:
-            v = {'x': rot_x, 'y': rot_y, 'z': rot_z}[rot['axis']](v, math.radians(rot['angle']))
-        else:
-            v = rot_x(v, math.radians(rot.get('x', 0)))
-            v = rot_y(v, math.radians(rot.get('y', 0)))
-            v = rot_z(v, math.radians(rot.get('z', 0)))
-        out.append((v[0] + o[0], v[1] + o[1], v[2] + o[2]))
-    return out
-
-
-def blockstate_turn(pt, y):
-    """Variant y rotation: clockwise seen from above (north -> east) about the block centre."""
-    a, b = pt[0] - 8, pt[2] - 8
-    for _ in range((y // 90) % 4):
-        a, b = -b, a
-    return a + 8, pt[1], b + 8
-
+# --- preview -----------------------------------------------------------------------------------------------------
 
 def hull(points):
-    pts = sorted(set(points))
+    pts = sorted(set((round(p[0], 3), round(p[1], 3)) for p in points))
     if len(pts) < 3:
         return pts
 
@@ -340,115 +270,85 @@ def hull(points):
     return lower[:-1] + upper[:-1]
 
 
-def scene(models, facing, diagonal, gap):
-    """World pieces (cell, model, y) of one hammock with its first anchor at (0, 1, 0), the anchors and the cells."""
-    step = {'south': (0, 1), 'north': (0, -1), 'east': (1, 0), 'west': (-1, 0)}[facing]
-    if diagonal:
-        cw = {'south': (-1, 0), 'west': (0, -1), 'north': (1, 0), 'east': (0, 1)}[facing]
-        step = (step[0] + cw[0], step[1] + cw[1])
-    rope = lambda i: ((i + 1) * step[0], 1, (i + 1) * step[1])
-    name = layout_name(diagonal, gap)
-    pieces = [(rope(0), models['rope_' + name], y_of(facing)),
-              (rope(gap - 1), models['rope_' + name], (y_of(facing) + 180) % 360)]
-    c = rope(head_cell(gap))
-    pieces.append(((c[0], 0, c[2]), models['cloth_' + name], y_of(facing)))
-    anchors = [(0, 1, 0), rope(gap)]
-    cells = [rope(i) for i in range(gap)] + [(rope(i)[0], 0, rope(i)[2]) for i in cloth_cells(gap)]
-    return pieces, anchors, cells
+def part_colour(part, wool, wood, string):
+    return {'cloth': wool[1], 'hem': wool[2], 'spreader': wood[1]}.get(part, darker(string[1], 0.85))
 
 
-def symmetry(models, diagonal, gap):
-    """Mirror check of the baked hammock (owner 2026-10-04: "still not centred"): every corner of every element of the
-    cloth and both rope ends, in world pixels with the game's rotations, as (t, w) - t along the line from the middle
-    between the two anchor centres, w across it. A centred hammock has the same multiset of t as of -t (and of w as of
-    -w). Returns the largest mismatch in pixels and the cloth's and ropes' extents along the line."""
-    pieces, anchors, _ = scene(models, 'south', diagonal, gap)
-    a, b = anchors
-    mx, mz = (a[0] + b[0]) * 8 + 8, (a[2] + b[2]) * 8 + 8
-    r = 1 / math.sqrt(2)
-    u, p = ((-r, r), (r, r)) if diagonal else ((0, 1), (1, 0))
-    ts, ws, cloth = [], [], []
-    for cell, model, y in pieces:
-        for el in model['elements']:
-            for pt in element_corners(el):
-                q = blockstate_turn(pt, y)
-                dx, dz = cell[0] * 16 + q[0] - mx, cell[2] * 16 + q[2] - mz
-                t, w = dx * u[0] + dz * u[1], dx * p[0] + dz * p[1]
-                ts.append(t)
-                ws.append(w)
-                if el['name'].startswith(('cloth', 'side', 'spreader')):
-                    cloth.append(t)
-    worst = max(max(abs(x + y) for x, y in zip(sorted(ts), sorted(ts, reverse=True))),
-                max(abs(x + y) for x, y in zip(sorted(ws), sorted(ws, reverse=True))))
-    return worst, (min(cloth), max(cloth)), (min(ts), max(ts))
+ORDER = {'cloth': 0, 'hem': 1, 'spreader': 2, 'rope': 3, 'knot': 4, 'tie': 4}
 
 
-def colour_of(el, wool, wood, string):
-    n = el['name']
-    if n.startswith('cloth'):
-        return wool[1]
-    if n.startswith('side'):
-        return wool[2]
-    if n.startswith('spreader'):
-        return wood[1]
-    return darker(string[1], 0.85)
+def draw_hammock(d, ox, oy, dx, dz, wool, wood, string, fence, label):
+    """Top view (grid, rope and cloth cells, anchors, boxes from above) and below it a side view along the line.
+    Returns the width and height used."""
+    s = 34  # pixels per block
+    rope, cloth, head = cells(dx, dz)
+    x0, z0 = min(0, dx) - 1, min(0, dz) - 1
+    nx, nz = abs(dx) + 3, abs(dz) + 3
+    top = lambda x, z: (ox + (x - x0) * s, oy + 18 + (z - z0) * s)
+    d.text((ox, oy), label, fill=(0, 0, 0))
+    for gx in range(nx + 1):
+        d.line([top(x0 + gx, z0), top(x0 + gx, z0 + nz)], fill=(178, 178, 178))
+    for gz in range(nz + 1):
+        d.line([top(x0, z0 + gz), top(x0 + nx, z0 + gz)], fill=(178, 178, 178))
+    for (cx, cz) in rope:
+        d.rectangle([top(cx, cz), top(cx + 1, cz + 1)], fill=(172, 192, 226), outline=(90, 110, 160))
+    for (cx, cz) in cloth:
+        a, b = top(cx, cz), top(cx + 1, cz + 1)
+        d.rectangle([a[0] + 3, a[1] + 3, b[0] - 3, b[1] - 3], outline=(200, 70, 70), width=2)
+    for (ax, az) in ((0, 0), (dx, dz)):
+        d.rectangle([top(ax + 6 * PX, az + 6 * PX), top(ax + 10 * PX, az + 10 * PX)], fill=fence, outline=darker(fence))
+    bx = sorted(boxes(dx, dz), key=lambda b: ORDER[b[0]])
+    for box in bx:
+        col = part_colour(box[0], wool, wood, string)
+        d.polygon(hull([top(p[0], p[2]) for p in corners(box)]), fill=col + (255,), outline=darker(col) + (255,))
+    hx, hz = head
+    d.text((top(hx, hz)[0] + 2, top(hx, hz)[1] + 1), 'K', fill=(150, 20, 20))
+    # side view along the line: t to the right (from the first anchor centre), y up; the cloth layer is y -1..0
+    length = math.hypot(dx, dz)
+    ux, uz = dx / length, dz / length
+    sy = oy + 18 + nz * s + 22
+    side = lambda t, y: (ox + (t + 1.0) * s, sy + (1.2 - y) * s)
+    d.text((ox, sy - 14), 'Seite entlang der Linie (%.2f Bloecke)' % length, fill=(0, 0, 0))
+    d.line([side(-1, -1), side(length + 1, -1)], fill=(90, 90, 90))
+    d.line([side(-1, 0), side(length + 1, 0)], fill=(175, 175, 175))
+    for t in (0, length):
+        d.rectangle([side(t - 2 * PX, 1), side(t + 2 * PX, -1)], fill=fence, outline=darker(fence))
+    for box in bx:
+        col = part_colour(box[0], wool, wood, string)
+        q = [side((p[0] - 0.5) * ux + (p[2] - 0.5) * uz, p[1]) for p in corners(box)]
+        d.polygon(hull(q), fill=col + (255,), outline=darker(col) + (255,))
+    return max(nx * s, (length + 2) * s), (sy - oy) + 2.6 * s
 
 
-def draw_view(d, box, pieces, anchors, cells, project, scale, wool, wood, string, fence):
-    ox, oy = box
-
-    def P(pt):
-        a, b = project(pt)
-        return ox + a * scale, oy - b * scale
-
-    for c in cells:
-        q = [P((c[0] * 16 + dx, c[1] * 16 + dy, c[2] * 16 + dz)) for dx in (0, 16) for dy in (0, 16) for dz in (0, 16)]
-        d.polygon(hull(q), outline=(165, 165, 165))
-    for a in anchors:  # fence post (6..10) on rope height and below
-        q = [P((a[0] * 16 + dx, y, a[2] * 16 + dz)) for dx in (6, 10) for y in (0, 32) for dz in (6, 10)]
-        d.polygon(hull(q), fill=fence, outline=darker(fence))
-    for cell, model, y in pieces:
-        for el in model['elements']:
-            q = [P((cell[0] * 16 + w[0], cell[1] * 16 + w[1], cell[2] * 16 + w[2]))
-                 for w in (blockstate_turn(pt, y) for pt in element_corners(el))]
-            col = colour_of(el, wool, wood, string)
-            d.polygon(hull(q), fill=col + (255,), outline=darker(col) + (255,))
+ANGLES = [((0, 4), 'A gerade 0:4'), ((4, 1), 'B schraeg 4:1'), ((3, 1), 'C schraeg 3:1'), ((5, 2), 'D schraeg 5:2'),
+          ((3, 2), 'E schraeg 3:2'), ((4, 4), 'F diagonal 4:4')]
 
 
-def preview(path, icons, rope_tex, models, wool, wood, string):
-    S = 8
-    labels = 'ABCDEFGHIJKLMNOP'
-    W, H = 1180, 1620
-    sheet = Image.new('RGBA', (W, H), (198, 198, 198, 255))
+def preview(path, icons, rope_tex, wool, wood, string):
+    W, H = 1640, 1900
+    sheet = Image.new('RGBA', (W, H), (205, 205, 205, 255))
     d = ImageDraw.Draw(sheet)
-    d.text((20, 8), 'Haengematte v2 - Icons (8x), Kreativ-Reihenfolge', fill=(0, 0, 0))
-    for i, colour in enumerate(TAB_ORDER):
-        x, y = 20 + (i % 8) * 140, 30 + (i // 8) * 160
-        sheet.alpha_composite(icons[colour].resize((16 * S, 16 * S), Image.NEAREST), (x, y))
-        d.text((x, y + 16 * S + 4), '%s  %s' % (labels[i], colour), fill=(0, 0, 0))
-    d.text((20, 360), 'Seil (8x)', fill=(0, 0, 0))
-    sheet.alpha_composite(rope_tex.resize((128, 128), Image.NEAREST), (20, 376))
+    d.text((20, 8), 'Haengematte v3 - jeder Winkel (2-4 frei entlang der Hauptachse, gleiche Hoehe). Draufsicht: blau = '
+                    'Seil-Zellen, rot umrandet = Tuch-Zellen (eine Lage tiefer), K = Kopfteil', fill=(0, 0, 0))
     fence = (122, 92, 54)
-    sc = 4
-    side = lambda pt: (pt[2], pt[1])        # straight hammock facing south: z to the right, y up
-    top = lambda pt: (pt[2], -pt[0])        # top view: z to the right, x down
-    for row, gap in enumerate(GAPS):
-        pieces, anchors, cells = scene(models, 'south', False, gap)
-        base = 560 + row * 175
-        d.text((180, base - 150), 'gerade, %d frei - Seite' % gap, fill=(0, 0, 0))
-        draw_view(d, (180, base), pieces, anchors, cells, side, sc, wool, wood, string, fence)
-        d.text((640, base - 150), 'Draufsicht', fill=(0, 0, 0))
-        draw_view(d, (640, base - 70), pieces, anchors, cells, top, sc, wool, wood, string, fence)
-    r = 1 / math.sqrt(2)
-    along = lambda pt: ((-pt[0] + pt[2]) * r, pt[1])
-    for row, gap in enumerate((2, 4)):
-        pieces, anchors, cells = scene(models, 'south', True, gap)
-        base = 1180 + row * 330
-        d.text((180, base - 200), 'diagonal, %d frei - Seite entlang der Linie' % gap, fill=(0, 0, 0))
-        draw_view(d, (180, base - 40), pieces, anchors, cells, along, sc, wool, wood, string, fence)
-        d.text((690, base - 200), 'Draufsicht', fill=(0, 0, 0))
-        draw_view(d, (960, base - 180), pieces, anchors, cells, lambda pt: (pt[0], -pt[2]), 3, wool, wood, string, fence)
-    sheet.save(path)
+    x, y, row_h = 20, 34, 0
+    for (dx, dz), label in ANGLES:
+        rope, cloth, _ = cells(dx, dz)
+        angle = math.degrees(math.atan2(min(abs(dx), abs(dz)), max(abs(dx), abs(dz))))
+        w, h = draw_hammock(d, x, y, dx, dz, wool, wood, string, fence,
+                            '%s - %.1f Grad, %d Seil-/%d Tuchzellen' % (label, angle, len(rope), len(cloth)))
+        row_h = max(row_h, h)
+        x += max(w, 330) + 40
+        if x > W - 480:
+            x, y, row_h = 20, y + row_h + 26, 0
+    if x > 20:
+        y += row_h + 26
+    y = int(y)
+    d.text((20, y), 'Icons (4x) und Seil', fill=(0, 0, 0))
+    for i, colour in enumerate(TAB_ORDER):
+        sheet.alpha_composite(icons[colour].resize((64, 64), Image.NEAREST), (20 + i * 72, y + 16))
+    sheet.alpha_composite(rope_tex.resize((64, 64), Image.NEAREST), (20, y + 90))
+    sheet.crop((0, 0, W, y + 170)).save(path)
 
 
 def main():
@@ -457,47 +357,39 @@ def main():
     wood = tones(vanilla(jar, 'block/stripped_oak_log'), 3)
     rope_tex = rope_texture((darker(string[0], 0.78), darker(string[1], 0.92), string[2]))
     save('block/hammock_rope.png', rope_tex)
-    models = {}
-    for diagonal in (False, True):
-        for gap in GAPS:
-            name = layout_name(diagonal, gap)
-            cloth = cloth_template(diagonal, gap)
-            rope = rope_end(diagonal, gap)
-            check_bounds(cloth, 'cloth ' + name)
-            check_bounds(rope, 'rope ' + name)
-            models['cloth_' + name] = cloth
-            models['rope_' + name] = rope
-            write_json('models/block/hammock_cloth_%s.json' % name, cloth)
-            write_json('models/block/hammock_rope_%s.json' % name, rope)
-    for diagonal in (False, True):
-        for gap in GAPS:
-            worst, cloth, ends = symmetry(models, diagonal, gap)
-            assert worst < 0.01, ('hammock not centred', layout_name(diagonal, gap), worst)
-            print('centred %-10s cloth %+.3f..%+.3f px, ropes %+.3f..%+.3f px, mismatch %.4f px'
-                  % (layout_name(diagonal, gap), cloth[0], cloth[1], ends[0], ends[1], worst))
-    write_json('models/block/hammock_empty.json', {'textures': {'particle': 'minecraft:block/white_wool'}})
-    write_json('models/block/hammock_rope_link.json', {'textures': {'particle': 'simplebuilding:block/hammock_rope'}})
-    write_json('blockstates/hammock_rope.json', blockstate_rope())
+    # every allowed offset is centred (the same check as HammockTests)
+    worst = 0
+    for dx in range(-5, 6):
+        for dz in range(-5, 6):
+            if 3 <= max(abs(dx), abs(dz)) <= 5:
+                worst = max(worst, symmetric(dx, dz))
+    assert worst < 1e-5, ('hammock not centred', worst)
+    print('centred at all 96 offsets, mismatch %.2e blocks' % worst)
+    # the v2 layout models are gone: the renderer draws every angle
+    for layout in OLD_LAYOUTS:
+        remove('models/block/hammock_cloth_%s.json' % layout)
+        remove('models/block/hammock_rope_%s.json' % layout)
+        for colour in COLOURS:
+            remove('models/block/%s_hammock_%s.json' % (colour, layout))
+    remove('models/block/hammock_empty.json')
+    remove('models/block/hammock_rope_link.json')
+    write_json('models/block/hammock_rope.json', {'textures': {'particle': 'simplebuilding:block/hammock_rope'}})
+    write_json('blockstates/hammock_rope.json', {'variants': {'': {'model': 'simplebuilding:block/hammock_rope'}}})
     icons = {}
     wools = {}
     for colour in COLOURS:
         wools[colour] = tones(vanilla(jar, 'block/%s_wool' % colour), 3)
         icons[colour] = icon(wools[colour], wood, string)
         save('item/%s_hammock.png' % colour, icons[colour])
-        for diagonal in (False, True):
-            for gap in GAPS:
-                name = layout_name(diagonal, gap)
-                write_json('models/block/%s_hammock_%s.json' % (colour, name), {
-                    'parent': 'simplebuilding:block/hammock_cloth_%s' % name,
-                    'textures': {'wool': 'minecraft:block/%s_wool' % colour}})
-        write_json('blockstates/%s_hammock.json' % colour, blockstate_hammock(colour))
+        write_json('models/block/%s_hammock.json' % colour, {'textures': {'particle': 'minecraft:block/%s_wool' % colour}})
+        write_json('blockstates/%s_hammock.json' % colour, {'variants': {'': {'model': 'simplebuilding:block/%s_hammock' % colour}}})
         write_json('models/item/%s_hammock.json' % colour, {
             'parent': 'minecraft:item/generated', 'textures': {'layer0': 'simplebuilding:item/%s_hammock' % colour}})
         write_json('items/%s_hammock.json' % colour, {
             'model': {'type': 'minecraft:model', 'model': 'simplebuilding:item/%s_hammock' % colour}})
     if PREVIEW:
-        preview(PREVIEW, icons, rope_tex, models, wools['white'], wood, string)
-    print('hammock v2: 16 colours, 6 layouts, models and blockstates written')
+        preview(PREVIEW, icons, rope_tex, wools['white'], wood, string)
+    print('hammock v3: 16 colours, models and blockstates written (drawn by HammockRenderer)')
 
 
 if __name__ == '__main__':

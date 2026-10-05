@@ -2773,7 +2773,7 @@
   "block.simplebuilding.standing_rod": "Standing Rod",
   "tooltip.simplebuilding.hammock": "Hangs between two blocks 2–4 apart.",
   "tooltip.simplebuilding.hammock.2": "Rest: time passes faster, day and night.",
-  "tooltip.simplebuilding.hammock.3": "Diagonal: click one anchor, then the other.",
+  "tooltip.simplebuilding.hammock.3": "Any angle: click one anchor, then the other.",
   "simplebuilding.testcentre.section.archery": "Archery",
   "simplebuilding.testcentre.section.archery.sub": "every arrow, dummies",
   "simplebuilding.testcentre.archery.plain": "Pumpkin Head",

@@ -208,6 +208,11 @@ public final class TestCentreBuilder {
                     entities++;
                     count++;
                 }
+                case TcOp.Hammock hammock -> {
+                    com.simplebuilding.blocks.custom.HammockLayout.link(level,
+                            new com.simplebuilding.blocks.custom.HammockLayout.Spot(hammock.pos(), hammock.dx(), hammock.dz()));
+                    count++;
+                }
                 case TcOp.Stand stand -> {
                     ArmorStand entity = stand.dummy()
                             ? com.simplebuilding.entity.ModEntities.TRAINING_DUMMY.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND)

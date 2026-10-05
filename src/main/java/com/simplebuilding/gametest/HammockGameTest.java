@@ -63,4 +63,14 @@ public final class HammockGameTest {
     public void hangsBetweenStandingRodPosts(GameTestHelper helper) {
         HammockTests.hangsBetweenStandingRodPosts(helper);
     }
+
+    @GameTest
+    public void slantedHammocksHangWithTwoClicks(GameTestHelper helper) {
+        HammockTests.slantedHammocksHangWithTwoClicks(helper);
+    }
+
+    @GameTest(maxTicks = 60)
+    public void slantedHammockFallsOnceWhenItsAnchorOrRopeGoes(GameTestHelper helper) {
+        HammockTests.slantedHammockFallsOnceWhenItsAnchorOrRopeGoes(helper);
+    }
 }

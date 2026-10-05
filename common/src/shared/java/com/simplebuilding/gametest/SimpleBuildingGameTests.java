@@ -583,6 +583,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("hammock_game_test_hangs_between_standing_rod_posts", HammockTests::hangsBetweenStandingRodPosts)
                     .build(),
+            GameTestSpec.named("hammock_game_test_slanted_hammocks_hang_with_two_clicks", HammockTests::slantedHammocksHangWithTwoClicks)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_slanted_hammock_falls_once_when_its_anchor_or_rope_goes", HammockTests::slantedHammockFallsOnceWhenItsAnchorOrRopeGoes)
+                    .maxTicks(60).build(),
             GameTestSpec.named("standing_rod_game_test_every_rod_stands_up_on_top_when_sneaking", StandingRodTests::everyRodStandsUpOnTopWhenSneaking)
                     .build(),
             GameTestSpec.named("standing_rod_game_test_rods_drop_themselves_and_stack_into_posts", StandingRodTests::rodsDropThemselvesAndStackIntoPosts)

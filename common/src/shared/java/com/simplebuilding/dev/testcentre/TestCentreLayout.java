@@ -169,6 +169,7 @@ public final class TestCentreLayout {
             case TcOp.Fill fill -> fill.contents().stream().map(TestCentreLayout::stackText).toList().toString();
             case TcOp.Command command -> command.facing() + " " + command.command() + " "
                     + command.label().stream().map(TestCentreLayout::componentText).toList();
+            case TcOp.Hammock hammock -> hammock.dx() + "," + hammock.dz();
         };
     }
 
@@ -326,6 +327,8 @@ public final class TestCentreLayout {
                 case TcOp.Sign sign -> {
                 }
                 case TcOp.Command command -> {
+                }
+                case TcOp.Hammock hammock -> {
                 }
             }
         }

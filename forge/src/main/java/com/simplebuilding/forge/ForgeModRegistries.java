@@ -145,6 +145,13 @@ public final class ForgeModRegistries {
                             com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity::new, Set.of(ModBlocks.PLACED_SMALL_PARTS)))
                     : null;
 
+    /** Haengematten: Tuch und Seil kennen ihre Matte (jeder Winkel), nur Hauptlinie (McVersion.HAMMOCK). */
+    public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.HammockBlockEntity>> HAMMOCK_BE =
+            com.simplebuilding.version.McVersion.HAMMOCK
+                    ? BLOCK_ENTITIES.register("hammock", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.HammockBlockEntity>(
+                            com.simplebuilding.blocks.entity.custom.HammockBlockEntity::new, Set.of(ModBlocks.hammockBlockEntityBlocks())))
+                    : null;
+
     /** Befiederungstisch (B14): Rezepte fuers Vanilla-Rezeptbuch, nur Hauptlinie. */
     public static final RegistryObject<RecipeSerializer<com.simplebuilding.fletching.FletchingRecipe>> FLETCHING_SERIALIZER =
             com.simplebuilding.version.McVersion.FLETCHING
@@ -265,6 +272,7 @@ public final class ForgeModRegistries {
         ModBlockEntities.PLACED_TEMPLATE_BE = PLACED_TEMPLATE_BE.get();
         ModBlockEntities.PLACED_BUNDLE_BE = PLACED_BUNDLE_BE.get();
         if (PLACED_SMALL_PARTS_BE != null) ModBlockEntities.PLACED_SMALL_PARTS_BE = PLACED_SMALL_PARTS_BE.get();
+        if (HAMMOCK_BE != null) ModBlockEntities.HAMMOCK_BE = HAMMOCK_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
         ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
         ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();

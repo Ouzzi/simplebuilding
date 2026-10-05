@@ -32,8 +32,7 @@ public class HammockBlock extends HorizontalDirectionalBlock {
         super(properties);
         this.color = color;
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PART, BedPart.HEAD)
-                .setValue(OCCUPIED, false).setValue(HammockLayout.DIAGONAL, false).setValue(HammockLayout.GAP, HammockLayout.MIN_GAP)
-                .setValue(HammockLayout.INDEX, HammockLayout.headCell(HammockLayout.MIN_GAP)));
+                .setValue(OCCUPIED, false).setValue(HammockLayout.STRAIGHT, true));
     }
 
     public MapCodec<HammockBlock> codec() {
@@ -46,7 +45,7 @@ public class HammockBlock extends HorizontalDirectionalBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, PART, OCCUPIED, HammockLayout.DIAGONAL, HammockLayout.GAP, HammockLayout.INDEX);
+        builder.add(FACING, PART, OCCUPIED, HammockLayout.STRAIGHT);
     }
 
     /** No hammocks on 26.2. */
