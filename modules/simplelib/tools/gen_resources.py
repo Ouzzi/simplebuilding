@@ -88,11 +88,22 @@ def inside_uv(element):
     return element
 
 
-# Attached barrel (facing north = towards the crucible): flange on the crucible's belly, a chute over its rim.
+# Attached barrel (facing north = towards the crucible), owner feedback 2026-10-06: 1-2 px smaller than the crucible -
+# body x/z 1..15, height 12 (the crucible's rim is at 14), whole textures scaled onto the smaller faces. A flange closes
+# the 2 px to the crucible's belly (z -1..1), a chute rests on its rim and drops onto the barrel.
+def full_uv(element):
+    for f in element["faces"].values():
+        f["uv"] = [0, 0, 16, 16]
+    return element
+
+
+DOCKED_BODY = full_uv(cuboid((1, 0, 1), (15, 12, 15), {"down": "#bottom", "up": "#top", "north": "#side", "south": "#side",
+                                                       "west": "#side", "east": "#side"}))
 DOCK = [inside_uv(e) for e in (
-    cuboid((3, 4, -1), (13, 11, 0), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange"}),
-    cuboid((6, 14, -4), (10, 15, 0), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange"}),
-    cuboid((6, 11, -1), (10, 14, 0), {"north": "#flange", "west": "#flange", "east": "#flange"}),
+    cuboid((3, 3, -1), (13, 10, 1), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange"}),
+    cuboid((6, 14, -4), (10, 15, 2), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange",
+                                      "south": "#flange"}),
+    cuboid((6, 12, 1), (10, 14, 2), {"north": "#flange", "west": "#flange", "east": "#flange", "south": "#flange"}),
 )]
 
 
@@ -172,7 +183,7 @@ def files():
         body = cuboid((0, 0, 0), (16, 16, 16), {"down": "#bottom", "up": "#top", "north": "#side", "south": "#side", "west": "#side", "east": "#side"})
         out[f"{a}/models/block/{name}.json"] = {"parent": "minecraft:block/block", "textures": tex, "elements": [body]}
         out[f"{a}/models/block/{name}_attached.json"] = {"parent": "minecraft:block/block", "textures": tex,
-                                                         "elements": [body, *DOCK]}
+                                                         "elements": [DOCKED_BODY, *DOCK]}
         variants = {}
         for facing, rot in FACINGS.items():
             for attached in ("false", "true"):
