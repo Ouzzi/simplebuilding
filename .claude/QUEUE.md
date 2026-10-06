@@ -440,3 +440,13 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - Tresor-Cooldown → eigene Sub-Mod „simple loot“/„simple looting“ (Name final wählen).
 - Schärfe/Schwert schneidet Gras → Sub-Mod „simple combat“ (passt nicht zu Farming).
 - [ ] **Übersichtsdokument** im Repo: alle Mods und Sub-Mods mit detaillierten Features (z. B. docs/MODS-UND-FEATURES.md); muss bei jeder Feature-Änderung aktualisiert werden (Regel in den Projektregeln verankern, ideal mit Prüf-Gate gegen modules.json). Grundlage für die Entscheidung, wohin Features gehören.
+
+## Nachtrag 15 (2026-10-07, Besitzer)
+- [ ] **Bug: Alle Mod-Eimer verschwinden nach dem Benutzen** (Ausgießen/Schöpfen soll leeren bzw. gefüllten Eimer zurückgeben; Keramik nur Abnutzungsstufe). Höchste Priorität.
+- [ ] **Tiegel-Fass:** Hitbox des angedockten Fasses korrigieren (Outline/Kollision passend zum kleineren Modell); Wallhack/X-Ray-Effekt (durchsichtige Nachbarflächen, falsches Culling/Render-Layer/Occlusion) beheben.
+- [ ] **In-World-Umwandlung vereinheitlichen:** Animation und Ablauf (Rechtsklick, Risse, Partikel, Klang, schrittweise Teil-Ergebnisse) exakt wie SimpleBuilding; Logik in simplelib verschieben (InWorldStrikes o. ä.), damit alle Mods dieselbe Implementierung nutzen.
+- [ ] **Schrittweiser Umbau je Schlag (universell):** Jeder Schlag verändert sichtbar Richtung Ziel. Fass am Tiegel: bei jedem Schlag ein Stück näher am fertigen angedockten Fass (Zwischenmodelle). Gleiches Modell → Textur-Overlay der Zieltextur, Stück für Stück in einem Anbau-Muster aufgedeckt. Verändertes Modell → je Schlag ein Zwischenmodell oder Keyframes über mehrere Schläge, aber jeder Schlag bringt eine Veränderung. Als universelles System in simplelib für alle In-World-Umwandlungen.
+- [ ] **Schach:** 0,125er Schachfiguren (0,5×0,5×0,5) rendern nicht bzw. falsch. Checker-Treppen und -Stufen haben im Inventar das falsche Blockmodell (vermutlich Seiten vertauscht).
+- [ ] **Mehr 0,125er Blöcke** als Erweiterung der Farbpalette: Teile von Vanilla-Blöcken.
+- [ ] **Enderit-Tiegel Stapelgröße:** zeigt 64 statt 128 an. Modifizierte Stapelgrößen als gemeinsame Lösung in simplelib (Anzeige, Slot-Limit, Transfer automatisch konsistent).
+- [ ] **Fass erbt Stapelgröße:** Hat ein Tiegel modifizierte Stapelgröße, hat das angedockte Fass dieselbe.
