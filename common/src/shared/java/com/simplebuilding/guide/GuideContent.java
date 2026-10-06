@@ -365,8 +365,8 @@ public final class GuideContent {
             var chapters = new ArrayList<>(old.chapters());
             chapters.add(ch("simplebuilding:enderite_crucible", List.of(), List.of("simplebuilding:enderite_crucible", "simplebuilding:enderite_barrel",
                     "simplebuilding:soul_lava_bucket", "minecraft:iron_block", "minecraft:heavy_weighted_pressure_plate")));
-            chapters.add(ch("simplebuilding:enderite_bucket", List.of("simplebuilding:copper_bucket", "simplebuilding:enderite_bucket"),
-                    List.of("simplebuilding:soul_lava_bucket")));
+            chapters.add(ch("simplebuilding:enderite_bucket", List.of("simplebuilding:copper_bucket", "simplebuilding:enderite_bucket",
+                    "simplebuilding:raw_ceramic_bucket"), List.of("simplebuilding:soul_lava_bucket", "simplebuilding:ceramic_bucket")));
             STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
         }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {

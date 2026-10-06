@@ -44,6 +44,7 @@ public final class RecipelessJeiInfo {
             map.put("copper_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET));
             map.put("enderite_crucible", List.of(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible(), com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel()));
             map.put("enderite_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET));
+            map.put("ceramic_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.CERAMIC_WATER_BUCKET));
         }
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             map.put("dimensional_scrap", List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP));
@@ -68,6 +69,7 @@ public final class RecipelessJeiInfo {
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
             map.put("copper_bucket", List.of(com.simplebuilding.fluid.ModFluids.COPPER_BUCKET));
             map.put("enderite_bucket", List.of(com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET));
+            map.put("ceramic_bucket", List.of(com.simplebuilding.fluid.ModFluids.RAW_CERAMIC_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_BUCKET));
         }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             map.put("silent_dandelion", List.of(ModItems.SILENT_DANDELION));

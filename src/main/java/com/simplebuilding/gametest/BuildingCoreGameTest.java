@@ -17,6 +17,11 @@ public final class BuildingCoreGameTest {
     }
 
     @GameTest
+    public void coreHandMotionsAreRarerTheCoolerAndStartAndEndAtRest(GameTestHelper helper) {
+        BuildingCoreTests.coreHandMotionsAreRarerTheCoolerAndStartAndEndAtRest(helper);
+    }
+
+    @GameTest
     public void coreAnimationRollFollowsTheSeventyTwentyTenWeights(GameTestHelper helper) {
         BuildingCoreTests.coreAnimationRollFollowsTheSeventyTwentyTenWeights(helper);
     }

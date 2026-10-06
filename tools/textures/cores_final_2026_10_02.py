@@ -1,5 +1,8 @@
 """Building cores, owner pick 2026-10-02: round-10 no. 4 - the original core with the four diagonal corners one
-pixel closer to the middle, everything else unchanged. Applied to all six cores; written into the 26.3 overlay."""
+pixel closer to the middle, everything else unchanged. Applied to all six cores; written into the 26.3 overlay.
+
+Superseded 2026-10-06: texture_round7_2026_10_06.py writes the same core as frame 0 of a shimmer strip; running this
+script would replace the strips with still 16x16 images."""
 import os
 import sys
 

@@ -68,6 +68,7 @@ from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse
 import vanilla_style  # Vanilla-Stil fuer verrauschte Pads (Textur-Audit Q1)
 from texture_round6_2026_10_05 import more_contrast  # Besitzer-Buecher kontrastreicher (Runde 6)
 from gauge_textures import gauge_textures  # Messuhr: Zifferblatt, 17 Nadeln, Ruhebild (nur Hauptbaum)
+import shimmer_2026_10_06 as shimmer  # Runde 7: wandernder Glanz (Enderit-Speer)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -77,7 +78,10 @@ TREES = [
 ]
 # Texturen nur fuer den Hauptbaum (26.2/26.3, Hauptlinie 26.3 zuerst): die 1.21.11-Kopie zieht der
 # Port-Run nach, bis dahin behaelt sie ihre alten Bilder.
-MAIN_TREE_PREFIXES = ("item/velocity_gauge", "item/detector", "item/layered_raw_enderite.png", "block/nether_brick_quartz_checker", "block/red_nether_brick_quartz_checker")
+MAIN_TREE_PREFIXES = ("item/velocity_gauge", "item/detector", "item/layered_raw_enderite.png", "block/nether_brick_quartz_checker", "block/red_nether_brick_quartz_checker",
+                      # Runde 7 (2026-10-06): Rucksack-Icons mit durchgehend dunkler Kontur, Enderit-Speer mit Glanz
+                      "item/backpack", "item/reinforced_backpack", "item/netherite_backpack", "item/enderite_backpack",
+                      "item/enderite_spear.png")
 PREVIEW = os.path.join(HERE, "preview.png")
 GEAR_PREVIEW = os.path.join(HERE, "gear_preview.png")
 HAND = os.path.join(HERE, "hand")  # unveraenderte Vorlagen handgemalter Texturen, die der Generator nachbearbeitet
@@ -298,22 +302,24 @@ REINFORCED_QUIVER_PAL = {
 }
 
 # --- Rucksack-Item (alle vier Stufen): Tragschlaufe, Deckelklappe mit Riemen und Schnalle,
-# Vordertasche mit eigener Klappe, Eckkappen unten
+# Vordertasche mit eigener Klappe, Eckkappen unten. Runde 7 (Besitzer 2026-10-06 "vanilla-naeher, sauberer"):
+# durchgehend dunkle Kontur O wie Vanillas Buendel (vorher hellere Kante R oben/links), Tragschlaufe aus dunklem
+# Leder; Umriss, Flaechen und Glimmerpunkte unveraendert.
 BACKPACK_ITEM = [
     "................",
-    "......RRRO......",
-    ".....R....O.....",
-    "....RRRRRRRO....",
-    "...R554ab433O...",
-    "..R5544ab4332O..",
-    "..R5444ab4332O..",
-    "..R4444ab3322O..",
-    "..R3222gC2221O..",
-    "..RddddckddddO..",
-    "..R3544444432O..",
-    "..R3433333312O..",
-    "..R3432222212O..",
-    "..Rx11111111xO..",
+    "......OOOO......",
+    ".....O....O.....",
+    "....OOOOOOOO....",
+    "...O554ab433O...",
+    "..O5544ab4332O..",
+    "..O5444ab4332O..",
+    "..O4444ab3322O..",
+    "..O3222gC2221O..",
+    "..OddddckddddO..",
+    "..O3544444432O..",
+    "..O3433333312O..",
+    "..O3432222212O..",
+    "..Ox11111111xO..",
     "...OOOOOOOOOO...",
     "................",
 ]
@@ -1142,6 +1148,8 @@ for _tier in MACHINE_TIERS:
     MACHINE_ANIMATIONS[f"block/{_tier}_blast_furnace_front_on.png"] = {"frametime": 20, "interpolate": True}
 # Trank-Pads in der Abklingzeit (potion_pad_textures.py): die erkalteten Adern pulsieren.
 MACHINE_ANIMATIONS.update(POTION_PAD_ANIMATIONS)
+# Runde 7: Enderit-Speer-Glanz (nur Hauptbaum, siehe MAIN_TREE_PREFIXES).
+MACHINE_ANIMATIONS["item/enderite_spear.png"] = {"frametime": 2, "interpolate": False}
 
 
 def _luma(c):
@@ -2176,6 +2184,7 @@ def end_palette_textures():
     hand_drawn(tex, "item/pulsating_trim_template.png")
     tex.update(enderite_gear_variant(ENDERITE_GEAR_ACTIVE))
     apply_enderite_handles(tex)
+    tex["item/enderite_spear.png"] = enderite_spear_shimmer(tex["item/enderite_spear.png"])
     tex.update(vanilla_book_textures())
     return tex
 
@@ -4360,6 +4369,25 @@ ENDERITE_HANDLE_PALS = {
 }
 
 
+# Runde 7 (Besitzer 2026-10-06): der Enderit-Speer bekommt NUR ein Glimmern - Form und Bild 0 bleiben, ein Glanz
+# laeuft ueber die Spitze (shimmer_2026_10_06: Kopftoene je zwei Stufen hoeher, ueber dem hellsten die Ader).
+SPEAR_FRAMES, SPEAR_FRAMETIME = 20, 2
+
+
+def enderite_spear_shimmer(img):
+    import numpy as np
+    v = ENDERITE_GEAR_VARIANTS[ENDERITE_GEAR_ACTIVE]
+    ramp = [hexrgb(c) for c in v["head"]] + [hexrgb(v["glow"])]
+    head = {hexrgb(c) for c in v["head"]} | {hexrgb(v["vein"]), hexrgb(v["glow"])}
+    a = img.convert("RGBA")
+    mask = np.zeros((16, 16), dtype=bool)
+    for y in range(16):
+        for x in range(16):
+            p = a.getpixel((x, y))
+            mask[y, x] = p[3] > 0 and p[:3] in head
+    return shimmer.shimmer_strip(a, ramp, mask, frames=SPEAR_FRAMES, sweep=8, peak=hexrgb(v["vein"]))
+
+
 def apply_enderite_handles(tex):
     """Ersetzt in den Enderit-Werkzeug-Icons die Griffpixel durch die Netherit-Griffe mit violetten Wicklungen."""
     for name, rows in ENDERITE_HANDLE_MAPS.items():
@@ -4475,7 +4503,7 @@ def main():
     for rel, animation in sorted(MACHINE_ANIMATIONS.items()):
         if tex[rel].height % 16 or tex[rel].height // 16 < 2:
             raise ValueError(f"{rel}: kein Animationsstreifen ({tex[rel].size})")
-        for tree in TREES:
+        for tree in (TREES[:1] if rel in MAIN_TREE_ONLY or rel.startswith(MAIN_TREE_PREFIXES) else TREES):
             path = os.path.join(tree, *rel.split("/")) + ".mcmeta"
             if args.check:
                 try:

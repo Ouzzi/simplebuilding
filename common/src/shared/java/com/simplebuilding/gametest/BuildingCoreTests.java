@@ -133,6 +133,42 @@ public final class BuildingCoreTests {
     }
 
     /**
+     * Hand motions of the core (Nachtrag 11): the weights add up to 100 and fall as the motions get cooler
+     * (pulse > spin > rise > boomerang), the ore motion is never rolled but is the longest; every motion starts and
+     * ends at rest (no snap), and over 20000 seeded rolls each share lands within two points of its weight.
+     */
+    public static void coreHandMotionsAreRarerTheCoolerAndStartAndEndAtRest(GameTestHelper helper) {
+        com.simplebuilding.items.custom.CoreHandMotion.Motion[] motions = com.simplebuilding.items.custom.CoreHandMotion.Motion.values();
+        int total = 0;
+        for (int i = 0; i < motions.length; i++) {
+            total += motions[i].weight;
+            if (i > 0 && motions[i] != com.simplebuilding.items.custom.CoreHandMotion.Motion.FORGE) {
+                helper.assertTrue(motions[i].weight < motions[i - 1].weight, motions[i] + " is not rarer than " + motions[i - 1]);
+            }
+            helper.assertTrue(motions[i].ticks <= com.simplebuilding.items.custom.CoreHandMotion.Motion.FORGE.ticks, motions[i] + " outlasts the ore motion");
+            for (float t : new float[] {0.0F, 0.9999F}) {
+                float[] pose = com.simplebuilding.items.custom.CoreHandMotion.pose(motions[i], t);
+                for (int k = 0; k < 6; k++) {
+                    double rest = Math.abs(pose[k]) % 360.0;
+                    rest = Math.min(rest, 360.0 - rest);
+                    helper.assertTrue(k < 3 ? Math.abs(pose[k]) < 0.02 : rest < 2.5, motions[i] + " not at rest at t=" + t + ", value " + k + " = " + pose[k]);
+                }
+                helper.assertTrue(Math.abs(pose[6] - 1.0F) < 0.02F, motions[i] + " scale at t=" + t + " = " + pose[6]);
+            }
+        }
+        helper.assertTrue(total == 100, "motion weights add up to " + total);
+        helper.assertTrue(com.simplebuilding.items.custom.CoreHandMotion.fromRoll(99) != com.simplebuilding.items.custom.CoreHandMotion.Motion.FORGE, "FORGE is rolled");
+        java.util.Map<com.simplebuilding.items.custom.CoreHandMotion.Motion, Integer> seen = new java.util.EnumMap<>(com.simplebuilding.items.custom.CoreHandMotion.Motion.class);
+        RandomSource random = RandomSource.create(42L);
+        for (int i = 0; i < 20000; i++) seen.merge(com.simplebuilding.items.custom.CoreHandMotion.roll(random), 1, Integer::sum);
+        for (com.simplebuilding.items.custom.CoreHandMotion.Motion motion : motions) {
+            double share = 100.0 * seen.getOrDefault(motion, 0) / 20000;
+            helper.assertTrue(Math.abs(share - motion.weight) <= 2.0, motion + " share " + share);
+        }
+        helper.succeed();
+    }
+
+    /**
      * The animation roll: 0-69 glow, 70-89 orbit, 90-99 burst, and over 20000 seeded rolls the
      * shares land within two points of 70/20/10. The same seed gives the same sequence.
      *

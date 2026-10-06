@@ -52,6 +52,8 @@ public final class ModFluids {
     public static Item SOUL_LAVA_BUCKET;
     public static Item COPPER_BUCKET, COPPER_WATER_BUCKET, COPPER_LAVA_BUCKET;
     public static Item ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET;
+    /** Ceramic bucket (owner addition 11): 3 clay -> raw, fired in a furnace or crucible; water only, 32 uses. */
+    public static Item RAW_CERAMIC_BUCKET, CERAMIC_BUCKET, CERAMIC_WATER_BUCKET;
 
     public static void registerFluids() {
         if (!McVersion.CRUCIBLE || SOUL_LAVA != null) return;
@@ -86,13 +88,20 @@ public final class ModFluids {
                 McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET), lava)));
         ENDERITE_SOUL_LAVA_BUCKET = item("enderite_soul_lava_bucket", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, SOUL_LAVA,
                 McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET), SoulLava.fuelTicks())));
+        // No crafting remainder on the ceramic water bucket: a fresh bucket back would repair it for free.
+        RAW_CERAMIC_BUCKET = item("raw_ceramic_bucket", p -> new Item(p.stacksTo(16)));
+        CERAMIC_BUCKET = item("ceramic_bucket", p -> new ModBucketItem(ModBucketItem.Kind.CERAMIC, Fluids.EMPTY,
+                p.durability(ModBucketItem.CERAMIC_USES)));
+        CERAMIC_WATER_BUCKET = item("ceramic_water_bucket", p -> new ModBucketItem(ModBucketItem.Kind.CERAMIC, Fluids.WATER,
+                p.durability(ModBucketItem.CERAMIC_USES)));
     }
 
-    /** All bucket items of this file in creative-tab order (empty on 26.2). */
+    /** All bucket items of this file in creative-tab order, the raw ceramic bucket included (empty on 26.2). */
     public static java.util.List<Item> buckets() {
         if (SOUL_LAVA_BUCKET == null) return java.util.List.of();
         return java.util.List.of(COPPER_BUCKET, COPPER_WATER_BUCKET, COPPER_LAVA_BUCKET, SOUL_LAVA_BUCKET,
-                ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET);
+                ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET,
+                RAW_CERAMIC_BUCKET, CERAMIC_BUCKET, CERAMIC_WATER_BUCKET);
     }
 
     private static Item item(String name, Function<Item.Properties, Item> factory) {

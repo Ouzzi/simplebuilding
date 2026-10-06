@@ -442,6 +442,16 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .define('B', Items.BUCKET)
                             .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
                             .save(output);
+                    // Keramik-Eimer (Nachtrag 11): drei Ton in Eimer-Form, dann brennen wie Ton zu Ziegel (Ofen oder Crucible).
+                    shaped(RecipeCategory.TOOLS, com.simplebuilding.fluid.ModFluids.RAW_CERAMIC_BUCKET)
+                            .pattern("C C")
+                            .pattern(" C ")
+                            .define('C', Items.CLAY_BALL)
+                            .unlockedBy(getHasName(Items.CLAY_BALL), has(Items.CLAY_BALL))
+                            .save(output);
+                    oreSmelting(java.util.List.of(com.simplebuilding.fluid.ModFluids.RAW_CERAMIC_BUCKET), RecipeCategory.TOOLS,
+                            net.minecraft.world.item.crafting.CookingBookCategory.MISC, com.simplebuilding.fluid.ModFluids.CERAMIC_BUCKET,
+                            0.3f, 200, "ceramic_bucket");
                 }
                 // Eisenstab (2026-10-02): wie der Blitzableiter, drei Eisenbarren uebereinander.
                 if (com.simplebuilding.version.McVersion.GADGET_REWORK) {

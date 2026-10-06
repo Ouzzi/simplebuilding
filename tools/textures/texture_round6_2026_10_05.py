@@ -292,9 +292,7 @@ def riding_book(name, variant):
 # ---------------------------------------------------------------- outputs
 def outputs():
     out = {}
-    dummy = training_dummy()
-    out[os.path.join(SB_TEX, 'training_dummy.png')] = dummy
-    out[os.path.join(WIKI_TEX, 'item', 'training_dummy.png')] = dummy
+    # Training dummy: superseded 2026-10-06 by texture_round7_2026_10_06.py (same motif on the straw body).
     for name, m in FIBERS.items():
         img = fiber(m)
         out[os.path.join(MONEY_TEX, f'{name}.png')] = img

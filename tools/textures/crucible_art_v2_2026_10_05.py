@@ -12,6 +12,11 @@ What it draws (Vanilla textures from build/vanilla-textures, see crucible_placeh
   * soul lava variant B (channels), animated over all frames, seamless in space and time;
   * copper buckets (own angular silhouette, three patterns from the Vanilla copper family) and the Enderite bucket
     (Vanilla silhouette, three ornaments from the Enderite chest), each with water/lava/soul lava contents.
+  * Round 7 (owner addition 11, 2026-10-06): copper buckets now in the Vanilla bucket silhouette with the Vanilla
+    copper ingot ramp, shifted per oxidation stage towards the Vanilla exposed/weathered/oxidized copper (variant F:
+    riveted hoop + patina flecks of the next stage); soul lava buckets (iron, Enderite) are the Vanilla lava bucket
+    with every lava tone swapped 1:1 for a soul fire/soul lantern tone of the same rank; the Enderite buckets keep
+    their content still (like Vanilla) and shimmer on the body instead (shimmer_2026_10_06).
 The preview (previews/crucible-art-v2-vorschau.png) shows 3D views of the block models (small software renderer
 below, nearest-neighbour texels, flat face shading like the GUI) and 1x icons.
 """
@@ -23,6 +28,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import crucible_placeholders_2026_10_05 as p  # noqa: E402  (palettes, loaders, Vanilla dir)
+import shimmer_2026_10_06 as shimmer  # noqa: E402
 
 ROOT = p.ROOT
 LIB = p.LIB
@@ -32,9 +38,9 @@ PREVIEW = Path('C:/Users/o_o/code/minecraft-mods/previews/crucible-art-v3-vorsch
 SB_CHESTS = ROOT / 'src/main/resources/assets/simplebuilding/textures/entity/chest'
 
 # Owner picks / our pick among the drawn variants (see preview).
-CHOICE = {'crucible': 'B', 'copper_bucket': 'C', 'enderite_bucket': 'A'}  # owner choice v3 (2026-10-05)
-# Filled Enderite buckets are animated (owner v3): liquid drifts, one crystal rivet glints at a time.
-BUCKET_FRAMES, BUCKET_FRAMETIME = 8, 3
+CHOICE = {'crucible': 'B', 'copper_bucket': 'F', 'enderite_bucket': 'A'}  # owner v3 (2026-10-05); copper F = round 7
+# Enderite buckets (all four) shimmer on the body, the content stays still (owner addition 11): 40 ticks per loop.
+BUCKET_FRAMES, BUCKET_FRAMETIME = 20, 2
 
 lum = p.crucibles.lum
 IRON = p.ramp(p.vanilla('block/cauldron_side'))
@@ -423,27 +429,18 @@ def copper_bucket(material, variant, content=None):
     return fill_liquid(img, area, content)
 
 
-def enderite_bucket(variant, content=None, frame=None):
-    """frame None = still image; 0..BUCKET_FRAMES-1 = animation frame of a filled bucket."""
+def enderite_bucket(variant, content=None):
+    """Still Enderite bucket (Vanilla silhouette, ornament ``variant``); soul lava in the soul palette."""
     src = 'item/' + ({None: 'bucket', 'water': 'water_bucket', 'lava': 'lava_bucket', 'soul_lava': 'lava_bucket'}[content])
-    base = p.bucket(ENDERITE, content)
-    if frame is not None and content:
-        # Liquid motion: each row's liquid tones drift sideways (cyclic, seamless over the loop).
-        a = np.array(base)
-        mask = p.liquid_mask(p.vanilla(src))
-        for y in range(16):
-            xs = np.nonzero(mask[y])[0]
-            if len(xs) > 1:
-                shift = (frame * (1 if y % 2 else -1)) % len(xs)
-                a[y, xs] = np.roll(a[y, xs], shift, axis=0)
-        base = Image.fromarray(a).copy()
+    base = p.bucket(ENDERITE, 'lava' if content == 'soul_lava' else content)
+    if content == 'soul_lava':
+        base = soul_remap(base)
     d = ImageDraw.Draw(base)
     light, crystal, deep = rgba(ENDERITE[-2]), rgba(CRYSTAL), rgba(ENDERITE[1])
     if variant == 'A':
-        # Crystal rivets along the front rim, sparkles like the Enderite chest; animated: one glint wanders.
-        for i, x in enumerate((4, 7, 10)):
-            glint = frame is not None and content and frame % 4 == i
-            d.point((x, 7), fill=(255, 236, 255, 255) if glint else crystal if frame is None or not content else light)
+        # Crystal rivets along the front rim, sparkles like the Enderite chest.
+        for x in (4, 7, 10):
+            d.point((x, 7), fill=crystal)
         for c in ((5, 10), (9, 12)):
             d.point(c, fill=light)
     elif variant == 'B':
@@ -467,25 +464,107 @@ def enderite_bucket(variant, content=None, frame=None):
     return Image.fromarray(a)
 
 
+def enderite_body_mask(content):
+    """Body pixels that shimmer: inside the silhouette, not the outline, not the content."""
+    src = p.vanilla('item/' + ({None: 'bucket', 'water': 'water_bucket'}.get(content, 'lava_bucket')))
+    a = np.array(src)
+    liquid = p.liquid_mask(src) if content else np.zeros((16, 16), dtype=bool)
+    return (a[:, :, 3] > 0) & ~liquid & (a[:, :, 0] != 53)
+
+
+def enderite_bucket_strip(variant, content=None):
+    """Round 7: the content stays still, a glint runs over the Enderite body (frame 0 = the still bucket)."""
+    ramp = list(ENDERITE) + [CRYSTAL]
+    return shimmer.shimmer_strip(enderite_bucket(variant, content), ramp, enderite_body_mask(content),
+                                 frames=BUCKET_FRAMES, sweep=8, peak=(255, 236, 255))
+
+
+# Soul lava: Vanilla lava bucket tones (dark drip, red, orange, yellow, lava-lit rim) -> soul fire / soul lantern
+# tones of the same rank, so the bucket reads exactly like Vanilla's lava bucket, only in the soul palette.
+SOUL_FOR_LAVA = {
+    (127, 62, 44): (3, 96, 104),
+    (204, 70, 40): (3, 150, 154),
+    (227, 140, 63): (42, 201, 207),
+    (228, 210, 92): (122, 245, 248),
+    (159, 127, 120): (112, 146, 150),
+    (182, 140, 123): (128, 170, 174),
+}
+
+
+def soul_remap(img):
+    a = np.array(img.convert('RGBA'))
+    for lava, soul in SOUL_FOR_LAVA.items():
+        hit = (a[:, :, 0] == lava[0]) & (a[:, :, 1] == lava[1]) & (a[:, :, 2] == lava[2]) & (a[:, :, 3] > 0)
+        a[hit, :3] = soul
+    return Image.fromarray(a)
+
+
+def iron_soul_lava_bucket():
+    return soul_remap(p.vanilla('item/lava_bucket'))
+
+
+# Copper round 7: the Vanilla copper ingot ramp (without its near-white glint), shifted per oxidation stage towards
+# the mean color of the Vanilla exposed/weathered/oxidized copper block at the same luminance.
+COPPER_INGOT = [c for c in p.ramp(p.vanilla('item/copper_ingot')) if lum(c) < 240]
+COPPER_SHIFT = (0.0, 0.7, 0.9, 1.0)
+GREY_TONES = (84, 95, 114, 150, 168, 216, 255)
+# Patina flecks of the next stage (variant F), more of them the further it has weathered.
+PATINA = {1: ((4, 12), (11, 8), (6, 7)), 2: ((4, 12), (11, 8), (6, 7), (9, 12), (3, 9), (10, 6))}
+
+
+def copper_stage_ramp(stage):
+    if stage == 0:
+        return COPPER_INGOT
+    block = np.array(p.vanilla('block/' + COPPER_STAGES[stage]).convert('RGB')).reshape(-1, 3).astype(float).mean(0)
+    f = COPPER_SHIFT[stage]
+    return sorted((tuple(int(round(min(255, (1 - f) * c[i] + f * block[i] * lum(c) / lum(block)))) for i in range(3))
+                   for c in COPPER_INGOT), key=lum)
+
+
+def copper_bucket_round7(stage, variant='F', content=None):
+    """D: plain Vanilla silhouette, E: + riveted hoop (row 10, rivets row 9), F: E + patina flecks."""
+    src = p.vanilla('item/' + {None: 'bucket', 'water': 'water_bucket', 'lava': 'lava_bucket'}[content])
+    liquid = p.liquid_mask(src) if content else np.zeros((16, 16), dtype=bool)
+    g = np.array(src)
+    if variant in ('E', 'F'):
+        for x in range(3, 13):
+            v = int(g[10, x, 0])
+            if g[10, x, 3] and not liquid[10, x] and v in GREY_TONES and v != 84 and g[10, x, 0] == g[10, x, 1]:
+                g[10, x, :3] = GREY_TONES[GREY_TONES.index(v) - 1]
+        g[9, 4, :3] = 255
+        g[9, 11, :3] = 216
+    material = copper_stage_ramp(stage)
+    dark = tuple(round(c * min(.55, 32 / lum(material[0]))) for c in material[0])
+    colors, stops = np.array([dark, *material]), np.r_[53, np.linspace(114, 255, len(material))]
+    metal = (g[:, :, 3] > 0) & ~liquid
+    lu = g[:, :, :3] @ np.array([.299, .587, .114])
+    for ch in range(3):
+        g[:, :, ch][metal] = np.rint(np.interp(lu[metal], stops, colors[:, ch]))
+    if variant == 'F' and stage in PATINA:
+        nxt = copper_stage_ramp(stage + 1)
+        for x, y in PATINA[stage]:
+            if g[y, x, 3] and not liquid[y, x]:
+                g[y, x, :3] = min(nxt, key=lambda c: abs(lum(c) - lum(g[y, x, :3])))
+    return Image.fromarray(g)
+
+
 COPPER_STAGES = ('copper_block', 'exposed_copper', 'weathered_copper', 'oxidized_copper')
 
 
 def bucket_resources(copper_variant, enderite_variant):
     out = {}
     for stage, name in enumerate(COPPER_STAGES):
-        material = p.ramp(p.vanilla('block/' + name))
         for content in (None, 'water', 'lava'):
             suffix = (content + '_' if content else '') + 'bucket'
-            out[SB / f'item/copper_{suffix}_{stage}.png'] = copper_bucket(material, copper_variant, content)
+            if copper_variant in ('D', 'E', 'F'):
+                img = copper_bucket_round7(stage, copper_variant, content)
+            else:
+                img = copper_bucket(p.ramp(p.vanilla('block/' + name)), copper_variant, content)
+            out[SB / f'item/copper_{suffix}_{stage}.png'] = img
     for content in (None, 'water', 'lava', 'soul_lava'):
         suffix = (content + '_' if content else '') + 'bucket'
-        if content:
-            strip = Image.new('RGBA', (16, 16 * BUCKET_FRAMES))
-            for f in range(BUCKET_FRAMES):
-                strip.paste(enderite_bucket(enderite_variant, content, f), (0, 16 * f))
-            out[SB / f'item/enderite_{suffix}.png'] = strip
-        else:
-            out[SB / f'item/enderite_{suffix}.png'] = enderite_bucket(enderite_variant, content)
+        out[SB / f'item/enderite_{suffix}.png'] = enderite_bucket_strip(enderite_variant, content)
+    out[SB / 'item/soul_lava_bucket.png'] = iron_soul_lava_bucket()
     return out
 
 
@@ -655,7 +734,13 @@ def preview():
                                    ('still f10', big(soul_lava('still').crop((0, 160, 16, 176)), 10)),
                                    ('fliessend f0', big(soul_lava('flow').crop((0, 0, 32, 32)), 5)),
                                    ('alt still', big(p.load(SB / 'block/soul_lava_still.png').crop((0, 0, 16, 16)), 10))]))
-    for variant in ('A', 'B', 'C'):
+    for variant in ('D', 'E', 'F'):
+        cells = [(f'Stufe {stage}', checker(big(copper_bucket_round7(stage, variant), 10))) for stage in range(4)]
+        cells.append(('Wasser', checker(big(copper_bucket_round7(0, variant, 'water'), 10))))
+        cells.append(('Lava 3', checker(big(copper_bucket_round7(3, variant, 'lava'), 10))))
+        cells.append(('1x', checker(big(copper_bucket_round7(1, variant), 2))))
+        rows.append((f'Kupfer-Eimer R7 {variant}', cells))
+    for variant in ('C',):
         cells = []
         for stage, name in enumerate(COPPER_STAGES):
             cells.append((f'Stufe {stage}', checker(big(copper_bucket(p.ramp(p.vanilla('block/' + name)), variant), 10))))
@@ -666,12 +751,14 @@ def preview():
         rows.append((f'Kupfer-Eimer {variant}', cells))
     for variant in ('A', 'B', 'C'):
         cells = [(c or 'leer', checker(big(enderite_bucket(variant, c), 10))) for c in (None, 'water', 'lava', 'soul_lava')]
+        cells.append(('Eisen Seele', checker(big(iron_soul_lava_bucket(), 10))))
         cells.append(('1x', checker(big(enderite_bucket(variant), 2))))
         cells.append(('alt', checker(big(p.load(SB / 'item/enderite_bucket.png'), 10))))
         rows.append((f'Enderit-Eimer {variant}', cells))
-    for content in ('water', 'lava', 'soul_lava'):
-        rows.append((f'Enderit A anim. {content}', [(f'f{f}', checker(big(enderite_bucket('A', content, f), 6)))
-                                                    for f in range(BUCKET_FRAMES)]))
+    for content in (None, 'soul_lava'):
+        strip = enderite_bucket_strip('A', content)
+        rows.append((f'Enderit A Glanz {content or "leer"}', [(f'f{f}', checker(big(strip.crop((0, 16 * f, 16, 16 * f + 16)), 6)))
+                                                             for f in range(0, 10)]))
     rows.append(('Vanilla', [('Eimer', checker(big(p.vanilla('item/bucket'), 10))),
                              ('alt Kupfer', checker(big(p.load(SB / 'item/copper_bucket_0.png'), 10)))]))
     names = 'v3 Besitzerwahl - Tiegel: Kessel-Modell (Fuss -2, Boden -1, Bauch voll, Hals -1 px) mit B Rippen / C Stufenbeschlag'

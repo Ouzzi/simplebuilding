@@ -38,7 +38,7 @@ public abstract class CauldronBucketMixin {
         if (content == Fluids.EMPTY) {
             Fluid take = state.is(Blocks.LAVA_CAULDRON) ? Fluids.LAVA
                     : state.is(Blocks.WATER_CAULDRON) && state.getValue(LayeredCauldronBlock.LEVEL) == 3 ? Fluids.WATER : null;
-            Item filled = take == null ? null : ModBucketItem.filled(bucket.kind(), take);
+            Item filled = take == null || !ModBucketItem.canScoop(stack) ? null : ModBucketItem.filled(bucket.kind(), take);
             if (filled == null) return;
             if (!level.isClientSide()) {
                 player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, ModBucketItem.fill(stack, filled)));
@@ -57,6 +57,7 @@ public abstract class CauldronBucketMixin {
             player.setItemInHand(hand, after);
             level.setBlockAndUpdate(pos, next);
             level.playSound(null, pos, content.isSame(Fluids.LAVA) ? SoundEvents.BUCKET_EMPTY_LAVA : SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+            if (after.isEmpty()) level.playSound(null, pos, SoundEvents.ITEM_BREAK.value(), SoundSource.PLAYERS, 0.8F, 1.0F);
         }
         cir.setReturnValue(InteractionResult.SUCCESS);
     }

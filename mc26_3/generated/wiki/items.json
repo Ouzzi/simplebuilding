@@ -311,6 +311,16 @@
       "id": "simplebuilding:cave_spider_head"
     },
     {
+      "durability": 32,
+      "id": "simplebuilding:ceramic_bucket",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 32,
+      "id": "simplebuilding:ceramic_water_bucket",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:chiseled_astralit_bricks"
     },
     {
@@ -1291,6 +1301,10 @@
       "bundleCapacityItems": 64,
       "id": "simplebuilding:quiver",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:raw_ceramic_bucket",
+      "maxStackSize": 16
     },
     {
       "id": "simplebuilding:raw_enderite"

@@ -42,6 +42,7 @@ public final class ConfigOptions {
             "tools.buildingHighlightOpacity",
             "tools.enableToolAnimations",
             "tools.enableChiselAnimation",
+            "tools.enableCoreAnimations",
             "tools.transformHintStrength",
             "tools.placedPartParticles",
             "tweaks.laserPointer.color",

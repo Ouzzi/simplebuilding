@@ -88,6 +88,13 @@ public class HeldItemRendererMixin {
             return;
         }
         SimplebuildingConfig config = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
+        // Baukern: gewuerfelte Bewegung beim Benutzen bzw. die lange Erz-Animation (CoreHandMotion, Nachtrag 11).
+        if (item.getItem() instanceof com.simplebuilding.items.custom.BuildingCoreItem) {
+            float[] pose = com.simplebuilding.items.custom.CoreHandMotion.currentPose(player.tickCount, tickProgress, hand);
+            if (pose != null && config.tools.enableToolAnimations && config.tools.enableCoreAnimations) {
+                this.applyCorePose(matrices, pose, hand);
+            }
+        }
         boolean animationsEnabled = config.tools.enableToolAnimations && config.tools.enableChiselAnimation;
         float targetProgress = 0.0F;
 
@@ -203,6 +210,23 @@ public class HeldItemRendererMixin {
     private void applyHammerDrawBack(PoseStack matrices, float drawBack, float followThrough) {
         matrices.translate(0.0, 0.2 * drawBack - 0.06 * followThrough, 0.06 * drawBack - 0.08 * followThrough);
         matrices.rotate(Axis.XP.rotationDegrees(28.0F * drawBack - 22.0F * followThrough));
+    }
+
+    /**
+     * Baukern-Pose aus {@link com.simplebuilding.items.custom.CoreHandMotion#pose}: verschieben, dann um die Item-Mitte
+     * drehen und skalieren (die Modell-Transformation danach zentriert das Item um den Ursprung). Die Nebenhand
+     * spiegelt die Seitenbewegung und die Drehrichtung.
+     */
+    @Unique
+    private void applyCorePose(PoseStack matrices, float[] pose, InteractionHand hand) {
+        float mirror = hand == InteractionHand.OFF_HAND ? -1.0F : 1.0F;
+        matrices.translate(mirror * pose[com.simplebuilding.items.custom.CoreHandMotion.TX],
+                pose[com.simplebuilding.items.custom.CoreHandMotion.TY], pose[com.simplebuilding.items.custom.CoreHandMotion.TZ]);
+        matrices.rotate(Axis.YP.rotationDegrees(mirror * pose[com.simplebuilding.items.custom.CoreHandMotion.RY]));
+        matrices.rotate(Axis.XP.rotationDegrees(pose[com.simplebuilding.items.custom.CoreHandMotion.RX]));
+        matrices.rotate(Axis.ZP.rotationDegrees(mirror * pose[com.simplebuilding.items.custom.CoreHandMotion.RZ]));
+        float scale = pose[com.simplebuilding.items.custom.CoreHandMotion.SCALE];
+        matrices.scale(scale, scale, scale);
     }
 
     /** Resonanzstab: Spitze nach vorn zum Ziel gekippt, leicht vor und nach unten geschoben. */

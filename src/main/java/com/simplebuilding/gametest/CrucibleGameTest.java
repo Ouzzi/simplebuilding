@@ -67,6 +67,16 @@ public final class CrucibleGameTest {
     }
 
     @GameTest
+    public void copperBucketFullyOxidizedScoopsNothing(GameTestHelper helper) {
+        CrucibleTests.copperBucketFullyOxidizedScoopsNothing(helper);
+    }
+
+    @GameTest
+    public void ceramicBucketHoldsWaterAndWearsOutAfterThirtyTwoUses(GameTestHelper helper) {
+        CrucibleTests.ceramicBucketHoldsWaterAndWearsOutAfterThirtyTwoUses(helper);
+    }
+
+    @GameTest
     public void ironBucketBreaksOnSoulLavaEnderiteNever(GameTestHelper helper) {
         CrucibleTests.ironBucketBreaksOnSoulLavaEnderiteNever(helper);
     }

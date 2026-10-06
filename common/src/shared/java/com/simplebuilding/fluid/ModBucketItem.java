@@ -41,10 +41,14 @@ import org.jspecify.annotations.Nullable;
  *   <li><b>Enderite</b>: water, lava and soul lava, never breaks.</li>
  *   <li><b>Iron</b> (only the soul lava bucket here - Vanilla's bucket scoops soul lava itself): breaks when
  *       the soul lava is poured.</li>
+ *   <li><b>Ceramic</b> (owner addition 11): fired clay, water only (no lava, no milk), wears out: every scoop
+ *       and every pour costs one of its 32 durability points, the 32nd (= the 16th pour) breaks it.</li>
  * </ul>
+ * A fully oxidized copper bucket (stage 3) scoops nothing any more (owner addition 11); pouring one that is
+ * already full still works, and the axe/honeycomb care keeps working.
  */
 public class ModBucketItem extends BucketItem {
-    public enum Kind { COPPER, ENDERITE, IRON }
+    public enum Kind { COPPER, ENDERITE, IRON, CERAMIC }
 
     private final Kind kind;
 
@@ -65,6 +69,7 @@ public class ModBucketItem extends BucketItem {
             case COPPER -> ModFluids.COPPER_BUCKET;
             case ENDERITE -> ModFluids.ENDERITE_BUCKET;
             case IRON -> Items.BUCKET;
+            case CERAMIC -> ModFluids.CERAMIC_BUCKET;
         };
     }
 
@@ -75,6 +80,7 @@ public class ModBucketItem extends BucketItem {
                 case COPPER -> ModFluids.COPPER_WATER_BUCKET;
                 case ENDERITE -> ModFluids.ENDERITE_WATER_BUCKET;
                 case IRON -> Items.WATER_BUCKET;
+                case CERAMIC -> ModFluids.CERAMIC_WATER_BUCKET;
             };
         }
         if (fluid.isSame(Fluids.LAVA)) {
@@ -82,6 +88,7 @@ public class ModBucketItem extends BucketItem {
                 case COPPER -> ModFluids.COPPER_LAVA_BUCKET;
                 case ENDERITE -> ModFluids.ENDERITE_LAVA_BUCKET;
                 case IRON -> Items.LAVA_BUCKET;
+                case CERAMIC -> null; // fired clay cracks in lava
             };
         }
         if (fluid.isSame(ModFluids.SOUL_LAVA)) {
@@ -89,6 +96,7 @@ public class ModBucketItem extends BucketItem {
                 case COPPER -> null; // owner: the copper bucket cannot take soul lava
                 case ENDERITE -> ModFluids.ENDERITE_SOUL_LAVA_BUCKET;
                 case IRON -> ModFluids.SOUL_LAVA_BUCKET;
+                case CERAMIC -> null;
             };
         }
         return null;
@@ -107,12 +115,32 @@ public class ModBucketItem extends BucketItem {
         Item empty = empty(kind);
         ItemStack out = stack.transmuteCopy(empty == null ? Items.BUCKET : empty, 1);
         if (kind == Kind.COPPER) oxidize(out);
-        return out;
+        return wear(out);
     }
 
-    /** A filled copy of an empty bucket of this kind, keeping its components (oxidation, wax). */
+    /**
+     * A filled copy of an empty bucket of this kind, keeping its components (oxidation, wax, wear); a ceramic
+     * bucket loses one durability point. Scooping is always an odd use (0 -> 1, 2 -> 3 ...), so it never breaks it.
+     */
     public static ItemStack fill(ItemStack empty, Item filled) {
-        return empty.transmuteCopy(filled, 1);
+        return wear(empty.transmuteCopy(filled, 1));
+    }
+
+    /** Ceramic buckets: one use more; at {@link #CERAMIC_USES} the bucket is gone (empty stack). Others unchanged. */
+    public static ItemStack wear(ItemStack stack) {
+        if (!(stack.getItem() instanceof ModBucketItem bucket) || bucket.kind != Kind.CERAMIC) return stack;
+        int used = stack.getDamageValue() + 1;
+        if (used >= stack.getMaxDamage()) return ItemStack.EMPTY;
+        stack.setDamageValue(used);
+        return stack;
+    }
+
+    /** Fill/pour operations of a ceramic bucket (owner: 32, i.e. 16 full cycles). */
+    public static final int CERAMIC_USES = 32;
+
+    /** Whether {@code stack} (an empty bucket of a mod kind) may scoop: not a fully oxidized copper bucket. */
+    public static boolean canScoop(ItemStack stack) {
+        return !(stack.getItem() instanceof ModBucketItem bucket && bucket.kind == Kind.COPPER && oxidation(stack) >= 3);
     }
 
     // ------------------------------------------------------------ copper oxidation
@@ -199,7 +227,7 @@ public class ModBucketItem extends BucketItem {
         BlockState state = level.getBlockState(pos);
         FluidState fluid = state.getFluidState();
         if (!fluid.isSource() || !(state.getBlock() instanceof BucketPickup pickup)) return InteractionResult.FAIL;
-        Item target = filled(kind, fluid.getType());
+        Item target = canScoop(stack) ? filled(kind, fluid.getType()) : null;
         if (target == null) {
             if (!level.isClientSide()) level.playSound(null, pos, SoundEvents.METAL_HIT, SoundSource.BLOCKS, 0.6F, 0.6F);
             return InteractionResult.FAIL;
@@ -209,7 +237,8 @@ public class ModBucketItem extends BucketItem {
         player.awardStat(Stats.ITEM_USED.get(this));
         pickup.getPickupSound().ifPresent(sound -> player.playSound(sound, 1.0F, 1.0F));
         level.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
-        ItemStack result = ItemUtils.createFilledResult(stack, player, fill(stack, target));
+        ItemStack filledStack = player.hasInfiniteMaterials() ? stack.transmuteCopy(target, 1) : fill(stack, target);
+        ItemStack result = ItemUtils.createFilledResult(stack, player, filledStack);
         return InteractionResult.SUCCESS.heldItemTransformedTo(result);
     }
 
@@ -231,6 +260,25 @@ public class ModBucketItem extends BucketItem {
             return true;
         }
         return super.emptyContents(user, level, pos, hit);
+    }
+
+    /** Copper: hint when fully oxidized (unusable until scraped) and when waxed; ceramic: what it holds. */
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
+                                java.util.function.Consumer<net.minecraft.network.chat.Component> lines, net.minecraft.world.item.TooltipFlag flag) {
+        if (kind == Kind.COPPER) {
+            if (oxidation(stack) >= 3) {
+                lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.copper_bucket.oxidized")
+                        .withStyle(net.minecraft.ChatFormatting.RED));
+            }
+            if (waxed(stack)) {
+                lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.copper_bucket.waxed")
+                        .withStyle(net.minecraft.ChatFormatting.GOLD));
+            }
+        } else if (kind == Kind.CERAMIC) {
+            lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.ceramic_bucket")
+                    .withStyle(net.minecraft.ChatFormatting.GRAY));
+        }
     }
 
     /** Server-side pour for tests and dispensers: places the content and returns what stays (survival rules). */

@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 320,
+      "count": 323,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -727,6 +727,8 @@
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/items/custom/BuildingCoreItem.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/CoreHandMotion.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
         "common/src/shared/java/com/simplebuilding/items/ModItems.java",
         "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
@@ -741,6 +743,7 @@
           "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I.",
           "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
           "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
+          "The core also moves in your hand (first person, 26.3; client option Building Core Animations, which needs Tool Animations on too): every use rolls a motion - pulse 45 %, spin 30 %, rise 15 %, boomerang 10 %, the cooler the rarer, each 0.7 to 1.3 seconds and starting and ending at rest - and when a click turns a block into ore the core plays its own longer forging motion of 2 seconds (it rises, spins faster and faster, slams down and springs back); the cooldown then lasts those 2 seconds. In the inventory the core's setting shimmers: a glint runs over it once every 2 seconds.",
           "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
           "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll: iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, Enderite 0.5 % per end city chest on 26.3 (owner 2026-10-05; 26.2 remains at 0.175 %). The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) contains historical estimates based on assumed search rates, not measured playtime; its 2026-10-05 addendum updates Enderite."
         ]
@@ -753,6 +756,7 @@
           "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I.",
           "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
           "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
+          "Der Kern bewegt sich dabei auch in der Hand (Ichansicht, 26.3; Client-Option Baukern-Animationen, die zusätzlich Werkzeug-Animationen braucht): jede Benutzung würfelt eine Bewegung - Pulsieren 45 %, Drehen 30 %, Aufsteigen 15 %, Bumerang 10 %, je cooler desto seltener, jede 0,7 bis 1,3 Sekunden lang und in Ruhe beginnend und endend - und wenn ein Klick einen Block zu Erz macht, spielt der Kern eine eigene, längere Schmiede-Bewegung von 2 Sekunden (er steigt auf, dreht sich immer schneller, schlägt nach unten und federt nach); die Abklingzeit dauert dann diese 2 Sekunden. Im Inventar schimmert die Fassung des Kerns: alle 2 Sekunden läuft ein Glanz darüber.",
           "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
           "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf: Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,5 % je Endsiedlungs-Truhe auf 26.3 (Besitzer 2026-10-05; 26.2 bleibt bei 0,175 %). Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) enthält historische Schätzungen aus angenommenen Suchraten, keine gemessene Spielzeit; der Nachtrag 2026-10-05 aktualisiert Enderit."
         ]
@@ -3709,7 +3713,8 @@
         "simplebuilding:enderite_barrel",
         "simplebuilding:soul_lava_bucket",
         "simplebuilding:copper_bucket",
-        "simplebuilding:enderite_bucket"
+        "simplebuilding:enderite_bucket",
+        "simplebuilding:ceramic_bucket"
       ],
       "en": {
         "title": "Crucibles, soul lava and buckets",
@@ -3717,7 +3722,7 @@
         "details": [
           "Enderite crucible (27 slots, double stacks, 8x) and Enderite barrel. The sledgehammer replaces SimpleLib's axe ways: building the iron crucible on an iron block (4 heavy weighted pressure plates, then 2 iron rods or iron ingots; 2 durability per strike), attaching a barrel (6 strikes) and upgrading at twice the cost of a furnace (2 material, twice the strikes): Iron to Reinforced with cracked diamonds, to Netherite with netherite nuggets (diamond hammer), to Enderite with Enderite nuggets (Netherite hammer); copper to reinforced to Enderite barrel. A cauldron becomes a reinforced cauldron with 4 cracked diamonds.",
           "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for a minute: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts. It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
-          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks. The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes one stage per pour unless waxed (axe in the off hand scrapes, honeycomb waxes), pours water only as a flowing block and breaks when pouring lava. By default, a soul lava bucket burns 10 times as long as a lava bucket.",
+          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks. The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes one stage per pour unless waxed (axe in the off hand scrapes, honeycomb waxes), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace or crucible) only takes water, pours a normal source and breaks after 32 uses - every scoop and every pour counts once, so 16 full fills. By default, a soul lava bucket burns 10 times as long as a lava bucket.",
           "The sledgehammer crushes a quartz block into 4 quartz.",
           "Server config server.soulLava controls flow, delays, burn and soul burn, world generation chances and bucket fuel within hard limits. Fuel changes require a restart and matching client/server files. Jade shows heat, occupied slots and the shortest remaining time of a running slot, including tier speed and the two-block heat penalty. JEI shows the fastest cooking recipe per input and required heat, plus warming for tagged food without a cooking recipe; displayed time assumes an iron crucible at minimum heat without a distance penalty."
         ]
@@ -3728,7 +3733,7 @@
         "details": [
           "Enderit-Schmelztiegel (27 Plätze, doppelte Stapel, 8×) und Enderit-Fass. Der Vorschlaghammer ersetzt SimpleLibs Axt-Wege: Bau des Eisen-Schmelztiegels auf einem Eisenblock (4 schwere Wägeplatten, dann 2 Eisenstäbe oder Eisenbarren; 2 Haltbarkeit je Schlag), Fass anbringen (6 Schläge) und Aufwerten zum doppelten Preis eines Ofens (2 Material, doppelte Schläge): Eisen zu Verstärkt mit Rissigen Diamanten, zu Netherit mit Netheritklumpen (Diamant-Hammer), zu Enderit mit Enderitklumpen (Netherit-Hammer); Kupfer- zu Verstärktem zu Enderit-Fass. Ein Kessel wird mit 4 Rissigen Diamanten zum verstärkten Kessel.",
           "Seelen-Lava mit Standardwerten: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt eine Minute Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt. Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
-          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie. Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert je Ausgießen um eine Stufe, außer er ist gewachst (Axt in der Nebenhand schabt, Honigwabe wachst), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer.",
+          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie. Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert je Ausgießen um eine Stufe, außer er ist gewachst (Axt in der Nebenhand schabt, Honigwabe wachst), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen oder Schmelztiegel) nimmt nur Wasser, gießt eine normale Quelle aus und zerbricht nach 32 Einsätzen - jedes Schöpfen und jedes Ausgießen zählt einmal, also 16 volle Füllungen. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer.",
           "Der Vorschlaghammer zerschlägt einen Quarzblock zu 4 Quarz.",
           "Die Server-Config server.soulLava regelt Fließweite, Verzögerungen, Brand und Seelenbrand, Weltgenerierungschancen und Eimer-Brennstoff innerhalb harter Grenzen. Brennstoffänderungen brauchen einen Neustart und gleiche Client-/Server-Dateien. Jade zeigt Hitze, belegte Plätze und die kürzeste Restzeit eines laufenden Platzes einschließlich Stufentempo und Hitzeabschlag bei zwei Blöcken Abstand. JEI zeigt je Eingabe und nötiger Hitze das schnellste Kochrezept sowie Aufwärmen für markiertes Essen ohne Kochrezept; die angezeigte Zeit gilt für einen Eisen-Tiegel bei Mindesthitze ohne Abstandsabschlag."
         ]
@@ -4864,6 +4869,40 @@
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py"
         ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ceramic_bucket",
+      "name": {
+        "en_us": "Ceramic Bucket",
+        "de_de": "Keramik-Eimer"
+      },
+      "texture": "assets/textures/item/ceramic_bucket.png",
+      "craftedBy": [
+        "simplebuilding:ceramic_bucket_from_smelting_raw_ceramic_bucket"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "durability": 32,
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ceramic_water_bucket",
+      "name": {
+        "en_us": "Ceramic Water Bucket",
+        "de_de": "Keramik-Wassereimer"
+      },
+      "texture": "assets/textures/item/ceramic_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "durability": 32,
+        "maxStackSize": 1
       },
       "hasCustomBehaviour": false
     },
@@ -16457,6 +16496,25 @@
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:raw_ceramic_bucket",
+      "name": {
+        "en_us": "Raw Ceramic Bucket",
+        "de_de": "Roher Keramik-Eimer"
+      },
+      "texture": "assets/textures/item/raw_ceramic_bucket.png",
+      "craftedBy": [
+        "simplebuilding:raw_ceramic_bucket"
+      ],
+      "usedIn": [
+        "simplebuilding:ceramic_bucket_from_smelting_raw_ceramic_bucket"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:raw_enderite",
@@ -32748,6 +32806,39 @@
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:ceramic_bucket_from_smelting_raw_ceramic_bucket",
+      "type": "minecraft:smelting",
+      "category": null,
+      "group": "ceramic_bucket",
+      "result": {
+        "id": "simplebuilding:ceramic_bucket",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ceramic_bucket_from_smelting_raw_ceramic_bucket.json",
+      "ingredients": [
+        "simplebuilding:raw_ceramic_bucket"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:raw_ceramic_bucket"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.3,
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:clay_ball",
+            "count": 3
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_astralit_bricks",
@@ -50394,6 +50485,41 @@
       }
     },
     {
+      "id": "simplebuilding:raw_ceramic_bucket",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:raw_ceramic_bucket",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/raw_ceramic_bucket.json",
+      "ingredients": [
+        "minecraft:clay_ball"
+      ],
+      "pattern": [
+        "C C",
+        " C "
+      ],
+      "key": {
+        "C": [
+          "minecraft:clay_ball"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:clay_ball",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:raw_enderite_synthesis",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -67008,6 +67134,26 @@
       "labelDe": "Meißel-Kippanimation",
       "tooltip": "Tilts the held Chisel when you aim at a block\nit can transform. Only plays while Tool\nAnimations is on too. Client-side. Default:\non.",
       "tooltipDe": "Kippt den gehaltenen Meißel, wenn du auf\neinen Block zielst, den er umwandeln kann.\nSpielt nur, wenn auch Werkzeug-Animationen an\nist. Clientseitig. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "tools.enableCoreAnimations",
+      "shortName": "enableCoreAnimations",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Tools & Building",
+      "categoryDe": "Werkzeuge & Bauen",
+      "group": "Tools & Building",
+      "groupDe": "Werkzeuge & Bauen",
+      "label": "Building Core Animations",
+      "labelDe": "Baukern-Animationen",
+      "tooltip": "Moves the held Building Core when you use\nit: pulse, spin, rise or boomerang (the cooler,\nthe rarer), and a longer one when it turns a\nblock into ore. Only plays while Tool\nAnimations is on too. Client-side. Default:\non.",
+      "tooltipDe": "Bewegt den gehaltenen Baukern beim Benutzen:\nPulsieren, Drehen, Aufsteigen oder Bumerang\n(je cooler, desto seltener) und eine längere\nAnimation, wenn er einen Block zu Erz macht.\nNur zusammen mit Werkzeug-Animationen.\nClientseitig. Standard: an."
     },
     {
       "range": [
@@ -95158,14 +95304,14 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 264,
+    "items": 267,
     "blocks": 210,
-    "recipes": 622,
+    "recipes": 624,
     "lootTables": 206,
     "trades": 20,
     "enchantments": 19,
     "tags": 48,
-    "config": 217,
+    "config": 218,
     "inWorld": 463,
     "advancements": 127,
     "features": 48,

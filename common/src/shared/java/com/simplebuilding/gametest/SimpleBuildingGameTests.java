@@ -375,6 +375,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("building_core_game_test_every_core_recipe_crafts_with_one_core_per_slot", BuildingCoreTests::everyCoreRecipeCraftsWithOneCorePerSlot)
                     .build(),
+            GameTestSpec.named("building_core_game_test_core_hand_motions_are_rarer_the_cooler_and_start_and_end_at_rest", BuildingCoreTests::coreHandMotionsAreRarerTheCoolerAndStartAndEndAtRest)
+                    .build(),
             GameTestSpec.named("building_core_game_test_core_animation_roll_follows_the_seventy_twenty_ten_weights", BuildingCoreTests::coreAnimationRollFollowsTheSeventyTwentyTenWeights)
                     .build(),
             GameTestSpec.named("building_core_game_test_right_clicking_the_core_plays_an_animation_and_starts_the_cooldown", BuildingCoreTests::rightClickingTheCorePlaysAnAnimationAndStartsTheCooldown)
@@ -563,7 +565,11 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
                     .build(),
+            GameTestSpec.named("crucible_game_test_ceramic_bucket_holds_water_and_wears_out_after_thirty_two_uses", CrucibleTests::ceramicBucketHoldsWaterAndWearsOutAfterThirtyTwoUses)
+                    .build(),
             GameTestSpec.named("crucible_game_test_copper_bucket_rules", CrucibleTests::copperBucketRules)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_copper_bucket_fully_oxidized_scoops_nothing", CrucibleTests::copperBucketFullyOxidizedScoopsNothing)
                     .build(),
             GameTestSpec.named("crucible_game_test_enderite_tiers_have_twenty_seven_slots_and_double_stacks", CrucibleTests::enderiteTiersHaveTwentySevenSlotsAndDoubleStacks)
                     .build(),

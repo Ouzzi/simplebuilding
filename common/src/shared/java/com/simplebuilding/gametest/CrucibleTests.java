@@ -325,6 +325,71 @@ public final class CrucibleTests {
         helper.succeed();
     }
 
+    /**
+     * Fully oxidized copper bucket (stage 3, Nachtrag 11): scoops nothing - not from a full water cauldron, not as
+     * the scoop rule - until the axe scrapes it back to stage 2; a filled one still pours.
+     */
+    public static void copperBucketFullyOxidizedScoopsNothing(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        floor(helper);
+        ItemStack old = new ItemStack(ModFluids.COPPER_BUCKET);
+        old.set(com.simplebuilding.component.ModDataComponentTypes.OXIDATION, 3);
+        helper.assertFalse(ModBucketItem.canScoop(old), "a fully oxidized copper bucket may scoop");
+        BlockPos pos = new BlockPos(2, 1, 2);
+        helper.setBlock(pos, Blocks.WATER_CAULDRON.defaultBlockState().setValue(net.minecraft.world.level.block.LayeredCauldronBlock.LEVEL, 3));
+        BlockPos abs = helper.absolutePos(pos);
+        ServerPlayer player = player(helper, old, ItemStack.EMPTY);
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
+        level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
+        helper.assertBlockPresent(Blocks.WATER_CAULDRON, pos);
+        helper.assertTrue(player.getMainHandItem().is(ModFluids.COPPER_BUCKET), "the oxidized bucket took water from the cauldron");
+        helper.assertTrue(ModBucketItem.scrape(old) && ModBucketItem.canScoop(old), "scraped to stage 2 it scoops again");
+        ItemStack full = new ItemStack(ModFluids.COPPER_WATER_BUCKET);
+        full.set(com.simplebuilding.component.ModDataComponentTypes.OXIDATION, 3);
+        ItemStack after = ((ModBucketItem) ModFluids.COPPER_WATER_BUCKET).pourAt(level, helper.absolutePos(new BlockPos(5, 1, 5)), full);
+        helper.assertTrue(after.is(ModFluids.COPPER_BUCKET), "a full stage-3 bucket still pours");
+        helper.succeed();
+    }
+
+    /**
+     * Ceramic bucket (Nachtrag 11): water only, pours a real source, every scoop and pour costs one of 32 uses, the
+     * 32nd use (16th pour) breaks it; 3 clay balls craft the raw bucket, which smelts into the ceramic bucket.
+     */
+    public static void ceramicBucketHoldsWaterAndWearsOutAfterThirtyTwoUses(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        floor(helper);
+        helper.assertTrue(ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, Fluids.LAVA) == null
+                && ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, ModFluids.SOUL_LAVA) == null, "ceramic takes lava");
+        helper.assertTrue(ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, Fluids.WATER) == ModFluids.CERAMIC_WATER_BUCKET, "ceramic water");
+        helper.assertTrue(new ItemStack(ModFluids.CERAMIC_BUCKET).getMaxDamage() == ModBucketItem.CERAMIC_USES
+                && ModBucketItem.CERAMIC_USES == 32, "32 uses");
+        ModBucketItem water = (ModBucketItem) ModFluids.CERAMIC_WATER_BUCKET;
+        BlockPos target = helper.absolutePos(new BlockPos(3, 1, 3));
+        ItemStack bucket = new ItemStack(ModFluids.CERAMIC_BUCKET);
+        for (int cycle = 1; cycle <= 16; cycle++) {
+            bucket = ModBucketItem.fill(bucket, ModFluids.CERAMIC_WATER_BUCKET);
+            helper.assertTrue(bucket.is(ModFluids.CERAMIC_WATER_BUCKET), "scoop " + cycle + " broke the bucket");
+            bucket = water.pourAt(level, target, bucket);
+            if (cycle == 1) helper.assertTrue(level.getFluidState(target).isSource(), "ceramic water makes a source");
+            if (cycle < 16) {
+                helper.assertTrue(bucket.is(ModFluids.CERAMIC_BUCKET) && bucket.getDamageValue() == 2 * cycle,
+                        "after pour " + cycle + ": " + bucket + " damage " + bucket.getDamageValue());
+            }
+        }
+        helper.assertTrue(bucket.isEmpty(), "the 16th pour (32nd use) did not break the ceramic bucket");
+        var recipes = level.getServer().getRecipeManager();
+        ItemStack clay = new ItemStack(Items.CLAY_BALL);
+        var grid = net.minecraft.world.item.crafting.CraftingInput.of(3, 2, java.util.List.of(clay, ItemStack.EMPTY, clay, ItemStack.EMPTY, clay, ItemStack.EMPTY));
+        ItemStack raw = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, grid, level).orElseThrow().value().assemble(grid);
+        helper.assertTrue(raw.is(ModFluids.RAW_CERAMIC_BUCKET) && raw.getCount() == 1, "3 clay -> raw ceramic bucket, got " + raw);
+        var input = new net.minecraft.world.item.crafting.SingleRecipeInput(raw);
+        ItemStack fired = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMELTING, input, level).orElseThrow().value().assemble(input);
+        helper.assertTrue(fired.is(ModFluids.CERAMIC_BUCKET) && fired.getDamageValue() == 0, "raw bucket smelts into the ceramic bucket");
+        helper.succeed();
+    }
+
     /** Iron bucket breaks when pouring soul lava; the Enderite bucket never breaks (owner 34/36). */
     public static void ironBucketBreaksOnSoulLavaEnderiteNever(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }

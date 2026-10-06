@@ -668,6 +668,7 @@ public final class ConfigOptionTests {
             "tools.buildingHighlightOpacity int=40",
             "tools.enableToolAnimations boolean=true",
             "tools.enableChiselAnimation boolean=true",
+            "tools.enableCoreAnimations boolean=true",
             "tools.transformHintStrength int=50",
             "tools.placedPartParticles boolean=true",
             "tweaks.pads group:Pads",

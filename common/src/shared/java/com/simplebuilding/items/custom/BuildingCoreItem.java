@@ -110,6 +110,8 @@ public class BuildingCoreItem extends Item {
         ItemStack stack = player.getItemInHand(hand);
         if (level instanceof ServerLevel server) {
             activate(server, player, stack);
+        } else {
+            CoreHandMotion.startRandom(player, hand); // client: the core moves in the hand (Nachtrag 11)
         }
         return InteractionResult.SUCCESS;
     }
@@ -127,7 +129,11 @@ public class BuildingCoreItem extends Item {
         ItemStack stack = context.getItemInHand();
         if (context.getLevel() instanceof ServerLevel server) {
             activate(server, player, stack);
-            transmuteOnClick(server, player, stack, context.getClickedPos(), context.getClickedFace(), oreChanceOneIn);
+            if (transmuteOnClick(server, player, stack, context.getClickedPos(), context.getClickedFace(), oreChanceOneIn)) {
+                forgeMotion(player, stack, context.getHand());
+            }
+        } else {
+            CoreHandMotion.startRandom(player, context.getHand());
         }
         return InteractionResult.SUCCESS;
     }
@@ -138,10 +144,23 @@ public class BuildingCoreItem extends Item {
      * nichts im Chat oder ueber der Schnellleiste). Oeffentlich, damit die Spieltests den echten Pfad mit
      * erzwungener Chance fahren koennen.
      */
-    public static void transmuteOnClick(ServerLevel server, Player player, ItemStack stack, BlockPos pos,
-                                        net.minecraft.core.Direction face, int oneIn) {
-        if (com.simplebuilding.util.TransformTargets.mayTransform(server, player, pos, face, stack)) {
-            CoreOreTransmutation.tryTransmute(server, pos, oneIn, player.getRandom());
+    public static boolean transmuteOnClick(ServerLevel server, Player player, ItemStack stack, BlockPos pos,
+                                           net.minecraft.core.Direction face, int oneIn) {
+        return com.simplebuilding.util.TransformTargets.mayTransform(server, player, pos, face, stack)
+                && CoreOreTransmutation.tryTransmute(server, pos, oneIn, player.getRandom()).isPresent();
+    }
+
+    /**
+     * After a transmutation: the clicking player's client plays the long ore motion ({@link CoreHandMotion.Motion#FORGE}),
+     * and the cooldown lasts as long as it, so the next click cannot cut it short (Nachtrag 11).
+     */
+    public static void forgeMotion(Player player, ItemStack stack, InteractionHand hand) {
+        if (!com.simplebuilding.version.McVersion.CORE_MOTIONS) return;
+        player.getCooldowns().addCooldown(stack, Math.max(COOLDOWN_TICKS, CoreHandMotion.Motion.FORGE.ticks));
+        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer
+                && com.simplebuilding.platform.PlatformServices.canSendToPlayer(serverPlayer, com.simplebuilding.networking.CoreMotionPayload.ID)) {
+            com.simplebuilding.platform.PlatformServices.sendToPlayer(serverPlayer,
+                    new com.simplebuilding.networking.CoreMotionPayload(hand.ordinal(), CoreHandMotion.Motion.FORGE.ordinal()));
         }
     }
 

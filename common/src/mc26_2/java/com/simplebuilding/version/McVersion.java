@@ -94,6 +94,8 @@ public final class McVersion {
     public static final boolean CRUCIBLE = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = false;
+    /** Building cores move in the hand when used (weighted pulse/spin/rise/boomerang, longer ore animation; Nachtrag 11). */
+    public static final boolean CORE_MOTIONS = false;
 
     public static boolean canVanillaTransform(net.minecraft.world.level.Level level,
             net.minecraft.world.phys.BlockHitResult hit, Player player, InteractionHand hand) {

@@ -194,7 +194,8 @@ public final class CrucibleCompat {
             com.simplebuilding.fluid.ModBucketItem.Kind kind;
             if (held.is(net.minecraft.world.item.Items.BUCKET)) kind = com.simplebuilding.fluid.ModBucketItem.Kind.IRON;
             else if (held.getItem() instanceof com.simplebuilding.fluid.ModBucketItem bucket
-                    && bucket.getContent() == net.minecraft.world.level.material.Fluids.EMPTY) kind = bucket.kind();
+                    && bucket.getContent() == net.minecraft.world.level.material.Fluids.EMPTY
+                    && com.simplebuilding.fluid.ModBucketItem.canScoop(held)) kind = bucket.kind();
             else return null;
             net.minecraft.world.level.material.Fluid fluid = switch (content) {
                 case "extreme" -> com.simplebuilding.fluid.ModFluids.SOUL_LAVA;

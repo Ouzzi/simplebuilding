@@ -278,6 +278,9 @@ public class SimplebuildingConfig implements ConfigData {
         public boolean enableToolAnimations = true; // Hauptschalter
         @ConfigEntry.Gui.Tooltip
         public boolean enableChiselAnimation = true;
+        /** Bewegung des Baukerns in der Hand beim Benutzen und bei der Erz-Umwandlung (CoreHandMotion, Nachtrag 11). Clientseitig. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean enableCoreAnimations = true;
         /**
          * Staerke der Hinweis-Neigung in Prozent der urspruenglichen Bewegung (Besitzer 2026-10-01:
          * halb so stark). Ein reiner Teil-Hinweis (Werkzeug oder Material fehlt) zeigt die Haelfte davon.

@@ -54,7 +54,7 @@ public final class BucketDispensing {
                 BlockPos target = front(source);
                 BlockState state = level.getBlockState(target);
                 FluidState fluid = state.getFluidState();
-                Item filled = fluid.isSource() ? ModBucketItem.filled(bucket.kind(), fluid.getType()) : null;
+                Item filled = fluid.isSource() && ModBucketItem.canScoop(dispensed) ? ModBucketItem.filled(bucket.kind(), fluid.getType()) : null;
                 if (filled == null || !(state.getBlock() instanceof BucketPickup pickup)) return super.execute(source, dispensed);
                 if (pickup.pickupBlock(null, level, target, state).isEmpty()) return super.execute(source, dispensed);
                 level.gameEvent(null, GameEvent.FLUID_PICKUP, target);
