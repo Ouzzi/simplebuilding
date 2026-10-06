@@ -188,7 +188,7 @@ public final class SearchTabPlacement {
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
             // Crucible P5: Eimer hinter dem Pulverschnee-Eimer, Enderit-Tiegel/-Fass hinter dem Ofen-Block-Reihenende (Fass).
             out.add(Placement.after(TOOLS_AND_UTILITIES, Items.POWDER_SNOW_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.buckets().toArray(ItemLike[]::new)));
+                    com.simplebuilding.fluid.ModFluids.creativeBuckets().toArray(ItemLike[]::new)));
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.BARREL, com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible(),
                     com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel()));
         }

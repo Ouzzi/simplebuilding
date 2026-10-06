@@ -324,8 +324,44 @@ def training_dummy(variant):
 # --------------------------------------------------------------------------------------------- ceramic bucket
 
 CLAY_RAW = [hexrgb(c) for c in ('#40445a', '#5e6c8d', '#757d90', '#9499a4', '#a1a7b1', '#acaebd', '#b9c0d6')]
-# Fired: darker and redder than the copper bucket (Vanilla brick item / terracotta), so the two never mix up.
-CLAY_FIRED = [hexrgb(c) for c in ('#4f2519', '#6b3324', '#7f3e2c', '#8e4631', '#a5503a', '#b75e45', '#c27258')]
+# Fired, owner N12b: clearly no copper - pale stoneware/bisque (cream to warm grey) instead of terracotta orange.
+CLAY_FIRED = [hexrgb(c) for c in ('#5c4d40', '#786553', '#927e69', '#a8937c', '#bea98f', '#d2c0a3', '#e3d5bb')]
+CERAMIC_STAGES = ('', 'chipped_', 'cracked_', 'brittle_')  # = copper oxidation stages 0..3 (owner N12b)
+# Damage per wear stage on the 16x16 bucket: chips break the rim (transparent, the edge below darkens), cracks are dark
+# lines on the clay, a flake shows lighter unglazed clay. Each stage keeps the damage of the stages before.
+CERAMIC_DAMAGE = {
+    1: {'chip': [(9, 1), (10, 1)], 'edge': [(9, 2), (10, 2), (11, 2)], 'crack': [(10, 3)], 'flake': [(11, 4), (12, 5)]},
+    2: {'chip': [], 'edge': [], 'crack': [(5, 5), (5, 6), (4, 7), (5, 8), (6, 9), (5, 10), (5, 11)], 'flake': [(6, 6), (6, 12)]},
+    3: {'chip': [(5, 1), (6, 1), (12, 10), (12, 11), (12, 12), (11, 12), (11, 13)],
+        'edge': [(5, 2), (6, 2), (4, 2), (11, 10), (11, 11), (10, 12), (10, 13)],
+        'crack': [(10, 5), (10, 6), (11, 7), (10, 8), (9, 9), (9, 10), (8, 11)], 'flake': [(8, 6), (7, 12), (11, 9)]},
+}
+
+
+def ceramic_worn(img, stage, content=None):
+    """Wear stage 0..3 of a fired ceramic bucket (owner N12b: visibly more broken per stage)."""
+    out = img.copy()
+    if stage <= 0:
+        return out
+    px = out.load()
+    liquid = p.liquid_mask(p.vanilla('item/' + (content + '_bucket' if content in ('water', 'lava') else 'bucket'))) if content \
+        else np.zeros((16, 16), dtype=bool)
+    dark = tuple(round(c * .5) for c in CLAY_FIRED[0])
+    crack = tuple(round(c * .6) for c in CLAY_FIRED[0])
+    for st in range(1, stage + 1):
+        dmg = CERAMIC_DAMAGE[st]
+        for x, y in dmg['edge']:
+            if px[x, y][3]:
+                px[x, y] = dark + (255,)
+        for x, y in dmg['chip']:
+            px[x, y] = (0, 0, 0, 0)
+        for x, y in dmg['crack']:
+            if px[x, y][3] and not liquid[y, x]:
+                px[x, y] = crack + (255,)
+        for x, y in dmg['flake']:
+            if px[x, y][3] and not liquid[y, x]:
+                px[x, y] = CLAY_FIRED[-1] + (255,)
+    return out
 
 
 def ceramic_bucket(kind, variant='A', content=None):
@@ -426,9 +462,9 @@ def outputs():
     out[OVERLAY / 'item/training_dummy.png'] = img
     out[WIKI / 'item/training_dummy.png'] = img
     out[OVERLAY / 'item/raw_ceramic_bucket.png'] = ceramic_bucket('raw', v['ceramic'])
-    out[OVERLAY / 'item/ceramic_bucket.png'] = ceramic_bucket('fired', v['ceramic'])
-    out[OVERLAY / 'item/ceramic_water_bucket.png'] = ceramic_bucket('fired', v['ceramic'], 'water')
-    out[OVERLAY / 'item/ceramic_lava_bucket.png'] = ceramic_bucket('fired', v['ceramic'], 'lava')  # N12
+    for stage, prefix in enumerate(CERAMIC_STAGES):  # N12b: wear stages, every filling
+        for content, name in ((None, 'ceramic_bucket'), ('water', 'ceramic_water_bucket'), ('lava', 'ceramic_lava_bucket')):
+            out[OVERLAY / f'item/{prefix}{name}.png'] = ceramic_worn(ceramic_bucket('fired', v['ceramic'], content), stage, content)
     for name in cores.CORES:
         out[OVERLAY / f'item/{name}_core.png'] = core_strip(name)
     out[MAIN / 'item/enderite_spear_in_hand.png'] = spear_in_hand_strip()

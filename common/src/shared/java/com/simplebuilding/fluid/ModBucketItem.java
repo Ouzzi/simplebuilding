@@ -42,8 +42,11 @@ import org.jspecify.annotations.Nullable;
  *   <li><b>Iron</b> (only the soul lava bucket here - Vanilla's bucket scoops soul lava itself): breaks when
  *       the soul lava is poured.</li>
  *   <li><b>Ceramic</b> (owner addition 11): fired clay, water and (owner N12) lava - real crucibles are ceramic -,
- *       no soul lava, no milk; wears out: every scoop and every pour costs one of its 32 durability points, the
- *       32nd (= the 16th pour) breaks it. As furnace fuel the ceramic lava bucket burns up (no remainder).</li>
+ *       no soul lava, no milk. Owner N12b: it wears like copper oxidizes - in {@link #CERAMIC_STAGES} stages (as many
+ *       as the copper bucket's oxidation stages), each its own item for every filling: intact, chipped, cracked,
+ *       brittle. Every scoop and every pour is one of {@link #CERAMIC_USES} uses (counted in a hidden component, no
+ *       durability bar); every {@link #CERAMIC_USES_PER_STAGE} uses it moves one stage on and keeps its filling; the
+ *       last use (the 16th pour) breaks the brittle bucket. As furnace fuel a ceramic lava bucket burns up.</li>
  * </ul>
  * A fully oxidized copper bucket (stage 3) scoops nothing any more (owner addition 11); pouring one that is
  * already full still works, and the axe/honeycomb care keeps working.
@@ -52,14 +55,26 @@ public class ModBucketItem extends BucketItem {
     public enum Kind { COPPER, ENDERITE, IRON, CERAMIC }
 
     private final Kind kind;
+    /** Wear stage (ceramic only, 0 = intact). */
+    private final int stage;
 
     public ModBucketItem(Kind kind, Fluid content, Properties properties) {
+        this(kind, content, 0, properties);
+    }
+
+    public ModBucketItem(Kind kind, Fluid content, int stage, Properties properties) {
         super(content, properties);
         this.kind = kind;
+        this.stage = stage;
     }
 
     public Kind kind() {
         return kind;
+    }
+
+    /** Wear stage of a ceramic bucket (0 intact, 1 chipped, 2 cracked, 3 brittle); 0 for every other kind. */
+    public int stage() {
+        return stage;
     }
 
     // ------------------------------------------------------------ variants
@@ -113,31 +128,50 @@ public class ModBucketItem extends BucketItem {
     /** What stays in the hand after pouring {@code stack} (survival): the empty bucket, or nothing when it breaks. */
     public ItemStack afterPour(ItemStack stack) {
         if (breaksOnPour()) return ItemStack.EMPTY;
-        Item empty = empty(kind);
+        Item empty = kind == Kind.CERAMIC ? ModFluids.ceramic(Fluids.EMPTY, stage) : empty(kind);
         ItemStack out = stack.transmuteCopy(empty == null ? Items.BUCKET : empty, 1);
         if (kind == Kind.COPPER) oxidize(out);
         return wear(out);
     }
 
     /**
-     * A filled copy of an empty bucket of this kind, keeping its components (oxidation, wax, wear); a ceramic
-     * bucket loses one durability point. Scooping is always an odd use (0 -> 1, 2 -> 3 ...), so it never breaks it.
+     * A filled copy of an empty bucket of this kind, keeping its components (oxidation, wax, uses); a ceramic bucket
+     * keeps its wear stage and uses one more. Scooping is always an odd use (0 -> 1, 2 -> 3 ...), so it never breaks it.
      */
     public static ItemStack fill(ItemStack empty, Item filled) {
+        if (empty.getItem() instanceof ModBucketItem bucket && bucket.kind == Kind.CERAMIC && filled instanceof ModBucketItem target) {
+            Item staged = ModFluids.ceramic(target.getContent(), bucket.stage);
+            if (staged != null) filled = staged;
+        }
         return wear(empty.transmuteCopy(filled, 1));
-    }
-
-    /** Ceramic buckets: one use more; at {@link #CERAMIC_USES} the bucket is gone (empty stack). Others unchanged. */
-    public static ItemStack wear(ItemStack stack) {
-        if (!(stack.getItem() instanceof ModBucketItem bucket) || bucket.kind != Kind.CERAMIC) return stack;
-        int used = stack.getDamageValue() + 1;
-        if (used >= stack.getMaxDamage()) return ItemStack.EMPTY;
-        stack.setDamageValue(used);
-        return stack;
     }
 
     /** Fill/pour operations of a ceramic bucket (owner: 32, i.e. 16 full cycles). */
     public static final int CERAMIC_USES = 32;
+    /** Wear stages of the ceramic bucket: as many as the copper bucket's oxidation stages (0..3). */
+    public static final int CERAMIC_STAGES = 4;
+    public static final int CERAMIC_USES_PER_STAGE = CERAMIC_USES / CERAMIC_STAGES;
+
+    /** Uses of a ceramic bucket so far: the counter, at least the start of the item's stage. */
+    public static int ceramicUses(ItemStack stack) {
+        int stage = stack.getItem() instanceof ModBucketItem bucket ? bucket.stage : 0;
+        Integer used = stack.get(ModDataComponentTypes.CERAMIC_USES);
+        return Math.max(used == null ? 0 : used, stage * CERAMIC_USES_PER_STAGE);
+    }
+
+    /**
+     * Ceramic buckets: one use more; every {@link #CERAMIC_USES_PER_STAGE} uses the next stage's item with the same
+     * filling; at {@link #CERAMIC_USES} the bucket is gone (empty stack). Other kinds unchanged.
+     */
+    public static ItemStack wear(ItemStack stack) {
+        if (!(stack.getItem() instanceof ModBucketItem bucket) || bucket.kind != Kind.CERAMIC) return stack;
+        int used = ceramicUses(stack) + 1;
+        if (used >= CERAMIC_USES) return ItemStack.EMPTY;
+        int stage = used / CERAMIC_USES_PER_STAGE;
+        ItemStack out = stage == bucket.stage ? stack : stack.transmuteCopy(ModFluids.ceramic(bucket.getContent(), stage), stack.getCount());
+        out.set(ModDataComponentTypes.CERAMIC_USES, used);
+        return out;
+    }
 
     /** Whether {@code stack} (an empty bucket of a mod kind) may scoop: not a fully oxidized copper bucket. */
     public static boolean canScoop(ItemStack stack) {
@@ -279,6 +313,9 @@ public class ModBucketItem extends BucketItem {
         } else if (kind == Kind.CERAMIC) {
             lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.ceramic_bucket")
                     .withStyle(net.minecraft.ChatFormatting.GRAY));
+            lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.ceramic_bucket.uses",
+                    CERAMIC_USES - ceramicUses(stack), CERAMIC_USES).withStyle(stage >= CERAMIC_STAGES - 1
+                    ? net.minecraft.ChatFormatting.RED : net.minecraft.ChatFormatting.GRAY));
         }
     }
 

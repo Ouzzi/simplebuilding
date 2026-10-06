@@ -92,6 +92,11 @@ public final class CrucibleGameTest {
     }
 
     @GameTest
+    public void ceramicBucketWearsThroughStagesAndKeepsItsFilling(GameTestHelper helper) {
+        CrucibleTests.ceramicBucketWearsThroughStagesAndKeepsItsFilling(helper);
+    }
+
+    @GameTest
     public void ironBucketBreaksOnSoulLavaEnderiteNever(GameTestHelper helper) {
         CrucibleTests.ironBucketBreaksOnSoulLavaEnderiteNever(helper);
     }

@@ -505,19 +505,21 @@ public final class CrucibleTests {
         floor(helper);
         helper.assertTrue(ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, ModFluids.SOUL_LAVA) == null, "ceramic takes soul lava");
         helper.assertTrue(ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, Fluids.WATER) == ModFluids.CERAMIC_WATER_BUCKET, "ceramic water");
-        helper.assertTrue(new ItemStack(ModFluids.CERAMIC_BUCKET).getMaxDamage() == ModBucketItem.CERAMIC_USES
-                && ModBucketItem.CERAMIC_USES == 32, "32 uses");
+        helper.assertTrue(ModBucketItem.CERAMIC_USES == 32 && !new ItemStack(ModFluids.CERAMIC_BUCKET).isDamageableItem(),
+                "32 uses, no durability bar (N12b)");
         ModBucketItem water = (ModBucketItem) ModFluids.CERAMIC_WATER_BUCKET;
         BlockPos target = helper.absolutePos(new BlockPos(3, 1, 3));
         ItemStack bucket = new ItemStack(ModFluids.CERAMIC_BUCKET);
         for (int cycle = 1; cycle <= 16; cycle++) {
             bucket = ModBucketItem.fill(bucket, ModFluids.CERAMIC_WATER_BUCKET);
-            helper.assertTrue(bucket.is(ModFluids.CERAMIC_WATER_BUCKET), "scoop " + cycle + " broke the bucket");
+            int scoopStage = (2 * cycle - 1) / ModBucketItem.CERAMIC_USES_PER_STAGE;
+            helper.assertTrue(bucket.is(ModFluids.CERAMIC_WATER[scoopStage]), "scoop " + cycle + ": " + bucket);
+            water = (ModBucketItem) bucket.getItem();
             bucket = water.pourAt(level, target, bucket);
             if (cycle == 1) helper.assertTrue(level.getFluidState(target).isSource(), "ceramic water makes a source");
             if (cycle < 16) {
-                helper.assertTrue(bucket.is(ModFluids.CERAMIC_BUCKET) && bucket.getDamageValue() == 2 * cycle,
-                        "after pour " + cycle + ": " + bucket + " damage " + bucket.getDamageValue());
+                helper.assertTrue(bucket.is(ModFluids.CERAMIC_EMPTY[2 * cycle / ModBucketItem.CERAMIC_USES_PER_STAGE])
+                        && ModBucketItem.ceramicUses(bucket) == 2 * cycle, "after pour " + cycle + ": " + bucket + " uses " + ModBucketItem.ceramicUses(bucket));
             }
         }
         helper.assertTrue(bucket.isEmpty(), "the 16th pour (32nd use) did not break the ceramic bucket");
@@ -528,7 +530,7 @@ public final class CrucibleTests {
         helper.assertTrue(raw.is(ModFluids.RAW_CERAMIC_BUCKET) && raw.getCount() == 1, "3 clay -> raw ceramic bucket, got " + raw);
         var input = new net.minecraft.world.item.crafting.SingleRecipeInput(raw);
         ItemStack fired = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMELTING, input, level).orElseThrow().value().assemble(input);
-        helper.assertTrue(fired.is(ModFluids.CERAMIC_BUCKET) && fired.getDamageValue() == 0, "raw bucket smelts into the ceramic bucket");
+        helper.assertTrue(fired.is(ModFluids.CERAMIC_BUCKET) && ModBucketItem.ceramicUses(fired) == 0, "raw bucket smelts into the ceramic bucket");
         helper.succeed();
     }
 
@@ -547,13 +549,12 @@ public final class CrucibleTests {
         ModBucketItem lava = (ModBucketItem) ModFluids.CERAMIC_LAVA_BUCKET;
         helper.assertTrue(lava.kind() == ModBucketItem.Kind.CERAMIC && !lava.breaksOnPour(), "ceramic lava breaks on pour");
         ItemStack bucket = ModBucketItem.fill(new ItemStack(ModFluids.CERAMIC_BUCKET), ModFluids.CERAMIC_LAVA_BUCKET);
-        helper.assertTrue(bucket.is(ModFluids.CERAMIC_LAVA_BUCKET) && bucket.getDamageValue() == 1
-                && bucket.getMaxDamage() == ModBucketItem.CERAMIC_USES, "scoop: " + bucket + " damage " + bucket.getDamageValue());
+        helper.assertTrue(bucket.is(ModFluids.CERAMIC_LAVA_BUCKET) && ModBucketItem.ceramicUses(bucket) == 1, "scoop: " + bucket);
         BlockPos target = helper.absolutePos(new BlockPos(3, 1, 3));
         bucket = lava.pourAt(level, target, bucket);
         helper.assertTrue(level.getFluidState(target).is(net.minecraft.tags.FluidTags.LAVA) && level.getFluidState(target).isSource(),
                 "ceramic lava makes a lava source");
-        helper.assertTrue(bucket.is(ModFluids.CERAMIC_BUCKET) && bucket.getDamageValue() == 2, "after pour: " + bucket);
+        helper.assertTrue(bucket.is(ModFluids.CERAMIC_BUCKET) && ModBucketItem.ceramicUses(bucket) == 2, "after pour: " + bucket);
         ItemStack fuel = new ItemStack(ModFluids.CERAMIC_LAVA_BUCKET);
         boolean burns = fuel.getComponents().keySet().stream().anyMatch(type ->
                 "minecraft:cooking_fuel".equals(String.valueOf(net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(type))));
@@ -562,6 +563,52 @@ public final class CrucibleTests {
                 "minecraft:use_remainder".equals(String.valueOf(net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(type)))),
                 "ceramic lava bucket leaves a remainder");
         helper.assertTrue(ModFluids.buckets().contains(ModFluids.CERAMIC_LAVA_BUCKET), "not in the bucket list");
+        helper.succeed();
+    }
+
+    /**
+     * Ceramic wear stages (owner N12b): as many stages as the copper bucket's oxidation (0..3), one item per stage and
+     * filling, 8 uses each; a stage change keeps the filling (scoop and pour), the brittle bucket breaks on its last
+     * use, the worn stages stay out of the creative tab but in the bucket list (dispensers).
+     */
+    public static void ceramicBucketWearsThroughStagesAndKeepsItsFilling(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        floor(helper);
+        helper.assertTrue(ModBucketItem.CERAMIC_STAGES == 4 && ModBucketItem.CERAMIC_STAGES * ModBucketItem.CERAMIC_USES_PER_STAGE
+                == ModBucketItem.CERAMIC_USES, "4 stages of 8 uses (copper: oxidation 0..3)");
+        for (int stage = 0; stage < ModBucketItem.CERAMIC_STAGES; stage++) {
+            for (Item item : new Item[] {ModFluids.CERAMIC_EMPTY[stage], ModFluids.CERAMIC_WATER[stage], ModFluids.CERAMIC_LAVA[stage]}) {
+                helper.assertTrue(item instanceof ModBucketItem bucket && bucket.stage() == stage && ModFluids.buckets().contains(item),
+                        "stage item " + item);
+            }
+        }
+        // Scoop across a stage boundary: an intact empty bucket at 7 uses fills into the chipped water bucket.
+        ItemStack empty = new ItemStack(ModFluids.CERAMIC_BUCKET);
+        empty.set(com.simplebuilding.component.ModDataComponentTypes.CERAMIC_USES, 7);
+        ItemStack water = ModBucketItem.fill(empty, ModFluids.CERAMIC_WATER_BUCKET);
+        helper.assertTrue(water.is(ModFluids.CERAMIC_WATER[1]) && ModBucketItem.ceramicUses(water) == 8, "scoop into stage 1: " + water);
+        // Pour across a boundary: a chipped lava bucket at 15 uses pours and comes back as the cracked empty bucket.
+        ItemStack lava = new ItemStack(ModFluids.CERAMIC_LAVA[1]);
+        lava.set(com.simplebuilding.component.ModDataComponentTypes.CERAMIC_USES, 15);
+        BlockPos target = helper.absolutePos(new BlockPos(2, 1, 2));
+        ItemStack after = ((ModBucketItem) lava.getItem()).pourAt(level, target, lava);
+        helper.assertTrue(level.getFluidState(target).is(net.minecraft.tags.FluidTags.LAVA), "chipped lava bucket pours lava");
+        helper.assertTrue(after.is(ModFluids.CERAMIC_EMPTY[2]) && ModBucketItem.ceramicUses(after) == 16, "pour into stage 2: " + after);
+        // The filling survives a stage change by wear alone too.
+        ItemStack held = new ItemStack(ModFluids.CERAMIC_WATER[2]);
+        held.set(com.simplebuilding.component.ModDataComponentTypes.CERAMIC_USES, 23);
+        ItemStack worn = ModBucketItem.wear(held);
+        helper.assertTrue(worn.is(ModFluids.CERAMIC_WATER[3]) && ModBucketItem.ceramicUses(worn) == 24, "wear keeps water: " + worn);
+        // A fresh worn item without counter starts at its stage.
+        helper.assertTrue(ModBucketItem.ceramicUses(new ItemStack(ModFluids.CERAMIC_EMPTY[3])) == 24, "stage 3 starts at 24 uses");
+        // The brittle bucket breaks on its 32nd use.
+        ItemStack brittle = new ItemStack(ModFluids.CERAMIC_WATER[3]);
+        brittle.set(com.simplebuilding.component.ModDataComponentTypes.CERAMIC_USES, 31);
+        helper.assertTrue(((ModBucketItem) brittle.getItem()).pourAt(level, helper.absolutePos(new BlockPos(5, 1, 5)), brittle).isEmpty(),
+                "the brittle bucket survives its last use");
+        // Worn stages: not in the creative tab rows, but in the JEI info.
+        helper.assertTrue(ModFluids.wornCeramicBuckets().size() == 9, "9 worn items");
         helper.succeed();
     }
 
