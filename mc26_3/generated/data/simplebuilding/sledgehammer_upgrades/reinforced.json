@@ -34,7 +34,7 @@
       "damage_per_hit": 2,
       "from": "minecraft:cauldron",
       "material": "simplebuilding:cracked_diamond",
-      "material_count": 4,
+      "material_count": 8,
       "min_hammer": "any",
       "tier": "reinforced",
       "to": "simplelib:reinforced_cauldron"

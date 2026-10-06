@@ -284,7 +284,7 @@ public final class SledgehammerUpgrades {
      * Crucible P5 (owner F9/F10/F11, 56, 59): the SimpleLib crucibles and barrels go up with the sledgehammer at
      * twice the cost of a furnace (2 material, twice the strikes): Iron -> Reinforced (cracked diamonds) -> Netherite
      * (netherite nuggets) -> Enderite (enderite nuggets); copper -> reinforced -> netherite -> Enderite barrel (owner addition 11). The Vanilla cauldron
-     * becomes the reinforced cauldron with 4 cracked diamonds. SimpleLib blocks by their public ids (principle 6a).
+     * becomes the reinforced cauldron with 8 cracked diamonds (owner 2026-10-06: doubled from 4). SimpleLib blocks by their public ids (principle 6a).
      */
     private static void crucibleUpgrades(Map<Block, Upgrade> map) {
         Block iron = lib("iron_crucible"), reinforced = lib("reinforced_crucible"), netherite = lib("netherite_crucible");
@@ -305,10 +305,10 @@ public final class SledgehammerUpgrades {
                 ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, 1, CAULDRON_UPGRADE_MATERIAL_COST));
     }
 
-    /** Crucible/barrel upgrades cost twice a furnace upgrade (owner F9); the cauldron takes 4 cracked diamonds (owner 56). */
+    /** Crucible/barrel upgrades cost twice a furnace upgrade (owner F9); the cauldron takes 8 cracked diamonds (owner 56: 4, doubled 2026-10-06). */
     public static final int CRUCIBLE_UPGRADE_DURATION_FACTOR = 2;
     public static final int CRUCIBLE_UPGRADE_MATERIAL_COST = 2;
-    public static final int CAULDRON_UPGRADE_MATERIAL_COST = 4;
+    public static final int CAULDRON_UPGRADE_MATERIAL_COST = 8;
 
     private static @Nullable Block lib(String path) {
         return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", path)).orElse(null);
@@ -861,6 +861,6 @@ public final class SledgehammerUpgrades {
         return java.util.List.of(
                 Component.translatable(key).withStyle(ChatFormatting.GRAY),
                 Component.translatable(key + ".2").withStyle(ChatFormatting.GRAY),
-                Component.translatable(key + ".3").withStyle(ChatFormatting.GRAY));
+                Component.translatable(key + ".3", upgrade.materialCost()).withStyle(ChatFormatting.GRAY));
     }
 }

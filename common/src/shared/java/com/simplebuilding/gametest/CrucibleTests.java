@@ -211,7 +211,7 @@ public final class CrucibleTests {
     /**
      * The JEI category "Cauldron and crucible": the crucible build, the barrel, the cauldron upgrade (which the machine
      * upgrade category does not list) and butter and cheese. Numbers are this test's own: 6 strikes, 4 of them walls,
-     * 6 attach strikes, 9 barrel fields, 4 cracked diamonds.
+     * 6 attach strikes, 9 barrel fields, 8 cracked diamonds.
      */
     public static void cauldronWorldCatalogMatchesTheRules(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
@@ -239,7 +239,7 @@ public final class CrucibleTests {
 
         var cauldron = entries.get("cauldron_reinforce");
         helper.assertTrue(cauldron.inputs().get(0).items().equals(java.util.List.of(Items.CAULDRON)), "a cauldron");
-        helper.assertTrue(cauldron.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && cauldron.inputs().get(1).count() == 4, "4 cracked diamonds");
+        helper.assertTrue(cauldron.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && cauldron.inputs().get(1).count() == 8, "8 cracked diamonds");
         helper.assertTrue(cauldron.output().items().equals(java.util.List.of(item("simplelib:reinforced_cauldron"))), "the reinforced cauldron");
         helper.assertTrue(cauldron.tools().contains(ModItems.STONE_SLEDGEHAMMER), "every hammer works (rank 0)");
         helper.assertTrue(cauldron.durationTicks() == SledgehammerUpgrades.upgradeTicks(SledgehammerUpgrades.upgradeOf(Blocks.CAULDRON)), "duration of the upgrade");
@@ -347,8 +347,8 @@ public final class CrucibleTests {
                 && barrel.materialCost() == 2, "reinforced -> netherite barrel with netherite nuggets");
         helper.assertTrue(netheriteBarrel != null && netheriteBarrel.to() == CrucibleCompat.enderiteBarrel() && netheriteBarrel.materialCost() == 2,
                 "netherite -> enderite barrel");
-        helper.assertTrue(cauldron != null && cauldron.to() == CrucibleCompat.reinforcedCauldron() && cauldron.materialCost() == 4,
-                "cauldron -> reinforced cauldron with 4 cracked diamonds");
+        helper.assertTrue(cauldron != null && cauldron.to() == CrucibleCompat.reinforcedCauldron() && cauldron.materialCost() == 8,
+                "cauldron -> reinforced cauldron with 8 cracked diamonds");
         // The upgrade keeps the contents (owner 11).
         BlockPos pos = new BlockPos(1, 1, 1);
         helper.setBlock(pos, lib("netherite_crucible"));

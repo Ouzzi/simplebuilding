@@ -393,20 +393,20 @@ public final class LibTests {
         h.succeed();
     }
 
-    /** Owner 56 B: without SimpleBuilding a cauldron becomes reinforced with an axe and 4 diamonds. */
+    /** Owner 56 B: without SimpleBuilding a cauldron becomes reinforced with an axe and 8 diamonds (doubled 2026-10-06). */
     private static void axeUpgradesCauldron(GameTestHelper h) {
         BlockPos rel = new BlockPos(1, 2, 1);
         h.setBlock(rel, Blocks.CAULDRON);
         BlockPos abs = h.absolutePos(rel);
         net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
-        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.DIAMOND, 4));
+        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.DIAMOND, com.simplelib.crucible.CrucibleUpgrades.CAULDRON_COST));
         ItemStack axe = new ItemStack(Items.IRON_AXE);
         for (int i = 0; i < com.simplelib.crucible.CrucibleUpgrades.CAULDRON_STRIKES; i++) {
             check(h, com.simplelib.crucible.CrucibleUpgrades.strike(h.getLevel(), abs, player, axe), "strike " + (i + 1));
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
         }
         check(h, h.getLevel().getBlockState(abs).is(LibBlocks.REINFORCED_CAULDRON), "reinforced cauldron built");
-        check(h, player.getOffhandItem().isEmpty(), "four diamonds used");
+        check(h, player.getOffhandItem().isEmpty(), "eight diamonds used");
         h.succeed();
     }
 
