@@ -630,7 +630,7 @@ public final class ConfigOptionTests {
             "server.soulLava.tickDelayOverworld int=45",
             "server.soulLava.tickDelayNether int=20",
             "server.soulLava.burnSeconds int=30",
-            "server.soulLava.soulBurnSeconds int=60",
+            "server.soulLava.soulBurnSeconds int=120",
             "server.soulLava.soulBurnIntervalTicks int=60",
             "server.soulLava.soulBurnChance double=0.5",
             "server.soulLava.fuelMultiplier int=10",

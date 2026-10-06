@@ -67,6 +67,11 @@ public final class CrucibleGameTest {
     }
 
     @GameTest
+    public void soulBurnBitesTwiceAsOftenOnColdGround(GameTestHelper helper) {
+        CrucibleTests.soulBurnBitesTwiceAsOftenOnColdGround(helper);
+    }
+
+    @GameTest
     public void soulLavaHeatsExtremeFlowingHigh(GameTestHelper helper) {
         CrucibleTests.soulLavaHeatsExtremeFlowingHigh(helper);
     }

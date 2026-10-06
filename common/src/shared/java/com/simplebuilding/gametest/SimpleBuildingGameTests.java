@@ -605,6 +605,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_sledgehammer_upgrades_cost_double", CrucibleTests::sledgehammerUpgradesCostDouble)
                     .build(),
+            GameTestSpec.named("crucible_game_test_soul_burn_bites_twice_as_often_on_cold_ground", CrucibleTests::soulBurnBitesTwiceAsOftenOnColdGround)
+                    .build(),
             GameTestSpec.named("crucible_game_test_soul_lava_flows_two_blocks_in_the_overworld", CrucibleTests::soulLavaFlowsTwoBlocksInTheOverworld)
                     .maxTicks(300).build(),
             GameTestSpec.named("crucible_game_test_soul_lava_heats_extreme_flowing_high", CrucibleTests::soulLavaHeatsExtremeFlowingHigh)

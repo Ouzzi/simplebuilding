@@ -2993,7 +2993,7 @@
   "text.autoconfig.simplebuilding.option.server.soulLava.burnSeconds": "Burn Duration (seconds)",
   "text.autoconfig.simplebuilding.option.server.soulLava.burnSeconds.@Tooltip": "Server-side. Range: 5 to 60. Default: 30.",
   "text.autoconfig.simplebuilding.option.server.soulLava.soulBurnSeconds": "Soul Burn Duration (seconds)",
-  "text.autoconfig.simplebuilding.option.server.soulLava.soulBurnSeconds.@Tooltip": "Server-side. Range: 5 to 300. Default: 60.",
+  "text.autoconfig.simplebuilding.option.server.soulLava.soulBurnSeconds.@Tooltip": "Server-side. Range: 5 to 300. Default: 120.",
   "text.autoconfig.simplebuilding.option.server.soulLava.soulBurnIntervalTicks": "Soul Burn Interval (ticks)",
   "text.autoconfig.simplebuilding.option.server.soulLava.soulBurnIntervalTicks.@Tooltip": "Server-side. Range: 20 to 200. Default: 60.",
   "text.autoconfig.simplebuilding.option.server.soulLava.soulBurnChance": "Soul Burn Damage Chance",

@@ -2,6 +2,7 @@ package com.simplebuilding.neoforge;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
+import com.simplebuilding.client.gui.SoulBurnOverlay;
 import com.simplebuilding.client.gui.SpeedometerHudOverlay;
 import com.simplebuilding.client.render.BlockOutlineSupport;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -25,6 +26,12 @@ public final class NeoForgeClientHooks {
                 Identifier.fromNamespaceAndPath("minecraft", "chat"),
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "speedometer_hud"),
                 (extractor, deltaTracker) -> SpeedometerHudOverlay.render(extractor)
+        );
+        // Seelenbrand-Vollbildfilter, Nachtrag 11 P1 (2026-10-06).
+        event.registerAbove(
+                Identifier.fromNamespaceAndPath("minecraft", "chat"),
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "soul_burn_filter"),
+                (extractor, deltaTracker) -> SoulBurnOverlay.render(extractor)
         );
         // The air jump cooldown bar is no layer: it takes vanilla's contextual bar slot
         // (HudContextualBarMixin, all loaders), 2026-09-29.

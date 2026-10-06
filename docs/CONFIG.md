@@ -196,11 +196,13 @@ Alle Werte sind serverseitig und werden auf folgende Grenzen beschränkt:
 | `tickDelayOverworld` | 45 | 20..200 |
 | `tickDelayNether` | 20 | 10..200 |
 | `burnSeconds` | 30 | 5..60 |
-| `soulBurnSeconds` | 60 | 5..300 |
+| `soulBurnSeconds` | 120 | 5..300 |
 | `soulBurnIntervalTicks` | 60 | 20..200 |
 | `soulBurnChance` | 0.5 | 0.0..1.0 |
 | `fuelMultiplier` | 10 | 1..20 |
 | `springChance` | 0.005 | 0.0..0.05 |
 | `fortressChance` | 0.1 | 0.0..0.5 |
+
+Seelenbrand läuft `soulBurnSeconds` lang und würfelt alle `soulBurnIntervalTicks` mit `soulBurnChance` um 1 Feuerschaden. Auf kaltem Grund (Wasser, Eis oder Schnee unter den Füßen) halbiert sich das Intervall, der Brand beißt also doppelt so oft; das Intervall wird nie kleiner als 1 Tick.
 
 `fuelMultiplier` multipliziert 20.000 Ticks und wird bei der Item-Registrierung gelesen: Neustart und gleiche Modpack-Config auf Server und Client erforderlich. Normale Lava-Eimer bleiben bei 20.000 Ticks. Alle anderen Werte werden zur Laufzeit gelesen; bereits geplante Fluid-Ticks behalten zunächst ihre Verzögerung. Auf 26.2 ist keine Seelen-Lava registriert.

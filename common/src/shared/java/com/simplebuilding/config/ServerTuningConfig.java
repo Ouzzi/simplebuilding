@@ -391,7 +391,7 @@ public class ServerTuningConfig {
         @ConfigEntry.Gui.Tooltip
         public int burnSeconds = 30;
         @ConfigEntry.Gui.Tooltip
-        public int soulBurnSeconds = 60;
+        public int soulBurnSeconds = 120;
         @ConfigEntry.Gui.Tooltip
         public int soulBurnIntervalTicks = 60;
         @ConfigEntry.Gui.Tooltip

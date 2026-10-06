@@ -2993,7 +2993,7 @@
   "text.autoconfig.simplebuilding.option.server.soulLava.burnSeconds": "Brenndauer (Sekunden)",
   "text.autoconfig.simplebuilding.option.server.soulLava.burnSeconds.@Tooltip": "Serverseitig. Bereich: 5 bis 60. Standard: 30.",
   "text.autoconfig.simplebuilding.option.server.soulLava.soulBurnSeconds": "Seelenbranddauer (Sekunden)",
-  "text.autoconfig.simplebuilding.option.server.soulLava.soulBurnSeconds.@Tooltip": "Serverseitig. Bereich: 5 bis 300. Standard: 60.",
+  "text.autoconfig.simplebuilding.option.server.soulLava.soulBurnSeconds.@Tooltip": "Serverseitig. Bereich: 5 bis 300. Standard: 120.",
   "text.autoconfig.simplebuilding.option.server.soulLava.soulBurnIntervalTicks": "Seelenbrandintervall (Ticks)",
   "text.autoconfig.simplebuilding.option.server.soulLava.soulBurnIntervalTicks.@Tooltip": "Serverseitig. Bereich: 20 bis 200. Standard: 60.",
   "text.autoconfig.simplebuilding.option.server.soulLava.soulBurnChance": "Seelenbrand-Schadenschance",
