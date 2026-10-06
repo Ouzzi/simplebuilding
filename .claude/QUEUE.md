@@ -406,3 +406,20 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Crucible betretbar; ab hoher Hitze Schaden wie Magma.
 - [x] Kern-Animationen mit Seltenheit (drehen, Bumerang, hochsteigen …; je cooler desto seltener), eigene längere Animation bei Erz-Umwandlung. → `claude-tex7` (`CoreHandMotion`, Erste Person, Config `tools.enableCoreAnimations`); Client-Sicht offen.
 - [ ] Rückfrage beantwortet: Elytra mit Reparatur im Schmiedetisch – Vanilla-Schmiederezepte prüfen nur Items, keine Verzauberungen; möglich nur mit eigener Rezept-Zutat je Loader (offen: soll das gebaut werden?).
+
+## Nachtrag 12 (2026-10-06, Besitzer, Referenzbilder in minecraft-mods/previews/refs-n12)
+- [ ] Keramik-Lavaeimer fehlt (claude-crucible5)
+- [ ] Verstärker (Amplifier) funktionieren nicht (claude-hammer12)
+- [ ] Kern-Item-Animation ruhiger: nur etwa alle 10 s einmal (claude-tex8)
+- [ ] Verstärkter Kessel: Item-Textur verbessern (claude-tex8)
+- [ ] Kessel doppelt so teuer (z. B. 2 rissige Diamanten statt 1 usw.) (claude-hammer12)
+- [ ] Alle In-World-Umwandlungen schrittweise: Ergebnis-Items erscheinen nacheinander je Schlag (pro Schlag ein Item) (claude-hammer12)
+- [ ] Tiegel-Fortschrittsbalken dezent: untere 2 Pixelreihen des Slots als Fortschritt (Vorschlag) (claude-crucible5)
+- [ ] Tiegel-Feuer im Stil von Bild 1/2 (claude-crucible5)
+- [ ] Tiegel-GUI: unterer Trennstrich trennt die beiden Container, Stil wie Bild 3/4; je ein Vorschlag zu Bild-4-Stil und Slot-Fortschritt (claude-crucible5)
+- [ ] Alle jetzt entwickelten UIs im Stil von Bild 3/4 (nach Freigabe des Vorschlags)
+- [ ] TODO neue Mod „simplecontainers“: clientseitig, verschönert alle GUI-Container im Stil Bild 3/4, mit Parität für Mod-UIs
+- [ ] Angedocktes Fass in jeder Dimension 1 px kleiner, näher an den Tiegel (claude-crucible5)
+- [ ] Speer glimmert immer noch nicht, mit anderen Enderit-Werkzeugen/Barren vergleichen (claude-tex8)
+- [ ] Platzierter Knochen 3D: wie Knochen, oben/unten symmetrisch (claude-tex8)
+- [ ] Rest Nachtrag 11: Gameplay-Punkte (claude-agy-tweaks11, Antigravity-Test), In-World-Konsistenz (claude-hammer12), Stil-Audit (wartet auf codex login)
