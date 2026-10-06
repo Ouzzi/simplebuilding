@@ -1553,7 +1553,7 @@
   "book.simplebuilding.trims.9.title": "End Materials",
   "book.simplebuilding.trims.9.text": "Astralit trims make you jump higher, Nihilit trims pull you down faster while you sneak in the air.\nEnderite trims soften almost every kind of damage and count the pattern double.",
   "book.simplebuilding.trims.10.title": "Radiance",
-  "book.simplebuilding.trims.10.text": "Hit a placed trim template three times with a sledgehammer and Glowstone Dust in your off hand: an %3$s.\nDust at the smithing table raises radiance up to 5.",
+  "book.simplebuilding.trims.10.text": "Right-click a placed trim template 5x with a sledgehammer and Glowstone Dust in your off hand: an %3$s.\nDust at the smithing table raises radiance up to 5.",
   "book.simplebuilding.trims.11.title": "Glowing",
   "book.simplebuilding.trims.11.text": "Do the same with a Glow Ink Sac instead: a %3$s.\nThe trim glows at full brightness, but gives no light to the world.",
   "book.simplebuilding.trims.12.title": "Pulsating",
