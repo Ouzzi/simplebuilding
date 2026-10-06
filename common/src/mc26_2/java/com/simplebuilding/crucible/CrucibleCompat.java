@@ -58,6 +58,14 @@ public final class CrucibleCompat {
 
     public static boolean axeWaysEnabled() { return true; }
 
+    public static int buildStrikes() { return 0; }
+
+    public static int attachStrikes() { return 0; }
+
+    public static int buildWallStrikes() { return 0; }
+
+    public static int attachedBarrelSlots() { return 0; }
+
     public static @Nullable InteractionResult hammerUse(UseOnContext context) { return null; }
 
     private CrucibleCompat() {}
