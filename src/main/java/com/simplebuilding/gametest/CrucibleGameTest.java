@@ -7,6 +7,16 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class CrucibleGameTest {
 
     @GameTest
+    public void cauldronWorldCatalogMatchesTheRules(GameTestHelper helper) {
+        CrucibleTests.cauldronWorldCatalogMatchesTheRules(helper);
+    }
+
+    @GameTest
+    public void milkAndReinforcedCauldronsShowTheirContents(GameTestHelper helper) {
+        CrucibleTests.milkAndReinforcedCauldronsShowTheirContents(helper);
+    }
+
+    @GameTest
     public void jadeReportsHeatSlotsAndShortestRemainingTime(GameTestHelper helper) {
         CrucibleTests.jadeReportsHeatSlotsAndShortestRemainingTime(helper);
     }

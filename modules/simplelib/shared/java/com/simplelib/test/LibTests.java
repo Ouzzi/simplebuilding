@@ -56,6 +56,8 @@ public final class LibTests {
         ALL.put("axe_click_reaches_axe_not_menu", LibTests::axeClickReachesAxe);
         ALL.put("axe_upgrades_cauldron", LibTests::axeUpgradesCauldron);
         ALL.put("reinforced_cauldron_holds_buckets", LibTests::reinforcedCauldronBuckets);
+        ALL.put("reinforced_cauldron_inherits_vanilla", LibTests::reinforcedCauldronInheritsVanilla);
+        ALL.put("axe_upgrades_barrel_to_netherite", LibTests::axeUpgradesBarrelToNetherite);
     }
 
     // ------------------------------------------------------------ helpers
@@ -344,8 +346,13 @@ public final class LibTests {
         BlockPos barrelRel = rel.east();
         h.setBlock(barrelRel, LibBlocks.COPPER_BARREL);
         BlockPos barrelAbs = h.absolutePos(barrelRel);
+        var barrel = (com.simplelib.crucible.CrucibleBarrelBlockEntity) h.getLevel().getBlockEntity(barrelAbs);
+        check(h, barrel.getContainerSize() == 27, "on its own a copper barrel has 27 slots (owner 58)");
+        barrel.setItem(20, new ItemStack(Items.APPLE, 3));
         net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
         ItemStack axe = new ItemStack(Items.IRON_AXE);
+        check(h, com.simplelib.crucible.CrucibleBarrelBlock.crackStage(1) == 0 && com.simplelib.crucible.CrucibleBarrelBlock.crackStage(5) == 7,
+                "cracks grow with the strikes (owner addition 11)");
         for (int i = 0; i < com.simplelib.crucible.CrucibleBarrelBlock.ATTACH_STRIKES; i++) {
             check(h, com.simplelib.crucible.CrucibleBarrelBlock.attachStrike(h.getLevel(), barrelAbs, player, axe, 1), "attach strike " + (i + 1));
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
@@ -353,13 +360,19 @@ public final class LibTests {
         var state = h.getLevel().getBlockState(barrelAbs);
         check(h, state.getValue(com.simplelib.crucible.CrucibleBarrelBlock.ATTACHED)
                 && state.getValue(com.simplelib.crucible.CrucibleBarrelBlock.FACING) == Direction.WEST, "attached, facing the crucible");
-        var barrel = (com.simplelib.crucible.CrucibleBarrelBlockEntity) h.getLevel().getBlockEntity(barrelAbs);
-        check(h, barrel.getContainerSize() == 27, "on its own a copper barrel has 27 slots (owner 58)");
+        check(h, h.getLevel().getBlockEntity(barrelAbs) == barrel && barrel.getContainerSize() == 9, "attached: only 9 slots");
+        check(h, barrel.getItem(20).isEmpty() && !h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                new net.minecraft.world.phys.AABB(barrelAbs).inflate(2), e -> e.getItem().is(Items.APPLE)).isEmpty(), "slot 21 dropped when attaching");
         be.markHeatDirty();
         be.setItem(0, new ItemStack(Items.RAW_GOLD));
         run(h, be, 270);
         check(h, barrel.getItem(0).is(Items.GOLD_INGOT), "result went into the barrel first (owner wish)");
         check(h, be.getItem(3).isEmpty(), "not into the slot below");
+        h.setBlock(rel, Blocks.AIR);
+        var after = h.getLevel().getBlockState(barrelAbs);
+        check(h, !after.getValue(com.simplelib.crucible.CrucibleBarrelBlock.ATTACHED) && barrel.getContainerSize() == 27,
+                "crucible gone: a normal barrel again");
+        check(h, barrel.getItem(0).is(Items.GOLD_INGOT), "contents stay in the barrel");
         h.succeed();
     }
 
@@ -411,6 +424,60 @@ public final class LibTests {
         check(h, Heat.at(h.getLevel(), abs.above()).level() == HeatLevel.HIGH, "lava in the cauldron heats high");
         h.getLevel().getBlockState(abs).useItemOn(player.getMainHandItem(), h.getLevel(), player, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
         check(h, player.getMainHandItem().is(Items.LAVA_BUCKET), "lava taken back");
+        h.succeed();
+    }
+
+    /** Owner addition 11: the reinforced cauldron runs the Vanilla cauldron interactions (bottles, levels) and stays reinforced. */
+    private static void reinforcedCauldronInheritsVanilla(GameTestHelper h) {
+        BlockPos rel = new BlockPos(2, 1, 2);
+        h.setBlock(rel, LibBlocks.REINFORCED_CAULDRON);
+        BlockPos abs = h.absolutePos(rel);
+        var level = h.getLevel();
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        var hand = net.minecraft.world.InteractionHand.MAIN_HAND;
+        var hit = new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(abs), Direction.UP, abs, false);
+        java.util.function.Consumer<ItemStack> use = stack -> {
+            player.setItemInHand(hand, stack);
+            level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, hand, hit);
+        };
+        use.accept(new ItemStack(Items.WATER_BUCKET));
+        var state = level.getBlockState(abs);
+        check(h, state.is(LibBlocks.REINFORCED_CAULDRON) && "water".equals(com.simplelib.api.SimpleLibApi.cauldronContent(state))
+                && state.getValue(com.simplelib.cauldron.ReinforcedCauldronBlock.LEVEL) == 3, "water bucket: full water, still reinforced");
+        use.accept(new ItemStack(Items.GLASS_BOTTLE));
+        state = level.getBlockState(abs);
+        check(h, player.getMainHandItem().is(Items.POTION), "bottle filled with water");
+        check(h, state.is(LibBlocks.REINFORCED_CAULDRON) && state.getValue(com.simplelib.cauldron.ReinforcedCauldronBlock.LEVEL) == 2, "level 3 -> 2");
+        use.accept(new ItemStack(Items.GLASS_BOTTLE));
+        use.accept(new ItemStack(Items.GLASS_BOTTLE));
+        state = level.getBlockState(abs);
+        check(h, state.is(LibBlocks.REINFORCED_CAULDRON) && "empty".equals(com.simplelib.api.SimpleLibApi.cauldronContent(state)),
+                "three bottles empty it, it stays reinforced");
+        use.accept(new ItemStack(Items.POWDER_SNOW_BUCKET));
+        check(h, "powder_snow".equals(com.simplelib.api.SimpleLibApi.cauldronContent(level.getBlockState(abs))), "powder snow bucket");
+        use.accept(new ItemStack(Items.BUCKET));
+        check(h, player.getMainHandItem().is(Items.POWDER_SNOW_BUCKET)
+                && "empty".equals(com.simplelib.api.SimpleLibApi.cauldronContent(level.getBlockState(abs))), "powder snow taken back");
+        h.succeed();
+    }
+
+    /** Owner addition 11: reinforced barrel -> netherite barrel (axe, 1 netherite ingot, ten strikes), 45 slots, contents kept. */
+    private static void axeUpgradesBarrelToNetherite(GameTestHelper h) {
+        BlockPos rel = new BlockPos(1, 2, 1);
+        h.setBlock(rel, LibBlocks.REINFORCED_BARREL);
+        BlockPos abs = h.absolutePos(rel);
+        ((net.minecraft.world.Container) h.getLevel().getBlockEntity(abs)).setItem(30, new ItemStack(Items.COAL, 7));
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.NETHERITE_INGOT));
+        ItemStack axe = new ItemStack(Items.IRON_AXE);
+        for (int i = 0; i < com.simplelib.crucible.CrucibleUpgrades.STRIKES; i++) {
+            check(h, com.simplelib.crucible.CrucibleUpgrades.strike(h.getLevel(), abs, player, axe), "strike " + (i + 1));
+            player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
+        }
+        check(h, h.getLevel().getBlockState(abs).is(LibBlocks.NETHERITE_BARREL), "netherite barrel built");
+        var barrel = (com.simplelib.crucible.CrucibleBarrelBlockEntity) h.getLevel().getBlockEntity(abs);
+        check(h, barrel.getContainerSize() == 45 && barrel.getItem(30).is(Items.COAL) && barrel.getItem(30).getCount() == 7, "45 slots, contents kept");
+        check(h, player.getOffhandItem().isEmpty(), "netherite ingot used");
         h.succeed();
     }
 

@@ -76,7 +76,10 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
             registration.addRecipeCategories(new InWorldCategory(kind, gui, catalog().of(kind)));
         }
         registration.addRecipeCategories(new MobDropCategory(gui));
-        if (com.simplebuilding.version.McVersion.CRUCIBLE) registration.addRecipeCategories(new CrucibleCategory(gui));
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            registration.addRecipeCategories(new CrucibleCategory(gui));
+            registration.addRecipeCategories(new CauldronWorldCategory(gui, com.simplebuilding.compat.CauldronWorldCatalog.entries()));
+        }
     }
 
     @Override
@@ -94,6 +97,7 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
             registration.addRecipes(InWorldCategory.recipeType(kind), catalog().of(kind));
         }
         registration.addRecipes(MobDropCategory.TYPE, MobDropCatalog.drops());
+        registration.addRecipes(CauldronWorldCategory.TYPE, com.simplebuilding.compat.CauldronWorldCatalog.entries());
         // Besatz-Aufwertungen am Schmiedetisch mit der Ruestung als Ergebnis (die Platzhalter-Rezepte
         // nennen die Vorlage; sie werden in onRuntimeAvailable ausgeblendet).
         List<RecipeHolder<SmithingRecipe>> trimUpgrades = new ArrayList<>();
@@ -160,6 +164,9 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
                     "simplelib:netherite_crucible", "simplebuilding:enderite_crucible")) {
                 Item item = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.parse(id));
                 if (item != net.minecraft.world.item.Items.AIR) registration.addCraftingStation(CrucibleCategory.TYPE, item);
+            }
+            for (Item item : com.simplebuilding.compat.CauldronWorldCatalog.catalysts()) {
+                registration.addCraftingStation(CauldronWorldCategory.TYPE, item);
             }
         }
         registration.addCraftingStation(MobDropCategory.TYPE, net.minecraft.world.item.Items.CREEPER_SPAWN_EGG);

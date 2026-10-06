@@ -125,4 +125,9 @@ public final class ModuleGameTest {
     public void sandwichWarmsInCrucible(GameTestHelper h) {
         SandwichTests.ALL.get("sandwich_warms_in_crucible").accept(h);
     }
+
+    @GameTest
+    public void reinforcedMilkCauldron(GameTestHelper h) {
+        SandwichTests.ALL.get("reinforced_milk_cauldron").accept(h);
+    }
 }

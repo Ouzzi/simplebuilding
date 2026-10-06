@@ -3,6 +3,8 @@ package com.simplesandwiches.block;
 import com.simplesandwiches.config.SandwichConfig;
 import com.simplesandwiches.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -23,6 +25,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -40,11 +43,17 @@ import net.minecraft.world.phys.BlockHitResult;
  *       emptied (gives nothing).</li>
  * </ul>
  * Ripening uses scheduled block ticks, which only run in loaded, ticking chunks.
+ *
+ * <p>{@code reinforced}: made from SimpleLib's reinforced cauldron (which runs the Vanilla cauldron
+ * interactions, milk included, and sets this flag). Emptying it returns that cauldron and breaking it
+ * drops it; SimpleLib is found by id only, so the module stays independent.
  */
 public class MilkCauldronBlock extends AbstractCauldronBlock {
     public static final int STAGES = 4;
     public static final EnumProperty<Content> CONTENT = EnumProperty.create("content", Content.class);
     public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, STAGES - 1);
+    public static final BooleanProperty REINFORCED = BooleanProperty.create("reinforced");
+    private static final Identifier REINFORCED_CAULDRON = Identifier.fromNamespaceAndPath("simplelib", "reinforced_cauldron");
 
     public enum Content implements StringRepresentable {
         MILK, BUTTER, CURDLING, CHEESE, SPOILED;
@@ -61,12 +70,12 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
 
     public MilkCauldronBlock(Properties properties) {
         super(properties, new CauldronInteraction.Dispatcher());
-        registerDefaultState(stateDefinition.any().setValue(CONTENT, Content.MILK).setValue(STAGE, 0));
+        registerDefaultState(stateDefinition.any().setValue(CONTENT, Content.MILK).setValue(STAGE, 0).setValue(REINFORCED, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(CONTENT, STAGE);
+        builder.add(CONTENT, STAGE, REINFORCED);
     }
 
     @Override
@@ -90,7 +99,25 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
 
     @Override
     protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
-        return new ItemStack(Items.CAULDRON);
+        return new ItemStack(emptied(state).getBlock());
+    }
+
+    /** The empty cauldron this one returns to: SimpleLib's reinforced cauldron when it was made from one. */
+    public static BlockState emptied(BlockState state) {
+        if (state.hasProperty(REINFORCED) && state.getValue(REINFORCED)) {
+            var block = BuiltInRegistries.BLOCK.getOptional(REINFORCED_CAULDRON);
+            if (block.isPresent()) return block.get().defaultBlockState();
+        }
+        return Blocks.CAULDRON.defaultBlockState();
+    }
+
+    /** The loot table covers the normal one; the reinforced one drops SimpleLib's reinforced cauldron. */
+    @Override
+    protected java.util.List<ItemStack> getDrops(BlockState state, net.minecraft.world.level.storage.loot.LootParams.Builder params) {
+        if (!state.getValue(REINFORCED) || emptied(state).is(Blocks.CAULDRON)) return super.getDrops(state, params);
+        Float radius = params.getOptionalParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.EXPLOSION_RADIUS);
+        if (radius != null && radius > 0 && params.getLevel().getRandom().nextFloat() > 1.0F / radius) return java.util.List.of();
+        return java.util.List.of(new ItemStack(emptied(state).getBlock()));
     }
 
     /** Ticks between two visible stages (and for cheese the harvest window). */
@@ -105,7 +132,11 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
 
     /** Sets {@code content} at stage 0 and schedules its next ripening step. */
     public static void start(Level level, BlockPos pos, Content content) {
-        level.setBlock(pos, ModBlocks.MILK_CAULDRON.defaultBlockState().setValue(CONTENT, content).setValue(STAGE, 0), Block.UPDATE_ALL);
+        BlockState here = level.getBlockState(pos);
+        boolean reinforced = here.is(ModBlocks.MILK_CAULDRON) ? here.getValue(REINFORCED)
+                : BuiltInRegistries.BLOCK.getKey(here.getBlock()).equals(REINFORCED_CAULDRON);
+        level.setBlock(pos, ModBlocks.MILK_CAULDRON.defaultBlockState().setValue(CONTENT, content).setValue(STAGE, 0)
+                .setValue(REINFORCED, reinforced), Block.UPDATE_ALL);
         int wait = interval(content);
         if (wait > 0) level.scheduleTick(pos, ModBlocks.MILK_CAULDRON, wait);
         level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
@@ -152,7 +183,7 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
             if (!level.isClientSide()) {
                 // Spoiled milk is only poured out: the bucket stays empty.
                 if (content == Content.MILK) player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.MILK_BUCKET)));
-                level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+                level.setBlockAndUpdate(pos, emptied(state));
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
             }
@@ -175,7 +206,7 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
         Content content = state.getValue(CONTENT);
         if (!content.ripe() && content != Content.SPOILED) return InteractionResult.PASS;
         if (!level.isClientSide()) {
-            level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+            level.setBlockAndUpdate(pos, emptied(state));
             if (content == Content.SPOILED) {
                 level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 0.8F, 0.6F);
             } else {

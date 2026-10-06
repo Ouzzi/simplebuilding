@@ -132,6 +132,145 @@ public final class CrucibleTests {
         helper.succeed();
     }
 
+    /**
+     * Jade for the milk cauldron (content, ripeness, what to do) and the reinforced cauldron (content, fill level of
+     * water and powder snow), computed from the block state alone and found by registry id. Expected strings are this
+     * test's own; the reinforced cauldron is checked with and without a {@code level} property.
+     */
+    public static void milkAndReinforcedCauldronsShowTheirContents(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        Block milk = BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplesandwiches:milk_cauldron"));
+        // The SimpleBuilding test run does not load SimpleSandwiches: the milk states are only checked where the module is present.
+        if (milk != Blocks.AIR) milkCauldron(helper, milk);
+        reinforcedCauldron(helper);
+        helper.succeed();
+    }
+
+    private static void milkCauldron(GameTestHelper helper, Block milk) {
+        String content = "jade.simplebuilding.cauldron.content";
+        cauldron(helper, milk, new String[] {"content", "milk", "stage", "0"},
+                java.util.List.of(content + " [" + content + ".milk]", "jade.simplebuilding.cauldron.ripeness [1, 4]"));
+        cauldron(helper, milk, new String[] {"content", "milk", "stage", "2"},
+                java.util.List.of(content + " [" + content + ".milk]", "jade.simplebuilding.cauldron.ripeness [3, 4]"));
+        cauldron(helper, milk, new String[] {"content", "curdling", "stage", "3"},
+                java.util.List.of(content + " [" + content + ".curdling]", "jade.simplebuilding.cauldron.ripeness [4, 4]"));
+        cauldron(helper, milk, new String[] {"content", "butter", "stage", "0"},
+                java.util.List.of(content + " [" + content + ".butter]", "jade.simplebuilding.cauldron.ready []"));
+        cauldron(helper, milk, new String[] {"content", "cheese", "stage", "0"},
+                java.util.List.of(content + " [" + content + ".cheese]", "jade.simplebuilding.cauldron.ready []",
+                        "jade.simplebuilding.cauldron.cheese_warning []"));
+        cauldron(helper, milk, new String[] {"content", "spoiled", "stage", "0"},
+                java.util.List.of(content + " [" + content + ".spoiled]", "jade.simplebuilding.cauldron.spoiled []"));
+    }
+
+    private static void reinforcedCauldron(GameTestHelper helper) {
+        String content = "jade.simplebuilding.cauldron.content";
+        Block reinforced = lib("reinforced_cauldron");
+        boolean hasLevel = reinforced.getStateDefinition().getProperty("level") != null;
+        cauldron(helper, reinforced, new String[] {"content", "empty"}, java.util.List.of(content + " [" + content + ".empty]"));
+        cauldron(helper, reinforced, new String[] {"content", "lava"}, java.util.List.of(content + " [" + content + ".lava]"));
+        cauldron(helper, reinforced, new String[] {"content", "extreme"}, java.util.List.of(content + " [" + content + ".extreme]"));
+        cauldron(helper, reinforced, new String[] {"content", "water"},
+                java.util.List.of(content + " [" + content + ".water]", "jade.simplebuilding.cauldron.level [3, 3]"));
+        cauldron(helper, reinforced, new String[] {"content", "powder_snow"},
+                java.util.List.of(content + " [" + content + ".powder_snow]", "jade.simplebuilding.cauldron.level [3, 3]"));
+        if (hasLevel) {
+            cauldron(helper, reinforced, new String[] {"content", "water", "level", "2"},
+                    java.util.List.of(content + " [" + content + ".water]", "jade.simplebuilding.cauldron.level [2, 3]"));
+            cauldron(helper, reinforced, new String[] {"content", "lava", "level", "1"}, java.util.List.of(content + " [" + content + ".lava]"));
+        }
+        cauldron(helper, Blocks.CAULDRON, new String[0], java.util.List.of());
+        cauldron(helper, Blocks.WATER_CAULDRON, new String[0], java.util.List.of());
+        helper.assertTrue(com.simplebuilding.compat.BlockInfo.isModCauldron("simplesandwiches:milk_cauldron")
+                && com.simplebuilding.compat.BlockInfo.isModCauldron("simplelib:reinforced_cauldron")
+                && !com.simplebuilding.compat.BlockInfo.isModCauldron("minecraft:cauldron"), "Jade's fluid line is replaced for exactly the two mod cauldrons");
+    }
+
+    private static void cauldron(GameTestHelper helper, Block block, String[] properties, java.util.List<String> expected) {
+        BlockState state = block.defaultBlockState();
+        for (int i = 0; i < properties.length; i += 2) {
+            state = withProperty(state, properties[i], properties[i + 1]);
+        }
+        java.util.List<String> actual = new java.util.ArrayList<>();
+        for (var line : com.simplebuilding.compat.BlockInfo.stateLines(com.simplebuilding.compat.BlockInfo.Topic.CAULDRON, state)) {
+            actual.add(line.key() + " " + line.argTexts());
+        }
+        helper.assertTrue(actual.equals(expected), java.util.Arrays.toString(properties) + " on " + BuiltInRegistries.BLOCK.getKey(block)
+                + ": expected " + expected + ", was " + actual);
+    }
+
+    private static BlockState withProperty(BlockState state, String name, String value) {
+        net.minecraft.world.level.block.state.properties.Property<?> property = state.getBlock().getStateDefinition().getProperty(name);
+        return parsed(state, property, value);
+    }
+
+    private static <T extends Comparable<T>> BlockState parsed(BlockState state, net.minecraft.world.level.block.state.properties.Property<T> property, String value) {
+        return state.setValue(property, property.getValue(value).orElseThrow());
+    }
+
+    /**
+     * The JEI category "Cauldron and crucible": the crucible build, the barrel, the cauldron upgrade (which the machine
+     * upgrade category does not list) and butter and cheese. Numbers are this test's own: 6 strikes, 4 of them walls,
+     * 6 attach strikes, 9 barrel fields, 4 cracked diamonds.
+     */
+    public static void cauldronWorldCatalogMatchesTheRules(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        var entries = new java.util.LinkedHashMap<String, com.simplebuilding.compat.CauldronWorldCatalog.Entry>();
+        com.simplebuilding.compat.CauldronWorldCatalog.entries().forEach(entry -> entries.put(entry.id(), entry));
+        boolean sandwiches = item("simplesandwiches:butter_block") != Items.AIR && item("simplesandwiches:cheese_block") != Items.AIR;
+        helper.assertTrue(entries.keySet().equals(sandwiches
+                ? java.util.Set.of("crucible_build", "barrel_attach", "cauldron_reinforce", "milk_butter", "milk_cheese")
+                : java.util.Set.of("crucible_build", "barrel_attach", "cauldron_reinforce")), "catalog entries " + entries.keySet());
+
+        var build = entries.get("crucible_build");
+        helper.assertTrue(build.inputs().get(0).items().equals(java.util.List.of(Items.IRON_BLOCK)) && build.inputs().get(0).count() == 1, "an iron block");
+        helper.assertTrue(build.inputs().get(1).count() == 4 && build.inputs().get(1).items().contains(Items.HEAVY_WEIGHTED_PRESSURE_PLATE), "four walls");
+        helper.assertTrue(build.inputs().get(2).count() == 2 && build.inputs().get(2).items().contains(Items.IRON_INGOT)
+                && build.inputs().get(2).items().contains(ModItems.IRON_ROD), "two handles: iron ingot or iron rod");
+        helper.assertTrue(build.output().items().equals(java.util.List.of(item("simplelib:iron_crucible"))), "the iron crucible");
+        helper.assertTrue(build.tools().contains(ModItems.IRON_SLEDGEHAMMER) && build.tools().contains(ModItems.ENDERITE_SLEDGEHAMMER), "every sledgehammer");
+        helper.assertTrue(noteArgs(build, 0).equals(java.util.List.of(6)) && noteArgs(build, 1).equals(java.util.List.of(4, 2)), "notes name 6 strikes, 4 walls and 2 handles");
+
+        var barrel = entries.get("barrel_attach");
+        helper.assertTrue(barrel.inputs().get(0).items().contains(item("simplelib:copper_barrel"))
+                && barrel.inputs().get(0).items().contains(item("simplebuilding:enderite_barrel")), "barrels");
+        helper.assertTrue(barrel.inputs().get(1).items().contains(item("simplelib:iron_crucible")), "next to a crucible");
+        helper.assertTrue(noteArgs(barrel, 0).equals(java.util.List.of(6)) && noteArgs(barrel, 1).equals(java.util.List.of(9)), "notes name 6 strikes, 9 fields");
+
+        var cauldron = entries.get("cauldron_reinforce");
+        helper.assertTrue(cauldron.inputs().get(0).items().equals(java.util.List.of(Items.CAULDRON)), "a cauldron");
+        helper.assertTrue(cauldron.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && cauldron.inputs().get(1).count() == 4, "4 cracked diamonds");
+        helper.assertTrue(cauldron.output().items().equals(java.util.List.of(item("simplelib:reinforced_cauldron"))), "the reinforced cauldron");
+        helper.assertTrue(cauldron.tools().contains(ModItems.STONE_SLEDGEHAMMER), "every hammer works (rank 0)");
+        helper.assertTrue(cauldron.durationTicks() == SledgehammerUpgrades.upgradeTicks(SledgehammerUpgrades.upgradeOf(Blocks.CAULDRON)), "duration of the upgrade");
+        helper.assertTrue(com.simplebuilding.compat.InWorldRecipeCatalog.build().entries().stream()
+                .noneMatch(entry -> entry.id().equals("machine_upgrade/minecraft:cauldron")),
+                "the cauldron upgrade is not in the machine upgrade category (else drop it here)");
+
+        if (sandwiches) {
+        var butter = entries.get("milk_butter");
+        helper.assertTrue(butter.inputs().get(1).items().equals(java.util.List.of(Items.MILK_BUCKET)) && butter.tools().isEmpty()
+                && butter.output().items().equals(java.util.List.of(item("simplesandwiches:butter_block"))), "milk bucket in a cauldron gives butter");
+        var cheese = entries.get("milk_cheese");
+        helper.assertTrue(cheese.inputs().get(2).items().equals(java.util.List.of(Items.FERMENTED_SPIDER_EYE))
+                && cheese.output().items().equals(java.util.List.of(item("simplesandwiches:cheese_block"))), "fermented spider eye gives cheese");
+        }
+
+        var catalysts = com.simplebuilding.compat.CauldronWorldCatalog.catalysts();
+        helper.assertTrue(catalysts.contains(Items.CAULDRON) && catalysts.contains(item("simplelib:reinforced_cauldron"))
+                && catalysts.contains(ModItems.DIAMOND_SLEDGEHAMMER) && catalysts.contains(item("simplebuilding:enderite_crucible"))
+                && catalysts.contains(item("simplelib:iron_crucible")), "catalysts: both cauldrons, the hammers, the crucibles");
+        helper.succeed();
+    }
+
+    private static java.util.List<Object> noteArgs(com.simplebuilding.compat.CauldronWorldCatalog.Entry entry, int note) {
+        return java.util.List.of(((net.minecraft.network.chat.contents.TranslatableContents) entry.notes().get(note).getContents()).getArgs());
+    }
+
+    private static Item item(String id) {
+        return BuiltInRegistries.ITEM.getValue(Identifier.parse(id));
+    }
+
     private static Block lib(String path) {
         return BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath("simplelib", path));
     }
@@ -198,12 +337,16 @@ public final class CrucibleTests {
         var iron = SledgehammerUpgrades.upgradeOf(lib("iron_crucible"));
         var netherite = SledgehammerUpgrades.upgradeOf(lib("netherite_crucible"));
         var barrel = SledgehammerUpgrades.upgradeOf(lib("reinforced_barrel"));
+        var netheriteBarrel = SledgehammerUpgrades.upgradeOf(lib("netherite_barrel"));
         var cauldron = SledgehammerUpgrades.upgradeOf(Blocks.CAULDRON);
         helper.assertTrue(iron != null && iron.to() == lib("reinforced_crucible") && iron.nugget() == ModItems.CRACKED_DIAMOND
                 && iron.materialCost() == 2 && iron.durationFactor() == 2, "iron -> reinforced: 2 cracked diamonds, double strikes");
         helper.assertTrue(netherite != null && netherite.to() == CrucibleCompat.enderiteCrucible() && netherite.nugget() == ModItems.ENDERITE_NUGGET
                 && netherite.minHammerRank() == SledgehammerUpgrades.RANK_NETHERITE, "netherite -> enderite with enderite nuggets, netherite hammer");
-        helper.assertTrue(barrel != null && barrel.to() == CrucibleCompat.enderiteBarrel() && barrel.materialCost() == 2, "reinforced -> enderite barrel");
+        helper.assertTrue(barrel != null && barrel.to() == lib("netherite_barrel") && barrel.nugget() == ModItems.NETHERITE_NUGGET
+                && barrel.materialCost() == 2, "reinforced -> netherite barrel with netherite nuggets");
+        helper.assertTrue(netheriteBarrel != null && netheriteBarrel.to() == CrucibleCompat.enderiteBarrel() && netheriteBarrel.materialCost() == 2,
+                "netherite -> enderite barrel");
         helper.assertTrue(cauldron != null && cauldron.to() == CrucibleCompat.reinforcedCauldron() && cauldron.materialCost() == 4,
                 "cauldron -> reinforced cauldron with 4 cracked diamonds");
         // The upgrade keeps the contents (owner 11).

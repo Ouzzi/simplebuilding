@@ -18,7 +18,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
-/** Contents of a copper barrel; on its own it opens as a chest of its tier's size (owner 58). */
+/**
+ * Contents of a copper barrel; on its own it opens as a chest of its tier's size (owner 58). Attached
+ * to a crucible it has only 9 slots (owner addition 11): attaching drops the rest, detaching keeps the
+ * contents within the normal stack limits.
+ */
 public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
     private final BarrelTier tier;
     private NonNullList<ItemStack> items;
@@ -54,8 +58,45 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
         for (int i = 0; i < items.size() && i < list.size(); i++) items.set(i, list.get(i));
     }
 
+    /** Whether this barrel is attached to a crucible (then 9 slots and the crucible's menu). */
+    public boolean attached() {
+        BlockState state = getBlockState();
+        return state.hasProperty(CrucibleBarrelBlock.ATTACHED) && state.getValue(CrucibleBarrelBlock.ATTACHED);
+    }
+
     @Override
-    public int getContainerSize() { return tier.slots(); }
+    public int getContainerSize() { return attached() ? BarrelTier.CRUCIBLE_SLOTS : tier.slots(); }
+
+    /** Just attached: everything beyond the 9 crucible slots drops at the barrel. */
+    public void onAttached() {
+        if (level == null || level.isClientSide()) return;
+        for (int i = BarrelTier.CRUCIBLE_SLOTS; i < items.size(); i++) {
+            ItemStack rest = items.get(i);
+            items.set(i, ItemStack.EMPTY);
+            popAll(rest);
+        }
+        setChanged();
+    }
+
+    /** Just detached: the barrel is normal again; stacks above the normal limit drop their surplus. */
+    public void onDetached() {
+        if (level == null || level.isClientSide()) return;
+        for (int i = 0; i < items.size(); i++) {
+            ItemStack stack = items.get(i);
+            int max = getMaxStackSize(stack);
+            if (stack.getCount() > max) popAll(stack.split(stack.getCount() - max));
+        }
+        setChanged();
+    }
+
+    private void popAll(ItemStack stack) {
+        while (!stack.isEmpty()) Block.popResource(level, worldPosition, stack.split(Math.max(1, stack.getMaxStackSize())));
+    }
+
+    @Override
+    public boolean stillValid(net.minecraft.world.entity.player.Player player) {
+        return !attached() && super.stillValid(player);
+    }
 
     @Override
     public int getMaxStackSize() { return 99 * tier.stackMultiplier(); }
@@ -75,6 +116,7 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
     protected AbstractContainerMenu createMenu(int id, Inventory inventory) {
         MenuType<ChestMenu> type = switch (tier.rows()) {
             case 4 -> MenuType.GENERIC_9x4;
+            case 5 -> MenuType.GENERIC_9x5;
             case 6 -> MenuType.GENERIC_9x6;
             default -> MenuType.GENERIC_9x3;
         };

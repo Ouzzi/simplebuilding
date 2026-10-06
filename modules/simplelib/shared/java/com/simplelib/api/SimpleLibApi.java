@@ -222,6 +222,16 @@ public final class SimpleLibApi {
         return com.simplelib.crucible.CrucibleBarrelBlock.ATTACH_STRIKES;
     }
 
+    /** Of the build strikes, how many place a wall (heavy pressure plate); the rest place a handle (JEI, wiki). */
+    public static int buildWallStrikes() {
+        return com.simplelib.crucible.CrucibleBlankBlock.WALLS;
+    }
+
+    /** Slots of an attached barrel that the crucible uses and shows (JEI, wiki). */
+    public static int attachedBarrelSlots() {
+        return com.simplelib.crucible.BarrelTier.CRUCIBLE_SLOTS;
+    }
+
     // ------------------------------------------------------------ reinforced cauldron
 
     /** The reinforced cauldron (SimpleLib), or null before registration. */

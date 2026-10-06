@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraft.world.level.block.state.properties.Property;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -60,6 +61,7 @@ public final class BlockInfo {
         CRUCIBLE("crucible", true),
         PISTON_DURABILITY("piston_durability", false),
         CHEST_SLOTS("chest_slots", false),
+        CAULDRON("cauldron", false),
         FURNACE_SPEED("furnace_speed", false);
 
         private final String id;
@@ -318,10 +320,82 @@ public final class BlockInfo {
                     lines.add(Line.of("jade.simplebuilding.furnace.speed", Arg.literal(factor)));
                 }
             }
+            case CAULDRON -> cauldronLines(state, lines);
             default -> {
             }
         }
         return lines;
+    }
+
+    /** Registry id of the milk cauldron (module SimpleSandwiches); recognised by id, never by class. */
+    public static final String MILK_CAULDRON_ID = "simplesandwiches:milk_cauldron";
+    /** Registry id of the reinforced cauldron (SimpleLib). */
+    public static final String REINFORCED_CAULDRON_ID = "simplelib:reinforced_cauldron";
+    /** Visible ripening stages of the milk cauldron and fill levels of the reinforced cauldron. */
+    private static final int MILK_STAGES = 4;
+    private static final int CAULDRON_LEVELS = 3;
+
+    /** Whether Jade's universal fluid line ("Empty 1B") is wrong for this block and must be replaced by {@link Topic#CAULDRON}. */
+    public static boolean isModCauldron(String blockId) {
+        return MILK_CAULDRON_ID.equals(blockId) || REINFORCED_CAULDRON_ID.equals(blockId);
+    }
+
+    /**
+     * Milk cauldron: content, ripeness (the four stages), what to do when ripe. Reinforced cauldron: content and,
+     * for water and powder snow, the fill level. Both modules are only known by id and property names, so SimpleBuilding
+     * needs neither class; a state without the expected property just gives fewer lines.
+     */
+    private static void cauldronLines(BlockState state, List<Line> lines) {
+        String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(state.getBlock()).toString();
+        if (!isModCauldron(id)) {
+            return;
+        }
+        String content = propertyName(state, "content");
+        if (content == null) {
+            return;
+        }
+        lines.add(Line.of("jade.simplebuilding.cauldron.content", Arg.translatable("jade.simplebuilding.cauldron.content." + content)));
+        if (MILK_CAULDRON_ID.equals(id)) {
+            switch (content) {
+                case "milk", "curdling" -> {
+                    int stage = intProperty(state, "stage", 0);
+                    lines.add(Line.of("jade.simplebuilding.cauldron.ripeness", Arg.literal(Math.min(MILK_STAGES, stage + 1)), Arg.literal(MILK_STAGES)));
+                }
+                case "butter" -> lines.add(Line.of("jade.simplebuilding.cauldron.ready"));
+                case "cheese" -> {
+                    lines.add(Line.of("jade.simplebuilding.cauldron.ready"));
+                    lines.add(Line.of("jade.simplebuilding.cauldron.cheese_warning"));
+                }
+                case "spoiled" -> lines.add(Line.of("jade.simplebuilding.cauldron.spoiled"));
+                default -> {
+                }
+            }
+        } else if (content.equals("water") || content.equals("powder_snow")) {
+            // Without a level property the block always holds a full bucket.
+            lines.add(Line.of("jade.simplebuilding.cauldron.level", Arg.literal(intProperty(state, "level", CAULDRON_LEVELS)), Arg.literal(CAULDRON_LEVELS)));
+        }
+    }
+
+    /** The serialized value of the property called {@code name}, or null when the block has no such property. */
+    private static @Nullable String propertyName(BlockState state, String name) {
+        Property<?> property = state.getBlock().getStateDefinition().getProperty(name);
+        return property == null ? null : valueName(state, property);
+    }
+
+    private static <T extends Comparable<T>> String valueName(BlockState state, Property<T> property) {
+        return property.getName(state.getValue(property));
+    }
+
+    private static int intProperty(BlockState state, String name, int fallback) {
+        String value = propertyName(state, name);
+        if (value == null) {
+            return fallback;
+        }
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return fallback;
+        }
     }
 
     // =====================================================================================

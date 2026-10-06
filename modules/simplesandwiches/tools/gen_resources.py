@@ -147,20 +147,30 @@ def resources():
              "modifier": {"type": "minecraft:copy_state", "block": f"{NS}:{name}", "properties": ["slices", "cut"]}},
         ]})
 
+    # Milk cauldron; reinforced=true when it was made from SimpleLib's reinforced cauldron (owner addition 11): same
+    # contents with the reinforced cauldron's textures (only reachable with SimpleLib), emptying returns that cauldron.
     variants = {}
+    walls = {False: {"bottom": "minecraft:block/cauldron_bottom", "inside": "minecraft:block/cauldron_inner",
+                     "particle": "minecraft:block/cauldron_side", "side": "minecraft:block/cauldron_side",
+                     "top": "minecraft:block/cauldron_top"},
+             True: {k: f"simplelib:block/reinforced_cauldron_{v}" for k, v in
+                    (("bottom", "bottom"), ("inside", "inner"), ("particle", "side"), ("side", "side"), ("top", "top"))}}
     for content in ("milk", "butter", "curdling", "cheese", "spoiled"):
         for stage in range(4):
             suffix = f"milk_{stage}" if content == "milk" else f"curd_{stage}" if content == "curdling" else content
-            variants[f"content={content},stage={stage}"] = {"model": f"{NS}:block/milk_cauldron/{suffix}"}
-            # Vanilla 26.3 water_cauldron_full, with only content replaced (no water tint).
-            asset(f"models/block/milk_cauldron/{suffix}", {
-                "parent": "minecraft:block/template_cauldron_full",
-                "textures": {"bottom": "minecraft:block/cauldron_bottom", "inside": "minecraft:block/cauldron_inner",
-                             "particle": "minecraft:block/cauldron_side", "side": "minecraft:block/cauldron_side",
-                             "top": "minecraft:block/cauldron_top", "content": f"{NS}:block/milk_cauldron/{suffix}"},
-            })
+            for reinforced in (False, True):
+                model = f"milk_cauldron/{'reinforced_' if reinforced else ''}{suffix}"
+                variants[f"content={content},reinforced={str(reinforced).lower()},stage={stage}"] = {"model": f"{NS}:block/{model}"}
+                # Vanilla 26.3 water_cauldron_full, with only content replaced (no water tint).
+                asset(f"models/block/{model}", {
+                    "parent": "minecraft:block/template_cauldron_full",
+                    "textures": dict(walls[reinforced], content=f"{NS}:block/milk_cauldron/{suffix}"),
+                })
     asset("blockstates/milk_cauldron", {"variants": variants})
-    loot("milk_cauldron", {"type": "minecraft:item", "name": "minecraft:cauldron"})
+    # The reinforced one drops the reinforced cauldron in code (MilkCauldronBlock#getDrops, SimpleLib by id).
+    loot("milk_cauldron", {"type": "minecraft:item", "name": "minecraft:cauldron",
+                           "condition": {"type": "minecraft:match_block", "blocks": f"{NS}:milk_cauldron",
+                                         "state": {"reinforced": "false"}}})
 
     # Opened bread on the cutting board: two halves, drawn by the renderer through an ITEM_MODEL override
     # (subfolder: a render-only model, not a registered item).

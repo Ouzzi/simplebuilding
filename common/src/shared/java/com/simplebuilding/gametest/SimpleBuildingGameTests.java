@@ -567,6 +567,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_ceramic_bucket_holds_water_and_wears_out_after_thirty_two_uses", CrucibleTests::ceramicBucketHoldsWaterAndWearsOutAfterThirtyTwoUses)
                     .build(),
+            GameTestSpec.named("crucible_game_test_cauldron_world_catalog_matches_the_rules", CrucibleTests::cauldronWorldCatalogMatchesTheRules)
+                    .build(),
             GameTestSpec.named("crucible_game_test_copper_bucket_rules", CrucibleTests::copperBucketRules)
                     .build(),
             GameTestSpec.named("crucible_game_test_copper_bucket_fully_oxidized_scoops_nothing", CrucibleTests::copperBucketFullyOxidizedScoopsNothing)
@@ -578,6 +580,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("crucible_game_test_iron_bucket_breaks_on_soul_lava_enderite_never", CrucibleTests::ironBucketBreaksOnSoulLavaEnderiteNever)
                     .build(),
             GameTestSpec.named("crucible_game_test_jade_reports_heat_slots_and_shortest_remaining_time", CrucibleTests::jadeReportsHeatSlotsAndShortestRemainingTime)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_milk_and_reinforced_cauldrons_show_their_contents", CrucibleTests::milkAndReinforcedCauldronsShowTheirContents)
                     .build(),
             GameTestSpec.named("crucible_game_test_recipe_heat_and_catalog_match_cooking_rules", CrucibleTests::recipeHeatAndCatalogMatchCookingRules)
                     .build(),

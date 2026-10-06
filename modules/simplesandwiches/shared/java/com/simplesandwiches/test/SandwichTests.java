@@ -89,6 +89,7 @@ public final class SandwichTests {
         ALL.put("cauldron_butter", SandwichTests::cauldronButter);
         ALL.put("cauldron_cheese_spoils", SandwichTests::cauldronCheeseSpoils);
         ALL.put("cauldron_ripens_in_world", SandwichTests::cauldronRipensInWorld);
+        ALL.put("reinforced_milk_cauldron", SandwichTests::reinforcedMilkCauldron);
         ALL.put("bundle_eating", SandwichTests::bundleEating);
         ALL.put("cake_slice", SandwichTests::cakeSlice);
     }
@@ -622,6 +623,30 @@ public final class SandwichTests {
         h.assertTrue(at(h, pos).getValue(MilkCauldronBlock.CONTENT) == Content.BUTTER, "butter never spoils");
         click(h, p, pos);
         h.assertTrue(p.getMainHandItem().is(ModItems.BUTTER_BLOCK) && at(h, pos).is(Blocks.CAULDRON), "butter block taken");
+        h.succeed();
+    }
+
+    /** Owner addition 11: milk into SimpleLib's reinforced cauldron gives a reinforced milk cauldron that empties back into it. */
+    static void reinforcedMilkCauldron(GameTestHelper h) {
+        var reinforced = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "reinforced_cauldron"));
+        if (reinforced.isEmpty()) { h.succeed(); return; } // standalone without SimpleLib
+        BlockPos pos = new BlockPos(2, 2, 2);
+        h.setBlock(pos, reinforced.get());
+        ServerPlayer p = player(h, pos);
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.MILK_BUCKET));
+        click(h, p, pos);
+        h.assertTrue(at(h, pos).is(ModBlocks.MILK_CAULDRON) && at(h, pos).getValue(MilkCauldronBlock.REINFORCED), "reinforced milk cauldron");
+        h.assertTrue(MilkCauldronBlock.emptied(at(h, pos)).is(reinforced.get()), "it returns the reinforced cauldron");
+        click(h, p, pos);
+        h.assertTrue(at(h, pos).is(reinforced.get()) && p.getMainHandItem().is(Items.MILK_BUCKET), "milk taken back, reinforced cauldron again");
+        click(h, p, pos);
+        for (int i = 0; i < MilkCauldronBlock.STAGES; i++) step(h, pos);
+        h.assertTrue(at(h, pos).getValue(MilkCauldronBlock.CONTENT) == Content.BUTTER && at(h, pos).getValue(MilkCauldronBlock.REINFORCED),
+                "ripening keeps the reinforced base");
+        p.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        click(h, p, pos);
+        h.assertTrue(p.getMainHandItem().is(ModItems.BUTTER_BLOCK) && at(h, pos).is(reinforced.get()), "butter taken, reinforced cauldron back");
         h.succeed();
     }
 

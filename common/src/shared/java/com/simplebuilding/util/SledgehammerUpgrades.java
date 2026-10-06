@@ -283,22 +283,24 @@ public final class SledgehammerUpgrades {
     /**
      * Crucible P5 (owner F9/F10/F11, 56, 59): the SimpleLib crucibles and barrels go up with the sledgehammer at
      * twice the cost of a furnace (2 material, twice the strikes): Iron -> Reinforced (cracked diamonds) -> Netherite
-     * (netherite nuggets) -> Enderite (enderite nuggets); copper -> reinforced -> Enderite barrel. The Vanilla cauldron
+     * (netherite nuggets) -> Enderite (enderite nuggets); copper -> reinforced -> netherite -> Enderite barrel (owner addition 11). The Vanilla cauldron
      * becomes the reinforced cauldron with 4 cracked diamonds. SimpleLib blocks by their public ids (principle 6a).
      */
     private static void crucibleUpgrades(Map<Block, Upgrade> map) {
         Block iron = lib("iron_crucible"), reinforced = lib("reinforced_crucible"), netherite = lib("netherite_crucible");
-        Block copperBarrel = lib("copper_barrel"), reinforcedBarrel = lib("reinforced_barrel"), cauldron = lib("reinforced_cauldron");
+        Block copperBarrel = lib("copper_barrel"), reinforcedBarrel = lib("reinforced_barrel"), netheriteBarrel = lib("netherite_barrel");
+        Block cauldron = lib("reinforced_cauldron");
         Block enderite = com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible();
         Block enderiteBarrel = com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel();
-        if (iron == null || enderite == null || enderiteBarrel == null) return;
+        if (iron == null || enderite == null || enderiteBarrel == null || netheriteBarrel == null) return;
         int factor = CRUCIBLE_UPGRADE_DURATION_FACTOR;
         int cost = CRUCIBLE_UPGRADE_MATERIAL_COST;
         map.put(iron, new Upgrade(iron, reinforced, ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, factor, cost));
         map.put(reinforced, new Upgrade(reinforced, netherite, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false, factor, cost));
         map.put(netherite, new Upgrade(netherite, enderite, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
         map.put(copperBarrel, new Upgrade(copperBarrel, reinforcedBarrel, ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, factor, cost));
-        map.put(reinforcedBarrel, new Upgrade(reinforcedBarrel, enderiteBarrel, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
+        map.put(reinforcedBarrel, new Upgrade(reinforcedBarrel, netheriteBarrel, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false, factor, cost));
+        map.put(netheriteBarrel, new Upgrade(netheriteBarrel, enderiteBarrel, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
         map.put(net.minecraft.world.level.block.Blocks.CAULDRON, new Upgrade(net.minecraft.world.level.block.Blocks.CAULDRON, cauldron,
                 ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, 1, CAULDRON_UPGRADE_MATERIAL_COST));
     }

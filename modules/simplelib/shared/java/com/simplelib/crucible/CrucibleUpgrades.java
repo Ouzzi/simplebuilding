@@ -21,7 +21,8 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Upgrading a crucible in place without SimpleBuilding (principle 5a, owner 50): an axe in the main
  * hand, the Vanilla material in the off hand, ten strikes (owner F9: twice the furnace upgrade):
- * Iron -> Reinforced with 2 diamonds, Reinforced -> Netherite with 1 netherite ingot. The material
+ * Iron -> Reinforced with 2 diamonds, Reinforced -> Netherite with 1 netherite ingot (barrels the same:
+ * copper -> reinforced -> netherite). The material
  * is used on the last strike; contents, progress and experience stay. SimpleBuilding replaces this
  * with its sledgehammer way and calls {@link #upgradeInPlace} itself.
  */
@@ -42,6 +43,8 @@ public final class CrucibleUpgrades {
             return new Step(LibBlocks.REINFORCED_CRUCIBLE, LibBlocks.NETHERITE_CRUCIBLE, LibTags.UPGRADE_NETHERITE, 1);
         if (state.is(LibBlocks.COPPER_BARREL) && material.is(LibTags.UPGRADE_REINFORCED))
             return new Step(LibBlocks.COPPER_BARREL, LibBlocks.REINFORCED_BARREL, LibTags.UPGRADE_REINFORCED, 2);
+        if (state.is(LibBlocks.REINFORCED_BARREL) && material.is(LibTags.UPGRADE_NETHERITE))
+            return new Step(LibBlocks.REINFORCED_BARREL, LibBlocks.NETHERITE_BARREL, LibTags.UPGRADE_NETHERITE, 1);
         // Owner 56 B: without SimpleBuilding the cauldron becomes reinforced with an axe and 4 diamonds.
         if (state.is(net.minecraft.world.level.block.Blocks.CAULDRON) && material.is(LibTags.UPGRADE_REINFORCED))
             return new Step(net.minecraft.world.level.block.Blocks.CAULDRON, LibBlocks.REINFORCED_CAULDRON, LibTags.UPGRADE_REINFORCED, CAULDRON_COST);

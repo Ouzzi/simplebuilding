@@ -31,10 +31,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Copper barrel (owner wish round 2): next to a crucible, six strikes (axe without SimpleBuilding,
- * sledgehammer with it) attach it; it then faces the crucible, shows a copper flange towards it and
- * the crucible puts its results there first. Anyone may put items in (owner 61); a hopper below
- * takes them out. Breaking the crucible or the barrel detaches it.
+ * Copper barrel (owner wish round 2, addition 11): next to a crucible, six strikes (axe without
+ * SimpleBuilding, sledgehammer with it) attach it; every strike shows breaking cracks on the barrel.
+ * Attached it faces the crucible, docks to it with a flange and a chute over the rim, keeps only 9
+ * slots and opens the crucible's menu; the crucible puts its results there first. Anyone may put
+ * items in (owner 61); a hopper below takes them out. Breaking the barrel drops its contents and the
+ * plain barrel item; breaking the crucible makes the barrel a normal barrel again (contents stay).
  */
 public class CrucibleBarrelBlock extends Block implements EntityBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
@@ -89,7 +91,12 @@ public class CrucibleBarrelBlock extends Block implements EntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity be) player.openMenu(be);
+        if (level.isClientSide()) return InteractionResult.SUCCESS;
+        if (state.getValue(ATTACHED)) {
+            if (level.getBlockEntity(pos.relative(state.getValue(FACING))) instanceof CrucibleBlockEntity crucible) player.openMenu(crucible);
+        } else if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity be) {
+            player.openMenu(be);
+        }
         return InteractionResult.SUCCESS;
     }
 
@@ -99,6 +106,7 @@ public class CrucibleBarrelBlock extends Block implements EntityBlock {
         super.neighborChanged(state, level, pos, neighbor, orientation, moved);
         if (state.getValue(ATTACHED) && !(level.getBlockState(pos.relative(state.getValue(FACING))).getBlock() instanceof CrucibleBlock)) {
             level.setBlock(pos, state.setValue(ATTACHED, false), Block.UPDATE_ALL);
+            if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity be) be.onDetached();
         }
     }
 
@@ -135,15 +143,28 @@ public class CrucibleBarrelBlock extends Block implements EntityBlock {
         server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5,
                 6, 0.25, 0.1, 0.25, 0.05);
         if (done >= ATTACH_STRIKES) {
+            server.destroyBlockProgress(crackId(pos), pos, -1);
             server.setBlock(pos, state.setValue(FACING, side).setValue(ATTACHED, true), Block.UPDATE_ALL);
+            be.onAttached();
             server.playSound(null, pos, SoundEvents.COPPER_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
             if (server.getBlockEntity(cruciblePos) instanceof CrucibleBlockEntity crucible) crucible.markHeatDirty();
         } else {
+            server.destroyBlockProgress(crackId(pos), pos, crackStage(done));
             server.playSound(null, pos, SoundEvents.COPPER_HIT, SoundSource.BLOCKS, 0.8F, 1.0F + 0.05F * done);
         }
         if (!player.getAbilities().instabuild) tool.hurtAndBreak(toolDamage, player, EquipmentSlot.MAINHAND);
         player.getCooldowns().addCooldown(tool, CrucibleBlankBlock.STRIKE_COOLDOWN);
         return true;
+    }
+
+    /** Breaking-crack stage (0..9) shown after {@code done} of the six strikes. */
+    public static int crackStage(int done) {
+        return Math.max(0, Math.min(9, done * 10 / ATTACH_STRIKES - 1));
+    }
+
+    /** Breaker id of the cracks: negative, so it never matches a player that would then not see them. */
+    public static int crackId(BlockPos pos) {
+        return Integer.MIN_VALUE + (int) (pos.asLong() & 0xFFFFFF);
     }
 
     /** Whether the axe way may attach (principle 5a). */

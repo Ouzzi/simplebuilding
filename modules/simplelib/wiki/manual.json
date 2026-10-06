@@ -74,7 +74,7 @@
         "summary": "A cauldron for water, lava, powder snow and - with SimpleBuilding - soul lava; lava in it heats a crucible like a lava source.",
         "details": [
           "Without SimpleBuilding: hold an axe, put 4 diamonds in the off hand and use it on a cauldron five times. With SimpleBuilding the sledgehammer and 4 cracked diamonds replace the axe and the diamonds.",
-          "It always holds one full bucket: pour a bucket in, take it out with an empty bucket (no bottles). As a crucible heat source it counts like its content: lava high, soul lava extreme. A normal cauldron does not take soul lava."
+          "It works like a Vanilla cauldron and uses the same interactions: buckets, bottles in three levels, washing dyed items and banners, rain, snow and dripstone, and what other mods add to the cauldron (milk from Simple Sandwiches turns it into a reinforced milk cauldron that becomes this cauldron again when emptied). Copper and Enderite buckets (SimpleBuilding) take only a full cauldron. As a crucible heat source it counts like its content: lava high, soul lava extreme. A normal cauldron does not take soul lava."
         ]
       },
       "de": {
@@ -82,7 +82,7 @@
         "summary": "Ein Kessel für Wasser, Lava, Pulverschnee und - mit SimpleBuilding - Seelen-Lava; Lava darin heizt einen Schmelztiegel wie eine Lavaquelle.",
         "details": [
           "Ohne SimpleBuilding: eine Axt halten, 4 Diamanten in die Nebenhand und fünfmal auf einen Kessel anwenden. Mit SimpleBuilding ersetzen Vorschlaghammer und 4 Rissige Diamanten Axt und Diamanten.",
-          "Er fasst immer einen vollen Eimer: Eimer hineingießen, mit leerem Eimer wieder herausnehmen (keine Flaschen). Als Hitzequelle eines Schmelztiegels zählt er wie sein Inhalt: Lava hoch, Seelen-Lava extrem. Ein normaler Kessel nimmt keine Seelen-Lava."
+          "Er funktioniert wie ein Vanilla-Kessel und nutzt dieselben Interaktionen: Eimer, Flaschen in drei Stufen, Waschen gefärbter Gegenstände und Banner, Regen, Schnee und Tropfstein sowie alles, was andere Mods dem Kessel hinzufügen (Milch aus Simple Sandwiches macht ihn zum verstärkten Milchkessel, der beim Leeren wieder dieser Kessel wird). Kupfer- und Enderit-Eimer (SimpleBuilding) nehmen nur aus einem vollen Kessel. Als Hitzequelle eines Schmelztiegels zählt er wie sein Inhalt: Lava hoch, Seelen-Lava extrem. Ein normaler Kessel nimmt keine Seelen-Lava."
         ]
       }
     }
@@ -122,10 +122,10 @@
     },
     "simplelib:copper_barrel": {
       "en": {
-        "summary": "A barrel of 27 slots (barrel surrounded by four copper ingots). Next to a crucible, six axe strikes (sledgehammer with SimpleBuilding) attach it: the crucible then puts its results into its first 9 slots first, shown in the crucible screen; a hopper below the barrel takes them out."
+        "summary": "A barrel of 27 slots (barrel surrounded by four copper ingots). Next to a crucible, six axe strikes (sledgehammer with SimpleBuilding) attach it: every strike shows cracks, then the barrel docks to the crucible with a flange and a chute, keeps only 9 slots (the rest drops) and opens the crucible screen; the crucible puts its results there first, a hopper below the barrel takes them out. Breaking the barrel drops its contents and the plain barrel; breaking the crucible makes it a normal barrel again."
       },
       "de": {
-        "summary": "Ein Fass mit 27 Plätzen (Fass umringt von vier Kupferbarren). Neben einem Schmelztiegel mit sechs Axtschlägen (mit SimpleBuilding Vorschlaghammer) angebracht, legt der Tiegel seine Ergebnisse zuerst in dessen erste 9 Plätze, die im Tiegel-Fenster erscheinen; ein Trichter unter dem Fass nimmt sie heraus."
+        "summary": "Ein Fass mit 27 Plätzen (Fass umringt von vier Kupferbarren). Neben einem Schmelztiegel mit sechs Axtschlägen (mit SimpleBuilding Vorschlaghammer) angebracht, zeigt jeder Schlag Risse, dann dockt das Fass mit Flansch und Rinne am Tiegel an, behält nur 9 Plätze (der Rest fällt heraus) und öffnet das Tiegel-Fenster; der Tiegel legt seine Ergebnisse zuerst dort ab, ein Trichter unter dem Fass nimmt sie heraus. Fass abbauen gibt Inhalt und normales Fass, Tiegel abbauen macht es wieder zum normalen Fass."
       }
     },
     "simplelib:reinforced_barrel": {
@@ -136,12 +136,20 @@
         "summary": "Ein in der Welt aufgewertetes Kupfer-Fass (Axt, 2 Diamanten, zehn Schläge): allein 36 Plätze, am Tiegel 9."
       }
     },
-    "simplelib:reinforced_cauldron": {
+    "simplelib:netherite_barrel": {
       "en": {
-        "summary": "Holds one full bucket of water, lava, powder snow or (with SimpleBuilding) soul lava; heats a crucible like its content (see Reinforced cauldron)."
+        "summary": "A reinforced barrel upgraded in place (axe, 1 netherite ingot, ten strikes; with SimpleBuilding sledgehammer and 2 netherite nuggets): 45 slots on its own, 9 when attached to a crucible; survives fire and lava as an item."
       },
       "de": {
-        "summary": "Fasst einen vollen Eimer Wasser, Lava, Pulverschnee oder (mit SimpleBuilding) Seelen-Lava; heizt einen Schmelztiegel wie sein Inhalt (siehe Verstärkter Kessel)."
+        "summary": "Ein in der Welt aufgewertetes verstärktes Fass (Axt, 1 Netheritbarren, zehn Schläge; mit SimpleBuilding Vorschlaghammer und 2 Netheritklumpen): allein 45 Plätze, am Tiegel 9; als Gegenstand feuer- und lavafest."
+      }
+    },
+    "simplelib:reinforced_cauldron": {
+      "en": {
+        "summary": "A Vanilla cauldron that also holds (with SimpleBuilding) soul lava; heats a crucible like its content (see Reinforced cauldron)."
+      },
+      "de": {
+        "summary": "Ein Vanilla-Kessel, der (mit SimpleBuilding) auch Seelen-Lava fasst; heizt einen Schmelztiegel wie sein Inhalt (siehe Verstärkter Kessel)."
       }
     }
   }

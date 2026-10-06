@@ -20,11 +20,18 @@ import org.jetbrains.annotations.Nullable;
  * and heat arrive through {@link ContainerData}.
  */
 public class CrucibleMenu extends AbstractContainerMenu {
+    // Layout v2 (owner addition 11, Vanilla container conventions): title at y 6, slot grids from y 18 on the
+    // 18 px raster, the content block (heat column, grids, barrel) centred in the panel, inventory label 11 px
+    // above the inventory, 7 px margin under the hotbar.
     public static final int GRID_GAP = 4;
-    public static final int THERMO_WIDTH = 12;
-    public static final int GRID_LEFT = 8 + THERMO_WIDTH + 6;
+    public static final int THERMO_WIDTH = 10;
+    public static final int THERMO_GAP = 4;
     public static final int GRID_TOP = 18;
-    public static final int FIRE_HEIGHT = 12;
+    public static final int FIRE_GAP = 2;
+    public static final int FIRE_HEIGHT = 10;
+    /** Room on the right for the 9 fields of an attached barrel (placeholders while none is attached). */
+    public static final int BARREL_GAP = 8;
+    public static final int MARGIN = 8;
 
     private final CrucibleTier tier;
     private final Container container;
@@ -66,35 +73,62 @@ public class CrucibleMenu extends AbstractContainerMenu {
         return tier.grids() * 54 + (tier.grids() - 1) * GRID_GAP;
     }
 
-    /** Room on the right for the 9 fields of an attached barrel (shown only while one is attached). */
-    public static final int BARREL_GAP = 10;
+    /** Heat column + grids + barrel grid. */
+    public static int contentWidth(CrucibleTier tier) {
+        return THERMO_WIDTH + THERMO_GAP + gridsWidth(tier) + BARREL_GAP + 54;
+    }
 
     public static int imageWidth(CrucibleTier tier) {
-        return Math.max(176, GRID_LEFT + gridsWidth(tier) + BARREL_GAP + 54 + 8);
+        return Math.max(176, contentWidth(tier) + 2 * MARGIN);
+    }
+
+    public static int contentLeft(CrucibleTier tier) {
+        return (imageWidth(tier) - contentWidth(tier)) / 2;
+    }
+
+    public static int thermoLeft(CrucibleTier tier) {
+        return contentLeft(tier);
+    }
+
+    public static int gridLeft(CrucibleTier tier) {
+        return contentLeft(tier) + THERMO_WIDTH + THERMO_GAP;
+    }
+
+    public static int barrelLeft(CrucibleTier tier) {
+        return gridLeft(tier) + gridsWidth(tier) + BARREL_GAP;
+    }
+
+    public static int fireTop(CrucibleTier tier) {
+        return GRID_TOP + tier.rows() * 18 + FIRE_GAP;
+    }
+
+    /** Bottom of the crucible part: the fire strip or the 3x3 barrel grid, whichever is lower. */
+    public static int contentBottom(CrucibleTier tier) {
+        return Math.max(fireTop(tier) + FIRE_HEIGHT, GRID_TOP + 54);
     }
 
     public static int barrelX(CrucibleTier tier, int slot) {
-        return GRID_LEFT + gridsWidth(tier) + BARREL_GAP + 1 + slot % 3 * 18;
+        return barrelLeft(tier) + 1 + slot % 3 * 18;
     }
 
     public static int barrelY(int slot) {
         return GRID_TOP + 1 + slot / 3 * 18;
     }
 
+    public static int inventoryTop(CrucibleTier tier) {
+        return contentBottom(tier) + 15;
+    }
+
     public static int imageHeight(CrucibleTier tier) {
-        return GRID_TOP + tier.rows() * 18 + FIRE_HEIGHT + 14 + 76 + 8;
+        return inventoryTop(tier) + 76 + 7;
     }
 
     public static int inventoryLeft(CrucibleTier tier) {
         return (imageWidth(tier) - 162) / 2 + 1;
     }
 
-    public static int inventoryTop(CrucibleTier tier) {
-        return imageHeight(tier) - 82;
-    }
-
     public static int slotX(CrucibleTier tier, int slot) {
-        return GRID_LEFT + 1 + tier.grid(slot) * (54 + GRID_GAP) + tier.column(slot) * 18;
+        return gridLeft(tier) + 1 + tier.grid(slot) * (54 + GRID_GAP) + tier.column(slot) * 18;
     }
 
     public static int slotY(CrucibleTier tier, int slot) {
