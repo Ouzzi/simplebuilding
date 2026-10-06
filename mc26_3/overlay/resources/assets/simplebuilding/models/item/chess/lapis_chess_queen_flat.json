@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:item/chess/queen_flat",
+  "textures": {
+    "m": "simplebuilding:block/chess/lapis",
+    "a": "simplebuilding:block/chess/lapis_accent"
+  }
+}

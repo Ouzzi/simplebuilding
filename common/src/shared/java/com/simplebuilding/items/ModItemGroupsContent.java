@@ -244,6 +244,41 @@ public final class ModItemGroupsContent {
      * Quarz-Schachbretter; die Schwerkraftbloecke (schwebend | levitierend) und zuletzt Lager und Licht.
      */
     public static List<CreativeTabLayout.Row> buildingBlocksRows() {
+        List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>(baseBuildingBlocksRows());
+        if (com.simplebuilding.version.McVersion.CHESS) {
+            int checkers = 0;
+            while (!rows.get(checkers).name().equals("checkers")) {
+                checkers++;
+            }
+            rows.addAll(checkers + 1, chessRows());
+        }
+        return List.copyOf(rows);
+    }
+
+    /**
+     * Schach (docs/ai/PLAN-SCHACH-2026-10-06.md): je Farbe zwei Zeilen - Achtel, Treppe und Stufe des Schachbretts
+     * (Quarz hat keins: Luecken), die sechs 3D-Figuren; darunter, unter den 3D-Figuren, die sechs flachen.
+     */
+    private static List<CreativeTabLayout.Row> chessRows() {
+        List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>();
+        for (com.simplebuilding.chess.ChessColor color : com.simplebuilding.chess.ChessColor.values()) {
+            List<ItemStack> first = new java.util.ArrayList<>();
+            List<ItemStack> second = new java.util.ArrayList<>(List.of(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY));
+            first.add(new ItemStack(com.simplebuilding.chess.ChessItems.octet(color)));
+            com.simplebuilding.blocks.ModBlocks.CheckerShapes shapes = com.simplebuilding.blocks.ModBlocks.CHECKER_SHAPES.stream().filter(s -> s.color() == color).findFirst().orElse(null);
+            first.add(shapes != null ? new ItemStack(shapes.stairs()) : ItemStack.EMPTY);
+            first.add(shapes != null ? new ItemStack(shapes.slab()) : ItemStack.EMPTY);
+            for (com.simplebuilding.chess.ChessPiece piece : com.simplebuilding.chess.ChessPiece.values()) {
+                first.add(new ItemStack(com.simplebuilding.chess.ChessItems.piece(color, piece, false)));
+                second.add(new ItemStack(com.simplebuilding.chess.ChessItems.piece(color, piece, true)));
+            }
+            rows.add(new CreativeTabLayout.Row("chess_" + color.id(), first));
+            rows.add(new CreativeTabLayout.Row("chess_" + color.id() + "_flat", second));
+        }
+        return rows;
+    }
+
+    private static List<CreativeTabLayout.Row> baseBuildingBlocksRows() {
         return List.of(
                 CreativeTabLayout.Row.of("end_stones",
                         ModItems.POLISHED_END_STONE, ModItems.ASTRAL_END_STONE, ModItems.NIHIL_END_STONE),

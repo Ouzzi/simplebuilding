@@ -637,4 +637,100 @@ public final class FeatureStations {
         c.backWall(0, 10, wallZ, 5);
         return c;
     }
+
+    /** Achtelzellen der Station: je Farbe ein anderes Muster (Bitmaske, Index x | y << 1 | z << 2). */
+    private static final int[] OCTET_MASKS = {0x01, 0x03, 0x05, 0x0F, 0x33, 0x55, 0x3F, 0x77, 0x7F, 0xFF, 0x8B, 0x17, 0xE8};
+
+    /**
+     * Schach-Station (docs/ai/PLAN-SCHACH-2026-10-06.md, McVersion.CHESS): links ein Brett aus 4 x 4 Lapis-Schachbrettern
+     * mit der Grundstellung in 3D (Quarz gegen Schwarzstein, je Feld ein Viertel), daneben dasselbe mit flachen Figuren
+     * (Quarz gegen Netherziegel) auf Harz-Schachbrettern; rechts je Farbe drei Zellen mit allen zwoelf Figuren auf ihrem
+     * Schachbrett und davor eine Achtelzelle; dazu ein wassergefuelltes Achtel im Glas und eine Truhe mit allen Achteln.
+     */
+    public static TcCanvas chess(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        if (!com.simplebuilding.version.McVersion.CHESS) {
+            return c;
+        }
+        int wallZ = 8;
+        chessBoard(c, 1, ModBlocks.LAPIS_QUARTZ_CHECKER, com.simplebuilding.chess.ChessColor.QUARTZ,
+                com.simplebuilding.chess.ChessColor.BLACKSTONE, false);
+        chessBoard(c, 6, ModBlocks.RESIN_QUARTZ_CHECKER, com.simplebuilding.chess.ChessColor.QUARTZ,
+                com.simplebuilding.chess.ChessColor.NETHER_BRICK, true);
+        // Galerie: je Farbe drei Zellen (3D Bauer-Laeufer, Dame/Koenig + flach Bauer/Turm, flach Springer-Koenig).
+        com.simplebuilding.chess.ChessColor[] colors = com.simplebuilding.chess.ChessColor.values();
+        com.simplebuilding.chess.ChessPiece[] pieces = com.simplebuilding.chess.ChessPiece.values();
+        for (int i = 0; i < colors.length; i++) {
+            int x = 11 + i;
+            com.simplebuilding.chess.ChessColor color = colors[i];
+            Block floor = color.checker() != null ? color.checker() : Blocks.QUARTZ_BLOCK;
+            List<ItemStack> all = new ArrayList<>();
+            for (boolean flat : new boolean[]{false, true}) {
+                for (com.simplebuilding.chess.ChessPiece piece : pieces) {
+                    all.add(new ItemStack(com.simplebuilding.chess.ChessItems.piece(color, piece, flat)));
+                }
+            }
+            for (int cell = 0; cell < 3; cell++) {
+                c.place(x, -1, 1 + cell, floor);
+                c.place(x, 0, 1 + cell, ModBlocks.CHESS_PIECES.defaultBlockState()
+                        .setValue(com.simplebuilding.blocks.custom.ChessPiecesBlock.FACING, Direction.NORTH));
+                c.contents(x, 0, 1 + cell, all.subList(cell * 4, cell * 4 + 4));
+            }
+            c.place(x, 0, 5, com.simplebuilding.blocks.custom.CheckerOctetBlock.withMask(ModBlocks.CHECKER_OCTET.defaultBlockState()
+                    .setValue(com.simplebuilding.blocks.custom.CheckerOctetBlock.COLOR, color), OCTET_MASKS[i % OCTET_MASKS.length]));
+        }
+        // Wassergefuelltes Achtel (3/8) in einem Glasbecken.
+        c.place(2, -1, 6, Blocks.GLASS);
+        c.place(1, 0, 6, Blocks.GLASS);
+        c.place(3, 0, 6, Blocks.GLASS);
+        c.place(2, 0, 5, Blocks.GLASS);
+        c.place(2, 0, 7, Blocks.GLASS);
+        c.place(2, 0, 6, com.simplebuilding.blocks.custom.CheckerOctetBlock.withMask(ModBlocks.CHECKER_OCTET.defaultBlockState()
+                .setValue(com.simplebuilding.blocks.custom.CheckerOctetBlock.COLOR, com.simplebuilding.chess.ChessColor.PURPUR)
+                .setValue(com.simplebuilding.blocks.custom.CheckerOctetBlock.WATERLOGGED, true), 0x07));
+        c.place(5, 0, 6, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+        List<ItemStack> chest = new ArrayList<>();
+        for (Item octet : com.simplebuilding.chess.ChessItems.octets()) {
+            chest.add(new ItemStack(octet, 16));
+        }
+        chest.add(new ItemStack(ModBlocks.LAPIS_QUARTZ_CHECKER, 8));
+        chest.add(new ItemStack(Items.QUARTZ_BLOCK, 8));
+        chest.add(new ItemStack(Items.STONECUTTER));
+        c.contents(5, 0, 6, chest);
+        c.title(0, 3, wallZ, TcText.t("section.chess", "Chess"), TcText.t("section.chess.sub", "octets, pieces, checker stairs"));
+        c.wallSign(3, 2, wallZ, TcText.bold(TcText.t("chess.place", "Pieces")),
+                TcText.t("chess.place.sub", "one per checker field"), TcText.t("chess.place.sub2", "empty hand: turn"));
+        c.wallSign(8, 2, wallZ, TcText.bold(TcText.t("chess.swap", "Swap")),
+                TcText.t("chess.swap.sub", "sneak + piece: replace"), TcText.t("chess.swap.sub2", "sneak + hand: pick up"));
+        c.wallSign(13, 2, wallZ, TcText.bold(TcText.t("chess.octet", "Octets")),
+                TcText.t("chess.octet.sub", "placed where you click"), TcText.t("chess.octet.sub2", "hold water until full"));
+        c.backWall(0, 11 + colors.length, wallZ, 5);
+        return c;
+    }
+
+    /** Brett aus 4 x 4 Schachbrettern ab {@code x0} (z 1-4) mit der Grundstellung: Weiss im Sueden, Schwarz im Norden. */
+    private static void chessBoard(TcCanvas c, int x0, Block checker, com.simplebuilding.chess.ChessColor white,
+                                   com.simplebuilding.chess.ChessColor black, boolean flat) {
+        com.simplebuilding.chess.ChessPiece[] back = {com.simplebuilding.chess.ChessPiece.ROOK, com.simplebuilding.chess.ChessPiece.KNIGHT,
+                com.simplebuilding.chess.ChessPiece.BISHOP, com.simplebuilding.chess.ChessPiece.QUEEN, com.simplebuilding.chess.ChessPiece.KING,
+                com.simplebuilding.chess.ChessPiece.BISHOP, com.simplebuilding.chess.ChessPiece.KNIGHT, com.simplebuilding.chess.ChessPiece.ROOK};
+        for (int bx = 0; bx < 4; bx++) {
+            for (int bz = 1; bz <= 4; bz++) {
+                c.place(x0 + bx, -1, bz, checker.defaultBlockState());
+            }
+            ItemStack pawnW = new ItemStack(com.simplebuilding.chess.ChessItems.piece(white, com.simplebuilding.chess.ChessPiece.PAWN, flat));
+            ItemStack pawnB = new ItemStack(com.simplebuilding.chess.ChessItems.piece(black, com.simplebuilding.chess.ChessPiece.PAWN, flat));
+            // Plaetze: 0 Nordwest, 1 Nordost, 2 Suedwest, 3 Suedost.
+            c.place(x0 + bx, 0, 1, ModBlocks.CHESS_PIECES.defaultBlockState()
+                    .setValue(com.simplebuilding.blocks.custom.ChessPiecesBlock.FACING, Direction.SOUTH));
+            c.contents(x0 + bx, 0, 1, List.of(
+                    new ItemStack(com.simplebuilding.chess.ChessItems.piece(black, back[bx * 2], flat)),
+                    new ItemStack(com.simplebuilding.chess.ChessItems.piece(black, back[bx * 2 + 1], flat)), pawnB, pawnB));
+            c.place(x0 + bx, 0, 4, ModBlocks.CHESS_PIECES.defaultBlockState()
+                    .setValue(com.simplebuilding.blocks.custom.ChessPiecesBlock.FACING, Direction.NORTH));
+            c.contents(x0 + bx, 0, 4, List.of(pawnW, pawnW,
+                    new ItemStack(com.simplebuilding.chess.ChessItems.piece(white, back[bx * 2], flat)),
+                    new ItemStack(com.simplebuilding.chess.ChessItems.piece(white, back[bx * 2 + 1], flat))));
+        }
+    }
 }

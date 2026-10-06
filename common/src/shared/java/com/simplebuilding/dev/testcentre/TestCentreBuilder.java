@@ -168,6 +168,8 @@ public final class TestCentreBuilder {
                         container.setChanged();
                     } else if (level.getBlockEntity(fill.pos()) instanceof PlacedTemplateBlockEntity placed && !fill.contents().isEmpty()) {
                         placed.setTemplate(fill.contents().getFirst());
+                    } else if (level.getBlockEntity(fill.pos()) instanceof com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity pieces) {
+                        pieces.setPieces(fill.contents());
                     } else if (level.getBlockEntity(fill.pos()) instanceof com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity pile) {
                         pile.setParts(fill.contents());
                     } else if (level.getBlockEntity(fill.pos()) instanceof com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity bundle

@@ -157,6 +157,10 @@ public final class DataIntegrityTests {
         blocks.add("potted_silent_dandelion");
         // Crucible P5: the soul lava fluid block (like vanilla lava, only a bucket form).
         blocks.add("soul_lava");
+        // Chess: one octet cell block for all colours (placed by the 13 octet items) and the chess piece cell
+        // (placed by the piece items).
+        blocks.add("checker_octet");
+        blocks.add("chess_pieces");
         return Set.copyOf(blocks);
     }
 
@@ -183,7 +187,10 @@ public final class DataIntegrityTests {
             // drops the rod item of its state (StandingRodBlock#getDrops)
             "standing_rod",
             // soul lava (Crucible P5): a fluid block like vanilla lava, removed only by scooping
-            "soul_lava");
+            "soul_lava",
+            // chess: an octet cell drops its octets (CheckerOctetBlock#getDrops), a piece cell its pieces
+            // (ChessPiecesBlock#getDrops)
+            "checker_octet", "chess_pieces");
 
     /**
      * The blocks that do <em>not</em> drop themselves, and what they drop instead without Silk
@@ -1564,6 +1571,10 @@ public final class DataIntegrityTests {
             items.add(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible().asItem());
             items.add(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel().asItem());
         }
+        // Schach (McVersion.CHESS): Achtel, Figuren, Treppen und Stufen in Schleifen (ChessItems).
+        items.addAll(com.simplebuilding.chess.ChessItems.octets());
+        items.addAll(com.simplebuilding.chess.ChessItems.pieces().values());
+        items.addAll(com.simplebuilding.chess.ChessItems.shapes());
         // Ende der versteckten Easter-Kette (com.simplebuilding.tweaks.easter), eigene Registrierung.
         items.add(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick());
         return items;
@@ -1596,6 +1607,11 @@ public final class DataIntegrityTests {
             blocks.add(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible());
             blocks.add(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel());
             blocks.add(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BLOCK);
+        }
+        // Schach: Treppen und Stufen der Schachbretter, in einer Schleife registriert (ModBlocks.CHECKER_SHAPES).
+        for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
+            blocks.add(shapes.stairs());
+            blocks.add(shapes.slab());
         }
         return blocks;
     }
@@ -1962,7 +1978,9 @@ public final class DataIntegrityTests {
         missingCuts.removeAll(cuts);
         Set<String> strayCuts = new TreeSet<>();
         for (String cut : cuts) {
-            if ((cut.contains("astral") || cut.contains("nihil") || cut.contains("ender_quartz")) && !expectedCuts.contains(cut)) {
+            // Schachbretter samt Achteln, Figuren, Treppen und Stufen (Schach) prueft ChessTests.
+            boolean chess = cut.contains("checker") || cut.contains("octet") || cut.contains("_chess_");
+            if ((cut.contains("astral") || cut.contains("nihil") || cut.contains("ender_quartz")) && !chess && !expectedCuts.contains(cut)) {
                 strayCuts.add(cut);
             }
         }
@@ -2922,7 +2940,7 @@ public final class DataIntegrityTests {
     public static void buildingBlocksTabIsLaidOutInRows(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
         Item gap = Items.AIR;
-        List<List<Item>> expected = List.of(
+        List<List<Item>> expected = new ArrayList<>(List.of(
                 List.of(ModItems.POLISHED_END_STONE, ModItems.ASTRAL_END_STONE, ModItems.NIHIL_END_STONE),
                 List.of(ModItems.ASTRALIT_BLOCK, ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
                         ModItems.ASTRALIT_BRICK_SLAB, ModItems.ASTRALIT_BRICK_WALL, ModItems.ASTRALIT_PILLAR,
@@ -2946,7 +2964,27 @@ public final class DataIntegrityTests {
                         ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
                         ModItems.POLISHED_ENDER_QUARTZ_CHECKER),
                 List.of(ModItems.SUSPENDED_SAND, ModItems.SUSPENDED_GRAVEL, gap, ModItems.LEVITATING_SAND, ModItems.LEVITATING_GRAVEL),
-                List.of(ModItems.CRACKED_DIAMOND_BLOCK, ModItems.ENDERITE_BLOCK_ITEM, gap, ModItems.CONSTRUCTION_LIGHT));
+                List.of(ModItems.CRACKED_DIAMOND_BLOCK, ModItems.ENDERITE_BLOCK_ITEM, gap, ModItems.CONSTRUCTION_LIGHT)));
+        if (McVersion.CHESS) {
+            // Schach hinter den Schachbrettern: je Farbe Achtel, Treppe, Stufe (Quarz: Luecken), sechs 3D-Figuren;
+            // darunter unter den 3D-Figuren die sechs flachen.
+            List<List<Item>> chess = new ArrayList<>();
+            for (com.simplebuilding.chess.ChessColor color : com.simplebuilding.chess.ChessColor.values()) {
+                List<Item> first = new ArrayList<>();
+                List<Item> second = new ArrayList<>(List.of(gap, gap, gap));
+                first.add(com.simplebuilding.chess.ChessItems.octet(color));
+                Block checker = color.checker();
+                first.add(checker == null ? gap : BuiltInRegistries.ITEM.getValue(BuiltInRegistries.BLOCK.getKey(checker).withSuffix("_stairs")));
+                first.add(checker == null ? gap : BuiltInRegistries.ITEM.getValue(BuiltInRegistries.BLOCK.getKey(checker).withSuffix("_slab")));
+                for (com.simplebuilding.chess.ChessPiece piece : com.simplebuilding.chess.ChessPiece.values()) {
+                    first.add(com.simplebuilding.chess.ChessItems.piece(color, piece, false));
+                    second.add(com.simplebuilding.chess.ChessItems.piece(color, piece, true));
+                }
+                chess.add(first);
+                chess.add(second);
+            }
+            expected.addAll(10, chess);
+        }
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.BUILDING_BLOCKS, problems), expectedSlots(expected), "SimpleBlocks", problems);
         helper.assertTrue(problems.isEmpty(), "building blocks layout: " + problems);
         helper.succeed();

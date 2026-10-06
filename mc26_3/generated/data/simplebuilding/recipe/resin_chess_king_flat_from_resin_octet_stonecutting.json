@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:resin_octet",
+  "result": {
+    "id": "simplebuilding:resin_chess_king_flat"
+  }
+}

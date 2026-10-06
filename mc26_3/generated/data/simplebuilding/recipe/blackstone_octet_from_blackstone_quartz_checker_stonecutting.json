@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:blackstone_quartz_checker",
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:blackstone_octet"
+  }
+}

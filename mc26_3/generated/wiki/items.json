@@ -15,11 +15,15 @@
     "simplebuilding:astralit_ore",
     "simplebuilding:astralit_pillar",
     "simplebuilding:astralit_quartz_checker",
+    "simplebuilding:astralit_quartz_checker_slab",
+    "simplebuilding:astralit_quartz_checker_stairs",
     "simplebuilding:astralit_switch",
     "simplebuilding:auto_smither",
     "simplebuilding:backpack",
     "simplebuilding:black_hammock",
     "simplebuilding:blackstone_quartz_checker",
+    "simplebuilding:blackstone_quartz_checker_slab",
+    "simplebuilding:blackstone_quartz_checker_stairs",
     "simplebuilding:blaze_head",
     "simplebuilding:blaze_wall_head",
     "simplebuilding:blue_hammock",
@@ -30,6 +34,8 @@
     "simplebuilding:brown_hammock",
     "simplebuilding:cave_spider_head",
     "simplebuilding:cave_spider_wall_head",
+    "simplebuilding:checker_octet",
+    "simplebuilding:chess_pieces",
     "simplebuilding:chiseled_astralit_bricks",
     "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
@@ -53,6 +59,8 @@
     "simplebuilding:ender_quartz_brick_wall",
     "simplebuilding:ender_quartz_bricks",
     "simplebuilding:ender_quartz_checker",
+    "simplebuilding:ender_quartz_checker_slab",
+    "simplebuilding:ender_quartz_checker_stairs",
     "simplebuilding:ender_quartz_pillar",
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
@@ -92,6 +100,8 @@
     "simplebuilding:iron_rod",
     "simplebuilding:jukebox_amplifier",
     "simplebuilding:lapis_quartz_checker",
+    "simplebuilding:lapis_quartz_checker_slab",
+    "simplebuilding:lapis_quartz_checker_stairs",
     "simplebuilding:launchpad",
     "simplebuilding:layered_astralit",
     "simplebuilding:levitating_gravel",
@@ -101,6 +111,8 @@
     "simplebuilding:lime_hammock",
     "simplebuilding:magenta_hammock",
     "simplebuilding:nether_brick_quartz_checker",
+    "simplebuilding:nether_brick_quartz_checker_slab",
+    "simplebuilding:nether_brick_quartz_checker_stairs",
     "simplebuilding:nether_dimensional_scrap",
     "simplebuilding:netherite_backpack",
     "simplebuilding:netherite_blast_furnace",
@@ -133,6 +145,8 @@
     "simplebuilding:nihilith_ore",
     "simplebuilding:nihilith_pillar",
     "simplebuilding:nihilith_quartz_checker",
+    "simplebuilding:nihilith_quartz_checker_slab",
+    "simplebuilding:nihilith_quartz_checker_stairs",
     "simplebuilding:nihilith_switch",
     "simplebuilding:note_amplifier",
     "simplebuilding:orange_hammock",
@@ -145,17 +159,23 @@
     "simplebuilding:placed_smithing_template",
     "simplebuilding:polished_astralit",
     "simplebuilding:polished_astralit_checker",
+    "simplebuilding:polished_astralit_checker_slab",
+    "simplebuilding:polished_astralit_checker_stairs",
     "simplebuilding:polished_astralit_slab",
     "simplebuilding:polished_astralit_stairs",
     "simplebuilding:polished_astralit_wall",
     "simplebuilding:polished_end_stone",
     "simplebuilding:polished_ender_quartz",
     "simplebuilding:polished_ender_quartz_checker",
+    "simplebuilding:polished_ender_quartz_checker_slab",
+    "simplebuilding:polished_ender_quartz_checker_stairs",
     "simplebuilding:polished_ender_quartz_slab",
     "simplebuilding:polished_ender_quartz_stairs",
     "simplebuilding:polished_ender_quartz_wall",
     "simplebuilding:polished_nihilith",
     "simplebuilding:polished_nihilith_checker",
+    "simplebuilding:polished_nihilith_checker_slab",
+    "simplebuilding:polished_nihilith_checker_stairs",
     "simplebuilding:polished_nihilith_slab",
     "simplebuilding:polished_nihilith_stairs",
     "simplebuilding:polished_nihilith_wall",
@@ -163,8 +183,12 @@
     "simplebuilding:potted_silent_dandelion",
     "simplebuilding:purple_hammock",
     "simplebuilding:purpur_quartz_checker",
+    "simplebuilding:purpur_quartz_checker_slab",
+    "simplebuilding:purpur_quartz_checker_stairs",
     "simplebuilding:red_hammock",
     "simplebuilding:red_nether_brick_quartz_checker",
+    "simplebuilding:red_nether_brick_quartz_checker_slab",
+    "simplebuilding:red_nether_brick_quartz_checker_stairs",
     "simplebuilding:reinforced_backpack",
     "simplebuilding:reinforced_blast_furnace",
     "simplebuilding:reinforced_chest",
@@ -180,6 +204,8 @@
     "simplebuilding:reinforced_sticky_piston",
     "simplebuilding:reinforced_trapped_chest",
     "simplebuilding:resin_quartz_checker",
+    "simplebuilding:resin_quartz_checker_slab",
+    "simplebuilding:resin_quartz_checker_stairs",
     "simplebuilding:sage_ore",
     "simplebuilding:shulker_head",
     "simplebuilding:shulker_wall_head",
@@ -252,10 +278,61 @@
       "id": "simplebuilding:astralit_bricks"
     },
     {
+      "id": "simplebuilding:astralit_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:astralit_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:astralit_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:astralit_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:astralit_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:astralit_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:astralit_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:astralit_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:astralit_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:astralit_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:astralit_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:astralit_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
       "id": "simplebuilding:astralit_dust"
     },
     {
       "id": "simplebuilding:astralit_lamp"
+    },
+    {
+      "id": "simplebuilding:astralit_octet"
     },
     {
       "id": "simplebuilding:astralit_ore"
@@ -265,6 +342,12 @@
     },
     {
       "id": "simplebuilding:astralit_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:astralit_quartz_checker_slab"
+    },
+    {
+      "id": "simplebuilding:astralit_quartz_checker_stairs"
     },
     {
       "id": "simplebuilding:astralit_switch"
@@ -284,7 +367,64 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:blackstone_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:blackstone_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:blackstone_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:blackstone_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:blackstone_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:blackstone_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:blackstone_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:blackstone_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:blackstone_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:blackstone_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:blackstone_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:blackstone_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:blackstone_octet"
+    },
+    {
       "id": "simplebuilding:blackstone_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:blackstone_quartz_checker_slab"
+    },
+    {
+      "id": "simplebuilding:blackstone_quartz_checker_stairs"
     },
     {
       "id": "simplebuilding:blaze_head"
@@ -500,6 +640,63 @@
     },
     {
       "id": "simplebuilding:ender_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_checker_slab"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_checker_stairs"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:ender_quartz_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:ender_quartz_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:ender_quartz_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:ender_quartz_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:ender_quartz_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:ender_quartz_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:ender_quartz_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:ender_quartz_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:ender_quartz_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:ender_quartz_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:ender_quartz_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:ender_quartz_octet"
     },
     {
       "id": "simplebuilding:ender_quartz_pillar"
@@ -864,7 +1061,64 @@
       "id": "simplebuilding:jukebox_amplifier"
     },
     {
+      "id": "simplebuilding:lapis_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:lapis_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:lapis_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:lapis_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:lapis_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:lapis_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:lapis_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:lapis_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:lapis_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:lapis_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:lapis_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:lapis_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:lapis_octet"
+    },
+    {
       "id": "simplebuilding:lapis_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:lapis_quartz_checker_slab"
+    },
+    {
+      "id": "simplebuilding:lapis_quartz_checker_stairs"
     },
     {
       "id": "simplebuilding:launchpad",
@@ -942,7 +1196,64 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:nether_brick_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nether_brick_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nether_brick_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nether_brick_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nether_brick_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nether_brick_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nether_brick_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nether_brick_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nether_brick_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nether_brick_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nether_brick_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nether_brick_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nether_brick_octet"
+    },
+    {
       "id": "simplebuilding:nether_brick_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:nether_brick_quartz_checker_slab"
+    },
+    {
+      "id": "simplebuilding:nether_brick_quartz_checker_stairs"
     },
     {
       "id": "simplebuilding:nether_dimensional_scrap"
@@ -1089,7 +1400,58 @@
       "id": "simplebuilding:nihilith_bricks"
     },
     {
+      "id": "simplebuilding:nihilith_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:nihilith_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
       "id": "simplebuilding:nihilith_lamp"
+    },
+    {
+      "id": "simplebuilding:nihilith_octet"
     },
     {
       "id": "simplebuilding:nihilith_ore"
@@ -1099,6 +1461,12 @@
     },
     {
       "id": "simplebuilding:nihilith_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:nihilith_quartz_checker_slab"
+    },
+    {
+      "id": "simplebuilding:nihilith_quartz_checker_stairs"
     },
     {
       "id": "simplebuilding:nihilith_shard"
@@ -1232,6 +1600,63 @@
       "id": "simplebuilding:polished_astralit_checker"
     },
     {
+      "id": "simplebuilding:polished_astralit_checker_slab"
+    },
+    {
+      "id": "simplebuilding:polished_astralit_checker_stairs"
+    },
+    {
+      "id": "simplebuilding:polished_astralit_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_astralit_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_astralit_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_astralit_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_astralit_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_astralit_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_astralit_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_astralit_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_astralit_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_astralit_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_astralit_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_astralit_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_astralit_octet"
+    },
+    {
       "id": "simplebuilding:polished_astralit_slab"
     },
     {
@@ -1250,6 +1675,63 @@
       "id": "simplebuilding:polished_ender_quartz_checker"
     },
     {
+      "id": "simplebuilding:polished_ender_quartz_checker_slab"
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_checker_stairs"
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_octet"
+    },
+    {
       "id": "simplebuilding:polished_ender_quartz_slab"
     },
     {
@@ -1263,6 +1745,63 @@
     },
     {
       "id": "simplebuilding:polished_nihilith_checker"
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_checker_slab"
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_checker_stairs"
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_octet"
     },
     {
       "id": "simplebuilding:polished_nihilith_slab"
@@ -1285,7 +1824,115 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:purpur_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:purpur_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:purpur_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:purpur_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:purpur_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:purpur_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:purpur_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:purpur_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:purpur_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:purpur_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:purpur_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:purpur_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:purpur_octet"
+    },
+    {
       "id": "simplebuilding:purpur_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:purpur_quartz_checker_slab"
+    },
+    {
+      "id": "simplebuilding:purpur_quartz_checker_stairs"
+    },
+    {
+      "id": "simplebuilding:quartz_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:quartz_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:quartz_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:quartz_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:quartz_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:quartz_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:quartz_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:quartz_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:quartz_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:quartz_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:quartz_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:quartz_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:quartz_octet"
     },
     {
       "bundleCapacityItems": 64,
@@ -1300,7 +1947,64 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:red_nether_brick_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_octet"
+    },
+    {
       "id": "simplebuilding:red_nether_brick_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_quartz_checker_slab"
+    },
+    {
+      "id": "simplebuilding:red_nether_brick_quartz_checker_stairs"
     },
     {
       "id": "simplebuilding:reinforced_backpack",
@@ -1360,7 +2064,64 @@
       "id": "simplebuilding:reinforced_trapped_chest"
     },
     {
+      "id": "simplebuilding:resin_chess_bishop",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:resin_chess_bishop_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:resin_chess_king",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:resin_chess_king_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:resin_chess_knight",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:resin_chess_knight_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:resin_chess_pawn",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:resin_chess_pawn_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:resin_chess_queen",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:resin_chess_queen_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:resin_chess_rook",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:resin_chess_rook_flat",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:resin_octet"
+    },
+    {
       "id": "simplebuilding:resin_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:resin_quartz_checker_slab"
+    },
+    {
+      "id": "simplebuilding:resin_quartz_checker_stairs"
     },
     {
       "durability": 1024,

@@ -1,0 +1,23 @@
+{
+  "values": [
+    "simplebuilding:astralit_brick_slab",
+    "simplebuilding:polished_astralit_slab",
+    "simplebuilding:nihilith_brick_slab",
+    "simplebuilding:polished_nihilith_slab",
+    "simplebuilding:ender_quartz_slab",
+    "simplebuilding:ender_quartz_brick_slab",
+    "simplebuilding:polished_ender_quartz_slab",
+    "simplebuilding:purpur_quartz_checker_slab",
+    "simplebuilding:lapis_quartz_checker_slab",
+    "simplebuilding:blackstone_quartz_checker_slab",
+    "simplebuilding:resin_quartz_checker_slab",
+    "simplebuilding:nether_brick_quartz_checker_slab",
+    "simplebuilding:red_nether_brick_quartz_checker_slab",
+    "simplebuilding:nihilith_quartz_checker_slab",
+    "simplebuilding:astralit_quartz_checker_slab",
+    "simplebuilding:ender_quartz_checker_slab",
+    "simplebuilding:polished_astralit_checker_slab",
+    "simplebuilding:polished_nihilith_checker_slab",
+    "simplebuilding:polished_ender_quartz_checker_slab"
+  ]
+}

@@ -107,6 +107,8 @@ public final class McVersion {
     }
     public static final boolean PIECEWISE_HAMMER_TIME = false;
     public static final boolean MEGA_GUIDES = false;
+    /** Schachfiguren, Achtelbloecke, Checker-Stufen/-Treppen: nur Hauptlinie 26.3. */
+    public static final boolean CHESS = false;
 
     private McVersion() {
     }

@@ -252,6 +252,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tool_behaviour_game_test_shears_turn_placed_wool_into_four_string_and_wear_by_one", ToolBehaviourTests::shearsTurnPlacedWoolIntoFourStringAndWearByOne)
                     .build(),
+            GameTestSpec.named("chess_game_test_octets_fill_the_sub_grid_by_hit_point", ChessTests::octetsFillTheSubGridByHitPoint)
+                    .build(),
+            GameTestSpec.named("chess_game_test_octets_hold_water_until_full", ChessTests::octetsHoldWaterUntilFull)
+                    .build(),
+            GameTestSpec.named("chess_game_test_pieces_stand_on_quarters_and_swap", ChessTests::piecesStandOnQuartersAndSwap)
+                    .build(),
+            GameTestSpec.named("chess_game_test_chess_recipes_cut_from_checkers_and_octets", ChessTests::chessRecipesCutFromCheckersAndOctets)
+                    .build(),
             GameTestSpec.named("chisel_game_test_conversion_tables_are_pinned_entry_by_entry", ChiselTests::conversionTablesArePinnedEntryByEntry)
                     .build(),
             GameTestSpec.named("chisel_game_test_enderite_tier_walks_the_end_stone_palettes", ChiselTests::enderiteTierWalksTheEndStonePalettes)

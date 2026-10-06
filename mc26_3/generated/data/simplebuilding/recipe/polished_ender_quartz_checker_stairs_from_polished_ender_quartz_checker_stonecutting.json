@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:polished_ender_quartz_checker",
+  "result": {
+    "id": "simplebuilding:polished_ender_quartz_checker_stairs"
+  }
+}

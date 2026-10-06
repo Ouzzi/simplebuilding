@@ -376,6 +376,41 @@ public class ModBlocks {
     public static final Block FROSTED_NIHILITH = registerBlock("frosted_nihilith", NIHILITH_BLOCK, Block::new);
     public static final Block ENDER_QUARTZ_SLAB = registerBlock("ender_quartz_slab", ENDER_QUARTZ_BLOCK, SlabBlock::new);
 
+    // --- SCHACH (docs/ai/PLAN-SCHACH-2026-10-06.md, McVersion.CHESS) ---
+    /** Treppe und Stufe eines Quarz-Schachbretts (Eigenschaften vom Schachbrett, Astralit leuchtet mit 5). */
+    public record CheckerShapes(com.simplebuilding.chess.ChessColor color, Block checker, Block stairs, Block slab) {
+    }
+
+    public static final List<CheckerShapes> CHECKER_SHAPES = McVersion.CHESS ? checkerShapes() : List.of();
+
+    private static List<CheckerShapes> checkerShapes() {
+        List<CheckerShapes> out = new java.util.ArrayList<>();
+        for (com.simplebuilding.chess.ChessColor color : com.simplebuilding.chess.ChessColor.values()) {
+            Block checker = color.checker();
+            if (checker == null) {
+                continue;
+            }
+            String name = BuiltInRegistries.BLOCK.getKey(checker).getPath();
+            Block stairs = registerBlock(name + "_stairs", checker, s -> new StairBlock(checker.defaultBlockState(), s));
+            Block slab = registerBlock(name + "_slab", checker, SlabBlock::new);
+            out.add(new CheckerShapes(color, checker, stairs, slab));
+        }
+        return List.copyOf(out);
+    }
+
+    /**
+     * Achtelbloecke aller Farben in einem Block (Farbe und acht Bits im Zustand); kein Werkzeug noetig, mit der
+     * Spitzhacke schneller. Drops aus dem Zustand (CheckerOctetBlock#getDrops), keine Loot-Tabelle.
+     */
+    public static final Block CHECKER_OCTET = McVersion.CHESS ? registerBlock("checker_octet", unused -> new CheckerOctetBlock(
+            BlockBehaviour.Properties.of().setId(keyOf("checker_octet")).mapColor(MapColor.QUARTZ).strength(0.8F)
+                    .sound(SoundType.STONE).noLootTable().isValidSpawn((state, world, pos, type) -> false)
+                    .lightLevel(state -> state.getValue(CheckerOctetBlock.COLOR).light()))) : null;
+    /** Bis zu vier Schachfiguren auf einem Block (Block-Entity, ChessPiecesRenderer); droppt die Figuren. */
+    public static final Block CHESS_PIECES = McVersion.CHESS ? registerBlock("chess_pieces", unused -> new ChessPiecesBlock(
+            BlockBehaviour.Properties.of().setId(keyOf("chess_pieces")).mapColor(MapColor.NONE).strength(0.3F)
+                    .sound(SoundType.STONE).noLootTable().noOcclusion().pushReaction(McVersion.PUSH_DESTROYS))) : null;
+
     /**
      * Eine End-Palette nach dem Vorbild von Endstein und Purpur: Grundblock, Ziegel samt Treppe,
      * Stufe und Mauer, polierter Block samt Treppe, Stufe und Mauer, Saeule und gemeisselte Ziegel.

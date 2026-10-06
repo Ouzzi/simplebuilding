@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simplebuilding:block/polished_nihilith_checker_slab"
+    },
+    "type=double": {
+      "model": "simplebuilding:block/polished_nihilith_checker"
+    },
+    "type=top": {
+      "model": "simplebuilding:block/polished_nihilith_checker_slab_top"
+    }
+  }
+}

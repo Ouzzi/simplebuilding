@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lapis_octet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:lapis_octet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:lapis_chess_pawn_from_lapis_octet_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lapis_octet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:lapis_chess_pawn_from_lapis_octet_stonecutting"
+    ]
+  }
+}

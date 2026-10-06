@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:polished_ender_quartz_checker",
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:polished_ender_quartz_octet"
+  }
+}

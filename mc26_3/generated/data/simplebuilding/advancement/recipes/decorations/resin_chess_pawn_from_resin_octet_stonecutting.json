@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_resin_octet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:resin_octet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:resin_chess_pawn_from_resin_octet_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_resin_octet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:resin_chess_pawn_from_resin_octet_stonecutting"
+    ]
+  }
+}

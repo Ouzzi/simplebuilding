@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:item/chess/queen",
+  "textures": {
+    "m": "simplebuilding:block/chess/nether_brick",
+    "a": "simplebuilding:block/chess/nether_brick_accent"
+  }
+}

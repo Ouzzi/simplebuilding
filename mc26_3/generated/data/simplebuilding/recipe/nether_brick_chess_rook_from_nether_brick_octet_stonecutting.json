@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:nether_brick_octet",
+  "result": {
+    "id": "simplebuilding:nether_brick_chess_rook"
+  }
+}

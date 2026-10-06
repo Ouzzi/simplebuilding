@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "simplebuilding:block/nether_brick_quartz_checker",
+    "side": "simplebuilding:block/nether_brick_quartz_checker",
+    "top": "simplebuilding:block/nether_brick_quartz_checker"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "simplebuilding:block/lapis_quartz_checker",
+    "side": "simplebuilding:block/lapis_quartz_checker",
+    "top": "simplebuilding:block/lapis_quartz_checker"
+  }
+}

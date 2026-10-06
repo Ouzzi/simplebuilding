@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:lapis_octet",
+  "result": {
+    "id": "simplebuilding:lapis_chess_rook_flat"
+  }
+}

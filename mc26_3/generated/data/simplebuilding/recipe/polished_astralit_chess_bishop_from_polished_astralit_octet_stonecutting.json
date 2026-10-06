@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:polished_astralit_octet",
+  "result": {
+    "id": "simplebuilding:polished_astralit_chess_bishop"
+  }
+}

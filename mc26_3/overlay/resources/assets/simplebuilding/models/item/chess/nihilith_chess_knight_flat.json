@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:item/chess/knight_flat",
+  "textures": {
+    "m": "simplebuilding:block/chess/nihilith",
+    "a": "simplebuilding:block/chess/nihilith_accent"
+  }
+}

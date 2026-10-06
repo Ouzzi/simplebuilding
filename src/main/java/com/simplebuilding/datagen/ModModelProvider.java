@@ -93,6 +93,13 @@ public class ModModelProvider extends FabricModelProvider {
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.POLISHED_ASTRALIT_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.POLISHED_NIHILITH_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER);
+        if (com.simplebuilding.version.McVersion.CHESS) {
+            // Treppen und Stufen der Schachbretter (Schach 2026-10-06); Achtel und Figuren: Overlay-Modelle aus
+            // tools/textures/chess_2026_10_06.py.
+            for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
+                registerCheckerShapes(blockStateModelGenerator, shapes);
+            }
+        }
 
         blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRAL_PURPUR_BLOCK);
         blockStateModelGenerator.createTrivialCube(ModBlocks.NIHIL_PURPUR_BLOCK);
@@ -838,6 +845,26 @@ public class ModModelProvider extends FabricModelProvider {
         generator.family(palette.polished()).stairs(palette.polishedStairs()).slab(palette.polishedSlab()).wall(palette.polishedWall());
         generator.createAxisAlignedPillarBlock(palette.pillar(), TexturedModel.COLUMN_ALT);
         generator.createTrivialCube(palette.chiseled());
+    }
+
+    /** Treppe und Stufe eines Schachbretts: seine (ungespiegelte) Textur auf allen Seiten, doppelte Stufe = Schachbrett. */
+    private void registerCheckerShapes(BlockModelGenerators generator, ModBlocks.CheckerShapes shapes) {
+        Material texture = new Material(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID,
+                "block/" + BuiltInRegistries.BLOCK.getKey(shapes.checker()).getPath()));
+        TextureMapping mapping = new TextureMapping().put(TextureSlot.BOTTOM, texture).put(TextureSlot.TOP, texture)
+                .put(TextureSlot.SIDE, texture).put(TextureSlot.PARTICLE, texture);
+        Identifier inner = ModelTemplates.STAIRS_INNER.create(shapes.stairs(), mapping, generator.modelOutput);
+        Identifier straight = ModelTemplates.STAIRS_STRAIGHT.create(shapes.stairs(), mapping, generator.modelOutput);
+        Identifier outer = ModelTemplates.STAIRS_OUTER.create(shapes.stairs(), mapping, generator.modelOutput);
+        generator.blockStateOutput.accept(BlockModelGenerators.createStairs(shapes.stairs(), BlockModelGenerators.plainVariant(inner),
+                BlockModelGenerators.plainVariant(straight), BlockModelGenerators.plainVariant(outer)));
+        generator.registerSimpleItemModel(shapes.stairs(), straight);
+        Identifier bottom = ModelTemplates.SLAB_BOTTOM.create(shapes.slab(), mapping, generator.modelOutput);
+        Identifier top = ModelTemplates.SLAB_TOP.create(shapes.slab(), mapping, generator.modelOutput);
+        Identifier full = ModelLocationUtils.getModelLocation(shapes.checker());
+        generator.blockStateOutput.accept(BlockModelGenerators.createSlab(shapes.slab(), BlockModelGenerators.plainVariant(bottom),
+                BlockModelGenerators.plainVariant(top), BlockModelGenerators.plainVariant(full)));
+        generator.registerSimpleItemModel(shapes.slab(), bottom);
     }
 
     private void registerMirroredChecker(BlockModelGenerators generator, Block block) {

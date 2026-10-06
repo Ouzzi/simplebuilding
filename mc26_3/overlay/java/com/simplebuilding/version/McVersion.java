@@ -126,6 +126,8 @@ public final class McVersion {
     }
     public static final boolean PIECEWISE_HAMMER_TIME = true;
     public static final boolean MEGA_GUIDES = true;
+    /** Schachfiguren, Achtelbloecke, Checker-Stufen/-Treppen (docs/ai/PLAN-SCHACH-2026-10-06.md). */
+    public static final boolean CHESS = true;
 
     private McVersion() {
     }

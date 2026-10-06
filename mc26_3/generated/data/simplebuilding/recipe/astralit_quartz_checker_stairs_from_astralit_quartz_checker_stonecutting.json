@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:astralit_quartz_checker",
+  "result": {
+    "id": "simplebuilding:astralit_quartz_checker_stairs"
+  }
+}

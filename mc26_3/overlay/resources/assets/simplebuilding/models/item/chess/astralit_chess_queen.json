@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:item/chess/queen",
+  "textures": {
+    "m": "simplebuilding:block/chess/astralit",
+    "a": "simplebuilding:block/chess/astralit_accent"
+  }
+}
