@@ -17,39 +17,44 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * Crucible screen, drawn from flat colours (no texture per size).
- * N12 (owner feedback, images 3/4 in previews/refs-n12): two rounded boxes like image 3 - the crucible box on top in
- * the tier's colour, the light inventory box below it (the gap between them is the divider); flat faces, a dark rim,
- * a faint light/shade edge; slots 16x16 with rounded corners, sunk in (dark top line, light edge below/right), 2 px
- * apart; an attached barrel's 9 fields sit in their own copper box. The heat shows as a flame strip behind the slots
- * ({@link CrucibleFlames}) or, with {@link CrucibleMenu#HEAT_STYLE} SLOT, as an inset slot filling with flames
- * (image 4). Slot state shows in the slot's bottom two pixel rows ({@link #PROGRESS_STYLE}): orange progress while
- * cooking, blue (paused progress) when the heat is too low, red when the result has no room, green on finished
- * results; grey veil for items without a recipe; reserved places show the coming result faintly. A corner mark
- * repeats cooking/blocked/cold for colour-blind players.
+ * N12/N12b (owner feedback, images 3/4 in previews/refs-n12, measured pixel by pixel - see
+ * docs/ai/PLAN-CRUCIBLE-N12B-2026-10-06.md): two boxes like image 3 - the crucible box on top in the tier's colour,
+ * the light inventory box below it (the gap between them is the divider). Each box has image 4's thick frame: dark
+ * outline, darker bevel line, 2 px dark band, a light inner line, corners rounded by 2 px; at the bottom two more
+ * pixels of shadow (5 px frame at the top and sides, 7 px at the bottom). Slots 16x16 like image 3 (rounded corners,
+ * 2 px apart), sunk in like image 4 (dark top and left line, light edge below/right); an attached barrel's 9 fields sit
+ * in a thin copper box. The heat shows as a flame strip behind the slots ({@link CrucibleFlames}).
+ * Each crucible slot shows its progress like the furnace (image 4, {@link #PROGRESS_STYLE} FILL): the slot fills up
+ * from below with flames while cooking - blue and standing still when the heat is too low, red and full when the result
+ * has no room; finished results get a green frame, items without a recipe a grey veil. GAP_BAR puts the same progress
+ * into a vertical bar in the gap right of the slot instead. Reserved places show the coming result faintly. A corner
+ * mark repeats cooking/blocked/cold for colour-blind players.
  * The image is the larger of both layouts; the current panel is drawn centred inside it.
  */
 public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
-    /** Where the state bar of a crucible slot goes (owner N12 proposals, preview crucible-n12-fortschritt.png). */
+    /** How a crucible slot shows its progress (owner N12b, preview crucible-n12b-fortschritt.png). */
     public enum ProgressStyle {
-        /** A: the slot's bottom two pixel rows, drawn over the item (like a durability bar). */
-        OVER_ITEM,
-        /** B: the same rows, behind the item. */
-        UNDER_ITEM,
-        /** C: the 2 px gap under the slot. */
-        BELOW_SLOT
+        /** Version 1: the slot fills up from below like the furnace's fuel slot in image 4 (behind the item). */
+        FILL,
+        /** Version 2: a vertical bar in the 2 px gap right of the slot. */
+        GAP_BAR
     }
 
-    /** Switch for the slot state bar. */
-    public static final ProgressStyle PROGRESS_STYLE = ProgressStyle.OVER_ITEM;
+    /** Switch for the slot progress. */
+    public static final ProgressStyle PROGRESS_STYLE = ProgressStyle.FILL;
 
-    /** Box colours: fill, light edge, shade edge, slot, slot top line, label. */
+    /** Box colours: fill, light inner line, shade, slot, slot top line, label. */
     record Palette(int fill, int light, int shade, int slot, int slotTop, int label) {}
 
-    static final int RIM = 0xFF2B2D31;
-    static final Palette INVENTORY = new Palette(0xFFE3E6E9, 0xFFF6F7F8, 0xFFC5CACE, 0xFFB4BABF, 0xFF979DA3, 0xFF404040);
+    static final int RIM = 0xFF1E1F23;
+    static final Palette INVENTORY = new Palette(0xFFE3E6E9, 0xFFF8F9FA, 0xFFC5CACE, 0xFFB4BABF, 0xFF979DA3, 0xFF404040);
     static final Palette BARREL = new Palette(0xFFB9774F, 0xFFD08F68, 0xFF955839, 0xFF94573A, 0xFF74412B, 0xFF404040);
-    private static final int TRACK = 0xB0262626, COOK = 0xFFF0901E, RED = 0xFFD8402F, BLUE = 0xFF4A86DA, GREEN = 0xFF52B13C;
-    private static final int GREY = 0x80505050;
+    /** Furnace-like fills (image 4): body, tongues, bright base line. */
+    private static final int[] FILL_COOK = {0xFFFFAE1E, 0xFFF26B12, 0xFFFFE34A};
+    private static final int[] FILL_COLD = {0xFF4A86DA, 0xFF2C5DB0, 0xFFBFE0FF};
+    private static final int[] FILL_BLOCKED = {0xFFC9503E, 0xFF962A1E, 0xFFFF9A80};
+    private static final int TRACK = 0xFF3A3A3A, COOK = 0xFFF0901E, RED = 0xFFD8402F, BLUE = 0xFF4A86DA, GREEN = 0xFF52B13C;
+    private static final int GREEN_LIGHT = 0xFF9BE07F, GREY = 0x80505050;
 
     private final CrucibleTier tier;
 
@@ -62,10 +67,10 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
     /** The crucible box colours of a tier (image 3: one colour per block). */
     static Palette palette(CrucibleTier tier) {
         return switch (tier) {
-            case IRON -> new Palette(0xFF9A9DA2, 0xFFB5B8BC, 0xFF7E8186, 0xFF7B7E83, 0xFF64676C, 0xFF2E3034);
-            case REINFORCED -> new Palette(0xFF6F9095, 0xFF8AAAAF, 0xFF587378, 0xFF55737A, 0xFF425C61, 0xFFF0F6F6);
-            case NETHERITE -> new Palette(0xFF5F524C, 0xFF766860, 0xFF4A3F3A, 0xFF473C37, 0xFF352C28, 0xFFEFE4DA);
-            case ENDERITE -> new Palette(0xFF8E6CB0, 0xFFA888C7, 0xFF735693, 0xFF70538E, 0xFF594073, 0xFFF7F0FF);
+            case IRON -> new Palette(0xFF9A9DA2, 0xFFC4C7CB, 0xFF7E8186, 0xFF7B7E83, 0xFF64676C, 0xFF2E3034);
+            case REINFORCED -> new Palette(0xFF6F9095, 0xFF9DBCC1, 0xFF587378, 0xFF55737A, 0xFF425C61, 0xFFF0F6F6);
+            case NETHERITE -> new Palette(0xFF5F524C, 0xFF867870, 0xFF4A3F3A, 0xFF473C37, 0xFF352C28, 0xFFEFE4DA);
+            case ENDERITE -> new Palette(0xFF8E6CB0, 0xFFB99AD6, 0xFF735693, 0xFF70538E, 0xFF594073, 0xFFF7F0FF);
         };
     }
 
@@ -91,17 +96,12 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         box(g, px, py, l.width(), l.sectionHeight(), top);
         box(g, px, y0 + l.inventoryBoxTop(), l.width(), l.y() + l.height() - l.inventoryBoxTop(), INVENTORY);
         long now = Util.getMillis();
-        if (CrucibleMenu.HEAT_STYLE == CrucibleMenu.HeatStyle.BAND) {
-            CrucibleFlames.draw(g, px + 2, py + l.sectionHeight() - 1, l.width() - 4, l.sectionHeight(), menu.heat(), now);
-        } else {
-            int hx = x0 + l.heatX(), hy = y0 + l.heatY(tier);
-            slot(g, hx, hy, top);
-            CrucibleFlames.drawSlot(g, hx, hy, menu.heat(), now);
-        }
+        CrucibleFlames.draw(g, px + FRAME, py + l.sectionHeight() - FRAME_BOTTOM, l.width() - 2 * FRAME, l.sectionHeight(),
+                menu.heat(), menu.afterglow() > 0, now);
         boolean attached = menu.barrelAttached();
         if (attached) {
             int bx = x0 + l.barrelLeft(), by = py + CrucibleMenu.GRID_TOP;
-            box(g, bx - 2, by - 2, 59, 59, BARREL);
+            inset(g, bx - 2, by - 2, 59, 59, BARREL);
         }
         for (Slot slot : menu.slots) {
             if (!slot.isActive()) continue;
@@ -109,11 +109,7 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
             int index = menu.crucibleIndex(slot);
             Palette p = index >= 0 ? top : slot.container == menu.slots.get(menu.barrelStart()).container ? BARREL : INVENTORY;
             slot(g, x, y, p);
-            if (index >= 0) {
-                slotState(g, index, x, y);
-                if (PROGRESS_STYLE == ProgressStyle.UNDER_ITEM) stateBar(g, index, x, y + 14);
-                else if (PROGRESS_STYLE == ProgressStyle.BELOW_SLOT) stateBar(g, index, x, y + 16);
-            }
+            if (index >= 0) slotState(g, index, x, y, now);
         }
         g.nextStratum();
         if (attached) {
@@ -141,18 +137,6 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         }
     }
 
-    /** Style A: the state bars go over the items (coordinates are relative to the screen's image here). */
-    @Override
-    protected void extractSlots(GuiGraphicsExtractor g, int mouseX, int mouseY) {
-        super.extractSlots(g, mouseX, mouseY);
-        if (PROGRESS_STYLE != ProgressStyle.OVER_ITEM) return;
-        g.nextStratum();
-        for (Slot slot : menu.slots) {
-            int index = menu.crucibleIndex(slot);
-            if (slot.isActive() && index >= 0) stateBar(g, index, slot.x, slot.y + 14);
-        }
-    }
-
     /** Clicks in the reserved box but outside the current panel count as outside (drop the carried stack). */
     @Override
     protected boolean hasClickedOutside(double mx, double my, int xo, int yo) {
@@ -167,9 +151,20 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         g.fill(x + 15, y + 1, x + 16, y + 15, color);
     }
 
-    /** Background part of a slot's state: grey veil without a recipe, corner marks for colour-blind players. */
-    private void slotState(GuiGraphicsExtractor g, int slot, int x, int y) {
-        switch (menu.slotState(slot)) {
+    /** A crucible slot's state behind its item: furnace-like fill or gap bar, green frame, grey veil, corner marks. */
+    private void slotState(GuiGraphicsExtractor g, int slot, int x, int y, long now) {
+        int state = menu.slotState(slot);
+        int percent = state == CrucibleBlockEntity.BLOCKED ? 100 : menu.slotPercent(slot);
+        if (state == CrucibleBlockEntity.COOKING || state == CrucibleBlockEntity.COLD || state == CrucibleBlockEntity.BLOCKED) {
+            int level = Math.max(state == CrucibleBlockEntity.COOKING ? 1 : 0, percent * 16 / 100);
+            if (PROGRESS_STYLE == ProgressStyle.FILL) {
+                int[] colors = state == CrucibleBlockEntity.COOKING ? FILL_COOK : state == CrucibleBlockEntity.COLD ? FILL_COLD : FILL_BLOCKED;
+                furnaceFill(g, x, y, level, colors, state == CrucibleBlockEntity.COOKING ? now : 0);
+            } else {
+                gapBar(g, x, y, level, state == CrucibleBlockEntity.COOKING ? COOK : state == CrucibleBlockEntity.COLD ? BLUE : RED);
+            }
+        }
+        switch (state) {
             case CrucibleBlockEntity.COOKING -> corner(g, x, y, 0xFFFFC040);
             case CrucibleBlockEntity.BLOCKED -> {
                 g.fill(x + 12, y + 1, x + 13, y + 5, 0xFFFFFFFF);
@@ -180,26 +175,46 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
                 g.fill(x + 13, y + 1, x + 14, y + 6, 0xFFFFFFFF);
                 g.fill(x + 11, y + 3, x + 16, y + 4, 0xFFFFFFFF);
             }
+            case CrucibleBlockEntity.RESULT -> {
+                if (PROGRESS_STYLE == ProgressStyle.FILL) {
+                    g.fill(x + 1, y, x + 15, y + 1, GREEN);
+                    g.fill(x, y + 1, x + 1, y + 15, GREEN);
+                    g.fill(x + 1, y + 16, x + 16, y + 17, GREEN_LIGHT);
+                    g.fill(x + 16, y + 1, x + 17, y + 16, GREEN_LIGHT);
+                } else {
+                    gapBar(g, x, y, 16, GREEN);
+                }
+            }
             case CrucibleBlockEntity.NO_RECIPE -> g.fill(x, y + 1, x + 16, y + 15, GREY);
             default -> {}
         }
     }
 
-    /** The two-row state bar of a crucible slot at {@code x, y} (14 px wide, inside the slot's rounded corners). */
-    private void stateBar(GuiGraphicsExtractor g, int slot, int x, int y) {
-        int state = menu.slotState(slot);
-        int x1 = x + 1, x2 = x + 15;
-        switch (state) {
-            case CrucibleBlockEntity.COOKING, CrucibleBlockEntity.COLD -> {
-                int w = menu.slotPercent(slot) * 14 / 100;
-                if (state == CrucibleBlockEntity.COOKING) w = Math.max(1, w);
-                g.fill(x1, y, x2, y + 2, TRACK);
-                if (w > 0) g.fill(x1, y, x1 + w, y + 2, state == CrucibleBlockEntity.COOKING ? COOK : BLUE);
+    /**
+     * Image 4's fuel slot: the slot fills {@code level} px (of 16) from below - body colour, darker flickering tongues
+     * ({@code millis} 0 = still), a bright base line - inside the slot's rounded corners.
+     */
+    static void furnaceFill(GuiGraphicsExtractor g, int x, int y, int level, int[] colors, long millis) {
+        if (level <= 0) return;
+        int top = y + 16 - level;
+        g.fill(x, Math.max(top, y + 1), x + 16, y + 15, colors[0]);
+        if (top <= y) g.fill(x + 1, y, x + 15, y + 1, colors[0]);
+        g.fill(x + 1, y + 15, x + 15, y + 16, colors[2]);
+        int flick = (int) (millis / 160);
+        for (int i = 0; i < 3; i++) {
+            int tx = x + 2 + i * 5;
+            int h = Math.min(level - 3, 4 + (CrucibleFlames.hash(i, flick) & 3));
+            for (int k = 0; k < h; k++) {
+                int dx = ((k + i + flick) & 2) == 0 ? 0 : 1;
+                g.fill(tx + dx, y + 13 - k, tx + dx + 2, y + 14 - k, colors[1]);
             }
-            case CrucibleBlockEntity.BLOCKED -> g.fill(x1, y, x2, y + 2, RED);
-            case CrucibleBlockEntity.RESULT -> g.fill(x1, y, x2, y + 2, GREEN);
-            default -> {}
         }
+    }
+
+    /** Version 2: a 2 px bar in the gap right of the slot, filling {@code level} px (of 16) from below. */
+    static void gapBar(GuiGraphicsExtractor g, int x, int y, int level, int color) {
+        g.fill(x + 16, y, x + 18, y + 16, TRACK);
+        if (level > 0) g.fill(x + 16, y + 16 - level, x + 18, y + 16, color);
     }
 
     private static void corner(GuiGraphicsExtractor g, int x, int y, int color) {
@@ -244,11 +259,9 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
     /** Whether {@code mx, my} (relative to the image) is over the heat display (or where the flames would be). */
     private boolean overHeat(int mx, int my) {
         CrucibleMenu.Layout l = layout();
-        if (CrucibleMenu.HEAT_STYLE == CrucibleMenu.HeatStyle.SLOT) {
-            return mx >= l.heatX() && mx < l.heatX() + 16 && my >= l.heatY(tier) && my < l.heatY(tier) + 16;
-        }
-        int flames = Math.max(CrucibleFlames.targetPixels(HeatLevel.HIGH, l.sectionHeight()), 8);
-        return mx >= l.x() + 2 && mx < l.x() + l.width() - 2 && my >= l.y() + l.sectionHeight() - flames && my < l.y() + l.sectionHeight();
+        int flames = Math.max(CrucibleFlames.targetPixels(HeatLevel.HIGH, false, l.sectionHeight()), 8);
+        int bottom = l.y() + l.sectionHeight() - FRAME_BOTTOM;
+        return mx >= l.x() + FRAME && mx < l.x() + l.width() - FRAME && my >= bottom - flames && my < bottom;
     }
 
     private Component stateLine(int slot) {
@@ -274,31 +287,60 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         }
     }
 
-    /** Image 3 box: dark rim with rounded corners, flat fill, light top/left and shaded bottom/right edge. */
+    /** Frame thickness of a box at the top and the sides, and at the bottom (with the shadow). */
+    static final int FRAME = 5, FRAME_BOTTOM = 7;
+
+    /** {@code color} with its RGB scaled by {@code f}. */
+    static int scale(int color, double f) {
+        int r = (int) Math.min(255, ((color >> 16) & 255) * f), gr = (int) Math.min(255, ((color >> 8) & 255) * f),
+                b = (int) Math.min(255, (color & 255) * f);
+        return 0xFF000000 | r << 16 | gr << 8 | b;
+    }
+
+    /** A filled rectangle whose corner rows are shortened by {@code cuts[k]} px on both sides (k = 0 outermost row). */
+    static void rounded(GuiGraphicsExtractor g, int x, int y, int w, int h, int[] cuts, int color) {
+        int n = cuts.length;
+        for (int k = 0; k < n; k++) {
+            g.fill(x + cuts[k], y + k, x + w - cuts[k], y + k + 1, color);
+            g.fill(x + cuts[k], y + h - 1 - k, x + w - cuts[k], y + h - k, color);
+        }
+        g.fill(x, y + n, x + w, y + h - n, color);
+    }
+
+    private static final int[] CUT_OUTER = {3, 1, 1}, CUT_BEVEL = {2, 1}, CUT_INNER = {1}, CUT_NONE = {};
+
+    /**
+     * Image 3/4 box (measured on image 4): outline, bevel line (0.82 x fill), 2 px band (0.64 x fill), light inner line,
+     * fill - 5 px frame; at the bottom 2 px shadow (0.40 x fill) between bevel and outline - 7 px; corners rounded by 2 px.
+     */
     static void box(GuiGraphicsExtractor g, int x, int y, int w, int h, Palette p) {
-        g.fill(x + 2, y, x + w - 2, y + 1, RIM);
-        g.fill(x + 2, y + h - 1, x + w - 2, y + h, RIM);
-        g.fill(x, y + 2, x + 1, y + h - 2, RIM);
-        g.fill(x + w - 1, y + 2, x + w, y + h - 2, RIM);
-        g.fill(x + 1, y + 1, x + 2, y + 2, RIM);
-        g.fill(x + w - 2, y + 1, x + w - 1, y + 2, RIM);
-        g.fill(x + 1, y + h - 2, x + 2, y + h - 1, RIM);
-        g.fill(x + w - 2, y + h - 2, x + w - 1, y + h - 1, RIM);
-        g.fill(x + 2, y + 1, x + w - 2, y + h - 1, p.fill());
-        g.fill(x + 1, y + 2, x + 2, y + h - 2, p.fill());
-        g.fill(x + w - 2, y + 2, x + w - 1, y + h - 2, p.fill());
+        rounded(g, x, y, w, h, CUT_OUTER, RIM);
+        rounded(g, x + 1, y + 1, w - 2, h - 2, CUT_BEVEL, scale(p.fill(), 0.40));
+        rounded(g, x + 1, y + 1, w - 2, h - 4, CUT_BEVEL, scale(p.fill(), 0.82));
+        rounded(g, x + 2, y + 2, w - 4, h - 6, CUT_INNER, scale(p.fill(), 0.64));
+        rounded(g, x + 4, y + 4, w - 8, h - 10, CUT_INNER, p.light());
+        rounded(g, x + 5, y + 5, w - 10, h - 12, CUT_NONE, p.fill());
+    }
+
+    /** Thin inner box (barrel fields): dark rim, rounded corners, light top/left and shaded bottom/right edge. */
+    static void inset(GuiGraphicsExtractor g, int x, int y, int w, int h, Palette p) {
+        rounded(g, x, y, w, h, new int[] {2, 1}, RIM);
+        rounded(g, x + 1, y + 1, w - 2, h - 2, CUT_INNER, p.fill());
         g.fill(x + 2, y + 1, x + w - 2, y + 2, p.light());
         g.fill(x + 1, y + 2, x + 2, y + h - 2, p.light());
         g.fill(x + 2, y + h - 2, x + w - 2, y + h - 1, p.shade());
         g.fill(x + w - 2, y + 2, x + w - 1, y + h - 2, p.shade());
     }
 
-    /** Image 3/4 slot: 16x16 with rounded corners, a dark top line (sunk in) and a light edge below/right. */
+    /**
+     * Slot like image 3 (16x16, corners rounded by 1 px, 2 px apart) sunk in like image 4: dark top line, darker left
+     * line, light edge below and right of it.
+     */
     static void slot(GuiGraphicsExtractor g, int x, int y, Palette p) {
         g.fill(x + 1, y + 16, x + 16, y + 17, p.light());
         g.fill(x + 16, y + 1, x + 17, y + 16, p.light());
         g.fill(x + 1, y, x + 15, y + 16, p.slot());
-        g.fill(x, y + 1, x + 1, y + 15, p.slot());
+        g.fill(x, y + 1, x + 1, y + 15, scale(p.slotTop(), 1.12));
         g.fill(x + 15, y + 1, x + 16, y + 15, p.slot());
         g.fill(x + 1, y, x + 15, y + 1, p.slotTop());
     }

@@ -623,7 +623,7 @@ public final class FeatureStations {
         chest.add(new ItemStack(ModItems.CRACKED_DIAMOND, 16));
         chest.add(new ItemStack(ModItems.NETHERITE_NUGGET, 4));
         chest.add(new ItemStack(ModItems.ENDERITE_NUGGET, 4));
-        for (Item bucket : com.simplebuilding.fluid.ModFluids.buckets()) {
+        for (Item bucket : com.simplebuilding.fluid.ModFluids.buckets()) { // 6 + 21 Eimer = 27, eine Truhe voll
             chest.add(new ItemStack(bucket));
         }
         c.contents(1, 0, 1, chest);

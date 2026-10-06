@@ -265,7 +265,11 @@ public final class DataIntegrityTests {
             "netherite_flypad",
             "enderite_flypad",
             // Ende der versteckten Easter-Kette ueber den Pad-Endstufen: bewusst nirgends angeboten.
-            "funny_stick");
+            "funny_stick",
+            // Abgenutzte Keramik-Eimer (Besitzer N12b: Kreativtab nur sinnvolle Stufen): entstehen nur durch Benutzung.
+            "chipped_ceramic_bucket", "chipped_ceramic_water_bucket", "chipped_ceramic_lava_bucket",
+            "cracked_ceramic_bucket", "cracked_ceramic_water_bucket", "cracked_ceramic_lava_bucket",
+            "brittle_ceramic_bucket", "brittle_ceramic_water_bucket", "brittle_ceramic_lava_bucket");
 
     /**
      * Registry ids that exist for the sake of worlds that were saved with an older version, spelled

@@ -444,6 +444,18 @@
       "id": "simplebuilding:breeze_head"
     },
     {
+      "id": "simplebuilding:brittle_ceramic_bucket",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:brittle_ceramic_lava_bucket",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:brittle_ceramic_water_bucket",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:brown_hammock",
       "maxStackSize": 1
     },
@@ -451,18 +463,27 @@
       "id": "simplebuilding:cave_spider_head"
     },
     {
-      "durability": 32,
       "id": "simplebuilding:ceramic_bucket",
-      "maxStackSize": 1
+      "maxStackSize": 16
     },
     {
-      "durability": 32,
       "id": "simplebuilding:ceramic_lava_bucket",
       "maxStackSize": 1
     },
     {
-      "durability": 32,
       "id": "simplebuilding:ceramic_water_bucket",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:chipped_ceramic_bucket",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:chipped_ceramic_lava_bucket",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:chipped_ceramic_water_bucket",
       "maxStackSize": 1
     },
     {
@@ -529,6 +550,18 @@
     },
     {
       "id": "simplebuilding:copper_water_bucket",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:cracked_ceramic_bucket",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:cracked_ceramic_lava_bucket",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:cracked_ceramic_water_bucket",
       "maxStackSize": 1
     },
     {

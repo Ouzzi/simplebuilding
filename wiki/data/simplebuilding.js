@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 517,
+      "count": 526,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -6288,6 +6288,51 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:brittle_ceramic_bucket",
+      "name": {
+        "en_us": "Brittle Ceramic Bucket",
+        "de_de": "Brüchiger Keramik-Eimer"
+      },
+      "texture": "assets/textures/item/brittle_ceramic_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:brittle_ceramic_lava_bucket",
+      "name": {
+        "en_us": "Brittle Ceramic Lava Bucket",
+        "de_de": "Brüchiger Keramik-Lavaeimer"
+      },
+      "texture": "assets/textures/item/brittle_ceramic_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:brittle_ceramic_water_bucket",
+      "name": {
+        "en_us": "Brittle Ceramic Water Bucket",
+        "de_de": "Brüchiger Keramik-Wassereimer"
+      },
+      "texture": "assets/textures/item/brittle_ceramic_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:brown_hammock",
       "name": {
         "en_us": "Brown Hammock",
@@ -6378,8 +6423,7 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "properties": {
-        "durability": 32,
-        "maxStackSize": 1
+        "maxStackSize": 16
       },
       "hasCustomBehaviour": false
     },
@@ -6394,7 +6438,6 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "properties": {
-        "durability": 32,
         "maxStackSize": 1
       },
       "hasCustomBehaviour": false
@@ -6410,7 +6453,51 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "properties": {
-        "durability": 32,
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:chipped_ceramic_bucket",
+      "name": {
+        "en_us": "Chipped Ceramic Bucket",
+        "de_de": "Angeschlagener Keramik-Eimer"
+      },
+      "texture": "assets/textures/item/chipped_ceramic_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:chipped_ceramic_lava_bucket",
+      "name": {
+        "en_us": "Chipped Ceramic Lava Bucket",
+        "de_de": "Angeschlagener Keramik-Lavaeimer"
+      },
+      "texture": "assets/textures/item/chipped_ceramic_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:chipped_ceramic_water_bucket",
+      "name": {
+        "en_us": "Chipped Ceramic Water Bucket",
+        "de_de": "Angeschlagener Keramik-Wassereimer"
+      },
+      "texture": "assets/textures/item/chipped_ceramic_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
         "maxStackSize": 1
       },
       "hasCustomBehaviour": false
@@ -7352,6 +7439,51 @@ window.WIKI_DATA = {
         "de_de": "Kupfer-Wassereimer"
       },
       "texture": "assets/textures/item/copper_water_bucket_0.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cracked_ceramic_bucket",
+      "name": {
+        "en_us": "Cracked Ceramic Bucket",
+        "de_de": "Rissiger Keramik-Eimer"
+      },
+      "texture": "assets/textures/item/cracked_ceramic_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cracked_ceramic_lava_bucket",
+      "name": {
+        "en_us": "Cracked Ceramic Lava Bucket",
+        "de_de": "Rissiger Keramik-Lavaeimer"
+      },
+      "texture": "assets/textures/item/cracked_ceramic_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cracked_ceramic_water_bucket",
+      "name": {
+        "en_us": "Cracked Ceramic Water Bucket",
+        "de_de": "Rissiger Keramik-Wassereimer"
+      },
+      "texture": "assets/textures/item/cracked_ceramic_water_bucket.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -115256,7 +115388,7 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 461,
+    "items": 470,
     "blocks": 236,
     "recipes": 841,
     "lootTables": 230,

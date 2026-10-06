@@ -54,6 +54,11 @@ public final class ModFluids {
     public static Item ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET;
     /** Ceramic bucket (owner addition 11): 3 clay -> raw, fired in a furnace or crucible; water and (N12) lava, 32 uses. */
     public static Item RAW_CERAMIC_BUCKET, CERAMIC_BUCKET, CERAMIC_WATER_BUCKET, CERAMIC_LAVA_BUCKET;
+    /** Owner N12b: one item per wear stage (intact, chipped, cracked, brittle) and filling; index = stage. */
+    public static final Item[] CERAMIC_EMPTY = new Item[ModBucketItem.CERAMIC_STAGES], CERAMIC_WATER = new Item[ModBucketItem.CERAMIC_STAGES],
+            CERAMIC_LAVA = new Item[ModBucketItem.CERAMIC_STAGES];
+    /** Name prefix of each ceramic wear stage. */
+    public static final String[] CERAMIC_STAGE_NAMES = {"", "chipped_", "cracked_", "brittle_"};
 
     public static void registerFluids() {
         if (!McVersion.CRUCIBLE || SOUL_LAVA != null) return;
@@ -90,14 +95,20 @@ public final class ModFluids {
                 McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET), SoulLava.fuelTicks())));
         // No crafting remainder on the ceramic water bucket: a fresh bucket back would repair it for free.
         RAW_CERAMIC_BUCKET = item("raw_ceramic_bucket", p -> new Item(p.stacksTo(16)));
-        CERAMIC_BUCKET = item("ceramic_bucket", p -> new ModBucketItem(ModBucketItem.Kind.CERAMIC, Fluids.EMPTY,
-                p.durability(ModBucketItem.CERAMIC_USES)));
-        CERAMIC_WATER_BUCKET = item("ceramic_water_bucket", p -> new ModBucketItem(ModBucketItem.Kind.CERAMIC, Fluids.WATER,
-                p.durability(ModBucketItem.CERAMIC_USES)));
-        // Owner N12: lava too. Fuel like a lava bucket, but no remainder - the clay bucket burns up with its lava
+        // Owner N12b: wear stages as items (like the copper bucket's oxidation, but visible in the name), no durability.
+        // Lava (owner N12) is fuel like a lava bucket, but leaves no remainder - the clay bucket burns up with its lava
         // (a fresh empty bucket back would also undo its wear).
-        CERAMIC_LAVA_BUCKET = item("ceramic_lava_bucket", p -> new ModBucketItem(ModBucketItem.Kind.CERAMIC, Fluids.LAVA,
-                McVersion.cookingFuel(p.durability(ModBucketItem.CERAMIC_USES), lava)));
+        for (int stage = 0; stage < ModBucketItem.CERAMIC_STAGES; stage++) {
+            int s = stage;
+            String prefix = CERAMIC_STAGE_NAMES[stage];
+            CERAMIC_EMPTY[stage] = item(prefix + "ceramic_bucket", p -> new ModBucketItem(ModBucketItem.Kind.CERAMIC, Fluids.EMPTY, s, p.stacksTo(16)));
+            CERAMIC_WATER[stage] = item(prefix + "ceramic_water_bucket", p -> new ModBucketItem(ModBucketItem.Kind.CERAMIC, Fluids.WATER, s, p.stacksTo(1)));
+            CERAMIC_LAVA[stage] = item(prefix + "ceramic_lava_bucket", p -> new ModBucketItem(ModBucketItem.Kind.CERAMIC, Fluids.LAVA, s,
+                    McVersion.cookingFuel(p.stacksTo(1), lava)));
+        }
+        CERAMIC_BUCKET = CERAMIC_EMPTY[0];
+        CERAMIC_WATER_BUCKET = CERAMIC_WATER[0];
+        CERAMIC_LAVA_BUCKET = CERAMIC_LAVA[0];
     }
 
     /** All bucket items of this file in creative-tab order, the raw ceramic bucket included (empty on 26.2). */
@@ -105,7 +116,36 @@ public final class ModFluids {
         if (SOUL_LAVA_BUCKET == null) return java.util.List.of();
         return java.util.List.of(COPPER_BUCKET, COPPER_WATER_BUCKET, COPPER_LAVA_BUCKET, SOUL_LAVA_BUCKET,
                 ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET,
-                RAW_CERAMIC_BUCKET, CERAMIC_BUCKET, CERAMIC_WATER_BUCKET, CERAMIC_LAVA_BUCKET);
+                RAW_CERAMIC_BUCKET, CERAMIC_EMPTY[0], CERAMIC_WATER[0], CERAMIC_LAVA[0],
+                CERAMIC_EMPTY[1], CERAMIC_WATER[1], CERAMIC_LAVA[1], CERAMIC_EMPTY[2], CERAMIC_WATER[2], CERAMIC_LAVA[2],
+                CERAMIC_EMPTY[3], CERAMIC_WATER[3], CERAMIC_LAVA[3]);
+    }
+
+    /** The ceramic bucket of wear {@code stage} holding {@code content} (empty, water, lava), or null. */
+    public static @org.jspecify.annotations.Nullable Item ceramic(Fluid content, int stage) {
+        if (CERAMIC_EMPTY[0] == null || stage < 0 || stage >= ModBucketItem.CERAMIC_STAGES) return null;
+        if (content == Fluids.EMPTY) return CERAMIC_EMPTY[stage];
+        if (content.isSame(Fluids.WATER)) return CERAMIC_WATER[stage];
+        if (content.isSame(Fluids.LAVA)) return CERAMIC_LAVA[stage];
+        return null;
+    }
+
+    /** {@link #buckets()} without the worn ceramic stages: what the creative and search tabs offer. */
+    public static java.util.List<Item> creativeBuckets() {
+        java.util.List<Item> worn = wornCeramicBuckets();
+        return buckets().stream().filter(item -> !worn.contains(item)).toList();
+    }
+
+    /** The worn ceramic buckets (stage 1..3, every filling): only reached by use, so not in the creative tab. */
+    public static java.util.List<Item> wornCeramicBuckets() {
+        if (CERAMIC_EMPTY[0] == null) return java.util.List.of();
+        java.util.List<Item> out = new java.util.ArrayList<>();
+        for (int stage = 1; stage < ModBucketItem.CERAMIC_STAGES; stage++) {
+            out.add(CERAMIC_EMPTY[stage]);
+            out.add(CERAMIC_WATER[stage]);
+            out.add(CERAMIC_LAVA[stage]);
+        }
+        return out;
     }
 
     private static Item item(String name, Function<Item.Properties, Item> factory) {
