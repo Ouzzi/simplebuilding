@@ -64,7 +64,7 @@ public final class CrucibleCompat {
 
     public static int buildWallStrikes() { return 0; }
 
-    public static int attachedBarrelSlots() { return 0; }
+    public static String attachedBarrelSlots() { return ""; }
 
     public static @Nullable InteractionResult hammerUse(UseOnContext context) { return null; }
 

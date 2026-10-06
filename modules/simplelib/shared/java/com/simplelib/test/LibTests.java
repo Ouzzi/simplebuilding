@@ -360,19 +360,27 @@ public final class LibTests {
         var state = h.getLevel().getBlockState(barrelAbs);
         check(h, state.getValue(com.simplelib.crucible.CrucibleBarrelBlock.ATTACHED)
                 && state.getValue(com.simplelib.crucible.CrucibleBarrelBlock.FACING) == Direction.WEST, "attached, facing the crucible");
-        check(h, h.getLevel().getBlockEntity(barrelAbs) == barrel && barrel.getContainerSize() == 9, "attached: only 9 slots");
-        check(h, barrel.getItem(20).isEmpty() && !h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
-                new net.minecraft.world.phys.AABB(barrelAbs).inflate(2), e -> e.getItem().is(Items.APPLE)).isEmpty(), "slot 21 dropped when attaching");
+        // Owner N12c: attached, the barrel offers as many slots as the crucible (iron: 6); the rest stays stored, hidden.
+        check(h, h.getLevel().getBlockEntity(barrelAbs) == barrel && barrel.getContainerSize() == 6, "attached to the iron crucible: 6 slots");
+        check(h, h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                new net.minecraft.world.phys.AABB(barrelAbs).inflate(2), e -> e.getItem().is(Items.APPLE)).isEmpty(), "nothing dropped when attaching");
+        var menu = new com.simplelib.crucible.CrucibleMenu(0, player.getInventory(), be);
+        check(h, menu.slots.size() == 5 * 6 + 72, "menu: 6 barrel fields for the 6-slot crucible, got " + (menu.slots.size() - 72 - 24));
         be.markHeatDirty();
         be.setItem(0, new ItemStack(Items.RAW_GOLD));
         run(h, be, 270);
         check(h, barrel.getItem(0).is(Items.GOLD_INGOT), "result went into the barrel first (owner wish)");
         check(h, be.getItem(3).isEmpty(), "not into the slot below");
+        menu.slots.get(menu.barrelStart() + 5).set(new ItemStack(Items.STICK));
+        check(h, barrel.getItem(5).is(Items.STICK), "the 6th field is the barrel's slot 6");
+        check(h, menu.slots.get(menu.barrelStart() + 5).container.getContainerSize() == 6 && barrel.getContainerSize() == 6,
+                "the menu reaches no barrel slot beyond 6");
         h.setBlock(rel, Blocks.AIR);
         var after = h.getLevel().getBlockState(barrelAbs);
         check(h, !after.getValue(com.simplelib.crucible.CrucibleBarrelBlock.ATTACHED) && barrel.getContainerSize() == 27,
                 "crucible gone: a normal barrel again");
         check(h, barrel.getItem(0).is(Items.GOLD_INGOT), "contents stay in the barrel");
+        check(h, barrel.getItem(20).is(Items.APPLE) && barrel.getItem(20).getCount() == 3, "the hidden slot 21 is back with its apples");
         h.succeed();
     }
 

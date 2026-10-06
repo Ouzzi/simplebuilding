@@ -3037,7 +3037,7 @@
   "jei.simplebuilding.note.cauldron_world.crucible_build.how": "Sledgehammer in the main hand, parts in the off hand, strike the iron block: %s strikes in total.",
   "jei.simplebuilding.note.cauldron_world.crucible_build.parts": "First %s heavy weighted pressure plates (the walls), then %s handles (iron ingot or iron rod).",
   "jei.simplebuilding.note.cauldron_world.barrel_attach.how": "Place a barrel next to a crucible and strike it %s times with a sledgehammer.",
-  "jei.simplebuilding.note.cauldron_world.barrel_attach.use": "Attached, the crucible puts its results here first and shows %s fields of the barrel in its window. One barrel per crucible.",
+  "jei.simplebuilding.note.cauldron_world.barrel_attach.use": "Attached, the crucible puts its results here first and shows as many fields of the barrel as it has slots itself (%s) in its window; the rest of the barrel stays stored. One barrel per crucible.",
   "jei.simplebuilding.note.cauldron_world.milk_butter.fill": "Pour a milk bucket into an empty cauldron: the milk ripens by itself in four stages.",
   "jei.simplebuilding.note.cauldron_world.milk_butter.take": "Take the butter block with an empty hand.",
   "jei.simplebuilding.note.cauldron_world.milk_cheese.fill": "Right-click the milk with a fermented spider eye: it curdles in four stages.",

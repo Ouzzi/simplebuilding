@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Crucible menu: the crucible slots (compact layout), one hidden slot per crucible slot that carries
- * the reserved result (ghost item) to the client, the attached barrel's 9 fields and their ghosts, the
+ * the reserved result (ghost item) to the client, the attached barrel's fields (as many as the crucible's) and their ghosts, the
  * crucible slots again (layout with barrel), then the player inventory for both layouts. Slot states
  * and heat arrive through {@link ContainerData}.
  */
@@ -26,23 +26,26 @@ public class CrucibleMenu extends AbstractContainerMenu {
     // is attached - before that everything is compact and centred. Slots cannot move, so the menu holds both layouts
     // (crucible and inventory slots twice, only the current one active); the screen reserves the larger box and draws
     // the current panel in it.
-    // N12/N12b (owner, images 3/4): two boxes like image 3 - the crucible box on top (title y 6, grid from y 18, the
-    // flame strip under and behind the grid) and, BOX_GAP below it, a separate inventory box (label 6 px under its
-    // top, inventory 17 px under it). Both boxes have image 4's thick frame: 5 px at the top and the sides, 7 px at the
-    // bottom (2 px shadow), see CrucibleScreen.box.
+    // N12/N12b (owner, images 3/4): boxes like image 3 - the crucible box on top (title y 6, grid from y 18, the flame
+    // strip under and behind the grid), an attached barrel's box beside it (N12c: its own box with the same frame,
+    // BOX_GAP apart, as many fields as the crucible has slots, laid out like the crucible's grid) and, BOX_GAP below
+    // both, the inventory box (label 6 px under its top, inventory 17 px under it). Every box has image 4's thick frame:
+    // 5 px at the top and the sides, 7 px at the bottom (2 px shadow), see CrucibleScreen.box.
     public static final int GRID_TOP = 18;
     /** Room under the slots (inside the 7 px bottom frame) where the flame strip shows. */
     public static final int FIRE_ROOM = 12;
-    public static final int BARREL_GAP = 10;
     public static final int MARGIN = 8;
-    /** Gap between the crucible box and the inventory box. */
+    /** Gap between the boxes. */
     public static final int BOX_GAP = 2;
     /** Inventory box: label and first slot row below the box top, total height. */
     public static final int INVENTORY_LABEL = 6, INVENTORY_TOP = 17, INVENTORY_BOX = 100;
 
-    /** One panel layout; all positions relative to the reserved box (the screen's image). */
+    /**
+     * One panel layout; all positions relative to the reserved box (the screen's image). {@code crucibleWidth} is the
+     * crucible box's width, {@code barrelBox} the barrel box's left edge (its width is {@link #barrelBoxWidth}).
+     */
     public record Layout(int x, int y, int width, int height, int gridLeft, int barrelLeft, int sectionHeight,
-                         int inventoryLeft, int inventoryTop) {
+                         int inventoryLeft, int inventoryTop, int crucibleWidth, int barrelBox) {
         public int slotX(CrucibleTier tier, int slot) {
             return gridLeft + 1 + (tier.grid(slot) * CrucibleTier.COLUMNS + tier.column(slot)) * 18;
         }
@@ -51,12 +54,13 @@ public class CrucibleMenu extends AbstractContainerMenu {
             return y + GRID_TOP + 1 + tier.row(slot) * 18;
         }
 
-        public int barrelX(int slot) {
-            return barrelLeft + 1 + slot % 3 * 18;
+        /** The barrel's fields mirror the crucible's grid (same count and shape). */
+        public int barrelX(CrucibleTier tier, int slot) {
+            return barrelLeft + 1 + (tier.grid(slot) * CrucibleTier.COLUMNS + tier.column(slot)) * 18;
         }
 
-        public int barrelY(int slot) {
-            return y + GRID_TOP + 1 + slot / 3 * 18;
+        public int barrelY(CrucibleTier tier, int slot) {
+            return slotY(tier, slot);
         }
 
         /** Top of the inventory box. */
@@ -69,20 +73,26 @@ public class CrucibleMenu extends AbstractContainerMenu {
         return tier.grids() * CrucibleTier.COLUMNS * 18;
     }
 
-    private static int contentWidth(CrucibleTier tier, boolean barrel) {
-        return gridsWidth(tier) + (barrel ? BARREL_GAP + 54 : 0);
+    /** Width of the barrel box (grid plus margins). */
+    public static int barrelBoxWidth(CrucibleTier tier) {
+        return gridsWidth(tier) + 2 * MARGIN;
+    }
+
+    /** The crucible box keeps its width with a barrel (room for the title); the barrel box comes beside it. */
+    private static int crucibleBoxWidth(CrucibleTier tier, boolean barrel) {
+        return Math.max(176, gridsWidth(tier) + 2 * MARGIN);
     }
 
     private static int panelWidth(CrucibleTier tier, boolean barrel) {
-        return Math.max(176, contentWidth(tier, barrel) + 2 * MARGIN);
+        return crucibleBoxWidth(tier, barrel) + (barrel ? BOX_GAP + barrelBoxWidth(tier) : 0);
     }
 
-    private static int sectionHeight(CrucibleTier tier, boolean barrel) {
-        return GRID_TOP + Math.max(tier.rows() * 18, barrel ? 54 : 0) + FIRE_ROOM;
+    private static int sectionHeight(CrucibleTier tier) {
+        return GRID_TOP + tier.rows() * 18 + FIRE_ROOM;
     }
 
-    private static int panelHeight(CrucibleTier tier, boolean barrel) {
-        return sectionHeight(tier, barrel) + BOX_GAP + INVENTORY_BOX;
+    private static int panelHeight(CrucibleTier tier) {
+        return sectionHeight(tier) + BOX_GAP + INVENTORY_BOX;
     }
 
     /** Width of the reserved box: the wider of both layouts. */
@@ -91,16 +101,18 @@ public class CrucibleMenu extends AbstractContainerMenu {
     }
 
     public static int imageHeight(CrucibleTier tier) {
-        return Math.max(panelHeight(tier, false), panelHeight(tier, true));
+        return panelHeight(tier);
     }
 
     public static Layout layout(CrucibleTier tier, boolean barrel) {
-        int w = panelWidth(tier, barrel), h = panelHeight(tier, barrel);
+        int w = panelWidth(tier, barrel), h = panelHeight(tier);
         int x = (imageWidth(tier) - w) / 2, y = (imageHeight(tier) - h) / 2;
-        int gridLeft = x + (w - contentWidth(tier, barrel)) / 2;
-        int section = sectionHeight(tier, barrel);
-        return new Layout(x, y, w, h, gridLeft, gridLeft + gridsWidth(tier) + BARREL_GAP, section,
-                x + (w - 162) / 2 + 1, y + section + BOX_GAP + INVENTORY_TOP);
+        int cw = crucibleBoxWidth(tier, barrel);
+        int gridLeft = x + (cw - gridsWidth(tier)) / 2;
+        int barrelBox = x + cw + BOX_GAP;
+        int section = sectionHeight(tier);
+        return new Layout(x, y, w, h, gridLeft, barrelBox + MARGIN, section,
+                x + (w - 162) / 2 + 1, y + section + BOX_GAP + INVENTORY_TOP, cw, barrelBox);
     }
 
     private final CrucibleTier tier;
@@ -111,7 +123,7 @@ public class CrucibleMenu extends AbstractContainerMenu {
     /** Client constructor (one menu type per tier). */
     public static CrucibleMenu client(CrucibleTier tier, int id, Inventory inventory) {
         return new CrucibleMenu(tier, id, inventory, new SimpleContainer(tier.slots()), new SimpleContainer(tier.slots()),
-                new SimpleContainer(BarrelTier.CRUCIBLE_SLOTS), new SimpleContainer(BarrelTier.CRUCIBLE_SLOTS),
+                new SimpleContainer(tier.slots()), new SimpleContainer(tier.slots()),
                 new SimpleContainerData(tier.slots() + 4), null);
     }
 
@@ -132,8 +144,8 @@ public class CrucibleMenu extends AbstractContainerMenu {
         Layout compact = layout(tier, false), wide = layout(tier, true);
         for (int i = 0; i < tier.slots(); i++) addSlot(new CrucibleSlot(container, i, compact.slotX(tier, i), compact.slotY(tier, i), false));
         for (int i = 0; i < tier.slots(); i++) addSlot(new GhostSlot(ghosts, i, compact.slotX(tier, i), compact.slotY(tier, i)));
-        for (int i = 0; i < BarrelTier.CRUCIBLE_SLOTS; i++) addSlot(new BarrelSlot(barrel, i, wide.barrelX(i), wide.barrelY(i)));
-        for (int i = 0; i < BarrelTier.CRUCIBLE_SLOTS; i++) addSlot(new GhostSlot(barrelGhosts, i, wide.barrelX(i), wide.barrelY(i)));
+        for (int i = 0; i < tier.slots(); i++) addSlot(new BarrelSlot(barrel, i, wide.barrelX(tier, i), wide.barrelY(tier, i)));
+        for (int i = 0; i < tier.slots(); i++) addSlot(new GhostSlot(barrelGhosts, i, wide.barrelX(tier, i), wide.barrelY(tier, i)));
         for (int i = 0; i < tier.slots(); i++) addSlot(new CrucibleSlot(container, i, wide.slotX(tier, i), wide.slotY(tier, i), true));
         inventorySlots(inventory, compact, false);
         inventorySlots(inventory, wide, true);
@@ -155,7 +167,7 @@ public class CrucibleMenu extends AbstractContainerMenu {
     }
 
     /** First index of the crucible slots of the layout with an attached barrel. */
-    public int wideCrucibleStart() { return 2 * tier.slots() + 2 * BarrelTier.CRUCIBLE_SLOTS; }
+    public int wideCrucibleStart() { return 4 * tier.slots(); }
 
     private int inventoryStart() { return wideCrucibleStart() + tier.slots(); }
 
@@ -172,7 +184,7 @@ public class CrucibleMenu extends AbstractContainerMenu {
     public ItemStack ghost(int slot) { return slots.get(tier.slots() + slot).getItem(); }
     public boolean barrelAttached() { return data.get(tier.slots() + 3) != 0; }
     public int barrelStart() { return 2 * tier.slots(); }
-    public ItemStack barrelGhost(int slot) { return slots.get(2 * tier.slots() + BarrelTier.CRUCIBLE_SLOTS + slot).getItem(); }
+    public ItemStack barrelGhost(int slot) { return slots.get(3 * tier.slots() + slot).getItem(); }
 
     @Override
     public boolean stillValid(Player player) {
@@ -243,7 +255,7 @@ public class CrucibleMenu extends AbstractContainerMenu {
         @Override public boolean isActive() { return barrelAttached() == barrelLayout; }
     }
 
-    /** One of the 9 fields of an attached barrel; hidden while no barrel is attached. */
+    /** One of the fields of an attached barrel (as many as the crucible has slots); hidden while none is attached. */
     private final class BarrelSlot extends Slot {
         BarrelSlot(Container container, int index, int x, int y) {
             super(container, index, x, y);
@@ -276,7 +288,7 @@ public class CrucibleMenu extends AbstractContainerMenu {
         private final boolean barrel;
 
         GhostView(CrucibleBlockEntity crucible, boolean barrel) {
-            super(barrel ? BarrelTier.CRUCIBLE_SLOTS : crucible.tier().slots());
+            super(crucible.tier().slots());
             this.crucible = crucible;
             this.barrel = barrel;
         }
@@ -294,7 +306,7 @@ public class CrucibleMenu extends AbstractContainerMenu {
         public void setItem(int slot, ItemStack stack) {}
     }
 
-    /** The first 9 slots of the attached barrel, or nothing while none is attached. */
+    /** The first slots of the attached barrel (as many as the crucible has), or nothing while none is attached. */
     private static final class BarrelView implements Container {
         private final CrucibleBlockEntity crucible;
 
@@ -306,7 +318,12 @@ public class CrucibleMenu extends AbstractContainerMenu {
             return crucible.barrel();
         }
 
-        @Override public int getContainerSize() { return BarrelTier.CRUCIBLE_SLOTS; }
+        @Override public int getContainerSize() { return crucible.tier().slots(); }
+
+        /** Whether {@code slot} lies within the barrel's attached slots (always, as both follow the crucible). */
+        private boolean inside(CrucibleBarrelBlockEntity b, int slot) {
+            return slot < b.getContainerSize();
+        }
 
         @Override
         public boolean isEmpty() {
@@ -317,25 +334,25 @@ public class CrucibleMenu extends AbstractContainerMenu {
         @Override
         public ItemStack getItem(int slot) {
             var b = barrel();
-            return b == null ? ItemStack.EMPTY : b.getItem(slot);
+            return b == null || !inside(b, slot) ? ItemStack.EMPTY : b.getItem(slot);
         }
 
         @Override
         public ItemStack removeItem(int slot, int count) {
             var b = barrel();
-            return b == null ? ItemStack.EMPTY : b.removeItem(slot, count);
+            return b == null || !inside(b, slot) ? ItemStack.EMPTY : b.removeItem(slot, count);
         }
 
         @Override
         public ItemStack removeItemNoUpdate(int slot) {
             var b = barrel();
-            return b == null ? ItemStack.EMPTY : b.removeItemNoUpdate(slot);
+            return b == null || !inside(b, slot) ? ItemStack.EMPTY : b.removeItemNoUpdate(slot);
         }
 
         @Override
         public void setItem(int slot, ItemStack stack) {
             var b = barrel();
-            if (b != null) b.setItem(slot, stack);
+            if (b != null && inside(b, slot)) b.setItem(slot, stack);
         }
 
         @Override

@@ -16,7 +16,14 @@ public final class CrucibleFlames {
     /** Edge, edge-inside, body, core, base band, ember dark, ember bright, spark. */
     private static final int[] FIRE = {0xFFC81E12, 0xFFE8451A, 0xFFF7921C, 0xFFFFC832, 0xFFFFE98A, 0xFF7A1808, 0xFFFF7A1E, 0xFFFFE070};
     private static final int[] SOUL = {0xFF1A3FA8, 0xFF2370D8, 0xFF3FA9F5, 0xFF8EE0FF, 0xFFDDF8FF, 0xFF0E2A6A, 0xFF3F9CF0, 0xFFC8F4FF};
-    static final int SPACING = 10;
+    /** Flame shape (owner N12c): POINTED = tall pointed tongues (built in), BROAD = wide low tongues (preview). */
+    public enum Shape { POINTED, BROAD }
+
+    /** Switch for the flame shape; preview crucible-n12c-feuer.gif compares both. */
+    public static final Shape SHAPE = Shape.POINTED;
+
+    /** Tongue spacing, half width (base + step per hash), profile exponent, band, tongue scale, height cap (x/5). */
+    static int spacing() { return SHAPE == Shape.BROAD ? 14 : 10; }
     /** Calmness: 0 lively (high, extreme), 1 medium, 2 afterglow. */
     static final int LIVELY = 0, MEDIUM = 1, GLOW = 2;
 
@@ -55,10 +62,12 @@ public final class CrucibleFlames {
         double t = millis / 1000.0 * (calm == LIVELY ? 1.0 : calm == MEDIUM ? 0.55 : 0.35);
         int flick = (int) (millis / flickMillis(calm));
         double best = 0;
-        int first = Math.floorDiv(c, SPACING) - 1;
+        boolean broad = SHAPE == Shape.BROAD;
+        int spacing = spacing();
+        int first = Math.floorDiv(c, spacing) - 1;
         for (int j = first; j <= first + 2; j++) {
-            double center = j * SPACING + 5 + 1.5 * Math.sin(t * 1.7 + j * 2.1);
-            double half = 4.5 + (hash(j, 5) & 3) * 0.5;
+            double center = j * spacing + spacing / 2 + 1.5 * Math.sin(t * 1.7 + j * 2.1);
+            double half = broad ? 6.5 + (hash(j, 5) & 3) * 0.6 : 4.5 + (hash(j, 5) & 3) * 0.5;
             // Leaning tongues: one side steeper (image 1).
             double skew = (hash(j, 3) & 1) == 0 ? 0.3 : -0.3;
             double off = c + 0.5 - center;
@@ -67,11 +76,11 @@ public final class CrucibleFlames {
             double amp = calm == LIVELY
                     ? 0.78 + 0.3 * Math.sin(t * 2.3 + j * 1.7) + 0.14 * Math.sin(t * 5.1 + j * 0.9) + (hash(j, 9) & 3) * 0.06
                     : 0.8 + 0.12 * Math.sin(t * 2.3 + j * 1.7) + (hash(j, 9) & 3) * 0.04;
-            best = Math.max(best, amp * Math.pow(1 - d, 1.5));
+            best = Math.max(best, amp * Math.pow(1 - d, broad ? 0.6 : 1.5));
         }
         int jitter = calm == LIVELY && (hash(c, flick) & 3) == 0 ? 1 : 0;
-        int h = (int) Math.round(target * (0.3 + 0.75 * best)) + jitter;
-        return Math.max(2, Math.min(target * 8 / 5, h));
+        int h = (int) Math.round(target * (broad ? 0.45 + 0.5 * best : 0.3 + 0.75 * best)) + jitter;
+        return Math.max(2, Math.min(target * (broad ? 6 : 8) / 5, h));
     }
 
     /** Colour index of the flame cell {@code k} (0 = bottom) in a column of height {@code h}, {@code edge} px from outside. */

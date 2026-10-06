@@ -22,8 +22,8 @@ import net.minecraft.world.item.ItemStack;
  * the light inventory box below it (the gap between them is the divider). Each box has image 4's thick frame: dark
  * outline, darker bevel line, 2 px dark band, a light inner line, corners rounded by 2 px; at the bottom two more
  * pixels of shadow (5 px frame at the top and sides, 7 px at the bottom). Slots 16x16 like image 3 (rounded corners,
- * 2 px apart), sunk in like image 4 (dark top and left line, light edge below/right); an attached barrel's 9 fields sit
- * in a thin copper box. The heat shows as a flame strip behind the slots ({@link CrucibleFlames}).
+ * 2 px apart), sunk in like image 4 (dark top and left line, light edge below/right); an attached barrel's fields (as
+ * many as the crucible's, N12c) sit in their own copper box beside the crucible box, framed exactly like the others. The heat shows as a flame strip behind the slots ({@link CrucibleFlames}).
  * Each crucible slot shows its progress like the furnace (image 4, {@link #PROGRESS_STYLE} FILL): the slot fills up
  * from below with flames while cooking - blue and standing still when the heat is too low, red and full when the result
  * has no room; finished results get a green frame, items without a recipe a grey veil. GAP_BAR puts the same progress
@@ -93,16 +93,14 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         Palette top = palette(tier);
         int x0 = leftPos, y0 = topPos;
         int px = x0 + l.x(), py = y0 + l.y();
-        box(g, px, py, l.width(), l.sectionHeight(), top);
+        boolean attached = menu.barrelAttached();
+        box(g, px, py, l.crucibleWidth(), l.sectionHeight(), top);
+        // N12c: the barrel gets its own box with the same frame as the others (owner: no thicker edges).
+        if (attached) box(g, x0 + l.barrelBox(), py, CrucibleMenu.barrelBoxWidth(tier), l.sectionHeight(), BARREL);
         box(g, px, y0 + l.inventoryBoxTop(), l.width(), l.y() + l.height() - l.inventoryBoxTop(), INVENTORY);
         long now = Util.getMillis();
-        CrucibleFlames.draw(g, px + FRAME, py + l.sectionHeight() - FRAME_BOTTOM, l.width() - 2 * FRAME, l.sectionHeight(),
+        CrucibleFlames.draw(g, px + FRAME, py + l.sectionHeight() - FRAME_BOTTOM, l.crucibleWidth() - 2 * FRAME, l.sectionHeight(),
                 menu.heat(), menu.afterglow() > 0, now);
-        boolean attached = menu.barrelAttached();
-        if (attached) {
-            int bx = x0 + l.barrelLeft(), by = py + CrucibleMenu.GRID_TOP;
-            inset(g, bx - 2, by - 2, 59, 59, BARREL);
-        }
         for (Slot slot : menu.slots) {
             if (!slot.isActive()) continue;
             int x = x0 + slot.x, y = y0 + slot.y;
@@ -113,10 +111,10 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         }
         g.nextStratum();
         if (attached) {
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < tier.slots(); i++) {
                 ItemStack ghost = menu.barrelGhost(i);
                 if (ghost.isEmpty() || menu.slots.get(menu.barrelStart() + i).hasItem()) continue;
-                g.fakeItem(ghost, x0 + l.barrelX(i), y0 + l.barrelY(i));
+                g.fakeItem(ghost, x0 + l.barrelX(tier, i), y0 + l.barrelY(tier, i));
             }
         }
         for (int i = 0; i < tier.slots(); i++) {
@@ -126,9 +124,9 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         }
         g.nextStratum();
         if (attached) {
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < tier.slots(); i++) {
                 if (menu.barrelGhost(i).isEmpty() || menu.slots.get(menu.barrelStart() + i).hasItem()) continue;
-                veil(g, x0 + l.barrelX(i), y0 + l.barrelY(i), BARREL);
+                veil(g, x0 + l.barrelX(tier, i), y0 + l.barrelY(tier, i), BARREL);
             }
         }
         for (int i = 0; i < tier.slots(); i++) {
@@ -261,7 +259,7 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         CrucibleMenu.Layout l = layout();
         int flames = Math.max(CrucibleFlames.targetPixels(HeatLevel.HIGH, false, l.sectionHeight()), 8);
         int bottom = l.y() + l.sectionHeight() - FRAME_BOTTOM;
-        return mx >= l.x() + FRAME && mx < l.x() + l.width() - FRAME && my >= bottom - flames && my < bottom;
+        return mx >= l.x() + FRAME && mx < l.x() + l.crucibleWidth() - FRAME && my >= bottom - flames && my < bottom;
     }
 
     private Component stateLine(int slot) {
@@ -283,7 +281,7 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         if (tier.stackMultiplier() > 1) {
             CrucibleMenu.Layout l = layout();
             Component bonus = Component.translatable("gui.simplelib.crucible.stack_bonus", tier.stackMultiplier());
-            g.text(font, bonus, l.x() + l.width() - 8 - font.width(bonus), titleLabelY, top.label(), false);
+            g.text(font, bonus, l.x() + l.crucibleWidth() - 8 - font.width(bonus), titleLabelY, top.label(), false);
         }
     }
 
@@ -320,16 +318,6 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         rounded(g, x + 2, y + 2, w - 4, h - 6, CUT_INNER, scale(p.fill(), 0.64));
         rounded(g, x + 4, y + 4, w - 8, h - 10, CUT_INNER, p.light());
         rounded(g, x + 5, y + 5, w - 10, h - 12, CUT_NONE, p.fill());
-    }
-
-    /** Thin inner box (barrel fields): dark rim, rounded corners, light top/left and shaded bottom/right edge. */
-    static void inset(GuiGraphicsExtractor g, int x, int y, int w, int h, Palette p) {
-        rounded(g, x, y, w, h, new int[] {2, 1}, RIM);
-        rounded(g, x + 1, y + 1, w - 2, h - 2, CUT_INNER, p.fill());
-        g.fill(x + 2, y + 1, x + w - 2, y + 2, p.light());
-        g.fill(x + 1, y + 2, x + 2, y + h - 2, p.light());
-        g.fill(x + 2, y + h - 2, x + w - 2, y + h - 1, p.shade());
-        g.fill(x + w - 2, y + 2, x + w - 1, y + h - 2, p.shade());
     }
 
     /**

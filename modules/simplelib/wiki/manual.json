@@ -122,10 +122,10 @@
     },
     "simplelib:copper_barrel": {
       "en": {
-        "summary": "A barrel of 27 slots (barrel surrounded by four copper ingots). Next to a crucible, six axe strikes (sledgehammer with SimpleBuilding) attach it: every strike shows cracks, then the barrel docks to the crucible with a flange and a chute, keeps only 9 slots (the rest drops) and opens the crucible screen; the crucible puts its results there first, a hopper below the barrel takes them out. Breaking the barrel drops its contents and the plain barrel; breaking the crucible makes it a normal barrel again."
+        "summary": "A barrel of 27 slots (barrel surrounded by four copper ingots). Next to a crucible, six axe strikes (sledgehammer with SimpleBuilding) attach it: every strike shows cracks, then the barrel docks to the crucible with a flange and a chute, offers only as many slots as the crucible has (6/9/18/27; the rest stays stored, hidden, and comes back when detached) and opens the crucible screen; the crucible puts its results there first, a hopper below the barrel takes them out. Breaking the barrel drops its contents and the plain barrel; breaking the crucible makes it a normal barrel again."
       },
       "de": {
-        "summary": "Ein Fass mit 27 Plätzen (Fass umringt von vier Kupferbarren). Neben einem Schmelztiegel mit sechs Axtschlägen (mit SimpleBuilding Vorschlaghammer) angebracht, zeigt jeder Schlag Risse, dann dockt das Fass mit Flansch und Rinne am Tiegel an, behält nur 9 Plätze (der Rest fällt heraus) und öffnet das Tiegel-Fenster; der Tiegel legt seine Ergebnisse zuerst dort ab, ein Trichter unter dem Fass nimmt sie heraus. Fass abbauen gibt Inhalt und normales Fass, Tiegel abbauen macht es wieder zum normalen Fass."
+        "summary": "Ein Fass mit 27 Plätzen (Fass umringt von vier Kupferbarren). Neben einem Schmelztiegel mit sechs Axtschlägen (mit SimpleBuilding Vorschlaghammer) angebracht, zeigt jeder Schlag Risse, dann dockt das Fass mit Flansch und Rinne am Tiegel an, bietet nur so viele Plätze wie der Tiegel (6/9/18/27; der Rest bleibt verwahrt, unsichtbar, und ist nach dem Abnehmen wieder da) und öffnet das Tiegel-Fenster; der Tiegel legt seine Ergebnisse zuerst dort ab, ein Trichter unter dem Fass nimmt sie heraus. Fass abbauen gibt Inhalt und normales Fass, Tiegel abbauen macht es wieder zum normalen Fass."
       }
     },
     "simplelib:reinforced_barrel": {

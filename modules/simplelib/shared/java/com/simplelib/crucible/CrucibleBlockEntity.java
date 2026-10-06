@@ -190,7 +190,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         for (int i : active) {
             CrucibleJob job = jobs[i];
             if (job.warming()) target[i] = i;
-            if (target[i] >= BARREL && barrel() == null) target[i] = -1;
+            if (target[i] >= BARREL && (barrel() == null || target[i] - BARREL >= Math.min(tier.slots(), barrel().getContainerSize()))) target[i] = -1;
             if (target[i] < 0) target[i] = reserve(i, job);
             if (target[i] < 0 || !targetUsable(i, target[i], job)) {
                 state[i] = BLOCKED;
@@ -268,7 +268,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
     /** Targets at or above this index are slots of the attached barrel (target - BARREL). */
     public static final int BARREL = 1000;
     private @Nullable BlockPos barrelPos;
-    private final ItemStack[] barrelGhost = new ItemStack[BarrelTier.CRUCIBLE_SLOTS];
+    private final ItemStack[] barrelGhost = new ItemStack[BarrelTier.MAX_CRUCIBLE_SLOTS];
 
     /** The barrel attached to the crucible at {@code pos} (facing it, attached), if any. */
     public static @Nullable BlockPos attachedBarrelPos(Level level, BlockPos pos) {
@@ -310,7 +310,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
      */
     int reserve(int i, CrucibleJob job) {
         if (barrel() != null) {
-            for (int k = 0; k < BarrelTier.CRUCIBLE_SLOTS; k++) if (canReserve(i, BARREL + k, job)) return BARREL + k;
+            for (int k = 0; k < Math.min(tier.slots(), barrel().getContainerSize()); k++) if (canReserve(i, BARREL + k, job)) return BARREL + k;
         }
         int n = tier.slots();
         int below = tier.below(i);
@@ -575,7 +575,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         int[] r = input.getIntArray("Results").orElse(new int[0]);
         for (int i = 0; i < tier.slots(); i++) {
             progress[i] = i < p.length ? Math.max(0, p[i]) : 0;
-            target[i] = i < t.length && (t[i] >= -1 && t[i] < tier.slots() || t[i] >= BARREL && t[i] < BARREL + BarrelTier.CRUCIBLE_SLOTS) ? t[i] : -1;
+            target[i] = i < t.length && (t[i] >= -1 && t[i] < tier.slots() || t[i] >= BARREL && t[i] < BARREL + tier.slots()) ? t[i] : -1;
             result[i] = i < r.length && r[i] != 0;
             lastInput[i] = items.get(i).copyWithCount(Math.min(1, items.get(i).getCount()));
         }

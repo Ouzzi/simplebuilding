@@ -227,9 +227,14 @@ public final class SimpleLibApi {
         return com.simplelib.crucible.CrucibleBlankBlock.WALLS;
     }
 
-    /** Slots of an attached barrel that the crucible uses and shows (JEI, wiki). */
-    public static int attachedBarrelSlots() {
-        return com.simplelib.crucible.BarrelTier.CRUCIBLE_SLOTS;
+    /** Slots of an attached barrel that the crucible uses and shows, per crucible tier: "6/9/18/27" (JEI, wiki). */
+    public static String attachedBarrelSlots() {
+        StringBuilder out = new StringBuilder();
+        for (com.simplelib.crucible.CrucibleTier tier : com.simplelib.crucible.CrucibleTier.values()) {
+            if (!out.isEmpty()) out.append('/');
+            out.append(tier.slots());
+        }
+        return out.toString();
     }
 
     // ------------------------------------------------------------ reinforced cauldron

@@ -142,7 +142,7 @@ public final class CrucibleCompat {
 
     public static int buildWallStrikes() { return SimpleLibApi.buildWallStrikes(); }
 
-    public static int attachedBarrelSlots() { return SimpleLibApi.attachedBarrelSlots(); }
+    public static String attachedBarrelSlots() { return SimpleLibApi.attachedBarrelSlots(); }
 
     /** A sledgehammer click on a crucible/barrel reaches the hammer instead of the menu when it upgrades, builds or attaches. */
     private static boolean hammerWants(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {

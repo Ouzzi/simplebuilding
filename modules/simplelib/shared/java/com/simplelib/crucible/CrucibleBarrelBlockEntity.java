@@ -20,8 +20,10 @@ import net.minecraft.world.level.storage.ValueOutput;
 
 /**
  * Contents of a copper barrel; on its own it opens as a chest of its tier's size (owner 58). Attached
- * to a crucible it has only 9 slots (owner addition 11): attaching drops the rest, detaching keeps the
- * contents within the normal stack limits.
+ * to a crucible it offers only as many slots as the crucible has (owner N12c: 6/9/18/27). The slots beyond are
+ * kept, not dropped: nothing reaches them while attached (hoppers, the crucible and its menu only see the first
+ * ones), they come back when the barrel is detached, and they drop when it is broken. Detaching keeps the contents
+ * within the normal stack limits.
  */
 public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
     private final BarrelTier tier;
@@ -58,23 +60,29 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
         for (int i = 0; i < items.size() && i < list.size(); i++) items.set(i, list.get(i));
     }
 
-    /** Whether this barrel is attached to a crucible (then 9 slots and the crucible's menu). */
+    /** Whether this barrel is attached to a crucible (then the crucible's slot count and the crucible's menu). */
     public boolean attached() {
         BlockState state = getBlockState();
         return state.hasProperty(CrucibleBarrelBlock.ATTACHED) && state.getValue(CrucibleBarrelBlock.ATTACHED);
     }
 
     @Override
-    public int getContainerSize() { return attached() ? BarrelTier.CRUCIBLE_SLOTS : tier.slots(); }
+    public int getContainerSize() { return attached() ? attachedSlots() : tier.slots(); }
 
-    /** Just attached: everything beyond the 9 crucible slots drops at the barrel. */
+    /** Slots offered while attached: the crucible's slot count (6 if it cannot be found, e.g. while loading). */
+    public int attachedSlots() {
+        int slots = CrucibleTier.IRON.slots();
+        BlockState state = getBlockState();
+        if (level != null && state.hasProperty(CrucibleBarrelBlock.FACING)
+                && level.getBlockEntity(worldPosition.relative(state.getValue(CrucibleBarrelBlock.FACING))) instanceof CrucibleBlockEntity crucible) {
+            slots = crucible.tier().slots();
+        }
+        return Math.min(slots, tier.slots());
+    }
+
+    /** Just attached: the slots beyond the crucible's count stay stored (hidden), see the class comment. */
     public void onAttached() {
         if (level == null || level.isClientSide()) return;
-        for (int i = BarrelTier.CRUCIBLE_SLOTS; i < items.size(); i++) {
-            ItemStack rest = items.get(i);
-            items.set(i, ItemStack.EMPTY);
-            popAll(rest);
-        }
         setChanged();
     }
 

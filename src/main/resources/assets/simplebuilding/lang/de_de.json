@@ -3037,7 +3037,7 @@
   "jei.simplebuilding.note.cauldron_world.crucible_build.how": "Vorschlaghammer in der Haupthand, Teile in der Nebenhand, auf den Eisenblock schlagen: insgesamt %s Schläge.",
   "jei.simplebuilding.note.cauldron_world.crucible_build.parts": "Erst %s schwere Wägeplatten (die Wände), dann %s Griffe (Eisenbarren oder Eisenstab).",
   "jei.simplebuilding.note.cauldron_world.barrel_attach.how": "Fass neben einen Tiegel stellen und %s-mal mit einem Vorschlaghammer darauf schlagen.",
-  "jei.simplebuilding.note.cauldron_world.barrel_attach.use": "Angebracht legt der Tiegel seine Ergebnisse zuerst hier ab und zeigt %s Felder des Fasses in seinem Fenster. Ein Fass je Tiegel.",
+  "jei.simplebuilding.note.cauldron_world.barrel_attach.use": "Angebracht legt der Tiegel seine Ergebnisse zuerst hier ab und zeigt so viele Felder des Fasses wie er selbst Plätze hat (%s) in seinem Fenster; der Rest des Fasses bleibt verwahrt. Ein Fass je Tiegel.",
   "jei.simplebuilding.note.cauldron_world.milk_butter.fill": "Milcheimer in einen leeren Kessel gießen: die Milch reift von selbst in vier Stufen.",
   "jei.simplebuilding.note.cauldron_world.milk_butter.take": "Den Butterblock mit leerer Hand entnehmen.",
   "jei.simplebuilding.note.cauldron_world.milk_cheese.fill": "Die Milch mit einem fermentierten Spinnenauge rechtsklicken: sie gerinnt in vier Stufen.",
