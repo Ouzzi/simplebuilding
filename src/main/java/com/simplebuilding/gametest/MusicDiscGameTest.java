@@ -40,4 +40,12 @@ public final class MusicDiscGameTest {
     public void chainedSoundReachesEachPlayerOnceAndStopReachesAll(GameTestHelper helper) {
         MusicDiscTests.chainedSoundReachesEachPlayerOnceAndStopReachesAll(helper);
     }
+    @GameTest
+    public void amplifiedJukeboxReachesFartherThroughTheRealUsePath(GameTestHelper helper) {
+        MusicDiscTests.amplifiedJukeboxReachesFartherThroughTheRealUsePath(helper);
+    }
+    @GameTest
+    public void amplifiedNoteBlockIsLouderThroughTheRealUsePath(GameTestHelper helper) {
+        MusicDiscTests.amplifiedNoteBlockIsLouderThroughTheRealUsePath(helper);
+    }
 }

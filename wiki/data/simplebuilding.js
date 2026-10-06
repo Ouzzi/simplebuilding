@@ -3681,8 +3681,8 @@ window.WIKI_DATA = {
         "details": [
           "End disc (tracks Heavy Heart, Monolith, Iron Sonata) in end city chests (4 %), Nether disc (Riffstorm, Rally) in bastion chests (4 %), Overworld disc Rainfall/Storytime in woodland mansion chests (5 %) and Overworld disc Soft Breeze/Blockwood in ancient city chests (2.5 %). Both Overworld discs also drop when a skeleton kills a creeper, like vanilla discs. The tooltip names the track a disc plays.",
           "Tracks: a placed disc (sneak + right-click on the ground) switches to its next track with a right-click of a sledgehammer - B-side, then tracks 3 and 4 where they exist, then the first again (1 durability each).",
-          "Jukebox Amplifiers (eight planks around Astralit Dust) extend jukebox reach; Note Amplifiers (eight planks around a Nihilit Shard) extend note block reach. Each matching neighbor adds 50% reach, at most 2 count by default (server limits: 50%, 3 neighbors). Playback stays at full volume within range.",
-          "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
+          "Jukebox Amplifiers (eight planks around Astralit Dust) extend jukebox reach; Note Amplifiers (eight planks around a Nihilit Shard) extend note block reach. Each matching neighbor adds 50% reach, at most 2 count by default (server limits: 50%, 3 neighbors). Within range the sound plays louder than vanilla by the same factor (1.5x with one amplifier, 2x with two; player sound settings still apply) - right next to the source too, where vanilla is already at full level.",
+          "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at the amplified level inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
           "A jukebox counts its amplifiers when a song starts, a note block on every note."
         ]
       },
@@ -3692,8 +3692,8 @@ window.WIKI_DATA = {
         "details": [
           "End-Platte (Tracks Heavy Heart, Monolith, Iron Sonata) in Endsiedlungs-Truhen (4 %), Nether-Platte (Riffstorm, Rally) in Bastion-Truhen (4 %), Oberwelt-Platte Rainfall/Storytime in Waldanwesen-Truhen (5 %) und Oberwelt-Platte Soft Breeze/Blockwood in Truhen der Antiken Stätte (2,5 %). Beide Oberwelt-Platten fallen auch, wenn ein Skelett einen Creeper tötet, wie Vanilla-Platten. Der Tooltip nennt den Track der Platte.",
           "Tracks: eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wechselt mit einem Rechtsklick des Vorschlaghammers zum nächsten Track - B-Seite, dann Track 3 und 4, wo es sie gibt, dann wieder der erste (je 1 Haltbarkeit).",
-          "Musik-Verstärker (acht Bretter um Astralitstaub) erweitern die Hörweite von Plattenspielern; Noten-Verstärker (acht Bretter um einen Nihilitsplitter) die von Notenblöcken. Jeder passende Nachbar erhöht die Hörweite um 50 %, standardmäßig zählen höchstens 2 (Servergrenzen: 50 %, 3 Nachbarn). Die Wiedergabe bleibt innerhalb der Hörweite bei vollem Pegel.",
-          "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
+          "Musik-Verstärker (acht Bretter um Astralitstaub) erweitern die Hörweite von Plattenspielern; Noten-Verstärker (acht Bretter um einen Nihilitsplitter) die von Notenblöcken. Jeder passende Nachbar erhöht die Hörweite um 50 %, standardmäßig zählen höchstens 2 (Servergrenzen: 50 %, 3 Nachbarn). In Hörweite klingt es um denselben Faktor lauter als Vanilla (1,5-fach mit einem Verstärker, doppelt mit zwei; die Klangeinstellungen gelten weiter) - auch direkt an der Quelle, wo Vanilla schon vollen Pegel hat.",
+          "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
           "Ein Plattenspieler zÃ¤hlt seine Verstärker beim Start eines StÃ¼cks, ein Notenblock bei jeder Note."
         ]
       }
@@ -14021,7 +14021,7 @@ window.WIKI_DATA = {
           "details": [
             "Recipe: eight planks of any wood around Astralit Dust.",
             "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
-            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
+            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at the amplified level inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
             "A jukebox counts its amplifiers when a song starts, a note block on every note."
           ]
         },
@@ -14031,7 +14031,7 @@ window.WIKI_DATA = {
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
             "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
-            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
+            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -19584,7 +19584,7 @@ window.WIKI_DATA = {
           "details": [
             "Recipe: eight planks of any wood around a Nihilit Shard.",
             "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
-            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
+            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at the amplified level inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
             "A jukebox counts its amplifiers when a song starts, a note block on every note."
           ]
         },
@@ -19594,7 +19594,7 @@ window.WIKI_DATA = {
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
             "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
-            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
+            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -33328,7 +33328,7 @@ window.WIKI_DATA = {
           "details": [
             "Recipe: eight planks of any wood around Astralit Dust.",
             "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
-            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
+            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at the amplified level inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
             "A jukebox counts its amplifiers when a song starts, a note block on every note."
           ]
         },
@@ -33338,7 +33338,7 @@ window.WIKI_DATA = {
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
             "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
-            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
+            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -36208,7 +36208,7 @@ window.WIKI_DATA = {
           "details": [
             "Recipe: eight planks of any wood around a Nihilit Shard.",
             "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
-            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
+            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at the amplified level inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
             "A jukebox counts its amplifiers when a song starts, a note block on every note."
           ]
         },
@@ -36218,7 +36218,7 @@ window.WIKI_DATA = {
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
             "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
-            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
+            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -89473,8 +89473,8 @@ window.WIKI_DATA = {
       "groupDe": "Musik- und Noten-Verstärker",
       "label": "Added reach per amplifier (%)",
       "labelDe": "Hörweiten-Plus je Verstärker (%)",
-      "tooltip": "Reach added per amplifier,\n0 to 50% of vanilla. Full volume within range.\nServer-side. Default: 50.",
-      "tooltipDe": "Zusätzliche Hörweite je Verstärker,\n0 bis 50 % von Vanilla. Voller Pegel in Hörweite.\nServerseitig. Standard: 50."
+      "tooltip": "Reach and loudness added per amplifier,\n0 to 50% of vanilla. Same level within range.\nServer-side. Default: 50.",
+      "tooltipDe": "Zusätzliche Hörweite und Lautstärke je Verstärker,\n0 bis 50 % von Vanilla. Gleicher Pegel in Hörweite.\nServerseitig. Standard: 50."
     },
     {
       "range": [
