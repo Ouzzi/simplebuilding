@@ -34,7 +34,7 @@ def shimmer_frame(base, ramp, mask, center, peak, width=1.0, steps=(2, 1)):
     return Image.fromarray(a)
 
 
-def shimmer_strip(base, ramp, mask, frames=20, sweep=8, peak=(255, 255, 255), steps=(2, 1)):
+def shimmer_strip(base, ramp, mask, frames=20, sweep=8, peak=(255, 255, 255), steps=(2, 1), width=1.0):
     """Animation strip (width x height*frames): frame 0 = base, frames 1..sweep = glint pass, rest = base."""
     ys, xs = np.nonzero(mask)
     lo, hi = int((xs + ys).min()) - 1, int((xs + ys).max()) + 1
@@ -43,7 +43,7 @@ def shimmer_strip(base, ramp, mask, frames=20, sweep=8, peak=(255, 255, 255), st
     for f in range(frames):
         if 1 <= f <= sweep:
             center = lo + (hi - lo) * (f - 1) / max(sweep - 1, 1)
-            frame = shimmer_frame(base, ramp, mask, center, peak, steps=steps)
+            frame = shimmer_frame(base, ramp, mask, center, peak, width=width, steps=steps)
         else:
             frame = base
         strip.paste(frame, (0, h * f))

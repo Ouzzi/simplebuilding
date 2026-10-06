@@ -305,22 +305,24 @@ REINFORCED_QUIVER_PAL = {
 # Vordertasche mit eigener Klappe, Eckkappen unten. Runde 7 (Besitzer 2026-10-06 "vanilla-naeher, sauberer"):
 # durchgehend dunkle Kontur O wie Vanillas Buendel (vorher hellere Kante R oben/links), Tragschlaufe aus dunklem
 # Leder; Umriss, Flaechen und Glimmerpunkte unveraendert.
+# Runde 7b (Besitzer: "schraeg wie das Vanilla-Buendel"): Dreiviertelansicht - Vorderseite x3-10, rechts die
+# Seitenflaeche x11-13 im Schatten (1/2, Klappenkante e), Deckel oben angeschnitten, Schlaufe mittig.
 BACKPACK_ITEM = [
     "................",
     "......OOOO......",
     ".....O....O.....",
-    "....OOOOOOOO....",
-    "...O554ab433O...",
-    "..O5544ab4332O..",
-    "..O5444ab4332O..",
-    "..O4444ab3322O..",
-    "..O3222gC2221O..",
-    "..OddddckddddO..",
-    "..O3544444432O..",
-    "..O3433333312O..",
-    "..O3432222212O..",
-    "..Ox11111111xO..",
-    "...OOOOOOOOOO...",
+    "....OOOOOOOOOO..",
+    "...O554ab4322O..",
+    "..O5544ab43121O.",
+    "..O5444ab43121O.",
+    "..O4444ab33121O.",
+    "..O3222gC22121O.",
+    "..OddddckddeeeO.",
+    "..O35444443121O.",
+    "..O34333331121O.",
+    "..O34322221121O.",
+    "..Ox111111xeeeO.",
+    "...OOOOOOOOOOO..",
     "................",
 ]
 
@@ -4384,8 +4386,10 @@ def enderite_spear_shimmer(img):
     for y in range(16):
         for x in range(16):
             p = a.getpixel((x, y))
-            mask[y, x] = p[3] > 0 and p[:3] in head
-    return shimmer.shimmer_strip(a, ramp, mask, frames=SPEAR_FRAMES, sweep=8, peak=hexrgb(v["vein"]))
+            # nur die Enderit-Spitze (oben rechts), nicht der Knauf unten links
+            mask[y, x] = p[3] > 0 and p[:3] in head and y < 11
+    # Runde 7b (Besitzer: Glanz nicht erkennbar): breiter (3 Diagonalen) und heller (+3/+2 Stufen)
+    return shimmer.shimmer_strip(a, ramp, mask, frames=SPEAR_FRAMES, sweep=8, peak=hexrgb(v["vein"]), steps=(3, 2), width=1.5)
 
 
 def apply_enderite_handles(tex):

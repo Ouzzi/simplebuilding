@@ -39,8 +39,11 @@ WIKI = ROOT / 'wiki/assets/textures'
 PREVIEW = Path('C:/Users/o_o/code/minecraft-mods/previews/texturen-runde7-vorschau.png')
 PREVIEW_CERAMIC = Path('C:/Users/o_o/code/minecraft-mods/previews/keramik-eimer-vorschau.png')
 
-INSTALL = {'cracked_diamond_block': 'A', 'construction_light': 'A', 'straw_armor_stand': 'B', 'training_dummy': 'A',
-           'ceramic': 'A'}
+# 7b (owner feedback 2026-10-06): diamond block = owner's texture cleaned (C), light rounded + pulsing (C),
+# dummy redrawn symmetric (C), ceramic B.
+INSTALL = {'cracked_diamond_block': 'C', 'construction_light': 'C', 'straw_armor_stand': 'B', 'training_dummy': 'C',
+           'ceramic': 'B'}
+LIGHT_FRAMES, LIGHT_FRAMETIME = 12, 4
 CORE_FRAMES, CORE_FRAMETIME = 20, 2
 lum = p.crucibles.lum
 
@@ -78,6 +81,8 @@ CRACKS = {
 
 def cracked_diamond_block(variant):
     """Vanilla diamond block; crack pixels in a deep diamond tone, the lit lip below-right one ramp step lighter."""
+    if variant == 'C':
+        return cracked_diamond_owner()
     base = np.array(p.vanilla('block/diamond_block').convert('RGBA'))
     ramp = p.ramp(p.vanilla('block/diamond_block'))
     crack = {pt for line in CRACKS[variant] for pt in line}
@@ -90,6 +95,33 @@ def cracked_diamond_block(variant):
     return Image.fromarray(base)
 
 
+# C (7b, owner: "improve my texture"): the owner's original (cb75fc2f, kept in hand/r7/) with its crack pattern and
+# shapes untouched, only its 90 noisy tones snapped to 10 clean ones (Vanilla diamond tones + three muted crack tones)
+# and lone single pixels merged into their surroundings.
+OWNER_DIAMOND_TONES = [hexrgb(c) for c in ('#1c9b9e', '#2aa5a3', '#36aba9', '#3bbebc', '#3de0e5', '#4bede6', '#65f5e3',
+                                           '#70fbf0', '#9efeeb', '#d5fff6')]
+
+
+def cracked_diamond_owner():
+    a = np.array(p.load(HERE / 'hand/r7/cracked_diamond_block_owner.png'))
+    tones = OWNER_DIAMOND_TONES
+    idx = np.zeros((16, 16), dtype=int)
+    for y in range(16):
+        for x in range(16):
+            idx[y, x] = min(range(len(tones)), key=lambda i: sum((int(tones[i][k]) - int(a[y, x, k])) ** 2 for k in range(3)))
+    out = idx.copy()
+    for y in range(16):
+        for x in range(16):
+            nb = [idx[y + dy, x + dx] for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)) if 0 <= x + dx < 16 and 0 <= y + dy < 16]
+            if len(nb) == 4 and len(set(nb)) == 1 and nb[0] != idx[y, x] and abs(nb[0] - idx[y, x]) <= 2:
+                out[y, x] = nb[0]
+    img = Image.new('RGBA', (16, 16))
+    for y in range(16):
+        for x in range(16):
+            img.putpixel((x, y), tones[out[y, x]] + (255,))
+    return img
+
+
 def p_index(ramp, color):
     return min(range(len(ramp)), key=lambda i: sum((int(ramp[i][k]) - int(color[k])) ** 2 for k in range(3)))
 
@@ -98,6 +130,29 @@ def p_index(ramp, color):
 
 # The owner's light blue (old texture's tones) plus a white core and a darker frame tone.
 LIGHT = [hexrgb(c) for c in ('#5b93ab', '#75afc5', '#89bccf', '#a5cede', '#bddce7', '#d6ecf4', '#eef8fb', '#ffffff')]
+
+
+def construction_light_frame(glow):
+    """C (7b): frame as A, the glow a rounded square (superellipse, soft corners like Vanilla's sea lantern);
+    ``glow`` (about -0.1..0.1) grows/shrinks the bright core for the pulse."""
+    img = construction_light('A')
+    px = img.load()
+    for y in range(2, 14):
+        for x in range(2, 14):
+            n = ((abs(x - 7.5) / 5.5) ** 4 + (abs(y - 7.5) / 5.5) ** 4) ** 0.25
+            n -= glow
+            c = LIGHT[7] if n < 0.42 else LIGHT[6] if n < 0.66 else LIGHT[5] if n < 0.88 else LIGHT[4]
+            px[x, y] = c + (255,)
+    for x, y in ((2, 2), (13, 2), (2, 13), (13, 13)):
+        px[x, y] = LIGHT[3] + (255,)
+    return img
+
+
+def construction_light_strip():
+    strip = Image.new('RGBA', (16, 16 * LIGHT_FRAMES))
+    for f in range(LIGHT_FRAMES):
+        strip.paste(construction_light_frame(0.09 * np.sin(2 * np.pi * f / LIGHT_FRAMES)), (0, 16 * f))
+    return strip
 
 
 def construction_light(variant):
@@ -195,7 +250,31 @@ DUMMY_PAL.update({k: hexrgb(v) for k, v in {
     'w': '#f3ebdf', 'W': '#ebd7ba', 'r': '#d53535', 'R': '#a43434',
 }.items()})
 
+DUMMY_C_PAL = dict(DUMMY_PAL)
+DUMMY_C_PAL['f'] = hexrgb('#5c2c0c')   # face: dark orange-brown instead of black (less contrast)
+DUMMY_C_PAL['F'] = hexrgb('#7a3d10')
+
 DUMMY = {
+    # C (7b): everything mirrored about column 7 first (head x3-11, target, base), then shaded with light from the
+    # top left; square eyes and a smile as in round 6, symmetric stone base.
+    'C': [
+        '................',
+        '.......o........',
+        '....DLMMMNE.....',
+        '...DLMMMMMNE....',
+        '...LffMMMffE....',
+        '...MfMMMMMfE....',
+        '...MMfffffNE....',
+        '....DNNNNNE.....',
+        '.o4tT33322tT1O..',
+        '...o3rrrrr1O....',
+        '...o3rwwwr1O....',
+        '...o3rwrwr1O....',
+        '...o3rwwWr1O....',
+        '...o2RRRRR1O....',
+        '..gggggGGGGqQ...',
+        '...qqqqqqqqQ....',
+    ],
     # A: round 6 motif, body/arms in the stand's straw, twine at the arm joints.
     'A': [
         '................',
@@ -239,7 +318,7 @@ DUMMY = {
 
 
 def training_dummy(variant):
-    return draw(DUMMY[variant], DUMMY_PAL)
+    return draw(DUMMY[variant], DUMMY_C_PAL if variant == 'C' else DUMMY_PAL)
 
 
 # --------------------------------------------------------------------------------------------- ceramic bucket
@@ -325,7 +404,8 @@ def spear_in_hand_strip():
     head = set(SPEAR_HEAD)
     mask = np.array([[a[y, x, 3] > 0 and tuple(int(v) for v in a[y, x, :3]) in head for x in range(base.width)]
                      for y in range(base.height)])
-    return shimmer.shimmer_strip(base, SPEAR_HEAD, mask, frames=CORE_FRAMES, sweep=10, peak=(222, 200, 236))
+    return shimmer.shimmer_strip(base, SPEAR_HEAD, mask, frames=CORE_FRAMES, sweep=10, peak=(236, 214, 250),
+                                 steps=(3, 2), width=1.5)
 
 
 # ------------------------------------------------------------------------------------------------ outputs
@@ -336,7 +416,7 @@ def outputs():
     img = cracked_diamond_block(v['cracked_diamond_block'])
     out[MAIN / 'block/cracked_diamond_block.png'] = img
     out[WIKI / 'block/cracked_diamond_block.png'] = img
-    img = construction_light(v['construction_light'])
+    img = construction_light_strip() if v['construction_light'] == 'C' else construction_light(v['construction_light'])
     out[MAIN / 'block/construction_light.png'] = img
     out[WIKI / 'block/construction_light.png'] = img
     img = straw_armor_stand(v['straw_armor_stand'])
@@ -388,14 +468,16 @@ def sheet(path, title, rows, k=10):
 
 
 BEFORE_COMMIT = '47f392a63'  # the textures before round 7, for the 'alt' column
+ROUND7_COMMIT = '61edd089c'  # round 7 as first delivered, 'vorher' of the 7b sheet
+PREVIEW_7B = Path('C:/Users/o_o/code/minecraft-mods/previews/texturen-runde7b-vorschau.png')
 
 
-def old(path):
+def old(path, commit=None):
     import io
     import subprocess
     rel = path.relative_to(ROOT).as_posix()
     try:
-        data = subprocess.run(['git', 'show', f'{BEFORE_COMMIT}:{rel}'], cwd=ROOT, capture_output=True, check=True).stdout
+        data = subprocess.run(['git', 'show', f'{commit or BEFORE_COMMIT}:{rel}'], cwd=ROOT, capture_output=True, check=True).stdout
         return Image.open(io.BytesIO(data)).convert('RGBA').crop((0, 0, 16, 16))
     except (OSError, subprocess.CalledProcessError):
         return Image.new('RGBA', (16, 16))
@@ -433,6 +515,48 @@ def preview(before):
     return PREVIEW
 
 
+def frame(img, f=0):
+    w = img.width
+    return img.crop((0, w * f, w, w * f + w))
+
+
+def preview_7b():
+    """Owner feedback 7b: before (round 7 as delivered) | after, 16x and 1x."""
+    font = ImageFont.truetype('C:/Windows/Fonts/arial.ttf', 16)
+    items = [('Rissiger Diamantblock', MAIN / 'block/cracked_diamond_block.png', [0]),
+             ('Baulicht (Puls)', MAIN / 'block/construction_light.png', [0, 3, 9]),
+             ('Trainingspuppe', OVERLAY / 'item/training_dummy.png', [0]),
+             ('Speer-Glanz', MAIN / 'item/enderite_spear.png', [0, 3, 5]),
+             ('Rucksack', MAIN / 'item/backpack.png', [0]),
+             ('Enderit-Rucksack', MAIN / 'item/enderite_backpack.png', [0]),
+             ('Keramik-Eimer', OVERLAY / 'item/ceramic_bucket.png', [0]),
+             ('Keramik Wasser', OVERLAY / 'item/ceramic_water_bucket.png', [0])]
+    k, cell = 12, 16 * 12 + 40
+    rows = []
+    for label, path, frames in items:
+        before = old(path, ROUND7_COMMIT)
+        with Image.open(path) as cur:
+            after = cur.convert('RGBA')
+        rows.append((label, [('vorher', before)] + [(f'nachher f{f}' if len(frames) > 1 else 'nachher', frame(after, f))
+                                                     for f in frames]))
+    width = 230 + cell * max(len(r) for _, r in rows) + 80
+    canvas = Image.new('RGB', (width, 50 + (16 * k + 30) * len(rows)), '#292d35')
+    d = ImageDraw.Draw(canvas)
+    d.text((12, 12), 'Runde 7b (Besitzer-Feedback): vorher | nachher, 16x und 1x', font=font, fill='white')
+    y = 50
+    for label, cells in rows:
+        d.text((12, y + 8), label, font=font, fill='white')
+        x = 230
+        for name, img in cells:
+            canvas.paste(checker(img, k), (x, y))
+            canvas.paste(checker(img, 1), (x + 16 * k + 6, y + 16 * k - 16))
+            d.text((x, y + 16 * k + 2), name, font=font, fill='#d0d7e2')
+            x += cell
+        y += 16 * k + 30
+    canvas.save(PREVIEW_7B)
+    return PREVIEW_7B
+
+
 def validate(path, img):
     a = np.array(img)
     assert img.mode == 'RGBA', path
@@ -447,7 +571,7 @@ def validate(path, img):
             return  # the owner's held-spear file, shape unchanged (it runs corner to corner)
         assert not (alpha[0].any() or (alpha[-1].any() and not bottom_ok) or alpha[:, 0].any() or alpha[:, -1].any()), path
     else:
-        assert img.size == (16, 16) and (a[:, :, 3] == 255).all(), path
+        assert img.width == 16 and img.height in (16, 16 * LIGHT_FRAMES) and (a[:, :, 3] == 255).all(), path
 
 
 def main():
@@ -459,7 +583,8 @@ def main():
     for path, img in out.items():
         validate(path, img)
         meta = path.with_name(path.name + '.mcmeta')
-        text = json.dumps(shimmer.mcmeta(CORE_FRAMETIME), indent=2) + '\n' if img.height > img.width else None
+        frametime = LIGHT_FRAMETIME if path.parent.name == 'block' else CORE_FRAMETIME
+        text = json.dumps(shimmer.mcmeta(frametime), indent=2) + '\n' if img.height > img.width else None
         if check:
             try:
                 with Image.open(path) as actual:
@@ -479,6 +604,8 @@ def main():
             print('out of date:', path.relative_to(ROOT))
         return 1 if bad else 0
     print(f'wrote {len(out)} textures; preview {preview(before)}')
+    if '--preview-7b' in sys.argv:
+        print('7b preview', preview_7b())
     return 0
 
 

@@ -58,3 +58,15 @@ Branch `claude-tex7` (von `47f392a63`, Queue „Nachtrag 11“). Nur committen, 
   Rezepte (3 Ton, Schmelzen), Gewichte/Dauer der Kern-Bewegungen, Kreativ-Reihe.
 - Datagen 26.3, `fabric-263` + `neoforge-263` („alles gruen“), `gradlew check -q`, Wiki venv `--all` + uv `--all --check`.
 - Nicht getestet: Client-Ansicht (kein Client erlaubt).
+
+## Runde 7b (Besitzer-Feedback 2026-10-06)
+- Rissiger Diamantblock: zurück auf die Besitzer-Textur (`cb75fc2f`, Quelle `tools/textures/hand/r7/`), Muster
+  unverändert, nur 90 verrauschte Töne auf 10 saubere (Vanilla-Diamant + 3 Risstöne) und Einzelpixel geglättet.
+- Baulicht: Leuchtfläche als abgerundetes Quadrat (Superellipse, weiche Ecken), 12 Bilder Pulsieren (`frametime` 4).
+- Trainingspuppe neu: an Spalte 7 gespiegelt (Kopf, Ziel, Steinplatte), dann Licht oben links; Gesicht dunkles
+  Orange-Braun statt Schwarz.
+- Speer: Glanz nur auf der Enderit-Spitze, breiter (3 Diagonalen) und heller (+3/+2 Stufen); auch in der Hand.
+- Rucksack (alle 4 Stufen): Dreiviertelansicht mit Seitenfläche rechts im Schatten.
+- „Eimer Variante B“: als Keramik-Eimer B (Zickzackband) gelesen – die einzige B-Variante einer Runde-7-Eimer-Vorschau
+  (Kupfer hatte dort D/E/F; Kupfer B wäre der alte eckige Eimer).
+- Vorschau `previews/texturen-runde7b-vorschau.png` (vorher | nachher, 16× + 1×).
