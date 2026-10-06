@@ -931,13 +931,11 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(ModItems.ASTRALIT_DUST), has(ModItems.ASTRALIT_DUST))
                         .save(output, "raw_enderite_synthesis");
 
-                // --- 2. Schichten: 3 Rohenderit uebereinander -> Geschichtetes Rohenderit ---
+                // --- 2. Schichten: 4 Rohenderit (Formlos) -> Geschichtetes Rohenderit ---
                 // Besitzer 2026-09-29: Rohenderit schmilzt nicht mehr direkt zu Schrott.
-                shaped(RecipeCategory.MISC, ModItems.LAYERED_RAW_ENDERITE)
-                        .pattern("R")
-                        .pattern("R")
-                        .pattern("R")
-                        .define('R', ModItems.RAW_ENDERITE)
+                // Besitzer 2026-10-07: vier Rohenderit in beliebiger Anordnung statt der 3er-Saeule.
+                shapeless(RecipeCategory.MISC, ModItems.LAYERED_RAW_ENDERITE)
+                        .requires(ModItems.RAW_ENDERITE, 4)
                         .unlockedBy(getHasName(ModItems.RAW_ENDERITE), has(ModItems.RAW_ENDERITE))
                         .save(output);
 
@@ -945,7 +943,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Doppelt so lange je Schrott wie das fruehere Direktschmelzen (72000 Ticks): 144000 Ticks = 2 h in
                 // einem Vanilla-Schmelzofen (1 h verstaerkt, 30 min Netherit, 15 min Enderit), 10 Erfahrung.
                 // Ein Schrott je Geschichtetem Rohenderit: Kochrezepte koennen auf 1.21.11 nur ein einzelnes Item
-                // liefern (STRICT_SINGLE_ITEM_CODEC), also auf allen Linien 3 Rohenderit je Schrott. Zeiten ueber
+                // liefern (STRICT_SINGLE_ITEM_CODEC), also auf allen Linien 4 Rohenderit je Schrott. Zeiten ueber
                 // 32767 Ticks ueberleben Speichern und Menue-Sync nur dank AbstractFurnaceBlockEntityMixin /
                 // AbstractFurnaceMenuMixin. Kein Ofen- oder Raeucherofen-Rezept, wie beim Rohenderit zuvor.
                 oreBlasting(List.of(ModItems.LAYERED_RAW_ENDERITE), RecipeCategory.MISC, net.minecraft.world.item.crafting.CookingBookCategory.MISC, ModItems.ENDERITE_SCRAP, 10.0f, fastMachineTicks(2 * 72000), "enderite_scrap");

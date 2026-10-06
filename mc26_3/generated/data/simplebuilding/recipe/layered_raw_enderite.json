@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "simplebuilding:raw_enderite",
+    "simplebuilding:raw_enderite",
+    "simplebuilding:raw_enderite",
+    "simplebuilding:raw_enderite"
+  ],
+  "result": {
+    "id": "simplebuilding:layered_raw_enderite"
+  }
+}
