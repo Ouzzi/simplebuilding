@@ -1,0 +1,23 @@
+{
+  "values": [
+    "simplebuilding:astralit_brick_stairs",
+    "simplebuilding:polished_astralit_stairs",
+    "simplebuilding:nihilith_brick_stairs",
+    "simplebuilding:polished_nihilith_stairs",
+    "simplebuilding:ender_quartz_stairs",
+    "simplebuilding:ender_quartz_brick_stairs",
+    "simplebuilding:polished_ender_quartz_stairs",
+    "simplebuilding:purpur_quartz_checker_stairs",
+    "simplebuilding:lapis_quartz_checker_stairs",
+    "simplebuilding:blackstone_quartz_checker_stairs",
+    "simplebuilding:resin_quartz_checker_stairs",
+    "simplebuilding:nether_brick_quartz_checker_stairs",
+    "simplebuilding:red_nether_brick_quartz_checker_stairs",
+    "simplebuilding:nihilith_quartz_checker_stairs",
+    "simplebuilding:astralit_quartz_checker_stairs",
+    "simplebuilding:ender_quartz_checker_stairs",
+    "simplebuilding:polished_astralit_checker_stairs",
+    "simplebuilding:polished_nihilith_checker_stairs",
+    "simplebuilding:polished_ender_quartz_checker_stairs"
+  ]
+}

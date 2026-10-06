@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "simplebuilding:nether_brick_quartz_checker"
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "simplebuilding:nether_brick_quartz_checker_slab"
+  }
+}

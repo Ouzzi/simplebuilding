@@ -126,6 +126,14 @@ public final class SearchTabPlacement {
                 ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
                 ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
                 ModItems.POLISHED_ENDER_QUARTZ_CHECKER));
+        if (com.simplebuilding.version.McVersion.CHESS) {
+            // Schach: je Farbe Achtel, Treppe/Stufe des Schachbretts, Figuren - hinter den Schachbrettern.
+            List<ItemLike> chess = new ArrayList<>();
+            for (com.simplebuilding.chess.ChessColor color : com.simplebuilding.chess.ChessColor.values()) {
+                chess.addAll(com.simplebuilding.chess.ChessItems.row(color));
+            }
+            out.add(Placement.after(BUILDING_BLOCKS, ModItems.POLISHED_ENDER_QUARTZ_CHECKER, chess.toArray(new ItemLike[0])));
+        }
         // Kupfer folgt in der Erz-Reihenfolge auf Stein: die acht Kupferplatten hinter der Steinplatte.
         out.add(Placement.after(BUILDING_BLOCKS, Items.STONE_PRESSURE_PLATE,
                 TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE,

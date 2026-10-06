@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:item/chess/bishop",
+  "textures": {
+    "m": "simplebuilding:block/chess/astralit",
+    "a": "simplebuilding:block/chess/astralit_accent"
+  }
+}

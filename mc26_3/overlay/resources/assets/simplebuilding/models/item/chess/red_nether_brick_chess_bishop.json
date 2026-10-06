@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:item/chess/bishop",
+  "textures": {
+    "m": "simplebuilding:block/chess/red_nether_brick",
+    "a": "simplebuilding:block/chess/red_nether_brick_accent"
+  }
+}

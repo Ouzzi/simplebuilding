@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_nihilith_octet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:polished_nihilith_octet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:polished_nihilith_chess_bishop_from_polished_nihilith_octet_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_polished_nihilith_octet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:polished_nihilith_chess_bishop_from_polished_nihilith_octet_stonecutting"
+    ]
+  }
+}

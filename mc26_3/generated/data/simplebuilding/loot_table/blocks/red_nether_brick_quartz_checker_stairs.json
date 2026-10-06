@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:red_nether_brick_quartz_checker_stairs"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

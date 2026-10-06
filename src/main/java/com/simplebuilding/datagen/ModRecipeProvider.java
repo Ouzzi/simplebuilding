@@ -1023,6 +1023,28 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 createCheckerRecipe(output, ModBlocks.POLISHED_NIHILITH_CHECKER, ModBlocks.POLISHED_NIHILITH);
                 createCheckerRecipe(output, ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER, ModBlocks.POLISHED_ENDER_QUARTZ);
 
+                // --- SCHACH (docs/ai/PLAN-SCHACH-2026-10-06.md) ---
+                // Treppe 6 -> 4 und Stufe 3 -> 6 wie Vanilla, im Steinmetz 1 -> 1 bzw. 1 -> 2; der Steinmetz schneidet
+                // aus einem Schachbrett (Quarz: Quarzblock) 8 Achtel seiner Farbe, aus einem Achtel jede Figur.
+                if (com.simplebuilding.version.McVersion.CHESS) {
+                    for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
+                        Block checker = shapes.checker();
+                        stairBuilder(shapes.stairs(), Ingredient.of(checker)).unlockedBy(getHasName(checker), has(checker)).save(output);
+                        slabBuilder(RecipeCategory.BUILDING_BLOCKS, shapes.slab(), Ingredient.of(checker)).unlockedBy(getHasName(checker), has(checker)).save(output);
+                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, shapes.stairs(), checker);
+                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, shapes.slab(), checker, 2);
+                    }
+                    for (com.simplebuilding.chess.ChessColor color : com.simplebuilding.chess.ChessColor.values()) {
+                        Item octet = com.simplebuilding.chess.ChessItems.octet(color);
+                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, octet, color.octetSource(), 8);
+                        for (boolean flat : new boolean[]{false, true}) {
+                            for (com.simplebuilding.chess.ChessPiece piece : com.simplebuilding.chess.ChessPiece.values()) {
+                                stonecutterResultFromBase(RecipeCategory.DECORATIONS, com.simplebuilding.chess.ChessItems.piece(color, piece, flat), octet);
+                            }
+                        }
+                    }
+                }
+
                 // --- ASTRAL / NIHIL BLOCKS (8 Block + 1 Powder/Shard) ---
                 createCoatingRecipe(output, ModBlocks.ASTRAL_PURPUR_BLOCK, Items.PURPUR_BLOCK, ModItems.ASTRALIT_DUST);
                 createCoatingRecipe(output, ModBlocks.NIHIL_PURPUR_BLOCK, Items.PURPUR_BLOCK, ModItems.NIHILITH_SHARD);

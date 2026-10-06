@@ -83,6 +83,8 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Kleinteile auf einem Fleck: liegende Teile als Platten, Eier als 3D-Ei.
         if (com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_SMALL_PARTS_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_SMALL_PARTS_BE, com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
+        if (com.simplebuilding.blocks.entity.ModBlockEntities.CHESS_PIECES_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                com.simplebuilding.blocks.entity.ModBlockEntities.CHESS_PIECES_BE, com.simplebuilding.client.render.ChessPiecesRenderer::new);
         // Haengematte: das Kopfteil zeichnet die ganze Matte entlang der Ankerlinie (jeder Winkel).
         if (com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE, com.simplebuilding.client.render.HammockRenderer::new);

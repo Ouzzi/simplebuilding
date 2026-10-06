@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:quartz_octet",
+  "result": {
+    "id": "simplebuilding:quartz_chess_queen_flat"
+  }
+}

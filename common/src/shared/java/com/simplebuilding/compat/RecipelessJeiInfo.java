@@ -74,6 +74,12 @@ public final class RecipelessJeiInfo {
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             map.put("silent_dandelion", List.of(ModItems.SILENT_DANDELION));
         }
+        if (com.simplebuilding.version.McVersion.CHESS) {
+            // Schach: wie Achtel und Figuren gesetzt, getauscht und aufgenommen werden.
+            List<ItemLike> chess = new java.util.ArrayList<>(com.simplebuilding.chess.ChessItems.octets());
+            chess.addAll(com.simplebuilding.chess.ChessItems.pieces().values());
+            map.put("chess", chess);
+        }
         // Pfeile: seit 2026-10-02 mit Befiederungsrezepten (nur fuers Vanilla-Rezeptbuch), JEI zeigt sie nicht - Hinweis bleibt.
         if (com.simplebuilding.version.McVersion.FLETCHING) {
             map.put("crafted_arrow", List.of(ModItems.CRAFTED_ARROW));

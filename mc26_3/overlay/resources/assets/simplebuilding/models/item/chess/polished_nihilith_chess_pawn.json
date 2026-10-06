@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:item/chess/pawn",
+  "textures": {
+    "m": "simplebuilding:block/chess/polished_nihilith",
+    "a": "simplebuilding:block/chess/polished_nihilith_accent"
+  }
+}

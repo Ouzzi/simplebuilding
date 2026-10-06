@@ -180,6 +180,16 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             palette.slabs().forEach(block -> builder(BlockTags.SLABS).add(key(block)));
             palette.walls().forEach(block -> builder(BlockTags.WALLS).add(key(block)));
         }
+        // Schach (2026-10-06): Treppen und Stufen der Schachbretter wie ihr Schachbrett (Spitzhacke) und in den
+        // Vanilla-Tags ihrer Form; die Achtelzelle mit der Spitzhacke schneller (kein Werkzeug noetig).
+        for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(shapes.stairs())).add(key(shapes.slab()));
+            builder(BlockTags.STAIRS).add(key(shapes.stairs()));
+            builder(BlockTags.SLABS).add(key(shapes.slab()));
+        }
+        if (ModBlocks.CHECKER_OCTET != null) {
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.CHECKER_OCTET));
+        }
         // Alternativbloecke der Grundbloecke (2026-10-03): Spitzhacke wie ihr Grundblock.
         for (ModBlocks.EndAlternates alternates : ModBlocks.END_ALTERNATES) {
             alternates.alternates().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));

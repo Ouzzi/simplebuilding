@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:item/chess/pawn_flat",
+  "textures": {
+    "m": "simplebuilding:block/chess/quartz",
+    "a": "simplebuilding:block/chess/quartz_accent"
+  }
+}

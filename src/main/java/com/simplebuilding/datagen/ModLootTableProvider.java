@@ -146,6 +146,11 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(ModBlocks.POLISHED_ASTRALIT_CHECKER);
         dropSelf(ModBlocks.POLISHED_NIHILITH_CHECKER);
         dropSelf(ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER);
+        // Treppen und Stufen der Schachbretter (Schach); Achtel und Figuren droppen ohne Loot-Tabelle.
+        for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
+            dropSelf(shapes.stairs());
+            add(shapes.slab(), createSlabItemTable(shapes.slab()));
+        }
 
         dropSelf(ModBlocks.ASTRAL_PURPUR_BLOCK);
         dropSelf(ModBlocks.NIHIL_PURPUR_BLOCK);

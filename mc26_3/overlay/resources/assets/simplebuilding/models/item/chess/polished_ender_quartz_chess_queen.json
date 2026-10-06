@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:item/chess/queen",
+  "textures": {
+    "m": "simplebuilding:block/chess/polished_ender_quartz",
+    "a": "simplebuilding:block/chess/polished_ender_quartz_accent"
+  }
+}

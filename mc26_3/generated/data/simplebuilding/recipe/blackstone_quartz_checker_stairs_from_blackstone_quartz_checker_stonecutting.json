@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:blackstone_quartz_checker",
+  "result": {
+    "id": "simplebuilding:blackstone_quartz_checker_stairs"
+  }
+}

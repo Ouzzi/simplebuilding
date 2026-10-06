@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:polished_ender_quartz_octet",
+  "result": {
+    "id": "simplebuilding:polished_ender_quartz_chess_bishop"
+  }
+}

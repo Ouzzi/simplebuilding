@@ -1,0 +1,1174 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "color": "quartz",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_quartz",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "quartz",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_quartz",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "quartz",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_quartz",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "quartz",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_quartz",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "quartz",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_quartz",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "quartz",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_quartz",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "quartz",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_quartz",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "quartz",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_quartz",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "purpur",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_purpur",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "purpur",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_purpur",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "purpur",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_purpur",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "purpur",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_purpur",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "purpur",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_purpur",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "purpur",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_purpur",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "purpur",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_purpur",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "purpur",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_purpur",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "lapis",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_lapis",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "lapis",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_lapis",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "lapis",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_lapis",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "lapis",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_lapis",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "lapis",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_lapis",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "lapis",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_lapis",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "lapis",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_lapis",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "lapis",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_lapis",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "blackstone",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_blackstone",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "blackstone",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_blackstone",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "blackstone",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_blackstone",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "blackstone",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_blackstone",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "blackstone",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_blackstone",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "blackstone",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_blackstone",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "blackstone",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_blackstone",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "blackstone",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_blackstone",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "resin",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_resin",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "resin",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_resin",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "resin",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_resin",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "resin",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_resin",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "resin",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_resin",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "resin",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_resin",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "resin",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_resin",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "resin",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_resin",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "nether_brick",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nether_brick",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "nether_brick",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nether_brick",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "nether_brick",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nether_brick",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "nether_brick",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nether_brick",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "nether_brick",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nether_brick",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "nether_brick",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nether_brick",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "nether_brick",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nether_brick",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "nether_brick",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nether_brick",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "red_nether_brick",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_red_nether_brick",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "red_nether_brick",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_red_nether_brick",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "red_nether_brick",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_red_nether_brick",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "red_nether_brick",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_red_nether_brick",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "red_nether_brick",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_red_nether_brick",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "red_nether_brick",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_red_nether_brick",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "red_nether_brick",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_red_nether_brick",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "red_nether_brick",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_red_nether_brick",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "nihilith",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nihilith",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "nihilith",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nihilith",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "nihilith",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nihilith",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "nihilith",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nihilith",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "nihilith",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nihilith",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "nihilith",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nihilith",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "nihilith",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nihilith",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "nihilith",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_nihilith",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "astralit",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_astralit",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "astralit",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_astralit",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "astralit",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_astralit",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "astralit",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_astralit",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "astralit",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_astralit",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "astralit",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_astralit",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "astralit",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_astralit",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "astralit",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_astralit",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "ender_quartz",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_ender_quartz",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "ender_quartz",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_ender_quartz",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "ender_quartz",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_ender_quartz",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "ender_quartz",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_ender_quartz",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "ender_quartz",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_ender_quartz",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "ender_quartz",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_ender_quartz",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "ender_quartz",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_ender_quartz",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "ender_quartz",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_ender_quartz",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "polished_astralit",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_astralit",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "polished_astralit",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_astralit",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "polished_astralit",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_astralit",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "polished_astralit",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_astralit",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "polished_astralit",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_astralit",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "polished_astralit",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_astralit",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "polished_astralit",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_astralit",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "polished_astralit",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_astralit",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "polished_nihilith",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_nihilith",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "polished_nihilith",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_nihilith",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "polished_nihilith",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_nihilith",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "polished_nihilith",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_nihilith",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "polished_nihilith",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_nihilith",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "polished_nihilith",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_nihilith",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "polished_nihilith",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_nihilith",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "polished_nihilith",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_nihilith",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "polished_ender_quartz",
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_ender_quartz",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "color": "polished_ender_quartz",
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_ender_quartz",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "polished_ender_quartz",
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_ender_quartz",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "color": "polished_ender_quartz",
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_ender_quartz",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "polished_ender_quartz",
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_ender_quartz",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "color": "polished_ender_quartz",
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_ender_quartz",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "color": "polished_ender_quartz",
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_ender_quartz",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "color": "polished_ender_quartz",
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/chess/octet_polished_ender_quartz",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    }
+  ]
+}

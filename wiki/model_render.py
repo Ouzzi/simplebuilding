@@ -447,6 +447,12 @@ class IconRenderer:
                 apply = part.get("apply")
                 apply = apply[0] if isinstance(apply, list) else apply
                 return apply.get("model")
+        # Only conditional parts (e.g. the chess octet cell: colour + bit): the first part stands for the block.
+        for part in state.get("multipart", []):
+            apply = part.get("apply")
+            apply = apply[0] if isinstance(apply, list) else apply
+            if isinstance(apply, dict) and apply.get("model"):
+                return apply.get("model")
         return None
 
     # ------------------------------------------------------------------ special models

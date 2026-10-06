@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:polished_nihilith_octet",
+  "result": {
+    "id": "simplebuilding:polished_nihilith_chess_bishop_flat"
+  }
+}

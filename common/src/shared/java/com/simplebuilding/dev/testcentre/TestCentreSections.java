@@ -856,7 +856,7 @@ public final class TestCentreSections {
                 }
             }
             c.wallSign(x, 3, wallZ, block.getName());
-            if (path.contains("checker")) {
+            if (path.endsWith("_checker")) {
                 // Schachbretter zusaetzlich als Bodenflaeche.
                 c.fill(checkerX, -1, 1, checkerX + 2, -1, 3, block.defaultBlockState());
                 checkerX += 4;

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_purpur_quartz_checker": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:purpur_quartz_checker"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:purpur_quartz_checker_slab_from_purpur_quartz_checker_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_purpur_quartz_checker"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:purpur_quartz_checker_slab_from_purpur_quartz_checker_stonecutting"
+    ]
+  }
+}

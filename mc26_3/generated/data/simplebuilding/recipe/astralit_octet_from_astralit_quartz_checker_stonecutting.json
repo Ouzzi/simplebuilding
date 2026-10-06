@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:astralit_quartz_checker",
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:astralit_octet"
+  }
+}

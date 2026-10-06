@@ -41,7 +41,7 @@ public final class TestCentreLayout {
 
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
     public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "states", "storage", "food",
-            "materials", "placeables", "arrows", "archery", "music", "crucible", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
+            "materials", "placeables", "arrows", "archery", "music", "crucible", "chess", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
             "mining", "enchants", "sinkdamper", "tweaks", "devices",
             // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
             "tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads", "tab_arrows",
@@ -209,6 +209,8 @@ public final class TestCentreLayout {
         builders.put("music", FeatureStations::music);
         // Schmelztiegel-Station (Crucible P6); auf 26.2 leer.
         builders.put("crucible", FeatureStations::crucible);
+        // Schach-Station (2026-10-06); auf 26.2 leer.
+        builders.put("chess", FeatureStations::chess);
         builders.put("chisel", TestCentreSections::chisel);
         builders.put("inworld", TestCentreSections::inWorld);
         builders.put("templates", TestCentreSections::templates);

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nether_brick_octet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:nether_brick_octet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:nether_brick_chess_queen_from_nether_brick_octet_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nether_brick_octet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:nether_brick_chess_queen_from_nether_brick_octet_stonecutting"
+    ]
+  }
+}

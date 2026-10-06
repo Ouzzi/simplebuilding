@@ -11798,6 +11798,113 @@
           "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
         ]
       }
+    },
+    "*_octet": {
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+        "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+        "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "tools/textures/chess_2026_10_06.py"
+      ],
+      "en": {
+        "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+        "details": [
+          "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+          "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+          "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+          "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+          "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+          "Each octet cuts into every chess piece of its color in the stonecutter."
+        ]
+      },
+      "de": {
+        "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+        "details": [
+          "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+          "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+          "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+          "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+          "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+          "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+        ]
+      }
+    },
+    "*_chess_*": {
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/ChessPiecesBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ChessPiecesBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/ChessPieceItem.java",
+        "common/src/shared/java/com/simplebuilding/chess/ChessPiece.java",
+        "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+        "common/src/shared/java/com/simplebuilding/client/render/ChessPiecesRenderer.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "tools/textures/chess_2026_10_06.py"
+      ],
+      "en": {
+        "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+        "details": [
+          "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
+          "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
+          "Sneak + right-click with a piece on a standing piece replaces it: the old piece goes into your hand if it was your last piece, otherwise into the inventory.",
+          "Sneak + right-click with an empty hand picks a piece up; an empty hand without sneaking turns it a quarter turn clockwise. The block disappears with its last piece.",
+          "Pieces can be waterlogged; breaking the block, losing the floor or a piston drops every piece. Stacks of 16."
+        ]
+      },
+      "de": {
+        "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+        "details": [
+          "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
+          "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
+          "Schleichen + Rechtsklick mit einer Figur auf eine stehende ersetzt sie: die alte kommt in deine Hand, wenn es deine letzte Figur war, sonst ins Inventar.",
+          "Schleichen + Rechtsklick mit leerer Hand nimmt eine Figur auf; die leere Hand ohne Schleichen dreht sie eine Vierteldrehung im Uhrzeigersinn. Mit der letzten Figur verschwindet der Block.",
+          "Figuren sind wasserfüllbar; Abbauen, ein fehlender Boden oder ein Kolben droppt alle Figuren. Stapel zu 16."
+        ]
+      }
+    },
+    "*_checker_s[lt]a*": {
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java"
+      ],
+      "en": {
+        "summary": "Every quartz checker has stairs and a slab with its pattern and its properties (pickaxe; the astralit checkers glow with 5).",
+        "details": [
+          "Crafting like vanilla: 6 checkers make 4 stairs, 3 make 6 slabs; the stonecutter cuts 1 stairs or 2 slabs from one checker.",
+          "They drop themselves (a double slab two slabs) and are in the vanilla stairs and slabs tags."
+        ]
+      },
+      "de": {
+        "summary": "Jedes Quarz-Schachbrett hat eine Treppe und eine Stufe mit seinem Muster und seinen Eigenschaften (Spitzhacke; die Astralit-Schachbretter leuchten mit 5).",
+        "details": [
+          "Herstellung wie bei Vanilla: 6 Schachbretter ergeben 4 Treppen, 3 ergeben 6 Stufen; der Steinmetz schneidet aus einem Schachbrett 1 Treppe oder 2 Stufen.",
+          "Sie droppen sich selbst (eine Doppelstufe zwei Stufen) und stehen in den Vanilla-Tags für Treppen und Stufen."
+        ]
+      }
+    },
+    "chess_pieces": {
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/ChessPiecesBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ChessPiecesBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/client/render/ChessPiecesRenderer.java"
+      ],
+      "en": {
+        "summary": "The block the chess pieces stand on: up to four pieces, one per quarter of the block top, each with its own facing. It has no item; the pieces place it and it drops them.",
+        "details": [
+          "It needs a block with a full top face below and can be waterlogged; without pieces it disappears."
+        ]
+      },
+      "de": {
+        "summary": "Der Block, auf dem die Schachfiguren stehen: bis zu vier Figuren, eine je Viertel der Blockoberseite, jede mit eigener Blickrichtung. Er hat kein Item; die Figuren setzen ihn, und er droppt sie.",
+        "details": [
+          "Er braucht darunter einen Block mit voller Oberseite und ist wasserfüllbar; ohne Figuren verschwindet er."
+        ]
+      }
     }
   },
   "inWorld": {

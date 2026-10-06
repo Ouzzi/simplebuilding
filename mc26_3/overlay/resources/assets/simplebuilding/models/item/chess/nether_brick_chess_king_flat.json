@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:item/chess/king_flat",
+  "textures": {
+    "m": "simplebuilding:block/chess/nether_brick",
+    "a": "simplebuilding:block/chess/nether_brick_accent"
+  }
+}

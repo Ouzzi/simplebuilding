@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:nihilith_octet",
+  "result": {
+    "id": "simplebuilding:nihilith_chess_queen"
+  }
+}

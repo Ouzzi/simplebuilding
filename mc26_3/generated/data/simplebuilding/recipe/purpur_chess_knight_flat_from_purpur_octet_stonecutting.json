@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:purpur_octet",
+  "result": {
+    "id": "simplebuilding:purpur_chess_knight_flat"
+  }
+}

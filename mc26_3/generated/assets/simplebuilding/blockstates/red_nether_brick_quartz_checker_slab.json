@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simplebuilding:block/red_nether_brick_quartz_checker_slab"
+    },
+    "type=double": {
+      "model": "simplebuilding:block/red_nether_brick_quartz_checker"
+    },
+    "type=top": {
+      "model": "simplebuilding:block/red_nether_brick_quartz_checker_slab_top"
+    }
+  }
+}

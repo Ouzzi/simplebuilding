@@ -211,6 +211,12 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             palette.walls().forEach(block -> builder(BlockItemTags.WALLS.item()).add(key(block.asItem())));
         }
 
+        // Treppen und Stufen der Schachbretter (Schach 2026-10-06) ebenso.
+        for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
+            builder(BlockItemTags.STAIRS.item()).add(key(shapes.stairs().asItem()));
+            builder(BlockItemTags.SLABS.item()).add(key(shapes.slab().asItem()));
+        }
+
         // Alle acht Vanilla-Kupfertruhen (Oxidationsstufen, gewachst): Zutat der Verstaerkten Truhe.
         var copperChests = builder(ModTags.Items.COPPER_CHESTS);
         net.minecraft.core.registries.BuiltInRegistries.ITEM.stream()
