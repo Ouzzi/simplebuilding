@@ -17,9 +17,9 @@ der am Ende entsteht (Fortschritt sichtbar als Risse bzw. Rohling-Stufen), **1**
 | Tiegel/Fass aufwerten (SimpleLib-Blöcke) | `SledgehammerUpgrades.crucibleUpgrades` | wie oben | wie oben, 2 Stück | 2× | wie oben | Block | `cauldron_world` (`hammer_upgrade/…`, neu) | `CrucibleTests.sledgehammerUpgradesCostDouble` (Tabelle), Aufwertungsweg wie Maschinen |
 | Kessel → verstärkter Kessel | `SledgehammerUpgrades.crucibleUpgrades` | wie oben | 8 Rissige Diamanten (vorher 4) | 5 | wie oben | Block | `cauldron_world` (`cauldron_reinforce`) | `CrucibleTests` (Tabelle/JEI) |
 | Umformen Block→Treppe→Stufe, Ecken | `SledgehammerItem#useOn/finishUsingItem` | Rechtsklick-Ladung | – | 1 Ladung | Abbauklang, Partikel | Block | `reshape` | `SledgehammerTests` |
-| Diamantblock → 81 Diamantkiesel | `SledgehammerItem#strikeDiamondBlock` | Rechtsklick (je Klick ein Schlag) | – | 8 | gemeinsam (`InWorldStrikes.feedback`), Metallbruch am Ende | Teil (Punkt 4) | `diamond_crush` | `SledgehammerTests` |
-| Quarzblock → 4 Quarz | `SledgehammerItem#crushQuartzBlock` | Rechtsklick | – | 1 (Punkt 4: 4) | Gold-Erz-Bruch, Partikel | Teil (Punkt 4) | neu in `diamond_crush` (Punkt 4) | Punkt 4 |
-| Eis/Packeis/Obsidian/Feuerkugel → Splitter | `SledgehammerChips#tryCrush` | Rechtsklick (auch auf Haufen) | – | 1 (Punkt 4: je Item) | Glasbruch, Partikel | Teil (Punkt 4) | Info-Seiten; Blöcke neu in `diamond_crush` (Punkt 4) | Punkt 4 |
+| Diamantblock → 81 Diamantkiesel | `SledgehammerItem#strikeDiamondBlock` | Rechtsklick (je Klick ein Schlag) | – | 8 | gemeinsam (`InWorldStrikes.feedback`), Metallbruch am Ende | Teil: 10 je Schlag, 11 zuletzt | `diamond_crush` | `SledgehammerTests.hammerCrushingsYieldOnePartPerStrikeThroughTheRealUsePath` (neu) u. a. |
+| Quarzblock → 4 Quarz | `SledgehammerItem#strikeQuartzBlock` | Rechtsklick | – | 4 (vorher 1) | gemeinsam, Gold-Erz-Bruch am Ende | Teil: 1 je Schlag | `diamond_crush` (`hammer_crush/…`, neu) | wie oben (neu) |
+| Eis/Packeis/Obsidian/Feuerkugel → Splitter | `SledgehammerChips#tryCrush` | Rechtsklick (auch auf Haufen) | – | 4/9/9/4 (vorher 1) | gemeinsam, Glasbruch am Ende | Teil: 1 je Schlag | `diamond_crush` (`hammer_crush/…`, neu) + Info-Seiten | wie oben (Eis, Obsidian, Abbruch); `hammerChips*` |
 | Besatz-Vorlage + Leuchttinte/Glowstone | `PlacedTemplates#strike/hit` | **Rechtsklick** (vorher Linksklick) | Leuchttinte / Glowstonestaub (26.3: 2 + Inventar-Material) | 5 | Risse, Amethyst-Klang steigend, Material-Partikel | Block (Vorlage wird getauscht) | `trim_template` | `PlacedTemplateTests.placedTrimTemplateUpgradesOnRightClickOnly` (neu) |
 | Schallplatte wenden | `DiscFlips#flip` | Rechtsklick auf abgelegte Platte | – | 1 | Amboss + Glocke, Noten | 1 | `disc_flip` | `MusicDiscTests.hammerFlipsPlacedDiscBackAndForth` |
 | Eisen-Tiegel bauen | `CrucibleCompat#hammerUse` → `CrucibleBlankBlock#strike` | Rechtsklick | 4 Wägeplatten, dann 2 Stäbe/Barren | 6 | Rohling-Stufen + Risse (neu), Amboss steigend | Block | `crucible_build` | `CrucibleTests.sledgehammerBuildsTheIronCrucible` |
@@ -50,4 +50,7 @@ und SimpleDimensions (Portal zünden) sind keine Werkzeug-Umwandlungen im Hammer
   Rechtsklick, nur mit Halten statt Einzelklicks.
 - SimpleLib-Fass-Aufwertung per Axt teilt den Schlagzähler mit dem Anbringen (`CrucibleUpgrades#strike`,
   `addAttachStrike`) – nicht angefasst, Folgepunkt.
-- Splitter aus einer Feuerkugel bleiben JEI-Info-Seite (Eingabe ist ein abgelegtes Item, kein Block).
+- Schrittweise Teile sind bis zum letzten Schlag nur Anzeigen (`ItemDisplay`), erst der letzte Schlag macht echte Items –
+  so lässt sich ein abgebrochenes Zerschlagen nicht ausnutzen. Wird der Block vorher abgebaut, verschwinden die Anzeigen
+  nach spätestens 100 Ticks; der Block droppt wie Vanilla.
+- Umwandlungen mit Block-Ergebnis haben kein Teil-Ergebnis (Aufwertungen, Tiegelbau, Fass, Kessel, Besatz).

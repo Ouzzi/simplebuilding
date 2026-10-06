@@ -1052,6 +1052,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_game_test_only_iron_or_better_sledgehammers_crush_diamond_blocks", SledgehammerTests::onlyIronOrBetterSledgehammersCrushDiamondBlocks)
                     .maxTicks(100)
                     .build(),
+            GameTestSpec.named("sledgehammer_game_test_hammer_crushings_yield_one_part_per_strike_through_the_real_use_path", SledgehammerTests::hammerCrushingsYieldOnePartPerStrikeThroughTheRealUsePath)
+                    .maxTicks(320)
+                    .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_breaks_the_octant_selection_at_twice_the_area_time_per_block", SledgehammerTests::sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock)
                     .build(),
             GameTestSpec.named("chisel_game_test_spatula_runs_forward_while_sneaking_and_chisel_runs_backward", ChiselTests::spatulaRunsForwardWhileSneakingAndChiselRunsBackward)

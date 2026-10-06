@@ -8176,6 +8176,43 @@
     },
     "block": "minecraft:diamond_block",
     "count": 81,
+    "crushes": [
+      {
+        "count": 4,
+        "damage": 1,
+        "input": "minecraft:ice",
+        "result": "simplebuilding:ice_chip",
+        "strikes": 4
+      },
+      {
+        "count": 9,
+        "damage": 1,
+        "input": "minecraft:packed_ice",
+        "result": "simplebuilding:ice_chip",
+        "strikes": 9
+      },
+      {
+        "count": 9,
+        "damage": 1,
+        "input": "minecraft:obsidian",
+        "result": "simplebuilding:obsidian_chip",
+        "strikes": 9
+      },
+      {
+        "count": 4,
+        "damage": 1,
+        "input": "minecraft:fire_charge",
+        "result": "simplebuilding:fire_chip",
+        "strikes": 4
+      },
+      {
+        "count": 4,
+        "damage": 1,
+        "input": "minecraft:quartz_block",
+        "result": "minecraft:quartz",
+        "strikes": 4
+      }
+    ],
     "damage": 1,
     "hammers": [
       "simplebuilding:diamond_sledgehammer",

@@ -70,6 +70,8 @@
     "ChestBlockMixin",
     "ShulkerBoxBlockMixin",
     "CompoundContainerAccessor",
+    "DisplayStrikeAccessor",
+    "ItemDisplayStrikeAccessor",
     "HopperBlockEntityMixin",
     "CauldronInteractionDispatcherAccessor",
     "ItemCraftRemainderAccessor",

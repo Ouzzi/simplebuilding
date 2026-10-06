@@ -1,7 +1,19 @@
 package com.simplebuilding.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import net.minecraft.world.entity.Display;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -23,6 +35,11 @@ import net.minecraft.world.level.block.state.BlockState;
  *       {@link #RESET_TICKS} ohne Schlag oder wenn der Block wechselt.</li>
  *   <li><b>Rueckmeldung ({@link #feedback}):</b> Risse wie beim Abbauen, Partikel des Blocks und sein Schlagklang
  *       mit steigender Tonhoehe. Der letzte Schlag nimmt die Risse weg; seinen Abschluss-Klang spielt die Umwandlung.</li>
+ *   <li><b>Schrittweise Ergebnisse ({@link #strikeYield}):</b> jeder Schlag zeigt seinen Teil des Ergebnisses sofort als
+ *       schwebendes Item ueber dem Block (Vanilla-{@code ItemDisplay}: nicht aufsammelbar, kein Trichter, kein
+ *       Zusammenfuehren). Der letzte Schlag ({@link #release}) macht alle Teile an ihren Stellen zu echten Items. Bricht
+ *       die Umwandlung ab (Zeit, Block weg), verschwinden die Anzeigen - nichts doppelt, nichts verloren. Anzeigen ohne
+ *       laufende Umwandlung (z. B. nach einem Neustart) raeumt {@link #tick} weg.</li>
  * </ul>
  * Nur Server.
  */
@@ -39,6 +56,29 @@ public final class InWorldStrikes {
     }
 
     private static final Map<Key, Count> COUNTS = new HashMap<>();
+
+    /** Markierung der schwebenden Teil-Anzeigen. */
+    public static final String PENDING_TAG = "simplebuilding.strike_part";
+    /** Groesse der Teil-Anzeige (wie ein liegendes Item). */
+    private static final float PART_SCALE = 0.4F;
+
+    private static final class Pending {
+        final String kind;
+        final List<UUID> displays = new ArrayList<>();
+        final List<Vec3> spots = new ArrayList<>();
+        final List<ItemStack> parts = new ArrayList<>();
+        int shown;
+
+        Pending(String kind) {
+            this.kind = kind;
+        }
+    }
+
+    private static final Map<Key, Pending> PENDING = new HashMap<>();
+
+    /** Ergebnis eines gezaehlten Schlags mit Teil-Ergebnis: Schlag {@code done} von {@code total}; am Ende {@code finished}. */
+    public record Strike(int done, int total, boolean finished) {
+    }
 
     private InWorldStrikes() {
     }
@@ -67,6 +107,142 @@ public final class InWorldStrikes {
         }
     }
 
+    /**
+     * Ein Schlag mit schrittweisem Ergebnis (Besitzer 2026-10-06): zaehlt wie {@link #count}, gibt die gemeinsame
+     * Rueckmeldung und zeigt den Teil dieses Schlags ({@link #part}) als schwebendes Item. {@code null}, wenn der Schlag
+     * zu frueh kam. Ist {@link Strike#finished()}, wandelt der Aufrufer den Block um und ruft {@link #release}.
+     */
+    public static @Nullable Strike strikeYield(ServerLevel level, BlockPos pos, String kind, BlockState state, ItemStack result,
+                                               int total, long now) {
+        int done = count(level, pos, kind, state, total, now);
+        if (done == 0) {
+            return null;
+        }
+        Key key = new Key(level.dimension(), pos.immutable());
+        if (done == 1) {
+            discard(level, key);
+        }
+        feedback(level, pos, state, done, total);
+        if (done >= total) {
+            return new Strike(done, total, true);
+        }
+        ItemStack part = part(result, total, done);
+        if (!part.isEmpty()) {
+            Pending pending;
+            synchronized (PENDING) {
+                pending = PENDING.computeIfAbsent(key, k -> new Pending(kind));
+            }
+            Vec3 spot = spot(pos, pending.parts.size());
+            Display.ItemDisplay display = new Display.ItemDisplay(net.minecraft.world.entity.EntityTypes.ITEM_DISPLAY, level);
+            ((com.simplebuilding.mixin.ItemDisplayStrikeAccessor) display).simplebuilding$setItemStack(part.copyWithCount(1));
+            ((com.simplebuilding.mixin.DisplayStrikeAccessor) display).simplebuilding$setTransformation(new com.mojang.math.Transformation(
+                    new org.joml.Vector3f(), new org.joml.Quaternionf(), new org.joml.Vector3f(PART_SCALE), new org.joml.Quaternionf()));
+            display.setPos(spot.x, spot.y, spot.z);
+            display.setYRot(pending.parts.size() * 137.5F);
+            display.addTag(PENDING_TAG);
+            if (level.addFreshEntity(display)) {
+                pending.displays.add(display.getUUID());
+            }
+            pending.spots.add(spot);
+            pending.parts.add(part.copy());
+            pending.shown += part.getCount();
+        }
+        return new Strike(done, total, false);
+    }
+
+    /**
+     * Der letzte Schlag: die Anzeigen weg, an ihren Stellen die echten Items, dazu der Rest von {@code result} (was die
+     * Anzeigen noch nicht zeigten) in der Blockmitte. Ohne laufende Umwandlung kommt das ganze Ergebnis heraus.
+     */
+    public static void release(ServerLevel level, BlockPos pos, ItemStack result) {
+        Key key = new Key(level.dimension(), pos.immutable());
+        Pending pending;
+        synchronized (PENDING) {
+            pending = PENDING.remove(key);
+        }
+        int shown = 0;
+        if (pending != null) {
+            removeDisplays(level, pending);
+            for (int i = 0; i < pending.parts.size(); i++) {
+                ItemStack part = pending.parts.get(i);
+                int count = Math.min(part.getCount(), result.getCount() - shown);
+                if (count > 0 && part.is(result.getItem())) {
+                    drop(level, pending.spots.get(i), result.copyWithCount(count));
+                    shown += count;
+                }
+            }
+        }
+        int rest = result.getCount() - shown;
+        if (rest > 0) {
+            drop(level, Vec3.atCenterOf(pos), result.copyWithCount(rest));
+        }
+        level.destroyBlockProgress(crackId(pos), pos, -1);
+    }
+
+    /** Der Teil von {@code result}, den Schlag {@code done} von {@code total} bringt: gleich verteilt, der Rest zuletzt. */
+    public static ItemStack part(ItemStack result, int total, int done) {
+        if (result.isEmpty() || total <= 0 || done <= 0 || done > total) {
+            return ItemStack.EMPTY;
+        }
+        int base = result.getCount() / total;
+        int count = done < total ? base : result.getCount() - base * (total - 1);
+        return count <= 0 ? ItemStack.EMPTY : result.copyWithCount(count);
+    }
+
+    /** So viele Items zeigen die schwebenden Anzeigen an {@code pos} gerade (Tests). */
+    public static int shown(ServerLevel level, BlockPos pos) {
+        synchronized (PENDING) {
+            Pending pending = PENDING.get(new Key(level.dimension(), pos.immutable()));
+            return pending == null ? 0 : pending.shown;
+        }
+    }
+
+    private static Vec3 spot(BlockPos pos, int index) {
+        double angle = Math.toRadians(index * 137.5);
+        double radius = 0.18 + 0.05 * (index % 4);
+        return new Vec3(pos.getX() + 0.5 + Math.cos(angle) * radius, pos.getY() + 1.12 + 0.03 * (index % 3),
+                pos.getZ() + 0.5 + Math.sin(angle) * radius);
+    }
+
+    private static void drop(ServerLevel level, Vec3 at, ItemStack stack) {
+        while (!stack.isEmpty()) {
+            ItemStack batch = stack.split(stack.getMaxStackSize());
+            ItemEntity entity = new ItemEntity(level, at.x, at.y, at.z, batch, 0.0, 0.1, 0.0);
+            entity.setDefaultPickUpDelay();
+            level.addFreshEntity(entity);
+        }
+    }
+
+    private static void discard(ServerLevel level, Key key) {
+        Pending pending;
+        synchronized (PENDING) {
+            pending = PENDING.remove(key);
+        }
+        if (pending != null) {
+            removeDisplays(level, pending);
+        }
+    }
+
+    private static void removeDisplays(ServerLevel level, Pending pending) {
+        for (UUID id : pending.displays) {
+            Entity entity = level.getEntity(id);
+            if (entity != null) {
+                entity.discard();
+            }
+        }
+    }
+
+    /** Tests: der naechste Schlag an {@code pos} zaehlt sofort (als laege der vorige {@link #MIN_INTERVAL} Ticks zurueck). */
+    public static void allowNextStrike(ServerLevel level, BlockPos pos) {
+        Key key = new Key(level.dimension(), pos.immutable());
+        synchronized (COUNTS) {
+            Count count = COUNTS.get(key);
+            if (count != null) {
+                COUNTS.put(key, new Count(count.kind(), count.state(), count.done(), count.last() - MIN_INTERVAL));
+            }
+        }
+    }
+
     /** Die gezaehlten Schlaege an {@code pos} (0, wenn keine laufen). */
     public static int done(ServerLevel level, BlockPos pos) {
         synchronized (COUNTS) {
@@ -75,11 +251,12 @@ public final class InWorldStrikes {
         }
     }
 
-    /** Vergisst die Zaehlung an {@code pos} und nimmt die Risse weg. */
+    /** Vergisst die Zaehlung an {@code pos}, nimmt schwebende Teile und die Risse weg. */
     public static void clear(ServerLevel level, BlockPos pos) {
         synchronized (COUNTS) {
             COUNTS.remove(new Key(level.dimension(), pos.immutable()));
         }
+        discard(level, new Key(level.dimension(), pos.immutable()));
         level.destroyBlockProgress(crackId(pos), pos, -1);
     }
 
@@ -137,7 +314,27 @@ public final class InWorldStrikes {
             ServerLevel level = server.getLevel(key.dimension());
             if (level != null) {
                 level.destroyBlockProgress(crackId(key.pos()), key.pos(), -1);
+                discard(level, key);
             }
         });
+        if (server.getTickCount() % RESET_TICKS == 0) {
+            removeOrphans(server);
+        }
+    }
+
+    /** Teil-Anzeigen ohne laufende Umwandlung (Neustart, Absturz, entladene Welt) verschwinden. */
+    private static void removeOrphans(MinecraftServer server) {
+        Set<UUID> live = new HashSet<>();
+        synchronized (PENDING) {
+            PENDING.values().forEach(pending -> live.addAll(pending.displays));
+        }
+        for (ServerLevel level : server.getAllLevels()) {
+            for (Display.ItemDisplay display : level.getEntities(net.minecraft.world.entity.EntityTypes.ITEM_DISPLAY,
+                    entity -> entity.entityTags().contains(PENDING_TAG))) {
+                if (!live.contains(display.getUUID())) {
+                    display.discard();
+                }
+            }
+        }
     }
 }

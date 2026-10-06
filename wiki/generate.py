@@ -1939,6 +1939,17 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                 "stats": {"damage": crush["damage"], **({"hits": crush["strikes"]} if "strikes" in crush else {})},
             })
 
+            # 2026-10-06: the other hammer crushings (any hammer, one item per strike).
+            for extra in crush.get("crushes", []):
+                entries.append({
+                    "id": "hammer_crush_" + extra["input"].split(":")[-1],
+                    "kind": "diamond_crush",
+                    "inputs": [{"id": extra["input"], "count": 1}],
+                    "tools": hammers,
+                    "output": {"id": extra["result"], "count": extra["count"]},
+                    "stats": {"damage": extra["damage"], "hits": extra["strikes"]},
+                })
+
             if anvil := crush.get("anvil"):
                 entries.append({
                     "id": "anvil_diamond_crush",

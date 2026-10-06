@@ -202,6 +202,18 @@ public final class InWorldTransformations {
             }
         }
         o.add("hammers", hammers);
+        // 2026-10-06: the other hammer crushings (one item per strike, any hammer) in the same section.
+        JsonArray crushes = new JsonArray();
+        for (SledgehammerChips.Crush crush : SledgehammerChips.crushes()) {
+            JsonObject c = new JsonObject();
+            c.addProperty("input", id(crush.input()));
+            c.addProperty("result", id(crush.result()));
+            c.addProperty("count", crush.count());
+            c.addProperty("strikes", crush.count());
+            c.addProperty("damage", SledgehammerChips.DAMAGE);
+            crushes.add(c);
+        }
+        o.add("crushes", crushes);
         if (com.simplebuilding.version.McVersion.ANVIL_DIAMOND_CRUSH) {
             JsonObject anvil = new JsonObject();
             anvil.addProperty("count", AnvilDiamondCrushing.PEBBLES);
