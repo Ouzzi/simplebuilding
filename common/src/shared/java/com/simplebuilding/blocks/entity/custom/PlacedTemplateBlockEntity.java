@@ -133,6 +133,11 @@ public class PlacedTemplateBlockEntity extends BlockEntity implements Nameable {
     }
 
     /** Bisher gezaehlte Hammerschlaege (0, solange keiner zaehlt). */
+    /** Spielzeit des letzten gezaehlten Schlags. */
+    public long lastHitTime() {
+        return lastHitTime;
+    }
+
     public int hits() {
         return this.hits;
     }

@@ -260,6 +260,28 @@ public final class SpeakerBoost {
         return playback.distanceToSqr(listener) < range * range ? 1.0F : 0.0F;
     }
 
+    /** Hard cap of the gain an amplified sound may reach (3 amplifiers x 50 % = 2.5, as the config caps). */
+    public static final float MAX_GAIN = 2.5F;
+
+    /**
+     * Gain a listener hears from an amplified source (Besitzer 2026-10-06, "Verstärker funktionieren nicht"): the
+     * source's factor ({@link #multiplier}) inside the range, silence outside. Before, amplified playback was capped at
+     * vanilla's full gain 1.0 - next to the jukebox or note block it sounded exactly like vanilla, so the amplifier
+     * seemed to do nothing. The client lifts the OpenAL source limit for these sounds ({@code SoundEngineAmplifierMixin}).
+     */
+    public static float listenerGain(Vec3 playback, Vec3 listener, double range, float multiplier) {
+        return amplifiedGain(playback, listener, range) * clampGain(multiplier);
+    }
+
+    /** The factor an amplified note carries: its volume relative to vanilla's 3.0 (1 to {@link #MAX_GAIN}). */
+    public static float noteGain(float volume) {
+        return clampGain(volume / NOTE_BLOCK_VOLUME);
+    }
+
+    private static float clampGain(float gain) {
+        return Float.isNaN(gain) ? 1.0F : Math.min(Math.max(gain, 1.0F), MAX_GAIN);
+    }
+
     /**
      * Schickt {@code packet} an jeden Spieler dieser Dimension, der weiter als Vanillas 64 Bloecke von der Quelle weg ist
      * (die Naeheren hat Vanilla schon bedient), aber naeher als {@code range} an irgendeinem Abspielpunkt (Quelle oder

@@ -30,6 +30,11 @@ public final class PlacedTemplateGameTest {
         PlacedTemplateTests.placedTrimTemplatesNeedThreeHammerHits(helper);
     }
 
+    @GameTest(maxTicks = 200)
+    public void placedTrimTemplateUpgradesOnRightClickOnly(GameTestHelper helper) {
+        PlacedTemplateTests.placedTrimTemplateUpgradesOnRightClickOnly(helper);
+    }
+
     @GameTest
     public void hintSparksOnlyShowNearPlayersHoldingGlowstoneOrGlowInk(GameTestHelper helper) {
         PlacedTemplateTests.hintSparksOnlyShowNearPlayersHoldingGlowstoneOrGlowInk(helper);

@@ -13,13 +13,15 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Plattenspieler-Stueck mit einer Kette von Musik-Verstärkern (2026-10-04, {@link SpeakerBoost}): ein einziger
+ * Plattenspieler-Stueck mit Musik-Verstärkern (2026-10-04, {@link SpeakerBoost}): ein einziger
  * Klang (keine Ueberlagerung, kein Phasenchaos), der jeden Tick an den Abspielpunkt springt, der dem Spieler am
- * naechsten ist - Quelle oder ein Lautsprecher der Kette. So hoert man das Stueck durch eine ganze Villa, unverzoegert,
- * immer gleich laut wie an der Quelle (deren Verstaerkung bleibt). Die Kette wird alle {@link #RESCAN_TICKS} Ticks neu
- * ermittelt (Lautsprecher gesetzt oder abgebaut, Chunks geladen). Gestoppt wird wie Vanilla ueber den Plattenspieler.
+ * naechsten ist - Quelle oder ein Lautsprecher der Kette. So hoert man das Stueck durch eine ganze Villa, unverzoegert.
+ * Seit 2026-10-06 spielt er mit dem Faktor der Verstärker lauter als Vanilla ({@link SpeakerBoost#listenerGain},
+ * {@link AmplifiedSound}); vorher war er an der Quelle genau so laut wie ohne Verstärker. Die Kette und der Faktor
+ * werden alle {@link #RESCAN_TICKS} Ticks neu ermittelt (Lautsprecher gesetzt oder abgebaut, Chunks geladen).
+ * Gestoppt wird wie Vanilla ueber den Plattenspieler.
  */
-public final class ChainedJukeboxSound extends SimpleSoundInstance implements TickableSoundInstance {
+public final class ChainedJukeboxSound extends SimpleSoundInstance implements TickableSoundInstance, AmplifiedSound {
     /** So oft wird die Kette neu ermittelt. */
     public static final int RESCAN_TICKS = 10;
 
@@ -28,6 +30,8 @@ public final class ChainedJukeboxSound extends SimpleSoundInstance implements Ti
     private List<Vec3> points;
     private int age;
     private final double range;
+    private float multiplier;
+    private float gain = 1.0F;
 
     public ChainedJukeboxSound(SoundEvent sound, ClientLevel level, BlockPos source, float volume) {
         super(sound.location(), SoundSource.RECORDS, volume, 1.0F, SoundInstance.createUnseededRandom(), false, 0,
@@ -35,7 +39,7 @@ public final class ChainedJukeboxSound extends SimpleSoundInstance implements Ti
         this.range = sound.getRange(volume);
         this.level = level;
         this.source = source.immutable();
-        this.points = SpeakerBoost.points(this.source, SpeakerBoost.chain(level, this.source, SpeakerBoost.Source.JUKEBOX));
+        rescan();
         moveToListener();
     }
 
@@ -50,11 +54,21 @@ public final class ChainedJukeboxSound extends SimpleSoundInstance implements Ti
     }
 
     @Override
+    public float simplebuilding$gain() {
+        return gain;
+    }
+
+    @Override
     public void tick() {
         if (++age % RESCAN_TICKS == 0) {
-            points = SpeakerBoost.points(source, SpeakerBoost.chain(level, source, SpeakerBoost.Source.JUKEBOX));
+            rescan();
         }
         moveToListener();
+    }
+
+    private void rescan() {
+        points = SpeakerBoost.points(source, SpeakerBoost.chain(level, source, SpeakerBoost.Source.JUKEBOX));
+        multiplier = SpeakerBoost.multiplier(level, source, SpeakerBoost.Source.JUKEBOX);
     }
 
     private void moveToListener() {
@@ -64,7 +78,10 @@ public final class ChainedJukeboxSound extends SimpleSoundInstance implements Ti
         }
         Vec3 listener = minecraft.player.getEyePosition();
         Vec3 at = SpeakerBoost.nearest(points, listener);
-        volume = SpeakerBoost.amplifiedGain(at, listener, range);
+        float heard = SpeakerBoost.listenerGain(at, listener, range, multiplier);
+        // Vanilla clamps the instance volume to 1; the part above 1 goes through AmplifiedSound.
+        volume = Math.min(heard, 1.0F);
+        gain = Math.max(heard, 1.0F);
         x = at.x;
         y = at.y;
         z = at.z;

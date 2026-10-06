@@ -116,6 +116,11 @@ public final class SledgehammerGameTest {
         SledgehammerTests.onlyIronOrBetterSledgehammersCrushDiamondBlocks(helper);
     }
 
+    @GameTest(maxTicks = 320)
+    public void hammerCrushingsYieldOnePartPerStrikeThroughTheRealUsePath(GameTestHelper helper) {
+        SledgehammerTests.hammerCrushingsYieldOnePartPerStrikeThroughTheRealUsePath(helper);
+    }
+
     @GameTest
     public void sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock(GameTestHelper helper) {
         SledgehammerTests.sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock(helper);

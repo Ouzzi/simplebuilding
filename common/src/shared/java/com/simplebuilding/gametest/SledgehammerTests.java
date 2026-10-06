@@ -3,6 +3,7 @@ package com.simplebuilding.gametest;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.SledgehammerItem;
+import com.simplebuilding.util.InWorldStrikes;
 import com.simplebuilding.util.SledgehammerUsageEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -230,7 +231,25 @@ public final class SledgehammerTests {
         helper.succeed();
     }
 
+    /**
+     * Since 2026-10-06 a crushing takes one strike per chip ({@link InWorldStrikes#strikeYield}): strikes until the
+     * crushing ends or does not start, without waiting the strike interval. The step-by-step part itself is checked in
+     * {@link #hammerCrushingsYieldOnePartPerStrikeThroughTheRealUsePath}.
+     */
     private static InteractionResult useChipHammer(GameTestHelper helper, ServerPlayer player, ItemStack hammer, BlockPos pos) {
+        BlockPos abs = helper.absolutePos(pos);
+        InteractionResult result = InteractionResult.PASS;
+        for (int strike = 0; strike < 16; strike++) {
+            result = useChipHammerOnce(helper, player, hammer, pos);
+            if (InWorldStrikes.done(helper.getLevel(), abs) == 0) {
+                break;
+            }
+            InWorldStrikes.allowNextStrike(helper.getLevel(), abs);
+        }
+        return result;
+    }
+
+    private static InteractionResult useChipHammerOnce(GameTestHelper helper, ServerPlayer player, ItemStack hammer, BlockPos pos) {
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
         UseOnContext context = topClick(helper, player, pos);
         var state = helper.getBlockState(pos);
@@ -1483,6 +1502,115 @@ public final class SledgehammerTests {
      * is the field every durability guard in the game actually reads.
      */
     @SuppressWarnings("removal")
+
+    // =====================================================================================
+    // Schrittweise Ergebnisse (Besitzer 2026-10-06)
+    // =====================================================================================
+
+    /** One crushing for {@link #hammerCrushingsYieldOnePartPerStrikeThroughTheRealUsePath}. */
+    private record StepCase(String name, BlockPos rel, Block block, Item hammer, Item result, int strikes, int total) {
+    }
+
+    /**
+     * Owner 2026-10-06: every hammer crushing runs step by step - each right-click strike shows its part of the result
+     * above the block at once, the last strike removes the block and frees all parts as real items; nothing before that
+     * can be picked up. Through the real use path ({@code gameMode.useItemOn}), at the same time on a diamond block
+     * (8 strikes, 81 pebbles: 10 per strike, 11 last), ice (4), obsidian (9) and a quartz block (4, 26.3). A repeat in the
+     * same tick (held right click) does not count. A second ice block hit twice and then left alone gives nothing back
+     * and keeps its block: the shown parts vanish after {@link InWorldStrikes#RESET_TICKS}.
+     *
+     * <p><strong>What breaks this test:</strong> dropping everything on the last strike, parts that are real items before
+     * the end, a wrong total, or parts that stay after an abandoned crushing.
+     */
+    public static void hammerCrushingsYieldOnePartPerStrikeThroughTheRealUsePath(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = inLevelPlayer(helper, new Vec3(4.5, 3.0, 4.5), 0.0F, 90.0F, false);
+        List<StepCase> cases = new ArrayList<>();
+        cases.add(new StepCase("diamond", new BlockPos(1, 1, 1), Blocks.DIAMOND_BLOCK, ModItems.IRON_SLEDGEHAMMER,
+                ModItems.DIAMOND_PEBBLE, SledgehammerItem.DIAMOND_BLOCK_STRIKES,
+                com.simplebuilding.config.ServerTuning.diamondBlockPebbles()));
+        cases.add(new StepCase("ice", new BlockPos(4, 1, 1), Blocks.ICE, ModItems.STONE_SLEDGEHAMMER,
+                ModItems.ICE_CHIP, com.simplebuilding.util.SledgehammerChips.ICE_CHIPS, com.simplebuilding.util.SledgehammerChips.ICE_CHIPS));
+        cases.add(new StepCase("obsidian", new BlockPos(7, 1, 1), Blocks.OBSIDIAN, ModItems.COPPER_SLEDGEHAMMER,
+                ModItems.OBSIDIAN_CHIP, com.simplebuilding.util.SledgehammerChips.OBSIDIAN_CHIPS, com.simplebuilding.util.SledgehammerChips.OBSIDIAN_CHIPS));
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            cases.add(new StepCase("quartz", new BlockPos(1, 1, 5), Blocks.QUARTZ_BLOCK, ModItems.GOLD_SLEDGEHAMMER,
+                    Items.QUARTZ, SledgehammerItem.QUARTZ_BLOCK_QUARTZ, SledgehammerItem.QUARTZ_BLOCK_QUARTZ));
+        }
+        for (StepCase c : cases) {
+            helper.setBlock(c.rel(), c.block());
+        }
+        BlockPos abandoned = new BlockPos(7, 1, 5);
+        helper.setBlock(abandoned, Blocks.ICE);
+        stepStrike(helper, player, cases, abandoned, 1);
+    }
+
+    private static void stepStrike(GameTestHelper helper, ServerPlayer player, List<StepCase> cases, BlockPos abandoned, int strike) {
+        var level = helper.getLevel();
+        int longest = 0;
+        for (StepCase c : cases) {
+            longest = Math.max(longest, c.strikes());
+            if (strike > c.strikes()) {
+                continue;
+            }
+            rightClickTop(helper, player, new ItemStack(c.hammer()), c.rel());
+            // Held right click: the repeat in the same tick does not count.
+            rightClickTop(helper, player, new ItemStack(c.hammer()), c.rel());
+            BlockPos abs = helper.absolutePos(c.rel());
+            net.minecraft.world.phys.AABB around = new net.minecraft.world.phys.AABB(abs).inflate(1.5);
+            int real = 0;
+            for (ItemEntity entity : level.getEntitiesOfClass(ItemEntity.class, around)) {
+                if (entity.getItem().is(c.result())) {
+                    real += entity.getItem().getCount();
+                }
+            }
+            int displays = level.getEntitiesOfClass(net.minecraft.world.entity.Display.ItemDisplay.class, around,
+                    d -> d.entityTags().contains(InWorldStrikes.PENDING_TAG)).size();
+            if (strike < c.strikes()) {
+                int expected = 0;
+                for (int s = 1; s <= strike; s++) {
+                    expected += InWorldStrikes.part(new ItemStack(c.result(), c.total()), c.strikes(), s).getCount();
+                }
+                helper.assertTrue(level.getBlockState(abs).is(c.block()), c.name() + ": block gone after strike " + strike);
+                helper.assertValueEqual(InWorldStrikes.shown(level, abs), expected, c.name() + ": shown after strike " + strike);
+                helper.assertValueEqual(displays, strike, c.name() + ": floating parts after strike " + strike);
+                helper.assertValueEqual(real, 0, c.name() + ": real items before the last strike");
+            } else {
+                helper.assertTrue(level.getBlockState(abs).isAir(), c.name() + ": block still there after the last strike");
+                helper.assertValueEqual(real, c.total(), c.name() + ": items after the last strike");
+                helper.assertValueEqual(displays, 0, c.name() + ": floating parts left after the last strike");
+                helper.assertValueEqual(InWorldStrikes.shown(level, abs), 0, c.name() + ": still shown after the last strike");
+            }
+        }
+        if (strike <= 2) {
+            rightClickTop(helper, player, new ItemStack(ModItems.NETHERITE_SLEDGEHAMMER), abandoned);
+        }
+        if (strike < longest) {
+            helper.runAfterDelay(InWorldStrikes.MIN_INTERVAL + 1, () -> stepStrike(helper, player, cases, abandoned, strike + 1));
+            return;
+        }
+        // The abandoned ice: after the reset its two shown chips vanish, the block stays, nothing dropped.
+        BlockPos abs = helper.absolutePos(abandoned);
+        helper.runAfterDelay(InWorldStrikes.RESET_TICKS + 25, () -> {
+            net.minecraft.world.phys.AABB around = new net.minecraft.world.phys.AABB(abs).inflate(1.5);
+            helper.assertTrue(level.getBlockState(abs).is(Blocks.ICE), "the abandoned ice block is gone");
+            helper.assertTrue(level.getEntitiesOfClass(ItemEntity.class, around).isEmpty(), "the abandoned ice dropped items");
+            helper.assertTrue(level.getEntitiesOfClass(net.minecraft.world.entity.Display.ItemDisplay.class, around,
+                    d -> d.entityTags().contains(InWorldStrikes.PENDING_TAG)).isEmpty(), "floating parts of the abandoned ice stayed");
+            helper.succeed();
+        });
+    }
+
+    private static void rightClickTop(GameTestHelper helper, ServerPlayer player, ItemStack hammer, BlockPos rel) {
+        player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
+        BlockPos abs = helper.absolutePos(rel);
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs).add(0.0, 0.5, 0.0), Direction.UP, abs, false);
+        player.gameMode.useItemOn(player, helper.getLevel(), hammer, InteractionHand.MAIN_HAND, hit);
+    }
+
     private static ServerPlayer inLevelPlayer(GameTestHelper helper, Vec3 relativePos,
                                               float yRot, float xRot, boolean instabuild) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();

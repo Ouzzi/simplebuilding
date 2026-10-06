@@ -620,7 +620,7 @@ public final class FeatureStations {
         chest.add(new ItemStack(ModItems.NETHERITE_SLEDGEHAMMER));
         chest.add(new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 4));
         if (ModItems.IRON_ROD != null) chest.add(new ItemStack(ModItems.IRON_ROD, 2));
-        chest.add(new ItemStack(ModItems.CRACKED_DIAMOND, 8));
+        chest.add(new ItemStack(ModItems.CRACKED_DIAMOND, 16));
         chest.add(new ItemStack(ModItems.NETHERITE_NUGGET, 4));
         chest.add(new ItemStack(ModItems.ENDERITE_NUGGET, 4));
         for (Item bucket : com.simplebuilding.fluid.ModFluids.buckets()) {
@@ -633,7 +633,7 @@ public final class FeatureStations {
         c.wallSign(5, 2, wallZ, TcText.bold(TcText.t("crucible.build", "Build")),
                 TcText.t("crucible.build.sub", "hammer + 4 plates,"), TcText.t("crucible.build.sub2", "then 2 iron rods"));
         c.wallSign(8, 2, wallZ, TcText.bold(TcText.t("crucible.hammer", "Hammer")),
-                TcText.t("crucible.hammer.sub", "quartz: 4 quartz"), TcText.t("crucible.hammer.sub2", "cauldron: 4 cracked"));
+                TcText.t("crucible.hammer.sub", "quartz: 4 quartz"), TcText.t("crucible.hammer.sub2", "cauldron: 8 cracked"));
         c.backWall(0, 10, wallZ, 5);
         return c;
     }

@@ -177,17 +177,12 @@ public class SledgehammerItem extends Item {
 
     /**
      * Abgelegte Schmiedevorlage mit Aufwertungs-Material in der Nebenhand: der Hammer bricht sie
-     * nie. Im Kreativmodus ist das die Stelle, an der ein Linksklick ankommt (Vanilla zerstoert dort
-     * sofort und ruft {@code attack} nicht), also zaehlt hier der Schlag ({@link PlacedTemplates#hit});
-     * im Ueberlebensmodus zaehlt ihn {@code PlacedTemplateBlock#attack}.
+     * nie (auch nicht im Kreativmodus). Geschlagen wird seit 2026-10-06 mit Rechtsklick ({@link #useOn}).
      */
     @Override
     public boolean canDestroyBlock(ItemStack stack, BlockState state, Level level, BlockPos pos, LivingEntity user) {
         if (user instanceof Player player && state.getBlock() instanceof PlacedTemplateBlock
                 && PlacedTemplates.isHammerStance(player)) {
-            if (player.getAbilities().instabuild) {
-                PlacedTemplates.hit(level, pos, player);
-            }
             return false;
         }
         return super.canDestroyBlock(stack, state, level, pos, user);
@@ -252,6 +247,15 @@ public class SledgehammerItem extends Item {
             return smithing;
         }
 
+        // Besatz-Vorlage (Leuchttinte/Glowstone in der Nebenhand): Rechtsklick wie alle In-World-Umwandlungen
+        // (Besitzer 2026-10-06; vorher Linksklick).
+        if (com.simplebuilding.util.PlacedTemplates.isHammerTarget(world, pos, player)) {
+            if (world instanceof ServerLevel server) {
+                com.simplebuilding.util.PlacedTemplates.strike(server, pos, player);
+            }
+            return InteractionResult.SUCCESS;
+        }
+
         if (!mayChange(world, player, pos, context.getClickedFace(), stack)) {
             return InteractionResult.PASS;
         }
@@ -267,7 +271,7 @@ public class SledgehammerItem extends Item {
             }
             if (state.is(net.minecraft.world.level.block.Blocks.QUARTZ_BLOCK)) {
                 if (!world.isClientSide() && !player.getCooldowns().isOnCooldown(stack)) {
-                    crushQuartzBlock((ServerLevel) world, pos, player, stack);
+                    strikeQuartzBlock((ServerLevel) world, pos, player, stack);
                 }
                 return InteractionResult.SUCCESS;
             }
@@ -603,10 +607,27 @@ public class SledgehammerItem extends Item {
     public static final int QUARTZ_CRUSH_DAMAGE = 1;
     public static final int QUARTZ_CRUSH_COOLDOWN_TICKS = 10;
 
-    /** Zerschlaegt einen Quarzblock in {@value #QUARTZ_BLOCK_QUARTZ} Quarz (nur Server). */
+    /**
+     * Ein Schlag auf den Quarzblock (Besitzer 2026-10-06: schrittweise, ein Quarz je Schlag, {@value #QUARTZ_BLOCK_QUARTZ}
+     * Schlaege). Liefert die gezaehlten Schlaege (0 = zu frueh).
+     */
+    public static int strikeQuartzBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
+        var strike = com.simplebuilding.util.InWorldStrikes.strikeYield(world, pos, "quartz_crush", world.getBlockState(pos),
+                new ItemStack(net.minecraft.world.item.Items.QUARTZ, QUARTZ_BLOCK_QUARTZ), QUARTZ_BLOCK_QUARTZ, world.getGameTime());
+        if (strike == null) {
+            return 0;
+        }
+        com.simplebuilding.version.McVersion.swing(player, net.minecraft.world.InteractionHand.MAIN_HAND, true);
+        if (strike.finished()) {
+            crushQuartzBlock(world, pos, player, stack);
+        }
+        return strike.done();
+    }
+
+    /** Zerschlaegt einen Quarzblock in {@value #QUARTZ_BLOCK_QUARTZ} Quarz (nur Server; der letzte Schlag). */
     public static void crushQuartzBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
         world.removeBlock(pos, false);
-        net.minecraft.world.level.block.Block.popResource(world, pos, new ItemStack(net.minecraft.world.item.Items.QUARTZ, QUARTZ_BLOCK_QUARTZ));
+        com.simplebuilding.util.InWorldStrikes.release(world, pos, new ItemStack(net.minecraft.world.item.Items.QUARTZ, QUARTZ_BLOCK_QUARTZ));
         world.playSound(null, pos, SoundEvents.NETHER_GOLD_ORE_BREAK, SoundSource.BLOCKS, 1.0F, 1.2F);
         world.sendParticles(new net.minecraft.core.particles.BlockParticleOption(net.minecraft.core.particles.ParticleTypes.BLOCK,
                 net.minecraft.world.level.block.Blocks.QUARTZ_BLOCK.defaultBlockState()), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 20, 0.3, 0.3, 0.3, 0.1);
@@ -616,45 +637,41 @@ public class SledgehammerItem extends Item {
     }
 
     public static final int DIAMOND_BLOCK_STRIKES = 8;
-    /** Ohne weiteren Schlag verfaellt die Zaehlung nach so vielen Ticks (wie bei der abgelegten Vorlage). */
-    public static final int DIAMOND_STRIKE_RESET_TICKS = 100;
+    /** Ohne weiteren Schlag verfaellt die Zaehlung nach so vielen Ticks ({@link com.simplebuilding.util.InWorldStrikes}). */
+    public static final int DIAMOND_STRIKE_RESET_TICKS = com.simplebuilding.util.InWorldStrikes.RESET_TICKS;
     /** Gehaltener Rechtsklick wiederholt alle 4 Ticks; ein Schlag zaehlt erst nach dieser Pause. */
-    public static final int DIAMOND_STRIKE_MIN_INTERVAL = 8;
-
-    private record DiamondStrikes(net.minecraft.resources.ResourceKey<Level> level, BlockPos pos, int count, long lastTick) {
-    }
-
-    private static final Map<Player, DiamondStrikes> DIAMOND_STRIKES = Collections.synchronizedMap(new WeakHashMap<>());
+    public static final int DIAMOND_STRIKE_MIN_INTERVAL = com.simplebuilding.util.InWorldStrikes.MIN_INTERVAL;
 
     /** Ein Schlag auf den Diamantblock; liefert die neue Zahl gezaehlter Schlaege (0 = nicht gezaehlt). */
     static int strikeDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
         return strikeDiamondBlock(world, pos, player, stack, world.getGameTime());
     }
 
-    /** {@link #strikeDiamondBlock(ServerLevel, BlockPos, Player, ItemStack)} at game time {@code now} (tests). */
+    /**
+     * {@link #strikeDiamondBlock(ServerLevel, BlockPos, Player, ItemStack)} at game time {@code now} (tests). Counted per
+     * position since 2026-10-06 ({@link com.simplebuilding.util.InWorldStrikes}): any player continues the strikes.
+     */
     public static int strikeDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack, long now) {
-        DiamondStrikes last = DIAMOND_STRIKES.get(player);
-        boolean same = last != null && last.level() == world.dimension() && last.pos().equals(pos)
-                && now - last.lastTick() <= DIAMOND_STRIKE_RESET_TICKS;
-        if (same && now - last.lastTick() < DIAMOND_STRIKE_MIN_INTERVAL) {
+        BlockState state = world.getBlockState(pos);
+        // Schrittweise (Besitzer 2026-10-06): jeder Schlag zeigt seinen Teil der Kiesel, der letzte gibt alle frei.
+        var strike = com.simplebuilding.util.InWorldStrikes.strikeYield(world, pos, "diamond_crush", state, diamondPebbles(),
+                DIAMOND_BLOCK_STRIKES, now);
+        if (strike == null) {
             return 0;
         }
-        int count = same ? last.count() + 1 : 1;
-        if (count >= DIAMOND_BLOCK_STRIKES) {
-            DIAMOND_STRIKES.remove(player);
+        if (strike.finished()) {
             crushDiamondBlock(world, pos, player, stack);
-            return count;
         }
-        DIAMOND_STRIKES.put(player, new DiamondStrikes(world.dimension(), pos.immutable(), count, now));
-        world.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 0.8F, 0.9F + 0.25F * count);
-        world.sendParticles(new net.minecraft.core.particles.BlockParticleOption(net.minecraft.core.particles.ParticleTypes.BLOCK,
-                        Blocks.DIAMOND_BLOCK.defaultBlockState()),
-                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 4 + 2 * count, 0.3, 0.3, 0.3, 0.05);
-        return count;
+        return strike.done();
+    }
+
+    private static ItemStack diamondPebbles() {
+        return new ItemStack(ModItems.DIAMOND_PEBBLE, Math.max(0, com.simplebuilding.config.ServerTuning.diamondBlockPebbles()));
     }
 
     private static void crushDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
         if (!strikesDiamondBlock(world.getBlockState(pos), stack.getItem())) {
+            com.simplebuilding.util.InWorldStrikes.clear(world, pos);
             return;
         }
         // Der Hammer kann auch in der Nebenhand zuschlagen: zerbricht er, gehoert der Effekt zu dieser Hand.
@@ -663,19 +680,7 @@ public class SledgehammerItem extends Item {
         world.destroyBlock(pos, false, player);
         com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.DIAMOND_CRUSH);
 
-        int totalPebbles = com.simplebuilding.config.ServerTuning.diamondBlockPebbles();
-        while (totalPebbles > 0) {
-            int batch = Math.min(totalPebbles, 64);
-            ItemEntity itemEntity = new ItemEntity(
-                    world,
-                    pos.getX() + 0.5,
-                    pos.getY() + 0.5,
-                    pos.getZ() + 0.5,
-                    new ItemStack(ModItems.DIAMOND_PEBBLE, batch)
-            );
-            world.addFreshEntity(itemEntity);
-            totalPebbles -= batch;
-        }
+        com.simplebuilding.util.InWorldStrikes.release(world, pos, diamondPebbles());
 
         world.playSound(null, pos, SoundEvents.METAL_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
 

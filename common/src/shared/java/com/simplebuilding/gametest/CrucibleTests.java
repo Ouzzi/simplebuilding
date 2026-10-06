@@ -211,16 +211,23 @@ public final class CrucibleTests {
     /**
      * The JEI category "Cauldron and crucible": the crucible build, the barrel, the cauldron upgrade (which the machine
      * upgrade category does not list) and butter and cheese. Numbers are this test's own: 6 strikes, 4 of them walls,
-     * 6 attach strikes, 9 barrel fields, 4 cracked diamonds.
+     * 6 attach strikes, 9 barrel fields, 8 cracked diamonds.
      */
     public static void cauldronWorldCatalogMatchesTheRules(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
         var entries = new java.util.LinkedHashMap<String, com.simplebuilding.compat.CauldronWorldCatalog.Entry>();
         com.simplebuilding.compat.CauldronWorldCatalog.entries().forEach(entry -> entries.put(entry.id(), entry));
         boolean sandwiches = item("simplesandwiches:butter_block") != Items.AIR && item("simplesandwiches:cheese_block") != Items.AIR;
-        helper.assertTrue(entries.keySet().equals(sandwiches
-                ? java.util.Set.of("crucible_build", "barrel_attach", "cauldron_reinforce", "milk_butter", "milk_cheese")
-                : java.util.Set.of("crucible_build", "barrel_attach", "cauldron_reinforce")), "catalog entries " + entries.keySet());
+        var expected = new java.util.HashSet<>(java.util.Set.of("crucible_build", "barrel_attach", "cauldron_reinforce",
+                "hammer_upgrade/simplelib:iron_crucible", "hammer_upgrade/simplelib:reinforced_crucible", "hammer_upgrade/simplelib:netherite_crucible",
+                "hammer_upgrade/simplelib:copper_barrel", "hammer_upgrade/simplelib:reinforced_barrel", "hammer_upgrade/simplelib:netherite_barrel"));
+        if (sandwiches) expected.addAll(java.util.Set.of("milk_butter", "milk_cheese"));
+        helper.assertTrue(entries.keySet().equals(expected), "catalog entries " + entries.keySet());
+        // 2026-10-06: the crucible/barrel hammer upgrades are in JEI too (2 material, from the upgrade table).
+        var ironUp = entries.get("hammer_upgrade/simplelib:iron_crucible");
+        helper.assertTrue(ironUp.inputs().get(0).items().equals(java.util.List.of(item("simplelib:iron_crucible")))
+                && ironUp.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && ironUp.inputs().get(1).count() == 2
+                && ironUp.output().items().equals(java.util.List.of(item("simplelib:reinforced_crucible"))), "iron -> reinforced crucible entry");
 
         var build = entries.get("crucible_build");
         helper.assertTrue(build.inputs().get(0).items().equals(java.util.List.of(Items.IRON_BLOCK)) && build.inputs().get(0).count() == 1, "an iron block");
@@ -239,7 +246,7 @@ public final class CrucibleTests {
 
         var cauldron = entries.get("cauldron_reinforce");
         helper.assertTrue(cauldron.inputs().get(0).items().equals(java.util.List.of(Items.CAULDRON)), "a cauldron");
-        helper.assertTrue(cauldron.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && cauldron.inputs().get(1).count() == 4, "4 cracked diamonds");
+        helper.assertTrue(cauldron.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && cauldron.inputs().get(1).count() == 8, "8 cracked diamonds");
         helper.assertTrue(cauldron.output().items().equals(java.util.List.of(item("simplelib:reinforced_cauldron"))), "the reinforced cauldron");
         helper.assertTrue(cauldron.tools().contains(ModItems.STONE_SLEDGEHAMMER), "every hammer works (rank 0)");
         helper.assertTrue(cauldron.durationTicks() == SledgehammerUpgrades.upgradeTicks(SledgehammerUpgrades.upgradeOf(Blocks.CAULDRON)), "duration of the upgrade");
@@ -347,8 +354,8 @@ public final class CrucibleTests {
                 && barrel.materialCost() == 2, "reinforced -> netherite barrel with netherite nuggets");
         helper.assertTrue(netheriteBarrel != null && netheriteBarrel.to() == CrucibleCompat.enderiteBarrel() && netheriteBarrel.materialCost() == 2,
                 "netherite -> enderite barrel");
-        helper.assertTrue(cauldron != null && cauldron.to() == CrucibleCompat.reinforcedCauldron() && cauldron.materialCost() == 4,
-                "cauldron -> reinforced cauldron with 4 cracked diamonds");
+        helper.assertTrue(cauldron != null && cauldron.to() == CrucibleCompat.reinforcedCauldron() && cauldron.materialCost() == 8,
+                "cauldron -> reinforced cauldron with 8 cracked diamonds");
         // The upgrade keeps the contents (owner 11).
         BlockPos pos = new BlockPos(1, 1, 1);
         helper.setBlock(pos, lib("netherite_crucible"));

@@ -8,6 +8,8 @@
   },
   "client": [
     "LevelEventHandlerSpeakerMixin",
+    "SoundEngineAmplifierMixin",
+    "ChannelAmplifierMixin",
     "SoulLavaFogMixin",
     "AvatarRendererMixin",
     "HammockLivingRendererMixin",

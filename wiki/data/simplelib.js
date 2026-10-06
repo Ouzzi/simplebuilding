@@ -92,7 +92,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         "title": "Reinforced cauldron",
         "summary": "A cauldron for water, lava, powder snow and - with SimpleBuilding - soul lava; lava in it heats a crucible like a lava source.",
         "details": [
-          "Without SimpleBuilding: hold an axe, put 4 diamonds in the off hand and use it on a cauldron five times. With SimpleBuilding the sledgehammer and 4 cracked diamonds replace the axe and the diamonds.",
+          "Without SimpleBuilding: hold an axe, put 8 diamonds in the off hand and use it on a cauldron five times. With SimpleBuilding the sledgehammer and 8 cracked diamonds replace the axe and the diamonds.",
           "It works like a Vanilla cauldron and uses the same interactions: buckets, bottles in three levels, washing dyed items and banners, rain, snow and dripstone, and what other mods add to the cauldron (milk from Simple Sandwiches turns it into a reinforced milk cauldron that becomes this cauldron again when emptied). Copper and Enderite buckets (SimpleBuilding) take only a full cauldron. As a crucible heat source it counts like its content: lava high, soul lava extreme. A normal cauldron does not take soul lava."
         ]
       },
@@ -100,7 +100,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         "title": "Verstärkter Kessel",
         "summary": "Ein Kessel für Wasser, Lava, Pulverschnee und - mit SimpleBuilding - Seelen-Lava; Lava darin heizt einen Schmelztiegel wie eine Lavaquelle.",
         "details": [
-          "Ohne SimpleBuilding: eine Axt halten, 4 Diamanten in die Nebenhand und fünfmal auf einen Kessel anwenden. Mit SimpleBuilding ersetzen Vorschlaghammer und 4 Rissige Diamanten Axt und Diamanten.",
+          "Ohne SimpleBuilding: eine Axt halten, 8 Diamanten in die Nebenhand und fünfmal auf einen Kessel anwenden. Mit SimpleBuilding ersetzen Vorschlaghammer und 8 Rissige Diamanten Axt und Diamanten.",
           "Er funktioniert wie ein Vanilla-Kessel und nutzt dieselben Interaktionen: Eimer, Flaschen in drei Stufen, Waschen gefärbter Gegenstände und Banner, Regen, Schnee und Tropfstein sowie alles, was andere Mods dem Kessel hinzufügen (Milch aus Simple Sandwiches macht ihn zum verstärkten Milchkessel, der beim Leeren wieder dieser Kessel wird). Kupfer- und Enderit-Eimer (SimpleBuilding) nehmen nur aus einem vollen Kessel. Als Hitzequelle eines Schmelztiegels zählt er wie sein Inhalt: Lava hoch, Seelen-Lava extrem. Ein normaler Kessel nimmt keine Seelen-Lava."
         ]
       }

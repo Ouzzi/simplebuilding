@@ -30,7 +30,7 @@ public final class CrucibleUpgrades {
     public static final int STRIKES = 10;
     /** The cauldron has no block entity: its strikes are counted here per position (cleared after 30 s). */
     public static final int CAULDRON_STRIKES = 5;
-    public static final int CAULDRON_COST = 4;
+    public static final int CAULDRON_COST = 8;
     private static final java.util.Map<String, long[]> CAULDRON_PROGRESS = new java.util.HashMap<>();
 
     public record Step(Block from, Block to, TagKey<Item> material, int count) {}
@@ -45,7 +45,7 @@ public final class CrucibleUpgrades {
             return new Step(LibBlocks.COPPER_BARREL, LibBlocks.REINFORCED_BARREL, LibTags.UPGRADE_REINFORCED, 2);
         if (state.is(LibBlocks.REINFORCED_BARREL) && material.is(LibTags.UPGRADE_NETHERITE))
             return new Step(LibBlocks.REINFORCED_BARREL, LibBlocks.NETHERITE_BARREL, LibTags.UPGRADE_NETHERITE, 1);
-        // Owner 56 B: without SimpleBuilding the cauldron becomes reinforced with an axe and 4 diamonds.
+        // Owner 56 B: without SimpleBuilding the cauldron becomes reinforced with an axe and 8 diamonds (owner 2026-10-06: doubled from 4).
         if (state.is(net.minecraft.world.level.block.Blocks.CAULDRON) && material.is(LibTags.UPGRADE_REINFORCED))
             return new Step(net.minecraft.world.level.block.Blocks.CAULDRON, LibBlocks.REINFORCED_CAULDRON, LibTags.UPGRADE_REINFORCED, CAULDRON_COST);
         return null;
@@ -68,6 +68,8 @@ public final class CrucibleUpgrades {
         } else return true;
         server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5,
                 6, 0.25, 0.1, 0.25, 0.05);
+        // Same progress feedback as every in-world conversion (owner 2026-10-06): cracks grow per strike, gone at the end.
+        server.destroyBlockProgress(CrucibleBarrelBlock.crackId(pos), pos, done >= needed ? -1 : CrucibleBlankBlock.crackStage(done, needed));
         if (done >= needed) {
             if (!player.getAbilities().instabuild) material.shrink(step.count());
             if (step.to() == LibBlocks.REINFORCED_CAULDRON) {

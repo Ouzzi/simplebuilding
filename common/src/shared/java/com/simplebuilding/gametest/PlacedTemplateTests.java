@@ -191,9 +191,9 @@ public final class PlacedTemplateTests {
 
     /**
      * Die Besatz-Aufwertung an der abgelegten Vorlage braucht {@link PlacedTemplates#PLACED_HITS}
-     * Schlaege: der echte Linksklick-Weg ({@code handleBlockBreakAction}), der Ueberlebens-Haken
-     * ({@code attack}) und der Kreativ-Haken ({@code canDestroyBlock}) zaehlen je einen Schlag, erst
-     * der dritte wertet auf, der Block bricht dabei nie. Ein Wechsel des Materials faengt von vorn
+     * Schlaege ({@link PlacedTemplates#hit}; der echte Rechtsklick-Weg steht in
+     * {@link #placedTrimTemplateUpgradesOnRightClickOnly}). Linksklick ({@code attack},
+     * {@code canDestroyBlock}) zaehlt seit 2026-10-06 nicht mehr, der Block bricht dabei nie. Ein Wechsel des Materials faengt von vorn
      * an. Eine Aufwertungsvorlage (keine Besatzvorlage) zaehlt keinen Schlag, und die Hammer-Neigung
      * gilt nur fuer aufwertbare Vorlagen.
      */
@@ -242,7 +242,7 @@ public final class PlacedTemplateTests {
         helper.assertTrue(state.getDestroyProgress(player, level, first) == 0.0F,
                 "hammer + glowstone still break the placed template (progress " + state.getDestroyProgress(player, level, first) + ")");
 
-        // Der echte Linksklick, dreimal.
+        // Fuenf Schlaege (der Rechtsklick-Weg selbst: placedTrimTemplateUpgradesOnRightClickOnly).
         for (int hit = 1; hit <= PlacedTemplates.PLACED_HITS; hit++) {
             if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES && hit == PlacedTemplates.PLACED_HITS) {
                 ItemStack material = player.getInventory().getItem(10);
@@ -253,8 +253,7 @@ public final class PlacedTemplateTests {
                         "removing materials before the final hit must prevent upgrading and any charge");
                 player.getInventory().setItem(10, material);
             }
-            player.gameMode.handleBlockBreakAction(first, ServerboundPlayerActionPacket.Action.START_DESTROY_BLOCK, Direction.UP,
-                    level.getMaxY(), hit);
+            PlacedTemplates.hit(level, first, player);
             BlockState now = level.getBlockState(first);
             helper.assertTrue(now.is(ModBlocks.PLACED_SMITHING_TEMPLATE), "hit " + hit + " broke the placed template: " + now);
             Item expected = hit < PlacedTemplates.PLACED_HITS ? Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE : ModItems.EMITTING_TRIM_TEMPLATE;
@@ -275,18 +274,20 @@ public final class PlacedTemplateTests {
         helper.assertTrue(glowUp != null && player.getAdvancements().getOrStartProgress(glowUp).isDone(),
                 "upgrading a placed template did not grant the Glow Up advancement");
 
-        // Beide Haken einzeln, mit Materialwechsel dazwischen.
+        // Linksklick-Haken zaehlen nicht mehr (2026-10-06); Materialwechsel faengt von vorn an.
         PlacedTemplateBlockEntity be = helper.getBlockEntity(new BlockPos(3, 2, 1), PlacedTemplateBlockEntity.class);
         level.getBlockState(second).attack(level, second, player);
-        helper.assertTrue(be.hits() == 1, "the survival hook counted " + be.hits() + " hits instead of 1");
+        helper.assertTrue(be.hits() == 0, "the left-click hook still counted " + be.hits() + " hits");
+        PlacedTemplates.hit(level, second, player);
+        helper.assertTrue(be.hits() == 1, "a hit counted " + be.hits() + " instead of 1");
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GLOW_INK_SAC, 8));
-        level.getBlockState(second).attack(level, second, player);
+        PlacedTemplates.hit(level, second, player);
         helper.assertTrue(be.hits() == 1, "switching to glow ink did not restart the count: " + be.hits());
         boolean destroys = hammer.getItem().canDestroyBlock(hammer, level.getBlockState(second), level, second, player);
         helper.assertTrue(!destroys, "the sledgehammer may destroy a placed template while holding glow ink");
-        helper.assertTrue(be.hits() == (player.getAbilities().instabuild ? 2 : 1), "the creative hook counted " + be.hits());
+        helper.assertTrue(be.hits() == 1, "the creative hook counted " + be.hits());
         for (int i = 0; i < PlacedTemplates.PLACED_HITS && be.getTemplate().is(Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE); i++) {
-            level.getBlockState(second).attack(level, second, player);
+            PlacedTemplates.hit(level, second, player);
         }
         helper.assertTrue(be.getTemplate().is(ModItems.GLOWING_TRIM_TEMPLATE), "glow ink made " + be.getTemplate());
         if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
@@ -298,7 +299,7 @@ public final class PlacedTemplateTests {
         }
 
         // Aufwertungsvorlage: kein Schlag, nichts aendert sich.
-        level.getBlockState(upgrade).attack(level, upgrade, player);
+        PlacedTemplates.hit(level, upgrade, player);
         PlacedTemplateBlockEntity upgradeBe = helper.getBlockEntity(new BlockPos(5, 2, 1), PlacedTemplateBlockEntity.class);
         helper.assertTrue(upgradeBe.hits() == 0 && upgradeBe.getTemplate().is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
                 "a hammer hit counted on an upgrade template: " + upgradeBe.hits() + ", " + upgradeBe.getTemplate());
@@ -319,6 +320,64 @@ public final class PlacedTemplateTests {
         helper.assertTrue(!PlacedTemplates.isHammerStance(player) && level.getBlockState(upgrade).getDestroyProgress(player, level, upgrade) > 0.0F,
                 "without a catalyst the placed template cannot be mined");
         succeed(helper);
+    }
+
+    /**
+     * Besitzer 2026-10-06: die Besatz-Aufwertung loest Rechtsklick aus wie alle In-World-Umwandlungen. Ueber den echten
+     * Weg ({@code gameMode.useItemOn} bzw. {@code handleBlockBreakAction}): Linksklick zaehlt nicht und bricht nichts;
+     * Rechtsklick zaehlt je Schlag, ein Wiederholen im selben Moment (gehaltener Rechtsklick) zaehlt nicht, der fuenfte
+     * Schlag macht aus der Spire-Vorlage die leuchtende Vorlage.
+     */
+    public static void placedTrimTemplateUpgradesOnRightClickOnly(GameTestHelper helper) {
+        var cookie = net.minecraft.server.network.CommonListenerCookie.createInitial(
+                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "template-rightclick"), false);
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = new ServerPlayer(level.getServer(), level, cookie.gameProfile(), cookie.clientInformation());
+        var connection = new net.minecraft.network.Connection(net.minecraft.network.protocol.PacketFlow.SERVERBOUND);
+        new io.netty.channel.embedded.EmbeddedChannel(connection);
+        level.getServer().getPlayerList().placeNewPlayer(connection, player, cookie);
+        helper.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(player));
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        Vec3 spawn = helper.absoluteVec(new Vec3(1.5, 2.0, 3.5));
+        player.snapTo(spawn.x, spawn.y, spawn.z, 0.0F, 0.0F);
+        helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
+        player.setShiftKeyDown(true);
+        use(helper, player, new ItemStack(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE), new BlockPos(1, 1, 1), Direction.UP);
+        player.setShiftKeyDown(false);
+        BlockPos rel = new BlockPos(1, 2, 1);
+        BlockPos abs = helper.absolutePos(rel);
+        helper.assertTrue(level.getBlockState(abs).is(ModBlocks.PLACED_SMITHING_TEMPLATE), "the template was not placed");
+        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GLOW_INK_SAC, 8));
+        if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+            player.getInventory().setItem(9, new ItemStack(Items.DIAMOND, 4));
+            player.getInventory().setItem(10, new ItemStack(Items.GLOWSTONE, 2));
+        }
+        PlacedTemplateBlockEntity be = helper.getBlockEntity(rel, PlacedTemplateBlockEntity.class);
+        player.gameMode.handleBlockBreakAction(abs, ServerboundPlayerActionPacket.Action.START_DESTROY_BLOCK, Direction.UP, level.getMaxY(), 1);
+        helper.assertTrue(be.hits() == 0 && level.getBlockState(abs).is(ModBlocks.PLACED_SMITHING_TEMPLATE),
+                "a left click counted " + be.hits() + " or broke the template");
+        rightClickTemplate(helper, player, hammer, rel, be, 1);
+    }
+
+    private static void rightClickTemplate(GameTestHelper helper, ServerPlayer player, ItemStack hammer, BlockPos rel,
+                                           PlacedTemplateBlockEntity be, int hit) {
+        BlockPos abs = helper.absolutePos(rel);
+        BlockHitResult target = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
+        player.gameMode.useItemOn(player, helper.getLevel(), hammer, InteractionHand.MAIN_HAND, target);
+        // Gehaltener Rechtsklick: die Wiederholung im selben Tick zaehlt nicht.
+        player.gameMode.useItemOn(player, helper.getLevel(), hammer, InteractionHand.MAIN_HAND, target);
+        if (hit < PlacedTemplates.PLACED_HITS) {
+            helper.assertTrue(be.hits() == hit && be.getTemplate().is(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE),
+                    "after right click " + hit + ": " + be.hits() + " hits, " + be.getTemplate());
+            helper.runAfterDelay(com.simplebuilding.util.InWorldStrikes.MIN_INTERVAL + 1,
+                    () -> rightClickTemplate(helper, player, hammer, rel, be, hit + 1));
+            return;
+        }
+        helper.assertTrue(be.getTemplate().is(ModItems.GLOWING_TRIM_TEMPLATE), "five right clicks made " + be.getTemplate());
+        helper.assertTrue(helper.getLevel().getBlockState(abs).is(ModBlocks.PLACED_SMITHING_TEMPLATE), "the template block broke");
+        helper.succeed();
     }
 
     // =====================================================================================

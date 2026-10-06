@@ -418,8 +418,8 @@ public final class ConsumptionAndDurabilityTests {
      * actually ran, so "the creative hammer took no damage" cannot pass by the method bailing out
      * early. The stack <em>sizes</em> are asserted next to it because
      * {@code assertItemEntityCountIs} sums {@code getCount()} over every matching entity: it
-     * cannot tell 64 plus 17 from a single illegal stack of 81, which is exactly what dropping
-     * the {@code Math.min(totalPebbles, 64)} batching would produce.
+     * cannot tell one part per strike (8 stacks, 2026-10-06) from a single illegal stack of 81, which dropping
+     * the stack split in {@code InWorldStrikes#drop} or the per-strike parts would produce.
      *
      * <p>Both players look straight down at the target, because {@code finishUsingItem} re-picks
      * the block itself through {@code player.pick(5.0, 0.0F, false)} - the aim has to be set up
@@ -516,9 +516,12 @@ public final class ConsumptionAndDurabilityTests {
 
         helper.assertBlockPresent(Blocks.AIR, target);
         helper.assertItemEntityCountIs(ModItems.DIAMOND_PEBBLE, target, 2.0, 81);
-        helper.assertValueEqual(pebbleStackSizes(helper), List.of(64, 17),
-                "the 81 pebbles did not come out as one full stack plus a rest; the batching in "
-                        + "crushDiamondBlock is what keeps them within a stack size");
+        // Since 2026-10-06 one part per strike (InWorldStrikes): eight stacks, each within a stack size, 81 in all.
+        List<Integer> sizes = pebbleStackSizes(helper);
+        helper.assertTrue(sizes.size() == com.simplebuilding.items.custom.SledgehammerItem.DIAMOND_BLOCK_STRIKES
+                        && sizes.stream().allMatch(size -> size > 0 && size <= 64)
+                        && sizes.stream().mapToInt(Integer::intValue).sum() == 81,
+                "the 81 pebbles did not come out as one part per strike within a stack size: " + sizes);
         helper.assertValueEqual(hammer.getDamageValue(), cornerHit ? 3 : 2, "wear after also crushing a diamond block");
 
         helper.killAllEntitiesOfClass(ItemEntity.class);
@@ -529,8 +532,10 @@ public final class ConsumptionAndDurabilityTests {
 
         helper.assertBlockPresent(Blocks.AIR, target);
         helper.assertItemEntityCountIs(ModItems.DIAMOND_PEBBLE, target, 2.0, 81);
-        helper.assertValueEqual(pebbleStackSizes(helper), List.of(64, 17),
-                "the creative crush did not batch its 81 pebbles either");
+        List<Integer> creativeSizes = pebbleStackSizes(helper);
+        helper.assertTrue(creativeSizes.size() == com.simplebuilding.items.custom.SledgehammerItem.DIAMOND_BLOCK_STRIKES
+                        && creativeSizes.stream().mapToInt(Integer::intValue).sum() == 81,
+                "the creative crush did not give one part per strike either: " + creativeSizes);
         helper.assertValueEqual(creativeHammer.getDamageValue(), 0,
                 "the hammer wore down crushing a diamond block in creative");
 

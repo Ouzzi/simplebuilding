@@ -1011,6 +1011,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("music_disc_game_test_speaker_recipes_use_any_planks", MusicDiscTests::speakerRecipesUseAnyPlanks).build(),
             GameTestSpec.named("music_disc_game_test_track_cycle_skips_missing_tracks", MusicDiscTests::trackCycleSkipsMissingTracks).build(),
             GameTestSpec.named("music_disc_game_test_speaker_chains_follow_their_kind_up_to_the_limit", MusicDiscTests::speakerChainsFollowTheirKindUpToTheLimit).build(),
+            GameTestSpec.named("music_disc_game_test_amplified_jukebox_reaches_farther_through_the_real_use_path", MusicDiscTests::amplifiedJukeboxReachesFartherThroughTheRealUsePath).build(),
+            GameTestSpec.named("music_disc_game_test_amplified_note_block_is_louder_through_the_real_use_path", MusicDiscTests::amplifiedNoteBlockIsLouderThroughTheRealUsePath).build(),
             GameTestSpec.named("music_disc_game_test_chained_sound_reaches_each_player_once_and_stop_reaches_all", MusicDiscTests::chainedSoundReachesEachPlayerOnceAndStopReachesAll).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_creative_has_no_wear", SledgehammerTests::hammerChipsCreativeHasNoWear).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_ice_yields_four", SledgehammerTests::hammerChipsIceYieldsFour).build(),
@@ -1051,6 +1053,9 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_only_iron_or_better_sledgehammers_crush_diamond_blocks", SledgehammerTests::onlyIronOrBetterSledgehammersCrushDiamondBlocks)
                     .maxTicks(100)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_hammer_crushings_yield_one_part_per_strike_through_the_real_use_path", SledgehammerTests::hammerCrushingsYieldOnePartPerStrikeThroughTheRealUsePath)
+                    .maxTicks(320)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_breaks_the_octant_selection_at_twice_the_area_time_per_block", SledgehammerTests::sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock)
                     .build(),
@@ -1869,6 +1874,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_template_game_test_placed_trim_templates_need_three_hammer_hits", PlacedTemplateTests::placedTrimTemplatesNeedThreeHammerHits)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_placed_trim_template_upgrades_on_right_click_only", PlacedTemplateTests::placedTrimTemplateUpgradesOnRightClickOnly)
+                    .maxTicks(200).build(),
             GameTestSpec.named("placed_template_game_test_hint_sparks_only_show_near_players_holding_glowstone_or_glow_ink", PlacedTemplateTests::hintSparksOnlyShowNearPlayersHoldingGlowstoneOrGlowInk)
                     .build(),
             GameTestSpec.named("placed_template_game_test_placed_templates_carry_the_name_of_their_template", PlacedTemplateTests::placedTemplatesCarryTheNameOfTheirTemplate)

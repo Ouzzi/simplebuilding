@@ -72,6 +72,11 @@ public class CrucibleBlankBlock extends Block {
      * One strike with {@code tool} (main hand) and the off-hand material. Returns true when it hit.
      * {@code toolDamage} is the durability the tool loses (axe 1, sledgehammer 2 - owner 8 A).
      */
+    /** Crack stage 0..9 after {@code done} of {@code total} strikes (shared with the upgrades, owner 2026-10-06). */
+    public static int crackStage(int done, int total) {
+        return Math.max(0, Math.min(9, done * 10 / Math.max(1, total) - 1));
+    }
+
     public static boolean strike(Level level, BlockPos pos, Player player, ItemStack tool, int toolDamage) {
         BlockState state = level.getBlockState(pos);
         int done = strikesAt(state);
@@ -88,6 +93,7 @@ public class CrucibleBlankBlock extends Block {
             server.setBlock(pos, LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(STAGE, next).setValue(FACING, facing), Block.UPDATE_ALL);
             server.playSound(null, pos, SoundEvents.ANVIL_PLACE, SoundSource.BLOCKS, 0.5F, 1.4F + 0.1F * next);
         }
+        server.destroyBlockProgress(CrucibleBarrelBlock.crackId(pos), pos, next >= STRIKES ? -1 : crackStage(next, STRIKES));
         server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.IRON_BLOCK.defaultBlockState()),
                 pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 8, 0.25, 0.1, 0.25, 0.05);
         if (!player.getAbilities().instabuild) {

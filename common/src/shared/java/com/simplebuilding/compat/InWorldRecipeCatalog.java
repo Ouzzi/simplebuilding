@@ -311,6 +311,22 @@ public final class InWorldRecipeCatalog {
                 Stack.of(result, crush.get("count").getAsInt()), 0,
                 List.of(Component.translatable("jei.simplebuilding.note.diamond_crush.how", crush.has("strikes") ? crush.get("strikes").getAsInt() : 1),
                         Component.translatable("jei.simplebuilding.note.damage", crush.get("damage").getAsInt()))));
+        if (crush.has("crushes")) {
+            // 2026-10-06: quartz block, ice, packed ice, obsidian, fire charge - any hammer, one item per strike.
+            for (JsonElement element : crush.getAsJsonArray("crushes")) {
+                JsonObject c = element.getAsJsonObject();
+                String inputId = c.get("input").getAsString();
+                Item input = resolver.item(inputId);
+                Item out2 = resolver.item(c.get("result").getAsString());
+                if (input == null || out2 == null || allHammers.isEmpty()) {
+                    continue;
+                }
+                out.add(new Entry(Kind.DIAMOND_CRUSH, "hammer_crush/" + inputId, List.of(Stack.of(input, 1)), allHammers,
+                        Stack.of(out2, c.get("count").getAsInt()), 0,
+                        List.of(Component.translatable("jei.simplebuilding.note.hammer_crush.how", c.get("strikes").getAsInt()),
+                                Component.translatable("jei.simplebuilding.note.damage", c.get("damage").getAsInt()))));
+            }
+        }
         if (crush.has("anvil")) {
             JsonObject anvil = crush.getAsJsonObject("anvil");
             List<String> ids = new ArrayList<>();

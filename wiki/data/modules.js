@@ -263,6 +263,6 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "c8a3280dfb2b"
+    "dataHash": "b714a1f5fa8b"
   }
 ];

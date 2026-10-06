@@ -502,6 +502,158 @@ public final class MusicDiscTests {
         helper.succeed();
     }
 
+
+    // =====================================================================================
+    // Verstärker ueber den echten Weg (2026-10-06, Besitzer: Verstärker funktionieren im Spiel nicht)
+    // =====================================================================================
+
+    /** Ein Test-Spieler, dessen Verbindung jedes Paket in {@code sink} legt (statt es ins Leere zu schicken). */
+    static ServerPlayer capturingPlayer(GameTestHelper helper, List<net.minecraft.network.protocol.Packet<?>> sink) {
+        ServerLevel level = helper.getLevel();
+        var cookie = net.minecraft.server.network.CommonListenerCookie.createInitial(
+                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "test-capture"), false);
+        ServerPlayer player = new ServerPlayer(level.getServer(), level, cookie.gameProfile(), cookie.clientInformation()) {
+            @Override
+            public net.minecraft.world.level.GameType gameMode() {
+                return net.minecraft.world.level.GameType.CREATIVE;
+            }
+        };
+        net.minecraft.network.Connection connection = new net.minecraft.network.Connection(net.minecraft.network.protocol.PacketFlow.SERVERBOUND) {
+            @Override
+            public void send(net.minecraft.network.protocol.Packet<?> packet, io.netty.channel.ChannelFutureListener listener, boolean flush) {
+                synchronized (sink) {
+                    sink.add(packet);
+                }
+            }
+        };
+        new io.netty.channel.embedded.EmbeddedChannel(connection);
+        level.getServer().getPlayerList().placeNewPlayer(connection, player, cookie);
+        helper.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(player));
+        synchronized (sink) {
+            sink.clear();
+        }
+        return player;
+    }
+
+    private static <T> List<T> captured(List<net.minecraft.network.protocol.Packet<?>> sink, Class<T> type) {
+        synchronized (sink) {
+            return sink.stream().filter(type::isInstance).map(type::cast).toList();
+        }
+    }
+
+    /**
+     * Noten-Verstärker ueber den echten Weg: ein Spieler klickt den Notenblock (useItemOn mit leerer Hand), der Server
+     * spielt den Ton im Block-Event. Der Spieler daneben bekommt genau einen Ton mit dem Verstaerkungsfaktor und hoert ihn
+     * lauter als Vanilla an derselben Stelle (vorher: Pegel 1,0 = genau Vanilla, der Verstärker schien nichts zu tun).
+     * Der Notenblock ohne Verstärker bleibt bei Vanillas Lautstaerke 3,0.
+     */
+    public static void amplifiedNoteBlockIsLouderThroughTheRealUsePath(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        BlockPos amplified = new BlockPos(1, 2, 1);
+        BlockPos plain = new BlockPos(6, 2, 1);
+        helper.setBlock(amplified, Blocks.NOTE_BLOCK);
+        helper.setBlock(amplified.west(), ModBlocks.NOTE_AMPLIFIER);
+        helper.setBlock(plain, Blocks.NOTE_BLOCK);
+        List<net.minecraft.network.protocol.Packet<?>> sink = new ArrayList<>();
+        ServerPlayer player = capturingPlayer(helper, sink);
+        List<com.simplebuilding.networking.AmplifiedNotePayload> payloads = new ArrayList<>();
+        var previous = com.simplebuilding.platform.PlatformServices.playerPacketSender();
+        com.simplebuilding.platform.PlatformServices.setPlayerPacketSender(new com.simplebuilding.platform.PlayerPacketSender() {
+            public boolean canSend(ServerPlayer target, net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<?> type) {
+                return target == player ? type == com.simplebuilding.networking.AmplifiedNotePayload.ID : previous.canSend(target, type);
+            }
+            public void send(ServerPlayer target, net.minecraft.network.protocol.common.custom.CustomPacketPayload payload) {
+                if (target == player && payload instanceof com.simplebuilding.networking.AmplifiedNotePayload note) {
+                    payloads.add(note);
+                } else {
+                    previous.send(target, payload);
+                }
+            }
+        });
+        helper.runBeforeTestEnd(() -> com.simplebuilding.platform.PlatformServices.setPlayerPacketSender(previous));
+        click(helper, player, amplified, ItemStack.EMPTY);
+        helper.runAfterDelay(3, () -> {
+            helper.assertValueEqual(payloads.size(), 1, "amplified notes received after clicking the note block");
+            var note = payloads.getFirst().sound();
+            helper.assertValueEqual(note.getVolume(), SpeakerBoost.NOTE_BLOCK_VOLUME * 1.5F, "note volume with one amplifier");
+            Vec3 at = new Vec3(note.getX(), note.getY(), note.getZ());
+            Vec3 ear = player.getEyePosition();
+            float heard = SpeakerBoost.listenerGain(at, ear, note.getSound().value().getRange(note.getVolume()), SpeakerBoost.noteGain(note.getVolume()));
+            float vanilla = (float) Math.max(0.0, 1.0 - at.distanceTo(ear) / note.getSound().value().getRange(SpeakerBoost.NOTE_BLOCK_VOLUME));
+            helper.assertValueEqual(heard, 1.5F, "gain next to the amplified note block");
+            helper.assertTrue(heard > vanilla && heard > 1.0F, "the amplified note is not louder than vanilla: " + heard + " vs " + vanilla);
+
+            // Ohne Verstärker: Vanillas Rundsendung, Lautstaerke 3,0, kein Verstärker-Paket.
+            synchronized (sink) {
+                sink.clear();
+            }
+            payloads.clear();
+            click(helper, player, plain, ItemStack.EMPTY);
+            helper.runAfterDelay(3, () -> {
+                List<net.minecraft.network.protocol.game.ClientboundSoundPacket> sounds =
+                        captured(sink, net.minecraft.network.protocol.game.ClientboundSoundPacket.class);
+                helper.assertTrue(payloads.isEmpty(), "a plain note block sent an amplified note");
+                helper.assertTrue(sounds.size() == 1 && sounds.getFirst().getVolume() == SpeakerBoost.NOTE_BLOCK_VOLUME,
+                        "plain note block: " + sounds.size() + " sounds");
+                helper.succeed();
+            });
+        });
+    }
+
+    /**
+     * Musik-Verstärker ueber den echten Weg: ein Spieler legt eine Platte ein (useItemOn), ein Spieler 90 Bloecke weiter
+     * (jenseits von Vanillas 64) bekommt den Start nur vom verstaerkten Plattenspieler; Herausnehmen stoppt auch bei ihm.
+     * Der Pegel, den der Client daraus macht ({@code ChainedJukeboxSound}), liegt neben dem Plattenspieler ueber 1.
+     */
+    public static void amplifiedJukeboxReachesFartherThroughTheRealUsePath(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        ServerLevel level = helper.getLevel();
+        BlockPos amplified = new BlockPos(1, 2, 1);
+        BlockPos plain = new BlockPos(1, 2, 5);
+        helper.setBlock(amplified, Blocks.JUKEBOX);
+        helper.setBlock(amplified.west(), ModBlocks.JUKEBOX_AMPLIFIER);
+        helper.setBlock(plain, Blocks.JUKEBOX);
+        List<net.minecraft.network.protocol.Packet<?>> nearSink = new ArrayList<>();
+        List<net.minecraft.network.protocol.Packet<?>> farSink = new ArrayList<>();
+        ServerPlayer near = capturingPlayer(helper, nearSink);
+        ServerPlayer far = capturingPlayer(helper, farSink);
+        BlockPos a = helper.absolutePos(amplified);
+        BlockPos p = helper.absolutePos(plain);
+        far.snapTo(a.getX() + 90.5, a.getY(), a.getZ() + 0.5, 0.0F, 0.0F);
+        click(helper, near, amplified, new ItemStack(Items.MUSIC_DISC_CAT));
+        click(helper, near, plain, new ItemStack(Items.MUSIC_DISC_CAT));
+        helper.runAfterDelay(2, () -> {
+            List<ClientboundLevelEventPacket> events = captured(farSink, ClientboundLevelEventPacket.class);
+            long fromAmplified = events.stream().filter(e -> e.getType() == LevelEvent.SOUND_PLAY_JUKEBOX_SONG && e.getPos().equals(a)).count();
+            long fromPlain = events.stream().filter(e -> e.getType() == LevelEvent.SOUND_PLAY_JUKEBOX_SONG && e.getPos().equals(p)).count();
+            helper.assertValueEqual(fromAmplified, 1L, "starts of the amplified jukebox 90 blocks away");
+            helper.assertValueEqual(fromPlain, 0L, "starts of the plain jukebox 90 blocks away");
+
+            // Was der Client daraus macht: Pegel neben dem Plattenspieler = Faktor 1,5 (Vanilla dort knapp unter 1).
+            float multiplier = SpeakerBoost.multiplier(level, a, SpeakerBoost.Source.JUKEBOX);
+            List<Vec3> points = SpeakerBoost.points(a, SpeakerBoost.chain(level, a, SpeakerBoost.Source.JUKEBOX));
+            Vec3 ear = Vec3.atCenterOf(a).add(3.0, 0.0, 0.0);
+            double range = SoundEvents.MUSIC_DISC_CAT.value().getRange(SpeakerBoost.JUKEBOX_VOLUME * multiplier);
+            helper.assertValueEqual(SpeakerBoost.listenerGain(SpeakerBoost.nearest(points, ear), ear, range, multiplier), 1.5F,
+                    "client gain next to the amplified jukebox");
+            Vec3 farEar = far.position();
+            helper.assertTrue(SpeakerBoost.listenerGain(SpeakerBoost.nearest(points, farEar), farEar, range, multiplier) > 0.0F,
+                    "the far player would hear nothing");
+
+            // Platte herausnehmen: der Stopp erreicht den fernen Spieler ebenfalls.
+            synchronized (farSink) {
+                farSink.clear();
+            }
+            click(helper, near, amplified, ItemStack.EMPTY);
+            helper.runAfterDelay(2, () -> {
+                boolean stopped = captured(farSink, ClientboundLevelEventPacket.class).stream()
+                        .anyMatch(e -> e.getType() == LevelEvent.SOUND_STOP_JUKEBOX_SONG && e.getPos().equals(a));
+                helper.assertTrue(stopped, "the stop did not reach the far player");
+                helper.succeed();
+            });
+        });
+    }
+
     private static BlockHitResult hit(GameTestHelper helper, BlockPos rel) {
         BlockPos absolute = helper.absolutePos(rel);
         return new BlockHitResult(Vec3.atBottomCenterOf(absolute).add(0.0, 0.05, 0.0), Direction.UP, absolute, false);

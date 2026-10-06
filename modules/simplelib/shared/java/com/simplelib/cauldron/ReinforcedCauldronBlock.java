@@ -51,8 +51,8 @@ import org.jetbrains.annotations.Nullable;
  * leaves behind is mapped back; a partner block with a boolean property {@code reinforced} (the milk
  * cauldron) gets it set, so emptying it returns this cauldron. Partner containers (copper/Enderite
  * buckets, soul lava) come first through {@link ReinforcedCauldrons#BUCKETS}.
- * Built in the world from a Vanilla cauldron: without SimpleBuilding with an axe and 4 diamonds,
- * with it by sledgehammer and 4 cracked diamonds.
+ * Built in the world from a Vanilla cauldron: without SimpleBuilding with an axe and 8 diamonds,
+ * with it by sledgehammer and 8 cracked diamonds (both doubled 2026-10-06).
  */
 public class ReinforcedCauldronBlock extends AbstractCauldronBlock {
     public enum Content implements StringRepresentable {
