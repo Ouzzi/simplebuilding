@@ -135,6 +135,15 @@ public final class CrucibleCompat {
         return SimpleLibApi.axeWaysEnabled();
     }
 
+    /** Strikes to build the iron crucible / to attach a barrel (JEI, wiki). */
+    public static int buildStrikes() { return SimpleLibApi.buildStrikes(); }
+
+    public static int attachStrikes() { return SimpleLibApi.attachStrikes(); }
+
+    public static int buildWallStrikes() { return SimpleLibApi.buildWallStrikes(); }
+
+    public static int attachedBarrelSlots() { return SimpleLibApi.attachedBarrelSlots(); }
+
     /** A sledgehammer click on a crucible/barrel reaches the hammer instead of the menu when it upgrades, builds or attaches. */
     private static boolean hammerWants(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         if (hand != InteractionHand.MAIN_HAND || !(player.getMainHandItem().getItem() instanceof SledgehammerItem)) return false;
