@@ -1869,6 +1869,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_template_game_test_placed_trim_templates_need_three_hammer_hits", PlacedTemplateTests::placedTrimTemplatesNeedThreeHammerHits)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_placed_trim_template_upgrades_on_right_click_only", PlacedTemplateTests::placedTrimTemplateUpgradesOnRightClickOnly)
+                    .maxTicks(200).build(),
             GameTestSpec.named("placed_template_game_test_hint_sparks_only_show_near_players_holding_glowstone_or_glow_ink", PlacedTemplateTests::hintSparksOnlyShowNearPlayersHoldingGlowstoneOrGlowInk)
                     .build(),
             GameTestSpec.named("placed_template_game_test_placed_templates_carry_the_name_of_their_template", PlacedTemplateTests::placedTemplatesCarryTheNameOfTheirTemplate)

@@ -239,8 +239,20 @@ public final class PlacedTemplates {
     }
 
     /**
-     * Ein Schlag des Vorschlaghammers auf die abgelegte Vorlage (Linksklick: {@code attack} im
-     * Ueberlebensmodus, {@code canDestroyBlock} im Kreativmodus). Zaehlt je Material und laesst die
+     * Der Rechtsklick-Weg ({@code SledgehammerItem#useOn}, Besitzer 2026-10-06): ein gehaltener Rechtsklick
+     * wiederholt alle 4 Ticks, ein Schlag zaehlt erst {@link InWorldStrikes#MIN_INTERVAL} Ticks nach dem vorigen.
+     */
+    public static boolean strike(ServerLevel level, BlockPos pos, Player player) {
+        if (level.getBlockEntity(pos) instanceof PlacedTemplateBlockEntity be && be.hits() > 0
+                && level.getGameTime() - be.lastHitTime() < InWorldStrikes.MIN_INTERVAL
+                && level.getGameTime() >= be.lastHitTime()) {
+            return false;
+        }
+        return hit(level, pos, player);
+    }
+
+    /**
+     * Ein Schlag des Vorschlaghammers auf die abgelegte Vorlage (Rechtsklick, {@link #strike}). Zaehlt je Material und laesst die
      * Zaehlung nach {@link #HIT_RESET_TICKS} ohne Schlag verfallen; der {@link #PLACED_HITS}. Schlag
      * wertet auf. Liefert true, wenn der Schlag zaehlte.
      */
@@ -263,6 +275,9 @@ public final class PlacedTemplates {
         }
         boolean glowing = result == ModItems.GLOWING_TRIM_TEMPLATE;
         Vec3 centre = be.surfaceCentre();
+        if (level instanceof ServerLevel server) {
+            InWorldStrikes.crack(server, pos, hits, PLACED_HITS);
+        }
         if (hits < PLACED_HITS) {
             level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 0.8F, 0.9F + 0.25F * hits);
             if (level instanceof ServerLevel server) {

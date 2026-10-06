@@ -55,6 +55,7 @@ public final class CauldronWorldCatalog {
         crucibleBuild(out, hammers);
         barrelAttach(out, hammers);
         cauldronReinforce(out);
+        crucibleUpgrades(out);
         milk(out);
         return out;
     }
@@ -109,8 +110,26 @@ public final class CauldronWorldCatalog {
     }
 
     private static void cauldronReinforce(List<Entry> out) {
-        SledgehammerUpgrades.Upgrade upgrade = SledgehammerUpgrades.upgradeOf(Blocks.CAULDRON);
-        if (upgrade == null || upgrade.to().asItem() == Items.AIR) {
+        hammerUpgrade(out, "cauldron_reinforce", SledgehammerUpgrades.upgradeOf(Blocks.CAULDRON));
+    }
+
+    /**
+     * The SimpleLib crucible and barrel upgrades by sledgehammer (2026-10-06: were missing from JEI; the machine upgrade
+     * category only covers SimpleBuilding's own blocks). Same notes as the cauldron.
+     */
+    private static void crucibleUpgrades(List<Entry> out) {
+        for (String id : List.of("simplelib:iron_crucible", "simplelib:reinforced_crucible", "simplelib:netherite_crucible",
+                "simplelib:copper_barrel", "simplelib:reinforced_barrel", "simplelib:netherite_barrel")) {
+            Identifier key = Identifier.tryParse(id);
+            if (key == null || !BuiltInRegistries.BLOCK.containsKey(key)) {
+                continue;
+            }
+            hammerUpgrade(out, "hammer_upgrade/" + id, SledgehammerUpgrades.upgradeOf(BuiltInRegistries.BLOCK.getValue(key)));
+        }
+    }
+
+    private static void hammerUpgrade(List<Entry> out, String entryId, @Nullable SledgehammerUpgrades.Upgrade upgrade) {
+        if (upgrade == null || upgrade.to().asItem() == Items.AIR || upgrade.from().asItem() == Items.AIR) {
             return;
         }
         List<Item> hammers = hammers(upgrade.minHammerRank());
@@ -120,8 +139,8 @@ public final class CauldronWorldCatalog {
         int blows = SledgehammerUpgrades.blows(upgrade);
         int ticks = SledgehammerUpgrades.upgradeTicks(upgrade);
         int perHit = SledgehammerUpgrades.damagePerHit(upgrade);
-        out.add(new Entry("cauldron_reinforce",
-                List.of(Stack.of(Items.CAULDRON, 1), Stack.of(upgrade.nugget(), upgrade.materialCost())),
+        out.add(new Entry(entryId,
+                List.of(Stack.of(upgrade.from().asItem(), 1), Stack.of(upgrade.nugget(), upgrade.materialCost())),
                 hammers, Stack.of(upgrade.to().asItem(), 1), ticks,
                 List.of(Component.translatable("jei.simplebuilding.note.machine_upgrade.how"),
                         Component.translatable("jei.simplebuilding.note.machine_upgrade.time", blows,

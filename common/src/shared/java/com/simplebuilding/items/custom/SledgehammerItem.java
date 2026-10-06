@@ -177,17 +177,12 @@ public class SledgehammerItem extends Item {
 
     /**
      * Abgelegte Schmiedevorlage mit Aufwertungs-Material in der Nebenhand: der Hammer bricht sie
-     * nie. Im Kreativmodus ist das die Stelle, an der ein Linksklick ankommt (Vanilla zerstoert dort
-     * sofort und ruft {@code attack} nicht), also zaehlt hier der Schlag ({@link PlacedTemplates#hit});
-     * im Ueberlebensmodus zaehlt ihn {@code PlacedTemplateBlock#attack}.
+     * nie (auch nicht im Kreativmodus). Geschlagen wird seit 2026-10-06 mit Rechtsklick ({@link #useOn}).
      */
     @Override
     public boolean canDestroyBlock(ItemStack stack, BlockState state, Level level, BlockPos pos, LivingEntity user) {
         if (user instanceof Player player && state.getBlock() instanceof PlacedTemplateBlock
                 && PlacedTemplates.isHammerStance(player)) {
-            if (player.getAbilities().instabuild) {
-                PlacedTemplates.hit(level, pos, player);
-            }
             return false;
         }
         return super.canDestroyBlock(stack, state, level, pos, user);
@@ -250,6 +245,15 @@ public class SledgehammerItem extends Item {
         InteractionResult smithing = SledgehammerUpgrades.tryBegin(context);
         if (smithing != null) {
             return smithing;
+        }
+
+        // Besatz-Vorlage (Leuchttinte/Glowstone in der Nebenhand): Rechtsklick wie alle In-World-Umwandlungen
+        // (Besitzer 2026-10-06; vorher Linksklick).
+        if (com.simplebuilding.util.PlacedTemplates.isHammerTarget(world, pos, player)) {
+            if (world instanceof ServerLevel server) {
+                com.simplebuilding.util.PlacedTemplates.strike(server, pos, player);
+            }
+            return InteractionResult.SUCCESS;
         }
 
         if (!mayChange(world, player, pos, context.getClickedFace(), stack)) {
@@ -616,40 +620,30 @@ public class SledgehammerItem extends Item {
     }
 
     public static final int DIAMOND_BLOCK_STRIKES = 8;
-    /** Ohne weiteren Schlag verfaellt die Zaehlung nach so vielen Ticks (wie bei der abgelegten Vorlage). */
-    public static final int DIAMOND_STRIKE_RESET_TICKS = 100;
+    /** Ohne weiteren Schlag verfaellt die Zaehlung nach so vielen Ticks ({@link com.simplebuilding.util.InWorldStrikes}). */
+    public static final int DIAMOND_STRIKE_RESET_TICKS = com.simplebuilding.util.InWorldStrikes.RESET_TICKS;
     /** Gehaltener Rechtsklick wiederholt alle 4 Ticks; ein Schlag zaehlt erst nach dieser Pause. */
-    public static final int DIAMOND_STRIKE_MIN_INTERVAL = 8;
-
-    private record DiamondStrikes(net.minecraft.resources.ResourceKey<Level> level, BlockPos pos, int count, long lastTick) {
-    }
-
-    private static final Map<Player, DiamondStrikes> DIAMOND_STRIKES = Collections.synchronizedMap(new WeakHashMap<>());
+    public static final int DIAMOND_STRIKE_MIN_INTERVAL = com.simplebuilding.util.InWorldStrikes.MIN_INTERVAL;
 
     /** Ein Schlag auf den Diamantblock; liefert die neue Zahl gezaehlter Schlaege (0 = nicht gezaehlt). */
     static int strikeDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
         return strikeDiamondBlock(world, pos, player, stack, world.getGameTime());
     }
 
-    /** {@link #strikeDiamondBlock(ServerLevel, BlockPos, Player, ItemStack)} at game time {@code now} (tests). */
+    /**
+     * {@link #strikeDiamondBlock(ServerLevel, BlockPos, Player, ItemStack)} at game time {@code now} (tests). Counted per
+     * position since 2026-10-06 ({@link com.simplebuilding.util.InWorldStrikes}): any player continues the strikes.
+     */
     public static int strikeDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack, long now) {
-        DiamondStrikes last = DIAMOND_STRIKES.get(player);
-        boolean same = last != null && last.level() == world.dimension() && last.pos().equals(pos)
-                && now - last.lastTick() <= DIAMOND_STRIKE_RESET_TICKS;
-        if (same && now - last.lastTick() < DIAMOND_STRIKE_MIN_INTERVAL) {
+        BlockState state = world.getBlockState(pos);
+        int count = com.simplebuilding.util.InWorldStrikes.count(world, pos, "diamond_crush", state, DIAMOND_BLOCK_STRIKES, now);
+        if (count == 0) {
             return 0;
         }
-        int count = same ? last.count() + 1 : 1;
+        com.simplebuilding.util.InWorldStrikes.feedback(world, pos, state, count, DIAMOND_BLOCK_STRIKES);
         if (count >= DIAMOND_BLOCK_STRIKES) {
-            DIAMOND_STRIKES.remove(player);
             crushDiamondBlock(world, pos, player, stack);
-            return count;
         }
-        DIAMOND_STRIKES.put(player, new DiamondStrikes(world.dimension(), pos.immutable(), count, now));
-        world.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 0.8F, 0.9F + 0.25F * count);
-        world.sendParticles(new net.minecraft.core.particles.BlockParticleOption(net.minecraft.core.particles.ParticleTypes.BLOCK,
-                        Blocks.DIAMOND_BLOCK.defaultBlockState()),
-                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 4 + 2 * count, 0.3, 0.3, 0.3, 0.05);
         return count;
     }
 

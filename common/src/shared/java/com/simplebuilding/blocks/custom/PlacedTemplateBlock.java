@@ -171,7 +171,7 @@ public class PlacedTemplateBlock extends FaceAttachedHorizontalDirectionalBlock 
 
     // --- Vorschlaghammer ------------------------------------------------------------------------
 
-    /** Mit Hammer und Material in den Haenden bricht die Vorlage nicht; jeder Klick ist ein Schlag. */
+    /** Mit Hammer und Material in den Haenden bricht die Vorlage nicht; geschlagen wird mit Rechtsklick. */
     @Override
     protected float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
         if (PlacedTemplates.isHammerStance(player)) {
@@ -180,10 +180,4 @@ public class PlacedTemplateBlock extends FaceAttachedHorizontalDirectionalBlock 
         return super.getDestroyProgress(state, player, level, pos);
     }
 
-    /** Linksklick im Ueberlebensmodus (serverseitig aus {@code ServerPlayerGameMode}). */
-    @Override
-    protected void attack(BlockState state, Level level, BlockPos pos, Player player) {
-        PlacedTemplates.hit(level, pos, player);
-        super.attack(state, level, pos, player);
-    }
 }

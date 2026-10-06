@@ -68,6 +68,8 @@ public final class CrucibleUpgrades {
         } else return true;
         server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5,
                 6, 0.25, 0.1, 0.25, 0.05);
+        // Same progress feedback as every in-world conversion (owner 2026-10-06): cracks grow per strike, gone at the end.
+        server.destroyBlockProgress(CrucibleBarrelBlock.crackId(pos), pos, done >= needed ? -1 : CrucibleBlankBlock.crackStage(done, needed));
         if (done >= needed) {
             if (!player.getAbilities().instabuild) material.shrink(step.count());
             if (step.to() == LibBlocks.REINFORCED_CAULDRON) {

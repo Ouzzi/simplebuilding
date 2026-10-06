@@ -155,6 +155,7 @@ public final class SledgehammerProgress extends SavedData {
 
     /** Jeder Server-Tick, von allen Loadern: Eintraege pruefen und Risse auffrischen. */
     public static void tick(MinecraftServer server) {
+        InWorldStrikes.tick(server);
         int now = server.getTickCount();
         boolean validate = now % VALIDATE_TICKS == 0;
         boolean rebroadcast = now % REBROADCAST_TICKS == 0;

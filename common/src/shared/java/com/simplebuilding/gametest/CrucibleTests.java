@@ -218,9 +218,16 @@ public final class CrucibleTests {
         var entries = new java.util.LinkedHashMap<String, com.simplebuilding.compat.CauldronWorldCatalog.Entry>();
         com.simplebuilding.compat.CauldronWorldCatalog.entries().forEach(entry -> entries.put(entry.id(), entry));
         boolean sandwiches = item("simplesandwiches:butter_block") != Items.AIR && item("simplesandwiches:cheese_block") != Items.AIR;
-        helper.assertTrue(entries.keySet().equals(sandwiches
-                ? java.util.Set.of("crucible_build", "barrel_attach", "cauldron_reinforce", "milk_butter", "milk_cheese")
-                : java.util.Set.of("crucible_build", "barrel_attach", "cauldron_reinforce")), "catalog entries " + entries.keySet());
+        var expected = new java.util.HashSet<>(java.util.Set.of("crucible_build", "barrel_attach", "cauldron_reinforce",
+                "hammer_upgrade/simplelib:iron_crucible", "hammer_upgrade/simplelib:reinforced_crucible", "hammer_upgrade/simplelib:netherite_crucible",
+                "hammer_upgrade/simplelib:copper_barrel", "hammer_upgrade/simplelib:reinforced_barrel", "hammer_upgrade/simplelib:netherite_barrel"));
+        if (sandwiches) expected.addAll(java.util.Set.of("milk_butter", "milk_cheese"));
+        helper.assertTrue(entries.keySet().equals(expected), "catalog entries " + entries.keySet());
+        // 2026-10-06: the crucible/barrel hammer upgrades are in JEI too (2 material, from the upgrade table).
+        var ironUp = entries.get("hammer_upgrade/simplelib:iron_crucible");
+        helper.assertTrue(ironUp.inputs().get(0).items().equals(java.util.List.of(item("simplelib:iron_crucible")))
+                && ironUp.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && ironUp.inputs().get(1).count() == 2
+                && ironUp.output().items().equals(java.util.List.of(item("simplelib:reinforced_crucible"))), "iron -> reinforced crucible entry");
 
         var build = entries.get("crucible_build");
         helper.assertTrue(build.inputs().get(0).items().equals(java.util.List.of(Items.IRON_BLOCK)) && build.inputs().get(0).count() == 1, "an iron block");
