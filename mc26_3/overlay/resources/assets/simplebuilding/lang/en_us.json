@@ -2069,7 +2069,7 @@
   "text.autoconfig.simplebuilding.option.tools.wandHungerMultiplier": "Building Wand Hunger Multiplier",
   "text.autoconfig.simplebuilding.option.tools.wandHungerMultiplier.@Tooltip": "Server-side. On 26.3: 0 to 10.\nMultiplies the food exhaustion of every block\npast the free allowance (see Building Wand\nHunger Cost). 0.5 = half as hungry, 2 = twice\nas hungry, 0 = building is free. The free\nallowance itself stays. Server-side. Default:\n1.0.",
   "text.autoconfig.simplebuilding.option.tools.magnetRangeMultiplier": "Attractor Range Multiplier",
-  "text.autoconfig.simplebuilding.option.tools.magnetRangeMultiplier.@Tooltip": "Server-side. On 26.3: 0 to 4.\nMultiplies how far the Attractor pulls items\n(3 blocks, +1.5 per Range level, at most 7.5;\nnever beyond 12 after this factor). 2 = twice\nas far, 0 = the Attractor pulls nothing.\nServer-side. Default: 1.0.",
+  "text.autoconfig.simplebuilding.option.tools.magnetRangeMultiplier.@Tooltip": "Server-side. On 26.3: 0 to 4.\nMultiplies how far the Attractor pulls items\n(4 blocks, +2 per Range level, at most 9;\nnever beyond 15 after this factor). 2 = twice\nas far, 0 = the Attractor pulls nothing.\nServer-side. Default: 1.0.",
   "text.autoconfig.simplebuilding.option.tools.rotatorChargePerTurn": "Rotator Charge per Turn",
   "text.autoconfig.simplebuilding.option.tools.rotatorChargePerTurn.@Tooltip": "Server-side. On 26.3: 0 to 4096.\nCharge one turn of the Rotator uses up (a\nfull Rotator holds 1024, 16 Ender Pearls\nrefill it). 0 = turning is free, 2 = half as\nmany turns per charge. Unbreaking still\napplies. Server-side. Default: 1.",
   "text.autoconfig.simplebuilding.option.tweaks.pads.enablePotionPads": "Potion Pads",

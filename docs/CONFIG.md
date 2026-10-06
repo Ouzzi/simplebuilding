@@ -152,7 +152,7 @@ Zugriff abgesichert. Defaults und Optionspfade bleiben erhalten; alle sechs wirk
 | Pfad | Bereich | Standard |
 |---|---|---|
 | `tools.wandHungerMultiplier` | 0–10 | 1 |
-| `tools.magnetRangeMultiplier` | 0–4; absolut weiterhin höchstens 12 Blöcke | 1 |
+| `tools.magnetRangeMultiplier` | 0–4; absolut weiterhin höchstens 15 Blöcke | 1 |
 | `tools.rotatorChargePerTurn` | 0–4096 | 1 |
 | `worldGen.buildingCoreLootChanceMultiplier` | 0–1000; höchstens ein Kern je Kiste | 1 |
 | `tweaks.laserPointer.chargePerSecond` | 0–2560 | 4 |

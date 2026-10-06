@@ -32,8 +32,8 @@ public final class MagnetGameTest {
     }
 
     @GameTest
-    public void magnetReachIsThreeBlocksAndRangeWidensItUpToItsCap(GameTestHelper helper) {
-        MagnetTests.magnetReachIsThreeBlocksAndRangeWidensItUpToItsCap(helper);
+    public void magnetReachIsFourBlocksAndRangeWidensItUpToItsCap(GameTestHelper helper) {
+        MagnetTests.magnetReachIsFourBlocksAndRangeWidensItUpToItsCap(helper);
     }
 
     @GameTest

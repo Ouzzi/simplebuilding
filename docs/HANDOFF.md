@@ -293,8 +293,8 @@ Die detaillierten früheren Laufberichte bleiben in der Git-Historie dieser Date
 
 - Detector: ID `detector`, `ore_detector` Legacy-Alias (`LegacyItemIds`). Platzierbar nur
   kalibriert; Nadel, Sounds, Partikel statt Bildschirmtext (`PlacedDetectors`).
-- Attractor: ID `magnet`. Gehalten 3 Blöcke Basis, Range +1,5 je Stufe bis 7,5 vor Config;
-  abgelegt 6 vor Config. Constructor's Touch schaltet Filter frei, erhöht keinen Radius.
+- Attractor: ID `magnet`. Gehalten 4 Blöcke Basis, Range +2 je Stufe bis 9 vor Config;
+  abgelegt 8 vor Config. Constructor's Touch schaltet Filter frei, erhöht keinen Radius.
   Schleichklick auf Block/liegendes Item oder Rechtsklick im Inventar wählt den Filter,
   Schleichklick Luft löscht ihn. Ohne Touch gilt ein gespeicherter Filter nicht.
   Ablegen ohne Touch per Schleichklick, mit Touch per normalem Rechtsklick.

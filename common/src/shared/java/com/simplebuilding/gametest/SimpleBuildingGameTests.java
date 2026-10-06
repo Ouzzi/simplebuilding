@@ -886,7 +886,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("magnet_game_test_magnet_pull_follows_the_acceleration_and_braking_curve", MagnetTests::magnetPullFollowsTheAccelerationAndBrakingCurve)
                     .build(),
-            GameTestSpec.named("magnet_game_test_magnet_reach_is_three_blocks_and_range_widens_it_up_to_its_cap", MagnetTests::magnetReachIsThreeBlocksAndRangeWidensItUpToItsCap)
+            GameTestSpec.named("magnet_game_test_magnet_reach_is_four_blocks_and_range_widens_it_up_to_its_cap", MagnetTests::magnetReachIsFourBlocksAndRangeWidensItUpToItsCap)
                     .build(),
             GameTestSpec.named("magnet_game_test_the_filter_needs_constructors_touch_and_is_set_like_the_detector", MagnetTests::theFilterNeedsConstructorsTouchAndIsSetLikeTheDetector)
                     .build(),

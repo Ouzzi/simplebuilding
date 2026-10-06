@@ -102,7 +102,7 @@ import net.minecraft.world.phys.Vec3;
  *   <li><b>{@code getMaxDamage() == 0}.</b> A registration property with no behaviour behind it -
  *       the magnet never calls {@code hurtAndBreak}, so nothing observable changes either way.</li>
  *   <li>(Since 2026-09-29 Range supports the Attractor at an anvil and is covered by
- *       {@link #magnetReachIsThreeBlocksAndRangeWidensItUpToItsCap}.)</li>
+ *       {@link #magnetReachIsFourBlocksAndRangeWidensItUpToItsCap}.)</li>
  * </ul>
  */
 public final class MagnetTests {
@@ -142,13 +142,19 @@ public final class MagnetTests {
     private static final BlockPos STAND_BLOCK = new BlockPos(4, 1, 4);
 
     /**
-     * Where the player is parked for the vertical reach probes: two blocks above the room. Up is
-     * the one direction in which the reach can be measured against both a near and a far item -
-     * the rooms of a batch stand beside each other, never above each other, so there is nothing up
-     * there to disturb and nothing down here that a boosted magnet fired from up there can touch
-     * (its box starts at y 2, above every item lying on a neighbour's floor).
+     * Where the player is parked for the vertical reach probes: nine blocks above the room floor.
+     * Up is the only direction in which the reach can be measured against both a near and a far
+     * item - the rooms of a batch stand beside each other, never above each other, so there is
+     * nothing up there to disturb and the probes spawned below are the only entities this test
+     * ever ticks.
      */
     private static final Vec3 HIGH_SPOT = new Vec3(1.5, 10.0, 1.5);
+
+    /**
+     * Where the player is parked for the Range I boundary probes: far enough left that the box
+     * edge (0.8 plus the 6 block Range I reach) stays inside the 8 by 8 room at 6.8.
+     */
+    private static final Vec3 RANGE_SPOT = new Vec3(0.5, 1.0, 1.5);
 
     /** Velocities below this count as "the magnet did not touch it". */
     private static final double AT_REST = 1.0E-8;
@@ -489,49 +495,51 @@ public final class MagnetTests {
     // =====================================================================================
 
     /**
-     * The reach since 2026-09-29 (owner: "default range minimal, Range widens it, not overpowered"):
-     * {@code MagnetItem#BASE_RANGE} 3 blocks around the player's bounding box, Constructor's Touch
-     * adds nothing any more (it only unlocks the filter), each level of Range adds
-     * {@code RANGE_PER_LEVEL} 1.5 and the sum stops at {@code MAX_RANGE} 7.5 - a Range V written by a
-     * command reaches exactly as far as Range III.
+     * The reach since 2026-09-29 (owner: "default range minimal, Range widens it, not overpowered"),
+     * widened 2026-10-07 to 4 base, +2 per level and a cap of 9: {@code MagnetItem#BASE_RANGE} 4
+     * blocks around the player's bounding box, Constructor's Touch adds nothing any more (it only
+     * unlocks the filter), each level of Range adds {@code RANGE_PER_LEVEL} 2 and the sum stops at
+     * {@code MAX_RANGE} 9 - a Range V written by a command reaches exactly as far as Range III.
      *
      * <p>The horizontal probes sit 0.075 inside and outside the box edge (player box edge x 1.8 plus
      * the range; an item is caught while its hull, 0.125 to each side, starts before that edge). The
-     * cap is measured straight down from {@link #HIGH_SPOT} (y 10): 7.5 blocks down the box ends at
-     * y 2.5, an item at y 2.3 (hull top 2.55) is caught, one at y 1.4 (hull top 1.65, 8.35 away) is
-     * not - Range V without the cap would reach 10.5 and pull both.
+     * Range I edge (7.8) would clear the 8 by 8 room at {@link #PLAYER_SPOT}, so those two probes
+     * run with the player parked at {@link #RANGE_SPOT} where the edge is 6.8. The cap is measured
+     * straight down from {@link #HIGH_SPOT} (y 10): 9 blocks down the box ends at y 1, an item at
+     * y 1 (hull top 1.25) is caught, one at y 0.1 (hull top 0.35, 9.65 away) is not - Range V
+     * without the cap would reach 14 and pull both.
      *
-     * <p>What breaks this test: BASE_RANGE leaving (2.925, 3.075], Constructor's Touch widening the
-     * reach again, a level of Range adding something other than about 1.5, the cap going away or
+     * <p>What breaks this test: BASE_RANGE leaving (3.925, 4.075], Constructor's Touch widening the
+     * reach again, a level of Range adding something other than about 2, the cap going away or
      * moving, and Range no longer being allowed on the Attractor at an anvil.
      */
-    public static void magnetReachIsThreeBlocksAndRangeWidensItUpToItsCap(GameTestHelper helper) {
+    public static void magnetReachIsFourBlocksAndRangeWidensItUpToItsCap(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
 
         helper.assertTrue(enchantment(helper, ModEnchantments.RANGE).value().isSupportedItem(new ItemStack(ModItems.MAGNET)),
                 "Range cannot be put on the Attractor at an anvil (simplebuilding:range_enchantable)");
-        helper.assertTrue(com.simplebuilding.items.custom.MagnetItem.pullRange(0, 1.0) == 3.0
-                        && com.simplebuilding.items.custom.MagnetItem.pullRange(1, 1.0) == 4.5
-                        && com.simplebuilding.items.custom.MagnetItem.pullRange(3, 1.0) == 7.5
-                        && com.simplebuilding.items.custom.MagnetItem.pullRange(5, 1.0) == 7.5
-                        && com.simplebuilding.items.custom.MagnetItem.pullRange(3, 4.0) == 12.0,
-                "pull range table is not 3 / 4.5 / 7.5 / capped 7.5 / hard cap 12");
+        helper.assertTrue(com.simplebuilding.items.custom.MagnetItem.pullRange(0, 1.0) == 4.0
+                        && com.simplebuilding.items.custom.MagnetItem.pullRange(1, 1.0) == 6.0
+                        && com.simplebuilding.items.custom.MagnetItem.pullRange(3, 1.0) == 9.0
+                        && com.simplebuilding.items.custom.MagnetItem.pullRange(5, 1.0) == 9.0
+                        && com.simplebuilding.items.custom.MagnetItem.pullRange(3, 4.0) == 15.0,
+                "pull range table is not 4 / 6 / 9 / capped 9 / hard cap 15");
 
-        ItemEntity inReach = helper.spawnItem(Items.DIAMOND, new Vec3(4.85, 1.0, 1.5));
-        ItemEntity outOfReach = helper.spawnItem(Items.DIAMOND, new Vec3(5.0, 1.0, 1.5));
-        ItemEntity diagonal = helper.spawnItem(Items.DIAMOND, new Vec3(4.85, 1.0, 4.85));
-        ItemEntity rangeOneEdge = helper.spawnItem(Items.DIAMOND, new Vec3(6.35, 1.0, 1.5));
-        ItemEntity beyondRangeOne = helper.spawnItem(Items.DIAMOND, new Vec3(6.5, 1.0, 1.5));
+        ItemEntity inReach = helper.spawnItem(Items.DIAMOND, new Vec3(5.85, 1.0, 1.5));
+        ItemEntity outOfReach = helper.spawnItem(Items.DIAMOND, new Vec3(6.0, 1.0, 1.5));
+        ItemEntity diagonal = helper.spawnItem(Items.DIAMOND, new Vec3(5.85, 1.0, 5.85));
+        ItemEntity rangeOneEdge = helper.spawnItem(Items.DIAMOND, new Vec3(6.85, 1.0, 1.5));
+        ItemEntity beyondRangeOne = helper.spawnItem(Items.DIAMOND, new Vec3(7.0, 1.0, 1.5));
 
-        // --- plain Attractor: 3 blocks ---
+        // --- plain Attractor: 4 blocks ---
         ItemStack plain = new ItemStack(ModItems.MAGNET);
         player.setItemInHand(InteractionHand.MAIN_HAND, plain);
         restAll(inReach, outOfReach, diagonal, rangeOneEdge, beyondRangeOne);
         tick(plain, level, player, EquipmentSlot.MAINHAND);
-        helper.assertTrue(moved(inReach), "an item 0.075 inside the 3 block box was not pulled");
-        helper.assertTrue(moved(diagonal), "the corner of the 3 block box was not pulled");
-        helper.assertTrue(!moved(outOfReach), "an item 0.075 outside the 3 block box was pulled; BASE_RANGE grew");
+        helper.assertTrue(moved(inReach), "an item 0.075 inside the 4 block box was not pulled");
+        helper.assertTrue(moved(diagonal), "the corner of the 4 block box was not pulled");
+        helper.assertTrue(!moved(outOfReach), "an item 0.075 outside the 4 block box was pulled; BASE_RANGE grew");
 
         // --- Constructor's Touch alone: same reach ---
         ItemStack touched = new ItemStack(ModItems.MAGNET);
@@ -542,28 +550,29 @@ public final class MagnetTests {
         helper.assertTrue(moved(inReach) && !moved(outOfReach),
                 "Constructor's Touch changed the reach; it only unlocks the filter now");
 
-        // --- Range I: 4.5 blocks ---
+        // --- Range I: 6 blocks, boundary probed from the left edge of the room ---
+        moveTo(helper, player, RANGE_SPOT);
         ItemStack rangeOne = new ItemStack(ModItems.MAGNET);
         rangeOne.enchant(enchantment(helper, ModEnchantments.RANGE), 1);
         player.setItemInHand(InteractionHand.MAIN_HAND, rangeOne);
         restAll(inReach, outOfReach, diagonal, rangeOneEdge, beyondRangeOne);
         tick(rangeOne, level, player, EquipmentSlot.MAINHAND);
         helper.assertTrue(moved(outOfReach) && moved(rangeOneEdge),
-                "Range I did not widen the reach to 4.5 blocks");
-        helper.assertTrue(!moved(beyondRangeOne), "Range I reached more than 4.5 blocks");
+                "Range I did not widen the reach to 6 blocks");
+        helper.assertTrue(!moved(beyondRangeOne), "Range I reached more than 6 blocks");
 
         // --- the cap, straight down from above the room ---
         moveTo(helper, player, HIGH_SPOT);
-        ItemEntity insideCap = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 2.3, 1.5));
-        ItemEntity beyondCap = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 1.4, 1.5));
+        ItemEntity insideCap = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 1.0, 1.5));
+        ItemEntity beyondCap = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 0.1, 1.5));
         for (int rangeLevel : new int[]{3, 5}) {
             ItemStack ranged = new ItemStack(ModItems.MAGNET);
             ranged.enchant(enchantment(helper, ModEnchantments.RANGE), rangeLevel);
             player.setItemInHand(InteractionHand.MAIN_HAND, ranged);
             restAll(insideCap, beyondCap);
             tick(ranged, level, player, EquipmentSlot.MAINHAND);
-            helper.assertTrue(moved(insideCap), "Range " + rangeLevel + " did not reach 7.35 blocks below the player");
-            helper.assertTrue(!moved(beyondCap), "Range " + rangeLevel + " reached 8.35 blocks below the player; the 7.5 cap is gone");
+            helper.assertTrue(moved(insideCap), "Range " + rangeLevel + " did not reach 8.75 blocks below the player");
+            helper.assertTrue(!moved(beyondCap), "Range " + rangeLevel + " reached 9.65 blocks below the player; the 9 cap is gone");
         }
         moveTo(helper, player, PLAYER_SPOT);
 

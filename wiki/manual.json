@@ -933,22 +933,22 @@
       ],
       "en": {
         "title": "Attractor: Collecting Items From a Distance",
-        "summary": "The Attractor pulls loose items while held in either hand. Its base radius around the player hitbox is 3 blocks; sneaking pauses it.",
+        "summary": "The Attractor pulls loose items while held in either hand. Its base radius around the player hitbox is 4 blocks; sneaking pauses it.",
         "details": [
-          "Range adds 1.5 blocks per level, up to 7.5 before the server multiplier, with a hard limit of 12 afterward. Constructor's Touch unlocks filtering without increasing range.",
+          "Range adds 2 blocks per level, up to 9 before the server multiplier, with a hard limit of 15 afterward. Constructor's Touch unlocks filtering without increasing range.",
           "Only Constructor's Touch enables the stored item-type filter, including on placed Attractors. Sneak-click a block or loose item, or right-click an item in the inventory to select it. Sneak-click empty air to clear it.",
-          "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 6 blocks before the server multiplier.",
+          "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 8 blocks before the server multiplier.",
           "No durability. The held Attractor respects display items, items reserved for others, and other players' death drops. Both forms respect simplebuilding:attractor_ignore.",
           "Held and placed Attractors brake items inside their dead zone without adding pull or lift. server.tools.attractorMinimumDistance defaults to 1.25 blocks and is limited to 0.5–2 blocks."
         ]
       },
       "de": {
         "title": "Attraktor: Items einsammeln ohne Hinlaufen",
-        "summary": "Der Attraktor zieht lose Items an, solange er in einer Hand liegt. Der Grundradius um die Spieler-Hitbox beträgt 3 Blöcke; Schleichen pausiert ihn.",
+        "summary": "Der Attraktor zieht lose Items an, solange er in einer Hand liegt. Der Grundradius um die Spieler-Hitbox beträgt 4 Blöcke; Schleichen pausiert ihn.",
         "details": [
-          "Reichweite ergänzt 1,5 Blöcke je Stufe, bis 7,5 vor dem Serverfaktor und höchstens 12 danach. Berührung des Konstrukteurs schaltet nur den Filter frei.",
+          "Reichweite ergänzt 2 Blöcke je Stufe, bis 9 vor dem Serverfaktor und höchstens 15 danach. Berührung des Konstrukteurs schaltet nur den Filter frei.",
           "Nur mit Berührung wirkt der gespeicherte Itemfilter, auch abgelegt. Schleichklick auf einen Block oder ein loses Item oder Rechtsklick auf ein Inventar-Item wählt den Filter. Schleichklick ins Leere löscht ihn.",
-          "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 6 Blöcken vor dem Serverfaktor.",
+          "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 8 Blöcken vor dem Serverfaktor.",
           "Keine Haltbarkeit. Der gehaltene Attraktor schützt Ausstellungsitems, fremd reservierte Items und Todesbeute anderer Spieler. Beide Formen beachten simplebuilding:attractor_ignore.",
           "Gehaltene und abgelegte Attraktoren bremsen Items in ihrer Ruhezone ohne Zug oder Anheben. server.tools.attractorMinimumDistance beträgt standardmäßig 1,25 Blöcke und ist auf 0,5–2 Blöcke begrenzt."
         ]
@@ -4831,11 +4831,11 @@
     },
     "magnet": {
       "en": {
-        "summary": "The Attractor pulls loose items while held in either hand. Its base radius around the player hitbox is 3 blocks; sneaking pauses it.",
+        "summary": "The Attractor pulls loose items while held in either hand. Its base radius around the player hitbox is 4 blocks; sneaking pauses it.",
         "details": [
-          "Range adds 1.5 blocks per level, up to 7.5 before the server multiplier, with a hard limit of 12 afterward. Constructor's Touch unlocks filtering without increasing range.",
+          "Range adds 2 blocks per level, up to 9 before the server multiplier, with a hard limit of 15 afterward. Constructor's Touch unlocks filtering without increasing range.",
           "Only Constructor's Touch enables the stored item-type filter, including on placed Attractors. Sneak-click a block or loose item, or right-click an item in the inventory to select it. Sneak-click empty air to clear it.",
-          "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 6 blocks before the server multiplier.",
+          "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 8 blocks before the server multiplier.",
           "The Attractor has no durability. Display items, other players' reserved items and death drops, and items in simplebuilding:attractor_ignore stay in place.",
           "Held and placed Attractors brake items inside their dead zone without adding pull or lift. server.tools.attractorMinimumDistance defaults to 1.25 blocks and is limited to 0.5–2 blocks."
         ],
@@ -4849,11 +4849,11 @@
         ]
       },
       "de": {
-        "summary": "Der Attraktor zieht lose Items an, solange er in einer Hand liegt. Der Grundradius um die Spieler-Hitbox beträgt 3 Blöcke; Schleichen pausiert ihn.",
+        "summary": "Der Attraktor zieht lose Items an, solange er in einer Hand liegt. Der Grundradius um die Spieler-Hitbox beträgt 4 Blöcke; Schleichen pausiert ihn.",
         "details": [
-          "Reichweite ergänzt 1,5 Blöcke je Stufe, bis 7,5 vor dem Serverfaktor und höchstens 12 danach. Berührung des Konstrukteurs schaltet nur den Filter frei.",
+          "Reichweite ergänzt 2 Blöcke je Stufe, bis 9 vor dem Serverfaktor und höchstens 15 danach. Berührung des Konstrukteurs schaltet nur den Filter frei.",
           "Nur mit Berührung wirkt der gespeicherte Itemfilter, auch abgelegt. Schleichklick auf einen Block oder ein loses Item oder Rechtsklick auf ein Inventar-Item wählt den Filter. Schleichklick ins Leere löscht ihn.",
-          "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 6 Blöcken vor dem Serverfaktor.",
+          "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 8 Blöcken vor dem Serverfaktor.",
           "Keine Haltbarkeit. Ausstellungsitems, für andere reservierte Items und Todesbeute sowie simplebuilding:attractor_ignore bleiben liegen.",
           "Gehaltene und abgelegte Attraktoren bremsen Items in ihrer Ruhezone ohne Zug oder Anheben. server.tools.attractorMinimumDistance beträgt standardmäßig 1,25 Blöcke und ist auf 0,5–2 Blöcke begrenzt."
         ],
@@ -8361,7 +8361,7 @@
           "For ordinary tools, Range extends block reach in the main hand. Attractor uses it for pull radius; Gauge for altimeter depth. It does not extend mob reach.",
           "Max level 3, weight 1, anvil cost 4; enchanting cost 15 (+9 per level above the first) to 65 (+9 per level above the first).",
           "Ordinary tools gain +2/+6/+10 block reach; RangeReach suppresses this attribute for the Attractor and Gauge, which apply their own effects.",
-          "Attractor: Range adds 1.5 blocks per level to the held pull radius of 3, up to 7.5 before the server factor. Constructor's Touch enables filtering and does not increase range. The placed base range is 6.",
+          "Attractor: Range adds 2 blocks per level to the held pull radius of 4, up to 9 before the server factor. Constructor's Touch enables filtering and does not increase range. The placed base range is 8.",
           "Chest loot (only with worldGen.enableLootTableChanges): a level II book in stronghold libraries (weight 4, 0 to 2 rolls), a level III book in End City treasure chests (weight 4, 0 to 3 rolls).",
           "Indirectly: the randomly enchanted Octants (Ancient City weight 2, Nether Fortress weight 1) and Diamond Sledgehammers (End City weight 8) in the mod's loot are enchanted with randomEnchantment() without an enchantment list, so they can come out carrying Range as well.",
           "Villager trades (only with enableVillagerTrades): a master-level (5) librarian sells a book for 25 emeralds from a pool holding Range I (weight 10), II (weight 10) and III (weight 3); a level 4 toolsmith sells an Iron Sledgehammer (16 emeralds + an iron pickaxe) or a Diamond Sledgehammer (28 emeralds + a diamond pickaxe) whose enchantment is drawn from a pool in which Range I has weight 10. The same pools sit in ModTradeDefinitions on the 1.21.11 line.",
@@ -8378,7 +8378,7 @@
           "Bei normalen Werkzeugen erweitert Reichweite die Blockreichweite in der Haupthand. Attraktor nutzt sie für den Zugradius, die Messuhr für Messtiefe. Keine größere Mob-Reichweite.",
           "Höchststufe 3, Gewicht 1, Amboss-Kosten 4; Verzauberungskosten 15 (+9 je weiterer Stufe) bis 65 (+9 je weiterer Stufe).",
           "Normale Werkzeuge erhalten +2/+6/+10 Blockreichweite; RangeReach unterdrückt dieses Attribut für Attraktor und Messuhr, die eigene Wirkungen anwenden.",
-          "Attraktor: Reichweite ergänzt beim gehaltenen Grundradius 3 je Stufe 1,5 Blöcke, bis 7,5 vor dem Serverfaktor. Berührung schaltet Filter frei und erhöht die Reichweite nicht. Abgelegt beträgt die Basisreichweite 6.",
+          "Attraktor: Reichweite ergänzt beim gehaltenen Grundradius 4 je Stufe 2 Blöcke, bis 9 vor dem Serverfaktor. Berührung schaltet Filter frei und erhöht die Reichweite nicht. Abgelegt beträgt die Basisreichweite 8.",
           "Truhen-Loot (nur mit worldGen.enableLootTableChanges): Buch Stufe II in Festungs-Bibliotheken (Gewicht 4, 0 bis 2 Würfe), Buch Stufe III in End-City-Truhen (Gewicht 4, 0 bis 3 Würfe).",
           "Indirekt: Zufällig verzauberte Oktanten (Ancient City Gewicht 2, Nether-Festung Gewicht 1) und Diamant-Vorschlaghämmer (End City Gewicht 8) im Mod-Loot werden mit randomEnchantment() ohne Verzauberungsliste verzaubert und können daher auch Reichweite tragen.",
           "Dorfbewohner-Handel (nur mit enableVillagerTrades): Bibliothekar Stufe 5 (Meister) verkauft für 25 Smaragde ein Buch aus einem Pool, in dem Reichweite I (Gewicht 10), II (Gewicht 10) und III (Gewicht 3) stehen; Werkzeugschmied Stufe 4 verkauft einen Eisen-Vorschlaghammer (16 Smaragde + Eisenspitzhacke) bzw. Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), dessen Verzauberung aus einem Pool gezogen wird, in dem Reichweite I Gewicht 10 hat. Dieselben Pools stehen in der 1.21.11-Linie in ModTradeDefinitions.",
