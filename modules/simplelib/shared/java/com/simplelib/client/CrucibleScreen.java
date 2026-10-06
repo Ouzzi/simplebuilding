@@ -3,7 +3,6 @@ package com.simplelib.client;
 import com.simplelib.crucible.CrucibleBlockEntity;
 import com.simplelib.crucible.CrucibleMenu;
 import com.simplelib.crucible.CrucibleTier;
-import com.simplelib.crucible.HeatLevel;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.ChatFormatting;
@@ -17,14 +16,15 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * Crucible screen, drawn from flat colors like SimpleBuilding's chest screens (no texture per size).
- * Layout v2 (owner addition 11): centred content, heat column and fire strip as sunken fields with a
- * tooltip (heat, afterglow, source two below), the barrel's 9 fields always shown (placeholders with a
- * hint until a barrel is attached).
- * Slot backgrounds show each slot's state (owner 19/20): orange fill rising with the progress while
- * cooking, red when the result has no room, blue when the heat is too low, a green rim on finished
- * results, grey for items without a recipe; reserved places show the coming result faintly. A
- * corner mark repeats every state for colour-blind players. Under the grids an animated "cozy" fire
- * shows the heat (owner 51): low orange flames for medium, tall flames for high, blue for extreme.
+ * Layout v3 (owner feedback 2026-10-06): one contiguous chest-like grid, compact and centred; the 9
+ * fields of an attached barrel appear beside it (with a gap) only while a barrel is attached. No heat
+ * column: pixel flames ({@link CrucibleFlames}) rise behind the slots over the lower part of the
+ * crucible background - lower for medium heat, about a third for high, blue for extreme; hovering
+ * them names the heat. Slot backgrounds show each slot's state (owner 19/20): orange fill rising with
+ * the progress while cooking, red when the result has no room, blue when the heat is too low, a green
+ * rim on finished results, grey for items without a recipe; reserved places show the coming result
+ * faintly. A corner mark repeats every state for colour-blind players.
+ * The image is the larger of both layouts; the current panel is drawn centred inside it.
  */
 public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
     private static final int BACKGROUND = 0xFFC6C6C6, OUTLINE = 0xFF000000, LIGHT = 0xFFFFFFFF, SHADE = 0xFF555555;
@@ -33,30 +33,40 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
     private static final int RED = 0xC0C83C32, BLUE = 0xC0467FD2, GREEN = 0xFF4FA13B, GREY = 0x80505050;
     private static final int GHOST_VEIL = 0xA88B8B8B;
     private static final int LABEL = 0xFF404040;
-    private static final int BARREL_RIM = 0xFF8A4A2F, BARREL_FILL = 0xFFC9825F, EMPTY_FIELD = 0x40000000, ICON_VEIL = 0xB08B8B8B;
-    private static final java.util.function.Supplier<ItemStack> BARREL_ICON = () -> new ItemStack(com.simplelib.registry.LibItems.COPPER_BARREL);
+    private static final int BARREL_RIM = 0xFF8A4A2F, BARREL_FILL = 0xFFC9825F;
 
     private final CrucibleTier tier;
 
     public CrucibleScreen(CrucibleMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, CrucibleMenu.imageWidth(menu.tier()), CrucibleMenu.imageHeight(menu.tier()));
         this.tier = menu.tier();
-        this.inventoryLabelX = CrucibleMenu.inventoryLeft(tier);
-        this.inventoryLabelY = this.imageHeight - 94;
+        applyLabels(layout());
+    }
+
+    private CrucibleMenu.Layout layout() {
+        return CrucibleMenu.layout(tier, menu.barrelAttached());
+    }
+
+    private void applyLabels(CrucibleMenu.Layout l) {
+        titleLabelX = l.x() + 8;
+        titleLabelY = l.y() + 6;
+        inventoryLabelX = l.inventoryLeft();
+        inventoryLabelY = l.inventoryTop() - 11;
     }
 
     @Override
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractBackground(g, mouseX, mouseY, a);
+        CrucibleMenu.Layout l = layout();
+        applyLabels(l);
         int x0 = leftPos, y0 = topPos;
-        panel(g, x0, y0, imageWidth, imageHeight);
-        int fireTop = y0 + CrucibleMenu.fireTop(tier);
-        thermometer(g, x0 + CrucibleMenu.thermoLeft(tier), y0 + CrucibleMenu.GRID_TOP, fireTop + CrucibleMenu.FIRE_HEIGHT - y0 - CrucibleMenu.GRID_TOP);
-        fire(g, x0 + CrucibleMenu.gridLeft(tier), fireTop, CrucibleMenu.gridsWidth(tier), CrucibleMenu.FIRE_HEIGHT, menu.heat());
+        int px = x0 + l.x(), py = y0 + l.y();
+        panel(g, px, py, l.width(), l.height());
+        CrucibleFlames.draw(g, px + 3, py + l.sectionHeight(), l.width() - 6, l.sectionHeight(), menu.heat(), Util.getMillis());
         boolean attached = menu.barrelAttached();
-        int bx = x0 + CrucibleMenu.barrelLeft(tier), by = y0 + CrucibleMenu.GRID_TOP;
         if (attached) {
             // Copper rim around the barrel's fields, like the flange on the block.
+            int bx = x0 + l.barrelLeft(), by = py + CrucibleMenu.GRID_TOP;
             g.fill(bx - 2, by - 2, bx + 56, by + 56, BARREL_RIM);
             g.fill(bx - 1, by - 1, bx + 55, by + 55, BARREL_FILL);
         }
@@ -64,48 +74,42 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
             if (!slot.isActive()) continue;
             int x = x0 + slot.x, y = y0 + slot.y;
             slotFrame(g, x, y);
-            if (slot.index < tier.slots()) slotState(g, slot.index, x, y);
-        }
-        if (!attached) {
-            // Placeholder fields: where an attached barrel's 9 fields go (hint in the tooltip).
-            for (int i = 0; i < 9; i++) {
-                int x = x0 + CrucibleMenu.barrelX(tier, i), y = y0 + CrucibleMenu.barrelY(i);
-                slotFrame(g, x, y);
-                g.fill(x, y, x + 16, y + 16, EMPTY_FIELD);
-            }
+            int index = menu.crucibleIndex(slot);
+            if (index >= 0) slotState(g, index, x, y);
         }
         g.nextStratum();
         if (attached) {
             for (int i = 0; i < 9; i++) {
                 ItemStack ghost = menu.barrelGhost(i);
                 if (ghost.isEmpty() || menu.slots.get(menu.barrelStart() + i).hasItem()) continue;
-                g.fakeItem(ghost, x0 + CrucibleMenu.barrelX(tier, i), y0 + CrucibleMenu.barrelY(i));
+                g.fakeItem(ghost, x0 + l.barrelX(i), y0 + l.barrelY(i));
             }
-        } else {
-            g.fakeItem(BARREL_ICON.get(), x0 + CrucibleMenu.barrelX(tier, 4), y0 + CrucibleMenu.barrelY(4));
         }
         for (int i = 0; i < tier.slots(); i++) {
             ItemStack ghost = menu.ghost(i);
             if (ghost.isEmpty() || menu.slots.get(i).hasItem()) continue;
-            int x = x0 + CrucibleMenu.slotX(tier, i), y = y0 + CrucibleMenu.slotY(tier, i);
-            g.fakeItem(ghost, x, y);
+            g.fakeItem(ghost, x0 + l.slotX(tier, i), y0 + l.slotY(tier, i));
         }
         g.nextStratum();
         if (attached) {
             for (int i = 0; i < 9; i++) {
                 if (menu.barrelGhost(i).isEmpty() || menu.slots.get(menu.barrelStart() + i).hasItem()) continue;
-                int x = x0 + CrucibleMenu.barrelX(tier, i), y = y0 + CrucibleMenu.barrelY(i);
+                int x = x0 + l.barrelX(i), y = y0 + l.barrelY(i);
                 g.fill(x, y, x + 16, y + 16, GHOST_VEIL);
             }
-        } else {
-            int x = x0 + CrucibleMenu.barrelX(tier, 4), y = y0 + CrucibleMenu.barrelY(4);
-            g.fill(x, y, x + 16, y + 16, ICON_VEIL);
         }
         for (int i = 0; i < tier.slots(); i++) {
             if (menu.ghost(i).isEmpty() || menu.slots.get(i).hasItem()) continue;
-            int x = x0 + CrucibleMenu.slotX(tier, i), y = y0 + CrucibleMenu.slotY(tier, i);
+            int x = x0 + l.slotX(tier, i), y = y0 + l.slotY(tier, i);
             g.fill(x, y, x + 16, y + 16, GHOST_VEIL);
         }
+    }
+
+    /** Clicks in the reserved box but outside the current panel count as outside (drop the carried stack). */
+    @Override
+    protected boolean hasClickedOutside(double mx, double my, int xo, int yo) {
+        CrucibleMenu.Layout l = layout();
+        return mx < xo + l.x() || my < yo + l.y() || mx >= xo + l.x() + l.width() || my >= yo + l.y() + l.height();
     }
 
     private void slotState(GuiGraphicsExtractor g, int slot, int x, int y) {
@@ -146,69 +150,12 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         g.fill(x + 12, y + 2, x + 15, y + 4, color);
     }
 
-    /** Heat column, sunken like a slot: three segments (medium .. extreme) lit up to the current heat; afterglow blinks. */
-    private void thermometer(GuiGraphicsExtractor g, int x, int y, int height) {
-        int w = CrucibleMenu.THERMO_WIDTH;
-        inset(g, x, y, w, height);
-        g.fill(x + 1, y + 1, x + w - 1, y + height - 1, 0xFF222222);
-        HeatLevel heat = menu.heat();
-        int levels = HeatLevel.values().length - 1;
-        int segment = (height - 3 - (levels - 1)) / levels;
-        boolean blink = menu.afterglow() > 0 && (Util.getMillis() / 300) % 2 == 0;
-        for (int l = 1; l <= levels; l++) {
-            int bottom = y + height - 2 - (l - 1) * (segment + 1);
-            boolean lit = heat.ordinal() >= l;
-            int color = switch (l) {
-                case 1 -> 0xFFE07B22;
-                case 2 -> 0xFFF2B233;
-                default -> 0xFF4FC3E8;
-            };
-            if (!lit) color = 0xFF3A3A3A;
-            else if (blink) color = (color & 0x00FFFFFF) | 0x90000000;
-            g.fill(x + 2, bottom - segment, x + w - 2, bottom, color);
-        }
-    }
-
-    /** Sunken frame (dark top/left, light bottom/right) as Vanilla draws slots and progress fields. */
-    static void inset(GuiGraphicsExtractor g, int x, int y, int w, int h) {
-        g.fill(x, y, x + w, y + h, SLOT_FILL);
-        g.fill(x, y, x + w - 1, y + 1, SLOT_DARK);
-        g.fill(x, y, x + 1, y + h - 1, SLOT_DARK);
-        g.fill(x + 1, y + h - 1, x + w, y + h, LIGHT);
-        g.fill(x + w - 1, y + 1, x + w, y + h, LIGHT);
-    }
-
-    /** Animated fire strip: flame height and colour follow the heat (owner 51). */
-    private static void fire(GuiGraphicsExtractor g, int x, int y, int width, int height, HeatLevel heat) {
-        inset(g, x, y, width, height);
-        x += 1;
-        y += 1;
-        width -= 2;
-        height -= 2;
-        g.fill(x, y, x + width, y + height, 0xFF2A2420);
-        g.fill(x, y + height - 2, x + width, y + height, 0xFF4A3A30);
-        if (heat == HeatLevel.NONE) return;
-        long t = Util.getMillis() / 90;
-        int max = switch (heat) {
-            case MEDIUM -> height / 2;
-            case HIGH -> height - 2;
-            default -> height - 1;
-        };
-        int outer = heat == HeatLevel.EXTREME ? 0xFF2E7FD6 : 0xFFD8521E;
-        int inner = heat == HeatLevel.EXTREME ? 0xFF8FE3FF : 0xFFF6C24A;
-        for (int col = 0; col < width; col += 2) {
-            int seed = (int) ((col * 7919L + t * 31L + (col / 2) * (t % 7)) % 97);
-            int h = Math.max(1, max - (seed % (max / 2 + 2)));
-            g.fill(x + col, y + height - 2 - h, x + col + 2, y + height - 2, outer);
-            if (h > 2) g.fill(x + col, y + height - 2 - h / 2, x + col + 2, y + height - 2, inner);
-        }
-    }
-
     @Override
     protected List<Component> getTooltipFromContainerItem(ItemStack stack) {
         List<Component> lines = new ArrayList<>(super.getTooltipFromContainerItem(stack));
-        if (hoveredSlot != null && hoveredSlot.index < tier.slots()) {
-            Component state = stateLine(hoveredSlot.index);
+        int index = hoveredSlot == null ? -1 : menu.crucibleIndex(hoveredSlot);
+        if (index >= 0) {
+            Component state = stateLine(index);
             if (state != null) lines.add(state);
         }
         return lines;
@@ -217,12 +164,21 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
     @Override
     protected void extractTooltip(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         super.extractTooltip(g, mouseX, mouseY);
+        int index = hoveredSlot == null ? -1 : menu.crucibleIndex(hoveredSlot);
+        if (index >= 0 && !hoveredSlot.hasItem()) {
+            ItemStack ghost = menu.ghost(index);
+            if (!ghost.isEmpty()) {
+                g.setTooltipForNextFrame(font, List.of(ghost.getHoverName(),
+                        Component.translatable("gui.simplelib.crucible.reserved").withStyle(ChatFormatting.GRAY)), java.util.Optional.empty(), mouseX, mouseY);
+            }
+            return;
+        }
+        if (hoveredSlot != null) return;
+        // Over the flames (or where they would be): the heat, afterglow, source two below.
+        CrucibleMenu.Layout l = layout();
         int mx = mouseX - leftPos, my = mouseY - topPos;
-        int fireTop = CrucibleMenu.fireTop(tier), fireBottom = fireTop + CrucibleMenu.FIRE_HEIGHT;
-        int thermo = CrucibleMenu.thermoLeft(tier), grid = CrucibleMenu.gridLeft(tier);
-        boolean overHeat = my >= CrucibleMenu.GRID_TOP && my < fireBottom && mx >= thermo && mx < thermo + CrucibleMenu.THERMO_WIDTH
-                || my >= fireTop && my < fireBottom && mx >= grid && mx < grid + CrucibleMenu.gridsWidth(tier);
-        if (overHeat) {
+        int flames = Math.max(CrucibleFlames.targetCells(com.simplelib.crucible.HeatLevel.HIGH, l.sectionHeight()) * CrucibleFlames.CELL, 8);
+        if (mx >= l.x() + 3 && mx < l.x() + l.width() - 3 && my >= l.y() + l.sectionHeight() - flames && my < l.y() + l.sectionHeight()) {
             List<Component> lines = new ArrayList<>();
             lines.add(Component.translatable("gui.simplelib.crucible.heat",
                     Component.translatable("gui.simplelib.crucible.heat." + menu.heat().name().toLowerCase(java.util.Locale.ROOT))));
@@ -230,20 +186,6 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
                     (menu.afterglow() + 19) / 20).withStyle(ChatFormatting.GOLD));
             if (menu.twoBelow()) lines.add(Component.translatable("gui.simplelib.crucible.two_below").withStyle(ChatFormatting.GRAY));
             g.setTooltipForNextFrame(font, lines, java.util.Optional.empty(), mouseX, mouseY);
-            return;
-        }
-        int bx = CrucibleMenu.barrelLeft(tier);
-        if (!menu.barrelAttached() && mx >= bx && mx < bx + 54 && my >= CrucibleMenu.GRID_TOP && my < CrucibleMenu.GRID_TOP + 54) {
-            g.setTooltipForNextFrame(font, List.of(Component.translatable("gui.simplelib.crucible.barrel"),
-                    Component.translatable("gui.simplelib.crucible.barrel_hint").withStyle(ChatFormatting.GRAY)), java.util.Optional.empty(), mouseX, mouseY);
-            return;
-        }
-        if (hoveredSlot != null && hoveredSlot.index < tier.slots() && !hoveredSlot.hasItem()) {
-            ItemStack ghost = menu.ghost(hoveredSlot.index);
-            if (!ghost.isEmpty()) {
-                g.setTooltipForNextFrame(font, List.of(ghost.getHoverName(),
-                        Component.translatable("gui.simplelib.crucible.reserved").withStyle(ChatFormatting.GRAY)), java.util.Optional.empty(), mouseX, mouseY);
-            }
         }
     }
 
@@ -262,8 +204,9 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
     protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         super.extractLabels(g, mouseX, mouseY);
         if (tier.stackMultiplier() > 1) {
+            CrucibleMenu.Layout l = layout();
             Component bonus = Component.translatable("gui.simplelib.crucible.stack_bonus", tier.stackMultiplier());
-            g.text(font, bonus, imageWidth - 8 - font.width(bonus), titleLabelY, LABEL, false);
+            g.text(font, bonus, l.x() + l.width() - 8 - font.width(bonus), titleLabelY, LABEL, false);
         }
     }
 

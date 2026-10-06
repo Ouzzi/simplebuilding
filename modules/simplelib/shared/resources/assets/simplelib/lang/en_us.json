@@ -31,7 +31,5 @@
   "gui.simplelib.crucible.heat.high": "high",
   "gui.simplelib.crucible.heat.extreme": "extreme",
   "gui.simplelib.crucible.afterglow": "Afterglow: %s s",
-  "gui.simplelib.crucible.two_below": "Heat source two blocks below: 10% slower",
-  "gui.simplelib.crucible.barrel": "Barrel fields",
-  "gui.simplelib.crucible.barrel_hint": "Place a copper barrel next to the crucible and strike it six times (axe; sledgehammer with SimpleBuilding)"
+  "gui.simplelib.crucible.two_below": "Heat source two blocks below: 10% slower"
 }
