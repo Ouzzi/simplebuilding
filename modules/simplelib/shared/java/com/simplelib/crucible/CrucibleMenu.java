@@ -22,20 +22,32 @@ import org.jetbrains.annotations.Nullable;
  */
 public class CrucibleMenu extends AbstractContainerMenu {
     // Layout v3 (owner feedback 2026-10-06): the crucible slots form one contiguous chest-like grid (3 columns per
-    // grid, no gaps); the 9 fields of an attached barrel sit beside it with a gap and only take room while a barrel is
-    // attached - before that everything is compact and centred. No heat column: the heat shows as flames rising over
-    // the lower third of the crucible part of the background. Title at y 6, grid from y 18, inventory label 11 px above
-    // the inventory, 7 px under the hotbar. Slots cannot move, so the menu holds both layouts (crucible and inventory
-    // slots twice, only the current one active); the screen reserves the larger box and draws the current panel in it.
+    // grid, 18 px pitch); the 9 fields of an attached barrel sit beside it with a gap and only take room while a barrel
+    // is attached - before that everything is compact and centred. Slots cannot move, so the menu holds both layouts
+    // (crucible and inventory slots twice, only the current one active); the screen reserves the larger box and draws
+    // the current panel in it.
+    // N12 (owner, images 3/4): two boxes like image 3 - the crucible box on top (title y 6, grid from y 18, heat below
+    // or beside the grid) and, BOX_GAP below it, a separate inventory box (label 11 px above the inventory, 7 px under
+    // the hotbar).
     public static final int GRID_TOP = 18;
-    /** Room under the slots where the flames show. */
-    public static final int FIRE_ROOM = 8;
+    /** Room under the slots where the flame strip shows (heat style BAND); SLOT only needs a margin. */
+    public static final int FIRE_ROOM = 8, SLOT_ROOM = 6;
     public static final int BARREL_GAP = 10;
     public static final int MARGIN = 8;
+    /** Gap between the crucible box and the inventory box. */
+    public static final int BOX_GAP = 2;
+    /** Heat slot (style SLOT): cell width and gap to the grid. */
+    public static final int HEAT_CELL = 18, HEAT_GAP = 6;
+
+    /** How the heat shows (owner N12 proposals): flame strip behind the slots, or an inset slot filling with flames. */
+    public enum HeatStyle { BAND, SLOT }
+
+    /** Switch for the heat display; SLOT is image 4's proposal (preview crucible-n12-ui.png, variant B). */
+    public static final HeatStyle HEAT_STYLE = HeatStyle.BAND;
 
     /** One panel layout; all positions relative to the reserved box (the screen's image). */
     public record Layout(int x, int y, int width, int height, int gridLeft, int barrelLeft, int sectionHeight,
-                         int inventoryLeft, int inventoryTop) {
+                         int inventoryLeft, int inventoryTop, int heatLeft) {
         public int slotX(CrucibleTier tier, int slot) {
             return gridLeft + 1 + (tier.grid(slot) * CrucibleTier.COLUMNS + tier.column(slot)) * 18;
         }
@@ -51,22 +63,44 @@ public class CrucibleMenu extends AbstractContainerMenu {
         public int barrelY(int slot) {
             return y + GRID_TOP + 1 + slot / 3 * 18;
         }
+
+        /** Top-left of the heat slot (style SLOT), level with the grid's bottom row. */
+        public int heatX() {
+            return heatLeft + 1;
+        }
+
+        public int heatY(CrucibleTier tier) {
+            return y + GRID_TOP + 1 + (tier.rows() - 1) * 18;
+        }
+
+        /** Top of the inventory box. */
+        public int inventoryBoxTop() {
+            return y + sectionHeight + BOX_GAP;
+        }
     }
 
     public static int gridsWidth(CrucibleTier tier) {
         return tier.grids() * CrucibleTier.COLUMNS * 18;
     }
 
+    private static int heatWidth() {
+        return HEAT_STYLE == HeatStyle.SLOT ? HEAT_CELL + HEAT_GAP : 0;
+    }
+
+    private static int contentWidth(CrucibleTier tier, boolean barrel) {
+        return heatWidth() + gridsWidth(tier) + (barrel ? BARREL_GAP + 54 : 0);
+    }
+
     private static int panelWidth(CrucibleTier tier, boolean barrel) {
-        return Math.max(176, gridsWidth(tier) + (barrel ? BARREL_GAP + 54 : 0) + 2 * MARGIN);
+        return Math.max(176, contentWidth(tier, barrel) + 2 * MARGIN);
     }
 
     private static int sectionHeight(CrucibleTier tier, boolean barrel) {
-        return GRID_TOP + Math.max(tier.rows() * 18, barrel ? 54 : 0) + FIRE_ROOM;
+        return GRID_TOP + Math.max(tier.rows() * 18, barrel ? 54 : 0) + (HEAT_STYLE == HeatStyle.SLOT ? SLOT_ROOM : FIRE_ROOM);
     }
 
     private static int panelHeight(CrucibleTier tier, boolean barrel) {
-        return sectionHeight(tier, barrel) + 13 + 76 + 7;
+        return sectionHeight(tier, barrel) + BOX_GAP + 13 + 76 + 7;
     }
 
     /** Width of the reserved box: the wider of both layouts. */
@@ -81,11 +115,11 @@ public class CrucibleMenu extends AbstractContainerMenu {
     public static Layout layout(CrucibleTier tier, boolean barrel) {
         int w = panelWidth(tier, barrel), h = panelHeight(tier, barrel);
         int x = (imageWidth(tier) - w) / 2, y = (imageHeight(tier) - h) / 2;
-        int content = gridsWidth(tier) + (barrel ? BARREL_GAP + 54 : 0);
-        int gridLeft = x + (w - content) / 2;
+        int heatLeft = x + (w - contentWidth(tier, barrel)) / 2;
+        int gridLeft = heatLeft + heatWidth();
         int section = sectionHeight(tier, barrel);
         return new Layout(x, y, w, h, gridLeft, gridLeft + gridsWidth(tier) + BARREL_GAP, section,
-                x + (w - 162) / 2 + 1, y + section + 13);
+                x + (w - 162) / 2 + 1, y + section + BOX_GAP + 13, heatLeft);
     }
 
     private final CrucibleTier tier;

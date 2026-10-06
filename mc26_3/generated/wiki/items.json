@@ -457,6 +457,11 @@
     },
     {
       "durability": 32,
+      "id": "simplebuilding:ceramic_lava_bucket",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 32,
       "id": "simplebuilding:ceramic_water_bucket",
       "maxStackSize": 1
     },

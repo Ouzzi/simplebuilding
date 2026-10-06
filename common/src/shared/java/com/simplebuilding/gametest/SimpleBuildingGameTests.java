@@ -577,6 +577,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_cauldron_world_catalog_matches_the_rules", CrucibleTests::cauldronWorldCatalogMatchesTheRules)
                     .build(),
+            GameTestSpec.named("crucible_game_test_ceramic_lava_bucket_scoops_pours_and_wears", CrucibleTests::ceramicLavaBucketScoopsPoursAndWears)
+                    .build(),
             GameTestSpec.named("crucible_game_test_copper_bucket_rules", CrucibleTests::copperBucketRules)
                     .build(),
             GameTestSpec.named("crucible_game_test_copper_bucket_fully_oxidized_scoops_nothing", CrucibleTests::copperBucketFullyOxidizedScoopsNothing)

@@ -330,7 +330,7 @@ CLAY_FIRED = [hexrgb(c) for c in ('#4f2519', '#6b3324', '#7f3e2c', '#8e4631', '#
 
 def ceramic_bucket(kind, variant='A', content=None):
     """kind 'raw' / 'fired'. Matte: the Vanilla bucket's tones mapped onto the clay ramp, the white glint dropped."""
-    src = p.vanilla('item/' + ('water_bucket' if content == 'water' else 'bucket'))
+    src = p.vanilla('item/' + (content + '_bucket' if content in ('water', 'lava') else 'bucket'))
     liquid = p.liquid_mask(src) if content else np.zeros((16, 16), dtype=bool)
     g = np.array(src)
     material = CLAY_RAW if kind == 'raw' else CLAY_FIRED
@@ -428,6 +428,7 @@ def outputs():
     out[OVERLAY / 'item/raw_ceramic_bucket.png'] = ceramic_bucket('raw', v['ceramic'])
     out[OVERLAY / 'item/ceramic_bucket.png'] = ceramic_bucket('fired', v['ceramic'])
     out[OVERLAY / 'item/ceramic_water_bucket.png'] = ceramic_bucket('fired', v['ceramic'], 'water')
+    out[OVERLAY / 'item/ceramic_lava_bucket.png'] = ceramic_bucket('fired', v['ceramic'], 'lava')  # N12
     for name in cores.CORES:
         out[OVERLAY / f'item/{name}_core.png'] = core_strip(name)
     out[MAIN / 'item/enderite_spear_in_hand.png'] = spear_in_hand_strip()
@@ -508,7 +509,7 @@ def preview(before):
     for v in ('A', 'B'):
         crows.append((f'Keramik {v}{" *" if v == i["ceramic"] else ""}',
                       [('roh', ceramic_bucket('raw', v)), ('gebrannt', ceramic_bucket('fired', v)),
-                       ('Wasser', ceramic_bucket('fired', v, 'water')), ('Kupfer 0 (Vergleich)', p.load(OVERLAY / 'item/copper_bucket_0.png'))]))
+                       ('Wasser', ceramic_bucket('fired', v, 'water')), ('Lava', ceramic_bucket('fired', v, 'lava')), ('Kupfer 0 (Vergleich)', p.load(OVERLAY / 'item/copper_bucket_0.png'))]))
     crows.append(('Vanilla', [('Eimer', p.vanilla('item/bucket')), ('Ziegel', p.vanilla('item/brick')),
                               ('Ton', p.vanilla('item/clay_ball'))]))
     sheet(PREVIEW_CERAMIC, 'Keramik-Eimer: 3 Ton -> roh -> brennen (Ofen/Schmelztiegel); nur Wasser, 32 Einsaetze', crows)
@@ -530,7 +531,8 @@ def preview_7b():
              ('Rucksack', MAIN / 'item/backpack.png', [0]),
              ('Enderit-Rucksack', MAIN / 'item/enderite_backpack.png', [0]),
              ('Keramik-Eimer', OVERLAY / 'item/ceramic_bucket.png', [0]),
-             ('Keramik Wasser', OVERLAY / 'item/ceramic_water_bucket.png', [0])]
+             ('Keramik Wasser', OVERLAY / 'item/ceramic_water_bucket.png', [0]),
+             ('Keramik Lava', OVERLAY / 'item/ceramic_lava_bucket.png', [0])]
     k, cell = 12, 16 * 12 + 40
     rows = []
     for label, path, frames in items:

@@ -2868,7 +2868,7 @@ public final class DataIntegrityTests {
                     com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET,
                     com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET));
             expected.add(List.of(com.simplebuilding.fluid.ModFluids.RAW_CERAMIC_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.CERAMIC_WATER_BUCKET));
+                    com.simplebuilding.fluid.ModFluids.CERAMIC_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_LAVA_BUCKET));
         }
         if (McVersion.MUSIC_DISCS) {
             expected.add(List.of(ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));

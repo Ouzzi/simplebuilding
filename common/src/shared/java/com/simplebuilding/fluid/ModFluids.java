@@ -52,8 +52,8 @@ public final class ModFluids {
     public static Item SOUL_LAVA_BUCKET;
     public static Item COPPER_BUCKET, COPPER_WATER_BUCKET, COPPER_LAVA_BUCKET;
     public static Item ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET;
-    /** Ceramic bucket (owner addition 11): 3 clay -> raw, fired in a furnace or crucible; water only, 32 uses. */
-    public static Item RAW_CERAMIC_BUCKET, CERAMIC_BUCKET, CERAMIC_WATER_BUCKET;
+    /** Ceramic bucket (owner addition 11): 3 clay -> raw, fired in a furnace or crucible; water and (N12) lava, 32 uses. */
+    public static Item RAW_CERAMIC_BUCKET, CERAMIC_BUCKET, CERAMIC_WATER_BUCKET, CERAMIC_LAVA_BUCKET;
 
     public static void registerFluids() {
         if (!McVersion.CRUCIBLE || SOUL_LAVA != null) return;
@@ -94,6 +94,10 @@ public final class ModFluids {
                 p.durability(ModBucketItem.CERAMIC_USES)));
         CERAMIC_WATER_BUCKET = item("ceramic_water_bucket", p -> new ModBucketItem(ModBucketItem.Kind.CERAMIC, Fluids.WATER,
                 p.durability(ModBucketItem.CERAMIC_USES)));
+        // Owner N12: lava too. Fuel like a lava bucket, but no remainder - the clay bucket burns up with its lava
+        // (a fresh empty bucket back would also undo its wear).
+        CERAMIC_LAVA_BUCKET = item("ceramic_lava_bucket", p -> new ModBucketItem(ModBucketItem.Kind.CERAMIC, Fluids.LAVA,
+                McVersion.cookingFuel(p.durability(ModBucketItem.CERAMIC_USES), lava)));
     }
 
     /** All bucket items of this file in creative-tab order, the raw ceramic bucket included (empty on 26.2). */
@@ -101,7 +105,7 @@ public final class ModFluids {
         if (SOUL_LAVA_BUCKET == null) return java.util.List.of();
         return java.util.List.of(COPPER_BUCKET, COPPER_WATER_BUCKET, COPPER_LAVA_BUCKET, SOUL_LAVA_BUCKET,
                 ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET,
-                RAW_CERAMIC_BUCKET, CERAMIC_BUCKET, CERAMIC_WATER_BUCKET);
+                RAW_CERAMIC_BUCKET, CERAMIC_BUCKET, CERAMIC_WATER_BUCKET, CERAMIC_LAVA_BUCKET);
     }
 
     private static Item item(String name, Function<Item.Properties, Item> factory) {
