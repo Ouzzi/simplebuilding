@@ -88,22 +88,25 @@ def inside_uv(element):
     return element
 
 
-# Attached barrel (facing north = towards the crucible), owner feedback 2026-10-06: 1-2 px smaller than the crucible -
-# body x/z 1..15, height 12 (the crucible's rim is at 14), whole textures scaled onto the smaller faces. A flange closes
-# the 2 px to the crucible's belly (z -1..1), a chute rests on its rim and drops onto the barrel.
+# Attached barrel (facing north = towards the crucible). Owner 2026-10-06: smaller than the crucible; owner N12: one
+# more pixel smaller on every axis and closer to the crucible - body 13 x 11 x 13 (x 1.5..14.5, y 0..11, z 0..13, the
+# crucible's rim is at 14), whole textures scaled onto the smaller faces. The flange closes the last pixel to the
+# crucible's belly (z -1..0), a chute rests on the crucible's rim and drops onto the barrel's top.
 def full_uv(element):
     for f in element["faces"].values():
         f["uv"] = [0, 0, 16, 16]
+        f.pop("cullface", None)
     return element
 
 
-DOCKED_BODY = full_uv(cuboid((1, 0, 1), (15, 12, 15), {"down": "#bottom", "up": "#top", "north": "#side", "south": "#side",
-                                                       "west": "#side", "east": "#side"}))
+DOCKED_BODY = full_uv(cuboid((1.5, 0, 0), (14.5, 11, 13), {"down": "#bottom", "up": "#top", "north": "#side", "south": "#side",
+                                                           "west": "#side", "east": "#side"}))
+DOCKED_BODY["faces"]["down"]["cullface"] = "down"
 DOCK = [inside_uv(e) for e in (
-    cuboid((3, 3, -1), (13, 10, 1), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange"}),
-    cuboid((6, 14, -4), (10, 15, 2), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange",
+    cuboid((3, 3, -1), (13, 9, 0), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange"}),
+    cuboid((6, 14, -4), (10, 15, 1), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange",
                                       "south": "#flange"}),
-    cuboid((6, 12, 1), (10, 14, 2), {"north": "#flange", "west": "#flange", "east": "#flange", "south": "#flange"}),
+    cuboid((6, 11, 0), (10, 14, 1), {"north": "#flange", "west": "#flange", "east": "#flange", "south": "#flange"}),
 )]
 
 

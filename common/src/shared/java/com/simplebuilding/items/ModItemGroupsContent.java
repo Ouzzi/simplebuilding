@@ -471,9 +471,10 @@ public final class ModItemGroupsContent {
                     com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, CreativeTabLayout.GAP,
                     com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET,
                     com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET));
-            // Keramik-Eimer (Nachtrag 11): roh, gebrannt, mit Wasser.
+            // Keramik-Eimer (Nachtrag 11): roh, gebrannt, mit Wasser, mit Lava (N12).
             rows.add(CreativeTabLayout.Row.of("ceramic_buckets", com.simplebuilding.fluid.ModFluids.RAW_CERAMIC_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.CERAMIC_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_WATER_BUCKET));
+                    com.simplebuilding.fluid.ModFluids.CERAMIC_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_WATER_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.CERAMIC_LAVA_BUCKET));
         }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Lautsprecher (2026-10-03): Astralit (Plattenspieler), Nihilit (Notenblock).

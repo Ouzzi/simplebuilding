@@ -496,15 +496,14 @@ public final class CrucibleTests {
     }
 
     /**
-     * Ceramic bucket (Nachtrag 11): water only, pours a real source, every scoop and pour costs one of 32 uses, the
+     * Ceramic bucket (Nachtrag 11): water (lava since N12, own test), pours a real source, every scoop and pour costs one of 32 uses, the
      * 32nd use (16th pour) breaks it; 3 clay balls craft the raw bucket, which smelts into the ceramic bucket.
      */
     public static void ceramicBucketHoldsWaterAndWearsOutAfterThirtyTwoUses(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
         ServerLevel level = helper.getLevel();
         floor(helper);
-        helper.assertTrue(ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, Fluids.LAVA) == null
-                && ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, ModFluids.SOUL_LAVA) == null, "ceramic takes lava");
+        helper.assertTrue(ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, ModFluids.SOUL_LAVA) == null, "ceramic takes soul lava");
         helper.assertTrue(ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, Fluids.WATER) == ModFluids.CERAMIC_WATER_BUCKET, "ceramic water");
         helper.assertTrue(new ItemStack(ModFluids.CERAMIC_BUCKET).getMaxDamage() == ModBucketItem.CERAMIC_USES
                 && ModBucketItem.CERAMIC_USES == 32, "32 uses");
@@ -530,6 +529,39 @@ public final class CrucibleTests {
         var input = new net.minecraft.world.item.crafting.SingleRecipeInput(raw);
         ItemStack fired = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMELTING, input, level).orElseThrow().value().assemble(input);
         helper.assertTrue(fired.is(ModFluids.CERAMIC_BUCKET) && fired.getDamageValue() == 0, "raw bucket smelts into the ceramic bucket");
+        helper.succeed();
+    }
+
+    /**
+     * Ceramic lava bucket (owner N12): the empty ceramic bucket scoops lava (one use), pours a real lava source and
+     * comes back worn (no break like copper); soul lava and milk stay refused; it is furnace fuel without a
+     * remainder (burns up) and sits in the creative tab and the filled-bucket JEI info.
+     */
+    public static void ceramicLavaBucketScoopsPoursAndWears(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        floor(helper);
+        helper.assertTrue(ModFluids.CERAMIC_LAVA_BUCKET != null
+                && ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, Fluids.LAVA) == ModFluids.CERAMIC_LAVA_BUCKET, "ceramic lava bucket");
+        helper.assertTrue(ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, ModFluids.SOUL_LAVA) == null, "ceramic takes soul lava");
+        ModBucketItem lava = (ModBucketItem) ModFluids.CERAMIC_LAVA_BUCKET;
+        helper.assertTrue(lava.kind() == ModBucketItem.Kind.CERAMIC && !lava.breaksOnPour(), "ceramic lava breaks on pour");
+        ItemStack bucket = ModBucketItem.fill(new ItemStack(ModFluids.CERAMIC_BUCKET), ModFluids.CERAMIC_LAVA_BUCKET);
+        helper.assertTrue(bucket.is(ModFluids.CERAMIC_LAVA_BUCKET) && bucket.getDamageValue() == 1
+                && bucket.getMaxDamage() == ModBucketItem.CERAMIC_USES, "scoop: " + bucket + " damage " + bucket.getDamageValue());
+        BlockPos target = helper.absolutePos(new BlockPos(3, 1, 3));
+        bucket = lava.pourAt(level, target, bucket);
+        helper.assertTrue(level.getFluidState(target).is(net.minecraft.tags.FluidTags.LAVA) && level.getFluidState(target).isSource(),
+                "ceramic lava makes a lava source");
+        helper.assertTrue(bucket.is(ModFluids.CERAMIC_BUCKET) && bucket.getDamageValue() == 2, "after pour: " + bucket);
+        ItemStack fuel = new ItemStack(ModFluids.CERAMIC_LAVA_BUCKET);
+        boolean burns = fuel.getComponents().keySet().stream().anyMatch(type ->
+                "minecraft:cooking_fuel".equals(String.valueOf(net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(type))));
+        helper.assertTrue(burns, "ceramic lava bucket is no fuel");
+        helper.assertTrue(!fuel.getComponents().keySet().stream().anyMatch(type ->
+                "minecraft:use_remainder".equals(String.valueOf(net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(type)))),
+                "ceramic lava bucket leaves a remainder");
+        helper.assertTrue(ModFluids.buckets().contains(ModFluids.CERAMIC_LAVA_BUCKET), "not in the bucket list");
         helper.succeed();
     }
 

@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 516,
+      "count": 517,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -6375,6 +6375,22 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:ceramic_bucket_from_smelting_raw_ceramic_bucket"
       ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "durability": 32,
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ceramic_lava_bucket",
+      "name": {
+        "en_us": "Ceramic Lava Bucket",
+        "de_de": "Keramik-Lavaeimer"
+      },
+      "texture": "assets/textures/item/ceramic_lava_bucket.png",
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "properties": {
@@ -115090,7 +115106,7 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 460,
+    "items": 461,
     "blocks": 236,
     "recipes": 841,
     "lootTables": 230,

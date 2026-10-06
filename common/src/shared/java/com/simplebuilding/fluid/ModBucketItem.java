@@ -41,8 +41,9 @@ import org.jspecify.annotations.Nullable;
  *   <li><b>Enderite</b>: water, lava and soul lava, never breaks.</li>
  *   <li><b>Iron</b> (only the soul lava bucket here - Vanilla's bucket scoops soul lava itself): breaks when
  *       the soul lava is poured.</li>
- *   <li><b>Ceramic</b> (owner addition 11): fired clay, water only (no lava, no milk), wears out: every scoop
- *       and every pour costs one of its 32 durability points, the 32nd (= the 16th pour) breaks it.</li>
+ *   <li><b>Ceramic</b> (owner addition 11): fired clay, water and (owner N12) lava - real crucibles are ceramic -,
+ *       no soul lava, no milk; wears out: every scoop and every pour costs one of its 32 durability points, the
+ *       32nd (= the 16th pour) breaks it. As furnace fuel the ceramic lava bucket burns up (no remainder).</li>
  * </ul>
  * A fully oxidized copper bucket (stage 3) scoops nothing any more (owner addition 11); pouring one that is
  * already full still works, and the axe/honeycomb care keeps working.
@@ -88,7 +89,7 @@ public class ModBucketItem extends BucketItem {
                 case COPPER -> ModFluids.COPPER_LAVA_BUCKET;
                 case ENDERITE -> ModFluids.ENDERITE_LAVA_BUCKET;
                 case IRON -> Items.LAVA_BUCKET;
-                case CERAMIC -> null; // fired clay cracks in lava
+                case CERAMIC -> ModFluids.CERAMIC_LAVA_BUCKET; // owner N12: fired clay holds lava
             };
         }
         if (fluid.isSame(ModFluids.SOUL_LAVA)) {
