@@ -39,9 +39,9 @@ import org.jetbrains.annotations.Nullable;
  * Trank-Pad I-III (Besitzer 2026-09-28, docs/SIMPLETWEAKS-UEBERNAHME.md Abschnitt 2.4): ein
  * Wurftrank (Splash oder Verweil), der auf dem Pad zerschellt, wird gespeichert und ersetzt den
  * vorigen; ein Wasser-Wurftrank wischt das Pad leer. Wer auf dem Pad steht, bekommt die gespeicherten
- * Wirkungen mit der Verstaerkung des Tranks in drei Schritten (nach 1/2/3 s: 25/50/100 % von 30/60/120 s
- * fuer Stufe I/II/III, die letzte Easter-Stufe 240 s); Sofortwirkungen einmal beim 3-s-Schritt. Der
- * 100-%-Schritt setzt das Pad fuer die doppelte Wirkdauer in die Abklingzeit ({@link #cooldownAt},
+ * Wirkungen mit der Verstaerkung des Tranks in drei Schritten (nach 1/2/3 s: 25/50/100 % von 45/90/180 s
+ * fuer Stufe I/II/III, die letzte Easter-Stufe 360 s); Sofortwirkungen einmal beim 3-s-Schritt. Der
+ * 100-%-Schritt setzt das Pad fuer das 1,5-Fache der Wirkdauer in die Abklingzeit ({@link #cooldownAt},
  * Blockzustand {@link #COOLING} mit animierter Textur), die nur gesetzt weiterlaeuft; abgebaut traegt das
  * Item die Restzeit ({@link TweaksComponents#POTION_PAD_COOLDOWN}). Unbegrenzt haltbar.
  * Ablauf im Detail: {@link PotionPadBlockEntity}.
@@ -63,8 +63,8 @@ public class PotionPadBlock extends PadBlock {
 
     /** Hoechste Stufe. */
     public static final int MAX_TIER = 3;
-    /** Wirkdauer je Stufe in Ticks: 30 s, 60 s, 120 s. */
-    private static final int[] DURATION_TICKS = {30 * 20, 60 * 20, 120 * 20};
+    /** Wirkdauer je Stufe in Ticks: 45 s, 90 s, 180 s. */
+    private static final int[] DURATION_TICKS = {45 * 20, 90 * 20, 180 * 20};
 
     private final int tier;
 
@@ -122,15 +122,15 @@ public class PotionPadBlock extends PadBlock {
 
     /**
      * Wirkdauer des gesetzten Pads: die Stufendauer, bei der letzten Easter-Stufe ({@link EasterEggs})
-     * doppelt so lang (Stufe III: 240 s statt 120 s).
+     * doppelt so lang (Stufe III: 360 s statt 180 s).
      */
     public int effectDurationAt(BlockGetter level, BlockPos pos) {
         return EasterEggs.isBoosted(level, pos) ? 2 * effectDuration() : effectDuration();
     }
 
-    /** Abklingzeit nach dem vollen Schritt: doppelte Wirkdauer des gesetzten Pads (60/120/240 s, Easter-Endstufe 480 s). */
+    /** Abklingzeit nach dem vollen Schritt: das 1,5-Fache der Wirkdauer des gesetzten Pads (I 67,5 s, II 135 s, III 270 s, Easter-Endstufe 540 s). */
     public int cooldownAt(BlockGetter level, BlockPos pos) {
-        // Config tweaks.padTuning.potionPadCooldownFactor (Standard 2 = doppelte Wirkdauer; 0 = keine).
+        // Config tweaks.padTuning.potionPadCooldownFactor (Standard 1,5 = das 1,5-Fache der Wirkdauer; 0 = keine).
         return (int) Math.round(com.simplebuilding.tweaks.SimpleTweaks.config().padTuning.potionPadCooldown()
                 * effectDurationAt(level, pos));
     }

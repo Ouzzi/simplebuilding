@@ -80,7 +80,7 @@ Stimme. Ohne Meldung (Hauptmenü, Server ohne Mod) gilt die eigene Datei. Abweic
 | `tweaks.padTuning.teleporterTier3WarmupTicks` | 100 | Wartezeit Enderit-Spawn-Teleporter III (5 s; ersetzt `enderiteTeleporterWarmupTicks`) |
 | `tweaks.padTuning.launchpadStrengthMultiplier` | 1.0 | Faktor auf den Startrampen-Schub |
 | `tweaks.padTuning.potionPadChargeStepTicks` | 20 | Länge eines Trank-Pad-Ladeschritts |
-| `tweaks.padTuning.potionPadCooldownFactor` | 2.0 | Trank-Pad-Abklingzeit × Wirkdauer (0 = keine) |
+| `tweaks.padTuning.potionPadCooldownFactor` | 1.5 | Trank-Pad-Abklingzeit × Wirkdauer (0 = keine) |
 | `tweaks.laserPointer.chargePerSecond` | 4 | Stab-Ladung je Sekunde Strahlen; alter beamCostPerSecond-Schlüssel ohne Wirkung |
 | `tweaks.laserPointer.effectCost` | 5 | Linsen-Ladung je Wirkung |
 | `tweaks.balancing.echoSounderJumpCooldownTicks` | 480 | Echolot-Abklingzeit nach dem Sprung (24 s; ersetzt `echoSounderCooldownTicks` = 120, neue Namen, damit gespeicherte Altwerte nicht weiter gelten) |

@@ -17,7 +17,7 @@ The existing first-join legacy migration remains separate from cap validation.
 | padTuning.teleporterTier2WarmupTicks | 1–12000 ticks | 400 | Same ceiling, unchanged tier default. |
 | padTuning.teleporterTier3WarmupTicks | 1–12000 ticks | 100 | Same ceiling, unchanged tier default. |
 | padTuning.potionPadChargeStepTicks | 1–1200 ticks | 20 | One minute per step; the three-step counter stays small. |
-| padTuning.potionPadCooldownFactor | 0–10 | 2 | At most ten effect durations, without unbounded multiplication. |
+| padTuning.potionPadCooldownFactor | 0–10 | 1.5 | At most ten effect durations, without unbounded multiplication. |
 | balancing.echoSounderJumpCooldownTicks | 0–12000 ticks | 480 | At most ten minutes, with zero still disabling the cooldown. |
 | balancing.echoSounderAttemptLockTicks | 0–12000 ticks | 100 | Same bounded timer policy. |
 | laserPointer.range | 1–1024 blocks | 512 | Twice the cosmetic default; relay recipients remain limited to 128 blocks and gameplay to server view distance. |

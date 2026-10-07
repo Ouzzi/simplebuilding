@@ -201,7 +201,7 @@ public final class ImmersionTests {
         expectLines(helper, TweaksBlocks.ELYTRA_PAD, "Tier I of III", "Area: 5 x 5 blocks, 5 high");
         expectLines(helper, TweaksBlocks.REINFORCED_FLYPAD, "Tier II of III", "Flight area: 8 x 8 blocks, 16 high", "Flying out gives you Slow Falling");
         expectLines(helper, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "Tier III of III", "Stand still for 5 s: bed or respawn anchor.", "No bed/anchor: spawn.");
-        expectLines(helper, TweaksBlocks.POTION_PAD, "Tier I of III", "Effects: up to 30 s; capped by the potion.", "Cooldown afterward: about 60 s.");
+        expectLines(helper, TweaksBlocks.POTION_PAD, "Tier I of III", "Effects: up to 45 s; capped by the potion.", "Cooldown afterward: about 67.5 s.");
         expectLines(helper, ModBlocks.ENDERITE_FURNACE, "Works 8× as fast", "Double experience");
         expectLines(helper, ModBlocks.REINFORCED_SMOKER, "Works 2× as fast");
         expectLines(helper, ModBlocks.NETHERITE_BLAST_FURNACE, "Works 4× as fast", "Double experience");

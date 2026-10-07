@@ -98,9 +98,9 @@ public final class PotionPadRuleTests {
 
     /**
      * Levels never go above what a vanilla potion brews and durations never above the potion itself
-     * (all on an Infused Potion Pad III, 120 s): Strong Regeneration gives Regeneration II for its own
+     * (all on an Infused Potion Pad III, 180 s): Strong Regeneration gives Regeneration II for its own
      * 22.5 s; a command potion with Resistance V and Swiftness X gives Resistance IV and Swiftness II;
-     * Levitation lasts at most 10 s; an infinite Night Vision gets the tier's 120 s.
+     * Levitation lasts at most 10 s; an infinite Night Vision gets the tier's 180 s.
      *
      * <p>What breaks it: an amplifier or duration cap missing from {@code PotionPadRules} or ignored in
      * {@code grant}.
@@ -108,7 +108,7 @@ public final class PotionPadRuleTests {
     public static void levelsAndDurationsNeverExceedVanillaOrThePotion(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 3.0, 0.5));
-        int tier = 120 * 20;
+        int tier = 180 * 20;
 
         PotionPadBlockEntity regen = place(helper, new BlockPos(1, 1, 1), TweaksBlocks.INFUSED_POTION_PAD, new PotionContents(Potions.STRONG_REGENERATION));
         player.removeAllEffects();
@@ -124,7 +124,7 @@ public final class PotionPadRuleTests {
         MobEffectInstance res = player.getEffect(MobEffects.RESISTANCE);
         MobEffectInstance speed = player.getEffect(MobEffects.SPEED);
         helper.assertTrue(res != null && res.getAmplifier() == 3 && res.getDuration() == tier,
-                "Resistance V on a pad gave " + res + " instead of Resistance IV (strong turtle master) for 120 s");
+                "Resistance V on a pad gave " + res + " instead of Resistance IV (strong turtle master) for 180 s");
         helper.assertTrue(speed != null && speed.getAmplifier() == 1, "Swiftness X on a pad gave " + speed + " instead of Swiftness II");
 
         PotionPadBlockEntity lift = place(helper, new BlockPos(5, 1, 1), TweaksBlocks.INFUSED_POTION_PAD, custom(
@@ -139,15 +139,16 @@ public final class PotionPadRuleTests {
                 new MobEffectInstance(MobEffects.NIGHT_VISION, MobEffectInstance.INFINITE_DURATION, 0)));
         charge(level, endless, player);
         MobEffectInstance nv = player.getEffect(MobEffects.NIGHT_VISION);
-        helper.assertTrue(nv != null && nv.getDuration() == tier, "an infinite night vision on a pad gave " + nv + " instead of the tier's 120 s");
+        helper.assertTrue(nv != null && nv.getDuration() == tier, "an infinite night vision on a pad gave " + nv + " instead of the tier's 180 s");
         helper.succeed();
     }
 
     /**
-     * The cooldown follows what was granted: twice the granted duration times the effect's multiplier.
-     * On a tier III pad: long Night Vision (120 s granted, x0.5) cools 120 s, Strong Regeneration
-     * (22.5 s granted, x1.5) 67.5 s, and Healing (instant, 30 s basis, x2) 120 s - the same as on a tier I
-     * pad, so a better pad never heals less often. The potion stays stored through every cycle.
+     * The cooldown follows what was granted: the config factor (default 1.5) times the granted duration times
+     * the effect's multiplier. On a tier III pad: long Night Vision (180 s granted, x0.5) cools 135 s,
+     * Strong Regeneration (22.5 s granted, x1.5) 1013 ticks (rounding), and Healing (instant, 45 s basis,
+     * x2) 135 s - the same as on a tier I pad, so a better pad never heals less often. The potion stays
+     * stored through every cycle.
      *
      * <p>What breaks it: the cooldown going back to the tier duration, a multiplier missing, or the instant
      * basis depending on the tier.
@@ -157,18 +158,18 @@ public final class PotionPadRuleTests {
         ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 3.0, 0.5));
         PotionPadBlockEntity nightVision = place(helper, new BlockPos(1, 1, 1), TweaksBlocks.INFUSED_POTION_PAD, new PotionContents(Potions.LONG_NIGHT_VISION));
         charge(level, nightVision, player);
-        helper.assertTrue(nightVision.getCooldown() == 2400, "long night vision on tier III cooled " + nightVision.getCooldown() + " ticks instead of 2400");
+        helper.assertTrue(nightVision.getCooldown() == 2700, "long night vision on tier III cooled " + nightVision.getCooldown() + " ticks instead of 2700");
 
         PotionPadBlockEntity regen = place(helper, new BlockPos(3, 1, 1), TweaksBlocks.INFUSED_POTION_PAD, new PotionContents(Potions.STRONG_REGENERATION));
         charge(level, regen, player);
-        helper.assertTrue(regen.getCooldown() == 1350, "strong regeneration on tier III cooled " + regen.getCooldown() + " ticks instead of 1350");
+        helper.assertTrue(regen.getCooldown() == 1013, "strong regeneration on tier III cooled " + regen.getCooldown() + " ticks instead of 1013");
 
         for (Block block : List.of(TweaksBlocks.POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD)) {
             ServerPlayer patient = mockPlayer(helper, new Vec3(0.5, 3.0, 0.5));
             PotionPadBlockEntity heal = place(helper, block == TweaksBlocks.POTION_PAD ? new BlockPos(5, 1, 1) : new BlockPos(5, 1, 4),
                     block, new PotionContents(Potions.HEALING));
             charge(level, heal, patient);
-            helper.assertTrue(heal.getCooldown() == 2400, block + " with healing cooled " + heal.getCooldown() + " ticks instead of 2400");
+            helper.assertTrue(heal.getCooldown() == 2700, block + " with healing cooled " + heal.getCooldown() + " ticks instead of 2700");
         }
 
         // The potion is never used up: after the cooldown the same pad gives the same effect again.
@@ -269,7 +270,7 @@ public final class PotionPadRuleTests {
                     problems.add("a vanilla " + potion.name() + " potion's " + PotionPadRules.id(type) + " level "
                             + (effect.getAmplifier() + 1) + " is clamped to " + (PotionPadRules.amplifier(type, effect.getAmplifier()) + 1));
                 }
-                int full = PotionPadRules.fullDuration(effect, 120 * 20);
+                int full = PotionPadRules.fullDuration(effect, 180 * 20);
                 if (full > Math.max(1, effect.getDuration())) {
                     problems.add("a " + potion.name() + " potion's " + PotionPadRules.id(type) + " lasts " + full
                             + " ticks on a pad, longer than its own " + effect.getDuration());

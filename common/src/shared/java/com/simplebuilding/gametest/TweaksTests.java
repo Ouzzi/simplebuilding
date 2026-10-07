@@ -1144,7 +1144,7 @@ public final class TweaksTests {
                 "pads.enableFilterPlates=true", "pads.enablePotionPads=true",
                 "padTuning.teleporterTier1WarmupTicks=1000", "padTuning.teleporterTier2WarmupTicks=400", "padTuning.teleporterTier3WarmupTicks=100",
                 "padTuning.launchpadStrengthMultiplier=1.0", "padTuning.potionPadChargeStepTicks=20",
-                "padTuning.potionPadCooldownFactor=2.0", "balancing.echoSounderJumpCooldownTicks=480",
+                "padTuning.potionPadCooldownFactor=1.5", "balancing.echoSounderJumpCooldownTicks=480",
                 "balancing.echoSounderAttemptLockTicks=100",
                 "commands.killCommandRadius=100", "optimization.xpClumpRadius=2.0",
                 "laserPointer.chargePerSecond=4", "laserPointer.beamCostPerSecond=1", "laserPointer.effectCost=5",

@@ -60,7 +60,7 @@ public class TweaksConfig {
         padTuning.teleporterTier3WarmupTicks = (int) bounded("padTuning.teleporterTier3WarmupTicks", padTuning.teleporterTier3WarmupTicks, 1, MAX_TELEPORTER_WARMUP_TICKS, 100);
         padTuning.launchpadStrengthMultiplier = bounded("padTuning.launchpadStrengthMultiplier", padTuning.launchpadStrengthMultiplier, 0, MAX_LAUNCHPAD_STRENGTH_MULTIPLIER, 1.0);
         padTuning.potionPadChargeStepTicks = (int) bounded("padTuning.potionPadChargeStepTicks", padTuning.potionPadChargeStepTicks, 1, MAX_POTION_CHARGE_STEP_TICKS, 20);
-        padTuning.potionPadCooldownFactor = bounded("padTuning.potionPadCooldownFactor", padTuning.potionPadCooldownFactor, 0, MAX_POTION_COOLDOWN_FACTOR, 2.0);
+        padTuning.potionPadCooldownFactor = bounded("padTuning.potionPadCooldownFactor", padTuning.potionPadCooldownFactor, 0, MAX_POTION_COOLDOWN_FACTOR, 1.5);
         commands.killCommandRadius = (int) bounded("commands.killCommandRadius", commands.killCommandRadius, 1, MAX_KILL_COMMAND_RADIUS, 100);
         optimization.xpClumpRadius = bounded("optimization.xpClumpRadius", optimization.xpClumpRadius, 0, MAX_XP_CLUMP_RADIUS, 2.0);
         spawn.spawnElytraRadius = (int) bounded("spawn.spawnElytraRadius", spawn.spawnElytraRadius, 1, MAX_SPAWN_ELYTRA_RADIUS, 25);
@@ -147,7 +147,7 @@ public class TweaksConfig {
         public int potionPadChargeStepTicks = 20;
         /** Abklingzeit der Trank-Pads als Vielfaches der Wirkdauer; 0 = keine Abklingzeit. */
         @ConfigEntry.Gui.Tooltip
-        public double potionPadCooldownFactor = 2.0;
+        public double potionPadCooldownFactor = 1.5;
 
         /** Wartezeit des Spawn-Teleporters der Stufe 1..3 (hoeher = 3), mindestens 1 Tick. */
         public int teleporterWarmup(int tier) {
@@ -164,7 +164,7 @@ public class TweaksConfig {
         }
 
         public double potionPadCooldown() {
-            return capped(potionPadCooldownFactor, 0, MAX_POTION_COOLDOWN_FACTOR, 2.0);
+            return capped(potionPadCooldownFactor, 0, MAX_POTION_COOLDOWN_FACTOR, 1.5);
         }
     }
 

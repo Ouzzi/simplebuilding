@@ -11,7 +11,7 @@ verbraucht. Balanciert wird nur ueber vier Hebel:
 
 1. **Wer** bekommt die Wirkung (alle / nur der Besitzer / niemand; Mobs nie).
 2. **Wie stark**: hoechstens die Stufe, die ein Vanilla-Trank braut.
-3. **Wie lange**: Stufendauer (30 / 60 / 120 s, Easter-Endstufe 240 s), aber nie laenger, als der
+3. **Wie lange**: Stufendauer (45 / 90 / 180 s, Easter-Endstufe 360 s), aber nie laenger, als der
    gespeicherte Trank getrunken wirken wuerde, und nie ueber einer festen Obergrenze der Wirkung.
 4. **Wie oft**: Abklingzeit des Pads aus der tatsaechlich gegebenen Dauer, mal Faktor der Wirkung; dazu eine
    Sperre je Spieler ueber alle Pads fuer Heilung, Schaden und Regeneration.
@@ -35,8 +35,8 @@ den Besitzer in die Abklingzeit schicken. Mobs werden nie gesucht (das Pad scann
 - **Volle Dauer** = min(Stufendauer, Dauer im Trank x Anteil, Obergrenze). Anteil ist ueberall 1,0 ("nie laenger
   als getrunken"); eine unendliche Wirkung im Trank hat nur die Stufengrenze.
 - **Stufen** werden auf die Regel-Hoechststufe begrenzt (Befehls-Traenke mit Resistenz V o. ae.).
-- **Abklingzeit** = Config-Faktor (`tweaks.padTuning.potionPadCooldownFactor`, Standard 2,0) x laengste gegebene
-  volle Dauer x Faktor der Wirkung, genommen ueber alle gegebenen Wirkungen. Sofortwirkungen zaehlen als 30 s
+- **Abklingzeit** = Config-Faktor (`tweaks.padTuning.potionPadCooldownFactor`, Standard 1,5) x laengste gegebene
+  volle Dauer x Faktor der Wirkung, genommen ueber alle gegebenen Wirkungen. Sofortwirkungen zaehlen als 45 s
   (unabhaengig von der Stufe - ein besseres Pad heilt nicht seltener). Faktor 0 = keine Abklingzeit; die
   Sperren je Spieler gelten trotzdem.
 - **Sperre je Spieler**: nach einer vollen Ladung bekommt derselbe Spieler dieselbe Wirkung von keinem Pad,
@@ -54,8 +54,8 @@ Abklingzeit.
 | Eile (haste) | - | alle | I | Trank | 1 | - |
 | Abbaulaehmung (mining_fatigue) | - | Besitzer | I | Trank | 1 | - |
 | Staerke (strength) | Strength | alle | II | Trank | 1 | - |
-| Direktheilung (instant_health) | Healing | alle | II | sofort, einmal bei 3 s | 2 (Basis 30 s) | 60 s |
-| Direktschaden (instant_damage) | Harming | Besitzer | II | sofort, einmal bei 3 s | 2 (Basis 30 s) | 60 s |
+| Direktheilung (instant_health) | Healing | alle | II | sofort, einmal bei 3 s | 2 (Basis 45 s) | 60 s |
+| Direktschaden (instant_damage) | Harming | Besitzer | II | sofort, einmal bei 3 s | 2 (Basis 45 s) | 60 s |
 | Sprungkraft (jump_boost) | Leaping | alle | II | Trank | 1 | - |
 | Uebelkeit (nausea) | - | Besitzer | I | Trank | 1 | - |
 | Regeneration | Regeneration | alle | II | Trank | 1,5 | 60 s |
@@ -82,9 +82,9 @@ Abklingzeit.
 
 Begruendungen:
 
-- **Sofortwirkungen** (Heilung/Schaden) wirken nur beim 100-%-Schritt, einmal pro Aufladung; doppelte
-  Abklingzeit auf fester 30-s-Basis (2 min auf jeder Stufe) und 60 s Sperre je Spieler: eine Reihe von Pads kann
-  keine Dauerheilung liefern. Schaden trifft nur den Besitzer (keine Fallen fuer Fremde).
+- **Sofortwirkungen** (Heilung/Schaden) wirken nur beim 100-%-Schritt, einmal pro Aufladung; der
+  Config-Faktor 1,5 auf fester 45-s-Basis (135 s auf jeder Stufe) und 60 s Sperre je Spieler: eine Reihe von
+  Pads kann keine Dauerheilung liefern. Schaden trifft nur den Besitzer (keine Fallen fuer Fremde).
 - **Regeneration** heilt ueber Zeit mehr als Direktheilung: nie laenger als der Trank, 1,5-fache Abklingzeit,
   60 s Sperre gegen Pad-Ketten.
 - **Turtle Master / Resistenz**: Vanilla-Stufen (Resistenz IV, Langsamkeit VI) und die kurze Trankdauer (20 s /
@@ -98,19 +98,19 @@ Begruendungen:
 - **Gesperrt** sind Wirkungen, die kein brauchbarer Trank traegt und die an ihre Quelle gebunden sind (Nahrung,
   Leuchtfeuer, Aquisitor, Raids, Pruefkammern): Saettigung waere Dauer-Essen, Omen wuerden Raids/Pruefungen auf
   Knopfdruck ausloesen, Held des Dorfes Dauerrabatt.
-- **Staerkere/verlaengerte Varianten**: ein langer Trank gibt die volle Stufendauer (8 min > 120 s), ein starker
+- **Staerkere/verlaengerte Varianten**: ein langer Trank gibt die volle Stufendauer (8 min > 180 s), ein starker
   nur seine eigene kurze Dauer (Strong Swiftness II 90 s auch auf Stufe III). Stufen von Befehls-Traenken werden
   auf die Vanilla-Hoechststufe gekappt.
 
-## Beispiele (Config-Faktor 2)
+## Beispiele (Config-Faktor 1,5)
 
 | Pad | Trank | gegeben | Abklingzeit |
 |---|---|---|---|
-| I | Swiftness (3 min) | 30 s | 60 s |
-| III | Long Night Vision (8 min) | 120 s | 120 s (x0,5) |
-| III | Strong Regeneration (22,5 s) | Regeneration II 22,5 s | 67,5 s (x1,5) |
-| I oder III | Healing | +4 HP | 120 s (30 s x 2 x 2) |
-| III | Strong Swiftness (90 s) | Swiftness II 90 s | 180 s |
+| I | Swiftness (3 min) | 45 s | 67,5 s |
+| III | Long Night Vision (8 min) | 180 s | 135 s (x0,5) |
+| III | Strong Regeneration (22,5 s) | Regeneration II 22,5 s | etwa 50,7 s (x1,5) |
+| I oder III | Healing | +4 HP | 135 s (45 s x 1,5 x 2) |
+| III | Strong Swiftness (90 s) | Swiftness II 90 s | 135 s |
 
 ## Stellschrauben
 
