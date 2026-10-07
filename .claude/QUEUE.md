@@ -450,3 +450,16 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **Mehr 0,125er Blöcke** als Erweiterung der Farbpalette: Teile von Vanilla-Blöcken.
 - [ ] **Enderit-Tiegel Stapelgröße:** zeigt 64 statt 128 an. Modifizierte Stapelgrößen als gemeinsame Lösung in simplelib (Anzeige, Slot-Limit, Transfer automatisch konsistent).
 - [ ] **Fass erbt Stapelgröße:** Hat ein Tiegel modifizierte Stapelgröße, hat das angedockte Fass dieselbe.
+
+## Nachtrag 16 (2026-10-07, Besitzer; Screenshot previews/refs-n12/screenshot-n16-eisentiegel.png)
+- [ ] **Tiegel-UI:** gelbe Linie über/auf dem Feuer entfernen (unterer Rand des Flammenbands, siehe Screenshot).
+- [ ] **Tiegel-Logik:** Items, die schon im Tiegel liegen, bevor das Fass angebaut wird, verhalten sich falsch; reservierte Slots und Berechnung spinnen danach. Reproduzieren (GameTest: erst Items einlegen, dann Fass anbauen, Reservierung/Ergebnis-Slots prüfen) und beheben.
+- [ ] **Enderit-Tiegel:** Hinweis „2× Stacks“ entfernen (selbst entdeckbar).
+- [ ] **Fletching Table – Rezeptbuch-GUI neu:** 3 Kategorien (1. Spitze, 2. Stab, 3. Feder); je Kategorie nur die Wahlmöglichkeiten zum Zusammenstellen des Pfeils; je Material sehr kurzer Tooltip mit den Vorteilen.
+- [ ] **UI-Konzepte:** für jede Mod-UI ein Konzept ausarbeiten (Vorschaubilder), Aussehen streng wie Referenzbilder (refs-n12 Bild 3/4, Rahmenmaße aus PLAN-CRUCIBLE-N12B).
+- [ ] **Baulicht:** Motiv nicht mittig → zentrieren.
+- [ ] **Neu: Trapped Copper Chest** (Redstone-Signal wie Vanilla-Trapped-Chest, Kupfer-Stil, Oxidation wie Kupfertruhe falls vorhanden).
+- [ ] **Nihil-Gewölbe:** Doppeltruhen-Größe wie das Astral-Gewölbe.
+- [ ] **Netherit-Shulker:** dunkle Highlights statt heller (Netherit-Farben); dasselbe für alle anderen Netherit-Maschinen/-Blöcke.
+- [ ] **Hängematte wie Leine:** erster Befestigungsklick hängt die Hängematte wie eine Leine (mit Hängematten-Textur) an; Modell sichtbar wie Leine/Lichterketten-Mods während des Ziehens; entfernt man sich z. B. > 10 Blöcke, löst sich die Verbindung von der ersten Seite wieder.
+- [ ] **Senkrecht platzierte Knochen/Stöcke/Ruten** (Diamant-, Lohen-, Böen-Rute …) verbinden sich nicht: übereinander platzierte sollen nahtlos verbunden sein (lang genug, keine Lücke).
