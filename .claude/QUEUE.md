@@ -487,3 +487,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Neue Effekte (zuerst als Tränke): Zittern I/II, Trugbild, Umgekehrtes Trugbild, Verblasst (Graustufen inkl. Inventare, ohne Esc-Menü)
 - [ ] Mob Deceiver: Endgame-Gegner, Name, Tarnumhang, Spawns, Eskalation, Top-Animationen (Kupfergolem-Vorbild) – Konzept freigegeben, Umsetzung offen
 - [ ] Später: Furcht-Mob (extrem stark, verursacht Zittern) – Konzept folgt
+
+## Nachtrag 21 (2026-10-07, Besitzer)
+- [ ] **Enderit-Eimer:** Kapazität genau 2 Eimer. Rechtsklick nur aufnehmen; wenn voll, Rechtsklick platziert wieder. Schleich-Rechtsklick platziert einen halben Eimer (nicht einen vollen). Seelenlava nur einfach aufnehmbar (begrenzt, hebt sich ab). Eigene Texturen für die Zwischenstufen (halbvoll je Flüssigkeit).
+- [ ] **Enderit-Speer:** statt des Eimer-Glanzes die hellen Glimmerpunkte auf der Enderit-Textur wie Schwert und die übrigen Enderit-Werkzeuge.
+- [ ] **Puppen/Ständer:** mehrere Interaktionen Spieler ↔ Trainingspuppe/Ständer sind unsauber oder funktionieren nicht (z. B. Speer) – inventarisieren, reproduzieren (GameTests), beheben.
+- [ ] **XP-Orbs:** bei Nutzung ähnliche Animation wie die Kerne (gleiches Prinzip, eigene Bewegung).
+- [ ] **Prinzip Entdeckbarkeit:** Jedes herstellbare oder umwandelbare Item soll in erster Linie intuitiv sein und zusätzlich im Spiel gehintet werden (z. B. Tiegel in Dörfern mit erloschenem Lagerfeuer zeigt die Nutzung). Crafting/Umwandlungen bisher nirgends gehintet → Konzept erarbeiten (Ideen: Bücher in Struktur-Truhen, Bilderrahmen/Gemälde mit Rezept, Dorfbewohner-Werkstätten als Vorführung, Fortschritts-Hinweise, Guide-Seiten). Erst Konzept vorlegen.
