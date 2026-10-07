@@ -485,4 +485,5 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 20 (2026-10-07, Besitzer) – Konzept: docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md
 - [ ] Simple Maps: Rezept A + seltene Fundorte (auch Nether-/End-Karte) – in PLAN-N18 festgehalten
 - [ ] Neue Effekte (zuerst als Tränke): Zittern I/II, Trugbild, Umgekehrtes Trugbild, Verblasst (Graustufen inkl. Inventare, ohne Esc-Menü)
-- [ ] Mob Deceiver (Konzept, Fragen D1–D4) – erst nach Besitzer-Freigabe umsetzen
+- [ ] Mob Deceiver: Endgame-Gegner, Name, Tarnumhang, Spawns, Eskalation, Top-Animationen (Kupfergolem-Vorbild) – Konzept freigegeben, Umsetzung offen
+- [ ] Später: Furcht-Mob (extrem stark, verursacht Zittern) – Konzept folgt

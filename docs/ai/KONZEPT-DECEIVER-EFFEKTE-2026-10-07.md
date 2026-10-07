@@ -51,3 +51,13 @@ Größenklassen für Mirage: klein (Silberfisch, Huhn, Kaninchen), mittel (Schwe
 - D2: Drop-Liste und ob Tarn-Umhang gewünscht.
 - D3: Spawn-Orte (Vorschlag oben) und Häufigkeit.
 - D4: Soll er auch in Dörfern friedlich auftauchen (als Dorfbewohner getarnt)?
+
+## Besitzer-Entscheidungen (2026-10-07)
+- **D1:** Name „Deceiver“.
+- **D2:** Tarnumhang als Drop gewünscht.
+- **D3/D4:** ja – selten nachts in dunklen Wäldern und an Plünderer-Außenposten; auch in Dörfern als Dorfbewohner getarnt.
+- **Endgame-Gegner, sehr schwer, Skill-basiert:** größere Wellen als im Entwurf. Je weniger Leben, desto höher die Wahrscheinlichkeit für stärkere Mobs (z. B. gepanzerte Zombies/Skelette mit Verzauberungen, Hexen, Vindicators, Evoker bei < 33 %), teils mit Statuseffekten (Stärke, Schnelligkeit, Resistenz). Überarbeitete Eskalation: 100–66 %: 5–8 Mobs, Grundstufe; 66–33 %: 8–12, Mittelstufe + Effekte; < 33 %: 12–16, Starkstufe mit Effekten, echte-Mob-Chance steigt auf 25 %. Obergrenze gleichzeitig lebender beschworener Mobs (Config, harte Grenze) gegen Lag/Exploits.
+- **Animationen:** besonders hochwertig, befriedigend und cool (Verwandlung, Teleport, Beschwörung, Trinken, Enttarnung beim Treffer), Vorbild: Kupfergolem-Animationen.
+
+## Später: „Furcht“-Mob (Platzhalter)
+Ein Mob, der extrem stark aussieht und extrem stark ist; in seiner Nähe bekommt der Spieler den Effekt **Zittern** (Angst). Konzept folgt später.
