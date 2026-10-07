@@ -61,3 +61,29 @@ Größenklassen für Mirage: klein (Silberfisch, Huhn, Kaninchen), mittel (Schwe
 
 ## Später: „Furcht“-Mob (Platzhalter)
 Ein Mob, der extrem stark aussieht und extrem stark ist; in seiner Nähe bekommt der Spieler den Effekt **Zittern** (Angst). Konzept folgt später.
+
+## Furcht-Mob – Vorschläge (2026-10-07, zur Besitzer-Entscheidung)
+Gemeinsam: Aura im Umkreis 16 Blöcke gibt **Zittern** (I ab Sichtkontakt, II unter 6 Blöcken); Milch hilft nur kurz, da Aura nachlegt. Endgame, kein natürlicher Massen-Spawn.
+
+**F-A „Dread“ (Schreckensritter) – Overworld, Tiefe/Antike Städte**
+- Erscheinung: 2,6 Blöcke, verrostete schwere Rüstung, leerer Helm mit Seelenflammen, schleift eine riesige Kettenkeule.
+- Kampf: langsam, aber jeder Treffer 18+ Schaden mit Rückstoß; Bodenstampfer (Ring-Schockwelle, Springen weicht aus); zerbricht Schilde für 10 s.
+- Furcht: Fadenkreuz-Zittern macht Bogen/Armbrust ungenau → zwingt in den Nahkampf oder in Deckung.
+- Schwäche: Licht – in hell beleuchtetem Bereich (Licht ≥ 12) nur halber Schaden, Aura nur Stufe I.
+- Drop: Schreckens-Kettenglied → Ruhe-Amulett (Immunität gegen Zittern).
+
+**F-B „Wraithmaw“ (Höhlenschlund) – Nether, Seelensandtäler**
+- Erscheinung: schwebender Schädel-Schlund aus Seelenfeuer, lange Kiefer, Ketten hängen herab.
+- Kampf: saugt Spieler an (Gegenkraft wie Strömung), Biss + Seelenbrand (nutzt vorhandenen Seelenbrand-Effekt); spuckt Seelenkugeln, die Zittern verstärken.
+- Furcht: Bildschirmrand dunkelt mit sinkendem Abstand ab, Herzschlag-Sound.
+- Schwäche: Wasserflaschen/Regen-Trank lässt ihn kurz verlöschen (5 s verwundbar doppelt).
+- Drop: Schlundzahn → Waffe mit Lebensraub.
+
+**F-C „Hollow Watcher“ (Hohler Wächter) – End, Außeninseln, nahe Fake-Gateways**
+- Erscheinung: 4 Blöcke hoher, dürrer Schatten mit vielen Augen, Endstein-Splitter im Körper; bewegt sich nur, wenn man ihn nicht ansieht (Gegenstück zum Enderman).
+- Kampf: Teleport-Sprünge hinter den Spieler, Griff (hält 2 s fest), Schrei → Zittern II + Blindheit kurz.
+- Furcht: Zittern wird stärker, je länger man wegschaut; Ansehen hält ihn an, aber Zittern steigt trotzdem.
+- Schwäche: Fernrohr-Blick friert ihn 3 s ein (Synergie mit Deceiver-Idee); Kürbis schützt nicht.
+- Drop: Wächterauge → Trank „Fokus“ (Zittern-Immunität 3 min) oder Endgame-Kompass zu Gateways.
+
+Empfehlung: **F-C** passt zu den neuen End-Inhalten (Shellker, Fake-Gateways, Wracks) und spielt mit Blickmechanik ähnlich Deceiver; **F-A** wäre der „extrem stark aussehende“ Klassiker für die Overworld.
