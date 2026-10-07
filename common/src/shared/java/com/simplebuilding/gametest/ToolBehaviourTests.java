@@ -2,6 +2,7 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.items.custom.MagnetItem;
 import com.simplebuilding.util.InWorldTransformations;
 import com.simplebuilding.util.MiningUtils;
 import com.simplebuilding.util.ShearsWoolInteraction;
@@ -675,9 +676,11 @@ public final class ToolBehaviourTests {
      *       is a player sucking back what they just threw, which vanilla puts a 40 tick delay
      *       on.</li>
      *   <li><strong>Where the base range ends.</strong> The two probes below straddle the computed
-     *       edge of the magnet's box by 0.15 of a block, which pins the base range of 3.0 to
-     *       within that. The pair used by the pickup run further down is 3 and roughly 8.5 blocks
-     *       out and leaves the range free to be anything between about 2.8 and 5.7.</li>
+     *       edge of the magnet's box by 0.15 of a block, so they fail whenever the box stops being
+     *       the player's own box inflated by {@link MagnetItem#BASE_RANGE}. The number itself is
+     *       held by {@code MagnetTests}. The pair used by the pickup run further down is 3 and
+     *       roughly 8.5 blocks out and leaves the range free to be anything between about 2.8
+     *       and 5.7.</li>
      * </ul>
      *
      * <p><strong>Not covered:</strong> the boosted range a Constructor's Touch magnet gets and the
@@ -770,7 +773,7 @@ public final class ToolBehaviourTests {
         ItemEntity ruler = helper.spawnItem(Items.IRON_INGOT, new Vec3(1.5, 1.5, 1.5));
         double itemHalfWidth = ruler.getBoundingBox().getXsize() / 2.0;
         ruler.discard();
-        double edge = 1.5 + player.getBoundingBox().getXsize() / 2.0 + 3.0 + itemHalfWidth;
+        double edge = 1.5 + player.getBoundingBox().getXsize() / 2.0 + MagnetItem.BASE_RANGE + itemHalfWidth;
 
         ItemEntity justInside = helper.spawnItem(Items.IRON_INGOT, new Vec3(edge - 0.15, 1.5, 1.5));
         ItemEntity justOutside = helper.spawnItem(Items.IRON_INGOT, new Vec3(edge + 0.15, 1.5, 1.5));
@@ -782,10 +785,11 @@ public final class ToolBehaviourTests {
 
         helper.assertTrue(justInside.getDeltaMovement().lengthSqr() > 0.0,
                 "an item 0.15 of a block inside the magnet's base range was not pulled; the range "
-                        + "shrank below 3.0");
+                        + "shrank below " + MagnetItem.BASE_RANGE);
         helper.assertTrue(justOutside.getDeltaMovement().lengthSqr() == 0.0,
                 "an item 0.15 of a block outside the magnet's base range was pulled anyway, its "
-                        + "motion is " + justOutside.getDeltaMovement() + "; the range grew past 3.0");
+                        + "motion is " + justOutside.getDeltaMovement() + "; the range grew past "
+                        + MagnetItem.BASE_RANGE);
         justInside.discard();
         justOutside.discard();
 

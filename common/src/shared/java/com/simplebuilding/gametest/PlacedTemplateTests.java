@@ -654,7 +654,7 @@ public final class PlacedTemplateTests {
         ItemEntity near = new ItemEntity(level, nearPos.x, nearPos.y, nearPos.z, new ItemStack(Items.COBBLESTONE), 0.0, 0.0, 0.0);
         near.setPickUpDelay(40);
         level.addFreshEntity(near);
-        Vec3 farPos = helper.absoluteVec(new Vec3(7.0, 2.2, 5.5));
+        Vec3 farPos = helper.absoluteVec(new Vec3(7.5, 2.2, 7.5));
         ItemEntity far = new ItemEntity(level, farPos.x, farPos.y, farPos.z, new ItemStack(Items.DIRT), 0.0, 0.0, 0.0);
         far.setPickUpDelay(40);
         level.addFreshEntity(far);
