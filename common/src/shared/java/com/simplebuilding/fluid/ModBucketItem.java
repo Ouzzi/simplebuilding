@@ -217,9 +217,11 @@ public class ModBucketItem extends BucketItem {
             if (care != null) return care;
         }
         if (getContent() == Fluids.EMPTY) return scoop(level, player, hand, stack);
+        // super.use consumes the held stack (createFilledResult), so the follow-up is built from a copy.
+        ItemStack poured = stack.copy();
         InteractionResult result = super.use(level, player, hand);
         if (result instanceof InteractionResult.Success success && !player.hasInfiniteMaterials()) {
-            ItemStack after = afterPour(stack);
+            ItemStack after = afterPour(poured);
             if (after.isEmpty()) {
                 level.playSound(null, player.blockPosition(), SoundEvents.ITEM_BREAK.value(), SoundSource.PLAYERS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
                 return InteractionResult.SUCCESS.heldItemTransformedTo(ItemStack.EMPTY);
