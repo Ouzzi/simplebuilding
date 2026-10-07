@@ -1309,8 +1309,10 @@ public final class TrimWiringTests {
             // /simplebuilding tweaks ... haengt der Simple-Tweaks-Teil an denselben Knoten.
             com.simplebuilding.tweaks.command.TweaksCommands.register(reference);
             CommandSourceStack source = player.createCommandSourceStack();
-            helper.assertValueEqual(List.of(dispatcher.getAllUsage(live, source, false)),
-                    List.of(reference.getAllUsage(reference.getRoot().getChild("simplebuilding"), source, false)),
+            // Sorted: the loaders register the tweaks and config branches in different orders.
+            helper.assertValueEqual(java.util.Arrays.stream(dispatcher.getAllUsage(live, source, false)).sorted().toList(),
+                    java.util.Arrays.stream(reference.getAllUsage(reference.getRoot().getChild("simplebuilding"), source, false))
+                            .sorted().toList(),
                     "usage of the live /simplebuilding subtree against the one SimplebuildingCommand builds");
 
             // --- without operator rights the subtree is not even reachable ---
