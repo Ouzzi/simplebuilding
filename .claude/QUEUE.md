@@ -477,3 +477,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Sandwiches appetitlicher (Vorschau-Varianten)
 - [ ] 0,125er-Blöcke: maximale Stapelgröße 128
 - Grundsatz festgehalten: Konsistenz zwischen allen Simple-Mods, Gemeinsames in simplelib, UI-Bausteine (inkl. Kontextmenü) dokumentieren (docs/ai/UI-BAUSTEINE.md anlegen)
+
+## Nachtrag 19 (2026-10-07, Besitzer)
+- [ ] **Stufen für Kistenboote, Kistenloren (Chest Boat / Chest Minecart) und Ofenloren (Furnace Minecart)** – analog zu den Truhen-/Ofen-Stufen (Verstärkt/Netherit/Enderit): mehr Slots bzw. Ofenlore mit stärkerem Antrieb/Brenndauer; Rezepte per Schmiedetisch wie die übrigen Stufen, Kreativtab, JEI, Wiki.
+- [ ] **0,125er-Block (Achtel) für jeden Block, der Stufen und Treppen hat** (Vanilla + Mod), ohne Schachfiguren. Generator-basiert (Datagen), Stapelgröße 128 (siehe N18), Kreativtab-Einordnung neben Stufe/Treppe.
