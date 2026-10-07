@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class PlacedAttractors {
     /** Reichweite in Bloecken (Kugel um die Mitte der Platte), vor dem Config-Faktor. */
-    public static final double RANGE = 6.0;
+    public static final double RANGE = 8.0;
     /** Ticks zwischen zwei Zuegen. */
     public static final int INTERVAL = 2;
     /** Zug pro Intervall in Bloecken/Tick. */

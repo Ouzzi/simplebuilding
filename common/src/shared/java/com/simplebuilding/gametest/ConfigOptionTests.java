@@ -630,7 +630,7 @@ public final class ConfigOptionTests {
             "server.soulLava.tickDelayOverworld int=45",
             "server.soulLava.tickDelayNether int=20",
             "server.soulLava.burnSeconds int=30",
-            "server.soulLava.soulBurnSeconds int=60",
+            "server.soulLava.soulBurnSeconds int=120",
             "server.soulLava.soulBurnIntervalTicks int=60",
             "server.soulLava.soulBurnChance double=0.5",
             "server.soulLava.fuelMultiplier int=10",
@@ -692,9 +692,9 @@ public final class ConfigOptionTests {
             "tweaks.padTuning.teleporterTier3WarmupTicks int=100",
             "tweaks.padTuning.launchpadStrengthMultiplier double=1.0",
             "tweaks.padTuning.potionPadChargeStepTicks int=20",
-            "tweaks.padTuning.potionPadCooldownFactor double=2.0",
+            "tweaks.padTuning.potionPadCooldownFactor double=1.5",
             "tweaks.laserPointer.enable boolean=true",
-            "tweaks.laserPointer.color int=16711680",
+            "tweaks.laserPointer.color int=11767539",
             "tweaks.laserPointer.scale float=0.25",
             "tweaks.laserPointer.range int=512",
             "tweaks.laserPointer.beamCostPerSecond int=1",
@@ -1688,10 +1688,10 @@ public final class ConfigOptionTests {
             tickPotionPad(helper, none, 15);
             helper.assertFalse(noCooldown.isCoolingDown(), "cooldown factor 0 still put the pad on a cooldown of " + noCooldown.getCooldown());
 
-            tweaks.padTuning.potionPadCooldownFactor = 2.0;
+            tweaks.padTuning.potionPadCooldownFactor = 1.5;
             helper.assertTrue(((com.simplebuilding.tweaks.block.PotionPadBlock) com.simplebuilding.tweaks.block.TweaksBlocks.POTION_PAD)
-                            .cooldownAt(helper.getLevel(), helper.absolutePos(none)) == 2 * full,
-                    "the default cooldown factor no longer gives twice the effect duration");
+                            .cooldownAt(helper.getLevel(), helper.absolutePos(none)) == full * 3 / 2,
+                    "the default cooldown factor no longer gives one and a half times the effect duration");
 
             // --- tweaks.padTuning.teleporterTier1/2/3WarmupTicks (drei Stufen seit 2026-09-28) ---
             int enderiteTier = com.simplebuilding.tweaks.block.SpawnTeleporterBlock.ENDERITE_TIER;

@@ -240,10 +240,8 @@ public final class EasterEggs {
      */
     public static List<Step> steps(Family family) {
         List<Block> tiers = TweaksFamilies.tiers(family);
-        List<Item> any = anyTemplate();
         List<Item> netherite = List.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE);
         List<Item> enderite = List.of(ModItems.ENDERITE_UPGRADE_TEMPLATE);
-        Item diamondPlate = TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem();
         Item netheritePlate = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
         Item enderitePlate = TweaksBlocks.ENDERITE_PRESSURE_PLATE.asItem();
 
@@ -252,11 +250,10 @@ public final class EasterEggs {
         List<List<Item>> additions = new ArrayList<>();
         switch (family) {
             case ELYTRA_PAD -> {
+                // Drei Stufen seit 2026-10-07; Einstieg = Diamantkern + Elytra, dann die normalen Aufwertungen.
                 add(templates, additions, List.of(ModItems.DIAMOND_CORE), Items.ELYTRA);
-                add(templates, additions, any, diamondPlate);
                 add(templates, additions, netherite, netheritePlate);
                 add(templates, additions, enderite, enderitePlate);
-                add(templates, additions, netherite, Items.NETHER_STAR);
             }
             case FLYPAD -> {
                 add(templates, additions, List.of(ModItems.ENDERITE_CORE), TweaksItems.SHULKER_HEAD);

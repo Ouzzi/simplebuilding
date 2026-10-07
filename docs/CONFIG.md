@@ -80,9 +80,10 @@ Stimme. Ohne Meldung (Hauptmenü, Server ohne Mod) gilt die eigene Datei. Abweic
 | `tweaks.padTuning.teleporterTier3WarmupTicks` | 100 | Wartezeit Enderit-Spawn-Teleporter III (5 s; ersetzt `enderiteTeleporterWarmupTicks`) |
 | `tweaks.padTuning.launchpadStrengthMultiplier` | 1.0 | Faktor auf den Startrampen-Schub |
 | `tweaks.padTuning.potionPadChargeStepTicks` | 20 | Länge eines Trank-Pad-Ladeschritts |
-| `tweaks.padTuning.potionPadCooldownFactor` | 2.0 | Trank-Pad-Abklingzeit × Wirkdauer (0 = keine) |
+| `tweaks.padTuning.potionPadCooldownFactor` | 1.5 | Trank-Pad-Abklingzeit × Wirkdauer (0 = keine) |
 | `tweaks.laserPointer.chargePerSecond` | 4 | Stab-Ladung je Sekunde Strahlen; alter beamCostPerSecond-Schlüssel ohne Wirkung |
 | `tweaks.laserPointer.effectCost` | 5 | Linsen-Ladung je Wirkung |
+| `tweaks.laserPointer.color` | `0xB38EF3` | Laserfarbe des Resonanzstabs (Amethyst hell, aus der Amethyst-Rampe des Textur-Skripts) |
 | `tweaks.balancing.echoSounderJumpCooldownTicks` | 480 | Echolot-Abklingzeit nach dem Sprung (24 s; ersetzt `echoSounderCooldownTicks` = 120, neue Namen, damit gespeicherte Altwerte nicht weiter gelten) |
 | `tweaks.commands.killCommandRadius` | 100 | Reichweite von `/killboats`, `/killcarts` |
 | `tweaks.optimization.xpClumpRadius` | 2.0 | Einsammel-Radius der XP-Kugeln |
@@ -152,7 +153,7 @@ Zugriff abgesichert. Defaults und Optionspfade bleiben erhalten; alle sechs wirk
 | Pfad | Bereich | Standard |
 |---|---|---|
 | `tools.wandHungerMultiplier` | 0–10 | 1 |
-| `tools.magnetRangeMultiplier` | 0–4; absolut weiterhin höchstens 12 Blöcke | 1 |
+| `tools.magnetRangeMultiplier` | 0–4; absolut weiterhin höchstens 15 Blöcke | 1 |
 | `tools.rotatorChargePerTurn` | 0–4096 | 1 |
 | `worldGen.buildingCoreLootChanceMultiplier` | 0–1000; höchstens ein Kern je Kiste | 1 |
 | `tweaks.laserPointer.chargePerSecond` | 0–2560 | 4 |
@@ -196,11 +197,13 @@ Alle Werte sind serverseitig und werden auf folgende Grenzen beschränkt:
 | `tickDelayOverworld` | 45 | 20..200 |
 | `tickDelayNether` | 20 | 10..200 |
 | `burnSeconds` | 30 | 5..60 |
-| `soulBurnSeconds` | 60 | 5..300 |
+| `soulBurnSeconds` | 120 | 5..300 |
 | `soulBurnIntervalTicks` | 60 | 20..200 |
 | `soulBurnChance` | 0.5 | 0.0..1.0 |
 | `fuelMultiplier` | 10 | 1..20 |
 | `springChance` | 0.005 | 0.0..0.05 |
 | `fortressChance` | 0.1 | 0.0..0.5 |
+
+Seelenbrand läuft `soulBurnSeconds` lang und würfelt alle `soulBurnIntervalTicks` mit `soulBurnChance` um 1 Feuerschaden. Auf kaltem Grund (Wasser, Eis oder Schnee unter den Füßen) halbiert sich das Intervall, der Brand beißt also doppelt so oft; das Intervall wird nie kleiner als 1 Tick.
 
 `fuelMultiplier` multipliziert 20.000 Ticks und wird bei der Item-Registrierung gelesen: Neustart und gleiche Modpack-Config auf Server und Client erforderlich. Normale Lava-Eimer bleiben bei 20.000 Ticks. Alle anderen Werte werden zur Laufzeit gelesen; bereits geplante Fluid-Ticks behalten zunächst ihre Verzögerung. Auf 26.2 ist keine Seelen-Lava registriert.

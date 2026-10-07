@@ -132,11 +132,11 @@ public final class TweaksEasterTests {
         helper.assertTrue(capacity == 4, "'Don't do it' (launchpad) holds " + capacity + " wind charges instead of tier I's 4");
         helper.setBlock(launch, Blocks.AIR);
 
-        // Wirkt wie Stufe I: das Trank-Pad gibt 30 s, nicht 120 s (Endstufe) und nicht 240 s.
+        // Wirkt wie Stufe I: das Trank-Pad gibt 45 s, nicht 180 s (Endstufe) und nicht 360 s.
         BlockPos potion = new BlockPos(3, 1, 7);
         placeFromItem(helper, player, EasterEggs.create(Family.POTION_PAD, 1), potion);
         int potionTicks = ((PotionPadBlock) helper.getBlockState(potion).getBlock()).effectDurationAt(helper.getLevel(), helper.absolutePos(potion));
-        helper.assertTrue(potionTicks == 30 * 20, "'Don't do it' (potion pad) gives effects for " + potionTicks + " ticks instead of tier I's 600");
+        helper.assertTrue(potionTicks == 45 * 20, "'Don't do it' (potion pad) gives effects for " + potionTicks + " ticks instead of tier I's 900");
         helper.setBlock(potion, Blocks.AIR);
 
         // Amboss: ein umbenanntes normales Pad bleibt ein normales Pad.
@@ -201,7 +201,7 @@ public final class TweaksEasterTests {
                 problems.add(family + " has " + stages + " easter stages instead of " + Math.min(5, tiers.size()));
             }
         }
-        helper.assertTrue(EasterEggs.stageCount(Family.FLYPAD) == 3 && EasterEggs.stageCount(Family.ELYTRA_PAD) == 5,
+        helper.assertTrue(EasterEggs.stageCount(Family.FLYPAD) == 3 && EasterEggs.stageCount(Family.ELYTRA_PAD) == 3,
                 "the flypad chain has " + EasterEggs.stageCount(Family.FLYPAD) + " stages, the elytra pad chain " + EasterEggs.stageCount(Family.ELYTRA_PAD));
 
         Map<String, String> english = Map.of(EasterEggs.stageNameKey(1), "Don't do it", EasterEggs.stageNameKey(2), "Seriously?",
@@ -248,19 +248,19 @@ public final class TweaksEasterTests {
      * Die letzte Easter-Stufe ist doppelt so stark wie die Endstufe: Elytra-Pad und Flypad doppelt so
      * breit und hoch (echter Durchlauf mit einem Spieler oberhalb der normalen Hoehe), Launchpad fasst 32
      * Windkugeln, Chunk-Loader haelt 5x5 Chunks, Spawn-Teleporter wartet halb so lange, Trank-Pad gibt
-     * 240 s statt 120 s. Zwischenstufen wirken wie ihre normale Stufe. Das Trank-Pad behaelt beim Abbauen
+     * 360 s statt 180 s. Zwischenstufen wirken wie ihre normale Stufe. Das Trank-Pad behaelt beim Abbauen
      * und Wiedersetzen Easter-Stufe und gespeicherten Trank.
      */
     public static void theFinalEasterPadIsTwiceAsStrongAsTheLastTier(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
 
-        // Elytra-Pad V: 128 -> 256 breit, 127 -> 254 hoch. Kein Durchlauf mit Spielern: der doppelte
-        // Bereich reicht 127 Bloecke weit und wuerde den Spielern der Nachbartests Elytren anziehen.
+        // Elytra-Pad III (Enderit): 128 -> 256 breit, 192 -> 384 hoch. Kein Durchlauf mit Spielern: der doppelte
+        // Bereich reicht 192 Bloecke weit und wuerde den Spielern der Nachbartests Elytren anziehen.
         BlockPos elytra = new BlockPos(1, 1, 1);
         BlockPos elytraAbs = helper.absolutePos(elytra);
-        OwnedBlockEntity elytraBe = placeStaged(helper, elytra, TweaksBlocks.FINE_ELYTRA_PAD, 0);
+        OwnedBlockEntity elytraBe = placeStaged(helper, elytra, TweaksBlocks.ENDERITE_ELYTRA_PAD, 0);
         AABB normalArea = ElytraPadBlockEntity.areaOf(level, elytraAbs, helper.getBlockState(elytra));
-        elytraBe.setEasterStage(5);
+        elytraBe.setEasterStage(3);
         helper.assertTrue(EasterEggs.isBoosted(level, elytraAbs), "the final easter elytra pad is not boosted");
         AABB doubledArea = ElytraPadBlockEntity.areaOf(level, elytraAbs, helper.getBlockState(elytra));
         helper.assertTrue(Math.abs(normalArea.getXsize() - 128) < 1e-9 && Math.abs(doubledArea.getXsize() - 256) < 1e-9
@@ -270,12 +270,12 @@ public final class TweaksEasterTests {
                         + " instead of twice " + normalArea.getXsize() + " x " + (normalArea.maxY - elytraAbs.getY()));
         helper.setBlock(elytra, Blocks.AIR);
 
-        // Zwischenstufe: Easter-Stufe 4 auf dem Enderit-Pad IV wirkt wie Stufe IV.
+        // Zwischenstufe: Easter-Stufe 2 auf dem Netherit-Pad II wirkt wie Stufe II.
         BlockPos middle = new BlockPos(3, 1, 1);
-        placeStaged(helper, middle, TweaksBlocks.ENDERITE_ELYTRA_PAD, 4);
+        placeStaged(helper, middle, TweaksBlocks.NETHERITE_ELYTRA_PAD, 2);
         AABB middleArea = ElytraPadBlockEntity.areaOf(level, helper.absolutePos(middle), helper.getBlockState(middle));
         helper.assertTrue(!EasterEggs.isBoosted(level, helper.absolutePos(middle)) && Math.abs(middleArea.getXsize() - 32) < 1e-9,
-                "easter stage 4 of the elytra pad does not work like tier IV (" + middleArea.getXsize() + " wide)");
+                "easter stage 2 of the elytra pad does not work like tier II (" + middleArea.getXsize() + " wide)");
         helper.setBlock(middle, Blocks.AIR);
 
         // Flypad III: 16x16x32 -> 32x32x64 (aus demselben Grund ohne Spieler-Durchlauf).
@@ -316,7 +316,7 @@ public final class TweaksEasterTests {
                 "an old easter stage 5 on the enderite spawn teleporter reads as stage " + tpBe.easterStage() + " instead of the final 3");
         helper.setBlock(tp, Blocks.AIR);
 
-        // Trank-Pad III: 120 s -> 240 s, auch wirklich am Spieler; Easter-Stufe 2 wirkt wie Stufe II (60 s).
+        // Trank-Pad III: 180 s -> 360 s, auch wirklich am Spieler; Easter-Stufe 2 wirkt wie Stufe II (90 s).
         BlockPos potion = new BlockPos(1, 1, 5);
         BlockPos potionAbs = helper.absolutePos(potion);
         PotionPadBlockEntity potionBe = (PotionPadBlockEntity) placeStaged(helper, potion, TweaksBlocks.INFUSED_POTION_PAD, 0);
@@ -324,8 +324,8 @@ public final class TweaksEasterTests {
         int potionNormal = infused.effectDurationAt(level, potionAbs);
         potionBe.setEasterStage(3);
         int potionDoubled = infused.effectDurationAt(level, potionAbs);
-        helper.assertTrue(potionNormal == 120 * 20 && potionDoubled == 240 * 20,
-                "the final easter potion pad gives effects for " + potionDoubled + " ticks, the normal one " + potionNormal + " (expected 4800 and 2400)");
+        helper.assertTrue(potionNormal == 180 * 20 && potionDoubled == 360 * 20,
+                "the final easter potion pad gives effects for " + potionDoubled + " ticks, the normal one " + potionNormal + " (expected 7200 and 3600)");
         PotionPadBlock.absorb(potionBe, PotionContents.createItemStack(Items.SPLASH_POTION, Potions.LONG_SWIFTNESS));
         ServerPlayer drinker = mockPlayer(helper, new Vec3(1.5, 1.0, 5.5));
         drinker.removeAllEffects();
@@ -333,14 +333,14 @@ public final class TweaksEasterTests {
             potionBe.grant(level, drinker, step);
         }
         int given = drinker.hasEffect(MobEffects.SPEED) ? drinker.getEffect(MobEffects.SPEED).getDuration() : -1;
-        helper.assertTrue(given == 240 * 20, "standing 3 s on the final easter potion pad gave Speed for " + given + " ticks instead of 4800");
-        // Abklingzeit: doppelte Wirkdauer, also 480 s statt 240 s.
-        helper.assertTrue(potionBe.getCooldown() == 480 * 20, "the final easter potion pad cools down for " + potionBe.getCooldown() + " ticks instead of 9600");
+        helper.assertTrue(given == 360 * 20, "standing 3 s on the final easter potion pad gave Speed for " + given + " ticks instead of 7200");
+        // Abklingzeit: das 1,5-Fache der Wirkdauer, also 540 s statt 360 s.
+        helper.assertTrue(potionBe.getCooldown() == 540 * 20, "the final easter potion pad cools down for " + potionBe.getCooldown() + " ticks instead of 10800");
         helper.setBlock(potion, Blocks.AIR);
         BlockPos potionMiddle = new BlockPos(3, 1, 5);
         placeStaged(helper, potionMiddle, TweaksBlocks.REINFORCED_POTION_PAD, 2);
         int middleTicks = ((PotionPadBlock) TweaksBlocks.REINFORCED_POTION_PAD).effectDurationAt(level, helper.absolutePos(potionMiddle));
-        helper.assertTrue(!EasterEggs.isBoosted(level, helper.absolutePos(potionMiddle)) && middleTicks == 60 * 20,
+        helper.assertTrue(!EasterEggs.isBoosted(level, helper.absolutePos(potionMiddle)) && middleTicks == 90 * 20,
                 "easter stage 2 of the potion pad does not work like tier II (" + middleTicks + " ticks)");
         helper.setBlock(potionMiddle, Blocks.AIR);
 
@@ -435,8 +435,8 @@ public final class TweaksEasterTests {
         helper.assertTrue(done(player, root) && !done(player, seriously), "'Don't do it' did not earn exactly 'What have you done?'");
         give(player, EasterEggs.create(Family.LAUNCHPAD, 2), 2);
         helper.assertTrue(done(player, seriously) && !done(player, worth), "easter stage 2 did not earn exactly 'Seriously?'");
-        give(player, EasterEggs.create(Family.ELYTRA_PAD, 4), 3);
-        helper.assertTrue(!done(player, worth), "easter stage 4 of the five-tier elytra pad earned 'It Was Worth It'");
+        give(player, EasterEggs.create(Family.ELYTRA_PAD, 2), 3);
+        helper.assertTrue(!done(player, worth), "easter stage 2 of the three-tier elytra pad earned 'It Was Worth It'");
         give(player, EasterEggs.create(Family.FLYPAD, 3), 4);
         helper.assertTrue(done(player, worth) && !done(player, stick), "the final easter flypad did not earn exactly 'It Was Worth It'");
         ServerPlayer brewer = mockPlayer(helper, new Vec3(3.5, 1.0, 1.5));

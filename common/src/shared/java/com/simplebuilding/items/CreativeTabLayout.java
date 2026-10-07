@@ -12,13 +12,15 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Zeilen-Layout fuer einen Kreativ-Tab: eine Kategorie je Zeile, der Rest der Zeile bleibt leer.
+ * Zeilen-Layout fuer einen Kreativ-Tab: eine Kategorie nacheinander, zwischen zwei Kategorien nur
+ * eine leere Zelle, wenn die vorige Zeile nicht exakt aufhoerte (Besitzer tweaks P8: statt der
+ * Auffuellung auf Spalte 9 fliesst der Inhalt mit einer Trennzelle und bricht um).
  *
- * <p>Das Kreativinventar ist 9 Plaetze breit und fuellt Zeile fuer Zeile. Damit eine Kategorie
- * links in einer neuen Zeile beginnt, wird jede Zeile mit unsichtbaren Platzhaltern
- * ({@link ModItems#CREATIVE_SPACER}) bis zum Zeilenende aufgefuellt. Eine Kategorie mit mehr als
- * neun Eintraegen (etwa 16 gefaerbte Varianten) laeuft einfach in die naechste Zeile weiter und wird
- * erst an ihrem Ende aufgefuellt. Nach der letzten Zeile kommt kein Fueller.
+ * <p>Das Kreativinventar ist 9 Plaetze breit und fuellt Zeile fuer Zeile. Damit zwischen zwei
+ * Kategorien eine leere Zelle sichtbar bleibt, werden Trennzellen als unsichtbare Platzhalter
+ * ({@link ModItems#CREATIVE_SPACER}) abgesetzt; nur wenn die vorige Kategorie exakt an einer
+ * Spaltengrenze aufhoerte, beginnt die naechste direkt links. Nach der letzten Zeile kommt kein
+ * Fueller.
  *
  * <p>Platzhalter sind nur im Tab selbst sichtbar ({@link CreativeModeTab.TabVisibility#PARENT_TAB_ONLY}),
  * nie im Suchtab. Weil Vanilla denselben Stapel in einem Tab nur einmal annimmt, traegt jeder
@@ -30,11 +32,12 @@ import java.util.List;
  * <p>Eine Zeile kann auch in der Zeile ihres Vorgaengers weiterlaufen ({@link Row#besides}): dann steht
  * zwischen beiden genau eine leere Zelle statt der Auffuellung bis zum Zeilenende - etwa die Bauplanung
  * (Blaupause, Kartografentisch) rechts neben den Baustaeben, eine eigene Kategorie, die aber keine
- * eigene Zeile braucht. Passt sie nicht mehr in die Zeile, beginnt sie wie jede andere links.
+ * eigene Zeile braucht. Passt sie nicht mehr in die Zeile, wird bis zum Zeilenende aufgefuellt und sie
+ * beginnt wie jede andere links (Besitzer tweaks P8: nur diese Kategorie darf zurueckspringen).
  *
  * <p>Eine Zeile kann auch nach genau einer leeren Zelle hinter ihrem Vorgaenger weiterfliessen
- * ({@link Row#flowing}), selbst wenn sie dort nicht ganz passt und in die naechste Zeile umbricht - etwa
- * die Handbuecher und verzauberten Buecher, damit keine Buecherzeile fast leer auslaeuft (Audit 2026-10-02).
+ * ({@link Row#flowing}): seit tweaks P8 fliesst jede nicht exakt endende Zeile so weiter, das Flag
+ * bleibt nur als Vertrag erhalten.
  *
  * <p>Neue Tabs uebernehmen das Layout, indem sie ihre Kategorien als {@link Row}-Liste beschreiben
  * und {@link #emit} aufrufen.
@@ -80,7 +83,13 @@ public final class CreativeTabLayout {
         }
     }
 
-    /** Gibt alle Zeilen aus, jede bis auf die letzte bis zum Zeilenende mit Platzhaltern aufgefuellt. */
+    /**
+     * Gibt alle Zeilen aus: zwischen zwei Kategorien eine leere Zelle, wenn die vorige nicht exakt an
+     * einer Spaltengrenze aufhoerte. Nur eine Kategorie, die in der Zeile ihres Vorgaengers weiterlaufen
+     * soll ({@link Row#besides}), darf ohne Passform zurueckspringen und bekommt dann den Rest der Zeile
+     * als Fueller; alle anderen brechen mit der Trennzelle einfach um. Nach der letzten Zeile kommt kein
+     * Fueller.
+     */
     public static void emit(CreativeModeTab.Output entries, List<Row> rows) {
         int spacers = 0;
         int column = 0;
@@ -98,13 +107,13 @@ public final class CreativeTabLayout {
                 break;
             }
             int remainder = column % ROW_WIDTH;
-            Row next = rows.get(r + 1);
-            int padding = remainder == 0 ? 0 : ROW_WIDTH - remainder;
-            if (next.besidePrevious() && remainder != 0 && remainder + 1 + next.stacks().size() <= ROW_WIDTH) {
-                padding = 1;
+            if (remainder == 0) {
+                continue;
             }
-            if (next.flowOn() && remainder != 0) {
-                padding = 1;
+            Row next = rows.get(r + 1);
+            int padding = 1;
+            if (next.besidePrevious() && remainder + 1 + next.stacks().size() > ROW_WIDTH) {
+                padding = ROW_WIDTH - remainder;
             }
             column += padding;
             for (int i = 0; i < padding; i++) {

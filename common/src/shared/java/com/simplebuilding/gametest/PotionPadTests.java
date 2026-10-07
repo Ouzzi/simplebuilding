@@ -46,7 +46,7 @@ import net.minecraft.world.phys.Vec3;
 /**
  * Spieltests des Trank-Pads und des Lohenkopfs (Besitzer 2026-09-28, docs/SIMPLETWEAKS-UEBERNAHME.md
  * Abschnitt 2.4): Speichern und Ersetzen eines Wurftranks, das Aufladen in drei Schritten (25/50/100 %
- * der Stufendauer), die Regel fuer Sofortwirkungen, die Abklingzeit (doppelte Wirkdauer, nur gesetzt,
+ * der Stufendauer), die Regel fuer Sofortwirkungen, die Abklingzeit (das 1,5-Fache der Wirkdauer, nur gesetzt,
  * reist abgebaut mit dem Item), Stapelgroesse 1 fuer alle Pads, die Rezepte aller Stufen und der
  * Lohenkopf aus der Explosion eines geladenen Creepers (und aus keinem anderen Tod).
  */
@@ -106,14 +106,14 @@ public final class PotionPadTests {
     // =====================================================================================
 
     /**
-     * Wer auf dem Pad steht, bekommt nach 1 s 25 %, nach 2 s 50 % und nach 3 s 100 % von 30 s (I),
-     * 60 s (II) bzw. 120 s (III), mit der Verstaerkung des Tranks (langer Trank, 8 min: die Stufendauer
+     * Wer auf dem Pad steht, bekommt nach 1 s 25 %, nach 2 s 50 % und nach 3 s 100 % von 45 s (I),
+     * 90 s (II) bzw. 180 s (III), mit der Verstaerkung des Tranks (langer Trank, 8 min: die Stufendauer
      * deckelt, nicht der Trank - siehe PotionPadRuleTests); vor der ersten Sekunde nichts. Wer
      * nach einem Schritt absteigt, behaelt das Erhaltene, startet keine Abklingzeit und faengt beim
      * naechsten Betreten wieder bei 0 an.
      */
     public static void standingOnThePadRampsTheEffectToTwentyFiveFiftyAndOneHundredPercentInThreeSeconds(GameTestHelper helper) {
-        int[] seconds = {30, 60, 120};
+        int[] seconds = {45, 90, 180};
         int[] percent = {25, 50, 100};
         for (int i = 0; i < PADS.length; i++) {
             BlockPos pad = new BlockPos(1 + i * 3, 1, 2);
@@ -192,8 +192,8 @@ public final class PotionPadTests {
         be.grant(level, player, 3);
         helper.assertTrue(player.getHealth() == 8.0F, "the 3 s step healed to " + player.getHealth() + " instead of 8 (Instant Health I = 4)");
         helper.assertTrue(player.getEffect(MobEffects.STRENGTH).getDuration() == full, "the lasting effect was not given for the full tier duration at 3 s");
-        // Healing asks for twice the plain cooldown on the 30 s instant basis (PotionPadRules): 2 x 2 x 600.
-        helper.assertTrue(be.getCooldown() == 4 * full, "the 3 s step set a cooldown of " + be.getCooldown() + " ticks instead of " + 4 * full);
+        // Healing asks for the cooldown factor on the 45 s instant basis (PotionPadRules): 1,5 x 900 x 2.
+        helper.assertTrue(be.getCooldown() == full * 3, "the 3 s step set a cooldown of " + be.getCooldown() + " ticks instead of " + full * 3);
         be.grant(level, player, 3);
         helper.assertTrue(player.getHealth() == 8.0F, "a cooling pad healed again (" + player.getHealth() + ")");
         succeed(helper);
@@ -204,24 +204,24 @@ public final class PotionPadTests {
     // =====================================================================================
 
     /**
-     * Die volle Anwendung setzt das Pad fuer die doppelte Wirkdauer in die Abklingzeit (I 60 s, II 120 s,
-     * III 240 s) und zeigt den Blockzustand {@code cooling=true}. Waehrend der Abklingzeit bekommt niemand
+     * Die volle Anwendung setzt das Pad fuer das 1,5-Fache der Wirkdauer in die Abklingzeit (I 67,5 s, II 135 s,
+     * III 270 s) und zeigt den Blockzustand {@code cooling=true}. Waehrend der Abklingzeit bekommt niemand
      * etwas, auch nicht nach 3 s Stehen; sie laeuft Tick fuer Tick ab, danach ist das Pad wieder bereit.
      */
     public static void aFullApplicationPutsThePadOnCooldownForTwiceTheEffectDuration(GameTestHelper helper) {
-        int[] cooldownSeconds = {60, 120, 240};
+        int[] cooldownTicks = {1350, 2700, 5400};
         for (int i = 0; i < PADS.length; i++) {
             BlockPos pad = new BlockPos(1 + i * 3, 1, 2);
             PotionPadBlockEntity be = placeFilled(helper, pad, PADS[i], Potions.LONG_SWIFTNESS);
             String tier = "potion pad tier " + (i + 1);
-            int cooldown = cooldownSeconds[i] * 20;
+            int cooldown = cooldownTicks[i];
             helper.assertTrue(((PotionPadBlock) PADS[i]).cooldownAt(helper.getLevel(), helper.absolutePos(pad)) == cooldown,
                     tier + " has the wrong cooldown length");
             ServerPlayer player = mockPlayer(helper, onTop(pad));
             player.removeAllEffects();
             tickPad(helper, pad, 3 * PotionPadBlockEntity.RAMP_STEP_TICKS);
             helper.assertTrue(be.getCooldown() == cooldown, tier + " went on cooldown for " + be.getCooldown()
-                    + " ticks instead of " + cooldownSeconds[i] + " s (twice the effect duration)");
+                    + " ticks instead of " + cooldown + " (1.5x the effect duration)");
             helper.assertTrue(helper.getBlockState(pad).getValue(PotionPadBlock.COOLING), tier + " does not show the cooling state");
 
             // In der Abklingzeit: langes Stehen gibt nichts, die Zeit laeuft Tick fuer Tick ab.
@@ -261,8 +261,8 @@ public final class PotionPadTests {
         ServerPlayer drinker = mockPlayer(helper, onTop(pos));
         drinker.removeAllEffects();
         tickPad(helper, pos, 3 * PotionPadBlockEntity.RAMP_STEP_TICKS);
-        int expected = 480 * 20;
-        helper.assertTrue(be.getCooldown() == expected, "the final easter potion pad went on cooldown for " + be.getCooldown() + " ticks instead of 480 s");
+        int expected = 540 * 20;
+        helper.assertTrue(be.getCooldown() == expected, "the final easter potion pad went on cooldown for " + be.getCooldown() + " ticks instead of 540 s");
         moveTo(helper, drinker, new Vec3(0.5, 3.0, 0.5));
         tickPad(helper, pos, 100);
         expected -= 100;
@@ -322,7 +322,7 @@ public final class PotionPadTests {
             }
         }
         pads.addAll(TweaksBlocks.legacy());
-        helper.assertTrue(pads.size() == 24, "expected 24 pad blocks (22 tiers + 2 legacy flypads), found " + pads.size());
+        helper.assertTrue(pads.size() == 24, "expected 24 pad blocks (18 tiers + 6 legacy pads), found " + pads.size());
         for (Block pad : pads) {
             ItemStack stack = new ItemStack(pad);
             helper.assertTrue(stack.getMaxStackSize() == 1, pad + " stacks to " + stack.getMaxStackSize() + " instead of 1");

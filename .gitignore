@@ -107,3 +107,8 @@ tools/voicebridge/sessions.tmp
 tools/voicebridge/history.jsonl
 tools/voicebridge/out/
 tools/voicebridge/backups/
+
+# graphify knowledge graph artifacts
+graphify-out/
+graphify-build.log
+graphify-build.err

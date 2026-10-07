@@ -931,13 +931,11 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(ModItems.ASTRALIT_DUST), has(ModItems.ASTRALIT_DUST))
                         .save(output, "raw_enderite_synthesis");
 
-                // --- 2. Schichten: 3 Rohenderit uebereinander -> Geschichtetes Rohenderit ---
+                // --- 2. Schichten: 4 Rohenderit (Formlos) -> Geschichtetes Rohenderit ---
                 // Besitzer 2026-09-29: Rohenderit schmilzt nicht mehr direkt zu Schrott.
-                shaped(RecipeCategory.MISC, ModItems.LAYERED_RAW_ENDERITE)
-                        .pattern("R")
-                        .pattern("R")
-                        .pattern("R")
-                        .define('R', ModItems.RAW_ENDERITE)
+                // Besitzer 2026-10-07: vier Rohenderit in beliebiger Anordnung statt der 3er-Saeule.
+                shapeless(RecipeCategory.MISC, ModItems.LAYERED_RAW_ENDERITE)
+                        .requires(ModItems.RAW_ENDERITE, 4)
                         .unlockedBy(getHasName(ModItems.RAW_ENDERITE), has(ModItems.RAW_ENDERITE))
                         .save(output);
 
@@ -945,7 +943,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Doppelt so lange je Schrott wie das fruehere Direktschmelzen (72000 Ticks): 144000 Ticks = 2 h in
                 // einem Vanilla-Schmelzofen (1 h verstaerkt, 30 min Netherit, 15 min Enderit), 10 Erfahrung.
                 // Ein Schrott je Geschichtetem Rohenderit: Kochrezepte koennen auf 1.21.11 nur ein einzelnes Item
-                // liefern (STRICT_SINGLE_ITEM_CODEC), also auf allen Linien 3 Rohenderit je Schrott. Zeiten ueber
+                // liefern (STRICT_SINGLE_ITEM_CODEC), also auf allen Linien 4 Rohenderit je Schrott. Zeiten ueber
                 // 32767 Ticks ueberleben Speichern und Menue-Sync nur dank AbstractFurnaceBlockEntityMixin /
                 // AbstractFurnaceMenuMixin. Kein Ofen- oder Raeucherofen-Rezept, wie beim Rohenderit zuvor.
                 oreBlasting(List.of(ModItems.LAYERED_RAW_ENDERITE), RecipeCategory.MISC, net.minecraft.world.item.crafting.CookingBookCategory.MISC, ModItems.ENDERITE_SCRAP, 10.0f, fastMachineTicks(2 * 72000), "enderite_scrap");
@@ -1349,17 +1347,15 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.NETHERITE_PRESSURE_PLATE, "netherite_pressure_plate_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_PRESSURE_PLATE, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_PRESSURE_PLATE, "enderite_pressure_plate_smithing");
 
-                // Elytra-Pads I-V: I = Diamantkern + Diamant-Druckplatte + Elytra (2026-09-29; vorher beliebige
-                // Vorlage), dann Diamant-, Netherit-, Enderit-Druckplatte, V mit Netherstern
+                // Elytra-Pads I-III: I = Diamantkern + Diamant-Druckplatte + Elytra (2026-09-29; vorher beliebige
+                // Vorlage), dann Netherit-, Enderit-Druckplatte (2026-10-07 drei Stufen; die alten II/V sind Legacy)
                 // Elytra-Pad I braucht eine Elytra mit Reparatur wie Flypad I (Besitzer 2026-10-01); formlos an
                 // der Werkbank, weil der Schmiedetisch keine Verzauberung pruefen kann.
                 enchantedShapeless(TweaksBlocks.ELYTRA_PAD, "elytra_pad_crafting", Items.ELYTRA,
                         net.minecraft.world.item.enchantment.Enchantments.MENDING,
                         ModItems.DIAMOND_CORE, diamondPlate, Items.ELYTRA);
-                tweaksSmithing(anyTemplate, TweaksBlocks.ELYTRA_PAD, diamondPlate, TweaksBlocks.REINFORCED_ELYTRA_PAD, "reinforced_elytra_pad_smithing");
-                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.REINFORCED_ELYTRA_PAD, netheritePlate, TweaksBlocks.NETHERITE_ELYTRA_PAD, "netherite_elytra_pad_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.ELYTRA_PAD, netheritePlate, TweaksBlocks.NETHERITE_ELYTRA_PAD, "netherite_elytra_pad_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_ELYTRA_PAD, enderitePlate, TweaksBlocks.ENDERITE_ELYTRA_PAD, "enderite_elytra_pad_smithing");
-                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.NETHER_STAR, TweaksBlocks.FINE_ELYTRA_PAD, "fine_elytra_pad_smithing");
 
                 // Flypads I-III aus Enderit (Besitzer 2026-09-27): I = Enderit-Kern + Enderit-Druckplatte +
                 // Shulkerkopf + Elytra mit Reparatur (formlos an der Werkbank, 2026-09-29; vier Zutaten passen

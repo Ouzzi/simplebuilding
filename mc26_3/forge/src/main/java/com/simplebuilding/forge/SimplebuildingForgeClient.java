@@ -5,6 +5,7 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
+import com.simplebuilding.client.gui.SoulBurnOverlay;
 import com.simplebuilding.client.gui.SpeedometerHudOverlay;
 import com.simplebuilding.forge.networking.ForgeNetworkRegistration;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
@@ -167,10 +168,13 @@ public final class SimplebuildingForgeClient {
     public static void onAddGuiLayers(AddGuiOverlayLayersEvent event) {
         Identifier rangefinder = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "rangefinder_hud");
         Identifier speedometer = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "speedometer_hud");
+        Identifier soulBurn = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "soul_burn_filter");
         ForgeLayeredDraw root = event.getLayeredDraw();
         Identifier stack = ForgeLayeredDraw.POST_SLEEP_STACK;
         root.addAbove(stack, rangefinder, ForgeLayeredDraw.CHAT_OVERLAY, (gg, dt) -> RangefinderHudOverlay.render(gg));
         root.addAbove(stack, speedometer, rangefinder, (gg, dt) -> SpeedometerHudOverlay.render(gg));
+        // Seelenbrand-Vollbildfilter, Nachtrag 11 P1 (2026-10-06).
+        root.addAbove(stack, soulBurn, speedometer, (gg, dt) -> SoulBurnOverlay.render(gg));
         // The air jump cooldown bar is no layer: it takes vanilla's contextual bar slot
         // (HudContextualBarMixin on Hud#updateContextualInfo / extractContextualInfoState), 2026-09-29.
     }

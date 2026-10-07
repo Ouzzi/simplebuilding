@@ -45,7 +45,7 @@ import org.jetbrains.annotations.Nullable;
  * hat, und faengt beim naechsten Betreten wieder bei 0 an. Sofortwirkungen (Heilung, Schaden) wirken
  * einmal, beim 3-s-Schritt.
  *
- * <p><b>Abklingzeit</b>: erst der 100-%-Schritt setzt das ganze Pad fuer die doppelte Wirkdauer in die
+ * <p><b>Abklingzeit</b>: erst der 100-%-Schritt setzt das ganze Pad fuer das 1,5-Fache der Wirkdauer in die
  * Abklingzeit ({@link PotionPadBlock#cooldownAt}); ein abgebrochenes Aufladen startet sie nicht (sonst
  * koennte ein kurzer Schritt das Pad fuer alle sperren). Waehrend der Abklingzeit gibt das Pad nichts,
  * und sie laeuft nur, solange das Pad gesetzt ist (der Block-Entity-Ticker). Abgebaut reist die

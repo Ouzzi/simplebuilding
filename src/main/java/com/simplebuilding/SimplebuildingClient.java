@@ -172,6 +172,12 @@ public class SimplebuildingClient implements ClientModInitializer {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "speedometer_hud"),
                 (context, tickCounter) -> SpeedometerHudOverlay.render(context)
         );
+        // Seelenbrand-Vollbildfilter, Nachtrag 11 P1 (2026-10-06): eigene Schicht neben den Anzeigen der Mod.
+        HudElementRegistry.attachElementBefore(
+                VanillaHudElements.CHAT,
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "soul_burn_filter"),
+                (context, tickCounter) -> SoulBurnOverlay.render(context)
+        );
         // The air jump cooldown bar is no HUD element: it takes vanilla's contextual bar slot
         // (HudContextualBarMixin, all loaders), 2026-09-29.
         LevelRenderEvents.BEFORE_BLOCK_OUTLINE.register((context, outlineRenderState) ->

@@ -73,7 +73,8 @@ public class ModTags {
 
         /**
          * Enderit-Stufen, deren Registry-Pfad das Wort "enderite" nicht enthaelt: die drei Flypads
-         * (alle aus der Enderit-Druckplatte), das Fine Elytra Pad V (ueber dem Enderit-Pad IV) und
+         * (alle aus der Enderit-Druckplatte), das Fine Elytra Pad V (ueber dem Enderit-Pad III; seit
+         * 2026-10-07 Legacy, Migrationsziel Enderit-Elytra-Pad III) und
          * das Infused Potion Pad III (Enderit-Aufwertung) und das Echolot (Enderit-Kern + Enderit-Klumpen,
          * Besitzer 2026-09-29).
          */

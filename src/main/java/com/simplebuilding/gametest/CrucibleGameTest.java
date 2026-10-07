@@ -67,6 +67,11 @@ public final class CrucibleGameTest {
     }
 
     @GameTest
+    public void soulBurnBitesTwiceAsOftenOnColdGround(GameTestHelper helper) {
+        CrucibleTests.soulBurnBitesTwiceAsOftenOnColdGround(helper);
+    }
+
+    @GameTest
     public void soulLavaHeatsExtremeFlowingHigh(GameTestHelper helper) {
         CrucibleTests.soulLavaHeatsExtremeFlowingHigh(helper);
     }
@@ -114,5 +119,15 @@ public final class CrucibleGameTest {
     @GameTest
     public void vanillaCauldronTakesCopperAndEnderiteBuckets(GameTestHelper helper) {
         CrucibleTests.vanillaCauldronTakesCopperAndEnderiteBuckets(helper);
+    }
+
+    @GameTest
+    public void crucibleCollisionAllowsWalkingInAndKeepsTheInteriorEmpty(GameTestHelper helper) {
+        CrucibleTests.crucibleCollisionAllowsWalkingInAndKeepsTheInteriorEmpty(helper);
+    }
+
+    @GameTest
+    public void crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking(GameTestHelper helper) {
+        CrucibleTests.crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking(helper);
     }
 }

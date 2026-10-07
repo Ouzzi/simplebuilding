@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Elytra-Pad I-V: gibt im Bereich der Stufe eine Spawn-Elytra und laedt sie auf (siehe {@link PadTiers}).
+ * Elytra-Pad I-III: gibt im Bereich der Stufe eine Spawn-Elytra und laedt sie auf (siehe {@link PadTiers}).
  * Versorgt es gerade jemanden, steht es auf {@link #ACTIVE} (Besitzer 2026-09-29): die Spirale leuchtet
  * windhell, der Aufwind ueber dem Pad wird dichter.
  */

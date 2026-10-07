@@ -53,13 +53,13 @@ public class MagnetItem extends Item {
 
     private static final String FILTER_KEY = "MagnetFilter";
     /** Zugradius ohne Verzauberung (Bloecke um die Spielerhuelle). */
-    public static final double BASE_RANGE = 3.0;
+    public static final double BASE_RANGE = 4.0;
     /** Zusaetzlicher Zugradius je Stufe Reichweite. */
-    public static final double RANGE_PER_LEVEL = 1.5;
+    public static final double RANGE_PER_LEVEL = 2.0;
     /** Obergrenze des Zugradius vor dem Config-Faktor (Reichweite III). */
-    public static final double MAX_RANGE = 7.5;
+    public static final double MAX_RANGE = 9.0;
     /** Harte Obergrenze nach dem Config-Faktor {@code tools.magnetRangeMultiplier}. */
-    public static final double HARD_MAX_RANGE = 12.0;
+    public static final double HARD_MAX_RANGE = 15.0;
     private static final double SYNC_DISTANCE_SQ = 64 * 64;
 
     public MagnetItem(Properties settings) {

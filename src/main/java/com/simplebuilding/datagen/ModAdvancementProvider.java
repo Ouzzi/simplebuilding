@@ -288,8 +288,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             node("pads/higher_ground", liftoff, TweaksBlocks.NETHERITE_LAUNCHPAD, AdvancementType.TASK, "better_launchpad",
                     any(TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD));
             AdvancementHolder wings = feature("pads/wings_on_loan", liftoff, TweaksBlocks.ELYTRA_PAD, AdvancementType.TASK, ModTriggers.ELYTRA_PAD);
-            node("pads/fine_feathers", wings, TweaksBlocks.FINE_ELYTRA_PAD, AdvancementType.TASK, "fine_elytra_pad",
-                    any(TweaksBlocks.FINE_ELYTRA_PAD));
+            node("pads/fine_feathers", wings, TweaksBlocks.ENDERITE_ELYTRA_PAD, AdvancementType.TASK, "enderite_elytra_pad",
+                    any(TweaksBlocks.ENDERITE_ELYTRA_PAD));
             AdvancementHolder fly = feature("pads/fly_me_to_the_moon", wings, TweaksBlocks.FLYPAD, AdvancementType.GOAL, ModTriggers.FLYPAD);
             node("pads/stellar", fly, TweaksBlocks.STELLAR_FLYPAD, AdvancementType.CHALLENGE, "stellar_flypad",
                     any(TweaksBlocks.STELLAR_FLYPAD));

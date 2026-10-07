@@ -66,10 +66,15 @@ data/simplebuilding/advancement/recipes/misc/quiver_dyed.json
 data/simplebuilding/advancement/recipes/misc/reinforced_backpack_dyed.json
 data/simplebuilding/advancement/recipes/misc/reinforced_bundle_dyed.json
 data/simplebuilding/advancement/recipes/misc/reinforced_quiver_dyed.json
+data/simplebuilding/advancement/recipes/tools/fine_elytra_pad_smithing.json
+data/simplebuilding/advancement/recipes/tools/reinforced_elytra_pad_smithing.json
 data/simplebuilding/recipe/backpack_dyed.json
+data/simplebuilding/recipe/easter/elytra_pad_stage_4.json
+data/simplebuilding/recipe/easter/elytra_pad_stage_5.json
 data/simplebuilding/recipe/enderite_backpack_dyed.json
 data/simplebuilding/recipe/enderite_bundle_dyed.json
 data/simplebuilding/recipe/enderite_quiver_dyed.json
+data/simplebuilding/recipe/fine_elytra_pad_smithing.json
 data/simplebuilding/recipe/guide_book_admin.json
 data/simplebuilding/recipe/guide_book_building.json
 data/simplebuilding/recipe/guide_book_enchantments.json
@@ -94,6 +99,7 @@ data/simplebuilding/recipe/netherite_quiver_dyed.json
 data/simplebuilding/recipe/quiver_dyed.json
 data/simplebuilding/recipe/reinforced_backpack_dyed.json
 data/simplebuilding/recipe/reinforced_bundle_dyed.json
+data/simplebuilding/recipe/reinforced_elytra_pad_smithing.json
 data/simplebuilding/recipe/reinforced_quiver_dyed.json
 data/simplebuilding/worldgen/configured_feature/astralit_ore.json
 data/simplebuilding/worldgen/configured_feature/nihilith_ore.json

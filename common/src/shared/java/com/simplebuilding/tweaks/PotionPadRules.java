@@ -27,7 +27,7 @@ import net.minecraft.world.effect.MobEffectInstance;
  *       or neutral = owner only. Mobs never get anything - the pad only looks for players.</li>
  *   <li><b>How strong</b> ({@link Rule#maxAmplifier}): at most the highest level a vanilla potion brews
  *       for that effect, so a command-made potion cannot hand out Resistance V.</li>
- *   <li><b>How long</b>: the tier duration (30/60/120 s), but never longer than the potion itself lasts
+ *   <li><b>How long</b>: the tier duration (45/90/180 s), but never longer than the potion itself lasts
  *       when drunk ({@link Rule#potionDurationShare}) and never longer than {@link Rule#maxSeconds}.</li>
  *   <li><b>How often</b>: the pad's cooldown is the config factor times the longest granted duration
  *       times the effect's {@link Rule#cooldownMultiplier} (instant effects count as
@@ -65,8 +65,8 @@ public final class PotionPadRules {
     public static final TagKey<MobEffect> PUBLIC = tag("potion_pad/public");
     public static final TagKey<MobEffect> OWNER_ONLY = tag("potion_pad/owner_only");
 
-    /** What an instant effect (no duration) counts as for the cooldown: tier I's 30 s. */
-    public static final int INSTANT_COOLDOWN_BASIS_TICKS = 30 * 20;
+    /** What an instant effect (no duration) counts as for the cooldown: tier I's 45 s. */
+    public static final int INSTANT_COOLDOWN_BASIS_TICKS = 45 * 20;
 
     /** Every effect not in {@link #TABLE}: level I, capped at the potion's own duration, plain cooldown. */
     public static final Rule DEFAULT = new Rule(0, 0, 1.0, 1.0, 0);

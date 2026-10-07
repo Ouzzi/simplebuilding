@@ -97,8 +97,9 @@ public final class SmeltingTests {
     // =====================================================================================
 
     /**
-     * Raw enderite no longer smelts on its own (owner 2026-09-29): three raw enderite stacked in a
-     * crafting column make one layered raw enderite, and only that has a cooking recipe -
+     * Raw enderite no longer smelts on its own (owner 2026-09-29; the layered recipe is shapeless
+     * since 2026-10-07): four raw enderite in any crafting arrangement make one layered raw enderite,
+     * and only that has a cooking recipe -
      * {@code simplebuilding:enderite_scrap_from_blasting_layered_raw_enderite}, a blasting recipe of
      * 144000 ticks (two hours in a vanilla blast furnace, twice the old 72000 per scrap) for one enderite
      * scrap and 10 experience. Neither item has a smelting or smoking recipe, so both only go into blast furnaces.
@@ -106,8 +107,8 @@ public final class SmeltingTests {
      * their total the moment the layered raw enderite goes in, and still report it when saved.
      *
      * <p>What breaks this test: the old direct raw enderite recipe coming back, another
-     * {@code cookingtime}, {@code experience} or result count, a crafting recipe that accepts two raw
-     * enderite or a row instead of a column, a smelting or smoking recipe, and - on Fabric - a total that
+     * {@code cookingtime}, {@code experience} or result count, a crafting recipe that accepts two or
+     * three raw enderite or a shaped column again, a smelting or smoking recipe, and - on Fabric - a total that
      * comes back from the save cut to a short, i.e. {@code AbstractFurnaceBlockEntityMixin} not writing
      * it as an int.
      */
@@ -118,22 +119,25 @@ public final class SmeltingTests {
         SingleRecipeInput raw = new SingleRecipeInput(new ItemStack(ModItems.RAW_ENDERITE));
         helper.assertValueEqual("blasting: " + recipes.getRecipeFor(RecipeType.BLASTING, raw, level).map(found -> found.id().identifier().toString()).orElse("none") + ", smelting: " + recipes.getRecipeFor(RecipeType.SMELTING, raw, level).map(found -> found.id().identifier().toString()).orElse("none") + ", smoking: " + recipes.getRecipeFor(RecipeType.SMOKING, raw, level).map(found -> found.id().identifier().toString()).orElse("none"), "blasting: none, smelting: none, smoking: none", "the cooking recipes that still take plain raw enderite");
 
-        // Crafting: a column of three raw enderite (any of the three columns), nothing else.
+        // Crafting: four raw enderite, shapeless - any arrangement, here a two by two square.
         ItemStack r = new ItemStack(ModItems.RAW_ENDERITE);
         ItemStack e = ItemStack.EMPTY;
-        net.minecraft.world.item.crafting.CraftingInput column = net.minecraft.world.item.crafting.CraftingInput.of(3, 3,
-                List.of(e, e, r, e, e, r, e, e, r));
-        var crafted = recipes.getRecipeFor(RecipeType.CRAFTING, column, level);
-        helper.assertTrue(crafted.isPresent(), "three raw enderite in a column craft nothing");
-        ItemStack layered = crafted.get().value().assemble(column);
+        net.minecraft.world.item.crafting.CraftingInput twoByTwo = net.minecraft.world.item.crafting.CraftingInput.of(2, 2,
+                List.of(r, r, r, r));
+        var crafted = recipes.getRecipeFor(RecipeType.CRAFTING, twoByTwo, level);
+        helper.assertTrue(crafted.isPresent(), "four raw enderite in a two by two square craft nothing");
+        ItemStack layered = crafted.get().value().assemble(twoByTwo);
         helper.assertTrue(layered.is(ModItems.LAYERED_RAW_ENDERITE) && layered.getCount() == 1,
-                "three raw enderite in a column craft " + layered + " instead of one layered raw enderite");
+                "four raw enderite craft " + layered + " instead of one layered raw enderite");
         helper.assertTrue(recipes.getRecipeFor(RecipeType.CRAFTING, net.minecraft.world.item.crafting.CraftingInput.of(3, 3,
-                        List.of(r, r, r, e, e, e, e, e, e)), level).isEmpty(),
-                "three raw enderite in a row craft something - the layers are stacked, not laid side by side");
+                        List.of(e, e, r, e, e, r, e, e, r)), level).isEmpty(),
+                "three raw enderite in a column still craft something - the shapeless recipe takes four");
+        helper.assertTrue(recipes.getRecipeFor(RecipeType.CRAFTING, net.minecraft.world.item.crafting.CraftingInput.of(3, 1,
+                        List.of(r, r, r)), level).isEmpty(),
+                "three raw enderite in a row still craft something - the shapeless recipe takes four");
         helper.assertTrue(recipes.getRecipeFor(RecipeType.CRAFTING, net.minecraft.world.item.crafting.CraftingInput.of(1, 2,
                         List.of(r, r)), level).isEmpty(),
-                "two raw enderite on top of each other craft something - it takes three");
+                "two raw enderite on top of each other still craft something - the shapeless recipe takes four");
 
         ResourceKey<Recipe<?>> key = ResourceKey.create(Registries.RECIPE,
                 Identifier.fromNamespaceAndPath(MOD_ID, "enderite_scrap_from_blasting_layered_raw_enderite"));

@@ -605,6 +605,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_sledgehammer_upgrades_cost_double", CrucibleTests::sledgehammerUpgradesCostDouble)
                     .build(),
+            GameTestSpec.named("crucible_game_test_soul_burn_bites_twice_as_often_on_cold_ground", CrucibleTests::soulBurnBitesTwiceAsOftenOnColdGround)
+                    .build(),
             GameTestSpec.named("crucible_game_test_soul_lava_flows_two_blocks_in_the_overworld", CrucibleTests::soulLavaFlowsTwoBlocksInTheOverworld)
                     .maxTicks(300).build(),
             GameTestSpec.named("crucible_game_test_soul_lava_heats_extreme_flowing_high", CrucibleTests::soulLavaHeatsExtremeFlowingHigh)
@@ -616,6 +618,10 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("crucible_game_test_vanilla_cauldron_takes_copper_and_enderite_buckets", CrucibleTests::vanillaCauldronTakesCopperAndEnderiteBuckets)
                     .build(),
             GameTestSpec.named("crucible_game_test_water_touching_soul_lava_turns_to_quartz_or_blackstone", CrucibleTests::waterTouchingSoulLavaTurnsToQuartzOrBlackstone)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_crucible_collision_allows_walking_in_and_keeps_the_interior_empty", CrucibleTests::crucibleCollisionAllowsWalkingInAndKeepsTheInteriorEmpty)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_crucible_step_on_hurts_only_on_high_heat_and_not_when_sneaking", CrucibleTests::crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking)
                     .build(),
             GameTestSpec.named("hammock_game_test_hangs_only_between_two_anchors_two_to_four_apart", HammockTests::hangsOnlyBetweenTwoAnchorsTwoToFourApart)
                     .build(),
@@ -884,7 +890,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("magnet_game_test_magnet_pull_follows_the_acceleration_and_braking_curve", MagnetTests::magnetPullFollowsTheAccelerationAndBrakingCurve)
                     .build(),
-            GameTestSpec.named("magnet_game_test_magnet_reach_is_three_blocks_and_range_widens_it_up_to_its_cap", MagnetTests::magnetReachIsThreeBlocksAndRangeWidensItUpToItsCap)
+            GameTestSpec.named("magnet_game_test_magnet_reach_is_four_blocks_and_range_widens_it_up_to_its_cap", MagnetTests::magnetReachIsFourBlocksAndRangeWidensItUpToItsCap)
                     .build(),
             GameTestSpec.named("magnet_game_test_the_filter_needs_constructors_touch_and_is_set_like_the_detector", MagnetTests::theFilterNeedsConstructorsTouchAndIsSetLikeTheDetector)
                     .build(),
@@ -1672,6 +1678,8 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(PadOverhaulTests.WAIT_MAX_TICKS)
                     .build(),
             GameTestSpec.named("pad_overhaul_game_test_old_spawn_teleporters_become_their_new_tier_in_the_world_and_the_inventory", PadOverhaulTests::oldSpawnTeleportersBecomeTheirNewTierInTheWorldAndTheInventory)
+                    .build(),
+            GameTestSpec.named("pad_overhaul_game_test_old_elytra_pads_become_their_new_tier_in_the_world_and_the_inventory", PadOverhaulTests::oldElytraPadsBecomeTheirNewTierInTheWorldAndTheInventory)
                     .build(),
             GameTestSpec.named("pad_overhaul_game_test_tier_one_of_every_pad_family_is_smithed_from_its_plate_and_unlock_item", PadOverhaulTests::tierOneOfEveryPadFamilyIsSmithedFromItsPlateAndUnlockItem)
                     .build(),

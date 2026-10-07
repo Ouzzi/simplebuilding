@@ -6,8 +6,9 @@ import net.minecraft.world.phys.AABB;
 /**
  * Bereiche der Elytra-Pads und Flypads je Stufe (docs/SIMPLETWEAKS-UEBERNAHME.md, Abschnitt 2).
  *
- * <p>Elytra-Pad (Besitzer 2026-09-27), fuenf Stufen, Breite x Breite: I 1x1, II 5x5, III 16x16,
- * IV 32x32, V 128x128; die Hoehen blieben (15/31/63/95/127). Ab {@link #ENDERITE} laden Boosts im
+ * <p>Elytra-Pad (Besitzer 2026-09-27), seit 2026-10-07 drei Stufen, Breite x Breite x Hoehe:
+ * I 5x5x5, II 32x32x32, III 128x128x192 (die alten Stufen II und V sind als Legacy-Bloecke nur noch
+ * zum Laden alter Welten da, siehe {@link LegacyElytraPadBlock}). Ab {@link #ENDERITE} laden Boosts im
  * ganzen Bereich.
  *
  * <p>Flypad (Besitzer 2026-09-27), drei Stufen aus Enderit, Breite x Breite x Hoehe: I 4x4x8,
@@ -16,16 +17,16 @@ import net.minecraft.world.phys.AABB;
  */
 public final class PadTiers {
     /** Elytra-Pad: ab dieser Stufe laden Boosts im ganzen Bereich. */
-    public static final int ENDERITE = 4;
+    public static final int ENDERITE = 3;
     /** Hoechste Elytra-Pad-Stufe. */
-    public static final int MAX = 5;
+    public static final int MAX = 3;
     /** Hoechste Flypad-Stufe. */
     public static final int FLYPAD_MAX = 3;
 
-    /** Elytra-Pad: halbe Breite (Blockmitte bis Rand, ohne den Block selbst) je Stufe 1..5. */
-    private static final double[] HALF_WIDTH = {0.0, 2.0, 7.5, 15.5, 63.5};
-    /** Elytra-Pad: Hoehe je Stufe 1..5. */
-    private static final int[] HEIGHT = {15, 31, 63, 95, 127};
+    /** Elytra-Pad: halbe Breite (Blockmitte bis Rand, ohne den Block selbst) je Stufe 1..3. */
+    private static final double[] HALF_WIDTH = {2.0, 15.5, 63.5};
+    /** Elytra-Pad: Hoehe je Stufe 1..3. */
+    private static final int[] HEIGHT = {5, 32, 192};
     /** Flypad: halbe Breite je Stufe 1..3 (4, 8, 16 Bloecke breit). */
     private static final double[] FLY_HALF_WIDTH = {1.5, 3.5, 7.5};
 
@@ -36,7 +37,7 @@ public final class PadTiers {
         return HALF_WIDTH[clamp(tier, MAX) - 1];
     }
 
-    /** Breite des Elytra-Pad-Bereichs in Bloecken (1, 5, 16, 32, 128). */
+    /** Breite des Elytra-Pad-Bereichs in Bloecken (5, 32, 128). */
     public static int width(int tier) {
         return (int) Math.round(2 * halfWidth(tier) + 1);
     }

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_reinforced_elytra_pad": {
+    "has_elytra_pad": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:reinforced_elytra_pad"
+            "items": "simplebuilding:elytra_pad"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_reinforced_elytra_pad"
+      "has_elytra_pad"
     ]
   ],
   "rewards": {

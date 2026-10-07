@@ -2,6 +2,7 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.crucible.CrucibleCompat;
 import com.simplebuilding.effect.ModEffects;
+import com.simplebuilding.effect.SoulBurnEffect;
 import com.simplebuilding.fluid.ModBucketItem;
 import com.simplebuilding.fluid.ModFluids;
 import com.simplebuilding.fluid.SoulLava;
@@ -18,6 +19,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -38,6 +40,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * Crucible P5 in SimpleBuilding (docs/ai/PLAN-CRUCIBLE-P5-2026-10-05.md): the Enderite tiers, the sledgehammer ways,
@@ -409,14 +413,14 @@ public final class CrucibleTests {
         helper.succeed();
     }
 
-    /** Touch: burns twice as long as lava and gives Seelenbrand for a minute (owner 25/28). */
+    /** Touch: burns twice as long as lava and gives Seelenbrand for two minutes (owner 25/28). */
     public static void touchingSoulLavaBurnsLongerAndGivesSoulBurn(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
         Pig pig = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, new BlockPos(2, 1, 2));
         SoulLava.touch(helper.getLevel(), pig);
         helper.assertTrue(pig.getRemainingFireTicks() >= 20 * 20, "burns longer than lava: " + pig.getRemainingFireTicks());
         MobEffectInstance burn = pig.getEffect(ModEffects.SOUL_BURN);
-        helper.assertTrue(burn != null && burn.getDuration() >= SoulLava.soulBurnTicks() - 1, "seelenbrand for a minute");
+        helper.assertTrue(burn != null && burn.getDuration() >= SoulLava.soulBurnTicks() - 1, "seelenbrand for two minutes");
         helper.succeed();
     }
 
@@ -437,6 +441,57 @@ public final class CrucibleTests {
         }
         helper.assertTrue(safe.getHealth() == before && safe.hasEffect(ModEffects.SOUL_BURN), "fire resistance: no damage, effect stays");
         helper.assertTrue(hurt.getHealth() < hurt.getMaxHealth(), "without fire resistance the soul burn hurts");
+        helper.succeed();
+    }
+
+    /**
+     * Seelenbrand on cold ground (owner round 11 P1): water, ice or snow at the feet or under them
+     * halves the configured interval, so the roll comes twice as often; warm ground keeps it. The
+     * gate reads the remaining duration, so 90 ticks left are due at a 30 tick cold interval and
+     * not at the 60 tick warm one.
+     */
+    public static void soulBurnBitesTwiceAsOftenOnColdGround(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        floor(helper);
+        BlockPos ice = new BlockPos(1, 1, 1);
+        BlockPos snow = new BlockPos(3, 1, 1);
+        BlockPos water = new BlockPos(5, 1, 1);
+        BlockPos stone = new BlockPos(7, 1, 1);
+        helper.setBlock(ice, Blocks.ICE);
+        helper.setBlock(snow, Blocks.SNOW_BLOCK);
+        helper.setBlock(water, Blocks.WATER);
+        helper.setBlock(stone, Blocks.STONE);
+        helper.assertTrue(level.getFluidState(helper.absolutePos(water)).is(FluidTags.WATER), "the test water sits there");
+        helper.assertTrue(SoulBurnEffect.coldGround(level, helper.absolutePos(ice.above())), "ice under the feet is cold");
+        helper.assertTrue(SoulBurnEffect.coldGround(level, helper.absolutePos(snow.above())), "snow under the feet is cold");
+        helper.assertTrue(SoulBurnEffect.coldGround(level, helper.absolutePos(water)), "water at the feet is cold");
+        helper.assertFalse(SoulBurnEffect.coldGround(level, helper.absolutePos(stone.above())), "stone is not cold");
+        int base = SoulLava.soulBurnIntervalTicks();
+        helper.assertTrue(SoulBurnEffect.intervalTicks(level, helper.absolutePos(ice.above())) == base / 2,
+                "cold ground halves the " + base + " tick interval");
+        helper.assertTrue(SoulBurnEffect.intervalTicks(level, helper.absolutePos(stone.above())) == base,
+                "warm ground keeps the interval");
+
+        var server = com.simplebuilding.config.ServerTuning.local();
+        var previous = server.soulLava;
+        try {
+            server.soulLava = new com.simplebuilding.config.ServerTuningConfig.SoulLava();
+            server.soulLava.soulBurnChance = 1.0;
+            Pig chilled = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, new BlockPos(1, 2, 1));
+            Pig dry = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, new BlockPos(7, 2, 2));
+            for (Pig pig : new Pig[] {chilled, dry}) pig.addEffect(new MobEffectInstance(ModEffects.SOUL_BURN, 90));
+            float chilledBefore = chilled.getHealth();
+            float dryBefore = dry.getHealth();
+            McVersion.resetInvulnerableTime(chilled);
+            McVersion.resetInvulnerableTime(dry);
+            ModEffects.SOUL_BURN.value().applyEffectTick(level, chilled, 0);
+            ModEffects.SOUL_BURN.value().applyEffectTick(level, dry, 0);
+            helper.assertTrue(chilled.getHealth() < chilledBefore, "cold ground bites at half the interval");
+            helper.assertTrue(dry.getHealth() == dryBefore, "warm ground: 90 ticks left are not due yet");
+        } finally {
+            server.soulLava = previous;
+        }
         helper.succeed();
     }
 
@@ -689,5 +744,66 @@ public final class CrucibleTests {
         helper.assertBlockPresent(Blocks.CAULDRON, pos);
         helper.assertTrue(player.getMainHandItem().is(ModFluids.ENDERITE_LAVA_BUCKET), "enderite bucket took the lava");
         helper.succeed();
+    }
+
+    /**
+     * Owner tweaks P6: the crucible is walk-in like a cauldron. Nothing collides above the belly wall
+     * (9/16 = 0.5625, less than the 0.6 step height), the interior column is empty from the floor up
+     * and the neck stays open; the walls and the floor themselves are still solid.
+     */
+    public static void crucibleCollisionAllowsWalkingInAndKeepsTheInteriorEmpty(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        VoxelShape collision = lib("iron_crucible").defaultBlockState().getCollisionShape(helper.getLevel(), BlockPos.ZERO, CollisionContext.empty());
+        var boxes = collision.toAabbs();
+        helper.assertTrue(boxes.stream().allMatch(box -> box.maxY <= 9.0 / 16.0 + 1.0E-4), "nothing blocks above the 9/16 belly wall");
+        helper.assertTrue(boxes.stream().noneMatch(box -> contains(box, 0.5, 0.5, 0.5)), "the interior is empty at belly height");
+        helper.assertTrue(boxes.stream().noneMatch(box -> contains(box, 0.5, 0.75, 0.5)), "the neck above the interior stays open");
+        helper.assertTrue(boxes.stream().anyMatch(box -> box.minX <= 0.125 && box.maxX >= 0.125 && box.maxY >= 9.0 / 16.0 - 1.0E-4),
+                "the belly rim still reaches the walk-in height");
+        helper.succeed();
+    }
+
+    private static boolean contains(AABB box, double x, double y, double z) {
+        return x >= box.minX && x <= box.maxX && y >= box.minY && y <= box.maxY && z >= box.minZ && z <= box.maxZ;
+    }
+
+    /**
+     * Owner tweaks P6: stepping on a high-heat crucible burns like magma (1.0 hotFloor damage, lava below),
+     * while medium heat (campfire) and sneaking spare the entity - the same gate as vanilla {@code MagmaBlock}.
+     * The heat assertions go through {@link CrucibleCompat} (the only SimpleLib bridge), because SimpleLib is
+     * not built on 26.2; there every test passes at once behind {@link McVersion#CRUCIBLE}.
+     */
+    public static void crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        BlockPos hot = new BlockPos(2, 1, 2);
+        helper.setBlock(hot.below(), Blocks.LAVA);
+        helper.setBlock(hot, lib("iron_crucible"));
+        BlockPos hotAbs = helper.absolutePos(hot);
+        BlockState hotState = level.getBlockState(hotAbs);
+        BlockPos warm = new BlockPos(5, 1, 2);
+        helper.setBlock(warm.below(), Blocks.CAMPFIRE);
+        helper.setBlock(warm, lib("iron_crucible"));
+        BlockPos warmAbs = helper.absolutePos(warm);
+        BlockState warmState = level.getBlockState(warmAbs);
+        // The crucible's own server tick computes the heat (heatDirty starts true); one tick is enough.
+        helper.runAfterDelay(1, () -> {
+            helper.assertTrue("high".equals(CrucibleCompat.heatAt(level, hotAbs)), "lava below: high heat");
+            helper.assertTrue("medium".equals(CrucibleCompat.heatAt(level, warmAbs)), "campfire below: medium heat");
+            Pig victim = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, hot.above());
+            float before = victim.getHealth();
+            hotState.getBlock().stepOn(level, hotAbs, hotState, victim);
+            helper.assertTrue(victim.getHealth() < before, "high heat burns: " + victim.getHealth());
+            Pig safe = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, warm.above());
+            float safeBefore = safe.getHealth();
+            warmState.getBlock().stepOn(level, warmAbs, warmState, safe);
+            helper.assertTrue(safe.getHealth() == safeBefore, "medium heat does not burn");
+            ServerPlayer sneaker = helper.makeMockServerPlayerInLevel();
+            sneaker.setShiftKeyDown(true);
+            float sneakerBefore = sneaker.getHealth();
+            hotState.getBlock().stepOn(level, hotAbs, hotState, sneaker);
+            helper.assertTrue(sneaker.getHealth() == sneakerBefore, "sneaking spares the heat");
+            helper.succeed();
+        });
     }
 }

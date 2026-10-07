@@ -305,9 +305,13 @@ public final class TweaksTierTests {
         expect(helper, net, TweaksBlocks.CHUNK_LOADER, netherite, TweaksBlocks.NETHERITE_CHUNK_LOADER);
         expect(helper, end, TweaksBlocks.NETHERITE_CHUNK_LOADER, enderite, TweaksBlocks.ENDERITE_CHUNK_LOADER);
 
-        expect(helper, any, TweaksBlocks.ELYTRA_PAD, diamond, TweaksBlocks.REINFORCED_ELYTRA_PAD);
-        expect(helper, net, TweaksBlocks.REINFORCED_ELYTRA_PAD, netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD);
+        expect(helper, net, TweaksBlocks.ELYTRA_PAD, netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD);
         expect(helper, end, TweaksBlocks.NETHERITE_ELYTRA_PAD, enderite, TweaksBlocks.ENDERITE_ELYTRA_PAD);
+        // Die alten Wege (beliebige Vorlage + Diamant-Platte, verschobene Basen) fuehren nirgendwo mehr hin.
+        expectNothing(helper, any, TweaksBlocks.ELYTRA_PAD, diamond);
+        expectNothing(helper, net, TweaksBlocks.REINFORCED_ELYTRA_PAD, netherite);
+        expectNothing(helper, end, TweaksBlocks.REINFORCED_ELYTRA_PAD, enderite);
+        expectNothing(helper, net, TweaksBlocks.FINE_ELYTRA_PAD, netherite);
 
         // Elytra-Pad I: formlos an der Werkbank mit Reparatur-Elytra (Besitzer 2026-10-01, MobHeadTests)
         expectNothing(helper, ModItems.DIAMOND_CORE, diamond, Items.ELYTRA);
@@ -334,6 +338,7 @@ public final class TweaksTierTests {
         expectNothing(helper, net, TweaksBlocks.COPPER_PRESSURE_PLATE, Items.NETHERITE_INGOT);
         expectNothing(helper, end, TweaksBlocks.CHUNK_LOADER, ModItems.ENDERITE_INGOT);
         expectNothing(helper, any, TweaksBlocks.ELYTRA_PAD, Items.DIAMOND_BLOCK);
+        expectNothing(helper, net, TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.NETHER_STAR);
         expectNothing(helper, net, TweaksBlocks.REINFORCED_ELYTRA_PAD, Items.NETHERITE_INGOT);
         expectNothing(helper, end, TweaksBlocks.NETHERITE_ELYTRA_PAD, ModItems.ENDERITE_INGOT);
         expectNothing(helper, net, TweaksBlocks.FINE_ELYTRA_PAD, Items.NETHERITE_INGOT);
@@ -341,11 +346,14 @@ public final class TweaksTierTests {
         expectNothing(helper, end, TweaksBlocks.NETHERITE_FLYPAD, ModItems.ENDERITE_INGOT);
         expectNothing(helper, end, TweaksBlocks.NETHERITE_FLYPAD, enderite);
         expectNothing(helper, any, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.DIAMOND);
-        // Fine Elytra Pad V + Elytra ist kein alter Weg mehr, sondern der Einstieg in die versteckte
-        // Easter-Kette (TweaksEasterTests): nur ein normales Rezept waere hier falsch.
-        Optional<RecipeHolder<SmithingRecipe>> fine = smithing(helper, input(net, TweaksBlocks.FINE_ELYTRA_PAD, Items.ELYTRA));
-        helper.assertTrue(fine.isEmpty() || fine.get().value() instanceof com.simplebuilding.tweaks.easter.EasterSmithingRecipe,
-                "the old way still smiths the fine elytra pad with an elytra (" + fine.map(h -> h.id().toString()).orElse("") + ")");
+        // Elytra-Pad III + Elytra mit dem Diamantkern ist der Einstieg in die versteckte Easter-Kette
+        // (TweaksEasterTests): nur ein normales Rezept waere hier falsch.
+        Optional<RecipeHolder<SmithingRecipe>> entry = smithing(helper, input(ModItems.DIAMOND_CORE, TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.ELYTRA));
+        helper.assertTrue(entry.isEmpty() || entry.get().value() instanceof com.simplebuilding.tweaks.easter.EasterSmithingRecipe,
+                "the easter entry does not smith the enderite elytra pad with an elytra (" + entry.map(h -> h.id().toString()).orElse("") + ")");
+        expectNothing(helper, net, TweaksBlocks.FINE_ELYTRA_PAD, Items.ELYTRA);
+        expectNothing(helper, net, TweaksBlocks.REINFORCED_ELYTRA_PAD, Items.ELYTRA);
+        expectNothing(helper, net, TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.ELYTRA);
         expectNothing(helper, net, TweaksBlocks.FLYPAD, netherite);
         expectNothing(helper, net, TweaksBlocks.SPAWN_TELEPORTER, Items.NETHERITE_INGOT);
         expectNothing(helper, end, TweaksBlocks.SPAWN_TELEPORTER_TIER_4, ModItems.ENDERITE_INGOT);
@@ -359,14 +367,14 @@ public final class TweaksTierTests {
     // =====================================================================================
 
     /**
-     * Elytra-Pad I-V: 1x1, 5x5, 16x16, 32x32, 128x128; Flypad I-III: 4x4x8, 8x8x16, 16x16x32 (Hoehe = doppelte
-     * Breite, Besitzer 2026-10-02). Dazu je
-     * ein echter Durchlauf: ein Spieler einen Block neben dem Pad bekommt von Stufe I keine Elytra, von
-     * Stufe II schon; fuenf Bloecke neben dem Flypad fliegt er mit Stufe III, nicht mit Stufe I.
+     * Elytra-Pad I-III: 5x5x5, 32x32x32, 128x128x192 (Hoehe der Endstufe 1,5x Breite, Besitzer 2026-10-07);
+     * Flypad I-III: 4x4x8, 8x8x16, 16x16x32 (Hoehe = doppelte Breite, Besitzer 2026-10-02). Dazu je
+     * ein echter Durchlauf: Stufe I (5x5) erreicht einen Block daneben, Stufe II (32x32) auch weiter weg;
+     * fuenf Bloecke neben dem Flypad fliegt er mit Stufe III, nicht mit Stufe I.
      */
     public static void elytraPadAndFlypadAreasMatchTheirTiers(GameTestHelper helper) {
         BlockPos origin = new BlockPos(0, 0, 0);
-        int[] widths = {1, 5, 16, 32, 128};
+        int[] widths = {5, 32, 128};
         for (int tier = 1; tier <= PadTiers.MAX; tier++) {
             net.minecraft.world.phys.AABB area = PadTiers.elytraArea(origin, tier);
             helper.assertTrue(Math.abs(area.getXsize() - widths[tier - 1]) < 1e-9 && Math.abs(area.getZsize() - widths[tier - 1]) < 1e-9,
@@ -382,16 +390,22 @@ public final class TweaksTierTests {
                     "flypad tier " + tier + " is " + PadTiers.flyHeight(tier) + " high, not twice its width " + PadTiers.flyWidth(tier));
         }
 
-        // Elytra-Pad: einen Block neben dem Pad
+        // Elytra-Pad: Stufe I (5x5) erreicht einen Block daneben, Stufe II (32x32) auch weiter weg
         BlockPos pad = new BlockPos(3, 1, 3);
         ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 3.5));
         player.setItemSlot(net.minecraft.world.entity.EquipmentSlot.CHEST, ItemStack.EMPTY);
         helper.setBlock(pad, TweaksBlocks.ELYTRA_PAD);
         com.simplebuilding.tweaks.block.entity.ElytraPadBlockEntity.applyArea(helper.getLevel(), helper.absolutePos(pad), helper.getBlockState(pad));
-        helper.assertTrue(player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).isEmpty(), "elytra pad I (1x1) reached a player one block away");
-        helper.setBlock(pad, TweaksBlocks.REINFORCED_ELYTRA_PAD);
+        helper.assertTrue(!player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).isEmpty(),
+                "elytra pad I (5x5) did not reach a player one block away");
+        ServerPlayer far = mockPlayer(helper, new Vec3(10.5, 2.0, 3.5));
         com.simplebuilding.tweaks.block.entity.ElytraPadBlockEntity.applyArea(helper.getLevel(), helper.absolutePos(pad), helper.getBlockState(pad));
-        helper.assertTrue(!player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).isEmpty(), "elytra pad II (5x5) did not reach a player one block away");
+        helper.assertTrue(far.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).isEmpty(),
+                "elytra pad I (5x5) reached a player 7,5 blocks away");
+        helper.setBlock(pad, TweaksBlocks.NETHERITE_ELYTRA_PAD);
+        com.simplebuilding.tweaks.block.entity.ElytraPadBlockEntity.applyArea(helper.getLevel(), helper.absolutePos(pad), helper.getBlockState(pad));
+        helper.assertTrue(!far.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).isEmpty(),
+                "elytra pad II (32x32) did not reach a player 7,5 blocks away");
 
         // Flypad: fuenf Bloecke neben dem Pad
         BlockPos flypad = new BlockPos(1, 1, 7);
@@ -449,7 +463,7 @@ public final class TweaksTierTests {
     /** Jede Familie nennt ihre Stufen aufsteigend und damit ihre hoechste Stufe; alte Bloecke gehoeren zu keiner. */
     public static void everyFamilyNamesItsLastTier(GameTestHelper helper) {
         java.util.Map<TweaksFamilies.Family, Block> last = java.util.Map.of(
-                TweaksFamilies.Family.ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD,
+                TweaksFamilies.Family.ELYTRA_PAD, TweaksBlocks.ENDERITE_ELYTRA_PAD,
                 TweaksFamilies.Family.FLYPAD, TweaksBlocks.STELLAR_FLYPAD,
                 TweaksFamilies.Family.SPAWN_TELEPORTER, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER,
                 TweaksFamilies.Family.LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD,

@@ -87,14 +87,14 @@ public final class EasterEggData {
 
         AdvancementHolder seriously = Advancement.Builder.advancement()
                 .parent(root)
-                .display(display(TweaksBlocks.REINFORCED_ELYTRA_PAD.asItem(), "seriously", AdvancementType.TASK, false))
+                .display(display(TweaksBlocks.NETHERITE_ELYTRA_PAD.asItem(), "seriously", AdvancementType.TASK, false))
                 .addCriterion("seriously", InventoryChangeTrigger.TriggerInstance.hasItems(staged(items, null, 2)))
                 .build(EasterEggs.ADV_SERIOUSLY);
         out.put("stage_2", seriously);
 
         Advancement.Builder worthIt = Advancement.Builder.advancement()
                 .parent(seriously)
-                .display(display(TweaksBlocks.FINE_ELYTRA_PAD.asItem(), "it_was_worth_it", AdvancementType.CHALLENGE, false))
+                .display(display(TweaksBlocks.ENDERITE_ELYTRA_PAD.asItem(), "it_was_worth_it", AdvancementType.CHALLENGE, false))
                 .requirements(AdvancementRequirements.Strategy.OR);
         for (Family family : EasterEggs.families()) {
             int last = EasterEggs.stageCount(family);

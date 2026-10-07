@@ -19,8 +19,9 @@ import java.util.function.Supplier;
 
 /**
  * Inhalt der acht Kreativ-Tabs der Mod ({@link Tab}; "SimpleArrows" ist auf 26.2 leer und damit unsichtbar). Alle sind zeilenweise angelegt ({@link CreativeTabLayout},
- * Besitzer 2026-09-28 "Zeilen-Layout fuer alle Tabs"): eine Kategorie je Zeile, der Rest der Zeile
- * bleibt leer. Jeder Loader registriert je {@link Tab} einen Tab mit der
+ * Besitzer 2026-09-28 "Zeilen-Layout fuer alle Tabs", seit tweaks P8 mit Fliess-Regel): die Kategorien
+ * laufen nacheinander weiter, zwischen zwei steht genau eine leere Zelle, wenn die vorige nicht genau
+ * an der Spaltenkante aufhoerte - statt der Auffuellung bis Spalte neun. Jeder Loader registriert je {@link Tab} einen Tab mit der
  * Id {@code simplebuilding:<id>}, dem Titel {@code itemgroup.simplebuilding.<id>} und
  * {@link #populate(Tab, CreativeModeTab.Output, HolderLookup.Provider)} als Inhalt. Jedes Item der
  * Mod steht in genau einem Tab ({@code DataIntegrityTests#everyModItemIsInExactlyOneCreativeTab}) -
@@ -88,7 +89,7 @@ public final class ModItemGroupsContent {
     }
 
     /**
-     * Zeilen des Tabs "SimpleTools": je Familie eine Zeile von der niedrigsten Stufe bis Enderit -
+     * Zeilen des Tabs "SimpleTools": je Familie eine Kategorie von der niedrigsten Stufe bis Enderit -
      * erst die Werkzeuge (Meissel, Baustab - rechts daneben nach einer Luecke die Bauplanung mit Blaupause
      * und Kartografentisch -, Vorschlaghammer, dann Schaufel, Spitzhacke, Axt, Hacke in Vanillas Reihenfolge), dann
      * die Geraete (Kompass,
@@ -97,7 +98,8 @@ public final class ModItemGroupsContent {
      * verzauberten Buecher, jede Kategorie nach einer Luecke hinter der vorigen weiterfliessend
      * ({@link CreativeTabLayout.Row#flowing}) - so laeuft keine Buecherzeile fast leer aus. Die Vanilla-Werkzeuge aller
      * Stufen stehen mit darin, damit alles griffbereit ist. Waffen und Ruestung stehen seit 2026-10-02 wie in Vanilla
-     * getrennt in SimpleCombat ({@link #combatRows()}).
+     * getrennt in SimpleCombat ({@link #combatRows()}). Seit tweaks P8 fliesst jede Kategorie nach einer
+     * leeren Zelle hinter der vorigen weiter (kein Auffuellen auf Spalte neun), {@link CreativeTabLayout#emit}.
      */
     public static List<CreativeTabLayout.Row> toolsRows(HolderLookup<Enchantment> enchantmentRegistry) {
         List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>(List.of(
@@ -194,8 +196,9 @@ public final class ModItemGroupsContent {
 
     /**
      * Zeilen des Tabs "SimpleCombat" (Besitzer 2026-10-02: Waffen und Ruestung wie in Vanilla getrennt von den
-     * Werkzeugen): je Familie eine Zeile von der niedrigsten Vanilla-Stufe bis Enderit - Schwert, Speer, dann
-     * Helm, Brust, Hose, Stiefel und die Reittier-Ruestungen (Ross, Nautilus).
+     * Werkzeugen): je Familie eine Kategorie von der niedrigsten Vanilla-Stufe bis Enderit - Schwert, Speer, dann
+     * Helm, Brust, Hose, Stiefel und die Reittier-Ruestungen (Ross, Nautilus); seit tweaks P8 fliesst jede
+     * Kategorie nach einer leeren Zelle in die nächste weiter.
      */
     public static List<CreativeTabLayout.Row> combatRows() {
         return List.of(
@@ -239,9 +242,10 @@ public final class ModItemGroupsContent {
 
     /**
      * Zeilen des Tabs "SimpleBlocks" (Besitzer 2026-09-28: Zeilen-Layout fuer alle Tabs): die drei
-     * Endsteine (poliert, astral, nihil), je Palette eine Zeile Block, Ziegel mit Treppe, Stufe und Mauer,
-     * Saeule, gemeisselte Ziegel (und der Purpur der Palette) und darunter die polierte Reihe; die
-     * Quarz-Schachbretter; die Schwerkraftbloecke (schwebend | levitierend) und zuletzt Lager und Licht.
+     * Endsteine (poliert, astral, nihil), je Palette eine Kategorie Block, Ziegel mit Treppe, Stufe und Mauer,
+     * Saeule, gemeisselte Ziegel (und der Purpur der Palette) gefolgt von der polierten Reihe; die
+     * Quarz-Schachbretter; die Schwerkraftbloecke (schwebend | levitierend) und zuletzt Lager und Licht -
+     * seit tweaks P8 jede Kategorie nach einer leeren Zelle hinter der vorigen.
      */
     public static List<CreativeTabLayout.Row> buildingBlocksRows() {
         List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>(baseBuildingBlocksRows());
@@ -328,7 +332,7 @@ public final class ModItemGroupsContent {
      * Zeilen des Tabs "SimpleMaterials" (Besitzer 2026-09-28: saubere Zeilen wie SimpleTools/SimpleMachines):
      * die Erze zusammen (Salbei-Erz, Dimensionsschrott, End-Erze mit ihrer Ausbeute: Nihilit, Astralit, dann
      * Enderquarz), die Kleinteile mit dem Eisenstab daneben, die Werkstoffe in Erz-Reihenfolge
-     * (je eine Zeile Diamant, Netherit, Enderit vom Rohstoff zum Barren, Vanilla-Stufen eingeschlossen;
+     * (je eine Kategorie Diamant, Netherit, Enderit vom Rohstoff zum Barren, Vanilla-Stufen eingeschlossen;
      * der Lederfetzen nach einer Luecke hinter Netherit), die Baukerne
      * Kupfer bis Enderit, alle Schmiedevorlagen an einem Ort - erst die Aufwertungen (Basis, Vanillas
      * Netherit, Enderit), dann die Besatzvorlagen (alle Vanilla-Besaetze in Vanillas Reihenfolge, dann
@@ -426,10 +430,11 @@ public final class ModItemGroupsContent {
     }
 
     /**
-     * Zeilen des Tabs "SimpleMachines": eine Kategorie je Zeile, Vanilla zuerst, dann die Stufen.
+     * Zeilen des Tabs "SimpleMachines": eine Kategorie, Vanilla zuerst, dann die Stufen.
      * Neue Kategorien (etwa gefaerbte Varianten) als weitere {@link CreativeTabLayout.Row} anhaengen;
-     * eine Zeile mit mehr als neun Eintraegen laeuft in die naechste weiter. Druckplatten und Pads stehen
-     * seit 2026-09-29 in SimplePads ({@link #padsRows()}), die Bauplanung in SimpleTools.
+     * eine Kategorie mit mehr als neun Eintraegen laeuft in die naechste weiter, und seit tweaks P8
+     * trennt genau eine leere Zelle zwei Kategorien, deren vorige nicht an der Spaltengrenze endete.
+     * Druckplatten und Pads stehen seit 2026-09-29 in SimplePads ({@link #padsRows()}), die Bauplanung in SimpleTools.
      */
     public static List<CreativeTabLayout.Row> functionalRows() {
         var rows = new java.util.ArrayList<>(baseFunctionalRows());
@@ -536,7 +541,7 @@ public final class ModItemGroupsContent {
      * einmal stehen, darum wiederholt die Zeile den Enderit-Baustab nicht, sondern teilt sich seine Zeile.
      */
     /**
-     * Zeilen des Tabs "SimpleArrows" (B14): je Spitze eine Zeile mit ihren Pfeilen (Schaft, dann Befiederung) in
+     * Zeilen des Tabs "SimpleArrows" (B14): je Spitze eine Kategorie mit ihren Pfeilen (Schaft, dann Befiederung) in
      * der Reihenfolge von {@link com.simplebuilding.fletching.ArrowParts#allCombinations()}.
      */
     public static List<CreativeTabLayout.Row> arrowsRows() {
