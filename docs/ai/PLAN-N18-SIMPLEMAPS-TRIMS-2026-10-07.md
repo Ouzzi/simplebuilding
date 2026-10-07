@@ -74,3 +74,4 @@ Status: **nur geplant**, nichts umgesetzt. Grundlagen: KONZEPT-SUPERMOD-SUBMOD-2
 - F10: Jeder Mob-Kopf wählbar.
 - Feature 5 (Höhenlinien-Modus): ja.
 - Feature 7 neu gefasst: Bergungskompass + Wegfinder-Karte gleichzeitig in den Händen → Todespunkt auf der Karte sichtbar, auch in unerkundetem Gebiet (Terrain bleibt dort verborgen, nur der Punkt erscheint).
+- F3 entschieden: Rezept A (Karte + Kompass + 4 Goldbarren + 1 Echo-Splitter) plus seltener Fundort (Kartografen-Truhen, Schiffswracks ~5 %). Nether- und End-Karte zusätzlich mit seltenem Fundort (Vorschlag: Nether-Karte in Bastionen/Netherfestungen ~2 %, End-Karte in Endstadt-Truhen ~2 %).
