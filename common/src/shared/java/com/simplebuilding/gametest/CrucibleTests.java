@@ -10,8 +10,6 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import com.simplebuilding.util.SledgehammerUpgrades;
 import com.simplebuilding.version.McVersion;
-import com.simplelib.crucible.CrucibleBlockEntity;
-import com.simplelib.crucible.HeatLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -772,6 +770,8 @@ public final class CrucibleTests {
     /**
      * Owner tweaks P6: stepping on a high-heat crucible burns like magma (1.0 hotFloor damage, lava below),
      * while medium heat (campfire) and sneaking spare the entity - the same gate as vanilla {@code MagmaBlock}.
+     * The heat assertions go through {@link CrucibleCompat} (the only SimpleLib bridge), because SimpleLib is
+     * not built on 26.2; there every test passes at once behind {@link McVersion#CRUCIBLE}.
      */
     public static void crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
@@ -781,32 +781,29 @@ public final class CrucibleTests {
         helper.setBlock(hot, lib("iron_crucible"));
         BlockPos hotAbs = helper.absolutePos(hot);
         BlockState hotState = level.getBlockState(hotAbs);
-        var hotBe = (CrucibleBlockEntity) level.getBlockEntity(hotAbs);
-        CrucibleBlockEntity.serverTick(level, hotAbs, hotState, hotBe);
-        helper.assertTrue(hotBe.heat().atLeast(HeatLevel.HIGH), "lava below: high heat");
-        Pig victim = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, hot.above());
-        float before = victim.getHealth();
-        hotState.getBlock().stepOn(level, hotAbs, hotState, victim);
-        helper.assertTrue(victim.getHealth() < before, "high heat burns: " + victim.getHealth());
-
         BlockPos warm = new BlockPos(5, 1, 2);
         helper.setBlock(warm.below(), Blocks.CAMPFIRE);
         helper.setBlock(warm, lib("iron_crucible"));
         BlockPos warmAbs = helper.absolutePos(warm);
         BlockState warmState = level.getBlockState(warmAbs);
-        var warmBe = (CrucibleBlockEntity) level.getBlockEntity(warmAbs);
-        CrucibleBlockEntity.serverTick(level, warmAbs, warmState, warmBe);
-        helper.assertTrue(warmBe.heat() == HeatLevel.MEDIUM, "campfire below: medium heat");
-        Pig safe = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, warm.above());
-        float safeBefore = safe.getHealth();
-        warmState.getBlock().stepOn(level, warmAbs, warmState, safe);
-        helper.assertTrue(safe.getHealth() == safeBefore, "medium heat does not burn");
-
-        ServerPlayer sneaker = helper.makeMockServerPlayerInLevel();
-        sneaker.setShiftKeyDown(true);
-        float sneakerBefore = sneaker.getHealth();
-        hotState.getBlock().stepOn(level, hotAbs, hotState, sneaker);
-        helper.assertTrue(sneaker.getHealth() == sneakerBefore, "sneaking spares the heat");
-        helper.succeed();
+        // The crucible's own server tick computes the heat (heatDirty starts true); one tick is enough.
+        helper.runAfterDelay(1, () -> {
+            helper.assertTrue("high".equals(CrucibleCompat.heatAt(level, hotAbs)), "lava below: high heat");
+            helper.assertTrue("medium".equals(CrucibleCompat.heatAt(level, warmAbs)), "campfire below: medium heat");
+            Pig victim = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, hot.above());
+            float before = victim.getHealth();
+            hotState.getBlock().stepOn(level, hotAbs, hotState, victim);
+            helper.assertTrue(victim.getHealth() < before, "high heat burns: " + victim.getHealth());
+            Pig safe = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, warm.above());
+            float safeBefore = safe.getHealth();
+            warmState.getBlock().stepOn(level, warmAbs, warmState, safe);
+            helper.assertTrue(safe.getHealth() == safeBefore, "medium heat does not burn");
+            ServerPlayer sneaker = helper.makeMockServerPlayerInLevel();
+            sneaker.setShiftKeyDown(true);
+            float sneakerBefore = sneaker.getHealth();
+            hotState.getBlock().stepOn(level, hotAbs, hotState, sneaker);
+            helper.assertTrue(sneaker.getHealth() == sneakerBefore, "sneaking spares the heat");
+            helper.succeed();
+        });
     }
 }
