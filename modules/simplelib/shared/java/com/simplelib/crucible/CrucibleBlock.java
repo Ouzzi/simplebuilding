@@ -8,6 +8,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -42,6 +44,10 @@ public class CrucibleBlock extends Block implements EntityBlock {
     /** Kettle (owner 2026-10-05): foot 3-13, floor 2-14, belly 1-15, neck 2-14, opening 3-13 down to the floor at y 4. */
     private static final VoxelShape SHAPE = Shapes.join(Shapes.or(Block.box(3, 0, 3, 13, 2, 13), Block.box(2, 2, 2, 14, 4, 14),
             Block.box(1, 4, 1, 15, 11, 15), Block.box(2, 11, 2, 14, 14, 14)), Block.box(3, 4, 3, 13, 14, 13), BooleanOp.ONLY_FIRST);
+
+    /** Walk-in pot (owner tweaks P6): foot + floor + belly only up to y 9 (9/16 = 0.5625 <= the 0.6 step height), interior empty, neck open. */
+    private static final VoxelShape COLLISION = Shapes.join(Shapes.or(Block.box(3, 0, 3, 13, 2, 13), Block.box(2, 2, 2, 14, 4, 14),
+            Block.box(1, 4, 1, 15, 9, 15)), Block.box(3, 4, 3, 13, 9, 13), BooleanOp.ONLY_FIRST);
 
     private final CrucibleTier tier;
 
@@ -78,6 +84,21 @@ public class CrucibleBlock extends Block implements EntityBlock {
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
+    }
+
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return COLLISION;
+    }
+
+    /** Owner tweaks P6: standing in an open high-heat crucible burns like a magma block (server, living, no sneak). */
+    @Override
+    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
+        if (!level.isClientSide() && entity instanceof LivingEntity living && !living.isSteppingCarefully()
+                && level.getBlockEntity(pos) instanceof CrucibleBlockEntity be && be.heat().atLeast(HeatLevel.HIGH)) {
+            entity.hurt(level.damageSources().hotFloor(), 1.0F);
+        }
+        super.stepOn(level, pos, state, entity);
     }
 
     @Override

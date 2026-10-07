@@ -120,4 +120,14 @@ public final class CrucibleGameTest {
     public void vanillaCauldronTakesCopperAndEnderiteBuckets(GameTestHelper helper) {
         CrucibleTests.vanillaCauldronTakesCopperAndEnderiteBuckets(helper);
     }
+
+    @GameTest
+    public void crucibleCollisionAllowsWalkingInAndKeepsTheInteriorEmpty(GameTestHelper helper) {
+        CrucibleTests.crucibleCollisionAllowsWalkingInAndKeepsTheInteriorEmpty(helper);
+    }
+
+    @GameTest
+    public void crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking(GameTestHelper helper) {
+        CrucibleTests.crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking(helper);
+    }
 }

@@ -619,6 +619,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_water_touching_soul_lava_turns_to_quartz_or_blackstone", CrucibleTests::waterTouchingSoulLavaTurnsToQuartzOrBlackstone)
                     .build(),
+            GameTestSpec.named("crucible_game_test_crucible_collision_allows_walking_in_and_keeps_the_interior_empty", CrucibleTests::crucibleCollisionAllowsWalkingInAndKeepsTheInteriorEmpty)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_crucible_step_on_hurts_only_on_high_heat_and_not_when_sneaking", CrucibleTests::crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking)
+                    .build(),
             GameTestSpec.named("hammock_game_test_hangs_only_between_two_anchors_two_to_four_apart", HammockTests::hangsOnlyBetweenTwoAnchorsTwoToFourApart)
                     .build(),
             GameTestSpec.named("hammock_game_test_cloth_hangs_in_the_middle_at_every_gap", HammockTests::clothHangsInTheMiddleAtEveryGap)

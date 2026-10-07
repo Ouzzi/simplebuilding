@@ -10,6 +10,8 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import com.simplebuilding.util.SledgehammerUpgrades;
 import com.simplebuilding.version.McVersion;
+import com.simplelib.crucible.CrucibleBlockEntity;
+import com.simplelib.crucible.HeatLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -40,6 +42,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * Crucible P5 in SimpleBuilding (docs/ai/PLAN-CRUCIBLE-P5-2026-10-05.md): the Enderite tiers, the sledgehammer ways,
@@ -741,6 +745,68 @@ public final class CrucibleTests {
         level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
         helper.assertBlockPresent(Blocks.CAULDRON, pos);
         helper.assertTrue(player.getMainHandItem().is(ModFluids.ENDERITE_LAVA_BUCKET), "enderite bucket took the lava");
+        helper.succeed();
+    }
+
+    /**
+     * Owner tweaks P6: the crucible is walk-in like a cauldron. Nothing collides above the belly wall
+     * (9/16 = 0.5625, less than the 0.6 step height), the interior column is empty from the floor up
+     * and the neck stays open; the walls and the floor themselves are still solid.
+     */
+    public static void crucibleCollisionAllowsWalkingInAndKeepsTheInteriorEmpty(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        VoxelShape collision = lib("iron_crucible").defaultBlockState().getCollisionShape(helper.getLevel(), BlockPos.ZERO, CollisionContext.empty());
+        var boxes = collision.toAabbs();
+        helper.assertTrue(boxes.stream().allMatch(box -> box.maxY <= 9.0 / 16.0 + 1.0E-4), "nothing blocks above the 9/16 belly wall");
+        helper.assertTrue(boxes.stream().noneMatch(box -> contains(box, 0.5, 0.5, 0.5)), "the interior is empty at belly height");
+        helper.assertTrue(boxes.stream().noneMatch(box -> contains(box, 0.5, 0.75, 0.5)), "the neck above the interior stays open");
+        helper.assertTrue(boxes.stream().anyMatch(box -> box.minX <= 0.125 && box.maxX >= 0.125 && box.maxY >= 9.0 / 16.0 - 1.0E-4),
+                "the belly rim still reaches the walk-in height");
+        helper.succeed();
+    }
+
+    private static boolean contains(AABB box, double x, double y, double z) {
+        return x >= box.minX && x <= box.maxX && y >= box.minY && y <= box.maxY && z >= box.minZ && z <= box.maxZ;
+    }
+
+    /**
+     * Owner tweaks P6: stepping on a high-heat crucible burns like magma (1.0 hotFloor damage, lava below),
+     * while medium heat (campfire) and sneaking spare the entity - the same gate as vanilla {@code MagmaBlock}.
+     */
+    public static void crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        BlockPos hot = new BlockPos(2, 1, 2);
+        helper.setBlock(hot.below(), Blocks.LAVA);
+        helper.setBlock(hot, lib("iron_crucible"));
+        BlockPos hotAbs = helper.absolutePos(hot);
+        BlockState hotState = level.getBlockState(hotAbs);
+        var hotBe = (CrucibleBlockEntity) level.getBlockEntity(hotAbs);
+        CrucibleBlockEntity.serverTick(level, hotAbs, hotState, hotBe);
+        helper.assertTrue(hotBe.heat().atLeast(HeatLevel.HIGH), "lava below: high heat");
+        Pig victim = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, hot.above());
+        float before = victim.getHealth();
+        hotState.getBlock().stepOn(level, hotAbs, hotState, victim);
+        helper.assertTrue(victim.getHealth() < before, "high heat burns: " + victim.getHealth());
+
+        BlockPos warm = new BlockPos(5, 1, 2);
+        helper.setBlock(warm.below(), Blocks.CAMPFIRE);
+        helper.setBlock(warm, lib("iron_crucible"));
+        BlockPos warmAbs = helper.absolutePos(warm);
+        BlockState warmState = level.getBlockState(warmAbs);
+        var warmBe = (CrucibleBlockEntity) level.getBlockEntity(warmAbs);
+        CrucibleBlockEntity.serverTick(level, warmAbs, warmState, warmBe);
+        helper.assertTrue(warmBe.heat() == HeatLevel.MEDIUM, "campfire below: medium heat");
+        Pig safe = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, warm.above());
+        float safeBefore = safe.getHealth();
+        warmState.getBlock().stepOn(level, warmAbs, warmState, safe);
+        helper.assertTrue(safe.getHealth() == safeBefore, "medium heat does not burn");
+
+        ServerPlayer sneaker = helper.makeMockServerPlayerInLevel();
+        sneaker.setShiftKeyDown(true);
+        float sneakerBefore = sneaker.getHealth();
+        hotState.getBlock().stepOn(level, hotAbs, hotState, sneaker);
+        helper.assertTrue(sneaker.getHealth() == sneakerBefore, "sneaking spares the heat");
         helper.succeed();
     }
 }
