@@ -59,7 +59,7 @@ final class EnvironmentClaimTests {
  static void projectiles(GameTestHelper h){with(h,c->{
   var l=h.getLevel();var inside=ToolClaimTests.boundary(h).east(2).above(80);var owner=player(h,inside.west(10));var other=player(h,inside.west(10));
   yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Projectile fixture");
-  var cow=EntityTypes.COW.create(l,EntitySpawnReason.COMMAND);cow.setPos(Vec3.atBottomCenterOf(inside));l.addFreshEntity(cow);float health=cow.getHealth();
+  var cow=EntityTypes.COW.create(l,EntitySpawnReason.COMMAND);cow.setNoAi(true);cow.setPos(Vec3.atBottomCenterOf(inside));l.addFreshEntity(cow);float health=cow.getHealth();
   for(var actor:List.of(other,owner)){
    var arrow=EntityTypes.ARROW.create(l,EntitySpawnReason.COMMAND);arrow.setOwner(actor);arrow.setNoGravity(true);arrow.setPos(inside.getX()-3,inside.getY()+.7,inside.getZ()+.5);arrow.setDeltaMovement(1,0,0);l.addFreshEntity(arrow);
    for(int t=0;t<8&&!arrow.isRemoved();t++)arrow.tick();arrow.discard();
