@@ -83,6 +83,7 @@ Stimme. Ohne Meldung (Hauptmenü, Server ohne Mod) gilt die eigene Datei. Abweic
 | `tweaks.padTuning.potionPadCooldownFactor` | 1.5 | Trank-Pad-Abklingzeit × Wirkdauer (0 = keine) |
 | `tweaks.laserPointer.chargePerSecond` | 4 | Stab-Ladung je Sekunde Strahlen; alter beamCostPerSecond-Schlüssel ohne Wirkung |
 | `tweaks.laserPointer.effectCost` | 5 | Linsen-Ladung je Wirkung |
+| `tweaks.laserPointer.color` | `0xB38EF3` | Laserfarbe des Resonanzstabs (Amethyst hell, aus der Amethyst-Rampe des Textur-Skripts) |
 | `tweaks.balancing.echoSounderJumpCooldownTicks` | 480 | Echolot-Abklingzeit nach dem Sprung (24 s; ersetzt `echoSounderCooldownTicks` = 120, neue Namen, damit gespeicherte Altwerte nicht weiter gelten) |
 | `tweaks.commands.killCommandRadius` | 100 | Reichweite von `/killboats`, `/killcarts` |
 | `tweaks.optimization.xpClumpRadius` | 2.0 | Einsammel-Radius der XP-Kugeln |

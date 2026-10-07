@@ -321,7 +321,7 @@ public class TweaksConfig {
         public boolean enable = true;
         @ConfigEntry.Gui.Tooltip
         @ConfigEntry.ColorPicker
-        public int color = 0xFF0000;
+        public int color = 0xB38EF3;
         @ConfigEntry.Gui.Tooltip
         public float scale = 0.25f;
         @ConfigEntry.Gui.Tooltip

@@ -233,7 +233,7 @@ public class HeldItemRendererMixin {
     @Unique
     private void applyRodTilt(PoseStack matrices, float progress) {
         matrices.translate(0.0, -0.04 * progress, -0.06 * progress);
-        matrices.rotate(Axis.XP.rotationDegrees(-30.0F * progress));
+        matrices.rotate(Axis.XP.rotationDegrees(-60.0F * progress));
     }
 
 }

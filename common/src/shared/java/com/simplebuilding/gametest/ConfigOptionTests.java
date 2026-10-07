@@ -694,7 +694,7 @@ public final class ConfigOptionTests {
             "tweaks.padTuning.potionPadChargeStepTicks int=20",
             "tweaks.padTuning.potionPadCooldownFactor double=1.5",
             "tweaks.laserPointer.enable boolean=true",
-            "tweaks.laserPointer.color int=16711680",
+            "tweaks.laserPointer.color int=11767539",
             "tweaks.laserPointer.scale float=0.25",
             "tweaks.laserPointer.range int=512",
             "tweaks.laserPointer.beamCostPerSecond int=1",

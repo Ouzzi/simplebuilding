@@ -1157,7 +1157,7 @@ public final class TweaksTests {
                 "spawn.customSpawnElytraZ=0", "spawn.flightTimeSeconds=300", "spawn.maxBoosts=3", "spawn.boostStrength=0.6",
                 "spawn.spawn1X=0", "spawn.spawn1Y=-1000", "spawn.spawn1Z=0", "commands.enableKillBoatsCommand=true",
                 "commands.enableKillCartsCommand=false", "optimization.enableXpClumps=true", "optimization.scaleXpOrbs=true",
-                "laserPointer.enable=true", "laserPointer.color=16711680", "laserPointer.scale=0.25", "laserPointer.range=512",
+                "laserPointer.enable=true", "laserPointer.color=11767539", "laserPointer.scale=0.25", "laserPointer.range=512",
                 "laserPointer.showLine=false"));
         helper.assertValueEqual(found, expected, "tweaks config options with their defaults");
         helper.assertTrue(Simplebuilding.getConfig().tweaks == SimpleTweaks.config(), "SimpleTweaks.config() is not the live tweaks section");
