@@ -31,6 +31,11 @@ public final class PadOverhaulGameTest {
     }
 
     @GameTest
+    public void oldElytraPadsBecomeTheirNewTierInTheWorldAndTheInventory(GameTestHelper helper) {
+        PadOverhaulTests.oldElytraPadsBecomeTheirNewTierInTheWorldAndTheInventory(helper);
+    }
+
+    @GameTest
     public void tierOneOfEveryPadFamilyIsSmithedFromItsPlateAndUnlockItem(GameTestHelper helper) {
         PadOverhaulTests.tierOneOfEveryPadFamilyIsSmithedFromItsPlateAndUnlockItem(helper);
     }
