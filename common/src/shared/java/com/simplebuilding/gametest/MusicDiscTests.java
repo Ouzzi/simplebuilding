@@ -590,8 +590,12 @@ public final class MusicDiscTests {
             payloads.clear();
             click(helper, player, plain, ItemStack.EMPTY);
             helper.runAfterDelay(3, () -> {
+                // Only sounds from the plain note block itself: neighbouring tests in the batch play sounds too.
+                Vec3 plainAt = Vec3.atCenterOf(helper.absolutePos(plain));
                 List<net.minecraft.network.protocol.game.ClientboundSoundPacket> sounds =
-                        captured(sink, net.minecraft.network.protocol.game.ClientboundSoundPacket.class);
+                        captured(sink, net.minecraft.network.protocol.game.ClientboundSoundPacket.class).stream()
+                                .filter(s -> plainAt.distanceTo(new Vec3(s.getX(), s.getY(), s.getZ())) < 1.0)
+                                .toList();
                 helper.assertTrue(payloads.isEmpty(), "a plain note block sent an amplified note");
                 helper.assertTrue(sounds.size() == 1 && sounds.getFirst().getVolume() == SpeakerBoost.NOTE_BLOCK_VOLUME,
                         "plain note block: " + sounds.size() + " sounds");
