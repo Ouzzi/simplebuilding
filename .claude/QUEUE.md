@@ -463,3 +463,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **Netherit-Shulker:** dunkle Highlights statt heller (Netherit-Farben); dasselbe für alle anderen Netherit-Maschinen/-Blöcke.
 - [ ] **Hängematte wie Leine:** erster Befestigungsklick hängt die Hängematte wie eine Leine (mit Hängematten-Textur) an; Modell sichtbar wie Leine/Lichterketten-Mods während des Ziehens; entfernt man sich z. B. > 10 Blöcke, löst sich die Verbindung von der ersten Seite wieder.
 - [ ] **Senkrecht platzierte Knochen/Stöcke/Ruten** (Diamant-, Lohen-, Böen-Rute …) verbinden sich nicht: übereinander platzierte sollen nahtlos verbunden sein (lang genug, keine Lücke).
+
+## Nachtrag 17 (2026-10-07, Besitzer – Nachricht unterbrochen, ggf. Fortsetzung folgt)
+- [ ] **Shulker-Zustand:** platzierte Shulkerkiste schließt sich bei Rechtsklick; zwei Item-Zustände (offen/geschlossen) wie die Blume im Creaking-Wald (Augenblüte).
+- [ ] **Neue Mobs:** 1. niedlicher End-Mob, der im End liegt (eigener Mob, Textur ähnlich Endstein zur Tarnung), spawnt sehr selten in kleinen Rudeln von 3–5. (Weitere Mobs folgen.)
