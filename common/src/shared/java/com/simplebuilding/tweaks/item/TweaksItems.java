@@ -217,9 +217,12 @@ public final class TweaksItems {
      * erst die Druckplatten - Eiche (als einzige Holzplatte, die anderen Holzarten stehen nur noch im
      * Vanilla-Tab), Stein und polierter Schwarzstein mit den Metall-/Materialplatten (schwer = Eisen,
      * leicht = Gold, Diamant, Netherit, Enderit) in einer Zeile, dann Kupfer (vier Stufen, dann gewachst).
-     * Danach die Pads in Erz-Reihenfolge Kupfer, Eisen, Gold, Diamant, Netherit, Enderit: jede Familie mit
-     * drei Stufen als "drei Stufen + ihre Freischalt-Zutat im vierten Feld", eine Luecke, dann die naechste
-     * Familie in derselben Zeile. Zuletzt die weiteren Mobkoepfe ({@link #extraMobHeads()}).
+     * Danach die Pads in Erz-Reihenfolge Kupfer, Eisen, Gold, Diamant, Netherit, Enderit, jede Familie mit
+     * drei Stufen als "drei Stufen + ihre Freischalt-Zutat": die Kerne, dann die Zutaten (Kopf oder Elytra)
+     * der Familien, die eine feste Zutat haben (Gold, Diamant, Netherit, Enderit; Kupfer und Eisen nehmen
+     * jeden Trial-Chamber-Kopf, die stehen unten bei den Mobkoepfen), dann die Stufen je Tier. Zuletzt das
+     * Spawn-Elytra und die weiteren Mobkoepfe ({@link #extraMobHeads()}). Seit tweaks P8 fliesst alles mit
+     * einer Trennzelle zwischen den Kategorien (keine spaltenweise Ausrichtung mehr).
      */
     public static List<CreativeTabLayout.Row> padsRows() {
         List<CreativeTabLayout.Row> rows = new ArrayList<>(List.of(
@@ -232,17 +235,12 @@ public final class TweaksItems {
                         TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
                         TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
                         TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE),
-                // Spezial-Pads spaltenweise (Besitzer 2026-10-01): je Familie eine Spalte in Erz-Reihenfolge
-                // (Kupfer Chunk-Loader, Eisen Launchpad, Gold Spawn-Teleporter, Diamant Elytra-Pad, Netherit
-                // Trank-Pad, Enderit Flypad) - oben der Kern, darunter die zweite Zutat (Kopf oder Elytra), dann
-                // die Stufen. Chunk-Loader und Launchpad nehmen jeden Trial-Chamber-Kopf; die stehen unten bei
-                // den Mobkoepfen, ihr Feld bleibt frei.
                 CreativeTabLayout.Row.of("pad_cores",
                         com.simplebuilding.items.ModItems.COPPER_CORE, com.simplebuilding.items.ModItems.IRON_CORE,
                         com.simplebuilding.items.ModItems.GOLD_CORE, com.simplebuilding.items.ModItems.DIAMOND_CORE,
                         com.simplebuilding.items.ModItems.NETHERITE_CORE, com.simplebuilding.items.ModItems.ENDERITE_CORE),
                 CreativeTabLayout.Row.of("pad_materials",
-                        CreativeTabLayout.GAP, CreativeTabLayout.GAP, ENDERMAN_HEAD, Items.ELYTRA, BLAZE_HEAD, SHULKER_HEAD),
+                        ENDERMAN_HEAD, Items.ELYTRA, BLAZE_HEAD, SHULKER_HEAD),
                 CreativeTabLayout.Row.of("pad_tier_1",
                         TweaksBlocks.CHUNK_LOADER, TweaksBlocks.LAUNCHPAD, TweaksBlocks.SPAWN_TELEPORTER,
                         TweaksBlocks.ELYTRA_PAD, TweaksBlocks.POTION_PAD, TweaksBlocks.FLYPAD),
@@ -253,7 +251,7 @@ public final class TweaksItems {
                         TweaksBlocks.ENDERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER,
                         TweaksBlocks.ENDERITE_ELYTRA_PAD, TweaksBlocks.INFUSED_POTION_PAD, TweaksBlocks.STELLAR_FLYPAD),
                 CreativeTabLayout.Row.of("pad_spawn_elytra",
-                        CreativeTabLayout.GAP, CreativeTabLayout.GAP, CreativeTabLayout.GAP, SPAWN_ELYTRA)));
+                        SPAWN_ELYTRA)));
         // Die uebrigen Mod-Mobkoepfe nach Fundort im Spielverlauf: Oberwelt (Biom), Unterwelt, End.
         List<ItemLike> heads = extraMobHeads();
         if (!heads.isEmpty()) {
