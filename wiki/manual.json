@@ -2491,7 +2491,7 @@
         "title": "Enderite Void Protection",
         "summary": "Every enderite item of the mod is safe from the void and lies twice as long when dropped: if it falls below the world's bottom it hangs in place and is pulled back up when needed, and it despawns only after 10 minutes. Enderite armor also slows void damage for the wearer and lets you drift down gently while the jump key is held.",
         "details": [
-          "One item tag decides: simplebuilding:enderite_items. Datagen fills it from every mod item whose id contains \"enderite\" (so raw_enderite and enchanted_enderite_apple too) plus the enderite tiers whose id does not say so - the three Flypads (tier I crafted shapelessly from an Enderite Core, an Enderite Pressure Plate, a Shulker Head and an elytra with Mending; tiers II and III upgraded at the smithing table), the Fine Elytra Pad V, the Infused Potion Pad III and the Echo Sounder (enderite core and nuggets). That covers ingot, scrap, raw enderite fragments and scrap, nugget, block, tools, weapons, armor, horse and nautilus armor, bundle, quiver, backpack, chest, core, apples, carrot, upgrade template, machines and pads. The tags simplebuilding:void_protected (void protection) and simplebuilding:double_despawn_time (lifetime) each contain #simplebuilding:enderite_items, so a modpack can widen either one on its own. A game test finds every item named \"Enderite\" in English or with \"enderite\" in its id and fails if one is missing from the tag.",
+          "One item tag decides: simplebuilding:enderite_items. Datagen fills it from every mod item whose id contains \"enderite\" (so raw_enderite and enchanted_enderite_apple too) plus the enderite tiers whose id does not say so - the three Flypads (tier I crafted shapelessly from an Enderite Core, an Enderite Pressure Plate, a Shulker Head and an elytra with Mending; tiers II and III upgraded at the smithing table), the Fine Elytra Pad V (since 2026-10-07 a legacy block - on its first tick it becomes the Enderite Elytra Pad III, which is enderite anyway), the Infused Potion Pad III and the Echo Sounder (enderite core and nuggets). That covers ingot, scrap, raw enderite fragments and scrap, nugget, block, tools, weapons, armor, horse and nautilus armor, bundle, quiver, backpack, chest, core, apples, carrot, upgrade template, machines and pads. The tags simplebuilding:void_protected (void protection) and simplebuilding:double_despawn_time (lifetime) each contain #simplebuilding:enderite_items, so a modpack can widen either one on its own. A game test finds every item named \"Enderite\" in English or with \"enderite\" in its id and fails if one is missing from the tag.",
           "If such an item falls below the dimension's minimum height, its motion is zeroed and gravity is switched off - it floats.",
           "If it ends up more than 10 blocks below the minimum height, it is moved back to 5 blocks above the minimum height.",
           "The check runs on the server only, on every tick of the item entity.",
@@ -2507,7 +2507,7 @@
         "title": "Enderit-Schutz vor der Leere",
         "summary": "Jeder Enderit-Gegenstand der Mod ist vor der Leere sicher und bleibt fallengelassen doppelt so lange liegen: Fällt er unter die Weltgrenze, bleibt er schweben und wird bei Bedarf wieder nach oben geholt, und er verschwindet erst nach 10 Minuten. Zusätzlich verlangsamt Enderit-Rüstung den Leere-Schaden für den Träger und erlaubt bei gedrückter Sprungtaste sanftes Fallen.",
         "details": [
-          "Ein Item-Tag entscheidet: simplebuilding:enderite_items. Der Datagen füllt es aus allen Mod-Items, deren Kennung „enderite“ enthält (also auch raw_enderite und enchanted_enderite_apple), dazu die Enderit-Stufen, deren Kennung das nicht sagt – die drei Flypads (Stufe I formlos aus Enderitkern, Enderit-Druckplatte, Shulkerkopf und Elytra mit Reparatur hergestellt; Stufen II und III am Schmiedetisch aufgewertet), das Feine Elytra-Pad V, das Durchtränkte Trank-Pad III und das Echolot (Enderit-Kern und -Klumpen). Das umfasst Barren, Platten, Rohe Enderitfragmente und -platten, Klumpen, Block, Werkzeuge, Waffen, Rüstung, Ross- und Nautilusrüstung, Bündel, Köcher, Rucksack, Truhe, Kern, Äpfel, Karotte, Upgrade-Vorlage, Maschinen und Pads. Die Tags simplebuilding:void_protected (Leere-Schutz) und simplebuilding:double_despawn_time (Liegezeit) enthalten jeweils #simplebuilding:enderite_items, ein Modpack kann also jedes für sich erweitern. Ein Spieltest sucht jeden Gegenstand mit „Enderite“ im englischen Namen oder „enderite“ in der Kennung und schlägt fehl, wenn einer im Tag fehlt.",
+          "Ein Item-Tag entscheidet: simplebuilding:enderite_items. Der Datagen füllt es aus allen Mod-Items, deren Kennung „enderite“ enthält (also auch raw_enderite und enchanted_enderite_apple), dazu die Enderit-Stufen, deren Kennung das nicht sagt – die drei Flypads (Stufe I formlos aus Enderitkern, Enderit-Druckplatte, Shulkerkopf und Elytra mit Reparatur hergestellt; Stufen II und III am Schmiedetisch aufgewertet), das Feine Elytra-Pad V (seit 2026-10-07 ein Altlast-Block – beim ersten Tick wird es zum Enderit-Elytra-Pad III, das sowieso aus Enderit ist), das Durchtränkte Trank-Pad III und das Echolot (Enderit-Kern und -Klumpen). Das umfasst Barren, Platten, Rohe Enderitfragmente und -platten, Klumpen, Block, Werkzeuge, Waffen, Rüstung, Ross- und Nautilusrüstung, Bündel, Köcher, Rucksack, Truhe, Kern, Äpfel, Karotte, Upgrade-Vorlage, Maschinen und Pads. Die Tags simplebuilding:void_protected (Leere-Schutz) und simplebuilding:double_despawn_time (Liegezeit) enthalten jeweils #simplebuilding:enderite_items, ein Modpack kann also jedes für sich erweitern. Ein Spieltest sucht jeden Gegenstand mit „Enderite“ im englischen Namen oder „enderite“ in der Kennung und schlägt fehl, wenn einer im Tag fehlt.",
           "Fällt ein solches Item unter die Mindesthöhe der jeweiligen Dimension, wird seine Bewegung gestoppt und die Schwerkraft abgeschaltet – es schwebt.",
           "Liegt es mehr als 10 Blöcke unter der Mindesthöhe, wird es auf 5 Blöcke über der Mindesthöhe zurückversetzt.",
           "Die Prüfung erfolgt nur auf dem Server, jeden Tick des Item-Objekts.",
@@ -3121,8 +3121,8 @@
         "title": "Simple Tweaks: pads, spawn and server tweaks",
         "summary": "Almost everything from the Simple Tweaks mod lives in SimpleBuilding now (the claim system stays in Simple Tweaks): pressure plates and pads with an Enderite tier, spawn elytra and spawn teleporters, the echo sounder (formerly echo compass), the Resonance Rod (formerly the laser pointer) and a few server options.",
         "details": [
-          "Tier ladder of every plate family: after Netherite comes Enderite, and the nether star tier moves up one: Netherite Elytra Pad III, Enderite Elytra Pad IV, Fine Elytra Pad V; flypads now have three enderite tiers. Each Enderite tier adds one function (see the items). Launchpads and Chunk Loaders have three tiers each (Diamond, Netherite, Enderite).",
-          "Upgrades pay with pressure plates: every smithing upgrade of a pad family costs the pressure plate of its target material instead of the raw material - Diamond Pressure Plate for the diamond tiers, Netherite Pressure Plate for the netherite tiers, Enderite Pressure Plate for the enderite tiers. Unchanged: the entry tiers, the plates themselves and the nether star step of the elytra pad. Flypads are an enderite-only family of three tiers now (see the flypad).",
+          "Tier ladder of every plate family: after Netherite comes Enderite: Elytra Pad I, Netherite Elytra Pad II, Enderite Elytra Pad III (since 2026-10-07; the old tiers II and V load old worlds as legacy blocks). Each Enderite tier adds one function (see the items). Launchpads and Chunk Loaders have three tiers each (Diamond, Netherite, Enderite).",
+          "Upgrades pay with pressure plates: every smithing upgrade of a pad family costs the pressure plate of its target material instead of the raw material - Diamond Pressure Plate for the diamond tiers, Netherite Pressure Plate for the netherite tiers, Enderite Pressure Plate for the enderite tiers. Unchanged: the entry tiers and the plates themselves. Flypads are an enderite-only family of three tiers now (see the flypad).",
           "XP orbs merge into one orb once a second within 2 blocks and can be picked up without the vanilla delay (tweaks.optimization.enableXpClumps); orbs worth more look bigger (scaleXpOrbs, client). The merge radius is tweaks.optimization.xpClumpRadius (default 2.0).",
           "Firework rockets can be limited to a smaller stack size (tweaks.balancing.rocketStackSize).",
           "The Nether and the End can be locked (tweaks.dimensions); exact spawn without random offset and a custom world spawn are off by default so existing worlds do not change.",
@@ -3137,8 +3137,8 @@
         "title": "Simple Tweaks: Pads, Spawn und Server-Einstellungen",
         "summary": "Fast alles aus der Mod Simple Tweaks steckt jetzt in SimpleBuilding (das Claim-System bleibt in Simple Tweaks): Druckplatten und Pads mit einer Enderit-Stufe, Spawn-Elytra und Spawn-Teleporter, das Echolot (früher Echo-Kompass), die Resonanzstab (früher Laserpointer) und einige Server-Optionen.",
         "details": [
-          "Stufenleiter aller Platten-Familien: nach Netherit kommt Enderit, die Netherstern-Stufe rückt eins auf: Netherit-Elytra-Pad III, Enderit-Elytra-Pad IV, Feines Elytra-Pad V; Flugpads haben jetzt drei Enderit-Stufen. Jede Enderit-Stufe bringt eine Zusatzfunktion (siehe die Gegenstände). Startrampen und Chunk-Lader haben je drei Stufen (Diamant, Netherit, Enderit).",
-          "Aufwertungen zahlen mit Druckplatten: jede Schmiede-Aufwertung einer Pad-Familie kostet die Druckplatte des Zielmaterials statt des Rohstoffs - Diamant-Druckplatte für die Diamant-Stufen, Netherit-Druckplatte für die Netherit-Stufen, Enderit-Druckplatte für die Enderit-Stufen. Unverändert: die Einstiegsstufen, die Platten selbst und die Netherstern-Stufe des Elytra-Pads. Flugpads sind jetzt eine reine Enderit-Familie mit drei Stufen (siehe Flugpad).",
+          "Stufenleiter aller Platten-Familien: nach Netherit kommt Enderit: Elytra-Pad I, Netherit-Elytra-Pad II, Enderit-Elytra-Pad III (seit 2026-10-07; die alten Stufen II und V laden alte Welten als Altlast-Blocke). Jede Enderit-Stufe bringt eine Zusatzfunktion (siehe die Gegenstände). Startrampen und Chunk-Lader haben je drei Stufen (Diamant, Netherit, Enderit).",
+          "Aufwertungen zahlen mit Druckplatten: jede Schmiede-Aufwertung einer Pad-Familie kostet die Druckplatte des Zielmaterials statt des Rohstoffs - Diamant-Druckplatte für die Diamant-Stufen, Netherit-Druckplatte für die Netherit-Stufen, Enderit-Druckplatte für die Enderit-Stufen. Unverändert: die Einstiegsstufen und die Platten selbst. Flugpads sind jetzt eine reine Enderit-Familie mit drei Stufen (siehe Flugpad).",
           "XP-Kugeln verschmelzen einmal pro Sekunde im Umkreis von 2 Blöcken zu einer und lassen sich ohne die Vanilla-Verzögerung aufheben (tweaks.optimization.enableXpClumps); wertvollere Kugeln sehen größer aus (scaleXpOrbs, Client). Der Radius ist tweaks.optimization.xpClumpRadius (Standard 2,0).",
           "Feuerwerksraketen lassen sich auf eine kleinere Stapelgröße begrenzen (tweaks.balancing.rocketStackSize).",
           "Nether und End lassen sich sperren (tweaks.dimensions); exakter Spawn ohne Zufallsversatz und ein eigener Weltspawn sind standardmäßig aus, damit bestehende Welten unverändert bleiben.",
@@ -9203,28 +9203,28 @@
     },
     "*elytra_pad": {
       "en": {
-        "summary": "Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; five tiers, from Elytra Pad I to Fine Elytra Pad V.",
+        "summary": "Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; three tiers, from Elytra Pad I to Enderite Elytra Pad III.",
         "details": [
           "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
           "Putting an elytra on you plays the vanilla elytra equip sound - no text on the screen.",
           "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
-          "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
-          "Base horizontal area by tier: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 15 / 31 / 63 / 95 / 127 blocks above its bottom, respectively.",
-          "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = any trim template or netherite upgrade + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+          "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (III) on, in the whole area.",
+          "Base horizontal area by tier: I 5x5, II 32x32, III 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 5 / 32 / 192 blocks above its bottom, respectively.",
+          "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = netherite upgrade + pad I + Netherite Pressure Plate; III = enderite upgrade + pad II + Enderite Pressure Plate. The two tiers from before 2026-10-07 (II and V) still load old worlds: on their first tick they become tier I or III, and their items swap themselves in the inventory.",
           "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
           "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
           "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
         ]
       },
       "de": {
-        "summary": "Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; fünf Stufen, vom Elytra-Pad I bis zum Feinen Elytra-Pad V.",
+        "summary": "Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; drei Stufen, vom Elytra-Pad I bis zum Enderit-Elytra-Pad III.",
         "details": [
           "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
           "Beim Anlegen klingt Vanillas Elytra-Anlegegeräusch - kein Text auf dem Bildschirm.",
           "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
-          "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
-          "Horizontale Basisfläche je Stufe: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 15 / 31 / 63 / 95 / 127 Blöcke über seiner Unterkante.",
-          "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertung + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+          "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (III) im ganzen Bereich.",
+          "Horizontale Basisfläche je Stufe: I 5x5, II 32x32, III 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 5 / 32 / 192 Blöcke über seiner Unterkante.",
+          "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = Netherit-Aufwertung + Pad I + Netherit-Druckplatte; III = Enderit-Aufwertung + Pad II + Enderit-Druckplatte. Die beiden Stufen von vor 2026-10-07 (II und V) laden alte Welten weiterhin: beim ersten Tick werden sie zu Stufe I bzw. III, ihre Items tauschen sich im Inventar.",
           "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
           "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
           "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
@@ -9244,38 +9244,40 @@
       ],
       "items": {
         "simplebuilding:elytra_pad": {
-          "en": "Elytra Pad I: tier 1, base area 1x1 blocks, from 1 block below the pad to 15 blocks above its bottom.",
-          "de": "Elytra-Pad I: Stufe 1, Basisfläche 1x1 Blöcke, von 1 Block unter dem Pad bis 15 Blöcke über seiner Unterkante.",
+          "en": "Elytra Pad I: tier 1, base area 5x5 blocks, from 1 block below the pad to 5 blocks above its bottom.",
+          "de": "Elytra-Pad I: Stufe 1, Basisfläche 5x5 Blöcke, von 1 Block unter dem Pad bis 5 Blöcke über seiner Unterkante.",
           "sources": [
             "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
           ]
         },
         "simplebuilding:reinforced_elytra_pad": {
-          "en": "Reinforced Elytra Pad II: tier 2, base area 5x5 blocks, from 1 block below the pad to 31 blocks above its bottom.",
-          "de": "Verstärktes Elytra-Pad II: Stufe 2, Basisfläche 5x5 Blöcke, von 1 Block unter dem Pad bis 31 Blöcke über seiner Unterkante.",
+          "en": "Reinforced Elytra Pad (Legacy): the old tier II, becomes Elytra Pad I on its first tick after the three-tier rework (2026-10-07); the item swaps itself in the inventory.",
+          "de": "Verstärktes Elytra-Pad (alt): die alte Stufe II, wird beim ersten Tick nach der Drei-Stufen-Umstellung (2026-10-07) zum Elytra-Pad I; das Item tauscht sich im Inventar.",
           "sources": [
-            "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
+            "common/src/shared/java/com/simplebuilding/tweaks/block/LegacyElytraPadBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlockEntity.java"
           ]
         },
         "simplebuilding:netherite_elytra_pad": {
-          "en": "Netherite Elytra Pad III: tier 3, base area 16x16 blocks, from 1 block below the pad to 63 blocks above its bottom.",
-          "de": "Netherit-Elytra-Pad III: Stufe 3, Basisfläche 16x16 Blöcke, von 1 Block unter dem Pad bis 63 Blöcke über seiner Unterkante.",
+          "en": "Netherite Elytra Pad II: tier 2, base area 32x32 blocks, from 1 block below the pad to 32 blocks above its bottom.",
+          "de": "Netherit-Elytra-Pad II: Stufe 2, Basisfläche 32x32 Blöcke, von 1 Block unter dem Pad bis 32 Blöcke über seiner Unterkante.",
           "sources": [
             "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
           ]
         },
         "simplebuilding:enderite_elytra_pad": {
-          "en": "Enderite Elytra Pad IV: tier 4, base area 32x32 blocks, from 1 block below the pad to 95 blocks above its bottom.",
-          "de": "Enderit-Elytra-Pad IV: Stufe 4, Basisfläche 32x32 Blöcke, von 1 Block unter dem Pad bis 95 Blöcke über seiner Unterkante.",
+          "en": "Enderite Elytra Pad III: tier 3, base area 128x128 blocks, from 1 block below the pad to 192 blocks above its bottom; boosts recharge in the whole area.",
+          "de": "Enderit-Elytra-Pad III: Stufe 3, Basisfläche 128x128 Blöcke, von 1 Block unter dem Pad bis 192 Blöcke über seiner Unterkante; Boosts laden im ganzen Bereich.",
           "sources": [
             "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
           ]
         },
         "simplebuilding:fine_elytra_pad": {
-          "en": "Fine Elytra Pad V: tier 5, base area 128x128 blocks, from 1 block below the pad to 127 blocks above its bottom.",
-          "de": "Feines Elytra-Pad V: Stufe 5, Basisfläche 128x128 Blöcke, von 1 Block unter dem Pad bis 127 Blöcke über seiner Unterkante.",
+          "en": "Fine Elytra Pad (Legacy): the old tier V, becomes Enderite Elytra Pad III on its first tick after the three-tier rework (2026-10-07); the item swaps itself in the inventory.",
+          "de": "Feines Elytra-Pad (alt): die alte Stufe V, wird beim ersten Tick nach der Drei-Stufen-Umstellung (2026-10-07) zum Enderit-Elytra-Pad III; das Item tauscht sich im Inventar.",
           "sources": [
-            "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
+            "common/src/shared/java/com/simplebuilding/tweaks/block/LegacyElytraPadBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlockEntity.java"
           ]
         }
       }

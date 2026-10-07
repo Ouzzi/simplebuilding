@@ -1675,6 +1675,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("pad_overhaul_game_test_old_spawn_teleporters_become_their_new_tier_in_the_world_and_the_inventory", PadOverhaulTests::oldSpawnTeleportersBecomeTheirNewTierInTheWorldAndTheInventory)
                     .build(),
+            GameTestSpec.named("pad_overhaul_game_test_old_elytra_pads_become_their_new_tier_in_the_world_and_the_inventory", PadOverhaulTests::oldElytraPadsBecomeTheirNewTierInTheWorldAndTheInventory)
+                    .build(),
             GameTestSpec.named("pad_overhaul_game_test_tier_one_of_every_pad_family_is_smithed_from_its_plate_and_unlock_item", PadOverhaulTests::tierOneOfEveryPadFamilyIsSmithedFromItsPlateAndUnlockItem)
                     .build(),
             GameTestSpec.named("pad_overhaul_game_test_pads_and_gadgets_write_no_text_on_the_screen", PadOverhaulTests::padsAndGadgetsWriteNoTextOnTheScreen)

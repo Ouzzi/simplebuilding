@@ -64,17 +64,19 @@ public final class TweaksBlocks {
             p -> new FilterPressurePlateBlock(BlockSetType.IRON,
                     p.mapColor(MapColor.COLOR_PURPLE).noCollision().strength(5.0f).pushReaction(McVersion.PUSH_BLOCKED), true));
 
-    // --- Elytra-Pads I-V ---
+    // --- Elytra-Pads I-III (seit 2026-10-07 drei Stufen; alte II und V nur noch als Legacy) ---
     public static final Block ELYTRA_PAD = register("elytra_pad",
             p -> new ElytraPadBlock(sturdy(p).mapColor(MapColor.COLOR_CYAN).strength(1.5f).sound(SoundType.METAL), 1));
+    // Alte Stufe II (vorher fuenf Stufen): nur zum Laden alter Welten, wird zu Stufe I.
     public static final Block REINFORCED_ELYTRA_PAD = register("reinforced_elytra_pad",
-            p -> new ElytraPadBlock(sturdy(p).mapColor(MapColor.DIAMOND).strength(2.0f).sound(SoundType.METAL), 2));
+            p -> new LegacyElytraPadBlock(sturdy(p).mapColor(MapColor.DIAMOND).strength(2.0f).sound(SoundType.METAL), 2, () -> TweaksBlocks.ELYTRA_PAD));
     public static final Block NETHERITE_ELYTRA_PAD = register("netherite_elytra_pad",
-            p -> new ElytraPadBlock(sturdy(p).mapColor(MapColor.COLOR_BLACK).strength(4.0f).sound(SoundType.NETHERITE_BLOCK), 3));
+            p -> new ElytraPadBlock(sturdy(p).mapColor(MapColor.COLOR_BLACK).strength(4.0f).sound(SoundType.NETHERITE_BLOCK), 2));
     public static final Block ENDERITE_ELYTRA_PAD = register("enderite_elytra_pad",
-            p -> new ElytraPadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(4.5f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 7), 4));
+            p -> new ElytraPadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(4.5f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 7), 3));
+    // Alte Endstufe V (vorher fuenf Stufen): nur zum Laden alter Welten, wird zur neuen Endstufe III.
     public static final Block FINE_ELYTRA_PAD = register("fine_elytra_pad",
-            p -> new ElytraPadBlock(sturdy(p).mapColor(MapColor.GOLD).strength(4.0f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 10), 5));
+            p -> new LegacyElytraPadBlock(sturdy(p).mapColor(MapColor.GOLD).strength(4.0f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 10), 5, () -> TweaksBlocks.ENDERITE_ELYTRA_PAD));
 
     // --- Flypads I-III aus Enderit (4x4x8 / 8x8x16 / 16x16x32, Besitzer 2026-09-27, Hoehe 2026-10-02) ---
     public static final Block FLYPAD = register("flypad",
@@ -154,7 +156,8 @@ public final class TweaksBlocks {
 
     /** Alte, abgeloeste Stufenbloecke (nur zum Laden alter Welten; kein Rezept, kein Kreativ-Tab). */
     public static List<Block> legacy() {
-        return List.of(NETHERITE_FLYPAD, ENDERITE_FLYPAD, SPAWN_TELEPORTER_TIER_3, SPAWN_TELEPORTER_TIER_4);
+        return List.of(NETHERITE_FLYPAD, ENDERITE_FLYPAD, SPAWN_TELEPORTER_TIER_3, SPAWN_TELEPORTER_TIER_4,
+                REINFORCED_ELYTRA_PAD, FINE_ELYTRA_PAD);
     }
 
     /** Alle Mob-Koepfe der Mod (stehend und an der Wand); keine Pads, darum nicht in {@link #all()}. */

@@ -322,7 +322,7 @@ public final class PotionPadTests {
             }
         }
         pads.addAll(TweaksBlocks.legacy());
-        helper.assertTrue(pads.size() == 24, "expected 24 pad blocks (22 tiers + 2 legacy flypads), found " + pads.size());
+        helper.assertTrue(pads.size() == 24, "expected 24 pad blocks (18 tiers + 6 legacy pads), found " + pads.size());
         for (Block pad : pads) {
             ItemStack stack = new ItemStack(pad);
             helper.assertTrue(stack.getMaxStackSize() == 1, pad + " stacks to " + stack.getMaxStackSize() + " instead of 1");

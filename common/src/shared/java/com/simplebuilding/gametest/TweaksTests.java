@@ -115,8 +115,8 @@ public final class TweaksTests {
     // =====================================================================================
 
     /**
-     * Die Pad-Bereiche wachsen mit jeder Stufe, und die neue Enderit-Stufe IV liegt zwischen Netherit
-     * (III) und der Netherstern-Stufe (jetzt V): 47x47x95 zwischen 31x31x63 und 63x63x127.
+     * Die Pad-Bereiche wachsen mit jeder Stufe; seit 2026-10-07 hat das Elytra-Pad drei Stufen: 5x5x5,
+     * 32x32x32, 128x128x192 (nur die Endstufe ist Enderit und traegt den Boost-Vorteil).
      */
     public static void padTiersGrowAndEnderiteSitsBetweenNetheriteAndTheNetherStarTier(GameTestHelper helper) {
         int[] widths = new int[PadTiers.MAX];
@@ -127,16 +127,16 @@ public final class TweaksTests {
                         "pad tier " + tier + " is not larger than tier " + (tier - 1));
             }
         }
-        helper.assertValueEqual(List.of(PadTiers.width(1), PadTiers.width(2), PadTiers.width(3), PadTiers.width(4), PadTiers.width(5)),
-                List.of(1, 5, 16, 32, 128), "elytra pad widths per tier");
-        helper.assertValueEqual(List.of(PadTiers.height(1), PadTiers.height(2), PadTiers.height(3), PadTiers.height(4), PadTiers.height(5)),
-                List.of(15, 31, 63, 95, 127), "pad heights per tier");
-        helper.assertValueEqual(ElytraPadBlockEntity.tierOf(TweaksBlocks.ENDERITE_ELYTRA_PAD.defaultBlockState()), 4, "tier of the enderite elytra pad");
+        helper.assertValueEqual(List.of(PadTiers.width(1), PadTiers.width(2), PadTiers.width(3)),
+                List.of(5, 32, 128), "elytra pad widths per tier");
+        helper.assertValueEqual(List.of(PadTiers.height(1), PadTiers.height(2), PadTiers.height(3)),
+                List.of(5, 32, 192), "pad heights per tier");
+        helper.assertValueEqual(ElytraPadBlockEntity.tierOf(TweaksBlocks.ENDERITE_ELYTRA_PAD.defaultBlockState()), 3, "tier of the enderite elytra pad");
         helper.assertValueEqual(ElytraPadBlockEntity.tierOf(TweaksBlocks.FINE_ELYTRA_PAD.defaultBlockState()), 5, "tier of the fine elytra pad");
         helper.assertValueEqual(FlypadBlockEntity.tierOf(TweaksBlocks.REINFORCED_FLYPAD.defaultBlockState()), 2, "tier of the reinforced flypad");
         helper.assertValueEqual(FlypadBlockEntity.tierOf(TweaksBlocks.STELLAR_FLYPAD.defaultBlockState()), 3, "tier of the stellar flypad");
-        helper.assertFalse(PadTiers.hasEnderiteBonus(3), "the netherite tier already carries the enderite bonus");
-        helper.assertTrue(PadTiers.hasEnderiteBonus(4) && PadTiers.hasEnderiteBonus(5), "the enderite bonus does not carry over to the higher tiers");
+        helper.assertFalse(PadTiers.hasEnderiteBonus(2), "the netherite tier already carries the enderite bonus");
+        helper.assertTrue(PadTiers.hasEnderiteBonus(3), "the enderite tier does not carry the bonus");
         helper.succeed();
     }
 
@@ -157,16 +157,15 @@ public final class TweaksTests {
         expectSmithing(helper, template, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, enderitePlate, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
         expectSmithing(helper, template, TweaksBlocks.NETHERITE_CHUNK_LOADER, enderitePlate, TweaksBlocks.ENDERITE_CHUNK_LOADER);
         expectSmithing(helper, template, TweaksBlocks.NETHERITE_LAUNCHPAD, enderitePlate, TweaksBlocks.ENDERITE_LAUNCHPAD);
-        expectSmithing(helper, netherite, TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.NETHER_STAR, TweaksBlocks.FINE_ELYTRA_PAD);
-        expectSmithing(helper, netherite, TweaksBlocks.REINFORCED_ELYTRA_PAD, netheritePlate, TweaksBlocks.NETHERITE_ELYTRA_PAD);
+        expectSmithing(helper, netherite, TweaksBlocks.ELYTRA_PAD, netheritePlate, TweaksBlocks.NETHERITE_ELYTRA_PAD);
         helper.assertTrue(smithing(helper, template, TweaksBlocks.ENDERITE_PRESSURE_PLATE, ModItems.ENDERITE_CORE).isEmpty(),
                 "Flypad I still bypasses its Shulker Head and Mending elytra through smithing");
         expectSmithing(helper, netherite, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.NETHERITE_PRESSURE_PLATE);
         expectSmithing(helper, ModItems.COPPER_CORE, TweaksBlocks.COPPER_PRESSURE_PLATE, Items.ZOMBIE_HEAD, TweaksBlocks.CHUNK_LOADER);
-        // Der alte Weg (Netherit-Pad + Netherstern) fuehrt nicht mehr zum feinen Pad.
-        Optional<RecipeHolder<SmithingRecipe>> oldWay = smithing(helper, netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD, Items.NETHER_STAR);
-        helper.assertTrue(oldWay.isEmpty() || !oldWay.get().value().assemble(smithingInput(netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD, Items.NETHER_STAR)).is(TweaksBlocks.FINE_ELYTRA_PAD.asItem()),
-                "the netherite elytra pad still becomes the fine pad directly, so the enderite tier can be skipped");
+        // Der alte Weg (Netherit-Pad + Netherstern zur Stufe V) fuehrt nicht mehr zum feinen Pad.
+        Optional<RecipeHolder<SmithingRecipe>> oldWay = smithing(helper, netherite, TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.NETHER_STAR);
+        helper.assertTrue(oldWay.isEmpty() || !oldWay.get().value().assemble(smithingInput(netherite, TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.NETHER_STAR)).is(TweaksBlocks.FINE_ELYTRA_PAD.asItem()),
+                "the enderite elytra pad still becomes the fine pad directly through the nether star");
         helper.succeed();
     }
 

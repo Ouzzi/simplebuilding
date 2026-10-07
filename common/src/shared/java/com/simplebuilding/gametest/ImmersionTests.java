@@ -188,7 +188,7 @@ public final class ImmersionTests {
 
     /**
      * Pads, machines, pistons and floating sand name their numbers in the tooltip: tier, charges,
-     * area, wait time, speed. The legacy flypad (turns into its new tier) promises nothing.
+     * area, wait time, speed. The legacy pads (turn into their new tier) promise nothing.
      *
      * <p><strong>What breaks this test:</strong> a tooltip that shows a different number than the
      * tier really has, or a missing line.
@@ -197,8 +197,8 @@ public final class ImmersionTests {
         expectLines(helper, TweaksBlocks.ENDERITE_LAUNCHPAD, "Tier III of III", "Holds 16 wind charges", "No fall damage until you land");
         expectLines(helper, TweaksBlocks.LAUNCHPAD, "Tier I of III", "Holds 4 wind charges");
         expectLines(helper, TweaksBlocks.NETHERITE_CHUNK_LOADER, "Tier II of III", "Loads this chunk and its 4 neighbors");
-        expectLines(helper, TweaksBlocks.FINE_ELYTRA_PAD, "Tier V of V", "Area: 128 x 128 blocks, 127 high", "Recharges boosts in the whole area");
-        expectLines(helper, TweaksBlocks.ELYTRA_PAD, "Tier I of V", "Area: 1 x 1 blocks, 15 high");
+        expectLines(helper, TweaksBlocks.ENDERITE_ELYTRA_PAD, "Tier III of III", "Area: 128 x 128 blocks, 192 high", "Recharges boosts in the whole area");
+        expectLines(helper, TweaksBlocks.ELYTRA_PAD, "Tier I of III", "Area: 5 x 5 blocks, 5 high");
         expectLines(helper, TweaksBlocks.REINFORCED_FLYPAD, "Tier II of III", "Flight area: 8 x 8 blocks, 16 high", "Flying out gives you Slow Falling");
         expectLines(helper, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "Tier III of III", "Stand still for 5 s: bed or respawn anchor.", "No bed/anchor: spawn.");
         expectLines(helper, TweaksBlocks.POTION_PAD, "Tier I of III", "Effects: up to 30 s; capped by the potion.", "Cooldown afterward: about 60 s.");
@@ -214,8 +214,10 @@ public final class ImmersionTests {
         expectLines(helper, ModBlocks.REINFORCED_STICKY_PISTON, "Pushes up to 18 blocks");
         expectLines(helper, ModBlocks.LEVITATING_SAND, "Falls upward instead of down");
         expectLines(helper, ModBlocks.SUSPENDED_GRAVEL, "Hangs in mid-air and never falls");
-        helper.assertTrue(InfoTooltips.lines(new ItemStack(TweaksBlocks.ENDERITE_FLYPAD)).isEmpty(),
-                "the legacy flypad has info lines: " + text(new ItemStack(TweaksBlocks.ENDERITE_FLYPAD)));
+        for (var legacy : List.of(TweaksBlocks.ENDERITE_FLYPAD, TweaksBlocks.REINFORCED_ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD)) {
+            helper.assertTrue(InfoTooltips.lines(new ItemStack(legacy)).isEmpty(),
+                    "the legacy pad has info lines: " + text(new ItemStack(legacy)));
+        }
         helper.assertFalse(text(new ItemStack(ModBlocks.REINFORCED_FURNACE)).contains("Double experience"),
                 "the reinforced furnace claims double experience");
         helper.assertTrue(InfoTooltips.lines(new ItemStack(Blocks.FURNACE)).isEmpty(), "the vanilla furnace got info lines");

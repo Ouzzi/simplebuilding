@@ -21,8 +21,7 @@ public final class TweaksFamilies {
     /** Stufen der Familie, niedrigste zuerst. */
     public static List<Block> tiers(Family family) {
         return switch (family) {
-            case ELYTRA_PAD -> List.of(TweaksBlocks.ELYTRA_PAD, TweaksBlocks.REINFORCED_ELYTRA_PAD, TweaksBlocks.NETHERITE_ELYTRA_PAD,
-                    TweaksBlocks.ENDERITE_ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD);
+            case ELYTRA_PAD -> List.of(TweaksBlocks.ELYTRA_PAD, TweaksBlocks.NETHERITE_ELYTRA_PAD, TweaksBlocks.ENDERITE_ELYTRA_PAD);
             case FLYPAD -> List.of(TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD);
             case SPAWN_TELEPORTER -> List.of(TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2,
                     TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);

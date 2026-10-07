@@ -201,6 +201,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 // Alte Spawn-Teleporter III und IV (bis 2026-09-28 fuenf Stufen)
                 .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.SPAWN_TELEPORTER_TIER_3.asItem()))
                 .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.SPAWN_TELEPORTER_TIER_4.asItem()))
+                // Alte Elytra-Pads II und V (bis 2026-10-07 fuenf Stufen)
+                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.REINFORCED_ELYTRA_PAD.asItem()))
+                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.FINE_ELYTRA_PAD.asItem()))
                 // Versteckt, Ende der Easter-Kette (docs/SIMPLETWEAKS-UEBERNAHME.md, Spoiler).
                 .add(key(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick()));
 

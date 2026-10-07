@@ -201,7 +201,7 @@ public final class TweaksEasterTests {
                 problems.add(family + " has " + stages + " easter stages instead of " + Math.min(5, tiers.size()));
             }
         }
-        helper.assertTrue(EasterEggs.stageCount(Family.FLYPAD) == 3 && EasterEggs.stageCount(Family.ELYTRA_PAD) == 5,
+        helper.assertTrue(EasterEggs.stageCount(Family.FLYPAD) == 3 && EasterEggs.stageCount(Family.ELYTRA_PAD) == 3,
                 "the flypad chain has " + EasterEggs.stageCount(Family.FLYPAD) + " stages, the elytra pad chain " + EasterEggs.stageCount(Family.ELYTRA_PAD));
 
         Map<String, String> english = Map.of(EasterEggs.stageNameKey(1), "Don't do it", EasterEggs.stageNameKey(2), "Seriously?",
@@ -254,13 +254,13 @@ public final class TweaksEasterTests {
     public static void theFinalEasterPadIsTwiceAsStrongAsTheLastTier(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
 
-        // Elytra-Pad V: 128 -> 256 breit, 127 -> 254 hoch. Kein Durchlauf mit Spielern: der doppelte
-        // Bereich reicht 127 Bloecke weit und wuerde den Spielern der Nachbartests Elytren anziehen.
+        // Elytra-Pad III (Enderit): 128 -> 256 breit, 192 -> 384 hoch. Kein Durchlauf mit Spielern: der doppelte
+        // Bereich reicht 192 Bloecke weit und wuerde den Spielern der Nachbartests Elytren anziehen.
         BlockPos elytra = new BlockPos(1, 1, 1);
         BlockPos elytraAbs = helper.absolutePos(elytra);
-        OwnedBlockEntity elytraBe = placeStaged(helper, elytra, TweaksBlocks.FINE_ELYTRA_PAD, 0);
+        OwnedBlockEntity elytraBe = placeStaged(helper, elytra, TweaksBlocks.ENDERITE_ELYTRA_PAD, 0);
         AABB normalArea = ElytraPadBlockEntity.areaOf(level, elytraAbs, helper.getBlockState(elytra));
-        elytraBe.setEasterStage(5);
+        elytraBe.setEasterStage(3);
         helper.assertTrue(EasterEggs.isBoosted(level, elytraAbs), "the final easter elytra pad is not boosted");
         AABB doubledArea = ElytraPadBlockEntity.areaOf(level, elytraAbs, helper.getBlockState(elytra));
         helper.assertTrue(Math.abs(normalArea.getXsize() - 128) < 1e-9 && Math.abs(doubledArea.getXsize() - 256) < 1e-9
@@ -270,12 +270,12 @@ public final class TweaksEasterTests {
                         + " instead of twice " + normalArea.getXsize() + " x " + (normalArea.maxY - elytraAbs.getY()));
         helper.setBlock(elytra, Blocks.AIR);
 
-        // Zwischenstufe: Easter-Stufe 4 auf dem Enderit-Pad IV wirkt wie Stufe IV.
+        // Zwischenstufe: Easter-Stufe 2 auf dem Netherit-Pad II wirkt wie Stufe II.
         BlockPos middle = new BlockPos(3, 1, 1);
-        placeStaged(helper, middle, TweaksBlocks.ENDERITE_ELYTRA_PAD, 4);
+        placeStaged(helper, middle, TweaksBlocks.NETHERITE_ELYTRA_PAD, 2);
         AABB middleArea = ElytraPadBlockEntity.areaOf(level, helper.absolutePos(middle), helper.getBlockState(middle));
         helper.assertTrue(!EasterEggs.isBoosted(level, helper.absolutePos(middle)) && Math.abs(middleArea.getXsize() - 32) < 1e-9,
-                "easter stage 4 of the elytra pad does not work like tier IV (" + middleArea.getXsize() + " wide)");
+                "easter stage 2 of the elytra pad does not work like tier II (" + middleArea.getXsize() + " wide)");
         helper.setBlock(middle, Blocks.AIR);
 
         // Flypad III: 16x16x32 -> 32x32x64 (aus demselben Grund ohne Spieler-Durchlauf).
@@ -435,8 +435,8 @@ public final class TweaksEasterTests {
         helper.assertTrue(done(player, root) && !done(player, seriously), "'Don't do it' did not earn exactly 'What have you done?'");
         give(player, EasterEggs.create(Family.LAUNCHPAD, 2), 2);
         helper.assertTrue(done(player, seriously) && !done(player, worth), "easter stage 2 did not earn exactly 'Seriously?'");
-        give(player, EasterEggs.create(Family.ELYTRA_PAD, 4), 3);
-        helper.assertTrue(!done(player, worth), "easter stage 4 of the five-tier elytra pad earned 'It Was Worth It'");
+        give(player, EasterEggs.create(Family.ELYTRA_PAD, 2), 3);
+        helper.assertTrue(!done(player, worth), "easter stage 2 of the three-tier elytra pad earned 'It Was Worth It'");
         give(player, EasterEggs.create(Family.FLYPAD, 3), 4);
         helper.assertTrue(done(player, worth) && !done(player, stick), "the final easter flypad did not earn exactly 'It Was Worth It'");
         ServerPlayer brewer = mockPlayer(helper, new Vec3(3.5, 1.0, 1.5));

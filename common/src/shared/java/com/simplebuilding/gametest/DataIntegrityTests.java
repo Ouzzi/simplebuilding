@@ -264,6 +264,9 @@ public final class DataIntegrityTests {
             // Alte Flypads (vor den drei Enderit-Stufen, 2026-09-27): werden zur neuen Stufe.
             "netherite_flypad",
             "enderite_flypad",
+            // Alte Elytra-Pads II und V (vor den drei Stufen, 2026-10-07): werden zu I bzw. III.
+            "reinforced_elytra_pad",
+            "fine_elytra_pad",
             // Ende der versteckten Easter-Kette ueber den Pad-Endstufen: bewusst nirgends angeboten.
             "funny_stick",
             // Abgenutzte Keramik-Eimer (Besitzer N12b: Kreativtab nur sinnvolle Stufen): entstehen nur durch Benutzung.
@@ -2889,7 +2892,7 @@ public final class DataIntegrityTests {
      * the heavy, light, diamond, netherite and enderite plates, copper (4 stages, then waxed) -; then the
      * pads in ore order, each three-tier family as "three tiers + its unlock item", a gap and the next
      * family in the same row: chunk loaders + copper core | launchpads + iron core, spawn teleporters +
-     * enderman head, elytra pads I-V + spawn elytra, potion pads + blaze head | flypads + enderite core;
+     * enderman head, elytra pads I-III + spawn elytra, potion pads + blaze head | flypads + enderite core;
      * then, if there are any, the further mob heads ({@code TweaksItems#extraMobHeads}).
      *
      * <p>Read slot by slot like {@link #machinesAndStorageTabIsLaidOutInRowsOfNine}. What breaks this: a
@@ -2908,20 +2911,18 @@ public final class DataIntegrityTests {
                         TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE.asItem(), TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.asItem(),
                         TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE.asItem(), TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE.asItem(),
                         TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE.asItem(), TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.asItem()),
-                // Spezial-Pads spaltenweise (Besitzer 2026-10-01): Kern, zweite Zutat, Stufen I-V.
+                // Spezial-Pads spaltenweise (Besitzer 2026-10-01): Kern, zweite Zutat, Stufen I-III.
                 List.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE, ModItems.DIAMOND_CORE,
                         ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
                 List.of(gap, gap, TweaksItems.ENDERMAN_HEAD, Items.ELYTRA, TweaksItems.BLAZE_HEAD, TweaksItems.SHULKER_HEAD),
                 List.of(TweaksBlocks.CHUNK_LOADER.asItem(), TweaksBlocks.LAUNCHPAD.asItem(), TweaksBlocks.SPAWN_TELEPORTER.asItem(),
                         TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.POTION_PAD.asItem(), TweaksBlocks.FLYPAD.asItem()),
                 List.of(TweaksBlocks.NETHERITE_CHUNK_LOADER.asItem(), TweaksBlocks.NETHERITE_LAUNCHPAD.asItem(),
-                        TweaksBlocks.SPAWN_TELEPORTER_TIER_2.asItem(), TweaksBlocks.REINFORCED_ELYTRA_PAD.asItem(),
+                        TweaksBlocks.SPAWN_TELEPORTER_TIER_2.asItem(), TweaksBlocks.NETHERITE_ELYTRA_PAD.asItem(),
                         TweaksBlocks.REINFORCED_POTION_PAD.asItem(), TweaksBlocks.REINFORCED_FLYPAD.asItem()),
                 List.of(TweaksBlocks.ENDERITE_CHUNK_LOADER.asItem(), TweaksBlocks.ENDERITE_LAUNCHPAD.asItem(),
-                        TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem(), TweaksBlocks.NETHERITE_ELYTRA_PAD.asItem(),
+                        TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem(), TweaksBlocks.ENDERITE_ELYTRA_PAD.asItem(),
                         TweaksBlocks.INFUSED_POTION_PAD.asItem(), TweaksBlocks.STELLAR_FLYPAD.asItem()),
-                List.of(gap, gap, gap, TweaksBlocks.ENDERITE_ELYTRA_PAD.asItem()),
-                List.of(gap, gap, gap, TweaksBlocks.FINE_ELYTRA_PAD.asItem()),
                 List.of(gap, gap, gap, TweaksItems.SPAWN_ELYTRA)));
         List<Item> heads = TweaksItems.extraMobHeads().stream().map(net.minecraft.world.level.ItemLike::asItem).toList();
         if (!heads.isEmpty()) {
@@ -3141,7 +3142,7 @@ public final class DataIntegrityTests {
      * anywhere in it - that catches {@code raw_enderite} and {@code enchanted_enderite_apple}) and
      * by English name ("Enderite" anywhere in the shipped {@code en_us.json}). On top it names the
      * enderite tiers whose id and name say neither - the three flypads (all smithed from the
-     * enderite pressure plate), the Fine Elytra Pad V, the Infused Potion Pad III and the Echo Sounder
+     * enderite pressure plate), the Fine Elytra Pad (legacy), the Infused Potion Pad III and the Echo Sounder
      * (enderite core and nuggets). Each of them
      * must be in the tag, reach both perks through it, and a real drop of two of them must float
      * below the world floor (the mixin, not only the tag).

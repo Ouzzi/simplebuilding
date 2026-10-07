@@ -157,8 +157,10 @@ public final class TweaksItems {
     /**
      * Seltenheit eines Druckplatten- oder Pad-Blocks nach dem Material seiner Stufe (docs/RARITAETEN.md):
      * mit Netherit gebaut (Netherit-Platten, Spawn-Teleporter II-IV aus Netherit-Druckplatten, Trank-Pad I aus
-     * der Netherit-Druckplatte, Trank-Pad II seit 2026-10-02 mit Netherit-Aufwertung und -Platte) UNCOMMON, mit Enderit gebaut (Enderit-Platten, alle Flypads aus Enderit-Platte
-     * und -Kern, Feines Elytra-Pad V und Trank-Pad III als Aufwertung darueber) EPIC, sonst COMMON.
+     * der Netherit-Druckplatte, Trank-Pad II seit 2026-10-02 mit Netherit-Aufwertung und -Platte) UNCOMMON, mit
+     * Enderit gebaut (Enderit-Platten, alle Flypads aus Enderit-Platte und -Kern, Enderit-Elytra-Pad III und
+     * Trank-Pad III als Aufwertung darueber) EPIC, sonst COMMON. Die alte Elytra-Pad-Enderit-Stufe
+     * ``fine_elytra_pad`` bleibt EPIC (Legacy), das alte ``reinforced_elytra_pad`` ist COMMON (Legacy).
      */
     static Rarity padRarity(String path) {
         if (path.startsWith("enderite_") || (path.endsWith("flypad") && !path.startsWith("netherite_"))
@@ -246,14 +248,10 @@ public final class TweaksItems {
                         TweaksBlocks.ELYTRA_PAD, TweaksBlocks.POTION_PAD, TweaksBlocks.FLYPAD),
                 CreativeTabLayout.Row.of("pad_tier_2",
                         TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.SPAWN_TELEPORTER_TIER_2,
-                        TweaksBlocks.REINFORCED_ELYTRA_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.REINFORCED_FLYPAD),
+                        TweaksBlocks.NETHERITE_ELYTRA_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.REINFORCED_FLYPAD),
                 CreativeTabLayout.Row.of("pad_tier_3",
                         TweaksBlocks.ENDERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER,
-                        TweaksBlocks.NETHERITE_ELYTRA_PAD, TweaksBlocks.INFUSED_POTION_PAD, TweaksBlocks.STELLAR_FLYPAD),
-                CreativeTabLayout.Row.of("pad_tier_4",
-                        CreativeTabLayout.GAP, CreativeTabLayout.GAP, CreativeTabLayout.GAP, TweaksBlocks.ENDERITE_ELYTRA_PAD),
-                CreativeTabLayout.Row.of("pad_tier_5",
-                        CreativeTabLayout.GAP, CreativeTabLayout.GAP, CreativeTabLayout.GAP, TweaksBlocks.FINE_ELYTRA_PAD),
+                        TweaksBlocks.ENDERITE_ELYTRA_PAD, TweaksBlocks.INFUSED_POTION_PAD, TweaksBlocks.STELLAR_FLYPAD),
                 CreativeTabLayout.Row.of("pad_spawn_elytra",
                         CreativeTabLayout.GAP, CreativeTabLayout.GAP, CreativeTabLayout.GAP, SPAWN_ELYTRA)));
         // Die uebrigen Mod-Mobkoepfe nach Fundort im Spielverlauf: Oberwelt (Biom), Unterwelt, End.

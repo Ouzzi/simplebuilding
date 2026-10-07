@@ -47,7 +47,7 @@ Browser oeffnen; die Daten erzeugt `python wiki/generate.py` direkt aus der Mod)
 
 Fast alles aus Simple Tweaks steckt jetzt in SimpleBuilding (Einzelheiten:
 `docs/SIMPLETWEAKS-UEBERNAHME.md`): Diamant-, Netherit-, Enderit- und Kupfer-Druckplatten,
-Elytra-Pads (fuenf Stufen) und Flypads (drei Stufen), Spawn-Teleporter, Launchpads, Chunk-Loader, die Spawn-Elytra
+Elytra-Pads (drei Stufen) und Flypads (drei Stufen), Spawn-Teleporter, Launchpads, Chunk-Loader, die Spawn-Elytra
 im Spawnbereich, Echolot, Resonanzstab, XP-Verklumpung, Raketen-Stapelgrenze und das Sperren
 von Nether/End. Jede Pad-Familie ist in der Config abschaltbar.
 

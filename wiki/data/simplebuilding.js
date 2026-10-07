@@ -965,22 +965,22 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Attractor: Collecting Items From a Distance",
-        "summary": "The Attractor pulls loose items while held in either hand. Its base radius around the player hitbox is 3 blocks; sneaking pauses it.",
+        "summary": "The Attractor pulls loose items while held in either hand. Its base radius around the player hitbox is 4 blocks; sneaking pauses it.",
         "details": [
-          "Range adds 1.5 blocks per level, up to 7.5 before the server multiplier, with a hard limit of 12 afterward. Constructor's Touch unlocks filtering without increasing range.",
+          "Range adds 2 blocks per level, up to 9 before the server multiplier, with a hard limit of 15 afterward. Constructor's Touch unlocks filtering without increasing range.",
           "Only Constructor's Touch enables the stored item-type filter, including on placed Attractors. Sneak-click a block or loose item, or right-click an item in the inventory to select it. Sneak-click empty air to clear it.",
-          "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 6 blocks before the server multiplier.",
+          "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 8 blocks before the server multiplier.",
           "No durability. The held Attractor respects display items, items reserved for others, and other players' death drops. Both forms respect simplebuilding:attractor_ignore.",
           "Held and placed Attractors brake items inside their dead zone without adding pull or lift. server.tools.attractorMinimumDistance defaults to 1.25 blocks and is limited to 0.5–2 blocks."
         ]
       },
       "de": {
         "title": "Attraktor: Items einsammeln ohne Hinlaufen",
-        "summary": "Der Attraktor zieht lose Items an, solange er in einer Hand liegt. Der Grundradius um die Spieler-Hitbox beträgt 3 Blöcke; Schleichen pausiert ihn.",
+        "summary": "Der Attraktor zieht lose Items an, solange er in einer Hand liegt. Der Grundradius um die Spieler-Hitbox beträgt 4 Blöcke; Schleichen pausiert ihn.",
         "details": [
-          "Reichweite ergänzt 1,5 Blöcke je Stufe, bis 7,5 vor dem Serverfaktor und höchstens 12 danach. Berührung des Konstrukteurs schaltet nur den Filter frei.",
+          "Reichweite ergänzt 2 Blöcke je Stufe, bis 9 vor dem Serverfaktor und höchstens 15 danach. Berührung des Konstrukteurs schaltet nur den Filter frei.",
           "Nur mit Berührung wirkt der gespeicherte Itemfilter, auch abgelegt. Schleichklick auf einen Block oder ein loses Item oder Rechtsklick auf ein Inventar-Item wählt den Filter. Schleichklick ins Leere löscht ihn.",
-          "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 6 Blöcken vor dem Serverfaktor.",
+          "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 8 Blöcken vor dem Serverfaktor.",
           "Keine Haltbarkeit. Der gehaltene Attraktor schützt Ausstellungsitems, fremd reservierte Items und Todesbeute anderer Spieler. Beide Formen beachten simplebuilding:attractor_ignore.",
           "Gehaltene und abgelegte Attraktoren bremsen Items in ihrer Ruhezone ohne Zug oder Anheben. server.tools.attractorMinimumDistance beträgt standardmäßig 1,25 Blöcke und ist auf 0,5–2 Blöcke begrenzt."
         ]
@@ -1644,7 +1644,7 @@ window.WIKI_DATA = {
           "Rewards of the upper tiers (FurnaceTierPerks, called from setRecipeUsed): every item a Netherite or Enderite furnace, smoker or blast furnace finishes counts its recipe twice, so taking the result out pays double experience.",
           "All furnace tiers produce exactly the recipe output, without bonus ingots. Netherite and Enderite keep double experience, except for excluded ingredients. Old bonus counters are ignored when loading and omitted when saving.",
           "Cracked diamonds (simplebuilding:furnace_bonus_excluded) do not give double experience: their lossless diamond crafting cycle must not create an XP farm.",
-          "Enderite Scrap: a Raw Enderite Fragment no longer smelts on its own (since 2026-09-29). Three Raw Enderite Fragments stacked in a crafting column make one Raw Enderite Scrap (item id layered_raw_enderite), and blasting that takes 144000 ticks for one Enderite Scrap and 10 experience - twice the 72000 ticks per scrap of the old direct route, and three Raw Enderite Fragments per scrap instead of one (cooking recipes can only give a single item on 1.21.11, so all lines give one). That is two hours in a vanilla blast furnace, one in the Reinforced, 30 minutes in the Netherite and about 15 minutes in the Enderite Blast Furnace, the last two with double experience. It is a blasting recipe only, so furnaces and smokers cannot process it.",
+          "Enderite Scrap: a Raw Enderite Fragment no longer smelts on its own (since 2026-09-29). Four Raw Enderite Fragments in any crafting arrangement (shapeless) make one Raw Enderite Scrap (item id layered_raw_enderite), and blasting that takes 144000 ticks for one Enderite Scrap and 10 experience - twice the 72000 ticks per scrap of the old direct route, and four Raw Enderite Fragments per scrap instead of one (cooking recipes can only give a single item on 1.21.11, so all lines give one). That is two hours in a vanilla blast furnace, one in the Reinforced, 30 minutes in the Netherite and about 15 minutes in the Enderite Blast Furnace, the last two with double experience. It is a blasting recipe only, so furnaces and smokers cannot process it.",
           "Cook times above 32767 ticks: vanilla saves the four furnace timers as shorts and sends the menu data as shorts, which would cut 72000 down to 6464. AbstractFurnaceBlockEntityMixin saves them as ints under the same keys (NeoForge and Forge already do that themselves), and AbstractFurnaceMenuMixin divides long times before they are sent, keeping the ratio the progress arrow and the flame are drawn from; both apply to every furnace, vanilla ones included.",
           "Changing between the tiers of one family - by hammering or by /setblock in replace mode - keeps the block entity with its contents (shouldChangedStateKeepBlockEntity); the block entity types accept all three tiers on every loader.",
           "With a sledgehammer in the main hand and a nugget in the off hand, right-clicking a machine that can be upgraded starts the upgrade instead of opening the menu; if it cannot be upgraded with that nugget and hammer, the menu opens as usual.",
@@ -1674,7 +1674,7 @@ window.WIKI_DATA = {
           "Belohnungen der oberen Stufen (FurnaceTierPerks, aufgerufen aus setRecipeUsed): Jeder Gegenstand, den ein Netherit- oder Enderit-Ofen, -Räucherofen oder -Schmelzofen fertigstellt, zählt sein Rezept doppelt, beim Herausnehmen gibt es also doppelte Erfahrung.",
           "Alle Ofenstufen liefern genau die Rezeptausbeute ohne Bonusbarren. Netherit und Enderit behalten doppelte Erfahrung, außer bei ausgeschlossenen Zutaten. Alte Bonuszähler werden beim Laden ignoriert und beim Speichern weggelassen.",
           "Rissige Diamanten (simplebuilding:furnace_bonus_excluded) geben keine doppelte Erfahrung: Ihr verlustfreier Diamant-Kreislauf darf keine Erfahrungsfarm erzeugen.",
-          "Enderitplatten: Ein Rohes Enderitfragment schmilzt seit 2026-09-29 nicht mehr allein. Drei Rohe Enderitfragmente übereinander in der Werkbank ergeben Rohe Enderitplatten (Item-Kennung layered_raw_enderite), und die brauchen im Schmelzofen 144000 Ticks für eine Enderitplatte und 10 Erfahrung - doppelt so lange je Platte wie die 72000 Ticks des alten Direktwegs, und drei Rohe Enderitfragmente je Platte statt einem (Kochrezepte können auf 1.21.11 nur ein einzelnes Item liefern, darum liefern alle Linien eines). Das sind zwei Stunden im Vanilla-Schmelzofen, eine im verstärkten, 30 Minuten im Netherit- und rund 15 Minuten im Enderit-Schmelzofen, die letzten beiden mit doppelter Erfahrung. Es ist nur ein Schmelzofen-Rezept, Öfen und Räucheröfen können es nicht verarbeiten.",
+          "Enderitplatten: Ein Rohes Enderitfragment schmilzt seit 2026-09-29 nicht mehr allein. Vier Rohe Enderitfragmente in beliebiger Anordnung in der Werkbank (formlos) ergeben Rohe Enderitplatten (Item-Kennung layered_raw_enderite), und die brauchen im Schmelzofen 144000 Ticks für eine Enderitplatte und 10 Erfahrung - doppelt so lange je Platte wie die 72000 Ticks des alten Direktwegs, und vier Rohe Enderitfragmente je Platte statt einem (Kochrezepte können auf 1.21.11 nur ein einzelnes Item liefern, darum liefern alle Linien eines). Das sind zwei Stunden im Vanilla-Schmelzofen, eine im verstärkten, 30 Minuten im Netherit- und rund 15 Minuten im Enderit-Schmelzofen, die letzten beiden mit doppelter Erfahrung. Es ist nur ein Schmelzofen-Rezept, Öfen und Räucheröfen können es nicht verarbeiten.",
           "Kochzeiten über 32767 Ticks: Vanilla speichert die vier Ofen-Zeiten als short und schickt die Menüdaten als short, aus 72000 würde so 6464. AbstractFurnaceBlockEntityMixin speichert sie als int unter denselben Schlüsseln (NeoForge und Forge tun das bereits selbst), und AbstractFurnaceMenuMixin teilt lange Zeiten vor dem Senden herunter und erhält das Verhältnis, aus dem Pfeil und Flamme gezeichnet werden; beide gelten für jeden Ofen, auch für die Vanilla-Öfen.",
           "Ein Wechsel zwischen den Stufen einer Familie - durch Hämmern oder per /setblock im Modus replace - behält die Block-Entity samt Inhalt (shouldChangedStateKeepBlockEntity); die Block-Entity-Typen nehmen auf jedem Loader alle drei Stufen an.",
           "Mit Vorschlaghammer in der Haupthand und Klumpen in der Nebenhand startet ein Rechtsklick auf eine aufwertbare Maschine die Aufwertung statt das Menü zu öffnen; lässt sie sich mit diesem Klumpen und Hammer nicht aufwerten, öffnet das Menü wie gewohnt.",
@@ -2523,7 +2523,7 @@ window.WIKI_DATA = {
         "title": "Enderite Void Protection",
         "summary": "Every enderite item of the mod is safe from the void and lies twice as long when dropped: if it falls below the world's bottom it hangs in place and is pulled back up when needed, and it despawns only after 10 minutes. Enderite armor also slows void damage for the wearer and lets you drift down gently while the jump key is held.",
         "details": [
-          "One item tag decides: simplebuilding:enderite_items. Datagen fills it from every mod item whose id contains \"enderite\" (so raw_enderite and enchanted_enderite_apple too) plus the enderite tiers whose id does not say so - the three Flypads (tier I crafted shapelessly from an Enderite Core, an Enderite Pressure Plate, a Shulker Head and an elytra with Mending; tiers II and III upgraded at the smithing table), the Fine Elytra Pad V, the Infused Potion Pad III and the Echo Sounder (enderite core and nuggets). That covers ingot, scrap, raw enderite fragments and scrap, nugget, block, tools, weapons, armor, horse and nautilus armor, bundle, quiver, backpack, chest, core, apples, carrot, upgrade template, machines and pads. The tags simplebuilding:void_protected (void protection) and simplebuilding:double_despawn_time (lifetime) each contain #simplebuilding:enderite_items, so a modpack can widen either one on its own. A game test finds every item named \"Enderite\" in English or with \"enderite\" in its id and fails if one is missing from the tag.",
+          "One item tag decides: simplebuilding:enderite_items. Datagen fills it from every mod item whose id contains \"enderite\" (so raw_enderite and enchanted_enderite_apple too) plus the enderite tiers whose id does not say so - the three Flypads (tier I crafted shapelessly from an Enderite Core, an Enderite Pressure Plate, a Shulker Head and an elytra with Mending; tiers II and III upgraded at the smithing table), the Fine Elytra Pad V (since 2026-10-07 a legacy block - on its first tick it becomes the Enderite Elytra Pad III, which is enderite anyway), the Infused Potion Pad III and the Echo Sounder (enderite core and nuggets). That covers ingot, scrap, raw enderite fragments and scrap, nugget, block, tools, weapons, armor, horse and nautilus armor, bundle, quiver, backpack, chest, core, apples, carrot, upgrade template, machines and pads. The tags simplebuilding:void_protected (void protection) and simplebuilding:double_despawn_time (lifetime) each contain #simplebuilding:enderite_items, so a modpack can widen either one on its own. A game test finds every item named \"Enderite\" in English or with \"enderite\" in its id and fails if one is missing from the tag.",
           "If such an item falls below the dimension's minimum height, its motion is zeroed and gravity is switched off - it floats.",
           "If it ends up more than 10 blocks below the minimum height, it is moved back to 5 blocks above the minimum height.",
           "The check runs on the server only, on every tick of the item entity.",
@@ -2539,7 +2539,7 @@ window.WIKI_DATA = {
         "title": "Enderit-Schutz vor der Leere",
         "summary": "Jeder Enderit-Gegenstand der Mod ist vor der Leere sicher und bleibt fallengelassen doppelt so lange liegen: Fällt er unter die Weltgrenze, bleibt er schweben und wird bei Bedarf wieder nach oben geholt, und er verschwindet erst nach 10 Minuten. Zusätzlich verlangsamt Enderit-Rüstung den Leere-Schaden für den Träger und erlaubt bei gedrückter Sprungtaste sanftes Fallen.",
         "details": [
-          "Ein Item-Tag entscheidet: simplebuilding:enderite_items. Der Datagen füllt es aus allen Mod-Items, deren Kennung „enderite“ enthält (also auch raw_enderite und enchanted_enderite_apple), dazu die Enderit-Stufen, deren Kennung das nicht sagt – die drei Flypads (Stufe I formlos aus Enderitkern, Enderit-Druckplatte, Shulkerkopf und Elytra mit Reparatur hergestellt; Stufen II und III am Schmiedetisch aufgewertet), das Feine Elytra-Pad V, das Durchtränkte Trank-Pad III und das Echolot (Enderit-Kern und -Klumpen). Das umfasst Barren, Platten, Rohe Enderitfragmente und -platten, Klumpen, Block, Werkzeuge, Waffen, Rüstung, Ross- und Nautilusrüstung, Bündel, Köcher, Rucksack, Truhe, Kern, Äpfel, Karotte, Upgrade-Vorlage, Maschinen und Pads. Die Tags simplebuilding:void_protected (Leere-Schutz) und simplebuilding:double_despawn_time (Liegezeit) enthalten jeweils #simplebuilding:enderite_items, ein Modpack kann also jedes für sich erweitern. Ein Spieltest sucht jeden Gegenstand mit „Enderite“ im englischen Namen oder „enderite“ in der Kennung und schlägt fehl, wenn einer im Tag fehlt.",
+          "Ein Item-Tag entscheidet: simplebuilding:enderite_items. Der Datagen füllt es aus allen Mod-Items, deren Kennung „enderite“ enthält (also auch raw_enderite und enchanted_enderite_apple), dazu die Enderit-Stufen, deren Kennung das nicht sagt – die drei Flypads (Stufe I formlos aus Enderitkern, Enderit-Druckplatte, Shulkerkopf und Elytra mit Reparatur hergestellt; Stufen II und III am Schmiedetisch aufgewertet), das Feine Elytra-Pad V (seit 2026-10-07 ein Altlast-Block – beim ersten Tick wird es zum Enderit-Elytra-Pad III, das sowieso aus Enderit ist), das Durchtränkte Trank-Pad III und das Echolot (Enderit-Kern und -Klumpen). Das umfasst Barren, Platten, Rohe Enderitfragmente und -platten, Klumpen, Block, Werkzeuge, Waffen, Rüstung, Ross- und Nautilusrüstung, Bündel, Köcher, Rucksack, Truhe, Kern, Äpfel, Karotte, Upgrade-Vorlage, Maschinen und Pads. Die Tags simplebuilding:void_protected (Leere-Schutz) und simplebuilding:double_despawn_time (Liegezeit) enthalten jeweils #simplebuilding:enderite_items, ein Modpack kann also jedes für sich erweitern. Ein Spieltest sucht jeden Gegenstand mit „Enderite“ im englischen Namen oder „enderite“ in der Kennung und schlägt fehl, wenn einer im Tag fehlt.",
           "Fällt ein solches Item unter die Mindesthöhe der jeweiligen Dimension, wird seine Bewegung gestoppt und die Schwerkraft abgeschaltet – es schwebt.",
           "Liegt es mehr als 10 Blöcke unter der Mindesthöhe, wird es auf 5 Blöcke über der Mindesthöhe zurückversetzt.",
           "Die Prüfung erfolgt nur auf dem Server, jeden Tick des Item-Objekts.",
@@ -3153,8 +3153,8 @@ window.WIKI_DATA = {
         "title": "Simple Tweaks: pads, spawn and server tweaks",
         "summary": "Almost everything from the Simple Tweaks mod lives in SimpleBuilding now (the claim system stays in Simple Tweaks): pressure plates and pads with an Enderite tier, spawn elytra and spawn teleporters, the echo sounder (formerly echo compass), the Resonance Rod (formerly the laser pointer) and a few server options.",
         "details": [
-          "Tier ladder of every plate family: after Netherite comes Enderite, and the nether star tier moves up one: Netherite Elytra Pad III, Enderite Elytra Pad IV, Fine Elytra Pad V; flypads now have three enderite tiers. Each Enderite tier adds one function (see the items). Launchpads and Chunk Loaders have three tiers each (Diamond, Netherite, Enderite).",
-          "Upgrades pay with pressure plates: every smithing upgrade of a pad family costs the pressure plate of its target material instead of the raw material - Diamond Pressure Plate for the diamond tiers, Netherite Pressure Plate for the netherite tiers, Enderite Pressure Plate for the enderite tiers. Unchanged: the entry tiers, the plates themselves and the nether star step of the elytra pad. Flypads are an enderite-only family of three tiers now (see the flypad).",
+          "Tier ladder of every plate family: after Netherite comes Enderite: Elytra Pad I, Netherite Elytra Pad II, Enderite Elytra Pad III (since 2026-10-07; the old tiers II and V load old worlds as legacy blocks). Each Enderite tier adds one function (see the items). Launchpads and Chunk Loaders have three tiers each (Diamond, Netherite, Enderite).",
+          "Upgrades pay with pressure plates: every smithing upgrade of a pad family costs the pressure plate of its target material instead of the raw material - Diamond Pressure Plate for the diamond tiers, Netherite Pressure Plate for the netherite tiers, Enderite Pressure Plate for the enderite tiers. Unchanged: the entry tiers and the plates themselves. Flypads are an enderite-only family of three tiers now (see the flypad).",
           "XP orbs merge into one orb once a second within 2 blocks and can be picked up without the vanilla delay (tweaks.optimization.enableXpClumps); orbs worth more look bigger (scaleXpOrbs, client). The merge radius is tweaks.optimization.xpClumpRadius (default 2.0).",
           "Firework rockets can be limited to a smaller stack size (tweaks.balancing.rocketStackSize).",
           "The Nether and the End can be locked (tweaks.dimensions); exact spawn without random offset and a custom world spawn are off by default so existing worlds do not change.",
@@ -3169,8 +3169,8 @@ window.WIKI_DATA = {
         "title": "Simple Tweaks: Pads, Spawn und Server-Einstellungen",
         "summary": "Fast alles aus der Mod Simple Tweaks steckt jetzt in SimpleBuilding (das Claim-System bleibt in Simple Tweaks): Druckplatten und Pads mit einer Enderit-Stufe, Spawn-Elytra und Spawn-Teleporter, das Echolot (früher Echo-Kompass), die Resonanzstab (früher Laserpointer) und einige Server-Optionen.",
         "details": [
-          "Stufenleiter aller Platten-Familien: nach Netherit kommt Enderit, die Netherstern-Stufe rückt eins auf: Netherit-Elytra-Pad III, Enderit-Elytra-Pad IV, Feines Elytra-Pad V; Flugpads haben jetzt drei Enderit-Stufen. Jede Enderit-Stufe bringt eine Zusatzfunktion (siehe die Gegenstände). Startrampen und Chunk-Lader haben je drei Stufen (Diamant, Netherit, Enderit).",
-          "Aufwertungen zahlen mit Druckplatten: jede Schmiede-Aufwertung einer Pad-Familie kostet die Druckplatte des Zielmaterials statt des Rohstoffs - Diamant-Druckplatte für die Diamant-Stufen, Netherit-Druckplatte für die Netherit-Stufen, Enderit-Druckplatte für die Enderit-Stufen. Unverändert: die Einstiegsstufen, die Platten selbst und die Netherstern-Stufe des Elytra-Pads. Flugpads sind jetzt eine reine Enderit-Familie mit drei Stufen (siehe Flugpad).",
+          "Stufenleiter aller Platten-Familien: nach Netherit kommt Enderit: Elytra-Pad I, Netherit-Elytra-Pad II, Enderit-Elytra-Pad III (seit 2026-10-07; die alten Stufen II und V laden alte Welten als Altlast-Blocke). Jede Enderit-Stufe bringt eine Zusatzfunktion (siehe die Gegenstände). Startrampen und Chunk-Lader haben je drei Stufen (Diamant, Netherit, Enderit).",
+          "Aufwertungen zahlen mit Druckplatten: jede Schmiede-Aufwertung einer Pad-Familie kostet die Druckplatte des Zielmaterials statt des Rohstoffs - Diamant-Druckplatte für die Diamant-Stufen, Netherit-Druckplatte für die Netherit-Stufen, Enderit-Druckplatte für die Enderit-Stufen. Unverändert: die Einstiegsstufen und die Platten selbst. Flugpads sind jetzt eine reine Enderit-Familie mit drei Stufen (siehe Flugpad).",
           "XP-Kugeln verschmelzen einmal pro Sekunde im Umkreis von 2 Blöcken zu einer und lassen sich ohne die Vanilla-Verzögerung aufheben (tweaks.optimization.enableXpClumps); wertvollere Kugeln sehen größer aus (scaleXpOrbs, Client). Der Radius ist tweaks.optimization.xpClumpRadius (Standard 2,0).",
           "Feuerwerksraketen lassen sich auf eine kleinere Stapelgröße begrenzen (tweaks.balancing.rocketStackSize).",
           "Nether und End lassen sich sperren (tweaks.dimensions); exakter Spawn ohne Zufallsversatz und ein eigener Weltspawn sind standardmäßig aus, damit bestehende Welten unverändert bleiben.",
@@ -3724,7 +3724,7 @@ window.WIKI_DATA = {
         "summary": "SimpleBuilding's part of the SimpleLib crucibles: the Enderite tier, sledgehammer ways, soul lava as extreme heat, copper and Enderite buckets.",
         "details": [
           "Enderite crucible (27 slots, double stacks, 8x) and Enderite barrel. The sledgehammer replaces SimpleLib's axe ways: building the iron crucible on an iron block (4 heavy weighted pressure plates, then 2 iron rods or iron ingots; 2 durability per strike), attaching a barrel (6 strikes) and upgrading at twice the cost of a furnace (2 material, twice the strikes): Iron to Reinforced with cracked diamonds, to Netherite with netherite nuggets (diamond hammer), to Enderite with Enderite nuggets (Netherite hammer); copper to reinforced to netherite (netherite nuggets) to Enderite barrel. A cauldron becomes a reinforced cauldron with 8 cracked diamonds.",
-          "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for a minute: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts. It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
+          "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for two minutes: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts; on cold ground (water, ice or snow under the feet) the roll comes every 1.5 seconds instead. It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
           "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks. The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes one stage per pour unless waxed (axe in the off hand scrapes, honeycomb waxes), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace or crucible) only takes water, pours a normal source and breaks after 32 uses - every scoop and every pour counts once, so 16 full fills. By default, a soul lava bucket burns 10 times as long as a lava bucket.",
           "The sledgehammer crushes a quartz block into 4 quartz, one per strike (4 strikes).",
           "Server config server.soulLava controls flow, delays, burn and soul burn, world generation chances and bucket fuel within hard limits. Fuel changes require a restart and matching client/server files. Jade shows heat, occupied slots and the shortest remaining time of a running slot, including tier speed and the two-block heat penalty. JEI shows the fastest cooking recipe per input and required heat, plus warming for tagged food without a cooking recipe; displayed time assumes an iron crucible at minimum heat without a distance penalty."
@@ -3735,7 +3735,7 @@ window.WIKI_DATA = {
         "summary": "SimpleBuildings Teil der SimpleLib-Schmelztiegel: Enderit-Stufe, Vorschlaghammer-Wege, Seelen-Lava als extreme Hitze, Kupfer- und Enderit-Eimer.",
         "details": [
           "Enderit-Schmelztiegel (27 Plätze, doppelte Stapel, 8×) und Enderit-Fass. Der Vorschlaghammer ersetzt SimpleLibs Axt-Wege: Bau des Eisen-Schmelztiegels auf einem Eisenblock (4 schwere Wägeplatten, dann 2 Eisenstäbe oder Eisenbarren; 2 Haltbarkeit je Schlag), Fass anbringen (6 Schläge) und Aufwerten zum doppelten Preis eines Ofens (2 Material, doppelte Schläge): Eisen zu Verstärkt mit Rissigen Diamanten, zu Netherit mit Netheritklumpen (Diamant-Hammer), zu Enderit mit Enderitklumpen (Netherit-Hammer); Kupfer- zu Verstärktem zu Netherit- (Netheritklumpen) zu Enderit-Fass. Ein Kessel wird mit 8 Rissigen Diamanten zum verstärkten Kessel.",
-          "Seelen-Lava mit Standardwerten: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt eine Minute Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt. Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
+          "Seelen-Lava mit Standardwerten: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt zwei Minuten Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt; auf kaltem Grund (Wasser, Eis oder Schnee unter den Füßen) kommt der Wurf alle 1,5 Sekunden. Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
           "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie. Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert je Ausgießen um eine Stufe, außer er ist gewachst (Axt in der Nebenhand schabt, Honigwabe wachst), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen oder Schmelztiegel) nimmt nur Wasser, gießt eine normale Quelle aus und zerbricht nach 32 Einsätzen - jedes Schöpfen und jedes Ausgießen zählt einmal, also 16 volle Füllungen. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer.",
           "Der Vorschlaghammer zerschlägt einen Quarzblock zu 4 Quarz, einem je Schlag (4 Schläge).",
           "Die Server-Config server.soulLava regelt Fließweite, Verzögerungen, Brand und Seelenbrand, Weltgenerierungschancen und Eimer-Brennstoff innerhalb harter Grenzen. Brennstoffänderungen brauchen einen Neustart und gleiche Client-/Server-Dateien. Jade zeigt Hitze, belegte Plätze und die kürzeste Restzeit eines laufenden Platzes einschließlich Stufentempo und Hitzeabschlag bei zwei Blöcken Abstand. JEI zeigt je Eingabe und nötiger Hitze das schnellste Kochrezept sowie Aufwärmen für markiertes Essen ohne Kochrezept; die angezeigte Zeit gilt für einen Eisen-Tiegel bei Mindesthitze ohne Abstandsabschlag."
@@ -15552,11 +15552,11 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Attractor pulls loose items while held in either hand. Its base radius around the player hitbox is 3 blocks; sneaking pauses it.",
+          "summary": "The Attractor pulls loose items while held in either hand. Its base radius around the player hitbox is 4 blocks; sneaking pauses it.",
           "details": [
-            "Range adds 1.5 blocks per level, up to 7.5 before the server multiplier, with a hard limit of 12 afterward. Constructor's Touch unlocks filtering without increasing range.",
+            "Range adds 2 blocks per level, up to 9 before the server multiplier, with a hard limit of 15 afterward. Constructor's Touch unlocks filtering without increasing range.",
             "Only Constructor's Touch enables the stored item-type filter, including on placed Attractors. Sneak-click a block or loose item, or right-click an item in the inventory to select it. Sneak-click empty air to clear it.",
-            "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 6 blocks before the server multiplier.",
+            "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 8 blocks before the server multiplier.",
             "The Attractor has no durability. Display items, other players' reserved items and death drops, and items in simplebuilding:attractor_ignore stay in place.",
             "Held and placed Attractors brake items inside their dead zone without adding pull or lift. server.tools.attractorMinimumDistance defaults to 1.25 blocks and is limited to 0.5–2 blocks."
           ],
@@ -15570,11 +15570,11 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Attraktor zieht lose Items an, solange er in einer Hand liegt. Der Grundradius um die Spieler-Hitbox beträgt 3 Blöcke; Schleichen pausiert ihn.",
+          "summary": "Der Attraktor zieht lose Items an, solange er in einer Hand liegt. Der Grundradius um die Spieler-Hitbox beträgt 4 Blöcke; Schleichen pausiert ihn.",
           "details": [
-            "Reichweite ergänzt 1,5 Blöcke je Stufe, bis 7,5 vor dem Serverfaktor und höchstens 12 danach. Berührung des Konstrukteurs schaltet nur den Filter frei.",
+            "Reichweite ergänzt 2 Blöcke je Stufe, bis 9 vor dem Serverfaktor und höchstens 15 danach. Berührung des Konstrukteurs schaltet nur den Filter frei.",
             "Nur mit Berührung wirkt der gespeicherte Itemfilter, auch abgelegt. Schleichklick auf einen Block oder ein loses Item oder Rechtsklick auf ein Inventar-Item wählt den Filter. Schleichklick ins Leere löscht ihn.",
-            "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 6 Blöcken vor dem Serverfaktor.",
+            "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 8 Blöcken vor dem Serverfaktor.",
             "Keine Haltbarkeit. Ausstellungsitems, für andere reservierte Items und Todesbeute sowie simplebuilding:attractor_ignore bleiben liegen.",
             "Gehaltene und abgelegte Attraktoren bremsen Items in ihrer Ruhezone ohne Zug oder Anheben. server.tools.attractorMinimumDistance beträgt standardmäßig 1,25 Blöcke und ist auf 0,5–2 Blöcke begrenzt."
           ],
@@ -30917,8 +30917,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:elytra_pad_crafting",
-        "simplebuilding:netherite_pressure_plate_smithing",
-        "simplebuilding:reinforced_elytra_pad_smithing"
+        "simplebuilding:netherite_pressure_plate_smithing"
       ],
       "trades": [],
       "icon": "assets/textures/render/diamond_pressure_plate.png",
@@ -31035,7 +31034,7 @@ window.WIKI_DATA = {
         "simplebuilding:elytra_pad_crafting"
       ],
       "usedIn": [
-        "simplebuilding:reinforced_elytra_pad_smithing"
+        "simplebuilding:netherite_elytra_pad_smithing"
       ],
       "trades": [],
       "icon": "assets/textures/render/elytra_pad.png",
@@ -31048,28 +31047,28 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Elytra Pad I: tier 1, base area 1x1 blocks, from 1 block below the pad to 15 blocks above its bottom. Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; five tiers, from Elytra Pad I to Fine Elytra Pad V.",
+          "summary": "Elytra Pad I: tier 1, base area 5x5 blocks, from 1 block below the pad to 5 blocks above its bottom. Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; three tiers, from Elytra Pad I to Enderite Elytra Pad III.",
           "details": [
             "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
             "Putting an elytra on you plays the vanilla elytra equip sound - no text on the screen.",
             "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
-            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
-            "Base horizontal area by tier: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 15 / 31 / 63 / 95 / 127 blocks above its bottom, respectively.",
-            "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = any trim template or netherite upgrade + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (III) on, in the whole area.",
+            "Base horizontal area by tier: I 5x5, II 32x32, III 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 5 / 32 / 192 blocks above its bottom, respectively.",
+            "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = netherite upgrade + pad I + Netherite Pressure Plate; III = enderite upgrade + pad II + Enderite Pressure Plate. The two tiers from before 2026-10-07 (II and V) still load old worlds: on their first tick they become tier I or III, and their items swap themselves in the inventory.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
             "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
-          "summary": "Elytra-Pad I: Stufe 1, Basisfläche 1x1 Blöcke, von 1 Block unter dem Pad bis 15 Blöcke über seiner Unterkante. Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; fünf Stufen, vom Elytra-Pad I bis zum Feinen Elytra-Pad V.",
+          "summary": "Elytra-Pad I: Stufe 1, Basisfläche 5x5 Blöcke, von 1 Block unter dem Pad bis 5 Blöcke über seiner Unterkante. Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; drei Stufen, vom Elytra-Pad I bis zum Enderit-Elytra-Pad III.",
           "details": [
             "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
             "Beim Anlegen klingt Vanillas Elytra-Anlegegeräusch - kein Text auf dem Bildschirm.",
             "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
-            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
-            "Horizontale Basisfläche je Stufe: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 15 / 31 / 63 / 95 / 127 Blöcke über seiner Unterkante.",
-            "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertung + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (III) im ganzen Bereich.",
+            "Horizontale Basisfläche je Stufe: I 5x5, II 32x32, III 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 5 / 32 / 192 Blöcke über seiner Unterkante.",
+            "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = Netherit-Aufwertung + Pad I + Netherit-Druckplatte; III = Enderit-Aufwertung + Pad II + Enderit-Druckplatte. Die beiden Stufen von vor 2026-10-07 (II und V) laden alte Welten weiterhin: beim ersten Tick werden sie zu Stufe I bzw. III, ihre Items tauschen sich im Inventar.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
             "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
@@ -31925,16 +31924,14 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:enderite_elytra_pad",
       "name": {
-        "en_us": "Enderite Elytra Pad IV",
-        "de_de": "Enderit-Elytra-Pad IV"
+        "en_us": "Enderite Elytra Pad III",
+        "de_de": "Enderit-Elytra-Pad III"
       },
       "texture": "assets/textures/block/enderite_elytra_pad.png",
       "craftedBy": [
         "simplebuilding:enderite_elytra_pad_smithing"
       ],
-      "usedIn": [
-        "simplebuilding:fine_elytra_pad_smithing"
-      ],
+      "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/enderite_elytra_pad.png",
       "properties": {
@@ -31946,28 +31943,28 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Enderite Elytra Pad IV: tier 4, base area 32x32 blocks, from 1 block below the pad to 95 blocks above its bottom. Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; five tiers, from Elytra Pad I to Fine Elytra Pad V.",
+          "summary": "Enderite Elytra Pad III: tier 3, base area 128x128 blocks, from 1 block below the pad to 192 blocks above its bottom; boosts recharge in the whole area. Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; three tiers, from Elytra Pad I to Enderite Elytra Pad III.",
           "details": [
             "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
             "Putting an elytra on you plays the vanilla elytra equip sound - no text on the screen.",
             "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
-            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
-            "Base horizontal area by tier: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 15 / 31 / 63 / 95 / 127 blocks above its bottom, respectively.",
-            "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = any trim template or netherite upgrade + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (III) on, in the whole area.",
+            "Base horizontal area by tier: I 5x5, II 32x32, III 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 5 / 32 / 192 blocks above its bottom, respectively.",
+            "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = netherite upgrade + pad I + Netherite Pressure Plate; III = enderite upgrade + pad II + Enderite Pressure Plate. The two tiers from before 2026-10-07 (II and V) still load old worlds: on their first tick they become tier I or III, and their items swap themselves in the inventory.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
             "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
-          "summary": "Enderit-Elytra-Pad IV: Stufe 4, Basisfläche 32x32 Blöcke, von 1 Block unter dem Pad bis 95 Blöcke über seiner Unterkante. Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; fünf Stufen, vom Elytra-Pad I bis zum Feinen Elytra-Pad V.",
+          "summary": "Enderit-Elytra-Pad III: Stufe 3, Basisfläche 128x128 Blöcke, von 1 Block unter dem Pad bis 192 Blöcke über seiner Unterkante; Boosts laden im ganzen Bereich. Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; drei Stufen, vom Elytra-Pad I bis zum Enderit-Elytra-Pad III.",
           "details": [
             "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
             "Beim Anlegen klingt Vanillas Elytra-Anlegegeräusch - kein Text auf dem Bildschirm.",
             "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
-            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
-            "Horizontale Basisfläche je Stufe: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 15 / 31 / 63 / 95 / 127 Blöcke über seiner Unterkante.",
-            "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertung + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (III) im ganzen Bereich.",
+            "Horizontale Basisfläche je Stufe: I 5x5, II 32x32, III 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 5 / 32 / 192 Blöcke über seiner Unterkante.",
+            "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = Netherit-Aufwertung + Pad I + Netherit-Druckplatte; III = Enderit-Aufwertung + Pad II + Enderit-Druckplatte. Die beiden Stufen von vor 2026-10-07 (II und V) laden alte Welten weiterhin: beim ersten Tick werden sie zu Stufe I bzw. III, ihre Items tauschen sich im Inventar.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
             "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
@@ -32931,13 +32928,11 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:fine_elytra_pad",
       "name": {
-        "en_us": "Fine Elytra Pad V",
-        "de_de": "Feines Elytra-Pad V"
+        "en_us": "Fine Elytra Pad (Legacy)",
+        "de_de": "Feines Elytra-Pad (alt)"
       },
       "texture": "assets/textures/block/fine_elytra_pad.png",
-      "craftedBy": [
-        "simplebuilding:fine_elytra_pad_smithing"
-      ],
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/fine_elytra_pad.png",
@@ -32950,28 +32945,28 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Fine Elytra Pad V: tier 5, base area 128x128 blocks, from 1 block below the pad to 127 blocks above its bottom. Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; five tiers, from Elytra Pad I to Fine Elytra Pad V.",
+          "summary": "Fine Elytra Pad (Legacy): the old tier V, becomes Enderite Elytra Pad III on its first tick after the three-tier rework (2026-10-07); the item swaps itself in the inventory. Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; three tiers, from Elytra Pad I to Enderite Elytra Pad III.",
           "details": [
             "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
             "Putting an elytra on you plays the vanilla elytra equip sound - no text on the screen.",
             "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
-            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
-            "Base horizontal area by tier: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 15 / 31 / 63 / 95 / 127 blocks above its bottom, respectively.",
-            "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = any trim template or netherite upgrade + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (III) on, in the whole area.",
+            "Base horizontal area by tier: I 5x5, II 32x32, III 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 5 / 32 / 192 blocks above its bottom, respectively.",
+            "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = netherite upgrade + pad I + Netherite Pressure Plate; III = enderite upgrade + pad II + Enderite Pressure Plate. The two tiers from before 2026-10-07 (II and V) still load old worlds: on their first tick they become tier I or III, and their items swap themselves in the inventory.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
             "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
-          "summary": "Feines Elytra-Pad V: Stufe 5, Basisfläche 128x128 Blöcke, von 1 Block unter dem Pad bis 127 Blöcke über seiner Unterkante. Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; fünf Stufen, vom Elytra-Pad I bis zum Feinen Elytra-Pad V.",
+          "summary": "Feines Elytra-Pad (alt): die alte Stufe V, wird beim ersten Tick nach der Drei-Stufen-Umstellung (2026-10-07) zum Enderit-Elytra-Pad III; das Item tauscht sich im Inventar. Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; drei Stufen, vom Elytra-Pad I bis zum Enderit-Elytra-Pad III.",
           "details": [
             "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
             "Beim Anlegen klingt Vanillas Elytra-Anlegegeräusch - kein Text auf dem Bildschirm.",
             "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
-            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
-            "Horizontale Basisfläche je Stufe: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 15 / 31 / 63 / 95 / 127 Blöcke über seiner Unterkante.",
-            "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertung + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (III) im ganzen Bereich.",
+            "Horizontale Basisfläche je Stufe: I 5x5, II 32x32, III 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 5 / 32 / 192 Blöcke über seiner Unterkante.",
+            "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = Netherit-Aufwertung + Pad I + Netherit-Druckplatte; III = Enderit-Aufwertung + Pad II + Enderit-Druckplatte. Die beiden Stufen von vor 2026-10-07 (II und V) laden alte Welten weiterhin: beim ersten Tick werden sie zu Stufe I bzw. III, ihre Items tauschen sich im Inventar.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
             "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
@@ -32987,7 +32982,9 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/LegacyElytraPadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlockEntity.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -34808,8 +34805,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:netherite_elytra_pad",
       "name": {
-        "en_us": "Netherite Elytra Pad III",
-        "de_de": "Netherit-Elytra-Pad III"
+        "en_us": "Netherite Elytra Pad II",
+        "de_de": "Netherit-Elytra-Pad II"
       },
       "texture": "assets/textures/block/netherite_elytra_pad.png",
       "craftedBy": [
@@ -34829,28 +34826,28 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Netherite Elytra Pad III: tier 3, base area 16x16 blocks, from 1 block below the pad to 63 blocks above its bottom. Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; five tiers, from Elytra Pad I to Fine Elytra Pad V.",
+          "summary": "Netherite Elytra Pad II: tier 2, base area 32x32 blocks, from 1 block below the pad to 32 blocks above its bottom. Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; three tiers, from Elytra Pad I to Enderite Elytra Pad III.",
           "details": [
             "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
             "Putting an elytra on you plays the vanilla elytra equip sound - no text on the screen.",
             "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
-            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
-            "Base horizontal area by tier: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 15 / 31 / 63 / 95 / 127 blocks above its bottom, respectively.",
-            "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = any trim template or netherite upgrade + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (III) on, in the whole area.",
+            "Base horizontal area by tier: I 5x5, II 32x32, III 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 5 / 32 / 192 blocks above its bottom, respectively.",
+            "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = netherite upgrade + pad I + Netherite Pressure Plate; III = enderite upgrade + pad II + Enderite Pressure Plate. The two tiers from before 2026-10-07 (II and V) still load old worlds: on their first tick they become tier I or III, and their items swap themselves in the inventory.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
             "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
-          "summary": "Netherit-Elytra-Pad III: Stufe 3, Basisfläche 16x16 Blöcke, von 1 Block unter dem Pad bis 63 Blöcke über seiner Unterkante. Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; fünf Stufen, vom Elytra-Pad I bis zum Feinen Elytra-Pad V.",
+          "summary": "Netherit-Elytra-Pad II: Stufe 2, Basisfläche 32x32 Blöcke, von 1 Block unter dem Pad bis 32 Blöcke über seiner Unterkante. Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; drei Stufen, vom Elytra-Pad I bis zum Enderit-Elytra-Pad III.",
           "details": [
             "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
             "Beim Anlegen klingt Vanillas Elytra-Anlegegeräusch - kein Text auf dem Bildschirm.",
             "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
-            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
-            "Horizontale Basisfläche je Stufe: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 15 / 31 / 63 / 95 / 127 Blöcke über seiner Unterkante.",
-            "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertung + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (III) im ganzen Bereich.",
+            "Horizontale Basisfläche je Stufe: I 5x5, II 32x32, III 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 5 / 32 / 192 Blöcke über seiner Unterkante.",
+            "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = Netherit-Aufwertung + Pad I + Netherit-Druckplatte; III = Enderit-Aufwertung + Pad II + Enderit-Druckplatte. Die beiden Stufen von vor 2026-10-07 (II und V) laden alte Welten weiterhin: beim ersten Tick werden sie zu Stufe I bzw. III, ihre Items tauschen sich im Inventar.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
             "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
@@ -38354,16 +38351,12 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:reinforced_elytra_pad",
       "name": {
-        "en_us": "Reinforced Elytra Pad II",
-        "de_de": "Verstärktes Elytra-Pad II"
+        "en_us": "Reinforced Elytra Pad (Legacy)",
+        "de_de": "Verstärktes Elytra-Pad (alt)"
       },
       "texture": "assets/textures/block/reinforced_elytra_pad.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_elytra_pad_smithing"
-      ],
-      "usedIn": [
-        "simplebuilding:netherite_elytra_pad_smithing"
-      ],
+      "craftedBy": [],
+      "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/reinforced_elytra_pad.png",
       "properties": {
@@ -38375,28 +38368,28 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Reinforced Elytra Pad II: tier 2, base area 5x5 blocks, from 1 block below the pad to 31 blocks above its bottom. Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; five tiers, from Elytra Pad I to Fine Elytra Pad V.",
+          "summary": "Reinforced Elytra Pad (Legacy): the old tier II, becomes Elytra Pad I on its first tick after the three-tier rework (2026-10-07); the item swaps itself in the inventory. Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; three tiers, from Elytra Pad I to Enderite Elytra Pad III.",
           "details": [
             "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
             "Putting an elytra on you plays the vanilla elytra equip sound - no text on the screen.",
             "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
-            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
-            "Base horizontal area by tier: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 15 / 31 / 63 / 95 / 127 blocks above its bottom, respectively.",
-            "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = any trim template or netherite upgrade + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (III) on, in the whole area.",
+            "Base horizontal area by tier: I 5x5, II 32x32, III 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 5 / 32 / 192 blocks above its bottom, respectively.",
+            "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = netherite upgrade + pad I + Netherite Pressure Plate; III = enderite upgrade + pad II + Enderite Pressure Plate. The two tiers from before 2026-10-07 (II and V) still load old worlds: on their first tick they become tier I or III, and their items swap themselves in the inventory.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
             "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
-          "summary": "Verstärktes Elytra-Pad II: Stufe 2, Basisfläche 5x5 Blöcke, von 1 Block unter dem Pad bis 31 Blöcke über seiner Unterkante. Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; fünf Stufen, vom Elytra-Pad I bis zum Feinen Elytra-Pad V.",
+          "summary": "Verstärktes Elytra-Pad (alt): die alte Stufe II, wird beim ersten Tick nach der Drei-Stufen-Umstellung (2026-10-07) zum Elytra-Pad I; das Item tauscht sich im Inventar. Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; drei Stufen, vom Elytra-Pad I bis zum Enderit-Elytra-Pad III.",
           "details": [
             "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
             "Beim Anlegen klingt Vanillas Elytra-Anlegegeräusch - kein Text auf dem Bildschirm.",
             "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
-            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
-            "Horizontale Basisfläche je Stufe: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 15 / 31 / 63 / 95 / 127 Blöcke über seiner Unterkante.",
-            "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertung + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (III) im ganzen Bereich.",
+            "Horizontale Basisfläche je Stufe: I 5x5, II 32x32, III 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 5 / 32 / 192 Blöcke über seiner Unterkante.",
+            "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = Netherit-Aufwertung + Pad I + Netherit-Druckplatte; III = Enderit-Aufwertung + Pad II + Enderit-Druckplatte. Die beiden Stufen von vor 2026-10-07 (II und V) laden alte Welten weiterhin: beim ersten Tick werden sie zu Stufe I bzw. III, ihre Items tauschen sich im Inventar.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
             "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
@@ -38412,7 +38405,9 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/LegacyElytraPadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlockEntity.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -50319,11 +50314,11 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:diamond",
-            "count": 12
+            "count": 10
           },
           {
             "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 4
+            "count": 3
           },
           {
             "id": "minecraft:netherite_ingot",
@@ -50635,15 +50630,15 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "simplebuilding:astralit_dust",
-            "count": 48
+            "count": 64
           },
           {
             "id": "simplebuilding:nihilith_shard",
-            "count": 48
+            "count": 64
           },
           {
             "id": "minecraft:ender_pearl",
-            "count": 12
+            "count": 16
           },
           {
             "id": "minecraft:diamond",
@@ -51145,15 +51140,15 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "simplebuilding:astralit_dust",
-            "count": 12
+            "count": 16
           },
           {
             "id": "simplebuilding:nihilith_shard",
-            "count": 12
+            "count": 16
           },
           {
             "id": "minecraft:ender_pearl",
-            "count": 3
+            "count": 4
           }
         ]
       }
@@ -51604,71 +51599,6 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
-    },
-    {
-      "id": "simplebuilding:fine_elytra_pad_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:fine_elytra_pad",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/fine_elytra_pad_smithing.json",
-      "ingredients": [
-        "minecraft:nether_star",
-        "minecraft:netherite_upgrade_smithing_template",
-        "simplebuilding:enderite_elytra_pad"
-      ],
-      "slots": {
-        "template": [
-          "minecraft:netherite_upgrade_smithing_template"
-        ],
-        "base": [
-          "simplebuilding:enderite_elytra_pad"
-        ],
-        "addition": [
-          "minecraft:nether_star"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 12
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 5
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 2
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:enderite_upgrade_template",
-            "count": 2
-          },
-          {
-            "id": "minecraft:elytra",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:enderite_ingot",
-            "count": 1
-          }
-        ]
-      }
     },
     {
       "id": "simplebuilding:fire_charge_from_fire_chips",
@@ -55660,30 +55590,84 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:layered_raw_enderite",
-      "type": "minecraft:crafting_shaped",
+      "type": "minecraft:crafting_shapeless",
       "category": null,
       "group": null,
       "result": {
         "id": "simplebuilding:layered_raw_enderite",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
       "ingredients": [
         "simplebuilding:raw_enderite"
       ],
-      "pattern": [
-        "R",
-        "R",
-        "R"
-      ],
-      "key": {
-        "R": [
+      "ingredientGroups": [
+        [
+          "simplebuilding:raw_enderite"
+        ],
+        [
+          "simplebuilding:raw_enderite"
+        ],
+        [
+          "simplebuilding:raw_enderite"
+        ],
+        [
           "simplebuilding:raw_enderite"
         ]
-      },
+      ],
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:raw_enderite"
+                ],
+                [
+                  "simplebuilding:raw_enderite"
+                ],
+                [
+                  "simplebuilding:raw_enderite"
+                ],
+                [
+                  "simplebuilding:raw_enderite"
+                ]
+              ],
+              "other": null
+            },
+            {
+              "field": "key",
+              "this": null,
+              "other": {
+                "R": [
+                  "simplebuilding:raw_enderite"
+                ]
+              }
+            },
+            {
+              "field": "pattern",
+              "this": null,
+              "other": [
+                "R",
+                "R",
+                "R"
+              ]
+            },
+            {
+              "field": "type",
+              "this": "minecraft:crafting_shapeless",
+              "other": "minecraft:crafting_shaped"
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -55691,15 +55675,15 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "simplebuilding:astralit_dust",
-            "count": 12
+            "count": 16
           },
           {
             "id": "simplebuilding:nihilith_shard",
-            "count": 12
+            "count": 16
           },
           {
             "id": "minecraft:ender_pearl",
-            "count": 3
+            "count": 4
           }
         ]
       }
@@ -58025,26 +58009,73 @@ window.WIKI_DATA = {
         "id": "simplebuilding:netherite_elytra_pad",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_elytra_pad_smithing.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_elytra_pad_smithing.json",
       "ingredients": [
         "minecraft:netherite_upgrade_smithing_template",
-        "simplebuilding:netherite_pressure_plate",
-        "simplebuilding:reinforced_elytra_pad"
+        "simplebuilding:elytra_pad",
+        "simplebuilding:netherite_pressure_plate"
       ],
       "slots": {
         "template": [
           "minecraft:netherite_upgrade_smithing_template"
         ],
         "base": [
-          "simplebuilding:reinforced_elytra_pad"
+          "simplebuilding:elytra_pad"
         ],
         "addition": [
           "simplebuilding:netherite_pressure_plate"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:netherite_upgrade_smithing_template",
+                "simplebuilding:elytra_pad",
+                "simplebuilding:netherite_pressure_plate"
+              ],
+              "other": [
+                "minecraft:netherite_upgrade_smithing_template",
+                "simplebuilding:netherite_pressure_plate",
+                "simplebuilding:reinforced_elytra_pad"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "minecraft:netherite_upgrade_smithing_template"
+                ],
+                "base": [
+                  "simplebuilding:elytra_pad"
+                ],
+                "addition": [
+                  "simplebuilding:netherite_pressure_plate"
+                ]
+              },
+              "other": {
+                "template": [
+                  "minecraft:netherite_upgrade_smithing_template"
+                ],
+                "base": [
+                  "simplebuilding:reinforced_elytra_pad"
+                ],
+                "addition": [
+                  "simplebuilding:netherite_pressure_plate"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/netherite_elytra_pad_smithing.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -58052,11 +58083,11 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:diamond",
-            "count": 10
+            "count": 8
           },
           {
             "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 3
+            "count": 2
           },
           {
             "id": "minecraft:elytra",
@@ -69283,95 +69314,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:reinforced_elytra_pad_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_elytra_pad",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_elytra_pad_smithing.json",
-      "ingredients": [
-        "minecraft:bolt_armor_trim_smithing_template",
-        "minecraft:coast_armor_trim_smithing_template",
-        "minecraft:dune_armor_trim_smithing_template",
-        "minecraft:eye_armor_trim_smithing_template",
-        "minecraft:flow_armor_trim_smithing_template",
-        "minecraft:host_armor_trim_smithing_template",
-        "minecraft:netherite_upgrade_smithing_template",
-        "minecraft:raiser_armor_trim_smithing_template",
-        "minecraft:rib_armor_trim_smithing_template",
-        "minecraft:sentry_armor_trim_smithing_template",
-        "minecraft:shaper_armor_trim_smithing_template",
-        "minecraft:silence_armor_trim_smithing_template",
-        "minecraft:snout_armor_trim_smithing_template",
-        "minecraft:spire_armor_trim_smithing_template",
-        "minecraft:tide_armor_trim_smithing_template",
-        "minecraft:vex_armor_trim_smithing_template",
-        "minecraft:ward_armor_trim_smithing_template",
-        "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template",
-        "simplebuilding:diamond_pressure_plate",
-        "simplebuilding:elytra_pad"
-      ],
-      "slots": {
-        "template": [
-          "minecraft:netherite_upgrade_smithing_template",
-          "minecraft:sentry_armor_trim_smithing_template",
-          "minecraft:dune_armor_trim_smithing_template",
-          "minecraft:coast_armor_trim_smithing_template",
-          "minecraft:wild_armor_trim_smithing_template",
-          "minecraft:ward_armor_trim_smithing_template",
-          "minecraft:eye_armor_trim_smithing_template",
-          "minecraft:vex_armor_trim_smithing_template",
-          "minecraft:tide_armor_trim_smithing_template",
-          "minecraft:snout_armor_trim_smithing_template",
-          "minecraft:rib_armor_trim_smithing_template",
-          "minecraft:spire_armor_trim_smithing_template",
-          "minecraft:wayfinder_armor_trim_smithing_template",
-          "minecraft:shaper_armor_trim_smithing_template",
-          "minecraft:silence_armor_trim_smithing_template",
-          "minecraft:raiser_armor_trim_smithing_template",
-          "minecraft:host_armor_trim_smithing_template",
-          "minecraft:flow_armor_trim_smithing_template",
-          "minecraft:bolt_armor_trim_smithing_template"
-        ],
-        "base": [
-          "simplebuilding:elytra_pad"
-        ],
-        "addition": [
-          "simplebuilding:diamond_pressure_plate"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 8
-          },
-          {
-            "id": "minecraft:elytra",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:reinforced_furnace",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -75039,6 +74981,37 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:fine_elytra_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:fine_elytra_pad",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/fine_elytra_pad_smithing.json",
+      "ingredients": [
+        "minecraft:nether_star",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:enderite_elytra_pad"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:enderite_elytra_pad"
+        ],
+        "addition": [
+          "minecraft:nether_star"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:flypad_tier1_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -75677,6 +75650,34 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:layered_raw_enderite",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:layered_raw_enderite",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
+      "ingredients": [
+        "simplebuilding:raw_enderite"
+      ],
+      "pattern": [
+        "R",
+        "R",
+        "R"
+      ],
+      "key": {
+        "R": [
+          "simplebuilding:raw_enderite"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:magnet",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -75743,6 +75744,37 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/recipe/netherite_bundle_dyed.json",
       "ingredients": [],
       "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:netherite_elytra_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_elytra_pad",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/netherite_elytra_pad_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:netherite_pressure_plate",
+        "simplebuilding:reinforced_elytra_pad"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:reinforced_elytra_pad"
+        ],
+        "addition": [
+          "simplebuilding:netherite_pressure_plate"
+        ]
+      },
+      "lines": [
+        "1.21.11",
         "26.2"
       ]
     },
@@ -75978,6 +76010,73 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_bundle_dyed.json",
       "ingredients": [],
       "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:reinforced_elytra_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_elytra_pad",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_elytra_pad_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:diamond_pressure_plate",
+        "simplebuilding:elytra_pad"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:elytra_pad"
+        ],
+        "addition": [
+          "simplebuilding:diamond_pressure_plate"
+        ]
+      },
+      "lines": [
+        "1.21.11",
         "26.2"
       ]
     },
@@ -82984,7 +83083,7 @@ window.WIKI_DATA = {
             "For ordinary tools, Range extends block reach in the main hand. Attractor uses it for pull radius; Gauge for altimeter depth. It does not extend mob reach.",
             "Max level 3, weight 1, anvil cost 4; enchanting cost 15 (+9 per level above the first) to 65 (+9 per level above the first).",
             "Ordinary tools gain +2/+6/+10 block reach; RangeReach suppresses this attribute for the Attractor and Gauge, which apply their own effects.",
-            "Attractor: Range adds 1.5 blocks per level to the held pull radius of 3, up to 7.5 before the server factor. Constructor's Touch enables filtering and does not increase range. The placed base range is 6.",
+            "Attractor: Range adds 2 blocks per level to the held pull radius of 4, up to 9 before the server factor. Constructor's Touch enables filtering and does not increase range. The placed base range is 8.",
             "Chest loot (only with worldGen.enableLootTableChanges): a level II book in stronghold libraries (weight 4, 0 to 2 rolls), a level III book in End City treasure chests (weight 4, 0 to 3 rolls).",
             "Indirectly: the randomly enchanted Octants (Ancient City weight 2, Nether Fortress weight 1) and Diamond Sledgehammers (End City weight 8) in the mod's loot are enchanted with randomEnchantment() without an enchantment list, so they can come out carrying Range as well.",
             "Villager trades (only with enableVillagerTrades): a master-level (5) librarian sells a book for 25 emeralds from a pool holding Range I (weight 10), II (weight 10) and III (weight 3); a level 4 toolsmith sells an Iron Sledgehammer (16 emeralds + an iron pickaxe) or a Diamond Sledgehammer (28 emeralds + a diamond pickaxe) whose enchantment is drawn from a pool in which Range I has weight 10. The same pools sit in ModTradeDefinitions on the 1.21.11 line.",
@@ -83001,7 +83100,7 @@ window.WIKI_DATA = {
             "Bei normalen Werkzeugen erweitert Reichweite die Blockreichweite in der Haupthand. Attraktor nutzt sie für den Zugradius, die Messuhr für Messtiefe. Keine größere Mob-Reichweite.",
             "Höchststufe 3, Gewicht 1, Amboss-Kosten 4; Verzauberungskosten 15 (+9 je weiterer Stufe) bis 65 (+9 je weiterer Stufe).",
             "Normale Werkzeuge erhalten +2/+6/+10 Blockreichweite; RangeReach unterdrückt dieses Attribut für Attraktor und Messuhr, die eigene Wirkungen anwenden.",
-            "Attraktor: Reichweite ergänzt beim gehaltenen Grundradius 3 je Stufe 1,5 Blöcke, bis 7,5 vor dem Serverfaktor. Berührung schaltet Filter frei und erhöht die Reichweite nicht. Abgelegt beträgt die Basisreichweite 6.",
+            "Attraktor: Reichweite ergänzt beim gehaltenen Grundradius 4 je Stufe 2 Blöcke, bis 9 vor dem Serverfaktor. Berührung schaltet Filter frei und erhöht die Reichweite nicht. Abgelegt beträgt die Basisreichweite 8.",
             "Truhen-Loot (nur mit worldGen.enableLootTableChanges): Buch Stufe II in Festungs-Bibliotheken (Gewicht 4, 0 bis 2 Würfe), Buch Stufe III in End-City-Truhen (Gewicht 4, 0 bis 3 Würfe).",
             "Indirekt: Zufällig verzauberte Oktanten (Ancient City Gewicht 2, Nether-Festung Gewicht 1) und Diamant-Vorschlaghämmer (End City Gewicht 8) im Mod-Loot werden mit randomEnchantment() ohne Verzauberungsliste verzaubert und können daher auch Reichweite tragen.",
             "Dorfbewohner-Handel (nur mit enableVillagerTrades): Bibliothekar Stufe 5 (Meister) verkauft für 25 Smaragde ein Buch aus einem Pool, in dem Reichweite I (Gewicht 10), II (Gewicht 10) und III (Gewicht 3) stehen; Werkzeugschmied Stufe 4 verkauft einen Eisen-Vorschlaghammer (16 Smaragde + Eisenspitzhacke) bzw. Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), dessen Verzauberung aus einem Pool gezogen wird, in dem Reichweite I Gewicht 10 hat. Dieselben Pools stehen in der 1.21.11-Linie in ModTradeDefinitions.",
@@ -86940,8 +87039,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Attractor Range Multiplier",
       "labelDe": "Reichweiten-Faktor des Attraktors",
-      "tooltip": "Server-side. On 26.3: 0 to 4.\nMultiplies how far the Attractor pulls items\n(3 blocks, +1.5 per Range level, at most 7.5;\nnever beyond 12 after this factor). 2 = twice\nas far, 0 = the Attractor pulls nothing.\nServer-side. Default: 1.0.",
-      "tooltipDe": "Serverseitig. Auf 26.3: 0 bis 4.\nFaktor darauf, wie weit der Attractor Items\nzieht (3 Blöcke, +1,5 je Stufe Reichweite,\nhöchstens 7,5; nach diesem Faktor nie über\n12). 2 = doppelt so weit, 0 = der Attractor\nzieht nichts. Serverseitig. Standard: 1.0."
+      "tooltip": "Server-side. On 26.3: 0 to 4.\nMultiplies how far the Attractor pulls items\n(4 blocks, +2 per Range level, at most 9;\nnever beyond 15 after this factor). 2 = twice\nas far, 0 = the Attractor pulls nothing.\nServer-side. Default: 1.0.",
+      "tooltipDe": "Serverseitig. Auf 26.3: 0 bis 4.\nFaktor darauf, wie weit der Attractor Items\nzieht (4 Blöcke, +2 je Stufe Reichweite,\nhöchstens 9; nach diesem Faktor nie über\n15). 2 = doppelt so weit, 0 = der Attractor\nzieht nichts. Serverseitig. Standard: 1.0."
     },
     {
       "range": [
@@ -89114,7 +89213,7 @@ window.WIKI_DATA = {
       "name": "server.soulLava.soulBurnSeconds",
       "shortName": "soulBurnSeconds",
       "type": "int",
-      "default": "60",
+      "default": "120",
       "note": null,
       "category": "Server & Modpack Tuning",
       "categoryDe": "Server & Modpack-Tuning",
@@ -89122,8 +89221,8 @@ window.WIKI_DATA = {
       "groupDe": "Seelen-Lava",
       "label": "Soul Burn Duration (seconds)",
       "labelDe": "Seelenbranddauer (Sekunden)",
-      "tooltip": "Server-side. Range: 5 to 300. Default: 60.",
-      "tooltipDe": "Serverseitig. Bereich: 5 bis 300. Standard: 60."
+      "tooltip": "Server-side. Range: 5 to 300. Default: 120.",
+      "tooltipDe": "Serverseitig. Bereich: 5 bis 300. Standard: 120."
     },
     {
       "range": [
@@ -111986,28 +112085,28 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:pads/fine_feathers",
       "parent": "simplebuilding:pads/wings_on_loan",
-      "icon": "simplebuilding:fine_elytra_pad",
+      "icon": "simplebuilding:enderite_elytra_pad",
       "frame": "task",
       "hidden": false,
       "title": {
-        "en_us": "Fine Feathers",
-        "de_de": "Feine Federn"
+        "en_us": "Enderite Feathers",
+        "de_de": "Enderit-Federn"
       },
       "description": {
-        "en_us": "A Nether Star and a netherite template turn an Enderite Elytra Pad into the Fine Elytra Pad",
-        "de_de": "Ein Netherstern und eine Netherit-Aufwertung machen aus einem Enderit-Elytra-Pad das Feine Elytra-Pad"
+        "en_us": "An enderite template and an enderite pressure plate turn the Netherite Elytra Pad into the Enderite Elytra Pad",
+        "de_de": "Eine Enderit-Vorlage und eine Enderit-Druckplatte machen aus dem Netherit-Elytra-Pad das Enderit-Elytra-Pad"
       },
       "criteria": [
         {
-          "name": "fine_elytra_pad",
+          "name": "enderite_elytra_pad",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:fine_elytra_pad"
+            "simplebuilding:enderite_elytra_pad"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/pads/fine_feathers.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/pads/fine_feathers.json"
     },
     {
       "id": "simplebuilding:pads/fly_me_to_the_moon",
@@ -115249,12 +115348,12 @@ window.WIKI_DATA = {
             "id": "simplebuilding:pads/fine_feathers"
           },
           "title": {
-            "en_us": "Fine Feathers",
-            "de_de": "Feine Federn"
+            "en_us": "Enderite Feathers",
+            "de_de": "Enderit-Federn"
           },
           "description": {
-            "en_us": "A Nether Star and a netherite template turn an Enderite Elytra Pad into the Fine Elytra Pad",
-            "de_de": "Ein Netherstern und eine Netherit-Aufwertung machen aus einem Enderit-Elytra-Pad das Feine Elytra-Pad"
+            "en_us": "An enderite template and an enderite pressure plate turn the Netherite Elytra Pad into the Enderite Elytra Pad",
+            "de_de": "Eine Enderit-Vorlage und eine Enderit-Druckplatte machen aus dem Netherit-Elytra-Pad das Enderit-Elytra-Pad"
           },
           "dependencies": [
             "gadgets.elytra_pad"
@@ -115390,7 +115489,7 @@ window.WIKI_DATA = {
   "counts": {
     "items": 470,
     "blocks": 236,
-    "recipes": 841,
+    "recipes": 839,
     "lootTables": 230,
     "trades": 20,
     "enchantments": 19,

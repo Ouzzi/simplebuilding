@@ -14,7 +14,7 @@ Stand 2026-09-28. Gilt fuer alle Linien: 26.2 (`common/src/shared`, Fabric `src/
 | Oefen/Schmelz-/Raeucherofen | Server | Erben `AbstractFurnaceBlockEntity` und rufen dessen `serverTick` - Lithiums "schlafende Block-Entities" greifen damit auch hier. | unveraendert |
 | Abgelegte Vorlage (`PlacedTemplateBlockEntity`) | Server | Arbeit nur alle 10 Ticks, nach Position versetzt. | unveraendert |
 | Chunk-Loader | Server (+ Client-Partikel/-Summen per `animateTick`) | Arbeit nur alle `CHECK_INTERVAL` Ticks; der sichtbare Zustand `active` wird nur beim Wechsel per `setBlock` geschrieben (Immersion 2026-09-28). | unveraendert |
-| **Elytra-Pad** | Server | Alle 10 Ticks `getEntitiesOfClass(ServerPlayer, Bereich)`. Stufe V: 128 x 127 x 128 Bloecke = ~512 Entity-Sektionen je Suche, letzte Easter-Stufe ~4096. | `util/PlayerScan`: Spielerliste des Levels statt Sektionssuche - O(Spieler) |
+| **Elytra-Pad** | Server | Alle 10 Ticks `getEntitiesOfClass(ServerPlayer, Bereich)`. Stufe III: 128 x 192 x 128 Bloecke = ~768 Entity-Sektionen je Suche, letzte Easter-Stufe ~3072. | `util/PlayerScan`: Spielerliste des Levels statt Sektionssuche - O(Spieler) |
 | **Flypad** | Server (+ Client-Feldkanten per `animateTick`, nur wenn `active`) | dito alle 5 Ticks (bis 16 x 24 x 16, Easter doppelt). Zustand `active` nur beim Wechsel, Randwarnung je Spieler hoechstens alle 10 Ticks. | `PlayerScan` |
 | **Launchpad** | Server **und** Client | jeden Tick Sektionssuche ueber dem Pad (Client fuer die Partikel). Fuellstand `charge` (0-3): je Tick ein Int-Vergleich, `setBlock` nur beim Stufenwechsel. | `PlayerScan` |
 | **Spawn-Teleporter** | Server (+ Client-Partikel nur fuer den Besitzer) | jeden Tick Sektionssuche, danach zwei `removeIf`+Stream-Durchlaeufe auch ohne Spieler. | `PlayerScan` + Leerlauf-Abbruch (`isTracking()`) |
@@ -54,7 +54,7 @@ geplanter Aufgabe).
 
 Zahlen aus `PerformanceTests` (Log-Kanal `simplebuilding-perf`, Server-Spieltest, siehe dort):
 
-- **Spielersuche**, Bereich Elytra-Pad Stufe V (letzte Easter-Stufe): Sektionssuche 8,9-25,1 us je Aufruf, Spielerliste 0,82-2,1 us - **rund 11-12x schneller** (2000 Durchlaeufe, 3 Mock-Spieler, Fabric 26.2/1.21.11/26.3; in einer Welt mit vielen Entities in den Sektionen waechst der Abstand).
+- **Spielersuche**, Bereich Elytra-Pad Stufe III (letzte Easter-Stufe): Sektionssuche 8,9-25,1 us je Aufruf, Spielerliste 0,82-2,1 us - **rund 11-12x schneller** (2000 Durchlaeufe, 3 Mock-Spieler, Fabric 26.2/1.21.11/26.3; in einer Welt mit vielen Entities in den Sektionen waechst der Abstand).
   Pro Pad alle 10 Ticks; die Sektionssuche waechst mit der Bereichsgroesse, die Spielerliste nur
   mit der Spielerzahl.
 - **Oktant-Kugel 32^3**: **175 280** Praedikataufrufe (4872 Aussenseiten, 11 520 Kanten), frueher **in jedem Bild**, jetzt einmal je

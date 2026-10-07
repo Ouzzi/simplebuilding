@@ -1,0 +1,107 @@
+{
+  "parent": "simplebuilding:easter/seriously",
+  "criteria": {
+    "chunk_loader": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "simplebuilding:easter_stage": 3
+            },
+            "items": "simplebuilding:enderite_chunk_loader"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "elytra_pad": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "simplebuilding:easter_stage": 3
+            },
+            "items": "simplebuilding:enderite_elytra_pad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "flypad": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "simplebuilding:easter_stage": 3
+            },
+            "items": "simplebuilding:stellar_flypad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "launchpad": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "simplebuilding:easter_stage": 3
+            },
+            "items": "simplebuilding:enderite_launchpad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "potion_pad": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "simplebuilding:easter_stage": 3
+            },
+            "items": "simplebuilding:infused_potion_pad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "spawn_teleporter": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "simplebuilding:easter_stage": 3
+            },
+            "items": "simplebuilding:enderite_spawn_teleporter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.easter.it_was_worth_it.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "id": "simplebuilding:enderite_elytra_pad"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.easter.it_was_worth_it.title"
+    }
+  },
+  "requirements": [
+    [
+      "elytra_pad",
+      "flypad",
+      "spawn_teleporter",
+      "launchpad",
+      "chunk_loader",
+      "potion_pad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

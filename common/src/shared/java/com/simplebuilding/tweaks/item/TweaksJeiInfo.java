@@ -18,8 +18,7 @@ public final class TweaksJeiInfo {
 
     public static Map<String, List<ItemLike>> families() {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
-        map.put("elytra_pad", List.of(TweaksBlocks.ELYTRA_PAD, TweaksBlocks.REINFORCED_ELYTRA_PAD,
-                TweaksBlocks.NETHERITE_ELYTRA_PAD, TweaksBlocks.ENDERITE_ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD));
+        map.put("elytra_pad", List.of(TweaksBlocks.ELYTRA_PAD, TweaksBlocks.NETHERITE_ELYTRA_PAD, TweaksBlocks.ENDERITE_ELYTRA_PAD));
         map.put("flypad", List.of(TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD));
         map.put("spawn_teleporter", List.of(TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2,
                 TweaksBlocks.ENDERITE_SPAWN_TELEPORTER));

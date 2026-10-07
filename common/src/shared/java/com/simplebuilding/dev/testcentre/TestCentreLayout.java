@@ -68,7 +68,7 @@ public final class TestCentreLayout {
 
     /**
      * Mod-Bloecke, die nur im Rahmen stehen und nirgends gesetzt werden: Pads mit Wirkung auf die
-     * Umgebung (Elytra-Pad V gibt auf 128 x 128 Bloecken Elytren, Teleporter versetzen, Chunk-Loader
+     * Umgebung (Elytra-Pad III gibt auf 128 x 128 Bloecken Elytren, Teleporter versetzen, Chunk-Loader
      * erzwingen Chunks, Kupferplatten altern) und die alten Stufen (werden beim ersten Tick umgewandelt).
      * Die Tweaks-Station setzt je Familie ein Vorfuehrstueck von Hand.
      */

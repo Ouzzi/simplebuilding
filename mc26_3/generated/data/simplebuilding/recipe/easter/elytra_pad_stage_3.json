@@ -1,0 +1,9 @@
+{
+  "type": "simplebuilding:easter_smithing",
+  "addition": "simplebuilding:enderite_pressure_plate",
+  "base": "simplebuilding:netherite_elytra_pad",
+  "base_stage": 2,
+  "result": "simplebuilding:enderite_elytra_pad",
+  "result_stage": 3,
+  "template": "simplebuilding:enderite_upgrade_template"
+}
