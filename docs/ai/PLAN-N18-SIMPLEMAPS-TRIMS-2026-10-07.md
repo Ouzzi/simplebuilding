@@ -60,3 +60,17 @@ Status: **nur geplant**, nichts umgesetzt. Grundlagen: KONZEPT-SUPERMOD-SUBMOD-2
 
 ## Fragen an den Besitzer (übergreifend)
 - F1: Simple Trims: sollen Item-IDs `simplebuilding:*` bleiben (keine Welt-Migration) oder auf `simpletrims:*` wechseln (mit Migration alter Welten)?
+
+## Antworten Besitzer (2026-10-07)
+- F1: Vorlagen-IDs in simpletrims (`simpletrims:*`, mit Migration alter Welten).
+- F2: Wegpunkte gehören immer der Karte, die gerade genutzt wird.
+- F3: offen – Besitzer möchte Rezept-Vorschläge.
+- F4: Normale Karte + Wegfinder-Karte → nur die normale Karte wird verbraucht. Zwei Wegfinder-Karten → die zweite wird verbraucht, Wegpunkte der ersten bleiben immer erhalten.
+- F5: Kartentisch.
+- F6: Unbegrenzt, aber optimiert gespeichert (nur erkundete Bereiche, z. B. regionsweise/komprimiert); aufgedeckt wird, wo man hinreist; Navigation per Ziehen und Zoom.
+- F7: Wegpunkte in der Locator-Bar nur mit Karte in Haupt- oder Nebenhand.
+- F8: Je Dimension eine eigene Karte; Nether-Karte deutlich teurer, End-Karte noch teurer. Kompatibilität für weitere Dimensionen vorsehen (Erweiterung in dieser Mod oder per Config/Datapack anderer Mods).
+- F9: Zoom: größte Stufe 1 Block = 1 Kartenpixel, dann 4, 8, 16, 64 … Blöcke je Pixel (zunächst zum Testen, Faktor ×2/×4).
+- F10: Jeder Mob-Kopf wählbar.
+- Feature 5 (Höhenlinien-Modus): ja.
+- Feature 7 neu gefasst: Bergungskompass + Wegfinder-Karte gleichzeitig in den Händen → Todespunkt auf der Karte sichtbar, auch in unerkundetem Gebiet (Terrain bleibt dort verborgen, nur der Punkt erscheint).
