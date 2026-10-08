@@ -107,4 +107,23 @@ public final class StyledScreens {
     private static void box(GuiGraphicsExtractor g, int left, int top, BoxLayout.Rect r, UiPalette p) {
         UiBoxes.box(g, left + r.x(), top + r.y(), r.width(), r.height(), p);
     }
+
+    /**
+     * Tint for an empty-slot icon on {@code screen}: {@code -1} = Vanilla (screen not styled), {@code 0} = leave it out
+     * (the brewing stand's blaze powder slot shows its fuel level instead), else the colour for
+     * {@code blitSprite(..., color)}. Vanilla's icons are one grey (104, lapis 85); the tint scales it to the slot's
+     * top-line colour at 80 % so it reads as an engraved silhouette.
+     */
+    public static int slotIconColor(AbstractContainerScreen<?> screen, Slot slot, net.minecraft.resources.Identifier icon,
+            int imageWidth, int imageHeight, int titleY) {
+        ScreenStyle style = style(screen);
+        if (style == null || layout(screen, imageWidth, imageHeight, titleY) == null) return -1;
+        String path = icon.getPath();
+        if (path.equals("container/slot/brewing_fuel")) return 0;
+        UiPalette p = slot.container instanceof Inventory ? UiPalette.INVENTORY : palette(screen, style);
+        int grey = path.equals("container/slot/lapis_lazuli") ? 85 : 104;
+        int top = p.slotTop(), color = 0xCC000000;
+        for (int shift = 16; shift >= 0; shift -= 8) color |= Math.min(255, ((top >> shift) & 255) * 255 / grey) << shift;
+        return color;
+    }
 }

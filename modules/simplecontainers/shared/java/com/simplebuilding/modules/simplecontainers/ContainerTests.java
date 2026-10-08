@@ -6,6 +6,7 @@ import com.simplebuilding.modules.simplecontainers.style.ContainerStyles;
 import com.simplebuilding.modules.simplecontainers.style.ScreenStyle;
 import com.simplebuilding.modules.simplecontainers.style.StorageStyles;
 import com.simplebuilding.modules.simplecontainers.style.StyleContext;
+import com.simplebuilding.modules.simplecontainers.style.WorkStyles;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -28,6 +29,13 @@ public final class ContainerTests {
             Map.entry(MenuType.GENERIC_9x5, "ContainerScreen"), Map.entry(MenuType.GENERIC_9x6, "ContainerScreen"),
             Map.entry(MenuType.SHULKER_BOX, "ShulkerBoxScreen"), Map.entry(MenuType.HOPPER, "HopperScreen"),
             Map.entry(MenuType.GENERIC_3x3, "DispenserScreen"));
+
+    /** Menus of W1 G2's work screens with their exact Vanilla screen classes. */
+    static final Map<MenuType<?>, String> W1_G2 = Map.ofEntries(
+            Map.entry(MenuType.CRAFTING, "CraftingScreen"), Map.entry(MenuType.FURNACE, "FurnaceScreen"),
+            Map.entry(MenuType.BLAST_FURNACE, "BlastFurnaceScreen"), Map.entry(MenuType.SMOKER, "SmokerScreen"),
+            Map.entry(MenuType.BREWING_STAND, "BrewingStandScreen"), Map.entry(MenuType.BEACON, "BeaconScreen"),
+            Map.entry(MenuType.ENCHANTMENT, "EnchantmentScreen"));
 
     private ContainerTests() {}
 
@@ -108,7 +116,11 @@ public final class ContainerTests {
             h.assertTrue(ContainerStyles.find(menu, ScreenStyle.VANILLA + screen) != null, "lookup finds " + screen);
             h.assertTrue(ContainerStyles.find(menu, "com.example.SubclassedScreen") == null, "foreign screen classes stay Vanilla");
         });
-        h.assertTrue(ContainerStyles.find(MenuType.FURNACE, ScreenStyle.VANILLA + "FurnaceScreen") == null, "furnace not styled yet (W1)");
+        W1_G2.forEach((menu, screen) -> {
+            h.assertTrue(ContainerStyles.find(menu, ScreenStyle.VANILLA + screen) != null, "work screen styled: " + screen);
+            h.assertTrue(ContainerStyles.find(menu, "com.example.ModdedFurnaceScreen") == null, "foreign work screens stay Vanilla");
+        });
+        h.assertTrue(ContainerStyles.find(MenuType.FURNACE, ScreenStyle.VANILLA + "SmokerScreen") == null, "a smoker screen on a furnace menu is not guessed");
         h.assertTrue(ContainerStyles.byId("chest") != null && ContainerStyles.byId("missing") == null, "lookup by id");
         h.succeed();
     }
@@ -163,6 +175,59 @@ public final class ContainerTests {
         for (ScreenStyle style : ContainerStyles.all()) h.assertTrue(!copy.isOn(style.id()), "master switch off: " + style.id());
         var broken = new Gson().fromJson("{\"screens\":null}", ContainersConfig.class);
         h.assertTrue(broken.isOn("chest"), "missing map falls back to defaults");
+        h.succeed();
+    }
+
+    /** Player inventory at 8/84 plus {@code container} slots (x, y pairs). */
+    static List<BoxLayout.Slot> work(int... container) {
+        List<BoxLayout.Slot> slots = new ArrayList<>(slots(0, 0, 0, 0, 84));
+        for (int i = 0; i < container.length; i += 2) slots.add(new BoxLayout.Slot(container[i], container[i + 1], false));
+        return slots;
+    }
+
+    /**
+     * W1 G2 geometries as in the W0-B preview: crafting table and furnaces get the full 14 px split (2 px divider), the
+     * enchanting table's offer rows (down to y 72, a pseudo slot at 55) leave 12 px - boxes touch.
+     */
+    public static void workLayouts(GameTestHelper h) {
+        int[] grid = new int[18];
+        for (int i = 0; i < 9; i++) {
+            grid[2 * i] = 30 + i % 3 * 18;
+            grid[2 * i + 1] = 17 + i / 3 * 18;
+        }
+        int[] crafting = java.util.Arrays.copyOf(grid, 20);
+        crafting[18] = 124;
+        crafting[19] = 35;
+        var table = BoxLayout.compute(work(crafting), 176, 166, 6);
+        h.assertTrue(table != null && table.container() != null, "crafting table gets two boxes");
+        rect(h, table.container(), 0, 0, 176, 77, "crafting container box");
+        rect(h, table.inventory(), 0, 79, 176, 87, "crafting inventory box");
+        var furnace = BoxLayout.compute(work(56, 17, 56, 53, 116, 35), 176, 166, 6);
+        h.assertTrue(furnace != null, "furnace fits");
+        rect(h, furnace.container(), 0, 0, 176, 77, "furnace container box");
+        rect(h, furnace.inventory(), 0, 79, 176, 87, "furnace inventory box");
+        var enchanting = BoxLayout.compute(work(15, 47, 35, 47, 60, 55), 176, 166, 6);
+        h.assertTrue(enchanting != null, "enchanting table fits");
+        rect(h, enchanting.container(), 0, 0, 176, 79, "enchanting container box down to the inventory box (offer rows end at 72)");
+        rect(h, enchanting.inventory(), 0, 79, 176, 87, "enchanting inventory box");
+        h.succeed();
+    }
+
+    /** W1 G2 fills exactly as the W0-B preview palette table. */
+    public static void workPalettes(GameTestHelper h) {
+        Map<UiPalette, UiPalette> table = Map.of(
+                WorkStyles.CRAFTING, new UiPalette(0xFFB7935B, 0xFFE8BA73, 0xFF96784A, 0xFF8E7246, 0xFF755E3A, 0xFF2E3034),
+                WorkStyles.FURNACE, new UiPalette(0xFF929699, 0xFFB9BEC2, 0xFF777A7D, 0xFF717577, 0xFF5D6061, 0xFF2E3034),
+                WorkStyles.BLAST_FURNACE, new UiPalette(0xFF6E7179, 0xFF8B8F99, 0xFF5A5C63, 0xFF55585E, 0xFF46484D, 0xFFF2EEE8),
+                WorkStyles.SMOKER, new UiPalette(0xFF7D6B57, 0xFF9E876E, 0xFF665747, 0xFF615343, 0xFF504437, 0xFFF2EEE8),
+                WorkStyles.BREWING, new UiPalette(0xFF847D7D, 0xFFA79E9E, 0xFF6C6666, 0xFF666161, 0xFF545050, 0xFF2E3034),
+                WorkStyles.BEACON, new UiPalette(0xFF6FB4B1, 0xFF8CE4E0, 0xFF5B9391, 0xFF568C8A, 0xFF477371, 0xFF2E3034),
+                WorkStyles.ENCHANTING, new UiPalette(0xFFA1282B, 0xFFB95F62, 0xFF842023, 0xFF7D1F21, 0xFF67191B, 0xFFF2EEE8));
+        table.forEach((actual, expected) -> h.assertValueEqual(actual, expected, "work palette " + Integer.toHexString(expected.fill())));
+        for (ScreenStyle style : WorkStyles.STYLES) {
+            MenuType<?> menu = style.menus().get(0);
+            h.assertTrue(table.containsKey(style.palette().apply(new StyleContext(menu, null, null))), "style " + style.id() + " uses a table colour");
+        }
         h.succeed();
     }
 }
