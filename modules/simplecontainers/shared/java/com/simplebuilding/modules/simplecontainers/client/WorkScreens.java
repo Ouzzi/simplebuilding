@@ -46,25 +46,41 @@ public final class WorkScreens {
     }
 
     /**
-     * The boxes: {@code extra} = more container elements as (x0, y0, x1, y1) rects incl. light edges. Returns the
-     * container palette, or {@code null} (nothing drawn, Vanilla). The caller draws the slots ({@link #slots}).
+     * The boxes ({@link BoxLayout} with the screen's other container elements {@code extra} as (x0, y0, x1, y1) rects
+     * incl. light edges, so the divider sits where the W0-B preview has it); {@code wide} = the container box spans the
+     * whole image (beacon). Returns the container palette, or {@code null} (nothing drawn, Vanilla). The caller draws
+     * the slots ({@link #slots}).
      */
     static @Nullable UiPalette base(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int imageWidth,
-            int imageHeight, int titleY, int[][] extra) {
+            int imageHeight, int titleY, int[][] extra, boolean wide) {
         UiPalette p = palette(screen, imageWidth, imageHeight, titleY);
         if (p == null) return null;
+        Layout layout = layout(screen, imageWidth, imageHeight, titleY, extra, wide);
+        if (layout == null) return null;
+        StyledScreens.drawBoxes(g, left, top, layout, p);
+        return p;
+    }
+
+    /** The layout of a work screen (see {@link #base}), or {@code null}. */
+    public static @Nullable Layout layout(AbstractContainerScreen<?> screen, int imageWidth, int imageHeight, int titleY, int[][] extra,
+            boolean wide) {
         List<BoxLayout.Slot> slots = new ArrayList<>();
         for (Slot slot : screen.getMenu().slots) {
             if (slot.isActive()) slots.add(new BoxLayout.Slot(slot.x, slot.y, slot.container instanceof Inventory));
         }
-        // A rect's lowest row as a pseudo slot (BoxLayout measures container slots by their 17 px incl. light edge).
-        for (int[] r : extra) slots.add(new BoxLayout.Slot(Math.max(r[0], 8), r[3] - 17, false));
-        Layout layout = BoxLayout.compute(slots, imageWidth, imageHeight, titleY);
-        if (layout == null) layout = StyledScreens.layout(screen, imageWidth, imageHeight, titleY);
-        if (layout == null) return null;
-        if (layout.container() != null) box(g, left, top, layout.container(), p);
-        box(g, left, top, layout.inventory(), UiPalette.INVENTORY);
-        return p;
+        List<BoxLayout.Rect> elements = new ArrayList<>();
+        for (int[] r : extra) elements.add(new BoxLayout.Rect(r[0], r[1], r[2] - r[0], r[3] - r[1]));
+        Layout layout = BoxLayout.compute(slots, elements, imageWidth, imageHeight, titleY);
+        return layout == null || !wide ? layout : widen(layout, imageWidth);
+    }
+
+    /** {@code layout} with the container box (and a seam panel inside it) over the whole image width. */
+    static Layout widen(Layout layout, int imageWidth) {
+        BoxLayout.Rect c = layout.container(), i = layout.inventory();
+        if (c == null) return layout;
+        BoxLayout.Rect box = new BoxLayout.Rect(0, c.y(), imageWidth, c.height());
+        if (layout.variant() != BoxLayout.Variant.SEAM) return new Layout(box, i, layout.variant());
+        return new Layout(box, new BoxLayout.Rect(UiBoxes.FRAME, i.y(), imageWidth - 2 * UiBoxes.FRAME, i.height()), layout.variant());
     }
 
     /** Slots: {@code big} = menu slot indices drawn as big result slots, {@code skip} = indices the caller draws itself. */
@@ -80,13 +96,9 @@ public final class WorkScreens {
         }
     }
 
-    private static void box(GuiGraphicsExtractor g, int left, int top, BoxLayout.Rect r, UiPalette p) {
-        UiBoxes.box(g, left + r.x(), top + r.y(), r.width(), r.height(), p);
-    }
-
     /** Crafting table: 3x3 grid, engraved arrow (no progress in crafting), big result slot (menu slot 0). */
     public static boolean crafting(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int w, int h, int titleY) {
-        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[0][]);
+        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[0][], false);
         if (p == null) return false;
         slots(screen, g, left, top, p, List.of(0), List.of());
         UiSymbols.progress(g, UiSymbols.ARROW, left + 90, top + 36, p, 0, false);
@@ -100,7 +112,7 @@ public final class WorkScreens {
      */
     public static boolean furnace(AbstractContainerScreen<?> screen, AbstractFurnaceMenu menu, GuiGraphicsExtractor g, int left, int top,
             int w, int h, int titleY, ProgressColors colors, UiSymbols.Bitmap waves) {
-        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[0][]);
+        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[0][], false);
         if (p == null) return false;
         slots(screen, g, left, top, p, List.of(2), List.of(1));
         boolean lit = menu.isLit();
@@ -118,7 +130,7 @@ public final class WorkScreens {
      */
     public static boolean brewing(AbstractContainerScreen<?> screen, BrewingStandMenu menu, GuiGraphicsExtractor g, int left, int top,
             int w, int h, int titleY) {
-        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{60, 14, 76, 44}, {97, 16, 106, 44}});
+        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{60, 14, 76, 44}, {97, 16, 106, 44}}, false);
         if (p == null) return false;
         for (int[] r : PIPES) g.fill(left + r[0], top + r[1] + 1, left + r[2], top + r[3] + 1, p.light());
         for (int[] r : PIPES) g.fill(left + r[0], top + r[1], left + r[2], top + r[3], p.slot());
@@ -157,7 +169,7 @@ public final class WorkScreens {
 
     /** Enchanting table: the three offer rows reach down to y 72; the 3D book stays Vanilla. */
     public static boolean enchanting(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int w, int h, int titleY) {
-        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{60, 14, 169, 72}});
+        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{60, 14, 169, 72}}, false);
         if (p == null) return false;
         slots(screen, g, left, top, p, List.of(), List.of());
         return true;
@@ -209,7 +221,7 @@ public final class WorkScreens {
      * the payment slot; the buttons draw themselves ({@code BeaconButtonMixin}).
      */
     public static boolean beacon(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int w, int h, int titleY) {
-        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{164, 107, 212, 129}});
+        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{164, 107, 212, 129}}, true);
         if (p == null) return false;
         UiBoxes.inset(g, left + 18, top + 8, 110, 92, p);
         UiBoxes.inset(g, left + 140, top + 8, 72, 92, p);
