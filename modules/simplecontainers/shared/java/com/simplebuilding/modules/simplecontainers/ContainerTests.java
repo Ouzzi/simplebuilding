@@ -71,7 +71,9 @@ public final class ContainerTests {
 
     /** No room, no player slots or container slots below them: Vanilla stays. Extra room becomes padding. */
     public static void layoutLimits(GameTestHelper h) {
-        h.assertTrue(BoxLayout.compute(slots(8, 18, 9, 3, 84 - 1), 176, 166, 6) == null, "12 px between the groups is too tight");
+        h.assertTrue(BoxLayout.compute(slots(8, 18, 9, 3, 71 + 11), 176, 166, 6) == null, "11 free rows are too few for two frames");
+        var touching = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 12), 176, 166, 6);
+        h.assertTrue(touching != null && touching.inventory().y() == touching.container().bottom(), "12 free rows: boxes touch");
         var noPlayer = new ArrayList<>(slots(8, 18, 9, 3, 85));
         noPlayer.removeIf(BoxLayout.Slot::player);
         h.assertTrue(BoxLayout.compute(noPlayer, 176, 166, 6) == null, "no player slots, no style");
@@ -79,12 +81,12 @@ public final class ContainerTests {
         var roomy = BoxLayout.compute(slots(8, 18, 9, 3, 100), 176, 190, 6);
         h.assertTrue(roomy != null, "roomy layout");
         int gap = roomy.inventory().y() - roomy.container().bottom();
-        h.assertTrue(gap >= BoxLayout.MIN_GAP && roomy.container().bottom() == 71 + BoxLayout.MAX_PAD + 7,
-                "extra room: " + BoxLayout.MAX_PAD + " px padding, the rest is the divider (gap " + gap + ")");
+        h.assertTrue(gap == BoxLayout.MAX_GAP && roomy.inventory().y() == 100 - 5,
+                "extra room pads the container box, divider " + BoxLayout.MAX_GAP + " px (gap " + gap + ")");
         var playerOnly = new ArrayList<>(slots(8, 18, 9, 3, 84));
         playerOnly.removeIf(s -> !s.player());
         var single = BoxLayout.compute(playerOnly, 176, 166, 6);
-        h.assertTrue(single != null && single.container() == null && single.inventory().y() == 84 - 5 - BoxLayout.MAX_PAD,
+        h.assertTrue(single != null && single.container() == null && single.inventory().y() == 84 - 5 - BoxLayout.MAX_GAP,
                 "player slots only: just the inventory box");
         h.succeed();
     }
@@ -133,12 +135,16 @@ public final class ContainerTests {
                 StorageStyles.dyed(DyeColor.RED), "red shulker box");
         h.assertTrue(StorageStyles.dyed(DyeColor.WHITE).label() == UiPalette.DARK_LABEL && StorageStyles.dyed(DyeColor.BLACK).label() == UiPalette.LIGHT_LABEL,
                 "label colour follows the box brightness");
+        h.assertTrue(StorageStyles.OAK.equals(new UiPalette(0xFFCE9148, 0xFFFFB85B, 0xFFA8763B, 0xFFA07138, 0xFF835C2E, 0xFF2E3034)),
+                "oak palette matches the W0-B preview table");
+        h.assertTrue(StorageStyles.HOPPER.equals(new UiPalette(0xFF5A5C63, 0xFF84868B, 0xFF494B51, 0xFF46474D, 0xFF393A3F, 0xFFF2EEE8)),
+                "hopper palette matches the W0-B preview table");
         List<UiPalette> all = new ArrayList<>(List.of(StorageStyles.OAK, StorageStyles.BARREL, StorageStyles.ENDER, StorageStyles.SHULKER,
                 StorageStyles.HOPPER, StorageStyles.STONE));
         all.addAll(StorageStyles.COPPER);
         for (DyeColor dye : DyeColor.values()) all.add(StorageStyles.dyed(dye));
         for (UiPalette p : all) {
-            int contrast = Math.abs(UiPalette.luminance(p.fill()) - UiPalette.luminance(p.label()));
+            int contrast = (int) Math.abs(UiPalette.luminance(p.fill()) - UiPalette.luminance(p.label()));
             h.assertTrue(contrast >= 60, "label readable on " + Integer.toHexString(p.fill()) + " (contrast " + contrast + ")");
             h.assertTrue(UiPalette.luminance(p.slot()) < UiPalette.luminance(p.fill()), "slots sink in (darker than the box) " + Integer.toHexString(p.fill()));
         }

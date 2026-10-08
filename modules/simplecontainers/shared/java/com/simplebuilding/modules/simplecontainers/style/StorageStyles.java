@@ -9,28 +9,29 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Group "storage" (W0): chests and everything else on the generic 9xN screen (double chest, barrel, ender chest, chest
- * boats and minecarts), shulker boxes, hoppers, dispensers and droppers. Colours measured on owner image 3
- * ({@code previews/refs-n12/bild3-container-stil.webp}: box fill and slot colour per block). The title's translation
+ * boats and minecarts), shulker boxes, hoppers, dispensers and droppers. Fills as in the W0-B preview palette table
+ * (docs/ai/PLAN-SIMPLECONTAINERS-2026-10-08.md, from owner image 3), all other colours from {@link UiPalette#derived}. The title's translation
  * key decides the block family (a chest stays a chest even if the player looks at a barrel); the block looked at only
  * refines it (copper chest weathering, shulker colour) or stands in for a custom name. Otherwise: an oak chest.
  */
 public final class StorageStyles {
-    /** Image 3, chest: warm oak. */
-    public static final UiPalette OAK = UiPalette.derived(0xFFC89044, 0xFFA47438);
-    /** Image 3, barrel: darker spruce brown. */
-    public static final UiPalette BARREL = UiPalette.derived(0xFFA47850, 0xFF805C44);
-    /** Image 3, ender chest: petrol. */
-    public static final UiPalette ENDER = UiPalette.derived(0xFF587880, 0xFF405C64);
-    /** Image 3, shulker box without dye: purple. */
-    public static final UiPalette SHULKER = UiPalette.derived(0xFF846C98, 0xFF705880);
-    /** Hopper: iron grey (the crucible's iron tier). */
-    public static final UiPalette HOPPER = new UiPalette(0xFF9A9DA2, 0xFFC4C7CB, 0xFF7E8186, 0xFF7B7E83, 0xFF64676C, 0xFF2E3034);
-    /** Dispenser and dropper: cobblestone grey (image 3, furnace). */
-    public static final UiPalette STONE = UiPalette.derived(0xFF909498, 0xFF6C7070);
-    /** Copper chest by weathering: copper, exposed, weathered, oxidized. */
-    public static final List<UiPalette> COPPER = List.of(
-            UiPalette.derived(0xFFC0714F, 0xFF9A5A3E), UiPalette.derived(0xFFA27C68, 0xFF826352),
-            UiPalette.derived(0xFF6E9A7E, 0xFF557A63), UiPalette.derived(0xFF52A08C, 0xFF3F7E6E));
+    /** Chest: warm oak (image 3). */
+    public static final UiPalette OAK = UiPalette.derived(0xFFCE9148);
+    /** Barrel: the crucible's barrel colours. */
+    public static final UiPalette BARREL = UiPalette.BARREL;
+    /** Ender chest: petrol (image 3). */
+    public static final UiPalette ENDER = UiPalette.derived(0xFF597880);
+    /** Shulker box without dye: purple (image 3). */
+    public static final UiPalette SHULKER = UiPalette.derived(0xFF876C99);
+    /** Light blue shulker box (preview W0-B). */
+    public static final UiPalette SHULKER_LIGHT_BLUE = UiPalette.derived(0xFF5C97B8);
+    /** Hopper: dark iron. */
+    public static final UiPalette HOPPER = UiPalette.derived(0xFF5A5C63);
+    /** Dispenser and dropper: stone grey. */
+    public static final UiPalette STONE = UiPalette.derived(0xFF878787);
+    /** Copper chest by weathering: copper, exposed, weathered, oxidized (block texture colours, muted). */
+    public static final List<UiPalette> COPPER = List.of(UiPalette.derived(0xFFC0714F), UiPalette.derived(0xFFA27C68),
+            UiPalette.derived(0xFF6E9A7E), UiPalette.derived(0xFF52A08C));
     private static final List<String> COPPER_STAGES = List.of("copper_chest", "exposed_copper_chest",
             "weathered_copper_chest", "oxidized_copper_chest");
 
@@ -79,10 +80,11 @@ public final class StorageStyles {
         return SHULKER;
     }
 
-    /** A dyed shulker box: the dye's texture colour, a little greyed like image 3. */
+    /** A dyed shulker box: purple and light blue as previewed, other dyes their texture colour mixed half with grey. */
     public static UiPalette dyed(DyeColor dye) {
-        int fill = UiPalette.mix(dye.getTextureDiffuseColor(), 0xFF8A8A8A, 0.45);
-        return UiPalette.derived(fill, UiPalette.scale(fill, 0.85));
+        if (dye == DyeColor.PURPLE) return SHULKER;
+        if (dye == DyeColor.LIGHT_BLUE) return SHULKER_LIGHT_BLUE;
+        return UiPalette.derived(UiPalette.mix(dye.getTextureDiffuseColor(), 0xFF808080, 0.4));
     }
 
     /** The path of a {@code minecraft:} block id, or {@code null} (no block, or a block of another mod). */

@@ -81,14 +81,16 @@ Entscheidungen (Claude):
    Hintergrund + cancel. Labels: HEAD-Inject in `AbstractContainerScreen#extractLabels`. Weitere Gruppen legen eine
    eigene Mixin-Klasse für ihre Screen-Klassen an (eine Zeile in `simplecontainers.mixins.json`).
 3. **Kasten-Grenzen aus Slots** (`BoxLayout`, rein, serverseitig testbar): waagerecht über alle Slots ±8 (Truhe: 0..176),
-   Container-Kasten oben bis Bildrand (Titel liegt im Kasten), Rahmen 5/7, Polster p und Fuge aus der Restlücke
-   (Fuge ≥ 1 px); passt es nicht (< 13 px) → Vanilla. Das „Inventar“-Label passt in Vanilla-Geometrie nicht zwischen
-   die Kästen und entfällt im Stil (Bild 3 zeigt auch keins); der Titel steht in der Label-Farbe der Palette.
+   Container-Kasten oben bis Bildrand (Titel liegt im Kasten), Rahmen 5/7. Fuge nach der W0-B-Regel („Kasten-Fuge“):
+   freie Zeilen ≥ 12 → zwei Kästen, Fuge min(2, frei−12), Rest polstert den Container-Kasten; < 12 → vorerst Vanilla
+   (schattenloser Kasten 10–11 und Ein-Kasten-Variante < 10 kommen mit den Screens, die sie brauchen, W1). Das
+   „Inventar“-Label entfällt im Stil (kein Platz, Bild 3 zeigt auch keins); der Titel steht in der Label-Farbe.
 4. **Registry** (`ContainerStyles`, serverseitig ladbar): Schlüssel = `MenuType` + exakter Vanilla-Screen-Klassenname
    (fremde Unterklassen bleiben Vanilla). Je Gruppe eine Klasse (`StorageStyles` = W0), zentrale Liste
    `ContainerStyles.GROUPS`. Palette aus `StyleContext` (Menü, Titel-Schlüssel, angeschauter Block): Titel bestimmt die
    Familie (Truhe/Fass/Endertruhe/Shulker/Trichter/Spender), der Block verfeinert (Kupfertruhen-Stufen,
-   Shulkerfarbe); sonst Standard je Menü (Eiche-Truhe). Farben aus Bild 3 gemessen.
+   Shulkerfarbe); sonst Standard je Menü (Eiche-Truhe). Füllfarben = W0-B-Palettentabelle, Rest über
+   `UiPalette.derived` (gleiche Regel wie `derive` im Vorschau-Skript; Test prüft Eiche/Trichter gegen die Tabelle).
 5. **Config** `config/simplecontainers.json` (nur Client): Hauptschalter `enabled` + `screens.<stil-id>` (Standard an);
    Cloth-Screen aus der Registry erzeugt (Forge: native-config wie simplesounds).
 6. **SimpleLib gebündelt** (Prinzip 6a, wie Sandwiches: Fabric `include`+`implementation`, NeoForge `jarJar`, Forge
