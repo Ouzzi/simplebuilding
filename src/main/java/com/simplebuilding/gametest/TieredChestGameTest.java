@@ -35,6 +35,11 @@ public final class TieredChestGameTest {
     }
 
     @GameTest
+    public void trappedTitlesMatchNormalTiers(GameTestHelper helper) {
+        TieredChestTests.trappedTitlesMatchNormalTiers(helper);
+    }
+
+    @GameTest
     public void singleChestClimbsFromCopperToEnderiteKeepingItsContents(GameTestHelper helper) {
         TieredChestTests.singleChestClimbsFromCopperToEnderiteKeepingItsContents(helper);
     }

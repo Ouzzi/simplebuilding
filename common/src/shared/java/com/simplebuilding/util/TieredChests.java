@@ -88,7 +88,7 @@ public final class TieredChests {
                         if (second.hasCustomName()) {
                             return second.getDisplayName();
                         }
-                        return Component.translatable("container.simplebuilding.double_chest", block.getName());
+                        return Component.translatable("container.simplebuilding.double_chest", block.getContainerName());
                     }
                 };
                 return Optional.of(new Opening(provider, TieredChestOpenData.of(tier, true)));

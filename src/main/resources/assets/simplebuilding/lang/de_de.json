@@ -330,7 +330,6 @@
   "block.simplebuilding.enderite_chest": "Enderittruhe",
   "item.simplebuilding.enderite_chest": "Enderittruhe",
   "container.simplebuilding.double_chest": "Große %s",
-  "container.simplebuilding.tiered_chest.stack_bonus": "Stapel ×%s",
   "tooltip.simplebuilding.tiered_chest.slots": "%s Plätze (Doppeltruhe: %s)",
   "tooltip.simplebuilding.tiered_chest.stacks": "%s× normale Stapelgröße pro Platz",
   "block.simplebuilding.reinforced_shulker_box": "Verstärkte Shulkerkiste",

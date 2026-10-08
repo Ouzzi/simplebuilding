@@ -352,7 +352,6 @@
   "block.simplebuilding.enderite_chest": "Enderite Chest",
   "item.simplebuilding.enderite_chest": "Enderite Chest",
   "container.simplebuilding.double_chest": "Large %s",
-  "container.simplebuilding.tiered_chest.stack_bonus": "Stacks ×%s",
   "tooltip.simplebuilding.tiered_chest.slots": "%s slots (double chest: %s)",
   "tooltip.simplebuilding.tiered_chest.stacks": "Holds %s× the normal stack size per slot",
   "block.simplebuilding.reinforced_shulker_box": "Reinforced Shulker Box",

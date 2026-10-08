@@ -106,7 +106,9 @@ public class TieredChestBlockEntity extends ChestBlockEntity {
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable(getBlockState().getBlock().getDescriptionId());
+        return getBlockState().getBlock() instanceof TieredChestBlock chest
+                ? chest.getContainerName()
+                : Component.translatable(getBlockState().getBlock().getDescriptionId());
     }
 
     // --- Beute ---

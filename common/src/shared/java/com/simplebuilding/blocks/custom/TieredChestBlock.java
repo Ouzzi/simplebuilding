@@ -19,6 +19,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -69,6 +70,12 @@ public class TieredChestBlock extends ChestBlock {
 
     public String textureName() {
         return this.tier.textureName() + (isTrapped() ? "_trapped" : "");
+    }
+
+    /** The container title stays the normal tier name even for trapped chests. */
+    public Component getContainerName() {
+        String descriptionId = this.getDescriptionId();
+        return Component.translatable(isTrapped() ? descriptionId.replace("_trapped", "") : descriptionId);
     }
 
     @Override

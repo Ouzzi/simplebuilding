@@ -1547,6 +1547,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tiered_chest_game_test_trapped_upgrades_keep_both_halves_and_contents", TieredChestTests::trappedUpgradesKeepBothHalvesAndContents)
                     .build(),
+            GameTestSpec.named("tiered_chest_game_test_trapped_titles_match_normal_tiers", TieredChestTests::trappedTitlesMatchNormalTiers)
+                    .build(),
             GameTestSpec.named("tiered_chest_game_test_vanilla_hoppers_fill_and_empty_oversized_slots", TieredChestTests::vanillaHoppersFillAndEmptyOversizedSlots)
                     .maxTicks(TieredChestTests.HOPPER_MAX_TICKS)
                     .build(),

@@ -27,7 +27,6 @@ public class TieredChestScreen extends AbstractContainerScreen<TieredChestMenu> 
     /** Toenung der uebergrossen Plaetze: Netherit leicht warm, Enderit leicht violett. */
     private static final int TINT_NETHERITE = 0x28A0602A;
     private static final int TINT_ENDERITE = 0x306A3FC8;
-    private static final int LABEL = 0xFF404040;
 
     public TieredChestScreen(TieredChestMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, menu.imageWidth(), menu.imageHeight());
@@ -53,11 +52,7 @@ public class TieredChestScreen extends AbstractContainerScreen<TieredChestMenu> 
     @Override
     protected void extractLabels(GuiGraphicsExtractor graphics, int xm, int ym) {
         super.extractLabels(graphics, xm, ym);
-        int multiplier = this.menu.tier().stackMultiplier();
-        if (multiplier > 1) {
-            Component bonus = Component.translatable("container.simplebuilding.tiered_chest.stack_bonus", multiplier);
-            graphics.text(this.font, bonus, this.imageWidth - 8 - this.font.width(bonus), this.titleLabelY, LABEL, false);
-        }
+        // Owner 2026-10-08: no stack factor in the menu (the item tooltip still names it).
     }
 
     /** Toenung der Truhenplaetze je Stufe (0 = keine). */

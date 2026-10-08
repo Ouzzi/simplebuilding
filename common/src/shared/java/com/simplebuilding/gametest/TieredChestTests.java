@@ -508,6 +508,26 @@ public final class TieredChestTests {
         helper.succeed();
     }
 
+    public static void trappedTitlesMatchNormalTiers(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
+        Block[] normal = {ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST};
+        Block[] trapped = {ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST};
+        for (int i = 0; i < normal.length; i++) {
+            BlockPos normalPos = new BlockPos(1 + 2 * i, 1, 1);
+            BlockPos trappedPos = normalPos.east();
+            helper.setBlock(normalPos, normal[i].defaultBlockState());
+            helper.setBlock(trappedPos, trapped[i].defaultBlockState());
+            var normalProvider = helper.getBlockState(normalPos).getMenuProvider(helper.getLevel(), helper.absolutePos(normalPos));
+            var trappedProvider = helper.getBlockState(trappedPos).getMenuProvider(helper.getLevel(), helper.absolutePos(trappedPos));
+            helper.assertTrue(normalProvider != null && trappedProvider != null, "both chest kinds offer a menu");
+            String normalTitle = normalProvider.getDisplayName().getString();
+            String trappedTitle = trappedProvider.getDisplayName().getString();
+            helper.assertTrue(normalTitle.equals(trappedTitle),
+                    "tier " + i + " trapped title is '" + trappedTitle + "' instead of '" + normalTitle + "'");
+        }
+        helper.succeed();
+    }
+
     private static Block[] trappedChests() {
         return new Block[]{ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST};
     }

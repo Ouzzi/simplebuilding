@@ -1174,7 +1174,7 @@
           "Upgrading: hold right-click on the placed chest for 5 seconds with a sledgehammer in the main hand and the tier material in the off hand - Cracked Diamond (any sledgehammer) for copper -> reinforced, Netherite Nugget (Diamond Sledgehammer or better) for reinforced -> netherite, Enderite Nugget (Netherite Sledgehammer or better) for netherite -> enderite. Contents, name and lock stay; a double chest is upgraded as a whole and takes two pieces of material.",
           "The Reinforced Chest can also be crafted (3 copper chests + 6 Cracked Diamonds -> 3); netherite and enderite only come from the hammer, like the machines.",
           "Double chests form only from equal tiers.",
-          "The menus show everything at once: 9x4, 9x5 and 9x6 for single chests, 12x6, 15x6 and 18x6 for double chests - all within GUI scale 4 at 1080p. Oversized slots are tinted and the title row names the stack factor.",
+          "The menus show everything at once: 9x4, 9x5 and 9x6 for single chests, 12x6, 15x6 and 18x6 for double chests - all within GUI scale 4 at 1080p. Oversized slots are tinted; a trapped chest's menu carries the same title as the normal chest of its tier.",
           "Automation: vanilla hoppers, hopper minecarts and the mod's hoppers fill the oversized slots to their limit; comparators count against it. On NeoForge pipes see the chest (a double chest as one inventory) with the same limits through the item capability. On Forge (compile-only port) automation goes through Forge's own item handler and fills oversized slots only up to a normal stack.",
           "Rendering: the chests use vanilla's chest model and renderer path with their own textures (no extra per-tick work). Chest optimisation mods that replace the vanilla chest renderer with a static model only affect vanilla chests; the tier chests keep drawing themselves and nothing breaks.",
           "26.3 adds a trapped variant of every tier: matching chest + tripwire hook, viewer signal 0–15, same storage and hammer upgrades. Only matching trapped tiers connect."
@@ -1187,7 +1187,7 @@
           "Aufwerten: 5 Sekunden Rechtsklick auf die gesetzte Truhe halten, Vorschlaghammer in der Haupthand und das Stufenmaterial in der Nebenhand - Rissiger Diamant (jeder Vorschlaghammer) für Kupfer -> Verstärkt, Netheritklumpen (Diamant-Vorschlaghammer oder besser) für Verstärkt -> Netherit, Enderitklumpen (Netherit-Vorschlaghammer oder besser) für Netherit -> Enderit. Inhalt, Name und Schloss bleiben; eine Doppeltruhe wird als Ganzes aufgewertet und braucht zwei Stück Material.",
           "Die Verstärkte Truhe lässt sich auch herstellen (3 Kupfertruhen + 6 Rissige Diamanten -> 3); Netherit und Enderit gibt es nur mit dem Hammer, wie bei den Maschinen.",
           "Doppeltruhen bilden sich nur aus gleichen Stufen.",
-          "Die Menüs zeigen alles auf einmal: 9x4, 9x5 und 9x6 für einzelne Truhen, 12x6, 15x6 und 18x6 für Doppeltruhen - alles innerhalb GUI-Skala 4 bei 1080p. Übergroße Plätze sind getönt, die Titelzeile nennt den Stapelfaktor.",
+          "Die Menüs zeigen alles auf einmal: 9x4, 9x5 und 9x6 für einzelne Truhen, 12x6, 15x6 und 18x6 für Doppeltruhen - alles innerhalb GUI-Skala 4 bei 1080p. Übergroße Plätze sind getönt; eine Fallentruhe trägt im Menü denselben Titel wie die normale Truhe ihrer Stufe.",
           "Automatisierung: Vanilla-Trichter, Trichterloren und die Mod-Trichter füllen die übergroßen Plätze bis zur Grenze; Komparatoren zählen dagegen. Auf NeoForge sehen Rohre die Truhe (eine Doppeltruhe als ein Lager) über die Item-Capability mit denselben Grenzen. Auf Forge (nur Kompilier-Portierung) läuft Automatisierung über Forges eigenen Item-Handler und füllt übergroße Plätze nur bis zu einem normalen Stapel.",
           "Darstellung: die Truhen nutzen Vanillas Truhenmodell und Renderer-Weg mit eigenen Texturen (keine zusätzliche Arbeit je Tick). Truhen-Optimierer, die Vanillas Truhen-Renderer durch ein statisches Modell ersetzen, betreffen nur Vanilla-Truhen; die Stufen-Truhen zeichnen sich weiter selbst, nichts bricht.",
           "26.3 ergänzt eine Redstone-Variante jeder Stufe: passende Truhe + Haken, Betrachtersignal 0–15, gleicher Stauraum und gleiche Hammer-Aufwertungen. Nur passende Redstone-Stufen verbinden sich."
@@ -3398,7 +3398,7 @@
           "Colors: one texture per tier, dyed by the game in all 16 colors (the shell takes the color, the metal plating stays). Dye with any dye in the crafting grid, undye in a water cauldron.",
           "The item keeps every slot, also oversized stacks; it never goes into another shulker box, a bundle or a backpack. When the item burns, the real counts spill out.",
           "Automation: hoppers fill oversized slots to their limit and never insert a shulker box; comparators count against the limit; dispensers place the boxes. On NeoForge pipes see the box through the item capability (sided, like vanilla's shulker box).",
-          "The menu is the tier chest menu (9x4, 9x5, 9x6) with tinted oversized slots and the stack factor in the title row."
+          "The menu is the tier chest menu (9x4, 9x5, 9x6) with tinted oversized slots."
         ]
       },
       "de": {
@@ -3410,7 +3410,7 @@
           "Farben: eine Textur je Stufe, vom Spiel in allen 16 Farben eingefärbt (die Schale nimmt die Farbe an, der Metallbeschlag bleibt). Färben mit einem beliebigen Farbstoff in der Werkbank, entfärben im Wasserkessel.",
           "Das Item behält jeden Platz, auch übergroße Stapel; es passt nie in eine andere Shulkerkiste, ein Bündel oder einen Rucksack. Verbrennt das Item, fallen die echten Anzahlen heraus.",
           "Automatisierung: Trichter füllen übergroße Plätze bis zur Grenze und legen nie eine Shulkerkiste hinein; Komparatoren messen gegen die Grenze; Werfer stellen die Kisten auf. Auf NeoForge sehen Rohre die Kiste über die Item-Capability (seitenweise wie Vanillas Shulkerkiste).",
-          "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt, der Stapelfaktor in der Titelzeile."
+          "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt."
         ]
       }
     },
