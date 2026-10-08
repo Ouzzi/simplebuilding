@@ -63,10 +63,10 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
     /** The crucible box colours of a tier (image 3: one colour per block). */
     static UiPalette palette(CrucibleTier tier) {
         return switch (tier) {
-            case IRON -> new UiPalette(0xFF9A9DA2, 0xFFC4C7CB, 0xFF7E8186, 0xFF7B7E83, 0xFF64676C, 0xFF2E3034);
-            case REINFORCED -> new UiPalette(0xFF6F9095, 0xFF9DBCC1, 0xFF587378, 0xFF55737A, 0xFF425C61, 0xFFF0F6F6);
-            case NETHERITE -> new UiPalette(0xFF5F524C, 0xFF867870, 0xFF4A3F3A, 0xFF473C37, 0xFF352C28, 0xFFEFE4DA);
-            case ENDERITE -> new UiPalette(0xFF8E6CB0, 0xFFB99AD6, 0xFF735693, 0xFF70538E, 0xFF594073, 0xFFF7F0FF);
+            case IRON -> UiPalette.IRON;
+            case REINFORCED -> UiPalette.REINFORCED;
+            case NETHERITE -> UiPalette.NETHERITE;
+            case ENDERITE -> UiPalette.ENDERITE;
         };
     }
 

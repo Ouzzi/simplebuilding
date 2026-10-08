@@ -10,6 +10,14 @@ public record UiPalette(int fill, int light, int shade, int slot, int slotTop, i
     public static final UiPalette INVENTORY = new UiPalette(0xFFE3E6E9, 0xFFF8F9FA, 0xFFC5CACE, 0xFFB4BABF, 0xFF979DA3, 0xFF404040);
     /** Copper-brown box of a barrel attached to a crucible (N12c). */
     public static final UiPalette BARREL = new UiPalette(0xFFB9774F, 0xFFD08F68, 0xFF955839, 0xFF94573A, 0xFF74412B, 0xFF404040);
+    /** Iron tier (crucible, horseshoe panel). */
+    public static final UiPalette IRON = new UiPalette(0xFF9A9DA2, 0xFFC4C7CB, 0xFF7E8186, 0xFF7B7E83, 0xFF64676C, 0xFF2E3034);
+    /** Reinforced tier (crucible, mod chests and hoppers). */
+    public static final UiPalette REINFORCED = new UiPalette(0xFF6F9095, 0xFF9DBCC1, 0xFF587378, 0xFF55737A, 0xFF425C61, 0xFFF0F6F6);
+    /** Netherite tier (crucible, mod chests and hoppers). */
+    public static final UiPalette NETHERITE = new UiPalette(0xFF5F524C, 0xFF867870, 0xFF4A3F3A, 0xFF473C37, 0xFF352C28, 0xFFEFE4DA);
+    /** Enderite tier (crucible, mod chests and hoppers, enderite backpack). */
+    public static final UiPalette ENDERITE = new UiPalette(0xFF8E6CB0, 0xFFB99AD6, 0xFF735693, 0xFF70538E, 0xFF594073, 0xFFF7F0FF);
     /** Label colour on light boxes. */
     public static final int DARK_LABEL = 0xFF2E3034;
     /** Label colour on dark boxes. */

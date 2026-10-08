@@ -86,6 +86,25 @@ public final class UiSymbols {
     /** Beacon: secondary power (the star). */
     public static final Bitmap STAR = Bitmap.of("...#...", "..###..", "#######", ".#####.", ".##.##.", "#.....#");
 
+    /** 16x11, the small arrow of a 2x2 crafting grid (backpack). */
+    public static final Bitmap ARROW_SMALL = Bitmap.of(
+            "..........#.....", "..........##....", "..........###...", "#############...", "##############..",
+            "###############.", "##############..", "#############...", "..........###...", "..........##....",
+            "..........#.....");
+    /** 12x12 filter funnel (mod hopper filter key). */
+    public static final Bitmap FUNNEL = Bitmap.of(
+            "############", "#..........#", ".#........#.", "..#......#..", "...#....#...", "....#..#....",
+            "....#..#....", "....#..#....", "....#..#....", "....#..#....", ".....##.....", "............");
+    /** 7x7 two stacked boxes (stack multiplier of the mod chests). */
+    public static final Bitmap STACK = Bitmap.of("..#####", "..#...#", "#####.#", "#...#.#", "#...###", "#...#..", "#####..");
+    /** 12x12 redstone dust blob (powered sign: crafter, auto smither). */
+    public static final Bitmap REDSTONE = Bitmap.of(
+            "....#..#....", ".#.###.##...", "..#####.#.#.", ".########...", "#.#######.#.", ".#########..",
+            "..########.#", ".#.######...", "...##.###.#.", "..#..#.#....", ".....#......", "............");
+    /** 9x8 horseshoe, opening up (hoof panel). */
+    public static final Bitmap HORSESHOE = Bitmap.of(
+            "...###...", "..#####..", ".##...##.", ".#.....#.", "#.......#", "#.......#", "#.......#", "#.......#");
+
     private UiSymbols() {}
 
     /** Engraved like image 3: stroke in the slot colour, a 1 px light edge under it. */
