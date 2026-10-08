@@ -633,14 +633,11 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // HOPPER REINFORCED & NETHERITE
                 // =================================================================
-                // 1. Reinforced Hopper
-                ShapedRecipeBuilder.shaped(items(), RecipeCategory.REDSTONE, ModItems.REINFORCED_HOPPER, 5)
-                        .pattern("HNH")
-                        .pattern("DDD")
-                        .pattern("HHH")
-                        .define('D', ModItems.CRACKED_DIAMOND)
-                        .define('H', Items.HOPPER)
-                        .define('N', Items.NAME_TAG)
+                // 1. Reinforced Hopper: one hopper reinforced with a cracked diamond and named.
+                shapeless(RecipeCategory.REDSTONE, ModItems.REINFORCED_HOPPER)
+                        .requires(Items.HOPPER)
+                        .requires(ModItems.CRACKED_DIAMOND)
+                        .requires(Items.NAME_TAG)
                         .unlockedBy(getHasName(Items.HOPPER), has(Items.HOPPER))
                         .save(output, "reinforced_hopper_from_crafting");
 

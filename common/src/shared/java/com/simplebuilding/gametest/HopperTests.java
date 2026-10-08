@@ -1279,20 +1279,13 @@ public final class HopperTests {
     public static void hopperRecipesCraftFromTheirDocumentedPatterns(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
 
-        // "HNH" / "DDD" / "HHH": five vanilla hoppers, a name tag and three cracked diamonds.
+        // Shapeless: one vanilla hopper, one name tag and one cracked diamond.
         CraftingInput reinforced = CraftingInput.of(3, 3, List.of(
-                stack(Items.HOPPER), stack(Items.NAME_TAG), stack(Items.HOPPER),
-                stack(ModItems.CRACKED_DIAMOND), stack(ModItems.CRACKED_DIAMOND), stack(ModItems.CRACKED_DIAMOND),
-                stack(Items.HOPPER), stack(Items.HOPPER), stack(Items.HOPPER)));
+                stack(Items.HOPPER), stack(Items.NAME_TAG), stack(ModItems.CRACKED_DIAMOND),
+                ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY,
+                ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY));
         assertCrafts(helper, level, reinforced, "simplebuilding:reinforced_hopper_from_crafting",
-                ModItems.REINFORCED_HOPPER, 5);
-
-        CraftingInput reinforcedFlipped = CraftingInput.of(3, 3, List.of(
-                stack(Items.HOPPER), stack(Items.HOPPER), stack(Items.HOPPER),
-                stack(ModItems.CRACKED_DIAMOND), stack(ModItems.CRACKED_DIAMOND), stack(ModItems.CRACKED_DIAMOND),
-                stack(Items.HOPPER), stack(Items.NAME_TAG), stack(Items.HOPPER)));
-        assertCraftsNothing(helper, level, reinforcedFlipped,
-                "the reinforced hopper pattern turned upside down");
+                ModItems.REINFORCED_HOPPER, 1);
 
         // "H" / "N" / "H", the old netherite hopper recipe: two reinforced hoppers around one
         // netherite nugget. The netherite hopper is hammered in the world now, so nothing may craft.

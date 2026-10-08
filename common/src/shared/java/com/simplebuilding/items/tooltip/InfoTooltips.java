@@ -151,6 +151,7 @@ public final class InfoTooltips {
                 out.add(cooldown == 1 ? gray("tooltip.simplebuilding.hopper.speed_every_tick")
                         : gray("tooltip.simplebuilding.hopper.speed", cooldown));
                 out.add(gray("tooltip.simplebuilding.hopper.filter"));
+                out.add(gray("tooltip.simplebuilding.hopper.filter.2"));
             }
         } else if (block instanceof ReinforcedPistonBlock) {
             out.add(gray("tooltip.simplebuilding.reinforced_piston.limit", REINFORCED_PUSH_LIMIT));

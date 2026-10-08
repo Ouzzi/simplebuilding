@@ -209,8 +209,15 @@ public final class ImmersionTests {
             helper.assertValueEqual(InfoTooltips.lines(new ItemStack(furnace)).size(), 2,
                     "blast furnace tooltip contains only speed and experience");
         }
-        expectLines(helper, ModBlocks.REINFORCED_HOPPER, "Moves an item every 4 ticks", "Filter in its menu: exact or type match");
-        expectLines(helper, ModBlocks.ENDERITE_HOPPER, "Moves an item every tick");
+        expectLines(helper, ModBlocks.REINFORCED_HOPPER, "Moves an item every 4 ticks",
+                "Filter in its menu: exact or type match",
+                "Click an empty slot to set or clear its filter item");
+        expectLines(helper, ModBlocks.NETHERITE_HOPPER, "Moves an item every 2 ticks",
+                "Filter in its menu: exact or type match",
+                "Click an empty slot to set or clear its filter item");
+        expectLines(helper, ModBlocks.ENDERITE_HOPPER, "Moves an item every tick",
+                "Filter in its menu: exact or type match",
+                "Click an empty slot to set or clear its filter item");
         expectLines(helper, ModBlocks.REINFORCED_STICKY_PISTON, "Pushes up to 18 blocks");
         expectLines(helper, ModBlocks.LEVITATING_SAND, "Falls upward instead of down");
         expectLines(helper, ModBlocks.SUSPENDED_GRAVEL, "Hangs in mid-air and never falls");
