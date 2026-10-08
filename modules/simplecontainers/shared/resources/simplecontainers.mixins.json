@@ -4,7 +4,10 @@
   "compatibilityLevel": "JAVA_25",
   "client": [
     "ContainerLabelsMixin",
-    "StorageBackgroundMixin"
+    "StorageBackgroundMixin",
+    "CrafterBackgroundMixin",
+    "MountBackgroundMixin",
+    "SlotIconMixin"
   ],
   "injectors": {
     "defaultRequire": 1

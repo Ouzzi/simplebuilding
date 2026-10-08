@@ -1,5 +1,7 @@
 package com.simplelib.api.client.ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 /**
@@ -95,12 +97,112 @@ public final class UiBoxes {
     }
 
     private static void sunk(GuiGraphicsExtractor g, int x, int y, int s, UiPalette p) {
-        g.fill(x + 1, y + s, x + s, y + s + 1, p.light());
-        g.fill(x + s, y + 1, x + s + 1, y + s, p.light());
-        g.fill(x + 1, y, x + s - 1, y + s, p.slot());
-        g.fill(x, y + 1, x + 1, y + s - 1, UiPalette.scale(p.slotTop(), 1.12));
-        g.fill(x + s - 1, y + 1, x + s, y + s - 1, p.slot());
-        g.fill(x + 1, y, x + s - 1, y + 1, p.slotTop());
+        sunk(g, x, y, s, s, p.slot(), p);
+    }
+
+    private static void sunk(GuiGraphicsExtractor g, int x, int y, int w, int h, int slot, UiPalette p) {
+        g.fill(x + 1, y + h, x + w, y + h + 1, p.light());
+        g.fill(x + w, y + 1, x + w + 1, y + h, p.light());
+        g.fill(x + 1, y, x + w - 1, y + h, slot);
+        g.fill(x, y + 1, x + 1, y + h - 1, UiPalette.scale(p.slotTop(), 1.12));
+        g.fill(x + w - 1, y + 1, x + w, y + h - 1, slot);
+        g.fill(x + 1, y, x + w - 1, y + 1, p.slotTop());
+    }
+
+    /**
+     * A sunk field of any size (entity preview, name bar, option rows): the slot look with the slot colour mixed 35 %
+     * towards the fill. Light edge below and right outside {@code w x h}.
+     */
+    public static void inset(GuiGraphicsExtractor g, int x, int y, int w, int h, UiPalette p) {
+        sunk(g, x, y, w, h, UiPalette.mix(p.slot(), p.fill(), 0.35), p);
+    }
+
+    /**
+     * An engraved symbol like image 3: strokes in {@code color} (usually {@code p.slot()}), with {@code light} a 1 px
+     * edge in {@code p.light()} under every stroke pixel that has no stroke below it.
+     */
+    public static void symbol(GuiGraphicsExtractor g, UiSymbol symbol, int x, int y, UiPalette p, int color, boolean light) {
+        if (light) {
+            for (int i = 0; i < symbol.size(); i++) {
+                int dx = symbol.x(i), dy = symbol.y(i);
+                if (!symbol.has(dx, dy + 1)) g.fill(x + dx, y + dy + 1, x + dx + 1, y + dy + 2, p.light());
+            }
+        }
+        for (int i = 0; i < symbol.size(); i++) {
+            g.fill(x + symbol.x(i), y + symbol.y(i), x + symbol.x(i) + 1, y + symbol.y(i) + 1, color);
+        }
+    }
+
+    /** {@link #symbol} in the slot colour with its light edge. */
+    public static void symbol(GuiGraphicsExtractor g, UiSymbol symbol, int x, int y, UiPalette p) {
+        symbol(g, symbol, x, y, p, p.slot(), true);
+    }
+
+    /**
+     * An engraved symbol filled white (image 4) up to {@code frac} (0..1) of its width from the left, or of its height
+     * from the top when {@code vertical}.
+     */
+    public static void symbolProgress(GuiGraphicsExtractor g, UiSymbol symbol, int x, int y, UiPalette p, float frac, boolean vertical) {
+        symbol(g, symbol, x, y, p);
+        if (frac <= 0) return;
+        float limit = frac * (vertical ? symbol.height() : symbol.width());
+        for (int i = 0; i < symbol.size(); i++) {
+            if ((vertical ? symbol.y(i) : symbol.x(i)) < limit) {
+                g.fill(x + symbol.x(i), y + symbol.y(i), x + symbol.x(i) + 1, y + symbol.y(i) + 1, 0xFFFFFFFF);
+            }
+        }
+    }
+
+    /**
+     * Image 4's faint marks inside a box: {@code x, y, w, h} = the box's fill area, {@code avoid} = rectangles
+     * {@code {x0, y0, x1, y1}} (slots incl. light edge, symbols, the title) the marks keep 2 px away from. Same placement
+     * as {@code motif()} in the preview tool (deterministic from {@code seed} and the area's size).
+     */
+    public static void motif(GuiGraphicsExtractor g, int x, int y, int w, int h, UiPalette p, UiMotif kind, List<int[]> avoid, int seed) {
+        int dark = UiPalette.scale(p.fill(), 0.90), light = UiPalette.mix(p.fill(), p.light(), 0.5);
+        if (kind == UiMotif.LEATHER) {
+            for (int i = x + 2; i < x + w - 2; i++) {
+                if ((i - x) % 4 >= 2) continue;
+                for (int yy : new int[] {y + 1, y + h - 2}) {
+                    if (!overlaps(i, yy, i + 1, yy + 1, avoid, 0)) g.fill(i, yy, i + 1, yy + 1, light);
+                }
+            }
+            for (int j = y + 3; j < y + h - 3; j++) {
+                if ((j - y) % 4 >= 2) continue;
+                for (int xx : new int[] {x + 1, x + w - 2}) {
+                    if (!overlaps(xx, j, xx + 1, j + 1, avoid, 0)) g.fill(xx, j, xx + 1, j + 1, light);
+                }
+            }
+            return;
+        }
+        if (kind == UiMotif.METAL) {
+            for (int[] c : new int[][] {{x + 1, y + 1}, {x + w - 3, y + 1}, {x + 1, y + h - 3}, {x + w - 3, y + h - 3}}) {
+                if (overlaps(c[0], c[1], c[0] + 2, c[1] + 2, avoid, 0)) continue;
+                g.fill(c[0], c[1], c[0] + 2, c[1] + 2, UiPalette.scale(p.fill(), 0.78));
+                g.fill(c[0], c[1], c[0] + 1, c[1] + 1, p.light());
+            }
+        }
+        if (kind.count() == 0) return;
+        int n = Math.max(2, w * h / 650);
+        List<int[]> placed = new ArrayList<>();
+        for (int i = 0; i < n * 6 && placed.size() < n; i++) {
+            int hash = UiFlames.hash(i + seed * 97, w * 31 + h);
+            UiMotif.Shape shape = kind.shape(Integer.remainderUnsigned(hash, kind.count()));
+            int sw = shape.width(), sh = shape.height();
+            int sx = x + 2 + (hash >>> 4) % Math.max(1, w - sw - 4);
+            int sy = y + 2 + (hash >>> 12) % Math.max(1, h - sh - 4);
+            if (overlaps(sx, sy, sx + sw, sy + sh, avoid, 2) || overlaps(sx, sy, sx + sw, sy + sh, placed, 10)) continue;
+            placed.add(new int[] {sx, sy, sx + sw, sy + sh});
+            for (int[] d : shape.dark()) g.fill(sx + d[0], sy + d[1], sx + d[0] + 1, sy + d[1] + 1, dark);
+            for (int[] l : shape.light()) g.fill(sx + l[0], sy + l[1], sx + l[0] + 1, sy + l[1] + 1, light);
+        }
+    }
+
+    private static boolean overlaps(int x0, int y0, int x1, int y1, List<int[]> rects, int pad) {
+        for (int[] b : rects) {
+            if (x0 < b[2] + pad && x1 > b[0] - pad && y0 < b[3] + pad && y1 > b[1] - pad) return true;
+        }
+        return false;
     }
 
     /** A faint veil over a slot (reserved place: the coming result shows through), in the slot's colour. */

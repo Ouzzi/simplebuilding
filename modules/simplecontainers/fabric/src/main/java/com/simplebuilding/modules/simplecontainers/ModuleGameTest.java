@@ -10,5 +10,6 @@ public final class ModuleGameTest {
     @GameTest public void narrowBoxLayouts(GameTestHelper h) { ContainerTests.narrowLayouts(h); }
     @GameTest public void styleRegistry(GameTestHelper h) { ContainerTests.registry(h); }
     @GameTest public void blockPalettes(GameTestHelper h) { ContainerTests.palettes(h); }
+    @GameTest public void boxMotifs(GameTestHelper h) { ContainerTests.motifs(h); }
     @GameTest public void configDefaults(GameTestHelper h) { ContainerTests.config(h); }
 }

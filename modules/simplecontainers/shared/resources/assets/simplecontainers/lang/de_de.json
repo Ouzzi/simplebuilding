@@ -10,5 +10,11 @@
   "simplecontainers.option.screen.hopper": "Trichter",
   "simplecontainers.option.screen.hopper.tooltip": "Trichter-Bildschirm in Eisengrau. Standard: an.",
   "simplecontainers.option.screen.dispenser": "Werfer und Spender",
-  "simplecontainers.option.screen.dispenser.tooltip": "Werfer- und Spender-Bildschirm in Bruchsteingrau. Standard: an."
+  "simplecontainers.option.screen.dispenser.tooltip": "Werfer- und Spender-Bildschirm in Bruchsteingrau. Standard: an.",
+  "simplecontainers.option.screen.crafter": "Crafter",
+  "simplecontainers.option.screen.crafter.tooltip": "Crafter-Bildschirm in Tiefenschiefergrau: großer Ergebnis-Slot, ein Redstone-Zeichen, das bei Strom rot leuchtet, ein eingravierter Pfeil und eingravierte Kreuze auf gesperrten Slots. Standard: an.",
+  "simplecontainers.option.screen.mount": "Pferde, Esel, Lamas, Kamele",
+  "simplecontainers.option.screen.mount.tooltip": "Reittier-Inventar (Pferd, Esel, Maultier, Lama, Kamel und Verwandte) in Sattelleder mit Steppnaht; Sattel- und Rüstungs-Slot zeigen eingravierte Umrisse, das Tier steht in einem eingelassenen Feld. Standard: an.",
+  "simplecontainers.option.screen.nautilus": "Nautilusse",
+  "simplecontainers.option.screen.nautilus.tooltip": "Nautilus-Inventar im selben Sattelleder wie die übrigen Reittiere. Standard: an."
 }

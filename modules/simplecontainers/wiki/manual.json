@@ -130,6 +130,72 @@
           "Werfer- und Spender-Bildschirm in Bruchsteingrau. Standard: an."
         ]
       }
+    },
+    {
+      "id": "config_screen_crafter",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StorageStyles.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/StorageDecors.java"
+      ],
+      "en": {
+        "title": "Crafters",
+        "summary": "Crafter screen in deepslate grey: big result slot, a redstone dust sign that glows red while powered, an engraved arrow and engraved crosses on disabled slots. Default: on.",
+        "details": [
+          "Crafter screen in deepslate grey: big result slot, a redstone dust sign that glows red while powered, an engraved arrow and engraved crosses on disabled slots. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Crafter",
+        "summary": "Crafter-Bildschirm in Tiefenschiefergrau: großer Ergebnis-Slot, ein Redstone-Zeichen, das bei Strom rot leuchtet, ein eingravierter Pfeil und eingravierte Kreuze auf gesperrten Slots. Standard: an.",
+        "details": [
+          "Crafter-Bildschirm in Tiefenschiefergrau: großer Ergebnis-Slot, ein Redstone-Zeichen, das bei Strom rot leuchtet, ein eingravierter Pfeil und eingravierte Kreuze auf gesperrten Slots. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_mount",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StorageStyles.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/StorageDecors.java"
+      ],
+      "en": {
+        "title": "Horses, donkeys, llamas, camels",
+        "summary": "Mount inventory (horse, donkey, mule, llama, camel and their kin) in saddle leather with a stitched seam; saddle and armor slots show engraved outlines, the animal stands in a sunk field. Default: on.",
+        "details": [
+          "Mount inventory (horse, donkey, mule, llama, camel and their kin) in saddle leather with a stitched seam; saddle and armor slots show engraved outlines, the animal stands in a sunk field. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Pferde, Esel, Lamas, Kamele",
+        "summary": "Reittier-Inventar (Pferd, Esel, Maultier, Lama, Kamel und Verwandte) in Sattelleder mit Steppnaht; Sattel- und Rüstungs-Slot zeigen eingravierte Umrisse, das Tier steht in einem eingelassenen Feld. Standard: an.",
+        "details": [
+          "Reittier-Inventar (Pferd, Esel, Maultier, Lama, Kamel und Verwandte) in Sattelleder mit Steppnaht; Sattel- und Rüstungs-Slot zeigen eingravierte Umrisse, das Tier steht in einem eingelassenen Feld. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_nautilus",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StorageStyles.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/StorageDecors.java"
+      ],
+      "en": {
+        "title": "Nautiluses",
+        "summary": "Nautilus inventory in the same saddle leather as the other mounts. Default: on.",
+        "details": [
+          "Nautilus inventory in the same saddle leather as the other mounts. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Nautilusse",
+        "summary": "Nautilus-Inventar im selben Sattelleder wie die übrigen Reittiere. Standard: an.",
+        "details": [
+          "Nautilus-Inventar im selben Sattelleder wie die übrigen Reittiere. Standard: an."
+        ]
+      }
     }
   ],
   "notes": {}

@@ -2,11 +2,14 @@ package com.simplebuilding.modules.simplecontainers;
 
 import com.google.gson.Gson;
 import com.simplebuilding.modules.simplecontainers.style.BoxLayout;
+import com.simplebuilding.modules.simplecontainers.style.BoxMotifs;
 import com.simplebuilding.modules.simplecontainers.style.ContainerStyles;
 import com.simplebuilding.modules.simplecontainers.style.ScreenStyle;
 import com.simplebuilding.modules.simplecontainers.style.StorageStyles;
 import com.simplebuilding.modules.simplecontainers.style.StyleContext;
+import com.simplelib.api.client.ui.UiMotif;
 import com.simplelib.api.client.ui.UiPalette;
+import com.simplelib.api.client.ui.UiSymbol;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +30,9 @@ public final class ContainerTests {
             Map.entry(MenuType.GENERIC_9x3, "ContainerScreen"), Map.entry(MenuType.GENERIC_9x4, "ContainerScreen"),
             Map.entry(MenuType.GENERIC_9x5, "ContainerScreen"), Map.entry(MenuType.GENERIC_9x6, "ContainerScreen"),
             Map.entry(MenuType.SHULKER_BOX, "ShulkerBoxScreen"), Map.entry(MenuType.HOPPER, "HopperScreen"),
-            Map.entry(MenuType.GENERIC_3x3, "DispenserScreen"));
+            Map.entry(MenuType.GENERIC_3x3, "DispenserScreen"), Map.entry(MenuType.CRAFTER_3x3, "CrafterScreen"));
+    /** W1 G1 screens whose menus have no MenuType (matched by the exact screen class only). */
+    static final List<String> TYPELESS = List.of("HorseInventoryScreen", "NautilusInventoryScreen");
 
     private ContainerTests() {}
 
@@ -130,7 +135,9 @@ public final class ContainerTests {
         for (ScreenStyle style : ContainerStyles.all()) {
             h.assertTrue(style.id().matches("[a-z][a-z0-9_]*") && ids.add(style.id()), "unique style id " + style.id());
             h.assertTrue(style.screenClass().startsWith(ScreenStyle.VANILLA), "only Vanilla screens: " + style.screenClass());
-            h.assertTrue(!style.menus().isEmpty() && style.palette() != null, "style " + style.id() + " has menus and colours");
+            h.assertTrue(style.palette() != null, "style " + style.id() + " has colours");
+            h.assertTrue(!style.menus().isEmpty() || TYPELESS.contains(style.screenClass().substring(ScreenStyle.VANILLA.length())),
+                    "style " + style.id() + " has menus or is a known typeless screen");
         }
         W0.forEach((menu, screen) -> {
             int matches = 0;
@@ -141,7 +148,13 @@ public final class ContainerTests {
             h.assertTrue(ContainerStyles.find(menu, ScreenStyle.VANILLA + screen) != null, "lookup finds " + screen);
             h.assertTrue(ContainerStyles.find(menu, "com.example.SubclassedScreen") == null, "foreign screen classes stay Vanilla");
         });
-        h.assertTrue(ContainerStyles.find(MenuType.FURNACE, ScreenStyle.VANILLA + "FurnaceScreen") == null, "furnace not styled yet (W1)");
+        for (String screen : TYPELESS) {
+            ScreenStyle style = ContainerStyles.find(null, ScreenStyle.VANILLA + screen);
+            h.assertTrue(style != null && style.menus().isEmpty(), "typeless menu on " + screen + " finds its style");
+            h.assertTrue(ContainerStyles.find(MenuType.GENERIC_9x3, ScreenStyle.VANILLA + screen) == null, screen + " only without a menu type");
+        }
+        h.assertTrue(ContainerStyles.find(null, ScreenStyle.VANILLA + "ContainerScreen") == null, "typed styles never match a typeless menu");
+        h.assertTrue(ContainerStyles.find(null, "com.example.MountScreen") == null, "foreign mount screens stay Vanilla");
         h.assertTrue(ContainerStyles.byId("chest") != null && ContainerStyles.byId("missing") == null, "lookup by id");
         h.succeed();
     }
@@ -172,8 +185,15 @@ public final class ContainerTests {
                 "oak palette matches the W0-B preview table");
         h.assertTrue(StorageStyles.HOPPER.equals(new UiPalette(0xFF5A5C63, 0xFF84868B, 0xFF494B51, 0xFF46474D, 0xFF393A3F, 0xFFF2EEE8)),
                 "hopper palette matches the W0-B preview table");
+        h.assertTrue(chest(StorageStyles.ASTRAL_VAULT_TITLE, null) == StorageStyles.ENDER, "astral vault: ender chest box");
+        h.assertTrue(StorageStyles.CRAFTER.equals(new UiPalette(0xFF7A736A, 0xFF9A9286, 0xFF645E56, 0xFF5F5952, 0xFF4E4943, 0xFFF2EEE8)),
+                "crafter palette matches the W0-B preview table");
+        h.assertTrue(StorageStyles.HORSE.equals(new UiPalette(0xFF8B5E3C, 0xFFA9876E, 0xFF714D31, 0xFF6C492E, 0xFF583C26, 0xFFF2EEE8)),
+                "mount palette matches the W0-B preview table");
+        h.assertTrue(ContainerStyles.byId("mount").palette().apply(new StyleContext(null, null, null)) == StorageStyles.HORSE
+                && ContainerStyles.byId("nautilus").palette().apply(new StyleContext(null, null, null)) == StorageStyles.HORSE, "mounts: saddle leather");
         List<UiPalette> all = new ArrayList<>(List.of(StorageStyles.OAK, StorageStyles.BARREL, StorageStyles.ENDER, StorageStyles.SHULKER,
-                StorageStyles.HOPPER, StorageStyles.STONE));
+                StorageStyles.HOPPER, StorageStyles.STONE, StorageStyles.CRAFTER, StorageStyles.HORSE));
         all.addAll(StorageStyles.COPPER);
         for (DyeColor dye : DyeColor.values()) all.add(StorageStyles.dyed(dye));
         for (UiPalette p : all) {
@@ -181,6 +201,23 @@ public final class ContainerTests {
             h.assertTrue(contrast >= 60, "label readable on " + Integer.toHexString(p.fill()) + " (contrast " + contrast + ")");
             h.assertTrue(UiPalette.luminance(p.slot()) < UiPalette.luminance(p.fill()), "slots sink in (darker than the box) " + Integer.toHexString(p.fill()));
         }
+        h.succeed();
+    }
+
+    /** Marks per box colour = the "Motiv" column of the W0-B palette table; family marks for copper and dyed boxes. */
+    public static void motifs(GameTestHelper h) {
+        Map<UiPalette, UiMotif> expected = Map.of(StorageStyles.OAK, UiMotif.WOOD, StorageStyles.BARREL, UiMotif.WOOD,
+                StorageStyles.ENDER, UiMotif.ENDER, StorageStyles.SHULKER, UiMotif.SHULKER, StorageStyles.SHULKER_LIGHT_BLUE, UiMotif.SHULKER,
+                StorageStyles.HOPPER, UiMotif.METAL, StorageStyles.STONE, UiMotif.STONE, StorageStyles.CRAFTER, UiMotif.REDSTONE,
+                StorageStyles.HORSE, UiMotif.LEATHER);
+        expected.forEach((p, m) -> h.assertValueEqual(BoxMotifs.of(p).motif(), m, "marks of " + Integer.toHexString(p.fill())));
+        h.assertValueEqual(BoxMotifs.of(StorageStyles.OAK).seed(), 5, "oak chest seed = preview key 'truhe'");
+        for (UiPalette copper : StorageStyles.COPPER) h.assertValueEqual(BoxMotifs.of(copper).motif(), UiMotif.METAL, "copper chest marks");
+        for (DyeColor dye : DyeColor.values()) h.assertValueEqual(BoxMotifs.of(StorageStyles.dyed(dye)).motif(), UiMotif.SHULKER, "dyed shulker " + dye);
+        h.assertValueEqual(BoxMotifs.of(UiPalette.INVENTORY).motif(), UiMotif.NONE, "the inventory box stays plain");
+        h.assertTrue(UiMotif.LEATHER.shapes().length == 0 && UiMotif.WOOD.shapes().length == 4, "motif shapes as in the preview");
+        h.assertTrue(UiSymbol.ARROW.width() == 21 && UiSymbol.ARROW.height() == 15 && UiSymbol.CROSS.size() == 23
+                && UiSymbol.REDSTONE.width() == 12, "symbol bitmaps as in the preview");
         h.succeed();
     }
 
