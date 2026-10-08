@@ -138,6 +138,12 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         age++;
         updateHeat(level, pos);
         int n = tier.slots();
+        // Owner N16: jobs that reserved a crucible slot before the barrel was attached move to the barrel too.
+        boolean hasBarrel = barrel() != null;
+        if (hasBarrel && !hadBarrel) {
+            for (int i = 0; i < n; i++) if (target[i] >= 0 && target[i] < BARREL) target[i] = -1;
+        }
+        hadBarrel = hasBarrel;
         boolean changed = false;
         for (int i = 0; i < n; i++) {
             ItemStack stack = items.get(i);
@@ -268,6 +274,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
     /** Targets at or above this index are slots of the attached barrel (target - BARREL). */
     public static final int BARREL = 1000;
     private @Nullable BlockPos barrelPos;
+    private boolean hadBarrel;
     private final ItemStack[] barrelGhost = new ItemStack[BarrelTier.MAX_CRUCIBLE_SLOTS];
 
     /** The barrel attached to the crucible at {@code pos} (facing it, attached), if any. */

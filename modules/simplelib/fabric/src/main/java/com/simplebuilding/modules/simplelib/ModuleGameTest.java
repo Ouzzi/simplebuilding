@@ -97,6 +97,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void barrelAttachedLaterTakesOverReservations(GameTestHelper h) {
+        LibTests.ALL.get("barrel_attached_later_takes_over_reservations").accept(h);
+    }
+
+    @GameTest
     public void axeClickReachesAxeNotMenu(GameTestHelper h) {
         LibTests.ALL.get("axe_click_reaches_axe_not_menu").accept(h);
     }

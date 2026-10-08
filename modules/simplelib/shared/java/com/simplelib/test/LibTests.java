@@ -53,6 +53,7 @@ public final class LibTests {
         ALL.put("warm_bundle_insulates", LibTests::warmBundleInsulates);
         ALL.put("village_kitchen_in_pools", LibTests::villageKitchen);
         ALL.put("barrel_attach_and_results_first", LibTests::barrelAttach);
+        ALL.put("barrel_attached_later_takes_over_reservations", LibTests::barrelAttachedLater);
         ALL.put("axe_click_reaches_axe_not_menu", LibTests::axeClickReachesAxe);
         ALL.put("axe_upgrades_cauldron", LibTests::axeUpgradesCauldron);
         ALL.put("reinforced_cauldron_holds_buckets", LibTests::reinforcedCauldronBuckets);
@@ -381,6 +382,38 @@ public final class LibTests {
                 "crucible gone: a normal barrel again");
         check(h, barrel.getItem(0).is(Items.GOLD_INGOT), "contents stay in the barrel");
         check(h, barrel.getItem(20).is(Items.APPLE) && barrel.getItem(20).getCount() == 3, "the hidden slot 21 is back with its apples");
+        h.succeed();
+    }
+
+    /** Owner N16: items already cooking when the barrel is attached send their results to the barrel too. */
+    private static void barrelAttachedLater(GameTestHelper h) {
+        BlockPos rel = new BlockPos(2, 2, 2);
+        CrucibleBlockEntity be = crucible(h, rel, Blocks.LAVA_CAULDRON.defaultBlockState(), LibBlocks.IRON_CRUCIBLE);
+        be.setItem(0, new ItemStack(Items.RAW_GOLD, 2));
+        be.setItem(1, new ItemStack(Items.RAW_IRON));
+        run(h, be, 20);
+        check(h, be.target(0) >= 0 && be.target(0) < CrucibleBlockEntity.BARREL, "without a barrel the gold reserves a crucible slot, got " + be.target(0));
+        BlockPos barrelAbs = h.absolutePos(rel.east());
+        h.setBlock(rel.east(), LibBlocks.COPPER_BARREL);
+        var barrel = (com.simplelib.crucible.CrucibleBarrelBlockEntity) h.getLevel().getBlockEntity(barrelAbs);
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        ItemStack axe = new ItemStack(Items.IRON_AXE);
+        for (int i = 0; i < com.simplelib.crucible.CrucibleBarrelBlock.ATTACH_STRIKES; i++) {
+            com.simplelib.crucible.CrucibleBarrelBlock.attachStrike(h.getLevel(), barrelAbs, player, axe, 1);
+            player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
+        }
+        run(h, be, 1);
+        check(h, be.target(0) >= CrucibleBlockEntity.BARREL && be.target(1) >= CrucibleBlockEntity.BARREL,
+                "after attaching, both running jobs reserve barrel slots, got " + be.target(0) + "/" + be.target(1));
+        for (int s = 2; s < 6; s++) check(h, be.ghost(s).isEmpty(), "no crucible slot keeps a stale reservation: " + s);
+        run(h, be, 700);
+        int gold = 0, iron = 0;
+        for (int s = 0; s < barrel.getContainerSize(); s++) {
+            if (barrel.getItem(s).is(Items.GOLD_INGOT)) gold += barrel.getItem(s).getCount();
+            if (barrel.getItem(s).is(Items.IRON_INGOT)) iron += barrel.getItem(s).getCount();
+        }
+        check(h, gold == 2 && iron == 1, "all results went into the barrel, gold " + gold + ", iron " + iron);
+        for (int s = 0; s < 6; s++) check(h, be.getItem(s).isEmpty(), "crucible slot " + s + " is empty afterwards");
         h.succeed();
     }
 
