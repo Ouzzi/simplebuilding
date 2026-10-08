@@ -43,12 +43,6 @@ public final class ContainerTests {
             Map.entry(MenuType.BREWING_STAND, "BrewingStandScreen"), Map.entry(MenuType.BEACON, "BeaconScreen"),
             Map.entry(MenuType.ENCHANTMENT, "EnchantmentScreen"));
 
-    /** Menus of W1 G2's work screens with their exact Vanilla screen classes. */
-    static final Map<MenuType<?>, String> W1_G2 = Map.ofEntries(
-            Map.entry(MenuType.CRAFTING, "CraftingScreen"), Map.entry(MenuType.FURNACE, "FurnaceScreen"),
-            Map.entry(MenuType.BLAST_FURNACE, "BlastFurnaceScreen"), Map.entry(MenuType.SMOKER, "SmokerScreen"),
-            Map.entry(MenuType.BREWING_STAND, "BrewingStandScreen"), Map.entry(MenuType.BEACON, "BeaconScreen"),
-            Map.entry(MenuType.ENCHANTMENT, "EnchantmentScreen"));
 
     private ContainerTests() {}
 
