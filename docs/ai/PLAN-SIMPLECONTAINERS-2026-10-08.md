@@ -63,3 +63,45 @@ zeigt die Flammen in sich, großer Ergebnis-Slot, Pfeil, dezente Motive im Kaste
 - 26.3-Rendering-API (GuiGraphicsExtractor statt GuiGraphics) – Muster aus CrucibleScreen übernehmen.
 - Fremde Mods mit eigenen Screens auf Vanilla-Menüs: nur exakte Vanilla-Screen-Klassen stylen.
 - Ressourcenpakete: Hauptschalter aus = reines Vanilla.
+
+## Paletten (Vorschau W0-B)
+Quelle: `tools/ui/simplecontainers_preview.py` (P / derive), Vorschauen + Entscheidungen (Kasten-Fuge, bigSlot, Brennstoff-Slot, Symbole, Motive): `/root/previews/simplecontainers/README.md` (refs-assets). Reihenfolge = `UiPalette(fill, light, shade, slot, slotTop, label)`.
+
+| Schlüssel | Block | fill | light | shade | slot | slotTop | label | Motiv |
+|---|---|---|---|---|---|---|---|---|
+| `chest_oak` | Truhe (Eiche) | #CE9148 | #FFB85B | #A8763B | #A07138 | #835C2E | #2E3034 | wood |
+| `barrel` | Fass | #B9774F | #D08F68 | #955839 | #94573A | #74412B | #404040 | wood |
+| `ender_chest` | Endertruhe | #597880 | #7198A2 | #486268 | #455D63 | #384C51 | #F2EEE8 | ender |
+| `shulker_purple` | Shulkerkiste lila | #876C99 | #AB89C2 | #6E587D | #695477 | #564561 | #F2EEE8 | shulker |
+| `shulker_light_blue` | Shulkerkiste hellblau | #5C97B8 | #74BFE9 | #4B7B96 | #47758F | #3A6075 | #2E3034 | shulker |
+| `hopper` | Trichter | #5A5C63 | #84868B | #494B51 | #46474D | #393A3F | #F2EEE8 | metal |
+| `dispenser` | Spender/Werfer | #878787 | #ABABAB | #6E6E6E | #696969 | #565656 | #2E3034 | stone |
+| `crafter` | Crafter | #7A736A | #9A9286 | #645E56 | #5F5952 | #4E4943 | #F2EEE8 | redstone |
+| `horse` | Reittier (Sattelleder) | #8B5E3C | #A9876E | #714D31 | #6C492E | #583C26 | #F2EEE8 | leather |
+| `crafting` | Werkbank | #B7935B | #E8BA73 | #96784A | #8E7246 | #755E3A | #2E3034 | wood |
+| `furnace` | Ofen | #929699 | #B9BEC2 | #777A7D | #717577 | #5D6061 | #2E3034 | stone |
+| `blast_furnace` | Schmelzofen | #6E7179 | #8B8F99 | #5A5C63 | #55585E | #46484D | #F2EEE8 | metal |
+| `smoker` | Raeucherofen | #7D6B57 | #9E876E | #665747 | #615343 | #504437 | #F2EEE8 | smoke |
+| `brewing` | Braustand | #847D7D | #A79E9E | #6C6666 | #666161 | #545050 | #2E3034 | stone |
+| `beacon` | Leuchtfeuer | #6FB4B1 | #8CE4E0 | #5B9391 | #568C8A | #477371 | #2E3034 | glass |
+| `enchanting` | Zaubertisch | #A1282B | #B95F62 | #842023 | #7D1F21 | #67191B | #F2EEE8 | rune |
+| `anvil` | Amboss | #666666 | #8D8D8D | #535353 | #4F4F4F | #414141 | #F2EEE8 | metal |
+| `grindstone` | Schleifstein | #9E9A92 | #C8C3B9 | #817E77 | #7B7871 | #65625D | #2E3034 | stone |
+| `stonecutter` | Steinsaege | #857A72 | #A89A90 | #6D645D | #675F58 | #554E48 | #F2EEE8 | stone |
+| `loom` | Webstuhl | #9C8262 | #C6A57C | #7F6A50 | #79654C | #63533E | #2E3034 | wool |
+| `cartography` | Kartentisch | #6B5A45 | #918475 | #574938 | #534635 | #44392C | #F2EEE8 | paper |
+| `smithing` | Schmiedetisch | #4B1E19 | #795854 | #3D1814 | #3A1713 | #301310 | #F2EEE8 | metal |
+| `merchant` | Handel | #3F8A55 | #70A881 | #337145 | #316B42 | #285836 | #F2EEE8 | leather |
+| `player` | Inventar | #E3E6E9 | #F8F9FA | #C5CACE | #B4BABF | #979DA3 | #404040 | none |
+| `chest_reinforced` | Verstaerkt | #6F9095 | #9DBCC1 | #587378 | #55737A | #425C61 | #F0F6F6 | metal |
+| `chest_netherite` | Netherit | #5F524C | #867870 | #4A3F3A | #473C37 | #352C28 | #EFE4DA | nether |
+| `chest_enderite` | Enderit | #8E6CB0 | #B99AD6 | #735693 | #70538E | #594073 | #F7F0FF | ender |
+| `backpack` | Rucksack (Leder) | #8E6440 | #AB8C71 | #745234 | #6E4E31 | #5A4028 | #F2EEE8 | leather |
+| `backpack_enderite` | Enderit | #8E6CB0 | #B99AD6 | #735693 | #70538E | #594073 | #F7F0FF | ender |
+| `auto_smither` | Auto-Schmied | #4F5560 | #7C8189 | #40454E | #3D424A | #32363D | #F2EEE8 | redstone |
+| `fletching` | Befiederungstisch | #C5B485 | #FAE4A8 | #A1936D | #998C67 | #7E7355 | #2E3034 | wood |
+| `hopper_netherite` | Netherit | #5F524C | #867870 | #4A3F3A | #473C37 | #352C28 | #EFE4DA | nether |
+| `horseshoe` | Eisen | #9A9DA2 | #C4C7CB | #7E8186 | #7B7E83 | #64676C | #2E3034 | metal |
+| `crucible_iron` | Eisen | #9A9DA2 | #C4C7CB | #7E8186 | #7B7E83 | #64676C | #2E3034 | metal |
+
+Kasten-Fuge (für den generischen Renderer): free = erste Inventar-Slotzeile − erste freie Zeile unter dem untersten Container-Element. free ≥ 12 → zwei Kästen, Fuge min(2, free−12), Rest polstert den Container-Kasten; 10–11 → Container-Kasten ohne 2-px-Schatten; < 10 → ein Kasten, Inventarteil als helle Fläche hinter einer Naht (Braustand, Webstuhl, Spieler-Inventar, Rucksack, Leuchtfeuer, Handel). Kein „Inventar“-Label (kein Platz).
