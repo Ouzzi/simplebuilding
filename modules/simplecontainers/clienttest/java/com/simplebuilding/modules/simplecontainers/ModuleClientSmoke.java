@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.animal.equine.AbstractChestedHorse;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.inventory.ChestMenu;
@@ -50,8 +51,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 menu.setData(9, 1); // powered
                 return new CrafterScreen(menu, c.player.getInventory(), Component.translatable("container.crafter"));
             });
-            show(context, "simplecontainers-donkey", c -> mount(c, EntityType.DONKEY));
-            show(context, "simplecontainers-horse", c -> mount(c, EntityType.HORSE));
+            show(context, "simplecontainers-donkey", c -> mount(c, EntityTypes.DONKEY));
+            show(context, "simplecontainers-horse", c -> mount(c, EntityTypes.HORSE));
             showWork(context);
             context.runOnClient(c -> c.setScreenAndShow(null));
         }
