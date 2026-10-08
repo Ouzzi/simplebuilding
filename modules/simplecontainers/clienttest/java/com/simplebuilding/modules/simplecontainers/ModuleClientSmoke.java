@@ -61,6 +61,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     /** A tamed mount next to the player (a donkey with a chest: 5 columns); its inventory screen as the server would open it. */
     private static Screen mount(Minecraft c, EntityType<? extends AbstractHorse> type) {
         AbstractHorse horse = type.create(c.level, EntitySpawnReason.LOAD);
+        horse.setId(-4200 - type.hashCode() % 100); // the inventory preview renders it, which needs an id
         horse.setPos(c.player.position());
         horse.setTamed(true);
         int columns = 0;
