@@ -57,12 +57,32 @@ public final class UiBoxes {
      * fill - 5 px frame; at the bottom 2 px shadow (0.40 x fill) between bevel and outline - 7 px; corners rounded by 2 px.
      */
     public static void box(GuiGraphicsExtractor g, int x, int y, int w, int h, UiPalette p) {
+        box(g, x, y, w, h, p, true);
+    }
+
+    /**
+     * {@link #box} with or without the 2 px shadow at the bottom; without it the frame is {@link #FRAME} px all round
+     * (the tight variant where two boxes have only 10-11 rows between their slots).
+     */
+    public static void box(GuiGraphicsExtractor g, int x, int y, int w, int h, UiPalette p, boolean shadow) {
+        int s = shadow ? 2 : 0;
         rounded(g, x, y, w, h, CUT_OUTER, RIM);
-        rounded(g, x + 1, y + 1, w - 2, h - 2, CUT_BEVEL, UiPalette.scale(p.fill(), 0.40));
-        rounded(g, x + 1, y + 1, w - 2, h - 4, CUT_BEVEL, UiPalette.scale(p.fill(), 0.82));
-        rounded(g, x + 2, y + 2, w - 4, h - 6, CUT_INNER, UiPalette.scale(p.fill(), 0.64));
-        rounded(g, x + 4, y + 4, w - 8, h - 10, CUT_INNER, p.light());
-        rounded(g, x + 5, y + 5, w - 10, h - 12, CUT_NONE, p.fill());
+        if (shadow) rounded(g, x + 1, y + 1, w - 2, h - 2, CUT_BEVEL, UiPalette.scale(p.fill(), 0.40));
+        rounded(g, x + 1, y + 1, w - 2, h - 2 - s, CUT_BEVEL, UiPalette.scale(p.fill(), 0.82));
+        rounded(g, x + 2, y + 2, w - 4, h - 4 - s, CUT_INNER, UiPalette.scale(p.fill(), 0.64));
+        rounded(g, x + 4, y + 4, w - 8, h - 8 - s, CUT_INNER, p.light());
+        rounded(g, x + 5, y + 5, w - 10, h - 10 - s, CUT_NONE, p.fill());
+    }
+
+    /**
+     * The light inventory panel inside a single box ({@code block} = the box's colours): a 1 px groove in the box's band
+     * colour, a 1 px light line, then {@link UiPalette#INVENTORY} fill down to {@code y + h}. The box's own frame closes
+     * it at the sides and below.
+     */
+    public static void seam(GuiGraphicsExtractor g, int x, int y, int w, int h, UiPalette block) {
+        g.fill(x, y, x + w, y + 1, UiPalette.scale(block.fill(), 0.64));
+        g.fill(x, y + 1, x + w, y + 2, UiPalette.INVENTORY.light());
+        g.fill(x, y + 2, x + w, y + h, UiPalette.INVENTORY.fill());
     }
 
     /**

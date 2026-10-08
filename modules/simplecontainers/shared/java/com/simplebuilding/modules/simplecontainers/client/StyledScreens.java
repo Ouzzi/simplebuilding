@@ -82,8 +82,7 @@ public final class StyledScreens {
         Layout layout = layout(screen, imageWidth, imageHeight, titleY);
         if (layout == null) return false;
         UiPalette block = palette(screen, style);
-        if (layout.container() != null) box(g, left, top, layout.container(), block);
-        box(g, left, top, layout.inventory(), UiPalette.INVENTORY);
+        drawBoxes(g, left, top, layout, block);
         for (Slot slot : screen.getMenu().slots) {
             if (!slot.isActive()) continue;
             UiBoxes.slot(g, left + slot.x, top + slot.y, slot.container instanceof Inventory ? UiPalette.INVENTORY : block);
@@ -104,8 +103,16 @@ public final class StyledScreens {
         return true;
     }
 
-    private static void box(GuiGraphicsExtractor g, int left, int top, BoxLayout.Rect r, UiPalette p) {
-        UiBoxes.box(g, left + r.x(), top + r.y(), r.width(), r.height(), p);
+    /** The boxes of {@code layout} at {@code left, top}: container box in {@code block}, inventory box or seam panel. */
+    public static void drawBoxes(GuiGraphicsExtractor g, int left, int top, Layout layout, UiPalette block) {
+        BoxLayout.Rect c = layout.container(), i = layout.inventory();
+        if (layout.variant() == BoxLayout.Variant.SEAM) {
+            UiBoxes.box(g, left + c.x(), top + c.y(), c.width(), c.height(), block);
+            UiBoxes.seam(g, left + i.x(), top + i.y(), i.width(), i.height(), block);
+            return;
+        }
+        if (c != null) UiBoxes.box(g, left + c.x(), top + c.y(), c.width(), c.height(), block, layout.variant() == BoxLayout.Variant.TWO_BOXES);
+        UiBoxes.box(g, left + i.x(), top + i.y(), i.width(), i.height(), UiPalette.INVENTORY);
     }
 
     /**
