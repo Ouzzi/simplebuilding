@@ -38,9 +38,9 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
         int buttonY = this.topPos + 19;
 
         // Button erstellen (Text lassen wir leer, wir zeichnen das Icon selber drüber)
-        this.filterButton = this.addRenderableWidget(Button.builder(Component.empty(), btn -> {
-            ClientNetworking.send(new ToggleHopperFilterPayload());
-        }).bounds(buttonX, buttonY, 18, 18).build());
+        // 26.3: eine erhabene Taste im Kasten-Stil mit eingraviertem Trichter und Modus-Abzeichen (ModScreenStyle).
+        this.filterButton = this.addRenderableWidget(ModScreenStyle.hopperFilterButton(buttonX, buttonY,
+                btn -> ClientNetworking.send(new ToggleHopperFilterPayload()), this.menu));
     }
 
     @Override
@@ -51,10 +51,10 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
 
         // 1. Label: im Beschriftungs-Durchgang (extractLabels/renderLabels), wie Titel und Inventar.
 
-        // 2. Button Overlay
-        if (mode == HopperFilterMode.NONE) {
+        // 2. Button Overlay (26.2; im Kasten-Stil zeichnet die Taste ihr Abzeichen selbst)
+        if (!ModScreenStyle.ACTIVE && mode == HopperFilterMode.NONE) {
             context.item(new ItemStack(Items.BARRIER), this.filterButton.getX() + 1, this.filterButton.getY() + 1);
-        } else {
+        } else if (!ModScreenStyle.ACTIVE) {
             String text = (mode == HopperFilterMode.WHITELIST) ? "✔" : "T";
             int color = (mode == HopperFilterMode.WHITELIST) ? 0xFF55FF55 : 0xFFFFAA00;
             int textWidth = this.font.width(text);
@@ -125,6 +125,9 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
     @Override
     public void extractBackground(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
         super.extractBackground(context, mouseX, mouseY, delta);
+        if (ModScreenStyle.hopper(context, this.menu, this.font, this.title, this.leftPos, this.topPos, this.imageWidth)) {
+            return;
+        }
         context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
 
         if (this.menu.getBlockEntity() instanceof ModHopperBlockEntity be && this.menu.getSyncedFilterMode() != HopperFilterMode.NONE) {
@@ -148,6 +151,10 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor context, int mouseX, int mouseY) {
+        // Kasten-Stil: nur der Titel in der Label-Farbe; "Filter" zeigt die Taste als Symbol (Tooltip bleibt).
+        if (ModScreenStyle.hopperLabels(context, this.font, this.menu, this.title, this.titleLabelX, this.titleLabelY)) {
+            return;
+        }
         super.extractLabels(context, mouseX, mouseY);
         // Relativ zur Bildecke: rechts ueber dem Filterknopf, in der Zeile des Titels.
         context.text(this.font, Component.translatable("container.simplebuilding.hopper_filter"),

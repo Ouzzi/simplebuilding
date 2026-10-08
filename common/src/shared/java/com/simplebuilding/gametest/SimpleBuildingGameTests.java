@@ -1250,6 +1250,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("dyed_storage_game_test_the_dye_colour_reaches_the_backpack_menu_and_the_bundle_tooltip", DyedStorageTests::theDyeColourReachesTheBackpackMenuAndTheBundleTooltip)
                     .build(),
+            GameTestSpec.named("mod_screen_style_game_test_tiered_chest_slots_sit_inside_their_boxes", ModScreenStyleTests::tieredChestSlotsSitInsideTheirBoxes)
+                    .build(),
+            GameTestSpec.named("mod_screen_style_game_test_machine_slots_sit_inside_their_boxes", ModScreenStyleTests::machineSlotsSitInsideTheirBoxes)
+                    .build(),
+            GameTestSpec.named("mod_screen_style_game_test_backpack_slots_sit_inside_the_one_box", ModScreenStyleTests::backpackSlotsSitInsideTheOneBox)
+                    .build(),
             GameTestSpec.named("hopper_game_test_redstone_power_stops_every_hopper_transfer", HopperTests::redstonePowerStopsEveryHopperTransfer)
                     .maxTicks(HopperTests.REDSTONE_LOCK_MAX_TICKS)
                     .build(),

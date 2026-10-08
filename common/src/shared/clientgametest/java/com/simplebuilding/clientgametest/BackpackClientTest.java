@@ -13,8 +13,10 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.client.gui.BackpackScreen;
+import com.simplebuilding.client.gui.ModScreenStyle;
 import com.simplebuilding.client.render.BackpackLayer;
 import com.simplebuilding.items.custom.BackpackItem;
+import com.simplebuilding.screen.BackpackLayout;
 import com.simplebuilding.screen.BackpackMenu;
 import com.simplebuilding.screen.BackpackSlot;
 import net.minecraft.client.CameraType;
@@ -745,6 +747,10 @@ public final class BackpackClientTest {
      */
     private static void assertTints(Script script, String label) {
         script.act("the " + label + " tints its rows and its columns in two different colours", client -> {
+            if (ModScreenStyle.ACTIVE) {
+                assertStyledSlots(client, label);
+                return;
+            }
             if (BackpackScreen.TINT_BACKPACK_ROW == BackpackScreen.TINT_EXTRA_COLUMN) {
                 throw new AssertionError(String.format("The backpack rows and the extra columns share the tint "
                         + "0x%08X, so the screen cannot tell them apart.", BackpackScreen.TINT_BACKPACK_ROW));
@@ -784,6 +790,33 @@ public final class BackpackClientTest {
                         minus(expectedColumns, drawnColumns), minus(drawnColumns, expectedColumns)));
             }
         });
+    }
+
+    /**
+     * 26.3 container style (one box, {@code ModScreenStyle}): every backpack slot - rows and extra columns - is a sunk
+     * slot in the backpack's colour (its 14x16 body in the palette's slot colour), and no slot of the player's
+     * inventory below the seam is.
+     */
+    private static void assertStyledSlots(Minecraft client, String label) {
+        AbstractContainerScreen<?> screen = containerScreen(client);
+        BackpackMenu menu = backpackMenu(client, label);
+        int left = leftPos(screen);
+        int top = topPos(screen);
+        int colour = ModScreenStyle.backpackSlotColor(menu);
+        Set<String> expected = new TreeSet<>();
+        Set<String> foreign = new TreeSet<>();
+        for (Slot slot : menu.slots) {
+            String body = square(left + slot.x + 1, top + slot.y, 14, 16);
+            if (slot instanceof BackpackSlot) expected.add(body);
+            else if (slot.y >= BackpackLayout.FIRST_ROW_Y) foreign.add(body);
+        }
+        Set<String> drawn = drawnTints(client, colour);
+        Set<String> wrong = new TreeSet<>(foreign);
+        wrong.retainAll(drawn);
+        if (!drawn.containsAll(expected) || !wrong.isEmpty()) {
+            throw new AssertionError(String.format("The styled %s draws the backpack slots wrong (colour 0x%08X): "
+                    + "missing %s, inventory slots in the backpack colour %s.", label, colour, minus(expected, drawn), wrong));
+        }
     }
 
     /** Fails unless the chest slot holds exactly that item, as the client sees it. */

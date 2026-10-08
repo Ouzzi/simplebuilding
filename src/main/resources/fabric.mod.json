@@ -94,6 +94,7 @@
       "com.simplebuilding.gametest.BackpackGameTest",
       "com.simplebuilding.gametest.AccessorySlotGameTest",
       "com.simplebuilding.gametest.DyedStorageGameTest",
+      "com.simplebuilding.gametest.ModScreenStyleGameTest",
       "com.simplebuilding.gametest.HopperGameTest",
       "com.simplebuilding.gametest.WorldAndPlayerGameTest",
       "com.simplebuilding.gametest.BuildingWandGameTest",

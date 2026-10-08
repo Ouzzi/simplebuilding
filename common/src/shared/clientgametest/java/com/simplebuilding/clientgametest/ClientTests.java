@@ -85,6 +85,8 @@ public final class ClientTests {
                 new Entry("item-rendering", ItemRenderingClientTest::inWorld),
                 new Entry("mod-screens", ModScreensClientTest::inWorld),
                 new Entry("backpack", BackpackClientTest::inWorld),
+                // The mod screens in the container style (26.3), one picture per screen.
+                new Entry("mod-ui-style", ModUiStyleClientTest::inWorld),
                 new Entry("blueprint-editor", BlueprintEditorClientTest::inWorld),
                 new Entry("mega-guide", MegaGuideClientTest::inWorld),
                 new Entry("placed-bundle", PlacedBundleClientTest::inWorld),

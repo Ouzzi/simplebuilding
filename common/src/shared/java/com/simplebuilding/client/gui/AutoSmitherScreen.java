@@ -37,7 +37,14 @@ public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> 
     @Override
     protected void init() {
         super.init();
-        this.titleLabelX = (this.imageWidth - this.font.width(this.title)) / 2;
+        this.titleLabelX = ModScreenStyle.ACTIVE ? 8 : (this.imageWidth - this.font.width(this.title)) / 2;
+    }
+
+    @Override
+    protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+        if (!ModScreenStyle.autoSmitherLabels(graphics, this.font, this.title, this.titleLabelX, this.titleLabelY)) {
+            super.extractLabels(graphics, mouseX, mouseY);
+        }
     }
 
     @Override
@@ -53,11 +60,15 @@ public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> 
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
         super.extractBackground(graphics, mouseX, mouseY, a);
-        graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        // 26.3: Kasten-Stil (Redstone-Symbol, Pfeil, rot bei Fehler); 26.2: das PNG und Vanillas Fehlerpfeil.
+        boolean styled = ModScreenStyle.autoSmither(graphics, this.menu, this.font, this.title, this.leftPos, this.topPos, this.imageWidth);
+        if (!styled) {
+            graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        }
         this.templateIcon.extractRenderState(this.menu, graphics, a, this.leftPos, this.topPos);
         this.baseIcon.extractRenderState(this.menu, graphics, a, this.leftPos, this.topPos);
         this.additionIcon.extractRenderState(this.menu, graphics, a, this.leftPos, this.topPos);
-        if (this.menu.hasRecipeError()) {
+        if (!styled && this.menu.hasRecipeError()) {
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, ERROR,
                     this.leftPos + 91, this.topPos + 33, 28, 21);
         }

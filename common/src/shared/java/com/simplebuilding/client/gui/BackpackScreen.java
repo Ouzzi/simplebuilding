@@ -146,6 +146,9 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implem
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor graphics, int xm, int ym) {
+        if (ModScreenStyle.ACTIVE) {
+            return; // Kasten-Stil: Symbole statt Text (Vorschau rucksack-*), auch kein "Handwerk"
+        }
         graphics.text(this.font, this.title, this.titleLabelX, this.titleLabelY, -12566464, false);
     }
 
@@ -156,7 +159,13 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implem
         int x = this.leftPos + this.layout.vanillaX();
         int y = this.topPos;
 
-        // Das ganze Fenster in einem Stueck, dann der obere Vanilla-Bereich ohne dessen Rand.
+        // 26.3: ein Kasten im Kasten-Stil (ModScreenStyle); sonst das ganze Fenster in einem Stueck, dann der
+        // obere Vanilla-Bereich ohne dessen Rand und die Toenungen.
+        if (ModScreenStyle.backpack(graphics, this.menu, this.layout, this.leftPos, this.topPos)) {
+            InventoryScreen.extractEntityInInventoryFollowsMouse(graphics, x + 26, y + 8, x + 75, y + 78, 30, 0.0625F,
+                    this.xMouse, this.yMouse, this.minecraft.player);
+            return;
+        }
         graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUNDS[tier.ordinal()], this.leftPos, this.topPos, 0, 0,
                 this.imageWidth, this.imageHeight, 256, 256);
         graphics.blit(RenderPipelines.GUI_TEXTURED, INVENTORY_LOCATION, x + TOP_INNER_X, y + TOP_INNER_Y, TOP_INNER_X, TOP_INNER_Y,
