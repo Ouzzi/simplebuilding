@@ -100,7 +100,7 @@ public final class StyledScreens {
     public static @Nullable Layout layout(AbstractContainerScreen<?> screen, int imageWidth, int imageHeight, int titleY) {
         List<BoxLayout.Slot> slots = new ArrayList<>();
         for (Slot slot : screen.getMenu().slots) {
-            if (inImage(slot, imageWidth)) slots.add(new BoxLayout.Slot(slot.x, slot.y, slot.container instanceof Inventory));
+            if (inImage(slot, imageWidth)) slots.add(new BoxLayout.Slot(slot.x, slot.y, playerSlot(slot)));
         }
         return BoxLayout.compute(slots, DECOR.getOrDefault(screen, Decor.NONE).elements(), imageWidth, imageHeight, titleY);
     }
@@ -112,6 +112,14 @@ public final class StyledScreens {
      */
     public static boolean inImage(Slot slot, int imageWidth) {
         return slot.isActive() && slot.x >= 0 && slot.x + 16 <= imageWidth;
+    }
+
+    /**
+     * The player's own inventory and hotbar ({@link Inventory} index &lt; 36): they make up the inventory box. Armour,
+     * shield and other containers' slots belong to the container box (player inventory screen, G3).
+     */
+    public static boolean playerSlot(Slot slot) {
+        return slot.container instanceof Inventory && slot.getContainerSlot() < Inventory.INVENTORY_SIZE;
     }
 
     /** The container box colours of {@code screen} (picked on first use). */
@@ -148,10 +156,10 @@ public final class StyledScreens {
         if (layout == null) return false;
         UiPalette block = palette(screen, style);
         drawBoxes(g, left, top, layout, block);
-        if (layout.container() != null) motif(screen, g, left, top, layout, block, decor, titleY);
+        if (layout.container() != null) motif(screen, g, left, top, layout, block, decor);
         for (Slot slot : screen.getMenu().slots) {
             if (!inImage(slot, imageWidth)) continue;
-            UiPalette p = slot.container instanceof Inventory ? UiPalette.INVENTORY : decor.slotPalette(slot, block);
+            UiPalette p = playerSlot(slot) ? UiPalette.INVENTORY : decor.slotPalette(slot, block);
             if (decor.bigSlot(slot)) {
                 UiBoxes.bigSlot(g, left + slot.x, top + slot.y, p);
             } else {
@@ -162,26 +170,26 @@ public final class StyledScreens {
         return true;
     }
 
-    /** Title x in a styled screen (image coordinates): the preview draws every title at (8, 6) (README W0-B). */
-    public static final int TITLE_X = 8;
+    /** Title position in a styled screen (image coordinates): the preview draws every title at (8, 6) (README W0-B). */
+    public static final int TITLE_X = 8, TITLE_Y = 6;
 
     /**
      * Image 4's faint marks ({@link UiMotifs}, kind and seed from {@link BoxMotifs}) in the container box's fill area,
      * clear of the container slots, the decor's elements and the title (image coordinates).
      */
     private static void motif(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, Layout layout,
-            UiPalette block, Decor decor, int titleY) {
+            UiPalette block, Decor decor) {
         BoxMotifs.Entry motif = BoxMotifs.of(block);
         if (motif.motif() == UiMotifs.Kind.NONE) return;
         List<int[]> avoid = new ArrayList<>();
         for (Slot slot : screen.getMenu().slots) {
-            if (!slot.isActive() || slot.container instanceof Inventory) continue;
+            if (!slot.isActive() || playerSlot(slot)) continue;
             avoid.add(decor.bigSlot(slot) ? new int[] {slot.x - 4, slot.y - 4, slot.x + 21, slot.y + 21}
                     : new int[] {slot.x, slot.y, slot.x + 17, slot.y + 17});
         }
         for (BoxLayout.Rect r : decor.elements()) avoid.add(new int[] {r.x(), r.y(), r.x() + r.width(), r.y() + r.height()});
         int tx = TITLE_X;
-        avoid.add(new int[] {tx - 4, titleY - 2, tx + 4 + Minecraft.getInstance().font.width(screen.getTitle()), titleY + 9});
+        avoid.add(new int[] {tx - 4, TITLE_Y - 2, tx + 4 + Minecraft.getInstance().font.width(screen.getTitle()), TITLE_Y + 9});
         BoxLayout.Rect c = layout.container();
         int bottom = switch (layout.variant()) {
             case TWO_BOXES -> c.bottom() - UiBoxes.FRAME_BOTTOM;
@@ -203,8 +211,9 @@ public final class StyledScreens {
         ScreenStyle style = style(screen);
         Layout layout = style == null ? null : layout(screen, imageWidth, imageHeight, titleY);
         if (layout == null) return false;
-        int x = layout.container() != null ? TITLE_X : titleX;
-        g.text(font, title, x, titleY, palette(screen, style).label(), false);
+        // every styled screen: the title at (8, 6) as in the W0-B preview (Vanilla centres or moves it for the dispenser,
+        // crafter, furnaces, anvil, smithing table ...)
+        g.text(font, title, TITLE_X, TITLE_Y, palette(screen, style).label(), false);
         return true;
     }
 
@@ -232,7 +241,7 @@ public final class StyledScreens {
         if (style == null || layout(screen, imageWidth, imageHeight, titleY) == null) return -1;
         String path = icon.getPath();
         if (path.equals("container/slot/brewing_fuel")) return 0;
-        UiPalette p = slot.container instanceof Inventory ? UiPalette.INVENTORY : palette(screen, style);
+        UiPalette p = playerSlot(slot) ? UiPalette.INVENTORY : palette(screen, style);
         int grey = iconGrey(path);
         int top = p.slotTop(), color = 0xCC000000;
         for (int shift = 16; shift >= 0; shift -= 8) color |= Math.min(255, ((top >> shift) & 255) * 255 / grey) << shift;

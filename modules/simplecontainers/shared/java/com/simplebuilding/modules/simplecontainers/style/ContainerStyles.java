@@ -14,7 +14,8 @@ public final class ContainerStyles {
     /** One entry per group, in config order. */
     public static final List<List<ScreenStyle>> GROUPS = List.of(
             StorageStyles.STYLES,
-            WorkStyles.STYLES);
+            WorkStyles.STYLES,
+            StationStyles.STYLES);
 
     private static final List<ScreenStyle> ALL = flatten();
 
@@ -33,9 +34,11 @@ public final class ContainerStyles {
 
     /**
      * The style for menu {@code type} shown by the screen class {@code screenClass}, or {@code null}. A menu without a
-     * type ({@code null}: mount inventories, the player inventory) matches styles with an empty menu list.
+     * type ({@code null}: mount inventories, the player inventory) matches styles with an empty menu list. Known
+     * subclasses of other mods ({@link StationStyles#SUBCLASSES}) count as their Vanilla screen.
      */
     public static @Nullable ScreenStyle find(@Nullable MenuType<?> type, String screenClass) {
+        screenClass = StationStyles.SUBCLASSES.getOrDefault(screenClass, screenClass);
         for (ScreenStyle style : ALL) {
             if (style.screenClass().equals(screenClass) && (type == null ? style.menus().isEmpty() : style.menus().contains(type))) return style;
         }

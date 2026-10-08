@@ -16,7 +16,6 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractFurnaceMenu;
 import net.minecraft.world.inventory.BrewingStandMenu;
 import net.minecraft.world.inventory.Slot;
@@ -72,7 +71,7 @@ public final class WorkScreens {
         List<Slot> all = screen.getMenu().slots;
         for (int i = 0; i < all.size(); i++) {
             Slot slot = all.get(i);
-            if (!slot.isActive() || slot.container instanceof Inventory) continue;
+            if (!StyledScreens.inImage(slot, imageWidth) || StyledScreens.playerSlot(slot)) continue;
             keep.add(big.contains(i) ? new int[] {slot.x - 4, slot.y - 4, slot.x + 21, slot.y + 21}
                     : new int[] {slot.x, slot.y, slot.x + 17, slot.y + 17});
         }
@@ -117,7 +116,7 @@ public final class WorkScreens {
             boolean wide) {
         List<BoxLayout.Slot> slots = new ArrayList<>();
         for (Slot slot : screen.getMenu().slots) {
-            if (slot.isActive()) slots.add(new BoxLayout.Slot(slot.x, slot.y, slot.container instanceof Inventory));
+            if (StyledScreens.inImage(slot, imageWidth)) slots.add(new BoxLayout.Slot(slot.x, slot.y, StyledScreens.playerSlot(slot)));
         }
         List<BoxLayout.Rect> elements = new ArrayList<>();
         for (int[] r : extra) elements.add(new BoxLayout.Rect(r[0], r[1], r[2] - r[0], r[3] - r[1]));
@@ -135,13 +134,13 @@ public final class WorkScreens {
     }
 
     /** Slots: {@code big} = menu slot indices drawn as big result slots, {@code skip} = indices the caller draws itself. */
-    static void slots(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, UiPalette p, List<Integer> big,
-            List<Integer> skip) {
+    static void slots(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int imageWidth, UiPalette p,
+            List<Integer> big, List<Integer> skip) {
         List<Slot> all = screen.getMenu().slots;
         for (int i = 0; i < all.size(); i++) {
             Slot slot = all.get(i);
-            if (!slot.isActive() || skip.contains(i)) continue;
-            UiPalette sp = slot.container instanceof Inventory ? UiPalette.INVENTORY : p;
+            if (!StyledScreens.inImage(slot, imageWidth) || skip.contains(i)) continue;
+            UiPalette sp = StyledScreens.playerSlot(slot) ? UiPalette.INVENTORY : p;
             if (big.contains(i)) UiBoxes.bigSlot(g, left + slot.x, top + slot.y, sp);
             else UiBoxes.slot(g, left + slot.x, top + slot.y, sp);
         }
@@ -151,7 +150,7 @@ public final class WorkScreens {
     public static boolean crafting(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int w, int h, int titleY) {
         UiPalette p = base(screen, g, left, top, w, h, titleY, new int[0][], false, new int[0][], List.of(0), true);
         if (p == null) return false;
-        slots(screen, g, left, top, p, List.of(0), List.of());
+        slots(screen, g, left, top, w, p, List.of(0), List.of());
         UiSymbols.progress(g, UiSymbols.ARROW, left + 90, top + 36, p, 0, false);
         return true;
     }
@@ -165,7 +164,7 @@ public final class WorkScreens {
             int w, int h, int titleY, ProgressColors colors, UiSymbols.Bitmap waves) {
         UiPalette p = base(screen, g, left, top, w, h, titleY, new int[0][], false, new int[][] {{57, 36, 71, 50}}, List.of(2), true);
         if (p == null) return false;
-        slots(screen, g, left, top, p, List.of(2), List.of(1));
+        slots(screen, g, left, top, w, p, List.of(2), List.of(1));
         boolean lit = menu.isLit();
         int level = lit ? Mth.clamp(Mth.ceil(menu.getLitProgress() * 16), 1, 16) : 0;
         Slot fuel = menu.getSlot(1);
@@ -186,7 +185,7 @@ public final class WorkScreens {
         if (p == null) return false;
         for (int[] r : PIPES) g.fill(left + r[0], top + r[1] + 1, left + r[2], top + r[3] + 1, p.light());
         for (int[] r : PIPES) g.fill(left + r[0], top + r[1], left + r[2], top + r[3], p.slot());
-        slots(screen, g, left, top, p, List.of(), List.of(4));
+        slots(screen, g, left, top, w, p, List.of(), List.of(4));
         int fuel = menu.getFuel(), total = menu.getTotalFuel();
         int level = total > 0 ? Mth.clamp(Mth.positiveCeilDiv(16 * fuel, total), 0, 16) : 0;
         Slot fuelSlot = menu.getSlot(4);
@@ -223,7 +222,7 @@ public final class WorkScreens {
     public static boolean enchanting(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int w, int h, int titleY) {
         UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{60, 14, 169, 72}}, false, new int[0][], List.of(), true);
         if (p == null) return false;
-        slots(screen, g, left, top, p, List.of(), List.of());
+        slots(screen, g, left, top, w, p, List.of(), List.of());
         return true;
     }
 
@@ -280,7 +279,7 @@ public final class WorkScreens {
         UiBoxes.inset(g, left + 140, top + 8, 72, 92, p);
         UiSymbols.engrave(g, UiSymbols.PYRAMID, left + 64, top + 12, p);
         UiSymbols.engrave(g, UiSymbols.STAR, left + 171, top + 12, p);
-        slots(screen, g, left, top, p, List.of(), List.of());
+        slots(screen, g, left, top, w, p, List.of(), List.of());
         return true;
     }
 

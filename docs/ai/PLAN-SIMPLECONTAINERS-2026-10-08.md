@@ -238,6 +238,52 @@ zugunsten von Pyramide/Stern (Symbole statt Text), Tooltips der Knöpfe bleiben.
   (Knöpfe, Angebotszeilen) eigene Ableitungen (Vorschau zeigt sie nicht).
 - Nicht getestet: Hover-/Klick-Zustände im Bild, Rezeptbuch offen (Knopf unverändert Vanilla), NeoForge-/Forge-Client-Sicht
   (Mixins nur auf Fabric im Client geladen), echte Blöcke/Server-Menüs (Smoke öffnet Screens clientseitig).
+## W1 G3 (Arbeit II, Branch `claude-sc-g3`)
+Screens: Amboss, Schleifstein, Steinsäge, Webstuhl, Kartografietisch, Schmiedetisch (Vanilla + SB-Ersatz), Handel,
+Spieler-Inventar. Basis: claude-sc-base + G1 „narrow box layouts“ (cherry-pick, Varianten NO_SHADOW/SEAM, Elemente).
+Plan:
+1. `style/StationStyles.java` (Gruppe „work“, Paletten aus der W0-B-Tabelle über `UiPalette.derived`, Spieler = INVENTORY)
+   → `ContainerStyles.GROUPS`. Spieler-Inventar hat keinen MenuType: Stil mit leerer Menüliste, Suche nach Klasse
+   (`ContainerStyles.findMenuless`), `StyledScreens.style` nutzt sie, wenn `getType()` wirft.
+2. Zeichnen in `client/StationScreens.java` (eigene Datei, nicht `drawBackground` umbauen): Layout mit Zusatz-Elementen
+   (großer Ergebnis-Slot, Namensfeld, Kartenfeld, Rüstungsständer, Spielermodell) über `BoxLayout.compute(slots, elements…)`,
+   Kästen über `StyledScreens.drawBoxes`, Slots, `bigSlot`, Symbole/Felder/Kacheln nach `tools/ui/simplecontainers_preview.py`.
+   Symbole (Pfeil 22×15, kleiner Pfeil, Plus, Kreuz, Schleifrad, Hammer, XP, Handelspfeil) als Bitmaps in
+   `client/StationDraw.java` (eingraviert: Strich slot + 1 px light darunter; Fortschritt weiß).
+   Spieler-Slots = `Inventory`-Slots mit Index < 36 (Rüstung/Schild zählen zum Kasten).
+3. Mixins je Screen-Klasse (eigene Dateien, eine Zeile je Klasse in `simplecontainers.mixins.json`): Stil nach dem
+   `super.extractBackground`, Vanilla-PNG per `@WrapWithCondition` aus; Vanilla-Sprites, die der Stil ersetzt
+   (Namensfeld, Fehlerpfeil → rotes Kreuz, Scrollbalken, Rezept-/Muster-Kacheln, XP-Balken, Handelspfeile), ebenso.
+   Keine HEAD-Cancels, damit fremde Injektionen (simplevisuals Amboss-Label, SB Kartentisch-Vorschau, TrimStatsPanel)
+   weiterlaufen. Amboss-Kosten: Vanilla-Feld/Text aus, eigene Zeile „XP-Symbol + Zahl“ (rot bei zu teuer/unbezahlbar).
+4. Titel immer bei (8, 6) wie in der Vorschau (`StyledScreens.drawLabels`); Handel/Inventar haben eigene Labels.
+5. SB-Ersatz `RecipeBookSmithingScreen` (Unterklasse von SmithingScreen, gleiche Geometrie): optionale Kopplung über
+   den **Klassennamen als String** (`ContainerStyles.LAYOUT_ALIASES`), kein Import, kein `Class.forName`; ohne SB
+   passiert nichts. (Alternative „SB nutzt simplelib selbst“ braucht SB→simplelib-Bündelung + 26.2 – später.)
+6. Lang EN/DE + Wiki-Features je Stil-Id, `check_data.py`; GameTests: Registry deckt G3-Menüs ab, Paletten = Tabelle,
+   Layout-Varianten je G3-Screen (zwei Kästen / Naht); Client-Smoke öffnet alle G3-Screens, Screenshots.
+Risiken: Handel-Kacheln sind Widgets (Button-Sprites) – Mixin auf `MerchantScreen.TradeOfferButton`; Inventar-Rezeptbuch
+verschiebt `leftPos` (Zeichnung folgt `leftPos`). Platzhalter-Sprites leerer Slots zeichnet Vanilla selbst (grau).
+### W1 G3 Umsetzung + Verifikation (2026-10-08, sb-test)
+Abweichungen vom Plan: Klassen heißen `Station*` (G2 belegt `WorkStyles/WorkScreens`); Zeichnen über G2s simplelib-API
+(cherry-pick b4076457a, e4d8f4d36, c72362e75 als Voraussetzung, d7c56ae7e): `UiBoxes.inset/sunkRect/raised`,
+`UiSymbols` (G3-Bitmaps additiv ergänzt: ARROW_SMALL, PLUS, WHEEL, ANVIL_HAMMER, XP, TRADE_ARROW), `UiMotifs`
+(Motiv/Seed je Screen wie die Vorschau), `StyledScreens.slotIconColor` (auch Webstuhl-Slot-Sprites und die
+wechselnden Schmiedetisch-Icons, `CyclingIconStationMixin`). `StyledScreens`: Spieler-Slots = `Inventory`-Index < 36
+(Rüstung/Schild gehören zum Kasten), Titel der G3-Screens bei (8, 6), menülose Stile über `findMenuless`.
+Abweichungen von der Vorschau: Namensfeld 107 breit (EditBox reicht bis x 165, Vorschau 103); Webstuhl-Musterfeld
+y 12 (Vanilla-Kacheln beginnen bei 13); Kartenfeld 66 hoch, darauf bleibt Vanillas Papier-/Karten-Sprite (zeigt
+Kopieren/Vergrößern/Sperren); Rezeptbuch-Knopf (Inventar, SB-Schmiedetisch) bleibt Vanilla; Fehlerpfeile = rotes Kreuz
+über dem eingravierten Pfeil; Handels-Angebote: gewählt = eingelassen, Pfeil in slotTop.
+- Compile Fabric/NeoForge/Forge(-Pforge263=true) simplecontainers + simplelib Fabric: grün.
+- `run.py --targets module-simplecontainers-{fabric,neoforge,standalone-fabric,standalone-neoforge}-263`:
+  „alles gruen: 44/44 bestanden, 0 rot“ (je 11, inkl. G2-Tests und G3 stationRegistry/stationPalettes/stationLayouts).
+- Client-Smoke `module-simplecontainers-client-263` (xvfb): „alles gruen: 22/22 bestanden, 0 rot“; G3-Screenshots
+  `/root/previews/simplecontainers/w1-g3/` (+ `crop-*` 2-fach). SB-Schmiedebildschirm mit Rezeptbuch erscheint gestylt
+  (Alias greift, SB im Client geladen), TrimStatsPanel und Rezeptbuch-Knopf im Inventar sichtbar.
+- Nicht getestet: NeoForge/Forge-Client-Sicht, echte Blöcke/Dorfbewohner (Smoke öffnet Menüs clientseitig: keine
+  Amboss-Namensübernahme, kein Schmiede-Fehlerkreuz, keine Banner-Vorschau), Klicks auf Kacheln/Scrollbalken, Rezeptbuch
+  geöffnet (verschobenes `leftPos`), simplevisuals-Amboss-Label (dunkler Text auf dunklem Kasten möglich).
 ## W1 G4 Mod-UIs (Branch `claude-sc-g4`)
 Ziel: Vorschauen `g4-*.png` im Spiel, **ohne** simplecontainers (Entscheidung 4); nur Darstellung, Menüs/Slots/Filter
 unverändert. Ist-Zustand: SB 26.3 bündelt SimpleLib schon (Crucible P5, `CrucibleCompat`); `common/src/shared` muss

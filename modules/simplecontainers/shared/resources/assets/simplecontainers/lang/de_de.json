@@ -30,5 +30,21 @@
   "simplecontainers.option.screen.mount": "Pferde, Esel, Lamas, Kamele",
   "simplecontainers.option.screen.mount.tooltip": "Reittier-Inventar (Pferd, Esel, Maultier, Lama, Kamel und Verwandte) in Sattelleder mit Steppnaht; Sattel- und Rüstungs-Slot zeigen eingravierte Umrisse, das Tier steht in einem eingelassenen Feld. Standard: an.",
   "simplecontainers.option.screen.nautilus": "Nautilusse",
-  "simplecontainers.option.screen.nautilus.tooltip": "Nautilus-Inventar im selben Sattelleder wie die übrigen Reittiere. Standard: an."
+  "simplecontainers.option.screen.nautilus.tooltip": "Nautilus-Inventar im selben Sattelleder wie die übrigen Reittiere. Standard: an.",
+  "simplecontainers.option.screen.anvil": "Ambosse",
+  "simplecontainers.option.screen.anvil.tooltip": "Amboss-Bildschirm in Eisengrau: eingelassenes Namensfeld, eingraviertes Plus und Pfeil, die XP-Kosten (Symbol + Stufen) im Kasten. Standard: an.",
+  "simplecontainers.option.screen.grindstone": "Schleifsteine",
+  "simplecontainers.option.screen.grindstone.tooltip": "Schleifstein-Bildschirm in Steingrau mit eingraviertem Schleifrad und Pfeil; ein XP-Symbol zeigt, wenn Verzauberungen entfernt werden. Standard: an.",
+  "simplecontainers.option.screen.stonecutter": "Steinsägen",
+  "simplecontainers.option.screen.stonecutter.tooltip": "Steinsägen-Bildschirm in der Farbe des Blocks: Rezept-Kacheln und Scrollbalken als erhabene Kacheln in einem eingelassenen Feld. Standard: an.",
+  "simplecontainers.option.screen.loom": "Webstühle",
+  "simplecontainers.option.screen.loom.tooltip": "Webstuhl-Bildschirm in Holzbraun: Muster-Kacheln und Scrollbalken als erhabene Kacheln, ein Kasten mit hellem Inventarteil. Standard: an.",
+  "simplecontainers.option.screen.cartography_table": "Kartografietische",
+  "simplecontainers.option.screen.cartography_table.tooltip": "Kartografietisch-Bildschirm in dunklem Holz: eingraviertes Plus und Pfeil, eingelassenes Kartenfeld. Standard: an.",
+  "simplecontainers.option.screen.smithing_table": "Schmiedetische",
+  "simplecontainers.option.screen.smithing_table.tooltip": "Schmiedetisch-Bildschirm in Dunkelrot mit eingraviertem Pfeil und eingelassenem Rüstungsständer-Feld (auch SimpleBuildings Schmiedebildschirm mit Rezeptbuch). Standard: an.",
+  "simplecontainers.option.screen.merchant": "Handel mit Dorfbewohnern",
+  "simplecontainers.option.screen.merchant.tooltip": "Handels-Bildschirm in Grün: Angebotsliste als erhabene Kacheln (das gewählte Angebot eingelassen), eingravierte Handelspfeile, eingelassener XP-Balken. Standard: an.",
+  "simplecontainers.option.screen.player_inventory": "Spieler-Inventar",
+  "simplecontainers.option.screen.player_inventory.tooltip": "Dein eigenes Inventar (E) als ein heller Kasten: Rüstungs- und Schild-Slots, eingelassenes Feld hinter deinem Spielermodell, 2x2-Herstellen mit eingraviertem Pfeil. Rezeptbuch und Knöpfe anderer Mods bleiben. Standard: an."
 }

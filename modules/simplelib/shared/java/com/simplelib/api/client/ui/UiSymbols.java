@@ -86,7 +86,7 @@ public final class UiSymbols {
     /** Beacon: secondary power (the star). */
     public static final Bitmap STAR = Bitmap.of("...#...", "..###..", "#######", ".#####.", ".##.##.", "#.....#");
 
-    /** 16x11, the small arrow of a 2x2 crafting grid (backpack). */
+    /** 16x11, the small arrow of a 2x2 crafting grid (backpack, inventory, cartography table). */
     public static final Bitmap ARROW_SMALL = Bitmap.of(
             "..........#.....", "..........##....", "..........###...", "#############...", "##############..",
             "###############.", "##############..", "#############...", "..........###...", "..........##....",
@@ -104,6 +104,24 @@ public final class UiSymbols {
     /** 9x8 horseshoe, opening up (hoof panel). */
     public static final Bitmap HORSESHOE = Bitmap.of(
             "...###...", "..#####..", ".##...##.", ".#.....#.", "#.......#", "#.......#", "#.......#", "#.......#");
+    // G3 (anvil, grindstone, cartography table, trading, inventory): same pixels as the preview tool.
+    /** 11x11 plus (anvil, cartography table). */
+    public static final Bitmap PLUS = Bitmap.of("....###....", "....###....", "....###....", "....###....", "###########",
+            "###########", "###########", "....###....", "....###....", "....###....", "....###....");
+    /** 19x19 grindstone wheel. */
+    public static final Bitmap WHEEL = Bitmap.of(
+            "......#######......", "....##.......##....", "...#...........#...", "..#.....###.....#..", ".#....#######....#.",
+            ".#...###...###...#.", "#...##.......##...#", "#...##..###..##...#", "#..##..#####..##..#", "#..##..#####..##..#",
+            "#..##..#####..##..#", "#...##..###..##...#", "#...##.......##...#", ".#...###...###...#.", ".#....#######....#.",
+            "..#.....###.....#..", "...#...........#...", "....##.......##....", "......#######......");
+    /** 6x8 hammer in front of the anvil's name field. */
+    public static final Bitmap ANVIL_HAMMER = Bitmap.of(".#####....", ".#####....", ".#####....", "...#......", "...#......",
+            "...#......", "...#......", "...#......");
+    /** 7x7 experience orb (anvil cost, grindstone). */
+    public static final Bitmap XP = Bitmap.of("..###..", ".#####.", "###.###", "##...##", "###.###", ".#####.", "..###..");
+    /** 8x7 trade arrow of a villager offer. */
+    public static final Bitmap TRADE_ARROW = Bitmap.of("....#...", "....##..", "#######.", "########", "#######.", "....##..",
+            "....#...");
 
     private UiSymbols() {}
 
