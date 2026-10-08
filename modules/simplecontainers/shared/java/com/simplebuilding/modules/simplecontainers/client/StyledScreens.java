@@ -97,9 +97,18 @@ public final class StyledScreens {
     public static @Nullable Layout layout(AbstractContainerScreen<?> screen, int imageWidth, int imageHeight, int titleY) {
         List<BoxLayout.Slot> slots = new ArrayList<>();
         for (Slot slot : screen.getMenu().slots) {
-            if (slot.isActive()) slots.add(new BoxLayout.Slot(slot.x, slot.y, slot.container instanceof Inventory));
+            if (inImage(slot, imageWidth)) slots.add(new BoxLayout.Slot(slot.x, slot.y, slot.container instanceof Inventory));
         }
         return BoxLayout.compute(slots, DECOR.getOrDefault(screen, Decor.NONE).elements(), imageWidth, imageHeight, titleY);
+    }
+
+    /**
+     * Whether {@code slot} is active and inside the screen image horizontally. Slots outside belong to side panels
+     * other mods attach (simpleriding's hoof panel at x -20, linked panels): they keep their own look and do not count
+     * for the boxes.
+     */
+    public static boolean inImage(Slot slot, int imageWidth) {
+        return slot.isActive() && slot.x >= 0 && slot.x + 16 <= imageWidth;
     }
 
     /** The container box colours of {@code screen} (picked on first use). */
@@ -138,7 +147,7 @@ public final class StyledScreens {
         drawBoxes(g, left, top, layout, block);
         if (layout.container() != null) motif(screen, g, left, top, layout, block, decor, titleY);
         for (Slot slot : screen.getMenu().slots) {
-            if (!slot.isActive()) continue;
+            if (!inImage(slot, imageWidth)) continue;
             UiPalette p = slot.container instanceof Inventory ? UiPalette.INVENTORY : decor.slotPalette(slot, block);
             if (decor.bigSlot(slot)) {
                 UiBoxes.bigSlot(g, left + slot.x, top + slot.y, p);
