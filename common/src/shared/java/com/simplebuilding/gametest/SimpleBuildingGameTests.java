@@ -683,6 +683,28 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("training_dummy_game_test_the_archery_station_has_every_arrow_and_its_dummies", TrainingDummyTests::theArcheryStationHasEveryArrowAndItsDummies)
                     .build(),
+            GameTestSpec.named("training_dummy_game_test_melee_hits_count_through_the_real_path", TrainingDummyTests::meleeHitsCountThroughTheRealPath)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_a_falling_charged_melee_hit_shows_the_crit", TrainingDummyTests::aFallingChargedMeleeHitShowsTheCrit)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_a_swept_melee_hit_reaches_the_neighbour_dummy", TrainingDummyTests::aSweptMeleeHitReachesTheNeighbourDummy)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_sneaking_melee_hits_pick_the_dummy_up_through_the_real_path", TrainingDummyTests::sneakingMeleeHitsPickTheDummyUpThroughTheRealPath)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_spear_thrusts_count_and_break_only_while_sneaking", TrainingDummyTests::spearThrustsCountAndBreakOnlyWhileSneaking)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_arrows_tick_into_the_dummy_and_show_their_number", TrainingDummyTests::arrowsTickIntoTheDummyAndShowTheirNumber)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_an_explosion_breaks_the_straw_stand_but_only_numbers_the_dummy", TrainingDummyTests::anExplosionBreaksTheStrawStandButOnlyNumbersTheDummy)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_right_clicks_dress_and_undress_the_dummy", TrainingDummyTests::rightClicksDressAndUndressTheDummy)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_two_fast_player_hits_break_the_straw_stand", TrainingDummyTests::twoFastPlayerHitsBreakTheStrawStand)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_creative_player_hits_break_the_stands_without_drops", TrainingDummyTests::creativePlayerHitsBreakTheStandsWithoutDrops)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_generic_kill_removes_both_stands", TrainingDummyTests::genericKillRemovesBothStands)
+                    .build(),
             GameTestSpec.named("workstation_game_test_smithing_recipe_book_hides_dummy_displays", WorkstationTests::smithingRecipeBookHidesDummyDisplays)
                     .build(),
             GameTestSpec.named("workstation_game_test_smithing_recipe_book_places_damaged_gear", WorkstationTests::smithingRecipeBookPlacesDamagedGear)

@@ -48,4 +48,59 @@ public final class TrainingDummyGameTest {
     public void scarecrowKeepsMobsFromTramplingFarmland(GameTestHelper helper) {
         TrainingDummyTests.scarecrowKeepsMobsFromTramplingFarmland(helper);
     }
+
+    @GameTest
+    public void meleeHitsCountThroughTheRealPath(GameTestHelper helper) {
+        TrainingDummyTests.meleeHitsCountThroughTheRealPath(helper);
+    }
+
+    @GameTest
+    public void aFallingChargedMeleeHitShowsTheCrit(GameTestHelper helper) {
+        TrainingDummyTests.aFallingChargedMeleeHitShowsTheCrit(helper);
+    }
+
+    @GameTest
+    public void aSweptMeleeHitReachesTheNeighbourDummy(GameTestHelper helper) {
+        TrainingDummyTests.aSweptMeleeHitReachesTheNeighbourDummy(helper);
+    }
+
+    @GameTest
+    public void sneakingMeleeHitsPickTheDummyUpThroughTheRealPath(GameTestHelper helper) {
+        TrainingDummyTests.sneakingMeleeHitsPickTheDummyUpThroughTheRealPath(helper);
+    }
+
+    @GameTest
+    public void spearThrustsCountAndBreakOnlyWhileSneaking(GameTestHelper helper) {
+        TrainingDummyTests.spearThrustsCountAndBreakOnlyWhileSneaking(helper);
+    }
+
+    @GameTest
+    public void arrowsTickIntoTheDummyAndShowTheirNumber(GameTestHelper helper) {
+        TrainingDummyTests.arrowsTickIntoTheDummyAndShowTheirNumber(helper);
+    }
+
+    @GameTest(maxTicks = 120)
+    public void anExplosionBreaksTheStrawStandButOnlyNumbersTheDummy(GameTestHelper helper) {
+        TrainingDummyTests.anExplosionBreaksTheStrawStandButOnlyNumbersTheDummy(helper);
+    }
+
+    @GameTest
+    public void rightClicksDressAndUndressTheDummy(GameTestHelper helper) {
+        TrainingDummyTests.rightClicksDressAndUndressTheDummy(helper);
+    }
+
+    @GameTest
+    public void twoFastPlayerHitsBreakTheStrawStand(GameTestHelper helper) {
+        TrainingDummyTests.twoFastPlayerHitsBreakTheStrawStand(helper);
+    }
+
+    @GameTest
+    public void creativePlayerHitsBreakTheStandsWithoutDrops(GameTestHelper helper) {
+        TrainingDummyTests.creativePlayerHitsBreakTheStandsWithoutDrops(helper);
+    }
+
+    @GameTest
+    public void genericKillRemovesBothStands(GameTestHelper helper) {
+        TrainingDummyTests.genericKillRemovesBothStands(helper);
+    }
 }

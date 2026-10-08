@@ -12,7 +12,9 @@ import com.simplebuilding.tweaks.item.TweaksItems;
 import com.simplebuilding.version.McVersion;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
@@ -26,11 +28,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.PiercingWeapon;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -322,6 +327,276 @@ public final class TrainingDummyTests {
         helper.assertTrue(stocked.stream().anyMatch(s -> s.is(Items.BOW)) && stocked.stream().anyMatch(s -> s.is(Items.CROSSBOW))
                 && stocked.stream().anyMatch(s -> s.is(Items.SPECTRAL_ARROW)), "the archery station lacks bows or spectral arrows");
         helper.assertTrue(plan.coveredItems().contains(ModItems.STRAW_ARMOR_STAND), "the straw armor stand has no place in the test centre");
+        helper.succeed();
+    }
+
+    // ------------------------------------------------------------------ echte Wege (2026-10-08, docs/ai/PLAN-PUPPE-INTERAKTIONEN.md)
+
+    /** Spieler in der Welt, ueber den die echten Angriffswege laufen (wie der Netzwerk-Handler). */
+    private static ServerPlayer fighter(GameTestHelper helper) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
+        return player;
+    }
+
+    /** Die Waffenstufe waechst in {@link ServerPlayer}{@code #doTick()} (via {@code Player#tick}); erst ab 0.9 zaehlen Krit und Sweep. */
+    private static void charge(ServerPlayer player) {
+        int guard = 0;
+        while (player.getAttackStrengthScale(0.5F) <= 0.9F && guard++ < 100) {
+            player.doTick();
+        }
+    }
+
+    private static void ready(GameTestHelper helper, ServerPlayer player, TrainingDummy dummy, double x) {
+        player.snapTo(dummy.getX() - x, dummy.getY() - 1.0, dummy.getZ());
+        player.setOnGround(true);
+        player.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(dummy.getX(), player.getEyeY(), dummy.getZ()));
+        // Kopfausrichtung folgt dem Blick (getHeadLookAngle nutzt yHeadRot, das lookAt nicht setzt)
+        player.setYHeadRot(player.getYRot());
+    }
+
+    /** Nahkampf ueber den echten Weg: {@code Player.attack} -> {@code hurtOrSimulate} -> {@code hurtServer}. */
+    public static void meleeHitsCountThroughTheRealPath(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        TrainingDummy dummy = dummy(helper, 1, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        ServerPlayer player = fighter(helper);
+        ready(helper, player, dummy, 1.5);
+        charge(player);
+        player.attack(dummy);
+        helper.assertTrue(dummy.isAlive(), "the plain melee hit destroyed the dummy");
+        helper.assertValueEqual(dummy.sessionHits(), 1, "the melee hit was not counted");
+        helper.assertTrue(dummy.lastShown() > 0.0F, "the melee hit shows no number");
+        helper.assertFalse(dummy.lastCrit(), "a grounded full attack counts as a crit");
+        helper.assertValueEqual(dummy.visibleNumbers(), 1, "no number entity in the world");
+        helper.succeed();
+    }
+
+    /** Krit ueber den echten Weg: fallender, voll geladener Schlag (Bedingungen wie {@code Player#canCriticalAttack}). */
+    public static void aFallingChargedMeleeHitShowsTheCrit(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        TrainingDummy dummy = dummy(helper, 1, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        ServerPlayer player = fighter(helper);
+        ready(helper, player, dummy, 1.5);
+        charge(player);
+        player.fallDistance = 1.0;
+        player.setOnGround(false);
+        player.setDeltaMovement(Vec3.ZERO);
+        player.attack(dummy);
+        helper.assertValueEqual(dummy.sessionHits(), 1, "the falling hit was not counted");
+        helper.assertTrue(dummy.lastCrit(), "a falling full-strength real hit is no crit");
+        helper.succeed();
+    }
+
+    /** Sweeping ueber den echten Weg: ein voll geladener Schwertschlag trifft auch die Nachbarpuppe. */
+    public static void aSweptMeleeHitReachesTheNeighbourDummy(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        TrainingDummy target = dummy(helper, 1, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        TrainingDummy neighbour = dummy(helper, 2, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        ServerPlayer player = fighter(helper);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_SWORD));
+        ready(helper, player, target, 1.5);
+        charge(player);
+        player.setOnGround(true);
+        player.setDeltaMovement(Vec3.ZERO);
+        player.attack(target);
+        helper.assertValueEqual(target.sessionHits(), 1, "the swept dummy lost its hit");
+        helper.assertValueEqual(neighbour.sessionHits(), 1, "the sweep did not reach the neighbour");
+        helper.assertFalse(neighbour.lastCrit(), "a swept hit counts as a crit");
+        helper.assertTrue(target.isAlive() && neighbour.isAlive(), "the sweep destroyed a dummy");
+        helper.succeed();
+    }
+
+    /** Schleich-Schlag ueber den echten Weg baut die Puppe ab (Drop Puppe + Kopf), auch voll geladen. */
+    public static void sneakingMeleeHitsPickTheDummyUpThroughTheRealPath(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        TrainingDummy dummy = dummy(helper, 1, 1, new ItemStack(Items.ZOMBIE_HEAD));
+        ServerPlayer player = fighter(helper);
+        ready(helper, player, dummy, 1.5);
+        player.setShiftKeyDown(true);
+        charge(player);
+        player.attack(dummy);
+        helper.assertTrue(dummy.isRemoved(), "a sneaking real hit does not pick the dummy up");
+        List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, dummy.getBoundingBox().inflate(2.0));
+        helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(ModItems.TRAINING_DUMMY)), "no Training Dummy item dropped");
+        helper.assertFalse(drops.stream().anyMatch(e -> e.getItem().is(ModItems.STRAW_ARMOR_STAND)), "a straw armor stand dropped instead");
+        helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(Items.ZOMBIE_HEAD)), "the head did not drop");
+        helper.succeed();
+    }
+
+    /** Speer-Stich ueber den echten Weg: {@code PiercingWeapon.attack} -> {@code LivingEntity.stabAttack} -> {@code hurtServer}. */
+    public static void spearThrustsCountAndBreakOnlyWhileSneaking(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        // Puppe am fernen Rand der 8x8-Testflaeche: der Stich reicht 2.0-6.5 Bloecke, der Spieler steht so noch in
+        // der Flaeche (ausserhalb kappt der Block-Strahl von ProjectileUtil#getHitEntitiesAlong vor der Puppe).
+        TrainingDummy dummy = dummy(helper, 6, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        ServerPlayer player = fighter(helper);
+        ItemStack spear = new ItemStack(Items.IRON_SPEAR);
+        player.setItemInHand(InteractionHand.MAIN_HAND, spear);
+        PiercingWeapon weapon = spear.get(DataComponents.PIERCING_WEAPON);
+        helper.assertTrue(weapon != null, "the iron spear has no piercing weapon component");
+        helper.assertTrue(PiercingWeapon.canHitEntity(player, dummy), "a spear cannot hit the dummy at all");
+        net.minecraft.world.item.component.AttackRange range = player.getAttackRangeWith(spear);
+        double mid = (range.effectiveMinRange(player) + range.effectiveMaxRange(player)) / 2.0;
+        player.snapTo(dummy.getX() - mid, dummy.getY() - 1.0, dummy.getZ());
+        player.setOnGround(true);
+        player.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(dummy.getX(), player.getEyeY(), dummy.getZ()));
+        player.setYHeadRot(player.getYRot());
+        charge(player);
+        weapon.attack(player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(dummy.isAlive(), "a plain spear thrust broke the dummy");
+        helper.assertValueEqual(dummy.sessionHits(), 1, "the spear thrust was not counted");
+        helper.assertTrue(dummy.lastShown() > 0.0F, "the spear thrust shows no number");
+        player.setShiftKeyDown(true);
+        weapon.attack(player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(dummy.isRemoved(), "a sneaking spear thrust does not pick the dummy up");
+        List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, dummy.getBoundingBox().inflate(2.0));
+        helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(ModItems.TRAINING_DUMMY)), "no Training Dummy item dropped");
+        helper.succeed();
+    }
+
+    /** Pfeile ueber den echten Weg: das Projektil tickt in die Puppe, ein Krit-Pfeil zeigt den Krit. */
+    public static void arrowsTickIntoTheDummyAndShowTheirNumber(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        TrainingDummy dummy = dummy(helper, 1, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        ServerPlayer shooter = fighter(helper);
+        shooter.snapTo(dummy.getX() - 4.0, dummy.getY() - 1.0, dummy.getZ());
+        Arrow arrow = new Arrow(level, shooter, new ItemStack(Items.ARROW), new ItemStack(Items.BOW));
+        arrow.setPos(dummy.getX(), dummy.getY() + 0.5, dummy.getZ() - 1.0);
+        arrow.setDeltaMovement(0.0, 0.0, 1.0);
+        arrow.setNoGravity(true);
+        level.addFreshEntity(arrow);
+        int guard = 0;
+        while (dummy.sessionHits() == 0 && !arrow.isRemoved() && guard++ < 40) {
+            arrow.tick();
+        }
+        helper.assertTrue(dummy.isAlive(), "an arrow destroyed the dummy");
+        helper.assertValueEqual(dummy.sessionHits(), 1, "the arrow that ticked into the dummy was not counted");
+        helper.assertTrue(dummy.lastShown() > 0.0F, "the arrow shows no number");
+        helper.succeed();
+    }
+
+    /** Explosion ueber den echten Weg: der Stroh-Staender zerfaellt, die Puppe zeigt nur die Zahl. */
+    public static void anExplosionBreaksTheStrawStandButOnlyNumbersTheDummy(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        TrainingDummy stand = spawn(helper, ModEntities.STRAW_ARMOR_STAND, 1, 1, ItemStack.EMPTY);
+        TrainingDummy dummy = dummy(helper, 3, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        Vec3 centre = helper.absoluteVec(new Vec3(2.5, 1.5, 1.5));
+        level.explode(null, centre.x, centre.y, centre.z, 3.0F, Level.ExplosionInteraction.NONE);
+        helper.assertTrue(stand.isRemoved(), "the explosion does not break the straw stand");
+        helper.assertTrue(dummy.isAlive(), "the explosion destroyed the dummy");
+        helper.assertValueEqual(dummy.sessionHits(), 1, "the explosion did not count on the dummy");
+        helper.assertTrue(dummy.lastShown() > 0.0F, "the explosion shows no number");
+        List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, stand.getBoundingBox().inflate(3.0));
+        helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(ModItems.STRAW_ARMOR_STAND)), "no straw armor stand dropped");
+        helper.succeed();
+    }
+
+    /** Rechtsklick uebernimmt Ruestung und gibt sie an die Hand zurueck (Vanilla-Weg {@code ArmorStand#interact}). */
+    public static void rightClicksDressAndUndressTheDummy(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        TrainingDummy dummy = dummy(helper, 1, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        ServerPlayer player = fighter(helper);
+        Vec3 chest = new Vec3(0.0, 1.0, 0.0);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_CHESTPLATE));
+        dummy.interact(player, InteractionHand.MAIN_HAND, chest);
+        helper.assertTrue(dummy.getItemBySlot(EquipmentSlot.CHEST).is(Items.IRON_CHESTPLATE), "the chestplate was not put on");
+        helper.assertTrue(player.getMainHandItem().isEmpty(), "the chestplate stayed in the hand");
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        dummy.interact(player, InteractionHand.MAIN_HAND, chest);
+        helper.assertTrue(player.getMainHandItem().is(Items.IRON_CHESTPLATE), "the chestplate did not come back");
+        helper.assertTrue(dummy.getItemBySlot(EquipmentSlot.CHEST).isEmpty(), "the dummy still wears the chestplate");
+        helper.succeed();
+    }
+
+    /** Zwei schnelle Schlaege ueber den echten Weg bauen den Stroh-Ruestungsstaender mit Drop ab. */
+    public static void twoFastPlayerHitsBreakTheStrawStand(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        TrainingDummy stand = spawn(helper, ModEntities.STRAW_ARMOR_STAND, 1, 1, ItemStack.EMPTY);
+        ServerPlayer player = fighter(helper);
+        ready(helper, player, stand, 1.5);
+        player.attack(stand);
+        helper.assertTrue(stand.isAlive(), "the first player hit already broke the straw stand");
+        player.attack(stand);
+        helper.assertTrue(stand.isRemoved(), "two fast player hits do not break the straw stand");
+        List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, stand.getBoundingBox().inflate(2.0));
+        helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(ModItems.STRAW_ARMOR_STAND)), "the broken straw stand dropped nothing");
+        helper.succeed();
+    }
+
+    /** Kreativ-Schlag ueber den echten Weg: Stroh-Staender sofort, Puppe nur schleichend - jeweils ohne Drops. */
+    public static void creativePlayerHitsBreakTheStandsWithoutDrops(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        TrainingDummy stand = spawn(helper, ModEntities.STRAW_ARMOR_STAND, 1, 1, ItemStack.EMPTY);
+        TrainingDummy dummy = dummy(helper, 3, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        ServerPlayer player = fighter(helper);
+        player.setGameMode(net.minecraft.world.level.GameType.CREATIVE);
+        ready(helper, player, stand, 1.5);
+        player.setShiftKeyDown(false);
+        player.attack(stand);
+        helper.assertTrue(stand.isRemoved(), "a creative hit does not break the straw stand");
+        ready(helper, player, dummy, 1.5);
+        player.attack(dummy);
+        helper.assertTrue(dummy.isAlive(), "a plain creative hit already picked the dummy up");
+        player.setShiftKeyDown(true);
+        player.attack(dummy);
+        helper.assertTrue(dummy.isRemoved(), "a sneaking creative hit does not pick the dummy up");
+        helper.assertFalse(level.getEntitiesOfClass(ItemEntity.class, stand.getBoundingBox().inflate(2.0))
+                .stream().anyMatch(e -> e.getItem().is(ModItems.STRAW_ARMOR_STAND)), "a creative straw stand dropped its item");
+        helper.assertFalse(level.getEntitiesOfClass(ItemEntity.class, dummy.getBoundingBox().inflate(2.0))
+                .stream().anyMatch(e -> e.getItem().is(ModItems.TRAINING_DUMMY)), "a creative dummy dropped its item");
+        helper.succeed();
+    }
+
+    /** Commando-Tod ({@code BYPASSES_INVULNERABILITY}) entfernt Puppe und Stroh-Ruestungsstaender. */
+    public static void genericKillRemovesBothStands(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        TrainingDummy stand = spawn(helper, ModEntities.STRAW_ARMOR_STAND, 1, 1, ItemStack.EMPTY);
+        TrainingDummy dummy = dummy(helper, 3, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        helper.assertTrue(dummy.hurtServer(level, level.damageSources().genericKill(), 1000.0F) == false, "genericKill on the dummy");
+        helper.assertTrue(dummy.isRemoved(), "genericKill does not remove the dummy");
+        helper.assertTrue(stand.hurtServer(level, level.damageSources().genericKill(), 1000.0F) == false, "genericKill on the straw stand");
+        helper.assertTrue(stand.isRemoved(), "genericKill does not remove the straw stand");
         helper.succeed();
     }
 }
