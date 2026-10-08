@@ -17,6 +17,7 @@ public final class ModuleNeoTests {
     private static final List<Case> CASES = List.of(
             new Case("module_game_test_box_layouts", ContainerTests::layouts),
             new Case("module_game_test_box_layout_limits", ContainerTests::layoutLimits),
+            new Case("module_game_test_narrow_box_layouts", ContainerTests::narrowLayouts),
             new Case("module_game_test_style_registry", ContainerTests::registry),
             new Case("module_game_test_block_palettes", ContainerTests::palettes),
             new Case("module_game_test_config_defaults", ContainerTests::config));
