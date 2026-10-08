@@ -6,7 +6,7 @@ import com.simplebuilding.modules.simplecontainers.style.ContainerStyles;
 import com.simplebuilding.modules.simplecontainers.style.ScreenStyle;
 import com.simplebuilding.modules.simplecontainers.style.StorageStyles;
 import com.simplebuilding.modules.simplecontainers.style.StyleContext;
-import com.simplebuilding.modules.simplecontainers.style.WorkStyles;
+import com.simplebuilding.modules.simplecontainers.style.StationStyles;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -207,14 +207,14 @@ public final class ContainerTests {
             MenuType.SMITHING, "SmithingScreen", MenuType.MERCHANT, "MerchantScreen");
 
     /** G3: every work menu has exactly one style; the player inventory is found by class; SB's smithing screen by name. */
-    public static void workRegistry(GameTestHelper h) {
+    public static void stationRegistry(GameTestHelper h) {
         G3.forEach((menu, screen) -> {
             int matches = 0;
             for (ScreenStyle style : ContainerStyles.all()) {
                 if (style.menus().contains(menu) && style.screenClass().equals(ScreenStyle.VANILLA + screen)) matches++;
             }
             h.assertValueEqual(matches, 1, "styles for " + menu + " on " + screen);
-            h.assertTrue(WorkStyles.STYLES.contains(ContainerStyles.find(menu, ScreenStyle.VANILLA + screen)), "G3 lookup finds " + screen);
+            h.assertTrue(StationStyles.STYLES.contains(ContainerStyles.find(menu, ScreenStyle.VANILLA + screen)), "G3 lookup finds " + screen);
         });
         var player = ContainerStyles.findMenuless(ScreenStyle.VANILLA + "InventoryScreen");
         h.assertTrue(player != null && player.id().equals("player_inventory"), "player inventory found by its class");
@@ -224,13 +224,13 @@ public final class ContainerTests {
                 "SimpleBuilding's recipe-book smithing screen styled like the Vanilla one");
         h.assertTrue(ContainerStyles.find(MenuType.ANVIL, "com.simplebuilding.client.gui.RecipeBookSmithingScreen") == null,
                 "the alias keeps its menu");
-        for (String id : WorkStyles.RESULT_SLOT.keySet()) h.assertTrue(ContainerStyles.byId(id) != null, "result slot entry for a style: " + id);
-        for (String id : WorkStyles.ELEMENTS.keySet()) h.assertTrue(ContainerStyles.byId(id) != null, "element entry for a style: " + id);
+        for (String id : StationStyles.RESULT_SLOT.keySet()) h.assertTrue(ContainerStyles.byId(id) != null, "result slot entry for a style: " + id);
+        for (String id : StationStyles.ELEMENTS.keySet()) h.assertTrue(ContainerStyles.byId(id) != null, "element entry for a style: " + id);
         h.succeed();
     }
 
     /** G3 colours = the W0-B palette table; the player inventory is the light inventory box. */
-    public static void workPalettes(GameTestHelper h) {
+    public static void stationPalettes(GameTestHelper h) {
         int[][] table = {
                 {0xFF666666, 0xFF8D8D8D, 0xFF535353, 0xFF4F4F4F, 0xFF414141, 0xFFF2EEE8},
                 {0xFF9E9A92, 0xFFC8C3B9, 0xFF817E77, 0xFF7B7871, 0xFF65625D, 0xFF2E3034},
@@ -240,13 +240,13 @@ public final class ContainerTests {
                 {0xFF4B1E19, 0xFF795854, 0xFF3D1814, 0xFF3A1713, 0xFF301310, 0xFFF2EEE8},
                 {0xFF3F8A55, 0xFF70A881, 0xFF337145, 0xFF316B42, 0xFF285836, 0xFFF2EEE8},
                 {0xFFE3E6E9, 0xFFF8F9FA, 0xFFC5CACE, 0xFFB4BABF, 0xFF979DA3, 0xFF404040}};
-        UiPalette[] palettes = {WorkStyles.ANVIL, WorkStyles.GRINDSTONE, WorkStyles.STONECUTTER, WorkStyles.LOOM, WorkStyles.CARTOGRAPHY,
-                WorkStyles.SMITHING, WorkStyles.MERCHANT, WorkStyles.PLAYER};
+        UiPalette[] palettes = {StationStyles.ANVIL, StationStyles.GRINDSTONE, StationStyles.STONECUTTER, StationStyles.LOOM, StationStyles.CARTOGRAPHY,
+                StationStyles.SMITHING, StationStyles.MERCHANT, StationStyles.PLAYER};
         for (int i = 0; i < table.length; i++) {
             int[] t = table[i];
             h.assertValueEqual(palettes[i], new UiPalette(t[0], t[1], t[2], t[3], t[4], t[5]), "G3 palette " + i + " matches the W0-B table");
         }
-        for (ScreenStyle style : WorkStyles.STYLES) {
+        for (ScreenStyle style : StationStyles.STYLES) {
             h.assertTrue(style.palette().apply(new StyleContext(style.menus().isEmpty() ? null : style.menus().get(0), null, null)) != null,
                     "palette for " + style.id());
         }
@@ -263,7 +263,7 @@ public final class ContainerTests {
     }
 
     private static BoxLayout.Layout work(String id, int[][] container, int resultIndex) {
-        List<BoxLayout.Rect> elements = new ArrayList<>(WorkStyles.ELEMENTS.getOrDefault(id, List.of()));
+        List<BoxLayout.Rect> elements = new ArrayList<>(StationStyles.ELEMENTS.getOrDefault(id, List.of()));
         if (resultIndex >= 0) elements.add(new BoxLayout.Rect(container[resultIndex][0] - 4, container[resultIndex][1] - 4, 25, 25));
         return BoxLayout.compute(work(container, new int[0][]), elements, 176, 166, 6);
     }
@@ -272,7 +272,7 @@ public final class ContainerTests {
      * G3 boxes with the Vanilla 26.3 slot positions: anvil, grindstone and stonecutter two boxes (container box 0..77),
      * loom, cartography and smithing table and the player inventory one box with the seam 3 px above the inventory.
      */
-    public static void workLayouts(GameTestHelper h) {
+    public static void stationLayouts(GameTestHelper h) {
         int[][] anvil = {{27, 47}, {76, 47}, {134, 47}}, grindstone = {{49, 19}, {49, 40}, {129, 34}}, stonecutter = {{20, 33}, {143, 33}};
         int[][] loom = {{13, 26}, {33, 26}, {23, 45}, {143, 57}}, carto = {{15, 15}, {15, 52}, {145, 39}};
         int[][] smithing = {{8, 48}, {26, 48}, {44, 48}, {98, 48}};

@@ -9,7 +9,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
  * symbol_progress and the bitmaps ARROW, ARROW_SMALL, PLUS, CROSS, WHEEL, ANVIL_HAMMER, XP, TRADE_ARROW - same pixels).
  * Client only.
  */
-public final class WorkDraw {
+public final class StationDraw {
     /** Progress colour of a symbol (image 4: a white arrow). */
     public static final int PROGRESS = 0xFFFFFFFF;
     /** Vanilla's XP text green and its "cannot" red. */
@@ -61,7 +61,7 @@ public final class WorkDraw {
     public static final Symbol TRADE_ARROW = new Symbol("....#...", "....##..", "#######.", "########", "#######.", "....##..",
             "....#...");
 
-    private WorkDraw() {}
+    private StationDraw() {}
 
     /** A bitmap symbol ({@code '#'} = stroke), parsed once. */
     public static final class Symbol {

@@ -11,7 +11,7 @@ public final class ModuleGameTest {
     @GameTest public void styleRegistry(GameTestHelper h) { ContainerTests.registry(h); }
     @GameTest public void blockPalettes(GameTestHelper h) { ContainerTests.palettes(h); }
     @GameTest public void configDefaults(GameTestHelper h) { ContainerTests.config(h); }
-    @GameTest public void workRegistry(GameTestHelper h) { ContainerTests.workRegistry(h); }
-    @GameTest public void workPalettes(GameTestHelper h) { ContainerTests.workPalettes(h); }
-    @GameTest public void workLayouts(GameTestHelper h) { ContainerTests.workLayouts(h); }
+    @GameTest public void stationRegistry(GameTestHelper h) { ContainerTests.stationRegistry(h); }
+    @GameTest public void stationPalettes(GameTestHelper h) { ContainerTests.stationPalettes(h); }
+    @GameTest public void stationLayouts(GameTestHelper h) { ContainerTests.stationLayouts(h); }
 }

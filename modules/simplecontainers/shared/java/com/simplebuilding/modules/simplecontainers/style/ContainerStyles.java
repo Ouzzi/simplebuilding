@@ -14,7 +14,7 @@ public final class ContainerStyles {
     /** One entry per group, in config order. */
     public static final List<List<ScreenStyle>> GROUPS = List.of(
             StorageStyles.STYLES,
-            WorkStyles.STYLES);
+            StationStyles.STYLES);
 
     private static final List<ScreenStyle> ALL = flatten();
 
@@ -33,7 +33,7 @@ public final class ContainerStyles {
 
     /** The style for menu {@code type} shown by the screen class {@code screenClass}, or {@code null}. */
     public static @Nullable ScreenStyle find(MenuType<?> type, String screenClass) {
-        screenClass = WorkStyles.SUBCLASSES.getOrDefault(screenClass, screenClass);
+        screenClass = StationStyles.SUBCLASSES.getOrDefault(screenClass, screenClass);
         for (ScreenStyle style : ALL) {
             if (style.screenClass().equals(screenClass) && style.menus().contains(type)) return style;
         }

@@ -1,14 +1,14 @@
 package com.simplebuilding.modules.simplecontainers.client;
 
-import static com.simplebuilding.modules.simplecontainers.client.WorkDraw.inset;
-import static com.simplebuilding.modules.simplecontainers.client.WorkDraw.progress;
-import static com.simplebuilding.modules.simplecontainers.client.WorkDraw.symbol;
+import static com.simplebuilding.modules.simplecontainers.client.StationDraw.inset;
+import static com.simplebuilding.modules.simplecontainers.client.StationDraw.progress;
+import static com.simplebuilding.modules.simplecontainers.client.StationDraw.symbol;
 
 import com.simplebuilding.modules.simplecontainers.style.BoxLayout;
 import com.simplebuilding.modules.simplecontainers.style.BoxLayout.Layout;
 import com.simplebuilding.modules.simplecontainers.style.BoxLayout.Rect;
 import com.simplebuilding.modules.simplecontainers.style.ScreenStyle;
-import com.simplebuilding.modules.simplecontainers.style.WorkStyles;
+import com.simplebuilding.modules.simplecontainers.style.StationStyles;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
@@ -35,17 +35,17 @@ import org.jetbrains.annotations.Nullable;
  * screens get one box with the light inventory panel behind a seam. Vanilla sprites that the style replaces (tiles,
  * scrollers, error arrows, XP bar) are switched off by the mixins, which call the small drawing methods here instead.
  */
-public final class WorkScreens {
+public final class StationScreens {
     /** Title at (8, 6), as in the preview. */
     static final int TITLE_Y = 6;
     private static final Component TOO_EXPENSIVE = Component.translatable("container.repair.expensive");
 
-    private WorkScreens() {}
+    private StationScreens() {}
 
     /** The G3 style of {@code screen} if it is on, else {@code null} (then everything stays Vanilla). */
     public static @Nullable ScreenStyle style(AbstractContainerScreen<?> screen) {
         ScreenStyle style = StyledScreens.style(screen);
-        return style != null && WorkStyles.STYLES.contains(style) ? style : null;
+        return style != null && StationStyles.STYLES.contains(style) ? style : null;
     }
 
     /** Whether {@code screen} is drawn in the style (the mixins switch Vanilla sprites off then). */
@@ -64,8 +64,8 @@ public final class WorkScreens {
         for (Slot slot : screen.getMenu().slots) {
             if (slot.isActive()) slots.add(new BoxLayout.Slot(slot.x, slot.y, playerSlot(slot)));
         }
-        List<Rect> elements = new ArrayList<>(WorkStyles.ELEMENTS.getOrDefault(id, List.of()));
-        Integer result = WorkStyles.RESULT_SLOT.get(id);
+        List<Rect> elements = new ArrayList<>(StationStyles.ELEMENTS.getOrDefault(id, List.of()));
+        Integer result = StationStyles.RESULT_SLOT.get(id);
         if (result != null && result < screen.getMenu().slots.size()) {
             Slot s = screen.getMenu().getSlot(result);
             elements.add(new Rect(s.x - 4, s.y - 4, 25, 25));
@@ -93,7 +93,7 @@ public final class WorkScreens {
         for (Slot slot : menu.slots) {
             if (slot.isActive()) UiBoxes.slot(g, left + slot.x, top + slot.y, playerSlot(slot) ? UiPalette.INVENTORY : p);
         }
-        Integer result = WorkStyles.RESULT_SLOT.get(id);
+        Integer result = StationStyles.RESULT_SLOT.get(id);
         if (result != null && result < menu.slots.size()) {
             Slot s = menu.getSlot(result);
             UiBoxes.bigSlot(g, left + s.x, top + s.y, p);
@@ -102,19 +102,19 @@ public final class WorkScreens {
         switch (id) {
             case "anvil" -> {
                 if (menu.getSlot(0).hasItem()) inset(g, l + 59, t + 20, 107, 16, p);
-                else WorkDraw.sunk(g, l + 59, t + 20, 107, 16, p);
-                symbol(g, WorkDraw.ANVIL_HAMMER, l + 47, t + 22, p);
-                symbol(g, WorkDraw.PLUS, l + 54, t + 50, p);
-                progress(g, WorkDraw.ARROW, l + 98, t + 48, p, 0);
+                else StationDraw.sunk(g, l + 59, t + 20, 107, 16, p);
+                symbol(g, StationDraw.ANVIL_HAMMER, l + 47, t + 22, p);
+                symbol(g, StationDraw.PLUS, l + 54, t + 50, p);
+                progress(g, StationDraw.ARROW, l + 98, t + 48, p, 0);
             }
             case "grindstone" -> {
                 int[][] bracket = {{67, 26, 74, 28}, {67, 47, 74, 49}, {72, 26, 74, 49}, {74, 37, 78, 39}};
                 for (int[] r : bracket) g.fill(l + r[0], t + r[1] + 1, l + r[2], t + r[3] + 1, p.light());
                 for (int[] r : bracket) g.fill(l + r[0], t + r[1], l + r[2], t + r[3], p.slot());
-                symbol(g, WorkDraw.WHEEL, l + 79, t + 28, p);
-                progress(g, WorkDraw.ARROW, l + 101, t + 35, p, 0);
+                symbol(g, StationDraw.WHEEL, l + 79, t + 28, p);
+                progress(g, StationDraw.ARROW, l + 101, t + 35, p, 0);
                 if (menu.getSlot(2).hasItem() && (enchanted(menu.getSlot(0).getItem()) || enchanted(menu.getSlot(1).getItem()))) {
-                    symbol(g, WorkDraw.XP, l + 116, t + 60, WorkDraw.XP_GREEN, 0);
+                    symbol(g, StationDraw.XP, l + 116, t + 60, StationDraw.XP_GREEN, 0);
                 }
             }
             case "stonecutter" -> {
@@ -126,12 +126,12 @@ public final class WorkScreens {
                 inset(g, l + 119, t + 13, 12, 56, p);
             }
             case "cartography_table" -> {
-                symbol(g, WorkDraw.PLUS, l + 18, t + 36, p);
-                progress(g, WorkDraw.ARROW_SMALL, l + 41, t + 37, p, 0);
+                symbol(g, StationDraw.PLUS, l + 18, t + 36, p);
+                progress(g, StationDraw.ARROW_SMALL, l + 41, t + 37, p, 0);
                 inset(g, l + 67, t + 13, 66, 66, p);
             }
             case "smithing_table" -> {
-                progress(g, WorkDraw.ARROW, l + 68, t + 49, p, 0);
+                progress(g, StationDraw.ARROW, l + 68, t + 49, p, 0);
                 inset(g, l + 121, t + 8, 48, 68, p);
             }
             case "merchant" -> {
@@ -140,11 +140,11 @@ public final class WorkScreens {
                 inset(g, l + 94, t + 18, 6, 140, p);
                 MerchantMenu merchant = (MerchantMenu) menu;
                 if (merchant.showProgressBar() && merchant.getTraderLevel() < 5) inset(g, l + 136, t + 16, 102, 5, p);
-                progress(g, WorkDraw.ARROW, l + 186, t + 38, p, 0);
+                progress(g, StationDraw.ARROW, l + 186, t + 38, p, 0);
             }
             case "player_inventory" -> {
                 inset(g, l + 26, t + 8, 49, 70, p);
-                progress(g, WorkDraw.ARROW_SMALL, l + 135, t + 29, p, 0);
+                progress(g, StationDraw.ARROW_SMALL, l + 135, t + 29, p, 0);
             }
             default -> { }
         }
@@ -180,39 +180,39 @@ public final class WorkScreens {
             double lift) {
         UiPalette p = palette(screen);
         if (sprite.endsWith("_selected")) {
-            WorkDraw.sunk(g, x, y, w, h, p);
+            StationDraw.sunk(g, x, y, w, h, p);
         } else {
-            WorkDraw.raised(g, x, y, w, h, UiPalette.mix(p.fill(), 0xFFFFFFFF, sprite.endsWith("_highlighted") ? lift + 0.15 : lift));
+            StationDraw.raised(g, x, y, w, h, UiPalette.mix(p.fill(), 0xFFFFFFFF, sprite.endsWith("_highlighted") ? lift + 0.15 : lift));
         }
     }
 
     /** A scroller thumb ({@code w} x {@code h}) replacing Vanilla's sprite; dimmer when the list does not scroll. */
     public static void thumb(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, String sprite, int x, int y, int w, int h) {
         UiPalette p = palette(screen);
-        WorkDraw.raised(g, x, y, w, h, UiPalette.mix(p.fill(), 0xFFFFFFFF, sprite.endsWith("_disabled") ? 0.08 : 0.3));
+        StationDraw.raised(g, x, y, w, h, UiPalette.mix(p.fill(), 0xFFFFFFFF, sprite.endsWith("_disabled") ? 0.08 : 0.3));
     }
 
     /** A trade offer button (88x20) of the villager screen: sunk for the chosen offer, raised otherwise. */
     public static void offer(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int x, int y, int w, int h, boolean chosen,
             boolean hovered) {
         UiPalette p = palette(screen);
-        if (chosen) WorkDraw.sunk(g, x, y, w, h, p);
-        else WorkDraw.raised(g, x, y, w, h, UiPalette.mix(p.fill(), 0xFFFFFFFF, hovered ? 0.24 : 0.12));
+        if (chosen) StationDraw.sunk(g, x, y, w, h, p);
+        else StationDraw.raised(g, x, y, w, h, UiPalette.mix(p.fill(), 0xFFFFFFFF, hovered ? 0.24 : 0.12));
     }
 
     /** The trade arrow (10x9 Vanilla spot) of an offer, engraved; out of stock it is the red cross. */
     public static void tradeArrow(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int x, int y, boolean outOfStock) {
         if (outOfStock) {
-            WorkDraw.error(g, x, y, 10, 9);
+            StationDraw.error(g, x, y, 10, 9);
         } else {
-            symbol(g, WorkDraw.TRADE_ARROW, x + 1, y + 1, palette(screen));
+            symbol(g, StationDraw.TRADE_ARROW, x + 1, y + 1, palette(screen));
         }
     }
 
     /** The trader's XP bar fill ({@code future} = the XP of the offer in the slots) inside the sunk bar at 136, 16. */
     public static void xpFill(GuiGraphicsExtractor g, int leftPos, int x, int y, int w, boolean future) {
         int x0 = Math.max(x, leftPos + 137), x1 = Math.min(x + w, leftPos + 237);
-        if (x1 > x0) g.fill(x0, y + 1, x1, y + 4, future ? UiPalette.mix(WorkDraw.XP_GREEN, 0xFFFFFFFF, 0.55) : WorkDraw.XP_GREEN);
+        if (x1 > x0) g.fill(x0, y + 1, x1, y + 4, future ? UiPalette.mix(StationDraw.XP_GREEN, 0xFFFFFFFF, 0.55) : StationDraw.XP_GREEN);
     }
 
     /**
@@ -222,19 +222,19 @@ public final class WorkScreens {
     public static void anvilCost(AnvilMenu menu, GuiGraphicsExtractor g, Font font, Player player) {
         int cost = menu.getCost();
         if (cost <= 0) return;
-        int color = WorkDraw.XP_GREEN;
+        int color = StationDraw.XP_GREEN;
         Component line;
         if (cost >= 40 && !player.hasInfiniteMaterials()) {
             line = TOO_EXPENSIVE;
-            color = WorkDraw.XP_RED;
+            color = StationDraw.XP_RED;
         } else if (!menu.getSlot(2).hasItem()) {
             return;
         } else {
             line = Component.literal(Integer.toString(cost));
-            if (!menu.getSlot(2).mayPickup(player)) color = WorkDraw.XP_RED;
+            if (!menu.getSlot(2).mayPickup(player)) color = StationDraw.XP_RED;
         }
         int x = Math.min(109, 166 - font.width(line));
-        symbol(g, WorkDraw.XP, x - 9, 39, color, 0);
+        symbol(g, StationDraw.XP, x - 9, 39, color, 0);
         g.text(font, line, x, 39, color, false);
     }
 

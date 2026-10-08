@@ -5,14 +5,14 @@
   "client": [
     "ContainerLabelsMixin",
     "StorageBackgroundMixin",
-    "WorkBackgroundMixin",
-    "AnvilWorkMixin",
-    "SmithingWorkMixin",
-    "GrindstoneWorkMixin",
-    "StonecutterWorkMixin",
-    "LoomWorkMixin",
-    "CartographyWorkMixin",
-    "MerchantWorkMixin",
+    "StationBackgroundMixin",
+    "AnvilStationMixin",
+    "SmithingStationMixin",
+    "GrindstoneStationMixin",
+    "StonecutterStationMixin",
+    "LoomStationMixin",
+    "CartographyStationMixin",
+    "MerchantStationMixin",
     "TradeOfferButtonMixin"
   ],
   "injectors": {

@@ -10,9 +10,9 @@ import net.minecraft.world.inventory.MenuType;
  * the player's own inventory. Fills from the W0-B preview palette table (docs/ai/PLAN-SIMPLECONTAINERS-2026-10-08.md),
  * all other colours from {@link UiPalette#derived}; the player inventory is the light {@link UiPalette#INVENTORY} box.
  * The player inventory menu has no {@link MenuType}: its style has no menus and is found by its screen class alone.
- * Geometry (big result slot, fields, symbols) lives in the client class {@code WorkScreens}.
+ * Geometry (big result slot, fields, symbols) lives in the client class {@code StationScreens}.
  */
-public final class WorkStyles {
+public final class StationStyles {
     public static final UiPalette ANVIL = UiPalette.derived(0xFF666666);
     public static final UiPalette GRINDSTONE = UiPalette.derived(0xFF9E9A92);
     public static final UiPalette STONECUTTER = UiPalette.derived(0xFF857A72);
@@ -57,5 +57,5 @@ public final class WorkStyles {
             "smithing_table", List.of(new BoxLayout.Rect(121, 8, 49, 69)),
             "player_inventory", List.of(new BoxLayout.Rect(26, 8, 50, 71)));
 
-    private WorkStyles() {}
+    private StationStyles() {}
 }

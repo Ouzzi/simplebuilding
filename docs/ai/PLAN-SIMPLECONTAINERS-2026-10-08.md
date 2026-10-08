@@ -159,14 +159,14 @@ Kasten-Fuge (für den generischen Renderer): free = erste Inventar-Slotzeile −
 Screens: Amboss, Schleifstein, Steinsäge, Webstuhl, Kartografietisch, Schmiedetisch (Vanilla + SB-Ersatz), Handel,
 Spieler-Inventar. Basis: claude-sc-base + G1 „narrow box layouts“ (cherry-pick, Varianten NO_SHADOW/SEAM, Elemente).
 Plan:
-1. `style/WorkStyles.java` (Gruppe „work“, Paletten aus der W0-B-Tabelle über `UiPalette.derived`, Spieler = INVENTORY)
+1. `style/StationStyles.java` (Gruppe „work“, Paletten aus der W0-B-Tabelle über `UiPalette.derived`, Spieler = INVENTORY)
    → `ContainerStyles.GROUPS`. Spieler-Inventar hat keinen MenuType: Stil mit leerer Menüliste, Suche nach Klasse
    (`ContainerStyles.findMenuless`), `StyledScreens.style` nutzt sie, wenn `getType()` wirft.
-2. Zeichnen in `client/WorkScreens.java` (eigene Datei, nicht `drawBackground` umbauen): Layout mit Zusatz-Elementen
+2. Zeichnen in `client/StationScreens.java` (eigene Datei, nicht `drawBackground` umbauen): Layout mit Zusatz-Elementen
    (großer Ergebnis-Slot, Namensfeld, Kartenfeld, Rüstungsständer, Spielermodell) über `BoxLayout.compute(slots, elements…)`,
    Kästen über `StyledScreens.drawBoxes`, Slots, `bigSlot`, Symbole/Felder/Kacheln nach `tools/ui/simplecontainers_preview.py`.
    Symbole (Pfeil 22×15, kleiner Pfeil, Plus, Kreuz, Schleifrad, Hammer, XP, Handelspfeil) als Bitmaps in
-   `client/WorkDraw.java` (eingraviert: Strich slot + 1 px light darunter; Fortschritt weiß).
+   `client/StationDraw.java` (eingraviert: Strich slot + 1 px light darunter; Fortschritt weiß).
    Spieler-Slots = `Inventory`-Slots mit Index < 36 (Rüstung/Schild zählen zum Kasten).
 3. Mixins je Screen-Klasse (eigene Dateien, eine Zeile je Klasse in `simplecontainers.mixins.json`): Stil nach dem
    `super.extractBackground`, Vanilla-PNG per `@WrapWithCondition` aus; Vanilla-Sprites, die der Stil ersetzt

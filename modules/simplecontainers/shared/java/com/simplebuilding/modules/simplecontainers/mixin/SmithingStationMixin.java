@@ -2,8 +2,8 @@ package com.simplebuilding.modules.simplecontainers.mixin;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.mojang.renderpearl.api.pipeline.RenderPipeline;
-import com.simplebuilding.modules.simplecontainers.client.WorkDraw;
-import com.simplebuilding.modules.simplecontainers.client.WorkScreens;
+import com.simplebuilding.modules.simplecontainers.client.StationDraw;
+import com.simplebuilding.modules.simplecontainers.client.StationScreens;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
 import net.minecraft.client.gui.screens.inventory.SmithingScreen;
@@ -16,16 +16,16 @@ import org.spongepowered.asm.mixin.injection.At;
 
 /** Smithing table in the Simple style: the error arrow gives way to the red cross over the engraved arrow. */
 @Mixin(SmithingScreen.class)
-public abstract class SmithingWorkMixin extends ItemCombinerScreen<SmithingMenu> {
-    private SmithingWorkMixin(SmithingMenu menu, Inventory inventory, Component title, Identifier texture) {
+public abstract class SmithingStationMixin extends ItemCombinerScreen<SmithingMenu> {
+    private SmithingStationMixin(SmithingMenu menu, Inventory inventory, Component title, Identifier texture) {
         super(menu, inventory, title, texture);
     }
 
     @WrapWithCondition(method = "extractErrorIcon", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
     private boolean simplecontainers$error(GuiGraphicsExtractor graphics, RenderPipeline pipeline, Identifier sprite, int x, int y, int w, int h) {
-        if (!WorkScreens.active(this)) return true;
-        WorkDraw.error(graphics, this.leftPos + 68, this.topPos + 49, WorkDraw.ARROW.width, WorkDraw.ARROW.height);
+        if (!StationScreens.active(this)) return true;
+        StationDraw.error(graphics, this.leftPos + 68, this.topPos + 49, StationDraw.ARROW.width, StationDraw.ARROW.height);
         return false;
     }
 }

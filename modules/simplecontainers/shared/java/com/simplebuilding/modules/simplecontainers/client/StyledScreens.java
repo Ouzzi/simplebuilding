@@ -5,7 +5,7 @@ import com.simplebuilding.modules.simplecontainers.style.BoxLayout.Layout;
 import com.simplebuilding.modules.simplecontainers.style.ContainerStyles;
 import com.simplebuilding.modules.simplecontainers.style.ScreenStyle;
 import com.simplebuilding.modules.simplecontainers.style.StyleContext;
-import com.simplebuilding.modules.simplecontainers.style.WorkStyles;
+import com.simplebuilding.modules.simplecontainers.style.StationStyles;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
@@ -108,7 +108,7 @@ public final class StyledScreens {
         ScreenStyle style = style(screen);
         if (style == null || layout(screen, imageWidth, imageHeight, titleY) == null) return false;
         // G3 screens: the title at (8, 6) as in the W0-B preview (Vanilla moves it for the anvil, smithing table ...).
-        boolean work = WorkStyles.STYLES.contains(style);
+        boolean work = StationStyles.STYLES.contains(style);
         g.text(font, title, work ? 8 : titleX, work ? 6 : titleY, palette(screen, style).label(), false);
         return true;
     }

@@ -2,7 +2,7 @@ package com.simplebuilding.modules.simplecontainers.mixin;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.simplebuilding.modules.simplecontainers.client.OfferChoice;
-import com.simplebuilding.modules.simplecontainers.client.WorkScreens;
+import com.simplebuilding.modules.simplecontainers.client.StationScreens;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -21,10 +21,10 @@ public abstract class TradeOfferButtonMixin {
             target = "Lnet/minecraft/client/gui/components/Button$Plain;extractDefaultSprite(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V"))
     private boolean simplecontainers$offerTile(Button.Plain button, GuiGraphicsExtractor graphics) {
         if (!button.getClass().getName().equals("net.minecraft.client.gui.screens.inventory.MerchantScreen$TradeOfferButton")
-                || !(Minecraft.getInstance().screen instanceof MerchantScreen screen) || !WorkScreens.active(screen)) {
+                || !(Minecraft.getInstance().screen instanceof MerchantScreen screen) || !StationScreens.active(screen)) {
             return true;
         }
-        WorkScreens.offer(screen, graphics, button.getX(), button.getY(), button.getWidth(), button.getHeight(),
+        StationScreens.offer(screen, graphics, button.getX(), button.getY(), button.getWidth(), button.getHeight(),
                 ((OfferChoice) screen).simplecontainers$chosen(button.getY()), button.isHoveredOrFocused());
         return false;
     }

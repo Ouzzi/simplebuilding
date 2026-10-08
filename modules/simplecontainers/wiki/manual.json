@@ -132,17 +132,17 @@
       }
     },
     {
-      "id": "style_work",
+      "id": "style_stations",
       "sources": [
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/WorkScreens.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/WorkDraw.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/WorkBackgroundMixin.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/AnvilWorkMixin.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/MerchantWorkMixin.java"
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StationStyles.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/StationScreens.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/StationDraw.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/StationBackgroundMixin.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/AnvilStationMixin.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/MerchantStationMixin.java"
       ],
       "en": {
-        "title": "Simple style for work screens",
+        "title": "Simple style for anvil, loom & co.",
         "summary": "Anvil, grindstone, stonecutter, loom, cartography table, smithing table, villager trading and your own inventory get the Simple style: a box in the block's colour, the big result slot, engraved symbols (plus, arrow, grinding wheel, XP) instead of Vanilla's pictures, raised tiles for recipes, patterns and offers. Client only.",
         "details": [
           "Anvil, grindstone, stonecutter, loom, cartography table, smithing table, villager trading and your own inventory get the Simple style: a box in the block's colour, the big result slot, engraved symbols (plus, arrow, grinding wheel, XP) instead of Vanilla's pictures, raised tiles for recipes, patterns and offers. Client only.",
@@ -152,7 +152,7 @@
         ]
       },
       "de": {
-        "title": "Simple-Stil für Arbeits-Bildschirme",
+        "title": "Simple-Stil für Amboss, Webstuhl & Co.",
         "summary": "Amboss, Schleifstein, Steinsäge, Webstuhl, Kartografietisch, Schmiedetisch, Handel und dein eigenes Inventar bekommen den Simple-Stil: ein Kasten in der Farbe des Blocks, der große Ergebnis-Slot, eingravierte Symbole (Plus, Pfeil, Schleifrad, XP) statt der Vanilla-Bilder, erhabene Kacheln für Rezepte, Muster und Angebote. Nur clientseitig.",
         "details": [
           "Amboss, Schleifstein, Steinsäge, Webstuhl, Kartografietisch, Schmiedetisch, Handel und dein eigenes Inventar bekommen den Simple-Stil: ein Kasten in der Farbe des Blocks, der große Ergebnis-Slot, eingravierte Symbole (Plus, Pfeil, Schleifrad, XP) statt der Vanilla-Bilder, erhabene Kacheln für Rezepte, Muster und Angebote. Nur clientseitig.",
@@ -166,7 +166,7 @@
       "id": "config_screen_anvil",
       "sources": [
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StationStyles.java"
       ],
       "en": {
         "title": "Anvils",
@@ -187,7 +187,7 @@
       "id": "config_screen_grindstone",
       "sources": [
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StationStyles.java"
       ],
       "en": {
         "title": "Grindstones",
@@ -208,7 +208,7 @@
       "id": "config_screen_stonecutter",
       "sources": [
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StationStyles.java"
       ],
       "en": {
         "title": "Stonecutters",
@@ -229,7 +229,7 @@
       "id": "config_screen_loom",
       "sources": [
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StationStyles.java"
       ],
       "en": {
         "title": "Looms",
@@ -250,7 +250,7 @@
       "id": "config_screen_cartography_table",
       "sources": [
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StationStyles.java"
       ],
       "en": {
         "title": "Cartography tables",
@@ -271,7 +271,7 @@
       "id": "config_screen_smithing_table",
       "sources": [
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StationStyles.java"
       ],
       "en": {
         "title": "Smithing tables",
@@ -292,7 +292,7 @@
       "id": "config_screen_merchant",
       "sources": [
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StationStyles.java"
       ],
       "en": {
         "title": "Villager trading",
@@ -313,7 +313,7 @@
       "id": "config_screen_player_inventory",
       "sources": [
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StationStyles.java"
       ],
       "en": {
         "title": "Player inventory",

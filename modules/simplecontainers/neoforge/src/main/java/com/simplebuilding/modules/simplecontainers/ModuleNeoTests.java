@@ -21,9 +21,9 @@ public final class ModuleNeoTests {
             new Case("module_game_test_style_registry", ContainerTests::registry),
             new Case("module_game_test_block_palettes", ContainerTests::palettes),
             new Case("module_game_test_config_defaults", ContainerTests::config),
-            new Case("module_game_test_work_registry", ContainerTests::workRegistry),
-            new Case("module_game_test_work_palettes", ContainerTests::workPalettes),
-            new Case("module_game_test_work_layouts", ContainerTests::workLayouts));
+            new Case("module_game_test_station_registry", ContainerTests::stationRegistry),
+            new Case("module_game_test_station_palettes", ContainerTests::stationPalettes),
+            new Case("module_game_test_station_layouts", ContainerTests::stationLayouts));
 
     private ModuleNeoTests() {}
 
