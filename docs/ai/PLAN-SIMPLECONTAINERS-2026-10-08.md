@@ -154,3 +154,30 @@ Quelle: `tools/ui/simplecontainers_preview.py` (P / derive), Vorschauen + Entsch
 | `crucible_iron` | Eisen | #9A9DA2 | #C4C7CB | #7E8186 | #7B7E83 | #64676C | #2E3034 | metal |
 
 Kasten-Fuge (für den generischen Renderer): free = erste Inventar-Slotzeile − erste freie Zeile unter dem untersten Container-Element. free ≥ 12 → zwei Kästen, Fuge min(2, free−12), Rest polstert den Container-Kasten; 10–11 → Container-Kasten ohne 2-px-Schatten; < 10 → ein Kasten, Inventarteil als helle Fläche hinter einer Naht (Braustand, Webstuhl, Spieler-Inventar, Rucksack, Leuchtfeuer, Handel). Kein „Inventar“-Label (kein Platz).
+
+## W1 G3 (Arbeit II, Branch `claude-sc-g3`)
+Screens: Amboss, Schleifstein, Steinsäge, Webstuhl, Kartografietisch, Schmiedetisch (Vanilla + SB-Ersatz), Handel,
+Spieler-Inventar. Basis: claude-sc-base + G1 „narrow box layouts“ (cherry-pick, Varianten NO_SHADOW/SEAM, Elemente).
+Plan:
+1. `style/WorkStyles.java` (Gruppe „work“, Paletten aus der W0-B-Tabelle über `UiPalette.derived`, Spieler = INVENTORY)
+   → `ContainerStyles.GROUPS`. Spieler-Inventar hat keinen MenuType: Stil mit leerer Menüliste, Suche nach Klasse
+   (`ContainerStyles.findMenuless`), `StyledScreens.style` nutzt sie, wenn `getType()` wirft.
+2. Zeichnen in `client/WorkScreens.java` (eigene Datei, nicht `drawBackground` umbauen): Layout mit Zusatz-Elementen
+   (großer Ergebnis-Slot, Namensfeld, Kartenfeld, Rüstungsständer, Spielermodell) über `BoxLayout.compute(slots, elements…)`,
+   Kästen über `StyledScreens.drawBoxes`, Slots, `bigSlot`, Symbole/Felder/Kacheln nach `tools/ui/simplecontainers_preview.py`.
+   Symbole (Pfeil 22×15, kleiner Pfeil, Plus, Kreuz, Schleifrad, Hammer, XP, Handelspfeil) als Bitmaps in
+   `client/WorkDraw.java` (eingraviert: Strich slot + 1 px light darunter; Fortschritt weiß).
+   Spieler-Slots = `Inventory`-Slots mit Index < 36 (Rüstung/Schild zählen zum Kasten).
+3. Mixins je Screen-Klasse (eigene Dateien, eine Zeile je Klasse in `simplecontainers.mixins.json`): Stil nach dem
+   `super.extractBackground`, Vanilla-PNG per `@WrapWithCondition` aus; Vanilla-Sprites, die der Stil ersetzt
+   (Namensfeld, Fehlerpfeil → rotes Kreuz, Scrollbalken, Rezept-/Muster-Kacheln, XP-Balken, Handelspfeile), ebenso.
+   Keine HEAD-Cancels, damit fremde Injektionen (simplevisuals Amboss-Label, SB Kartentisch-Vorschau, TrimStatsPanel)
+   weiterlaufen. Amboss-Kosten: Vanilla-Feld/Text aus, eigene Zeile „XP-Symbol + Zahl“ (rot bei zu teuer/unbezahlbar).
+4. Titel immer bei (8, 6) wie in der Vorschau (`StyledScreens.drawLabels`); Handel/Inventar haben eigene Labels.
+5. SB-Ersatz `RecipeBookSmithingScreen` (Unterklasse von SmithingScreen, gleiche Geometrie): optionale Kopplung über
+   den **Klassennamen als String** (`ContainerStyles.LAYOUT_ALIASES`), kein Import, kein `Class.forName`; ohne SB
+   passiert nichts. (Alternative „SB nutzt simplelib selbst“ braucht SB→simplelib-Bündelung + 26.2 – später.)
+6. Lang EN/DE + Wiki-Features je Stil-Id, `check_data.py`; GameTests: Registry deckt G3-Menüs ab, Paletten = Tabelle,
+   Layout-Varianten je G3-Screen (zwei Kästen / Naht); Client-Smoke öffnet alle G3-Screens, Screenshots.
+Risiken: Handel-Kacheln sind Widgets (Button-Sprites) – Mixin auf `MerchantScreen.TradeOfferButton`; Inventar-Rezeptbuch
+verschiebt `leftPos` (Zeichnung folgt `leftPos`). Platzhalter-Sprites leerer Slots zeichnet Vanilla selbst (grau).

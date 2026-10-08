@@ -6,6 +6,7 @@ import com.simplebuilding.modules.simplecontainers.style.ContainerStyles;
 import com.simplebuilding.modules.simplecontainers.style.ScreenStyle;
 import com.simplebuilding.modules.simplecontainers.style.StorageStyles;
 import com.simplebuilding.modules.simplecontainers.style.StyleContext;
+import com.simplebuilding.modules.simplecontainers.style.WorkStyles;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -130,7 +131,8 @@ public final class ContainerTests {
         for (ScreenStyle style : ContainerStyles.all()) {
             h.assertTrue(style.id().matches("[a-z][a-z0-9_]*") && ids.add(style.id()), "unique style id " + style.id());
             h.assertTrue(style.screenClass().startsWith(ScreenStyle.VANILLA), "only Vanilla screens: " + style.screenClass());
-            h.assertTrue(!style.menus().isEmpty() && style.palette() != null, "style " + style.id() + " has menus and colours");
+            h.assertTrue((!style.menus().isEmpty() || style.id().equals("player_inventory")) && style.palette() != null,
+                    "style " + style.id() + " has menus (only the player inventory has none) and colours");
         }
         W0.forEach((menu, screen) -> {
             int matches = 0;
@@ -196,6 +198,101 @@ public final class ContainerTests {
         for (ScreenStyle style : ContainerStyles.all()) h.assertTrue(!copy.isOn(style.id()), "master switch off: " + style.id());
         var broken = new Gson().fromJson("{\"screens\":null}", ContainersConfig.class);
         h.assertTrue(broken.isOn("chest"), "missing map falls back to defaults");
+        h.succeed();
+    }
+
+    /** Menus of the G3 work screens with their exact Vanilla screen classes (the player inventory has no menu type). */
+    static final Map<MenuType<?>, String> G3 = Map.of(MenuType.ANVIL, "AnvilScreen", MenuType.GRINDSTONE, "GrindstoneScreen",
+            MenuType.STONECUTTER, "StonecutterScreen", MenuType.LOOM, "LoomScreen", MenuType.CARTOGRAPHY_TABLE, "CartographyTableScreen",
+            MenuType.SMITHING, "SmithingScreen", MenuType.MERCHANT, "MerchantScreen");
+
+    /** G3: every work menu has exactly one style; the player inventory is found by class; SB's smithing screen by name. */
+    public static void workRegistry(GameTestHelper h) {
+        G3.forEach((menu, screen) -> {
+            int matches = 0;
+            for (ScreenStyle style : ContainerStyles.all()) {
+                if (style.menus().contains(menu) && style.screenClass().equals(ScreenStyle.VANILLA + screen)) matches++;
+            }
+            h.assertValueEqual(matches, 1, "styles for " + menu + " on " + screen);
+            h.assertTrue(WorkStyles.STYLES.contains(ContainerStyles.find(menu, ScreenStyle.VANILLA + screen)), "G3 lookup finds " + screen);
+        });
+        var player = ContainerStyles.findMenuless(ScreenStyle.VANILLA + "InventoryScreen");
+        h.assertTrue(player != null && player.id().equals("player_inventory"), "player inventory found by its class");
+        h.assertTrue(ContainerStyles.findMenuless(ScreenStyle.VANILLA + "ContainerScreen") == null
+                && ContainerStyles.findMenuless("com.example.InventoryScreen") == null, "menu-less lookup only for the exact class");
+        h.assertTrue(ContainerStyles.find(MenuType.SMITHING, "com.simplebuilding.client.gui.RecipeBookSmithingScreen") == ContainerStyles.byId("smithing_table"),
+                "SimpleBuilding's recipe-book smithing screen styled like the Vanilla one");
+        h.assertTrue(ContainerStyles.find(MenuType.ANVIL, "com.simplebuilding.client.gui.RecipeBookSmithingScreen") == null,
+                "the alias keeps its menu");
+        for (String id : WorkStyles.RESULT_SLOT.keySet()) h.assertTrue(ContainerStyles.byId(id) != null, "result slot entry for a style: " + id);
+        for (String id : WorkStyles.ELEMENTS.keySet()) h.assertTrue(ContainerStyles.byId(id) != null, "element entry for a style: " + id);
+        h.succeed();
+    }
+
+    /** G3 colours = the W0-B palette table; the player inventory is the light inventory box. */
+    public static void workPalettes(GameTestHelper h) {
+        int[][] table = {
+                {0xFF666666, 0xFF8D8D8D, 0xFF535353, 0xFF4F4F4F, 0xFF414141, 0xFFF2EEE8},
+                {0xFF9E9A92, 0xFFC8C3B9, 0xFF817E77, 0xFF7B7871, 0xFF65625D, 0xFF2E3034},
+                {0xFF857A72, 0xFFA89A90, 0xFF6D645D, 0xFF675F58, 0xFF554E48, 0xFFF2EEE8},
+                {0xFF9C8262, 0xFFC6A57C, 0xFF7F6A50, 0xFF79654C, 0xFF63533E, 0xFF2E3034},
+                {0xFF6B5A45, 0xFF918475, 0xFF574938, 0xFF534635, 0xFF44392C, 0xFFF2EEE8},
+                {0xFF4B1E19, 0xFF795854, 0xFF3D1814, 0xFF3A1713, 0xFF301310, 0xFFF2EEE8},
+                {0xFF3F8A55, 0xFF70A881, 0xFF337145, 0xFF316B42, 0xFF285836, 0xFFF2EEE8},
+                {0xFFE3E6E9, 0xFFF8F9FA, 0xFFC5CACE, 0xFFB4BABF, 0xFF979DA3, 0xFF404040}};
+        UiPalette[] palettes = {WorkStyles.ANVIL, WorkStyles.GRINDSTONE, WorkStyles.STONECUTTER, WorkStyles.LOOM, WorkStyles.CARTOGRAPHY,
+                WorkStyles.SMITHING, WorkStyles.MERCHANT, WorkStyles.PLAYER};
+        for (int i = 0; i < table.length; i++) {
+            int[] t = table[i];
+            h.assertValueEqual(palettes[i], new UiPalette(t[0], t[1], t[2], t[3], t[4], t[5]), "G3 palette " + i + " matches the W0-B table");
+        }
+        for (ScreenStyle style : WorkStyles.STYLES) {
+            h.assertTrue(style.palette().apply(new StyleContext(style.menus().isEmpty() ? null : style.menus().get(0), null, null)) != null,
+                    "palette for " + style.id());
+        }
+        h.succeed();
+    }
+
+    private static List<BoxLayout.Slot> work(int[][] container, int[][] playerSide) {
+        List<BoxLayout.Slot> slots = new ArrayList<>();
+        for (int[] c : container) slots.add(new BoxLayout.Slot(c[0], c[1], false));
+        for (int[] c : playerSide) slots.add(new BoxLayout.Slot(c[0], c[1], false));
+        for (int r = 0; r < 3; r++) for (int c = 0; c < 9; c++) slots.add(new BoxLayout.Slot(8 + c * 18, 84 + r * 18, true));
+        for (int c = 0; c < 9; c++) slots.add(new BoxLayout.Slot(8 + c * 18, 142, true));
+        return slots;
+    }
+
+    private static BoxLayout.Layout work(String id, int[][] container, int resultIndex) {
+        List<BoxLayout.Rect> elements = new ArrayList<>(WorkStyles.ELEMENTS.getOrDefault(id, List.of()));
+        if (resultIndex >= 0) elements.add(new BoxLayout.Rect(container[resultIndex][0] - 4, container[resultIndex][1] - 4, 25, 25));
+        return BoxLayout.compute(work(container, new int[0][]), elements, 176, 166, 6);
+    }
+
+    /**
+     * G3 boxes with the Vanilla 26.3 slot positions: anvil, grindstone and stonecutter two boxes (container box 0..77),
+     * loom, cartography and smithing table and the player inventory one box with the seam 3 px above the inventory.
+     */
+    public static void workLayouts(GameTestHelper h) {
+        int[][] anvil = {{27, 47}, {76, 47}, {134, 47}}, grindstone = {{49, 19}, {49, 40}, {129, 34}}, stonecutter = {{20, 33}, {143, 33}};
+        int[][] loom = {{13, 26}, {33, 26}, {23, 45}, {143, 57}}, carto = {{15, 15}, {15, 52}, {145, 39}};
+        int[][] smithing = {{8, 48}, {26, 48}, {44, 48}, {98, 48}};
+        int[][] player = {{98, 18}, {116, 18}, {98, 36}, {116, 36}, {154, 28}, {8, 8}, {8, 26}, {8, 44}, {8, 62}, {77, 62}};
+        Map<String, BoxLayout.Layout> two = Map.of("anvil", work("anvil", anvil, 2), "grindstone", work("grindstone", grindstone, 2),
+                "stonecutter", work("stonecutter", stonecutter, 1));
+        two.forEach((id, l) -> {
+            h.assertTrue(l != null && l.variant() == BoxLayout.Variant.TWO_BOXES, id + ": two boxes");
+            rect(h, l.container(), 0, 0, 176, 77, id + " container box");
+            rect(h, l.inventory(), 0, 79, 176, 87, id + " inventory box");
+        });
+        Map<String, BoxLayout.Layout> one = Map.of("loom", work("loom", loom, 3), "cartography_table", work("cartography_table", carto, 2),
+                "smithing_table", work("smithing_table", smithing, 3), "player_inventory", work("player_inventory", player, -1));
+        one.forEach((id, l) -> {
+            h.assertTrue(l != null && l.variant() == BoxLayout.Variant.SEAM, id + ": one box with a seam");
+            rect(h, l.container(), 0, 0, 176, 166, id + " one box over the whole image");
+            rect(h, l.inventory(), 5, 81, 166, 78, id + " inventory panel from the seam");
+        });
+        h.assertTrue(BoxLayout.compute(work(carto, new int[0][]), 176, 166, 6).variant() == BoxLayout.Variant.TWO_BOXES,
+                "without its map field the cartography table would get two boxes (the field counts)");
         h.succeed();
     }
 }

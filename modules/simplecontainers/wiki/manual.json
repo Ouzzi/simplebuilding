@@ -130,6 +130,205 @@
           "Werfer- und Spender-Bildschirm in Bruchsteingrau. Standard: an."
         ]
       }
+    },
+    {
+      "id": "style_work",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/WorkScreens.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/WorkDraw.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/WorkBackgroundMixin.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/AnvilWorkMixin.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/MerchantWorkMixin.java"
+      ],
+      "en": {
+        "title": "Simple style for work screens",
+        "summary": "Anvil, grindstone, stonecutter, loom, cartography table, smithing table, villager trading and your own inventory get the Simple style: a box in the block's colour, the big result slot, engraved symbols (plus, arrow, grinding wheel, XP) instead of Vanilla's pictures, raised tiles for recipes, patterns and offers. Client only.",
+        "details": [
+          "Anvil, grindstone, stonecutter, loom, cartography table, smithing table, villager trading and your own inventory get the Simple style: a box in the block's colour, the big result slot, engraved symbols (plus, arrow, grinding wheel, XP) instead of Vanilla's pictures, raised tiles for recipes, patterns and offers. Client only.",
+          "Screens whose slots leave little room (loom, cartography table, smithing table, trading, inventory) are one box; the inventory part is a light panel behind a seam.",
+          "The anvil shows its cost as an XP symbol with the level count inside the box (red when you cannot pay it or it is too expensive); errors show as a red cross over the arrow.",
+          "SimpleBuilding's smithing screen with recipe book (if installed) gets the same style; it is recognised by its class name only, nothing else is needed."
+        ]
+      },
+      "de": {
+        "title": "Simple-Stil für Arbeits-Bildschirme",
+        "summary": "Amboss, Schleifstein, Steinsäge, Webstuhl, Kartografietisch, Schmiedetisch, Handel und dein eigenes Inventar bekommen den Simple-Stil: ein Kasten in der Farbe des Blocks, der große Ergebnis-Slot, eingravierte Symbole (Plus, Pfeil, Schleifrad, XP) statt der Vanilla-Bilder, erhabene Kacheln für Rezepte, Muster und Angebote. Nur clientseitig.",
+        "details": [
+          "Amboss, Schleifstein, Steinsäge, Webstuhl, Kartografietisch, Schmiedetisch, Handel und dein eigenes Inventar bekommen den Simple-Stil: ein Kasten in der Farbe des Blocks, der große Ergebnis-Slot, eingravierte Symbole (Plus, Pfeil, Schleifrad, XP) statt der Vanilla-Bilder, erhabene Kacheln für Rezepte, Muster und Angebote. Nur clientseitig.",
+          "Bildschirme mit wenig Platz zwischen den Slots (Webstuhl, Kartografietisch, Schmiedetisch, Handel, Inventar) sind ein Kasten; der Inventarteil ist eine helle Fläche hinter einer Naht.",
+          "Der Amboss zeigt seine Kosten als XP-Symbol mit der Stufenzahl im Kasten (rot, wenn du sie nicht zahlen kannst oder es zu teuer ist); Fehler erscheinen als rotes Kreuz über dem Pfeil.",
+          "SimpleBuildings Schmiedebildschirm mit Rezeptbuch (falls installiert) bekommt denselben Stil; er wird nur am Klassennamen erkannt, sonst ist nichts nötig."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_anvil",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Anvils",
+        "summary": "Anvil screen in iron grey: sunk name field, engraved plus and arrow, the XP cost (symbol + levels) inside the box. Default: on.",
+        "details": [
+          "Anvil screen in iron grey: sunk name field, engraved plus and arrow, the XP cost (symbol + levels) inside the box. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Ambosse",
+        "summary": "Amboss-Bildschirm in Eisengrau: eingelassenes Namensfeld, eingraviertes Plus und Pfeil, die XP-Kosten (Symbol + Stufen) im Kasten. Standard: an.",
+        "details": [
+          "Amboss-Bildschirm in Eisengrau: eingelassenes Namensfeld, eingraviertes Plus und Pfeil, die XP-Kosten (Symbol + Stufen) im Kasten. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_grindstone",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Grindstones",
+        "summary": "Grindstone screen in stone grey with an engraved grinding wheel and arrow; an XP symbol shows when enchantments come off. Default: on.",
+        "details": [
+          "Grindstone screen in stone grey with an engraved grinding wheel and arrow; an XP symbol shows when enchantments come off. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Schleifsteine",
+        "summary": "Schleifstein-Bildschirm in Steingrau mit eingraviertem Schleifrad und Pfeil; ein XP-Symbol zeigt, wenn Verzauberungen entfernt werden. Standard: an.",
+        "details": [
+          "Schleifstein-Bildschirm in Steingrau mit eingraviertem Schleifrad und Pfeil; ein XP-Symbol zeigt, wenn Verzauberungen entfernt werden. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_stonecutter",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Stonecutters",
+        "summary": "Stonecutter screen in the block's colour: recipe tiles and scroll bar as raised tiles in a sunk field. Default: on.",
+        "details": [
+          "Stonecutter screen in the block's colour: recipe tiles and scroll bar as raised tiles in a sunk field. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Steinsägen",
+        "summary": "Steinsägen-Bildschirm in der Farbe des Blocks: Rezept-Kacheln und Scrollbalken als erhabene Kacheln in einem eingelassenen Feld. Standard: an.",
+        "details": [
+          "Steinsägen-Bildschirm in der Farbe des Blocks: Rezept-Kacheln und Scrollbalken als erhabene Kacheln in einem eingelassenen Feld. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_loom",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Looms",
+        "summary": "Loom screen in wood brown: pattern tiles and scroll bar as raised tiles, one box with a light inventory part. Default: on.",
+        "details": [
+          "Loom screen in wood brown: pattern tiles and scroll bar as raised tiles, one box with a light inventory part. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Webstühle",
+        "summary": "Webstuhl-Bildschirm in Holzbraun: Muster-Kacheln und Scrollbalken als erhabene Kacheln, ein Kasten mit hellem Inventarteil. Standard: an.",
+        "details": [
+          "Webstuhl-Bildschirm in Holzbraun: Muster-Kacheln und Scrollbalken als erhabene Kacheln, ein Kasten mit hellem Inventarteil. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_cartography_table",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Cartography tables",
+        "summary": "Cartography table screen in dark wood: engraved plus and arrow, sunk map field. Default: on.",
+        "details": [
+          "Cartography table screen in dark wood: engraved plus and arrow, sunk map field. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Kartografietische",
+        "summary": "Kartografietisch-Bildschirm in dunklem Holz: eingraviertes Plus und Pfeil, eingelassenes Kartenfeld. Standard: an.",
+        "details": [
+          "Kartografietisch-Bildschirm in dunklem Holz: eingraviertes Plus und Pfeil, eingelassenes Kartenfeld. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_smithing_table",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Smithing tables",
+        "summary": "Smithing table screen in dark red with an engraved arrow and a sunk armor stand field (also SimpleBuilding's smithing screen with recipe book). Default: on.",
+        "details": [
+          "Smithing table screen in dark red with an engraved arrow and a sunk armor stand field (also SimpleBuilding's smithing screen with recipe book). Default: on."
+        ]
+      },
+      "de": {
+        "title": "Schmiedetische",
+        "summary": "Schmiedetisch-Bildschirm in Dunkelrot mit eingraviertem Pfeil und eingelassenem Rüstungsständer-Feld (auch SimpleBuildings Schmiedebildschirm mit Rezeptbuch). Standard: an.",
+        "details": [
+          "Schmiedetisch-Bildschirm in Dunkelrot mit eingraviertem Pfeil und eingelassenem Rüstungsständer-Feld (auch SimpleBuildings Schmiedebildschirm mit Rezeptbuch). Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_merchant",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Villager trading",
+        "summary": "Trading screen in green: offer list as raised tiles (the chosen offer sunk), engraved trade arrows, sunk XP bar. Default: on.",
+        "details": [
+          "Trading screen in green: offer list as raised tiles (the chosen offer sunk), engraved trade arrows, sunk XP bar. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Handel mit Dorfbewohnern",
+        "summary": "Handels-Bildschirm in Grün: Angebotsliste als erhabene Kacheln (das gewählte Angebot eingelassen), eingravierte Handelspfeile, eingelassener XP-Balken. Standard: an.",
+        "details": [
+          "Handels-Bildschirm in Grün: Angebotsliste als erhabene Kacheln (das gewählte Angebot eingelassen), eingravierte Handelspfeile, eingelassener XP-Balken. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_player_inventory",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Player inventory",
+        "summary": "Your own inventory (E) as one light box: armor and shield slots, sunk field behind your player model, 2x2 crafting with an engraved arrow. Recipe book and other mods' buttons stay. Default: on.",
+        "details": [
+          "Your own inventory (E) as one light box: armor and shield slots, sunk field behind your player model, 2x2 crafting with an engraved arrow. Recipe book and other mods' buttons stay. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Spieler-Inventar",
+        "summary": "Dein eigenes Inventar (E) als ein heller Kasten: Rüstungs- und Schild-Slots, eingelassenes Feld hinter deinem Spielermodell, 2x2-Herstellen mit eingraviertem Pfeil. Rezeptbuch und Knöpfe anderer Mods bleiben. Standard: an.",
+        "details": [
+          "Dein eigenes Inventar (E) als ein heller Kasten: Rüstungs- und Schild-Slots, eingelassenes Feld hinter deinem Spielermodell, 2x2-Herstellen mit eingraviertem Pfeil. Rezeptbuch und Knöpfe anderer Mods bleiben. Standard: an."
+        ]
+      }
     }
   ],
   "notes": {}

@@ -4,7 +4,16 @@
   "compatibilityLevel": "JAVA_25",
   "client": [
     "ContainerLabelsMixin",
-    "StorageBackgroundMixin"
+    "StorageBackgroundMixin",
+    "WorkBackgroundMixin",
+    "AnvilWorkMixin",
+    "SmithingWorkMixin",
+    "GrindstoneWorkMixin",
+    "StonecutterWorkMixin",
+    "LoomWorkMixin",
+    "CartographyWorkMixin",
+    "MerchantWorkMixin",
+    "TradeOfferButtonMixin"
   ],
   "injectors": {
     "defaultRequire": 1

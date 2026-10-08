@@ -20,7 +20,10 @@ public final class ModuleNeoTests {
             new Case("module_game_test_narrow_box_layouts", ContainerTests::narrowLayouts),
             new Case("module_game_test_style_registry", ContainerTests::registry),
             new Case("module_game_test_block_palettes", ContainerTests::palettes),
-            new Case("module_game_test_config_defaults", ContainerTests::config));
+            new Case("module_game_test_config_defaults", ContainerTests::config),
+            new Case("module_game_test_work_registry", ContainerTests::workRegistry),
+            new Case("module_game_test_work_palettes", ContainerTests::workPalettes),
+            new Case("module_game_test_work_layouts", ContainerTests::workLayouts));
 
     private ModuleNeoTests() {}
 

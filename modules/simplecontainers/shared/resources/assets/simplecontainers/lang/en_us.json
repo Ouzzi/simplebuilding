@@ -10,5 +10,21 @@
   "simplecontainers.option.screen.hopper": "Hoppers",
   "simplecontainers.option.screen.hopper.tooltip": "Hopper screen in iron grey. Default: on.",
   "simplecontainers.option.screen.dispenser": "Dispensers and droppers",
-  "simplecontainers.option.screen.dispenser.tooltip": "Dispenser and dropper screen in cobblestone grey. Default: on."
+  "simplecontainers.option.screen.dispenser.tooltip": "Dispenser and dropper screen in cobblestone grey. Default: on.",
+  "simplecontainers.option.screen.anvil": "Anvils",
+  "simplecontainers.option.screen.anvil.tooltip": "Anvil screen in iron grey: sunk name field, engraved plus and arrow, the XP cost (symbol + levels) inside the box. Default: on.",
+  "simplecontainers.option.screen.grindstone": "Grindstones",
+  "simplecontainers.option.screen.grindstone.tooltip": "Grindstone screen in stone grey with an engraved grinding wheel and arrow; an XP symbol shows when enchantments come off. Default: on.",
+  "simplecontainers.option.screen.stonecutter": "Stonecutters",
+  "simplecontainers.option.screen.stonecutter.tooltip": "Stonecutter screen in the block's colour: recipe tiles and scroll bar as raised tiles in a sunk field. Default: on.",
+  "simplecontainers.option.screen.loom": "Looms",
+  "simplecontainers.option.screen.loom.tooltip": "Loom screen in wood brown: pattern tiles and scroll bar as raised tiles, one box with a light inventory part. Default: on.",
+  "simplecontainers.option.screen.cartography_table": "Cartography tables",
+  "simplecontainers.option.screen.cartography_table.tooltip": "Cartography table screen in dark wood: engraved plus and arrow, sunk map field. Default: on.",
+  "simplecontainers.option.screen.smithing_table": "Smithing tables",
+  "simplecontainers.option.screen.smithing_table.tooltip": "Smithing table screen in dark red with an engraved arrow and a sunk armor stand field (also SimpleBuilding's smithing screen with recipe book). Default: on.",
+  "simplecontainers.option.screen.merchant": "Villager trading",
+  "simplecontainers.option.screen.merchant.tooltip": "Trading screen in green: offer list as raised tiles (the chosen offer sunk), engraved trade arrows, sunk XP bar. Default: on.",
+  "simplecontainers.option.screen.player_inventory": "Player inventory",
+  "simplecontainers.option.screen.player_inventory.tooltip": "Your own inventory (E) as one light box: armor and shield slots, sunk field behind your player model, 2x2 crafting with an engraved arrow. Recipe book and other mods' buttons stay. Default: on."
 }

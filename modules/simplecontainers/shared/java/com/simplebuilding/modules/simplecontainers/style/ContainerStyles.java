@@ -13,7 +13,8 @@ import org.jetbrains.annotations.Nullable;
 public final class ContainerStyles {
     /** One entry per group, in config order. */
     public static final List<List<ScreenStyle>> GROUPS = List.of(
-            StorageStyles.STYLES);
+            StorageStyles.STYLES,
+            WorkStyles.STYLES);
 
     private static final List<ScreenStyle> ALL = flatten();
 
@@ -32,8 +33,17 @@ public final class ContainerStyles {
 
     /** The style for menu {@code type} shown by the screen class {@code screenClass}, or {@code null}. */
     public static @Nullable ScreenStyle find(MenuType<?> type, String screenClass) {
+        screenClass = WorkStyles.SUBCLASSES.getOrDefault(screenClass, screenClass);
         for (ScreenStyle style : ALL) {
             if (style.screenClass().equals(screenClass) && style.menus().contains(type)) return style;
+        }
+        return null;
+    }
+
+    /** The style of a screen whose menu has no type (the player inventory), by its exact class, or {@code null}. */
+    public static @Nullable ScreenStyle findMenuless(String screenClass) {
+        for (ScreenStyle style : ALL) {
+            if (style.menus().isEmpty() && style.screenClass().equals(screenClass)) return style;
         }
         return null;
     }

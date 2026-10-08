@@ -5,6 +5,7 @@ import com.simplebuilding.modules.simplecontainers.style.BoxLayout.Layout;
 import com.simplebuilding.modules.simplecontainers.style.ContainerStyles;
 import com.simplebuilding.modules.simplecontainers.style.ScreenStyle;
 import com.simplebuilding.modules.simplecontainers.style.StyleContext;
+import com.simplebuilding.modules.simplecontainers.style.WorkStyles;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -42,7 +44,7 @@ public final class StyledScreens {
         try {
             style = ContainerStyles.find(screen.getMenu().getType(), screen.getClass().getName());
         } catch (UnsupportedOperationException e) {
-            return null; // the player inventory menu has no type
+            style = ContainerStyles.findMenuless(screen.getClass().getName()); // the player inventory menu has no type
         }
         return style != null && ContainersClient.config().isOn(style.id()) ? style : null;
     }
@@ -68,7 +70,13 @@ public final class StyledScreens {
         if (mc.level != null && mc.hitResult instanceof BlockHitResult hit && hit.getType() == HitResult.Type.BLOCK) {
             block = BuiltInRegistries.BLOCK.getKey(mc.level.getBlockState(hit.getBlockPos()).getBlock()).toString();
         }
-        return new StyleContext(screen.getMenu().getType(), key, block);
+        MenuType<?> menu;
+        try {
+            menu = screen.getMenu().getType();
+        } catch (UnsupportedOperationException e) {
+            menu = null; // the player inventory menu has no type
+        }
+        return new StyleContext(menu, key, block);
     }
 
     /**
@@ -99,7 +107,9 @@ public final class StyledScreens {
             int titleX, int titleY, int imageWidth, int imageHeight) {
         ScreenStyle style = style(screen);
         if (style == null || layout(screen, imageWidth, imageHeight, titleY) == null) return false;
-        g.text(font, title, titleX, titleY, palette(screen, style).label(), false);
+        // G3 screens: the title at (8, 6) as in the W0-B preview (Vanilla moves it for the anvil, smithing table ...).
+        boolean work = WorkStyles.STYLES.contains(style);
+        g.text(font, title, work ? 8 : titleX, work ? 6 : titleY, palette(screen, style).label(), false);
         return true;
     }
 
