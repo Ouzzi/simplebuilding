@@ -619,21 +619,22 @@ public final class PlacedTemplateTests {
         ServerLevel level = helper.getLevel();
         for (int x = 0; x < 8; x++) for (int z = 0; z < 8; z++) helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
         use(helper, player, new ItemStack(ModItems.MAGNET), new BlockPos(1, 1, 1), Direction.UP);
-        use(helper, player, new ItemStack(ModItems.MAGNET), new BlockPos(5, 1, 1), Direction.UP);
+        use(helper, player, new ItemStack(ModItems.MAGNET), new BlockPos(7, 1, 1), Direction.UP);
         player.setShiftKeyDown(false);
         PlacedTemplateBlockEntity a = helper.getBlockEntity(new BlockPos(1, 2, 1), PlacedTemplateBlockEntity.class);
-        PlacedTemplateBlockEntity b = helper.getBlockEntity(new BlockPos(5, 2, 1), PlacedTemplateBlockEntity.class);
+        PlacedTemplateBlockEntity b = helper.getBlockEntity(new BlockPos(7, 2, 1), PlacedTemplateBlockEntity.class);
         helper.assertTrue(a.getTemplate().is(ModItems.MAGNET) && b.getTemplate().is(ModItems.MAGNET), "two placed attractors");
         Vec3 ta = PlacedAttractors.target(a), tb = PlacedAttractors.target(b);
-        PlacedAttractors.pull(level, helper.absolutePos(new BlockPos(5, 2, 1)), b); // the second one is active this beat
-        ItemEntity between = new ItemEntity(level, ta.x + 1.5, ta.y, ta.z, new ItemStack(Items.COBBLESTONE), 0, 0, 0);
+        PlacedAttractors.pull(level, helper.absolutePos(new BlockPos(7, 2, 1)), b); // the second one is active this beat
+        // Just outside the dead zone (config dependent), nearer to the first attractor than the centre (3 blocks away).
+        ItemEntity between = new ItemEntity(level, ta.x + com.simplebuilding.items.custom.MagnetItem.minimumDistance() + 0.25, ta.y, ta.z, new ItemStack(Items.COBBLESTONE), 0, 0, 0);
         between.setPickUpDelay(200);
         between.setNoGravity(true);
         level.addFreshEntity(between);
         PlacedAttractors.pull(level, helper.absolutePos(new BlockPos(1, 2, 1)), a);
         Vec3 pulled = between.getDeltaMovement();
         helper.assertTrue(pulled.x > 0, "nearer to the first attractor, the item still heads for the centre between both: " + pulled);
-        PlacedAttractors.pull(level, helper.absolutePos(new BlockPos(5, 2, 1)), b);
+        PlacedAttractors.pull(level, helper.absolutePos(new BlockPos(7, 2, 1)), b);
         helper.assertTrue(between.getDeltaMovement().equals(pulled), "the second attractor does not pull the same item again in this beat");
         between.discard();
 

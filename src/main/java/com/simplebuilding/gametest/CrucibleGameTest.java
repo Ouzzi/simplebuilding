@@ -130,4 +130,14 @@ public final class CrucibleGameTest {
     public void crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking(GameTestHelper helper) {
         CrucibleTests.crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking(helper);
     }
+
+    @GameTest
+    public void aBarrelAttachedToTheEnderiteCrucibleHoldsItsDoubleStacks(GameTestHelper helper) {
+        CrucibleTests.aBarrelAttachedToTheEnderiteCrucibleHoldsItsDoubleStacks(helper);
+    }
+
+    @GameTest
+    public void modBucketsStayInTheHandWhenPouringAndScooping(GameTestHelper helper) {
+        CrucibleTests.modBucketsStayInTheHandWhenPouringAndScooping(helper);
+    }
 }

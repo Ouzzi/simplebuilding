@@ -119,4 +119,9 @@ public final class PlacedTemplateGameTest {
     public void oldPilesLoadUnlitAndTheCandleModelsAreTheVanillaOnes(GameTestHelper helper) {
         PlacedTemplateTests.oldPilesLoadUnlitAndTheCandleModelsAreTheVanillaOnes(helper);
     }
+
+    @GameTest
+    public void severalAttractorsShareOneCentreAndFloatingItemsHover(GameTestHelper helper) {
+        PlacedTemplateTests.severalAttractorsShareOneCentreAndFloatingItemsHover(helper);
+    }
 }
