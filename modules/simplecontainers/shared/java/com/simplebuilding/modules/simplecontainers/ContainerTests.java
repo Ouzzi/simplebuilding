@@ -79,7 +79,7 @@ public final class ContainerTests {
 
     /** No room, no player slots or container slots below them: Vanilla stays. Extra room becomes padding. */
     public static void layoutLimits(GameTestHelper h) {
-        h.assertTrue(BoxLayout.compute(slots(8, 18, 9, 3, 71 + 11), 176, 166, 6) == null, "11 free rows are too few for two frames");
+        h.assertTrue(BoxLayout.compute(slots(8, 18, 9, 3, 71 + 2), 176, 166, 6) == null, "2 free rows are too few even for a seam");
         var touching = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 12), 176, 166, 6);
         h.assertTrue(touching != null && touching.inventory().y() == touching.container().bottom(), "12 free rows: boxes touch");
         var noPlayer = new ArrayList<>(slots(8, 18, 9, 3, 85));
@@ -96,6 +96,39 @@ public final class ContainerTests {
         var single = BoxLayout.compute(playerOnly, 176, 166, 6);
         h.assertTrue(single != null && single.container() == null && single.inventory().y() == 84 - 5 - BoxLayout.MAX_GAP,
                 "player slots only: just the inventory box");
+        h.succeed();
+    }
+
+    /**
+     * The narrow variants of the preview's "Kasten-Fuge" rule: 10-11 free rows give two boxes, the container box without
+     * shadow; 3-9 give one box with the inventory panel behind a seam 3 px above the first inventory row. Extra container
+     * elements (big slot, entity preview) count like slots.
+     */
+    public static void narrowLayouts(GameTestHelper h) {
+        var eleven = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 11), 176, 166, 6);
+        h.assertTrue(eleven != null && eleven.variant() == BoxLayout.Variant.NO_SHADOW, "11 free rows: two boxes, no shadow");
+        rect(h, eleven.container(), 0, 0, 176, 76, "11 free rows: container box 5 px below the slots");
+        rect(h, eleven.inventory(), 0, 77, 176, 166 - 77, "11 free rows: 1 px divider");
+        var ten = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 10), 176, 166, 6);
+        h.assertTrue(ten != null && ten.variant() == BoxLayout.Variant.NO_SHADOW, "10 free rows: two boxes, no shadow");
+        h.assertValueEqual(ten.inventory().y(), ten.container().bottom(), "10 free rows: boxes touch");
+        var nine = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 9), 176, 166, 6);
+        h.assertTrue(nine != null && nine.variant() == BoxLayout.Variant.SEAM, "9 free rows: one box with a seam");
+        rect(h, nine.container(), 0, 0, 176, 164, "one box from the top to below the hotbar (+2 px to the image bottom)");
+        rect(h, nine.inventory(), 5, 80 - BoxLayout.SEAM, 166, 164 - 7 - 77, "seam panel inside the frame, 3 px above the slots");
+        var three = BoxLayout.compute(slots(8, 18, 9, 3, 71 + 3), 176, 166, 6);
+        h.assertTrue(three != null && three.variant() == BoxLayout.Variant.SEAM, "3 free rows: still a seam");
+        var wide = BoxLayout.compute(slots(8, 18, 9, 3, 84), 176, 166, 6);
+        h.assertTrue(wide != null && wide.variant() == BoxLayout.Variant.TWO_BOXES, "14 free rows: two full boxes");
+        // mount screen without chest: saddle and armor slot plus the 52x52 entity preview (+ light edge) at 26,18
+        List<BoxLayout.Slot> mount = new ArrayList<>(slots(8, 18, 1, 2, 84));
+        var bare = BoxLayout.compute(mount, 176, 166, 6);
+        var withPreview = BoxLayout.compute(mount, List.of(new BoxLayout.Rect(26, 18, 53, 53)), 176, 166, 6);
+        h.assertTrue(bare != null && withPreview != null, "mount layouts");
+        h.assertValueEqual(bare.container().bottom(), 77, "slots only: 2 px divider");
+        h.assertValueEqual(withPreview.container().bottom(), 78, "the preview counts: 13 free rows, 1 px divider");
+        var brewing = BoxLayout.compute(slots(8, 18, 1, 1, 84), List.of(new BoxLayout.Rect(56, 50, 20, 25)), 176, 166, 6);
+        h.assertTrue(brewing != null && brewing.variant() == BoxLayout.Variant.SEAM, "an element reaching row 75 leaves 9 rows: seam");
         h.succeed();
     }
 

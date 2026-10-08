@@ -7,6 +7,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
     @GameTest public void boxLayouts(GameTestHelper h) { ContainerTests.layouts(h); }
     @GameTest public void boxLayoutLimits(GameTestHelper h) { ContainerTests.layoutLimits(h); }
+    @GameTest public void narrowBoxLayouts(GameTestHelper h) { ContainerTests.narrowLayouts(h); }
     @GameTest public void styleRegistry(GameTestHelper h) { ContainerTests.registry(h); }
     @GameTest public void blockPalettes(GameTestHelper h) { ContainerTests.palettes(h); }
     @GameTest public void configDefaults(GameTestHelper h) { ContainerTests.config(h); }
