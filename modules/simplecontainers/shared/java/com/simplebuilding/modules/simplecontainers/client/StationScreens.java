@@ -256,7 +256,9 @@ public final class StationScreens {
         if (outOfStock) {
             error(g, x, y, 10, 9);
         } else {
-            UiSymbols.engrave(g, UiSymbols.TRADE_ARROW, x + 1, y + 1, palette(screen));
+            UiPalette p = palette(screen);
+            // in the top-line colour: readable on the raised tiles and on the sunk tile of the chosen offer
+            UiSymbols.engrave(g, UiSymbols.TRADE_ARROW, x + 1, y + 1, p, p.slotTop(), true);
         }
     }
 
