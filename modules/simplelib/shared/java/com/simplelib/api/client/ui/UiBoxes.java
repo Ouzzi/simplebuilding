@@ -27,7 +27,11 @@ public final class UiBoxes {
         /** Standing still because it is too cold. */
         COLD(0xFF4A86DA, 0xFF2C5DB0, 0xFFBFE0FF),
         /** Blocked (no room for the result). */
-        BLOCKED(0xFFC9503E, 0xFF962A1E, 0xFFFF9A80);
+        BLOCKED(0xFFC9503E, 0xFF962A1E, 0xFFFF9A80),
+        /** Blast furnace: brighter, hotter fire (W0-B preview FILL_BLAST). */
+        BLAST(0xFFFFD04A, 0xFFF58A1C, 0xFFFFF6B0),
+        /** Brewing stand: blaze powder level (W0-B preview FILL_BLAZE). */
+        BLAZE(0xFFFFC21E, 0xFFE0700E, 0xFFFFF08A);
 
         public final int body, tongue, base;
 
@@ -255,5 +259,56 @@ public final class UiBoxes {
     public static void progressBar(GuiGraphicsExtractor g, int x, int y, int level, int color) {
         g.fill(x + 16, y, x + 18, y + 16, TRACK);
         if (level > 0) g.fill(x + 16, y + 16 - level, x + 18, y + 16, color);
+    }
+
+    /**
+     * Image 4's fuel slot (W0-B preview {@code fuel_slot}): a slot with dim tongue silhouettes (0.86 x slot) over its
+     * whole height, so it reads as fire even when cold; {@code level} px (of 16) of burn time fill it from below
+     * ({@link #progressFill}). {@code x, y} is the item position.
+     */
+    public static void fuelSlot(GuiGraphicsExtractor g, int x, int y, UiPalette p, int level, ProgressColors colors, long millis) {
+        slot(g, x, y, p);
+        int sil = UiPalette.scale(p.slot(), 0.86);
+        for (int i = 0; i < 3; i++) {
+            int tx = x + 2 + i * 5;
+            for (int k = 0; k < 11; k++) {
+                int dx = ((k + i) & 2) == 0 ? 0 : 1;
+                g.fill(tx + dx, y + 13 - k, tx + dx + 2, y + 14 - k, sil);
+            }
+        }
+        progressFill(g, x, y, level, colors, millis);
+    }
+
+    /**
+     * A sunk field of any size (name bars, option rows, panels; W0-B preview {@code inset}): the slot look with the slot
+     * colour mixed 35 % towards the fill; the light edge lies below and right of {@code w x h}.
+     */
+    public static void inset(GuiGraphicsExtractor g, int x, int y, int w, int h, UiPalette p) {
+        insetColored(g, x, y, w, h, p, UiPalette.mix(p.slot(), p.fill(), 0.35));
+    }
+
+    /** {@link #inset} with its own face colour {@code face} (hovered or disabled rows). */
+    public static void insetColored(GuiGraphicsExtractor g, int x, int y, int w, int h, UiPalette p, int face) {
+        g.fill(x + 1, y + h, x + w, y + h + 1, p.light());
+        g.fill(x + w, y + 1, x + w + 1, y + h, p.light());
+        g.fill(x + 1, y, x + w - 1, y + h, face);
+        g.fill(x, y + 1, x + 1, y + h - 1, UiPalette.scale(p.slotTop(), 1.12));
+        g.fill(x + w - 1, y + 1, x + w, y + h - 1, face);
+        g.fill(x + 1, y, x + w - 1, y + 1, p.slotTop());
+    }
+
+    /** A sunk field {@code w x h} with the plain slot colours (a pressed / selected button). */
+    public static void sunkRect(GuiGraphicsExtractor g, int x, int y, int w, int h, UiPalette p) {
+        insetColored(g, x, y, w, h, p, p.slot());
+    }
+
+    /** A raised button or tile in {@code color} (W0-B preview {@code raised}): light top/left, dark bottom/right. */
+    public static void raised(GuiGraphicsExtractor g, int x, int y, int w, int h, int color) {
+        g.fill(x + 1, y, x + w - 1, y + h, color);
+        g.fill(x, y + 1, x + w, y + h - 1, color);
+        g.fill(x + 1, y, x + w - 1, y + 1, UiPalette.mix(color, 0xFFFFFFFF, 0.35));
+        g.fill(x, y + 1, x + 1, y + h - 1, UiPalette.mix(color, 0xFFFFFFFF, 0.2));
+        g.fill(x + 1, y + h - 1, x + w - 1, y + h, UiPalette.scale(color, 0.62));
+        g.fill(x + w - 1, y + 1, x + w, y + h - 1, UiPalette.scale(color, 0.72));
     }
 }

@@ -182,3 +182,29 @@ Plan (Claude, autonom entschieden):
    (Titel `block.simplebuilding.astral_vault`) als Endertruhe, die drei Astralreihen in Enderit-Violett.
 7. Tests: GameTests (Varianten, Motivtabelle = Palettentabelle, Registry inkl. typloser Menüs), Client-Smoke um Crafter
    und Esel erweitert, Screenshots `/root/previews/simplecontainers/w1-g1/`.
+
+## W1 G2 (Arbeit I, Branch `claude-sc-g2`)
+Screens: Werkbank (`CraftingScreen`), Ofen/Schmelzofen/Räucherofen (`FurnaceScreen`/`BlastFurnaceScreen`/`SmokerScreen`,
+gemeinsam über `AbstractFurnaceScreen`), Braustand (`BrewingStandScreen`), Leuchtfeuer (`BeaconScreen` + Knöpfe),
+Verzauberungstisch (`EnchantmentScreen`). Vorschau: `g2-*.png`, `kontakt-g2.png`.
+
+Plan:
+1. `style/WorkStyles.java` (Gruppe „work“, 7 Stile: crafting, furnace, blast_furnace, smoker, brewing_stand, beacon,
+   enchanting; Füllfarben aus der W0-B-Tabelle über `UiPalette.derived`) → `ContainerStyles.GROUPS`.
+2. simplelib (additiv): `UiSymbols` (eingravierte Symbole wie die Vorschau: Pfeil 22×15, Wärme, Rauch, Pfeil ab 9×26,
+   Haken, Kreuz, Pyramide, Stern; Fortschritt füllt weiß), `UiBoxes.fuelSlot` (Zungen-Silhouetten + Füllung),
+   `UiBoxes.inset`/`raised`, `ProgressColors.BLAST`/`BLAZE`.
+3. `client/WorkScreens.java`: Zeichnung je Screen aus dem Menü-Zustand (Brenn-/Kochfortschritt, Lohenpulver, Brauzeit,
+   Blasen wie Vanilla getaktet, Verzauberungs-Kosten). Kästen über `BoxLayout` aus Slots + Zusatz-Elementen
+   (Verzauberungszeilen, Leuchtfeuer-Knöpfe als Pseudo-Slots), damit die Fuge wie in der Vorschau sitzt.
+4. Mixins je Screen-Klasse (`CraftingBackgroundMixin`, `FurnaceBackgroundMixin`, `BrewingBackgroundMixin`,
+   `BeaconBackgroundMixin` + `BeaconButtonMixin`, `EnchantmentBackgroundMixin`): Vanilla-PNG und Vanilla-Sprites
+   (Flamme, Pfeil, Lohen-Balken, Blasen, Verzauberungsfelder, Leuchtfeuer-Knöpfe) per `@WrapWithCondition` aus,
+   Titel bei (8, 6) wie in der Vorschau. Rezeptbuch-Knopf unverändert (Vanilla-Position, Vanilla-Funktion).
+5. Braustand/Leuchtfeuer: Ein-Kasten-Variante aus G1 (`feat(simplecontainers): narrow box layouts`, cherry-pick).
+6. Lang EN/DE, Wiki-Features `style_work` + `config_screen_<id>`, Tests (Registry/Paletten/Layouts der G2-Geometrien),
+   Client-Smoke um die 7 Screens erweitert, Screenshots nach `/root/previews/simplecontainers/w1-g2/`.
+
+Entscheidungen (Claude): Verzauberungstisch behält das animierte 3D-Buch (echtes Modell wie die Tier-Vorschauen,
+README-Punkt 11) statt des eingravierten Buch-Symbols; Leuchtfeuer: Texte „Primäre/Sekundäre Kraft“ entfallen
+zugunsten von Pyramide/Stern (Symbole statt Text), Tooltips der Knöpfe bleiben.

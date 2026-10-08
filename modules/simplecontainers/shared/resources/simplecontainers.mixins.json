@@ -7,6 +7,13 @@
     "StorageBackgroundMixin",
     "CrafterBackgroundMixin",
     "MountBackgroundMixin",
+    "CraftingBackgroundMixin",
+    "FurnaceBackgroundMixin",
+    "BrewingBackgroundMixin",
+    "BeaconBackgroundMixin",
+    "BeaconButtonMixin",
+    "BeaconIconMixin",
+    "EnchantmentBackgroundMixin",
     "SlotIconMixin"
   ],
   "injectors": {

@@ -6,28 +6,38 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.renderpearl.api.pipeline.RenderPipeline;
 import com.simplebuilding.modules.simplecontainers.client.StyledScreens;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.Slot;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
- * Empty-slot sprites (saddle, horse armor, potion, lapis ...) on styled screens: an engraved silhouette in the slot's
- * top-line colour at 80 % (README W0-B point 5, preview {@code sprite_mask}) instead of Vanilla's grey.
+ * Empty-slot icons (potion, lapis, saddle ...) on styled screens: engraved silhouettes in the slot's top-line colour at
+ * 80 % (W0-B README, point 5) instead of Vanilla's grey; the brewing stand's blaze powder icon is left out (its slot
+ * shows the fuel level). Vanilla screens are untouched ({@link StyledScreens#slotIcon}).
  */
 @Mixin(AbstractContainerScreen.class)
-public abstract class SlotIconMixin {
-    @WrapOperation(method = "extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/inventory/Slot;II)V",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
-    private void simplecontainers$engravedIcon(GuiGraphicsExtractor graphics, RenderPipeline pipeline, Identifier sprite, int x, int y,
-            int width, int height, Operation<Void> original, @Local(argsOnly = true) Slot slot) {
-        int tint = StyledScreens.iconTint((AbstractContainerScreen<?>) (Object) this, slot);
-        if (tint == -1) {
-            original.call(graphics, pipeline, sprite, x, y, width, height);
-        } else {
-            graphics.blitSprite(pipeline, sprite, x, y, width, height, tint);
-        }
+public abstract class SlotIconMixin extends Screen {
+    @Shadow protected int titleLabelY;
+    @Shadow @Final protected int imageWidth;
+    @Shadow @Final protected int imageHeight;
+
+    private SlotIconMixin(Component title) {
+        super(title);
+    }
+
+    @WrapOperation(method = "extractSlot", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
+    private void simplecontainers$slotIcon(GuiGraphicsExtractor graphics, RenderPipeline pipeline, Identifier icon, int x, int y, int w, int h,
+            Operation<Void> original, @Local(argsOnly = true) Slot slot) {
+        int color = StyledScreens.slotIconColor((AbstractContainerScreen<?>) (Object) this, slot, icon, this.imageWidth, this.imageHeight,
+                this.titleLabelY);
+        if (color == -1) original.call(graphics, pipeline, icon, x, y, w, h);
+        else if (color != 0) graphics.blitSprite(pipeline, icon, x, y, w, h, color);
     }
 }
