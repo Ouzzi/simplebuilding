@@ -184,6 +184,17 @@ Plan (Claude, autonom entschieden):
 7. Tests: GameTests (Varianten, Motivtabelle = Palettentabelle, Registry inkl. typloser Menüs), Client-Smoke um Crafter
    und Esel erweitert, Screenshots `/root/previews/simplecontainers/w1-g1/`.
 
+### W1 G1 Umsetzung/Verifikation (2026-10-08)
+- Commits: 681d25c3f narrow box layouts (von G2/G3 gepickt), Crafter/Reittier/Astral, Umbau auf G2-Bausteine
+  (G2 b4076457a/e4d8f4d36/c72362e75/d7c56ae7e + G4 2b479f8a2 gepickt; eigene UiSymbol/UiMotif/SlotIconMixin verworfen).
+- Abweichungen bewusst: Titel aller gestylten Screens bei x = 8 (auch G2-Screens, wie Vorschau); Leer-Slot-Icon-Tönung
+  je Sprite-Grau (Sattel/Rüstung 124, Trank 104, sonst 85; G2 nahm 104 → Sattel unsichtbar); Slots außerhalb des Bildes
+  (Hufeisen-Panel, LinkedPanel) zählen nicht für die Kästen; Reittier-Stil wird am Vanilla-Blit gezeichnet (nach dem
+  Hufeisen-Panel von simpleriding/G4, dessen Lasche unter dem Rahmen liegt); Crafter-Pfeil wird von Motiven gemieden
+  (Vorschau nicht); Astral-Gewölbe-Kopplung über framework 0.1.4 `ContainerStyleHints` + SB-Bridge `ModuleScreenStyles`.
+- Hufeisen-Panel selbst = G4 (geprüft mit G4 513b64ed9/9b8b2412c auf Hilfsbranch `claude-sc-g1-check`: Lasche liegt unter
+  dem Lederkasten, Screenshot /root/previews/simplecontainers/w1-g1/mit-g4-panel/).
+
 ## W1 G2 (Arbeit I, Branch `claude-sc-g2`)
 Screens: Werkbank (`CraftingScreen`), Ofen/Schmelzofen/Räucherofen (`FurnaceScreen`/`BlastFurnaceScreen`/`SmokerScreen`,
 gemeinsam über `AbstractFurnaceScreen`), Braustand (`BrewingStandScreen`), Leuchtfeuer (`BeaconScreen` + Knöpfe),
