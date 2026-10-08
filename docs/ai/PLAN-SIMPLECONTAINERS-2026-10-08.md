@@ -206,3 +206,24 @@ Plan:
 Entscheidungen (Claude): Verzauberungstisch behält das animierte 3D-Buch (echtes Modell wie die Tier-Vorschauen,
 README-Punkt 11) statt des eingravierten Buch-Symbols; Leuchtfeuer: Texte „Primäre/Sekundäre Kraft“ entfallen
 zugunsten von Pyramide/Stern (Symbole statt Text), Tooltips der Knöpfe bleiben.
+
+### W1 G3 Umsetzung + Verifikation (2026-10-08, sb-test)
+Abweichungen vom Plan: Klassen heißen `Station*` (G2 belegt `WorkStyles/WorkScreens`); Zeichnen über G2s simplelib-API
+(cherry-pick b4076457a, e4d8f4d36, c72362e75 als Voraussetzung, d7c56ae7e): `UiBoxes.inset/sunkRect/raised`,
+`UiSymbols` (G3-Bitmaps additiv ergänzt: ARROW_SMALL, PLUS, WHEEL, ANVIL_HAMMER, XP, TRADE_ARROW), `UiMotifs`
+(Motiv/Seed je Screen wie die Vorschau), `StyledScreens.slotIconColor` (auch Webstuhl-Slot-Sprites und die
+wechselnden Schmiedetisch-Icons, `CyclingIconStationMixin`). `StyledScreens`: Spieler-Slots = `Inventory`-Index < 36
+(Rüstung/Schild gehören zum Kasten), Titel der G3-Screens bei (8, 6), menülose Stile über `findMenuless`.
+Abweichungen von der Vorschau: Namensfeld 107 breit (EditBox reicht bis x 165, Vorschau 103); Webstuhl-Musterfeld
+y 12 (Vanilla-Kacheln beginnen bei 13); Kartenfeld 66 hoch, darauf bleibt Vanillas Papier-/Karten-Sprite (zeigt
+Kopieren/Vergrößern/Sperren); Rezeptbuch-Knopf (Inventar, SB-Schmiedetisch) bleibt Vanilla; Fehlerpfeile = rotes Kreuz
+über dem eingravierten Pfeil; Handels-Angebote: gewählt = eingelassen, Pfeil in slotTop.
+- Compile Fabric/NeoForge/Forge(-Pforge263=true) simplecontainers + simplelib Fabric: grün.
+- `run.py --targets module-simplecontainers-{fabric,neoforge,standalone-fabric,standalone-neoforge}-263`:
+  „alles gruen: 44/44 bestanden, 0 rot“ (je 11, inkl. G2-Tests und G3 stationRegistry/stationPalettes/stationLayouts).
+- Client-Smoke `module-simplecontainers-client-263` (xvfb): „alles gruen: 22/22 bestanden, 0 rot“; G3-Screenshots
+  `/root/previews/simplecontainers/w1-g3/` (+ `crop-*` 2-fach). SB-Schmiedebildschirm mit Rezeptbuch erscheint gestylt
+  (Alias greift, SB im Client geladen), TrimStatsPanel und Rezeptbuch-Knopf im Inventar sichtbar.
+- Nicht getestet: NeoForge/Forge-Client-Sicht, echte Blöcke/Dorfbewohner (Smoke öffnet Menüs clientseitig: keine
+  Amboss-Namensübernahme, kein Schmiede-Fehlerkreuz, keine Banner-Vorschau), Klicks auf Kacheln/Scrollbalken, Rezeptbuch
+  geöffnet (verschobenes `leftPos`), simplevisuals-Amboss-Label (dunkler Text auf dunklem Kasten möglich).
