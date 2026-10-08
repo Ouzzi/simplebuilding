@@ -587,6 +587,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_enderite_tiers_have_twenty_seven_slots_and_double_stacks", CrucibleTests::enderiteTiersHaveTwentySevenSlotsAndDoubleStacks)
                     .build(),
+            GameTestSpec.named("crucible_game_test_mod_buckets_stay_in_the_hand_when_pouring_and_scooping", CrucibleTests::modBucketsStayInTheHandWhenPouringAndScooping)
+                    .build(),
             GameTestSpec.named("crucible_game_test_a_barrel_attached_to_the_enderite_crucible_holds_its_double_stacks", CrucibleTests::aBarrelAttachedToTheEnderiteCrucibleHoldsItsDoubleStacks)
                     .build(),
             GameTestSpec.named("crucible_game_test_fire_resistance_only_blocks_soul_burn_damage", CrucibleTests::fireResistanceOnlyBlocksSoulBurnDamage)

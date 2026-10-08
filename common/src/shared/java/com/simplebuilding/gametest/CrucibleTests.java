@@ -22,6 +22,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -617,6 +618,60 @@ public final class CrucibleTests {
         ItemStack fired = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMELTING, input, level).orElseThrow().value().assemble(input);
         helper.assertTrue(fired.is(ModFluids.CERAMIC_BUCKET) && ModBucketItem.ceramicUses(fired) == 0, "raw bucket smelts into the ceramic bucket");
         helper.succeed();
+    }
+
+    /**
+     * Owner N15 (bug): pouring or scooping with a mod bucket through the real item use kept nothing in the hand,
+     * because Vanilla's BucketItem.use consumes the held stack before the wear step. Every kind gives back its own
+     * bucket; ceramic one wear step on, creative unchanged.
+     */
+    public static void modBucketsStayInTheHandWhenPouringAndScooping(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        floor(helper);
+        Item[][] kinds = {
+                {ModFluids.COPPER_BUCKET, ModFluids.COPPER_WATER_BUCKET},
+                {ModFluids.ENDERITE_BUCKET, ModFluids.ENDERITE_WATER_BUCKET},
+                {ModFluids.CERAMIC_BUCKET, ModFluids.CERAMIC_WATER_BUCKET}};
+        int x = 1;
+        for (Item[] kind : kinds) {
+            ModBucketItem.Kind expected = ((ModBucketItem) kind[1]).kind();
+            net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+            Vec3 at = helper.absoluteVec(new Vec3(x + 0.5, 2.0, 3.5));
+            player.snapTo(at.x, at.y, at.z, 0.0F, 90.0F);
+            BlockPos water = helper.absolutePos(new BlockPos(x, 1, 3));
+            ItemStack full = new ItemStack(kind[1]);
+            int usesBefore = ModBucketItem.ceramicUses(full);
+            ItemStack poured = useBucket(level, player, full);
+            helper.assertTrue(level.getFluidState(water).is(net.minecraft.tags.FluidTags.WATER) && level.getFluidState(water).isSource(),
+                    expected + ": pouring made no water source");
+            helper.assertTrue(poured.getItem() instanceof ModBucketItem empty && empty.kind() == expected && !poured.is(kind[1]) && !poured.is(ModBucketItem.filled(expected, Fluids.WATER)),
+                    expected + ": after pouring the hand holds " + poured + " instead of its empty bucket");
+            if (expected == ModBucketItem.Kind.CERAMIC) {
+                helper.assertTrue(ModBucketItem.ceramicUses(poured) == usesBefore + 1, "ceramic: one wear step per pour, uses " + ModBucketItem.ceramicUses(poured));
+            }
+            ItemStack scooped = useBucket(level, player, poured);
+            helper.assertTrue(scooped.getItem() instanceof ModBucketItem filled && filled.kind() == expected && scooped.is(ModBucketItem.filled(expected, Fluids.WATER)),
+                    expected + ": after scooping the hand holds " + scooped + " instead of its water bucket");
+            helper.assertTrue(level.getFluidState(water).isEmpty(), expected + ": scooping left the source");
+            x += 3;
+        }
+        net.minecraft.world.entity.player.Player creative = helper.makeMockPlayer(GameType.CREATIVE);
+        Vec3 at = helper.absoluteVec(new Vec3(1.5, 2.0, 6.5));
+        creative.snapTo(at.x, at.y, at.z, 0.0F, 90.0F);
+        ItemStack kept = useBucket(level, creative, new ItemStack(ModFluids.CERAMIC_WATER_BUCKET));
+        helper.assertTrue(kept.is(ModFluids.CERAMIC_WATER_BUCKET) && ModBucketItem.ceramicUses(kept) == 0, "creative: the bucket stays as it was, got " + kept);
+        helper.succeed();
+    }
+
+    /** Uses {@code stack} like a right click and returns what the hand holds afterwards. */
+    private static ItemStack useBucket(ServerLevel level, net.minecraft.world.entity.player.Player player, ItemStack stack) {
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        InteractionResult result = stack.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        if (result instanceof InteractionResult.Success success && success.heldItemTransformedTo() != null) {
+            player.setItemInHand(InteractionHand.MAIN_HAND, success.heldItemTransformedTo());
+        }
+        return player.getItemInHand(InteractionHand.MAIN_HAND);
     }
 
     /**
