@@ -16,11 +16,11 @@ public final class NeoForgeSearchTabPlacement {
     }
 
     public static void onBuildContents(BuildCreativeModeTabContentsEvent event) {
-        if (!SearchTabPlacement.TABS.contains(event.getTabKey())) {
+        if (!SearchTabPlacement.enabled() || !SearchTabPlacement.TABS.contains(event.getTabKey())) {
             return;
         }
         CreativeModeTab.TabVisibility visibility = CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS;
-        for (SearchTabPlacement.Placement placement : SearchTabPlacement.placements(event.getTabKey())) {
+        for (SearchTabPlacement.Placement placement : SearchTabPlacement.placementsIfEnabled(event.getTabKey())) {
             ItemStack anchor = new ItemStack(placement.anchor());
             if (!event.getParentEntries().contains(anchor) || !event.getSearchEntries().contains(anchor)) {
                 continue;

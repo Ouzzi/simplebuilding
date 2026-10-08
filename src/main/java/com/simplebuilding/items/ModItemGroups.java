@@ -32,7 +32,10 @@ public class ModItemGroups {
         // Suchtab: die Mod-Items zusaetzlich neben ihre Vanilla-Vorbilder in die Vanilla-Tabs (SearchTabPlacement).
         for (ResourceKey<CreativeModeTab> key : SearchTabPlacement.TABS) {
             CreativeModeTabEvents.modifyOutputEvent(key).register(output -> {
-                for (SearchTabPlacement.Placement placement : SearchTabPlacement.placements(key)) {
+                if (!SearchTabPlacement.enabled()) {
+                    return;
+                }
+                for (SearchTabPlacement.Placement placement : SearchTabPlacement.placementsIfEnabled(key)) {
                     List<ItemStack> present = output.getDisplayStacks();
                     if (present.stream().noneMatch(stack -> stack.is(placement.anchor()))) {
                         continue;

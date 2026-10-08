@@ -510,6 +510,8 @@
   "tooltip.simplebuilding.netherite_piston.durability": "Durability: %s/%s",
   "text.autoconfig.simplebuilding.option.showDevEnchantedTab": "Show \"SimpleEnchants (Dev)\" Creative Tab",
   "text.autoconfig.simplebuilding.option.showDevEnchantedTab.@Tooltip": "Shows the creative tab \"SimpleEnchants (Dev)\"\noutside development environments too: the\nbest tier of every enchantable item,\npre-enchanted at max level. Takes effect when\nthe creative tabs are rebuilt (at the latest\nafter rejoining). Default: off.",
+  "text.autoconfig.simplebuilding.option.addItemsToVanillaTabs": "Add Items to Vanilla Creative Tabs",
+  "text.autoconfig.simplebuilding.option.addItemsToVanillaTabs.@Tooltip": "Adds this mod's items next to their Vanilla\ncounterparts in Vanilla creative tabs and the\nsearch tab. Off: Vanilla tabs stay unchanged;\nthe mod's own creative tabs remain available.\nApplies when joining a world. Default: on.",
   "text.autoconfig.simplebuilding.option.vanillaEnchantedBookTextures": "Own Textures for Vanilla Enchanted Books",
   "text.autoconfig.simplebuilding.option.vanillaEnchantedBookTextures.@Tooltip": "Every vanilla enchantment gets its own\nenchanted book texture. Turn it off to see\nthe vanilla book again, e.g. when a resource\npack or another mod retextures the books.\nTakes effect immediately. Default: on.",
   "text.autoconfig.simplebuilding.option.modEnchantedBookTextures": "Own Textures for Mod Enchanted Books",

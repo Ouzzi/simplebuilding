@@ -2418,6 +2418,14 @@ public final class DataIntegrityTests {
                 problems.add(id + " is a creative tab ModItemGroupsContent.Tab does not know");
             }
         }
+        // Registry order (by id), not keySet(): keySet() is a hash set without a defined order.
+        List<Identifier> modTabOrder = BuiltInRegistries.CREATIVE_MODE_TAB.stream()
+                .map(BuiltInRegistries.CREATIVE_MODE_TAB::getKey)
+                .filter(id -> id != null && MOD_ID.equals(id.getNamespace())).toList();
+        Identifier devTab = Identifier.fromNamespaceAndPath(MOD_ID, com.simplebuilding.items.DevEnchantedTab.ID);
+        if (modTabOrder.isEmpty() || !devTab.equals(modTabOrder.getLast())) {
+            problems.add("development creative tab is not last in the SimpleBuilding tab order: " + modTabOrder);
+        }
 
         Map<Item, List<ModItemGroupsContent.Tab>> where = new HashMap<>();
         Map<ModItemGroupsContent.Tab, Integer> books = new LinkedHashMap<>();
@@ -2426,12 +2434,8 @@ public final class DataIntegrityTests {
             books.put(tab, 0);
             ModItemGroupsContent.populate(tab, (CreativeModeTab.Output) (stack, visibility) -> {
                 if (stack.is(ModItems.CREATIVE_SPACER)) {
-                    // Layout-Fueller, kein Angebot: darf mehrfach stehen, aber nie im Suchtab.
                     spacers.merge(tab, 1, Integer::sum);
-                    if (visibility != CreativeModeTab.TabVisibility.PARENT_TAB_ONLY) {
-                        problems.add("a creative_spacer in " + tab + " is visible as " + visibility
-                                + ", so it shows up in the search tab");
-                    }
+                    problems.add("a creative_spacer was emitted in " + tab + " as " + visibility);
                 } else if (stack.is(Items.ENCHANTED_BOOK)) {
                     books.merge(tab, 1, Integer::sum);
                 } else {
@@ -2447,13 +2451,11 @@ public final class DataIntegrityTests {
             }
         }
         // The arrows tab is deliberately empty until fletching is enabled on this line.
-        Set<ModItemGroupsContent.Tab> paddedTabs = java.util.EnumSet.allOf(ModItemGroupsContent.Tab.class);
-        if (!McVersion.FLETCHING) {
-            paddedTabs.remove(ModItemGroupsContent.Tab.ARROWS);
-            helper.assertTrue(ModItemGroupsContent.arrowsRows().isEmpty(), "disabled arrows tab is not empty");
+        if (!spacers.isEmpty()) {
+            problems.add("creative_spacer entries are disabled but were emitted in " + spacers);
         }
-        if (!spacers.keySet().equals(paddedTabs)) {
-            problems.add("creative_spacer fills " + spacers.keySet() + " instead of " + paddedTabs);
+        if (!McVersion.FLETCHING) {
+            helper.assertTrue(ModItemGroupsContent.arrowsRows().isEmpty(), "disabled arrows tab is not empty");
         }
         // Bewusst doppelt (Besitzer 2026-09-28): Kupfer-, Eisen- und Enderit-Kern stehen als Freischalt-Zutat
         // neben Chunk-Loader, Launchpad und Flypad in SimplePads - und bei den Kernen in SimpleMaterials.
@@ -2633,6 +2635,10 @@ public final class DataIntegrityTests {
      * loader then skips the placement), a loader that no longer hooks its tab event, a duplicate.
      */
     public static void everyModItemHasItsPlaceInTheSearchTab(GameTestHelper helper) {
+        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
+        boolean originalVanillaTabOption = config.addItemsToVanillaTabs;
+        config.addItemsToVanillaTabs = true;
+        try {
         List<String> problems = new ArrayList<>();
         List<com.simplebuilding.items.SearchTabPlacement.Placement> placements =
                 com.simplebuilding.items.SearchTabPlacement.placements();
@@ -2768,6 +2774,9 @@ public final class DataIntegrityTests {
         }
         helper.assertTrue(problems.isEmpty(), "search tab placement: " + problems);
         helper.succeed();
+        } finally {
+            config.addItemsToVanillaTabs = originalVanillaTabOption;
+        }
     }
 
     private static int indexOf(List<ItemStack> stacks, ItemStack wanted) {
@@ -3108,53 +3117,26 @@ public final class DataIntegrityTests {
     }
 
     /**
-     * The slots a list of categories (each one {@link CreativeTabLayout.Row}) has to emit under the
-     * flow rule of tweaks P8: between two categories one empty cell when the previous one did not end
-     * exactly at a column edge; only a category that is meant to stay beside its predecessor
-     * ({@link CreativeTabLayout.Row#besides}) may jump back without fitting and then gets the rest of
-     * the row as filler; the last category ends without filler. This is an independent second wording
-     * of the rule in {@link CreativeTabLayout#emit} - a regression back to "pad every row to nine"
-     * fails here, not just in the tab's own code.
+     * The normal layout emits each non-empty category entry in order, without synthetic cells.
      */
     private static List<Item> flowed(List<CreativeTabLayout.Row> rows) {
         List<Item> slots = new ArrayList<>();
-        int column = 0;
-        for (int r = 0; r < rows.size(); r++) {
-            List<ItemStack> stacks = rows.get(r).stacks();
-            column += stacks.size();
-            for (ItemStack stack : stacks) {
-                slots.add(stack.isEmpty() ? Items.AIR : stack.getItem());
-            }
-            if (r == rows.size() - 1) {
-                break;
-            }
-            int remainder = column % CreativeTabLayout.ROW_WIDTH;
-            if (remainder == 0) {
-                continue;
-            }
-            int padding = 1;
-            if (rows.get(r + 1).besidePrevious()
-                    && remainder + 1 + rows.get(r + 1).stacks().size() > CreativeTabLayout.ROW_WIDTH) {
-                padding = CreativeTabLayout.ROW_WIDTH - remainder;
-            }
-            column += padding;
-            for (int i = 0; i < padding; i++) {
-                slots.add(Items.AIR);
+        for (CreativeTabLayout.Row row : rows) {
+            for (ItemStack stack : row.stacks()) {
+                if (!stack.isEmpty()) {
+                    slots.add(stack.getItem());
+                }
             }
         }
         return slots;
     }
 
-    /** What the tab emits, a spacer read as {@code Items.AIR}; a spacer visible in the search tab is a problem. */
+    /** What the tab emits; spacers are forbidden in normal creative tabs. */
     private static List<Item> tabSlots(GameTestHelper helper, ModItemGroupsContent.Tab tab, List<String> problems) {
         List<Item> slots = new ArrayList<>();
         ModItemGroupsContent.populate(tab, (CreativeModeTab.Output) (stack, visibility) -> {
             if (stack.is(ModItems.CREATIVE_SPACER)) {
-                if (visibility != CreativeModeTab.TabVisibility.PARENT_TAB_ONLY) {
-                    problems.add(tab + ": spacer at slot " + slots.size() + " is visible as " + visibility
-                            + ", so it would show up in the search tab");
-                }
-                slots.add(Items.AIR);
+                problems.add(tab + ": creative_spacer was emitted as " + visibility);
             } else {
                 slots.add(stack.getItem());
             }
@@ -3649,6 +3631,20 @@ public final class DataIntegrityTests {
             problems.add("/give suggests simplebuilding:creative_spacer");
         }
         helper.assertTrue(problems.isEmpty(), "creative spacer: " + problems);
+        helper.succeed();
+    }
+
+    /** With the switch off, no loader receives placements that would alter Vanilla tabs. */
+    public static void vanillaTabsStayUnchangedWhenModItemsAreDisabled(GameTestHelper helper) {
+        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
+        boolean original = config.addItemsToVanillaTabs;
+        try {
+            config.addItemsToVanillaTabs = false;
+            helper.assertTrue(com.simplebuilding.items.SearchTabPlacement.placementsIfEnabled().isEmpty(),
+                    "Vanilla-tab placements were enabled while addItemsToVanillaTabs was off");
+        } finally {
+            config.addItemsToVanillaTabs = original;
+        }
         helper.succeed();
     }
 

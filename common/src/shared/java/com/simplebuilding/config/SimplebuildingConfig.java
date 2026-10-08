@@ -181,6 +181,12 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean showDevEnchantedTab = false;
 
+    // Zusaetzliche Vorkommen der Mod-Items in den Vanilla-Tabs und damit im Suchtab.
+    // Aus: Vanilla-Tabs bleiben unveraendert; der eigene Mod-Tab bleibt bestehen. Standard an (bisheriges Verhalten).
+    @ConfigEntry.Category("advanced")
+    @ConfigEntry.Gui.Tooltip
+    public boolean addItemsToVanillaTabs = true;
+
     // =====================================================================================
     // Reiter 8: Server & Modpack Tuning (Besitzer 2026-09-28)
     // =====================================================================================

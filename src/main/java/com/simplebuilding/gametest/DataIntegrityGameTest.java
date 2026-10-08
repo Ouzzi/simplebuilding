@@ -162,6 +162,11 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void vanillaTabsStayUnchangedWhenModItemsAreDisabled(GameTestHelper helper) {
+        DataIntegrityTests.vanillaTabsStayUnchangedWhenModItemsAreDisabled(helper);
+    }
+
+    @GameTest
     public void devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers(GameTestHelper helper) {
         DataIntegrityTests.devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers(helper);
     }

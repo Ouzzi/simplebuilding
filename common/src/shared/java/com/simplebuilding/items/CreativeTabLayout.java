@@ -13,8 +13,9 @@ import java.util.List;
 
 /**
  * Zeilen-Layout fuer einen Kreativ-Tab: eine Kategorie nacheinander, zwischen zwei Kategorien nur
- * eine leere Zelle, wenn die vorige Zeile nicht exakt aufhoerte (Besitzer tweaks P8: statt der
- * Auffuellung auf Spalte 9 fliesst der Inhalt mit einer Trennzelle und bricht um).
+ * eine leere Zelle, wenn die vorige Zeile nicht exakt aufhoerte (Besitzer tweaks P8). Die
+ * Spacer-Ausgabe ist standardmaessig aus, damit die Kategorien wieder ohne kuenstliche Luecken
+ * aufeinanderfolgen; die alte Logik bleibt fuer gezielte Layout-Vorschauen abschaltbar.
  *
  * <p>Das Kreativinventar ist 9 Plaetze breit und fuellt Zeile fuer Zeile. Damit zwischen zwei
  * Kategorien eine leere Zelle sichtbar bleibt, werden Trennzellen als unsichtbare Platzhalter
@@ -43,6 +44,8 @@ import java.util.List;
  * und {@link #emit} aufrufen.
  */
 public final class CreativeTabLayout {
+    /** Spacer layout is retained for previews/tests but disabled for normal creative tabs. */
+    public static final boolean SPACERS_ENABLED = false;
     /** Breite des Kreativinventars in Plaetzen. */
     public static final int ROW_WIDTH = 9;
 
@@ -91,6 +94,16 @@ public final class CreativeTabLayout {
      * Fueller.
      */
     public static void emit(CreativeModeTab.Output entries, List<Row> rows) {
+        if (!SPACERS_ENABLED) {
+            for (Row row : rows) {
+                for (ItemStack stack : row.stacks()) {
+                    if (!stack.isEmpty()) {
+                        entries.accept(stack.copy());
+                    }
+                }
+            }
+            return;
+        }
         int spacers = 0;
         int column = 0;
         for (int r = 0; r < rows.size(); r++) {

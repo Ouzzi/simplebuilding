@@ -659,6 +659,7 @@ public final class ConfigOptionTests {
             "root.hudScale int=100",
             "root.pistonsFireBreakEvents boolean=true",
             "root.showDevEnchantedTab boolean=false",
+            "root.addItemsToVanillaTabs boolean=true",
             "tools.buildingWandHungerCost boolean=true",
             "tools.wandHungerMultiplier double=1.0",
             "tools.magnetRangeMultiplier double=1.0",

@@ -20,8 +20,8 @@ import java.util.function.Supplier;
 /**
  * Inhalt der acht Kreativ-Tabs der Mod ({@link Tab}; "SimpleArrows" ist auf 26.2 leer und damit unsichtbar). Alle sind zeilenweise angelegt ({@link CreativeTabLayout},
  * Besitzer 2026-09-28 "Zeilen-Layout fuer alle Tabs", seit tweaks P8 mit Fliess-Regel): die Kategorien
- * laufen nacheinander weiter, zwischen zwei steht genau eine leere Zelle, wenn die vorige nicht genau
- * an der Spaltenkante aufhoerte - statt der Auffuellung bis Spalte neun. Jeder Loader registriert je {@link Tab} einen Tab mit der
+ * sind weiterhin als Zeilen beschrieben, werden standardmaessig aber ohne kuenstliche Spacer
+ * ausgegeben. Jeder Loader registriert je {@link Tab} einen Tab mit der
  * Id {@code simplebuilding:<id>}, dem Titel {@code itemgroup.simplebuilding.<id>} und
  * {@link #populate(Tab, CreativeModeTab.Output, HolderLookup.Provider)} als Inhalt. Jedes Item der
  * Mod steht in genau einem Tab ({@code DataIntegrityTests#everyModItemIsInExactlyOneCreativeTab}) -

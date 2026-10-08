@@ -53,6 +53,21 @@ public final class SearchTabPlacement {
     private SearchTabPlacement() {
     }
 
+    /** Whether this mod may add its items to Vanilla tabs; enabled by default. */
+    public static boolean enabled() {
+        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
+        return config != null && config.addItemsToVanillaTabs;
+    }
+
+    /** Placements enabled by the current mod config, for loader hooks and pure data tests. */
+    public static List<Placement> placementsIfEnabled() {
+        return enabled() ? placements() : List.of();
+    }
+
+    public static List<Placement> placementsIfEnabled(ResourceKey<CreativeModeTab> tab) {
+        return placementsIfEnabled().stream().filter(p -> p.tab().equals(tab)).toList();
+    }
+
     /**
      * Eine Einfuegung: {@code stacks} in dieser Reihenfolge direkt hinter {@code anchor} (oder, mit
      * {@code before}, direkt davor) im Vanilla-Tab {@code tab}.

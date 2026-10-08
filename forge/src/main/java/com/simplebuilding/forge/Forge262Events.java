@@ -18,10 +18,10 @@ public final class Forge262Events {
     }
 
     private static void onBuildContents(BuildCreativeModeTabContentsEvent event) {
-        if (!SearchTabPlacement.TABS.contains(event.getTabKey())) return;
+        if (!SearchTabPlacement.enabled() || !SearchTabPlacement.TABS.contains(event.getTabKey())) return;
         var entries = event.getEntries();
         var visibility = CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS;
-        for (SearchTabPlacement.Placement placement : SearchTabPlacement.placements(event.getTabKey())) {
+        for (SearchTabPlacement.Placement placement : SearchTabPlacement.placementsIfEnabled(event.getTabKey())) {
             ItemStack anchor = new ItemStack(placement.anchor());
             if (!entries.contains(anchor)) continue;
             ItemStack previous = anchor;
