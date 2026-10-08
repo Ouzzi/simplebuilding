@@ -95,6 +95,8 @@ public class TrainingDummy extends ArmorStand {
 
     public TrainingDummy(EntityType<? extends ArmorStand> type, Level level) {
         super(type, level);
+        // Vanilla startet lastHit bei 0: in den ersten 5 Ticks einer Welt (Forge-Spieltests) braeche schon der erste Schlag den Staender.
+        this.lastHit = -100L;
     }
 
     /** Wie der Ruestungsstaender, nur ohne Rueckstoss: die Puppe bleibt stehen, auch bei Schlag, Bogen-Schlag und Windladung. */
