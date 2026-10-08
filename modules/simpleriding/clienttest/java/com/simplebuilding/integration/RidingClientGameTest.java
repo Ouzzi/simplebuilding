@@ -85,7 +85,11 @@ public final class RidingClientGameTest implements FabricClientGameTest {
    context.runOnClient(client->{try{
     var cls=Class.forName("com.simpleriding.client.RidingConfigScreen");var screen=(Screen)cls.getMethod("create",Screen.class).invoke(null,client.gui.screen());
     var categories=(java.util.Map<?,?>)screen.getClass().getMethod("getCategorizedEntries").invoke(screen);
-    if(categories.size()!=3||categories.values().stream().mapToInt(v->((java.util.List<?>)v).size()).sum()!=18)throw new AssertionError("All server options appear in three config tabs");
+    // Expected counts come from RidingOptions.ALL itself: a hard-coded 3 tabs / 18 entries went stale when the horseshoes tab (7 options) arrived.
+    var options=(java.util.List<?>)Class.forName("com.simpleriding.RidingOptions").getField("ALL").get(null);
+    var tabs=new java.util.HashSet<Object>();for(var option:options)tabs.add(option.getClass().getMethod("tabKey").invoke(option));
+    int shown=categories.values().stream().mapToInt(v->((java.util.List<?>)v).size()).sum();
+    if(categories.size()!=tabs.size()||shown!=options.size())throw new AssertionError("All server options appear in their config tabs: "+categories.size()+" tabs/"+shown+" entries, expected "+tabs.size()+"/"+options.size());
     client.setScreenAndShow(screen);
    }catch(Exception e){throw new AssertionError("Module config screen opens",e);}});
    context.waitTicks(5);
