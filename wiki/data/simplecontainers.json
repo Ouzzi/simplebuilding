@@ -148,6 +148,182 @@
           "Werfer- und Spender-Bildschirm in Bruchsteingrau. Standard: an."
         ]
       }
+    },
+    {
+      "id": "style_work",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/WorkScreens.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/FurnaceBackgroundMixin.java",
+        "modules/simplelib/shared/java/com/simplelib/api/client/ui/UiSymbols.java"
+      ],
+      "en": {
+        "title": "Simple style for workstations",
+        "summary": "Crafting table, furnace, blast furnace, smoker, brewing stand, beacon and enchanting table screens get the Simple style in the block's colour. Client only; the server needs nothing.",
+        "details": [
+          "Crafting table, furnace, blast furnace, smoker, brewing stand, beacon and enchanting table screens get the Simple style in the block's colour. Client only; the server needs nothing.",
+          "Furnaces show their state without the Vanilla flame: the fuel slot fills with flames for the burn time left (brighter in the blast furnace), heat waves (smoke curls in the smoker) glow warm while it burns, and the engraved arrow fills white with the cooking progress. Result slots are big.",
+          "The brewing stand is one box: the blaze powder slot fills with the fuel left, pipes run to the bottles, bubbles rise and the arrow down fills while brewing. Empty bottle and lapis slots show their icon as an engraved silhouette.",
+          "The beacon shows its power fields with a pyramid and a star instead of the labels, raised effect buttons (sunk when selected) and a green check and red cross; the enchanting table shows its three offers as sunk rows with lapis gems for the cost and keeps the animated book. The recipe book button stays where Vanilla puts it."
+        ]
+      },
+      "de": {
+        "title": "Simple-Stil für Arbeitsblöcke",
+        "summary": "Werkbank, Ofen, Schmelzofen, Räucherofen, Braustand, Leuchtfeuer und Zaubertisch bekommen den Simple-Stil in der Farbe des Blocks. Nur clientseitig; der Server braucht nichts.",
+        "details": [
+          "Werkbank, Ofen, Schmelzofen, Räucherofen, Braustand, Leuchtfeuer und Zaubertisch bekommen den Simple-Stil in der Farbe des Blocks. Nur clientseitig; der Server braucht nichts.",
+          "Öfen zeigen ihren Zustand ohne die Vanilla-Flamme: der Brennstoff-Slot füllt sich mit Flammen für die restliche Brenndauer (im Schmelzofen heller), Hitzewellen (beim Räucherofen Rauchkringel) leuchten warm, solange er brennt, und der eingravierte Pfeil füllt sich weiß mit dem Kochfortschritt. Ergebnis-Slots sind groß.",
+          "Der Braustand ist ein Kasten: der Lohenstaub-Slot füllt sich mit dem restlichen Brennstoff, Rohre führen zu den Flaschen, beim Brauen steigen Blasen auf und der Pfeil nach unten füllt sich. Leere Flaschen- und Lapis-Slots zeigen ihr Symbol als eingravierte Silhouette.",
+          "Das Leuchtfeuer zeigt seine Kraftfelder mit Pyramide und Stern statt der Beschriftung, erhabene Effekt-Knöpfe (eingelassen, wenn gewählt) sowie grünen Haken und rotes Kreuz; der Zaubertisch zeigt seine drei Angebote als eingelassene Zeilen mit Lapis-Steinen für die Kosten und behält das animierte Buch. Der Rezeptbuch-Knopf bleibt an der Vanilla-Stelle."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_crafting",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Crafting tables",
+        "summary": "Crafting table screen in light wood with a big result slot and an engraved arrow. The recipe book button stays. Default: on.",
+        "details": [
+          "Crafting table screen in light wood with a big result slot and an engraved arrow. The recipe book button stays. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Werkbänke",
+        "summary": "Werkbank-Bildschirm in hellem Holz mit großem Ergebnis-Slot und eingraviertem Pfeil. Der Rezeptbuch-Knopf bleibt. Standard: an.",
+        "details": [
+          "Werkbank-Bildschirm in hellem Holz mit großem Ergebnis-Slot und eingraviertem Pfeil. Der Rezeptbuch-Knopf bleibt. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_furnace",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Furnaces",
+        "summary": "Furnace screen in stone grey: the fuel slot shows the burn time as flames, heat waves over it, the arrow fills with the cooking progress. Default: on.",
+        "details": [
+          "Furnace screen in stone grey: the fuel slot shows the burn time as flames, heat waves over it, the arrow fills with the cooking progress. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Öfen",
+        "summary": "Ofen-Bildschirm in Steingrau: der Brennstoff-Slot zeigt die Brenndauer als Flammen, darüber Hitzewellen, der Pfeil füllt sich mit dem Kochfortschritt. Standard: an.",
+        "details": [
+          "Ofen-Bildschirm in Steingrau: der Brennstoff-Slot zeigt die Brenndauer als Flammen, darüber Hitzewellen, der Pfeil füllt sich mit dem Kochfortschritt. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_blast_furnace",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Blast furnaces",
+        "summary": "Blast furnace screen in dark iron with brighter flames in the fuel slot. Default: on.",
+        "details": [
+          "Blast furnace screen in dark iron with brighter flames in the fuel slot. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Schmelzöfen",
+        "summary": "Schmelzofen-Bildschirm in dunklem Eisen mit helleren Flammen im Brennstoff-Slot. Standard: an.",
+        "details": [
+          "Schmelzofen-Bildschirm in dunklem Eisen mit helleren Flammen im Brennstoff-Slot. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_smoker",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Smokers",
+        "summary": "Smoker screen in smoked brown with smoke curls over the fuel slot. Default: on.",
+        "details": [
+          "Smoker screen in smoked brown with smoke curls over the fuel slot. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Räucheröfen",
+        "summary": "Räucherofen-Bildschirm in Rauchbraun mit Rauchkringeln über dem Brennstoff-Slot. Standard: an.",
+        "details": [
+          "Räucherofen-Bildschirm in Rauchbraun mit Rauchkringeln über dem Brennstoff-Slot. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_brewing_stand",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Brewing stands",
+        "summary": "Brewing stand screen in one grey box: the blaze powder slot shows the fuel left, pipes lead to the bottles, bubbles rise while brewing. Default: on.",
+        "details": [
+          "Brewing stand screen in one grey box: the blaze powder slot shows the fuel left, pipes lead to the bottles, bubbles rise while brewing. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Braustände",
+        "summary": "Braustand-Bildschirm in einem grauen Kasten: der Lohenstaub-Slot zeigt den restlichen Brennstoff, Rohre führen zu den Flaschen, beim Brauen steigen Blasen auf. Standard: an.",
+        "details": [
+          "Braustand-Bildschirm in einem grauen Kasten: der Lohenstaub-Slot zeigt den restlichen Brennstoff, Rohre führen zu den Flaschen, beim Brauen steigen Blasen auf. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_beacon",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Beacons",
+        "summary": "Beacon screen in glass teal: power fields with pyramid and star symbols, raised effect buttons, check and cross. Default: on.",
+        "details": [
+          "Beacon screen in glass teal: power fields with pyramid and star symbols, raised effect buttons, check and cross. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Leuchtfeuer",
+        "summary": "Leuchtfeuer-Bildschirm in Glas-Türkis: Kraftfelder mit Pyramide und Stern, erhabene Effekt-Knöpfe, Haken und Kreuz. Standard: an.",
+        "details": [
+          "Leuchtfeuer-Bildschirm in Glas-Türkis: Kraftfelder mit Pyramide und Stern, erhabene Effekt-Knöpfe, Haken und Kreuz. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_enchanting",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/WorkStyles.java"
+      ],
+      "en": {
+        "title": "Enchanting tables",
+        "summary": "Enchanting table screen in red: the three offers as sunk rows with lapis gems for their cost. Default: on.",
+        "details": [
+          "Enchanting table screen in red: the three offers as sunk rows with lapis gems for their cost. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Zaubertische",
+        "summary": "Zaubertisch-Bildschirm in Rot: die drei Angebote als eingelassene Zeilen mit Lapis-Steinen für ihre Kosten. Standard: an.",
+        "details": [
+          "Zaubertisch-Bildschirm in Rot: die drei Angebote als eingelassene Zeilen mit Lapis-Steinen für ihre Kosten. Standard: an."
+        ]
+      }
     }
   ],
   "recipes": [],
@@ -171,7 +347,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 6,
+    "features": 14,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

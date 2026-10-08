@@ -220,6 +220,24 @@ Plan:
 Entscheidungen (Claude): Verzauberungstisch behält das animierte 3D-Buch (echtes Modell wie die Tier-Vorschauen,
 README-Punkt 11) statt des eingravierten Buch-Symbols; Leuchtfeuer: Texte „Primäre/Sekundäre Kraft“ entfallen
 zugunsten von Pyramide/Stern (Symbole statt Text), Tooltips der Knöpfe bleiben.
+
+### W1 G2 Umsetzung + Verifikation (2026-10-08, sb-test)
+- Umgesetzt wie geplant; G1-Commit `feat(simplecontainers): narrow box layouts` (681d25c3f) übernommen (cherry-pick).
+  Zusätzlich (gemeinsam nutzbar, simplelib): `UiMotifs` (Port von `motif()` der Vorschau, gleiche Formen/Seeds) und
+  `SlotIconMixin` + `StyledScreens.slotIconColor` (leere Slot-Symbole wie Trank/Lapis als Silhouette in slotTop 80 %,
+  gilt für alle gestylten Screens; Lohenpulver-Symbol des Braustands entfällt, sein Slot zeigt den Füllstand).
+- Compile Fabric/NeoForge/Forge(`-Pforge263=true`) simplecontainers + simplelib + `:integration:compileGametestJava`: grün.
+- `run.py --targets module-simplecontainers-{fabric,neoforge,standalone-fabric,standalone-neoforge}-263,module-simplelib-fabric-263`:
+  „alles gruen: 57/57 bestanden, 0 rot“ (je 8 simplecontainers-Tests inkl. `workLayouts`, `workPalettes`, `narrowBoxLayouts`).
+- Client-Smoke (xvfb) `module-simplecontainers-client-263`: „alles gruen: 14/14 bestanden, 0 rot“; Screenshots
+  `/root/previews/simplecontainers/w1-g2/` (+ `kontakt-w1-g2.png`): Werkbank, Ofen (brennt, halb gar), Schmelzofen,
+  Räucherofen, Braustand (braut), Leuchtfeuer (Stufe 4), Zaubertisch (3 Angebote) – mit der Vorschau verglichen.
+- Abweichungen von der Vorschau: Zaubertisch behält das animierte 3D-Buch (kein eingraviertes Buch); Titel in der
+  Spielsprache (Motiv-Lage hängt an der Titelbreite); Bezahl-Items des Leuchtfeuers an den Vanilla-Positionen
+  (20/41/63/86/108 statt 20+22k); Blasen nur während des Brauens im Vanilla-Takt; deaktivierte/gehoverte Zustände
+  (Knöpfe, Angebotszeilen) eigene Ableitungen (Vorschau zeigt sie nicht).
+- Nicht getestet: Hover-/Klick-Zustände im Bild, Rezeptbuch offen (Knopf unverändert Vanilla), NeoForge-/Forge-Client-Sicht
+  (Mixins nur auf Fabric im Client geladen), echte Blöcke/Server-Menüs (Smoke öffnet Screens clientseitig).
 ## W1 G4 Mod-UIs (Branch `claude-sc-g4`)
 Ziel: Vorschauen `g4-*.png` im Spiel, **ohne** simplecontainers (Entscheidung 4); nur Darstellung, Menüs/Slots/Filter
 unverändert. Ist-Zustand: SB 26.3 bündelt SimpleLib schon (Crucible P5, `CrucibleCompat`); `common/src/shared` muss
