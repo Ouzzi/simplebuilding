@@ -305,6 +305,9 @@ public final class ContainerTests {
         });
         h.assertTrue(BoxLayout.compute(station(carto, new int[0][]), 176, 166, 6).variant() == BoxLayout.Variant.TWO_BOXES,
                 "without its map field the cartography table would get two boxes (the field counts)");
+        h.succeed();
+    }
+
     /** Player inventory at 8/84 plus {@code container} slots (x, y pairs). */
     static List<BoxLayout.Slot> work(int... container) {
         List<BoxLayout.Slot> slots = new ArrayList<>(slots(0, 0, 0, 0, 84));
