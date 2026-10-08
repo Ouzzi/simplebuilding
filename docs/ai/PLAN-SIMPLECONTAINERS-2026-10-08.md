@@ -154,3 +154,97 @@ Quelle: `tools/ui/simplecontainers_preview.py` (P / derive), Vorschauen + Entsch
 | `crucible_iron` | Eisen | #9A9DA2 | #C4C7CB | #7E8186 | #7B7E83 | #64676C | #2E3034 | metal |
 
 Kasten-Fuge (für den generischen Renderer): free = erste Inventar-Slotzeile − erste freie Zeile unter dem untersten Container-Element. free ≥ 12 → zwei Kästen, Fuge min(2, free−12), Rest polstert den Container-Kasten; 10–11 → Container-Kasten ohne 2-px-Schatten; < 10 → ein Kasten, Inventarteil als helle Fläche hinter einer Naht (Braustand, Webstuhl, Spieler-Inventar, Rucksack, Leuchtfeuer, Handel). Kein „Inventar“-Label (kein Platz).
+
+## W1 G1 Lager (Branch `claude-sc-g1`)
+Ist: W0-A zeichnet Truhe/Doppeltruhe/Fass/Endertruhe/Shulker/Trichter/Spender als Kästen + Slots. Abweichungen zur
+Vorschau g1-*.png: keine Motive (Maserung, Funkeln, Schuppen, Nieten, Risse), Spender-Titel zentriert statt (8, 6).
+Crafter und Reittier-Inventar sind Vanilla.
+
+Plan (Claude, autonom entschieden):
+1. `BoxLayout` (eigener Commit „feat(simplecontainers): narrow box layouts“, für G2–G4 zum Cherry-Pick): Varianten
+   `NO_SHADOW` (frei 10–11) und `SEAM` (frei 3–9, Naht 3 px über der ersten Inventarzeile), Zusatz-Elemente
+   (großer Slot, Tiervorschau) zählen wie Slots; `UiBoxes.box(…, shadow)` + `UiBoxes.seam`; GameTests.
+2. Motive/Symbole/Slot-Icons: **G2-Bausteine** (`UiSymbols`, `UiMotifs`, `UiBoxes.inset`, `SlotIconMixin` +
+   `StyledScreens.slotIconColor`; G2-Commits b4076457a, e4d8f4d36, c72362e75, d7c56ae7e per Cherry-Pick übernommen).
+   Eigene Erstfassung (UiSymbol/UiMotif) verworfen; ergänzt nur `UiSymbols.REDSTONE`. Motivwahl für G1 in
+   simplecontainers `BoxMotifs` (Füllfarbe → Art + Vorschau-Seed).
+3. Generisch in `StyledScreens.drawBackground`: Motiv im Container-Kasten (meidet Slots, Elemente, Titel), `Decor` je
+   Screen (Zusatz-Elemente, große Slots, Slot-Farben, eigene Zeichnung). Titel aller gestylten Screens bei x = 8
+   (README: „Titel bleibt bei (8, 6)“; betrifft auch zentrierte Vanilla-Titel wie Spender/Crafter/Ofen).
+4. Crafter (`CrafterScreen`, Palette `crafter`, Motiv redstone): großer Ergebnis-Slot, Redstone-Staub-Symbol (rot bei
+   Strom, sonst eingraviert) bei (86, 22), Pfeil 22×15 bei (103, 36); gesperrte Slots = eingraviertes Kreuz statt
+   Vanilla-Sprite; Vanilla-Redstone-Pfeil entfällt.
+5. Reittier (`HorseInventoryScreen` = Pferd/Esel/Maultier/Lama/Kamel …, `NautilusInventoryScreen`; Menüs ohne
+   MenuType → Stil mit leerer Menüliste, Treffer nur über die exakte Klasse): Leder-Palette `horse` mit Steppnaht,
+   Sattel-/Rüstungs-Slot, Tiervorschau als eingelassenes Feld 52×52 (Tier rendert Vanilla darüber), Truhen-Slots.
+   Hufeisen-Panel (simpleriding) = G4.
+6. Astral-Gewölbe: optionale Kopplung über framework (`ContainerStyleHints`, 0.1.4): simplecontainers meldet „Screen
+   gestylt“, SimpleBuildings `AstralVaultScreenMixin` lässt dann die Tönung aus; simplecontainers zeichnet das Gewölbe
+   (Titel `block.simplebuilding.astral_vault`) als Endertruhe, die drei Astralreihen in Enderit-Violett.
+7. Tests: GameTests (Varianten, Motivtabelle = Palettentabelle, Registry inkl. typloser Menüs), Client-Smoke um Crafter
+   und Esel erweitert, Screenshots `/root/previews/simplecontainers/w1-g1/`.
+
+### W1 G1 Umsetzung/Verifikation (2026-10-08)
+- Commits: 681d25c3f narrow box layouts (von G2/G3 gepickt), Crafter/Reittier/Astral, Umbau auf G2-Bausteine
+  (G2 b4076457a/e4d8f4d36/c72362e75/d7c56ae7e + G4 2b479f8a2 gepickt; eigene UiSymbol/UiMotif/SlotIconMixin verworfen).
+- Abweichungen bewusst: Titel aller gestylten Screens bei x = 8 (auch G2-Screens, wie Vorschau); Leer-Slot-Icon-Tönung
+  je Sprite-Grau (Sattel/Rüstung 124, Trank 104, sonst 85; G2 nahm 104 → Sattel unsichtbar); Slots außerhalb des Bildes
+  (Hufeisen-Panel, LinkedPanel) zählen nicht für die Kästen; Reittier-Stil wird am Vanilla-Blit gezeichnet (nach dem
+  Hufeisen-Panel von simpleriding/G4, dessen Lasche unter dem Rahmen liegt); Crafter-Pfeil wird von Motiven gemieden
+  (Vorschau nicht); Astral-Gewölbe-Kopplung über framework 0.1.4 `ContainerStyleHints` + SB-Bridge `ModuleScreenStyles`.
+- Hufeisen-Panel selbst = G4 (geprüft mit G4 513b64ed9/9b8b2412c auf Hilfsbranch `claude-sc-g1-check`: Lasche liegt unter
+  dem Lederkasten, Screenshot /root/previews/simplecontainers/w1-g1/mit-g4-panel/).
+
+## W1 G2 (Arbeit I, Branch `claude-sc-g2`)
+Screens: Werkbank (`CraftingScreen`), Ofen/Schmelzofen/Räucherofen (`FurnaceScreen`/`BlastFurnaceScreen`/`SmokerScreen`,
+gemeinsam über `AbstractFurnaceScreen`), Braustand (`BrewingStandScreen`), Leuchtfeuer (`BeaconScreen` + Knöpfe),
+Verzauberungstisch (`EnchantmentScreen`). Vorschau: `g2-*.png`, `kontakt-g2.png`.
+
+Plan:
+1. `style/WorkStyles.java` (Gruppe „work“, 7 Stile: crafting, furnace, blast_furnace, smoker, brewing_stand, beacon,
+   enchanting; Füllfarben aus der W0-B-Tabelle über `UiPalette.derived`) → `ContainerStyles.GROUPS`.
+2. simplelib (additiv): `UiSymbols` (eingravierte Symbole wie die Vorschau: Pfeil 22×15, Wärme, Rauch, Pfeil ab 9×26,
+   Haken, Kreuz, Pyramide, Stern; Fortschritt füllt weiß), `UiBoxes.fuelSlot` (Zungen-Silhouetten + Füllung),
+   `UiBoxes.inset`/`raised`, `ProgressColors.BLAST`/`BLAZE`.
+3. `client/WorkScreens.java`: Zeichnung je Screen aus dem Menü-Zustand (Brenn-/Kochfortschritt, Lohenpulver, Brauzeit,
+   Blasen wie Vanilla getaktet, Verzauberungs-Kosten). Kästen über `BoxLayout` aus Slots + Zusatz-Elementen
+   (Verzauberungszeilen, Leuchtfeuer-Knöpfe als Pseudo-Slots), damit die Fuge wie in der Vorschau sitzt.
+4. Mixins je Screen-Klasse (`CraftingBackgroundMixin`, `FurnaceBackgroundMixin`, `BrewingBackgroundMixin`,
+   `BeaconBackgroundMixin` + `BeaconButtonMixin`, `EnchantmentBackgroundMixin`): Vanilla-PNG und Vanilla-Sprites
+   (Flamme, Pfeil, Lohen-Balken, Blasen, Verzauberungsfelder, Leuchtfeuer-Knöpfe) per `@WrapWithCondition` aus,
+   Titel bei (8, 6) wie in der Vorschau. Rezeptbuch-Knopf unverändert (Vanilla-Position, Vanilla-Funktion).
+5. Braustand/Leuchtfeuer: Ein-Kasten-Variante aus G1 (`feat(simplecontainers): narrow box layouts`, cherry-pick).
+6. Lang EN/DE, Wiki-Features `style_work` + `config_screen_<id>`, Tests (Registry/Paletten/Layouts der G2-Geometrien),
+   Client-Smoke um die 7 Screens erweitert, Screenshots nach `/root/previews/simplecontainers/w1-g2/`.
+
+Entscheidungen (Claude): Verzauberungstisch behält das animierte 3D-Buch (echtes Modell wie die Tier-Vorschauen,
+README-Punkt 11) statt des eingravierten Buch-Symbols; Leuchtfeuer: Texte „Primäre/Sekundäre Kraft“ entfallen
+zugunsten von Pyramide/Stern (Symbole statt Text), Tooltips der Knöpfe bleiben.
+## W1 G4 Mod-UIs (Branch `claude-sc-g4`)
+Ziel: Vorschauen `g4-*.png` im Spiel, **ohne** simplecontainers (Entscheidung 4); nur Darstellung, Menüs/Slots/Filter
+unverändert. Ist-Zustand: SB 26.3 bündelt SimpleLib schon (Crucible P5, `CrucibleCompat`); `common/src/shared` muss
+aber auch für 26.2 kompilieren (dort kein SimpleLib). Riding/QoL bündeln SimpleLib noch nicht.
+
+Entscheidungen (Claude):
+1. **SB-Kern über das Overlay-Muster von `CrucibleCompat`:** `client/gui/ModScreenStyle` in `mc26_3/overlay/java`
+   (einziger SimpleLib-Import der Screens) zeichnet den Stil; der 26.2-Zwilling in `common/src/mc26_2/java` liefert
+   `false` → die Screens zeichnen dort wie bisher. Die Screens in `shared` rufen nur `ModScreenStyle.*` auf.
+2. **Bausteine aus SimpleLib (`com.simplelib.api.client.ui`):** die von G2 (`UiSymbols`, `UiMotifs`, `UiBoxes.seam/
+   inset/raised/box(shadow)`; per Cherry-pick übernommen, keine eigenen Varianten). G4 ergänzt nur additiv:
+   `UiPalette` IRON/REINFORCED/NETHERITE/ENDERITE (Tiegel nutzt sie, gleiche Werte) und die Symbole ARROW_SMALL,
+   FUNNEL, STACK, REDSTONE, HORSESHOE aus der Vorschau.
+3. **BoxLayout bleibt in simplecontainers:** Mod-Screens haben feste Geometrie (Kästen wie in der Vorschau direkt
+   berechnet); die „ein Kasten“-Variante ist als Baustein `UiBoxes.seam` in SimpleLib. Kein Umzug nötig.
+4. **Riding/QoL bündeln SimpleLib** (Prinzip 6a, wie Sandwiches): Fabric `include`+`implementation`, NeoForge `jarJar`
+   +`implementation`, Forge `forgeBundleSimplelib`. Folge wie W0-A #6: SimpleLib-Inhalte (Tiegel) kommen mit.
+5. Paletten: Mod-Truhen/-Trichter je Stufe (Verstärkt/Netherit/Enderit), Rucksack Leder (#8E6440; gefärbt: Farbe
+   wie Shulker-Regel, Enderit-Rucksack ENDERITE), Auto-Schmied #4F5560, Befiederung #C5B485, Hufeisen IRON,
+   LinkedPanel Eiche (#CE9148, Truhen-Stil).
+6. Mod-Truhe: „×N Stapel“-Text entfällt → Stapel-Symbol + „xN“ rechts im Titel; Inventar-Kasten 176 breit zentriert.
+   Trichter: Filter-Taste als eigener Button (gleiche Position/Größe/Aktion), erhaben, Trichter eingraviert,
+   Abzeichen aus/genau/Sorte; „Filter“-Text entfällt (Tooltip bleibt). Rucksack: ein Kasten + Naht bei y 81,
+   Rucksack-Reihen/Zusatzspalten auf getöntem Streifen, kein „Handwerk“-Text, Rezeptbuch-Knopf bleibt.
+   Hufeisen-Panel: Lasche x −28, 33 breit, unter dem Reittier-Kasten (Inject nach dem Screen-Hintergrund, vor dem PNG).
+7. Tests: reine Funktionen (Palettenwahl je Stufe, Kasten-Geometrie Mod-Truhe/Rucksack/LinkedPanel innerhalb der
+   Rahmen) als GameTests in SB (`ModScreenStyleGameTest`, Katalog), Riding/QoL-Tests unverändert grün; Client-Smoke
+   mit Screenshots der Mod-Screens.

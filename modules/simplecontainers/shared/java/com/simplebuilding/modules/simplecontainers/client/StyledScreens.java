@@ -1,11 +1,14 @@
 package com.simplebuilding.modules.simplecontainers.client;
 
+import com.simplebuilding.framework.api.ContainerStyleHints;
 import com.simplebuilding.modules.simplecontainers.style.BoxLayout;
+import com.simplebuilding.modules.simplecontainers.style.BoxMotifs;
 import com.simplebuilding.modules.simplecontainers.style.BoxLayout.Layout;
 import com.simplebuilding.modules.simplecontainers.style.ContainerStyles;
 import com.simplebuilding.modules.simplecontainers.style.ScreenStyle;
 import com.simplebuilding.modules.simplecontainers.style.StyleContext;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -33,27 +37,81 @@ import org.jetbrains.annotations.Nullable;
 public final class StyledScreens {
     /** Picked palette per open screen; weak, so closed screens drop out. */
     private static final Map<AbstractContainerScreen<?>, UiPalette> PALETTES = new WeakHashMap<>();
+    /** Extra elements of a screen (set by its background mixin each frame). */
+    private static final Map<AbstractContainerScreen<?>, Decor> DECOR = new WeakHashMap<>();
+    /** Whether the last background of a screen was drawn in the style. */
+    private static final Map<AbstractContainerScreen<?>, Boolean> STYLED = new WeakHashMap<>();
+
+    static {
+        // optional coupling (framework): other mods skip decorations made for the Vanilla look, e.g. SimpleBuilding's
+        // astral vault tint (the style draws the astral rows itself, StorageDecors.astralVault)
+        ContainerStyleHints.register("simplecontainers", screen -> screen instanceof AbstractContainerScreen<?> s && isStyled(s));
+    }
 
     private StyledScreens() {}
 
+    /**
+     * Screen-specific parts of the style beyond boxes and slots (the crafter's redstone, a mount's preview field ...).
+     * Coordinates relative to the screen image.
+     */
+    public interface Decor {
+        Decor NONE = new Decor() {};
+
+        /** Container elements besides the slots (incl. light edges): they count for the box layout, marks avoid them. */
+        default List<BoxLayout.Rect> elements() {
+            return List.of();
+        }
+
+        /** Whether {@code slot} is drawn as the big result slot (24x24, image 4). */
+        default boolean bigSlot(Slot slot) {
+            return false;
+        }
+
+        /** Colours of a container slot ({@code block} = the container box's). */
+        default UiPalette slotPalette(Slot slot, UiPalette block) {
+            return block;
+        }
+
+        /** Draws the elements on the box, after the slots. */
+        default void draw(GuiGraphicsExtractor g, int left, int top, UiPalette block) {}
+    }
+
     /** The style that applies to {@code screen} right now, or {@code null} (Vanilla). */
     public static @Nullable ScreenStyle style(AbstractContainerScreen<?> screen) {
-        ScreenStyle style;
-        try {
-            style = ContainerStyles.find(screen.getMenu().getType(), screen.getClass().getName());
-        } catch (UnsupportedOperationException e) {
-            return null; // the player inventory menu has no type
-        }
+        ScreenStyle style = ContainerStyles.find(menuType(screen), screen.getClass().getName());
         return style != null && ContainersClient.config().isOn(style.id()) ? style : null;
     }
 
-    /** Box layout of {@code screen} from its active slots, or {@code null}. */
+    /** The menu type of {@code screen}, or {@code null} (mount inventories and the player inventory have none). */
+    static @Nullable MenuType<?> menuType(AbstractContainerScreen<?> screen) {
+        try {
+            return screen.getMenu().getType();
+        } catch (UnsupportedOperationException e) {
+            return null;
+        }
+    }
+
+    /** Whether the last frame of {@code screen} drew its background in the style. */
+    public static boolean isStyled(AbstractContainerScreen<?> screen) {
+        return Boolean.TRUE.equals(STYLED.get(screen));
+    }
+
+    /** Box layout of {@code screen} from its active slots (and its decor's elements), or {@code null}. */
     public static @Nullable Layout layout(AbstractContainerScreen<?> screen, int imageWidth, int imageHeight, int titleY) {
         List<BoxLayout.Slot> slots = new ArrayList<>();
         for (Slot slot : screen.getMenu().slots) {
-            if (slot.isActive()) slots.add(new BoxLayout.Slot(slot.x, slot.y, slot.container instanceof Inventory));
+            if (inImage(slot, imageWidth)) slots.add(new BoxLayout.Slot(slot.x, slot.y, slot.container instanceof Inventory));
         }
-        return BoxLayout.compute(slots, imageWidth, imageHeight, titleY);
+        return BoxLayout.compute(slots, DECOR.getOrDefault(screen, Decor.NONE).elements(), imageWidth, imageHeight, titleY);
+    }
+
+    /**
+     * Whether {@code slot} is active and inside the screen image horizontally. Slots outside belong to side panels
+     * other mods attach (simpleriding's hoof panel at x -20, linked panels): they keep their own look and do not count
+     * for the boxes.
+     */
+    public static boolean inImage(Slot slot, int imageWidth) {
+        return slot.isActive() && slot.x >= 0 && slot.x + 16 <= imageWidth;
     }
 
     /** The container box colours of {@code screen} (picked on first use). */
@@ -68,7 +126,7 @@ public final class StyledScreens {
         if (mc.level != null && mc.hitResult instanceof BlockHitResult hit && hit.getType() == HitResult.Type.BLOCK) {
             block = BuiltInRegistries.BLOCK.getKey(mc.level.getBlockState(hit.getBlockPos()).getBlock()).toString();
         }
-        return new StyleContext(screen.getMenu().getType(), key, block);
+        return new StyleContext(menuType(screen), key, block);
     }
 
     /**
@@ -77,19 +135,63 @@ public final class StyledScreens {
      */
     public static boolean drawBackground(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top,
             int imageWidth, int imageHeight, int titleY) {
+        return drawBackground(screen, g, left, top, imageWidth, imageHeight, titleY, Decor.NONE);
+    }
+
+    /** {@link #drawBackground(AbstractContainerScreen, GuiGraphicsExtractor, int, int, int, int, int)} with screen-specific elements. */
+    public static boolean drawBackground(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top,
+            int imageWidth, int imageHeight, int titleY, Decor decor) {
+        DECOR.put(screen, decor);
         ScreenStyle style = style(screen);
-        if (style == null) return false;
-        Layout layout = layout(screen, imageWidth, imageHeight, titleY);
+        Layout layout = style == null ? null : layout(screen, imageWidth, imageHeight, titleY);
+        STYLED.put(screen, layout != null);
         if (layout == null) return false;
         UiPalette block = palette(screen, style);
-        if (layout.container() != null) box(g, left, top, layout.container(), block);
-        box(g, left, top, layout.inventory(), UiPalette.INVENTORY);
+        drawBoxes(g, left, top, layout, block);
+        if (layout.container() != null) motif(screen, g, left, top, layout, block, decor, titleY);
         for (Slot slot : screen.getMenu().slots) {
-            if (!slot.isActive()) continue;
-            UiBoxes.slot(g, left + slot.x, top + slot.y, slot.container instanceof Inventory ? UiPalette.INVENTORY : block);
+            if (!inImage(slot, imageWidth)) continue;
+            UiPalette p = slot.container instanceof Inventory ? UiPalette.INVENTORY : decor.slotPalette(slot, block);
+            if (decor.bigSlot(slot)) {
+                UiBoxes.bigSlot(g, left + slot.x, top + slot.y, p);
+            } else {
+                UiBoxes.slot(g, left + slot.x, top + slot.y, p);
+            }
         }
+        decor.draw(g, left, top, block);
         return true;
     }
+
+    /** Title x in a styled screen (image coordinates): the preview draws every title at (8, 6) (README W0-B). */
+    public static final int TITLE_X = 8;
+
+    /**
+     * Image 4's faint marks ({@link UiMotifs}, kind and seed from {@link BoxMotifs}) in the container box's fill area,
+     * clear of the container slots, the decor's elements and the title (image coordinates).
+     */
+    private static void motif(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, Layout layout,
+            UiPalette block, Decor decor, int titleY) {
+        BoxMotifs.Entry motif = BoxMotifs.of(block);
+        if (motif.motif() == UiMotifs.Kind.NONE) return;
+        List<int[]> avoid = new ArrayList<>();
+        for (Slot slot : screen.getMenu().slots) {
+            if (!slot.isActive() || slot.container instanceof Inventory) continue;
+            avoid.add(decor.bigSlot(slot) ? new int[] {slot.x - 4, slot.y - 4, slot.x + 21, slot.y + 21}
+                    : new int[] {slot.x, slot.y, slot.x + 17, slot.y + 17});
+        }
+        for (BoxLayout.Rect r : decor.elements()) avoid.add(new int[] {r.x(), r.y(), r.x() + r.width(), r.y() + r.height()});
+        int tx = TITLE_X;
+        avoid.add(new int[] {tx - 4, titleY - 2, tx + 4 + Minecraft.getInstance().font.width(screen.getTitle()), titleY + 9});
+        BoxLayout.Rect c = layout.container();
+        int bottom = switch (layout.variant()) {
+            case TWO_BOXES -> c.bottom() - UiBoxes.FRAME_BOTTOM;
+            case NO_SHADOW -> c.bottom() - UiBoxes.FRAME;
+            case SEAM -> layout.inventory().y();
+        };
+        int y = c.y() + UiBoxes.FRAME;
+        UiMotifs.draw(g, left, top, motif.motif(), c.x() + UiBoxes.FRAME, y, c.width() - 2 * UiBoxes.FRAME, bottom - y, block, avoid, motif.seed());
+    }
+
 
     /**
      * Labels of a styled screen (coordinates relative to the image): the title in the box's label colour; the
@@ -99,12 +201,56 @@ public final class StyledScreens {
     public static boolean drawLabels(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, Font font, Component title,
             int titleX, int titleY, int imageWidth, int imageHeight) {
         ScreenStyle style = style(screen);
-        if (style == null || layout(screen, imageWidth, imageHeight, titleY) == null) return false;
-        g.text(font, title, titleX, titleY, palette(screen, style).label(), false);
+        Layout layout = style == null ? null : layout(screen, imageWidth, imageHeight, titleY);
+        if (layout == null) return false;
+        int x = layout.container() != null ? TITLE_X : titleX;
+        g.text(font, title, x, titleY, palette(screen, style).label(), false);
         return true;
     }
 
-    private static void box(GuiGraphicsExtractor g, int left, int top, BoxLayout.Rect r, UiPalette p) {
-        UiBoxes.box(g, left + r.x(), top + r.y(), r.width(), r.height(), p);
+    /** The boxes of {@code layout} at {@code left, top}: container box in {@code block}, inventory box or seam panel. */
+    public static void drawBoxes(GuiGraphicsExtractor g, int left, int top, Layout layout, UiPalette block) {
+        BoxLayout.Rect c = layout.container(), i = layout.inventory();
+        if (layout.variant() == BoxLayout.Variant.SEAM) {
+            UiBoxes.box(g, left + c.x(), top + c.y(), c.width(), c.height(), block);
+            UiBoxes.seam(g, left + i.x(), top + i.y(), i.width(), i.height(), block);
+            return;
+        }
+        if (c != null) UiBoxes.box(g, left + c.x(), top + c.y(), c.width(), c.height(), block, layout.variant() == BoxLayout.Variant.TWO_BOXES);
+        UiBoxes.box(g, left + i.x(), top + i.y(), i.width(), i.height(), UiPalette.INVENTORY);
+    }
+
+    /**
+     * Tint for an empty-slot icon on {@code screen}: {@code -1} = Vanilla (screen not styled), {@code 0} = leave it out
+     * (the brewing stand's blaze powder slot shows its fuel level instead), else the colour for
+     * {@code blitSprite(..., color)}. Vanilla's icons are one grey each ({@link #iconGrey}); the tint scales it to the slot's
+     * top-line colour at 80 % so it reads as an engraved silhouette.
+     */
+    public static int slotIconColor(AbstractContainerScreen<?> screen, Slot slot, net.minecraft.resources.Identifier icon,
+            int imageWidth, int imageHeight, int titleY) {
+        ScreenStyle style = style(screen);
+        if (style == null || layout(screen, imageWidth, imageHeight, titleY) == null) return -1;
+        String path = icon.getPath();
+        if (path.equals("container/slot/brewing_fuel")) return 0;
+        UiPalette p = slot.container instanceof Inventory ? UiPalette.INVENTORY : palette(screen, style);
+        int grey = iconGrey(path);
+        int top = p.slotTop(), color = 0xCC000000;
+        for (int shift = 16; shift >= 0; shift -= 8) color |= Math.min(255, ((top >> shift) & 255) * 255 / grey) << shift;
+        return color;
+    }
+
+    /**
+     * The single grey of a Vanilla 26.3 empty-slot sprite (measured): saddle and mount armor 124, potion and blaze powder
+     * 104, banner and dye 55, banner pattern 58, all others (tools, armor, lapis, ingots ...) 85.
+     */
+    static int iconGrey(String path) {
+        return switch (path) {
+            case "container/slot/saddle", "container/slot/horse_armor", "container/slot/llama_armor",
+                    "container/slot/nautilus_armor_inventory" -> 124;
+            case "container/slot/potion", "container/slot/brewing_fuel" -> 104;
+            case "container/slot/banner", "container/slot/dye" -> 55;
+            case "container/slot/banner_pattern" -> 58;
+            default -> 85;
+        };
     }
 }

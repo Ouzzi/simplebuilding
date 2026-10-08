@@ -4,7 +4,17 @@
   "compatibilityLevel": "JAVA_25",
   "client": [
     "ContainerLabelsMixin",
-    "StorageBackgroundMixin"
+    "StorageBackgroundMixin",
+    "CrafterBackgroundMixin",
+    "MountBackgroundMixin",
+    "CraftingBackgroundMixin",
+    "FurnaceBackgroundMixin",
+    "BrewingBackgroundMixin",
+    "BeaconBackgroundMixin",
+    "BeaconButtonMixin",
+    "BeaconIconMixin",
+    "EnchantmentBackgroundMixin",
+    "SlotIconMixin"
   ],
   "injectors": {
     "defaultRequire": 1
