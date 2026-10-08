@@ -87,17 +87,17 @@ window.WIKI_MODULE_DATA["simplefun"] = {
     {
       "id": "no_damage",
       "en": {
-        "title": "No Damage",
-        "summary": "Feather melee and No Damage I deal zero direct melee damage, with knockback. Novice librarians offer the book for 25 emeralds, three uses. Switches control effect and trades.",
+        "title": "Damageless",
+        "summary": "Feather melee and Damageless I deal zero direct melee damage, with knockback. Novice librarians offer the book for 25 emeralds, three uses. Switches control effect and trades.",
         "details": [
-          "Feather melee and No Damage I deal zero direct melee damage, with knockback. Novice librarians offer the book for 25 emeralds, three uses. Switches control effect and trades."
+          "Feather melee and Damageless I deal zero direct melee damage, with knockback. Novice librarians offer the book for 25 emeralds, three uses. Switches control effect and trades."
         ]
       },
       "de": {
-        "title": "Kein Schaden",
-        "summary": "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar.",
+        "title": "Schadlos",
+        "summary": "Feder und Schadlos I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar.",
         "details": [
-          "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar."
+          "Feder und Schadlos I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar."
         ]
       },
       "sources": [
@@ -480,17 +480,17 @@ window.WIKI_MODULE_DATA["simplefun"] = {
     {
       "id": "config_enableNoDamage",
       "en": {
-        "title": "No-Damage / Feather",
-        "summary": "Feathers and the No-Damage enchantment make player melee attacks deal 0 damage (knockback still applies). Default: true. Server-owned; restart required.",
+        "title": "Damageless / Feather",
+        "summary": "Feathers and the Damageless enchantment make player melee attacks deal 0 damage (knockback still applies). Default: true. Server-owned; restart required.",
         "details": [
-          "Feathers and the No-Damage enchantment make player melee attacks deal 0 damage (knockback still applies). Default: true. Server-owned; restart required."
+          "Feathers and the Damageless enchantment make player melee attacks deal 0 damage (knockback still applies). Default: true. Server-owned; restart required."
         ]
       },
       "de": {
-        "title": "Kein Schaden / Feder",
-        "summary": "Federn und die Verzauberung „Kein Schaden“ lassen Nahkampfangriffe von Spielern 0 Schaden machen (Knockback bleibt erhalten). Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "title": "Schadlos / Feder",
+        "summary": "Federn und die Verzauberung „Schadlos“ lassen Nahkampfangriffe von Spielern 0 Schaden machen (Knockback bleibt erhalten). Standard: true. Server bestimmt Werte; Neustart erforderlich.",
         "details": [
-          "Federn und die Verzauberung „Kein Schaden“ lassen Nahkampfangriffe von Spielern 0 Schaden machen (Knockback bleibt erhalten). Standard: true. Server bestimmt Werte; Neustart erforderlich."
+          "Federn und die Verzauberung „Schadlos“ lassen Nahkampfangriffe von Spielern 0 Schaden machen (Knockback bleibt erhalten). Standard: true. Server bestimmt Werte; Neustart erforderlich."
         ]
       },
       "sources": [
@@ -1459,8 +1459,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
     {
       "id": "simplefun:no_damage",
       "name": {
-        "en_us": "No Damage",
-        "de_de": "Kein Schaden"
+        "en_us": "Damageless",
+        "de_de": "Schadlos"
       },
       "description": {
         "en_us": ""
@@ -1480,17 +1480,17 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       "source": "modules/simplefun/shared/resources/data/simplefun/enchantment/no_damage.json",
       "note": {
         "en": {
-          "title": "No Damage",
-          "summary": "Feather melee and No Damage I deal zero direct melee damage, with knockback. Novice librarians offer the book for 25 emeralds, three uses. Switches control effect and trades.",
+          "title": "Damageless",
+          "summary": "Feather melee and Damageless I deal zero direct melee damage, with knockback. Novice librarians offer the book for 25 emeralds, three uses. Switches control effect and trades.",
           "details": [
-            "Feather melee and No Damage I deal zero direct melee damage, with knockback. Novice librarians offer the book for 25 emeralds, three uses. Switches control effect and trades."
+            "Feather melee and Damageless I deal zero direct melee damage, with knockback. Novice librarians offer the book for 25 emeralds, three uses. Switches control effect and trades."
           ]
         },
         "de": {
-          "title": "Kein Schaden",
-          "summary": "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar.",
+          "title": "Schadlos",
+          "summary": "Feder und Schadlos I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar.",
           "details": [
-            "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar."
+            "Feder und Schadlos I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar."
           ]
         }
       }

@@ -82,7 +82,7 @@ public final class FunSecurityTests {
     var cow = h.spawn(EntityTypes.COW, new BlockPos(5, 2, 5));
     hp = cow.getHealth();
     cow.hurtServer(h.getLevel(), h.getLevel().damageSources().playerAttack(p), 4);
-    h.assertTrue(cow.getHealth() == hp, "No Damage enchantment works independently of feather");
+    h.assertTrue(cow.getHealth() == hp, "Damageless enchantment works independently of feather");
     h.succeed();
   }
 
@@ -187,7 +187,7 @@ public final class FunSecurityTests {
             .getOrThrow(ModEnchantments.NO_DAMAGE);
     h.assertTrue(
         EnchantmentHelper.getEnchantmentsForCrafting(offer.getResult()).getLevel(ench) == 1,
-        "trade returns No Damage I book");
+        "trade returns Damageless I book");
     h.succeed();
   }
 

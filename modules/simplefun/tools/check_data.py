@@ -14,6 +14,8 @@ for p in MODULE.rglob('*.json'):
  if not any(part == 'build' or part == 'run' or part.startswith('run-') for part in p.relative_to(MODULE).parts):read(p)
 en,de=[read(MODULE/f'shared/resources/assets/simplefun/lang/{l}.json') for l in ['en_us','de_de']]
 assert en.keys()==de.keys(),'lang keys differ'
+assert en['enchantment.simplefun.no_damage']=='Damageless'
+assert de['enchantment.simplefun.no_damage']=='Schadlos'
 manual=read(MODULE/'wiki/manual.json');ids=[f['id'] for f in manual['features']];assert len(ids)==len(set(ids))
 for f in manual['features']:
  for lang in ['en','de']:assert f[lang]['title'] and f[lang]['summary'] and f[lang]['details']

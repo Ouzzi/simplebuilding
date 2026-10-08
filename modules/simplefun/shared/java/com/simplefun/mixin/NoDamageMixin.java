@@ -34,7 +34,7 @@ public class NoDamageMixin {
         return 0.0f;
       }
 
-      // No-Damage enchantment.
+      // Damageless enchantment.
       Optional<Holder.Reference<Enchantment>> noDamage =
           level
               .registryAccess()

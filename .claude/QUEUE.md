@@ -505,7 +505,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **End-Struktur Fake-Gateway:** aus Endsteinziegeln, gleiche Generierungsregeln/Form wie echtes Gateway, aber verstreut, natürlich wirkend; ohne Funktion.
 - [ ] **End-Schiffswracks:** selten, Varianten analog Vanilla-Shipwrecks (Bug/Heck/kaputt/gekippt); 1–2 Kisten mit ca. 30 % des End-Schiff-Loots; 50 % Rahmen, davon 10 % (absolut) mit kaputter Elytra im Rahmen; sonst ohne Rahmen.
 - [ ] **End-Pfad:** Formen wie Dorf-Erdpfade, aus Endsteinziegeln (Anspielung End-Dorf).
-- [ ] **Verzauberung umbenennen:** `enchantment.simplefun.no_damage` „No Damage“ → „Damageless“ (DE passend, Wiki/Guides mitziehen; ID nur ändern, wenn Migration geklärt – sonst nur Anzeigename).
+- [x] **Verzauberung umbenennen:** `enchantment.simplefun.no_damage` „Damageless“ (DE „Schadlos“, Wiki/Guides mitgezogen; ID unverändert).
 - [ ] **Furcht-/Zitter-Mob:** Vorschläge im Konzept docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md (Abschnitt „Furcht-Mob Vorschläge“) – Besitzer-Entscheidung offen.
 - [ ] **Magnete, Konflikt mehrerer Magnete:** liegt ein Item im Bereich mehrerer Magnete, Zielpunkt = Mittelpunkt (Schwerpunkt) aller beteiligten Magnete (1,2,3,…), dort Anziehung mit toter Zone. Dazu Sweetspot für fallende Items: Item tariert sich auf richtiger Höhe aus und bleibt stehen (z. B. Magnet darüber), kein Zittern/Buggen.
 - [ ] **Blaupause am Boden:** Rechtsklick auf liegende Blaupause, wenn keine andere Aktion greift → Blaupausen-UI öffnen und bearbeiten.
