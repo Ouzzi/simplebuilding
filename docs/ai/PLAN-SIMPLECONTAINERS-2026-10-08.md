@@ -208,3 +208,19 @@ Entscheidungen (Claude):
 7. Tests: reine Funktionen (Palettenwahl je Stufe, Kasten-Geometrie Mod-Truhe/Rucksack/LinkedPanel innerhalb der
    Rahmen) als GameTests in SB (`ModScreenStyleGameTest`, Katalog), Riding/QoL-Tests unverändert grün; Client-Smoke
    mit Screenshots der Mod-Screens.
+
+### W1 G4 Verifikation (2026-10-08, sb-test)
+- Compile (inkl. 26.2-Wurzel `:compileJava :compileGametestJava`, `checkOverlays`): SB 26.3 Fabric/NeoForge/Forge,
+  simplelib, simpleriding, simplequalityoflife, simplecontainers je Fabric/NeoForge/Forge: grün.
+- `run.py --targets fabric-263,neoforge-263,forge-263 --filter 'simplebuilding:mod_screen_style_*'`: „alles gruen: 9/9“.
+- Riding/QoL je Fabric/NeoForge integration + standalone, SimpleLib-Fabric (Tiegel), simplecontainers-Fabric:
+  „alles gruen: 321/321“.
+- Client `client-fabric-263` mit `SIMPLEBUILDING_CLIENT_ONLY=mod-ui-style,backpack`: „alles gruen: 19/19“; Screenshots
+  `/root/previews/simplecontainers/w1-g4/` (Mod-Truhen 3 Stufen + einzeln, Rucksack 4 Stufen + gefärbt, Auto-Schmied,
+  Befiederung, Trichter 3 Stufen/3 Filtermodi, Hufeisen-Panel) – Vergleich mit `g4-*.png`: Maße, Paletten, Symbole stimmen.
+- `module-simpleriding-client-263`: Hufeisen-Schritt grün (Screenshot), danach rot an der **vorbestehenden** Prüfung
+  „All server options appear in three config tabs“ (RidingConfigScreen, von G4 unberührt).
+- Abweichungen: Rucksack-Rüstungs-/Hufeisen-Platzhalter bleiben Vanillas Sprites (nicht eingraviert); Auto-Schmied ohne
+  Fortschritt (Menü hat keinen), Fehler = roter Pfeil statt Vanilla-Fehlerpfeil; Motive meiden zusätzlich die
+  Diagonale der Befiederung und das „xN“; LinkedPanel ohne Motiv. Nicht getestet: LinkedPanel im Client, NeoForge-/
+  Forge-Client-Sicht, Riding/QoL-Forge-Laufzeit, 26.2-Client (zeigt per Zwilling die alte Optik).
