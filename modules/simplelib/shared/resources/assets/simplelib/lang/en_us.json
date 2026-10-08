@@ -14,7 +14,6 @@
   "gui.simplelib.crucible.result": "Finished",
   "gui.simplelib.crucible.no_recipe": "Nothing to cook",
   "gui.simplelib.crucible.reserved": "Reserved for this result",
-  "gui.simplelib.crucible.stack_bonus": "×%s stacks",
   "tooltip.simplelib.warm": "Warm (about %s min)",
   "tooltip.simplelib.warm.faster": "Eaten %s%% faster",
   "block.simplelib.copper_barrel": "Copper Barrel",

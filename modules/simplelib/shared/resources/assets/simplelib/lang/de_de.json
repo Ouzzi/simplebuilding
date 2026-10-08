@@ -14,7 +14,6 @@
   "gui.simplelib.crucible.result": "Fertig",
   "gui.simplelib.crucible.no_recipe": "Nichts zu garen",
   "gui.simplelib.crucible.reserved": "Für dieses Ergebnis reserviert",
-  "gui.simplelib.crucible.stack_bonus": "×%s Stapel",
   "tooltip.simplelib.warm": "Warm (noch etwa %s Min.)",
   "tooltip.simplelib.warm.faster": "%s %% schneller gegessen",
   "block.simplelib.copper_barrel": "Kupfer-Fass",

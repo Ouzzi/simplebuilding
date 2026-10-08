@@ -89,7 +89,7 @@ public final class CrucibleFlames {
         if (edge <= 1) return 0;
         if (calm == GLOW) return 1;
         if (calm == MEDIUM) return k <= 1 ? 3 : edge == 2 ? 1 : 2;
-        if (k <= 2) return 4;
+        if (k <= 2) return 3; // owner N16: no pale base band (it read as a yellow line)
         if (edge == 2) return 1;
         return k < h * 35 / 100 && edge >= 4 ? 3 : 2;
     }

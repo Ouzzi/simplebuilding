@@ -206,7 +206,7 @@ def shade(k, h, edge, ember, calm):
     if calm == MEDIUM:
         return 3 if k <= 1 else 1 if edge == 2 else 2
     if k <= 2:
-        return 4
+        return 3  # owner N16: no pale base band
     if edge == 2:
         return 1
     return 3 if k < h * 35 // 100 and edge >= 4 else 2

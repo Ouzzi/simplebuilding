@@ -278,11 +278,6 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         Palette top = palette(tier);
         g.text(font, title, titleLabelX, titleLabelY, top.label(), false);
         g.text(font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, INVENTORY.label(), false);
-        if (tier.stackMultiplier() > 1) {
-            CrucibleMenu.Layout l = layout();
-            Component bonus = Component.translatable("gui.simplelib.crucible.stack_bonus", tier.stackMultiplier());
-            g.text(font, bonus, l.x() + l.crucibleWidth() - 8 - font.width(bonus), titleLabelY, top.label(), false);
-        }
     }
 
     /** Frame thickness of a box at the top and the sides, and at the bottom (with the shadow). */
