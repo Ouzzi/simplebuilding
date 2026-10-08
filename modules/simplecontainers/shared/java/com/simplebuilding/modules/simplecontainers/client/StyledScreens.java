@@ -8,6 +8,7 @@ import com.simplebuilding.modules.simplecontainers.style.ContainerStyles;
 import com.simplebuilding.modules.simplecontainers.style.ScreenStyle;
 import com.simplebuilding.modules.simplecontainers.style.StyleContext;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
 import java.util.List;
@@ -135,18 +136,7 @@ public final class StyledScreens {
         if (layout == null) return false;
         UiPalette block = palette(screen, style);
         drawBoxes(g, left, top, layout, block);
-        List<int[]> avoid = new ArrayList<>();
-        for (Slot slot : screen.getMenu().slots) {
-            if (!slot.isActive() || slot.container instanceof Inventory) continue;
-            int x = left + slot.x, y = top + slot.y;
-            avoid.add(decor.bigSlot(slot) ? new int[] {x - 4, y - 4, x + 21, y + 21} : new int[] {x, y, x + 17, y + 17});
-        }
-        for (BoxLayout.Rect r : decor.elements()) avoid.add(new int[] {left + r.x(), top + r.y(), left + r.x() + r.width(), top + r.y() + r.height()});
-        if (layout.container() != null) {
-            int tx = left + layout.container().x() + TITLE_X, ty = top + titleY;
-            avoid.add(new int[] {tx - 4, ty - 2, tx + 4 + Minecraft.getInstance().font.width(screen.getTitle()), ty + 9});
-            motif(g, left, top, layout, block, avoid);
-        }
+        if (layout.container() != null) motif(screen, g, left, top, layout, block, decor, titleY);
         for (Slot slot : screen.getMenu().slots) {
             if (!slot.isActive()) continue;
             UiPalette p = slot.container instanceof Inventory ? UiPalette.INVENTORY : decor.slotPalette(slot, block);
@@ -160,12 +150,26 @@ public final class StyledScreens {
         return true;
     }
 
-    /** Title position in a styled screen: 8 px right of the container box's left edge (README W0-B, "(8, 6)"). */
+    /** Title x in a styled screen (image coordinates): the preview draws every title at (8, 6) (README W0-B). */
     public static final int TITLE_X = 8;
 
-    /** Image 4's faint marks in the container box's fill area. */
-    private static void motif(GuiGraphicsExtractor g, int left, int top, Layout layout, UiPalette block, List<int[]> avoid) {
+    /**
+     * Image 4's faint marks ({@link UiMotifs}, kind and seed from {@link BoxMotifs}) in the container box's fill area,
+     * clear of the container slots, the decor's elements and the title (image coordinates).
+     */
+    private static void motif(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, Layout layout,
+            UiPalette block, Decor decor, int titleY) {
         BoxMotifs.Entry motif = BoxMotifs.of(block);
+        if (motif.motif() == UiMotifs.Kind.NONE) return;
+        List<int[]> avoid = new ArrayList<>();
+        for (Slot slot : screen.getMenu().slots) {
+            if (!slot.isActive() || slot.container instanceof Inventory) continue;
+            avoid.add(decor.bigSlot(slot) ? new int[] {slot.x - 4, slot.y - 4, slot.x + 21, slot.y + 21}
+                    : new int[] {slot.x, slot.y, slot.x + 17, slot.y + 17});
+        }
+        for (BoxLayout.Rect r : decor.elements()) avoid.add(new int[] {r.x(), r.y(), r.x() + r.width(), r.y() + r.height()});
+        int tx = TITLE_X;
+        avoid.add(new int[] {tx - 4, titleY - 2, tx + 4 + Minecraft.getInstance().font.width(screen.getTitle()), titleY + 9});
         BoxLayout.Rect c = layout.container();
         int bottom = switch (layout.variant()) {
             case TWO_BOXES -> c.bottom() - UiBoxes.FRAME_BOTTOM;
@@ -173,23 +177,9 @@ public final class StyledScreens {
             case SEAM -> layout.inventory().y();
         };
         int y = c.y() + UiBoxes.FRAME;
-        UiBoxes.motif(g, left + c.x() + UiBoxes.FRAME, top + y, c.width() - 2 * UiBoxes.FRAME, bottom - y, block, motif.motif(), avoid, motif.seed());
+        UiMotifs.draw(g, left, top, motif.motif(), c.x() + UiBoxes.FRAME, y, c.width() - 2 * UiBoxes.FRAME, bottom - y, block, avoid, motif.seed());
     }
 
-    /**
-     * Colour (ARGB multiplier) for the empty-slot sprite of {@code slot} (saddle, armor, potion ...) on a styled screen:
-     * an engraved silhouette in the slot's top-line colour at 80 % (README W0-B, point 5); {@code -1} = Vanilla.
-     * Vanilla's sprites are flat #7C7C7C, so the multiplier is the target colour scaled by 255/124.
-     */
-    public static int iconTint(AbstractContainerScreen<?> screen, Slot slot) {
-        ScreenStyle style = isStyled(screen) ? style(screen) : null;
-        if (style == null) return -1;
-        UiPalette p = slot.container instanceof Inventory ? UiPalette.INVENTORY
-                : DECOR.getOrDefault(screen, Decor.NONE).slotPalette(slot, palette(screen, style));
-        int t = p.slotTop();
-        int r = Math.min(255, ((t >> 16) & 255) * 255 / 124), gr = Math.min(255, ((t >> 8) & 255) * 255 / 124), b = Math.min(255, (t & 255) * 255 / 124);
-        return 0xCC000000 | r << 16 | gr << 8 | b;
-    }
 
     /**
      * Labels of a styled screen (coordinates relative to the image): the title in the box's label colour; the
@@ -201,7 +191,7 @@ public final class StyledScreens {
         ScreenStyle style = style(screen);
         Layout layout = style == null ? null : layout(screen, imageWidth, imageHeight, titleY);
         if (layout == null) return false;
-        int x = layout.container() != null ? layout.container().x() + TITLE_X : titleX;
+        int x = layout.container() != null ? TITLE_X : titleX;
         g.text(font, title, x, titleY, palette(screen, style).label(), false);
         return true;
     }

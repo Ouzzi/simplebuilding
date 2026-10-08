@@ -7,10 +7,10 @@ import com.simplebuilding.modules.simplecontainers.style.ContainerStyles;
 import com.simplebuilding.modules.simplecontainers.style.ScreenStyle;
 import com.simplebuilding.modules.simplecontainers.style.StorageStyles;
 import com.simplebuilding.modules.simplecontainers.style.StyleContext;
-import com.simplelib.api.client.ui.UiMotif;
+import com.simplelib.api.client.ui.UiMotifs;
 import com.simplebuilding.modules.simplecontainers.style.WorkStyles;
 import com.simplelib.api.client.ui.UiPalette;
-import com.simplelib.api.client.ui.UiSymbol;
+import com.simplelib.api.client.ui.UiSymbols;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -219,18 +219,17 @@ public final class ContainerTests {
 
     /** Marks per box colour = the "Motiv" column of the W0-B palette table; family marks for copper and dyed boxes. */
     public static void motifs(GameTestHelper h) {
-        Map<UiPalette, UiMotif> expected = Map.of(StorageStyles.OAK, UiMotif.WOOD, StorageStyles.BARREL, UiMotif.WOOD,
-                StorageStyles.ENDER, UiMotif.ENDER, StorageStyles.SHULKER, UiMotif.SHULKER, StorageStyles.SHULKER_LIGHT_BLUE, UiMotif.SHULKER,
-                StorageStyles.HOPPER, UiMotif.METAL, StorageStyles.STONE, UiMotif.STONE, StorageStyles.CRAFTER, UiMotif.REDSTONE,
-                StorageStyles.HORSE, UiMotif.LEATHER);
+        Map<UiPalette, UiMotifs.Kind> expected = Map.of(StorageStyles.OAK, UiMotifs.Kind.WOOD, StorageStyles.BARREL, UiMotifs.Kind.WOOD,
+                StorageStyles.ENDER, UiMotifs.Kind.ENDER, StorageStyles.SHULKER, UiMotifs.Kind.SHULKER, StorageStyles.SHULKER_LIGHT_BLUE, UiMotifs.Kind.SHULKER,
+                StorageStyles.HOPPER, UiMotifs.Kind.METAL, StorageStyles.STONE, UiMotifs.Kind.STONE, StorageStyles.CRAFTER, UiMotifs.Kind.REDSTONE,
+                StorageStyles.HORSE, UiMotifs.Kind.LEATHER);
         expected.forEach((p, m) -> h.assertValueEqual(BoxMotifs.of(p).motif(), m, "marks of " + Integer.toHexString(p.fill())));
         h.assertValueEqual(BoxMotifs.of(StorageStyles.OAK).seed(), 5, "oak chest seed = preview key 'truhe'");
-        for (UiPalette copper : StorageStyles.COPPER) h.assertValueEqual(BoxMotifs.of(copper).motif(), UiMotif.METAL, "copper chest marks");
-        for (DyeColor dye : DyeColor.values()) h.assertValueEqual(BoxMotifs.of(StorageStyles.dyed(dye)).motif(), UiMotif.SHULKER, "dyed shulker " + dye);
-        h.assertValueEqual(BoxMotifs.of(UiPalette.INVENTORY).motif(), UiMotif.NONE, "the inventory box stays plain");
-        h.assertTrue(UiMotif.LEATHER.shapes().length == 0 && UiMotif.WOOD.shapes().length == 4, "motif shapes as in the preview");
-        h.assertTrue(UiSymbol.ARROW.width() == 21 && UiSymbol.ARROW.height() == 15 && UiSymbol.CROSS.size() == 23
-                && UiSymbol.REDSTONE.width() == 12, "symbol bitmaps as in the preview");
+        for (UiPalette copper : StorageStyles.COPPER) h.assertValueEqual(BoxMotifs.of(copper).motif(), UiMotifs.Kind.METAL, "copper chest marks");
+        for (DyeColor dye : DyeColor.values()) h.assertValueEqual(BoxMotifs.of(StorageStyles.dyed(dye)).motif(), UiMotifs.Kind.SHULKER, "dyed shulker " + dye);
+        h.assertValueEqual(BoxMotifs.of(UiPalette.INVENTORY).motif(), UiMotifs.Kind.NONE, "the inventory box stays plain");
+        h.assertTrue(UiSymbols.REDSTONE.width() == 12 && UiSymbols.REDSTONE.height() == 11 && UiSymbols.REDSTONE.xs().length == 67,
+                "redstone sign as in the preview");
         h.succeed();
     }
 

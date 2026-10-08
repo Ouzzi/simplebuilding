@@ -85,6 +85,9 @@ public final class UiSymbols {
     public static final Bitmap PYRAMID = Bitmap.of("....#....", "...###...", "..#####..", ".#######.", "#########");
     /** Beacon: secondary power (the star). */
     public static final Bitmap STAR = Bitmap.of("...#...", "..###..", "#######", ".#####.", ".##.##.", "#.....#");
+    /** 12x11 redstone dust blob (crafter: red while powered, else engraved; W0-B preview REDSTONE). */
+    public static final Bitmap REDSTONE = Bitmap.of("....#..#....", ".#.###.##...", "..#####.#.#.", ".########...", "#.#######.#.",
+            ".#########..", "..########.#", ".#.######...", "...##.###.#.", "..#..#.#....", ".....#......");
 
     private UiSymbols() {}
 

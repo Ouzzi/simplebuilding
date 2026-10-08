@@ -164,12 +164,13 @@ Plan (Claude, autonom entschieden):
 1. `BoxLayout` (eigener Commit „feat(simplecontainers): narrow box layouts“, für G2–G4 zum Cherry-Pick): Varianten
    `NO_SHADOW` (frei 10–11) und `SEAM` (frei 3–9, Naht 3 px über der ersten Inventarzeile), Zusatz-Elemente
    (großer Slot, Tiervorschau) zählen wie Slots; `UiBoxes.box(…, shadow)` + `UiBoxes.seam`; GameTests.
-2. simplelib `UiMotif`/`UiSymbol` (Daten, serverseitig ladbar) + `UiBoxes.motif/symbol/inset` = Python-Port von
-   `motif()`, `symbol()`, `inset()` mit denselben Zahlen/Bitmaps (alle Symbole der Vorschau, damit G2/G3 sie nutzen).
-   Motivwahl in simplecontainers `BoxMotifs` (Füllfarbe → Motiv + Vorschau-Seed, ganze Palettentabelle).
-3. Generisch in `StyledScreens`: Motiv im Container-Kasten (meidet Slots, Elemente, Titel), Titel immer bei x = Kasten + 8
-   (README: „Titel bleibt bei (8, 6)“), `Decor` je Screen (Zusatz-Elemente, große Slots, eigene Zeichnung).
-   `SlotIconMixin`: leere Slot-Platzhalter (Sattel, Rüstung …) als eingravierte Silhouette in slotTop (80 %).
+2. Motive/Symbole/Slot-Icons: **G2-Bausteine** (`UiSymbols`, `UiMotifs`, `UiBoxes.inset`, `SlotIconMixin` +
+   `StyledScreens.slotIconColor`; G2-Commits b4076457a, e4d8f4d36, c72362e75, d7c56ae7e per Cherry-Pick übernommen).
+   Eigene Erstfassung (UiSymbol/UiMotif) verworfen; ergänzt nur `UiSymbols.REDSTONE`. Motivwahl für G1 in
+   simplecontainers `BoxMotifs` (Füllfarbe → Art + Vorschau-Seed).
+3. Generisch in `StyledScreens.drawBackground`: Motiv im Container-Kasten (meidet Slots, Elemente, Titel), `Decor` je
+   Screen (Zusatz-Elemente, große Slots, Slot-Farben, eigene Zeichnung). Titel aller gestylten Screens bei x = 8
+   (README: „Titel bleibt bei (8, 6)“; betrifft auch zentrierte Vanilla-Titel wie Spender/Crafter/Ofen).
 4. Crafter (`CrafterScreen`, Palette `crafter`, Motiv redstone): großer Ergebnis-Slot, Redstone-Staub-Symbol (rot bei
    Strom, sonst eingraviert) bei (86, 22), Pfeil 22×15 bei (103, 36); gesperrte Slots = eingraviertes Kreuz statt
    Vanilla-Sprite; Vanilla-Redstone-Pfeil entfällt.

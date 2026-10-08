@@ -5,7 +5,7 @@ import com.simplebuilding.modules.simplecontainers.style.BoxLayout;
 import com.simplebuilding.modules.simplecontainers.style.StorageStyles;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiPalette;
-import com.simplelib.api.client.ui.UiSymbol;
+import com.simplelib.api.client.ui.UiSymbols;
 import java.util.List;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -34,7 +34,7 @@ public final class StorageDecors {
     private static final List<BoxLayout.Rect> CRAFTER_ELEMENTS = List.of(
             new BoxLayout.Rect(RESULT_X - 4, RESULT_Y - 4, 25, 25),
             new BoxLayout.Rect(REDSTONE_X - 2, REDSTONE_Y, 16, 12),
-            new BoxLayout.Rect(ARROW_X, ARROW_Y, UiSymbol.ARROW.width(), UiSymbol.ARROW.height() + 1));
+            new BoxLayout.Rect(ARROW_X, ARROW_Y, UiSymbols.ARROW.width(), UiSymbols.ARROW.height() + 1));
 
     private static final Decor MOUNT = new Decor() {
         private final List<BoxLayout.Rect> elements = List.of(new BoxLayout.Rect(PREVIEW_X, PREVIEW_Y, PREVIEW_SIZE + 1, PREVIEW_SIZE + 1));
@@ -76,18 +76,18 @@ public final class StorageDecors {
 
             @Override public void draw(GuiGraphicsExtractor g, int left, int top, UiPalette block) {
                 if (menu.isPowered()) {
-                    UiBoxes.symbol(g, UiSymbol.REDSTONE, left + REDSTONE_X, top + REDSTONE_Y, block, REDSTONE_ON, true);
+                    UiSymbols.engrave(g, UiSymbols.REDSTONE, left + REDSTONE_X, top + REDSTONE_Y, block, REDSTONE_ON, true);
                 } else {
-                    UiBoxes.symbol(g, UiSymbol.REDSTONE, left + REDSTONE_X, top + REDSTONE_Y, block);
+                    UiSymbols.engrave(g, UiSymbols.REDSTONE, left + REDSTONE_X, top + REDSTONE_Y, block);
                 }
-                UiBoxes.symbol(g, UiSymbol.ARROW, left + ARROW_X, top + ARROW_Y, block);
+                UiSymbols.engrave(g, UiSymbols.ARROW, left + ARROW_X, top + ARROW_Y, block);
             }
         };
     }
 
     /** A disabled crafter slot: an engraved cross in the slot's top-line colour instead of Vanilla's red X (relative coords). */
     public static void disabledSlot(GuiGraphicsExtractor g, Slot slot, UiPalette block) {
-        UiBoxes.symbol(g, UiSymbol.CROSS, slot.x + 4, slot.y + 4, block, block.slotTop(), false);
+        UiSymbols.engrave(g, UiSymbols.CROSS, slot.x + 4, slot.y + 4, block, block.slotTop(), false);
     }
 
     /** Mount inventories: the sunk field behind the animal. */
