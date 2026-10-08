@@ -218,7 +218,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_frostWalkerWalkOnPowderSnow",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "frostWalkerWalkOnPowderSnow",
@@ -232,7 +232,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_enableAutowalk",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.enableAutowalk",
@@ -246,7 +246,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_mutedEntities",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.mutedEntities",
@@ -260,7 +260,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_nametagMuteSuffixes",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.nametagMuteSuffixes",
@@ -274,7 +274,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_nametagBabySuffixes",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.nametagBabySuffixes",
@@ -288,7 +288,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_preventFarmlandTrampleWithFeatherFalling",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.preventFarmlandTrampleWithFeatherFalling",
@@ -302,7 +302,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_sharpnessCutsGrass",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.sharpnessCutsGrass",
@@ -316,7 +316,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_enableHoeHarvest",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.enableHoeHarvest",
@@ -330,7 +330,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_enableFurnaceLavaFill",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.enableFurnaceLavaFill",
@@ -344,7 +344,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_ladderClimbingSpeed",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.ladderClimbingSpeed",
@@ -358,7 +358,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_enableFastLadderSlide",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.enableFastLadderSlide",
@@ -372,7 +372,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_ladderSlideSpeed",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.ladderSlideSpeed",
@@ -386,7 +386,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_ladderSlideActivation",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.ladderSlideActivation",
@@ -400,7 +400,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_vaultCooldownDays",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.vaultCooldownDays",
@@ -414,7 +414,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_enableFullDurabilityBonus",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.enableFullDurabilityBonus",
@@ -428,7 +428,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_fullDurabilityThreshold",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.fullDurabilityThreshold",
@@ -442,7 +442,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_fullDurabilityBonusMultiplier",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.fullDurabilityBonusMultiplier",
@@ -456,8 +456,8 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_anvilRepairKeepsCost",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java",
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\mixin\\AnvilRepairCostMixin.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java",
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/AnvilRepairCostMixin.java"
       ],
       "en": {
         "title": "qOL.anvilRepairKeepsCost",
@@ -471,7 +471,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_piglinsIgnoreGoldTrims",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.piglinsIgnoreGoldTrims",
@@ -485,7 +485,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_piglinsIgnoreGoldTools",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.piglinsIgnoreGoldTools",
@@ -499,7 +499,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_disableWeather",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.disableWeather",
@@ -513,7 +513,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_clientRainParticleDensity",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.clientRainParticleDensity",
@@ -527,7 +527,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_enableLinkedContainers",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.enableLinkedContainers",
@@ -541,7 +541,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_linkedContainerRange",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.linkedContainerRange",
@@ -555,7 +555,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_enableEasyShulkers",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.enableEasyShulkers",
@@ -569,7 +569,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_enableEasyEnderChests",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "qOL.enableEasyEnderChests",
@@ -583,7 +583,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "commands",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\command\\ModCommands.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/command/ModCommands.java"
       ],
       "en": {
         "title": "Commands",
@@ -597,7 +597,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_enableManualCrawl",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "Manual Crawling",
@@ -611,7 +611,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "config_qOL_enableVaultCooldown",
       "sources": [
-        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
         "title": "Repeat Vault Rewards",
