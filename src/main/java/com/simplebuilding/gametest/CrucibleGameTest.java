@@ -139,6 +139,9 @@ public final class CrucibleGameTest {
     @GameTest
     public void modBucketsStayInTheHandWhenPouringAndScooping(GameTestHelper helper) {
         CrucibleTests.modBucketsStayInTheHandWhenPouringAndScooping(helper);
+    }
+
+    @GameTest
     public void attachedBarrelHitboxFollowsItsModel(GameTestHelper helper) {
         CrucibleTests.attachedBarrelHitboxFollowsItsModel(helper);
     }
