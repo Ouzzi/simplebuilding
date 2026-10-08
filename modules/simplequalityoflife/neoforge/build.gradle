@@ -5,6 +5,9 @@ plugins {
 ext.moduleVersion = '1.0.6'
 apply from: rootProject.file('gradle/module-neoforge.gradle')
 dependencies { jarJar project(':framework') }
+// SimpleLib (style blocks for the linked panel) nested per principle 6a; compiled against.
+evaluationDependsOn(':modules:simplelib:neoforge')
+dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }
 
 neoForge.runs {
     moduleIntegrationGameTest {

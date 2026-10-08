@@ -43,7 +43,14 @@ public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
     @Override
     protected void init() {
         super.init();
-        this.titleLabelX = 29;
+        this.titleLabelX = ModScreenStyle.ACTIVE ? 8 : 29;
+    }
+
+    @Override
+    protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+        if (!ModScreenStyle.fletchingLabels(graphics, this.font, this.title, this.titleLabelX, this.titleLabelY)) {
+            super.extractLabels(graphics, mouseX, mouseY);
+        }
     }
 
     @Override
@@ -56,6 +63,9 @@ public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
         super.extractBackground(graphics, mouseX, mouseY, a);
         int xo = this.leftPos;
         int yo = (this.height - this.imageHeight) / 2;
+        if (ModScreenStyle.fletching(graphics, this.menu, this.font, this.title, xo, yo, this.imageWidth)) {
+            return;
+        }
         graphics.blit(RenderPipelines.GUI_TEXTURED, CRAFTING_TABLE_LOCATION, xo, yo, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
         // Gitter 3x3 ab (29,16), Felder je 18 px: nur die Diagonale von unten links nach oben rechts bleibt.
         for (int row = 0; row < 3; row++) {

@@ -601,7 +601,9 @@ SHARED_CLIENT_SOURCES = {
 #: Screenshots a line's shared client tests skip on purpose (ClientTestVersion flags).
 SKIPPED_SHOTS = {
     # The mega-guide screen is a 26.3 feature, pending the separate port run.
-    "26.2": {"mega-guide-locked", "mega-guide-unlocked"},
+    "26.2": {"mega-guide-locked", "mega-guide-unlocked",
+             # McVersion.AUTO_SMITHER / FLETCHING are 26.3 features (ModUiStyleClientTest).
+             "modui-auto-smither", "modui-fletching"},
     # McVersion.SMITHING_RECIPE_BOOK (owner 2026-10-02): the vanilla recipe book replaced the trim
     # reference button in the smithing table, so ModScreensClientTest checks the book and returns
     # before the button path that takes this shot.
