@@ -10,4 +10,6 @@ public final class ModuleGameTest {
     @GameTest public void styleRegistry(GameTestHelper h) { ContainerTests.registry(h); }
     @GameTest public void blockPalettes(GameTestHelper h) { ContainerTests.palettes(h); }
     @GameTest public void configDefaults(GameTestHelper h) { ContainerTests.config(h); }
+    @GameTest public void workLayouts(GameTestHelper h) { ContainerTests.workLayouts(h); }
+    @GameTest public void workPalettes(GameTestHelper h) { ContainerTests.workPalettes(h); }
 }
