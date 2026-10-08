@@ -100,3 +100,16 @@ Entscheidungen (Claude):
 7. Tests: GameTests (Fabric @GameTest + NeoForge-Katalog) für BoxLayout (alle W0-Geometrien, zu enge Lücke → null),
    Registry-Abdeckung (alle W0-Menüs, exakte Klassen, eindeutige Ids), Palettenwahl, Config-Default; Standalone-Target
    Fabric/NeoForge; Client-Smoke mit Truhen-Screenshot.
+
+### W0-A Verifikation (2026-10-08, sb-test)
+- Compile: `:modules:simplecontainers:{fabric,neoforge}:compileJava`, `:modules:simplelib:{fabric,neoforge}:compileJava`,
+  `:integration:compileGametestJava`, Forge (`-Pforge263=true`) simplecontainers + simplelib: grün.
+- `run.py --targets module-simplecontainers-{fabric,neoforge,standalone-fabric,standalone-neoforge}-263`:
+  „alles gruen: 20/20 bestanden, 0 rot“. `module-simplelib-fabric-263` (Tiegel-Regression): 25/25 grün.
+- Client-Smoke `module-simplecontainers-client-263` (unter `xvfb-run`, ohne Display stürzt der Client bei SDL ab):
+  „alles gruen: 7/7 bestanden, 0 rot“; Screenshots `/root/previews/simplecontainers/w0a/` (Truhe, Doppeltruhe, Fass,
+  Endertruhe, Shulker, Trichter, Werfer).
+- Nicht getestet: NeoForge/Forge-Client-Sicht, Tiegel-Bildschirm im Client (Code nur verschoben), reiner Client gegen
+  Vanilla-Server, echte Blöcke angeschaut (Smoke öffnet Screens clientseitig ohne Block).
+- Abweichungen: Paket `com.simplelib.api.client.ui` (statt `com.simplelib.client.ui`), Mixin je Screen-Klasse statt
+  auf AbstractContainerScreen (Methode existiert dort nicht), Fugenregel/Paletten aus W0-B übernommen.

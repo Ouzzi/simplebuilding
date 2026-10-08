@@ -22,8 +22,6 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         try (var world = context.worldBuilder().create()) {
             world.getConnection().waitForClientboundPackets();
             world.getConnection().waitForChunksRender();
-            context.runOnClient(c -> c.player.connection.sendCommand("give @s minecraft:oak_log 32"));
-            context.waitTicks(5);
             show(context, "simplecontainers-chest", c -> new ContainerScreen(ChestMenu.threeRows(0, c.player.getInventory()), c.player.getInventory(), Component.translatable("container.chest")));
             show(context, "simplecontainers-double-chest", c -> new ContainerScreen(ChestMenu.sixRows(0, c.player.getInventory()), c.player.getInventory(), Component.translatable("container.chestDouble")));
             show(context, "simplecontainers-barrel", c -> new ContainerScreen(ChestMenu.threeRows(0, c.player.getInventory()), c.player.getInventory(), Component.translatable("container.barrel")));
