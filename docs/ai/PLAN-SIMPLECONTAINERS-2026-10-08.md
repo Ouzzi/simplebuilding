@@ -154,3 +154,31 @@ Quelle: `tools/ui/simplecontainers_preview.py` (P / derive), Vorschauen + Entsch
 | `crucible_iron` | Eisen | #9A9DA2 | #C4C7CB | #7E8186 | #7B7E83 | #64676C | #2E3034 | metal |
 
 Kasten-Fuge (für den generischen Renderer): free = erste Inventar-Slotzeile − erste freie Zeile unter dem untersten Container-Element. free ≥ 12 → zwei Kästen, Fuge min(2, free−12), Rest polstert den Container-Kasten; 10–11 → Container-Kasten ohne 2-px-Schatten; < 10 → ein Kasten, Inventarteil als helle Fläche hinter einer Naht (Braustand, Webstuhl, Spieler-Inventar, Rucksack, Leuchtfeuer, Handel). Kein „Inventar“-Label (kein Platz).
+
+## W1 G1 Lager (Branch `claude-sc-g1`)
+Ist: W0-A zeichnet Truhe/Doppeltruhe/Fass/Endertruhe/Shulker/Trichter/Spender als Kästen + Slots. Abweichungen zur
+Vorschau g1-*.png: keine Motive (Maserung, Funkeln, Schuppen, Nieten, Risse), Spender-Titel zentriert statt (8, 6).
+Crafter und Reittier-Inventar sind Vanilla.
+
+Plan (Claude, autonom entschieden):
+1. `BoxLayout` (eigener Commit „feat(simplecontainers): narrow box layouts“, für G2–G4 zum Cherry-Pick): Varianten
+   `NO_SHADOW` (frei 10–11) und `SEAM` (frei 3–9, Naht 3 px über der ersten Inventarzeile), Zusatz-Elemente
+   (großer Slot, Tiervorschau) zählen wie Slots; `UiBoxes.box(…, shadow)` + `UiBoxes.seam`; GameTests.
+2. simplelib `UiMotif`/`UiSymbol` (Daten, serverseitig ladbar) + `UiBoxes.motif/symbol/inset` = Python-Port von
+   `motif()`, `symbol()`, `inset()` mit denselben Zahlen/Bitmaps (alle Symbole der Vorschau, damit G2/G3 sie nutzen).
+   Motivwahl in simplecontainers `BoxMotifs` (Füllfarbe → Motiv + Vorschau-Seed, ganze Palettentabelle).
+3. Generisch in `StyledScreens`: Motiv im Container-Kasten (meidet Slots, Elemente, Titel), Titel immer bei x = Kasten + 8
+   (README: „Titel bleibt bei (8, 6)“), `Decor` je Screen (Zusatz-Elemente, große Slots, eigene Zeichnung).
+   `SlotIconMixin`: leere Slot-Platzhalter (Sattel, Rüstung …) als eingravierte Silhouette in slotTop (80 %).
+4. Crafter (`CrafterScreen`, Palette `crafter`, Motiv redstone): großer Ergebnis-Slot, Redstone-Staub-Symbol (rot bei
+   Strom, sonst eingraviert) bei (86, 22), Pfeil 22×15 bei (103, 36); gesperrte Slots = eingraviertes Kreuz statt
+   Vanilla-Sprite; Vanilla-Redstone-Pfeil entfällt.
+5. Reittier (`HorseInventoryScreen` = Pferd/Esel/Maultier/Lama/Kamel …, `NautilusInventoryScreen`; Menüs ohne
+   MenuType → Stil mit leerer Menüliste, Treffer nur über die exakte Klasse): Leder-Palette `horse` mit Steppnaht,
+   Sattel-/Rüstungs-Slot, Tiervorschau als eingelassenes Feld 52×52 (Tier rendert Vanilla darüber), Truhen-Slots.
+   Hufeisen-Panel (simpleriding) = G4.
+6. Astral-Gewölbe: optionale Kopplung über framework (`ContainerStyleHints`, 0.1.4): simplecontainers meldet „Screen
+   gestylt“, SimpleBuildings `AstralVaultScreenMixin` lässt dann die Tönung aus; simplecontainers zeichnet das Gewölbe
+   (Titel `block.simplebuilding.astral_vault`) als Endertruhe, die drei Astralreihen in Enderit-Violett.
+7. Tests: GameTests (Varianten, Motivtabelle = Palettentabelle, Registry inkl. typloser Menüs), Client-Smoke um Crafter
+   und Esel erweitert, Screenshots `/root/previews/simplecontainers/w1-g1/`.
