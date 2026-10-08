@@ -1,0 +1,190 @@
+{
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simplecontainers",
+    "name": "Simple Containers",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ]
+  },
+  "features": [
+    {
+      "id": "style_storage",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StorageStyles.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/BoxLayout.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/StyledScreens.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/StorageBackgroundMixin.java"
+      ],
+      "en": {
+        "title": "Simple container style",
+        "summary": "Chest, barrel, ender chest, shulker box, hopper and dispenser/dropper screens get a box in the block's colour around the container slots and a light box around your inventory, with sunk rounded slots. Client only; the server needs nothing.",
+        "details": [
+          "Chest, barrel, ender chest, shulker box, hopper and dispenser/dropper screens get a box in the block's colour around the container slots and a light box around your inventory, with sunk rounded slots. Client only; the server needs nothing.",
+          "The colour comes from the screen title (chest, barrel, ender chest ...) and the block you looked at when opening it: copper chests show their weathering stage, shulker boxes their dye colour. Unknown or custom-named containers use oak.",
+          "The boxes are computed from the slot positions; the title is drawn in the box's label colour, the inventory label is left out (it would sit on the divider). Screens of other mods and screens without enough room stay Vanilla."
+        ]
+      },
+      "de": {
+        "title": "Simple-Container-Stil",
+        "summary": "Truhen-, Fass-, Endertruhen-, Shulkerkisten-, Trichter- und Werfer/Spender-Bildschirme bekommen einen Kasten in der Farbe des Blocks um die Container-Slots und einen hellen Kasten um das Inventar, mit eingelassenen, abgerundeten Slots. Nur clientseitig; der Server braucht nichts.",
+        "details": [
+          "Truhen-, Fass-, Endertruhen-, Shulkerkisten-, Trichter- und Werfer/Spender-Bildschirme bekommen einen Kasten in der Farbe des Blocks um die Container-Slots und einen hellen Kasten um das Inventar, mit eingelassenen, abgerundeten Slots. Nur clientseitig; der Server braucht nichts.",
+          "Die Farbe kommt aus dem Bildschirmtitel (Truhe, Fass, Endertruhe ...) und dem Block, den du beim Öffnen angeschaut hast: Kupfertruhen zeigen ihre Verwitterungsstufe, Shulkerkisten ihre Farbe. Unbekannte oder umbenannte Container nehmen Eiche.",
+          "Die Kästen werden aus den Slot-Positionen berechnet; der Titel steht in der Label-Farbe des Kastens, das Inventar-Label entfällt (es läge auf der Fuge). Bildschirme anderer Mods und Bildschirme ohne genug Platz bleiben Vanilla."
+        ]
+      }
+    },
+    {
+      "id": "config_enabled",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Simple style",
+        "summary": "Draw container screens in the Simple style: a box in the block's colour and a light inventory box. Off = every screen exactly Vanilla. Client only. Default: on.",
+        "details": [
+          "Draw container screens in the Simple style: a box in the block's colour and a light inventory box. Off = every screen exactly Vanilla. Client only. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Simple-Stil",
+        "summary": "Container-Bildschirme im Simple-Stil zeichnen: ein Kasten in der Farbe des Blocks und ein heller Inventar-Kasten. Aus = jeder Bildschirm genau wie Vanilla. Nur clientseitig. Standard: an.",
+        "details": [
+          "Container-Bildschirme im Simple-Stil zeichnen: ein Kasten in der Farbe des Blocks und ein heller Inventar-Kasten. Aus = jeder Bildschirm genau wie Vanilla. Nur clientseitig. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_chest",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StorageStyles.java"
+      ],
+      "en": {
+        "title": "Chests, barrels, ender chests",
+        "summary": "Generic chest screens (1-6 rows: chest, double chest, barrel, ender chest, copper chests, chest boats and minecarts) in the block's colour. Default: on.",
+        "details": [
+          "Generic chest screens (1-6 rows: chest, double chest, barrel, ender chest, copper chests, chest boats and minecarts) in the block's colour. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Truhen, Fässer, Endertruhen",
+        "summary": "Allgemeine Truhen-Bildschirme (1-6 Reihen: Truhe, Doppeltruhe, Fass, Endertruhe, Kupfertruhen, Truhenboote und -loren) in der Farbe des Blocks. Standard: an.",
+        "details": [
+          "Allgemeine Truhen-Bildschirme (1-6 Reihen: Truhe, Doppeltruhe, Fass, Endertruhe, Kupfertruhen, Truhenboote und -loren) in der Farbe des Blocks. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_shulker_box",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StorageStyles.java"
+      ],
+      "en": {
+        "title": "Shulker boxes",
+        "summary": "Shulker box screen in the box's dye colour (purple without dye). Default: on.",
+        "details": [
+          "Shulker box screen in the box's dye colour (purple without dye). Default: on."
+        ]
+      },
+      "de": {
+        "title": "Shulkerkisten",
+        "summary": "Shulkerkisten-Bildschirm in der Farbe der Kiste (ungefärbt violett). Standard: an.",
+        "details": [
+          "Shulkerkisten-Bildschirm in der Farbe der Kiste (ungefärbt violett). Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_hopper",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StorageStyles.java"
+      ],
+      "en": {
+        "title": "Hoppers",
+        "summary": "Hopper screen in iron grey. Default: on.",
+        "details": [
+          "Hopper screen in iron grey. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Trichter",
+        "summary": "Trichter-Bildschirm in Eisengrau. Standard: an.",
+        "details": [
+          "Trichter-Bildschirm in Eisengrau. Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "config_screen_dispenser",
+      "sources": [
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StorageStyles.java"
+      ],
+      "en": {
+        "title": "Dispensers and droppers",
+        "summary": "Dispenser and dropper screen in cobblestone grey. Default: on.",
+        "details": [
+          "Dispenser and dropper screen in cobblestone grey. Default: on."
+        ]
+      },
+      "de": {
+        "title": "Werfer und Spender",
+        "summary": "Werfer- und Spender-Bildschirm in Bruchsteingrau. Standard: an.",
+        "details": [
+          "Werfer- und Spender-Bildschirm in Bruchsteingrau. Standard: an."
+        ]
+      }
+    }
+  ],
+  "recipes": [],
+  "lootTables": [],
+  "tags": [],
+  "advancements": [],
+  "enchantments": [],
+  "items": [],
+  "blocks": [],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 6,
+    "recipes": 0,
+    "lootTables": 0,
+    "tags": 0,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 0,
+    "blocks": 0,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+}
