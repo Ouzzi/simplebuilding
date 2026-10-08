@@ -299,6 +299,31 @@ public class ModBucketItem extends BucketItem {
         return super.emptyContents(user, level, pos, hit);
     }
 
+    /**
+     * NeoForge pours through this overload (its 4-argument version and {@code use} both call it), which skipped the
+     * copper rule above. Without {@code @Override} it overrides only where the loader has it; elsewhere it is unused.
+     */
+    public boolean emptyContents(@Nullable LivingEntity user, Level level, BlockPos pos, @Nullable BlockHitResult hit, @Nullable ItemStack container) {
+        if (kind == Kind.COPPER && getContent().isSame(Fluids.WATER)) return emptyContents(user, level, pos, hit);
+        try {
+            return (boolean) loaderEmptyContents().invoke(this, user, level, pos, hit, container);
+        } catch (Throwable e) {
+            throw new IllegalStateException("bucket pour failed", e);
+        }
+    }
+
+    private static java.lang.invoke.MethodHandle loaderEmptyContents;
+
+    /** The loader's own 5-argument {@code BucketItem.emptyContents}, called like {@code super}. */
+    private static java.lang.invoke.MethodHandle loaderEmptyContents() throws ReflectiveOperationException {
+        if (loaderEmptyContents == null) {
+            loaderEmptyContents = java.lang.invoke.MethodHandles.lookup().findSpecial(BucketItem.class, "emptyContents",
+                    java.lang.invoke.MethodType.methodType(boolean.class, LivingEntity.class, Level.class, BlockPos.class, BlockHitResult.class, ItemStack.class),
+                    ModBucketItem.class);
+        }
+        return loaderEmptyContents;
+    }
+
     /** Copper: hint when fully oxidized (unusable until scraped) and when waxed; ceramic: what it holds. */
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
