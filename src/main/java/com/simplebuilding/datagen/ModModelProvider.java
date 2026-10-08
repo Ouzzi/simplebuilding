@@ -54,6 +54,16 @@ public class ModModelProvider extends FabricModelProvider {
     private static final TextureSlot ARM = TextureSlot.create("arm");
     private static final ModelTemplate PISTON_HEAD_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_tiered_piston_head")), Optional.empty(), TextureSlot.PLATFORM, TextureSlot.SIDE, TextureSlot.UNSTICKY, ARM);
     private static final ModelTemplate PISTON_HEAD_SHORT_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_tiered_piston_head_short")), Optional.empty(), TextureSlot.PLATFORM, TextureSlot.SIDE, TextureSlot.UNSTICKY, ARM);
+    // Treppen/Stufen der Quarz-Checker: dieselben Vanilla-Geometrien, aber Nord/Sued wie der volle
+    // Checker-Wuerfel mit #side_mirror (sonst zeigen die Seiten im Inventar spiegelverkehrt).
+    // Handgeschriebene Vorlagen unter assets/simplebuilding/models/block/template_checker_*.json.
+    private static final TextureSlot SIDE_MIRROR = TextureSlot.create("side_mirror");
+    private static final ModelTemplate CHECKER_STAIRS_STRAIGHT = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_checker_stairs")), Optional.empty(), TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, SIDE_MIRROR);
+    private static final ModelTemplate CHECKER_STAIRS_INNER = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_checker_stairs_inner")), Optional.of("_inner"), TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, SIDE_MIRROR);
+    private static final ModelTemplate CHECKER_STAIRS_OUTER = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_checker_stairs_outer")), Optional.of("_outer"), TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, SIDE_MIRROR);
+    private static final ModelTemplate CHECKER_SLAB = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_checker_slab")), Optional.empty(), TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, SIDE_MIRROR);
+    private static final ModelTemplate CHECKER_SLAB_TOP = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_checker_slab_top")), Optional.of("_top"), TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, SIDE_MIRROR);
+    private static final ModelTemplate SIDE_MIRROR_SLAB_TOP_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_checker_slab_top")), Optional.empty(), TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, SIDE_MIRROR);
     // Handgeschriebene Vorlage (assets/simplebuilding/models/block/template_backpack.json): Sack
     // plus Vordertasche, Vorderseite nach Norden; die Stufen setzen nur ihre Texturen ein.
     private static final ModelTemplate BACKPACK_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_backpack")), Optional.empty(), TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.PARTICLE);
@@ -847,20 +857,21 @@ public class ModModelProvider extends FabricModelProvider {
         generator.createTrivialCube(palette.chiseled());
     }
 
-    /** Treppe und Stufe eines Schachbretts: seine (ungespiegelte) Textur auf allen Seiten, doppelte Stufe = Schachbrett. */
+    /** Treppe und Stufe eines Schachbretts: Checker-Textur auf allen Seiten (Nord/Sued gespiegelt wie das Schachbrett), doppelte Stufe = Schachbrett. */
     private void registerCheckerShapes(BlockModelGenerators generator, ModBlocks.CheckerShapes shapes) {
-        Material texture = new Material(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID,
-                "block/" + BuiltInRegistries.BLOCK.getKey(shapes.checker()).getPath()));
+        String name = BuiltInRegistries.BLOCK.getKey(shapes.checker()).getPath();
+        Material texture = new Material(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/" + name));
+        Material mirror = new Material(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/" + name + "_mirror"));
         TextureMapping mapping = new TextureMapping().put(TextureSlot.BOTTOM, texture).put(TextureSlot.TOP, texture)
-                .put(TextureSlot.SIDE, texture).put(TextureSlot.PARTICLE, texture);
-        Identifier inner = ModelTemplates.STAIRS_INNER.create(shapes.stairs(), mapping, generator.modelOutput);
-        Identifier straight = ModelTemplates.STAIRS_STRAIGHT.create(shapes.stairs(), mapping, generator.modelOutput);
-        Identifier outer = ModelTemplates.STAIRS_OUTER.create(shapes.stairs(), mapping, generator.modelOutput);
+                .put(TextureSlot.SIDE, texture).put(SIDE_MIRROR, mirror).put(TextureSlot.PARTICLE, texture);
+        Identifier inner = CHECKER_STAIRS_INNER.create(shapes.stairs(), mapping, generator.modelOutput);
+        Identifier straight = CHECKER_STAIRS_STRAIGHT.create(shapes.stairs(), mapping, generator.modelOutput);
+        Identifier outer = CHECKER_STAIRS_OUTER.create(shapes.stairs(), mapping, generator.modelOutput);
         generator.blockStateOutput.accept(BlockModelGenerators.createStairs(shapes.stairs(), BlockModelGenerators.plainVariant(inner),
                 BlockModelGenerators.plainVariant(straight), BlockModelGenerators.plainVariant(outer)));
         generator.registerSimpleItemModel(shapes.stairs(), straight);
-        Identifier bottom = ModelTemplates.SLAB_BOTTOM.create(shapes.slab(), mapping, generator.modelOutput);
-        Identifier top = ModelTemplates.SLAB_TOP.create(shapes.slab(), mapping, generator.modelOutput);
+        Identifier bottom = CHECKER_SLAB.create(shapes.slab(), mapping, generator.modelOutput);
+        Identifier top = CHECKER_SLAB_TOP.create(shapes.slab(), mapping, generator.modelOutput);
         Identifier full = ModelLocationUtils.getModelLocation(shapes.checker());
         generator.blockStateOutput.accept(BlockModelGenerators.createSlab(shapes.slab(), BlockModelGenerators.plainVariant(bottom),
                 BlockModelGenerators.plainVariant(top), BlockModelGenerators.plainVariant(full)));

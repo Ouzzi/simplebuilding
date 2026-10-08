@@ -1,8 +1,9 @@
 {
-  "parent": "minecraft:block/outer_stairs",
+  "parent": "simplebuilding:block/template_checker_stairs_outer",
   "textures": {
     "bottom": "simplebuilding:block/purpur_quartz_checker",
     "side": "simplebuilding:block/purpur_quartz_checker",
+    "side_mirror": "simplebuilding:block/purpur_quartz_checker_mirror",
     "top": "simplebuilding:block/purpur_quartz_checker"
   }
 }

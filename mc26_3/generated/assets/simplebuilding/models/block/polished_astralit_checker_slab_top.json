@@ -1,8 +1,9 @@
 {
-  "parent": "minecraft:block/slab_top",
+  "parent": "simplebuilding:block/template_checker_slab_top",
   "textures": {
     "bottom": "simplebuilding:block/polished_astralit_checker",
     "side": "simplebuilding:block/polished_astralit_checker",
+    "side_mirror": "simplebuilding:block/polished_astralit_checker_mirror",
     "top": "simplebuilding:block/polished_astralit_checker"
   }
 }
