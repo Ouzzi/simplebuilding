@@ -4,7 +4,11 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.MagnetItem;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -89,13 +93,41 @@ public final class PlacedAttractors {
         // Filter nur mit Beruehrung des Konstrukteurs (Besitzer 2026-09-29), wie in der Hand.
         String filter = MagnetItem.effectiveFilter(be.getTemplate(), level);
         double rangeSq = range * range;
+        long now = level.getGameTime();
+        Map<Long, Active> active = ACTIVE.computeIfAbsent(level, l -> new HashMap<>());
+        active.put(pos.asLong(), new Active(target, filter, now));
+        active.values().removeIf(a -> now - a.tick() > INTERVAL || a.tick() > now);
         List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(range),
                 entity -> entity.distanceToSqr(target) <= rangeSq && canPull(entity, filter)
                         && com.simplebuilding.api.WorldPermissions.mayAutomateEntity(level, pos, entity));
         for (ItemEntity entity : items) {
-            applyPull(entity, target);
+            // Besitzer N23: ein Item zieht nur einmal je Takt, auch wenn mehrere Attractors es erreichen.
+            Pulled last = PULLED.get(entity);
+            if (last != null && last.pos() != pos.asLong() && now - last.tick() < INTERVAL) continue;
+            PULLED.put(entity, new Pulled(pos.asLong(), now));
+            applyPull(entity, centre(entity, active, rangeSq));
         }
         return items.size();
+    }
+
+    /** Zuletzt ziehende Attractors je Welt (Zielpunkt, Filter, Tick) - fuer den gemeinsamen Schwerpunkt. */
+    private record Active(Vec3 target, @Nullable String filter, long tick) {}
+    private record Pulled(long pos, long tick) {}
+    private static final Map<ServerLevel, Map<Long, Active>> ACTIVE = new WeakHashMap<>();
+    private static final Map<ItemEntity, Pulled> PULLED = new WeakHashMap<>();
+
+    /**
+     * Besitzer N23: liegt ein Item im Bereich mehrerer Attractors, zieht es zum Schwerpunkt aller, die es
+     * erreichen und durchlassen - dort ruht es in der toten Zone, statt zwischen ihnen zu pendeln.
+     */
+    private static Vec3 centre(ItemEntity entity, Map<Long, Active> active, double rangeSq) {
+        List<Vec3> targets = new ArrayList<>();
+        for (Active a : active.values()) {
+            if (entity.distanceToSqr(a.target()) <= rangeSq && canPull(entity, a.filter())) targets.add(a.target());
+        }
+        Vec3 sum = Vec3.ZERO;
+        for (Vec3 v : targets) sum = sum.add(v);
+        return sum.scale(1.0 / targets.size());
     }
 
     private static void applyPull(ItemEntity entity, Vec3 target) {
@@ -105,6 +137,11 @@ public final class PlacedAttractors {
         Vec3 next;
         if (distance <= MagnetItem.minimumDistance()) {
             next = velocity.scale(0.2);
+            if (!entity.onGround() && !entity.isNoGravity()) {
+                // Besitzer N23 Sweetspot: ein schwebendes Item haelt die Hoehe des Zielpunkts - Schwerkraft bis
+                // zum naechsten Zug ausgleichen und sanft zur Mitte federn, statt abzusacken und zu zittern.
+                next = next.add(offset.scale(0.1)).add(0.0, entity.getGravity() * INTERVAL, 0.0);
+            }
         } else {
             next = velocity.scale(0.8).add(offset.scale(PULL / distance));
             if (entity.onGround() && (offset.y > 0.2 || entity.horizontalCollision)) {

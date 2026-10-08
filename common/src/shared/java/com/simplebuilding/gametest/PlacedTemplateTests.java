@@ -610,6 +610,47 @@ public final class PlacedTemplateTests {
     public static final int ATTRACTOR_MAX_TICKS = 120;
 
     /**
+     * Besitzer N23: zwei Attractors ziehen ein Item zu ihrem gemeinsamen Schwerpunkt, nur einmal je Takt;
+     * ein schwebendes Item in der toten Zone haelt seine Hoehe (Sweetspot), statt abzusacken.
+     */
+    public static void severalAttractorsShareOneCentreAndFloatingItemsHover(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 2.0, 7.5));
+        player.setShiftKeyDown(true);
+        ServerLevel level = helper.getLevel();
+        for (int x = 0; x < 8; x++) for (int z = 0; z < 8; z++) helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
+        use(helper, player, new ItemStack(ModItems.MAGNET), new BlockPos(1, 1, 1), Direction.UP);
+        use(helper, player, new ItemStack(ModItems.MAGNET), new BlockPos(5, 1, 1), Direction.UP);
+        player.setShiftKeyDown(false);
+        PlacedTemplateBlockEntity a = helper.getBlockEntity(new BlockPos(1, 2, 1), PlacedTemplateBlockEntity.class);
+        PlacedTemplateBlockEntity b = helper.getBlockEntity(new BlockPos(5, 2, 1), PlacedTemplateBlockEntity.class);
+        helper.assertTrue(a.getTemplate().is(ModItems.MAGNET) && b.getTemplate().is(ModItems.MAGNET), "two placed attractors");
+        Vec3 ta = PlacedAttractors.target(a), tb = PlacedAttractors.target(b);
+        PlacedAttractors.pull(level, helper.absolutePos(new BlockPos(5, 2, 1)), b); // the second one is active this beat
+        ItemEntity between = new ItemEntity(level, ta.x + 1.5, ta.y, ta.z, new ItemStack(Items.COBBLESTONE), 0, 0, 0);
+        between.setPickUpDelay(200);
+        between.setNoGravity(true);
+        level.addFreshEntity(between);
+        PlacedAttractors.pull(level, helper.absolutePos(new BlockPos(1, 2, 1)), a);
+        Vec3 pulled = between.getDeltaMovement();
+        helper.assertTrue(pulled.x > 0, "nearer to the first attractor, the item still heads for the centre between both: " + pulled);
+        PlacedAttractors.pull(level, helper.absolutePos(new BlockPos(5, 2, 1)), b);
+        helper.assertTrue(between.getDeltaMovement().equals(pulled), "the second attractor does not pull the same item again in this beat");
+        between.discard();
+
+        ItemEntity floating = new ItemEntity(level, ta.x, ta.y + 0.3, ta.z, new ItemStack(Items.DIAMOND), 0, 0, 0);
+        floating.setPickUpDelay(200);
+        level.addFreshEntity(floating);
+        for (int tick = 0; tick < 80; tick++) {
+            if (tick % PlacedAttractors.INTERVAL == 0) PlacedAttractors.pull(level, helper.absolutePos(new BlockPos(1, 2, 1)), a);
+            floating.tick();
+        }
+        helper.assertTrue(!floating.onGround() && Math.abs(floating.getY() - (ta.y + 0.3)) < 0.5,
+                "the floating item keeps its height in the dead zone: y " + floating.getY() + " vs " + (ta.y + 0.3));
+        floating.discard();
+        helper.succeed();
+    }
+
+    /**
      * Der Attractor legt sich mit Schleichen + Rechtsklick ab wie eine Vorlage (derselbe Block, eigene
      * pixelgenaue Trefferform, Name des Attractors) und zieht dort lose Items im Umkreis zu sich: ein
      * Item vier Bloecke entfernt kommt an, eines ausserhalb von {@link PlacedAttractors#RANGE} bleibt

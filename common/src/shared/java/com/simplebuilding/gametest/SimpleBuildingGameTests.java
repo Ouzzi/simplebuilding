@@ -1899,6 +1899,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("placed_template_game_test_placed_attractors_pull_loose_items_toward_themselves", PlacedTemplateTests::placedAttractorsPullLooseItemsTowardThemselves)
                     .maxTicks(PlacedTemplateTests.ATTRACTOR_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_several_attractors_share_one_centre_and_floating_items_hover", PlacedTemplateTests::severalAttractorsShareOneCentreAndFloatingItemsHover)
+                    .build(),
             GameTestSpec.named("placed_template_game_test_locked_octants_are_placed_and_right_click_toggles_the_outline_per_player", PlacedTemplateTests::lockedOctantsArePlacedAndRightClickTogglesTheOutlinePerPlayer)
                     .build(),
             GameTestSpec.named("pulsating_trim_game_test_upgrade_templates_use_vanilla_tooltip_structure", PulsatingTrimTests::upgradeTemplatesUseVanillaTooltipStructure)
