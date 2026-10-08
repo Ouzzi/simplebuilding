@@ -643,14 +643,17 @@ public final class CrucibleTests {
             ItemStack full = new ItemStack(kind[1]);
             int usesBefore = ModBucketItem.ceramicUses(full);
             ItemStack poured = useBucket(level, player, full);
-            helper.assertTrue(level.getFluidState(water).is(net.minecraft.tags.FluidTags.WATER) && level.getFluidState(water).isSource(),
-                    expected + ": pouring made no water source; hand " + poured + ", block " + level.getBlockState(water)
+            // Copper pours no source (owner 32), the others do.
+            helper.assertTrue(level.getFluidState(water).is(net.minecraft.tags.FluidTags.WATER)
+                            && level.getFluidState(water).isSource() == (expected != ModBucketItem.Kind.COPPER),
+                    expected + ": pouring placed the wrong water; hand " + poured + ", block " + level.getBlockState(water)
                             + ", below " + level.getBlockState(water.below()) + ", eye " + player.getEyePosition() + ", xRot " + player.getXRot());
             helper.assertTrue(poured.getItem() instanceof ModBucketItem empty && empty.kind() == expected && !poured.is(kind[1]) && !poured.is(ModBucketItem.filled(expected, Fluids.WATER)),
                     expected + ": after pouring the hand holds " + poured + " instead of its empty bucket");
             if (expected == ModBucketItem.Kind.CERAMIC) {
                 helper.assertTrue(ModBucketItem.ceramicUses(poured) == usesBefore + 1, "ceramic: one wear step per pour, uses " + ModBucketItem.ceramicUses(poured));
             }
+            if (expected == ModBucketItem.Kind.COPPER) level.setBlock(water, Blocks.WATER.defaultBlockState(), 3);
             ItemStack scooped = useBucket(level, player, poured);
             helper.assertTrue(scooped.getItem() instanceof ModBucketItem filled && filled.kind() == expected && scooped.is(ModBucketItem.filled(expected, Fluids.WATER)),
                     expected + ": after scooping the hand holds " + scooped + " instead of its water bucket");
