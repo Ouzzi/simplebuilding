@@ -43,7 +43,6 @@ public final class ContainerTests {
             Map.entry(MenuType.BREWING_STAND, "BrewingStandScreen"), Map.entry(MenuType.BEACON, "BeaconScreen"),
             Map.entry(MenuType.ENCHANTMENT, "EnchantmentScreen"));
 
-
     private ContainerTests() {}
 
     /** Slots of a Vanilla menu: a container grid plus the standard player inventory at {@code playerTop}. */

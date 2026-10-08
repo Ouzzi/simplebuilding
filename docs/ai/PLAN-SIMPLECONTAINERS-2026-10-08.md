@@ -328,3 +328,46 @@ Entscheidungen (Claude):
   Fortschritt (Menü hat keinen), Fehler = roter Pfeil statt Vanilla-Fehlerpfeil; Motive meiden zusätzlich die
   Diagonale der Befiederung und das „xN“; LinkedPanel ohne Motiv. Nicht getestet: LinkedPanel im Client, NeoForge-/
   Forge-Client-Sicht, Riding/QoL-Forge-Laufzeit, 26.2-Client (zeigt per Zwilling die alte Optik).
+
+## Merge (Branch `claude-sc-merge`, 2026-10-08)
+Basis claude-wave1 e27188645; gemergt in dieser Reihenfolge: claude-sc-base, claude-sc-g1, claude-sc-g2, claude-sc-g3,
+claude-sc-g4. Die gegenseitig gepickten Commits (narrow box layouts, G2-Kette, G4 2b479f8a2) sind inhaltlich gleich:
+Konflikte daraus auf den jeweils neueren Stand (G1 enthält G2+G4-Bausteine) aufgelöst, nichts doppelt.
+
+Entscheidungen:
+1. **Menüs ohne MenuType:** G1s `ContainerStyles.find(null, …)` bleibt (eine Methode statt zwei), G3s `findMenuless`
+   entfällt; `find` wendet zusätzlich G3s Alias `StationStyles.SUBCLASSES` an (SB-RecipeBookSmithingScreen). Tests:
+   `TYPELESS` um `InventoryScreen` ergänzt, `stationRegistry` nutzt `find(null, …)`.
+2. **Slot-Icons:** ein `SlotIconMixin` (G2/G1); Tönung über G1s gemessene `StyledScreens.iconGrey`-Tabelle.
+3. **Titel:** `StyledScreens.drawLabels` zeichnet für alle gestylten Screens bei (`TITLE_X` 8, `TITLE_Y` 6) in der
+   Label-Farbe (vorher G1: nur x 8 und nur mit Container-Kasten; G3: nur Station-Screens). Ausnahmen mit eigenen
+   Labels bleiben: Handel (Titel bei 107, 6) und Spieler-Inventar („Handwerk“ an der Vanilla-Stelle).
+4. **Slot-Regeln:** `StyledScreens.playerSlot` (G3: `Inventory`-Index < 36 = Inventar-Kasten, Rüstung/Schild zum
+   Container) und `StyledScreens.inImage` (G1: Slots außerhalb des Bildes zählen nicht) gelten in StyledScreens,
+   WorkScreens und StationScreens (Layout, Slot-Zeichnung, Motiv-Aussparung). `WorkScreens.slots` bekommt dafür die
+   Bildbreite.
+5. **framework 0.1.4** (G1, `ContainerStyleHints`), Forge-jarJar-Range `[0.1.4,0.2)` geprüft.
+6. Gemeinsame Dateien vereinigt: mixins.json (21 Client-Mixins), Lang EN/DE (48 Schlüssel), manual.json (26 Features;
+   Übersicht `style_storage` nennt Crafter und Reittiere), `ContainerStyles.GROUPS` = Storage, Work, Station,
+   Testkataloge Fabric/NeoForge (12 Tests), Client-Smoke (25 Screens), `UiSymbols` (G4/G1 + G3, `ARROW_SMALL` einmal),
+   UiBoxes/UiPalette unverändert aus G1. Wiki-Daten neu erzeugt. G4s versehentlich mitgeänderte Kopf-Renders zurück.
+   Nach dem Merge doppelte `W1_G2`-Tabelle in ContainerTests (Auto-Merge) entfernt.
+
+### Merge Verifikation (sb-test, Kopf e146e4f03 + Doku)
+- 26.2: `./gradlew :compileJava :compileGametestJava checkOverlays`: grün.
+- 26.3 `-Pforge263=true`: `:mc26_3:{fabric,neoforge,forge}:compileJava :mc26_3:fabric:compileGametestJava`,
+  `:modules:{simplelib,simplecontainers,simpleriding,simplequalityoflife}:{fabric,neoforge,forge}:compileJava`,
+  `:integration:compileGametestJava`: grün.
+- `run.py --targets module-simplecontainers-{fabric,neoforge,standalone-fabric,standalone-neoforge}-263,module-simplelib-{fabric,neoforge}-263`:
+  „alles gruen: 98/98 bestanden, 0 rot“ (simplecontainers je 12, simplelib je 25).
+- `run.py --targets fabric-263,neoforge-263,forge-263 --filter 'simplebuilding:mod_screen_style_*'`: „alles gruen: 9/9“.
+- Client (xvfb) `module-simplecontainers-client-263`: „alles gruen: 25/25“; `client-fabric-263` mit
+  `SIMPLEBUILDING_CLIENT_ONLY=mod-ui-style,backpack`: „alles gruen: 19/19“.
+- Lokal: `tools/multimod.py` gültig, alle 12 `modules/*/tools/check_data.py` gültig (simplecontainers: 22 Stile in
+  3 Gruppen), `wiki/generate.py --all` + `--check`: „up to date“.
+- Screenshots `/root/previews/simplecontainers/merge/` (module/, sb/, Kontaktbogen `kontakt.png`, Vergleiche `cmp-*`):
+  Lager-Screens und alle G4-Screens pixelgleich mit w1-g1/w1-g4; G2/G3-Screens gleich bis auf Umgebung (Toasts,
+  Kreativ-Tab-Lage nach G3s Survival-Wechsel, Eimer im ersten Inventar-Slot aus G1s Crafter-Smoke); Esel/Pferd zeigen das
+  G4-Hufeisenpanel (wie G1 `mit-g4-panel`).
+- Nicht getestet: NeoForge/Forge-Client-Sicht, echte Blöcke/Dorfbewohner, Klickzustände, LinkedPanel im Client,
+  Astral-Gewölbe im Client, Gate (macht die Hauptsitzung).
