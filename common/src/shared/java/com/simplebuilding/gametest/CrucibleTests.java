@@ -1,5 +1,8 @@
 package com.simplebuilding.gametest;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.simplebuilding.crucible.CrucibleCompat;
 import com.simplebuilding.effect.ModEffects;
 import com.simplebuilding.effect.SoulBurnEffect;
@@ -37,6 +40,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -888,5 +892,156 @@ public final class CrucibleTests {
             helper.assertTrue(sneaker.getHealth() == sneakerBefore, "sneaking spares the heat");
             helper.succeed();
         });
+    }
+
+    /**
+     * Owner N15: the attached barrel's outline follows its model - the body element of
+     * {@code *_barrel_attached.json} turned by the y-rotation of its blockstate variant, for every facing and every
+     * barrel tier. The expected box is read from the blockstate and the model on the classpath, so moving the model
+     * moves this test with it; the loose barrel keeps the full cube it has today.
+     */
+    public static void attachedBarrelHitboxFollowsItsModel(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        AABB cube = new AABB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
+        for (String[] barrel : barrels()) {
+            Block block = barrelBlock(barrel);
+            if (block == null) continue;
+            for (Direction facing : Direction.Plane.HORIZONTAL) {
+                BlockState attached = with(with(block.defaultBlockState(), "attached", true), "facing", facing);
+                AABB expected = attachedModelBox(helper, barrel, facing);
+                AABB shape = attached.getShape(helper.getLevel(), BlockPos.ZERO, CollisionContext.empty()).bounds();
+                AABB collision = attached.getCollisionShape(helper.getLevel(), BlockPos.ZERO, CollisionContext.empty()).bounds();
+                helper.assertTrue(sameBox(shape, expected),
+                        barrel[1] + " " + facing + ": outline " + shape + " instead of the model box " + expected);
+                helper.assertTrue(sameBox(collision, expected),
+                        barrel[1] + " " + facing + ": collision " + collision + " instead of the model box " + expected);
+            }
+            BlockState loose = block.defaultBlockState();
+            helper.assertTrue(sameBox(loose.getShape(helper.getLevel(), BlockPos.ZERO, CollisionContext.empty()).bounds(), cube),
+                    barrel[1] + ": the loose barrel must keep the full cube");
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Owner N15 (X-Ray): an attached barrel must not occlude with a full block shape anywhere, or the renderer culls
+     * the neighbouring wall face ({@code Block.shouldRenderFace} turns false) and the room behind the wall shows
+     * through. The loose barrel is the control: full occlusion, neighbour faces stay culled as they do today.
+     */
+    public static void attachedBarrelDoesNotOccludeItsNeighbours(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        BlockState stone = Blocks.STONE.defaultBlockState();
+        for (String[] barrel : barrels()) {
+            Block block = barrelBlock(barrel);
+            if (block == null) continue;
+            for (Direction facing : Direction.Plane.HORIZONTAL) {
+                BlockState attached = with(with(block.defaultBlockState(), "attached", true), "facing", facing);
+                helper.assertTrue(!Block.isShapeFullBlock(attached.getOcclusionShape()),
+                        barrel[1] + " " + facing + ": the attached barrel must not occlude as a full block");
+                for (Direction direction : Direction.values()) {
+                    helper.assertTrue(Block.shouldRenderFace(stone, attached, direction),
+                            barrel[1] + " " + facing + ": the wall face towards " + direction + " would be culled (X-Ray)");
+                }
+            }
+            BlockState loose = block.defaultBlockState();
+            helper.assertTrue(Block.isShapeFullBlock(loose.getOcclusionShape()),
+                    barrel[1] + ": the loose barrel keeps its full occlusion shape");
+            for (Direction direction : Direction.values()) {
+                helper.assertTrue(!Block.shouldRenderFace(stone, loose, direction),
+                        barrel[1] + ": the loose barrel still culls the wall face towards " + direction);
+            }
+        }
+        helper.succeed();
+    }
+
+    // --- helpers of the barrel hitbox tests ---
+
+    /** Every barrel with an attached model: namespace and path; enderite is only registered on 26.3. */
+    private static String[][] barrels() {
+        return new String[][] {{"simplelib", "copper_barrel"}, {"simplelib", "reinforced_barrel"},
+                {"simplelib", "netherite_barrel"}, {"simplebuilding", "enderite_barrel"}};
+    }
+
+    private static Block barrelBlock(String[] barrel) {
+        return "simplelib".equals(barrel[0]) ? lib(barrel[1]) : CrucibleCompat.enderiteBarrel();
+    }
+
+    /**
+     * The state with one property set by name: the barrel's own Property instances are created inside SimpleLib and
+     * are not reachable from this source tree, and StateHolder compares properties by identity, so the vanilla
+     * constants of the same name would not match.
+     */
+    @SuppressWarnings("unchecked")
+    private static <T extends Comparable<T>> BlockState with(BlockState base, String property, T value) {
+        Property<T> found = (Property<T>) base.getBlock().getStateDefinition().getProperty(property);
+        if (found == null) throw new IllegalStateException(base + " has no property " + property);
+        return base.setValue(found, value);
+    }
+
+    /** Blockstate variant of this barrel at that facing -> its model -> the first element, turned by the variant's y. */
+    private static AABB attachedModelBox(GameTestHelper helper, String[] barrel, Direction facing) {
+        String blockstatePath = "assets/" + barrel[0] + "/blockstates/" + barrel[1] + ".json";
+        JsonObject variants = jsonResource(helper, blockstatePath).getAsJsonObject("variants");
+        JsonObject variant = null;
+        for (String key : variants.keySet()) {
+            if (key.contains("attached=true") && key.contains("facing=" + facing.getName()) && key.contains("open=false")) {
+                variant = variants.getAsJsonObject(key);
+                break;
+            }
+        }
+        helper.assertTrue(variant != null, blockstatePath + " has no attached variant for " + facing);
+        String model = variant.get("model").getAsString();
+        int split = model.indexOf(':');
+        String modelPath = "assets/" + model.substring(0, split) + "/models/" + model.substring(split + 1) + ".json";
+        JsonArray elements = jsonResource(helper, modelPath).getAsJsonArray("elements");
+        helper.assertTrue(elements.size() > 0, modelPath + " has no elements to take the outline from");
+        JsonObject body = elements.get(0).getAsJsonObject();
+        helper.assertTrue(!body.has("rotation"),
+                modelPath + " rotates its first element, which this test does not model - adapt the test first");
+        JsonArray from = body.getAsJsonArray("from");
+        JsonArray to = body.getAsJsonArray("to");
+        return turnedBox(from.get(0).getAsDouble(), from.get(2).getAsDouble(), to.get(0).getAsDouble(), to.get(2).getAsDouble(),
+                from.get(1).getAsDouble(), to.get(1).getAsDouble(), variant.has("y") ? variant.get("y").getAsInt() : 0);
+    }
+
+    /** The element footprint in pixels, turned about the block centre the way the blockstate turns the model. */
+    private static AABB turnedBox(double x1, double z1, double x2, double z2, double minY, double maxY, int y) {
+        double minX = Double.MAX_VALUE;
+        double maxX = -Double.MAX_VALUE;
+        double minZ = Double.MAX_VALUE;
+        double maxZ = -Double.MAX_VALUE;
+        for (double[] corner : new double[][] {{x1, z1}, {x1, z2}, {x2, z1}, {x2, z2}}) {
+            double[] turned = turn(corner[0], corner[1], y);
+            minX = Math.min(minX, turned[0]);
+            maxX = Math.max(maxX, turned[0]);
+            minZ = Math.min(minZ, turned[1]);
+            maxZ = Math.max(maxZ, turned[1]);
+        }
+        return new AABB(minX / 16.0, minY / 16.0, minZ / 16.0, maxX / 16.0, maxY / 16.0, maxZ / 16.0);
+    }
+
+    /** y=90 sends model north (-z) to east (+x): (x,z) becomes (16-z,x), the blockstate rotation about the centre. */
+    private static double[] turn(double x, double z, int y) {
+        return switch (Math.floorMod(y, 360)) {
+            case 90 -> new double[] {16.0 - z, x};
+            case 180 -> new double[] {16.0 - x, 16.0 - z};
+            case 270 -> new double[] {z, 16.0 - x};
+            default -> new double[] {x, z};
+        };
+    }
+
+    private static boolean sameBox(AABB a, AABB b) {
+        return Math.abs(a.minX - b.minX) < 1.0E-6 && Math.abs(a.minY - b.minY) < 1.0E-6 && Math.abs(a.minZ - b.minZ) < 1.0E-6
+                && Math.abs(a.maxX - b.maxX) < 1.0E-6 && Math.abs(a.maxY - b.maxY) < 1.0E-6 && Math.abs(a.maxZ - b.maxZ) < 1.0E-6;
+    }
+
+    private static JsonObject jsonResource(GameTestHelper helper, String path) {
+        try (java.io.InputStream in = CrucibleTests.class.getClassLoader().getResourceAsStream(path)) {
+            helper.assertTrue(in != null, path + " is not on the classpath");
+            return JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8))
+                    .getAsJsonObject();
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("cannot read " + path, e);
+        }
     }
 }

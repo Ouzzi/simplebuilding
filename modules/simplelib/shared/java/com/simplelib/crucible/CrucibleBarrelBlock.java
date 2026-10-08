@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -28,6 +29,8 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -74,6 +77,32 @@ public class CrucibleBarrelBlock extends Block implements EntityBlock {
     @Override
     protected BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    }
+
+    /**
+     * The attached barrel's outline: the body element of {@code assets/simplelib/models/block/*_barrel_attached.json}
+     * (from [1.5,0,0] to [14.5,11,13]) turned by the y-rotation of the matching blockstate variant (0/90/180/270 for
+     * north/east/south/west, y=90 maps (x,z) to (16-z,x) about the block centre). Flange and chute reach out of this
+     * cell into the crucible, so they stay out of the hitbox; the loose barrel keeps the full cube.
+     *
+     * <p>Collision and occlusion take this outline on their own: the block keeps {@code canOcclude} and both default
+     * to {@code getShape}, which is what stops the neighbour faces from being culled next to an attached barrel
+     * (the X-Ray hole) without changing the loose barrel.
+     */
+    private static final VoxelShape ATTACHED_NORTH = Block.box(1.5, 0.0, 0.0, 14.5, 11.0, 13.0);
+    private static final VoxelShape ATTACHED_EAST = Block.box(3.0, 0.0, 1.5, 16.0, 11.0, 14.5);
+    private static final VoxelShape ATTACHED_SOUTH = Block.box(1.5, 0.0, 3.0, 14.5, 11.0, 16.0);
+    private static final VoxelShape ATTACHED_WEST = Block.box(0.0, 0.0, 1.5, 13.0, 11.0, 14.5);
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        if (!state.getValue(ATTACHED)) return super.getShape(state, level, pos, context);
+        return switch (state.getValue(FACING)) {
+            case EAST -> ATTACHED_EAST;
+            case SOUTH -> ATTACHED_SOUTH;
+            case WEST -> ATTACHED_WEST;
+            default -> ATTACHED_NORTH;
+        };
     }
 
     @Override

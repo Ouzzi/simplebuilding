@@ -627,6 +627,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_crucible_step_on_hurts_only_on_high_heat_and_not_when_sneaking", CrucibleTests::crucibleStepOnHurtsOnlyOnHighHeatAndNotWhenSneaking)
                     .build(),
+            GameTestSpec.named("crucible_game_test_attached_barrel_hitbox_follows_its_model", CrucibleTests::attachedBarrelHitboxFollowsItsModel)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_attached_barrel_does_not_occlude_its_neighbours", CrucibleTests::attachedBarrelDoesNotOccludeItsNeighbours)
+                    .build(),
             GameTestSpec.named("hammock_game_test_hangs_only_between_two_anchors_two_to_four_apart", HammockTests::hangsOnlyBetweenTwoAnchorsTwoToFourApart)
                     .build(),
             GameTestSpec.named("hammock_game_test_cloth_hangs_in_the_middle_at_every_gap", HammockTests::clothHangsInTheMiddleAtEveryGap)
