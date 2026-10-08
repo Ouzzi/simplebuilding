@@ -20,7 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * Group "storage" (W1 G1): mount inventories (horse, donkey, mule, llama, camel ... and the nautilus; preview
  * g1-pferd.png). The background, chest-slot strip and saddle/armor slot frames of Vanilla are skipped while styled;
- * the live animal preview still renders on top of the style's sunk field. Which screen classes are styled decides
+ * the live animal preview still renders on top of the style's sunk field. The style is drawn just before the Vanilla
+ * blit, after anything other mods inject behind the window (simpleriding's hoof panel). Which screen classes are styled decides
  * {@link StyledScreens#style} (exact classes HorseInventoryScreen and NautilusInventoryScreen).
  */
 @Mixin(AbstractMountInventoryScreen.class)
@@ -32,8 +33,10 @@ public abstract class MountBackgroundMixin extends AbstractContainerScreen<Abstr
         super(menu, inventory, title);
     }
 
-    @Inject(method = "extractBackground", at = @At(value = "INVOKE", shift = At.Shift.AFTER,
-            target = "Lnet/minecraft/client/gui/screens/inventory/AbstractContainerScreen;extractBackground(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V"))
+    // Right before Vanilla's background blit, not right after the super call: other mods drawing behind the mount window
+    // at that point (simpleriding's hoof panel tab, whose right end hides under this box's left frame) come first.
+    @Inject(method = "extractBackground", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
     private void simplecontainers$drawStyle(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
         this.simplecontainers$styled = StyledScreens.drawBackground(this, graphics, this.leftPos, this.topPos,
                 this.imageWidth, this.imageHeight, this.titleLabelY, StorageDecors.mount());
