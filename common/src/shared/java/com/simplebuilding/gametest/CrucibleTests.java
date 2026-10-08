@@ -644,7 +644,8 @@ public final class CrucibleTests {
             int usesBefore = ModBucketItem.ceramicUses(full);
             ItemStack poured = useBucket(level, player, full);
             helper.assertTrue(level.getFluidState(water).is(net.minecraft.tags.FluidTags.WATER) && level.getFluidState(water).isSource(),
-                    expected + ": pouring made no water source");
+                    expected + ": pouring made no water source; hand " + poured + ", block " + level.getBlockState(water)
+                            + ", below " + level.getBlockState(water.below()) + ", eye " + player.getEyePosition() + ", xRot " + player.getXRot());
             helper.assertTrue(poured.getItem() instanceof ModBucketItem empty && empty.kind() == expected && !poured.is(kind[1]) && !poured.is(ModBucketItem.filled(expected, Fluids.WATER)),
                     expected + ": after pouring the hand holds " + poured + " instead of its empty bucket");
             if (expected == ModBucketItem.Kind.CERAMIC) {
@@ -657,6 +658,7 @@ public final class CrucibleTests {
             x += 3;
         }
         net.minecraft.world.entity.player.Player creative = helper.makeMockPlayer(GameType.CREATIVE);
+        creative.getAbilities().instabuild = true; // the mock's game type alone does not grant infinite materials everywhere
         Vec3 at = helper.absoluteVec(new Vec3(1.5, 2.0, 6.5));
         creative.snapTo(at.x, at.y, at.z, 0.0F, 90.0F);
         ItemStack kept = useBucket(level, creative, new ItemStack(ModFluids.CERAMIC_WATER_BUCKET));
