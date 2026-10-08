@@ -14,4 +14,6 @@ public final class ModuleGameTest {
     @GameTest public void stationRegistry(GameTestHelper h) { ContainerTests.stationRegistry(h); }
     @GameTest public void stationPalettes(GameTestHelper h) { ContainerTests.stationPalettes(h); }
     @GameTest public void stationLayouts(GameTestHelper h) { ContainerTests.stationLayouts(h); }
+    @GameTest public void workLayouts(GameTestHelper h) { ContainerTests.workLayouts(h); }
+    @GameTest public void workPalettes(GameTestHelper h) { ContainerTests.workPalettes(h); }
 }

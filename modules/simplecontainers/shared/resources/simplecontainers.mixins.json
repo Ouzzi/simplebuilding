@@ -13,7 +13,15 @@
     "LoomStationMixin",
     "CartographyStationMixin",
     "MerchantStationMixin",
-    "TradeOfferButtonMixin"
+    "TradeOfferButtonMixin",
+    "CraftingBackgroundMixin",
+    "FurnaceBackgroundMixin",
+    "BrewingBackgroundMixin",
+    "BeaconBackgroundMixin",
+    "BeaconButtonMixin",
+    "BeaconIconMixin",
+    "EnchantmentBackgroundMixin",
+    "SlotIconMixin"
   ],
   "injectors": {
     "defaultRequire": 1

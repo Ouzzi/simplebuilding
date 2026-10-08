@@ -14,7 +14,8 @@ public final class ContainerStyles {
     /** One entry per group, in config order. */
     public static final List<List<ScreenStyle>> GROUPS = List.of(
             StorageStyles.STYLES,
-            StationStyles.STYLES);
+            StationStyles.STYLES,
+            WorkStyles.STYLES);
 
     private static final List<ScreenStyle> ALL = flatten();
 

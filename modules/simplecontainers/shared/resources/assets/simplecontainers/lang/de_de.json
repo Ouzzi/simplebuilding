@@ -26,5 +26,19 @@
   "simplecontainers.option.screen.merchant": "Handel mit Dorfbewohnern",
   "simplecontainers.option.screen.merchant.tooltip": "Handels-Bildschirm in Grün: Angebotsliste als erhabene Kacheln (das gewählte Angebot eingelassen), eingravierte Handelspfeile, eingelassener XP-Balken. Standard: an.",
   "simplecontainers.option.screen.player_inventory": "Spieler-Inventar",
-  "simplecontainers.option.screen.player_inventory.tooltip": "Dein eigenes Inventar (E) als ein heller Kasten: Rüstungs- und Schild-Slots, eingelassenes Feld hinter deinem Spielermodell, 2x2-Herstellen mit eingraviertem Pfeil. Rezeptbuch und Knöpfe anderer Mods bleiben. Standard: an."
+  "simplecontainers.option.screen.player_inventory.tooltip": "Dein eigenes Inventar (E) als ein heller Kasten: Rüstungs- und Schild-Slots, eingelassenes Feld hinter deinem Spielermodell, 2x2-Herstellen mit eingraviertem Pfeil. Rezeptbuch und Knöpfe anderer Mods bleiben. Standard: an.",
+  "simplecontainers.option.screen.crafting": "Werkbänke",
+  "simplecontainers.option.screen.crafting.tooltip": "Werkbank-Bildschirm in hellem Holz mit großem Ergebnis-Slot und eingraviertem Pfeil. Der Rezeptbuch-Knopf bleibt. Standard: an.",
+  "simplecontainers.option.screen.furnace": "Öfen",
+  "simplecontainers.option.screen.furnace.tooltip": "Ofen-Bildschirm in Steingrau: der Brennstoff-Slot zeigt die Brenndauer als Flammen, darüber Hitzewellen, der Pfeil füllt sich mit dem Kochfortschritt. Standard: an.",
+  "simplecontainers.option.screen.blast_furnace": "Schmelzöfen",
+  "simplecontainers.option.screen.blast_furnace.tooltip": "Schmelzofen-Bildschirm in dunklem Eisen mit helleren Flammen im Brennstoff-Slot. Standard: an.",
+  "simplecontainers.option.screen.smoker": "Räucheröfen",
+  "simplecontainers.option.screen.smoker.tooltip": "Räucherofen-Bildschirm in Rauchbraun mit Rauchkringeln über dem Brennstoff-Slot. Standard: an.",
+  "simplecontainers.option.screen.brewing_stand": "Braustände",
+  "simplecontainers.option.screen.brewing_stand.tooltip": "Braustand-Bildschirm in einem grauen Kasten: der Lohenstaub-Slot zeigt den restlichen Brennstoff, Rohre führen zu den Flaschen, beim Brauen steigen Blasen auf. Standard: an.",
+  "simplecontainers.option.screen.beacon": "Leuchtfeuer",
+  "simplecontainers.option.screen.beacon.tooltip": "Leuchtfeuer-Bildschirm in Glas-Türkis: Kraftfelder mit Pyramide und Stern, erhabene Effekt-Knöpfe, Haken und Kreuz. Standard: an.",
+  "simplecontainers.option.screen.enchanting": "Zaubertische",
+  "simplecontainers.option.screen.enchanting.tooltip": "Zaubertisch-Bildschirm in Rot: die drei Angebote als eingelassene Zeilen mit Lapis-Steinen für ihre Kosten. Standard: an."
 }

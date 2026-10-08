@@ -26,5 +26,19 @@
   "simplecontainers.option.screen.merchant": "Villager trading",
   "simplecontainers.option.screen.merchant.tooltip": "Trading screen in green: offer list as raised tiles (the chosen offer sunk), engraved trade arrows, sunk XP bar. Default: on.",
   "simplecontainers.option.screen.player_inventory": "Player inventory",
-  "simplecontainers.option.screen.player_inventory.tooltip": "Your own inventory (E) as one light box: armor and shield slots, sunk field behind your player model, 2x2 crafting with an engraved arrow. Recipe book and other mods' buttons stay. Default: on."
+  "simplecontainers.option.screen.player_inventory.tooltip": "Your own inventory (E) as one light box: armor and shield slots, sunk field behind your player model, 2x2 crafting with an engraved arrow. Recipe book and other mods' buttons stay. Default: on.",
+  "simplecontainers.option.screen.crafting": "Crafting tables",
+  "simplecontainers.option.screen.crafting.tooltip": "Crafting table screen in light wood with a big result slot and an engraved arrow. The recipe book button stays. Default: on.",
+  "simplecontainers.option.screen.furnace": "Furnaces",
+  "simplecontainers.option.screen.furnace.tooltip": "Furnace screen in stone grey: the fuel slot shows the burn time as flames, heat waves over it, the arrow fills with the cooking progress. Default: on.",
+  "simplecontainers.option.screen.blast_furnace": "Blast furnaces",
+  "simplecontainers.option.screen.blast_furnace.tooltip": "Blast furnace screen in dark iron with brighter flames in the fuel slot. Default: on.",
+  "simplecontainers.option.screen.smoker": "Smokers",
+  "simplecontainers.option.screen.smoker.tooltip": "Smoker screen in smoked brown with smoke curls over the fuel slot. Default: on.",
+  "simplecontainers.option.screen.brewing_stand": "Brewing stands",
+  "simplecontainers.option.screen.brewing_stand.tooltip": "Brewing stand screen in one grey box: the blaze powder slot shows the fuel left, pipes lead to the bottles, bubbles rise while brewing. Default: on.",
+  "simplecontainers.option.screen.beacon": "Beacons",
+  "simplecontainers.option.screen.beacon.tooltip": "Beacon screen in glass teal: power fields with pyramid and star symbols, raised effect buttons, check and cross. Default: on.",
+  "simplecontainers.option.screen.enchanting": "Enchanting tables",
+  "simplecontainers.option.screen.enchanting.tooltip": "Enchanting table screen in red: the three offers as sunk rows with lapis gems for their cost. Default: on."
 }
