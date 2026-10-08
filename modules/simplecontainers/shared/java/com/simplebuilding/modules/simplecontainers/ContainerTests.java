@@ -314,7 +314,8 @@ public final class ContainerTests {
 
     /**
      * W1 G2 geometries as in the W0-B preview: crafting table and furnaces get the full 14 px split (2 px divider), the
-     * enchanting table's offer rows (down to y 72, a pseudo slot at 55) leave 12 px - boxes touch.
+     * enchanting table's offer rows (down to y 72) leave 12 px - boxes touch; brewing stand (bottles down to 75) and
+     * beacon (buttons down to 129, inventory at 36/137) get one box with the seam 3 px above the inventory.
      */
     public static void workLayouts(GameTestHelper h) {
         int[] grid = new int[18];
@@ -333,10 +334,24 @@ public final class ContainerTests {
         h.assertTrue(furnace != null, "furnace fits");
         rect(h, furnace.container(), 0, 0, 176, 77, "furnace container box");
         rect(h, furnace.inventory(), 0, 79, 176, 87, "furnace inventory box");
-        var enchanting = BoxLayout.compute(work(15, 47, 35, 47, 60, 55), 176, 166, 6);
+        var enchanting = BoxLayout.compute(work(15, 47, 35, 47), List.of(new BoxLayout.Rect(60, 14, 109, 58)), 176, 166, 6);
         h.assertTrue(enchanting != null, "enchanting table fits");
         rect(h, enchanting.container(), 0, 0, 176, 79, "enchanting container box down to the inventory box (offer rows end at 72)");
         rect(h, enchanting.inventory(), 0, 79, 176, 87, "enchanting inventory box");
+        var brewing = BoxLayout.compute(work(17, 17, 79, 17, 56, 51, 79, 58, 102, 51), 176, 166, 6);
+        h.assertTrue(brewing != null && brewing.variant() == BoxLayout.Variant.SEAM, "brewing stand: one box");
+        rect(h, brewing.container(), 0, 0, 176, 166, "brewing stand box");
+        rect(h, brewing.inventory(), 5, 81, 166, 78, "brewing stand seam panel");
+        List<BoxLayout.Slot> beacon = new ArrayList<>();
+        beacon.add(new BoxLayout.Slot(136, 110, false));
+        for (int r = 0; r < 3; r++) for (int c = 0; c < 9; c++) beacon.add(new BoxLayout.Slot(36 + c * 18, 137 + r * 18, true));
+        for (int c = 0; c < 9; c++) beacon.add(new BoxLayout.Slot(36 + c * 18, 195, true));
+        var beaconSlotsOnly = BoxLayout.compute(beacon, 230, 219, 6);
+        h.assertTrue(beaconSlotsOnly != null && beaconSlotsOnly.variant() == BoxLayout.Variant.NO_SHADOW, "beacon slots alone: two tight boxes");
+        var beaconLayout = BoxLayout.compute(beacon, List.of(new BoxLayout.Rect(164, 107, 48, 22)), 230, 219, 6);
+        h.assertTrue(beaconLayout != null && beaconLayout.variant() == BoxLayout.Variant.SEAM, "beacon with its buttons: one box");
+        h.assertTrue(beaconLayout.container().y() == 0 && beaconLayout.container().bottom() == 219, "beacon box over the whole height");
+        h.assertTrue(beaconLayout.inventory().y() == 134 && beaconLayout.inventory().bottom() == 212, "beacon seam at 134, panel to 212");
         h.succeed();
     }
 
