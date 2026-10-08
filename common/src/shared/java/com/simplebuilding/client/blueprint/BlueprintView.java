@@ -265,9 +265,9 @@ public final class BlueprintView {
     // ZEICHNEN
     // =====================================================================================
 
-    /** Standard-Blick: leicht von oben, von vorn rechts auf die Suedseite. */
+    /** Standard-Blick: leicht von oben, von vorn rechts auf die Suedseite (Logik: BlueprintViewControls). */
     public static Quaternionf defaultRotation() {
-        return new Quaternionf().rotateX((float) Math.toRadians(28)).rotateY((float) Math.toRadians(-35));
+        return com.simplebuilding.blueprint.BlueprintViewControls.defaultRotation();
     }
 
     /**
@@ -275,13 +275,22 @@ public final class BlueprintView {
      * laesst das ganze Bauwerk hineinpassen. Alles ausserhalb des Rechtecks wird abgeschnitten.
      */
     public static void render(GuiGraphicsExtractor graphics, Mesh mesh, int x, int y, int w, int h, Quaternionf rotation, float zoom) {
+        render(graphics, mesh, x, y, w, h, rotation, zoom, 0f, 0f);
+    }
+
+    /**
+     * Wie {@link #render(GuiGraphicsExtractor, Mesh, int, int, int, int, Quaternionf, float)}, dazu
+     * {@code panX}/{@code panY} in GUI-Pixeln: nur der Mittelpunkt wandert, der Ausschnitt bleibt.
+     */
+    public static void render(GuiGraphicsExtractor graphics, Mesh mesh, int x, int y, int w, int h, Quaternionf rotation, float zoom,
+            float panX, float panY) {
         if (mesh.quads == 0 || w <= 0 || h <= 0) {
             return;
         }
         Matrix3f rot = new Matrix3f().rotation(rotation);
         float scale = zoom * Math.min(w, h) * 0.5f / mesh.radius;
-        float cx = x + w / 2f;
-        float cy = y + h / 2f;
+        float cx = x + w / 2f + panX;
+        float cy = y + h / 2f + panY;
         int n = mesh.quads;
         float[] screen = new float[n * 8];
         long[] order = new long[n];

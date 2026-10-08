@@ -7,6 +7,7 @@ import com.simplebuilding.blueprint.BlueprintExamples;
 import com.simplebuilding.blueprint.BlueprintMaterials;
 import com.simplebuilding.blueprint.BlueprintModel;
 import com.simplebuilding.blueprint.BlueprintTiers;
+import com.simplebuilding.blueprint.BlueprintViewControls;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BlueprintItem;
 import com.simplebuilding.networking.BlueprintEditPayload;
@@ -30,7 +31,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import org.joml.Quaternionf;
 
 /**
  * Der Blaupausen-Editor: ein Kartenblatt in drei Spalten.
@@ -79,6 +79,7 @@ public class BlueprintScreen extends Screen {
     private Button insertButton;
     private Button exampleButton;
     private BookButton helpButton;
+    private ResetViewButton resetViewButton;
     private Button guideTab;
     private Button blocksTab;
     private boolean signing;
@@ -98,9 +99,10 @@ public class BlueprintScreen extends Screen {
     private int panelX, panelY, panelW, panelH;
     private int listX, listW, codeX, codeW, viewX, viewW, bodyY, bodyH, footerY;
     private double listScroll;
-    private Quaternionf rotation = BlueprintView.defaultRotation();
-    private float zoom = 1f;
+    private final BlueprintViewControls controls = new BlueprintViewControls();
     private boolean draggingView;
+    /** Ob der laufende Ziehvorgang Verschieben (Strg beim Tastendruck) oder Drehen ist. */
+    private boolean draggingPan;
 
     public BlueprintScreen(Player player, InteractionHand hand) {
         super(Component.translatable("item.simplebuilding.blueprint"));
@@ -166,6 +168,7 @@ public class BlueprintScreen extends Screen {
             helpOpen = !helpOpen;
             updateButtons();
         }));
+        resetViewButton = addRenderableWidget(new ResetViewButton(viewX + viewW - 32, bodyY - 16, controls::reset));
         exampleButton = addRenderableWidget(Button.builder(Component.translatable("simplebuilding.blueprint.editor.example"), b -> insertExample())
                 .bounds(viewX + 6, bodyY + bodyH - 24, viewW - 12, 18).build());
         guideTab = addRenderableWidget(Button.builder(Component.translatable("simplebuilding.blueprint.help.guide_tab"), b -> {
@@ -537,7 +540,8 @@ public class BlueprintScreen extends Screen {
             return;
         }
         BlueprintView.Mesh mesh = BlueprintView.mesh(model);
-        BlueprintView.render(g, mesh, viewX + 2, bodyY + 2, viewW - 4, bodyH - 4, rotation, zoom);
+        BlueprintView.render(g, mesh, viewX + 2, bodyY + 2, viewW - 4, bodyH - 4, controls.rotation(),
+                controls.zoom(), controls.panX(), controls.panY());
         if (mesh.truncated()) {
             g.text(font, Component.translatable("simplebuilding.blueprint.editor.truncated"), viewX + 4, bodyY + bodyH - 12, 0xFFFFB74D, false);
         }
@@ -638,29 +642,33 @@ public class BlueprintScreen extends Screen {
         }
         if (!helpOpen && overView(mx, my)) {
             draggingView = true;
+            // Strg beim Tastendruck entscheidet fuer den ganzen Ziehvorgang: Verschieben statt Drehen.
+            draggingPan = event.hasControlDown();
             if (doubleClick) {
-                rotation = BlueprintView.defaultRotation();
-                zoom = 1f;
+                controls.reset();
             }
             return true;
         }
         draggingView = false;
+        draggingPan = false;
         return false;
     }
 
     @Override
     public boolean mouseReleased(MouseButtonEvent event) {
         draggingView = false;
+        draggingPan = false;
         return super.mouseReleased(event);
     }
 
     @Override
     public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
         if (draggingView) {
-            // Trackball: waagerecht um die Bild-Hochachse, senkrecht um die Bild-Querachse -
-            // vorne angesetzt, damit jede Richtung frei erreichbar ist (auch kopfueber).
-            float k = 0.012f;
-            rotation = new Quaternionf().rotateX((float) (dy * k)).rotateY((float) (dx * k)).mul(rotation);
+            if (draggingPan) {
+                controls.pan(dx, dy);
+            } else {
+                controls.drag(dx, dy);
+            }
             return true;
         }
         return super.mouseDragged(event, dx, dy);
@@ -672,7 +680,7 @@ public class BlueprintScreen extends Screen {
             if (helpOpen) {
                 helpScroll -= scrollY * 18;
             } else {
-                zoom = (float) Math.max(0.2, Math.min(12.0, zoom * Math.pow(1.15, scrollY)));
+                controls.zoom(scrollY);
             }
             return true;
         }
@@ -704,6 +712,41 @@ public class BlueprintScreen extends Screen {
                 g.fill(getX() - 1, getY() - 1, getX() + 17, getY() + 17, 0x40FFFFFF);
             }
             g.item(new ItemStack(Items.KNOWLEDGE_BOOK), getX(), getY());
+        }
+
+        @Override
+        protected void updateWidgetNarration(net.minecraft.client.gui.narration.NarrationElementOutput output) {
+            defaultButtonNarrationText(output);
+        }
+    }
+
+    /**
+     * Setzt Drehung, Zoom und Verschiebung der Ansicht zurueck. Icon statt Text: der Knopf steht
+     * links neben dem Buch-Knopf ueber der Vorschau, ausserhalb des View-Rechtecks, damit er den
+     * Ziehvorgang nicht beansprucht. Keine eigene Textur - das Kompass-Item wie jeder andere
+     * Icon-Knopf auch.
+     */
+    private static final class ResetViewButton extends net.minecraft.client.gui.components.AbstractButton {
+        private final Runnable action;
+
+        ResetViewButton(int x, int y, Runnable action) {
+            super(x, y, 16, 16, Component.translatable("simplebuilding.blueprint.editor.view_reset"));
+            this.action = action;
+            setTooltip(net.minecraft.client.gui.components.Tooltip.create(
+                    Component.translatable("simplebuilding.blueprint.editor.view_reset_tip")));
+        }
+
+        @Override
+        public void onPress(net.minecraft.client.input.InputWithModifiers input) {
+            action.run();
+        }
+
+        @Override
+        protected void extractContents(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
+            if (isHoveredOrFocused()) {
+                g.fill(getX() - 1, getY() - 1, getX() + 17, getY() + 17, 0x40FFFFFF);
+            }
+            g.item(new ItemStack(Items.COMPASS), getX(), getY());
         }
 
         @Override
