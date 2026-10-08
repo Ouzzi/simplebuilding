@@ -1137,6 +1137,93 @@
         "neoforge": ":modules:simplelib:neoforge",
         "forge": ":modules:simplelib:forge"
       }
+    },
+    {
+      "id": "simplecontainers",
+      "name": "Simple Containers",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Containers",
+      "description": "Client-only restyle of the Vanilla container screens in the Simple style: a coloured box per block and a light inventory box, drawn in code.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "cloth_config",
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding",
+        "modmenu"
+      ],
+      "checks": [
+        "modules/simplecontainers/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplecontainers",
+        "catalogues": [
+          "modules/simplecontainers/fabric/src/main/java/com/simplebuilding/modules/simplecontainers/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplecontainers"
+        ],
+        "devMods": [
+          "cloth_config"
+        ],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplecontainersGameTest",
+            "report": "integration/build/simplecontainers-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplecontainers:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplecontainers/neoforge/build/module-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplecontainersStandaloneGameTest",
+              "report": "integration/build/standalone/simplecontainers-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplecontainers:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplecontainers/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplecontainers.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplecontainers/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplecontainers",
+        "shared": "modules/simplecontainers/shared",
+        "fabric": "modules/simplecontainers/fabric",
+        "neoforge": "modules/simplecontainers/neoforge",
+        "forge": "modules/simplecontainers/forge",
+        "generated": "modules/simplecontainers/generated/resources",
+        "lang": "modules/simplecontainers/shared/resources/assets/simplecontainers/lang",
+        "wikiManual": "modules/simplecontainers/wiki/manual.json",
+        "balanceDir": "balance/simplecontainers"
+      },
+      "projects": {
+        "fabric": ":modules:simplecontainers:fabric",
+        "neoforge": ":modules:simplecontainers:neoforge",
+        "forge": ":modules:simplecontainers:forge"
+      }
     }
   ]
 }

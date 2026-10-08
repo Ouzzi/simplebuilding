@@ -63,3 +63,38 @@ zeigt die Flammen in sich, großer Ergebnis-Slot, Pfeil, dezente Motive im Kaste
 - 26.3-Rendering-API (GuiGraphicsExtractor statt GuiGraphics) – Muster aus CrucibleScreen übernehmen.
 - Fremde Mods mit eigenen Screens auf Vanilla-Menüs: nur exakte Vanilla-Screen-Klassen stylen.
 - Ressourcenpakete: Hauptschalter aus = reines Vanilla.
+
+## W0-A Umsetzung (Branch `claude-sc-base`)
+Ist-Zustand (26.3-Quellen, NeoForge-patched 26.3.0.16-beta): `AbstractContainerScreen` **überschreibt
+`extractBackground` nicht**; jede Unterklasse (ContainerScreen, ShulkerBoxScreen, HopperScreen, DispenserScreen …)
+ruft `super.extractBackground` (= `Screen`: Abdunkeln/Blur) und blittet danach ihr PNG. Labels zeichnet
+`AbstractContainerScreen#extractLabels` (Farbe 0xFF404040). Slot-Lücke zwischen Container- und Spieler-Slots ist in
+Vanilla nur 13–14 px (inkl. heller Slot-Kante): Truhe 9×N/Trichter/Spender 14, Shulker 13.
+
+Entscheidungen (Claude):
+1. **Paket `com.simplelib.api.client.ui`** statt `com.simplelib.client.ui`: Prinzip 6a erlaubt Modulen nur Importe aus
+   `com.simplelib.api`. Inhalt: `UiPalette` (record + INVENTORY/BARREL + `derived`), `UiBoxes` (box, slot, bigSlot,
+   arrow, progressFill, progressBar, veil, rounded, scale, FRAME 5/7, RIM), `UiFlames` (Flammenstreifen nach Zielhöhe
+   und Ruhe, Kern aus CrucibleFlames). CrucibleScreen/CrucibleFlames delegieren – gleicher Code, gleiche Pixel.
+2. **Mixin je Screen-Klasse statt auf AbstractContainerScreen** (dort gibt es die Methode nicht): HEAD-Inject in
+   `extractBackground` der Ziel-Klassen, bei aktivem Stil `super.extractBackground` (nur Screen-Hintergrund) + eigener
+   Hintergrund + cancel. Labels: HEAD-Inject in `AbstractContainerScreen#extractLabels`. Weitere Gruppen legen eine
+   eigene Mixin-Klasse für ihre Screen-Klassen an (eine Zeile in `simplecontainers.mixins.json`).
+3. **Kasten-Grenzen aus Slots** (`BoxLayout`, rein, serverseitig testbar): waagerecht über alle Slots ±8 (Truhe: 0..176),
+   Container-Kasten oben bis Bildrand (Titel liegt im Kasten), Rahmen 5/7, Polster p und Fuge aus der Restlücke
+   (Fuge ≥ 1 px); passt es nicht (< 13 px) → Vanilla. Das „Inventar“-Label passt in Vanilla-Geometrie nicht zwischen
+   die Kästen und entfällt im Stil (Bild 3 zeigt auch keins); der Titel steht in der Label-Farbe der Palette.
+4. **Registry** (`ContainerStyles`, serverseitig ladbar): Schlüssel = `MenuType` + exakter Vanilla-Screen-Klassenname
+   (fremde Unterklassen bleiben Vanilla). Je Gruppe eine Klasse (`StorageStyles` = W0), zentrale Liste
+   `ContainerStyles.GROUPS`. Palette aus `StyleContext` (Menü, Titel-Schlüssel, angeschauter Block): Titel bestimmt die
+   Familie (Truhe/Fass/Endertruhe/Shulker/Trichter/Spender), der Block verfeinert (Kupfertruhen-Stufen,
+   Shulkerfarbe); sonst Standard je Menü (Eiche-Truhe). Farben aus Bild 3 gemessen.
+5. **Config** `config/simplecontainers.json` (nur Client): Hauptschalter `enabled` + `screens.<stil-id>` (Standard an);
+   Cloth-Screen aus der Registry erzeugt (Forge: native-config wie simplesounds).
+6. **SimpleLib gebündelt** (Prinzip 6a, wie Sandwiches: Fabric `include`+`implementation`, NeoForge `jarJar`, Forge
+   `forgeBundleSimplelib`); `requires` nennt `cloth_config` + `simplelib`. Folge: SimpleLib bringt Blöcke mit – ein
+   reiner Client ohne SimpleLib auf dem Server ist damit nicht garantiert (Registry-Abgleich). Offener Punkt für
+   den Besitzer: UI-Bausteine später ggf. in eine inhaltsfreie Client-Bibliothek.
+7. Tests: GameTests (Fabric @GameTest + NeoForge-Katalog) für BoxLayout (alle W0-Geometrien, zu enge Lücke → null),
+   Registry-Abdeckung (alle W0-Menüs, exakte Klassen, eindeutige Ids), Palettenwahl, Config-Default; Standalone-Target
+   Fabric/NeoForge; Client-Smoke mit Truhen-Screenshot.
