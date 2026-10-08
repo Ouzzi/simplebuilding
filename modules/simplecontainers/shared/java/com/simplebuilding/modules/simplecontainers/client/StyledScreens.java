@@ -78,14 +78,17 @@ public final class StyledScreens {
 
     /** The style that applies to {@code screen} right now, or {@code null} (Vanilla). */
     public static @Nullable ScreenStyle style(AbstractContainerScreen<?> screen) {
-        MenuType<?> type;
-        try {
-            type = screen.getMenu().getType();
-        } catch (UnsupportedOperationException e) {
-            type = null; // mount inventories and the player inventory have no menu type
-        }
-        ScreenStyle style = ContainerStyles.find(type, screen.getClass().getName());
+        ScreenStyle style = ContainerStyles.find(menuType(screen), screen.getClass().getName());
         return style != null && ContainersClient.config().isOn(style.id()) ? style : null;
+    }
+
+    /** The menu type of {@code screen}, or {@code null} (mount inventories and the player inventory have none). */
+    static @Nullable MenuType<?> menuType(AbstractContainerScreen<?> screen) {
+        try {
+            return screen.getMenu().getType();
+        } catch (UnsupportedOperationException e) {
+            return null;
+        }
     }
 
     /** Whether the last frame of {@code screen} drew its background in the style. */
@@ -123,7 +126,7 @@ public final class StyledScreens {
         if (mc.level != null && mc.hitResult instanceof BlockHitResult hit && hit.getType() == HitResult.Type.BLOCK) {
             block = BuiltInRegistries.BLOCK.getKey(mc.level.getBlockState(hit.getBlockPos()).getBlock()).toString();
         }
-        return new StyleContext(screen.getMenu().getType(), key, block);
+        return new StyleContext(menuType(screen), key, block);
     }
 
     /**
