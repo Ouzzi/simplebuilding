@@ -56,10 +56,17 @@ final class EnvironmentClaimTests {
    yes(h,same?!dest.isEmpty():dest.isEmpty()&&source.getItem(0).getCount()==3,"Real hopper ticker boundary/owner control: "+block+" same="+same);
   }
  });h.succeed();}
- static void projectiles(GameTestHelper h){with(h,c->{
-  var l=h.getLevel();var inside=ToolClaimTests.boundary(h).east(2).above(80);var owner=player(h,inside.west(10));var other=player(h,inside.west(10));
+ static void projectiles(GameTestHelper h){
+  // The target chunk lies east of the test structure; until it is entity-visible the arrow's hit query misses the cow.
+  var l=h.getLevel();var inside=ToolClaimTests.boundary(h).east(2).above(80);var chunk=ChunkPos.containing(inside);
+  boolean forced=l.setChunkForced(chunk.x(),chunk.z(),true);
+  var cow=EntityTypes.COW.create(l,EntitySpawnReason.COMMAND);cow.setNoAi(true);cow.setPos(Vec3.atBottomCenterOf(inside));l.addFreshEntity(cow);
+  h.runBeforeTestEnd(()->{cow.discard();if(forced)l.setChunkForced(chunk.x(),chunk.z(),false);});
+  h.startSequence().thenWaitUntil(()->yes(h,l.getEntitiesOfClass(Entity.class,new net.minecraft.world.phys.AABB(inside).inflate(2)).contains(cow),"Projectile target is not queryable yet"))
+   .thenExecute(()->with(h,c->{
+  var owner=player(h,inside.west(10));var other=player(h,inside.west(10));
   yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Projectile fixture");
-  var cow=EntityTypes.COW.create(l,EntitySpawnReason.COMMAND);cow.setNoAi(true);cow.setPos(Vec3.atBottomCenterOf(inside));l.addFreshEntity(cow);float health=cow.getHealth();
+  cow.setPos(Vec3.atBottomCenterOf(inside));float health=cow.getHealth();
   for(var actor:List.of(other,owner)){
    var arrow=EntityTypes.ARROW.create(l,EntitySpawnReason.COMMAND);arrow.setOwner(actor);arrow.setNoGravity(true);arrow.setPos(inside.getX()-3,inside.getY()+.7,inside.getZ()+.5);arrow.setDeltaMovement(1,0,0);l.addFreshEntity(arrow);
    for(int t=0;t<8&&!arrow.isRemoved();t++)arrow.tick();arrow.discard();
@@ -69,7 +76,7 @@ final class EnvironmentClaimTests {
   yes(h,cow.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.POISON,100),owner),"Owner effect allowed");
   cow.discard();var natural=EntityTypes.COW.create(l,EntitySpawnReason.COMMAND);natural.setPos(Vec3.atBottomCenterOf(inside));l.addFreshEntity(natural);
   float before=natural.getHealth();yes(h,natural.hurtServer(l,l.damageSources().magic(),5)&&natural.getHealth()<before,"Unattributed natural magic damage remains Vanilla");natural.discard();
- });h.succeed();}
+ })).thenSucceed();}
  static void dispenser(GameTestHelper h){with(h,c->{
   var l=h.getLevel();var inside=ToolClaimTests.boundary(h);var owner=player(h,inside.east(8));
   yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Dispenser fixture");
