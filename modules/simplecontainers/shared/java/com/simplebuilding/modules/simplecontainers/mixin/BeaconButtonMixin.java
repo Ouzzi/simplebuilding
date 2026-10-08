@@ -35,7 +35,7 @@ public abstract class BeaconButtonMixin extends AbstractButton {
     /** The palette of the open beacon screen when it is styled, else {@code null}. */
     @Unique
     private static @Nullable UiPalette simplecontainers$palette() {
-        if (Minecraft.getInstance().screen instanceof BeaconScreen screen) {
+        if (Minecraft.getInstance().gui.screen() instanceof BeaconScreen screen) {
             return WorkScreens.beaconPalette(screen);
         }
         return null;
