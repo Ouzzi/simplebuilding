@@ -75,12 +75,30 @@ Basis: `docs/ai/PLAN-TRAINING-DUMMY-2026-10-02.md` (Soll-Verhalten),
 
 ## 5. Umsetzung
 
-(folgt nach dem Schreiben der Tests)
+Der opencode-Lauf (bp-dummy) endete an einem Rate-Limit mitten in der Speer-Diagnose; Review und Abschluss
+2026-10-08 durch Claude auf `claude-wave1`:
+
+* Diagnose-`println`s und eine nicht kompilierende `ClipContext$Block`-Probe entfernt.
+* Krit-Test heisst `aFallingChargedMeleeHitShowsTheCrit` (Fabric machte aus `ShowsACrit` die Id `shows_acrit`,
+  der Katalog sagte `shows_a_crit`); Kreativ-Katalog-Id an den Methodennamen angeglichen.
+* Speer-Test: Ursache des Rots war der Testaufbau, nicht die Puppe. Der Spieler stand ausserhalb der 8x8-Testflaeche;
+  `ProjectileUtil#getHitEntitiesAlong` kappt den Strahl am ersten Block und fand die Puppe nie. Puppe jetzt am fernen
+  Rand (x=6), Spieler innerhalb, Stich voll geladen. Ergebnis: Speer-Stich zaehlt, Schleich-Stich baut ab -
+  der echte Speer-Weg funktioniert an der Puppe (kein Ausschluss in `PiercingWeapon.canHitEntity`/`Player.stabAttack`).
+* Echter Fehler gefunden (Forge 26.3): `ArmorStand.lastHit` startet bei 0, in den ersten 5 Ticks einer Welt brach
+  schon der erste Schlag den Stroh-Staender. Fix: `TrainingDummy`-Konstruktor setzt `lastHit = -100`.
 
 ## 6. Testergebnis
 
-(folgt nach dem Lauf – exakte Zeilen aus der Ausgabe)
+* `--targets fabric-263,neoforge-263,forge-263 --filter 'simplebuilding:training_dummy_game_test_*'` ->
+  `alles gruen: 57/57 bestanden, 0 rot` (Lauf 2026-10-08T17-02-46Z-160d; vor dem lastHit-Fix Forge 18/19 rot).
 
 ## 7. Nicht getestet
 
-(folgt)
+* Client-Sicht (Zahlen, Wackeln, Partikel) - keine Client-Tests.
+* Speer-Ansturm (`KineticWeapon#damageEntities`, gehaltener Angriff mit Tempo): nur der Stich ist getestet. Der
+  Ansturm filtert ebenfalls ueber `PiercingWeapon.canHitEntity` und ruft `stabAttack`; ob die Besitzer-Beschwerde
+  ("Speer unsauber") den Ansturm meint, ist offen -> Besitzer im Spiel fragen/pruefen.
+* Windladung, Dreizack (Wurf/Nahkampf), Streitkolben, Feuer/Lava, Schere-Interaktion ueber echte Wege (Schere/Kuerbis
+  sind ueber bestehende Tests abgedeckt).
+* 26.2-Linie (Port-Run).
