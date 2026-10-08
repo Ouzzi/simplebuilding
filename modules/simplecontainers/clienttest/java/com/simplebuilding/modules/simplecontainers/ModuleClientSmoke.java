@@ -72,8 +72,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             show(context, "simplecontainers-loom", c -> {
                 var menu = new LoomMenu(0, c.player.getInventory());
-                menu.getSlot(0).set(new ItemStack(Items.WHITE_BANNER));
-                menu.getSlot(1).set(new ItemStack(Items.RED_DYE, 4));
+                menu.getSlot(0).set(new ItemStack(Items.BANNER.white()));
+                menu.getSlot(1).set(new ItemStack(Items.DYE.red(), 4));
                 return new LoomScreen(menu, c.player.getInventory(), Component.translatable("container.loom"));
             });
             show(context, "simplecontainers-cartography", c -> {
