@@ -54,6 +54,7 @@ public final class LibTests {
         ALL.put("village_kitchen_in_pools", LibTests::villageKitchen);
         ALL.put("barrel_attach_and_results_first", LibTests::barrelAttach);
         ALL.put("barrel_attached_later_takes_over_reservations", LibTests::barrelAttachedLater);
+        ALL.put("client_menu_shows_the_raised_stack_limit", LibTests::clientMenuStackLimit);
         ALL.put("axe_click_reaches_axe_not_menu", LibTests::axeClickReachesAxe);
         ALL.put("axe_upgrades_cauldron", LibTests::axeUpgradesCauldron);
         ALL.put("reinforced_cauldron_holds_buckets", LibTests::reinforcedCauldronBuckets);
@@ -382,6 +383,18 @@ public final class LibTests {
                 "crucible gone: a normal barrel again");
         check(h, barrel.getItem(0).is(Items.GOLD_INGOT), "contents stay in the barrel");
         check(h, barrel.getItem(20).is(Items.APPLE) && barrel.getItem(20).getCount() == 3, "the hidden slot 21 is back with its apples");
+        h.succeed();
+    }
+
+    /** Owner N15: the client's menu mirror allows the same raised stacks as the server (Enderite: 128, not 64). */
+    private static void clientMenuStackLimit(GameTestHelper h) {
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        ItemStack cobble = new ItemStack(Items.COBBLESTONE);
+        var enderite = com.simplelib.crucible.CrucibleMenu.client(com.simplelib.crucible.CrucibleTier.ENDERITE, 0, player.getInventory());
+        check(h, enderite.slots.get(0).getMaxStackSize(cobble) == 128, "enderite crucible slot on the client: 128, got " + enderite.slots.get(0).getMaxStackSize(cobble));
+        var iron = com.simplelib.crucible.CrucibleMenu.client(com.simplelib.crucible.CrucibleTier.IRON, 0, player.getInventory());
+        check(h, iron.slots.get(0).getMaxStackSize(cobble) == 64, "iron crucible slot on the client: 64");
+        check(h, com.simplelib.api.StackLimits.max(new ItemStack(Items.IRON_SWORD), 2) == 1, "unstackable items stay single");
         h.succeed();
     }
 

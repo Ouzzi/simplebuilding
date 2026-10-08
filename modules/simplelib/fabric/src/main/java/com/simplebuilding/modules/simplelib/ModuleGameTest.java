@@ -102,6 +102,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void clientMenuShowsTheRaisedStackLimit(GameTestHelper h) {
+        LibTests.ALL.get("client_menu_shows_the_raised_stack_limit").accept(h);
+    }
+
+    @GameTest
     public void axeClickReachesAxeNotMenu(GameTestHelper h) {
         LibTests.ALL.get("axe_click_reaches_axe_not_menu").accept(h);
     }

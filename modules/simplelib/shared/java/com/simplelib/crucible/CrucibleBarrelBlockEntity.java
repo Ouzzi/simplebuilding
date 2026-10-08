@@ -107,12 +107,19 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    public int getMaxStackSize() { return 99 * tier.stackMultiplier(); }
+    public int getMaxStackSize() { return com.simplelib.api.StackLimits.cap(stackMultiplier()); }
 
     @Override
     public int getMaxStackSize(ItemStack stack) {
-        int normal = stack.getMaxStackSize();
-        return normal > 1 ? normal * tier.stackMultiplier() : 1;
+        return com.simplelib.api.StackLimits.max(stack, stackMultiplier());
+    }
+
+    /** Owner N15: attached, the barrel holds at least as much per slot as its crucible. */
+    public int stackMultiplier() {
+        int own = tier.stackMultiplier();
+        if (!attached() || level == null) return own;
+        return level.getBlockEntity(worldPosition.relative(getBlockState().getValue(CrucibleBarrelBlock.FACING))) instanceof CrucibleBlockEntity crucible
+                ? Math.max(own, crucible.tier().stackMultiplier()) : own;
     }
 
     @Override
@@ -160,7 +167,9 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
         input.read("Contents", SavedSlot.CODEC.listOf()).ifPresent(list -> {
             for (SavedSlot saved : list) {
                 if (saved.slot() < 0 || saved.slot() >= items.size() || saved.stack().isEmpty()) continue;
-                items.set(saved.slot(), saved.stack().copyWithCount(Math.max(1, Math.min(saved.count(), getMaxStackSize(saved.stack())))));
+                // Loading happens before the crucible beside it is known: allow the largest limit any crucible gives.
+                int most = com.simplelib.api.StackLimits.max(saved.stack(), Math.max(tier.stackMultiplier(), CrucibleTier.ENDERITE.stackMultiplier()));
+                items.set(saved.slot(), saved.stack().copyWithCount(Math.max(1, Math.min(saved.count(), most))));
             }
         });
     }

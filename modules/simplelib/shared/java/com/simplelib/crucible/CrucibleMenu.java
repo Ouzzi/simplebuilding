@@ -122,9 +122,11 @@ public class CrucibleMenu extends AbstractContainerMenu {
 
     /** Client constructor (one menu type per tier). */
     public static CrucibleMenu client(CrucibleTier tier, int id, Inventory inventory) {
-        return new CrucibleMenu(tier, id, inventory, new SimpleContainer(tier.slots()), new SimpleContainer(tier.slots()),
-                new SimpleContainer(tier.slots()), new SimpleContainer(tier.slots()),
-                new SimpleContainerData(tier.slots() + 4), null);
+        // The mirrors use the server's stack limits, or the client would cap the raised slots at 64 (owner N15).
+        SimpleContainerData data = new SimpleContainerData(tier.slots() + 4);
+        return new CrucibleMenu(tier, id, inventory, com.simplelib.api.StackLimits.mirror(tier.slots(), tier::stackMultiplier),
+                new SimpleContainer(tier.slots()), com.simplelib.api.StackLimits.mirror(tier.slots(), () -> data.get(tier.slots() + 3)),
+                new SimpleContainer(tier.slots()), data, null);
     }
 
     public CrucibleMenu(int id, Inventory inventory, CrucibleBlockEntity crucible) {

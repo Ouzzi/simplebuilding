@@ -69,7 +69,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
                 case 0 -> heat.ordinal();
                 case 1 -> heatSourceGone ? Math.min(afterglow, Short.MAX_VALUE) : 0;
                 case 2 -> heatMultiplier < 1.0 ? 1 : 0;
-                case 3 -> barrel() != null ? 1 : 0;
+                case 3 -> barrel() != null ? barrel().stackMultiplier() : 0; // > 0: attached, and its stack multiplier
                 default -> 0;
             };
         }
@@ -486,12 +486,11 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
     public int getContainerSize() { return tier.slots(); }
 
     @Override
-    public int getMaxStackSize() { return 99 * tier.stackMultiplier(); }
+    public int getMaxStackSize() { return com.simplelib.api.StackLimits.cap(tier.stackMultiplier()); }
 
     @Override
     public int getMaxStackSize(ItemStack stack) {
-        int normal = stack.getMaxStackSize();
-        return normal > 1 ? normal * tier.stackMultiplier() : 1;
+        return com.simplelib.api.StackLimits.max(stack, tier.stackMultiplier());
     }
 
     @Override

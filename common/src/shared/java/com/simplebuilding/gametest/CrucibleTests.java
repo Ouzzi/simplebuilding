@@ -318,6 +318,29 @@ public final class CrucibleTests {
         helper.succeed();
     }
 
+    /** Owner N15: a barrel attached to the Enderite crucible holds the crucible's double stacks. */
+    public static void aBarrelAttachedToTheEnderiteCrucibleHoldsItsDoubleStacks(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        Block barrel = BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplelib:copper_barrel"));
+        BlockPos at = new BlockPos(2, 1, 2), beside = at.east();
+        helper.setBlock(at, CrucibleCompat.enderiteCrucible());
+        helper.setBlock(beside, barrel);
+        ItemStack cobble = new ItemStack(Items.COBBLESTONE);
+        var loose = (net.minecraft.world.Container) helper.getLevel().getBlockEntity(helper.absolutePos(beside));
+        helper.assertTrue(loose.getMaxStackSize(cobble) == 64, "a loose copper barrel holds normal stacks, got " + loose.getMaxStackSize(cobble));
+        BlockState attached = helper.getBlockState(beside);
+        for (var property : attached.getProperties()) {
+            if (property.getName().equals("attached")) attached = attached.setValue((net.minecraft.world.level.block.state.properties.BooleanProperty) property, true);
+            if (property.getName().equals("facing")) attached = attached.setValue((net.minecraft.world.level.block.state.properties.EnumProperty<Direction>) property, Direction.WEST);
+        }
+        helper.setBlock(beside, attached);
+        var container = (net.minecraft.world.Container) helper.getLevel().getBlockEntity(helper.absolutePos(beside));
+        helper.assertTrue(CrucibleCompat.isAttached(helper.getBlockState(beside)), "barrel attached to the crucible");
+        helper.assertTrue(container.getMaxStackSize(cobble) == 128, "attached, the barrel inherits the double stacks, got " + container.getMaxStackSize(cobble));
+        helper.assertTrue(container.getMaxStackSize(new ItemStack(Items.IRON_SWORD)) == 1, "unstackable items stay single");
+        helper.succeed();
+    }
+
     /** Sledgehammer on an iron block: 4 weighted plates, then 2 iron rods; 2 durability per strike. */
     public static void sledgehammerBuildsTheIronCrucible(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
