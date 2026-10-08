@@ -23,7 +23,7 @@ public abstract class BeaconIconMixin extends AbstractButton {
     @WrapWithCondition(method = "extractIcon", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
     private boolean simplecontainers$icon(GuiGraphicsExtractor graphics, RenderPipeline pipeline, Identifier sprite, int x, int y, int w, int h) {
-        if (!(Minecraft.getInstance().screen instanceof BeaconScreen screen)) return true;
+        if (!(Minecraft.getInstance().gui.screen() instanceof BeaconScreen screen)) return true;
         UiPalette p = WorkScreens.beaconPalette(screen);
         return p == null || !WorkScreens.beaconIcon(graphics, p, sprite, x, y, this.active);
     }
