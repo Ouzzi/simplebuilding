@@ -621,6 +621,34 @@ public final class GuideBookTests {
     }
 
     /**
+     * Owner 2026-10-08: the open bookmarks lost the color stripe above their icon - only that
+     * stripe: the bookmark sprite, the icon and the unlock logic stay as they are. The decision
+     * sits in {@link GuideContent#bookmarkStripe}, server safe like {@link GuideContent#pausesGame},
+     * so this pins both halves the server can see: the value this line asks for (the main line 26.3
+     * draws no stripe, the old shelves keep theirs until the port run) and the fact that
+     * GuideBookScreen really reads it - the client class ships in the jar and names the method in
+     * its constant pool, exactly as {@link #readingTheGuideDoesNotPauseTheGame} proves the pause.
+     * What it cannot see is the pixel the screen draws; that stays a client question.
+     */
+    public static void theOpenBookmarksDrawNoColorStripeOnTheMainLine(GameTestHelper helper) {
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+            helper.assertTrue(!GuideContent.bookmarkStripe(), "the main line still draws a color stripe on open bookmarks");
+        } else {
+            helper.assertTrue(GuideContent.bookmarkStripe(), "the old shelves lost their color stripe before the port run");
+        }
+        String path = "com/simplebuilding/client/guide/GuideBookScreen.class";
+        try (InputStream in = GuideBookTests.class.getClassLoader().getResourceAsStream(path)) {
+            helper.assertTrue(in != null, path + " is not in the jar");
+            String bytes = new String(in.readAllBytes(), StandardCharsets.ISO_8859_1);
+            helper.assertTrue(bytes.contains("bookmarkStripe"),
+                    "GuideBookScreen does not read GuideContent.bookmarkStripe, so the stripe claim says nothing about the screen");
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException(e);
+        }
+        succeed(helper);
+    }
+
+    /**
      * Owner 2026-09-29: the Server Admin guide is crafted by operators only (permission level 2+).
      * A non-operator gets no result in the crafting grid and never gets the recipe unlocked; an
      * operator crafts it (the Beginner's Guide stays); a crafter never makes it.

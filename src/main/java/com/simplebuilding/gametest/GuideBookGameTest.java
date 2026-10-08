@@ -56,6 +56,11 @@ public final class GuideBookGameTest {
     }
 
     @GameTest
+    public void theOpenBookmarksDrawNoColorStripeOnTheMainLine(GameTestHelper helper) {
+        GuideBookTests.theOpenBookmarksDrawNoColorStripeOnTheMainLine(helper);
+    }
+
+    @GameTest
     public void onlyOperatorsCraftTheAdminGuide(GameTestHelper helper) {
         GuideBookTests.onlyOperatorsCraftTheAdminGuide(helper);
     }

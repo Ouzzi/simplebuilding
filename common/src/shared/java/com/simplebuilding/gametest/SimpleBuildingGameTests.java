@@ -1946,6 +1946,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("guide_book_game_test_reading_the_guide_does_not_pause_the_game", GuideBookTests::readingTheGuideDoesNotPauseTheGame)
                     .build(),
+            GameTestSpec.named("guide_book_game_test_the_open_bookmarks_draw_no_color_stripe_on_the_main_line", GuideBookTests::theOpenBookmarksDrawNoColorStripeOnTheMainLine)
+                    .build(),
             GameTestSpec.named("guide_book_game_test_only_operators_craft_the_admin_guide", GuideBookTests::onlyOperatorsCraftTheAdminGuide)
                     .build(),
             GameTestSpec.named("guide_book_game_test_the_enchantments_guide_covers_every_mod_enchantment", GuideBookTests::theEnchantmentsGuideCoversEveryModEnchantment)

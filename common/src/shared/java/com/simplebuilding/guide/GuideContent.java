@@ -60,6 +60,17 @@ public final class GuideContent {
         return false;
     }
 
+    /**
+     * Ob ein freigeschaltetes Lesezeichen den Farbstreifen des Buchs ueber dem Icon traegt: die
+     * alten Regale (26.2) ja, die Hauptlinie 26.3 nicht mehr (Besitzer 2026-10-08: nur der
+     * Strich faellt weg, Lesezeichen und Freischaltung bleiben, wie sie sind). Der Buchbildschirm
+     * zieht diese Entscheidung heran; hier steht sie wie {@link #pausesGame}, damit die
+     * Server-Spieltests sie pruefen koennen, ohne Client-Klassen zu laden.
+     */
+    public static boolean bookmarkStripe() {
+        return !com.simplebuilding.version.McVersion.MEGA_GUIDES;
+    }
+
     public static String taglineKey(GuideBooks.Book book) {
         return TOOLTIP + book.id() + ".tagline";
     }

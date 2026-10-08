@@ -671,14 +671,15 @@ public class GuideBookScreen extends Screen {
             } else {
                 blit(g, tx, ty, u, 184, 30, 20);
             }
-            // Farbstreifen des Buchs auf dem Lesezeichen
-            if (open) {
+            // Farbstreifen des Buchs auf dem Lesezeichen: nur die alten Regale (26.2) tragen ihn noch.
+            if (open && GuideContent.bookmarkStripe()) {
                 g.fill(iconX - 2, ty + 2, iconX + 16, ty + 4, 0xFF000000 | GuideContent.style(b).colour());
             }
             ItemStack icon = b.isHub() ? new ItemStack(GuideBooks.item(b)) : new ItemStack(GuideBooks.keyItem(b));
             g.item(icon, iconX, ty + 3);
-            // 26.3: no box over a locked icon (owner 2026-10-02: "ugly grey box"); the grey tab, the missing colour
-            // stripe and the tooltip mark it. The old shelves (26.2) keep their brown tint.
+            // 26.3: no box over a locked icon (owner 2026-10-02: "ugly grey box"); the grey tab and the tooltip mark
+            // it, and since 2026-10-08 an open tab carries no color stripe either (owner) - only the old shelves (26.2)
+            // keep their brown tint and the stripe. Bookmark, icon and unlock logic are untouched.
             if (!open && !com.simplebuilding.version.McVersion.MEGA_GUIDES) {
                 g.fill(iconX, ty + 3, iconX + 16, ty + 19, 0x88402A18);
             }
