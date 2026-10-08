@@ -65,8 +65,10 @@ final class ToolClaimTests {
         }
     });h.succeed();}
     static void beam(GameTestHelper h){with(h,c->{
-        // Keep the entity in the GameTest anchor chunk, whose entity sections are already visible.
-        var l=h.getLevel();var inside=h.absolutePos(new BlockPos(0,64,0));var owner=player(h,inside.west(5));var other=player(h,inside.west(5));
+        // Keep the entity in the GameTest anchor chunk, whose entity sections are already visible. Height 96 is a
+        // section of its own: boundary() tests park their mock players at height 64 on the same row (z = 8 in the
+        // chunk), and such a stranger between lens and cow took the hit instead of the cow.
+        var l=h.getLevel();var inside=h.absolutePos(new BlockPos(0,96,0));var owner=player(h,inside.west(5));var other=player(h,inside.west(5));
         yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Beam fixture");
         l.getChunkAt(inside);
         var cow=EntityTypes.COW.create(l,EntitySpawnReason.COMMAND);cow.setPos(Vec3.atBottomCenterOf(inside));yes(h,l.addFreshEntity(cow),"Beam target spawns in a loaded chunk");
@@ -77,7 +79,7 @@ final class ToolClaimTests {
             yes(h,rod.getItem().use(l,actor,InteractionHand.MAIN_HAND).consumesAction(),"Actual beam starts");
             try {
                 var aimed=(HitResult)rod.getItem().getClass().getMethod("aim",net.minecraft.server.level.ServerPlayer.class).invoke(null,actor);
-                yes(h,aimed instanceof EntityHitResult hit && hit.getEntity()==cow,"Beam fixture must aim at cow: "+aimed.getType()+" "+aimed.getLocation());
+                yes(h,aimed instanceof EntityHitResult hit && hit.getEntity()==cow,"Beam fixture must aim at cow: "+aimed.getType()+" "+aimed.getLocation()+(aimed instanceof EntityHitResult e?" "+e.getEntity():""));
             }catch(ReflectiveOperationException e){throw new IllegalStateException(e);}
             for(int t=0;t<200;t++)rod.getItem().onUseTick(l,actor,rod,72000-t);
             yes(h,cow.isOnFire()==(actor==owner),"Actual beam ignition, owner="+(actor==owner)+", fire="+cow.getRemainingFireTicks()+", charge="+rod.getDamageValue());
