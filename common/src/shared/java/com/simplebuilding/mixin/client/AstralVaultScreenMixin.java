@@ -1,7 +1,7 @@
 package com.simplebuilding.mixin.client;
 
+import com.simplebuilding.api.ModuleScreenStyles;
 import com.simplebuilding.client.gui.BackpackScreen;
-import com.simplebuilding.framework.api.ContainerStyleHints;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
@@ -32,7 +32,7 @@ public abstract class AstralVaultScreenMixin extends AbstractContainerScreen<Che
     @Inject(method = "extractBackground", at = @At("TAIL"))
     private void simplebuilding$tintAstralRows(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
         if (!(this.title.getContents() instanceof TranslatableContents key) || !SIMPLEBUILDING$VAULT_TITLE.equals(key.getKey())
-                || this.menu.getRowCount() != 6 || ContainerStyleHints.isRestyled(this)) {
+                || this.menu.getRowCount() != 6 || ModuleScreenStyles.isRestyled(this)) {
             return; // restyled (simplecontainers): the style draws the astral rows itself
         }
         for (int i = SIMPLEBUILDING$ENDER_SLOTS; i < 6 * 9 && i < this.menu.slots.size(); i++) {
