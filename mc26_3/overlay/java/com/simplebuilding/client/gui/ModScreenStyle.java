@@ -109,7 +109,7 @@ public final class ModScreenStyle {
             String bonus = bonus(menu.tier());
             int x = menu.imageWidth() - 8 - font.width(bonus);
             g.text(font, bonus, x, titleY, p.label(), false);
-            UiSymbols.draw(g, UiSymbols.STACK, x - 10, titleY, p.label(), 0);
+            UiSymbols.engrave(g, UiSymbols.STACK, x - 10, titleY, p, p.label(), false);
         }
         return true;
     }
@@ -174,12 +174,12 @@ public final class ModScreenStyle {
             UiPalette p = tier(hopperTier(this.menu));
             int x = this.getX(), y = this.getY();
             UiBoxes.raised(g, x, y, 18, 18, UiPalette.mix(p.fill(), 0xFFFFFFFF, this.isHoveredOrFocused() ? 0.32 : 0.18));
-            UiSymbols.draw(g, UiSymbols.FUNNEL, x + 3, y + 3, p.slotTop(), 0);
+            UiSymbols.engrave(g, UiSymbols.FUNNEL, x + 3, y + 3, p, p.slotTop(), false);
             switch (this.menu.getSyncedFilterMode()) {
                 case NONE -> {
                     for (int k = 0; k < 14; k++) g.fill(x + 2 + k, y + 15 - k, x + 4 + k, y + 16 - k, 0xFFD8402F);
                 }
-                case WHITELIST -> UiSymbols.draw(g, UiSymbols.CHECK, x + 10, y + 11, 0xFF55FF55, 0);
+                case WHITELIST -> UiSymbols.engrave(g, UiSymbols.CHECK, x + 10, y + 11, p, 0xFF55FF55, false);
                 case TYPE -> {
                     for (int k = 0; k < 3; k++) g.fill(x + 9 + k * 3, y + 13, x + 11 + k * 3, y + 15, 0xFFFFE055);
                 }
@@ -204,10 +204,10 @@ public final class ModScreenStyle {
         avoid.add(bigRect(result, left, top));
         motif(g, left, top, container, p, UiMotifs.Kind.REDSTONE, avoid, 4);
         slots(g, menu, left, top, p, result);
-        if (menu.isPowered()) UiSymbols.draw(g, UiSymbols.REDSTONE, left + 98, top + 22, REDSTONE_ON, p.light());
-        else UiSymbols.engraved(g, UiSymbols.REDSTONE, left + 98, top + 22, p);
-        if (menu.hasRecipeError()) UiSymbols.draw(g, UiSymbols.ARROW, left + 99, top + 36, ERROR, p.light());
-        else UiSymbols.engraved(g, UiSymbols.ARROW, left + 99, top + 36, p);
+        if (menu.isPowered()) UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 98, top + 22, p, REDSTONE_ON, true);
+        else UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 98, top + 22, p);
+        if (menu.hasRecipeError()) UiSymbols.engrave(g, UiSymbols.ARROW, left + 99, top + 36, p, ERROR, true);
+        else UiSymbols.engrave(g, UiSymbols.ARROW, left + 99, top + 36, p);
         return true;
     }
 
@@ -245,7 +245,7 @@ public final class ModScreenStyle {
             g.fill(left + x, top + y, left + x + 2, top + y + 1, p.slot());
         }
         slots(g, menu, left, top, p, result);
-        UiSymbols.engraved(g, UiSymbols.ARROW, left + 92, top + 36, p);
+        UiSymbols.engrave(g, UiSymbols.ARROW, left + 92, top + 36, p);
         return true;
     }
 
@@ -287,12 +287,12 @@ public final class ModScreenStyle {
         avoid.add(new int[] {left + vx + 26, top + 8, left + vx + 76, top + 78});
         avoid.add(new int[] {left + vx + 135, top + 29, left + vx + 151, top + 40});
         int seam = ModScreenLayout.BACKPACK_SEAM_Y;
-        UiMotifs.draw(g, left + ModScreenLayout.FRAME, top + ModScreenLayout.FRAME, all.width() - 2 * ModScreenLayout.FRAME,
-                seam - ModScreenLayout.FRAME, p, kind, avoid, 7);
+        UiMotifs.draw(g, 0, 0, kind, left + ModScreenLayout.FRAME, top + ModScreenLayout.FRAME, all.width() - 2 * ModScreenLayout.FRAME,
+                seam - ModScreenLayout.FRAME, p, avoid, 7);
         UiBoxes.seam(g, left + ModScreenLayout.FRAME, top + seam, all.width() - 2 * ModScreenLayout.FRAME,
                 all.height() - ModScreenLayout.FRAME_BOTTOM - seam, p);
         UiBoxes.inset(g, left + vx + 26, top + 8, 49, 70, p);
-        UiSymbols.engraved(g, UiSymbols.ARROW_SMALL, left + vx + 135, top + 29, p);
+        UiSymbols.engrave(g, UiSymbols.ARROW_SMALL, left + vx + 135, top + 29, p);
         int tint = UiPalette.mix(UiPalette.INVENTORY.fill(), p.fill(), 0.28);
         int[] strip = ModScreenLayout.backpackStrip(layout);
         if (menu.tier().rows() > 0) g.fill(left + strip[0], top + strip[1], left + strip[2], top + strip[3], tint);
@@ -318,7 +318,7 @@ public final class ModScreenStyle {
 
     private static void motif(GuiGraphicsExtractor g, int left, int top, Box box, UiPalette p, UiMotifs.Kind kind, List<int[]> avoid, int seed) {
         Box in = box.inner();
-        UiMotifs.draw(g, left + in.x(), top + in.y(), in.width(), in.height(), p, kind, avoid, seed);
+        UiMotifs.draw(g, 0, 0, kind, left + in.x(), top + in.y(), in.width(), in.height(), p, avoid, seed);
     }
 
     /** Title rectangle the motifs keep off (the preview's rule). */

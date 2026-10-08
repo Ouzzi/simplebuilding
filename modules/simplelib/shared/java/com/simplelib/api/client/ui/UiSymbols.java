@@ -101,10 +101,6 @@ public final class UiSymbols {
     public static final Bitmap REDSTONE = Bitmap.of(
             "....#..#....", ".#.###.##...", "..#####.#.#.", ".########...", "#.#######.#.", ".#########..",
             "..########.#", ".#.######...", "...##.###.#.", "..#..#.#....", ".....#......", "............");
-    /** 9x8 horseshoe, opening up (hoof panel). */
-    public static final Bitmap HORSESHOE = Bitmap.of(
-            "...###...", "..#####..", ".##...##.", ".#.....#.", "#.......#", "#.......#", "#.......#", "#.......#");
-
     private UiSymbols() {}
 
     /** Engraved like image 3: stroke in the slot colour, a 1 px light edge under it. */
