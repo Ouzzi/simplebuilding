@@ -136,7 +136,7 @@
       "sources": [
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StationStyles.java",
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/StationScreens.java",
-        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/client/StationDraw.java",
+        "modules/simplelib/shared/java/com/simplelib/api/client/ui/UiSymbols.java",
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/StationBackgroundMixin.java",
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/AnvilStationMixin.java",
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/MerchantStationMixin.java"

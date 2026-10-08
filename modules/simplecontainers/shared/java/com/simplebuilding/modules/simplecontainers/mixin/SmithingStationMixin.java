@@ -2,7 +2,7 @@ package com.simplebuilding.modules.simplecontainers.mixin;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.mojang.renderpearl.api.pipeline.RenderPipeline;
-import com.simplebuilding.modules.simplecontainers.client.StationDraw;
+import com.simplelib.api.client.ui.UiSymbols;
 import com.simplebuilding.modules.simplecontainers.client.StationScreens;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
@@ -25,7 +25,7 @@ public abstract class SmithingStationMixin extends ItemCombinerScreen<SmithingMe
             target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
     private boolean simplecontainers$error(GuiGraphicsExtractor graphics, RenderPipeline pipeline, Identifier sprite, int x, int y, int w, int h) {
         if (!StationScreens.active(this)) return true;
-        StationDraw.error(graphics, this.leftPos + 68, this.topPos + 49, StationDraw.ARROW.width, StationDraw.ARROW.height);
+        StationScreens.error(graphics, this.leftPos + 68, this.topPos + 49, UiSymbols.ARROW.width(), UiSymbols.ARROW.height());
         return false;
     }
 }

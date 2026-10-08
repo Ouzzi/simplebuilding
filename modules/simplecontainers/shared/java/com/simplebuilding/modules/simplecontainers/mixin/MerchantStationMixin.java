@@ -3,7 +3,7 @@ package com.simplebuilding.modules.simplecontainers.mixin;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.mojang.renderpearl.api.pipeline.RenderPipeline;
 import com.simplebuilding.modules.simplecontainers.client.OfferChoice;
-import com.simplebuilding.modules.simplecontainers.client.StationDraw;
+import com.simplelib.api.client.ui.UiSymbols;
 import com.simplebuilding.modules.simplecontainers.client.StationScreens;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -42,7 +42,7 @@ public abstract class MerchantStationMixin extends AbstractContainerScreen<Merch
             target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
     private boolean simplecontainers$outOfStock(GuiGraphicsExtractor graphics, RenderPipeline pipeline, Identifier sprite, int x, int y, int w, int h) {
         if (!StationScreens.active(this)) return true;
-        StationDraw.error(graphics, this.leftPos + 186, this.topPos + 38, StationDraw.ARROW.width, StationDraw.ARROW.height);
+        StationScreens.error(graphics, this.leftPos + 186, this.topPos + 38, UiSymbols.ARROW.width(), UiSymbols.ARROW.height());
         return false;
     }
 

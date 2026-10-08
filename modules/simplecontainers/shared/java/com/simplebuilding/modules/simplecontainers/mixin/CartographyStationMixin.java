@@ -2,7 +2,7 @@ package com.simplebuilding.modules.simplecontainers.mixin;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.mojang.renderpearl.api.pipeline.RenderPipeline;
-import com.simplebuilding.modules.simplecontainers.client.StationDraw;
+import com.simplelib.api.client.ui.UiSymbols;
 import com.simplebuilding.modules.simplecontainers.client.StationScreens;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -25,7 +25,7 @@ public abstract class CartographyStationMixin extends AbstractContainerScreen<Ca
             target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
     private boolean simplecontainers$error(GuiGraphicsExtractor graphics, RenderPipeline pipeline, Identifier sprite, int x, int y, int w, int h) {
         if (!sprite.getPath().equals("container/cartography_table/error") || !StationScreens.active(this)) return true;
-        StationDraw.error(graphics, this.leftPos + 41, this.topPos + 37, StationDraw.ARROW_SMALL.width, StationDraw.ARROW_SMALL.height);
+        StationScreens.error(graphics, this.leftPos + 41, this.topPos + 37, UiSymbols.ARROW_SMALL.width(), UiSymbols.ARROW_SMALL.height());
         return false;
     }
 }

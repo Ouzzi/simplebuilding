@@ -86,6 +86,30 @@ public final class UiSymbols {
     /** Beacon: secondary power (the star). */
     public static final Bitmap STAR = Bitmap.of("...#...", "..###..", "#######", ".#####.", ".##.##.", "#.....#");
 
+    // G3 (anvil, grindstone, cartography table, trading, inventory): same pixels as the preview tool.
+    /** 16x11 small arrow (2x2 crafting, cartography table). */
+    public static final Bitmap ARROW_SMALL = Bitmap.of(
+            "..........#.....", "..........##....", "..........###...", "#############...", "##############..",
+            "###############.", "##############..", "#############...", "..........###...", "..........##....",
+            "..........#.....");
+    /** 11x11 plus (anvil, cartography table). */
+    public static final Bitmap PLUS = Bitmap.of("....###....", "....###....", "....###....", "....###....", "###########",
+            "###########", "###########", "....###....", "....###....", "....###....", "....###....");
+    /** 19x19 grindstone wheel. */
+    public static final Bitmap WHEEL = Bitmap.of(
+            "......#######......", "....##.......##....", "...#...........#...", "..#.....###.....#..", ".#....#######....#.",
+            ".#...###...###...#.", "#...##.......##...#", "#...##..###..##...#", "#..##..#####..##..#", "#..##..#####..##..#",
+            "#..##..#####..##..#", "#...##..###..##...#", "#...##.......##...#", ".#...###...###...#.", ".#....#######....#.",
+            "..#.....###.....#..", "...#...........#...", "....##.......##....", "......#######......");
+    /** 6x8 hammer in front of the anvil's name field. */
+    public static final Bitmap ANVIL_HAMMER = Bitmap.of(".#####....", ".#####....", ".#####....", "...#......", "...#......",
+            "...#......", "...#......", "...#......");
+    /** 7x7 experience orb (anvil cost, grindstone). */
+    public static final Bitmap XP = Bitmap.of("..###..", ".#####.", "###.###", "##...##", "###.###", ".#####.", "..###..");
+    /** 8x7 trade arrow of a villager offer. */
+    public static final Bitmap TRADE_ARROW = Bitmap.of("....#...", "....##..", "#######.", "########", "#######.", "....##..",
+            "....#...");
+
     private UiSymbols() {}
 
     /** Engraved like image 3: stroke in the slot colour, a 1 px light edge under it. */

@@ -53,7 +53,7 @@ public final class StyledScreens {
     public static @Nullable Layout layout(AbstractContainerScreen<?> screen, int imageWidth, int imageHeight, int titleY) {
         List<BoxLayout.Slot> slots = new ArrayList<>();
         for (Slot slot : screen.getMenu().slots) {
-            if (slot.isActive()) slots.add(new BoxLayout.Slot(slot.x, slot.y, slot.container instanceof Inventory));
+            if (slot.isActive()) slots.add(new BoxLayout.Slot(slot.x, slot.y, StationScreens.playerSlot(slot)));
         }
         return BoxLayout.compute(slots, imageWidth, imageHeight, titleY);
     }
@@ -108,8 +108,8 @@ public final class StyledScreens {
         ScreenStyle style = style(screen);
         if (style == null || layout(screen, imageWidth, imageHeight, titleY) == null) return false;
         // G3 screens: the title at (8, 6) as in the W0-B preview (Vanilla moves it for the anvil, smithing table ...).
-        boolean work = StationStyles.STYLES.contains(style);
-        g.text(font, title, work ? 8 : titleX, work ? 6 : titleY, palette(screen, style).label(), false);
+        boolean station = StationStyles.STYLES.contains(style);
+        g.text(font, title, station ? 8 : titleX, station ? 6 : titleY, palette(screen, style).label(), false);
         return true;
     }
 
@@ -137,7 +137,7 @@ public final class StyledScreens {
         if (style == null || layout(screen, imageWidth, imageHeight, titleY) == null) return -1;
         String path = icon.getPath();
         if (path.equals("container/slot/brewing_fuel")) return 0;
-        UiPalette p = slot.container instanceof Inventory ? UiPalette.INVENTORY : palette(screen, style);
+        UiPalette p = StationScreens.playerSlot(slot) ? UiPalette.INVENTORY : palette(screen, style);
         int grey = path.equals("container/slot/lapis_lazuli") ? 85 : 104;
         int top = p.slotTop(), color = 0xCC000000;
         for (int shift = 16; shift >= 0; shift -= 8) color |= Math.min(255, ((top >> shift) & 255) * 255 / grey) << shift;
