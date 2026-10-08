@@ -5,10 +5,12 @@ import com.simplebuilding.modules.simplecontainers.style.BoxLayout.Layout;
 import com.simplebuilding.modules.simplecontainers.style.ScreenStyle;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiBoxes.ProgressColors;
+import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.resources.Identifier;
@@ -47,18 +49,67 @@ public final class WorkScreens {
 
     /**
      * The boxes ({@link BoxLayout} with the screen's other container elements {@code extra} as (x0, y0, x1, y1) rects
-     * incl. light edges, so the divider sits where the W0-B preview has it); {@code wide} = the container box spans the
-     * whole image (beacon). Returns the container palette, or {@code null} (nothing drawn, Vanilla). The caller draws
-     * the slots ({@link #slots}).
+     * incl. light edges, so the divider sits where the W0-B preview has it) and the box's faint motif around all
+     * elements ({@code avoid} = further rects to keep free, {@code big} = big result slot indices); {@code wide} = the
+     * container box spans the whole image (beacon), {@code titled} = the title is drawn. Returns the container palette,
+     * or {@code null} (nothing drawn, Vanilla). The caller draws the slots ({@link #slots}).
      */
     static @Nullable UiPalette base(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int imageWidth,
-            int imageHeight, int titleY, int[][] extra, boolean wide) {
+            int imageHeight, int titleY, int[][] extra, boolean wide, int[][] avoid, List<Integer> big, boolean titled) {
         UiPalette p = palette(screen, imageWidth, imageHeight, titleY);
         if (p == null) return null;
         Layout layout = layout(screen, imageWidth, imageHeight, titleY, extra, wide);
         if (layout == null) return null;
         StyledScreens.drawBoxes(g, left, top, layout, p);
+        BoxLayout.Rect c = layout.container();
+        if (c == null) return p;
+        int bottomFrame = switch (layout.variant()) {
+            case TWO_BOXES -> UiBoxes.FRAME_BOTTOM;
+            case NO_SHADOW -> UiBoxes.FRAME;
+            case SEAM -> c.bottom() - layout.inventory().y();
+        };
+        List<int[]> keep = new ArrayList<>();
+        List<Slot> all = screen.getMenu().slots;
+        for (int i = 0; i < all.size(); i++) {
+            Slot slot = all.get(i);
+            if (!slot.isActive() || slot.container instanceof Inventory) continue;
+            keep.add(big.contains(i) ? new int[] {slot.x - 4, slot.y - 4, slot.x + 21, slot.y + 21}
+                    : new int[] {slot.x, slot.y, slot.x + 17, slot.y + 17});
+        }
+        keep.addAll(List.of(extra));
+        keep.addAll(List.of(avoid));
+        int titleWidth = titled ? Minecraft.getInstance().font.width(screen.getTitle()) : -1;
+        keep.add(new int[] {c.x() + 4, c.y() + 4, c.x() + 12 + titleWidth, c.y() + 15});
+        String id = StyledScreens.style(screen).id();
+        UiMotifs.draw(g, left, top, motif(id), c.x() + UiBoxes.FRAME, c.y() + UiBoxes.FRAME, c.width() - 2 * UiBoxes.FRAME,
+                c.height() - UiBoxes.FRAME - bottomFrame, p, keep, seed(id));
         return p;
+    }
+
+    /** Motif per work style (W0-B palette table). */
+    static UiMotifs.Kind motif(String id) {
+        return switch (id) {
+            case "crafting" -> UiMotifs.Kind.WOOD;
+            case "furnace", "brewing_stand" -> UiMotifs.Kind.STONE;
+            case "blast_furnace" -> UiMotifs.Kind.METAL;
+            case "smoker" -> UiMotifs.Kind.SMOKE;
+            case "beacon" -> UiMotifs.Kind.GLASS;
+            case "enchanting" -> UiMotifs.Kind.RUNE;
+            default -> UiMotifs.Kind.NONE;
+        };
+    }
+
+    /** Scatter seed per work style: the length of the preview's screen key, so the marks sit where the preview has them. */
+    static int seed(String id) {
+        return switch (id) {
+            case "crafting" -> "werkbank".length();
+            case "furnace" -> "ofen".length();
+            case "blast_furnace" -> "schmelz".length();
+            case "smoker" -> "raeucher".length();
+            case "brewing_stand" -> "brau".length();
+            case "beacon" -> "leuchtfeuer".length();
+            default -> "zauber".length();
+        };
     }
 
     /** The layout of a work screen (see {@link #base}), or {@code null}. */
@@ -98,7 +149,7 @@ public final class WorkScreens {
 
     /** Crafting table: 3x3 grid, engraved arrow (no progress in crafting), big result slot (menu slot 0). */
     public static boolean crafting(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int w, int h, int titleY) {
-        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[0][], false);
+        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[0][], false, new int[0][], List.of(0), true);
         if (p == null) return false;
         slots(screen, g, left, top, p, List.of(0), List.of());
         UiSymbols.progress(g, UiSymbols.ARROW, left + 90, top + 36, p, 0, false);
@@ -112,7 +163,7 @@ public final class WorkScreens {
      */
     public static boolean furnace(AbstractContainerScreen<?> screen, AbstractFurnaceMenu menu, GuiGraphicsExtractor g, int left, int top,
             int w, int h, int titleY, ProgressColors colors, UiSymbols.Bitmap waves) {
-        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[0][], false);
+        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[0][], false, new int[][] {{57, 36, 71, 50}}, List.of(2), true);
         if (p == null) return false;
         slots(screen, g, left, top, p, List.of(2), List.of(1));
         boolean lit = menu.isLit();
@@ -130,7 +181,8 @@ public final class WorkScreens {
      */
     public static boolean brewing(AbstractContainerScreen<?> screen, BrewingStandMenu menu, GuiGraphicsExtractor g, int left, int top,
             int w, int h, int titleY) {
-        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{60, 14, 76, 44}, {97, 16, 106, 44}}, false);
+        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{60, 14, 76, 44}, {97, 16, 106, 44}}, false,
+                new int[0][], List.of(), true);
         if (p == null) return false;
         for (int[] r : PIPES) g.fill(left + r[0], top + r[1] + 1, left + r[2], top + r[3] + 1, p.light());
         for (int[] r : PIPES) g.fill(left + r[0], top + r[1], left + r[2], top + r[3], p.slot());
@@ -169,7 +221,7 @@ public final class WorkScreens {
 
     /** Enchanting table: the three offer rows reach down to y 72; the 3D book stays Vanilla. */
     public static boolean enchanting(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int w, int h, int titleY) {
-        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{60, 14, 169, 72}}, false);
+        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{60, 14, 169, 72}}, false, new int[0][], List.of(), true);
         if (p == null) return false;
         slots(screen, g, left, top, p, List.of(), List.of());
         return true;
@@ -221,7 +273,8 @@ public final class WorkScreens {
      * the payment slot; the buttons draw themselves ({@code BeaconButtonMixin}).
      */
     public static boolean beacon(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int w, int h, int titleY) {
-        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{164, 107, 212, 129}}, true);
+        UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{164, 107, 186, 129}, {190, 107, 212, 129}}, true,
+                new int[0][], List.of(), false);
         if (p == null) return false;
         UiBoxes.inset(g, left + 18, top + 8, 110, 92, p);
         UiBoxes.inset(g, left + 140, top + 8, 72, 92, p);
