@@ -3355,5 +3355,11 @@
   "block.simplebuilding.blazing_obsidian": "Blazing Obsidian",
   "item.simplebuilding.blazing_obsidian": "Blazing Obsidian",
   "item.simplebuilding.blaze_book": "Blaze Book",
-  "simplebuilding.testcentre.machines.astral_enchanting": "sliders; blazewood shelves + floor = 50"
+  "simplebuilding.testcentre.machines.astral_enchanting": "sliders; blazewood shelves + floor = 50",
+  "book.simplebuilding.enchantments.33.title": "Astral Enchanting Table",
+  "book.simplebuilding.enchantments.33.text": "Hammer an enchanting table 20 times with a netherite sledgehammer, an enderite nugget in the off hand. Pick three offered enchantments with sliders; blazewood shelves count double, a 5x5 blazing obsidian floor allows 40 and 50.",
+  "simplebuilding.testcentre.section.astral": "Astral Enchanting",
+  "simplebuilding.testcentre.astral.hammer": "Hammer it",
+  "simplebuilding.testcentre.astral.hammer.sub": "netherite hammer,",
+  "simplebuilding.testcentre.astral.hammer.sub2": "enderite nugget, 20x"
 }

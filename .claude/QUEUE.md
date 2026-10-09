@@ -574,16 +574,16 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 27 (2026-10-09, Besitzer)
 - [x] **Befiederungstisch** wie die Werkbank in einer Zeile: Rezeptbuch links, dann Feder, Stock, Spitze, Pfeil, Ergebnis.
-- [ ] **Astral-Verzauberungstisch** (Konzept docs/ai/KONZEPT-ASTRAL-VERZAUBERUNG-2026-10-09.md):
+- [x] (→ `claude-q-astral`) **Astral-Verzauberungstisch** (Konzept docs/ai/KONZEPT-ASTRAL-VERZAUBERUNG-2026-10-09.md):
   - Herstellung: Enderit-Nugget in der Nebenhand, mindestens Netherit-Hammer in der Haupthand, ca. 20 Schläge auf einen Verzauberungstisch.
   - UI nach den Prinzipien des normalen Tisches, aber: die 3 vorgeschlagenen Verzauberungen sind zufällig (passend zum Item, z. B. Spitzhacke: Haltbarkeit, Effizienz, Glück). Jede hat einen Regler (Stufe 0..max).
   - Regler-Grenzen je Bücherregal-Stärke: ohne Regale nur Stufe 1 der niedrigen Verzauberungen, hohe ausgegraut (0). Volle Regale: Regler zusammen bis 30 Level wählbar, Kosten skalieren mit der Wahl (0–3 Level verbraucht).
   - Höhere Stufen: bessere Regale + besonderer Boden 5×5 aus Lohen-Obsidian (leuchtende Variante des weinenden Obsidians, 8 Lohenstaub + 1 weinender Obsidian; später Astralit-/Nihilit-Fliesen): Zwischenstufe 40 (4 Level Verbrauch), Maximum 50 (alle gewählten Verzauberungen bis Max, 5 Level Verbrauch).
   - Abbauen dauert doppelt so lange wie beim normalen Tisch; Drop: normaler Tisch + eingesetztes Enderit-Teil.
   - Lagert Lapislazuli und Lohenstaub (je bis 1 Stack), bleibt beim Verlassen erhalten. Lohenstaub wird doppelt so viel benötigt wie Lapis.
-- [ ] **Lohenholz** (Blazewood): 8 Lohenstaub + 1 Nether-Holz (Varianten je Nether-Holzart: Karmesin, Wirr, …).
-- [ ] **Lohenbuch** (Blaze Book): analog zum Buch aus Lohen-Zutaten.
-- [ ] **Lohen-Bücherregal** (Varianten je Lohenholz): doppelter Verzauberungswert eines normalen Regals; ermöglicht die höheren Astral-Stufen.
+- [x] (→ `claude-q-astral`) **Lohenholz** (Blazewood): 8 Lohenstaub + 1 Nether-Holz (Varianten je Nether-Holzart: Karmesin, Wirr, …).
+- [x] (→ `claude-q-astral`) **Lohenbuch** (Blaze Book): analog zum Buch aus Lohen-Zutaten.
+- [x] (→ `claude-q-astral`) **Lohen-Bücherregal** (Varianten je Lohenholz): doppelter Verzauberungswert eines normalen Regals; ermöglicht die höheren Astral-Stufen.
 
 ## Nachtrag 28 (2026-10-09, Besitzer)
 - [x] Farbkasten (paint_box, 4 Stufen) so übernommen.

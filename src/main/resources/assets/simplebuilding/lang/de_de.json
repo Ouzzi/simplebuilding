@@ -3355,5 +3355,11 @@
   "block.simplebuilding.blazing_obsidian": "Lohen-Obsidian",
   "item.simplebuilding.blazing_obsidian": "Lohen-Obsidian",
   "item.simplebuilding.blaze_book": "Lohenbuch",
-  "simplebuilding.testcentre.machines.astral_enchanting": "Regler; Lohen-Regale + Boden = 50"
+  "simplebuilding.testcentre.machines.astral_enchanting": "Regler; Lohen-Regale + Boden = 50",
+  "book.simplebuilding.enchantments.33.title": "Astral-Verzauberungstisch",
+  "book.simplebuilding.enchantments.33.text": "Einen Verzauberungstisch 20-mal mit dem Netherit-Vorschlaghammer schlagen, Enderit-Nugget in der Nebenhand. Drei Angebote per Regler wählen; Lohen-Regale zählen doppelt, ein 5x5-Boden aus Lohen-Obsidian erlaubt 40 und 50.",
+  "simplebuilding.testcentre.section.astral": "Astral-Verzauberung",
+  "simplebuilding.testcentre.astral.hammer": "Hämmern",
+  "simplebuilding.testcentre.astral.hammer.sub": "Netherit-Hammer,",
+  "simplebuilding.testcentre.astral.hammer.sub2": "Enderit-Nugget, 20x"
 }

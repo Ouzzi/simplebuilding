@@ -83,6 +83,27 @@ public final class ModUiStyleClientTest {
             return new com.simplebuilding.client.gui.AutonomousCrafterScreen(menu, inv,
                     Component.translatable("container.simplebuilding.autonomous_crafter"));
         });
+        if (McVersion.ASTRAL_ENCHANTING) show(script, "modui-astral-enchanting", c -> {
+            Inventory inv = c.player.getInventory();
+            com.simplebuilding.screen.AstralEnchantingMenu menu = new com.simplebuilding.screen.AstralEnchantingMenu(0, inv);
+            menu.getSlot(com.simplebuilding.screen.AstralEnchantingMenu.ITEM_SLOT).set(new ItemStack(Items.DIAMOND_PICKAXE));
+            menu.getSlot(com.simplebuilding.screen.AstralEnchantingMenu.LAPIS_SLOT).set(new ItemStack(Items.LAPIS_LAZULI, 20));
+            menu.getSlot(com.simplebuilding.screen.AstralEnchantingMenu.BLAZE_SLOT).set(new ItemStack(Items.BLAZE_POWDER, 40));
+            var ids = c.level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT);
+            var map = ids.asHolderIdMap();
+            var shown = java.util.List.of(net.minecraft.world.item.enchantment.Enchantments.EFFICIENCY,
+                    net.minecraft.world.item.enchantment.Enchantments.UNBREAKING, net.minecraft.world.item.enchantment.Enchantments.FORTUNE);
+            int[] max = {5, 3, 3}, chosen = {4, 3, 0}, cost = {3, 3, 6};
+            menu.setData(0, 30);
+            for (int row = 0; row < 3; row++) {
+                menu.setData(1 + row, map.getId(ids.getOrThrow(shown.get(row))));
+                menu.setData(4 + row, max[row]);
+                menu.setData(7 + row, chosen[row]);
+                menu.setData(10 + row, cost[row]);
+            }
+            return new com.simplebuilding.client.gui.AstralEnchantingScreen(menu, inv,
+                    Component.translatable("container.simplebuilding.astral_enchanting_table"));
+        });
         hopper(script, "modui-hopper-reinforced", "reinforced_hopper", 0);
         hopper(script, "modui-hopper-netherite", "netherite_hopper", 1);
         hopper(script, "modui-hopper-enderite", "enderite_hopper", 2);

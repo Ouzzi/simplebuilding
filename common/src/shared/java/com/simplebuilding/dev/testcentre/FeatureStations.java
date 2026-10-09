@@ -646,6 +646,45 @@ public final class FeatureStations {
         return c;
     }
 
+    /**
+     * Astral-Verzauberungs-Station (Queue N27, McVersion.ASTRAL_ENCHANTING): links ein fertiger Astral-Tisch der Stufe 50
+     * (5x5 Lohen-Obsidian, 15 Lohen-Regale im Ring, vorn mittig frei, Lapis und Lohenstaub gelagert), rechts ein
+     * Vanilla-Verzauberungstisch zum Haemmern; die Truhe haelt Netherit-Hammer, Enderit-Nuggets und die Lohen-Familie.
+     */
+    public static TcCanvas astralEnchanting(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        if (!com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
+            return c;
+        }
+        int wallZ = 7;
+        int tx = 3, tz = 3;
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dz = -2; dz <= 2; dz++) {
+                c.place(tx + dx, 0, tz + dz, ModBlocks.BLAZING_OBSIDIAN);
+                boolean ring = Math.abs(dx) == 2 || Math.abs(dz) == 2;
+                if (ring && !(dx == 0 && dz == -2)) {
+                    c.place(tx + dx, 1, tz + dz, (dx + dz) % 2 == 0 ? ModBlocks.CRIMSON_BLAZEWOOD_BOOKSHELF : ModBlocks.WARPED_BLAZEWOOD_BOOKSHELF);
+                }
+            }
+        }
+        c.place(tx, 1, tz, ModBlocks.ASTRAL_ENCHANTING_TABLE);
+        c.contents(tx, 1, tz, List.of(new ItemStack(Items.LAPIS_LAZULI, 64), new ItemStack(Items.BLAZE_POWDER, 64)));
+        c.place(8, 0, 3, Blocks.ENCHANTING_TABLE);
+        c.place(9, 0, 1, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+        c.contents(9, 0, 1, List.of(new ItemStack(ModItems.NETHERITE_SLEDGEHAMMER), new ItemStack(ModItems.ENDERITE_NUGGET, 4),
+                new ItemStack(Items.BLAZE_POWDER, 64), new ItemStack(Items.CRIMSON_PLANKS, 16), new ItemStack(Items.WARPED_PLANKS, 16),
+                new ItemStack(Items.PAPER, 16), new ItemStack(Items.CRYING_OBSIDIAN, 8), new ItemStack(ModItems.CRIMSON_BLAZEWOOD_PLANKS, 8),
+                new ItemStack(ModItems.WARPED_BLAZEWOOD_PLANKS, 8), new ItemStack(ModItems.BLAZE_BOOK, 6),
+                new ItemStack(ModItems.ASTRAL_ENCHANTING_TABLE), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.BOOK, 4),
+                new ItemStack(Items.EXPERIENCE_BOTTLE, 64)));
+        c.title(0, 3, wallZ, TcText.t("section.astral", "Astral Enchanting"),
+                TcText.t("machines.astral_enchanting", "sliders; blazewood shelves + floor = 50"));
+        c.wallSign(8, 2, wallZ, TcText.bold(TcText.t("astral.hammer", "Hammer it")),
+                TcText.t("astral.hammer.sub", "netherite hammer,"), TcText.t("astral.hammer.sub2", "enderite nugget, 20x"));
+        c.backWall(0, 10, wallZ, 5);
+        return c;
+    }
+
     /** Achtelzellen der Station: je Farbe ein anderes Muster (Bitmaske, Index x | y << 1 | z << 2). */
     private static final int[] OCTET_MASKS = {0x01, 0x03, 0x05, 0x0F, 0x33, 0x55, 0x3F, 0x77, 0x7F, 0xFF, 0x8B, 0x17, 0xE8};
 

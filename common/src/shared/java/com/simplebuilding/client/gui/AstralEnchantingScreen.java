@@ -22,7 +22,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
  */
 public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchantingMenu> {
     /** Slider panel (relative to the screen's left/top). */
-    public static final int PANEL_X = 48, PANEL_Y = 14, PANEL_W = 122, PANEL_H = 56;
+    public static final int PANEL_X = 48, PANEL_Y = 14, PANEL_W = 122, PANEL_H = 55;
     public static final int ROW_H = 18, TRACK_X = 52, TRACK_W = 114, TRACK_H = 5;
     public static final int BUTTON_X = 7, BUTTON_Y = 58, BUTTON_W = 38, BUTTON_H = 12;
     static final int PANEL = 0xFF1C1529, PANEL_RIM = 0xFF0D0914, PANEL_LIGHT = 0xFF3A2D52;
