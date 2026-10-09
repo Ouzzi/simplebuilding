@@ -22,14 +22,13 @@ import net.minecraft.world.phys.AABB;
  * Armor stands (2026-10-09, docs/ai/PLAN-STAENDER-2026-10-09.md): one picture of a placed vanilla stand (arms), the
  * small stand (Nachtrag 29: post with a cross bar) with a chestplate, a helmet, leggings, boots and empty, a plain
  * training dummy and one named after the local player (skin when the profile resolves, the plain dummy otherwise), and
- * behind them small stands with horse, wolf and nautilus armor (compare /root/previews/refs-stands/2-4).
+ * a second picture of small stands with horse, wolf and nautilus armor (compare /root/previews/refs-stands/2-4).
  *
  * <p>The picture is documentary - what the stands look like is for a human. Asserted is only that the client has all
  * stands with the right types and the body armor, so a missing renderer registration (which crashes or skips the entity) fails here.
  */
 public final class ArmorStandClientTest {
     private static final double Z = 18.5;
-    private static final double BACK = 21.5;
 
     private ArmorStandClientTest() {
     }
@@ -58,23 +57,32 @@ public final class ArmorStandClientTest {
             spawn(level, ModEntities.TRAINING_DUMMY, 11.3);
             TrainingDummy named = spawn(level, ModEntities.TRAINING_DUMMY, 12.5);
             named.setCustomName(Component.literal(name[0]));
-            // Tier-Ruestungen in einer zweiten Reihe dahinter
-            Item[] animals = {Items.DIAMOND_HORSE_ARMOR, Items.WOLF_ARMOR, Items.GOLDEN_NAUTILUS_ARMOR};
-            for (int i = 0; i < animals.length; i++) {
-                SmallArmorStand small = spawn(level, ModEntities.SMALL_ARMOR_STAND, 5.0 + i * 3.0, BACK);
-                small.put(new ItemStack(animals[i]));
-            }
         });
         script.command("tp @a 8.5 0.5 12.0 0.0 15.0");
         script.awaitPackets();
-        script.await("the client sees the stands", 100, client -> stands(client).length == 11,
+        script.await("the client sees the stands", 100, client -> stands(client).length == 8,
                 client -> "the client sees " + stands(client).length + " armor stands");
         script.check("the client has the small stands with their armor and the named dummy",
-                client -> java.util.Arrays.stream(stands(client)).filter(s -> s.getType() == ModEntities.SMALL_ARMOR_STAND).count() == 8
-                        && java.util.Arrays.stream(stands(client)).anyMatch(s -> s.getItemBySlot(EquipmentSlot.BODY).is(Items.DIAMOND_HORSE_ARMOR))
+                client -> java.util.Arrays.stream(stands(client)).filter(s -> s.getType() == ModEntities.SMALL_ARMOR_STAND).count() == 5
                         && java.util.Arrays.stream(stands(client)).anyMatch(s -> s.getCustomName() != null));
         script.idle("let the skin lookup and the stands settle", 60);
         script.shot("armor-stands");
+        script.command("kill @e[type=!minecraft:player]", true);
+        script.awaitPackets();
+        // Zweites Bild: Tier-Ruestungen in Tierform (Referenz Pferderuestung auf dem Pfosten).
+        onServer(script, "put the animal armor stands in front of the camera", server -> {
+            ServerLevel level = server.overworld();
+            Item[] animals = {Items.DIAMOND_HORSE_ARMOR, Items.WOLF_ARMOR, Items.GOLDEN_NAUTILUS_ARMOR};
+            for (int i = 0; i < animals.length; i++) {
+                spawn(level, ModEntities.SMALL_ARMOR_STAND, 5.0 + i * 3.0).put(new ItemStack(animals[i]));
+            }
+        });
+        script.awaitPackets();
+        script.await("the client sees the animal armor stands", 100, client -> java.util.Arrays.stream(stands(client))
+                        .filter(s -> !s.getItemBySlot(EquipmentSlot.BODY).isEmpty()).count() == 3,
+                client -> "the client sees " + stands(client).length + " armor stands");
+        script.idle("let the animal armor stands settle", 20);
+        script.shot("armor-stands-animals");
         script.command("kill @e[type=!minecraft:player]", true);
         script.awaitPackets();
     }
