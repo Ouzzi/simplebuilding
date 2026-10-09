@@ -64,6 +64,13 @@ public final class BuildingWandPreviewRenderer {
         }
 
         HitResult hit = client.hitResult;
+        // Unbegrenzte Reichweite (Queue N29): ausserhalb der Vanilla-Reichweite derselbe Strahl wie beim Klick.
+        if ((hit == null || hit.getType() != HitResult.Type.BLOCK) && com.simplebuilding.items.custom.CreativeReach.active(player)) {
+            BlockHitResult far = com.simplebuilding.items.custom.CreativeReach.farHit(player);
+            if (far != null) {
+                hit = far;
+            }
+        }
         // Oktant mit Auswahl in der Nebenhand: die Fuellung (oder das Dach) der Figur, unabhaengig vom
         // Fadenkreuz - ein Klick auf irgendeinen Block baut genau das. Fehlendes Material rot.
         ItemStack octant = player.getOffhandItem();

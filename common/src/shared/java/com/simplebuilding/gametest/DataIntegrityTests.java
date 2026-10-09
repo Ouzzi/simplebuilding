@@ -3468,7 +3468,8 @@ public final class DataIntegrityTests {
                 // nach einer Luecke in der Zeile der Baustaebe weiter (Row#besides).
                 CreativeTabLayout.Row.of("building_wands",
                         ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
-                        ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND),
+                        ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND,
+                        ModItems.CREATIVE_BUILDING_WAND),
                 ModItemGroupsContent.buildingPlanningRow(),
                 CreativeTabLayout.Row.of("sledgehammers",
                         ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,

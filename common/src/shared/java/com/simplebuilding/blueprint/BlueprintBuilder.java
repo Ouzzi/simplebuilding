@@ -464,7 +464,7 @@ public final class BlueprintBuilder {
 
         /** Direct items are charged by the placer only after their callbacks have succeeded. */
         public Planner(Level level, Player player, ItemStack wand, ItemLayout layout) {
-            this(level, player, wand, layout, null, player.getAbilities().instabuild, false);
+            this(level, player, wand, layout, null, BuildingWandItem.freeBuild(player, wand), false);
         }
 
         public boolean finished() {
@@ -732,7 +732,7 @@ public final class BlueprintBuilder {
         BlueprintContent content = blueprint.getOrDefault(ModDataComponentTypes.BLUEPRINT, BlueprintContent.EMPTY);
         BlockPos target = targetFor(level, clicked, face);
         Rotation rotation = rotationFor(player.getDirection(), rotationSteps(blueprint));
-        boolean creative = player.getAbilities().instabuild;
+        boolean creative = BuildingWandItem.freeBuild(player, wand);
         Layout layout = layout(model, target, rotation);
         Object key = List.of(content.code(), target, rotation);
         Result pending = pendingCheck(player, wand, blueprint, key);
@@ -788,7 +788,7 @@ public final class BlueprintBuilder {
         if (level instanceof ServerLevel serverLevel) {
             BlueprintJobs.clear(serverLevel, player.getUUID());
         }
-        return begin(level, player, wand, offHand, layout, layout.pos(0), Rotation.NONE, null, player.getAbilities().instabuild, key);
+        return begin(level, player, wand, offHand, layout, layout.pos(0), Rotation.NONE, null, BuildingWandItem.freeBuild(player, wand), key);
     }
 
     /** Bricht einen laufenden Auftrag (und seine Pruefung) des Spielers ab, ohne Meldung; {@code true} = es lief einer. */
@@ -1084,7 +1084,7 @@ public final class BlueprintBuilder {
             return check.planner.result();
         }
         return startJob(level, player, check.wand, check.blueprint, layout, check.target, check.rotation, check.content,
-                player.getAbilities().instabuild, 0, 0);
+                BuildingWandItem.freeBuild(player, check.wand), 0, 0);
     }
 
     /**
@@ -1121,7 +1121,7 @@ public final class BlueprintBuilder {
         tell(player, Component.translatable("simplebuilding.blueprint.build.resumed", pending.index(), layout.size())
                 .withStyle(ChatFormatting.AQUA));
         startJob(level, player, wand, blueprint, layout, pending.target(), rotation, content,
-                player.getAbilities().instabuild, pending.index(), pending.placed());
+                BuildingWandItem.freeBuild(player, wand), pending.index(), pending.placed());
     }
 
     /**
@@ -1266,7 +1266,7 @@ public final class BlueprintBuilder {
         BlueprintContent content = blueprint.getOrDefault(ModDataComponentTypes.BLUEPRINT, BlueprintContent.EMPTY);
         BlockPos target = targetFor(level, hit.getBlockPos(), hit.getDirection());
         Rotation rotation = rotationFor(player.getDirection(), rotationSteps(blueprint));
-        List<Object> key = List.of(content.code(), target, rotation, level.getGameTime() / 4, wand.getItem(), player.getAbilities().instabuild);
+        List<Object> key = List.of(content.code(), target, rotation, level.getGameTime() / 4, wand.getItem(), BuildingWandItem.freeBuild(player, wand));
         if (Objects.equals(key, previewKey)) {
             return previewCache;
         }
@@ -1282,7 +1282,7 @@ public final class BlueprintBuilder {
             previewCache = Preview.EMPTY;
             return previewCache;
         }
-        boolean creative = player.getAbilities().instabuild;
+        boolean creative = BuildingWandItem.freeBuild(player, wand);
         Map<BlockPos, BlockState> map = new LinkedHashMap<>();
         Map<BlockPos, BlockState> missing = new LinkedHashMap<>();
         Planner planner = new Planner(level, player, wand, layout(parsed.model(), target, rotation),

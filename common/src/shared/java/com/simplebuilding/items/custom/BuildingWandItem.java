@@ -130,6 +130,37 @@ public class BuildingWandItem extends Item {
         return this.maxDiameter;
     }
 
+    /** Kreativ-Baustab (Queue N29): unbegrenzte Reichweite ({@link CreativeReach}), ohne Material und Haltbarkeit. */
+    private boolean creative;
+
+    public BuildingWandItem creative() {
+        this.creative = true;
+        return this;
+    }
+
+    public boolean isCreative() {
+        return creative;
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
+                                java.util.function.Consumer<net.minecraft.network.chat.Component> lines, net.minecraft.world.item.TooltipFlag flag) {
+        if (creative) {
+            lines.accept(net.minecraft.network.chat.Component.translatable("simplebuilding.creative_building_wand.tooltip")
+                    .withStyle(net.minecraft.ChatFormatting.LIGHT_PURPLE));
+        }
+        super.appendHoverText(stack, context, display, lines, flag);
+    }
+
+    /**
+     * Baut {@code wand} fuer diesen Spieler ohne Materialverbrauch, Haltbarkeit und Hunger - im Kreativmodus
+     * oder mit dem Kreativ-Baustab (Queue N29: ein Kreativ-Item verhaelt sich ueberall wie im Kreativmodus).
+     */
+    public static boolean freeBuild(Player player, ItemStack wand) {
+        return player.getAbilities().instabuild || (wand.getItem() instanceof BuildingWandItem item && item.creative);
+    }
+
     /**
      * Gibt eine Map zurück, die jeder Position den BlockState zuweist, der dort platziert würde -
      * dieselbe Form ({@link Plan}), dieselbe Ausrichtung ({@link WandPlacement}) und dieselbe
@@ -552,7 +583,7 @@ public class BuildingWandItem extends Item {
         boolean hasMasterBuilder = hasEnchantment(wandStack, world, ModEnchantments.MASTER_BUILDER);
         MaterialResult preview = findFirstBuildingBlock(player, wandStack, hasMasterBuilder);
 
-        if (preview == null && !player.getAbilities().instabuild) return InteractionResult.FAIL;
+        if (preview == null && !freeBuild(player, wandStack)) return InteractionResult.FAIL;
 
         Block buildBlock = preview != null ? preview.stateToPlace.getBlock() : Blocks.AIR;
 
@@ -599,6 +630,15 @@ public class BuildingWandItem extends Item {
         // Zuschauermodus (Audit 2026-09-26, P2 #6; vanilla prueft das nur fuer useOn).
         if (!player.mayBuild()) return InteractionResult.FAIL;
         ItemStack wandStack = player.getItemInHand(hand);
+        // Unbegrenzte Reichweite (Queue N29): trifft die Vanilla-Reichweite nichts, zielt der Kreativ-Baustab
+        // (bzw. ein Stab mit Kreativ-Blaupause in der Nebenhand) auf den Block im Blick, so weit er auch ist.
+        // Client und Server werfen den Strahl je selbst; Schleichen bleibt Rueckgaengig.
+        if (!player.isShiftKeyDown() && CreativeReach.active(player)) {
+            BlockHitResult far = CreativeReach.farHit(player);
+            if (far != null) {
+                return useOn(new UseOnContext(player, hand, far));
+            }
+        }
         if (player.isShiftKeyDown()) {
             if (world.isClientSide()) return InteractionResult.SUCCESS;
             // Was gerade noch baut, gehoert zur letzten Aktion: erst anhalten, dann zuruecknehmen.
@@ -620,7 +660,7 @@ public class BuildingWandItem extends Item {
         MaterialResult preview = findFirstBuildingBlock(player, wandStack, hasMasterBuilder);
         // Jede Absage sagt in der Aktionsleiste, warum: frueher blieb ein Klick auf flachem Boden
         // (die Testzentrale ist ueberall flach) stumm, und die Bruecke wirkte kaputt.
-        if (preview == null && !player.getAbilities().instabuild) {
+        if (preview == null && !freeBuild(player, wandStack)) {
             player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.wand.bridge.no_material").withStyle(net.minecraft.ChatFormatting.RED));
             return InteractionResult.FAIL;
         }
@@ -718,7 +758,7 @@ public class BuildingWandItem extends Item {
             }
             MaterialResult material = want == null ? null : findSpecificMaterial(player, stack, want, hasMasterBuilder);
 
-            if (material == null && !player.getAbilities().instabuild) {
+            if (material == null && !freeBuild(player, stack)) {
                 com.simplebuilding.advancement.ModCounters.add(player, com.simplebuilding.advancement.ModCounters.WAND_BLOCKS, placedThisStep);
                 nbt.putBoolean("Active", false); setNbt(stack, nbt); return;
             }
@@ -770,7 +810,7 @@ public class BuildingWandItem extends Item {
                     want = palette.isEmpty() ? null : ((BlockItem) palette.get(paletteIndex(pos, palette.size())).getItem()).getBlock();
                 }
                 material = want == null ? null : findSpecificMaterial(player, stack, want, hasMasterBuilder);
-                if (material == null && !player.getAbilities().instabuild) {
+                if (material == null && !freeBuild(player, stack)) {
                     nbt.putBoolean("Active", false);
                     stop();
                     return null;
@@ -798,10 +838,10 @@ public class BuildingWandItem extends Item {
         WandPlacement.afterPlace(world, player, pos, state, placeItem);
         com.simplebuilding.stats.ModStats.award(player, com.simplebuilding.stats.ModStats.WAND_BLOCKS_PLACED);
         WandUndo.record(player, world, pos, state, placeItem.getItem(),
-                !player.getAbilities().instabuild && material != null ? 1 : 0);
+                !freeBuild(player, stack) && material != null ? 1 : 0);
         SoundType sound = state.getSoundType();
         world.playSound(null, pos, sound.getPlaceSound(), SoundSource.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
-        if (!player.getAbilities().instabuild && material != null) {
+        if (!freeBuild(player, stack) && material != null) {
             material.consume();
             int hungerCount = nbt.getIntOr("HungerCount", 0) + 1;
             nbt.putInt("HungerCount", hungerCount);

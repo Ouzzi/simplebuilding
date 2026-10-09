@@ -15,6 +15,16 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class BlueprintGameTest {
 
     @GameTest
+    public void creativeWandReachesAFarBlockWithoutCost(GameTestHelper helper) {
+        BlueprintTests.creativeWandReachesAFarBlockWithoutCost(helper);
+    }
+
+    @GameTest
+    public void creativeBlueprintBuildsFarAndStaysLockedOnceSigned(GameTestHelper helper) {
+        BlueprintTests.creativeBlueprintBuildsFarAndStaysLockedOnceSigned(helper);
+    }
+
+    @GameTest
     public void codeRoundTripsAndParsesTheSpecExamples(GameTestHelper helper) {
         BlueprintTests.codeRoundTripsAndParsesTheSpecExamples(helper);
     }

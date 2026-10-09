@@ -235,7 +235,8 @@ public final class ModItemGroupsContent {
     /** Alle Baustab-Stufen, aufsteigend. */
     private static ItemLike[] buildingWands() {
         return new ItemLike[]{ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
-                ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND};
+                ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND,
+                ModItems.CREATIVE_BUILDING_WAND};
     }
 
     private static void buildingBlocks(CreativeModeTab.Output entries) {
@@ -567,7 +568,7 @@ public final class ModItemGroupsContent {
     }
 
     public static CreativeTabLayout.Row buildingPlanningRow() {
-        return CreativeTabLayout.Row.besides("building_planning", ModItems.BLUEPRINT, Items.CARTOGRAPHY_TABLE);
+        return CreativeTabLayout.Row.besides("building_planning", ModItems.BLUEPRINT, ModItems.CREATIVE_BLUEPRINT, Items.CARTOGRAPHY_TABLE);
     }
 
     private static void addEnchantAtMax(List<ItemStack> entries, HolderLookup<Enchantment> registry, ResourceKey<Enchantment> key) {

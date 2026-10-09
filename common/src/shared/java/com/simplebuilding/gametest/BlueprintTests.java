@@ -1819,6 +1819,145 @@ public final class BlueprintTests {
     }
 
     // =====================================================================================
+    // KREATIV-BLAUPAUSE UND KREATIV-BAUSTAB (Queue N29)
+    // =====================================================================================
+
+    /** So hoch ueber dem Spieler liegt das ferne Ziel: weit hinter Vanillas Reichweite und ihrem Attribut-Deckel 64. */
+    private static final int FAR_UP = 100;
+
+    /**
+     * Kreativ-Baustab: der Spieler schaut senkrecht nach oben auf einen Glasblock 100 Bloecke ueber ihm. Vanilla
+     * trifft dort nichts und schickt nur "Benutzen"; der Enderit-Stab tut dann nichts, der Kreativ-Stab zielt mit
+     * seinem eigenen Strahl auf das Glas und setzt den Block darunter - im Ueberleben, ohne den Stein im Inventar
+     * zu verbrauchen und ohne Haltbarkeit.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> {@code BuildingWandItem#use} ohne den Fernstrahl
+     * ({@code CreativeReach}), ein Kreativ-Stab mit Haltbarkeit oder Materialverbrauch ({@code freeBuild}), ein
+     * normaler Stab, der ebenfalls fern baut.
+     */
+    public static void creativeWandReachesAFarBlockWithoutCost(GameTestHelper helper) {
+        ServerPlayer player = lookingUp(helper);
+        BlockPos far = new BlockPos(3, FAR_UP, 0);
+        BlockPos below = far.below();
+        helper.setBlock(far, Blocks.GLASS);
+        helper.setBlock(below, Blocks.AIR);
+        ServerLevel level = helper.getLevel();
+
+        ItemStack plain = singleBlockWand(ModItems.ENDERITE_BUILDING_WAND);
+        holdWithStone(player, plain);
+        player.getItemInHand(InteractionHand.MAIN_HAND).getItem().use(level, player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(!wandActive(plain) && helper.getBlockState(below).isAir(),
+                "an Enderite wand built " + (FAR_UP - 1) + " blocks away; only the creative wand reaches that far");
+
+        ItemStack wand = singleBlockWand(ModItems.CREATIVE_BUILDING_WAND);
+        holdWithStone(player, wand);
+        var result = wand.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(wandActive(wand), "the creative wand did not aim at the glass " + FAR_UP
+                + " blocks above the player (use returned " + result + ")");
+        for (int tick = 0; tick < 200 && wandActive(wand); tick++) {
+            wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+        }
+        helper.assertTrue(helper.getBlockState(below).is(Blocks.STONE),
+                "the creative wand armed itself but placed " + helper.getBlockState(below) + " under the far glass");
+        helper.assertTrue(player.getInventory().getItem(1).is(Items.STONE) && player.getInventory().getItem(1).getCount() == 16,
+                "the creative wand used material in survival: " + player.getInventory().getItem(1));
+        helper.assertTrue(!wand.isDamageableItem() && wand.getDamageValue() == 0, "the creative wand has durability: " + wand);
+        helper.setBlock(below, Blocks.AIR);
+        helper.setBlock(far, Blocks.AIR);
+        helper.succeed();
+    }
+
+    /**
+     * Kreativ-Blaupause: mit ihr in der Nebenhand baut ein gewoehnlicher Enderit-Stab am fernen Ziel (die normale
+     * Blaupause dort nicht). Signiert ist sie endgueltig: das Edit-Paket des Servers aendert sie nicht mehr (weder
+     * Code noch neue Signatur), und die Kopie am Kartentisch ist eine genaue, signierte Kreativ-Blaupause - die
+     * normale gibt weiter eine bearbeitbare Kopie.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> {@code CreativeReach#active} ohne die Nebenhand-Blaupause,
+     * {@code ModMessageHandlers#editedBlueprint} ohne Signatur-Sperre, {@code BlueprintCartography#copyResult},
+     * das eine Kreativ-Blaupause entsperrt.
+     */
+    public static void creativeBlueprintBuildsFarAndStaysLockedOnceSigned(GameTestHelper helper) {
+        ServerPlayer player = lookingUp(helper);
+        BlockPos far = new BlockPos(3, FAR_UP, 0);
+        BlockPos below = far.below();
+        helper.setBlock(far, Blocks.GLASS);
+        helper.setBlock(below, Blocks.AIR);
+        ServerLevel level = helper.getLevel();
+        ItemStack wand = new ItemStack(ModItems.ENDERITE_BUILDING_WAND);
+        holdWithStone(player, wand);
+
+        ItemStack normal = signedBlueprint(ModItems.BLUEPRINT, "stone 0,0,0");
+        player.setItemInHand(InteractionHand.OFF_HAND, normal);
+        wand.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(helper.getBlockState(below).isAir(), "a normal blueprint was built " + (FAR_UP - 1) + " blocks away");
+
+        player.setItemInHand(InteractionHand.OFF_HAND, signedBlueprint(ModItems.CREATIVE_BLUEPRINT, "stone 0,0,0"));
+        var result = wand.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        if (BlueprintBuilder.building(player)) {
+            BlueprintBuilder.completeJob(player);
+        }
+        helper.assertTrue(helper.getBlockState(below).is(Blocks.STONE), "a wand with the creative blueprint did not build at the far glass ("
+                + result + ", found " + helper.getBlockState(below) + ")");
+        helper.setBlock(below, Blocks.AIR);
+        helper.setBlock(far, Blocks.AIR);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+
+        ItemStack draft = new ItemStack(ModItems.CREATIVE_BLUEPRINT);
+        player.getInventory().setItem(2, draft);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(2, "stone 0,0,0", false, ""), player);
+        helper.assertTrue(BlueprintItem.content(draft).code().equals("stone 0,0,0"), "an unsigned creative blueprint did not save its draft");
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(2, "stone 0..1,0,0", true, "Tower"), player);
+        BlueprintContent signed = BlueprintItem.content(draft);
+        helper.assertTrue(signed.signed() && signed.title().equals("Tower"), "the creative blueprint could not be signed: " + signed);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(2, "dirt 0,0,0", false, ""), player);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(2, "dirt 0,0,0", true, "Other"), player);
+        helper.assertTrue(BlueprintItem.content(draft).equals(signed), "the server changed a signed creative blueprint: " + BlueprintItem.content(draft));
+
+        ItemStack copy = com.simplebuilding.blueprint.BlueprintCartography.copyResult(draft, new ItemStack(ModItems.BLUEPRINT));
+        helper.assertTrue(BlueprintItem.isCreative(copy) && BlueprintItem.content(copy).equals(signed) && copy.getCount() == 1,
+                "the cartography copy of a signed creative blueprint is not an exact signed copy: " + copy + " " + BlueprintItem.content(copy));
+        ItemStack normalCopy = com.simplebuilding.blueprint.BlueprintCartography.copyResult(normal, new ItemStack(ModItems.BLUEPRINT));
+        helper.assertTrue(!normalCopy.isEmpty() && !BlueprintItem.content(normalCopy).signed() && !BlueprintItem.isCreative(normalCopy),
+                "the normal blueprint no longer copies to an editable one: " + BlueprintItem.content(normalCopy));
+        helper.succeed();
+    }
+
+    /** Ueberlebens-Spieler an (3.5, 2, 0.5), Blick senkrecht nach oben. */
+    private static ServerPlayer lookingUp(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        player.snapTo(player.getX(), player.getY(), player.getZ(), 0.0F, -90.0F);
+        return player;
+    }
+
+    /** Stab in Slot 0 (gewaehlt), 16 Stein in Slot 1, Nebenhand leer. */
+    private static void holdWithStone(ServerPlayer player, ItemStack wand) {
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        player.getInventory().setItem(0, wand);
+        player.getInventory().setItem(1, new ItemStack(Items.STONE, 16));
+    }
+
+    /** Ein Stab mit Radius 0: ein einziger Block vor der geklickten Seite. */
+    private static ItemStack singleBlockWand(Item item) {
+        ItemStack wand = new ItemStack(item);
+        CompoundTag settings = new CompoundTag();
+        settings.putInt("SettingsRadius", 0);
+        wand.set(DataComponents.CUSTOM_DATA, CustomData.of(settings));
+        return wand;
+    }
+
+    private static boolean wandActive(ItemStack wand) {
+        return wand.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBooleanOr("Active", false);
+    }
+
+    private static ItemStack signedBlueprint(Item item, String code) {
+        ItemStack stack = new ItemStack(item);
+        stack.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent(code, "Far", "Tester", true));
+        return stack;
+    }
+
+    // =====================================================================================
     // HILFEN
     // =====================================================================================
 

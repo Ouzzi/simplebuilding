@@ -220,7 +220,7 @@ public final class SearchTabPlacement {
 
         // --- Gebrauchsbloecke: Licht, Blaupause beim Kartografentisch, Oefen, Truhen, Koepfe.
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SEA_LANTERN, ModItems.CONSTRUCTION_LIGHT));
-        out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.CARTOGRAPHY_TABLE, ModItems.BLUEPRINT));
+        out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.CARTOGRAPHY_TABLE, ModItems.BLUEPRINT, ModItems.CREATIVE_BLUEPRINT));
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.FURNACE,
                 ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, ModItems.ENDERITE_FURNACE));
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SMOKER,
@@ -292,7 +292,8 @@ public final class SearchTabPlacement {
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.NETHERITE_HOE,
                 ModItems.NETHERITE_CHISEL, ModItems.NETHERITE_SLEDGEHAMMER, ModItems.NETHERITE_BUILDING_WAND,
                 ModItems.ENDERITE_SHOVEL, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, ModItems.ENDERITE_HOE,
-                ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_SLEDGEHAMMER, ModItems.ENDERITE_BUILDING_WAND));
+                ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_SLEDGEHAMMER, ModItems.ENDERITE_BUILDING_WAND,
+                ModItems.CREATIVE_BUILDING_WAND));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.BUNDLE,
                 ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE,
                 ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER,
