@@ -100,6 +100,8 @@ public final class PerceptionClient {
     }
 
     private static void follow(Entity real, Entity standIn) {
+        // Renderers read the entity id (item model seeds); a stand-in never joins the level, so it borrows the real one.
+        standIn.setId(real.getId());
         standIn.setPos(real.getX(), real.getY(), real.getZ());
         standIn.xo = real.xo;
         standIn.yo = real.yo;
