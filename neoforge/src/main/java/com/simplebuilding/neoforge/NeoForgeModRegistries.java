@@ -136,6 +136,18 @@ public final class NeoForgeModRegistries {
                             com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity::new, ModBlocks.AUTONOMOUS_CRAFTER))
                     : null;
 
+    /** Werkbank mit Lager, nur Hauptlinie (McVersion.STORAGE_CRAFTING_TABLE). */
+    public static final Supplier<MenuType<com.simplebuilding.screen.StorageCraftingMenu>> STORAGE_CRAFTING_TABLE_MENU =
+            com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE
+                    ? MENUS.register("storage_crafting_table", () -> new MenuType<>(com.simplebuilding.screen.StorageCraftingMenu::new,
+                            net.minecraft.world.flag.FeatureFlags.VANILLA_SET))
+                    : null;
+    public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.StorageCraftingTableBlockEntity>> STORAGE_CRAFTING_TABLE_BE =
+            com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE
+                    ? BLOCK_ENTITIES.register("storage_crafting_table", () -> new BlockEntityType<>(
+                            com.simplebuilding.blocks.entity.custom.StorageCraftingTableBlockEntity::new, ModBlocks.STORAGE_CRAFTING_TABLE))
+                    : null;
+
     /** Auto-Schmied, nur Hauptlinie (McVersion.AUTO_SMITHER). */
     public static final Supplier<MenuType<com.simplebuilding.screen.AutoSmitherMenu>> AUTO_SMITHER_MENU =
             com.simplebuilding.version.McVersion.AUTO_SMITHER
@@ -307,6 +319,8 @@ public final class NeoForgeModRegistries {
         if (AUTONOMOUS_CRAFTER_BE != null) ModBlockEntities.AUTONOMOUS_CRAFTER_BE = AUTONOMOUS_CRAFTER_BE.get();
         if (ASTRAL_ENCHANTING_MENU != null) ModScreenHandlers.ASTRAL_ENCHANTING_MENU = ASTRAL_ENCHANTING_MENU.get();
         if (ASTRAL_ENCHANTING_TABLE_BE != null) ModBlockEntities.ASTRAL_ENCHANTING_TABLE_BE = ASTRAL_ENCHANTING_TABLE_BE.get();
+        if (STORAGE_CRAFTING_TABLE_MENU != null) ModScreenHandlers.STORAGE_CRAFTING_TABLE_MENU = STORAGE_CRAFTING_TABLE_MENU.get();
+        if (STORAGE_CRAFTING_TABLE_BE != null) ModBlockEntities.STORAGE_CRAFTING_TABLE_BE = STORAGE_CRAFTING_TABLE_BE.get();
         if (FLETCHING_TYPE != null) {
             com.simplebuilding.fletching.FletchingRecipes.TYPE = FLETCHING_TYPE.get();
             com.simplebuilding.fletching.FletchingRecipes.CATEGORY = FLETCHING_CATEGORY.get();

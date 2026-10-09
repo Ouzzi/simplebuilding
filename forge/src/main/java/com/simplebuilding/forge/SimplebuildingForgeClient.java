@@ -70,6 +70,9 @@ public final class SimplebuildingForgeClient {
             if (ForgeModRegistries.ASTRAL_ENCHANTING_MENU != null) {
                 MenuScreens.register(ForgeModRegistries.ASTRAL_ENCHANTING_MENU.get(), com.simplebuilding.client.gui.AstralEnchantingScreen::new);
             }
+            if (ForgeModRegistries.STORAGE_CRAFTING_TABLE_MENU != null) {
+                MenuScreens.register(ForgeModRegistries.STORAGE_CRAFTING_TABLE_MENU.get(), com.simplebuilding.client.gui.StorageCraftingScreen::new);
+            }
         });
     }
 
@@ -96,6 +99,8 @@ public final class SimplebuildingForgeClient {
         // Abgestelltes Buendel: das gezeigte Item schwebt darueber, solange man schleichend hinschaut.
         event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.PLACED_BUNDLE_BE.get(), com.simplebuilding.client.render.PlacedBundleRenderer::new);
         // Kleinteile auf einem Fleck: liegende Teile als Platten, Eier als 3D-Ei.
+        if (com.simplebuilding.forge.ForgeModRegistries.STORAGE_CRAFTING_TABLE_BE != null) event.registerBlockEntityRenderer(
+                com.simplebuilding.forge.ForgeModRegistries.STORAGE_CRAFTING_TABLE_BE.get(), com.simplebuilding.client.render.StorageCraftingTableRenderer::new);
         if (com.simplebuilding.forge.ForgeModRegistries.PLACED_SMALL_PARTS_BE != null) event.registerBlockEntityRenderer(
                 com.simplebuilding.forge.ForgeModRegistries.PLACED_SMALL_PARTS_BE.get(), com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
         if (com.simplebuilding.forge.ForgeModRegistries.GOAT_HORN_HOLDER_BE != null) event.registerBlockEntityRenderer(

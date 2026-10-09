@@ -42,6 +42,10 @@
     "ShulkerRendererMixin",
     "ShulkerRenderStateMixin",
     "GhostSlotsInvoker",
-    "GuiSetScreenMixin"
+    "GuiSetScreenMixin",
+    "ShiveringCrosshairMixin",
+    "MirageEntityMixin",
+    "FadedGameRendererMixin",
+    "WalkAnimationStateAccessor"
   ]
 }

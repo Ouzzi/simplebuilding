@@ -119,6 +119,10 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 builder(BlockTags.ENCHANTMENT_POWER_PROVIDER).add(key(block));
             }
         }
+        if (com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE) {
+            // Wie die Werkbank: Axt.
+            builder(BlockTags.MINEABLE_WITH_AXE).add(key(ModBlocks.STORAGE_CRAFTING_TABLE));
+        }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Lautsprecher wie Notenblock und Plattenspieler: Axt.
             builder(BlockTags.MINEABLE_WITH_AXE).add(key(ModBlocks.JUKEBOX_AMPLIFIER)).add(key(ModBlocks.NOTE_AMPLIFIER));

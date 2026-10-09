@@ -12,6 +12,7 @@ public final class ModScreenHandlers {
     public static MenuType<AutoSmitherMenu> AUTO_SMITHER_MENU;
     public static MenuType<AutonomousCrafterMenu> AUTONOMOUS_CRAFTER_MENU;
     public static MenuType<AstralEnchantingMenu> ASTRAL_ENCHANTING_MENU;
+    public static MenuType<StorageCraftingMenu> STORAGE_CRAFTING_TABLE_MENU;
 
     private ModScreenHandlers() {
     }

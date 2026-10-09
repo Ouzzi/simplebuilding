@@ -96,6 +96,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             }
             dropSelf(ModBlocks.BLAZING_OBSIDIAN);
         }
+        if (ModBlocks.STORAGE_CRAFTING_TABLE != null) dropSelf(ModBlocks.STORAGE_CRAFTING_TABLE);
         if (ModBlocks.JUKEBOX_AMPLIFIER != null) dropSelf(ModBlocks.JUKEBOX_AMPLIFIER);
         if (ModBlocks.NOTE_AMPLIFIER != null) dropSelf(ModBlocks.NOTE_AMPLIFIER);
         if (ModBlocks.GOLD_ROD != null) dropSelf(ModBlocks.GOLD_ROD);

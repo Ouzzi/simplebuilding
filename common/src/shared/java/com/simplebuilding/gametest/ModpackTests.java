@@ -516,6 +516,7 @@ public final class ModpackTests {
         RegistryOps<JsonElement> ops = registries.createSerializationContext(JsonOps.INSTANCE);
         Set<ResourceKey<LootTable>> keys = new LinkedHashSet<>(BuiltInLootTables.all());
         keys.add(BuiltInLootTables.CHARGED_CREEPER);
+        keys.add(com.simplebuilding.loot.ModLootTableModifications.wardenTable());
         List<String> problems = new ArrayList<>();
         int injected = 0;
         for (ResourceKey<LootTable> key : keys) {

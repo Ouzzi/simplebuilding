@@ -88,6 +88,8 @@ public class ModDataTablesProvider implements DataProvider {
         if (!keys.contains(BuiltInLootTables.CHARGED_CREEPER)) {
             keys.add(BuiltInLootTables.CHARGED_CREEPER);
         }
+        // Mob tables are not in BuiltInLootTables.all(): the warden's (warden tendril, queue N24).
+        keys.add(com.simplebuilding.loot.ModLootTableModifications.wardenTable());
         return keys;
     }
 

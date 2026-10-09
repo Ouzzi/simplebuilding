@@ -507,6 +507,12 @@ public class ModItems {
     /** Lohenbuch: wie ein Buch, mit Lohenstaub statt Leder; drei davon und sechs Lohenholz ergeben ein Lohen-Regal. */
     public static final Item BLAZE_BOOK = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("blaze_book", s -> new Item(s)) : null;
+    /** Werkbank mit Lager (2026-10-09, N26): behaelt ihr Raster. */
+    public static final Item STORAGE_CRAFTING_TABLE = com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE
+            ? registerItem("storage_crafting_table", s -> new BlockItem(ModBlocks.STORAGE_CRAFTING_TABLE, s)) : null;
+    /** Waerter-Fuehler (2026-10-09, N24): Drop des Waerters, Brauzutat des Dunkelheitstranks. */
+    public static final Item WARDEN_TENDRIL = com.simplebuilding.version.McVersion.BREWING_EFFECTS
+            ? registerItem("warden_tendril", Item::new) : null;
     public static final Item SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE
             ? registerItem("sage_ore", s -> new BlockItem(ModBlocks.SAGE_ORE, s)) : null;
     public static final Item DEEPSLATE_SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE

@@ -605,7 +605,10 @@ SKIPPED_SHOTS = {
              # McVersion.AUTO_SMITHER / FLETCHING are 26.3 features (ModUiStyleClientTest).
              "modui-auto-smither", "modui-fletching", "modui-autonomous-crafter", "modui-astral-enchanting",
              # McVersion.CRUCIBLE: the Enderite buckets are 26.3 only (EnderiteBucketClientTest).
-             "enderite-buckets-inventory"},
+             "enderite-buckets-inventory",
+             # McVersion.BREWING_EFFECTS / STORAGE_CRAFTING_TABLE are 26.3 features (BrewClientTest).
+             "brew-plain", "brew-mirage", "brew-reverse-mirage", "brew-faded", "brew-faded-inventory",
+             "brew-faded-pause", "brew-shivering", "brew-storage-table", "brew-storage-table-screen"},
     # McVersion.SMITHING_RECIPE_BOOK (owner 2026-10-02): the vanilla recipe book replaced the trim
     # reference button in the smithing table, so ModScreensClientTest checks the book and returns
     # before the button path that takes this shot.

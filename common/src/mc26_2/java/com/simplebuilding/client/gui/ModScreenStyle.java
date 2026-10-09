@@ -63,6 +63,15 @@ public final class ModScreenStyle {
         return false;
     }
 
+    public static boolean storageCraftingTable(GuiGraphicsExtractor g, com.simplebuilding.screen.StorageCraftingMenu menu, Font font,
+            Component title, int left, int top, int imageWidth) {
+        return false;
+    }
+
+    public static boolean storageCraftingTableLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
+        return false;
+    }
+
     public static boolean fletching(GuiGraphicsExtractor g, FletchingMenu menu, Font font, Component title, int left, int top,
             int imageWidth) {
         return false;

@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 570,
+      "count": 539,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -392,7 +392,7 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Sledgehammer",
-        "summary": "The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+        "summary": "The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
         "details": [
           "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
           "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -420,7 +420,7 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Vorschlaghammer",
-        "summary": "Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+        "summary": "Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
         "details": [
           "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
           "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -631,8 +631,7 @@ window.WIKI_DATA = {
         "simplebuilding:linear",
         "simplebuilding:cover",
         "simplebuilding:bridge",
-        "simplebuilding:constructors_touch",
-        "simplebuilding:creative_building_wand"
+        "simplebuilding:constructors_touch"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
@@ -658,8 +657,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/util/WandUndo.java",
         "common/src/shared/java/com/simplebuilding/blueprint/ShapeFill.java",
         "common/src/shared/java/com/simplebuilding/gametest/WandModeTests.java",
-        "common/src/shared/java/com/simplebuilding/util/WandHunger.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java"
+        "common/src/shared/java/com/simplebuilding/util/WandHunger.java"
       ],
       "en": {
         "title": "Building Wand: whole areas in one click",
@@ -687,8 +685,7 @@ window.WIKI_DATA = {
           "Bridge enchantment: right-click into the air (not sneaking) to build a bridge from the block under your feet straight ahead in your facing direction, at the height of that block - as long as a Linear line (twice the area diameter) and ending in front of the first occupied block. It grows from the edge towards the far end, block by block every tick, in half the time the old chunked bridge took (radius 2 over six blocks: 6 ticks instead of 11). If the floor you stand on runs on ahead, the bridge starts at its edge (searched up to that same length), so you do not have to stand right at the drop. Standing on nothing, or on a floor without a gap in reach, nothing is built and the action bar says why. While you look into the air, the ghost preview shows the bridge. Looking across the gap works too: a click (not sneaking) on a block beyond the edge that is not higher than the bridge - the far bank, the floor or wall of the gap, or the edge block's face towards the gap - builds the same bridge instead of an area there, and the preview shows it; sneak to build the area there after all.",
           "Undo: sneak and right-click into the air with the wand in the main hand. It takes back your last building action - area, line, bridge, cover, octant fill, roof or blueprint build; every new action replaces the one before, so only one step can be undone. Only blocks that are still the block the action placed, in the same amount (a slab doubled since or candles added by hand stay), are removed (nothing that would be lost is cleared: a container has to be empty and any other block entity unchanged since it was placed - a lectern with a book or a campfire with food stays - and a glow lichen or sculk vein spread over more faces stays too; undo also needs the same right to build there as building: world border, spawn protection, claims); their items go into your inventory - also when they came from a bundle or the backpack - and whatever does not fit is dropped at your feet. Durability and hunger (exhaustion already paid) are not refunded, and blocks placed in creative give nothing back. The record lives only for the current session: logging out, a server restart or a dimension change discards it, and actions of more than 65,536 blocks are not recorded. A build that is still running is stopped first. With nothing to undo the action bar says so, and the click no longer reaches an octant in the off hand.",
           "Wand + octant: with the wand in the main hand and an octant with both corners in the off hand, the ghost preview shows the octant's shape filled with material (missing material red), whatever you look at, and a click on any block builds it through the same planner as a blueprint: two-click rule when material is missing, built in stages, 1 durability per block, cancelled when you put the wand or the octant away, not resumed after logout. Material comes from the hotbar (the off hand holds the octant), with Master Builder from the inventory and a Master Builder backpack; with Color Palette it is mixed per position. Blocks are placed as if set onto the floor. The octant's options apply: Hollow builds only the shell; Order builds layer by layer from the base to the tip of the shape (Default), upwards (Bottom Up) or downwards (Top Down); Layer Mode builds only the next unfinished layer per click; once every layer is done the click says there is nothing to build (so does a click on a shape that is already filled). The material check and the preview also count cells that will only stand on a layer of the same fill (a carpet on a carpet, a torch on the layer below), so the preview shows more than the first layer and a block missing up there warns as well. The action bar shows a running fill in percent of the box plus the blocks placed. Command, structure and jigsaw blocks are only filled for players who may place them by hand. Clicking again while the material check of the same fill is still running does not start it over. The longest edge of the selection is capped per wand tier like a blueprint (16/32/48/64/128/256), and the box may hold at most 4,194,304 positions. The whole box plus one block around it has to lie in loaded chunks, otherwise the action bar says so and nothing is built. Planning a fill does not read the world: whether a block has support is checked when the build reaches its position, so a torch on a layer placed earlier in the same fill holds.",
-          "Roof: if the material is a stair and the octant's shape is a prism or pyramid with its tip up, the wand builds a roof instead of a fill - stairs on the sloping faces with their high side towards the ridge (corners adjust themselves), a one block wide ridge of bottom slabs of the same material (oak_stairs becomes oak_slab; stairs where no such slab exists), nothing underneath and nothing in the gable walls. Hollow does not matter here. The stair is the first building block the wand finds (off hand, hotbar, with Master Builder the inventory) - since the off hand holds the octant, put the stairs first in the hotbar. Color Palette does not switch the roof off. On the click the action bar says whether a roof is built, or why not.",
-          "Creative Building Wand (creative tab only, no recipe): the Enderite wand's area (diameter 13) and blueprint size (256), all building wand enchantments, but no durability, no material use and no hunger in any game mode (BuildingWandItem.freeBuild) - it still needs a block in the inventory to know what to place. Its reach is unlimited: when the normal reach hits nothing, a right click targets the block in view up to 1024 blocks away, and the ghost preview follows the same ray. Sneak + right-click into the air stays undo."
+          "Roof: if the material is a stair and the octant's shape is a prism or pyramid with its tip up, the wand builds a roof instead of a fill - stairs on the sloping faces with their high side towards the ridge (corners adjust themselves), a one block wide ridge of bottom slabs of the same material (oak_stairs becomes oak_slab; stairs where no such slab exists), nothing underneath and nothing in the gable walls. Hollow does not matter here. The stair is the first building block the wand finds (off hand, hotbar, with Master Builder the inventory) - since the off hand holds the octant, put the stairs first in the hotbar. Color Palette does not switch the roof off. On the click the action bar says whether a roof is built, or why not."
         ]
       },
       "de": {
@@ -717,8 +714,7 @@ window.WIKI_DATA = {
           "Verzauberung Brücke: In die Luft rechtsklicken (ohne Schleichen), und vom Block unter deinen Füßen aus entsteht geradeaus in Blickrichtung eine Brücke auf der Höhe dieses Blocks - so lang wie eine Linear-Linie (doppelter Flächen-Durchmesser), sie endet vor dem ersten belegten Block. Sie wächst von der Kante zum anderen Ende, Block für Block jeden Tick, in der halben Zeit der alten, stückweise gebauten Brücke (Radius 2 über sechs Blöcke: 6 statt 11 Ticks). Läuft der Boden unter dir noch weiter, beginnt die Brücke an seiner Kante (bis zu derselben Länge weit gesucht) - du musst nicht direkt am Abgrund stehen. Stehst du auf nichts oder auf Boden ohne Lücke in Reichweite, wird nichts gebaut, und die Aktionsleiste sagt warum. Solange du in die Luft schaust, zeigt die Geister-Vorschau die Brücke. Auch der Blick über die Lücke geht: Ein Klick (ohne Schleichen) auf einen Block hinter der Kante, der nicht höher liegt als die Brücke - das andere Ufer, Grund oder Wand der Lücke oder die zur Lücke zeigende Seite der Kante -, baut dieselbe Brücke statt dort eine Fläche, und die Vorschau zeigt sie; mit Schleichen entsteht dort doch die Fläche.",
           "Rückgängig: Schleichen und mit dem Stab in der Haupthand in die Luft rechtsklicken. Das nimmt deine letzte Bau-Aktion zurück - Fläche, Linie, Brücke, Abdeckung, Oktant-Füllung, Dach oder Blaupausen-Bau; jede neue Aktion ersetzt die vorige, es gibt also nur einen Schritt zurück. Entfernt werden nur Blöcke, an deren Stelle noch der Block steht, den die Aktion gesetzt hat, in derselben Menge (eine inzwischen doppelte Stufe oder von Hand ergänzte Kerzen bleiben) (geräumt wird nichts, was verloren ginge: ein Behälter muss leer sein und jedes andere Block-Entity unverändert seit dem Setzen - ein Lesepult mit Buch oder ein Lagerfeuer mit Essen bleiben stehen -, ebenso eine Glühflechte oder Sculk-Ader, die inzwischen mehr Flächen bedeckt; das Rückgängig braucht außerdem dasselbe Baurecht wie das Bauen: Weltgrenze, Spawn-Schutz, Claims); ihre Items gehen ins Inventar - auch wenn sie aus einem Bündel oder dem Rucksack kamen -, und was nicht passt, fällt vor deine Füße. Haltbarkeit und Hunger (bereits bezahlte Erschöpfung) werden nicht erstattet, im Kreativmodus gesetzte Blöcke geben nichts zurück. Gemerkt wird nur für die laufende Sitzung: Abmelden, ein Serverneustart oder ein Dimensionswechsel verwerfen die Aktion, und Aktionen über 65.536 Blöcke werden gar nicht aufgezeichnet. Ein noch laufender Bau wird zuerst angehalten. Gibt es nichts zurückzunehmen, sagt es die Aktionsleiste, und der Klick erreicht einen Oktanten in der Nebenhand nicht mehr.",
           "Stab + Oktant: Mit dem Stab in der Haupthand und einem Oktanten mit beiden Ecken in der Nebenhand zeigt die Geister-Vorschau die Figur des Oktanten mit Material gefüllt (fehlendes Material rot), egal wohin du schaust, und ein Klick auf einen beliebigen Block baut sie über denselben Planer wie eine Blaupause: Zwei-Klick-Regel bei fehlendem Material, gestaffelter Aufbau, 1 Haltbarkeit je Block, Abbruch, sobald du Stab oder Oktant weglegst, keine Fortsetzung nach dem Abmelden. Das Material kommt aus der Hotbar (die Nebenhand hält ja den Oktanten), mit Baumeister aus dem Inventar und einem Baumeister-Rucksack; mit Farbpalette wird es je Stelle gemischt. Die Blöcke werden gesetzt, als stellte man sie auf den Boden. Die Optionen des Oktanten wirken: Hohl baut nur die Hülle; Reihenfolge baut Schicht für Schicht von der Grundfläche zur Spitze der Figur (Standard), aufwärts (Von unten) oder abwärts (Von oben); Ebenenmodus baut je Klick nur die nächste unfertige Schicht; ist jede Schicht fertig, sagt der Klick, dass es nichts zu bauen gibt (ebenso bei einer schon gefüllten Figur). Materialprüfung und Vorschau zählen auch Stellen, die erst auf einer Schicht derselben Füllung stehen (Teppich auf Teppich, Fackel auf der Schicht darunter): Die Vorschau zeigt also mehr als die erste Schicht, und ein dort fehlender Block warnt ebenfalls. Die Aktionsleiste zeigt eine laufende Füllung in Prozent der Box und die gesetzten Blöcke. Befehls-, Struktur- und Verbundblöcke werden nur für Spieler gefüllt, die sie auch von Hand setzen dürfen. Ein erneuter Klick, während die Materialprüfung derselben Füllung noch läuft, startet sie nicht von vorn. Die längste Kante der Auswahl ist je Stabstufe begrenzt wie bei der Blaupause (16/32/48/64/128/256), und die Box darf höchstens 4.194.304 Stellen fassen. Die ganze Box samt einem Block Rand muss in geladenen Chunks liegen, sonst sagt die Aktionsleiste das und es wird nichts gebaut. Die Planung liest die Welt nicht: Ob ein Block Halt hat, wird erst geprüft, wenn der Bau seine Stelle erreicht - eine Fackel auf einer früher in derselben Füllung gesetzten Schicht hält also.",
-          "Dach: Ist das Material eine Treppe und die Figur des Oktanten ein Prisma oder eine Pyramide mit der Spitze nach oben, baut der Stab statt einer Füllung ein Dach - Treppen auf den Dachflächen mit der hohen Seite zum First (Ecken passen sich selbst an), ein nur einen Block breiter First aus unteren Stufen desselben Materials (aus oak_stairs wird oak_slab; Treppen, wo es keine solche Stufe gibt), nichts darunter und nichts in den Giebelwänden. Hohl spielt hier keine Rolle. Die Treppe ist der erste Baublock, den der Stab findet (Nebenhand, Hotbar, mit Baumeister das Inventar) - weil die Nebenhand den Oktanten hält, gehören die Treppen nach vorn in die Hotbar. Die Farbpalette schaltet das Dach nicht ab. Beim Klick sagt die Aktionsleiste, ob ein Dach entsteht oder warum nicht.",
-          "Kreativ-Baustab (nur im Kreativ-Tab, kein Rezept): Fläche (Durchmesser 13) und Blaupausen-Größe (256) wie Enderit, alle Baustab-Verzauberungen, aber ohne Haltbarkeit, Materialverbrauch und Hunger in jedem Spielmodus (BuildingWandItem.freeBuild) - einen Block im Inventar braucht er trotzdem, um zu wissen, was er setzt. Seine Reichweite ist unbegrenzt: trifft die normale Reichweite nichts, zielt ein Rechtsklick auf den Block im Blick bis 1024 Blöcke weit, und die Geister-Vorschau folgt demselben Strahl. Schleichen + Rechtsklick in die Luft bleibt Rückgängig."
+          "Dach: Ist das Material eine Treppe und die Figur des Oktanten ein Prisma oder eine Pyramide mit der Spitze nach oben, baut der Stab statt einer Füllung ein Dach - Treppen auf den Dachflächen mit der hohen Seite zum First (Ecken passen sich selbst an), ein nur einen Block breiter First aus unteren Stufen desselben Materials (aus oak_stairs wird oak_slab; Treppen, wo es keine solche Stufe gibt), nichts darunter und nichts in den Giebelwänden. Hohl spielt hier keine Rolle. Die Treppe ist der erste Baublock, den der Stab findet (Nebenhand, Hotbar, mit Baumeister das Inventar) - weil die Nebenhand den Oktanten hält, gehören die Treppen nach vorn in die Hotbar. Die Farbpalette schaltet das Dach nicht ab. Beim Klick sagt die Aktionsleiste, ob ein Dach entsteht oder warum nicht."
         ]
       }
     },
@@ -862,9 +858,7 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_building_wand",
         "simplebuilding:enderite_building_wand",
         "simplebuilding:ender_quartz",
-        "simplebuilding:master_builder",
-        "simplebuilding:creative_blueprint",
-        "simplebuilding:creative_building_wand"
+        "simplebuilding:master_builder"
       ],
       "sources": [
         "docs/BLUEPRINT.md",
@@ -887,8 +881,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/blueprint/BlueprintBlockSearch.java",
         "src/main/resources/data/simplebuilding/blueprint_examples/plains_house.sbp",
         "common/src/shared/java/com/simplebuilding/util/WandHunger.java",
-        "common/src/shared/java/com/simplebuilding/client/property/BlueprintStateModelProperty.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java"
+        "common/src/shared/java/com/simplebuilding/client/property/BlueprintStateModelProperty.java"
       ],
       "en": {
         "title": "Blueprint: Writing, Scanning and Building Structures",
@@ -915,9 +908,7 @@ window.WIKI_DATA = {
           "Logging out or a server restart does not cancel a running build: its progress is saved with the world after every slice. Back in the game, hold the building wand and a signed blueprint with the same code (a copy is fine) and it carries on exactly where it stopped - nothing is placed or paid for twice. With another blueprint or none in the off hand, the action bar says once which build is waiting and where. Starting a different build replaces the waiting one; putting the wand away while it runs cancels it for good.",
           "Loader note: identical on Fabric, NeoForge and Forge (26.2) and on Fabric and NeoForge (1.21.11).",
           "EXPERIMENTAL: in survival a large blueprint build costs hunger like the Building Wand itself - one build is one operation, its first blocks are free (1/16 of the wand's cube, at least 256) and every further block adds the wand tier's exhaustion (see Building Wand; config tools.buildingWandHungerCost). A build resumed after a restart keeps counting from the blocks it had already placed. An Enderite wand building 128x128x128 empties the visible hunger bar, larger builds also just empty it.",
-          "Undo: sneak and right-click into the air with the wand to take back the last build - also a blueprint build, as far as it got; see Building Wand for the rules (same session only, unchanged blocks only, items back into the inventory).",
-          "Creative Blueprint (creative tab only, no recipe): works like the Blueprint, but a building wand holding it in the off hand reaches any block in view - when the normal reach hits nothing, the wand casts its own ray up to 1024 blocks (CreativeReach.FAR_REACH), on the client for the preview and on the server for the build. Once signed it is final: the editor opens read-only, the server ignores edits, and a copy at the cartography table stays a signed, exact copy instead of an editable one. Its sheet is violet with a small gold star.",
-          "Help book icons: the Blocks and Guide tabs and the copy button are small pixel icons (a cube, an open book, two sheets); hovering shows their names. The copy icon sits at the right of the tab row and briefly turns into a check mark after copying."
+          "Undo: sneak and right-click into the air with the wand to take back the last build - also a blueprint build, as far as it got; see Building Wand for the rules (same session only, unchanged blocks only, items back into the inventory)."
         ]
       },
       "de": {
@@ -946,9 +937,7 @@ window.WIKI_DATA = {
           "Ausloggen oder ein Serverneustart brechen einen laufenden Bau nicht ab: sein Fortschritt wird nach jeder Scheibe mit der Welt gespeichert. Zurück im Spiel Baustab und eine signierte Blaupause mit demselben Code halten (eine Kopie genügt), und er baut genau dort weiter, wo er stand - nichts wird doppelt gesetzt oder bezahlt. Mit einer anderen oder keiner Blaupause in der Nebenhand sagt die Aktionsleiste einmal, welcher Bau wartet und wo. Ein anderer Bau ersetzt den wartenden; den Stab während des Weiterbaus wegzulegen bricht ihn endgültig ab.",
           "Loader-Hinweis: gleich auf Fabric, NeoForge und Forge (26.2) sowie Fabric und NeoForge (1.21.11).",
           "EXPERIMENTELL: Im Überlebensmodus kostet ein großer Blaupausen-Bau Hunger wie der Baustab selbst - ein Bau ist ein Bauvorgang, seine ersten Blöcke sind frei (1/16 des Würfels des Stabs, mindestens 256), und jeder weitere Block erzeugt die Erschöpfung der Stab-Stufe (siehe Baustab; Config tools.buildingWandHungerCost). Ein nach einem Neustart fortgesetzter Bau zählt mit den schon gesetzten Blöcken weiter. Ein Enderit-Baustab mit 128x128x128 leert die sichtbare Hungerleiste, größere Bauten leeren sie ebenfalls nur.",
-          "Rückgängig: Schleichen und mit dem Stab in die Luft rechtsklicken nimmt den letzten Bau zurück - auch einen Blaupausen-Bau, so weit er gekommen ist; die Regeln stehen beim Baustab (nur in derselben Sitzung, nur unveränderte Blöcke, Items zurück ins Inventar).",
-          "Kreativ-Blaupause (nur im Kreativ-Tab, kein Rezept): wie die Blaupause, aber ein Baustab mit ihr in der Nebenhand erreicht jeden Block im Blick - trifft die normale Reichweite nichts, wirft der Stab einen eigenen Strahl bis 1024 Blöcke (CreativeReach.FAR_REACH), auf dem Client für die Vorschau, auf dem Server für den Bau. Signiert ist sie endgültig: der Editor öffnet nur lesend, der Server ignoriert Änderungen, und eine Kopie am Kartentisch bleibt eine genaue, signierte Kopie statt einer bearbeitbaren. Ihr Blatt ist violett mit einem kleinen goldenen Stern.",
-          "Symbole im Hilfe-Buch: die Reiter Blöcke und Anleitung sowie der Kopier-Knopf sind kleine Pixel-Symbole (Würfel, aufgeschlagenes Buch, zwei Blätter); der Tooltip nennt ihren Namen. Kopieren sitzt rechts in der Reiterzeile und zeigt nach dem Kopieren kurz einen Haken."
+          "Rückgängig: Schleichen und mit dem Stab in die Luft rechtsklicken nimmt den letzten Bau zurück - auch einen Blaupausen-Bau, so weit er gekommen ist; die Regeln stehen beim Baustab (nur in derselben Sitzung, nur unveränderte Blöcke, Items zurück ins Inventar)."
         ]
       }
     },
@@ -1913,62 +1902,6 @@ window.WIKI_DATA = {
           "Polierter, Astral- und Nihil-Endstein sowie Astral- und Nihil-Purpurblock stehen ebenfalls im Tag mineable/pickaxe.",
           "Alle liegen im Kreativ-Tab „SimpleBlocks“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilitsplittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz.",
           "Alternativblöcke: Astralit hat Geäderten, Kristallinen und Geschichteten Astralit, Nihilit hat Geäderten, Kristallinen und Bereiften Nihilit - derselbe Block mit anderem Muster, mit den Eigenschaften des Grundblocks (Astralit leuchtet auch hier), mit der Spitzhacke abbaubar, jeder droppt sich selbst. Der Steinmetz schneidet jeden 1:1 aus dem Grundblock; 4 im Quadrat ergeben 4 des nächsten (Geädert -> Kristallin -> Geschichtet/Bereift -> Grundblock). Der Enderit-Meißel führt die Palettenkette über den Grundblock hinaus weiter (Grundblock -> Geädert -> Kristallin -> Geschichtet/Bereift), der Spachtel zurück. Sie stehen in einer eigenen Zeile des Tabs „SimpleBlocks“ unter der Zeile des Grundblocks."
-        ]
-      }
-    },
-    {
-      "id": "nature_variants",
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/FallingSlabBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-        "common/src/shared/java/com/simplebuilding/items/SearchTabPlacement.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-        "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/grass_slab.json",
-        "common/src/shared/java/com/simplebuilding/gametest/NatureBlockTests.java"
-      ],
-      "related": [
-        "simplebuilding:dirt_slab",
-        "simplebuilding:grass_slab",
-        "simplebuilding:sand_slab",
-        "simplebuilding:gravel_slab",
-        "simplebuilding:cracked_ice",
-        "simplebuilding:chiseled_packed_ice",
-        "simplebuilding:chiseled_blue_ice",
-        "simplebuilding:nautilus_shell_block",
-        "simplebuilding:scarlet_froglight",
-        "simplebuilding:aqua_froglight",
-        "simplebuilding:azure_froglight"
-      ],
-      "en": {
-        "title": "Natural Block Variants",
-        "summary": "Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.",
-        "details": [
-          "Dirt, Grass, Sand and Gravel Slabs: three of the full block in a row make six slabs, like every vanilla slab. There is no stonecutter recipe, because the stonecutter only cuts stone. A shovel mines them fastest.",
-          "The Grass Slab is tinted by the biome like the grass block. Without Silk Touch it drops a Dirt Slab (a double slab drops two). It neither spreads nor turns into dirt.",
-          "Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into a double slab instead of breaking. The Gravel Slab never drops flint.",
-          "Cracked Ice (stonecutter: one ice makes one): a living entity standing on it cracks it one stage per second, four stages that look like vanilla frosted ice; after the last stage it turns into water (in the Nether it evaporates). With nobody on it the cracks stay. Otherwise it behaves like ice and drops only with Silk Touch.",
-          "Chiseled Packed Ice and Chiseled Blue Ice come from the stonecutter (one packed or blue ice makes one), are as slippery as their base block and drop only with Silk Touch.",
-          "Block of Nautilus Shell: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
-          "Scarlet, Aqua and Azure Froglights: any froglight plus red, cyan or blue dye. They glow at light level 15 like the vanilla froglights; the three vanilla colors still come only from frogs.",
-          "Creative mode: a row of their own in SimpleBlocks before the gravity blocks and, while addItemsToVanillaTabs is on, next to their base block in Natural Blocks (the froglights also in Functional Blocks)."
-        ]
-      },
-      "de": {
-        "title": "Naturvarianten",
-        "summary": "Stufen aus Erde, Gras, Sand und Kies, gemeißeltes Pack- und Blaueis, rissiges Eis, ein Nautilusschalenblock und Froschlichter in drei weiteren Farben.",
-        "details": [
-          "Erd-, Gras-, Sand- und Kiesstufe: drei Vollblöcke nebeneinander ergeben sechs Stufen, wie bei jeder Vanilla-Stufe. Ein Steinmetz-Rezept gibt es nicht, weil der Steinmetz nur Stein schneidet. Am schnellsten baut man sie mit der Schaufel ab.",
-          "Die Grasstufe ist wie der Grasblock nach Biom gefärbt. Ohne Behutsamkeit droppt sie eine Erdstufe (die Doppelstufe zwei). Sie breitet sich nicht aus und wird nicht zu Erde.",
-          "Sand- und Kiesstufe fallen wie Sand. Eine obere Stufe fällt als untere; eine untere Stufe, die auf einer unteren Stufe derselben Art landet, wird mit ihr zur Doppelstufe, statt zu zerfallen. Die Kiesstufe droppt nie Feuerstein.",
-          "Rissiges Eis (Steinmetz: ein Eis ergibt eins): steht ein Lebewesen darauf, reißt es jede Sekunde eine Stufe weiter, vier Stufen im Aussehen von Vanillas brüchigem Eis; nach der letzten wird es zu Wasser (im Nether verdampft es). Steht niemand darauf, bleiben die Risse. Sonst verhält es sich wie Eis und droppt nur mit Behutsamkeit.",
-          "Gemeißeltes Packeis und gemeißeltes Blaueis entstehen am Steinmetz (ein Pack- bzw. Blaueis ergibt eins), sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
-          "Nautilusschalenblock: vier Nautilusschalen im Quadrat; er lässt sich wieder in vier Schalen zerlegen. Er wird wie der Knochenblock entlang einer Achse gesetzt.",
-          "Scharlachrotes, türkises und azurblaues Froschlicht: ein beliebiges Froschlicht plus roter, cyanfarbener oder blauer Farbstoff. Sie leuchten wie die Vanilla-Froschlichter mit Lichtstufe 15; die drei Vanilla-Farben gibt es weiterhin nur von Fröschen.",
-          "Kreativmodus: eine eigene Zeile in SimpleBlocks vor den Schwerkraftblöcken und, solange addItemsToVanillaTabs an ist, neben dem Grundblock in Naturblöcke (die Froschlichter auch in Gebrauchsblöcke)."
         ]
       }
     },
@@ -3806,92 +3739,9 @@ window.WIKI_DATA = {
           "Die Server-Config server.soulLava regelt Fließweite, Verzögerungen, Brand und Seelenbrand, Weltgenerierungschancen und Eimer-Brennstoff innerhalb harter Grenzen. Brennstoffänderungen brauchen einen Neustart und gleiche Client-/Server-Dateien. Jade zeigt Hitze, belegte Plätze und die kürzeste Restzeit eines laufenden Platzes einschließlich Stufentempo und Hitzeabschlag bei zwei Blöcken Abstand. JEI zeigt je Eingabe und nötiger Hitze das schnellste Kochrezept sowie Aufwärmen für markiertes Essen ohne Kochrezept; die angezeigte Zeit gilt für einen Eisen-Tiegel bei Mindesthitze ohne Abstandsabschlag."
         ]
       }
-    },
-    {
-      "id": "spear_dispenser",
-      "related": [
-        "minecraft:iron_spear",
-        "simplebuilding:enderite_spear"
-      ],
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/util/SpearDispensing.java"
-      ],
-      "en": {
-        "title": "Spear in a dispenser",
-        "summary": "A spear in a dispenser is not thrown out: every activation thrusts it forward like a spike trap.",
-        "details": [
-          "All vanilla spears and the Enderite spear. Each thrust hurts every living thing in the 2 blocks in front of the dispenser with the spear's attack damage (1 plus its attack damage modifiers) and pushes it back a little.",
-          "A thrust that hits costs the spear one durability point; a worn out spear breaks like a tool. A thrust without a target only makes the spear's attack sound. The spear stays in the dispenser."
-        ]
-      },
-      "de": {
-        "title": "Speer im Spender",
-        "summary": "Ein Speer im Spender wird nicht hinausgeworfen: jede Aktivierung stößt ihn wie eine Stachelfalle nach vorne.",
-        "details": [
-          "Alle Vanilla-Speere und der Enderit-Speer. Jeder Stoß verletzt alle Lebewesen in den 2 Blöcken vor dem Spender mit dem Angriffsschaden des Speers (1 plus seine Angriffsschaden-Modifikatoren) und stößt sie leicht zurück.",
-          "Ein Stoß, der trifft, kostet den Speer einen Haltbarkeitspunkt; ein abgenutzter Speer zerbricht wie ein Werkzeug. Ein Stoß ohne Ziel macht nur den Angriffsklang des Speers. Der Speer bleibt im Spender."
-        ]
-      }
     }
   ],
   "items": [
-    {
-      "id": "simplebuilding:acacia_octet",
-      "name": {
-        "en_us": "Acacia Octet",
-        "de_de": "Akazien-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:acacia_octet_from_acacia_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:acacia_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/acacia_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
     {
       "id": "simplebuilding:amethyst_lens",
       "name": {
@@ -3952,66 +3802,6 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "common/src/shared/java/com/simplebuilding/component/LensMeasurement.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:aqua_froglight",
-      "name": {
-        "en_us": "Aqua Froglight",
-        "de_de": "Türkises Froschlicht"
-      },
-      "texture": "assets/textures/block/aqua_froglight_side.png",
-      "craftedBy": [
-        "simplebuilding:aqua_froglight"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/aqua_froglight.png",
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:astral_enchanting_table",
-      "name": {
-        "en_us": "Astral Enchanting Table",
-        "de_de": "Astral-Verzauberungstisch"
-      },
-      "texture": "assets/textures/block/astral_enchanting_table_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/astral_enchanting_table.png",
-      "note": {
-        "en": {
-          "summary": "The Astral Enchanting Table lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid from a budget set by the bookshelves and the floor.",
-          "details": [
-            "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding an Enderite Nugget in the off hand and keep holding - 20 blows (four times a machine upgrade); the nugget is used up at the last blow.",
-            "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), at most 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Strength = 2 x points, at most 30. With a 5x5 floor of Blazing Obsidian right under the table: 40 from 20 points, 50 from 30 points (15 blazewood bookshelves).",
-            "The strength is the budget in points (3 without any shelf, enough for one level of a common enchantment). Each slider level costs points by rarity: common and uncommon 3, rare 6, very rare 10. Levels the budget does not allow are greyed out. At 50 every slider goes to its maximum.",
-            "Enchanting uses up 1 to 3 levels (one per started 10 points), at strength 40 four and at 50 five levels; lapis lazuli as many as levels, blaze powder twice that. You need as many levels as points spent (at most 30). Treasure enchantments are never offered; after each enchanting the three offers are new, like Vanilla's seed.",
-            "Lapis lazuli and blaze powder stay stored in the table (one stack each) when you leave; hoppers can top them up but never pull them out.",
-            "Breaking it takes twice as long as the Vanilla table and drops a Vanilla Enchanting Table, the Enderite Nugget and the stored lapis and blaze powder."
-          ]
-        },
-        "de": {
-          "summary": "Am Astral-Verzauberungstisch wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
-          "details": [
-            "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, Enderit-Nugget in der Nebenhand, und halten - 20 Schläge (viermal eine Maschinen-Aufwertung); das Nugget wird beim letzten Schlag verbraucht.",
-            "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), höchstens 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Stärke = 2 x Punkte, höchstens 30. Mit einem 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch: 40 ab 20 Punkten, 50 ab 30 Punkten (15 Lohen-Regale).",
-            "Die Stärke ist das Budget in Punkten (3 ganz ohne Regal, genug für eine Stufe einer häufigen Verzauberung). Jede Reglerstufe kostet Punkte nach Seltenheit: häufig und gewöhnlich 3, selten 6, sehr selten 10. Was das Budget nicht erlaubt, ist ausgegraut. Bei 50 gehen alle Regler bis zum Maximum.",
-            "Verzaubern verbraucht 1 bis 3 Level (eins je angefangene 10 Punkte), bei Stärke 40 vier und bei 50 fünf Level; Lapislazuli so viel wie Level, Lohenstaub doppelt so viel. Man braucht so viele Level wie ausgegebene Punkte (höchstens 30). Schatz-Verzauberungen gibt es nie; nach jedem Verzaubern sind die drei Angebote neu, wie beim Vanilla-Seed.",
-            "Lapislazuli und Lohenstaub bleiben im Tisch gelagert (je ein Stapel), auch wenn man ihn verlässt; Trichter füllen nach, ziehen aber nichts heraus.",
-            "Abbauen dauert doppelt so lange wie beim Vanilla-Tisch; er gibt einen Vanilla-Verzauberungstisch, das Enderit-Nugget und den gelagerten Lapislazuli und Lohenstaub zurück."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlock.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/AstralEnchantingMenu.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -5006,10 +4796,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -5019,9 +4806,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -5032,9 +4817,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -5331,21 +5114,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:azure_froglight",
-      "name": {
-        "en_us": "Azure Froglight",
-        "de_de": "Azurblaues Froschlicht"
-      },
-      "texture": "assets/textures/block/azure_froglight_side.png",
-      "craftedBy": [
-        "simplebuilding:azure_froglight"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/azure_froglight.png",
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:backpack",
       "name": {
         "en_us": "Backpack",
@@ -5517,63 +5285,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:bamboo_octet",
-      "name": {
-        "en_us": "Bamboo Octet",
-        "de_de": "Bambus-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:bamboo_octet_from_bamboo_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:bamboo_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/bamboo_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:basic_upgrade_template",
       "name": {
         "en_us": "Basic Upgrade",
@@ -5624,63 +5335,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:birch_octet",
-      "name": {
-        "en_us": "Birch Octet",
-        "de_de": "Birken-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:birch_octet_from_birch_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:birch_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/birch_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:black_hammock",
       "name": {
         "en_us": "Black Hammock",
@@ -5717,7 +5371,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -5730,7 +5384,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -5753,8 +5407,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -6393,10 +6046,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -6406,9 +6056,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -6419,9 +6067,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -6556,77 +6202,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:blaze_book",
-      "name": {
-        "en_us": "Blaze Book",
-        "de_de": "Lohenbuch"
-      },
-      "texture": "assets/textures/item/blaze_book.png",
-      "craftedBy": [
-        "simplebuilding:blaze_book"
-      ],
-      "usedIn": [
-        "simplebuilding:crimson_blazewood_bookshelf",
-        "simplebuilding:warped_blazewood_bookshelf"
-      ],
-      "trades": [],
-      "note": {
-        "en": {
-          "summary": "A book bound with blaze powder instead of leather; three of them go into a blazewood bookshelf.",
-          "details": [
-            "Recipe (shapeless): 3 Paper + 1 Blaze Powder."
-          ]
-        },
-        "de": {
-          "summary": "Ein Buch, mit Lohenstaub statt Leder gebunden; drei davon kommen in ein Lohen-Bücherregal.",
-          "details": [
-            "Rezept (formlos): 3 Papier + 1 Lohenstaub."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:blazing_obsidian",
-      "name": {
-        "en_us": "Blazing Obsidian",
-        "de_de": "Lohen-Obsidian"
-      },
-      "texture": "assets/textures/block/blazing_obsidian.png",
-      "craftedBy": [
-        "simplebuilding:blazing_obsidian"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/blazing_obsidian.png",
-      "note": {
-        "en": {
-          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Astral Enchanting Table unlocks strength 40 and 50.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
-            "Light level 12, mined with a diamond pickaxe or better; small flames rise from a free top."
-          ]
-        },
-        "de": {
-          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Astral-Verzauberungstisch schaltet Stärke 40 und 50 frei.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
-            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus einer freien Oberseite steigen kleine Flammen."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:blue_hammock",
       "name": {
         "en_us": "Blue Hammock",
@@ -6663,7 +6238,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -6676,7 +6251,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -6699,8 +6274,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -6838,7 +6412,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -6851,7 +6425,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -6874,8 +6448,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -6924,63 +6497,6 @@ window.WIKI_DATA = {
       "trades": [],
       "properties": {
         "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:cherry_octet",
-      "name": {
-        "en_us": "Cherry Octet",
-        "de_de": "Kirsch-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:cherry_octet_from_cherry_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:cherry_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/cherry_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
       },
       "hasCustomBehaviour": false
     },
@@ -7072,40 +6588,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:chiseled_blue_ice",
-      "name": {
-        "en_us": "Chiseled Blue Ice",
-        "de_de": "Gemeißeltes Blaueis"
-      },
-      "texture": "assets/textures/block/chiseled_blue_ice.png",
-      "craftedBy": [
-        "simplebuilding:chiseled_blue_ice_from_blue_ice_stonecutting"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/chiseled_blue_ice.png",
-      "note": {
-        "en": {
-          "summary": "Decorative blue ice with a carved diamond, as slippery as blue ice.",
-          "details": [
-            "Stonecutter: one blue ice makes one. It copies the blue ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
-          ]
-        },
-        "de": {
-          "summary": "Dekoratives Blaueis mit eingemeißelter Raute, so rutschig wie Blaueis.",
-          "details": [
-            "Steinmetz: ein Blaueis ergibt eins. Es übernimmt die Eigenschaften von Blaueis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks",
       "name": {
         "en_us": "Chiseled Ender Quartz Bricks",
@@ -7186,40 +6668,6 @@ window.WIKI_DATA = {
             "Der Enderitmeißel formt jeden gemeißelten Block zum Grundblock seiner Palette um; beim Schleichen zurück zur Ziegelvariante."
           ]
         }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:chiseled_packed_ice",
-      "name": {
-        "en_us": "Chiseled Packed Ice",
-        "de_de": "Gemeißeltes Packeis"
-      },
-      "texture": "assets/textures/block/chiseled_packed_ice.png",
-      "craftedBy": [
-        "simplebuilding:chiseled_packed_ice_from_packed_ice_stonecutting"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/chiseled_packed_ice.png",
-      "note": {
-        "en": {
-          "summary": "Decorative packed ice with a carved ice crystal, as slippery as packed ice.",
-          "details": [
-            "Stonecutter: one packed ice makes one. It copies the packed ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
-          ]
-        },
-        "de": {
-          "summary": "Dekoratives Packeis mit eingemeißeltem Eiskristall, so rutschig wie Packeis.",
-          "details": [
-            "Steinmetz: ein Packeis ergibt eins. Es übernimmt die Eigenschaften von Packeis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
-        ]
       },
       "hasCustomBehaviour": true
     },
@@ -7877,7 +7325,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Copper Sledgehammer: 760 durability and 13 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Copper Sledgehammer: 760 durability and 13 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -7885,7 +7333,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
+            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -7940,7 +7388,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Kupfer-Vorschlaghammer: 760 Haltbarkeit und 13 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Kupfer-Vorschlaghammer: 760 Haltbarkeit und 13 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -7948,7 +7396,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
+            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -8062,8 +7510,6 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
@@ -8188,45 +7634,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:cracked_ice",
-      "name": {
-        "en_us": "Cracked Ice",
-        "de_de": "Rissiges Eis"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:cracked_ice_from_ice_stonecutting"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/cracked_ice.png",
-      "note": {
-        "en": {
-          "summary": "Ice that cracks under anyone standing on it and turns into water after four stages.",
-          "details": [
-            "A living entity standing on it (no spectator) cracks it one stage every 20 ticks; the four stages use the look of vanilla frosted ice. After the last stage it melts into water, or evaporates in the Nether.",
-            "With nobody on it the reached crack stays. Like ice it also melts in bright block light and drops only with Silk Touch.",
-            "Stonecutter: one ice makes one cracked ice."
-          ]
-        },
-        "de": {
-          "summary": "Eis, das unter jedem reißt, der darauf steht, und nach vier Stufen zu Wasser wird.",
-          "details": [
-            "Steht ein Lebewesen (kein Zuschauer) darauf, reißt es alle 20 Ticks eine Stufe weiter; die vier Stufen sehen aus wie Vanillas brüchiges Eis. Nach der letzten Stufe schmilzt es zu Wasser, im Nether verdampft es.",
-            "Steht niemand darauf, bleibt der erreichte Riss. Wie Eis schmilzt es auch bei hellem Blocklicht und droppt nur mit Behutsamkeit.",
-            "Steinmetz: ein Eis ergibt ein rissiges Eis."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:crafted_arrow",
       "name": {
         "en_us": "Crafted Arrow",
@@ -8265,294 +7672,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:creative_blueprint",
-      "name": {
-        "en_us": "Creative Blueprint",
-        "de_de": "Kreativ-Blaupause"
-      },
-      "texture": "assets/textures/item/creative_blueprint.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Creative Blueprint is a creative-tab-only Blueprint (no recipe): a building wand with it in the off hand builds at any distance, and once signed it is final.",
-          "details": [
-            "Same editor, code, scanning and building as the Blueprint; the sheet is violet with a small gold star.",
-            "Unlimited reach: when the normal reach hits nothing, a right click with any building wand in the main hand and this blueprint in the off hand targets the block in view up to 1024 blocks away (CreativeReach.FAR_REACH); the ghost preview follows the same ray.",
-            "Final once signed: the editor opens read-only, the server ignores edit packets, and the copy at a cartography table is an exact signed Creative Blueprint instead of an editable one. The wand's tier still limits the size."
-          ]
-        },
-        "de": {
-          "summary": "Die Kreativ-Blaupause gibt es nur im Kreativ-Tab (kein Rezept): ein Baustab mit ihr in der Nebenhand baut in jeder Entfernung, und signiert ist sie endgültig.",
-          "details": [
-            "Gleicher Editor, Code, Scan und Bau wie die Blaupause; das Blatt ist violett mit einem kleinen goldenen Stern.",
-            "Unbegrenzte Reichweite: trifft die normale Reichweite nichts, zielt ein Rechtsklick mit einem Baustab in der Haupthand und dieser Blaupause in der Nebenhand auf den Block im Blick bis 1024 Blöcke weit (CreativeReach.FAR_REACH); die Geister-Vorschau folgt demselben Strahl.",
-            "Signiert endgültig: der Editor öffnet nur lesend, der Server ignoriert Edit-Pakete, und die Kopie am Kartentisch ist eine genaue, signierte Kreativ-Blaupause statt einer bearbeitbaren. Die Stufe des Stabs begrenzt weiter die Größe."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java",
-          "common/src/shared/java/com/simplebuilding/blueprint/BlueprintCartography.java",
-          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:creative_building_wand",
-      "name": {
-        "en_us": "Creative Building Wand",
-        "de_de": "Kreativ-Baustab"
-      },
-      "texture": "assets/textures/item/creative_building_wand.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "enchantability": 18,
-        "maxStackSize": 1,
-        "wandSquareDiameter": 13
-      },
-      "note": {
-        "en": {
-          "summary": "Creative Building Wand: creative tab only, building area up to 13x13 blocks, unlimited reach (up to 1024 blocks), no durability, no material use. Right-clicking a block face with a building wand fills a whole square area with blocks taken from your inventory; the tier (copper through enderite) sets how large that area can get.",
-          "details": [
-            "Six tiers are registered: Copper Building Wand, Iron Building Wand, Gold Building Wand, Diamond Building Wand, Netherite Building Wand and Enderite Building Wand.",
-            "Right-clicking a block face with the wand in the main hand starts the build; in the off-hand the wand ignores the click (useOn returns PASS).",
-            "The area starts one block in front of the clicked face; with no axis set in the menu the build axis is the axis of the clicked face, so the plane lies flush with that face - clicking the top of a block builds a flat layer, clicking a side builds an upright wall.",
-            "The area is built ring by ring from the center outwards: the center block on the next inventory tick after the click, every further ring after a pause of 4 ticks (DELAY_TICKS).",
-            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only (so does a negative radius, which only a modified client can store).",
-            "The material is the first block item found: the off-hand first, then the hotbar (inventory slots 0 to 8, i.e. hotbar 1 to 9).",
-            "The rest of the inventory (slots 9 and up) is only searched when the wand carries the Master Builder enchantment.",
-            "Reinforced bundles (ReinforcedBundleItem) are searched for blocks when the wand or the bundle itself carries Master Builder; one item is then taken out of the bundle per placement.",
-            "The block type found on the click is stored on the wand (BuildBlockRawId) and applies to the whole area; for every position a block of that kind is looked up in the inventory again, and the build stops once it runs out. The shape of the click (area, Cover, Linear line, bridge) is stored as well (Mode, Length) and read back for every ring.",
-            "In survival, clicking with no usable block available does nothing (useOn returns FAIL).",
-            "Only positions whose current block the game considers replaceable (canBeReplaced, e.g. air) are built; occupied positions are skipped.",
-            "Every placed block consumes one item and costs the wand 1 durability, billed to the hand the wand is in; in creative the build costs neither material nor durability.",
-            "Each placement plays the placed block's place sound at 0.8x pitch and a volume of (block volume + 1) / 2.",
-            "The build only continues while the wand stays in the main or off hand; moving it into another slot cancels it (Active = false).",
-            "Holding the wand in the main hand and looking at a block shows a semi-transparent (alpha 180 of 255) ghost preview, scaled to half size, of every position that would be built.",
-            "The preview leaves out positions that are not replaceable, and does not appear at all when no matching material is found.",
-            "Axis 'Face (Auto)' (mode 0): the build axis is the axis of the clicked face, so the plane lies flush with that face.",
-            "Axis X (mode 1): the plane is spanned by Y and Z (wall across the X axis).",
-            "Axis Y (mode 2): the plane lies flat in X/Z (floor or ceiling).",
-            "Axis Z (mode 3): the plane is spanned by X and Y (wall across the Z axis).",
-            "A set axis only turns the plane: it stays centered on the block in front of the clicked face. If the axis lies in the clicked face (axis Y on a wall, say), one of the cells is the clicked block itself; it cannot be replaced, so it is skipped and costs neither material nor durability - radius 1 then places eight blocks.",
-            "Radius and axis are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; the server only applies them while you are holding a building wand in the main hand.",
-            "Master Builder enchantment: widens the material search to the whole inventory and allows taking blocks out of reinforced bundles.",
-            "Color Palette enchantment: every position gets one of the building blocks you carry, chosen by a hash of the position - the same in preview and build, and mixed on floors too; every stack counts once, so more stacks of a kind make it more frequent. The build places exactly the block the preview showed at each position; when a stack runs out, the palette shrinks to what is left.",
-            "Linear enchantment: a wand with Linear only ever builds a single line - clicking a block face (sneaking or not) builds a straight line away from that face instead of the area, twice the diameter of the set area long (copper 6 up to enderite 26 at full radius), ending in front of the first occupied block; clicking a top face builds a pillar, clicking a side face a horizontal beam. The line grows in as many steps as the area would have rings, with a 2-tick pause between them. Until 2026-09-29 only a sneaking click built the line and a normal click the whole area.",
-            "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
-            "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
-            "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
-            "Upgrade: at the smithing table the Basic Upgrade turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for one core of the new tier - Iron, Gold or Diamond Core (recipe type simplebuilding:count_based_smithing; a wand is built around a core, so the upgrade costs the next one instead of ingots); enchantments, damage and name carry over.",
-            "Netherite Building Wand: smithing table with a Netherite Upgrade, the Diamond Building Wand and a netherite ingot.",
-            "Enderite Building Wand: smithing table with the Enderite Upgrade, the Netherite Building Wand and an Enderite Ingot.",
-            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
-            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 3), end city treasure (3) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (6/8/8) and woodland mansions (3/5/5), Linear also in fishing treasure (2); Constructor's Touch in buried treasure (3), igloo chests (3), trial chamber rewards (3) and fishing treasure (2). Bridge only comes out of end city treasure (weight 4).",
-            "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
-            "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
-            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
-            "All six wands are in the creative tab \"SimpleTools\" (the Blueprint and the Cartography Table right next to the Enderite wand), together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
-            "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5.",
-            "Cover enchantment: the area only grows in front of blocks of the same kind as the clicked block, and only as far as those positions hang together with the center edge to edge - thicken a wall by one layer or extend a floor without square overhangs. The axis setting does not apply in this mode.",
-            "Bridge enchantment: right-click into the air (not sneaking) to build a bridge from the block under your feet straight ahead in your facing direction, at the height of that block - as long as a Linear line (twice the area diameter) and ending in front of the first occupied block. It grows from the edge towards the far end, block by block every tick, in half the time the old chunked bridge took (radius 2 over six blocks: 6 ticks instead of 11). If the floor you stand on runs on ahead, the bridge starts at its edge (searched up to that same length), so you do not have to stand right at the drop. Standing on nothing, or on a floor without a gap in reach, nothing is built and the action bar says why. While you look into the air, the ghost preview shows the bridge.",
-            "Wand + octant: with the wand in the main hand and an octant with both corners in the off hand, the ghost preview shows the octant's shape filled with material (missing material red), whatever you look at, and a click on any block builds it through the same planner as a blueprint: two-click rule when material is missing, built in stages, 1 durability per block, cancelled when you put the wand or the octant away, not resumed after logout. Material comes from the hotbar (the off hand holds the octant), with Master Builder from the inventory and a Master Builder backpack; with Color Palette it is mixed per position. Blocks are placed as if set onto the floor. The octant's options apply: Hollow builds only the shell; Order builds layer by layer from the base to the tip of the shape (Default), upwards (Bottom Up) or downwards (Top Down); Layer Mode builds only the next unfinished layer per click. The longest edge of the selection is capped per wand tier like a blueprint (16/32/48/64/128/256), and the box may hold at most 4,194,304 positions. The whole box has to lie in loaded chunks, otherwise the action bar says so and nothing is built. Planning a fill does not read the world: whether a block has support is checked when the build reaches its position, so a torch on a layer placed earlier in the same fill holds.",
-            "Blocks are placed the way a player clicking the same face would place them: stairs face your viewing direction and take the upper half when you clicked the upper half of a side face, logs lie along the axis of the clicked face, slabs go to the top or bottom by the click height, fences and walls connect, doors and beds come complete, and the item's components (name, block state, block-entity data such as a shulker box's contents) stay on the block. If the clicked block is of the same kind as the material, its orientation (facing, axis, half, top or bottom slab) is carried on instead - a row of stairs or a layer of lying logs simply continues. Positions where a player could not place (no support, an entity in the way, outside the world border, in spawn protection or land a protection mod keeps you out of) stay empty and cost nothing; without build rights (adventure or spectator mode) the wand neither builds nor undoes, and command, structure and jigsaw blocks only come out of it for operators. The ghost preview shows exactly these states.",
-            "Undo: sneak and right-click into the air with the wand in the main hand. It takes back your last building action - area, line, bridge, cover, octant fill, roof or blueprint build; every new action replaces the one before, so only one step can be undone. Only blocks that are still the block the action placed, in the same amount (a slab doubled since or candles added by hand stay), are removed (containers such as chests and shulker boxes stay); their items go into your inventory - also when they came from a bundle or the backpack - and whatever does not fit is dropped at your feet. Durability and hunger (exhaustion already paid) are not refunded, and blocks placed in creative give nothing back. The record lives only for the current session: logging out, a server restart or a dimension change discards it, and actions of more than 65,536 blocks are not recorded. A build that is still running is stopped first. With nothing to undo the action bar says so, and the click no longer reaches an octant in the off hand.",
-            "Roof: if the material is a stair and the octant's shape is a prism or pyramid with its tip up, the wand builds a roof instead of a fill - stairs on the sloping faces with their high side towards the ridge (corners adjust themselves), a one block wide ridge of bottom slabs of the same material (oak_stairs becomes oak_slab; stairs where no such slab exists), nothing underneath and nothing in the gable walls. Hollow does not matter here. The stair is the first building block the wand finds (off hand, hotbar, with Master Builder the inventory) - since the off hand holds the octant, put the stairs first in the hotbar. Color Palette does not switch the roof off. On the click the action bar says whether a roof is built, or why not."
-          ],
-          "controls": [
-            "Right-click a block face (wand in the main hand): build the area.",
-            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default G) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
-            "Button 'Radius: n / max': raises the radius by 1; past the maximum it wraps back to 0.",
-            "Button 'Axis: Face (Auto)': cycles through X, Y, Z and back to Face (Auto); a set axis is drawn yellow, Face (Auto) gray.",
-            "Button 'Done', the E key, Esc or the settings key again: closes the menu.",
-            "Every change in the menu is saved on the wand immediately and sent to the server.",
-            "Sneak + right-click a block face with Linear: build a line away from the face.",
-            "Right-click into the air with Bridge (not sneaking): build a bridge from the block under your feet.",
-            "Sneak + right-click into the air: undo the last building action.",
-            "Octant with a selection in the off hand, right-click any block: fill the octant's shape (or build the roof)."
-          ],
-          "tiers": [
-            "Copper Building Wand: diameter 3 (radius 1, 3x3 area), durability 190*4*2 = 1520, enchantability 18.",
-            "Iron Building Wand: diameter 5 (radius 2, 5x5 area), durability 250*4*2 = 2000, enchantability 14.",
-            "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
-            "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
-            "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
-            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
-          ],
-          "caveats": [
-            "Cover and Bridge are evaluated in BuildingWandItem (Plan.forClick, Plan.forBridge), not in the enchantment definitions, which still carry no effect entry.",
-            "Sneak + right-click into the air is taken by undo whenever the wand is in the main hand - an octant in the off hand can no longer be reset that way while you hold the wand.",
-            "Undo returns every item to the inventory, not into the bundle or backpack it came from; an octant fill or bridge started in another session cannot be undone.",
-            "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armor; the lower tiers burn.",
-            "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
-            "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
-            "The roof mode knows 45-degree slopes best: a steep prism or pyramid gets stacked stairs on its sides, and gable walls stay empty. Only prisms and pyramids with their tip up become roofs.",
-            "In creative with no block item in the off-hand or hotbar (or anywhere in the inventory with Master Builder) nothing happens, the build stops immediately; only with Color Palette does it then place stone.",
-            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there."
-          ]
-        },
-        "de": {
-          "summary": "Kreativ-Baustab: nur im Kreativ-Tab, Baufläche bis zu 13x13 Blöcke, unbegrenzte Reichweite (bis 1024 Blöcke), ohne Haltbarkeit und Materialverbrauch. Der Baustab platziert mit einem Rechtsklick auf eine Blockseite eine ganze quadratische Fläche aus Blöcken deines Inventars; die Stufe (Kupfer bis Enderit) bestimmt, wie groß diese Fläche höchstens wird.",
-          "details": [
-            "Sechs Stufen sind registriert: Kupfer-Baustab, Eisen-Baustab, Gold-Baustab, Diamant-Baustab, Netherit-Baustab und Enderit-Baustab.",
-            "Ein Rechtsklick mit dem Stab in der Haupthand auf eine Blockseite startet den Bau; in der Zweithand reagiert der Stab auf den Klick nicht (useOn gibt PASS zurück).",
-            "Die Fläche beginnt einen Block vor der angeklickten Seite; ohne Achseneinstellung liegt sie senkrecht zur angeklickten Seite (Bauachse = Achse der Blockseite).",
-            "Die Fläche entsteht ringweise von der Mitte nach außen: der Mittelblock beim nächsten Inventar-Tick nach dem Klick, jeder weitere Ring nach einer Pause von 4 Ticks (DELAY_TICKS).",
-            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block (ebenso ein negativer Radius, den nur ein veränderter Client speichern kann).",
-            "Als Material gilt der erste Block-Gegenstand, der gefunden wird: zuerst die Zweithand, dann die Hotbar (Inventarplätze 0 bis 8, also Hotbar 1 bis 9).",
-            "Der Rest des Inventars (Plätze ab 9) wird nur durchsucht, wenn der Stab die Verzauberung Baumeister trägt.",
-            "Verstärkte Bündel (ReinforcedBundleItem) werden nach Blöcken durchsucht, wenn der Stab oder das Bündel selbst die Verzauberung Baumeister trägt; beim Bauen wird dann ein Stück aus dem Bündel entnommen.",
-            "Die beim Klick gefundene Blocksorte wird am Stab gespeichert (BuildBlockRawId) und gilt für die ganze Fläche; für jede Position wird im Inventar erneut ein Block dieser Sorte gesucht, und der Bau stoppt, sobald er ausgeht. Auch die Form des Klicks (Fläche, Abdeckung, Linear-Linie, Brücke) wird gespeichert (Mode, Length) und je Ring zurückgelesen.",
-            "Ohne verfügbaren Block passiert im Überlebensmodus beim Klick nichts (useOn gibt FAIL zurück).",
-            "Nur Positionen, deren aktueller Block laut Spiel ersetzbar ist (canBeReplaced, z. B. Luft), werden bebaut; belegte Positionen werden übersprungen.",
-            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit, abgerechnet an der Hand, in der er liegt; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
-            "Beim Setzen erklingt der Platzierungsklang des gesetzten Blocks mit 0,8-facher Tonhöhe und Lautstärke (Blocklautstärke + 1) / 2.",
-            "Der Bau läuft nur weiter, solange der Stab in der Haupt- oder Zweithand bleibt; wandert er in einen anderen Slot, wird er abgebrochen (Active = false).",
-            "Hältst du den Stab in der Haupthand und zielst auf einen Block, zeigt eine halbtransparente (Alpha 180 von 255), auf halbe Größe verkleinerte Geister-Vorschau alle Positionen, die gebaut würden.",
-            "Die Vorschau lässt Positionen aus, die nicht ersetzbar sind, und erscheint gar nicht, wenn kein passendes Material gefunden wird.",
-            "Achse 'Face (Auto)' (Modus 0): die Ebene liegt senkrecht zur angeklickten Blockseite.",
-            "Achse X (Modus 1): die Ebene wird aus Y und Z aufgespannt (Wand quer zur X-Achse).",
-            "Achse Y (Modus 2): die Ebene liegt waagerecht in X/Z (Boden oder Decke).",
-            "Achse Z (Modus 3): die Ebene wird aus X und Y aufgespannt (Wand quer zur Z-Achse).",
-            "Eine gesetzte Achse dreht die Ebene nur: Sie bleibt um den Block vor der angeklickten Seite zentriert. Liegt die Achse in der angeklickten Seite (etwa Achse Y an einer Wand), ist eine der Zellen der angeklickte Block selbst; er lässt sich nicht ersetzen, wird übersprungen und kostet weder Material noch Haltbarkeit – Radius 1 setzt dann acht Blöcke.",
-            "Radius und Achse werden als SettingsRadius/SettingsAxis im Stab gespeichert und per BuildingWandConfigurePayload an den Server gesendet; der Server übernimmt sie nur, wenn du gerade einen Baustab in der Haupthand hältst.",
-            "Verzauberung Baumeister: erweitert die Materialsuche auf das gesamte Inventar und erlaubt das Entnehmen aus verstärkten Bündeln.",
-            "Verzauberung Farbpalette: Jede Stelle bekommt einen der mitgeführten Baublöcke, gewählt über einen Hash der Position - gleich in Vorschau und Bau und auch auf Böden gemischt; jeder Stapel zählt einmal, mehr Stapel einer Sorte machen sie also häufiger. Der Bau setzt an jeder Stelle genau den Block, den die Vorschau dort gezeigt hat; geht ein Stapel aus, schrumpft die Palette auf das, was übrig ist.",
-            "Verzauberung Linear: Ein Stab mit Linear baut nur noch eine einzige Linie - ein Klick auf eine Blockseite (mit oder ohne Schleichen) baut statt der Fläche eine gerade Linie von der Klickseite weg, doppelt so lang wie der Durchmesser der eingestellten Fläche (Kupfer 6 bis Enderit 26 bei vollem Radius), sie endet vor dem ersten belegten Block; ein Klick auf eine Oberseite baut eine Säule, auf eine Seitenfläche einen waagerechten Balken. Die Linie wächst in so vielen Schritten, wie die Fläche Ringe hätte, mit 2 Ticks Pause dazwischen. Bis 2026-09-29 baute nur ein Klick mit Schleichen die Linie und ein normaler Klick die ganze Fläche.",
-            "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
-            "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
-            "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
-            "Aufwerten: Am Schmiedetisch macht die Basis-Aufwertung aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für einen Kern der neuen Stufe – Eisen-, Gold- bzw. Diamantkern (Rezepttyp simplebuilding:count_based_smithing; ein Baustab ist um einen Kern gebaut, also kostet das Aufwerten den nächsten statt Barren); Verzauberungen, Schaden und Name bleiben erhalten.",
-            "Netherit-Baustab: Schmiedetisch mit Netherit-Aufwertung, Diamant-Baustab und Netheritbarren.",
-            "Enderit-Baustab: Schmiedetisch mit Enderit-Aufwertung, Netherit-Baustab und Enderitbarren.",
-            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
-            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 3), Endsiedlungen (3) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (6/8/8) und Waldanwesen (3/5/5), Linear zusätzlich im Angel-Schatz (2); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3), Prüfungskammer-Belohnungen (3) und im Angel-Schatz (2). Brücke gibt es nur im Endsiedlungs-Schatz (Gewicht 4).",
-            "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
-            "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Übersteuerung (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
-            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
-            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ (Blaupause und Kartografentisch direkt neben dem Enderit-Baustab), zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
-            "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt.",
-            "Verzauberung Abdeckung: Die Fläche wächst nur vor Blöcken derselben Sorte wie der angeklickte Block, und nur so weit, wie diese Stellen Kante an Kante mit der Mitte zusammenhängen - eine Mauer um eine Schicht verdicken oder einen Boden erweitern, ohne quadratische Überstände. Die Achsen-Einstellung gilt in diesem Modus nicht.",
-            "Verzauberung Brücke: In die Luft rechtsklicken (ohne Schleichen), und vom Block unter deinen Füßen aus entsteht geradeaus in Blickrichtung eine Brücke auf der Höhe dieses Blocks - so lang wie eine Linear-Linie (doppelter Flächen-Durchmesser), sie endet vor dem ersten belegten Block. Sie wächst von der Kante zum anderen Ende, Block für Block jeden Tick, in der halben Zeit der alten, stückweise gebauten Brücke (Radius 2 über sechs Blöcke: 6 statt 11 Ticks). Läuft der Boden unter dir noch weiter, beginnt die Brücke an seiner Kante (bis zu derselben Länge weit gesucht) - du musst nicht direkt am Abgrund stehen. Stehst du auf nichts oder auf Boden ohne Lücke in Reichweite, wird nichts gebaut, und die Aktionsleiste sagt warum. Solange du in die Luft schaust, zeigt die Geister-Vorschau die Brücke.",
-            "Stab + Oktant: Mit dem Stab in der Haupthand und einem Oktanten mit beiden Ecken in der Nebenhand zeigt die Geister-Vorschau die Figur des Oktanten mit Material gefüllt (fehlendes Material rot), egal wohin du schaust, und ein Klick auf einen beliebigen Block baut sie über denselben Planer wie eine Blaupause: Zwei-Klick-Regel bei fehlendem Material, gestaffelter Aufbau, 1 Haltbarkeit je Block, Abbruch, sobald du Stab oder Oktant weglegst, keine Fortsetzung nach dem Abmelden. Das Material kommt aus der Hotbar (die Nebenhand hält ja den Oktanten), mit Baumeister aus dem Inventar und einem Baumeister-Rucksack; mit Farbpalette wird es je Stelle gemischt. Die Blöcke werden gesetzt, als stellte man sie auf den Boden. Die Optionen des Oktanten wirken: Hohl baut nur die Hülle; Reihenfolge baut Schicht für Schicht von der Grundfläche zur Spitze der Figur (Standard), aufwärts (Von unten) oder abwärts (Von oben); Ebenenmodus baut je Klick nur die nächste unfertige Schicht. Die längste Kante der Auswahl ist je Stabstufe begrenzt wie bei der Blaupause (16/32/48/64/128/256), und die Box darf höchstens 4.194.304 Stellen fassen. Die ganze Box muss in geladenen Chunks liegen, sonst sagt die Aktionsleiste das und es wird nichts gebaut. Die Planung liest die Welt nicht: Ob ein Block Halt hat, wird erst geprüft, wenn der Bau seine Stelle erreicht - eine Fackel auf einer früher in derselben Füllung gesetzten Schicht hält also.",
-            "Blöcke werden so gesetzt, wie ein Spieler sie mit einem Klick auf dieselbe Seite setzen würde: Treppen schauen in deine Blickrichtung und nehmen die obere Hälfte, wenn du in die obere Hälfte einer Seitenfläche geklickt hast, Stämme liegen entlang der Achse der Klickseite, Stufen kommen je nach Klickhöhe oben oder unten hin, Zäune und Mauern verbinden sich, Türen und Betten entstehen vollständig, und die Komponenten des Items (Name, Blockzustand, Block-Entity-Daten wie der Inhalt einer Shulkerkiste) bleiben am Block. Ist der angeklickte Block von derselben Sorte wie das Material, wird stattdessen seine Ausrichtung (Blickrichtung, Achse, Hälfte, obere oder untere Stufe) übernommen - eine Treppenreihe oder eine Lage liegender Stämme geht einfach weiter. Stellen, an denen ein Spieler nicht setzen könnte (kein Halt, ein Wesen im Weg, jenseits der Weltgrenze, im Spawn-Schutz oder in Gebieten, die eine Schutz-Mod sperrt), bleiben frei und kosten nichts; ohne Baurecht (Abenteuer- oder Zuschauermodus) baut der Stab weder noch nimmt er zurück, und Befehls-, Struktur- und Verbundblöcke setzt er nur für Operatoren. Die Geister-Vorschau zeigt genau diese Zustände.",
-            "Rückgängig: Schleichen und mit dem Stab in der Haupthand in die Luft rechtsklicken. Das nimmt deine letzte Bau-Aktion zurück - Fläche, Linie, Brücke, Abdeckung, Oktant-Füllung, Dach oder Blaupausen-Bau; jede neue Aktion ersetzt die vorige, es gibt also nur einen Schritt zurück. Entfernt werden nur Blöcke, an deren Stelle noch der Block steht, den die Aktion gesetzt hat, in derselben Menge (eine inzwischen doppelte Stufe oder von Hand ergänzte Kerzen bleiben) (Behälter wie Truhen und Shulkerkisten bleiben stehen); ihre Items gehen ins Inventar - auch wenn sie aus einem Bündel oder dem Rucksack kamen -, und was nicht passt, fällt vor deine Füße. Haltbarkeit und Hunger (bereits bezahlte Erschöpfung) werden nicht erstattet, im Kreativmodus gesetzte Blöcke geben nichts zurück. Gemerkt wird nur für die laufende Sitzung: Abmelden, ein Serverneustart oder ein Dimensionswechsel verwerfen die Aktion, und Aktionen über 65.536 Blöcke werden gar nicht aufgezeichnet. Ein noch laufender Bau wird zuerst angehalten. Gibt es nichts zurückzunehmen, sagt es die Aktionsleiste, und der Klick erreicht einen Oktanten in der Nebenhand nicht mehr.",
-            "Dach: Ist das Material eine Treppe und die Figur des Oktanten ein Prisma oder eine Pyramide mit der Spitze nach oben, baut der Stab statt einer Füllung ein Dach - Treppen auf den Dachflächen mit der hohen Seite zum First (Ecken passen sich selbst an), ein nur einen Block breiter First aus unteren Stufen desselben Materials (aus oak_stairs wird oak_slab; Treppen, wo es keine solche Stufe gibt), nichts darunter und nichts in den Giebelwänden. Hohl spielt hier keine Rolle. Die Treppe ist der erste Baublock, den der Stab findet (Nebenhand, Hotbar, mit Baumeister das Inventar) - weil die Nebenhand den Oktanten hält, gehören die Treppen nach vorn in die Hotbar. Die Farbpalette schaltet das Dach nicht ab. Beim Klick sagt die Aktionsleiste, ob ein Dach entsteht oder warum nicht."
-          ],
-          "controls": [
-            "Rechtsklick auf eine Blockseite (Stab in der Haupthand): Fläche bauen.",
-            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard G) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
-            "Schaltfläche 'Radius: n / max': erhöht den Radius um 1; nach dem Maximum springt er auf 0 zurück.",
-            "Schaltfläche 'Achse: Face (Auto)': wechselt reihum zu X, Y, Z und wieder zurück zu Face (Auto); eine gesetzte Achse wird gelb, Face (Auto) grau dargestellt.",
-            "Schaltfläche 'Fertig', Taste E, Esc oder erneut die Einstellungstaste: schließt das Menü.",
-            "Jede Änderung im Menü wird sofort im Stab gespeichert und an den Server geschickt.",
-            "Schleichen + Rechtsklick auf eine Blockseite mit Linear: eine Linie von der Seite weg bauen.",
-            "Rechtsklick in die Luft mit Brücke (ohne Schleichen): eine Brücke vom Block unter den Füßen bauen.",
-            "Schleichen + Rechtsklick in die Luft: die letzte Bau-Aktion rückgängig machen.",
-            "Oktant mit Auswahl in der Nebenhand, Rechtsklick auf einen beliebigen Block: die Figur des Oktanten füllen (oder das Dach bauen)."
-          ],
-          "tiers": [
-            "Kupfer-Baustab: Durchmesser 3 (Radius 1, Fläche 3x3), Haltbarkeit 190·4·2 = 1520, Verzauberbarkeit 18.",
-            "Eisen-Baustab: Durchmesser 5 (Radius 2, Fläche 5x5), Haltbarkeit 250·4·2 = 2000, Verzauberbarkeit 14.",
-            "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
-            "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
-            "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
-            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
-          ],
-          "caveats": [
-            "Abdeckung und Brücke werden in BuildingWandItem ausgewertet (Plan.forClick, Plan.forBridge), nicht in den Verzauberungsdefinitionen, die weiterhin keinen effects-Eintrag tragen.",
-            "Schleichen + Rechtsklick in die Luft gehört dem Rückgängig, solange der Stab in der Haupthand liegt - ein Oktant in der Nebenhand lässt sich so nicht mehr zurücksetzen, während du den Stab hältst.",
-            "Rückgängig gibt jedes Item ins Inventar zurück, nicht in das Bündel oder den Rucksack, aus dem es kam; eine in einer früheren Sitzung begonnene Aktion lässt sich nicht zurücknehmen.",
-            "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
-            "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
-            "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
-            "Der Dachmodus kann 45-Grad-Neigungen am besten: Ein steiles Prisma oder eine steile Pyramide bekommt übereinander gestapelte Treppen an den Seiten, und die Giebelwände bleiben leer. Nur Prismen und Pyramiden mit der Spitze nach oben werden zu Dächern.",
-            "Im Kreativmodus ohne Block-Gegenstand in Zweithand oder Hotbar (bzw. im ganzen Inventar mit Baumeister) passiert nichts, der Bau bricht sofort ab; nur mit Farbpalette wird dann Stein gesetzt.",
-            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/BuildingWandScreen.java",
-          "common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java",
-          "common/src/shared/java/com/simplebuilding/client/property/EnchantmentModelProperty.java",
-          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
-          "common/src/shared/java/com/simplebuilding/networking/BuildingWandConfigurePayload.java",
-          "src/main/java/com/simplebuilding/networking/ModMessages.java",
-          "forge/src/main/java/com/simplebuilding/forge/networking/ForgeNetworkRegistration.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/networking/NeoForgeNetworkRegistration.java",
-          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeClientGameEvents.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "src/main/java/com/simplebuilding/datagen/ModEnchantmentTagProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/util/ModTags.java",
-          "src/main/generated/data/simplebuilding/tags/item/building_wand_enchantable.json",
-          "src/main/generated/data/simplebuilding/tags/item/extra_inventory_items.json",
-          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/durability.json",
-          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-          "src/main/generated/data/simplebuilding/enchantment/cover.json",
-          "src/main/generated/data/simplebuilding/enchantment/bridge.json",
-          "src/main/generated/data/simplebuilding/enchantment/linear.json",
-          "src/main/generated/data/simplebuilding/enchantment/master_builder.json",
-          "src/main/generated/data/simplebuilding/enchantment/color_palette.json",
-          "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
-          "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/copper_building_wand.json",
-          "src/main/generated/data/simplebuilding/recipe/iron_building_wand.json",
-          "src/main/generated/data/simplebuilding/recipe/gold_building_wand.json",
-          "src/main/generated/data/simplebuilding/recipe/diamond_building_wand.json",
-          "src/main/generated/data/simplebuilding/recipe/netherite_building_wand_smithing.json",
-          "src/main/generated/data/simplebuilding/recipe/enderite_building_wand_smithing.json",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "src/main/resources/data/simplebuilding/villager_trade/mason/4/emerald_copper_building_wand.json",
-          "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_wand_book.json",
-          "src/main/resources/data/simplebuilding/villager_trade/librarian/3/emerald_building_book.json",
-          "src/main/resources/data/simplebuilding/villager_trade/librarian/4/emerald_advanced_book.json",
-          "src/main/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/mason/level_4.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/librarian/level_3.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/librarian/level_4.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/librarian/level_5.json",
-          "src/main/resources/data/minecraft/tags/villager_trade/wandering_trader/uncommon.json",
-          "src/main/java/com/simplebuilding/condition/ConfigResourceCondition.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/items/ModItemGroups.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/ItemBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/NetworkHandlerTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
-          "src/main/generated/assets/simplebuilding/items/copper_building_wand.json",
-          "src/main/resources/assets/minecraft/items/enchanted_book.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:creative_spacer",
@@ -8599,134 +7718,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_bookshelf",
-      "name": {
-        "en_us": "Crimson Blazewood Bookshelf",
-        "de_de": "Karmesin-Lohen-Bücherregal"
-      },
-      "texture": "assets/textures/block/crimson_blazewood_bookshelf.png",
-      "craftedBy": [
-        "simplebuilding:crimson_blazewood_bookshelf"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/crimson_blazewood_bookshelf.png",
-      "note": {
-        "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanting Table, one at the Vanilla table.",
-          "details": [
-            "Recipe like the bookshelf: 6 Crimson Blazewood Planks and 3 Blaze Books.",
-            "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
-          ]
-        },
-        "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberungstisch wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
-          "details": [
-            "Rezept wie das Bücherregal: 6 Karmesin-Lohenholzbretter und 3 Lohenbücher.",
-            "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_planks",
-      "name": {
-        "en_us": "Crimson Blazewood Planks",
-        "de_de": "Karmesin-Lohenholzbretter"
-      },
-      "texture": "assets/textures/block/crimson_blazewood_planks.png",
-      "craftedBy": [
-        "simplebuilding:crimson_blazewood_planks"
-      ],
-      "usedIn": [
-        "simplebuilding:crimson_blazewood_bookshelf"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/crimson_blazewood_planks.png",
-      "note": {
-        "en": {
-          "summary": "Blazewood planks from Crimson planks: eight blaze powder around one crimson plank give one. Material for blazewood bookshelves.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Crimson Planks."
-          ]
-        },
-        "de": {
-          "summary": "Lohenholz aus Karmesinbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 Karmesinbretter."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:crimson_octet",
-      "name": {
-        "en_us": "Crimson Octet",
-        "de_de": "Karmesin-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:crimson_octet_from_crimson_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:crimson_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/crimson_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:crystalline_astralit",
@@ -8801,7 +7792,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -8814,7 +7805,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -8837,66 +7828,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:dark_oak_octet",
-      "name": {
-        "en_us": "Dark Oak Octet",
-        "de_de": "Schwarzeichen-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:dark_oak_octet_from_dark_oak_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:dark_oak_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/dark_oak_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
       },
       "hasCustomBehaviour": false
     },
@@ -9662,7 +8595,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Diamond Sledgehammer: 6244 durability and 10 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Diamond Sledgehammer: 6244 durability and 10 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -9670,7 +8603,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
+            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -9725,7 +8658,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Diamant-Vorschlaghammer: 6244 Haltbarkeit und 10 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Diamant-Vorschlaghammer: 6244 Haltbarkeit und 10 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -9733,7 +8666,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
+            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -9847,8 +8780,6 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
@@ -9891,21 +8822,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:dirt_slab",
-      "name": {
-        "en_us": "Dirt Slab",
-        "de_de": "Erdstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:dirt_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/dirt_slab.png",
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:echo_sounder",
@@ -10983,10 +9899,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -10996,9 +9909,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -11009,9 +9920,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -12959,7 +11868,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Enderite Sledgehammer: 10000 durability and 18 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Enderite Sledgehammer: 10000 durability and 18 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -12967,7 +11876,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
+            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -13022,7 +11931,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Enderit-Vorschlaghammer: 10000 Haltbarkeit und 18 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Enderit-Vorschlaghammer: 10000 Haltbarkeit und 18 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -13030,7 +11939,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
+            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -13144,8 +12053,6 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
@@ -14123,7 +13030,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Gold Sledgehammer: 128 durability and 22 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Gold Sledgehammer: 128 durability and 22 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -14131,7 +13038,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
+            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -14186,7 +13093,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Gold-Vorschlaghammer: 128 Haltbarkeit und 22 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Gold-Vorschlaghammer: 128 Haltbarkeit und 22 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -14194,7 +13101,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
+            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -14308,42 +13215,10 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:grass_slab",
-      "name": {
-        "en_us": "Grass Slab",
-        "de_de": "Grasstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:grass_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/grass_slab.png",
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:gravel_slab",
-      "name": {
-        "en_us": "Gravel Slab",
-        "de_de": "Kiesstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:gravel_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/gravel_slab.png",
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:gray_hammock",
@@ -14382,7 +13257,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -14395,7 +13270,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -14418,8 +13293,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -14461,7 +13335,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -14474,7 +13348,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -14497,8 +13371,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -15243,7 +14116,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Iron Sledgehammer: 1000 durability and 14 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Iron Sledgehammer: 1000 durability and 14 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -15251,7 +14124,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
+            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -15306,7 +14179,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Eisen-Vorschlaghammer: 1000 Haltbarkeit und 14 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Eisen-Vorschlaghammer: 1000 Haltbarkeit und 14 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -15314,7 +14187,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
+            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -15428,8 +14301,6 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
@@ -15474,63 +14345,6 @@ window.WIKI_DATA = {
             "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
             "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:jungle_octet",
-      "name": {
-        "en_us": "Jungle Octet",
-        "de_de": "Tropenholz-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:jungle_octet_from_jungle_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:jungle_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/jungle_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -16170,10 +14984,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -16183,9 +14994,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -16196,9 +15005,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -16617,7 +15424,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -16630,7 +15437,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -16653,8 +15460,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -16696,7 +15502,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -16709,7 +15515,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -16732,8 +15538,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -16775,7 +15580,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -16788,7 +15593,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -16811,8 +15616,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -16854,7 +15658,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -16867,7 +15671,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -16890,8 +15694,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -16988,63 +15791,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:mangrove_octet",
-      "name": {
-        "en_us": "Mangrove Octet",
-        "de_de": "Mangroven-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:mangrove_octet_from_mangrove_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:mangrove_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/mangrove_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:medium_armor_stand",
@@ -17221,23 +15967,6 @@ window.WIKI_DATA = {
       "properties": {
         "maxStackSize": 1
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:nautilus_shell_block",
-      "name": {
-        "en_us": "Block of Nautilus Shell",
-        "de_de": "Nautilusschalenblock"
-      },
-      "texture": "assets/textures/block/nautilus_shell_block_side.png",
-      "craftedBy": [
-        "simplebuilding:nautilus_shell_block"
-      ],
-      "usedIn": [
-        "simplebuilding:nautilus_shell_from_nautilus_shell_block"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/nautilus_shell_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -17874,10 +16603,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -17887,9 +16613,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -17900,9 +16624,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -19677,7 +18399,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Netherite Sledgehammer: 8124 durability and 15 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Netherite Sledgehammer: 8124 durability and 15 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -19685,7 +18407,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
+            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -19740,7 +18462,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Netherit-Vorschlaghammer: 8124 Haltbarkeit und 15 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Netherit-Vorschlaghammer: 8124 Haltbarkeit und 15 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -19748,7 +18470,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
+            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -19862,8 +18584,6 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
@@ -20964,10 +19684,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -20977,9 +19694,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -20990,9 +19705,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -21272,63 +19985,6 @@ window.WIKI_DATA = {
             "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
             "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:oak_octet",
-      "name": {
-        "en_us": "Oak Octet",
-        "de_de": "Eichen-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:oak_octet_from_oak_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:oak_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/oak_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -21932,7 +20588,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -21945,7 +20601,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -21968,8 +20624,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -22014,63 +20669,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:pale_oak_octet",
-      "name": {
-        "en_us": "Pale Oak Octet",
-        "de_de": "Blasseichen-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:pale_oak_octet_from_pale_oak_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:pale_oak_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/pale_oak_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:pink_hammock",
       "name": {
         "en_us": "Pink Hammock",
@@ -22107,7 +20705,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -22120,7 +20718,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -22143,8 +20741,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -22916,10 +21513,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -22929,9 +21523,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -22942,9 +21534,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -23817,10 +22407,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -23830,9 +22417,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -23843,9 +22428,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -24673,10 +23256,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -24686,9 +23266,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -24699,9 +23277,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -24761,63 +23337,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:poplar_octet",
-      "name": {
-        "en_us": "Poplar Octet",
-        "de_de": "Pappel-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:poplar_octet_from_poplar_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:poplar_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/poplar_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:pulsating_trim_template",
       "name": {
         "en_us": "Pulsating Armor Trim",
@@ -24873,7 +23392,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -24886,7 +23405,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -24909,8 +23428,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -25549,10 +24067,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -25562,9 +24077,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -25575,9 +24088,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -26345,10 +24856,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -26358,9 +24866,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -26371,9 +24877,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -26607,7 +25111,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -26620,7 +25124,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -26643,8 +25147,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -27283,10 +25786,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -27296,9 +25796,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -27309,9 +25807,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -29390,10 +27886,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -29403,9 +27896,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -29416,9 +27907,7 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
@@ -29755,36 +28244,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:sand_slab",
-      "name": {
-        "en_us": "Sand Slab",
-        "de_de": "Sandstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:sand_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/sand_slab.png",
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:scarlet_froglight",
-      "name": {
-        "en_us": "Scarlet Froglight",
-        "de_de": "Scharlachrotes Froschlicht"
-      },
-      "texture": "assets/textures/block/scarlet_froglight_side.png",
-      "craftedBy": [
-        "simplebuilding:scarlet_froglight"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/scarlet_froglight.png",
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:silent_dandelion",
       "name": {
         "en_us": "Silent Dandelion",
@@ -29918,63 +28377,6 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:spruce_octet",
-      "name": {
-        "en_us": "Spruce Octet",
-        "de_de": "Fichten-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:spruce_octet_from_spruce_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:spruce_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/spruce_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
       },
       "hasCustomBehaviour": false
     },
@@ -30246,7 +28648,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Stone Sledgehammer: 760 durability and 5 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Stone Sledgehammer: 760 durability and 5 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -30254,7 +28656,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
+            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -30309,7 +28711,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Stein-Vorschlaghammer: 760 Haltbarkeit und 5 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Stein-Vorschlaghammer: 760 Haltbarkeit und 5 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -30317,7 +28719,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
+            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -30431,9 +28833,47 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:storage_crafting_table",
+      "name": {
+        "en_us": "Storage Crafting Table",
+        "de_de": "Werkbank mit Lager"
+      },
+      "texture": "assets/textures/block/storage_crafting_table_front.png",
+      "craftedBy": [
+        "simplebuilding:storage_crafting_table"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/storage_crafting_table.png",
+      "note": {
+        "en": {
+          "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top.",
+          "details": [
+            "It works like the crafting table, recipe book and shift clicks included. The grid belongs to the table, not to the player: two players at one table see and use the same grid.",
+            "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Autonomous Crafter.",
+            "Recipe (shapeless): Crafting Table + Chest."
+          ]
+        },
+        "de": {
+          "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches.",
+          "details": [
+            "Sie funktioniert wie die Werkbank, mit Rezeptbuch und Umschalt-Klick. Das Raster gehört zum Tisch, nicht zum Spieler: Zwei Spieler an einem Tisch sehen und nutzen dasselbe Raster.",
+            "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Autonomen Crafter.",
+            "Rezept (formlos): Werkbank + Truhe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/StorageCraftingTableBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/StorageCraftingTableBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/StorageCraftingMenu.java",
+          "common/src/shared/java/com/simplebuilding/client/render/StorageCraftingTableRenderer.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -30757,130 +29197,39 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:warped_blazewood_bookshelf",
+      "id": "simplebuilding:warden_tendril",
       "name": {
-        "en_us": "Warped Blazewood Bookshelf",
-        "de_de": "Wirr-Lohen-Bücherregal"
+        "en_us": "Warden Tendril",
+        "de_de": "Wärter-Fühler"
       },
-      "texture": "assets/textures/block/warped_blazewood_bookshelf.png",
-      "craftedBy": [
-        "simplebuilding:warped_blazewood_bookshelf"
-      ],
+      "texture": "assets/textures/item/warden_tendril.png",
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "icon": "assets/textures/render/warped_blazewood_bookshelf.png",
       "note": {
         "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanting Table, one at the Vanilla table.",
+          "summary": "Every warden drops 1 to 2 Warden Tendrils. In the brewing stand an Awkward Potion with a tendril becomes a Potion of Darkness.",
           "details": [
-            "Recipe like the bookshelf: 6 Warped Blazewood Planks and 3 Blaze Books.",
-            "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
+            "New potions, each with an extended version (redstone), a splash version (gunpowder) and a lingering version (dragon's breath): Darkness (Awkward Potion + Warden Tendril), Nausea (Awkward Potion + Red Mushroom), Shivering (Awkward Potion + Snowball; glowstone makes Shivering II), Mirage (Awkward Potion + Amethyst Shard), Reverse Mirage (Mirage + Fermented Spider Eye) and Fading (Awkward Potion + Ink Sac).",
+            "Harmful potions last 1:30, extended 4:00; Shivering II lasts 0:45; Nausea 0:45, extended 2:00.",
+            "Shivering: the crosshair trembles (level II stronger). Mirage: peaceful mobs look like hostile mobs of their size, Reverse Mirage the other way round; each mob keeps its disguise and only its look changes. Faded: everything turns black and white, inventories included, but not the Esc menu. Milk removes all of them."
           ]
         },
         "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberungstisch wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "summary": "Jeder Wärter lässt 1 bis 2 Wärter-Fühler fallen. Im Braustand wird aus einem Seltsamen Trank mit einem Fühler ein Trank der Dunkelheit.",
           "details": [
-            "Rezept wie das Bücherregal: 6 Wirr-Lohenholzbretter und 3 Lohenbücher.",
-            "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
+            "Neue Tränke, jeweils mit verlängerter Fassung (Redstone), Wurftrank (Schwarzpulver) und Verweiltrank (Drachenatem): Dunkelheit (Seltsamer Trank + Wärter-Fühler), Übelkeit (Seltsamer Trank + Roter Pilz), Zittern (Seltsamer Trank + Schneeball; Glowstone macht Zittern II), Trugbild (Seltsamer Trank + Amethystscherbe), Umgekehrtes Trugbild (Trugbild + Fermentiertes Spinnenauge) und Verblassen (Seltsamer Trank + Tintenbeutel).",
+            "Schädliche Tränke wirken 1:30, verlängert 4:00; Zittern II 0:45; Übelkeit 0:45, verlängert 2:00.",
+            "Zittern: das Fadenkreuz zittert (Stufe II stärker). Trugbild: friedliche Mobs sehen aus wie feindliche ihrer Größe, Umgekehrtes Trugbild umgekehrt; jeder Mob behält seine Tarnung, nur das Aussehen ändert sich. Verblasst: alles wird schwarz-weiß, auch Inventare, aber nicht das Esc-Menü. Milch entfernt alle."
           ]
         },
         "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
+          "common/src/shared/java/com/simplebuilding/effect/ModEffects.java",
+          "common/src/shared/java/com/simplebuilding/effect/MirageTable.java",
+          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+          "mc26_3/fabric/src/main/java/com/simplebuilding/datagen/ModBrewingProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/effect/PerceptionClient.java"
         ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:warped_blazewood_planks",
-      "name": {
-        "en_us": "Warped Blazewood Planks",
-        "de_de": "Wirr-Lohenholzbretter"
-      },
-      "texture": "assets/textures/block/warped_blazewood_planks.png",
-      "craftedBy": [
-        "simplebuilding:warped_blazewood_planks"
-      ],
-      "usedIn": [
-        "simplebuilding:warped_blazewood_bookshelf"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/warped_blazewood_planks.png",
-      "note": {
-        "en": {
-          "summary": "Blazewood planks from Warped planks: eight blaze powder around one warped plank give one. Material for blazewood bookshelves.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Warped Planks."
-          ]
-        },
-        "de": {
-          "summary": "Lohenholz aus Wirrbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 Wirrbretter."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:warped_octet",
-      "name": {
-        "en_us": "Warped Octet",
-        "de_de": "Wirr-Achtelblock"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:warped_octet_from_warped_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:warped_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/warped_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
       },
       "hasCustomBehaviour": false
     },
@@ -30921,7 +29270,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -30934,7 +29283,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -30957,8 +29306,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -31036,7 +29384,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -31049,7 +29397,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -31072,140 +29420,13 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
     }
   ],
   "blocks": [
-    {
-      "id": "simplebuilding:acacia_octet",
-      "name": {
-        "en_us": "Acacia Octet Cell",
-        "de_de": "Akazien-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:acacia_octet_from_acacia_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:acacia_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/acacia_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:aqua_froglight",
-      "name": {
-        "en_us": "Aqua Froglight",
-        "de_de": "Türkises Froschlicht"
-      },
-      "texture": "assets/textures/block/aqua_froglight_side.png",
-      "craftedBy": [
-        "simplebuilding:aqua_froglight"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/aqua_froglight.png",
-      "lootTable": "simplebuilding:blocks/aqua_froglight",
-      "drops": [
-        "simplebuilding:aqua_froglight"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:astral_enchanting_table",
-      "name": {
-        "en_us": "Astral Enchanting Table",
-        "de_de": "Astral-Verzauberungstisch"
-      },
-      "texture": "assets/textures/block/astral_enchanting_table_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/astral_enchanting_table.png",
-      "lootTable": "simplebuilding:blocks/astral_enchanting_table",
-      "drops": [
-        "minecraft:enchanting_table",
-        "simplebuilding:enderite_nugget"
-      ],
-      "note": {
-        "en": {
-          "summary": "The Astral Enchanting Table lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid from a budget set by the bookshelves and the floor.",
-          "details": [
-            "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding an Enderite Nugget in the off hand and keep holding - 20 blows (four times a machine upgrade); the nugget is used up at the last blow.",
-            "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), at most 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Strength = 2 x points, at most 30. With a 5x5 floor of Blazing Obsidian right under the table: 40 from 20 points, 50 from 30 points (15 blazewood bookshelves).",
-            "The strength is the budget in points (3 without any shelf, enough for one level of a common enchantment). Each slider level costs points by rarity: common and uncommon 3, rare 6, very rare 10. Levels the budget does not allow are greyed out. At 50 every slider goes to its maximum.",
-            "Enchanting uses up 1 to 3 levels (one per started 10 points), at strength 40 four and at 50 five levels; lapis lazuli as many as levels, blaze powder twice that. You need as many levels as points spent (at most 30). Treasure enchantments are never offered; after each enchanting the three offers are new, like Vanilla's seed.",
-            "Lapis lazuli and blaze powder stay stored in the table (one stack each) when you leave; hoppers can top them up but never pull them out.",
-            "Breaking it takes twice as long as the Vanilla table and drops a Vanilla Enchanting Table, the Enderite Nugget and the stored lapis and blaze powder."
-          ]
-        },
-        "de": {
-          "summary": "Am Astral-Verzauberungstisch wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
-          "details": [
-            "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, Enderit-Nugget in der Nebenhand, und halten - 20 Schläge (viermal eine Maschinen-Aufwertung); das Nugget wird beim letzten Schlag verbraucht.",
-            "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), höchstens 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Stärke = 2 x Punkte, höchstens 30. Mit einem 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch: 40 ab 20 Punkten, 50 ab 30 Punkten (15 Lohen-Regale).",
-            "Die Stärke ist das Budget in Punkten (3 ganz ohne Regal, genug für eine Stufe einer häufigen Verzauberung). Jede Reglerstufe kostet Punkte nach Seltenheit: häufig und gewöhnlich 3, selten 6, sehr selten 10. Was das Budget nicht erlaubt, ist ausgegraut. Bei 50 gehen alle Regler bis zum Maximum.",
-            "Verzaubern verbraucht 1 bis 3 Level (eins je angefangene 10 Punkte), bei Stärke 40 vier und bei 50 fünf Level; Lapislazuli so viel wie Level, Lohenstaub doppelt so viel. Man braucht so viele Level wie ausgegebene Punkte (höchstens 30). Schatz-Verzauberungen gibt es nie; nach jedem Verzaubern sind die drei Angebote neu, wie beim Vanilla-Seed.",
-            "Lapislazuli und Lohenstaub bleiben im Tisch gelagert (je ein Stapel), auch wenn man ihn verlässt; Trichter füllen nach, ziehen aber nichts heraus.",
-            "Abbauen dauert doppelt so lange wie beim Vanilla-Tisch; er gibt einen Vanilla-Verzauberungstisch, das Enderit-Nugget und den gelagerten Lapislazuli und Lohenstaub zurück."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlock.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/AstralEnchantingMenu.java",
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
     {
       "id": "simplebuilding:astral_end_stone",
       "name": {
@@ -31904,25 +30125,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:azure_froglight",
-      "name": {
-        "en_us": "Azure Froglight",
-        "de_de": "Azurblaues Froschlicht"
-      },
-      "texture": "assets/textures/block/azure_froglight_side.png",
-      "craftedBy": [
-        "simplebuilding:azure_froglight"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/azure_froglight.png",
-      "lootTable": "simplebuilding:blocks/azure_froglight",
-      "drops": [
-        "simplebuilding:azure_froglight"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:backpack",
       "name": {
         "en_us": "Backpack",
@@ -32099,120 +30301,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:bamboo_octet",
-      "name": {
-        "en_us": "Bamboo Octet Cell",
-        "de_de": "Bambus-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:bamboo_octet_from_bamboo_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:bamboo_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/bamboo_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:birch_octet",
-      "name": {
-        "en_us": "Birch Octet Cell",
-        "de_de": "Birken-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:birch_octet_from_birch_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:birch_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/birch_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:black_hammock",
       "name": {
         "en_us": "Black Hammock",
@@ -32253,7 +30341,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -32266,7 +30354,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -32289,8 +30377,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -32497,46 +30584,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:blazing_obsidian",
-      "name": {
-        "en_us": "Blazing Obsidian",
-        "de_de": "Lohen-Obsidian"
-      },
-      "texture": "assets/textures/block/blazing_obsidian.png",
-      "craftedBy": [
-        "simplebuilding:blazing_obsidian"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/blazing_obsidian.png",
-      "lootTable": "simplebuilding:blocks/blazing_obsidian",
-      "drops": [
-        "simplebuilding:blazing_obsidian"
-      ],
-      "note": {
-        "en": {
-          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Astral Enchanting Table unlocks strength 40 and 50.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
-            "Light level 12, mined with a diamond pickaxe or better; small flames rise from a free top."
-          ]
-        },
-        "de": {
-          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Astral-Verzauberungstisch schaltet Stärke 40 und 50 frei.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
-            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus einer freien Oberseite steigen kleine Flammen."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:blue_hammock",
       "name": {
         "en_us": "Blue Hammock",
@@ -32577,7 +30624,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -32590,7 +30637,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -32613,8 +30660,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -32720,7 +30766,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -32733,7 +30779,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -32756,8 +30802,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -32811,10 +30856,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
+          "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -32824,9 +30866,7 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Each octet cuts into every chess piece of its color in the stonecutter."
           ]
         },
         "de": {
@@ -32837,70 +30877,11 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
           ]
         }
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:cherry_octet",
-      "name": {
-        "en_us": "Cherry Octet Cell",
-        "de_de": "Kirsch-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:cherry_octet_from_cherry_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:cherry_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/cherry_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:chess_pieces",
@@ -32976,44 +30957,6 @@ window.WIKI_DATA = {
             "Der Enderitmeißel formt jeden gemeißelten Block zum Grundblock seiner Palette um; beim Schleichen zurück zur Ziegelvariante."
           ]
         }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:chiseled_blue_ice",
-      "name": {
-        "en_us": "Chiseled Blue Ice",
-        "de_de": "Gemeißeltes Blaueis"
-      },
-      "texture": "assets/textures/block/chiseled_blue_ice.png",
-      "craftedBy": [
-        "simplebuilding:chiseled_blue_ice_from_blue_ice_stonecutting"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/chiseled_blue_ice.png",
-      "lootTable": "simplebuilding:blocks/chiseled_blue_ice",
-      "drops": [
-        "simplebuilding:chiseled_blue_ice"
-      ],
-      "note": {
-        "en": {
-          "summary": "Decorative blue ice with a carved diamond, as slippery as blue ice.",
-          "details": [
-            "Stonecutter: one blue ice makes one. It copies the blue ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
-          ]
-        },
-        "de": {
-          "summary": "Dekoratives Blaueis mit eingemeißelter Raute, so rutschig wie Blaueis.",
-          "details": [
-            "Steinmetz: ein Blaueis ergibt eins. Es übernimmt die Eigenschaften von Blaueis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
-        ]
       },
       "hasCustomBehaviour": true
     },
@@ -33106,44 +31049,6 @@ window.WIKI_DATA = {
             "Der Enderitmeißel formt jeden gemeißelten Block zum Grundblock seiner Palette um; beim Schleichen zurück zur Ziegelvariante."
           ]
         }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:chiseled_packed_ice",
-      "name": {
-        "en_us": "Chiseled Packed Ice",
-        "de_de": "Gemeißeltes Packeis"
-      },
-      "texture": "assets/textures/block/chiseled_packed_ice.png",
-      "craftedBy": [
-        "simplebuilding:chiseled_packed_ice_from_packed_ice_stonecutting"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/chiseled_packed_ice.png",
-      "lootTable": "simplebuilding:blocks/chiseled_packed_ice",
-      "drops": [
-        "simplebuilding:chiseled_packed_ice"
-      ],
-      "note": {
-        "en": {
-          "summary": "Decorative packed ice with a carved ice crystal, as slippery as packed ice.",
-          "details": [
-            "Stonecutter: one packed ice makes one. It copies the packed ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
-          ]
-        },
-        "de": {
-          "summary": "Dekoratives Packeis mit eingemeißeltem Eiskristall, so rutschig wie Packeis.",
-          "details": [
-            "Steinmetz: ein Packeis ergibt eins. Es übernimmt die Eigenschaften von Packeis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
-        ]
       },
       "hasCustomBehaviour": true
     },
@@ -33325,186 +31230,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:cracked_ice",
-      "name": {
-        "en_us": "Cracked Ice",
-        "de_de": "Rissiges Eis"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:cracked_ice_from_ice_stonecutting"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/cracked_ice.png",
-      "lootTable": "simplebuilding:blocks/cracked_ice",
-      "drops": [
-        "simplebuilding:cracked_ice"
-      ],
-      "note": {
-        "en": {
-          "summary": "Ice that cracks under anyone standing on it and turns into water after four stages.",
-          "details": [
-            "A living entity standing on it (no spectator) cracks it one stage every 20 ticks; the four stages use the look of vanilla frosted ice. After the last stage it melts into water, or evaporates in the Nether.",
-            "With nobody on it the reached crack stays. Like ice it also melts in bright block light and drops only with Silk Touch.",
-            "Stonecutter: one ice makes one cracked ice."
-          ]
-        },
-        "de": {
-          "summary": "Eis, das unter jedem reißt, der darauf steht, und nach vier Stufen zu Wasser wird.",
-          "details": [
-            "Steht ein Lebewesen (kein Zuschauer) darauf, reißt es alle 20 Ticks eine Stufe weiter; die vier Stufen sehen aus wie Vanillas brüchiges Eis. Nach der letzten Stufe schmilzt es zu Wasser, im Nether verdampft es.",
-            "Steht niemand darauf, bleibt der erreichte Riss. Wie Eis schmilzt es auch bei hellem Blocklicht und droppt nur mit Behutsamkeit.",
-            "Steinmetz: ein Eis ergibt ein rissiges Eis."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_bookshelf",
-      "name": {
-        "en_us": "Crimson Blazewood Bookshelf",
-        "de_de": "Karmesin-Lohen-Bücherregal"
-      },
-      "texture": "assets/textures/block/crimson_blazewood_bookshelf.png",
-      "craftedBy": [
-        "simplebuilding:crimson_blazewood_bookshelf"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/crimson_blazewood_bookshelf.png",
-      "lootTable": "simplebuilding:blocks/crimson_blazewood_bookshelf",
-      "drops": [
-        "simplebuilding:blaze_book",
-        "simplebuilding:crimson_blazewood_bookshelf"
-      ],
-      "note": {
-        "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanting Table, one at the Vanilla table.",
-          "details": [
-            "Recipe like the bookshelf: 6 Crimson Blazewood Planks and 3 Blaze Books.",
-            "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
-          ]
-        },
-        "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberungstisch wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
-          "details": [
-            "Rezept wie das Bücherregal: 6 Karmesin-Lohenholzbretter und 3 Lohenbücher.",
-            "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_planks",
-      "name": {
-        "en_us": "Crimson Blazewood Planks",
-        "de_de": "Karmesin-Lohenholzbretter"
-      },
-      "texture": "assets/textures/block/crimson_blazewood_planks.png",
-      "craftedBy": [
-        "simplebuilding:crimson_blazewood_planks"
-      ],
-      "usedIn": [
-        "simplebuilding:crimson_blazewood_bookshelf"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/crimson_blazewood_planks.png",
-      "lootTable": "simplebuilding:blocks/crimson_blazewood_planks",
-      "drops": [
-        "simplebuilding:crimson_blazewood_planks"
-      ],
-      "note": {
-        "en": {
-          "summary": "Blazewood planks from Crimson planks: eight blaze powder around one crimson plank give one. Material for blazewood bookshelves.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Crimson Planks."
-          ]
-        },
-        "de": {
-          "summary": "Lohenholz aus Karmesinbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 Karmesinbretter."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:crimson_octet",
-      "name": {
-        "en_us": "Crimson Octet Cell",
-        "de_de": "Karmesin-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:crimson_octet_from_crimson_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:crimson_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/crimson_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:crystalline_astralit",
       "name": {
         "en_us": "Crystalline Astralit",
@@ -33589,7 +31314,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -33602,7 +31327,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -33625,66 +31350,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:dark_oak_octet",
-      "name": {
-        "en_us": "Dark Oak Octet Cell",
-        "de_de": "Schwarzeichen-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:dark_oak_octet_from_dark_oak_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:dark_oak_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/dark_oak_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
       },
       "hasCustomBehaviour": false
     },
@@ -33819,25 +31486,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:dirt_slab",
-      "name": {
-        "en_us": "Dirt Slab",
-        "de_de": "Erdstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:dirt_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/dirt_slab.png",
-      "lootTable": "simplebuilding:blocks/dirt_slab",
-      "drops": [
-        "simplebuilding:dirt_slab"
-      ],
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:drowned_head",
@@ -35917,44 +33565,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:goat_horn_holder",
-      "name": {
-        "en_us": "Goat Horn Holder",
-        "de_de": "Ziegenhorn-Halter"
-      },
-      "texture": "assets/textures/block/goat_horn_holder.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/block/goat_horn_holder.png",
-      "note": {
-        "en": {
-          "summary": "A goat horn put down as a holder for a torch or a rod: sneak + right-click with a goat horn on the top of a block (mouth up) or on a wall (hanging from a little peg). Not under a ceiling. It keeps the horn with its sound and name and drops it again.",
-          "details": [
-            "Right-click with a torch (every torch block item: torch, soul, copper and redstone torch) or a stick, bone, blaze rod, breeze rod or diamond rod puts one into the empty horn; it stands upright in the mouth as its 3D model. A torch lights the holder like the torch block (torch 14, soul torch 10) and flickers with its flame; the blaze rod glows a little (5).",
-            "An empty hand takes the item out again (into the inventory, or dropped when it is full). A second item does not fit while one is in.",
-            "Breaking it, explosions and pistons drop the horn and the held item; there is no loot table and no block item. Without sneaking a goat horn is blown as usual."
-          ]
-        },
-        "de": {
-          "summary": "Ein Ziegenhorn als Halter für eine Fackel oder einen Stab abgelegt: Schleichen + Rechtsklick mit einem Ziegenhorn auf die Oberseite eines Blocks (Öffnung nach oben) oder an eine Wand (hängt an einem kleinen Haken). Nicht unter einer Decke. Das Horn behält Klang und Namen und fällt wieder heraus.",
-          "details": [
-            "Rechtsklick mit einer Fackel (jedes Fackel-Block-Item: Fackel, Seelen-, Kupfer- und Redstone-Fackel) oder einem Stock, Knochen, einer Lohenrute, Böenrute oder einem Diamantstab steckt eins ins leere Horn; es steht aufrecht in der Öffnung als 3D-Modell. Eine Fackel lässt den Halter leuchten wie den Fackelblock (Fackel 14, Seelenfackel 10) und flackert mit ihrer Flamme; die Lohenrute leuchtet leicht (5).",
-            "Mit leerer Hand nimmt man das Item wieder heraus (ins Inventar, bei vollem Inventar fällt es). Ein zweites Item passt nicht, solange eins drinsteckt.",
-            "Abbauen, Explosionen und Kolben geben Horn und Inhalt zurück; es gibt keine Loot-Tabelle und kein Block-Item. Ohne Schleichen wird ein Ziegenhorn wie gewohnt geblasen."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/GoatHornHolderBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/GoatHornHolderBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/client/render/GoatHornHolderRenderer.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java",
-          "tools/textures/goat_horn_holder_2026_10_09.py"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:gold_rod",
       "name": {
         "en_us": "Gold Rod",
@@ -35994,45 +33604,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:grass_slab",
-      "name": {
-        "en_us": "Grass Slab",
-        "de_de": "Grasstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:grass_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/grass_slab.png",
-      "lootTable": "simplebuilding:blocks/grass_slab",
-      "drops": [
-        "simplebuilding:dirt_slab",
-        "simplebuilding:grass_slab"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:gravel_slab",
-      "name": {
-        "en_us": "Gravel Slab",
-        "de_de": "Kiesstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:gravel_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/gravel_slab.png",
-      "lootTable": "simplebuilding:blocks/gravel_slab",
-      "drops": [
-        "simplebuilding:gravel_slab"
-      ],
       "hasCustomBehaviour": false
     },
     {
@@ -36076,7 +33647,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -36089,7 +33660,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -36112,8 +33683,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -36159,7 +33729,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -36172,7 +33742,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -36195,8 +33765,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -36409,63 +33978,6 @@ window.WIKI_DATA = {
             "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
             "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:jungle_octet",
-      "name": {
-        "en_us": "Jungle Octet Cell",
-        "de_de": "Tropenholz-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:jungle_octet_from_jungle_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:jungle_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/jungle_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -36908,7 +34420,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -36921,7 +34433,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -36944,8 +34456,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -36991,7 +34502,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -37004,7 +34515,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -37027,8 +34538,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -37074,7 +34584,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -37087,7 +34597,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -37110,8 +34620,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -37157,7 +34666,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -37170,7 +34679,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -37193,141 +34702,9 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:mangrove_octet",
-      "name": {
-        "en_us": "Mangrove Octet Cell",
-        "de_de": "Mangroven-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:mangrove_octet_from_mangrove_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:mangrove_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/mangrove_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:melon_octet",
-      "name": {
-        "en_us": "Melon Octet Cell",
-        "de_de": "Melonen-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/block/melon_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:nautilus_shell_block",
-      "name": {
-        "en_us": "Block of Nautilus Shell",
-        "de_de": "Nautilusschalenblock"
-      },
-      "texture": "assets/textures/block/nautilus_shell_block_side.png",
-      "craftedBy": [
-        "simplebuilding:nautilus_shell_block"
-      ],
-      "usedIn": [
-        "simplebuilding:nautilus_shell_from_nautilus_shell_block"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/nautilus_shell_block.png",
-      "lootTable": "simplebuilding:blocks/nautilus_shell_block",
-      "drops": [
-        "simplebuilding:nautilus_shell_block"
-      ],
       "hasCustomBehaviour": false
     },
     {
@@ -39487,63 +36864,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:oak_octet",
-      "name": {
-        "en_us": "Oak Octet Cell",
-        "de_de": "Eichen-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:oak_octet_from_oak_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:oak_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/oak_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:orange_hammock",
       "name": {
         "en_us": "Orange Hammock",
@@ -39584,7 +36904,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -39597,7 +36917,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -39620,8 +36940,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -39678,63 +36997,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:pale_oak_octet",
-      "name": {
-        "en_us": "Pale Oak Octet Cell",
-        "de_de": "Blasseichen-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:pale_oak_octet_from_pale_oak_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:pale_oak_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/pale_oak_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:pink_hammock",
       "name": {
         "en_us": "Pink Hammock",
@@ -39775,7 +37037,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -39788,7 +37050,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -39811,8 +37073,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -39943,8 +37204,7 @@ window.WIKI_DATA = {
             "Candles and sea pickles mix in: alone they stay the vanilla blocks. Sneak + right-click with another part on a vanilla candle or sea pickle block (or the block below it) turns it into a spot with each candle or pickle as one part, keeping lit candles lit and water; a candle of the same color on candles, or a sea pickle on sea pickles, stays vanilla. On a spot, candles and pickles are added like any part. They stand as the vanilla models.",
             "Light like vanilla: lit candles give 3 per candle, sea pickles under water 3 + 3 per pickle, dry pickles none. Flint and steel, a fire charge or a burning projectile light the candles (not under water); an empty hand puts them out, and so does water flowing in. Lit candles show the vanilla flame and smoke.",
             "Glowing parts (glowstone dust, glow ink sac, prismarine crystals, nether star, blaze rod, echo shard, Astralit Dust, Sage Orb) now and then show a subtle vanilla particle; the client option \"Glow Particles on Placed Parts\" (tools.placedPartParticles, on by default) turns that off.",
-            "Since 2026-10-04 a stick, bone, blaze rod or breeze rod clicked on a free top stands upright instead (see Standing Rod); on a pile, a wall or a ceiling it still lies down.",
-            "Ingots lie as small 3D bars (copper, iron, gold, netherite and Enderite ingots; other ingots stay plates). With only ingots on the spot they stack like a little ingot pile: two side by side, the third and fourth across on top. Smithing templates (every armor trim, the netherite upgrade and the mod's upgrade templates) join too: the first still lies alone as a placed template (hammer upgrade), sneak + right-click with another template on it makes a pile of up to four; on a lone template only templates are added, a pile takes them like any other part."
+            "Since 2026-10-04 a stick, bone, blaze rod or breeze rod clicked on a free top stands upright instead (see Standing Rod); on a pile, a wall or a ceiling it still lies down."
           ]
         },
         "de": {
@@ -39958,8 +37218,7 @@ window.WIKI_DATA = {
             "Kerzen und Seegurken mischen mit: allein bleiben sie die Vanilla-Blöcke. Schleichen + Rechtsklick mit einem anderen Teil auf einen Vanilla-Kerzen- oder -Seegurkenblock (oder den Block darunter) macht daraus einen Fleck, jede Kerze bzw. Gurke ein Teil; brennende Kerzen brennen weiter, Wasser bleibt. Eine gleichfarbige Kerze auf Kerzen oder eine Seegurke auf Seegurken bleibt Vanilla. Auf einen Fleck legen sich Kerzen und Gurken wie jedes Teil. Sie stehen als die Vanilla-Modelle.",
             "Licht wie bei Vanilla: brennende Kerzen geben 3 je Kerze, Seegurken unter Wasser 3 + 3 je Gurke, trockene Gurken nichts. Feuerzeug, Feuerkugel oder ein brennendes Geschoss zünden die Kerzen an (nicht unter Wasser); die leere Hand löscht sie, ebenso hineinlaufendes Wasser. Brennende Kerzen zeigen die Vanilla-Flamme und Rauch.",
             "Leuchtende Teile (Glowstonestaub, Leuchttintenbeutel, Prismarinkristalle, Netherstern, Lohenrute, Echoscherbe, Astralitstaub, Weisheitskugel) zeigen ab und zu einen dezenten Vanilla-Partikel; die Client-Option „Glanz-Partikel an abgelegten Teilen“ (tools.placedPartParticles, standardmäßig an) schaltet das ab.",
-            "Seit 2026-10-04 stellt sich ein Stock, Knochen, eine Lohen- oder Böenrute auf einer freien Oberseite senkrecht auf (siehe Aufgestellter Stab); auf einem Häufchen, an Wand oder Decke legt er sich weiter hin.",
-            "Barren liegen als kleine 3D-Barren (Kupfer-, Eisen-, Gold-, Netherit- und Enderitbarren; andere Barren bleiben Platten). Liegen nur Barren auf dem Fleck, stapeln sie sich wie ein kleiner Barrenstapel: zwei nebeneinander, der dritte und vierte quer darüber. Schmiedevorlagen (alle Rüstungsbesätze, die Netherit-Aufwertung und die Aufwertungsvorlagen der Mod) kommen ebenfalls dazu: die erste liegt weiter allein als abgelegte Vorlage (Hammer-Aufwertung), Schleichen + Rechtsklick mit einer weiteren Vorlage darauf macht ein Häufchen bis vier; auf eine einzelne Vorlage kommen nur Vorlagen, ein Häufchen nimmt sie wie jedes andere Teil."
+            "Seit 2026-10-04 stellt sich ein Stock, Knochen, eine Lohen- oder Böenrute auf einer freien Oberseite senkrecht auf (siehe Aufgestellter Stab); auf einem Häufchen, an Wand oder Decke legt er sich weiter hin."
           ]
         },
         "sources": [
@@ -39971,8 +37230,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedSmallPartsBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/client/render/PlacedSmallPartsRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/PlacedEggs.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedEggBlock.java",
-          "tools/textures/placed_ingots_2026_10_09.py"
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedEggBlock.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -40710,63 +37968,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:poplar_octet",
-      "name": {
-        "en_us": "Poplar Octet Cell",
-        "de_de": "Pappel-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:poplar_octet_from_poplar_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:poplar_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/poplar_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:potion_pad",
       "name": {
         "en_us": "Potion Pad I",
@@ -40891,7 +38092,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -40904,7 +38105,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -40927,8 +38128,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -41114,7 +38314,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -41127,7 +38327,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -41150,8 +38350,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -42743,44 +39942,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:sand_slab",
-      "name": {
-        "en_us": "Sand Slab",
-        "de_de": "Sandstufe"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:sand_slab"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/sand_slab.png",
-      "lootTable": "simplebuilding:blocks/sand_slab",
-      "drops": [
-        "simplebuilding:sand_slab"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:scarlet_froglight",
-      "name": {
-        "en_us": "Scarlet Froglight",
-        "de_de": "Scharlachrotes Froschlicht"
-      },
-      "texture": "assets/textures/block/scarlet_froglight_side.png",
-      "craftedBy": [
-        "simplebuilding:scarlet_froglight"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/scarlet_froglight.png",
-      "lootTable": "simplebuilding:blocks/scarlet_froglight",
-      "drops": [
-        "simplebuilding:scarlet_froglight"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:shulker_head",
       "name": {
         "en_us": "Shulker Head",
@@ -43199,63 +40360,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:spruce_octet",
-      "name": {
-        "en_us": "Spruce Octet Cell",
-        "de_de": "Fichten-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:spruce_octet_from_spruce_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:spruce_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/spruce_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:standing_rod",
       "name": {
         "en_us": "Standing Rod",
@@ -43271,7 +40375,6 @@ window.WIKI_DATA = {
           "summary": "A stick, bone, blaze rod, breeze rod or diamond rod standing upright: sneak + right-click on the top of a block. A thin column made from the item's own pixels (the lightning rod's stem without its head); it drops the rod itself.",
           "details": [
             "It needs a floor that holds its middle (like a candle) or another standing rod below: stacked rods make posts. Breaking it - or losing the floor - drops the rod; no tool needed, pistons pop it, it can stand in water.",
-            "Stacked rods join without a gap: a rod with another standing rod on it reaches up to the top of its block (state up, the column goes on as a thin shaft); taken off, it is short again.",
             "Only the blaze rod glows, a little (light 5). The thin shape collides, so a standing rod holds a hammock like any other anchor - two stacked sticks are a post on rope height.",
             "Without sneaking the item behaves as usual. Stick, bone, blaze and breeze rod still lie down when clicked on a pile of small parts (they are added to it), a wall or a ceiling; the server options server.features.placeVanillaItems and placeDisabledItems apply to standing rods too.",
             "The end rod, lightning rod, the metal rods and bamboo already are blocks; arrows do not stand."
@@ -43281,7 +40384,6 @@ window.WIKI_DATA = {
           "summary": "Ein Stock, Knochen, eine Lohenrute, Böenrute oder ein Diamantstab senkrecht aufgestellt: Schleichen + Rechtsklick auf die Oberseite eines Blocks. Eine dünne Säule aus den Pixeln des Items (der Stiel des Blitzableiters ohne Kopf); sie droppt den Stab selbst.",
           "details": [
             "Braucht einen Boden, der seine Mitte trägt (wie eine Kerze), oder einen aufgestellten Stab darunter: gestapelt ergeben sie Pfosten. Abbauen - oder ein fehlender Boden - droppt den Stab; kein Werkzeug nötig, Kolben stoßen ihn ab, er kann im Wasser stehen.",
-            "Gestapelte Stäbe gehen nahtlos ineinander über: ein Stab mit einem aufgestellten Stab darauf reicht bis an die Oberkante seines Blocks (Zustand up, die Säule läuft als dünner Schaft weiter); nimmt man den oberen weg, ist er wieder kurz.",
             "Nur die Lohenrute leuchtet, leicht (Licht 5). Die dünne Form hat Kollision, daher trägt ein aufgestellter Stab eine Hängematte wie jeder andere Anker - zwei gestapelte Stöcke sind ein Pfosten auf Seilhöhe.",
             "Ohne Schleichen verhält sich das Item wie gewohnt. Stock, Knochen, Lohen- und Böenrute legen sich weiter hin, wenn man auf ein Häufchen Kleinteile (sie kommen dazu), eine Wand oder Decke klickt; die Server-Optionen server.features.placeVanillaItems und placeDisabledItems gelten auch für aufgestellte Stäbe.",
             "Endstab, Blitzableiter, die Metallstäbe und Bambus sind schon Blöcke; Pfeile stehen nicht."
@@ -43353,6 +40455,50 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:storage_crafting_table",
+      "name": {
+        "en_us": "Storage Crafting Table",
+        "de_de": "Werkbank mit Lager"
+      },
+      "texture": "assets/textures/block/storage_crafting_table_front.png",
+      "craftedBy": [
+        "simplebuilding:storage_crafting_table"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/storage_crafting_table.png",
+      "lootTable": "simplebuilding:blocks/storage_crafting_table",
+      "drops": [
+        "simplebuilding:storage_crafting_table"
+      ],
+      "note": {
+        "en": {
+          "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top.",
+          "details": [
+            "It works like the crafting table, recipe book and shift clicks included. The grid belongs to the table, not to the player: two players at one table see and use the same grid.",
+            "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Autonomous Crafter.",
+            "Recipe (shapeless): Crafting Table + Chest."
+          ]
+        },
+        "de": {
+          "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches.",
+          "details": [
+            "Sie funktioniert wie die Werkbank, mit Rezeptbuch und Umschalt-Klick. Das Raster gehört zum Tisch, nicht zum Spieler: Zwei Spieler an einem Tisch sehen und nutzen dasselbe Raster.",
+            "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Autonomen Crafter.",
+            "Rezept (formlos): Werkbank + Truhe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/StorageCraftingTableBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/StorageCraftingTableBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/StorageCraftingMenu.java",
+          "common/src/shared/java/com/simplebuilding/client/render/StorageCraftingTableRenderer.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:stray_skull",
@@ -43568,143 +40714,6 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:veined_nihilith"
       ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:warped_blazewood_bookshelf",
-      "name": {
-        "en_us": "Warped Blazewood Bookshelf",
-        "de_de": "Wirr-Lohen-Bücherregal"
-      },
-      "texture": "assets/textures/block/warped_blazewood_bookshelf.png",
-      "craftedBy": [
-        "simplebuilding:warped_blazewood_bookshelf"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/warped_blazewood_bookshelf.png",
-      "lootTable": "simplebuilding:blocks/warped_blazewood_bookshelf",
-      "drops": [
-        "simplebuilding:blaze_book",
-        "simplebuilding:warped_blazewood_bookshelf"
-      ],
-      "note": {
-        "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanting Table, one at the Vanilla table.",
-          "details": [
-            "Recipe like the bookshelf: 6 Warped Blazewood Planks and 3 Blaze Books.",
-            "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
-          ]
-        },
-        "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberungstisch wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
-          "details": [
-            "Rezept wie das Bücherregal: 6 Wirr-Lohenholzbretter und 3 Lohenbücher.",
-            "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:warped_blazewood_planks",
-      "name": {
-        "en_us": "Warped Blazewood Planks",
-        "de_de": "Wirr-Lohenholzbretter"
-      },
-      "texture": "assets/textures/block/warped_blazewood_planks.png",
-      "craftedBy": [
-        "simplebuilding:warped_blazewood_planks"
-      ],
-      "usedIn": [
-        "simplebuilding:warped_blazewood_bookshelf"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/warped_blazewood_planks.png",
-      "lootTable": "simplebuilding:blocks/warped_blazewood_planks",
-      "drops": [
-        "simplebuilding:warped_blazewood_planks"
-      ],
-      "note": {
-        "en": {
-          "summary": "Blazewood planks from Warped planks: eight blaze powder around one warped plank give one. Material for blazewood bookshelves.",
-          "details": [
-            "Recipe: 8 Blaze Powder around 1 Warped Planks."
-          ]
-        },
-        "de": {
-          "summary": "Lohenholz aus Wirrbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
-          "details": [
-            "Rezept: 8 Lohenstaub um 1 Wirrbretter."
-          ]
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:warped_octet",
-      "name": {
-        "en_us": "Warped Octet Cell",
-        "de_de": "Wirr-Achtelzelle"
-      },
-      "texture": null,
-      "craftedBy": [
-        "simplebuilding:warped_octet_from_warped_planks_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:warped_planks_from_octets"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/warped_octet.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
-          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
-          "tools/textures/octets_2026_10_09.py"
-        ],
-        "en": {
-          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
-          "details": [
-            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
-            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
-            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
-            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
-            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter.",
-            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
-          ]
-        },
-        "de": {
-          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
-          "details": [
-            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
-            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
-            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
-            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
-            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
-            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -44003,7 +41012,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -44016,7 +41025,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -44039,8 +41048,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -44086,7 +41094,7 @@ window.WIKI_DATA = {
           "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
             "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them along the longer axis, at any angle: straight, 45 degrees or anything in between, for example 3 blocks across and 1 to the side (1 or 5 and more free blocks, or anchors at different heights: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
-            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Like a lead, the first click ties the hammock to the anchor: everybody sees it hanging from the anchor to your hand as a rolled-up strip of its wool. It comes loose (lead break sound) when you walk more than 10 blocks away; clicking the first anchor again, taking the hammock out of your main hand, another dimension or a lost anchor also forget it - there is no time limit. A refusal is a fail sound only.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Any angle (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
             "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell the line between the anchor centers passes through (through a grid corner it steps on diagonally) and, one layer lower, cloth blocks in the cells under the cloth; all of them must be free.",
             "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a slanted hammock notices a lost anchor within half a second. In creative mode nothing drops.",
             "Right-click lies you down in the vanilla sleeping pose along the hammock (lying along the nearest compass direction; when drawn, turned onto the line of the hammock and centered on the cloth); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
@@ -44099,7 +41107,7 @@ window.WIKI_DATA = {
           "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
             "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen entlang der längeren Achse, in jedem Winkel: gerade, 45 Grad oder alles dazwischen, etwa 3 Blöcke weit und 1 zur Seite (1 oder ab 5 freie Blöcke oder Anker auf verschiedener Höhe: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
-            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Wie eine Leine bindet der erste Klick die Hängematte an den Anker: alle sehen sie als aufgerollten Streifen ihrer Wolle vom Anker zu deiner Hand hängen. Sie löst sich (Leinen-Reißklang), wenn du dich mehr als 10 Blöcke entfernst; erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension oder ein fehlender Anker lösen sie ebenfalls - ein Zeitlimit gibt es nicht. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Jeder Winkel (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
             "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle, durch die die Linie zwischen den Ankermitten läuft, einen Seilblock (durch eine Gitterecke geht es diagonal weiter) und eine Lage tiefer in den Zellen unter dem Tuch Tuchblöcke; alle müssen frei sein.",
             "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine schräge bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
             "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (entlang der nächsten Himmelsrichtung; gezeichnet auf die Linie der Hängematte gedreht und mittig auf dem Tuch); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
@@ -44122,97 +41130,13 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "tools/textures/hammock.py",
-          "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
     }
   ],
   "recipes": [
-    {
-      "id": "simplebuilding:acacia_octet_from_acacia_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:acacia_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/acacia_octet_from_acacia_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:acacia_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:acacia_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:acacia_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:acacia_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:acacia_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/acacia_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:acacia_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:acacia_octet"
-        ],
-        [
-          "simplebuilding:acacia_octet"
-        ],
-        [
-          "simplebuilding:acacia_octet"
-        ],
-        [
-          "simplebuilding:acacia_octet"
-        ],
-        [
-          "simplebuilding:acacia_octet"
-        ],
-        [
-          "simplebuilding:acacia_octet"
-        ],
-        [
-          "simplebuilding:acacia_octet"
-        ],
-        [
-          "simplebuilding:acacia_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:acacia_octet",
-            "count": 8
-          }
-        ]
-      }
-    },
     {
       "id": "simplebuilding:amethyst_lens",
       "type": "minecraft:crafting_shaped",
@@ -44418,52 +41342,6 @@ window.WIKI_DATA = {
             "id": "minecraft:redstone",
             "count": 1
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:aqua_froglight",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:aqua_froglight",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/aqua_froglight.json",
-      "ingredients": [
-        "#simplebuilding:froglights",
-        "minecraft:cyan_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:froglights"
-        ],
-        [
-          "minecraft:cyan_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:ochre_froglight",
-            "count": 1
-          },
-          {
-            "id": "minecraft:cactus",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 0.5
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:froglights"
         ]
       }
     },
@@ -46817,48 +43695,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:azure_froglight",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:azure_froglight",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/azure_froglight.json",
-      "ingredients": [
-        "#simplebuilding:froglights",
-        "minecraft:blue_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:froglights"
-        ],
-        [
-          "minecraft:blue_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 1
-          },
-          {
-            "id": "minecraft:ochre_froglight",
-            "count": 1
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:froglights"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:backpack",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -46916,89 +43752,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:copper_ingot",
             "count": 0.222
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:bamboo_octet_from_bamboo_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:bamboo_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/bamboo_octet_from_bamboo_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:bamboo_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:bamboo_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:bamboo",
-            "count": 4.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:bamboo_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:bamboo_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/bamboo_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:bamboo_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:bamboo_octet"
-        ],
-        [
-          "simplebuilding:bamboo_octet"
-        ],
-        [
-          "simplebuilding:bamboo_octet"
-        ],
-        [
-          "simplebuilding:bamboo_octet"
-        ],
-        [
-          "simplebuilding:bamboo_octet"
-        ],
-        [
-          "simplebuilding:bamboo_octet"
-        ],
-        [
-          "simplebuilding:bamboo_octet"
-        ],
-        [
-          "simplebuilding:bamboo_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:bamboo_octet",
-            "count": 8
           }
         ]
       }
@@ -47086,89 +43839,6 @@ window.WIKI_DATA = {
       "lines": [
         "26.3"
       ]
-    },
-    {
-      "id": "simplebuilding:birch_octet_from_birch_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:birch_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/birch_octet_from_birch_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:birch_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:birch_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:birch_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:birch_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:birch_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/birch_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:birch_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:birch_octet"
-        ],
-        [
-          "simplebuilding:birch_octet"
-        ],
-        [
-          "simplebuilding:birch_octet"
-        ],
-        [
-          "simplebuilding:birch_octet"
-        ],
-        [
-          "simplebuilding:birch_octet"
-        ],
-        [
-          "simplebuilding:birch_octet"
-        ],
-        [
-          "simplebuilding:birch_octet"
-        ],
-        [
-          "simplebuilding:birch_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:birch_octet",
-            "count": 8
-          }
-        ]
-      }
     },
     {
       "id": "simplebuilding:black_dyed_storage",
@@ -48061,95 +44731,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:blaze_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:blaze_book",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/blaze_book.json",
-      "ingredients": [
-        "minecraft:blaze_powder",
-        "minecraft:paper"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:paper"
-        ],
-        [
-          "minecraft:paper"
-        ],
-        [
-          "minecraft:paper"
-        ],
-        [
-          "minecraft:blaze_powder"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:blazing_obsidian",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:blazing_obsidian",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/blazing_obsidian.json",
-      "ingredients": [
-        "minecraft:blaze_powder",
-        "minecraft:crying_obsidian"
-      ],
-      "pattern": [
-        "BBB",
-        "BOB",
-        "BBB"
-      ],
-      "key": {
-        "B": [
-          "minecraft:blaze_powder"
-        ],
-        "O": [
-          "minecraft:crying_obsidian"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 4
-          },
-          {
-            "id": "minecraft:crying_obsidian",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:blue_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -48496,6 +45077,72 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:brewing/lingering_potion_awkward_amethyst_shard",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_amethyst_shard.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_awkward_ink_sac",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_ink_sac.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_awkward_red_mushroom",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_red_mushroom.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:brewing/lingering_potion_awkward_shulker_head",
       "type": "minecraft:brewing",
       "category": null,
@@ -48505,6 +45152,50 @@ window.WIKI_DATA = {
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_shulker_head.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_awkward_snowball",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_snowball.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_awkward_warden_tendril",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_warden_tendril.json",
       "ingredients": [
         "minecraft:lingering_potion"
       ],
@@ -48540,6 +45231,270 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:brewing/lingering_potion_darkness_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_darkness_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_faded_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_faded_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_long_mirage_fermented_spider_eye",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_long_mirage_fermented_spider_eye.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_mirage_fermented_spider_eye",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_mirage_fermented_spider_eye.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_mirage_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_mirage_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_nausea_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_nausea_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_reverse_mirage_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_reverse_mirage_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_shivering_glowstone_dust",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_shivering_glowstone_dust.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_shivering_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_shivering_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_awkward_amethyst_shard",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_amethyst_shard.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_awkward_ink_sac",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_ink_sac.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_awkward_red_mushroom",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_red_mushroom.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:brewing/potion_awkward_shulker_head",
       "type": "minecraft:brewing",
       "category": null,
@@ -48549,6 +45504,50 @@ window.WIKI_DATA = {
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_shulker_head.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_awkward_snowball",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_snowball.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_awkward_warden_tendril",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_warden_tendril.json",
       "ingredients": [
         "minecraft:potion"
       ],
@@ -48606,6 +45605,94 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:brewing/potion_darkness_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_darkness_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_darkness_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_darkness_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_faded_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_faded_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_faded_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_faded_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:brewing/potion_long_crafty_shulker_gunpowder",
       "type": "minecraft:brewing",
       "category": null,
@@ -48628,6 +45715,468 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:brewing/potion_long_darkness_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_darkness_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_long_faded_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_faded_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_long_mirage_fermented_spider_eye",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_mirage_fermented_spider_eye.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_long_mirage_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_mirage_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_long_nausea_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_nausea_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_long_reverse_mirage_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_reverse_mirage_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_long_shivering_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_shivering_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_mirage_fermented_spider_eye",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_mirage_fermented_spider_eye.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_mirage_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_mirage_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_mirage_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_mirage_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_nausea_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_nausea_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_nausea_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_nausea_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_reverse_mirage_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_reverse_mirage_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_reverse_mirage_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_reverse_mirage_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_shivering_glowstone_dust",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_shivering_glowstone_dust.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_shivering_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_shivering_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_shivering_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_shivering_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_strong_shivering_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_strong_shivering_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_awkward_amethyst_shard",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_amethyst_shard.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_awkward_ink_sac",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_ink_sac.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_awkward_red_mushroom",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_red_mushroom.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:brewing/splash_potion_awkward_shulker_head",
       "type": "minecraft:brewing",
       "category": null,
@@ -48637,6 +46186,50 @@ window.WIKI_DATA = {
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_shulker_head.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_awkward_snowball",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_snowball.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_awkward_warden_tendril",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_warden_tendril.json",
       "ingredients": [
         "minecraft:splash_potion"
       ],
@@ -48694,6 +46287,94 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:brewing/splash_potion_darkness_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_darkness_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_darkness_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_darkness_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_faded_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_faded_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_faded_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_faded_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:brewing/splash_potion_long_crafty_shulker_dragon_breath",
       "type": "minecraft:brewing",
       "category": null,
@@ -48703,6 +46384,402 @@ window.WIKI_DATA = {
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_crafty_shulker_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_long_darkness_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_darkness_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_long_faded_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_faded_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_long_mirage_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_mirage_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_long_mirage_fermented_spider_eye",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_mirage_fermented_spider_eye.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_long_nausea_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_nausea_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_long_reverse_mirage_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_reverse_mirage_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_long_shivering_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_shivering_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_mirage_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_mirage_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_mirage_fermented_spider_eye",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_mirage_fermented_spider_eye.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_mirage_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_mirage_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_nausea_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_nausea_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_nausea_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_nausea_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_reverse_mirage_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_reverse_mirage_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_reverse_mirage_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_reverse_mirage_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_shivering_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_shivering_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_shivering_glowstone_dust",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_shivering_glowstone_dust.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_shivering_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_shivering_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_strong_shivering_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_strong_shivering_dragon_breath.json",
       "ingredients": [
         "minecraft:splash_potion"
       ],
@@ -48991,89 +47068,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:cherry_octet_from_cherry_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:cherry_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/cherry_octet_from_cherry_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:cherry_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:cherry_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:cherry_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:cherry_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:cherry_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/cherry_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:cherry_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:cherry_octet"
-        ],
-        [
-          "simplebuilding:cherry_octet"
-        ],
-        [
-          "simplebuilding:cherry_octet"
-        ],
-        [
-          "simplebuilding:cherry_octet"
-        ],
-        [
-          "simplebuilding:cherry_octet"
-        ],
-        [
-          "simplebuilding:cherry_octet"
-        ],
-        [
-          "simplebuilding:cherry_octet"
-        ],
-        [
-          "simplebuilding:cherry_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:cherry_octet",
-            "count": 8
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:chiseled_astralit_bricks",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -49242,37 +47236,6 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:astralit_dust",
             "count": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:chiseled_blue_ice_from_blue_ice_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:chiseled_blue_ice",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/chiseled_blue_ice_from_blue_ice_stonecutting.json",
-      "ingredients": [
-        "minecraft:blue_ice"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:blue_ice"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:ice",
-            "count": 81
           }
         ]
       }
@@ -49664,37 +47627,6 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:chiseled_packed_ice_from_packed_ice_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:chiseled_packed_ice",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/chiseled_packed_ice_from_packed_ice_stonecutting.json",
-      "ingredients": [
-        "minecraft:packed_ice"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:packed_ice"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:ice",
-            "count": 9
           }
         ]
       }
@@ -50356,212 +48288,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:cracked_ice_from_ice_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:cracked_ice",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/cracked_ice_from_ice_stonecutting.json",
-      "ingredients": [
-        "minecraft:ice"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:ice"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:ice",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_bookshelf",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:crimson_blazewood_bookshelf",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/crimson_blazewood_bookshelf.json",
-      "ingredients": [
-        "simplebuilding:blaze_book",
-        "simplebuilding:crimson_blazewood_planks"
-      ],
-      "pattern": [
-        "WWW",
-        "KKK",
-        "WWW"
-      ],
-      "key": {
-        "K": [
-          "simplebuilding:blaze_book"
-        ],
-        "W": [
-          "simplebuilding:crimson_blazewood_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 25.5
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 9
-          },
-          {
-            "id": "minecraft:crimson_stem",
-            "count": 1.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:crimson_blazewood_planks",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:crimson_blazewood_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/crimson_blazewood_planks.json",
-      "ingredients": [
-        "minecraft:blaze_powder",
-        "minecraft:crimson_planks"
-      ],
-      "pattern": [
-        "BBB",
-        "BPB",
-        "BBB"
-      ],
-      "key": {
-        "B": [
-          "minecraft:blaze_powder"
-        ],
-        "P": [
-          "minecraft:crimson_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 4
-          },
-          {
-            "id": "minecraft:crimson_stem",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:crimson_octet_from_crimson_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:crimson_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/crimson_octet_from_crimson_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:crimson_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:crimson_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:crimson_stem",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:crimson_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:crimson_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/crimson_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:crimson_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:crimson_octet"
-        ],
-        [
-          "simplebuilding:crimson_octet"
-        ],
-        [
-          "simplebuilding:crimson_octet"
-        ],
-        [
-          "simplebuilding:crimson_octet"
-        ],
-        [
-          "simplebuilding:crimson_octet"
-        ],
-        [
-          "simplebuilding:crimson_octet"
-        ],
-        [
-          "simplebuilding:crimson_octet"
-        ],
-        [
-          "simplebuilding:crimson_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:crimson_octet",
-            "count": 8
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:crystalline_astralit_from_astralit_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -50946,89 +48672,6 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
-    },
-    {
-      "id": "simplebuilding:dark_oak_octet_from_dark_oak_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:dark_oak_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/dark_oak_octet_from_dark_oak_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:dark_oak_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:dark_oak_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:dark_oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:dark_oak_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:dark_oak_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/dark_oak_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:dark_oak_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:dark_oak_octet"
-        ],
-        [
-          "simplebuilding:dark_oak_octet"
-        ],
-        [
-          "simplebuilding:dark_oak_octet"
-        ],
-        [
-          "simplebuilding:dark_oak_octet"
-        ],
-        [
-          "simplebuilding:dark_oak_octet"
-        ],
-        [
-          "simplebuilding:dark_oak_octet"
-        ],
-        [
-          "simplebuilding:dark_oak_octet"
-        ],
-        [
-          "simplebuilding:dark_oak_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:dark_oak_octet",
-            "count": 8
-          }
-        ]
-      }
     },
     {
       "id": "simplebuilding:detector",
@@ -51493,40 +49136,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:dirt_slab",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:dirt_slab",
-        "count": 6
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/dirt_slab.json",
-      "ingredients": [
-        "minecraft:dirt"
-      ],
-      "pattern": [
-        "###"
-      ],
-      "key": {
-        "#": [
-          "minecraft:dirt"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 6,
-        "materials": [
-          {
-            "id": "minecraft:dirt",
-            "count": 3
           }
         ]
       }
@@ -58242,74 +55851,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:grass_slab",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:grass_slab",
-        "count": 6
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/grass_slab.json",
-      "ingredients": [
-        "minecraft:grass_block"
-      ],
-      "pattern": [
-        "###"
-      ],
-      "key": {
-        "#": [
-          "minecraft:grass_block"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 6,
-        "materials": [
-          {
-            "id": "minecraft:grass_block",
-            "count": 3
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:gravel_slab",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:gravel_slab",
-        "count": 6
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/gravel_slab.json",
-      "ingredients": [
-        "minecraft:gravel"
-      ],
-      "pattern": [
-        "###"
-      ],
-      "key": {
-        "#": [
-          "minecraft:gravel"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 6,
-        "materials": [
-          {
-            "id": "minecraft:gravel",
-            "count": 3
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:gray_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -59410,89 +56951,6 @@ window.WIKI_DATA = {
         ],
         "tagExamples": [
           "#minecraft:planks"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:jungle_octet_from_jungle_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:jungle_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/jungle_octet_from_jungle_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:jungle_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:jungle_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:jungle_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:jungle_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:jungle_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/jungle_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:jungle_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:jungle_octet"
-        ],
-        [
-          "simplebuilding:jungle_octet"
-        ],
-        [
-          "simplebuilding:jungle_octet"
-        ],
-        [
-          "simplebuilding:jungle_octet"
-        ],
-        [
-          "simplebuilding:jungle_octet"
-        ],
-        [
-          "simplebuilding:jungle_octet"
-        ],
-        [
-          "simplebuilding:jungle_octet"
-        ],
-        [
-          "simplebuilding:jungle_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:jungle_octet",
-            "count": 8
-          }
         ]
       }
     },
@@ -61671,89 +59129,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:mangrove_octet_from_mangrove_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:mangrove_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/mangrove_octet_from_mangrove_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:mangrove_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:mangrove_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:mangrove_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:mangrove_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:mangrove_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/mangrove_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:mangrove_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:mangrove_octet"
-        ],
-        [
-          "simplebuilding:mangrove_octet"
-        ],
-        [
-          "simplebuilding:mangrove_octet"
-        ],
-        [
-          "simplebuilding:mangrove_octet"
-        ],
-        [
-          "simplebuilding:mangrove_octet"
-        ],
-        [
-          "simplebuilding:mangrove_octet"
-        ],
-        [
-          "simplebuilding:mangrove_octet"
-        ],
-        [
-          "simplebuilding:mangrove_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:mangrove_octet",
-            "count": 8
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:medium_armor_stand",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -61792,72 +59167,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:stone",
             "count": 0.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:nautilus_shell_block",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:nautilus_shell_block",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/nautilus_shell_block.json",
-      "ingredients": [
-        "minecraft:nautilus_shell"
-      ],
-      "pattern": [
-        "SS",
-        "SS"
-      ],
-      "key": {
-        "S": [
-          "minecraft:nautilus_shell"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:nautilus_shell",
-            "count": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:nautilus_shell_from_nautilus_shell_block",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:nautilus_shell",
-        "count": 4
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/nautilus_shell_from_nautilus_shell_block.json",
-      "ingredients": [
-        "simplebuilding:nautilus_shell_block"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:nautilus_shell_block"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 4,
-        "materials": [
-          {
-            "id": "simplebuilding:nautilus_shell_block",
-            "count": 1
           }
         ]
       }
@@ -65843,89 +63152,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:oak_octet_from_oak_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:oak_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/oak_octet_from_oak_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:oak_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:oak_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:oak_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:oak_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/oak_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:oak_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:oak_octet"
-        ],
-        [
-          "simplebuilding:oak_octet"
-        ],
-        [
-          "simplebuilding:oak_octet"
-        ],
-        [
-          "simplebuilding:oak_octet"
-        ],
-        [
-          "simplebuilding:oak_octet"
-        ],
-        [
-          "simplebuilding:oak_octet"
-        ],
-        [
-          "simplebuilding:oak_octet"
-        ],
-        [
-          "simplebuilding:oak_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:oak_octet",
-            "count": 8
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:obsidian_chip",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -67381,89 +64607,6 @@ window.WIKI_DATA = {
         ],
         "tagExamples": [
           "#minecraft:planks"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:pale_oak_octet_from_pale_oak_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:pale_oak_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/pale_oak_octet_from_pale_oak_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:pale_oak_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:pale_oak_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:pale_oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:pale_oak_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:pale_oak_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/pale_oak_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:pale_oak_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:pale_oak_octet"
-        ],
-        [
-          "simplebuilding:pale_oak_octet"
-        ],
-        [
-          "simplebuilding:pale_oak_octet"
-        ],
-        [
-          "simplebuilding:pale_oak_octet"
-        ],
-        [
-          "simplebuilding:pale_oak_octet"
-        ],
-        [
-          "simplebuilding:pale_oak_octet"
-        ],
-        [
-          "simplebuilding:pale_oak_octet"
-        ],
-        [
-          "simplebuilding:pale_oak_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:pale_oak_octet",
-            "count": 8
-          }
         ]
       }
     },
@@ -71550,89 +68693,6 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:poplar_octet_from_poplar_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:poplar_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/poplar_octet_from_poplar_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:poplar_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:poplar_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:poplar_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:poplar_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:poplar_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/poplar_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:poplar_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:poplar_octet"
-        ],
-        [
-          "simplebuilding:poplar_octet"
-        ],
-        [
-          "simplebuilding:poplar_octet"
-        ],
-        [
-          "simplebuilding:poplar_octet"
-        ],
-        [
-          "simplebuilding:poplar_octet"
-        ],
-        [
-          "simplebuilding:poplar_octet"
-        ],
-        [
-          "simplebuilding:poplar_octet"
-        ],
-        [
-          "simplebuilding:poplar_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:poplar_octet",
-            "count": 8
           }
         ]
       }
@@ -76609,82 +73669,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:sand_slab",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:sand_slab",
-        "count": 6
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/sand_slab.json",
-      "ingredients": [
-        "minecraft:sand"
-      ],
-      "pattern": [
-        "###"
-      ],
-      "key": {
-        "#": [
-          "minecraft:sand"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 6,
-        "materials": [
-          {
-            "id": "minecraft:sand",
-            "count": 3
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:scarlet_froglight",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:scarlet_froglight",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/scarlet_froglight.json",
-      "ingredients": [
-        "#simplebuilding:froglights",
-        "minecraft:red_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:froglights"
-        ],
-        [
-          "minecraft:red_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:beetroot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:ochre_froglight",
-            "count": 1
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:froglights"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:silent_dandelion",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -76964,89 +73948,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:spruce_octet_from_spruce_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:spruce_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/spruce_octet_from_spruce_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:spruce_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:spruce_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:spruce_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:spruce_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:spruce_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/spruce_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:spruce_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:spruce_octet"
-        ],
-        [
-          "simplebuilding:spruce_octet"
-        ],
-        [
-          "simplebuilding:spruce_octet"
-        ],
-        [
-          "simplebuilding:spruce_octet"
-        ],
-        [
-          "simplebuilding:spruce_octet"
-        ],
-        [
-          "simplebuilding:spruce_octet"
-        ],
-        [
-          "simplebuilding:spruce_octet"
-        ],
-        [
-          "simplebuilding:spruce_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:spruce_octet",
-            "count": 8
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:stellar_flypad_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -77249,6 +74150,41 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:storage_crafting_table",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:storage_crafting_table",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/storage_crafting_table.json",
+      "ingredients": [
+        "minecraft:chest",
+        "minecraft:crafting_table"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:crafting_table"
+        ],
+        [
+          "minecraft:chest"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 3
           }
         ]
       }
@@ -79535,181 +76471,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:redstone",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:warped_blazewood_bookshelf",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:warped_blazewood_bookshelf",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/warped_blazewood_bookshelf.json",
-      "ingredients": [
-        "simplebuilding:blaze_book",
-        "simplebuilding:warped_blazewood_planks"
-      ],
-      "pattern": [
-        "WWW",
-        "KKK",
-        "WWW"
-      ],
-      "key": {
-        "K": [
-          "simplebuilding:blaze_book"
-        ],
-        "W": [
-          "simplebuilding:warped_blazewood_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 25.5
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 9
-          },
-          {
-            "id": "minecraft:warped_stem",
-            "count": 1.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:warped_blazewood_planks",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:warped_blazewood_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/warped_blazewood_planks.json",
-      "ingredients": [
-        "minecraft:blaze_powder",
-        "minecraft:warped_planks"
-      ],
-      "pattern": [
-        "BBB",
-        "BPB",
-        "BBB"
-      ],
-      "key": {
-        "B": [
-          "minecraft:blaze_powder"
-        ],
-        "P": [
-          "minecraft:warped_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 4
-          },
-          {
-            "id": "minecraft:warped_stem",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:warped_octet_from_warped_planks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:warped_octet",
-        "count": 8
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/warped_octet_from_warped_planks_stonecutting.json",
-      "ingredients": [
-        "minecraft:warped_planks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:warped_planks"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:warped_stem",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:warped_planks_from_octets",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "minecraft:warped_planks",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/warped_planks_from_octets.json",
-      "ingredients": [
-        "simplebuilding:warped_octet"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:warped_octet"
-        ],
-        [
-          "simplebuilding:warped_octet"
-        ],
-        [
-          "simplebuilding:warped_octet"
-        ],
-        [
-          "simplebuilding:warped_octet"
-        ],
-        [
-          "simplebuilding:warped_octet"
-        ],
-        [
-          "simplebuilding:warped_octet"
-        ],
-        [
-          "simplebuilding:warped_octet"
-        ],
-        [
-          "simplebuilding:warped_octet"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebuilding:warped_octet",
-            "count": 8
           }
         ]
       }
@@ -82205,46 +78966,6 @@ window.WIKI_DATA = {
   ],
   "lootTables": [
     {
-      "id": "simplebuilding:blocks/aqua_froglight",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:aqua_froglight"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/aqua_froglight.json"
-    },
-    {
-      "id": "simplebuilding:blocks/astral_enchanting_table",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:enchanting_table"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_nugget"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_enchanting_table.json"
-    },
-    {
       "id": "simplebuilding:blocks/astral_end_stone",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -82574,22 +79295,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/autonomous_crafter.json"
     },
     {
-      "id": "simplebuilding:blocks/azure_froglight",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:azure_froglight"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/azure_froglight.json"
-    },
-    {
       "id": "simplebuilding:blocks/backpack",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -82684,22 +79389,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blaze_head.json"
-    },
-    {
-      "id": "simplebuilding:blocks/blazing_obsidian",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:blazing_obsidian"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blazing_obsidian.json"
     },
     {
       "id": "simplebuilding:blocks/blue_hammock",
@@ -82798,22 +79487,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_astralit_bricks.json"
     },
     {
-      "id": "simplebuilding:blocks/chiseled_blue_ice",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:chiseled_blue_ice"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_blue_ice.json"
-    },
-    {
       "id": "simplebuilding:blocks/chiseled_ender_quartz_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -82844,22 +79517,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_nihilith_bricks.json"
-    },
-    {
-      "id": "simplebuilding:blocks/chiseled_packed_ice",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:chiseled_packed_ice"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_packed_ice.json"
     },
     {
       "id": "simplebuilding:blocks/chunk_loader",
@@ -82924,55 +79581,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_diamond_block.json"
-    },
-    {
-      "id": "simplebuilding:blocks/cracked_ice",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:cracked_ice"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_ice.json"
-    },
-    {
-      "id": "simplebuilding:blocks/crimson_blazewood_bookshelf",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:crimson_blazewood_bookshelf",
-            "simplebuilding:blaze_book"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crimson_blazewood_bookshelf.json"
-    },
-    {
-      "id": "simplebuilding:blocks/crimson_blazewood_planks",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:crimson_blazewood_planks"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crimson_blazewood_planks.json"
     },
     {
       "id": "simplebuilding:blocks/crystalline_astralit",
@@ -83070,22 +79678,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/dimensional_scrap.json"
-    },
-    {
-      "id": "simplebuilding:blocks/dirt_slab",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:dirt_slab"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/dirt_slab.json"
     },
     {
       "id": "simplebuilding:blocks/drowned_head",
@@ -83712,39 +80304,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gold_rod.json"
     },
     {
-      "id": "simplebuilding:blocks/grass_slab",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:grass_slab",
-            "simplebuilding:dirt_slab"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/grass_slab.json"
-    },
-    {
-      "id": "simplebuilding:blocks/gravel_slab",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:gravel_slab"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gravel_slab.json"
-    },
-    {
       "id": "simplebuilding:blocks/gray_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -84015,22 +80574,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/magenta_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/nautilus_shell_block",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:nautilus_shell_block"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nautilus_shell_block.json"
     },
     {
       "id": "simplebuilding:blocks/nether_brick_quartz_checker",
@@ -85491,38 +82034,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json"
     },
     {
-      "id": "simplebuilding:blocks/sand_slab",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:sand_slab"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/sand_slab.json"
-    },
-    {
-      "id": "simplebuilding:blocks/scarlet_froglight",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:scarlet_froglight"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/scarlet_froglight.json"
-    },
-    {
       "id": "simplebuilding:blocks/shulker_head",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -85683,6 +82194,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stellar_flypad.json"
     },
     {
+      "id": "simplebuilding:blocks/storage_crafting_table",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:storage_crafting_table"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/storage_crafting_table.json"
+    },
+    {
       "id": "simplebuilding:blocks/stray_skull",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -85761,39 +82288,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/veined_nihilith.json"
-    },
-    {
-      "id": "simplebuilding:blocks/warped_blazewood_bookshelf",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:warped_blazewood_bookshelf",
-            "simplebuilding:blaze_book"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/warped_blazewood_bookshelf.json"
-    },
-    {
-      "id": "simplebuilding:blocks/warped_blazewood_planks",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:warped_blazewood_planks"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/warped_blazewood_planks.json"
     },
     {
       "id": "simplebuilding:blocks/waxed_copper_pressure_plate",
@@ -86590,6 +83084,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/woodland_mansion.json"
+    },
+    {
+      "id": "simplebuilding:inject/entities/warden",
+      "kind": "inject",
+      "type": "minecraft:entity",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:warden_tendril"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/entities/warden.json"
     },
     {
       "id": "simplebuilding:inject/gameplay/fishing/treasure",
@@ -89890,13 +86400,9 @@ window.WIKI_DATA = {
         {
           "id": "simplebuilding:enderite_building_wand",
           "required": true
-        },
-        {
-          "id": "simplebuilding:creative_building_wand",
-          "required": true
         }
       ],
-      "source": "mc26_3/generated/data/simplebuilding/tags/item/building_wand_enchantable.json"
+      "source": "src/main/generated/data/simplebuilding/tags/item/building_wand_enchantable.json"
     },
     {
       "id": "simplebuilding:item/bundle_enchantable",
@@ -91632,50 +88138,6 @@ window.WIKI_DATA = {
         {
           "id": "simplebuilding:waxed_weathered_copper_pressure_plate",
           "required": true
-        },
-        {
-          "id": "simplebuilding:dirt_slab",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:grass_slab",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:sand_slab",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:gravel_slab",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:cracked_ice",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:chiseled_packed_ice",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:chiseled_blue_ice",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:nautilus_shell_block",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:scarlet_froglight",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:aqua_froglight",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:azure_froglight",
-          "required": true
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/tags/item/craftable.json"
@@ -92241,37 +88703,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/extra_inventory_items.json"
-    },
-    {
-      "id": "simplebuilding:item/froglights",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:ochre_froglight",
-          "required": true
-        },
-        {
-          "id": "minecraft:verdant_froglight",
-          "required": true
-        },
-        {
-          "id": "minecraft:pearlescent_froglight",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:scarlet_froglight",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:aqua_froglight",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:azure_froglight",
-          "required": true
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/tags/item/froglights.json"
     },
     {
       "id": "simplebuilding:item/funnel_enchantable",
@@ -95033,26 +91464,6 @@ window.WIKI_DATA = {
       "labelDe": "Gegenstände in Vanilla-Kreativ-Tabs einsortieren",
       "tooltip": "Adds this mod's items next to their Vanilla\ncounterparts in Vanilla creative tabs and the\nsearch tab. Off: Vanilla tabs stay unchanged;\nthe mod's own creative tabs remain available.\nApplies when joining a world. Default: on.",
       "tooltipDe": "Sortiert die Gegenstände dieser Mod neben ihre\nVanilla-Gegenstücke in Vanilla-Kreativ-Tabs und\nden Suchtab ein. Aus: Vanilla-Tabs bleiben\nunverändert; die eigenen Kreativ-Tabs der Mod\nbleiben erhalten. Wirkt beim Betreten einer Welt.\nStandard: an."
-    },
-    {
-      "range": null,
-      "side": "client",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "creativeTabSpacers",
-      "shortName": "creativeTabSpacers",
-      "type": "boolean",
-      "default": "false",
-      "note": null,
-      "category": "Compatibility & Advanced",
-      "categoryDe": "Kompatibilität & Erweitert",
-      "group": null,
-      "groupDe": null,
-      "label": "Empty Cells Between Creative Tab Categories",
-      "labelDe": "Leere Zellen zwischen Kreativ-Tab-Kategorien",
-      "tooltip": "Leaves an empty cell between the categories\nof this mod's own creative tabs, so each\ncategory starts visibly apart. Off: items\nfollow each other without gaps. Applies when\njoining a world. Default: off.",
-      "tooltipDe": "Lässt in den eigenen Kreativ-Tabs dieser Mod\neine leere Zelle zwischen den Kategorien, damit\njede Kategorie sichtbar abgesetzt beginnt. Aus:\ndie Gegenstände folgen lückenlos aufeinander.\nWirkt beim Betreten einer Welt. Standard: aus."
     },
     {
       "range": null,
@@ -98152,12 +94563,11 @@ window.WIKI_DATA = {
           "sources": [
             "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
             "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
-            "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
-            "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java"
+            "common/src/shared/java/com/simplebuilding/util/HammerCorners.java"
           ],
           "en": {
             "title": "Reshaping with the sledgehammer",
-            "summary": "Sneak and hold right-click with a sledgehammer on a block (26.3): when the charge is full, the aimed eighth is gone - full block, stairs and slab step down eighth by eighth; shapes that are no stairs or slab fall apart into 0.125 blocks of the material (wood, melon). Sneaking with Constructor's Touch walks back from slab to stairs to full block. On 26.2 a plain held right-click turns a full block into its stairs and stairs into their slab.",
+            "summary": "Hold right-click with a sledgehammer on a block: when the charge is full, a full block becomes its stairs and stairs become their slab. Sneaking with Constructor's Touch walks back from slab to stairs to full block. This works for every block whose stairs or slab exist under the matching id, vanilla blocks included.",
             "details": [
               "Forward (not sneaking): a block with a full collision shape turns into <id>_stairs, stairs turn into <base>_slab - if that block exists.",
               "Backward (sneaking) needs the Constructor's Touch enchantment: a slab turns into <base>_stairs, stairs into <base>, <base>s or <base>_planks. On older lines, sneaking without the enchantment reshapes nothing.",
@@ -98165,13 +94575,12 @@ window.WIKI_DATA = {
               "Charge time in ticks: 200 / (material speed + 5 x Efficiency level), cut off at the lower and upper limit below. The table lists every hammer without Efficiency.",
               "Every reshape costs the listed durability, a backward reshape more. Creative mode costs none.",
               "If no matching stairs or slab exists, the hammer does not start charging.",
-              "On 26.3, sneak without Constructor's Touch to cut one aimed quarter 1.5x faster: inner corner, straight stair, outer corner, slab. Only a remaining quarter in the stair's non-solid half can be cut; diagonal two-quarter remnants are refused. Constructor's Touch retains backward reshaping.",
-              "Queue Nachtrag 24 (26.3): without sneaking the hammer neither charges nor tilts. Sneaking without Constructor's Touch removes the octet behind the aimed point; the rest becomes a slab, a vanilla stair or - for any other shape - an octet cell of the material (13 woods via their planks, melon), and the removed octet drops. Without octets of the material such a cut is refused."
+              "On 26.3, sneak without Constructor's Touch to cut one aimed quarter 1.5x faster: inner corner, straight stair, outer corner, slab. Only a remaining quarter in the stair's non-solid half can be cut; diagonal two-quarter remnants are refused. Constructor's Touch retains backward reshaping."
             ]
           },
           "de": {
             "title": "Umformen mit dem Vorschlaghammer",
-            "summary": "Schleichen und Rechtsklick mit dem Vorschlaghammer auf einem Block halten (26.3): Ist die Ladung voll, ist das angezielte Achtel weg - Vollblock, Treppe und Stufe werden Achtel für Achtel kleiner; Formen, die keine Treppe oder Stufe sind, zerfallen in 0,125er-Blöcke des Materials (Holz, Melone). Schleichen mit Berührung des Konstrukteurs geht zurück, von der Stufe zur Treppe zum Vollblock. Auf 26.2 macht einfaches Rechtsklick-Halten aus einem Vollblock seine Treppe und aus einer Treppe ihre Stufe.",
+            "summary": "Rechtsklick mit dem Vorschlaghammer auf einem Block halten: Ist die Ladung voll, wird ein Vollblock zu seiner Treppe und eine Treppe zu ihrer Stufe. Schleichen mit Berührung des Konstrukteurs geht zurück, von der Stufe zur Treppe zum Vollblock. Das gilt für jeden Block, dessen Treppe oder Stufe unter der passenden Id existiert, auch für Vanilla-Blöcke.",
             "details": [
               "Vorwärts (ohne Schleichen): Ein Block mit voller Kollisionsform wird zu <id>_stairs, eine Treppe zu <basis>_slab - sofern es diesen Block gibt.",
               "Rückwärts (Schleichen) braucht die Verzauberung Berührung des Konstrukteurs: Eine Stufe wird zu <basis>_stairs, eine Treppe zu <basis>, <basis>s oder <basis>_planks. Auf älteren Linien formt Schleichen ohne die Verzauberung nichts um.",
@@ -98179,8 +94588,7 @@ window.WIKI_DATA = {
               "Ladezeit in Ticks: 200 / (Materialtempo + 5 x Effizienzstufe), auf die untere und obere Grenze unten beschnitten. Die Tabelle nennt jeden Hammer ohne Effizienz.",
               "Jede Umformung kostet die angegebene Haltbarkeit, rückwärts mehr. Im Kreativmodus kostet sie nichts.",
               "Gibt es keine passende Treppe oder Stufe, beginnt der Hammer gar nicht zu laden.",
-              "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel 1,5× schneller ab: Innenecke, gerade Treppe, Außenecke, Stufe. Nur verbleibende Viertel in der offenen Treppenhälfte können abgetragen werden; diagonale Zwei-Viertel-Reste werden verweigert. Berührung des Konstrukteurs behält die Rückwärtsumformung.",
-              "Queue Nachtrag 24 (26.3): Ohne Schleichen lädt und wackelt der Hammer nicht. Schleichen ohne Berührung des Konstrukteurs trägt das Achtel hinter dem Zielpunkt ab; der Rest wird zur Stufe, zur Vanilla-Treppe oder - bei jeder anderen Form - zur Achtelzelle des Materials (13 Holzarten über ihre Bretter, Melone), und das abgetragene Achtel fällt heraus. Ohne Achtel des Materials wird so ein Schnitt abgelehnt."
+              "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel 1,5× schneller ab: Innenecke, gerade Treppe, Außenecke, Stufe. Nur verbleibende Viertel in der offenen Treppenhälfte können abgetragen werden; diagonale Zwei-Viertel-Reste werden verweigert. Berührung des Konstrukteurs behält die Rückwärtsumformung."
             ]
           }
         }
@@ -112571,6 +108979,32 @@ window.WIKI_DATA = {
         "how": "charged_creeper"
       },
       {
+        "type": "mob",
+        "item": "simplebuilding:warden_tendril",
+        "table": "minecraft:entities/warden",
+        "label": {
+          "en": "Warden",
+          "de": "Wärter"
+        },
+        "chance": 100.0,
+        "perChest": 1.5,
+        "count": [
+          1,
+          2
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "how": "charged_creeper"
+      },
+      {
         "type": "chest",
         "item": "simplebuilding:music_disc_voidline",
         "table": "minecraft:chests/end_city_treasure",
@@ -117843,8 +114277,8 @@ window.WIKI_DATA = {
         "de_de": "Treppenmeister"
       },
       "description": {
-        "en_us": "Sneak and hold right-click with a sledgehammer on a full block: carve it into stairs, then a slab",
-        "de_de": "Halte schleichend mit dem Vorschlaghammer Rechtsklick auf einem vollen Block: er wird zur Treppe, dann zur Stufe"
+        "en_us": "Hold right-click with a sledgehammer on a full block: it turns into stairs, then into a slab",
+        "de_de": "Halte mit dem Vorschlaghammer Rechtsklick auf einem vollen Block: er wird zur Treppe, dann zur Stufe"
       },
       "criteria": [
         {
@@ -119621,8 +116055,8 @@ window.WIKI_DATA = {
             "de_de": "Stein-Vorschlaghammer"
           },
           "description": {
-            "en_us": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once. Sneak and hold right-click to carve the aimed eighth off a block.",
-            "de_de": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab. Schleichen + Rechtsklick halten trägt das angezielte Achtel eines Blocks ab."
+            "en_us": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once.",
+            "de_de": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab."
           },
           "dependencies": [
             "stage_1.iron"
@@ -119639,8 +116073,8 @@ window.WIKI_DATA = {
             "de_de": "Treppenmeister"
           },
           "description": {
-            "en_us": "Sneak and hold right-click with a sledgehammer on a full block: carve it into stairs, then a slab",
-            "de_de": "Halte schleichend mit dem Vorschlaghammer Rechtsklick auf einem vollen Block: er wird zur Treppe, dann zur Stufe"
+            "en_us": "Hold right-click with a sledgehammer on a full block: it turns into stairs, then into a slab",
+            "de_de": "Halte mit dem Vorschlaghammer Rechtsklick auf einem vollen Block: er wird zur Treppe, dann zur Stufe"
           },
           "dependencies": [
             "stage_1.stone_sledgehammer"
@@ -121841,17 +118275,17 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 514,
-    "blocks": 269,
-    "recipes": 891,
-    "lootTables": 248,
+    "items": 483,
+    "blocks": 238,
+    "recipes": 916,
+    "lootTables": 233,
     "trades": 20,
     "enchantments": 19,
-    "tags": 50,
-    "config": 222,
+    "tags": 49,
+    "config": 221,
     "inWorld": 468,
     "advancements": 127,
-    "features": 50,
+    "features": 48,
     "undocumented": 0,
     "incompleteProse": 0
   },

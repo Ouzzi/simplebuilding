@@ -11434,6 +11434,56 @@
         "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java"
       ]
     },
+    "storage_crafting_table": {
+      "en": {
+        "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top.",
+        "details": [
+          "It works like the crafting table, recipe book and shift clicks included. The grid belongs to the table, not to the player: two players at one table see and use the same grid.",
+          "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Autonomous Crafter.",
+          "Recipe (shapeless): Crafting Table + Chest."
+        ]
+      },
+      "de": {
+        "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches.",
+        "details": [
+          "Sie funktioniert wie die Werkbank, mit Rezeptbuch und Umschalt-Klick. Das Raster gehört zum Tisch, nicht zum Spieler: Zwei Spieler an einem Tisch sehen und nutzen dasselbe Raster.",
+          "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Autonomen Crafter.",
+          "Rezept (formlos): Werkbank + Truhe."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/StorageCraftingTableBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/StorageCraftingTableBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/screen/StorageCraftingMenu.java",
+        "common/src/shared/java/com/simplebuilding/client/render/StorageCraftingTableRenderer.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+      ]
+    },
+    "warden_tendril": {
+      "en": {
+        "summary": "Every warden drops 1 to 2 Warden Tendrils. In the brewing stand an Awkward Potion with a tendril becomes a Potion of Darkness.",
+        "details": [
+          "New potions, each with an extended version (redstone), a splash version (gunpowder) and a lingering version (dragon's breath): Darkness (Awkward Potion + Warden Tendril), Nausea (Awkward Potion + Red Mushroom), Shivering (Awkward Potion + Snowball; glowstone makes Shivering II), Mirage (Awkward Potion + Amethyst Shard), Reverse Mirage (Mirage + Fermented Spider Eye) and Fading (Awkward Potion + Ink Sac).",
+          "Harmful potions last 1:30, extended 4:00; Shivering II lasts 0:45; Nausea 0:45, extended 2:00.",
+          "Shivering: the crosshair trembles (level II stronger). Mirage: peaceful mobs look like hostile mobs of their size, Reverse Mirage the other way round; each mob keeps its disguise and only its look changes. Faded: everything turns black and white, inventories included, but not the Esc menu. Milk removes all of them."
+        ]
+      },
+      "de": {
+        "summary": "Jeder Wärter lässt 1 bis 2 Wärter-Fühler fallen. Im Braustand wird aus einem Seltsamen Trank mit einem Fühler ein Trank der Dunkelheit.",
+        "details": [
+          "Neue Tränke, jeweils mit verlängerter Fassung (Redstone), Wurftrank (Schwarzpulver) und Verweiltrank (Drachenatem): Dunkelheit (Seltsamer Trank + Wärter-Fühler), Übelkeit (Seltsamer Trank + Roter Pilz), Zittern (Seltsamer Trank + Schneeball; Glowstone macht Zittern II), Trugbild (Seltsamer Trank + Amethystscherbe), Umgekehrtes Trugbild (Trugbild + Fermentiertes Spinnenauge) und Verblassen (Seltsamer Trank + Tintenbeutel).",
+          "Schädliche Tränke wirken 1:30, verlängert 4:00; Zittern II 0:45; Übelkeit 0:45, verlängert 2:00.",
+          "Zittern: das Fadenkreuz zittert (Stufe II stärker). Trugbild: friedliche Mobs sehen aus wie feindliche ihrer Größe, Umgekehrtes Trugbild umgekehrt; jeder Mob behält seine Tarnung, nur das Aussehen ändert sich. Verblasst: alles wird schwarz-weiß, auch Inventare, aber nicht das Esc-Menü. Milch entfernt alle."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/effect/ModEffects.java",
+        "common/src/shared/java/com/simplebuilding/effect/MirageTable.java",
+        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "mc26_3/fabric/src/main/java/com/simplebuilding/datagen/ModBrewingProvider.java",
+        "mc26_3/overlay/java/com/simplebuilding/client/effect/PerceptionClient.java"
+      ]
+    },
     "stone_pebble": {
       "en": {
         "summary": "A small stone: one cobblestone gives 9 Stone Pebbles, 9 pebbles in the crafting grid give the cobblestone back.",

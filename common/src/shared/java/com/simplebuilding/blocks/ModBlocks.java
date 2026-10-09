@@ -224,6 +224,9 @@ public class ModBlocks {
     /** Lohen-Obsidian: leuchtende Variante des weinenden Obsidians, 5x5 unter dem Astral-Tisch fuer Stufe 40/50. */
     public static final Block BLAZING_OBSIDIAN = McVersion.ASTRAL_ENCHANTING ? registerBlock("blazing_obsidian", Blocks.CRYING_OBSIDIAN,
             s -> new com.simplebuilding.enchanting.BlazingObsidianBlock(s.lightLevel(state -> 12))) : null;
+    /** Werkbank mit Lager (2026-10-09, McVersion.STORAGE_CRAFTING_TABLE): Eigenschaften wie die Werkbank. */
+    public static final Block STORAGE_CRAFTING_TABLE = McVersion.STORAGE_CRAFTING_TABLE
+            ? registerBlock("storage_crafting_table", Blocks.CRAFTING_TABLE, com.simplebuilding.blocks.custom.StorageCraftingTableBlock::new) : null;
     public static final Block PLACED_SMALL_PARTS = McVersion.SMALL_PLACEABLES ? registerBlock("placed_small_parts", s -> new com.simplebuilding.blocks.custom.PlacedSmallPartsBlock(s
             .strength(0.2F).sound(SoundType.STONE).noCollision().noLootTable().noOcclusion().mapColor(MapColor.NONE)
             .lightLevel(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock::light)

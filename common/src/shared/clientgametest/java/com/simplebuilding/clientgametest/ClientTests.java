@@ -102,6 +102,9 @@ public final class ClientTests {
                 new Entry("armor-stands", ArmorStandClientTest::inWorld),
                 // Placing N24/N16 (2026-10-09): ingot stacks, trims pile, goat horns, joined rods, hammock lead.
                 new Entry("placing", PlaceClientTest::inWorld));
+                // Brewing wave 2026-10-09 (26.3): Mirage, Reverse Mirage, Faded, Shivering, the Storage Crafting
+                // Table; clears its effects, the table and the mobs again.
+                new Entry("brew", BrewClientTest::inWorld));
     }
 
     /**
