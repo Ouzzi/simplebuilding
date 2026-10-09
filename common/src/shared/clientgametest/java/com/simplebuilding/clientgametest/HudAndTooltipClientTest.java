@@ -1224,7 +1224,7 @@ public final class HudAndTooltipClientTest {
         assertFilterGlyph(script, HopperFilterMode.WHITELIST, "✔", 0xFF55FF55);
         Later<Path> whitelist = script.shot("hopper-c-filter-whitelist");
 
-        script.verify("the whitelist icon reached the screen", () -> ScreenshotDiff.assertDrew(
+        script.verify("the whitelist icon reached the screen", () -> assertKeySymbolChanged(
                 "NetheriteHopperScreen (whitelist icon)", noiseFloor.get(),
                 ScreenshotDiff.compare("filter off vs. whitelist", noFilter.get(), whitelist.get())));
 
@@ -1233,7 +1233,7 @@ public final class HudAndTooltipClientTest {
         assertFilterGlyph(script, HopperFilterMode.TYPE, "T", 0xFFFFAA00);
         Later<Path> type = script.shot("hopper-d-filter-type");
 
-        script.verify("the type icon reached the screen", () -> ScreenshotDiff.assertDrew(
+        script.verify("the type icon reached the screen", () -> assertKeySymbolChanged(
                 "NetheriteHopperScreen (type icon)", noiseFloor.get(),
                 ScreenshotDiff.compare("filter off vs. type", noFilter.get(), type.get())));
 
@@ -1262,6 +1262,23 @@ public final class HudAndTooltipClientTest {
         script.command("clear @a");
         script.awaitPackets();
         script.idle("let the removed hopper reach the client", 10);
+    }
+
+    /**
+     * The mode symbol on the filter key changed. 26.2 draws a barrier item against a text glyph, which is far above
+     * {@code assertDrew}'s 400 pixel floor; 26.3's SimpleLib key only swaps a 7x7 pixel symbol (about 120 window
+     * pixels), so there the bar is the glyph-swap bar below: ten times the noise floor and at least 40 pixels.
+     */
+    private static void assertKeySymbolChanged(String what, ScreenshotDiff.Diff noise, ScreenshotDiff.Diff diff) {
+        if (!ModScreenStyle.ACTIVE) {
+            ScreenshotDiff.assertDrew(what, noise, diff);
+            return;
+        }
+        int required = Math.max(40, noise.changedPixels() * 10 + 40);
+        if (diff.changedPixels() < required) {
+            throw new AssertionError(what + " did not change the key symbol: " + diff + ", at least " + required
+                    + " changed pixels were required.");
+        }
     }
 
     /**

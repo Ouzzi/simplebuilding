@@ -74,7 +74,7 @@ public class AutonomousCrafterBlockEntity extends BaseContainerBlockEntity imple
         @Override
         public int get(int id) {
             if (id < SIZE) return disabled[id] ? 1 : 0;
-            if (id == DATA_TRIGGERED) return getBlockState().getValue(AutonomousCrafterBlock.TRIGGERED) ? 1 : 0;
+            if (id == DATA_TRIGGERED) return isTriggered() ? 1 : 0;
             return filterMode.ordinal();
         }
 
@@ -121,7 +121,10 @@ public class AutonomousCrafterBlockEntity extends BaseContainerBlockEntity imple
 
     /** Whether a redstone signal reaches the crafter (it then does not craft). */
     public boolean isTriggered() {
-        return getBlockState().getValue(AutonomousCrafterBlock.TRIGGERED);
+        // The world's state, not the cached one: a block set without a player turns TRIGGERED on in onPlace, before
+        // this block entity exists, so its own copy of the state can be one step behind.
+        BlockState state = this.level != null ? this.level.getBlockState(this.worldPosition) : getBlockState();
+        return state.hasProperty(AutonomousCrafterBlock.TRIGGERED) && state.getValue(AutonomousCrafterBlock.TRIGGERED);
     }
 
     /** One crafting attempt: hopper below, no signal, a recipe, enough items (filter: two per filled slot), room below. */
