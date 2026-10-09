@@ -15,6 +15,8 @@ public final class GadgetsClientTest {
 
     public static void inWorld(Script script) {
         TestScene.build(script, "minecraft:white_concrete", "creative");
+        // The hidden HUD also hides the first person hand; the tilt is what this shot is for.
+        TestScene.showHudAgain(script);
         script.command("item replace entity @a weapon.mainhand with simplebuilding:amethyst_lens");
         script.awaitPackets();
         script.idle("let the rod reach the client", 10);
