@@ -26,6 +26,8 @@ public class ModBlockEntities {
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity> PLACED_SMALL_PARTS_BE;
     /** Schachfiguren auf einem Block; nur mit McVersion.CHESS. */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity> CHESS_PIECES_BE;
+    /** Kisten (Holzwerk); nur mit McVersion.WOODWORK. */
+    public static BlockEntityType<com.simplebuilding.woodwork.CrateBlockEntity> CRATE_BE;
     /** Haengematten (Tuch und Seil kennen ihre Matte); nur mit McVersion.HAMMOCK. */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.HammockBlockEntity> HAMMOCK_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity> TIERED_CHEST_BE;
@@ -106,6 +108,12 @@ public class ModBlockEntities {
             CHESS_PIECES_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                     Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "chess_pieces"),
                     FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity::new, ModBlocks.CHESS_PIECES).build());
+        }
+
+        if (!ModBlocks.WOOD_FAMILIES.isEmpty()) {
+            CRATE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "crate"),
+                    FabricBlockEntityTypeBuilder.create(com.simplebuilding.woodwork.CrateBlockEntity::new, com.simplebuilding.woodwork.WoodBlocks.crates()).build());
         }
 
         if (ModBlocks.HAMMOCK_ROPE != null) {

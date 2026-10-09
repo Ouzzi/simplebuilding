@@ -163,6 +163,12 @@ public final class NeoForgeModRegistries {
                     ? BLOCK_ENTITIES.register("placed_small_parts", () -> new BlockEntityType<>(com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity::new, ModBlocks.PLACED_SMALL_PARTS))
                     : null;
 
+    /** Kisten (Holzwerk), nur Hauptlinie (McVersion.WOODWORK). */
+    public static final Supplier<BlockEntityType<com.simplebuilding.woodwork.CrateBlockEntity>> CRATE_BE =
+            com.simplebuilding.version.McVersion.WOODWORK
+                    ? BLOCK_ENTITIES.register("crate", () -> new BlockEntityType<>(com.simplebuilding.woodwork.CrateBlockEntity::new, com.simplebuilding.woodwork.WoodBlocks.crates()))
+                    : null;
+
     /** Schachfiguren auf einem Block, nur Hauptlinie (McVersion.CHESS). */
     public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity>> CHESS_PIECES_BE =
             com.simplebuilding.version.McVersion.CHESS
@@ -298,6 +304,7 @@ public final class NeoForgeModRegistries {
         ModBlockEntities.PLACED_BUNDLE_BE = PLACED_BUNDLE_BE.get();
         if (PLACED_SMALL_PARTS_BE != null) ModBlockEntities.PLACED_SMALL_PARTS_BE = PLACED_SMALL_PARTS_BE.get();
         if (CHESS_PIECES_BE != null) ModBlockEntities.CHESS_PIECES_BE = CHESS_PIECES_BE.get();
+        if (CRATE_BE != null) ModBlockEntities.CRATE_BE = CRATE_BE.get();
         if (HAMMOCK_BE != null) ModBlockEntities.HAMMOCK_BE = HAMMOCK_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
         ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();

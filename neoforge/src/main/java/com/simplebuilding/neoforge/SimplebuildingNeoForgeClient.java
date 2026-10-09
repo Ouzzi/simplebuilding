@@ -135,6 +135,8 @@ public final class SimplebuildingNeoForgeClient {
                 NeoForgeModRegistries.PLACED_SMALL_PARTS_BE.get(), com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
         if (NeoForgeModRegistries.CHESS_PIECES_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.CHESS_PIECES_BE.get(), com.simplebuilding.client.render.ChessPiecesRenderer::new);
+        if (NeoForgeModRegistries.CRATE_BE != null) event.registerBlockEntityRenderer(
+                NeoForgeModRegistries.CRATE_BE.get(), com.simplebuilding.woodwork.client.CrateRenderer::new);
         if (NeoForgeModRegistries.HAMMOCK_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.HAMMOCK_BE.get(), com.simplebuilding.client.render.HammockRenderer::new);
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) event.registerBlockEntityRenderer(
@@ -244,6 +246,8 @@ public final class SimplebuildingNeoForgeClient {
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.PLACED_BUNDLE);
+        if (!com.simplebuilding.blocks.ModBlocks.WOOD_FAMILIES.isEmpty()) event.register(
+                java.util.List.of(com.simplebuilding.woodwork.client.WoodenCauldronTint.INSTANCE), com.simplebuilding.woodwork.WoodBlocks.cauldrons());
     }
 
     public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {

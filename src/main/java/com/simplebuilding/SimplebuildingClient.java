@@ -87,6 +87,9 @@ public class SimplebuildingClient implements ClientModInitializer {
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_SMALL_PARTS_BE, com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
         if (com.simplebuilding.blocks.entity.ModBlockEntities.CHESS_PIECES_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.CHESS_PIECES_BE, com.simplebuilding.client.render.ChessPiecesRenderer::new);
+        // Kisten (Holzwerk): die oberen Lagen zeigen die eingelagerten Items.
+        if (com.simplebuilding.blocks.entity.ModBlockEntities.CRATE_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                com.simplebuilding.blocks.entity.ModBlockEntities.CRATE_BE, com.simplebuilding.woodwork.client.CrateRenderer::new);
         // Haengematte: das Kopfteil zeichnet die ganze Matte entlang der Ankerlinie (jeder Winkel).
         if (com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE, com.simplebuilding.client.render.HammockRenderer::new);
@@ -110,6 +113,8 @@ public class SimplebuildingClient implements ClientModInitializer {
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.PLACED_BUNDLE);
+        if (!com.simplebuilding.blocks.ModBlocks.WOOD_FAMILIES.isEmpty()) net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
+                java.util.List.of(com.simplebuilding.woodwork.client.WoodenCauldronTint.INSTANCE), com.simplebuilding.woodwork.WoodBlocks.cauldrons());
         LivingEntityRenderLayerRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
                 helper.register(new com.simplebuilding.client.render.BackpackLayer(avatar));

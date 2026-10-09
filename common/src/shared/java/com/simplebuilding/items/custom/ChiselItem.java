@@ -301,6 +301,12 @@ public class ChiselItem extends Item {
         registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ENDER_QUARTZ_SLAB, ModBlocks.ENDER_QUARTZ_BRICK_SLAB, ModBlocks.ENDER_QUARTZ_SLAB);
         registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ENDER_QUARTZ_WALL, ModBlocks.ENDER_QUARTZ_BRICK_WALL);
 
+        // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): der Meissel hoehlt Staemme aus (Steinstufe).
+        for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
+            registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP, family.wood().logBlock(), family.hollow());
+            registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP, family.wood().strippedBlock(), family.hollowStripped());
+        }
+
         // =================================================================================
         // MERGING
         // =================================================================================
@@ -451,6 +457,14 @@ public class ChiselItem extends Item {
         if (!com.simplebuilding.util.TransformTargets.mayTransform(context.getLevel(), player, context.getClickedPos(),
                 context.getClickedFace(), context.getItemInHand())) {
             return InteractionResult.PASS;
+        }
+
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            // Toepferscherbe in der Nebenhand: Motiv in entrindetes Holz schnitzen (PotteryCarving).
+            InteractionResult carved = com.simplebuilding.woodwork.PotteryCarving.useOn(this, context);
+            if (carved != null) {
+                return carved;
+            }
         }
 
         if (context.getLevel().isClientSide()) {

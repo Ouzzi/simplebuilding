@@ -199,6 +199,12 @@ public class ModItems {
             com.simplebuilding.chess.ChessItems.register(ModItems::registerItem);
         }
     }
+    // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): je Holzart Roehren, Platten, Kessel, Kiste, Schnitzholz.
+    static {
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            com.simplebuilding.woodwork.WoodBlocks.registerItems(ModItems::registerItem);
+        }
+    }
 
     // Astralit-/Nihilith-Bausatz (siehe ModBlocks)
     public static final Item ASTRALIT_BRICKS = registerItem("astralit_bricks", s -> new BlockItem(ModBlocks.ASTRALIT_BRICKS, s));
