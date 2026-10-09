@@ -510,8 +510,8 @@ public final class EndSystemsTests {
         var first = openNihil(helper, new BlockPos(1, 1, 1));
         var second = openNihil(helper, new BlockPos(4, 1, 1));
         try {
-            helper.assertTrue(first.containerMenu instanceof ChestMenu a && a.getRowCount() == 3 && a.slots.size() == 63, "first vault did not open a three-row menu");
-            helper.assertTrue(second.containerMenu instanceof ChestMenu b && b.getRowCount() == 3, "second vault did not open a three-row menu");
+            helper.assertTrue(first.containerMenu instanceof ChestMenu a && a.getRowCount() == 6 && a.slots.size() == 90, "first vault did not open a six-row menu (owner N16)");
+            helper.assertTrue(second.containerMenu instanceof ChestMenu b && b.getRowCount() == 6, "second vault did not open a six-row menu");
             var chestA = (EnderChestBlockEntity) world.getBlockEntity(helper.absolutePos(new BlockPos(1, 1, 1)));
             helper.assertTrue(first.getEnderChestInventory().isActiveChest(chestA), "vanilla lid opener is not bound");
             first.containerMenu.getSlot(slot).set(new ItemStack(Items.DIAMOND, 7));

@@ -120,6 +120,8 @@ public final class SimplebuildingForgeClient {
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
         event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_CHEST_BE.get(),
                 com.simplebuilding.client.render.TieredChestRenderer::new);
+        if (com.simplebuilding.forge.ForgeModRegistries.TRAPPED_COPPER_CHEST_BE != null) event.registerBlockEntityRenderer(
+                com.simplebuilding.forge.ForgeModRegistries.TRAPPED_COPPER_CHEST_BE.get(), com.simplebuilding.client.render.TrappedCopperChestRenderer::new);
         event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_SHULKER_BOX_BE.get(),
                 com.simplebuilding.client.render.TieredShulkerBoxRenderer::new);
     }

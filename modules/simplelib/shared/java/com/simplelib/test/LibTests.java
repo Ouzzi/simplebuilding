@@ -61,6 +61,8 @@ public final class LibTests {
         ALL.put("reinforced_cauldron_inherits_vanilla", LibTests::reinforcedCauldronInheritsVanilla);
         ALL.put("axe_upgrades_barrel_to_netherite", LibTests::axeUpgradesBarrelToNetherite);
         ALL.put("crucible_burn_damage_follows_config", LibTests::crucibleBurnDamageFollowsConfig);
+        ALL.put("loose_barrel_menu_keeps_the_raised_limit", LibTests::looseBarrelMenu);
+        ALL.put("hoppers_fill_raised_slots", LibTests::hoppersFillRaisedSlots);
     }
 
     // ------------------------------------------------------------ helpers
@@ -411,6 +413,63 @@ public final class LibTests {
                 "crucible gone: a normal barrel again");
         check(h, barrel.getItem(0).is(Items.GOLD_INGOT), "contents stay in the barrel");
         check(h, barrel.getItem(20).is(Items.APPLE) && barrel.getItem(20).getCount() == 3, "the hidden slot 21 is back with its apples");
+        h.succeed();
+    }
+
+    /**
+     * Owner N15: a loose barrel opens a chest menu whose slots keep the barrel's limit on both sides - the Enderite
+     * mirror takes 128, a shift-click of two full stacks fills one slot, picking up gives a normal stack, and a
+     * copper barrel stays at 64.
+     */
+    private static void looseBarrelMenu(GameTestHelper h) {
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        ItemStack cobble = new ItemStack(Items.COBBLESTONE);
+        var tier = com.simplelib.crucible.BarrelTier.ENDERITE;
+        var client = com.simplelib.crucible.BarrelMenu.client(tier, 0, player.getInventory());
+        check(h, client.slots.get(0).getMaxStackSize(cobble) == 128 && client.getRowCount() == 6,
+                "enderite barrel on the client: 6 rows of 128, got " + client.getRowCount() + " rows of " + client.slots.get(0).getMaxStackSize(cobble));
+        var barrel = com.simplelib.api.StackLimits.mirror(tier.slots(), tier::stackMultiplier);
+        var menu = new com.simplelib.crucible.BarrelMenu(tier, 0, player.getInventory(), barrel);
+        player.getInventory().setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+        player.getInventory().setItem(1, new ItemStack(Items.COBBLESTONE, 64));
+        int hotbar = tier.slots() + 27;
+        menu.quickMoveStack(player, hotbar);
+        menu.quickMoveStack(player, hotbar + 1);
+        check(h, barrel.getItem(0).getCount() == 128 && barrel.getItem(1).isEmpty(),
+                "shift-click fills one enderite slot to 128, got " + barrel.getItem(0).getCount() + "+" + barrel.getItem(1).getCount());
+        var taken = menu.slots.get(0).tryRemove(128, Integer.MAX_VALUE, player);
+        check(h, taken.isPresent() && taken.get().getCount() == 64 && barrel.getItem(0).getCount() == 64,
+                "picking up takes one normal stack, got " + taken.map(ItemStack::getCount).orElse(0));
+        BlockPos rel = new BlockPos(1, 2, 1);
+        h.setBlock(rel, LibBlocks.COPPER_BARREL);
+        var copper = (com.simplelib.crucible.CrucibleBarrelBlockEntity) h.getLevel().getBlockEntity(h.absolutePos(rel));
+        var copperMenu = new com.simplelib.crucible.BarrelMenu(copper.tier(), 0, player.getInventory(), copper);
+        check(h, copperMenu.slots.get(0).getMaxStackSize(cobble) == 64 && copperMenu.getRowCount() == 3,
+                "copper barrel: 3 rows of 64, got " + copperMenu.getRowCount() + " rows of " + copperMenu.slots.get(0).getMaxStackSize(cobble));
+        h.succeed();
+    }
+
+    /**
+     * Owner N15: hoppers top raised slots up to their container's limit - alone and as a double chest - while a
+     * Vanilla chest keeps Vanilla's 64.
+     */
+    private static void hoppersFillRaisedSlots(GameTestHelper h) {
+        var raised = com.simplelib.api.StackLimits.mirror(9, () -> 2);
+        raised.setItem(0, new ItemStack(Items.COBBLESTONE, 127));
+        ItemStack rest = net.minecraft.world.level.block.entity.HopperBlockEntity.addItem(null, raised, new ItemStack(Items.COBBLESTONE, 2), Direction.UP);
+        check(h, raised.getItem(0).getCount() == 128 && raised.getItem(1).getCount() == 1 && rest.isEmpty(),
+                "a x2 slot at 127 plus 2: " + raised.getItem(0).getCount() + "+" + raised.getItem(1).getCount() + " rest " + rest.getCount());
+        var first = com.simplelib.api.StackLimits.mirror(1, () -> 2);
+        var second = com.simplelib.api.StackLimits.mirror(1, () -> 2);
+        first.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+        second.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+        var both = new net.minecraft.world.CompoundContainer(first, second);
+        rest = net.minecraft.world.level.block.entity.HopperBlockEntity.addItem(null, both, new ItemStack(Items.COBBLESTONE, 1), Direction.UP);
+        check(h, rest.isEmpty() && first.getItem(0).getCount() == 65, "a double x2 container of 64s is not full, got " + first.getItem(0).getCount());
+        var vanilla = new net.minecraft.world.SimpleContainer(1);
+        vanilla.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+        rest = net.minecraft.world.level.block.entity.HopperBlockEntity.addItem(null, vanilla, new ItemStack(Items.COBBLESTONE, 1), Direction.UP);
+        check(h, rest.getCount() == 1 && vanilla.getItem(0).getCount() == 64, "a Vanilla container stays at 64");
         h.succeed();
     }
 

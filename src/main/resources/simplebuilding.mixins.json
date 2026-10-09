@@ -76,6 +76,8 @@
     "ChestBlockMixin",
     "ShulkerBoxBlockMixin",
     "EnchantingTableBlockMixin",
+    "ShulkerOpenStateMixin",
+    "ShulkerOpenComponentsMixin",
     "CompoundContainerAccessor",
     "DisplayStrikeAccessor",
     "ItemDisplayStrikeAccessor",

@@ -84,6 +84,60 @@ public final class TieredShulkerBoxTests {
     // =====================================================================================
 
     /**
+     * Shulker state (owner N17): a shulker shell opens a closed placed box for good (lid up after ten ticks, no menu),
+     * a right-click closes it again without a menu, and the next right-click works as in Vanilla.
+     */
+    public static void shulkerShellOpensTheBoxAndRightClickClosesIt(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(1, 2, 1);
+        helper.setBlock(pos, net.minecraft.world.level.block.Blocks.SHULKER_BOX);
+        var box = (net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(pos));
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
+        BlockPos abs = helper.absolutePos(pos);
+        var hit = new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(abs), Direction.UP, abs, false);
+        ItemStack shell = new ItemStack(Items.SHULKER_SHELL);
+        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, shell);
+        var used = helper.getBlockState(pos).useItemOn(shell, helper.getLevel(), player, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+        helper.assertTrue(used.consumesAction() && com.simplebuilding.util.ShulkerLids.keptOpen(box), "the shell opens the box for good, got " + used);
+        helper.assertTrue(shell.getCount() == 1, "the shell is not used up");
+        tickBox(helper, pos, box, 12);
+        helper.assertTrue(box.getAnimationStatus() == net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.AnimationStatus.OPENED,
+                "the lid stands open, got " + box.getAnimationStatus());
+        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        var closed = helper.getBlockState(pos).useWithoutItem(helper.getLevel(), player, hit);
+        helper.assertTrue(closed.consumesAction() && !com.simplebuilding.util.ShulkerLids.keptOpen(box)
+                && player.containerMenu == player.inventoryMenu, "a right-click closes the open box without a menu");
+        tickBox(helper, pos, box, 12);
+        helper.assertTrue(box.getAnimationStatus() == net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.AnimationStatus.CLOSED,
+                "the lid is down again, got " + box.getAnimationStatus());
+        helper.succeed();
+    }
+
+    /** Shulker state: an open box drops as an open item (own item model) and is placed open again. */
+    public static void anOpenShulkerBoxKeepsItsStateAsAnItem(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(1, 2, 1);
+        helper.setBlock(pos, net.minecraft.world.level.block.Blocks.SHULKER_BOX);
+        var box = (net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(pos));
+        ((com.simplebuilding.util.ShulkerLids.Kept) box).simplebuilding$setKeptOpen(true);
+        List<ItemStack> drops = net.minecraft.world.level.block.Block.getDrops(helper.getBlockState(pos), helper.getLevel(), helper.absolutePos(pos), box);
+        helper.assertTrue(drops.size() == 1 && com.simplebuilding.util.ShulkerLids.keptOpen(drops.get(0)), "the open box drops open, got " + drops);
+        helper.setBlock(pos.east(), net.minecraft.world.level.block.Blocks.SHULKER_BOX);
+        var placed = (net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(pos.east()));
+        placed.applyComponentsFromItemStack(drops.get(0));
+        helper.assertTrue(com.simplebuilding.util.ShulkerLids.keptOpen(placed), "placed from the open item, the box stands open");
+        ((com.simplebuilding.util.ShulkerLids.Kept) box).simplebuilding$setKeptOpen(false);
+        drops = net.minecraft.world.level.block.Block.getDrops(helper.getBlockState(pos), helper.getLevel(), helper.absolutePos(pos), box);
+        helper.assertTrue(!com.simplebuilding.util.ShulkerLids.keptOpen(drops.get(0)), "a closed box drops closed");
+        helper.succeed();
+    }
+
+    private static void tickBox(GameTestHelper helper, BlockPos pos, net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity box, int ticks) {
+        for (int i = 0; i < ticks; i++) {
+            net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.tick(helper.getLevel(), helper.absolutePos(pos), helper.getBlockState(pos), box);
+        }
+    }
+
+    /**
      * A red vanilla shulker box with a name and items in its first and last slot climbs to
      * reinforced (stone hammer, cracked diamonds), netherite (diamond hammer, netherite nuggets) and
      * enderite (netherite hammer, enderite nuggets). Every step: one nugget short and the hammer does

@@ -104,6 +104,7 @@
     "simplebuilding:enderman_head",
     "simplebuilding:enderman_wall_head",
     "simplebuilding:exposed_copper_pressure_plate",
+    "simplebuilding:exposed_trapped_copper_chest",
     "simplebuilding:fine_elytra_pad",
     "simplebuilding:flypad",
     "simplebuilding:frosted_nihilith",
@@ -177,6 +178,7 @@
     "simplebuilding:orange_hammock",
     "simplebuilding:oxidized_copper_pressure_plate",
     "simplebuilding:pale_oak_octet",
+    "simplebuilding:oxidized_trapped_copper_chest",
     "simplebuilding:pink_hammock",
     "simplebuilding:placed_blueprint",
     "simplebuilding:placed_bundle",
@@ -258,6 +260,7 @@
     "simplebuilding:stray_wall_skull",
     "simplebuilding:suspended_gravel",
     "simplebuilding:suspended_sand",
+    "simplebuilding:trapped_copper_chest",
     "simplebuilding:veined_astralit",
     "simplebuilding:veined_nihilith",
     "simplebuilding:warped_octet",
@@ -265,9 +268,14 @@
     "simplebuilding:warped_blazewood_planks",
     "simplebuilding:waxed_copper_pressure_plate",
     "simplebuilding:waxed_exposed_copper_pressure_plate",
+    "simplebuilding:waxed_exposed_trapped_copper_chest",
     "simplebuilding:waxed_oxidized_copper_pressure_plate",
+    "simplebuilding:waxed_oxidized_trapped_copper_chest",
+    "simplebuilding:waxed_trapped_copper_chest",
     "simplebuilding:waxed_weathered_copper_pressure_plate",
+    "simplebuilding:waxed_weathered_trapped_copper_chest",
     "simplebuilding:weathered_copper_pressure_plate",
+    "simplebuilding:weathered_trapped_copper_chest",
     "simplebuilding:white_hammock",
     "simplebuilding:yellow_hammock"
   ],
@@ -375,7 +383,8 @@
       "id": "simplebuilding:astralit_lamp"
     },
     {
-      "id": "simplebuilding:astralit_octet"
+      "id": "simplebuilding:astralit_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:astralit_ore"
@@ -470,7 +479,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:blackstone_octet"
+      "id": "simplebuilding:blackstone_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:blackstone_quartz_checker"
@@ -847,7 +857,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:ender_quartz_octet"
+      "id": "simplebuilding:ender_quartz_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:ender_quartz_pillar"
@@ -1099,6 +1110,9 @@
       "id": "simplebuilding:exposed_copper_pressure_plate"
     },
     {
+      "id": "simplebuilding:exposed_trapped_copper_chest"
+    },
+    {
       "id": "simplebuilding:fine_elytra_pad",
       "maxStackSize": 1
     },
@@ -1285,7 +1299,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:lapis_octet"
+      "id": "simplebuilding:lapis_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:lapis_quartz_checker"
@@ -1432,7 +1447,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:nether_brick_octet"
+      "id": "simplebuilding:nether_brick_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:nether_brick_quartz_checker"
@@ -1643,7 +1659,8 @@
       "id": "simplebuilding:nihilith_lamp"
     },
     {
-      "id": "simplebuilding:nihilith_octet"
+      "id": "simplebuilding:nihilith_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:nihilith_ore"
@@ -1785,6 +1802,9 @@
       "id": "simplebuilding:oxidized_copper_pressure_plate"
     },
     {
+      "id": "simplebuilding:oxidized_trapped_copper_chest"
+    },
+    {
       "id": "simplebuilding:paint_box",
       "maxStackSize": 1
     },
@@ -1856,7 +1876,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:polished_astralit_octet"
+      "id": "simplebuilding:polished_astralit_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:polished_astralit_slab"
@@ -1931,7 +1952,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:polished_ender_quartz_octet"
+      "id": "simplebuilding:polished_ender_quartz_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:polished_ender_quartz_slab"
@@ -2003,7 +2025,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:polished_nihilith_octet"
+      "id": "simplebuilding:polished_nihilith_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:polished_nihilith_slab"
@@ -2077,7 +2100,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:purpur_octet"
+      "id": "simplebuilding:purpur_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:purpur_quartz_checker"
@@ -2137,7 +2161,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:quartz_octet"
+      "id": "simplebuilding:quartz_octet",
+      "maxStackSize": 99
     },
     {
       "bundleCapacityItems": 64,
@@ -2204,7 +2229,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:red_nether_brick_octet"
+      "id": "simplebuilding:red_nether_brick_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:red_nether_brick_quartz_checker"
@@ -2325,7 +2351,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:resin_octet"
+      "id": "simplebuilding:resin_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:resin_quartz_checker"
@@ -2453,6 +2480,9 @@
       "maxStackSize": 16
     },
     {
+      "id": "simplebuilding:trapped_copper_chest"
+    },
+    {
       "id": "simplebuilding:veined_astralit"
     },
     {
@@ -2479,13 +2509,28 @@
       "id": "simplebuilding:waxed_exposed_copper_pressure_plate"
     },
     {
+      "id": "simplebuilding:waxed_exposed_trapped_copper_chest"
+    },
+    {
       "id": "simplebuilding:waxed_oxidized_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest"
+    },
+    {
+      "id": "simplebuilding:waxed_trapped_copper_chest"
     },
     {
       "id": "simplebuilding:waxed_weathered_copper_pressure_plate"
     },
     {
+      "id": "simplebuilding:waxed_weathered_trapped_copper_chest"
+    },
+    {
       "id": "simplebuilding:weathered_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:weathered_trapped_copper_chest"
     },
     {
       "id": "simplebuilding:white_hammock",

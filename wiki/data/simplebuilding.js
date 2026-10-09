@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 536,
+      "count": 545,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -1178,7 +1178,15 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_nugget",
         "simplebuilding:reinforced_trapped_chest",
         "simplebuilding:netherite_trapped_chest",
-        "simplebuilding:enderite_trapped_chest"
+        "simplebuilding:enderite_trapped_chest",
+        "simplebuilding:trapped_copper_chest",
+        "simplebuilding:exposed_trapped_copper_chest",
+        "simplebuilding:weathered_trapped_copper_chest",
+        "simplebuilding:oxidized_trapped_copper_chest",
+        "simplebuilding:waxed_trapped_copper_chest",
+        "simplebuilding:waxed_exposed_trapped_copper_chest",
+        "simplebuilding:waxed_weathered_trapped_copper_chest",
+        "simplebuilding:waxed_oxidized_trapped_copper_chest"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
@@ -1197,7 +1205,9 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
         "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java",
-        "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java"
+        "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
+        "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TrappedCopperChestBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TrappedCopperChestBlockEntity.java"
       ],
       "en": {
         "title": "Chest tiers",
@@ -1209,7 +1219,8 @@ window.WIKI_DATA = {
           "The menus show everything at once: 9x4, 9x5 and 9x6 for single chests, 12x6, 15x6 and 18x6 for double chests - all within GUI scale 4 at 1080p. Oversized slots are tinted; a trapped chest's menu carries the same title as the normal chest of its tier.",
           "Automation: vanilla hoppers, hopper minecarts and the mod's hoppers fill the oversized slots to their limit; comparators count against it. On NeoForge pipes see the chest (a double chest as one inventory) with the same limits through the item capability. On Forge (compile-only port) automation goes through Forge's own item handler and fills oversized slots only up to a normal stack.",
           "Rendering: the chests use vanilla's chest model and renderer path with their own textures (no extra per-tick work). Chest optimisation mods that replace the vanilla chest renderer with a static model only affect vanilla chests; the tier chests keep drawing themselves and nothing breaks.",
-          "26.3 adds a trapped variant of every tier: matching chest + tripwire hook, viewer signal 0–15, same storage and hammer upgrades. Only matching trapped tiers connect."
+          "26.3 adds a trapped variant of every tier: matching chest + tripwire hook, viewer signal 0–15, same storage and hammer upgrades. Only matching trapped tiers connect.",
+          "26.3 also adds the trapped copper chest: a copper chest of any stage (waxed too) + tripwire hook. It signals its viewer count like the Vanilla trapped chest, ages through the four copper stages like the copper chest (a pair takes the less oxidized stage), and a plain right-click with honeycomb waxes it or with an axe scrapes wax or one stage off. It pairs only with other trapped copper chests; a hint below the latch marks it."
         ]
       },
       "de": {
@@ -1222,7 +1233,8 @@ window.WIKI_DATA = {
           "Die Menüs zeigen alles auf einmal: 9x4, 9x5 und 9x6 für einzelne Truhen, 12x6, 15x6 und 18x6 für Doppeltruhen - alles innerhalb GUI-Skala 4 bei 1080p. Übergroße Plätze sind getönt; eine Fallentruhe trägt im Menü denselben Titel wie die normale Truhe ihrer Stufe.",
           "Automatisierung: Vanilla-Trichter, Trichterloren und die Mod-Trichter füllen die übergroßen Plätze bis zur Grenze; Komparatoren zählen dagegen. Auf NeoForge sehen Rohre die Truhe (eine Doppeltruhe als ein Lager) über die Item-Capability mit denselben Grenzen. Auf Forge (nur Kompilier-Portierung) läuft Automatisierung über Forges eigenen Item-Handler und füllt übergroße Plätze nur bis zu einem normalen Stapel.",
           "Darstellung: die Truhen nutzen Vanillas Truhenmodell und Renderer-Weg mit eigenen Texturen (keine zusätzliche Arbeit je Tick). Truhen-Optimierer, die Vanillas Truhen-Renderer durch ein statisches Modell ersetzen, betreffen nur Vanilla-Truhen; die Stufen-Truhen zeichnen sich weiter selbst, nichts bricht.",
-          "26.3 ergänzt eine Redstone-Variante jeder Stufe: passende Truhe + Haken, Betrachtersignal 0–15, gleicher Stauraum und gleiche Hammer-Aufwertungen. Nur passende Redstone-Stufen verbinden sich."
+          "26.3 ergänzt eine Redstone-Variante jeder Stufe: passende Truhe + Haken, Betrachtersignal 0–15, gleicher Stauraum und gleiche Hammer-Aufwertungen. Nur passende Redstone-Stufen verbinden sich.",
+          "26.3 bringt dazu die Redstone-Kupfertruhe: Kupfertruhe jeder Stufe (auch gewachst) + Haken. Sie gibt wie die Vanilla-Redstone-Truhe die Zahl der Betrachter als Signal, oxidiert wie die Kupfertruhe in vier Stufen (ein Paar nimmt die weniger oxidierte Stufe), und ein einfacher Rechtsklick mit Honigwabe wachst sie bzw. mit einer Axt kratzt er Wachs oder eine Stufe ab. Sie verbindet sich nur mit anderen Redstone-Kupfertruhen; ein Haken unter dem Schloss verrät sie."
         ]
       }
     },
@@ -3417,7 +3429,9 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "src/main/resources/assets/minecraft/atlases/shulker_boxes.json",
         "tools/textures/tiered_shulker_box_textures.py",
-        "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java"
+        "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java",
+        "common/src/shared/java/com/simplebuilding/util/ShulkerLids.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ShulkerOpenStateMixin.java"
       ],
       "en": {
         "title": "Shulker box tiers",
@@ -3428,7 +3442,8 @@ window.WIKI_DATA = {
           "Colors: one texture per tier, dyed by the game in all 16 colors (the shell takes the color, the metal plating stays). Dye with any dye in the crafting grid, undye in a water cauldron.",
           "The item keeps every slot, also oversized stacks; it never goes into another shulker box, a bundle or a backpack. When the item burns, the real counts spill out.",
           "Automation: hoppers fill oversized slots to their limit and never insert a shulker box; comparators count against the limit; dispensers place the boxes. On NeoForge pipes see the box through the item capability (sided, like vanilla's shulker box).",
-          "The menu is the tier chest menu (9x4, 9x5, 9x6) with tinted oversized slots."
+          "The menu is the tier chest menu (9x4, 9x5, 9x6) with tinted oversized slots.",
+          "Open shulker boxes: right-click a closed placed Vanilla shulker box with a shulker shell (not used up) and its lid stays up. A right-click on an open box closes it without opening the menu; the next right-click opens the menu as usual. Broken, an open box drops as an open item with its own open model and is placed open again."
         ]
       },
       "de": {
@@ -3440,7 +3455,8 @@ window.WIKI_DATA = {
           "Farben: eine Textur je Stufe, vom Spiel in allen 16 Farben eingefärbt (die Schale nimmt die Farbe an, der Metallbeschlag bleibt). Färben mit einem beliebigen Farbstoff in der Werkbank, entfärben im Wasserkessel.",
           "Das Item behält jeden Platz, auch übergroße Stapel; es passt nie in eine andere Shulkerkiste, ein Bündel oder einen Rucksack. Verbrennt das Item, fallen die echten Anzahlen heraus.",
           "Automatisierung: Trichter füllen übergroße Plätze bis zur Grenze und legen nie eine Shulkerkiste hinein; Komparatoren messen gegen die Grenze; Werfer stellen die Kisten auf. Auf NeoForge sehen Rohre die Kiste über die Item-Capability (seitenweise wie Vanillas Shulkerkiste).",
-          "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt."
+          "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt.",
+          "Offene Shulkerkisten: Rechtsklick mit einer Shulkerschale (wird nicht verbraucht) auf eine geschlossene platzierte Vanilla-Shulkerkiste, und ihr Deckel bleibt oben. Ein Rechtsklick auf eine offene Kiste schließt sie, ohne das Menü zu öffnen; der nächste Rechtsklick öffnet das Menü wie gewohnt. Abgebaut fällt eine offene Kiste als offenes Item mit eigenem offenen Modell heraus und wird wieder offen platziert."
         ]
       }
     },
@@ -3580,9 +3596,9 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Nihil Vault",
-        "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+        "summary": "One 54-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
         "details": [
-          "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+          "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a six-row menu, as large as a double chest and the Astral Vault; contents from the earlier 27-slot vault stay in the first three rows.",
           "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
           "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
           "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
@@ -3590,9 +3606,9 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Nihil-Gewölbe",
-        "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+        "summary": "Ein 54-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
         "details": [
-          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Menue mit sechs Reihen, so gross wie eine Doppeltruhe und das Astral-Gewoelbe; Inhalt aus dem frueheren 27-Platz-Gewoelbe bleibt in den ersten drei Reihen.",
           "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
           "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
           "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
@@ -3722,7 +3738,7 @@ window.WIKI_DATA = {
         "summary": "SimpleBuilding's part of the SimpleLib crucibles: the Enderite tier, sledgehammer ways, soul lava as extreme heat, copper and Enderite buckets.",
         "details": [
           "Enderite crucible (27 slots, double stacks, 8x) and Enderite barrel. The sledgehammer replaces SimpleLib's axe ways: building the iron crucible on an iron block (4 heavy weighted pressure plates, then 2 iron rods or iron ingots; 2 durability per strike), attaching a barrel (6 strikes) and upgrading at twice the cost of a furnace (2 material, twice the strikes): Iron to Reinforced with cracked diamonds, to Netherite with netherite nuggets (diamond hammer), to Enderite with Enderite nuggets (Netherite hammer); copper to reinforced to netherite (netherite nuggets) to Enderite barrel. A cauldron becomes a reinforced cauldron with 8 cracked diamonds.",
-          "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for two minutes: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts; on cold ground (water, ice or snow under the feet) the roll comes every 1.5 seconds instead. While it lasts, a faint dark-blue filter lies over the screen (besides the vanilla effect icon). It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
+          "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for two minutes: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts; on cold ground (water, ice or snow under the feet) the roll comes every 1.5 seconds instead. It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
           "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks; it holds two buckets of one fluid: use only scoops while there is room, a full one pours one bucket on use, and sneak + use pours one bucket at any fill (the tooltip shows 1/2 or 2/2). The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes one stage per pour unless waxed (axe in the off hand scrapes, honeycomb waxes), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace or crucible) takes water and lava, wears one stage per pour, and breaks after four pours; scooping does not wear it. By default, a soul lava bucket burns 10 times as long as a lava bucket.",
           "The sledgehammer crushes a quartz block into 4 quartz, one per strike (4 strikes).",
           "Server config server.soulLava controls flow, delays, burn and soul burn, world generation chances and bucket fuel within hard limits. Fuel changes require a restart and matching client/server files. Jade shows heat, occupied slots and the shortest remaining time of a running slot, including tier speed and the two-block heat penalty. JEI shows the fastest cooking recipe per input and required heat, plus warming for tagged food without a cooking recipe; displayed time assumes an iron crucible at minimum heat without a distance penalty."
@@ -3733,7 +3749,7 @@ window.WIKI_DATA = {
         "summary": "SimpleBuildings Teil der SimpleLib-Schmelztiegel: Enderit-Stufe, Vorschlaghammer-Wege, Seelen-Lava als extreme Hitze, Kupfer- und Enderit-Eimer.",
         "details": [
           "Enderit-Schmelztiegel (27 Plätze, doppelte Stapel, 8×) und Enderit-Fass. Der Vorschlaghammer ersetzt SimpleLibs Axt-Wege: Bau des Eisen-Schmelztiegels auf einem Eisenblock (4 schwere Wägeplatten, dann 2 Eisenstäbe oder Eisenbarren; 2 Haltbarkeit je Schlag), Fass anbringen (6 Schläge) und Aufwerten zum doppelten Preis eines Ofens (2 Material, doppelte Schläge): Eisen zu Verstärkt mit Rissigen Diamanten, zu Netherit mit Netheritklumpen (Diamant-Hammer), zu Enderit mit Enderitklumpen (Netherit-Hammer); Kupfer- zu Verstärktem zu Netherit- (Netheritklumpen) zu Enderit-Fass. Ein Kessel wird mit 8 Rissigen Diamanten zum verstärkten Kessel.",
-          "Seelen-Lava mit Standardwerten: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt zwei Minuten Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt; auf kaltem Grund (Wasser, Eis oder Schnee unter den Füßen) kommt der Wurf alle 1,5 Sekunden. Solange er wirkt, liegt ein leichter dunkelblauer Filter über dem Bild (zusätzlich zum Vanilla-Effektsymbol). Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
+          "Seelen-Lava mit Standardwerten: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt zwei Minuten Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt; auf kaltem Grund (Wasser, Eis oder Schnee unter den Füßen) kommt der Wurf alle 1,5 Sekunden. Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
           "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie; er fasst zwei Eimer derselben Flüssigkeit: Benutzen schöpft nur, solange Platz ist, ein voller gießt beim Benutzen einen Eimer aus, und Schleichen + Benutzen gießt bei jedem Füllstand einen Eimer aus (der Tooltip zeigt 1/2 oder 2/2). Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert je Ausgießen um eine Stufe, außer er ist gewachst (Axt in der Nebenhand schabt, Honigwabe wachst), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen oder Schmelztiegel) nimmt Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier Ausgießvorgängen; Schöpfen nutzt ihn nicht ab. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer.",
           "Der Vorschlaghammer zerschlägt einen Quarzblock zu 4 Quarz, einem je Schlag (4 Schläge).",
           "Die Server-Config server.soulLava regelt Fließweite, Verzögerungen, Brand und Seelenbrand, Weltgenerierungschancen und Eimer-Brennstoff innerhalb harter Grenzen. Brennstoffänderungen brauchen einen Neustart und gleiche Client-/Server-Dateien. Jade zeigt Hitze, belegte Plätze und die kürzeste Restzeit eines laufenden Platzes einschließlich Stufentempo und Hitzeabschlag bei zwei Blöcken Abstand. JEI zeigt je Eingabe und nötiger Hitze das schnellste Kochrezept sowie Aufwärmen für markiertes Essen ohne Kochrezept; die angezeigte Zeit gilt für einen Eisen-Tiegel bei Mindesthitze ohne Abstandsabschlag."
@@ -3760,9 +3776,9 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Resonance Rod projects a light amethyst aiming dot while held in use. The rod tilts far forward (60 degrees) so the beam seems to leave its tip, and emits particles; the normal crosshair is hidden while aiming.",
+          "summary": "The Resonance Rod projects a red aiming dot while held in use. The rod tilts and emits particles; the normal crosshair is hidden while aiming.",
           "details": [
-            "Range, color and dot size come from the config section tweaks.laserPointer (default 512 blocks, light amethyst #B38EF3; a config file that still holds the former default red #FF0000 switches to amethyst on load, other picked colors stay). The dot keeps its size in the world (the config size, 0.05-1 block) and only grows far away so it stays about three pixels wide, instead of turning into a huge circle on a distant wall. Range and the on/off switch are the server's: the server sends them to the client and only passes a dot on while the player really uses the lens, at most 12 times a second.",
+            "Range, color and dot size come from the config section tweaks.laserPointer (default 512 blocks, red). The dot keeps its size in the world (the config size, 0.05-1 block) and only grows far away so it stays about three pixels wide, instead of turning into a huge circle on a distant wall. Range and the on/off switch are the server's: the server sends them to the client and only passes a dot on while the player really uses the lens, at most 12 times a second.",
             "Beam effects (server side, up to the lens range - capped at the server's view distance so the beam never loads chunks -, while the beam rests on the same block face; the times below apply up to 5 blocks away): ice and frosted ice melt into water after 2 s (they evaporate where water does, like in the Nether), packed ice becomes ice and blue ice packed ice; snow layers, snow blocks and powder snow melt away. Campfires, soul campfires, candles and candle cakes light after 1 s. Soul sand and soul soil get soul fire on top after 2 s. Flammable blocks (anything fire can catch: planks, logs, leaves, wool ...) catch fire on the beamed face after 3 s, but only where the fire_spread_radius_around_player game rule lets fire spread. Wet sponges dry after 5 s. TNT is primed after 3 s like with flint and steel (the player counts as the igniter; the tnt_explodes game rule is respected, fire spread and mob griefing are not involved). It never lights a nether portal (unlike flint and steel, no fire is placed into an empty portal frame). Smoke rises while the heat builds up; a sound and particles mark the result.",
             "Distance: the dwell time grows moderately with the distance from your eyes to the dot: base x (1 + 0.096 x max(0, d - 5)^0.773). Up to 5 blocks the base applies (3 s to ignite), at 10 blocks it is about 1 s more (4 s), at 200 blocks about 20 s; it keeps growing smoothly up to the lens range. More than range + 8 blocks away nothing happens.",
             "Creatures: players and mobs catch fire (4 s) when the beam rests on them, but it takes twice as long as a flammable block at the same distance (6 s up close). Not: fire-immune or invulnerable creatures, creatures in water or rain, players in creative or spectator mode, and other players only where PvP is allowed (pvp game rule, server setting, team friendly fire). Creatures are searched up to 64 blocks along the beam.",
@@ -3775,9 +3791,9 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Resonanzstab zeigt beim Benutzen einen hell-amethystfarbenen Zielpunkt. Er neigt sich weit nach vorn (60 Grad), sodass der Strahl aus der Spitze zu kommen scheint, und erzeugt Partikel; das Fadenkreuz wird beim Zielen ausgeblendet.",
+          "summary": "Der Resonanzstab zeigt beim Benutzen einen roten Zielpunkt. Er neigt sich und erzeugt Partikel; das Fadenkreuz wird beim Zielen ausgeblendet.",
           "details": [
-            "Reichweite, Farbe und Punktgröße stehen in der Config unter tweaks.laserPointer (Standard 512 Blöcke, helles Amethyst #B38EF3; eine Config-Datei mit dem früheren Standard Rot #FF0000 wechselt beim Laden auf Amethyst, andere gewählte Farben bleiben). Der Punkt behält seine Größe in der Welt (die Config-Größe, 0,05-1 Block) und wächst erst in der Ferne mit, damit er etwa drei Pixel breit sichtbar bleibt - statt auf einer fernen Wand zum riesigen Kreis zu werden. Reichweite und Schalter gelten vom Server: er schickt sie dem Client und gibt einen Punkt nur weiter, solange der Spieler die Linse wirklich benutzt, höchstens 12-mal pro Sekunde.",
+            "Reichweite, Farbe und Punktgröße stehen in der Config unter tweaks.laserPointer (Standard 512 Blöcke, rot). Der Punkt behält seine Größe in der Welt (die Config-Größe, 0,05-1 Block) und wächst erst in der Ferne mit, damit er etwa drei Pixel breit sichtbar bleibt - statt auf einer fernen Wand zum riesigen Kreis zu werden. Reichweite und Schalter gelten vom Server: er schickt sie dem Client und gibt einen Punkt nur weiter, solange der Spieler die Linse wirklich benutzt, höchstens 12-mal pro Sekunde.",
             "Strahlwirkungen (auf dem Server, bis zur Reichweite der Linse - höchstens bis zur Sichtweite des Servers, damit der Strahl keine Chunks lädt -, solange der Strahl auf derselben Blockseite ruht; die Zeiten gelten bis 5 Blöcke Abstand): Eis und Frosteis schmelzen nach 2 s zu Wasser (verdampfen, wo Wasser verdampft, wie im Nether), Packeis wird zu Eis, Blaueis zu Packeis; Schneeschichten, Schneeblöcke und Pulverschnee schmelzen weg. Lagerfeuer, Seelenlagerfeuer, Kerzen und Kerzenkuchen gehen nach 1 s an. Seelensand und Seelenerde bekommen nach 2 s oben Seelenfeuer. Brennbare Blöcke (alles, was Feuer fangen kann: Bretter, Stämme, Laub, Wolle ...) fangen nach 3 s auf der angestrahlten Seite Feuer - nur, wo die Spielregel fire_spread_radius_around_player Feuer sich ausbreiten lässt. Nasse Schwämme trocknen nach 5 s. TNT wird nach 3 s gezündet wie mit einem Feuerzeug (der Spieler gilt als Zünder; die Spielregel tnt_explodes gilt, Feuerausbreitung und Mob-Griefing spielen keine Rolle). Nie: ein Netherportal (anders als ein Feuerzeug setzt der Strahl kein Feuer in einen leeren Portalrahmen). Solange sich die Hitze aufbaut, steigt Rauch auf; ein Geräusch und Partikel zeigen das Ergebnis.",
             "Abstand: die Verweildauer wächst mäßig mit dem Abstand zwischen Auge und Punkt: Basis x (1 + 0,096 x max(0, d - 5)^0,773). Bis 5 Blöcke gilt die Basis (3 s zum Anzünden), bei 10 Blöcken etwa 1 s mehr (4 s), bei 200 Blöcken rund 20 s; darüber wächst sie stetig bis zur Reichweite. Mehr als Reichweite + 8 Blöcke entfernt passiert nichts.",
             "Lebewesen: Spieler und Mobs fangen Feuer (4 s), wenn der Strahl auf ihnen ruht, brauchen dafür aber doppelt so lange wie ein brennbarer Block im selben Abstand (aus der Nähe 6 s). Nicht: feuerfeste oder unverwundbare Wesen, Wesen im Wasser oder Regen, Spieler im Kreativ- oder Zuschauermodus, andere Spieler nur, wo PvP erlaubt ist (Spielregel pvp, Server-Einstellung, Team-Freundfeuer). Gesucht wird bis 64 Blöcke entlang des Strahls.",
@@ -4788,6 +4804,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/astralit_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -6038,6 +6057,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/blackstone_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -9891,6 +9913,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/ender_quartz_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -12330,6 +12355,23 @@ window.WIKI_DATA = {
       "properties": {
         "maxStackSize": 1
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:exposed_trapped_copper_chest",
+      "name": {
+        "en_us": "Exposed Trapped Copper Chest",
+        "de_de": "Angelaufene Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:exposed_trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/exposed_trapped_copper_chest.png",
       "hasCustomBehaviour": false
     },
     {
@@ -14976,6 +15018,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/lapis_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -15793,6 +15838,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:medium_armor_stand",
+      "name": {
+        "en_us": "Medium Armor Stand",
+        "de_de": "Mittlerer Rüstungsständer"
+      },
+      "texture": "assets/textures/item/medium_armor_stand.png",
+      "craftedBy": [
+        "simplebuilding:medium_armor_stand"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The lower half of an armor stand, for leggings and boots: two rows \"/ /\" and \"/_/\" (/ = stick, _ = smooth stone slab).",
+          "details": [
+            "Shows legs, a hip bar and the base plate (vanilla wood), 1 block tall. Takes only leggings and boots, by right-click like an armor stand, from a dispenser or by the armor swap; everything else stays in your hand. No arms.",
+            "Two quick hits break it (one in creative): the Medium Armor Stand and its armor drop. Pick block gives the Medium Armor Stand.",
+            "Armor swap (any armor stand, also straw stands, training dummies and the medium and small stands): sneak + right-click with an empty main hand, or any right-click while the stand is powered by redstone (like a powered shelf with the hotbar), swaps all its armor with your armor slots. Pieces with Curse of Binding stay on you (outside creative), pieces that do not fit your slot stay on the stand. Switch: server.features.armorStandSwap (default on)."
+          ]
+        },
+        "de": {
+          "summary": "Die untere Hälfte eines Rüstungsständers, für Hose und Stiefel: zwei Reihen \"/ /\" und \"/_/\" (/ = Stock, _ = glatte Steinstufe).",
+          "details": [
+            "Zeigt Beine, eine Hüftstange und die Bodenplatte (Vanilla-Holz), 1 Block hoch. Nimmt nur Hose und Stiefel, per Rechtsklick wie ein Rüstungsständer, aus dem Spender oder beim Rüstungstausch; alles andere bleibt in der Hand. Keine Arme.",
+            "Zwei schnelle Schläge bauen ihn ab (im Kreativmodus einer): der Mittlere Rüstungsständer und seine Rüstung fallen. Block auswählen gibt den Mittleren Rüstungsständer.",
+            "Rüstung tauschen (jeder Rüstungsständer, auch Stroh-Ständer, Trainingspuppen und die mittleren und kleinen Ständer): Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange der Ständer mit Redstone bestromt ist (wie ein bestromtes Regal mit der Hotbar), tauscht seine ganze Rüstung mit deinen Rüstungsslots. Teile mit Fluch der Bindung bleiben an dir (außer im Kreativmodus), Teile, die nicht in deinen Slot passen, bleiben am Ständer. Schalter: server.features.armorStandSwap (Standard an)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/dummy/PartialArmorStand.java",
+          "common/src/shared/java/com/simplebuilding/dummy/client/PartialArmorStandRenderer.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ArmorStandStandsMixin.java",
+          "common/src/shared/java/com/simplebuilding/dummy/ArmorStandSwap.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:music_disc_brimstone",
       "name": {
         "en_us": "Music Disc",
@@ -16553,6 +16640,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/nether_brick_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -18822,9 +18912,9 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Nihil Vault",
-          "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+          "summary": "One 54-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
           "details": [
-            "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+            "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a six-row menu, as large as a double chest and the Astral Vault; contents from the earlier 27-slot vault stay in the first three rows.",
             "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
             "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
             "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
@@ -18832,9 +18922,9 @@ window.WIKI_DATA = {
         },
         "de": {
           "title": "Nihil-Gewölbe",
-          "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+          "summary": "Ein 54-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
           "details": [
-            "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+            "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Menue mit sechs Reihen, so gross wie eine Doppeltruhe und das Astral-Gewoelbe; Inhalt aus dem frueheren 27-Platz-Gewoelbe bleibt in den ersten drei Reihen.",
             "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
             "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
             "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
@@ -19634,6 +19724,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/nihilith_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -20588,6 +20681,23 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:oxidized_trapped_copper_chest",
+      "name": {
+        "en_us": "Oxidized Trapped Copper Chest",
+        "de_de": "Oxidierte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:oxidized_trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/oxidized_trapped_copper_chest.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:paint_box",
       "name": {
         "en_us": "Paint Box",
@@ -21463,6 +21573,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/polished_astralit_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -22357,6 +22470,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/polished_ender_quartz_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -23206,6 +23322,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/polished_nihilith_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -24017,6 +24136,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/purpur_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -24806,6 +24928,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/quartz_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -25736,6 +25861,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/red_nether_brick_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -27836,6 +27964,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/resin_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -28251,35 +28382,26 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A wooden post with a cross bar on a smooth stone plate that shows exactly one item: one piece of armor or one horse, wolf or nautilus armor. Recipe: a column of stick, stick, smooth stone slab.",
+          "summary": "A base plate with two short pegs, for one pair of boots: one row \"/_/\" (/ = stick, _ = smooth stone slab).",
           "details": [
-            "One block tall, made like the reference pictures: a post with a cross bar (a T, vanilla armor stand wood) on a stone plate. A chestplate hangs with its shoulders on the cross bar, a helmet sits on top, leggings and boots stand on the plate.",
-            "Horse armor is shown in horse shape, wolf armor in wolf shape and nautilus armor in nautilus shape, sideways on the post (the post sits in the belly).",
-            "Right-click with a helmet, chestplate, leggings, boots or animal armor puts it on; with an empty hand you take it back. Holding a single other piece swaps it with the shown one. Everything else (weapons, elytra, heads, pumpkins, carpets, saddles, harnesses) stays in your hand. No arms.",
-            "A dispenser in front of an empty small stand puts a piece of armor or animal armor on it; a full stand takes nothing.",
-            "Armor swap (sneak + right-click with an empty main hand, or any right-click while powered by redstone) swaps only its one piece with the same slot on you; an empty stand takes the first piece you wear (chest, head, legs, feet). Curse of Binding stays on you (outside creative). Animal armor is not swapped.",
-            "Two quick hits break it (one in creative): the Small Armor Stand and its item drop. Pick block gives the Small Armor Stand.",
-            "The medium armor stand was removed: old medium stands in a world load as small stands, keep one piece (the leggings) and drop the other; old medium stand items become small stands."
+            "Half a block tall; the boots stand on the plate over the pegs. Takes only boots (right-click, dispenser, armor swap); everything else stays in your hand. No arms.",
+            "Two quick hits break it (one in creative): the Small Armor Stand and its boots drop. Pick block gives the Small Armor Stand.",
+            "Armor swap (any armor stand, also straw stands, training dummies and the medium and small stands): sneak + right-click with an empty main hand, or any right-click while the stand is powered by redstone (like a powered shelf with the hotbar), swaps all its armor with your armor slots. Pieces with Curse of Binding stay on you (outside creative), pieces that do not fit your slot stay on the stand. Switch: server.features.armorStandSwap (default on)."
           ]
         },
         "de": {
-          "summary": "Ein Holzpfosten mit Querholz auf einer glatten Steinplatte, der genau ein Item zeigt: ein Rüstungsteil oder eine Pferde-, Wolfs- oder Nautilus-Rüstung. Rezept: senkrecht Stock, Stock, glatte Steinstufe.",
+          "summary": "Eine Bodenplatte mit zwei kurzen Zapfen, für ein Paar Stiefel: eine Reihe \"/_/\" (/ = Stock, _ = glatte Steinstufe).",
           "details": [
-            "Einen Block hoch, wie auf den Referenzbildern: ein Pfosten mit Querholz (ein T, Holz des Vanilla-Rüstungsständers) auf einer Steinplatte. Ein Brustpanzer hängt mit den Schultern auf dem Querholz, ein Helm sitzt oben auf, Hose und Stiefel stehen auf der Platte.",
-            "Pferderüstung wird in Pferdeform gezeigt, Wolfsrüstung in Wolfsform, Nautilus-Rüstung in Nautilusform, seitlich auf dem Pfosten (der Pfosten steckt im Bauch).",
-            "Rechtsklick mit Helm, Brustpanzer, Hose, Stiefeln oder Tier-Rüstung legt sie auf; mit leerer Hand nimmst du sie wieder ab. Ein einzelnes anderes passendes Teil in der Hand wird mit dem gezeigten getauscht. Alles andere (Waffen, Elytren, Köpfe, Kürbisse, Teppiche, Sättel, Geschirre) bleibt in der Hand. Keine Arme.",
-            "Ein Spender vor einem leeren kleinen Ständer legt ein Rüstungsteil oder eine Tier-Rüstung auf; ein voller Ständer nimmt nichts.",
-            "Rüstung tauschen (Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange bestromt) tauscht nur sein eines Teil mit dem gleichen Slot an dir; ein leerer Ständer nimmt dein erstes getragenes Teil (Brust, Kopf, Beine, Füße). Fluch der Bindung bleibt an dir (außer im Kreativmodus). Tier-Rüstung wird nicht getauscht.",
-            "Zwei schnelle Schläge bauen ihn ab (im Kreativmodus einer): der Kleine Rüstungsständer und sein Item fallen. Block auswählen gibt den Kleinen Rüstungsständer.",
-            "Der mittlere Rüstungsständer wurde entfernt: alte mittlere Ständer in einer Welt laden als kleine Ständer, behalten ein Teil (die Hose) und lassen das andere fallen; alte Items werden kleine Ständer."
+            "Einen halben Block hoch; die Stiefel stehen auf der Platte über den Zapfen. Nimmt nur Stiefel (Rechtsklick, Spender, Rüstungstausch); alles andere bleibt in der Hand. Keine Arme.",
+            "Zwei schnelle Schläge bauen ihn ab (im Kreativmodus einer): der Kleine Rüstungsständer und seine Stiefel fallen. Block auswählen gibt den Kleinen Rüstungsständer.",
+            "Rüstung tauschen (jeder Rüstungsständer, auch Stroh-Ständer, Trainingspuppen und die mittleren und kleinen Ständer): Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange der Ständer mit Redstone bestromt ist (wie ein bestromtes Regal mit der Hotbar), tauscht seine ganze Rüstung mit deinen Rüstungsslots. Teile mit Fluch der Bindung bleiben an dir (außer im Kreativmodus), Teile, die nicht in deinen Slot passen, bleiben am Ständer. Schalter: server.features.armorStandSwap (Standard an)."
           ]
         },
         "sources": [
-          "common/src/shared/java/com/simplebuilding/dummy/SmallArmorStand.java",
-          "common/src/shared/java/com/simplebuilding/dummy/client/SmallArmorStandRenderer.java",
+          "common/src/shared/java/com/simplebuilding/dummy/PartialArmorStand.java",
+          "common/src/shared/java/com/simplebuilding/dummy/client/PartialArmorStandRenderer.java",
           "common/src/shared/java/com/simplebuilding/mixin/ArmorStandStandsMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/EquipmentDispenseStandMixin.java",
-          "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
+          "common/src/shared/java/com/simplebuilding/dummy/ArmorStandSwap.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
@@ -28829,7 +28951,7 @@ window.WIKI_DATA = {
             "Placed and dressed like an armor stand; two quick hits (one in creative) or an explosion break it and drop the Straw Armor Stand and its equipment.",
             "Scarecrow: within server.features.scarecrowRadius blocks (default 8, 0 = off, at most 16) of a Straw Armor Stand or a Training Dummy, animals and monsters do not trample farmland; players still do.",
             "Right-click with a carved pumpkin: the pumpkin is used up (it does not sit on the head) and the stand becomes a Training Dummy with the same equipment, name and rotation. Plain armor stands are not changed by a pumpkin.",
-            "Armor swap (any armor stand, also straw stands and training dummies; the small stand swaps only its one piece): sneak + right-click with an empty main hand, or any right-click while the stand is powered by redstone (like a powered shelf with the hotbar), swaps all its armor with your armor slots. Pieces with Curse of Binding stay on you (outside creative), pieces that do not fit your slot stay on the stand. Switch: server.features.armorStandSwap (default on).",
+            "Armor swap (any armor stand, also straw stands, training dummies and the medium and small stands): sneak + right-click with an empty main hand, or any right-click while the stand is powered by redstone (like a powered shelf with the hotbar), swaps all its armor with your armor slots. Pieces with Curse of Binding stay on you (outside creative), pieces that do not fit your slot stay on the stand. Switch: server.features.armorStandSwap (default on).",
             "Arms: every newly placed armor stand (item or dispenser; vanilla, straw stand, training dummy) has arms and can hold items in both hands. Stands already in the world and summoned ones keep their ShowArms value. Switch: server.features.armorStandArms (default on)."
           ]
         },
@@ -28839,7 +28961,7 @@ window.WIKI_DATA = {
             "Wird aufgestellt und angezogen wie ein Rüstungsständer; zwei schnelle Schläge (im Kreativmodus einer) oder eine Explosion zerstören ihn, dann fallen der Stroh-Rüstungsständer und seine Ausrüstung.",
             "Vogelscheuche: im Umkreis von server.features.scarecrowRadius Blöcken (Standard 8, 0 = aus, höchstens 16) um einen Stroh-Rüstungsständer oder eine Trainingspuppe zertrampeln Tiere und Monster kein Ackerland; Spieler weiterhin.",
             "Rechtsklick mit einem geschnitzten Kürbis: der Kürbis wird verbraucht (er sitzt nicht auf dem Kopf) und der Ständer wird zur Trainingspuppe mit derselben Ausrüstung, demselben Namen und derselben Drehung. Normale Rüstungsständer ändert ein Kürbis nicht.",
-            "Rüstung tauschen (jeder Rüstungsständer, auch Stroh-Ständer und Trainingspuppen; der kleine Ständer tauscht nur sein eines Teil): Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange der Ständer mit Redstone bestromt ist (wie ein bestromtes Regal mit der Hotbar), tauscht seine ganze Rüstung mit deinen Rüstungsslots. Teile mit Fluch der Bindung bleiben an dir (außer im Kreativmodus), Teile, die nicht in deinen Slot passen, bleiben am Ständer. Schalter: server.features.armorStandSwap (Standard an).",
+            "Rüstung tauschen (jeder Rüstungsständer, auch Stroh-Ständer, Trainingspuppen und die mittleren und kleinen Ständer): Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange der Ständer mit Redstone bestromt ist (wie ein bestromtes Regal mit der Hotbar), tauscht seine ganze Rüstung mit deinen Rüstungsslots. Teile mit Fluch der Bindung bleiben an dir (außer im Kreativmodus), Teile, die nicht in deinen Slot passen, bleiben am Ständer. Schalter: server.features.armorStandSwap (Standard an).",
             "Arme: jeder neu aufgestellte Rüstungsständer (Item oder Spender; Vanilla, Stroh-Ständer, Trainingspuppe) hat Arme und kann in beiden Händen Items halten. Ständer, die schon in der Welt stehen oder gerufen werden, behalten ihren ShowArms-Wert. Schalter: server.features.armorStandArms (Standard an)."
           ]
         },
@@ -29041,6 +29163,23 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:trapped_copper_chest",
+      "name": {
+        "en_us": "Trapped Copper Chest",
+        "de_de": "Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/trapped_copper_chest.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:veined_astralit",
       "name": {
         "en_us": "Veined Astralit",
@@ -29122,6 +29261,87 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Exposed Trapped Copper Chest",
+        "de_de": "Gewachste angelaufene Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_exposed_trapped_copper_chest",
+        "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_exposed_trapped_copper_chest.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Oxidized Trapped Copper Chest",
+        "de_de": "Gewachste oxidierte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_oxidized_trapped_copper_chest",
+        "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_oxidized_trapped_copper_chest.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Trapped Copper Chest",
+        "de_de": "Gewachste Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_trapped_copper_chest",
+        "simplebuilding:waxed_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_trapped_copper_chest.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Weathered Trapped Copper Chest",
+        "de_de": "Gewachste verwitterte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_weathered_trapped_copper_chest",
+        "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_weathered_trapped_copper_chest.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:weathered_trapped_copper_chest",
+      "name": {
+        "en_us": "Weathered Trapped Copper Chest",
+        "de_de": "Verwitterte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:weathered_trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/weathered_trapped_copper_chest.png",
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:white_hammock",
@@ -33310,6 +33530,27 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:exposed_trapped_copper_chest",
+      "name": {
+        "en_us": "Exposed Trapped Copper Chest",
+        "de_de": "Angelaufene Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:exposed_trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/exposed_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/exposed_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:exposed_trapped_copper_chest"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:fine_elytra_pad",
       "name": {
         "en_us": "Fine Elytra Pad (Legacy)",
@@ -36267,9 +36508,9 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Nihil Vault",
-          "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+          "summary": "One 54-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
           "details": [
-            "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+            "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a six-row menu, as large as a double chest and the Astral Vault; contents from the earlier 27-slot vault stay in the first three rows.",
             "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
             "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
             "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
@@ -36277,9 +36518,9 @@ window.WIKI_DATA = {
         },
         "de": {
           "title": "Nihil-Gewölbe",
-          "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+          "summary": "Ein 54-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
           "details": [
-            "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+            "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Menue mit sechs Reihen, so gross wie eine Doppeltruhe und das Astral-Gewoelbe; Inhalt aus dem frueheren 27-Platz-Gewoelbe bleibt in den ersten drei Reihen.",
             "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
             "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
             "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
@@ -36884,6 +37125,27 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:oxidized_trapped_copper_chest",
+      "name": {
+        "en_us": "Oxidized Trapped Copper Chest",
+        "de_de": "Oxidierte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:oxidized_trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/oxidized_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/oxidized_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:oxidized_trapped_copper_chest"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -40521,6 +40783,27 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:trapped_copper_chest",
+      "name": {
+        "en_us": "Trapped Copper Chest",
+        "de_de": "Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/trapped_copper_chest",
+      "drops": [
+        "simplebuilding:trapped_copper_chest"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:veined_astralit",
       "name": {
         "en_us": "Veined Astralit",
@@ -40665,6 +40948,26 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Exposed Trapped Copper Chest",
+        "de_de": "Gewachste angelaufene Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_exposed_trapped_copper_chest",
+        "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_exposed_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/waxed_exposed_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:waxed_exposed_trapped_copper_chest"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:waxed_oxidized_copper_pressure_plate",
       "name": {
         "en_us": "Waxed Oxidized Copper Pressure Plate",
@@ -40713,6 +41016,46 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Oxidized Trapped Copper Chest",
+        "de_de": "Gewachste oxidierte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_oxidized_trapped_copper_chest",
+        "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_oxidized_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/waxed_oxidized_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:waxed_oxidized_trapped_copper_chest"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Trapped Copper Chest",
+        "de_de": "Gewachste Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_trapped_copper_chest",
+        "simplebuilding:waxed_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/waxed_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:waxed_trapped_copper_chest"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -40767,6 +41110,26 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Weathered Trapped Copper Chest",
+        "de_de": "Gewachste verwitterte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_weathered_trapped_copper_chest",
+        "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_weathered_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/waxed_weathered_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:waxed_weathered_trapped_copper_chest"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:weathered_copper_pressure_plate",
       "name": {
         "en_us": "Weathered Copper Pressure Plate",
@@ -40815,6 +41178,27 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:weathered_trapped_copper_chest",
+      "name": {
+        "en_us": "Weathered Trapped Copper Chest",
+        "de_de": "Verwitterte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:weathered_trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/weathered_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/weathered_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:weathered_trapped_copper_chest"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -52168,6 +52552,49 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:exposed_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:exposed_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/exposed_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:exposed_copper_chest",
+        "minecraft:tripwire_hook"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:exposed_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:fire_charge_from_fire_chips",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -57474,6 +57901,49 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:redstone",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:medium_armor_stand",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:medium_armor_stand",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/medium_armor_stand.json",
+      "ingredients": [
+        "minecraft:smooth_stone_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "/ /",
+        "/_/"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "_": [
+          "minecraft:smooth_stone_slab"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:stone",
+            "count": 0.5
           }
         ]
       }
@@ -62854,6 +63324,49 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:oxidized_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:oxidized_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/oxidized_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:oxidized_copper_chest",
+        "minecraft:tripwire_hook"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:oxidized_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oxidized_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:paint_box",
@@ -72034,9 +72547,7 @@ window.WIKI_DATA = {
         "minecraft:stick"
       ],
       "pattern": [
-        "/",
-        "/",
-        "_"
+        "/_/"
       ],
       "key": {
         "/": [
@@ -72640,6 +73151,49 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:stone",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:copper_chest",
+        "minecraft:tripwire_hook"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2.188
+          },
+          {
+            "id": "minecraft:iron_ingot",
             "count": 0.5
           }
         ]
@@ -74832,6 +75386,100 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_exposed_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "minecraft:waxed_exposed_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:waxed_exposed_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_exposed_trapped_copper_chest_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:exposed_trapped_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:exposed_trapped_copper_chest"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -74873,6 +75521,194 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_oxidized_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "minecraft:waxed_oxidized_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:waxed_oxidized_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oxidized_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_oxidized_trapped_copper_chest_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:oxidized_trapped_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:oxidized_trapped_copper_chest"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oxidized_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "minecraft:waxed_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:waxed_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2.188
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_trapped_copper_chest_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_trapped_copper_chest_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:trapped_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:trapped_copper_chest"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2.188
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -74909,6 +75745,143 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:weathered_copper_pressure_plate",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_weathered_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "minecraft:waxed_weathered_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:waxed_weathered_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:weathered_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_weathered_trapped_copper_chest_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:weathered_trapped_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:weathered_trapped_copper_chest"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:weathered_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:weathered_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:weathered_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/weathered_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "minecraft:weathered_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:weathered_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:weathered_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
           }
         ]
       }
@@ -78514,6 +79487,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/exposed_copper_pressure_plate.json"
     },
     {
+      "id": "simplebuilding:blocks/exposed_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:exposed_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/exposed_trapped_copper_chest.json"
+    },
+    {
       "id": "simplebuilding:blocks/fine_elytra_pad",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -79497,6 +80486,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/oxidized_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/oxidized_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:oxidized_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/oxidized_trapped_copper_chest.json"
     },
     {
       "id": "simplebuilding:blocks/pink_hammock",
@@ -80516,6 +81521,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json"
     },
     {
+      "id": "simplebuilding:blocks/trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/trapped_copper_chest.json"
+    },
+    {
       "id": "simplebuilding:blocks/veined_astralit",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -80580,6 +81601,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_exposed_copper_pressure_plate.json"
     },
     {
+      "id": "simplebuilding:blocks/waxed_exposed_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:waxed_exposed_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_exposed_trapped_copper_chest.json"
+    },
+    {
       "id": "simplebuilding:blocks/waxed_oxidized_copper_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -80594,6 +81631,38 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_oxidized_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/waxed_oxidized_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:waxed_oxidized_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_oxidized_trapped_copper_chest.json"
+    },
+    {
+      "id": "simplebuilding:blocks/waxed_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:waxed_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_trapped_copper_chest.json"
     },
     {
       "id": "simplebuilding:blocks/waxed_weathered_copper_pressure_plate",
@@ -80612,6 +81681,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_weathered_copper_pressure_plate.json"
     },
     {
+      "id": "simplebuilding:blocks/waxed_weathered_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:waxed_weathered_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_weathered_trapped_copper_chest.json"
+    },
+    {
       "id": "simplebuilding:blocks/weathered_copper_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -80626,6 +81711,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/weathered_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/weathered_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:weathered_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/weathered_trapped_copper_chest.json"
     },
     {
       "id": "simplebuilding:blocks/white_hammock",
@@ -88648,7 +89749,7 @@ window.WIKI_DATA = {
       "name": "tweaks.laserPointer.color",
       "shortName": "color",
       "type": "int",
-      "default": "LASER_DEFAULT_COLOR",
+      "default": "0xB38EF3",
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
@@ -88656,8 +89757,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab",
       "label": "Dot Color",
       "labelDe": "Punktfarbe",
-      "tooltip": "Color of the beam dot (RGB). Client-side.\nDefault: light amethyst (#B38EF3); an old file with the former red default switches to it.",
-      "tooltipDe": "Farbe des Strahlpunkts (RGB). Clientseitig.\nStandard: helles Amethyst (#B38EF3); eine alte Datei mit dem früheren Standard Rot wechselt dorthin."
+      "tooltip": "Color of the beam dot (RGB). Client-side.\nDefault: red (#FF0000).",
+      "tooltipDe": "Farbe des Strahlpunkts (RGB). Clientseitig.\nStandard: rot (#FF0000)."
     },
     {
       "range": null,
@@ -111540,8 +112641,8 @@ window.WIKI_DATA = {
         "de_de": "Geduld ist eine Tugend"
       },
       "description": {
-        "en_us": "Combine four Raw Enderite Fragments into Raw Enderite Scrap and blast it into Enderite Scrap: two hours in a vanilla blast furnace - faster furnaces help",
-        "de_de": "Kombiniere vier Rohe Enderitfragmente zu Rohen Enderitplatten und schmelz sie zu Enderitplatten: zwei Stunden im Vanilla-Schmelzofen - schnellere Öfen helfen"
+        "en_us": "Stack three Raw Enderite Fragments into Raw Enderite Scrap and blast it into Enderite Scrap: two hours in a vanilla blast furnace - faster furnaces help",
+        "de_de": "Stapel drei Rohe Enderitfragmente zu Rohen Enderitplatten und schmelz sie zu Enderitplatten: zwei Stunden im Vanilla-Schmelzofen - schnellere Öfen helfen"
       },
       "criteria": [
         {
@@ -112793,8 +113894,8 @@ window.WIKI_DATA = {
         "de_de": "Nihil-Gewölbe"
       },
       "description": {
-        "en_us": "Craft a vault whose 27 slots every player in the world shares.",
-        "de_de": "Stelle ein Gewölbe her, dessen 27 Plaetze alle Spieler der Welt teilen."
+        "en_us": "Craft a vault whose 54 slots every player in the world shares.",
+        "de_de": "Stelle ein Gewölbe her, dessen 54 Plaetze alle Spieler der Welt teilen."
       },
       "criteria": [
         {
@@ -115136,8 +116237,8 @@ window.WIKI_DATA = {
             "de_de": "Geduld ist eine Tugend"
           },
           "description": {
-            "en_us": "Combine four Raw Enderite Fragments into Raw Enderite Scrap and blast it into Enderite Scrap: two hours in a vanilla blast furnace - faster furnaces help",
-            "de_de": "Kombiniere vier Rohe Enderitfragmente zu Rohen Enderitplatten und schmelz sie zu Enderitplatten: zwei Stunden im Vanilla-Schmelzofen - schnellere Öfen helfen"
+            "en_us": "Stack three Raw Enderite Fragments into Raw Enderite Scrap and blast it into Enderite Scrap: two hours in a vanilla blast furnace - faster furnaces help",
+            "de_de": "Stapel drei Rohe Enderitfragmente zu Rohen Enderitplatten und schmelz sie zu Enderitplatten: zwei Stunden im Vanilla-Schmelzofen - schnellere Öfen helfen"
           },
           "dependencies": [
             "stage_4.raw_enderite"
@@ -116491,10 +117592,10 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 480,
-    "blocks": 237,
-    "recipes": 846,
-    "lootTables": 231,
+    "items": 489,
+    "blocks": 245,
+    "recipes": 859,
+    "lootTables": 239,
     "trades": 20,
     "enchantments": 19,
     "tags": 49,

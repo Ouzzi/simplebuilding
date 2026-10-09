@@ -28,4 +28,9 @@ public final class ChessGameTest {
     public void chessRecipesCutFromCheckersAndOctets(GameTestHelper helper) {
         ChessTests.chessRecipesCutFromCheckersAndOctets(helper);
     }
+
+    @GameTest
+    public void octetsStackToTheEngineMaximum(GameTestHelper helper) {
+        ChessTests.octetsStackToTheEngineMaximum(helper);
+    }
 }

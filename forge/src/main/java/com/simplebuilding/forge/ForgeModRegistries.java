@@ -157,6 +157,12 @@ public final class ForgeModRegistries {
                     com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity::new,
                     Set.of(ModBlocks.tieredChests())));
 
+    public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.TrappedCopperChestBlockEntity>> TRAPPED_COPPER_CHEST_BE =
+            com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+                    ? BLOCK_ENTITIES.register("trapped_copper_chest", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.TrappedCopperChestBlockEntity>(
+                            com.simplebuilding.blocks.entity.custom.TrappedCopperChestBlockEntity::new, Set.of(ModBlocks.trappedCopperChests())))
+                    : null;
+
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity>> TIERED_SHULKER_BOX_BE =
             BLOCK_ENTITIES.register("tiered_shulker_box", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity>(
                     com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity::new,
@@ -323,6 +329,7 @@ public final class ForgeModRegistries {
             com.simplebuilding.fletching.FletchingRecipes.CATEGORY = FLETCHING_CATEGORY.get();
         }
         ModBlockEntities.TIERED_CHEST_BE = TIERED_CHEST_BE.get();
+        if (TRAPPED_COPPER_CHEST_BE != null) ModBlockEntities.TRAPPED_COPPER_CHEST_BE = TRAPPED_COPPER_CHEST_BE.get();
         ModBlockEntities.TIERED_SHULKER_BOX_BE = TIERED_SHULKER_BOX_BE.get();
         ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
         ModBlockEntities.PLACED_TEMPLATE_BE = PLACED_TEMPLATE_BE.get();

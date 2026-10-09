@@ -273,13 +273,16 @@ public final class SearchTabPlacement {
         if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
             chests.addAll(List.of(ModItems.REINFORCED_TRAPPED_CHEST,
                     ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST));
+            chests.addAll(List.of(ModItems.trappedCopperChests()));
         }
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.COPPER_CHEST.asList().getLast(), chests.toArray(ItemLike[]::new)));
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SHULKER_BOX,
                 ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
         if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
-            out.add(Placement.after(REDSTONE_BLOCKS, Items.TRAPPED_CHEST,
-                    ModItems.REINFORCED_TRAPPED_CHEST, ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST).asSecondary());
+            List<ItemLike> trapped = new ArrayList<>(List.of(ModItems.REINFORCED_TRAPPED_CHEST, ModItems.NETHERITE_TRAPPED_CHEST,
+                    ModItems.ENDERITE_TRAPPED_CHEST));
+            trapped.addAll(List.of(ModItems.trappedCopperChests()));
+            out.add(Placement.after(REDSTONE_BLOCKS, Items.TRAPPED_CHEST, trapped.toArray(ItemLike[]::new)).asSecondary());
         }
         List<ItemLike> heads = new ArrayList<>(TweaksItems.mobHeadsInSpawnOrder());
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.PIGLIN_HEAD, heads.toArray(ItemLike[]::new)));

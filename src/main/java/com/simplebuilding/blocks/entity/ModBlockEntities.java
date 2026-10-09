@@ -30,6 +30,7 @@ public class ModBlockEntities {
     /** Haengematten (Tuch und Seil kennen ihre Matte); nur mit McVersion.HAMMOCK. */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.HammockBlockEntity> HAMMOCK_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity> TIERED_CHEST_BE;
+    public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TrappedCopperChestBlockEntity> TRAPPED_COPPER_CHEST_BE;
     /** Auto-Schmied; nur, wenn es den Block gibt (McVersion.AUTO_SMITHER). */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity> AUTO_SMITHER_BE;
     /** Autonomer Crafter; nur, wenn es den Block gibt (McVersion.AUTONOMOUS_CRAFTER). */
@@ -75,6 +76,13 @@ public class ModBlockEntities {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "tiered_chest"),
                 FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity::new,
                         ModBlocks.tieredChests()).build());
+
+        if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+            TRAPPED_COPPER_CHEST_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "trapped_copper_chest"),
+                    FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.TrappedCopperChestBlockEntity::new,
+                            ModBlocks.trappedCopperChests()).build());
+        }
 
         TIERED_SHULKER_BOX_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "tiered_shulker_box"),

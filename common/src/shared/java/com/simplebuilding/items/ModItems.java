@@ -207,7 +207,9 @@ public class ModItems {
         java.util.List<Item> out = new java.util.ArrayList<>();
         for (net.minecraft.world.level.block.Block cell : ModBlocks.WOOD_OCTETS) {
             String name = BuiltInRegistries.BLOCK.getKey(cell).getPath();
-            out.add(registerItem(name, s -> new com.simplebuilding.items.custom.MaterialOctetItem(() -> cell, s)));
+            // Wie die Schach-Achtel bis 99 (Item-Stack-Limit beim Speichern, claude-q-storage).
+            out.add(registerItem(name, s -> new com.simplebuilding.items.custom.MaterialOctetItem(() -> cell,
+                    s.stacksTo(com.simplebuilding.items.custom.CheckerOctetItem.MAX_STACK))));
         }
         return java.util.List.copyOf(out);
     }
@@ -723,6 +725,32 @@ public class ModItems {
             ? registerItem("netherite_trapped_chest", s -> new BlockItem(ModBlocks.NETHERITE_TRAPPED_CHEST, s.fireResistant().rarity(UNCOMMON))) : null;
     public static final Item ENDERITE_TRAPPED_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
             ? registerItem("enderite_trapped_chest", s -> new BlockItem(ModBlocks.ENDERITE_TRAPPED_CHEST, s.fireResistant().rarity(Rarity.EPIC))) : null;
+
+    // Fallen-Kupfertruhen (N16), Reihenfolge wie ModBlocks.trappedCopperChests().
+    public static final Item TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+            ? registerItem("trapped_copper_chest", s -> new BlockItem(ModBlocks.TRAPPED_COPPER_CHEST, s)) : null;
+    public static final Item EXPOSED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+            ? registerItem("exposed_trapped_copper_chest", s -> new BlockItem(ModBlocks.EXPOSED_TRAPPED_COPPER_CHEST, s)) : null;
+    public static final Item WEATHERED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+            ? registerItem("weathered_trapped_copper_chest", s -> new BlockItem(ModBlocks.WEATHERED_TRAPPED_COPPER_CHEST, s)) : null;
+    public static final Item OXIDIZED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+            ? registerItem("oxidized_trapped_copper_chest", s -> new BlockItem(ModBlocks.OXIDIZED_TRAPPED_COPPER_CHEST, s)) : null;
+    public static final Item WAXED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+            ? registerItem("waxed_trapped_copper_chest", s -> new BlockItem(ModBlocks.WAXED_TRAPPED_COPPER_CHEST, s)) : null;
+    public static final Item WAXED_EXPOSED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+            ? registerItem("waxed_exposed_trapped_copper_chest", s -> new BlockItem(ModBlocks.WAXED_EXPOSED_TRAPPED_COPPER_CHEST, s)) : null;
+    public static final Item WAXED_WEATHERED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+            ? registerItem("waxed_weathered_trapped_copper_chest", s -> new BlockItem(ModBlocks.WAXED_WEATHERED_TRAPPED_COPPER_CHEST, s)) : null;
+    public static final Item WAXED_OXIDIZED_TRAPPED_COPPER_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+            ? registerItem("waxed_oxidized_trapped_copper_chest", s -> new BlockItem(ModBlocks.WAXED_OXIDIZED_TRAPPED_COPPER_CHEST, s)) : null;
+
+    /** The eight trapped copper chest items, empty on older lines. */
+    public static Item[] trappedCopperChests() {
+        return com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+                ? new Item[]{TRAPPED_COPPER_CHEST, EXPOSED_TRAPPED_COPPER_CHEST, WEATHERED_TRAPPED_COPPER_CHEST, OXIDIZED_TRAPPED_COPPER_CHEST,
+                        WAXED_TRAPPED_COPPER_CHEST, WAXED_EXPOSED_TRAPPED_COPPER_CHEST, WAXED_WEATHERED_TRAPPED_COPPER_CHEST, WAXED_OXIDIZED_TRAPPED_COPPER_CHEST}
+                : new Item[0];
+    }
 
     // Shulkerkisten-Stufen: wie die Truhen Verstaerkt COMMON, Netherit UNCOMMON, Enderit EPIC, Netherit
     // und Enderit feuerfest; Stapelgroesse 1 und leerer Inhalt wie Vanillas Shulkerkiste.

@@ -283,6 +283,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("chess_game_test_octets_fill_the_sub_grid_by_hit_point", ChessTests::octetsFillTheSubGridByHitPoint)
                     .build(),
+            GameTestSpec.named("chess_game_test_octets_stack_to_the_engine_maximum", ChessTests::octetsStackToTheEngineMaximum)
+                    .build(),
             GameTestSpec.named("chess_game_test_octets_hold_water_until_full", ChessTests::octetsHoldWaterUntilFull)
                     .build(),
             GameTestSpec.named("chess_game_test_pieces_stand_on_quarters_and_swap", ChessTests::piecesStandOnQuartersAndSwap)
@@ -641,6 +643,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("crucible_game_test_mod_buckets_stay_in_the_hand_when_pouring_and_scooping", CrucibleTests::modBucketsStayInTheHandWhenPouringAndScooping)
                     .build(),
             GameTestSpec.named("crucible_game_test_a_barrel_attached_to_the_enderite_crucible_holds_its_double_stacks", CrucibleTests::aBarrelAttachedToTheEnderiteCrucibleHoldsItsDoubleStacks)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_a_loose_enderite_barrel_keeps_double_stacks_in_menu_and_hopper", CrucibleTests::aLooseEnderiteBarrelKeepsDoubleStacksInMenuAndHopper)
                     .build(),
             GameTestSpec.named("crucible_game_test_fire_resistance_only_blocks_soul_burn_damage", CrucibleTests::fireResistanceOnlyBlocksSoulBurnDamage)
                     .build(),
@@ -1657,6 +1661,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tiered_chest_game_test_chest_items_follow_the_family_scheme", TieredChestTests::chestItemsFollowTheFamilyScheme)
                     .build(),
+            GameTestSpec.named("tiered_chest_game_test_trapped_copper_chests_pair_only_with_each_other", TieredChestTests::trappedCopperChestsPairOnlyWithEachOther)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_trapped_copper_chest_waxes_scrapes_and_ages_with_its_contents", TieredChestTests::trappedCopperChestWaxesScrapesAndAgesWithItsContents)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_trapped_copper_chest_signals_its_viewers", TieredChestTests::trappedCopperChestSignalsItsViewers)
+                    .build(),
             GameTestSpec.named("tiered_chest_game_test_comparator_reads_oversized_slots_against_the_tier_limit", TieredChestTests::comparatorReadsOversizedSlotsAgainstTheTierLimit)
                     .build(),
             GameTestSpec.named("tiered_chest_game_test_double_chest_upgrades_both_halves_together", TieredChestTests::doubleChestUpgradesBothHalvesTogether)
@@ -1685,6 +1695,10 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(TieredChestTests.HOPPER_MAX_TICKS)
                     .build(),
             GameTestSpec.named("tiered_shulker_box_game_test_vanilla_box_climbs_to_enderite_in_ten_blows_keeping_contents_and_color", TieredShulkerBoxTests::vanillaBoxClimbsToEnderiteInTenBlowsKeepingContentsAndColor)
+                    .build(),
+            GameTestSpec.named("tiered_shulker_box_game_test_an_open_shulker_box_keeps_its_state_as_an_item", TieredShulkerBoxTests::anOpenShulkerBoxKeepsItsStateAsAnItem)
+                    .build(),
+            GameTestSpec.named("tiered_shulker_box_game_test_shulker_shell_opens_the_box_and_right_click_closes_it", TieredShulkerBoxTests::shulkerShellOpensTheBoxAndRightClickClosesIt)
                     .build(),
             GameTestSpec.named("tiered_shulker_box_game_test_contents_and_oversized_stacks_survive_breaking_placing_and_burning", TieredShulkerBoxTests::contentsAndOversizedStacksSurviveBreakingPlacingAndBurning)
                     .build(),

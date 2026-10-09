@@ -8,8 +8,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ChestMenu;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
@@ -129,13 +127,7 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     protected AbstractContainerMenu createMenu(int id, Inventory inventory) {
-        MenuType<ChestMenu> type = switch (tier.rows()) {
-            case 4 -> MenuType.GENERIC_9x4;
-            case 5 -> MenuType.GENERIC_9x5;
-            case 6 -> MenuType.GENERIC_9x6;
-            default -> MenuType.GENERIC_9x3;
-        };
-        return new ChestMenu(type, id, inventory, this, tier.rows());
+        return new BarrelMenu(tier, id, inventory, this);
     }
 
     public List<ItemStack> drops() {

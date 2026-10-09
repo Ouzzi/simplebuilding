@@ -16,6 +16,7 @@ public class ModBlockEntities {
     public static BlockEntityType<ModSmokerBlockEntity> MOD_SMOKER_BE;
     public static BlockEntityType<BackpackBlockEntity> BACKPACK_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity> TIERED_CHEST_BE;
+    public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TrappedCopperChestBlockEntity> TRAPPED_COPPER_CHEST_BE;
     /** Auto-Schmied; nur, wenn es den Block gibt (McVersion.AUTO_SMITHER). */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity> AUTO_SMITHER_BE;
     /** Autonomer Crafter; nur, wenn es den Block gibt (McVersion.AUTONOMOUS_CRAFTER). */

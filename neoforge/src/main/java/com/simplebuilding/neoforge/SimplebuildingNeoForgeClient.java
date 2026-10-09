@@ -146,6 +146,8 @@ public final class SimplebuildingNeoForgeClient {
                 net.minecraft.world.level.block.entity.BlockEntityTypes.ENDER_CHEST, com.simplebuilding.client.render.AstralVaultRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
         event.registerBlockEntityRenderer(NeoForgeModRegistries.TIERED_CHEST_BE.get(), com.simplebuilding.client.render.TieredChestRenderer::new);
+        if (NeoForgeModRegistries.TRAPPED_COPPER_CHEST_BE != null) event.registerBlockEntityRenderer(
+                NeoForgeModRegistries.TRAPPED_COPPER_CHEST_BE.get(), com.simplebuilding.client.render.TrappedCopperChestRenderer::new);
         // Gestufte Shulkerkisten: Vanillas Shulkerkisten-Modell mit der Textur aus Stufe und Farbe.
         event.registerBlockEntityRenderer(NeoForgeModRegistries.TIERED_SHULKER_BOX_BE.get(), com.simplebuilding.client.render.TieredShulkerBoxRenderer::new);
     }

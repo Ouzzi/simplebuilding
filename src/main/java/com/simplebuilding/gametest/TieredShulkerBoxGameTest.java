@@ -48,4 +48,14 @@ public final class TieredShulkerBoxGameTest {
     public void boxItemsFollowTheFamilyScheme(GameTestHelper helper) {
         TieredShulkerBoxTests.boxItemsFollowTheFamilyScheme(helper);
     }
+
+    @GameTest
+    public void shulkerShellOpensTheBoxAndRightClickClosesIt(GameTestHelper helper) {
+        TieredShulkerBoxTests.shulkerShellOpensTheBoxAndRightClickClosesIt(helper);
+    }
+
+    @GameTest
+    public void anOpenShulkerBoxKeepsItsStateAsAnItem(GameTestHelper helper) {
+        TieredShulkerBoxTests.anOpenShulkerBoxKeepsItsStateAsAnItem(helper);
+    }
 }

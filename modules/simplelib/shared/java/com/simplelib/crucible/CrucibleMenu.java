@@ -221,7 +221,7 @@ public class CrucibleMenu extends AbstractContainerMenu {
     }
 
     /** A crucible slot; taking a finished result pays out the stored experience (owner F20). */
-    private final class CrucibleSlot extends Slot {
+    private final class CrucibleSlot extends com.simplelib.api.StackLimits.LimitedSlot {
         private final boolean barrelLayout;
 
         CrucibleSlot(Container container, int index, int x, int y, boolean barrelLayout) {
@@ -230,11 +230,6 @@ public class CrucibleMenu extends AbstractContainerMenu {
         }
 
         @Override public boolean isActive() { return barrelAttached() == barrelLayout; }
-
-        @Override
-        public int getMaxStackSize(ItemStack stack) {
-            return container.getMaxStackSize(stack);
-        }
 
         @Override
         public void onTake(Player player, ItemStack stack) {
@@ -258,7 +253,7 @@ public class CrucibleMenu extends AbstractContainerMenu {
     }
 
     /** One of the fields of an attached barrel (as many as the crucible has slots); hidden while none is attached. */
-    private final class BarrelSlot extends Slot {
+    private final class BarrelSlot extends com.simplelib.api.StackLimits.LimitedSlot {
         BarrelSlot(Container container, int index, int x, int y) {
             super(container, index, x, y);
         }
@@ -266,11 +261,6 @@ public class CrucibleMenu extends AbstractContainerMenu {
         @Override public boolean isActive() { return barrelAttached(); }
         @Override public boolean mayPlace(ItemStack stack) { return barrelAttached(); }
         @Override public boolean mayPickup(Player player) { return barrelAttached(); }
-
-        @Override
-        public int getMaxStackSize(ItemStack stack) {
-            return container.getMaxStackSize(stack);
-        }
     }
 
     /** Hidden slot that only syncs the reserved result to the client screen. */

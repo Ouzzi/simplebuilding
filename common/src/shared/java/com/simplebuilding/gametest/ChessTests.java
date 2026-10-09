@@ -88,6 +88,22 @@ public final class ChessTests {
         return state.is(ModBlocks.CHECKER_OCTET) ? CheckerOctetBlock.mask(state) : -1;
     }
 
+    /** Owner N18: octets (chess and wood) stack to the engine maximum of 99 (asked for 128; saved stacks allow at most 99). */
+    public static void octetsStackToTheEngineMaximum(GameTestHelper helper) {
+        if (!McVersion.CHESS) {
+            helper.succeed();
+            return;
+        }
+        for (ChessColor color : ChessColor.values()) {
+            helper.assertValueEqual(new ItemStack(ChessItems.octet(color)).getMaxStackSize(), 99, color.id() + " octet stack size");
+        }
+        // Die Material-Achtel des Vorschlaghammers (Holz, Queue Nachtrag 24) stapeln genauso.
+        for (net.minecraft.world.item.Item octet : com.simplebuilding.items.ModItems.WOOD_OCTETS) {
+            helper.assertValueEqual(new ItemStack(octet).getMaxStackSize(), 99, octet + " stack size");
+        }
+        helper.succeed();
+    }
+
     /**
      * Ein Achtel landet ein Viertel Block vor dem Trefferpunkt: auf einer Blockoberseite in der angeklickten Ecke, auf
      * der Oberseite bzw. Seite eines Achtels daneben (auch in der Nachbarzelle); fremde Farben und belegte Achtel lehnen

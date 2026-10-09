@@ -100,6 +100,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.TIERED_CHEST_BE, com.simplebuilding.client.render.TieredChestRenderer::new);
+        // Fallen-Kupfertruhen: Vanillas Kupfertruhe plus Fallen-Overlay der Oxidationsstufe.
+        if (com.simplebuilding.blocks.entity.ModBlockEntities.TRAPPED_COPPER_CHEST_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                com.simplebuilding.blocks.entity.ModBlockEntities.TRAPPED_COPPER_CHEST_BE, com.simplebuilding.client.render.TrappedCopperChestRenderer::new);
         // Gestufte Shulkerkisten: Vanillas Shulkerkisten-Modell mit der Textur aus Stufe und Farbe.
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.TIERED_SHULKER_BOX_BE, com.simplebuilding.client.render.TieredShulkerBoxRenderer::new);

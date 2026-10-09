@@ -1,0 +1,12 @@
+{
+  "values": [
+    "simplebuilding:trapped_copper_chest",
+    "simplebuilding:exposed_trapped_copper_chest",
+    "simplebuilding:weathered_trapped_copper_chest",
+    "simplebuilding:oxidized_trapped_copper_chest",
+    "simplebuilding:waxed_trapped_copper_chest",
+    "simplebuilding:waxed_exposed_trapped_copper_chest",
+    "simplebuilding:waxed_weathered_trapped_copper_chest",
+    "simplebuilding:waxed_oxidized_trapped_copper_chest"
+  ]
+}

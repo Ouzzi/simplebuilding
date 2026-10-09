@@ -17,7 +17,10 @@ final class SimpleLibForgeClient {
         net.minecraftforge.client.event.RegisterColorHandlersEvent.Block.BUS.addListener(event ->
                 event.register(java.util.List.of(com.simplelib.client.ReinforcedCauldronTint.INSTANCE), com.simplelib.registry.LibBlocks.REINFORCED_CAULDRON));
         FMLClientSetupEvent.getBus(context.getModBusGroup()).addListener(event ->
-                event.enqueueWork(() -> LibMenus.CRUCIBLES.values().forEach(type -> MenuScreens.register(type, CrucibleScreen::new))));
+                event.enqueueWork(() -> {
+                    LibMenus.CRUCIBLES.values().forEach(type -> MenuScreens.register(type, CrucibleScreen::new));
+                    LibMenus.BARRELS.values().forEach(type -> MenuScreens.register(type, net.minecraft.client.gui.screens.inventory.ContainerScreen::new));
+                }));
     }
 
     private SimpleLibForgeClient() {}

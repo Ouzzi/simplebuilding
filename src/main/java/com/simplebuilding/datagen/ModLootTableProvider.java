@@ -117,6 +117,9 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         for (Block chest : ModBlocks.tieredChests()) {
             add(chest, createNameableBlockEntityTable(chest));
         }
+        for (Block chest : ModBlocks.trappedCopperChests()) {
+            add(chest, createNameableBlockEntityTable(chest));
+        }
 
         // Gestufte Shulkerkisten wie Vanillas Shulkerkiste: sich selbst mit Inhalt, Name und Schloss -
         // dazu die Farbe und die echten Anzahlen der Plaetze ueber 99. Ohne survives_explosion.

@@ -467,7 +467,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] **Schach:** 0,125er Schachfiguren (0,5×0,5×0,5) rendern nicht bzw. falsch. Checker-Treppen und -Stufen haben im Inventar das falsche Blockmodell (vermutlich Seiten vertauscht). (teilweise: Checker-Treppen/-Stufen gespiegelt e27188645; Achtel-Figuren rendern weiter falsch (Screenshot 08.10.))
   Erledigt auf `claude-q-chess`: Ursache im `ChessPiecesRenderer` (doppelter Halbblock-Abzug gegenüber dem Item-Transform → Figuren einen halben Block tief und neben dem Feld); Client-Test `chess-pieces` prüft jede Figur auf ihrem Viertel, Datenprüfung `tools/check_chess_assets.py`. Vorher/Nachher previews/chess/.
 - [ ] **Mehr 0,125er Blöcke** als Erweiterung der Farbpalette: Teile von Vanilla-Blöcken.
-- [ ] **Enderit-Tiegel Stapelgröße:** zeigt 64 statt 128 an. Modifizierte Stapelgrößen als gemeinsame Lösung in simplelib (Anzeige, Slot-Limit, Transfer automatisch konsistent). (teilweise: Tiegel + angedocktes Fass über simplelib StackLimits 0a84dab08; loses Enderit-Fass, Trichter-Transfers und TieredChests noch auf 64)
+- [x] **Enderit-Tiegel Stapelgröße:** zeigt 64 statt 128 an. Modifizierte Stapelgrößen als gemeinsame Lösung in simplelib (Anzeige, Slot-Limit, Transfer automatisch konsistent). (teilweise: Tiegel + angedocktes Fass über simplelib StackLimits 0a84dab08; loses Enderit-Fass, Trichter-Transfers und TieredChests noch auf 64) (claude-q-storage: loses Fass mit eigenem BarrelMenu, generischer Trichter-Mixin in simplelib, LimitedSlot; TieredChests hatten x2/x4 bereits)
 - [x] **Fass erbt Stapelgröße:** Hat ein Tiegel modifizierte Stapelgröße, hat das angedockte Fass dieselbe. (Audit 09.10.: 0a84dab08)
 
 ## Nachtrag 16 (2026-10-07, Besitzer; Screenshot previews/refs-n12/screenshot-n16-eisentiegel.png)
@@ -477,14 +477,14 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **Fletching Table – Rezeptbuch-GUI neu:** 3 Kategorien (1. Spitze, 2. Stab, 3. Feder); je Kategorie nur die Wahlmöglichkeiten zum Zusammenstellen des Pfeils; je Material sehr kurzer Tooltip mit den Vorteilen. (teilweise: Befiederung einzeilig wie die Werkbank bed08725f; Rezeptbuch mit 3 Kategorien und Material-Tooltips fehlt)
 - [ ] **UI-Konzepte:** für jede Mod-UI ein Konzept ausarbeiten (Vorschaubilder), Aussehen streng wie Referenzbilder (refs-n12 Bild 3/4, Rahmenmaße aus PLAN-CRUCIBLE-N12B). (teilweise: Container-/Mod-UIs über simplecontainers (PLAN-SIMPLECONTAINERS-2026-10-08.md, Vorschauen); Einzelkonzepte übriger UIs fehlen)
 - [ ] **Baulicht:** Motiv nicht mittig → zentrieren.
-- [ ] **Neu: Trapped Copper Chest** (Redstone-Signal wie Vanilla-Trapped-Chest, Kupfer-Stil, Oxidation wie Kupfertruhe falls vorhanden).
-- [ ] **Nihil-Gewölbe:** Doppeltruhen-Größe wie das Astral-Gewölbe.
+- [x] **Neu: Trapped Copper Chest** (Redstone-Signal wie Vanilla-Trapped-Chest, Kupfer-Stil, Oxidation wie Kupfertruhe falls vorhanden). (claude-q-storage: 8 Blöcke, Oxidation/Wachs/Axt, Fallen-Overlay je Stufe; nur 26.3)
+- [x] **Nihil-Gewölbe:** Doppeltruhen-Größe wie das Astral-Gewölbe. (claude-q-storage: 54 Plätze, sechs Reihen)
 - [ ] **Netherit-Shulker:** dunkle Highlights statt heller (Netherit-Farben); dasselbe für alle anderen Netherit-Maschinen/-Blöcke.
 - [x] (claude-q-place: Woll-Streifen vom Anker zur Hand, löst sich > 10 Blöcke; Client-Abnahme offen) **Hängematte wie Leine:** erster Befestigungsklick hängt die Hängematte wie eine Leine (mit Hängematten-Textur) an; Modell sichtbar wie Leine/Lichterketten-Mods während des Ziehens; entfernt man sich z. B. > 10 Blöcke, löst sich die Verbindung von der ersten Seite wieder.
 - [x] (claude-q-place: Zustand up, Säule bis Blockoberkante) **Senkrecht platzierte Knochen/Stöcke/Ruten** (Diamant-, Lohen-, Böen-Rute …) verbinden sich nicht: übereinander platzierte sollen nahtlos verbunden sein (lang genug, keine Lücke).
 
 ## Nachtrag 17 (2026-10-07, Besitzer – Nachricht unterbrochen, ggf. Fortsetzung folgt)
-- [ ] **Shulker-Zustand:** platzierte Shulkerkiste schließt sich bei Rechtsklick; zwei Item-Zustände (offen/geschlossen) wie die Blume im Creaking-Wald (Augenblüte).
+- [x] **Shulker-Zustand:** platzierte Shulkerkiste schließt sich bei Rechtsklick; zwei Item-Zustände (offen/geschlossen) wie die Blume im Creaking-Wald (Augenblüte). (claude-q-storage: Shulkerschale öffnet dauerhaft, Rechtsklick schließt, Item-Komponente shulker_open mit offenem Modell; nur Vanilla-Kisten)
 - [ ] **Neue Mobs:** 1. niedlicher End-Mob, der im End liegt (eigener Mob, Textur ähnlich Endstein zur Tarnung), spawnt sehr selten in kleinen Rudeln von 3–5. (Weitere Mobs folgen.)
 
 ## Nachtrag 18 (2026-10-07, Besitzer) – Plan: docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md
@@ -498,7 +498,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Guides: farbigen Strich an freigeschalteten Lesezeichen entfernen
 - [ ] Dev-Kreativtabs immer ans Ende der Reihenfolge
 - [ ] Sandwiches appetitlicher (Vorschau-Varianten)
-- [ ] 0,125er-Blöcke: maximale Stapelgröße 128
+- [x] 0,125er-Blöcke: maximale Stapelgröße 128 (claude-q-storage: 99 = Engine-Grenze, 128 nicht speicherbar; Schach-Achtel, Material-Achtel aus claude-q-hammer nachziehen)
 - Grundsatz festgehalten: Konsistenz zwischen allen Simple-Mods, Gemeinsames in simplelib, UI-Bausteine (inkl. Kontextmenü) dokumentieren (docs/ai/UI-BAUSTEINE.md anlegen)
 
 ## Nachtrag 19 (2026-10-07, Besitzer)

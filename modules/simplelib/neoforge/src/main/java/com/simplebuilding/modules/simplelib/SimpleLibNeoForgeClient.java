@@ -15,8 +15,10 @@ final class SimpleLibNeoForgeClient {
                 event.registerBlockEntityRenderer(LibBlockEntities.CRUCIBLE, CrucibleRenderer::new));
         bus.addListener((net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.BlockTintSources event) ->
                 event.register(java.util.List.of(com.simplelib.client.ReinforcedCauldronTint.INSTANCE), com.simplelib.registry.LibBlocks.REINFORCED_CAULDRON));
-        bus.addListener((RegisterMenuScreensEvent event) ->
-                LibMenus.CRUCIBLES.values().forEach(type -> event.register(type, CrucibleScreen::new)));
+        bus.addListener((RegisterMenuScreensEvent event) -> {
+            LibMenus.CRUCIBLES.values().forEach(type -> event.register(type, CrucibleScreen::new));
+            LibMenus.BARRELS.values().forEach(type -> event.register(type, net.minecraft.client.gui.screens.inventory.ContainerScreen::new));
+        });
     }
 
     private SimpleLibNeoForgeClient() {}

@@ -47,13 +47,17 @@ public final class NeoForgeItemAutomation implements ItemAutomation {
         // Block-Entity, Rohre sehen also die x2/x4-Plaetze von Netherit und Enderit.
         event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.TIERED_CHEST_BE.get(),
                 (chest, side) -> com.simplebuilding.neoforge.NeoForgeItemAutomation.chestHandler(chest));
+        if (NeoForgeModRegistries.TRAPPED_COPPER_CHEST_BE != null) {
+            event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.TRAPPED_COPPER_CHEST_BE.get(),
+                    (chest, side) -> com.simplebuilding.neoforge.NeoForgeItemAutomation.chestHandler(chest));
+        }
         // Gestufte Shulkerkisten wie NeoForges Vanilla-Shulkerkiste: seitenweise ueber WorldlyContainer
         // (nimmt keine Shulkerkisten an), die x2/x4-Plaetze ueber getMaxStackSize(stack).
         event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.TIERED_SHULKER_BOX_BE.get(), WorldlyContainerWrapper::new);
     }
 
     /** Die Truhe, bei einer Doppeltruhe beide Haelften als ein Lager (erst die rechte, wie Vanilla). */
-    static ResourceHandler<ItemResource> chestHandler(com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity chest) {
+    static ResourceHandler<ItemResource> chestHandler(net.minecraft.world.level.block.entity.ChestBlockEntity chest) {
         net.minecraft.world.level.Level level = chest.getLevel();
         net.minecraft.world.level.block.state.BlockState state = chest.getBlockState();
         if (level == null || !(state.getBlock() instanceof net.minecraft.world.level.block.ChestBlock block)) {

@@ -28,6 +28,9 @@ import org.jetbrains.annotations.Nullable;
  * Achtel lehnen ab.
  */
 public class CheckerOctetItem extends Item {
+    /** Octets stack to the engine maximum (owner N18: "128"; item stacks are saved with at most 99). */
+    public static final int MAX_STACK = 99;
+
     private final ChessColor color;
 
     public CheckerOctetItem(ChessColor color, Item.Properties properties) {

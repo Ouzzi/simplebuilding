@@ -48,6 +48,12 @@ public class ModDataComponentTypes {
             .persistent(Codec.BOOL)
             .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.BOOL));
 
+    // Shulker-Zustand (Besitzer N17): eine offen stehende Shulkerkiste (Deckel bleibt oben, wie die offene Augenbluete).
+    // Am Item fuer das offene Itemmodell, deshalb zum Client synchronisiert.
+    public static final DataComponentType<Boolean> SHULKER_OPEN = register("shulker_open", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.BOOL));
+
     public static final DataComponentType<BlockPos> COORDINATES =
             register("coordinates", builder -> builder.persistent(BlockPos.CODEC));
 

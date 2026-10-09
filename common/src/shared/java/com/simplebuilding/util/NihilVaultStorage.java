@@ -12,12 +12,12 @@ import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
 
 /**
- * Nihil-Gewoelbe (Besitzer 2026-10-04): ein einziger 27-Platz-Inhalt fuer die ganze Welt, gespeichert mit der
- * Oberwelt. Jedes Nihil-Gewoelbe in jeder Dimension zeigt diesen Container; alle Menues teilen dieselbe Instanz,
+ * Nihil-Gewoelbe (Besitzer 2026-10-04): ein einziger Inhalt fuer die ganze Welt, gespeichert mit der Oberwelt; seit
+ * N16 54 Plaetze wie das Astral-Gewoelbe (alte 27er-Speicher laden in die ersten 27). Jedes Nihil-Gewoelbe in jeder Dimension zeigt diesen Container; alle Menues teilen dieselbe Instanz,
  * so wie mehrere Spieler an einer Vanilla-Truhe.
  */
 public final class NihilVaultStorage extends SavedData {
-    public static final int SLOTS = 27;
+    public static final int SLOTS = 54;
 
     public static final Codec<NihilVaultStorage> CODEC = ItemStackWithSlot.CODEC.listOf()
             .optionalFieldOf("items", List.of()).codec().xmap(NihilVaultStorage::new, NihilVaultStorage::slots);
