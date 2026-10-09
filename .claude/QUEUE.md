@@ -593,3 +593,13 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Seelenlava Textur + Animation neu, fließende Seelenlava vor- und rückwärts (in Arbeit, claude-soullava).
 - [ ] Platzierte Bündel von oben leicht abgerundet (in Arbeit, claude-soullava).
 - [ ] Tiegel-Flammen Form „Mittel“ (in Arbeit, claude-soullava).
+
+## Nachtrag 29 (2026-10-09 nachmittags, Besitzer; Referenzbilder Ständer: /root/previews/refs-stands/ 2–4)
+- [ ] Kreativ-Blaupause und Kreativ-Bauzauberstab: unbegrenzte Reichweite; Kreativ-Blaupause nach dem Signieren nicht mehr bearbeitbar.
+- [ ] Blaupausen-UI: im Hilfe-Bereich Reiter „Blocks“/„Guide“ als Icons, „Text kopieren“ ebenfalls als Icon.
+- [ ] Enderit-Eimer voll: bis zum Rand gefüllt, KEINE Tropfen; wie beim Axolotl-Eimer. Halber Lava-/Seelenlava-Eimer nach derselben Regel wie der halbe Wassereimer.
+- [ ] Stein-Herz wieder 1 px schmaler (9×9); bei maximaler Resonanz ein Diamant-Herz.
+- [ ] Rüstungsständer: mittleren Ständer entfernen; nur noch der kleine Ständer (Pfosten mit Querholz auf Steinplatte, wie Referenz) für genau ein Item: ein Rüstungsteil oder eine Tier-Rüstung (Pferd/Wolf/Nautilus, Referenz Pferderüstung auf Pfosten).
+- [x] Tiegel-Flamme „Mittel“ (bestätigt).
+- [ ] Farbkasten-Textur überarbeiten: jede Farbe der Palette als ein Pixel in der Kasten-Textur.
+- [ ] Fließende Seelenlava läuft immer noch vor und zurück → nur in eine Richtung fließen (wie Vanilla-Lava).
