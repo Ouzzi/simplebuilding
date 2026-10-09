@@ -605,3 +605,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Tiegel-Flamme „Mittel“ (bestätigt).
 - [x] Farbkasten-Textur überarbeiten: jede Farbe der Palette als ein Pixel in der Kasten-Textur. (claude-q-texfix29; statisch: 16 Farbpixel, keine Inhalts-Property)
 - [x] Fließende Seelenlava läuft immer noch vor und zurück → nur in eine Richtung fließen (wie Vanilla-Lava). (claude-q-texfix29)
+
+### Texturen-Feedback 09.10. abends (claude-q-texfix30)
+- [x] Enderit-Eimer halb wieder wie vorher (Optik claude-q-ebucket 8c595c074, im Generator als HALF-Tabelle); voll bleibt bis zum Rand. (claude-q-texfix30)
+- [x] Eimer-Glanz bei gefüllten Enderit-Eimern (halb + voll) in der Farbe des Inhalts statt weiß; leerer Eimer unverändert. (claude-q-texfix30)
+- [x] Farbkasten (4 Stufen) im Vanilla-Stil: offene Holzkiste (Truhen-Holztöne, Licht oben links), 16 Farbnäpfe in zwei Reihen, Stufen Holz/Eisenbeschlag+Diamant/Netherit/Enderit. (claude-q-texfix30)
+- [x] Seelenlava (still, flow, alle Seelenlava-Eimer) blau wie Seelenfeuer, keine Braun-/Rottöne, Kruste dunkelblau/petrol. (claude-q-texfix30)
+- [x] Stein-/Diamant-Herz: Vanilla-HUD-Herz (Silhouette, schwarzer Umriss, Lichtpunkt, Schattenkante), Füllung Bruchstein bzw. Diamant. (claude-q-texfix30)

@@ -34,29 +34,30 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[2]
 TEX = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures'
 
-# Colour stops over the brightness rank (0 = coolest pixel of the whole animation, 1 = hottest). Tones from
-# Vanilla soul soil (crust), soul lantern/soul campfire (body) and soul fire (streaks); no white.
+# Colour stops over the brightness rank (0 = coolest pixel of the whole animation, 1 = hottest). Round 3 (owner
+# 2026-10-09 evening: "geht ins Roetliche", keep it blue like soul fire): body and streaks from the Vanilla soul_fire
+# palette (1,128,133)..(1,198,204)..pale cyan, the coolest crust dark blue / petrol; no brown, red or orange, no white.
 STOPS = [
-    (0.00, (61, 46, 37)),     # soul soil, only the very coolest crust spots
-    (0.025, (42, 64, 62)),    # crust cooling into the liquid
-    (0.09, (8, 102, 108)),    # deep soul teal
-    (0.35, (3, 140, 145)),
-    (0.65, (3, 160, 165)),    # soul lantern
-    (0.86, (35, 192, 198)),   # soul campfire
-    (0.96, (91, 227, 232)),
-    (1.00, (122, 245, 248)),  # soul fire highlight (not white)
+    (0.00, (10, 38, 66)),     # dark blue, only the very coolest crust spots
+    (0.025, (6, 62, 90)),     # petrol crust cooling into the liquid
+    (0.09, (1, 104, 120)),    # deep soul teal
+    (0.35, (1, 130, 136)),    # soul fire, darkest tone
+    (0.65, (1, 152, 158)),
+    (0.86, (1, 188, 195)),    # soul fire body
+    (0.96, (40, 226, 233)),
+    (1.00, (110, 248, 252)),  # soul fire highlight (not white)
 ]
 SPIKE = 0.06  # max rank a pixel may stand above the mean of its 8 neighbours (no lone bright pixels)
 DIP = 0.15    # max rank a pixel may fall below it (no lone dark crust specks)
 
-# Vanilla lava bucket liquid tones -> soul tones of the same rank (the two greyish rim tones keep their old match).
+# Vanilla lava bucket liquid tones -> soul tones of the same rank (the two greyish rim tones -> cool blue-grey rim).
 SOUL_FOR_LAVA = {
-    (127, 62, 44): (61, 46, 37),
-    (204, 70, 40): (3, 140, 145),
-    (227, 140, 63): (35, 192, 198),
-    (228, 210, 92): (122, 245, 248),
-    (159, 127, 120): (112, 146, 150),
-    (182, 140, 123): (128, 170, 174),
+    (127, 62, 44): (6, 62, 90),
+    (204, 70, 40): (1, 130, 136),
+    (227, 140, 63): (1, 188, 195),
+    (228, 210, 92): (110, 248, 252),
+    (159, 127, 120): (108, 138, 158),
+    (182, 140, 123): (126, 162, 182),
 }
 
 KINDS = {'still': (16, 2), 'flow': (32, 3)}  # frame size, frametime

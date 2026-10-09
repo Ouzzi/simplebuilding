@@ -1,8 +1,8 @@
 """Resonance field beside the recipe book (inventory), round 2 (owner 2026-10-09): vanilla style.
 
 Writes three GUI sprites:
-- resonance_heart.png: 9x9 heart with cobblestone inside (round 4) and a dark outline;
-  resonance_heart_max.png: the same heart in diamond tones, shown at maximum resonance.
+- resonance_heart.png: the Vanilla HUD heart (9x9 silhouette and black outline) filled with cobblestone (round 5);
+  resonance_heart_max.png: the same heart filled with diamond, shown at maximum resonance.
 - resonance_field.png / resonance_field_highlighted.png: the frame of the vanilla recipe-book button (20x18, rounded
   1 px black outline, white bevel top/left, dark bevel bottom/right, fill #C6C6C6; the highlighted one in the blue
   hover colours) without the book, as nine-slice sprites (border 3) so the field can grow with its text.
@@ -13,32 +13,47 @@ import json
 from pathlib import Path
 from PIL import Image
 
-# Round 4 (owner N29, 2026-10-09): back to 9x9 (the round 2 silhouette), still cobblestone inside (light stones,
-# dark mortar) with a dark outline. At maximum resonance the same heart in diamond tones (resonance_heart_max).
+# Round 5 (owner 2026-10-09 evening): exactly the Vanilla HUD heart (hud/heart/container.png outline + full.png
+# fill, 9x9): the same silhouette, the same pure black outline, the same light (highlight at (2, 2), the darker
+# fill pixels along the lower edges where full.png has #BB1313). Only the fill is cobblestone (light stones, mid
+# stones, dark mortar) or diamond (resonance_heart_max, at maximum resonance).
 HEART = [
     "..##.##..",
-    ".#lw#wl#.",
-    "#wlmdlmd#",
-    "#mddlmdl#",
-    "#lwmdddm#",
-    ".#dmlwd#.",
-    "..#dlm#..",
-    "...#d#...",
+    ".#lm#lm#.",
+    "#lhldmlm#",
+    "#mldlmdl#",
+    "#smlmdls#",
+    ".#sdlms#.",
+    "..#sms#..",
+    "...#s#...",
     "....#....",
 ]
-HEART_COLOURS = {  # cobblestone greys: dark outline, top light, light stone, mid stone, mortar
-    "#": (0x1E, 0x1E, 0x1E, 255),
-    "w": (0xBE, 0xBE, 0xBE, 255),
-    "l": (0x9C, 0x9C, 0x9C, 255),
-    "m": (0x7A, 0x7A, 0x7A, 255),
-    "d": (0x52, 0x52, 0x52, 255),
+HEART_MAX = [
+    "..##.##..",
+    ".#lh#lm#.",
+    "#lhlmllm#",
+    "#llmllmd#",
+    "#smlmmds#",
+    ".#smlds#.",
+    "..#sds#..",
+    "...#s#...",
+    "....#....",
+]
+HEART_COLOURS = {  # Vanilla black outline; cobblestone greys: highlight, light stone, mid stone, mortar, lower shade
+    "#": (0, 0, 0, 255),
+    "h": (0xC8, 0xC8, 0xC8, 255),
+    "l": (0x9E, 0x9E, 0x9E, 255),
+    "m": (0x80, 0x80, 0x80, 255),
+    "d": (0x5C, 0x5C, 0x5C, 255),
+    "s": (0x5C, 0x5C, 0x5C, 255),
 }
-HEART_MAX_COLOURS = {  # Vanilla diamond item tones: dark teal outline, glint, light, mid, facet shadow
-    "#": (0x0E, 0x3F, 0x36, 255),
-    "w": (0xD5, 0xFF, 0xF6, 255),
+HEART_MAX_COLOURS = {  # Vanilla black outline; Vanilla diamond item tones: glint, light, mid, facet, lower shade
+    "#": (0, 0, 0, 255),
+    "h": (0xD5, 0xFF, 0xF6, 255),
     "l": (0x4A, 0xED, 0xD9, 255),
     "m": (0x20, 0xC5, 0xB5, 255),
-    "d": (0x11, 0x72, 0x7A, 255),
+    "d": (0x16, 0x9C, 0x96, 255),
+    "s": (0x11, 0x72, 0x7A, 255),
 }
 FIELD = [
     "..oooooooooooooooo..",
@@ -68,7 +83,7 @@ def paint(rows, colours) -> Image.Image:
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     paint(HEART, HEART_COLOURS).save(OUT / "resonance_heart.png")
-    paint(HEART, HEART_MAX_COLOURS).save(OUT / "resonance_heart_max.png")
+    paint(HEART_MAX, HEART_MAX_COLOURS).save(OUT / "resonance_heart_max.png")
     for highlighted, name in ((False, "resonance_field"), (True, "resonance_field_highlighted")):
         paint(FIELD, FIELD_COLOURS[highlighted]).save(OUT / f"{name}.png")
         (OUT / f"{name}.png.mcmeta").write_text(json.dumps(NINE_SLICE, indent=2) + "\n", encoding="utf-8")

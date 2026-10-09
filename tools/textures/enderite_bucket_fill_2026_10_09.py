@@ -1,13 +1,16 @@
-"""Filled Enderite buckets, full and half (owner N21/N28/N29, 2026-10-09).
+"""Filled Enderite buckets, full and half (owner N21/N28/N29, round 3 2026-10-09 evening).
 
 Full (N29): the liquid fills the bucket opening up to the rim, including the inner top rim row (like the Vanilla
 axolotl / lava bucket), and nothing else: no overflow over the rim, no drips on the body.
-Half (N28 variant A): the same liquid, only the two topmost outer liquid pixels (4, 3) and (11, 3) show the bucket.
+Half (owner 2026-10-09 evening: "wie vorher"): the look of claude-q-ebucket (8c595c074) again: the inner top rim
+row stays rim (Enderite purple for water, the greyish Vanilla lava-bucket rim tones for lava / soul lava), the two
+topmost outer liquid pixels (4, 3) and (11, 3) show the bucket, the liquid fills rows 3..5. HALF holds that table.
 
-Every pixel outside the opening comes from the empty Enderite bucket of the same frame (enderite_bucket.png,
-20 shimmer frames), so full and half buckets keep its animation; the .mcmeta is the empty bucket's. The liquid is a
-fixed table per fluid, only liquid tones (Vanilla water/lava bucket tones, soul lava via SOUL_FOR_LAVA): no rim,
-crust or corner tones, so the half lava/soul lava bucket reads exactly like the half water bucket.
+Every other pixel comes from the empty Enderite bucket of the same frame (enderite_bucket.png, 20 frames, a shine
+sweeping over frames 1..8), so the filled buckets keep its animation; the .mcmeta is the empty bucket's. On the
+filled buckets the shine runs in the colour of the content (owner 2026-10-09 evening): each shine pixel is the
+frame-0 pixel blended towards the fluid's GLINT by how much brighter the empty bucket's shine is there, on the body
+as well as over the liquid. The empty bucket keeps its white shine.
 
 Replaces the liquid part of crucible_art_v2_2026_10_05.py and the hand-made water bucket of 2026-10-09.
 
@@ -33,8 +36,6 @@ from soul_lava_2026_10_09 import SOUL_FOR_LAVA  # noqa: E402
 # The bucket opening incl. the inner top rim row (row 2); row 1 is the outline and stays.
 ROWS = {2: range(5, 11), 3: range(3, 13), 4: range(3, 13), 5: range(5, 11)}
 OPENING = {(x, y) for y, xs in ROWS.items() for x in xs}
-# Half full: the two topmost outer liquid pixels show the bucket.
-OUTER = {(4, 3), (11, 3)}
 
 # Liquid per row (left to right over ROWS): d = dark, m = mid, l = light, h = highlight.
 PATTERN = {
@@ -46,8 +47,18 @@ TONES = {
     'lava': {'d': (204, 70, 40), 'm': (227, 140, 63), 'h': (228, 210, 92)},
 }
 TONES['lava']['l'] = TONES['lava']['m']
-PATTERN['soul_lava'] = PATTERN['lava']
+# Half (8c595c074): '.' keeps the bucket; R/r Enderite rim purples, g/G the Vanilla lava bucket rim tones,
+# e a second water tone.
+HALF = {
+    'water': {2: 'RRrrrr', 3: 'R.elmmee.R', 4: 'dlhhlmhmld', 5: 'dmllmd'},
+    'lava': {2: 'mgGGdd', 3: 'g.hhmmhm.G', 4: 'dmhmhhmhmd', 5: 'dmhdhh'},
+}
+TONES['water'].update({'R': (85, 48, 153), 'r': (115, 74, 191), 'e': (46, 88, 211)})
+TONES['lava'].update({'g': (159, 127, 120), 'G': (182, 140, 123)})
+PATTERN['soul_lava'], HALF['soul_lava'] = PATTERN['lava'], HALF['lava']
 TONES['soul_lava'] = {k: SOUL_FOR_LAVA[v] for k, v in TONES['lava'].items()}
+# Shine colour per content (peak of the sweep; the empty bucket's shine is near white).
+GLINT = {'water': (150, 190, 255), 'lava': (255, 222, 110), 'soul_lava': (140, 238, 255)}
 FLUIDS = ('water', 'lava', 'soul_lava')
 
 
@@ -55,24 +66,47 @@ def frames(image: Image.Image) -> list[Image.Image]:
     return [image.crop((0, 16 * i, 16, 16 * i + 16)) for i in range(image.size[1] // 16)]
 
 
-def liquid(fluid: str) -> dict[tuple[int, int], tuple[int, int, int, int]]:
+def liquid(fluid: str, half: bool) -> dict[tuple[int, int], tuple[int, int, int, int]]:
     out = {}
+    table = HALF if half else PATTERN
     for y, xs in ROWS.items():
-        row = PATTERN[fluid][y]
+        row = table[fluid][y]
         assert len(row) == len(xs), (fluid, y)
         for x, ch in zip(xs, row):
-            out[(x, y)] = TONES[fluid][ch] + (255,)
+            if ch != '.':
+                out[(x, y)] = TONES[fluid][ch] + (255,)
     return out
 
 
+def lum(c) -> float:
+    return .299 * c[0] + .587 * c[1] + .114 * c[2]
+
+
 def fill(empty: Image.Image, fluid: str, half: bool) -> Image.Image:
-    pixels = {p: c for p, c in liquid(fluid).items() if not (half and p in OUTER)}
+    pixels = liquid(fluid, half)
+    base = frames(empty)[0]
+    still = base.copy()
+    for p, c in pixels.items():
+        still.putpixel(p, c)
+    glint = GLINT[fluid]
     out = Image.new('RGBA', empty.size)
     for i, frame in enumerate(frames(empty)):
-        frame = frame.copy()
-        for p, c in pixels.items():
-            frame.putpixel(p, c)
-        out.paste(frame, (0, 16 * i))
+        img = still.copy()
+        for y in range(16):
+            for x in range(16):
+                shine, calm = frame.getpixel((x, y)), base.getpixel((x, y))
+                if shine == calm or not shine[3]:
+                    continue
+                # Strength of the white shine at this pixel, 0..1; darker shine edges keep the still pixel.
+                k = (lum(shine) - lum(calm)) / max(1.0, 245 - lum(calm))
+                if k <= 0:
+                    if (x, y) not in pixels:
+                        img.putpixel((x, y), shine)
+                    continue
+                k = min(1.0, 1.5 * k)  # a bit stronger, so the tint carries over the purple body
+                under = img.getpixel((x, y))
+                img.putpixel((x, y), tuple(round(u + (g - u) * k) for u, g in zip(under[:3], glint)) + (255,))
+        out.paste(img, (0, 16 * i))
     return out
 
 
