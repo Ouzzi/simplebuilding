@@ -2873,6 +2873,8 @@ public final class DataIntegrityTests {
         if (McVersion.TRAPPED_TIERED_CHESTS) {
             expected.add(CreativeTabLayout.Row.of("trapped_chests", Items.TRAPPED_CHEST, ModItems.REINFORCED_TRAPPED_CHEST,
                     ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST));
+            // Redstone-Kupfertruhen (N16): vier Stufen, dann gewachst.
+            expected.add(CreativeTabLayout.Row.of("trapped_copper_chests", ModItems.trappedCopperChests()));
         }
         // 26.3: nach einer Luecke die drei Stufen-Shulkerschalen (seltene Strukturfunde, 2026-10-02).
         expected.add(McVersion.RARE_STRUCTURE_FINDS

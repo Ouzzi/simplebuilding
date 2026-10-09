@@ -50,8 +50,8 @@ public final class TieredShulkerBoxGameTest {
     }
 
     @GameTest
-    public void shulkerShellOpensABoxAndARightClickClosesIt(GameTestHelper helper) {
-        TieredShulkerBoxTests.shulkerShellOpensABoxAndARightClickClosesIt(helper);
+    public void shulkerShellOpensTheBoxAndRightClickClosesIt(GameTestHelper helper) {
+        TieredShulkerBoxTests.shulkerShellOpensTheBoxAndRightClickClosesIt(helper);
     }
 
     @GameTest

@@ -1633,7 +1633,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tiered_shulker_box_game_test_an_open_shulker_box_keeps_its_state_as_an_item", TieredShulkerBoxTests::anOpenShulkerBoxKeepsItsStateAsAnItem)
                     .build(),
-            GameTestSpec.named("tiered_shulker_box_game_test_shulker_shell_opens_a_box_and_a_right_click_closes_it", TieredShulkerBoxTests::shulkerShellOpensABoxAndARightClickClosesIt)
+            GameTestSpec.named("tiered_shulker_box_game_test_shulker_shell_opens_the_box_and_right_click_closes_it", TieredShulkerBoxTests::shulkerShellOpensTheBoxAndRightClickClosesIt)
                     .build(),
             GameTestSpec.named("tiered_shulker_box_game_test_contents_and_oversized_stacks_survive_breaking_placing_and_burning", TieredShulkerBoxTests::contentsAndOversizedStacksSurviveBreakingPlacingAndBurning)
                     .build(),

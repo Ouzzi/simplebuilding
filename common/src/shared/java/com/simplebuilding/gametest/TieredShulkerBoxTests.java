@@ -87,7 +87,7 @@ public final class TieredShulkerBoxTests {
      * Shulker state (owner N17): a shulker shell opens a closed placed box for good (lid up after ten ticks, no menu),
      * a right-click closes it again without a menu, and the next right-click works as in Vanilla.
      */
-    public static void shulkerShellOpensABoxAndARightClickClosesIt(GameTestHelper helper) {
+    public static void shulkerShellOpensTheBoxAndRightClickClosesIt(GameTestHelper helper) {
         BlockPos pos = new BlockPos(1, 2, 1);
         helper.setBlock(pos, net.minecraft.world.level.block.Blocks.SHULKER_BOX);
         var box = (net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(pos));
