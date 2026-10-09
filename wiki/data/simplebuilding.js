@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 534,
+      "count": 547,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -392,7 +392,7 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Sledgehammer",
-        "summary": "The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+        "summary": "The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
         "details": [
           "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
           "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -420,7 +420,7 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Vorschlaghammer",
-        "summary": "Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+        "summary": "Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
         "details": [
           "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
           "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -3745,6 +3745,63 @@ window.WIKI_DATA = {
   ],
   "items": [
     {
+      "id": "simplebuilding:acacia_octet",
+      "name": {
+        "en_us": "Acacia Octet",
+        "de_de": "Akazien-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:acacia_octet_from_acacia_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:acacia_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/acacia_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:amethyst_lens",
       "name": {
         "en_us": "Resonance Rod",
@@ -4798,7 +4855,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -4808,7 +4868,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -4819,7 +4881,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -5242,6 +5306,63 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:bamboo_octet",
+      "name": {
+        "en_us": "Bamboo Octet",
+        "de_de": "Bambus-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:bamboo_octet_from_bamboo_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:bamboo_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/bamboo_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:basic_upgrade_template",
       "name": {
         "en_us": "Basic Upgrade",
@@ -5289,6 +5410,63 @@ window.WIKI_DATA = {
         "simplebuilding:upgrade_wooden_sword_to_stone_sword"
       ],
       "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:birch_octet",
+      "name": {
+        "en_us": "Birch Octet",
+        "de_de": "Birken-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:birch_octet_from_birch_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:birch_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/birch_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6003,7 +6181,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -6013,7 +6194,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -6024,7 +6207,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -6454,6 +6639,63 @@ window.WIKI_DATA = {
       "trades": [],
       "properties": {
         "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cherry_octet",
+      "name": {
+        "en_us": "Cherry Octet",
+        "de_de": "Kirsch-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:cherry_octet_from_cherry_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:cherry_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/cherry_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
       },
       "hasCustomBehaviour": false
     },
@@ -7282,7 +7524,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Copper Sledgehammer: 760 durability and 13 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Copper Sledgehammer: 760 durability and 13 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -7290,7 +7532,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
+            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -7345,7 +7587,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Kupfer-Vorschlaghammer: 760 Haltbarkeit und 13 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Kupfer-Vorschlaghammer: 760 Haltbarkeit und 13 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -7353,7 +7595,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
+            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -7467,6 +7709,8 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
+          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
@@ -7677,6 +7921,63 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:crimson_octet",
+      "name": {
+        "en_us": "Crimson Octet",
+        "de_de": "Karmesin-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:crimson_octet_from_crimson_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:crimson_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/crimson_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:crystalline_astralit",
       "name": {
         "en_us": "Crystalline Astralit",
@@ -7787,6 +8088,63 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py"
         ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:dark_oak_octet",
+      "name": {
+        "en_us": "Dark Oak Octet",
+        "de_de": "Schwarzeichen-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:dark_oak_octet_from_dark_oak_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:dark_oak_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/dark_oak_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
       },
       "hasCustomBehaviour": false
     },
@@ -8552,7 +8910,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Diamond Sledgehammer: 6244 durability and 10 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Diamond Sledgehammer: 6244 durability and 10 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -8560,7 +8918,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
+            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -8615,7 +8973,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Diamant-Vorschlaghammer: 6244 Haltbarkeit und 10 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Diamant-Vorschlaghammer: 6244 Haltbarkeit und 10 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -8623,7 +8981,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
+            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -8737,6 +9095,8 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
+          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
@@ -9856,7 +10216,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -9866,7 +10229,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -9877,7 +10242,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -11825,7 +12192,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Enderite Sledgehammer: 10000 durability and 18 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Enderite Sledgehammer: 10000 durability and 18 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -11833,7 +12200,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
+            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -11888,7 +12255,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Enderit-Vorschlaghammer: 10000 Haltbarkeit und 18 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Enderit-Vorschlaghammer: 10000 Haltbarkeit und 18 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -11896,7 +12263,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
+            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -12010,6 +12377,8 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
+          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
@@ -12987,7 +13356,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Gold Sledgehammer: 128 durability and 22 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Gold Sledgehammer: 128 durability and 22 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -12995,7 +13364,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
+            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -13050,7 +13419,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Gold-Vorschlaghammer: 128 Haltbarkeit und 22 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Gold-Vorschlaghammer: 128 Haltbarkeit und 22 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -13058,7 +13427,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
+            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -13172,6 +13541,8 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
+          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
@@ -14073,7 +14444,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Iron Sledgehammer: 1000 durability and 14 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Iron Sledgehammer: 1000 durability and 14 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -14081,7 +14452,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
+            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -14136,7 +14507,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Eisen-Vorschlaghammer: 1000 Haltbarkeit und 14 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Eisen-Vorschlaghammer: 1000 Haltbarkeit und 14 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -14144,7 +14515,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
+            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -14258,6 +14629,8 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
+          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
@@ -14302,6 +14675,63 @@ window.WIKI_DATA = {
             "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
             "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:jungle_octet",
+      "name": {
+        "en_us": "Jungle Octet",
+        "de_de": "Tropenholz-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:jungle_octet_from_jungle_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:jungle_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/jungle_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -14941,7 +15371,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -14951,7 +15384,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -14962,7 +15397,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -15750,6 +16187,63 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:mangrove_octet",
+      "name": {
+        "en_us": "Mangrove Octet",
+        "de_de": "Mangroven-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:mangrove_octet_from_mangrove_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:mangrove_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/mangrove_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:music_disc_brimstone",
       "name": {
         "en_us": "Music Disc",
@@ -16518,7 +17012,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -16528,7 +17025,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -16539,7 +17038,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -18314,7 +18815,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Netherite Sledgehammer: 8124 durability and 15 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Netherite Sledgehammer: 8124 durability and 15 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -18322,7 +18823,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
+            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -18377,7 +18878,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Netherit-Vorschlaghammer: 8124 Haltbarkeit und 15 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Netherit-Vorschlaghammer: 8124 Haltbarkeit und 15 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -18385,7 +18886,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
+            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -18499,6 +19000,8 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
+          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
@@ -19599,7 +20102,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -19609,7 +20115,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -19620,7 +20128,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -19900,6 +20410,63 @@ window.WIKI_DATA = {
             "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
             "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:oak_octet",
+      "name": {
+        "en_us": "Oak Octet",
+        "de_de": "Eichen-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:oak_octet_from_oak_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:oak_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/oak_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -20582,6 +21149,63 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:pale_oak_octet",
+      "name": {
+        "en_us": "Pale Oak Octet",
+        "de_de": "Blasseichen-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:pale_oak_octet_from_pale_oak_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:pale_oak_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/pale_oak_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:pink_hammock",
@@ -21428,7 +22052,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -21438,7 +22065,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -21449,7 +22078,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -22322,7 +22953,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -22332,7 +22966,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -22343,7 +22979,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -23171,7 +23809,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -23181,7 +23822,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -23192,7 +23835,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -23249,6 +23894,63 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/polished_nihilith_wall.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:poplar_octet",
+      "name": {
+        "en_us": "Poplar Octet",
+        "de_de": "Pappel-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:poplar_octet_from_poplar_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:poplar_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/poplar_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -23982,7 +24684,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -23992,7 +24697,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -24003,7 +24710,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -24771,7 +25480,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -24781,7 +25493,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -24792,7 +25506,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -25701,7 +26417,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -25711,7 +26430,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -25722,7 +26443,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -27801,7 +28524,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -27811,7 +28537,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -27822,7 +28550,9 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
@@ -28254,6 +28984,63 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:spruce_octet",
+      "name": {
+        "en_us": "Spruce Octet",
+        "de_de": "Fichten-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:spruce_octet_from_spruce_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:spruce_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/spruce_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stone_chisel",
       "name": {
         "en_us": "Stone Chisel",
@@ -28521,7 +29308,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "Stone Sledgehammer: 760 durability and 5 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
+          "summary": "Stone Sledgehammer: 760 durability and 5 enchantability. The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and on 26.3 sneaking and holding right-click carves the aimed eighth off a block (26.2: holding right-click reshapes full blocks into stairs and stairs into slabs). It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
           "details": [
             "The basics: when you mine a block with the hammer in your main hand, the eight neighboring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
             "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -28529,7 +29316,7 @@ window.WIKI_DATA = {
             "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
-            "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
+            "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
             "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
@@ -28584,7 +29371,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Stein-Vorschlaghammer: 760 Haltbarkeit und 5 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
+          "summary": "Stein-Vorschlaghammer: 760 Haltbarkeit und 5 Verzauberbarkeit. Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel eines Blocks ab (26.2: Rechtsklick halten formt volle Blöcke zu Treppen und Treppen zu Stufen um). Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderitklumpen in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
           "details": [
             "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
             "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -28592,7 +29379,7 @@ window.WIKI_DATA = {
             "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
-            "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
+            "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
             "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
@@ -28706,6 +29493,8 @@ window.WIKI_DATA = {
           "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
+          "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
       },
@@ -29019,6 +29808,63 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:warped_octet",
+      "name": {
+        "en_us": "Warped Octet",
+        "de_de": "Wirr-Achtelblock"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:warped_octet_from_warped_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:warped_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/warped_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:white_hammock",
       "name": {
         "en_us": "White Hammock",
@@ -29212,6 +30058,63 @@ window.WIKI_DATA = {
     }
   ],
   "blocks": [
+    {
+      "id": "simplebuilding:acacia_octet",
+      "name": {
+        "en_us": "Acacia Octet Cell",
+        "de_de": "Akazien-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:acacia_octet_from_acacia_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:acacia_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/acacia_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
     {
       "id": "simplebuilding:astral_end_stone",
       "name": {
@@ -30037,6 +30940,120 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:bamboo_octet",
+      "name": {
+        "en_us": "Bamboo Octet Cell",
+        "de_de": "Bambus-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:bamboo_octet_from_bamboo_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:bamboo_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/bamboo_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:birch_octet",
+      "name": {
+        "en_us": "Birch Octet Cell",
+        "de_de": "Birken-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:birch_octet_from_birch_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:birch_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/birch_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:black_hammock",
       "name": {
         "en_us": "Black Hammock",
@@ -30592,7 +31609,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/chess_2026_10_06.py"
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
         ],
         "en": {
           "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
@@ -30602,7 +31622,9 @@ window.WIKI_DATA = {
             "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
             "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
-            "Each octet cuts into every chess piece of its color in the stonecutter."
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
           ]
         },
         "de": {
@@ -30613,11 +31635,70 @@ window.WIKI_DATA = {
             "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
             "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
-            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe."
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
           ]
         }
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:cherry_octet",
+      "name": {
+        "en_us": "Cherry Octet Cell",
+        "de_de": "Kirsch-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:cherry_octet_from_cherry_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:cherry_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/cherry_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:chess_pieces",
@@ -30966,6 +32047,63 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:crimson_octet",
+      "name": {
+        "en_us": "Crimson Octet Cell",
+        "de_de": "Karmesin-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:crimson_octet_from_crimson_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:crimson_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/crimson_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:crystalline_astralit",
       "name": {
         "en_us": "Crystalline Astralit",
@@ -31088,6 +32226,63 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py"
         ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:dark_oak_octet",
+      "name": {
+        "en_us": "Dark Oak Octet Cell",
+        "de_de": "Schwarzeichen-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:dark_oak_octet_from_dark_oak_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:dark_oak_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/dark_oak_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
       },
       "hasCustomBehaviour": false
     },
@@ -33720,6 +34915,63 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:jungle_octet",
+      "name": {
+        "en_us": "Jungle Octet Cell",
+        "de_de": "Tropenholz-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:jungle_octet_from_jungle_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:jungle_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/jungle_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:lapis_quartz_checker",
       "name": {
         "en_us": "Lapis Quartz Checker",
@@ -34442,6 +35694,116 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:mangrove_octet",
+      "name": {
+        "en_us": "Mangrove Octet Cell",
+        "de_de": "Mangroven-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:mangrove_octet_from_mangrove_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:mangrove_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/mangrove_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:melon_octet",
+      "name": {
+        "en_us": "Melon Octet Cell",
+        "de_de": "Melonen-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/melon_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:nether_brick_quartz_checker",
@@ -36600,6 +37962,63 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:oak_octet",
+      "name": {
+        "en_us": "Oak Octet Cell",
+        "de_de": "Eichen-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:oak_octet_from_oak_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:oak_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/oak_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:orange_hammock",
       "name": {
         "en_us": "Orange Hammock",
@@ -36729,6 +38148,63 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:pale_oak_octet",
+      "name": {
+        "en_us": "Pale Oak Octet Cell",
+        "de_de": "Blasseichen-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:pale_oak_octet_from_pale_oak_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:pale_oak_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/pale_oak_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
       },
       "hasCustomBehaviour": false
     },
@@ -37701,6 +39177,63 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:polished_nihilith_wall"
       ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:poplar_octet",
+      "name": {
+        "en_us": "Poplar Octet Cell",
+        "de_de": "Pappel-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:poplar_octet_from_poplar_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:poplar_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/poplar_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -40096,6 +41629,63 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:spruce_octet",
+      "name": {
+        "en_us": "Spruce Octet Cell",
+        "de_de": "Fichten-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:spruce_octet_from_spruce_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:spruce_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/spruce_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:standing_rod",
       "name": {
         "en_us": "Standing Rod",
@@ -40406,6 +41996,63 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:veined_nihilith"
       ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:warped_octet",
+      "name": {
+        "en_us": "Warped Octet Cell",
+        "de_de": "Wirr-Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:warped_octet_from_warped_planks_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:warped_planks_from_octets"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/warped_octet.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -40829,6 +42476,89 @@ window.WIKI_DATA = {
     }
   ],
   "recipes": [
+    {
+      "id": "simplebuilding:acacia_octet_from_acacia_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:acacia_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/acacia_octet_from_acacia_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:acacia_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:acacia_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:acacia_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:acacia_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:acacia_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/acacia_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:acacia_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:acacia_octet"
+        ],
+        [
+          "simplebuilding:acacia_octet"
+        ],
+        [
+          "simplebuilding:acacia_octet"
+        ],
+        [
+          "simplebuilding:acacia_octet"
+        ],
+        [
+          "simplebuilding:acacia_octet"
+        ],
+        [
+          "simplebuilding:acacia_octet"
+        ],
+        [
+          "simplebuilding:acacia_octet"
+        ],
+        [
+          "simplebuilding:acacia_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:acacia_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
     {
       "id": "simplebuilding:amethyst_lens",
       "type": "minecraft:crafting_shaped",
@@ -43390,6 +45120,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:bamboo_octet_from_bamboo_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:bamboo_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/bamboo_octet_from_bamboo_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:bamboo_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bamboo_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 4.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:bamboo_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:bamboo_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/bamboo_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:bamboo_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:bamboo_octet"
+        ],
+        [
+          "simplebuilding:bamboo_octet"
+        ],
+        [
+          "simplebuilding:bamboo_octet"
+        ],
+        [
+          "simplebuilding:bamboo_octet"
+        ],
+        [
+          "simplebuilding:bamboo_octet"
+        ],
+        [
+          "simplebuilding:bamboo_octet"
+        ],
+        [
+          "simplebuilding:bamboo_octet"
+        ],
+        [
+          "simplebuilding:bamboo_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:bamboo_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:basic_upgrade_template",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -43472,6 +45285,89 @@ window.WIKI_DATA = {
       "lines": [
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:birch_octet_from_birch_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:birch_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/birch_octet_from_birch_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:birch_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:birch_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:birch_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:birch_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:birch_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/birch_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:birch_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:birch_octet"
+        ],
+        [
+          "simplebuilding:birch_octet"
+        ],
+        [
+          "simplebuilding:birch_octet"
+        ],
+        [
+          "simplebuilding:birch_octet"
+        ],
+        [
+          "simplebuilding:birch_octet"
+        ],
+        [
+          "simplebuilding:birch_octet"
+        ],
+        [
+          "simplebuilding:birch_octet"
+        ],
+        [
+          "simplebuilding:birch_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:birch_octet",
+            "count": 8
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:black_dyed_storage",
@@ -45205,6 +47101,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:cherry_octet_from_cherry_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cherry_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cherry_octet_from_cherry_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:cherry_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cherry_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cherry_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cherry_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:cherry_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cherry_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:cherry_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:cherry_octet"
+        ],
+        [
+          "simplebuilding:cherry_octet"
+        ],
+        [
+          "simplebuilding:cherry_octet"
+        ],
+        [
+          "simplebuilding:cherry_octet"
+        ],
+        [
+          "simplebuilding:cherry_octet"
+        ],
+        [
+          "simplebuilding:cherry_octet"
+        ],
+        [
+          "simplebuilding:cherry_octet"
+        ],
+        [
+          "simplebuilding:cherry_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:cherry_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:chiseled_astralit_bricks",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -46425,6 +48404,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:crimson_octet_from_crimson_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:crimson_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/crimson_octet_from_crimson_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:crimson_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:crimson_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:crimson_stem",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:crimson_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:crimson_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/crimson_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:crimson_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:crimson_octet"
+        ],
+        [
+          "simplebuilding:crimson_octet"
+        ],
+        [
+          "simplebuilding:crimson_octet"
+        ],
+        [
+          "simplebuilding:crimson_octet"
+        ],
+        [
+          "simplebuilding:crimson_octet"
+        ],
+        [
+          "simplebuilding:crimson_octet"
+        ],
+        [
+          "simplebuilding:crimson_octet"
+        ],
+        [
+          "simplebuilding:crimson_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:crimson_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:crystalline_astralit_from_astralit_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -46809,6 +48871,89 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:dark_oak_octet_from_dark_oak_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:dark_oak_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/dark_oak_octet_from_dark_oak_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:dark_oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_oak_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:dark_oak_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:dark_oak_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/dark_oak_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:dark_oak_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:dark_oak_octet"
+        ],
+        [
+          "simplebuilding:dark_oak_octet"
+        ],
+        [
+          "simplebuilding:dark_oak_octet"
+        ],
+        [
+          "simplebuilding:dark_oak_octet"
+        ],
+        [
+          "simplebuilding:dark_oak_octet"
+        ],
+        [
+          "simplebuilding:dark_oak_octet"
+        ],
+        [
+          "simplebuilding:dark_oak_octet"
+        ],
+        [
+          "simplebuilding:dark_oak_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dark_oak_octet",
+            "count": 8
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:detector",
@@ -55092,6 +57237,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:jungle_octet_from_jungle_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:jungle_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/jungle_octet_from_jungle_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:jungle_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:jungle_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:jungle_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:jungle_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:jungle_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/jungle_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:jungle_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:jungle_octet"
+        ],
+        [
+          "simplebuilding:jungle_octet"
+        ],
+        [
+          "simplebuilding:jungle_octet"
+        ],
+        [
+          "simplebuilding:jungle_octet"
+        ],
+        [
+          "simplebuilding:jungle_octet"
+        ],
+        [
+          "simplebuilding:jungle_octet"
+        ],
+        [
+          "simplebuilding:jungle_octet"
+        ],
+        [
+          "simplebuilding:jungle_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:jungle_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:lapis_chess_bishop_flat_from_lapis_octet_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -57261,6 +59489,89 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:redstone",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:mangrove_octet_from_mangrove_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:mangrove_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/mangrove_octet_from_mangrove_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:mangrove_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mangrove_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:mangrove_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:mangrove_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/mangrove_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:mangrove_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:mangrove_octet"
+        ],
+        [
+          "simplebuilding:mangrove_octet"
+        ],
+        [
+          "simplebuilding:mangrove_octet"
+        ],
+        [
+          "simplebuilding:mangrove_octet"
+        ],
+        [
+          "simplebuilding:mangrove_octet"
+        ],
+        [
+          "simplebuilding:mangrove_octet"
+        ],
+        [
+          "simplebuilding:mangrove_octet"
+        ],
+        [
+          "simplebuilding:mangrove_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:mangrove_octet",
+            "count": 8
           }
         ]
       }
@@ -61246,6 +63557,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:oak_octet_from_oak_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:oak_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/oak_octet_from_oak_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oak_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:oak_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:oak_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/oak_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:oak_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:oak_octet"
+        ],
+        [
+          "simplebuilding:oak_octet"
+        ],
+        [
+          "simplebuilding:oak_octet"
+        ],
+        [
+          "simplebuilding:oak_octet"
+        ],
+        [
+          "simplebuilding:oak_octet"
+        ],
+        [
+          "simplebuilding:oak_octet"
+        ],
+        [
+          "simplebuilding:oak_octet"
+        ],
+        [
+          "simplebuilding:oak_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:oak_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:obsidian_chip",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -62701,6 +65095,89 @@ window.WIKI_DATA = {
         ],
         "tagExamples": [
           "#minecraft:planks"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:pale_oak_octet_from_pale_oak_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:pale_oak_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pale_oak_octet_from_pale_oak_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:pale_oak_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pale_oak_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:pale_oak_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:pale_oak_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pale_oak_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:pale_oak_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:pale_oak_octet"
+        ],
+        [
+          "simplebuilding:pale_oak_octet"
+        ],
+        [
+          "simplebuilding:pale_oak_octet"
+        ],
+        [
+          "simplebuilding:pale_oak_octet"
+        ],
+        [
+          "simplebuilding:pale_oak_octet"
+        ],
+        [
+          "simplebuilding:pale_oak_octet"
+        ],
+        [
+          "simplebuilding:pale_oak_octet"
+        ],
+        [
+          "simplebuilding:pale_oak_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:pale_oak_octet",
+            "count": 8
+          }
         ]
       }
     },
@@ -66787,6 +69264,89 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:poplar_octet_from_poplar_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:poplar_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/poplar_octet_from_poplar_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:poplar_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:poplar_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:poplar_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:poplar_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/poplar_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:poplar_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:poplar_octet"
+        ],
+        [
+          "simplebuilding:poplar_octet"
+        ],
+        [
+          "simplebuilding:poplar_octet"
+        ],
+        [
+          "simplebuilding:poplar_octet"
+        ],
+        [
+          "simplebuilding:poplar_octet"
+        ],
+        [
+          "simplebuilding:poplar_octet"
+        ],
+        [
+          "simplebuilding:poplar_octet"
+        ],
+        [
+          "simplebuilding:poplar_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:poplar_octet",
+            "count": 8
           }
         ]
       }
@@ -72000,6 +74560,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:spruce_octet_from_spruce_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:spruce_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/spruce_octet_from_spruce_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:spruce_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:spruce_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:spruce_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:spruce_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:spruce_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/spruce_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:spruce_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:spruce_octet"
+        ],
+        [
+          "simplebuilding:spruce_octet"
+        ],
+        [
+          "simplebuilding:spruce_octet"
+        ],
+        [
+          "simplebuilding:spruce_octet"
+        ],
+        [
+          "simplebuilding:spruce_octet"
+        ],
+        [
+          "simplebuilding:spruce_octet"
+        ],
+        [
+          "simplebuilding:spruce_octet"
+        ],
+        [
+          "simplebuilding:spruce_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:spruce_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:stellar_flypad_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -74488,6 +77131,89 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:redstone",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:warped_octet_from_warped_planks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:warped_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/warped_octet_from_warped_planks_stonecutting.json",
+      "ingredients": [
+        "minecraft:warped_planks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:warped_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:warped_stem",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:warped_planks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:warped_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/warped_planks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:warped_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:warped_octet"
+        ],
+        [
+          "simplebuilding:warped_octet"
+        ],
+        [
+          "simplebuilding:warped_octet"
+        ],
+        [
+          "simplebuilding:warped_octet"
+        ],
+        [
+          "simplebuilding:warped_octet"
+        ],
+        [
+          "simplebuilding:warped_octet"
+        ],
+        [
+          "simplebuilding:warped_octet"
+        ],
+        [
+          "simplebuilding:warped_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:warped_octet",
+            "count": 8
           }
         ]
       }
@@ -92492,11 +95218,12 @@ window.WIKI_DATA = {
           "sources": [
             "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
             "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
-            "common/src/shared/java/com/simplebuilding/util/HammerCorners.java"
+            "common/src/shared/java/com/simplebuilding/util/HammerCorners.java",
+            "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java"
           ],
           "en": {
             "title": "Reshaping with the sledgehammer",
-            "summary": "Hold right-click with a sledgehammer on a block: when the charge is full, a full block becomes its stairs and stairs become their slab. Sneaking with Constructor's Touch walks back from slab to stairs to full block. This works for every block whose stairs or slab exist under the matching id, vanilla blocks included.",
+            "summary": "Sneak and hold right-click with a sledgehammer on a block (26.3): when the charge is full, the aimed eighth is gone - full block, stairs and slab step down eighth by eighth; shapes that are no stairs or slab fall apart into 0.125 blocks of the material (wood, melon). Sneaking with Constructor's Touch walks back from slab to stairs to full block. On 26.2 a plain held right-click turns a full block into its stairs and stairs into their slab.",
             "details": [
               "Forward (not sneaking): a block with a full collision shape turns into <id>_stairs, stairs turn into <base>_slab - if that block exists.",
               "Backward (sneaking) needs the Constructor's Touch enchantment: a slab turns into <base>_stairs, stairs into <base>, <base>s or <base>_planks. On older lines, sneaking without the enchantment reshapes nothing.",
@@ -92504,12 +95231,13 @@ window.WIKI_DATA = {
               "Charge time in ticks: 200 / (material speed + 5 x Efficiency level), cut off at the lower and upper limit below. The table lists every hammer without Efficiency.",
               "Every reshape costs the listed durability, a backward reshape more. Creative mode costs none.",
               "If no matching stairs or slab exists, the hammer does not start charging.",
-              "On 26.3, sneak without Constructor's Touch to cut one aimed quarter 1.5x faster: inner corner, straight stair, outer corner, slab. Only a remaining quarter in the stair's non-solid half can be cut; diagonal two-quarter remnants are refused. Constructor's Touch retains backward reshaping."
+              "On 26.3, sneak without Constructor's Touch to cut one aimed quarter 1.5x faster: inner corner, straight stair, outer corner, slab. Only a remaining quarter in the stair's non-solid half can be cut; diagonal two-quarter remnants are refused. Constructor's Touch retains backward reshaping.",
+              "Queue Nachtrag 24 (26.3): without sneaking the hammer neither charges nor tilts. Sneaking without Constructor's Touch removes the octet behind the aimed point; the rest becomes a slab, a vanilla stair or - for any other shape - an octet cell of the material (13 woods via their planks, melon), and the removed octet drops. Without octets of the material such a cut is refused."
             ]
           },
           "de": {
             "title": "Umformen mit dem Vorschlaghammer",
-            "summary": "Rechtsklick mit dem Vorschlaghammer auf einem Block halten: Ist die Ladung voll, wird ein Vollblock zu seiner Treppe und eine Treppe zu ihrer Stufe. Schleichen mit Berührung des Konstrukteurs geht zurück, von der Stufe zur Treppe zum Vollblock. Das gilt für jeden Block, dessen Treppe oder Stufe unter der passenden Id existiert, auch für Vanilla-Blöcke.",
+            "summary": "Schleichen und Rechtsklick mit dem Vorschlaghammer auf einem Block halten (26.3): Ist die Ladung voll, ist das angezielte Achtel weg - Vollblock, Treppe und Stufe werden Achtel für Achtel kleiner; Formen, die keine Treppe oder Stufe sind, zerfallen in 0,125er-Blöcke des Materials (Holz, Melone). Schleichen mit Berührung des Konstrukteurs geht zurück, von der Stufe zur Treppe zum Vollblock. Auf 26.2 macht einfaches Rechtsklick-Halten aus einem Vollblock seine Treppe und aus einer Treppe ihre Stufe.",
             "details": [
               "Vorwärts (ohne Schleichen): Ein Block mit voller Kollisionsform wird zu <id>_stairs, eine Treppe zu <basis>_slab - sofern es diesen Block gibt.",
               "Rückwärts (Schleichen) braucht die Verzauberung Berührung des Konstrukteurs: Eine Stufe wird zu <basis>_stairs, eine Treppe zu <basis>, <basis>s oder <basis>_planks. Auf älteren Linien formt Schleichen ohne die Verzauberung nichts um.",
@@ -92517,7 +95245,8 @@ window.WIKI_DATA = {
               "Ladezeit in Ticks: 200 / (Materialtempo + 5 x Effizienzstufe), auf die untere und obere Grenze unten beschnitten. Die Tabelle nennt jeden Hammer ohne Effizienz.",
               "Jede Umformung kostet die angegebene Haltbarkeit, rückwärts mehr. Im Kreativmodus kostet sie nichts.",
               "Gibt es keine passende Treppe oder Stufe, beginnt der Hammer gar nicht zu laden.",
-              "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel 1,5× schneller ab: Innenecke, gerade Treppe, Außenecke, Stufe. Nur verbleibende Viertel in der offenen Treppenhälfte können abgetragen werden; diagonale Zwei-Viertel-Reste werden verweigert. Berührung des Konstrukteurs behält die Rückwärtsumformung."
+              "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel 1,5× schneller ab: Innenecke, gerade Treppe, Außenecke, Stufe. Nur verbleibende Viertel in der offenen Treppenhälfte können abgetragen werden; diagonale Zwei-Viertel-Reste werden verweigert. Berührung des Konstrukteurs behält die Rückwärtsumformung.",
+              "Queue Nachtrag 24 (26.3): Ohne Schleichen lädt und wackelt der Hammer nicht. Schleichen ohne Berührung des Konstrukteurs trägt das Achtel hinter dem Zielpunkt ab; der Rest wird zur Stufe, zur Vanilla-Treppe oder - bei jeder anderen Form - zur Achtelzelle des Materials (13 Holzarten über ihre Bretter, Melone), und das abgetragene Achtel fällt heraus. Ohne Achtel des Materials wird so ein Schnitt abgelehnt."
             ]
           }
         }
@@ -112180,8 +114909,8 @@ window.WIKI_DATA = {
         "de_de": "Treppenmeister"
       },
       "description": {
-        "en_us": "Hold right-click with a sledgehammer on a full block: it turns into stairs, then into a slab",
-        "de_de": "Halte mit dem Vorschlaghammer Rechtsklick auf einem vollen Block: er wird zur Treppe, dann zur Stufe"
+        "en_us": "Sneak and hold right-click with a sledgehammer on a full block: carve it into stairs, then a slab",
+        "de_de": "Halte schleichend mit dem Vorschlaghammer Rechtsklick auf einem vollen Block: er wird zur Treppe, dann zur Stufe"
       },
       "criteria": [
         {
@@ -113958,8 +116687,8 @@ window.WIKI_DATA = {
             "de_de": "Stein-Vorschlaghammer"
           },
           "description": {
-            "en_us": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once.",
-            "de_de": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab."
+            "en_us": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once. Sneak and hold right-click to carve the aimed eighth off a block.",
+            "de_de": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab. Schleichen + Rechtsklick halten trägt das angezielte Achtel eines Blocks ab."
           },
           "dependencies": [
             "stage_1.iron"
@@ -113976,8 +116705,8 @@ window.WIKI_DATA = {
             "de_de": "Treppenmeister"
           },
           "description": {
-            "en_us": "Hold right-click with a sledgehammer on a full block: it turns into stairs, then into a slab",
-            "de_de": "Halte mit dem Vorschlaghammer Rechtsklick auf einem vollen Block: er wird zur Treppe, dann zur Stufe"
+            "en_us": "Sneak and hold right-click with a sledgehammer on a full block: carve it into stairs, then a slab",
+            "de_de": "Halte schleichend mit dem Vorschlaghammer Rechtsklick auf einem vollen Block: er wird zur Treppe, dann zur Stufe"
           },
           "dependencies": [
             "stage_1.stone_sledgehammer"
@@ -116178,9 +118907,9 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 478,
-    "blocks": 236,
-    "recipes": 844,
+    "items": 491,
+    "blocks": 250,
+    "recipes": 870,
     "lootTables": 230,
     "trades": 20,
     "enchantments": 19,
