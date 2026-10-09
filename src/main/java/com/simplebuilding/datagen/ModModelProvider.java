@@ -397,10 +397,14 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     private static void generateBlueprint(ItemModelGenerators generator) {
-        Item blueprint = ModItems.BLUEPRINT;
         net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties.ID_MAPPER.put(
                 com.simplebuilding.client.property.BlueprintStateModelProperty.ID,
                 com.simplebuilding.client.property.BlueprintStateModelProperty.PROPERTY_TYPE);
+        generateBlueprint(generator, ModItems.BLUEPRINT);
+        generateBlueprint(generator, ModItems.CREATIVE_BLUEPRINT); // Queue N29: dieselben drei Zustaende, violett
+    }
+
+    private static void generateBlueprint(ItemModelGenerators generator, Item blueprint) {
         Identifier plain = ModelTemplates.FLAT_ITEM.create(blueprint, TextureMapping.layer0(blueprint), generator.modelOutput);
         Identifier edited = ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(blueprint, "_edited"),
                 TextureMapping.layer0(TextureMapping.getItemTexture(blueprint, "_edited")), generator.modelOutput);
@@ -730,6 +734,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM); // NEW
+        itemModelGenerator.generateFlatItem(ModItems.CREATIVE_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM); // Queue N29
 
         // --- SLEDGEHAMMERS ---
         itemModelGenerator.generateFlatItem(ModItems.STONE_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);

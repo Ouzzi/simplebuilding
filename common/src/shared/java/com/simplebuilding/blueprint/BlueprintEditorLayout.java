@@ -48,6 +48,8 @@ public final class BlueprintEditorLayout {
     /** Hoehe einer Materialzeile. */
     public static final int CELL_H = 18;
     public static final int ICON = 16;
+    /** Breite eines Hilfe-Reiters (Symbol 16 + Rand). */
+    public static final int TAB_W = 20;
     public static final int INSERT_W = 50;
     /** Zeilenhoehe der Hilfe-Blockliste. */
     public static final int HELP_ROW = 18;
@@ -104,14 +106,14 @@ public final class BlueprintEditorLayout {
         reset = new Rect(viewX + viewW - ICON - 2, bodyY + 2, ICON, ICON);
         example = new Rect(viewX + 6, bodyY + bodyH - 24, viewW - 12, 18);
 
-        int tabW = (viewW - 6) / 2;
-        blocksTab = new Rect(viewX + 2, bodyY + 2, tabW, 14);
-        guideTab = new Rect(blocksTab.right() + 2, bodyY + 2, viewW - 6 - tabW, 14);
+        // Reiter und Kopieren als Symbole (Queue N29): links die Reiter, rechts in derselben Zeile Kopieren.
+        blocksTab = new Rect(viewX + 2, bodyY + 2, TAB_W, ICON);
+        guideTab = new Rect(blocksTab.right() + 2, bodyY + 2, TAB_W, ICON);
+        copy = new Rect(viewX + viewW - ICON - 2, bodyY + 2, ICON, ICON);
         insertField = new Rect(viewX + 3, bodyY + 19, viewW - 6 - INSERT_W - 2, 16);
         insertButton = new Rect(insertField.right() + 2, bodyY + 19, INSERT_W, 16);
         helpList = new Rect(viewX + 1, bodyY + 38, viewW - 2, bodyH - 39);
-        copy = new Rect(viewX + 3, bodyY + bodyH - 19, viewW - 6, 16);
-        guideText = new Rect(viewX + 1, bodyY + 19, viewW - 2, copy.y() - 2 - (bodyY + 19));
+        guideText = new Rect(viewX + 1, bodyY + 19, viewW - 2, bodyH - 20);
     }
 
     /**

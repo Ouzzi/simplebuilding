@@ -287,7 +287,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.GOLD_BUILDING_WAND))
                 .add(key(ModItems.DIAMOND_BUILDING_WAND))
                 .add(key(ModItems.NETHERITE_BUILDING_WAND))
-                .add(key(ModItems.ENDERITE_BUILDING_WAND));
+                .add(key(ModItems.ENDERITE_BUILDING_WAND))
+                .add(key(ModItems.CREATIVE_BUILDING_WAND));
 
         builder(ModTags.Items.VEINMINE_ENCHANTABLE)
                 .forceAddTag(ItemTags.PICKAXES)

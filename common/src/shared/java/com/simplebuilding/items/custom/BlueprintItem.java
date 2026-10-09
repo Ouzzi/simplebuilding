@@ -36,8 +36,21 @@ public class BlueprintItem extends Item {
     private static BiConsumer<net.minecraft.core.BlockPos, ItemStack> placedOpener = (pos, stack) -> {
     };
 
+    /** Kreativ-Blaupause (Queue N29): unbegrenzte Reichweite beim Bauen, signiert endgueltig (auch die Kopie). */
+    private final boolean creative;
+
     public BlueprintItem(Properties properties) {
+        this(properties, false);
+    }
+
+    public BlueprintItem(Properties properties, boolean creative) {
         super(properties);
+        this.creative = creative;
+    }
+
+    /** Ob {@code stack} eine Kreativ-Blaupause ist. */
+    public static boolean isCreative(ItemStack stack) {
+        return stack.getItem() instanceof BlueprintItem item && item.creative;
     }
 
     public static void setClientOpener(BiConsumer<Player, InteractionHand> opener) {
@@ -119,6 +132,13 @@ public class BlueprintItem extends Item {
         return Optional.of(new BlueprintTooltipData(content.code()));
     }
 
+    /** Kreativ-Blaupause: ein Satz zu Reichweite und Signatur. */
+    private void creativeHint(ItemStack stack, Consumer<Component> lines) {
+        if (creative) {
+            lines.accept(Component.translatable("simplebuilding.creative_blueprint.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE));
+        }
+    }
+
     @Override
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
@@ -129,6 +149,7 @@ public class BlueprintItem extends Item {
         if (content.isBlank()) {
             lines.accept(Component.translatable("simplebuilding.blueprint.tooltip.empty").withStyle(ChatFormatting.GRAY));
             lines.accept(Component.translatable("simplebuilding.blueprint.tooltip.empty.2").withStyle(ChatFormatting.GRAY));
+            creativeHint(stack, lines);
             super.appendHoverText(stack, context, display, lines, flag);
             return;
         }
@@ -149,6 +170,7 @@ public class BlueprintItem extends Item {
         if (!content.signed()) {
             lines.accept(Component.translatable("simplebuilding.blueprint.tooltip.unsigned").withStyle(ChatFormatting.DARK_GRAY));
         }
+        creativeHint(stack, lines);
         super.appendHoverText(stack, context, display, lines, flag);
     }
 }

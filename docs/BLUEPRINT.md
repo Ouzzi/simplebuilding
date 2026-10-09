@@ -241,7 +241,9 @@ JUnit `BlueprintEditorLayoutTest`: alles im Blatt, nichts überlappt). Oben die 
 
 ### 2.1 Hilfe
 
-Das Buch nimmt den Platz der Vorschau ein. Zwei Reiter, **Blocks zuerst und Standard**:
+Das Buch nimmt den Platz der Vorschau ein. Zwei Reiter, **Blocks zuerst und Standard**. Reiter und
+Kopieren sind kleine Pixel-Symbole (Würfel, aufgeschlagenes Buch, zwei Blätter; Name im Tooltip, der gewählte
+Reiter hell hinterlegt und unterstrichen, Queue N29):
 
 - **Blocks**: Textfeld + Knopf **„Einfügen“** daneben; beim Öffnen des Buchs hat das Textfeld den
   Fokus. Darunter die Treffer (Symbol, Anzeigename, technischer Name). Klick wählt, Doppelklick,
@@ -250,8 +252,8 @@ Das Buch nimmt den Platz der Vorschau ein. Zwei Reiter, **Blocks zuerst und Stan
   zuerst, dann Anfang von ID/Name, Wortanfang, irgendwo enthalten).
 - **Guide**: vollständige, leicht verständliche Anleitung in sechs Abschnitten (Was eine
   Blaupause ist, Die ersten Zeilen, Mehr Kontrolle, Formen, Variablen, Der Editor), Mausrad rollt;
-  ganz unten fest **„Text kopieren“**: legt die ganze Anleitung als Text (Markdown-Überschriften)
-  in die Zwischenablage, z. B. für Fragen an eine KI.
+  rechts in der Reiterzeile das Symbol **„Text kopieren“**: legt die ganze Anleitung als Text
+  (Markdown-Überschriften) in die Zwischenablage, z. B. für Fragen an eine KI; danach kurz ein Haken.
 
 ### 2.2 Beispiele
 
@@ -350,6 +352,24 @@ Kartentisch, Abschnitt 5.1.)
 
   Vom Besitzer entschieden (2026-09-25).
   Ein zu kleiner Stab lehnt ab ("braucht Eisen-Baustab").
+
+### 4.1 Kreativ-Blaupause und Kreativ-Baustab (Queue N29)
+
+Beide nur im Kreativ-Tab (kein Rezept), Seltenheit episch, eigene Texturen
+(`tools/textures/creative_items_2026_10_09.py`: Blatt violett mit goldenem Stern, Stab mit Quarzschaft und
+Goldstern-Kopf).
+
+- **Unbegrenzte Reichweite** (`CreativeReach`): Kreativ-Baustab in der Haupthand **oder** Baustab +
+  Kreativ-Blaupause in der Nebenhand. Trifft die Vanilla-Reichweite nichts, schickt Vanilla ein Benutzen in
+  die Luft; der Stab wirft dann selbst einen Strahl bis 1024 Blöcke (jenseits jeder Sichtweite) und baut am
+  Treffer wie bei einem normalen Klick. Die Geister-Vorschau folgt demselben Strahl. Schleichen + Luft bleibt
+  Rückgängig.
+- **Kreativ-Baustab**: Fläche und Blaupausen-Kante wie Enderit (13 bzw. 256), Baustab-Verzauberungen per Tag,
+  **ohne Haltbarkeit, Materialverbrauch und Hunger** in jedem Spielmodus (`BuildingWandItem#freeBuild`, auch für
+  Blaupause und Oktant-Füllung); als Vorlage braucht die Fläche weiter einen Block im Inventar.
+- **Kreativ-Blaupause**: sonst wie die Blaupause; signiert **endgültig**: Editor nur lesend, der Server weist
+  Änderungen ab, und die Kopie am Kartentisch (5.1) ist eine genaue, **signierte** Kopie statt einer
+  bearbeitbaren. Die Stufengrenze des Stabs gilt weiter.
 
 ## 5. Scannen am Kartentisch
 

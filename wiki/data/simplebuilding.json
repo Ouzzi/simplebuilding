@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 568,
+      "count": 570,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -628,7 +628,8 @@
         "simplebuilding:linear",
         "simplebuilding:cover",
         "simplebuilding:bridge",
-        "simplebuilding:constructors_touch"
+        "simplebuilding:constructors_touch",
+        "simplebuilding:creative_building_wand"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
@@ -654,7 +655,8 @@
         "common/src/shared/java/com/simplebuilding/util/WandUndo.java",
         "common/src/shared/java/com/simplebuilding/blueprint/ShapeFill.java",
         "common/src/shared/java/com/simplebuilding/gametest/WandModeTests.java",
-        "common/src/shared/java/com/simplebuilding/util/WandHunger.java"
+        "common/src/shared/java/com/simplebuilding/util/WandHunger.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java"
       ],
       "en": {
         "title": "Building Wand: whole areas in one click",
@@ -682,7 +684,8 @@
           "Bridge enchantment: right-click into the air (not sneaking) to build a bridge from the block under your feet straight ahead in your facing direction, at the height of that block - as long as a Linear line (twice the area diameter) and ending in front of the first occupied block. It grows from the edge towards the far end, block by block every tick, in half the time the old chunked bridge took (radius 2 over six blocks: 6 ticks instead of 11). If the floor you stand on runs on ahead, the bridge starts at its edge (searched up to that same length), so you do not have to stand right at the drop. Standing on nothing, or on a floor without a gap in reach, nothing is built and the action bar says why. While you look into the air, the ghost preview shows the bridge. Looking across the gap works too: a click (not sneaking) on a block beyond the edge that is not higher than the bridge - the far bank, the floor or wall of the gap, or the edge block's face towards the gap - builds the same bridge instead of an area there, and the preview shows it; sneak to build the area there after all.",
           "Undo: sneak and right-click into the air with the wand in the main hand. It takes back your last building action - area, line, bridge, cover, octant fill, roof or blueprint build; every new action replaces the one before, so only one step can be undone. Only blocks that are still the block the action placed, in the same amount (a slab doubled since or candles added by hand stay), are removed (nothing that would be lost is cleared: a container has to be empty and any other block entity unchanged since it was placed - a lectern with a book or a campfire with food stays - and a glow lichen or sculk vein spread over more faces stays too; undo also needs the same right to build there as building: world border, spawn protection, claims); their items go into your inventory - also when they came from a bundle or the backpack - and whatever does not fit is dropped at your feet. Durability and hunger (exhaustion already paid) are not refunded, and blocks placed in creative give nothing back. The record lives only for the current session: logging out, a server restart or a dimension change discards it, and actions of more than 65,536 blocks are not recorded. A build that is still running is stopped first. With nothing to undo the action bar says so, and the click no longer reaches an octant in the off hand.",
           "Wand + octant: with the wand in the main hand and an octant with both corners in the off hand, the ghost preview shows the octant's shape filled with material (missing material red), whatever you look at, and a click on any block builds it through the same planner as a blueprint: two-click rule when material is missing, built in stages, 1 durability per block, cancelled when you put the wand or the octant away, not resumed after logout. Material comes from the hotbar (the off hand holds the octant), with Master Builder from the inventory and a Master Builder backpack; with Color Palette it is mixed per position. Blocks are placed as if set onto the floor. The octant's options apply: Hollow builds only the shell; Order builds layer by layer from the base to the tip of the shape (Default), upwards (Bottom Up) or downwards (Top Down); Layer Mode builds only the next unfinished layer per click; once every layer is done the click says there is nothing to build (so does a click on a shape that is already filled). The material check and the preview also count cells that will only stand on a layer of the same fill (a carpet on a carpet, a torch on the layer below), so the preview shows more than the first layer and a block missing up there warns as well. The action bar shows a running fill in percent of the box plus the blocks placed. Command, structure and jigsaw blocks are only filled for players who may place them by hand. Clicking again while the material check of the same fill is still running does not start it over. The longest edge of the selection is capped per wand tier like a blueprint (16/32/48/64/128/256), and the box may hold at most 4,194,304 positions. The whole box plus one block around it has to lie in loaded chunks, otherwise the action bar says so and nothing is built. Planning a fill does not read the world: whether a block has support is checked when the build reaches its position, so a torch on a layer placed earlier in the same fill holds.",
-          "Roof: if the material is a stair and the octant's shape is a prism or pyramid with its tip up, the wand builds a roof instead of a fill - stairs on the sloping faces with their high side towards the ridge (corners adjust themselves), a one block wide ridge of bottom slabs of the same material (oak_stairs becomes oak_slab; stairs where no such slab exists), nothing underneath and nothing in the gable walls. Hollow does not matter here. The stair is the first building block the wand finds (off hand, hotbar, with Master Builder the inventory) - since the off hand holds the octant, put the stairs first in the hotbar. Color Palette does not switch the roof off. On the click the action bar says whether a roof is built, or why not."
+          "Roof: if the material is a stair and the octant's shape is a prism or pyramid with its tip up, the wand builds a roof instead of a fill - stairs on the sloping faces with their high side towards the ridge (corners adjust themselves), a one block wide ridge of bottom slabs of the same material (oak_stairs becomes oak_slab; stairs where no such slab exists), nothing underneath and nothing in the gable walls. Hollow does not matter here. The stair is the first building block the wand finds (off hand, hotbar, with Master Builder the inventory) - since the off hand holds the octant, put the stairs first in the hotbar. Color Palette does not switch the roof off. On the click the action bar says whether a roof is built, or why not.",
+          "Creative Building Wand (creative tab only, no recipe): the Enderite wand's area (diameter 13) and blueprint size (256), all building wand enchantments, but no durability, no material use and no hunger in any game mode (BuildingWandItem.freeBuild) - it still needs a block in the inventory to know what to place. Its reach is unlimited: when the normal reach hits nothing, a right click targets the block in view up to 1024 blocks away, and the ghost preview follows the same ray. Sneak + right-click into the air stays undo."
         ]
       },
       "de": {
@@ -711,7 +714,8 @@
           "Verzauberung Brücke: In die Luft rechtsklicken (ohne Schleichen), und vom Block unter deinen Füßen aus entsteht geradeaus in Blickrichtung eine Brücke auf der Höhe dieses Blocks - so lang wie eine Linear-Linie (doppelter Flächen-Durchmesser), sie endet vor dem ersten belegten Block. Sie wächst von der Kante zum anderen Ende, Block für Block jeden Tick, in der halben Zeit der alten, stückweise gebauten Brücke (Radius 2 über sechs Blöcke: 6 statt 11 Ticks). Läuft der Boden unter dir noch weiter, beginnt die Brücke an seiner Kante (bis zu derselben Länge weit gesucht) - du musst nicht direkt am Abgrund stehen. Stehst du auf nichts oder auf Boden ohne Lücke in Reichweite, wird nichts gebaut, und die Aktionsleiste sagt warum. Solange du in die Luft schaust, zeigt die Geister-Vorschau die Brücke. Auch der Blick über die Lücke geht: Ein Klick (ohne Schleichen) auf einen Block hinter der Kante, der nicht höher liegt als die Brücke - das andere Ufer, Grund oder Wand der Lücke oder die zur Lücke zeigende Seite der Kante -, baut dieselbe Brücke statt dort eine Fläche, und die Vorschau zeigt sie; mit Schleichen entsteht dort doch die Fläche.",
           "Rückgängig: Schleichen und mit dem Stab in der Haupthand in die Luft rechtsklicken. Das nimmt deine letzte Bau-Aktion zurück - Fläche, Linie, Brücke, Abdeckung, Oktant-Füllung, Dach oder Blaupausen-Bau; jede neue Aktion ersetzt die vorige, es gibt also nur einen Schritt zurück. Entfernt werden nur Blöcke, an deren Stelle noch der Block steht, den die Aktion gesetzt hat, in derselben Menge (eine inzwischen doppelte Stufe oder von Hand ergänzte Kerzen bleiben) (geräumt wird nichts, was verloren ginge: ein Behälter muss leer sein und jedes andere Block-Entity unverändert seit dem Setzen - ein Lesepult mit Buch oder ein Lagerfeuer mit Essen bleiben stehen -, ebenso eine Glühflechte oder Sculk-Ader, die inzwischen mehr Flächen bedeckt; das Rückgängig braucht außerdem dasselbe Baurecht wie das Bauen: Weltgrenze, Spawn-Schutz, Claims); ihre Items gehen ins Inventar - auch wenn sie aus einem Bündel oder dem Rucksack kamen -, und was nicht passt, fällt vor deine Füße. Haltbarkeit und Hunger (bereits bezahlte Erschöpfung) werden nicht erstattet, im Kreativmodus gesetzte Blöcke geben nichts zurück. Gemerkt wird nur für die laufende Sitzung: Abmelden, ein Serverneustart oder ein Dimensionswechsel verwerfen die Aktion, und Aktionen über 65.536 Blöcke werden gar nicht aufgezeichnet. Ein noch laufender Bau wird zuerst angehalten. Gibt es nichts zurückzunehmen, sagt es die Aktionsleiste, und der Klick erreicht einen Oktanten in der Nebenhand nicht mehr.",
           "Stab + Oktant: Mit dem Stab in der Haupthand und einem Oktanten mit beiden Ecken in der Nebenhand zeigt die Geister-Vorschau die Figur des Oktanten mit Material gefüllt (fehlendes Material rot), egal wohin du schaust, und ein Klick auf einen beliebigen Block baut sie über denselben Planer wie eine Blaupause: Zwei-Klick-Regel bei fehlendem Material, gestaffelter Aufbau, 1 Haltbarkeit je Block, Abbruch, sobald du Stab oder Oktant weglegst, keine Fortsetzung nach dem Abmelden. Das Material kommt aus der Hotbar (die Nebenhand hält ja den Oktanten), mit Baumeister aus dem Inventar und einem Baumeister-Rucksack; mit Farbpalette wird es je Stelle gemischt. Die Blöcke werden gesetzt, als stellte man sie auf den Boden. Die Optionen des Oktanten wirken: Hohl baut nur die Hülle; Reihenfolge baut Schicht für Schicht von der Grundfläche zur Spitze der Figur (Standard), aufwärts (Von unten) oder abwärts (Von oben); Ebenenmodus baut je Klick nur die nächste unfertige Schicht; ist jede Schicht fertig, sagt der Klick, dass es nichts zu bauen gibt (ebenso bei einer schon gefüllten Figur). Materialprüfung und Vorschau zählen auch Stellen, die erst auf einer Schicht derselben Füllung stehen (Teppich auf Teppich, Fackel auf der Schicht darunter): Die Vorschau zeigt also mehr als die erste Schicht, und ein dort fehlender Block warnt ebenfalls. Die Aktionsleiste zeigt eine laufende Füllung in Prozent der Box und die gesetzten Blöcke. Befehls-, Struktur- und Verbundblöcke werden nur für Spieler gefüllt, die sie auch von Hand setzen dürfen. Ein erneuter Klick, während die Materialprüfung derselben Füllung noch läuft, startet sie nicht von vorn. Die längste Kante der Auswahl ist je Stabstufe begrenzt wie bei der Blaupause (16/32/48/64/128/256), und die Box darf höchstens 4.194.304 Stellen fassen. Die ganze Box samt einem Block Rand muss in geladenen Chunks liegen, sonst sagt die Aktionsleiste das und es wird nichts gebaut. Die Planung liest die Welt nicht: Ob ein Block Halt hat, wird erst geprüft, wenn der Bau seine Stelle erreicht - eine Fackel auf einer früher in derselben Füllung gesetzten Schicht hält also.",
-          "Dach: Ist das Material eine Treppe und die Figur des Oktanten ein Prisma oder eine Pyramide mit der Spitze nach oben, baut der Stab statt einer Füllung ein Dach - Treppen auf den Dachflächen mit der hohen Seite zum First (Ecken passen sich selbst an), ein nur einen Block breiter First aus unteren Stufen desselben Materials (aus oak_stairs wird oak_slab; Treppen, wo es keine solche Stufe gibt), nichts darunter und nichts in den Giebelwänden. Hohl spielt hier keine Rolle. Die Treppe ist der erste Baublock, den der Stab findet (Nebenhand, Hotbar, mit Baumeister das Inventar) - weil die Nebenhand den Oktanten hält, gehören die Treppen nach vorn in die Hotbar. Die Farbpalette schaltet das Dach nicht ab. Beim Klick sagt die Aktionsleiste, ob ein Dach entsteht oder warum nicht."
+          "Dach: Ist das Material eine Treppe und die Figur des Oktanten ein Prisma oder eine Pyramide mit der Spitze nach oben, baut der Stab statt einer Füllung ein Dach - Treppen auf den Dachflächen mit der hohen Seite zum First (Ecken passen sich selbst an), ein nur einen Block breiter First aus unteren Stufen desselben Materials (aus oak_stairs wird oak_slab; Treppen, wo es keine solche Stufe gibt), nichts darunter und nichts in den Giebelwänden. Hohl spielt hier keine Rolle. Die Treppe ist der erste Baublock, den der Stab findet (Nebenhand, Hotbar, mit Baumeister das Inventar) - weil die Nebenhand den Oktanten hält, gehören die Treppen nach vorn in die Hotbar. Die Farbpalette schaltet das Dach nicht ab. Beim Klick sagt die Aktionsleiste, ob ein Dach entsteht oder warum nicht.",
+          "Kreativ-Baustab (nur im Kreativ-Tab, kein Rezept): Fläche (Durchmesser 13) und Blaupausen-Größe (256) wie Enderit, alle Baustab-Verzauberungen, aber ohne Haltbarkeit, Materialverbrauch und Hunger in jedem Spielmodus (BuildingWandItem.freeBuild) - einen Block im Inventar braucht er trotzdem, um zu wissen, was er setzt. Seine Reichweite ist unbegrenzt: trifft die normale Reichweite nichts, zielt ein Rechtsklick auf den Block im Blick bis 1024 Blöcke weit, und die Geister-Vorschau folgt demselben Strahl. Schleichen + Rechtsklick in die Luft bleibt Rückgängig."
         ]
       }
     },
@@ -855,7 +859,9 @@
         "simplebuilding:netherite_building_wand",
         "simplebuilding:enderite_building_wand",
         "simplebuilding:ender_quartz",
-        "simplebuilding:master_builder"
+        "simplebuilding:master_builder",
+        "simplebuilding:creative_blueprint",
+        "simplebuilding:creative_building_wand"
       ],
       "sources": [
         "docs/BLUEPRINT.md",
@@ -878,7 +884,8 @@
         "common/src/shared/java/com/simplebuilding/blueprint/BlueprintBlockSearch.java",
         "src/main/resources/data/simplebuilding/blueprint_examples/plains_house.sbp",
         "common/src/shared/java/com/simplebuilding/util/WandHunger.java",
-        "common/src/shared/java/com/simplebuilding/client/property/BlueprintStateModelProperty.java"
+        "common/src/shared/java/com/simplebuilding/client/property/BlueprintStateModelProperty.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java"
       ],
       "en": {
         "title": "Blueprint: Writing, Scanning and Building Structures",
@@ -905,7 +912,9 @@
           "Logging out or a server restart does not cancel a running build: its progress is saved with the world after every slice. Back in the game, hold the building wand and a signed blueprint with the same code (a copy is fine) and it carries on exactly where it stopped - nothing is placed or paid for twice. With another blueprint or none in the off hand, the action bar says once which build is waiting and where. Starting a different build replaces the waiting one; putting the wand away while it runs cancels it for good.",
           "Loader note: identical on Fabric, NeoForge and Forge (26.2) and on Fabric and NeoForge (1.21.11).",
           "EXPERIMENTAL: in survival a large blueprint build costs hunger like the Building Wand itself - one build is one operation, its first blocks are free (1/16 of the wand's cube, at least 256) and every further block adds the wand tier's exhaustion (see Building Wand; config tools.buildingWandHungerCost). A build resumed after a restart keeps counting from the blocks it had already placed. An Enderite wand building 128x128x128 empties the visible hunger bar, larger builds also just empty it.",
-          "Undo: sneak and right-click into the air with the wand to take back the last build - also a blueprint build, as far as it got; see Building Wand for the rules (same session only, unchanged blocks only, items back into the inventory)."
+          "Undo: sneak and right-click into the air with the wand to take back the last build - also a blueprint build, as far as it got; see Building Wand for the rules (same session only, unchanged blocks only, items back into the inventory).",
+          "Creative Blueprint (creative tab only, no recipe): works like the Blueprint, but a building wand holding it in the off hand reaches any block in view - when the normal reach hits nothing, the wand casts its own ray up to 1024 blocks (CreativeReach.FAR_REACH), on the client for the preview and on the server for the build. Once signed it is final: the editor opens read-only, the server ignores edits, and a copy at the cartography table stays a signed, exact copy instead of an editable one. Its sheet is violet with a small gold star.",
+          "Help book icons: the Blocks and Guide tabs and the copy button are small pixel icons (a cube, an open book, two sheets); hovering shows their names. The copy icon sits at the right of the tab row and briefly turns into a check mark after copying."
         ]
       },
       "de": {
@@ -934,7 +943,9 @@
           "Ausloggen oder ein Serverneustart brechen einen laufenden Bau nicht ab: sein Fortschritt wird nach jeder Scheibe mit der Welt gespeichert. Zurück im Spiel Baustab und eine signierte Blaupause mit demselben Code halten (eine Kopie genügt), und er baut genau dort weiter, wo er stand - nichts wird doppelt gesetzt oder bezahlt. Mit einer anderen oder keiner Blaupause in der Nebenhand sagt die Aktionsleiste einmal, welcher Bau wartet und wo. Ein anderer Bau ersetzt den wartenden; den Stab während des Weiterbaus wegzulegen bricht ihn endgültig ab.",
           "Loader-Hinweis: gleich auf Fabric, NeoForge und Forge (26.2) sowie Fabric und NeoForge (1.21.11).",
           "EXPERIMENTELL: Im Überlebensmodus kostet ein großer Blaupausen-Bau Hunger wie der Baustab selbst - ein Bau ist ein Bauvorgang, seine ersten Blöcke sind frei (1/16 des Würfels des Stabs, mindestens 256), und jeder weitere Block erzeugt die Erschöpfung der Stab-Stufe (siehe Baustab; Config tools.buildingWandHungerCost). Ein nach einem Neustart fortgesetzter Bau zählt mit den schon gesetzten Blöcken weiter. Ein Enderit-Baustab mit 128x128x128 leert die sichtbare Hungerleiste, größere Bauten leeren sie ebenfalls nur.",
-          "Rückgängig: Schleichen und mit dem Stab in die Luft rechtsklicken nimmt den letzten Bau zurück - auch einen Blaupausen-Bau, so weit er gekommen ist; die Regeln stehen beim Baustab (nur in derselben Sitzung, nur unveränderte Blöcke, Items zurück ins Inventar)."
+          "Rückgängig: Schleichen und mit dem Stab in die Luft rechtsklicken nimmt den letzten Bau zurück - auch einen Blaupausen-Bau, so weit er gekommen ist; die Regeln stehen beim Baustab (nur in derselben Sitzung, nur unveränderte Blöcke, Items zurück ins Inventar).",
+          "Kreativ-Blaupause (nur im Kreativ-Tab, kein Rezept): wie die Blaupause, aber ein Baustab mit ihr in der Nebenhand erreicht jeden Block im Blick - trifft die normale Reichweite nichts, wirft der Stab einen eigenen Strahl bis 1024 Blöcke (CreativeReach.FAR_REACH), auf dem Client für die Vorschau, auf dem Server für den Bau. Signiert ist sie endgültig: der Editor öffnet nur lesend, der Server ignoriert Änderungen, und eine Kopie am Kartentisch bleibt eine genaue, signierte Kopie statt einer bearbeitbaren. Ihr Blatt ist violett mit einem kleinen goldenen Stern.",
+          "Symbole im Hilfe-Buch: die Reiter Blöcke und Anleitung sowie der Kopier-Knopf sind kleine Pixel-Symbole (Würfel, aufgeschlagenes Buch, zwei Blätter); der Tooltip nennt ihren Namen. Kopieren sitzt rechts in der Reiterzeile und zeigt nach dem Kopieren kurz einen Haken."
         ]
       }
     },
@@ -8251,6 +8262,294 @@
         ]
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:creative_blueprint",
+      "name": {
+        "en_us": "Creative Blueprint",
+        "de_de": "Kreativ-Blaupause"
+      },
+      "texture": "assets/textures/item/creative_blueprint.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Creative Blueprint is a creative-tab-only Blueprint (no recipe): a building wand with it in the off hand builds at any distance, and once signed it is final.",
+          "details": [
+            "Same editor, code, scanning and building as the Blueprint; the sheet is violet with a small gold star.",
+            "Unlimited reach: when the normal reach hits nothing, a right click with any building wand in the main hand and this blueprint in the off hand targets the block in view up to 1024 blocks away (CreativeReach.FAR_REACH); the ghost preview follows the same ray.",
+            "Final once signed: the editor opens read-only, the server ignores edit packets, and the copy at a cartography table is an exact signed Creative Blueprint instead of an editable one. The wand's tier still limits the size."
+          ]
+        },
+        "de": {
+          "summary": "Die Kreativ-Blaupause gibt es nur im Kreativ-Tab (kein Rezept): ein Baustab mit ihr in der Nebenhand baut in jeder Entfernung, und signiert ist sie endgültig.",
+          "details": [
+            "Gleicher Editor, Code, Scan und Bau wie die Blaupause; das Blatt ist violett mit einem kleinen goldenen Stern.",
+            "Unbegrenzte Reichweite: trifft die normale Reichweite nichts, zielt ein Rechtsklick mit einem Baustab in der Haupthand und dieser Blaupause in der Nebenhand auf den Block im Blick bis 1024 Blöcke weit (CreativeReach.FAR_REACH); die Geister-Vorschau folgt demselben Strahl.",
+            "Signiert endgültig: der Editor öffnet nur lesend, der Server ignoriert Edit-Pakete, und die Kopie am Kartentisch ist eine genaue, signierte Kreativ-Blaupause statt einer bearbeitbaren. Die Stufe des Stabs begrenzt weiter die Größe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java",
+          "common/src/shared/java/com/simplebuilding/blueprint/BlueprintCartography.java",
+          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:creative_building_wand",
+      "name": {
+        "en_us": "Creative Building Wand",
+        "de_de": "Kreativ-Baustab"
+      },
+      "texture": "assets/textures/item/creative_building_wand.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "enchantability": 18,
+        "maxStackSize": 1,
+        "wandSquareDiameter": 13
+      },
+      "note": {
+        "en": {
+          "summary": "Creative Building Wand: creative tab only, unlimited reach (up to 1024 blocks), no durability, no material use. Right-clicking a block face with a building wand fills a whole square area with blocks taken from your inventory; the tier (copper through enderite) sets how large that area can get.",
+          "details": [
+            "Six tiers are registered: Copper Building Wand, Iron Building Wand, Gold Building Wand, Diamond Building Wand, Netherite Building Wand and Enderite Building Wand.",
+            "Right-clicking a block face with the wand in the main hand starts the build; in the off-hand the wand ignores the click (useOn returns PASS).",
+            "The area starts one block in front of the clicked face; with no axis set in the menu the build axis is the axis of the clicked face, so the plane lies flush with that face - clicking the top of a block builds a flat layer, clicking a side builds an upright wall.",
+            "The area is built ring by ring from the center outwards: the center block on the next inventory tick after the click, every further ring after a pause of 4 ticks (DELAY_TICKS).",
+            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only (so does a negative radius, which only a modified client can store).",
+            "The material is the first block item found: the off-hand first, then the hotbar (inventory slots 0 to 8, i.e. hotbar 1 to 9).",
+            "The rest of the inventory (slots 9 and up) is only searched when the wand carries the Master Builder enchantment.",
+            "Reinforced bundles (ReinforcedBundleItem) are searched for blocks when the wand or the bundle itself carries Master Builder; one item is then taken out of the bundle per placement.",
+            "The block type found on the click is stored on the wand (BuildBlockRawId) and applies to the whole area; for every position a block of that kind is looked up in the inventory again, and the build stops once it runs out. The shape of the click (area, Cover, Linear line, bridge) is stored as well (Mode, Length) and read back for every ring.",
+            "In survival, clicking with no usable block available does nothing (useOn returns FAIL).",
+            "Only positions whose current block the game considers replaceable (canBeReplaced, e.g. air) are built; occupied positions are skipped.",
+            "Every placed block consumes one item and costs the wand 1 durability, billed to the hand the wand is in; in creative the build costs neither material nor durability.",
+            "Each placement plays the placed block's place sound at 0.8x pitch and a volume of (block volume + 1) / 2.",
+            "The build only continues while the wand stays in the main or off hand; moving it into another slot cancels it (Active = false).",
+            "Holding the wand in the main hand and looking at a block shows a semi-transparent (alpha 180 of 255) ghost preview, scaled to half size, of every position that would be built.",
+            "The preview leaves out positions that are not replaceable, and does not appear at all when no matching material is found.",
+            "Axis 'Face (Auto)' (mode 0): the build axis is the axis of the clicked face, so the plane lies flush with that face.",
+            "Axis X (mode 1): the plane is spanned by Y and Z (wall across the X axis).",
+            "Axis Y (mode 2): the plane lies flat in X/Z (floor or ceiling).",
+            "Axis Z (mode 3): the plane is spanned by X and Y (wall across the Z axis).",
+            "A set axis only turns the plane: it stays centered on the block in front of the clicked face. If the axis lies in the clicked face (axis Y on a wall, say), one of the cells is the clicked block itself; it cannot be replaced, so it is skipped and costs neither material nor durability - radius 1 then places eight blocks.",
+            "Radius and axis are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; the server only applies them while you are holding a building wand in the main hand.",
+            "Master Builder enchantment: widens the material search to the whole inventory and allows taking blocks out of reinforced bundles.",
+            "Color Palette enchantment: every position gets one of the building blocks you carry, chosen by a hash of the position - the same in preview and build, and mixed on floors too; every stack counts once, so more stacks of a kind make it more frequent. The build places exactly the block the preview showed at each position; when a stack runs out, the palette shrinks to what is left.",
+            "Linear enchantment: a wand with Linear only ever builds a single line - clicking a block face (sneaking or not) builds a straight line away from that face instead of the area, twice the diameter of the set area long (copper 6 up to enderite 26 at full radius), ending in front of the first occupied block; clicking a top face builds a pillar, clicking a side face a horizontal beam. The line grows in as many steps as the area would have rings, with a 2-tick pause between them. Until 2026-09-29 only a sneaking click built the line and a normal click the whole area.",
+            "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
+            "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
+            "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
+            "Upgrade: at the smithing table the Basic Upgrade turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for one core of the new tier - Iron, Gold or Diamond Core (recipe type simplebuilding:count_based_smithing; a wand is built around a core, so the upgrade costs the next one instead of ingots); enchantments, damage and name carry over.",
+            "Netherite Building Wand: smithing table with a Netherite Upgrade, the Diamond Building Wand and a netherite ingot.",
+            "Enderite Building Wand: smithing table with the Enderite Upgrade, the Netherite Building Wand and an Enderite Ingot.",
+            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
+            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 3), end city treasure (3) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (6/8/8) and woodland mansions (3/5/5), Linear also in fishing treasure (2); Constructor's Touch in buried treasure (3), igloo chests (3), trial chamber rewards (3) and fishing treasure (2). Bridge only comes out of end city treasure (weight 4).",
+            "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
+            "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
+            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
+            "All six wands are in the creative tab \"SimpleTools\" (the Blueprint and the Cartography Table right next to the Enderite wand), together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
+            "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5.",
+            "Cover enchantment: the area only grows in front of blocks of the same kind as the clicked block, and only as far as those positions hang together with the center edge to edge - thicken a wall by one layer or extend a floor without square overhangs. The axis setting does not apply in this mode.",
+            "Bridge enchantment: right-click into the air (not sneaking) to build a bridge from the block under your feet straight ahead in your facing direction, at the height of that block - as long as a Linear line (twice the area diameter) and ending in front of the first occupied block. It grows from the edge towards the far end, block by block every tick, in half the time the old chunked bridge took (radius 2 over six blocks: 6 ticks instead of 11). If the floor you stand on runs on ahead, the bridge starts at its edge (searched up to that same length), so you do not have to stand right at the drop. Standing on nothing, or on a floor without a gap in reach, nothing is built and the action bar says why. While you look into the air, the ghost preview shows the bridge.",
+            "Wand + octant: with the wand in the main hand and an octant with both corners in the off hand, the ghost preview shows the octant's shape filled with material (missing material red), whatever you look at, and a click on any block builds it through the same planner as a blueprint: two-click rule when material is missing, built in stages, 1 durability per block, cancelled when you put the wand or the octant away, not resumed after logout. Material comes from the hotbar (the off hand holds the octant), with Master Builder from the inventory and a Master Builder backpack; with Color Palette it is mixed per position. Blocks are placed as if set onto the floor. The octant's options apply: Hollow builds only the shell; Order builds layer by layer from the base to the tip of the shape (Default), upwards (Bottom Up) or downwards (Top Down); Layer Mode builds only the next unfinished layer per click. The longest edge of the selection is capped per wand tier like a blueprint (16/32/48/64/128/256), and the box may hold at most 4,194,304 positions. The whole box has to lie in loaded chunks, otherwise the action bar says so and nothing is built. Planning a fill does not read the world: whether a block has support is checked when the build reaches its position, so a torch on a layer placed earlier in the same fill holds.",
+            "Blocks are placed the way a player clicking the same face would place them: stairs face your viewing direction and take the upper half when you clicked the upper half of a side face, logs lie along the axis of the clicked face, slabs go to the top or bottom by the click height, fences and walls connect, doors and beds come complete, and the item's components (name, block state, block-entity data such as a shulker box's contents) stay on the block. If the clicked block is of the same kind as the material, its orientation (facing, axis, half, top or bottom slab) is carried on instead - a row of stairs or a layer of lying logs simply continues. Positions where a player could not place (no support, an entity in the way, outside the world border, in spawn protection or land a protection mod keeps you out of) stay empty and cost nothing; without build rights (adventure or spectator mode) the wand neither builds nor undoes, and command, structure and jigsaw blocks only come out of it for operators. The ghost preview shows exactly these states.",
+            "Undo: sneak and right-click into the air with the wand in the main hand. It takes back your last building action - area, line, bridge, cover, octant fill, roof or blueprint build; every new action replaces the one before, so only one step can be undone. Only blocks that are still the block the action placed, in the same amount (a slab doubled since or candles added by hand stay), are removed (containers such as chests and shulker boxes stay); their items go into your inventory - also when they came from a bundle or the backpack - and whatever does not fit is dropped at your feet. Durability and hunger (exhaustion already paid) are not refunded, and blocks placed in creative give nothing back. The record lives only for the current session: logging out, a server restart or a dimension change discards it, and actions of more than 65,536 blocks are not recorded. A build that is still running is stopped first. With nothing to undo the action bar says so, and the click no longer reaches an octant in the off hand.",
+            "Roof: if the material is a stair and the octant's shape is a prism or pyramid with its tip up, the wand builds a roof instead of a fill - stairs on the sloping faces with their high side towards the ridge (corners adjust themselves), a one block wide ridge of bottom slabs of the same material (oak_stairs becomes oak_slab; stairs where no such slab exists), nothing underneath and nothing in the gable walls. Hollow does not matter here. The stair is the first building block the wand finds (off hand, hotbar, with Master Builder the inventory) - since the off hand holds the octant, put the stairs first in the hotbar. Color Palette does not switch the roof off. On the click the action bar says whether a roof is built, or why not."
+          ],
+          "controls": [
+            "Right-click a block face (wand in the main hand): build the area.",
+            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default G) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
+            "Button 'Radius: n / max': raises the radius by 1; past the maximum it wraps back to 0.",
+            "Button 'Axis: Face (Auto)': cycles through X, Y, Z and back to Face (Auto); a set axis is drawn yellow, Face (Auto) gray.",
+            "Button 'Done', the E key, Esc or the settings key again: closes the menu.",
+            "Every change in the menu is saved on the wand immediately and sent to the server.",
+            "Sneak + right-click a block face with Linear: build a line away from the face.",
+            "Right-click into the air with Bridge (not sneaking): build a bridge from the block under your feet.",
+            "Sneak + right-click into the air: undo the last building action.",
+            "Octant with a selection in the off hand, right-click any block: fill the octant's shape (or build the roof)."
+          ],
+          "tiers": [
+            "Copper Building Wand: diameter 3 (radius 1, 3x3 area), durability 190*4*2 = 1520, enchantability 18.",
+            "Iron Building Wand: diameter 5 (radius 2, 5x5 area), durability 250*4*2 = 2000, enchantability 14.",
+            "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
+            "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
+            "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
+            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
+          ],
+          "caveats": [
+            "Cover and Bridge are evaluated in BuildingWandItem (Plan.forClick, Plan.forBridge), not in the enchantment definitions, which still carry no effect entry.",
+            "Sneak + right-click into the air is taken by undo whenever the wand is in the main hand - an octant in the off hand can no longer be reset that way while you hold the wand.",
+            "Undo returns every item to the inventory, not into the bundle or backpack it came from; an octant fill or bridge started in another session cannot be undone.",
+            "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
+            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armor; the lower tiers burn.",
+            "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
+            "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
+            "The roof mode knows 45-degree slopes best: a steep prism or pyramid gets stacked stairs on its sides, and gable walls stay empty. Only prisms and pyramids with their tip up become roofs.",
+            "In creative with no block item in the off-hand or hotbar (or anywhere in the inventory with Master Builder) nothing happens, the build stops immediately; only with Color Palette does it then place stone.",
+            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there."
+          ]
+        },
+        "de": {
+          "summary": "Kreativ-Baustab: nur im Kreativ-Tab, unbegrenzte Reichweite (bis 1024 Blöcke), ohne Haltbarkeit und Materialverbrauch. Der Baustab platziert mit einem Rechtsklick auf eine Blockseite eine ganze quadratische Fläche aus Blöcken deines Inventars; die Stufe (Kupfer bis Enderit) bestimmt, wie groß diese Fläche höchstens wird.",
+          "details": [
+            "Sechs Stufen sind registriert: Kupfer-Baustab, Eisen-Baustab, Gold-Baustab, Diamant-Baustab, Netherit-Baustab und Enderit-Baustab.",
+            "Ein Rechtsklick mit dem Stab in der Haupthand auf eine Blockseite startet den Bau; in der Zweithand reagiert der Stab auf den Klick nicht (useOn gibt PASS zurück).",
+            "Die Fläche beginnt einen Block vor der angeklickten Seite; ohne Achseneinstellung liegt sie senkrecht zur angeklickten Seite (Bauachse = Achse der Blockseite).",
+            "Die Fläche entsteht ringweise von der Mitte nach außen: der Mittelblock beim nächsten Inventar-Tick nach dem Klick, jeder weitere Ring nach einer Pause von 4 Ticks (DELAY_TICKS).",
+            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block (ebenso ein negativer Radius, den nur ein veränderter Client speichern kann).",
+            "Als Material gilt der erste Block-Gegenstand, der gefunden wird: zuerst die Zweithand, dann die Hotbar (Inventarplätze 0 bis 8, also Hotbar 1 bis 9).",
+            "Der Rest des Inventars (Plätze ab 9) wird nur durchsucht, wenn der Stab die Verzauberung Baumeister trägt.",
+            "Verstärkte Bündel (ReinforcedBundleItem) werden nach Blöcken durchsucht, wenn der Stab oder das Bündel selbst die Verzauberung Baumeister trägt; beim Bauen wird dann ein Stück aus dem Bündel entnommen.",
+            "Die beim Klick gefundene Blocksorte wird am Stab gespeichert (BuildBlockRawId) und gilt für die ganze Fläche; für jede Position wird im Inventar erneut ein Block dieser Sorte gesucht, und der Bau stoppt, sobald er ausgeht. Auch die Form des Klicks (Fläche, Abdeckung, Linear-Linie, Brücke) wird gespeichert (Mode, Length) und je Ring zurückgelesen.",
+            "Ohne verfügbaren Block passiert im Überlebensmodus beim Klick nichts (useOn gibt FAIL zurück).",
+            "Nur Positionen, deren aktueller Block laut Spiel ersetzbar ist (canBeReplaced, z. B. Luft), werden bebaut; belegte Positionen werden übersprungen.",
+            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit, abgerechnet an der Hand, in der er liegt; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
+            "Beim Setzen erklingt der Platzierungsklang des gesetzten Blocks mit 0,8-facher Tonhöhe und Lautstärke (Blocklautstärke + 1) / 2.",
+            "Der Bau läuft nur weiter, solange der Stab in der Haupt- oder Zweithand bleibt; wandert er in einen anderen Slot, wird er abgebrochen (Active = false).",
+            "Hältst du den Stab in der Haupthand und zielst auf einen Block, zeigt eine halbtransparente (Alpha 180 von 255), auf halbe Größe verkleinerte Geister-Vorschau alle Positionen, die gebaut würden.",
+            "Die Vorschau lässt Positionen aus, die nicht ersetzbar sind, und erscheint gar nicht, wenn kein passendes Material gefunden wird.",
+            "Achse 'Face (Auto)' (Modus 0): die Ebene liegt senkrecht zur angeklickten Blockseite.",
+            "Achse X (Modus 1): die Ebene wird aus Y und Z aufgespannt (Wand quer zur X-Achse).",
+            "Achse Y (Modus 2): die Ebene liegt waagerecht in X/Z (Boden oder Decke).",
+            "Achse Z (Modus 3): die Ebene wird aus X und Y aufgespannt (Wand quer zur Z-Achse).",
+            "Eine gesetzte Achse dreht die Ebene nur: Sie bleibt um den Block vor der angeklickten Seite zentriert. Liegt die Achse in der angeklickten Seite (etwa Achse Y an einer Wand), ist eine der Zellen der angeklickte Block selbst; er lässt sich nicht ersetzen, wird übersprungen und kostet weder Material noch Haltbarkeit – Radius 1 setzt dann acht Blöcke.",
+            "Radius und Achse werden als SettingsRadius/SettingsAxis im Stab gespeichert und per BuildingWandConfigurePayload an den Server gesendet; der Server übernimmt sie nur, wenn du gerade einen Baustab in der Haupthand hältst.",
+            "Verzauberung Baumeister: erweitert die Materialsuche auf das gesamte Inventar und erlaubt das Entnehmen aus verstärkten Bündeln.",
+            "Verzauberung Farbpalette: Jede Stelle bekommt einen der mitgeführten Baublöcke, gewählt über einen Hash der Position - gleich in Vorschau und Bau und auch auf Böden gemischt; jeder Stapel zählt einmal, mehr Stapel einer Sorte machen sie also häufiger. Der Bau setzt an jeder Stelle genau den Block, den die Vorschau dort gezeigt hat; geht ein Stapel aus, schrumpft die Palette auf das, was übrig ist.",
+            "Verzauberung Linear: Ein Stab mit Linear baut nur noch eine einzige Linie - ein Klick auf eine Blockseite (mit oder ohne Schleichen) baut statt der Fläche eine gerade Linie von der Klickseite weg, doppelt so lang wie der Durchmesser der eingestellten Fläche (Kupfer 6 bis Enderit 26 bei vollem Radius), sie endet vor dem ersten belegten Block; ein Klick auf eine Oberseite baut eine Säule, auf eine Seitenfläche einen waagerechten Balken. Die Linie wächst in so vielen Schritten, wie die Fläche Ringe hätte, mit 2 Ticks Pause dazwischen. Bis 2026-09-29 baute nur ein Klick mit Schleichen die Linie und ein normaler Klick die ganze Fläche.",
+            "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
+            "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
+            "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
+            "Aufwerten: Am Schmiedetisch macht die Basis-Aufwertung aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für einen Kern der neuen Stufe – Eisen-, Gold- bzw. Diamantkern (Rezepttyp simplebuilding:count_based_smithing; ein Baustab ist um einen Kern gebaut, also kostet das Aufwerten den nächsten statt Barren); Verzauberungen, Schaden und Name bleiben erhalten.",
+            "Netherit-Baustab: Schmiedetisch mit Netherit-Aufwertung, Diamant-Baustab und Netheritbarren.",
+            "Enderit-Baustab: Schmiedetisch mit Enderit-Aufwertung, Netherit-Baustab und Enderitbarren.",
+            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
+            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 3), Endsiedlungen (3) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (6/8/8) und Waldanwesen (3/5/5), Linear zusätzlich im Angel-Schatz (2); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3), Prüfungskammer-Belohnungen (3) und im Angel-Schatz (2). Brücke gibt es nur im Endsiedlungs-Schatz (Gewicht 4).",
+            "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
+            "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Übersteuerung (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
+            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
+            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ (Blaupause und Kartografentisch direkt neben dem Enderit-Baustab), zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
+            "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt.",
+            "Verzauberung Abdeckung: Die Fläche wächst nur vor Blöcken derselben Sorte wie der angeklickte Block, und nur so weit, wie diese Stellen Kante an Kante mit der Mitte zusammenhängen - eine Mauer um eine Schicht verdicken oder einen Boden erweitern, ohne quadratische Überstände. Die Achsen-Einstellung gilt in diesem Modus nicht.",
+            "Verzauberung Brücke: In die Luft rechtsklicken (ohne Schleichen), und vom Block unter deinen Füßen aus entsteht geradeaus in Blickrichtung eine Brücke auf der Höhe dieses Blocks - so lang wie eine Linear-Linie (doppelter Flächen-Durchmesser), sie endet vor dem ersten belegten Block. Sie wächst von der Kante zum anderen Ende, Block für Block jeden Tick, in der halben Zeit der alten, stückweise gebauten Brücke (Radius 2 über sechs Blöcke: 6 statt 11 Ticks). Läuft der Boden unter dir noch weiter, beginnt die Brücke an seiner Kante (bis zu derselben Länge weit gesucht) - du musst nicht direkt am Abgrund stehen. Stehst du auf nichts oder auf Boden ohne Lücke in Reichweite, wird nichts gebaut, und die Aktionsleiste sagt warum. Solange du in die Luft schaust, zeigt die Geister-Vorschau die Brücke.",
+            "Stab + Oktant: Mit dem Stab in der Haupthand und einem Oktanten mit beiden Ecken in der Nebenhand zeigt die Geister-Vorschau die Figur des Oktanten mit Material gefüllt (fehlendes Material rot), egal wohin du schaust, und ein Klick auf einen beliebigen Block baut sie über denselben Planer wie eine Blaupause: Zwei-Klick-Regel bei fehlendem Material, gestaffelter Aufbau, 1 Haltbarkeit je Block, Abbruch, sobald du Stab oder Oktant weglegst, keine Fortsetzung nach dem Abmelden. Das Material kommt aus der Hotbar (die Nebenhand hält ja den Oktanten), mit Baumeister aus dem Inventar und einem Baumeister-Rucksack; mit Farbpalette wird es je Stelle gemischt. Die Blöcke werden gesetzt, als stellte man sie auf den Boden. Die Optionen des Oktanten wirken: Hohl baut nur die Hülle; Reihenfolge baut Schicht für Schicht von der Grundfläche zur Spitze der Figur (Standard), aufwärts (Von unten) oder abwärts (Von oben); Ebenenmodus baut je Klick nur die nächste unfertige Schicht. Die längste Kante der Auswahl ist je Stabstufe begrenzt wie bei der Blaupause (16/32/48/64/128/256), und die Box darf höchstens 4.194.304 Stellen fassen. Die ganze Box muss in geladenen Chunks liegen, sonst sagt die Aktionsleiste das und es wird nichts gebaut. Die Planung liest die Welt nicht: Ob ein Block Halt hat, wird erst geprüft, wenn der Bau seine Stelle erreicht - eine Fackel auf einer früher in derselben Füllung gesetzten Schicht hält also.",
+            "Blöcke werden so gesetzt, wie ein Spieler sie mit einem Klick auf dieselbe Seite setzen würde: Treppen schauen in deine Blickrichtung und nehmen die obere Hälfte, wenn du in die obere Hälfte einer Seitenfläche geklickt hast, Stämme liegen entlang der Achse der Klickseite, Stufen kommen je nach Klickhöhe oben oder unten hin, Zäune und Mauern verbinden sich, Türen und Betten entstehen vollständig, und die Komponenten des Items (Name, Blockzustand, Block-Entity-Daten wie der Inhalt einer Shulkerkiste) bleiben am Block. Ist der angeklickte Block von derselben Sorte wie das Material, wird stattdessen seine Ausrichtung (Blickrichtung, Achse, Hälfte, obere oder untere Stufe) übernommen - eine Treppenreihe oder eine Lage liegender Stämme geht einfach weiter. Stellen, an denen ein Spieler nicht setzen könnte (kein Halt, ein Wesen im Weg, jenseits der Weltgrenze, im Spawn-Schutz oder in Gebieten, die eine Schutz-Mod sperrt), bleiben frei und kosten nichts; ohne Baurecht (Abenteuer- oder Zuschauermodus) baut der Stab weder noch nimmt er zurück, und Befehls-, Struktur- und Verbundblöcke setzt er nur für Operatoren. Die Geister-Vorschau zeigt genau diese Zustände.",
+            "Rückgängig: Schleichen und mit dem Stab in der Haupthand in die Luft rechtsklicken. Das nimmt deine letzte Bau-Aktion zurück - Fläche, Linie, Brücke, Abdeckung, Oktant-Füllung, Dach oder Blaupausen-Bau; jede neue Aktion ersetzt die vorige, es gibt also nur einen Schritt zurück. Entfernt werden nur Blöcke, an deren Stelle noch der Block steht, den die Aktion gesetzt hat, in derselben Menge (eine inzwischen doppelte Stufe oder von Hand ergänzte Kerzen bleiben) (Behälter wie Truhen und Shulkerkisten bleiben stehen); ihre Items gehen ins Inventar - auch wenn sie aus einem Bündel oder dem Rucksack kamen -, und was nicht passt, fällt vor deine Füße. Haltbarkeit und Hunger (bereits bezahlte Erschöpfung) werden nicht erstattet, im Kreativmodus gesetzte Blöcke geben nichts zurück. Gemerkt wird nur für die laufende Sitzung: Abmelden, ein Serverneustart oder ein Dimensionswechsel verwerfen die Aktion, und Aktionen über 65.536 Blöcke werden gar nicht aufgezeichnet. Ein noch laufender Bau wird zuerst angehalten. Gibt es nichts zurückzunehmen, sagt es die Aktionsleiste, und der Klick erreicht einen Oktanten in der Nebenhand nicht mehr.",
+            "Dach: Ist das Material eine Treppe und die Figur des Oktanten ein Prisma oder eine Pyramide mit der Spitze nach oben, baut der Stab statt einer Füllung ein Dach - Treppen auf den Dachflächen mit der hohen Seite zum First (Ecken passen sich selbst an), ein nur einen Block breiter First aus unteren Stufen desselben Materials (aus oak_stairs wird oak_slab; Treppen, wo es keine solche Stufe gibt), nichts darunter und nichts in den Giebelwänden. Hohl spielt hier keine Rolle. Die Treppe ist der erste Baublock, den der Stab findet (Nebenhand, Hotbar, mit Baumeister das Inventar) - weil die Nebenhand den Oktanten hält, gehören die Treppen nach vorn in die Hotbar. Die Farbpalette schaltet das Dach nicht ab. Beim Klick sagt die Aktionsleiste, ob ein Dach entsteht oder warum nicht."
+          ],
+          "controls": [
+            "Rechtsklick auf eine Blockseite (Stab in der Haupthand): Fläche bauen.",
+            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard G) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
+            "Schaltfläche 'Radius: n / max': erhöht den Radius um 1; nach dem Maximum springt er auf 0 zurück.",
+            "Schaltfläche 'Achse: Face (Auto)': wechselt reihum zu X, Y, Z und wieder zurück zu Face (Auto); eine gesetzte Achse wird gelb, Face (Auto) grau dargestellt.",
+            "Schaltfläche 'Fertig', Taste E, Esc oder erneut die Einstellungstaste: schließt das Menü.",
+            "Jede Änderung im Menü wird sofort im Stab gespeichert und an den Server geschickt.",
+            "Schleichen + Rechtsklick auf eine Blockseite mit Linear: eine Linie von der Seite weg bauen.",
+            "Rechtsklick in die Luft mit Brücke (ohne Schleichen): eine Brücke vom Block unter den Füßen bauen.",
+            "Schleichen + Rechtsklick in die Luft: die letzte Bau-Aktion rückgängig machen.",
+            "Oktant mit Auswahl in der Nebenhand, Rechtsklick auf einen beliebigen Block: die Figur des Oktanten füllen (oder das Dach bauen)."
+          ],
+          "tiers": [
+            "Kupfer-Baustab: Durchmesser 3 (Radius 1, Fläche 3x3), Haltbarkeit 190·4·2 = 1520, Verzauberbarkeit 18.",
+            "Eisen-Baustab: Durchmesser 5 (Radius 2, Fläche 5x5), Haltbarkeit 250·4·2 = 2000, Verzauberbarkeit 14.",
+            "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
+            "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
+            "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
+            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
+          ],
+          "caveats": [
+            "Abdeckung und Brücke werden in BuildingWandItem ausgewertet (Plan.forClick, Plan.forBridge), nicht in den Verzauberungsdefinitionen, die weiterhin keinen effects-Eintrag tragen.",
+            "Schleichen + Rechtsklick in die Luft gehört dem Rückgängig, solange der Stab in der Haupthand liegt - ein Oktant in der Nebenhand lässt sich so nicht mehr zurücksetzen, während du den Stab hältst.",
+            "Rückgängig gibt jedes Item ins Inventar zurück, nicht in das Bündel oder den Rucksack, aus dem es kam; eine in einer früheren Sitzung begonnene Aktion lässt sich nicht zurücknehmen.",
+            "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
+            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
+            "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
+            "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
+            "Der Dachmodus kann 45-Grad-Neigungen am besten: Ein steiles Prisma oder eine steile Pyramide bekommt übereinander gestapelte Treppen an den Seiten, und die Giebelwände bleiben leer. Nur Prismen und Pyramiden mit der Spitze nach oben werden zu Dächern.",
+            "Im Kreativmodus ohne Block-Gegenstand in Zweithand oder Hotbar (bzw. im ganzen Inventar mit Baumeister) passiert nichts, der Bau bricht sofort ab; nur mit Farbpalette wird dann Stein gesetzt.",
+            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/BuildingWandScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/render/BuildingWandPreviewRenderer.java",
+          "common/src/shared/java/com/simplebuilding/client/property/EnchantmentModelProperty.java",
+          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+          "common/src/shared/java/com/simplebuilding/networking/BuildingWandConfigurePayload.java",
+          "src/main/java/com/simplebuilding/networking/ModMessages.java",
+          "forge/src/main/java/com/simplebuilding/forge/networking/ForgeNetworkRegistration.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/networking/NeoForgeNetworkRegistration.java",
+          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
+          "forge/src/main/java/com/simplebuilding/forge/ForgeClientGameEvents.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
+          "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
+          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+          "src/main/java/com/simplebuilding/datagen/ModEnchantmentTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "common/src/shared/java/com/simplebuilding/util/ModTags.java",
+          "src/main/generated/data/simplebuilding/tags/item/building_wand_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/extra_inventory_items.json",
+          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+          "src/main/generated/data/minecraft/tags/item/enchantable/durability.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/generated/data/simplebuilding/enchantment/cover.json",
+          "src/main/generated/data/simplebuilding/enchantment/bridge.json",
+          "src/main/generated/data/simplebuilding/enchantment/linear.json",
+          "src/main/generated/data/simplebuilding/enchantment/master_builder.json",
+          "src/main/generated/data/simplebuilding/enchantment/color_palette.json",
+          "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
+          "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/copper_building_wand.json",
+          "src/main/generated/data/simplebuilding/recipe/iron_building_wand.json",
+          "src/main/generated/data/simplebuilding/recipe/gold_building_wand.json",
+          "src/main/generated/data/simplebuilding/recipe/diamond_building_wand.json",
+          "src/main/generated/data/simplebuilding/recipe/netherite_building_wand_smithing.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_building_wand_smithing.json",
+          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+          "src/main/resources/data/simplebuilding/villager_trade/mason/4/emerald_copper_building_wand.json",
+          "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_wand_book.json",
+          "src/main/resources/data/simplebuilding/villager_trade/librarian/3/emerald_building_book.json",
+          "src/main/resources/data/simplebuilding/villager_trade/librarian/4/emerald_advanced_book.json",
+          "src/main/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json",
+          "src/main/resources/data/minecraft/tags/villager_trade/mason/level_4.json",
+          "src/main/resources/data/minecraft/tags/villager_trade/librarian/level_3.json",
+          "src/main/resources/data/minecraft/tags/villager_trade/librarian/level_4.json",
+          "src/main/resources/data/minecraft/tags/villager_trade/librarian/level_5.json",
+          "src/main/resources/data/minecraft/tags/villager_trade/wandering_trader/uncommon.json",
+          "src/main/java/com/simplebuilding/condition/ConfigResourceCondition.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "src/main/java/com/simplebuilding/items/ModItemGroups.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/ItemBehaviourTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/NetworkHandlerTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/assets/simplebuilding/items/copper_building_wand.json",
+          "src/main/resources/assets/minecraft/items/enchanted_book.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:creative_spacer",
@@ -89588,9 +89887,13 @@
         {
           "id": "simplebuilding:enderite_building_wand",
           "required": true
+        },
+        {
+          "id": "simplebuilding:creative_building_wand",
+          "required": true
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/building_wand_enchantable.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/building_wand_enchantable.json"
     },
     {
       "id": "simplebuilding:item/bundle_enchantable",
@@ -121535,7 +121838,7 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 512,
+    "items": 514,
     "blocks": 269,
     "recipes": 891,
     "lootTables": 248,

@@ -613,7 +613,11 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Kreativ-Blaupause und Kreativ-Bauzauberstab: unbegrenzte Reichweite; Kreativ-Blaupause nach dem Signieren nicht mehr bearbeitbar.
 - [ ] Blaupausen-UI: im Hilfe-Bereich Reiter „Blocks“/„Guide“ als Icons, „Text kopieren“ ebenfalls als Icon.
 - [x] Enderit-Eimer voll: bis zum Rand gefüllt, KEINE Tropfen; wie beim Axolotl-Eimer. Halber Lava-/Seelenlava-Eimer nach derselben Regel wie der halbe Wassereimer. (claude-q-texfix29)
-- [x] Stein-Herz wieder 1 px schmaler (9×9); bei maximaler Resonanz ein Diamant-Herz. (claude-q-texfix29)
+- [x] Stein-Herz wieder 1 px schmaler (9×9); bei maximaler Resonanz ein Diamant-Herz. (claude-q-texfix29),
+- [x] Kreativ-Blaupause und Kreativ-Bauzauberstab: unbegrenzte Reichweite; Kreativ-Blaupause nach dem Signieren nicht mehr bearbeitbar. (claude-q-creative)
+- [x] Blaupausen-UI: im Hilfe-Bereich Reiter „Blocks“/„Guide“ als Icons, „Text kopieren“ ebenfalls als Icon. (claude-q-creative)
+- [ ] Enderit-Eimer voll: bis zum Rand gefüllt, KEINE Tropfen; wie beim Axolotl-Eimer. Halber Lava-/Seelenlava-Eimer nach derselben Regel wie der halbe Wassereimer.
+- [ ] Stein-Herz wieder 1 px schmaler (9×9); bei maximaler Resonanz ein Diamant-Herz.
 - [ ] Rüstungsständer: mittleren Ständer entfernen; nur noch der kleine Ständer (Pfosten mit Querholz auf Steinplatte, wie Referenz) für genau ein Item: ein Rüstungsteil oder eine Tier-Rüstung (Pferd/Wolf/Nautilus, Referenz Pferderüstung auf Pfosten).
 - [x] Tiegel-Flamme „Mittel“ (bestätigt).
 - [x] Farbkasten-Textur überarbeiten: jede Farbe der Palette als ein Pixel in der Kasten-Textur. (claude-q-texfix29; statisch: 16 Farbpixel, keine Inhalts-Property)

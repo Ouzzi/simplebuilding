@@ -597,7 +597,7 @@ public final class ShapeFill {
             layoutKey = lKey;
             layoutCache = plan(level, player, wand, octant);
         }
-        List<Object> pKey = java.util.Arrays.asList(lKey, level.getGameTime() / 4, player.getAbilities().instabuild);
+        List<Object> pKey = java.util.Arrays.asList(lKey, level.getGameTime() / 4, com.simplebuilding.items.custom.BuildingWandItem.freeBuild(player, wand));
         if (Objects.equals(pKey, previewKey)) {
             return previewCache;
         }
@@ -609,7 +609,7 @@ public final class ShapeFill {
         Map<BlockPos, BlockState> placed = new LinkedHashMap<>();
         Map<BlockPos, BlockState> missing = new LinkedHashMap<>();
         BlueprintBuilder.Planner planner = new BlueprintBuilder.Planner(level, player, wand, layoutCache.layout(),
-                BlueprintBuilder.simulatedSupply(player, wand), player.getAbilities().instabuild, true).onMissing((pos, state) -> {
+                BlueprintBuilder.simulatedSupply(player, wand), com.simplebuilding.items.custom.BuildingWandItem.freeBuild(player, wand), true).onMissing((pos, state) -> {
                     if (missing.size() < BlueprintBuilder.MAX_PREVIEW) {
                         missing.put(pos, state);
                     }

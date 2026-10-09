@@ -104,11 +104,12 @@ public class BlueprintScreen extends Screen {
     private Button cancelSignButton;
     private Button insertButton;
     private Button exampleButton;
-    private Button copyButton;
+    // Hilfe-Reiter und Kopieren als Pixel-Symbole mit Namen im Tooltip (Queue N29).
+    private IconButton copyButton;
     private IconButton helpButton;
     private IconButton resetViewButton;
-    private Button guideTab;
-    private Button blocksTab;
+    private IconButton guideTab;
+    private IconButton blocksTab;
     private boolean signing;
     private boolean helpOpen;
     /** Reiter der Hilfe: true = Blocks (Standard), false = Guide. */
@@ -143,7 +144,8 @@ public class BlueprintScreen extends Screen {
     }
 
     private BlueprintScreen(ItemStack stack, int slot, @Nullable BlockPos placedPos) {
-        super(Component.translatable("item.simplebuilding.blueprint"));
+        super(Component.translatable(itemKey(stack)));
+        this.itemName = Component.translatable(itemKey(stack));
         this.slot = slot;
         this.placedPos = placedPos;
         this.original = BlueprintItem.content(stack);
@@ -152,6 +154,13 @@ public class BlueprintScreen extends Screen {
         this.lastSent = code;
         this.parsed = BlueprintCode.parse(code);
         this.materials = BlueprintMaterials.list(parsed.model());
+    }
+
+    /** Name der Blaupause im Kopf: normale oder Kreativ-Blaupause (Queue N29). */
+    private final Component itemName;
+
+    private static String itemKey(ItemStack stack) {
+        return BlueprintItem.isCreative(stack) ? "item.simplebuilding.creative_blueprint" : "item.simplebuilding.blueprint";
     }
 
     /** Schriftgroesse im Code-Feld: ganzzahlige Pixel, bei grossem GUI-Massstab kleiner. */
@@ -206,10 +215,12 @@ public class BlueprintScreen extends Screen {
         resetViewButton = addRenderableWidget(new IconButton(layout.reset, Component.translatable("simplebuilding.blueprint.editor.view_reset"),
                 Component.translatable("simplebuilding.blueprint.editor.view_reset_tip"), RESET_ICON, controls::reset));
         exampleButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.editor.example"), layout.example, b -> insertExample()));
-        blocksTab = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.help.blocks_tab"), layout.blocksTab, b -> showTab(true)));
-        guideTab = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.help.guide_tab"), layout.guideTab, b -> showTab(false)));
-        copyButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.help.copy"), layout.copy, b -> copyGuide()));
-        copyButton.setTooltip(Tooltip.create(Component.translatable("simplebuilding.blueprint.help.copy_tip")));
+        Component blocksName = Component.translatable("simplebuilding.blueprint.help.blocks_tab");
+        Component guideName = Component.translatable("simplebuilding.blueprint.help.guide_tab");
+        blocksTab = addRenderableWidget(new IconButton(layout.blocksTab, blocksName, blocksName, BLOCKS_ICON, () -> showTab(true)));
+        guideTab = addRenderableWidget(new IconButton(layout.guideTab, guideName, guideName, GUIDE_ICON, () -> showTab(false)));
+        copyButton = addRenderableWidget(new IconButton(layout.copy, Component.translatable("simplebuilding.blueprint.help.copy"),
+                copyTip(), COPY_ICON, this::copyGuide));
 
         doneButton = addRenderableWidget(button(Component.translatable("gui.done"), readOnly ? layout.doneWide : layout.done, b -> onClose()));
         signButton = addRenderableWidget(button(Component.translatable("book.signButton"), layout.sign, b -> {
@@ -319,7 +330,8 @@ public class BlueprintScreen extends Screen {
         }
         if (copiedUntil != 0 && now > copiedUntil) {
             copiedUntil = 0;
-            copyButton.setMessage(Component.translatable("simplebuilding.blueprint.help.copy"));
+            copyButton.setBitmap(COPY_ICON);
+            copyButton.tip(copyTip());
         }
     }
 
@@ -374,9 +386,16 @@ public class BlueprintScreen extends Screen {
         return out.toString().strip() + "\n";
     }
 
+    /** Tooltip des Kopier-Symbols: Name, darunter was es tut. */
+    private static Component copyTip() {
+        return Component.translatable("simplebuilding.blueprint.help.copy").withStyle(ChatFormatting.BOLD)
+                .append(Component.literal("\n")).append(Component.translatable("simplebuilding.blueprint.help.copy_tip").withStyle(s -> s.withBold(false)));
+    }
+
     private void copyGuide() {
         minecraft.keyboardHandler.setClipboard(guideText());
-        copyButton.setMessage(Component.translatable("simplebuilding.blueprint.help.copied"));
+        copyButton.setBitmap(CHECK_ICON);
+        copyButton.tip(Component.translatable("simplebuilding.blueprint.help.copied"));
         copiedUntil = Util.getMillis() + 2000;
     }
 
@@ -479,7 +498,7 @@ public class BlueprintScreen extends Screen {
                 title.append(Component.literal("  ")).append(Component.translatable("book.byAuthor", original.author()));
             }
         } else {
-            title.append(Component.translatable("item.simplebuilding.blueprint").withStyle(ChatFormatting.BOLD));
+            title.append(itemName.copy().withStyle(ChatFormatting.BOLD));
         }
         Rect p = layout.panel;
         fitted(g, title, p.x() + 8, p.y() + 7, p.w() - 16, INK);
@@ -792,19 +811,79 @@ public class BlueprintScreen extends Screen {
             "..#####..",
     };
 
+    /** Reiter "Blocks": ein Wuerfel von schraeg oben, 9×9. */
+    private static final String[] BLOCKS_ICON = {
+            "....#....",
+            "..##.##..",
+            "##.....##",
+            "#.##.##.#",
+            "#...#...#",
+            "#...#...#",
+            "#...#...#",
+            ".##.#.##.",
+            "...###...",
+    };
+
+    /** Reiter "Guide": ein aufgeschlagenes Buch mit Zeilen, 11×8. */
+    private static final String[] GUIDE_ICON = {
+            "..##...##..",
+            "##..#.#..##",
+            "#.##.#.##.#",
+            "#....#....#",
+            "#.##.#.##.#",
+            "#....#....#",
+            "##..###..##",
+            "..##...##..",
+    };
+
+    /** "Text kopieren": zwei versetzte Blaetter, 9×9. */
+    private static final String[] COPY_ICON = {
+            "######...",
+            "#....#...",
+            "#..######",
+            "#..#....#",
+            "#..#.##.#",
+            "####....#",
+            "...#.##.#",
+            "...#....#",
+            "...######",
+    };
+
+    /** Nach dem Kopieren kurz ein Haken, 9×7. */
+    private static final String[] CHECK_ICON = {
+            "........#",
+            ".......##",
+            "#.....##.",
+            "##...##..",
+            ".##.##...",
+            "..###....",
+            "...#.....",
+    };
+
     /**
      * Kleiner 16×16-Knopf ohne Text: entweder das Wissensbuch (Hilfe, wie Vanillas Rezeptbuch-Knopf)
      * oder ein gezeichnetes Pixel-Symbol auf dunklem Grund (Reset im Vorschaufenster).
      */
     private static final class IconButton extends net.minecraft.client.gui.components.AbstractButton {
         private final Runnable action;
-        private final String[] bitmap;
+        private String[] bitmap;
+        private Component tipText;
 
         IconButton(Rect r, Component label, Component tooltip, String[] bitmap, Runnable action) {
             super(r.x(), r.y(), r.w(), r.h(), label);
             this.action = action;
             this.bitmap = bitmap;
-            setTooltip(Tooltip.create(tooltip));
+            tip(tooltip);
+        }
+
+        /** Tooltip setzen und merken (BlueprintViewClientTest liest {@code tipText} per Reflexion). */
+        void tip(Component text) {
+            this.tipText = text;
+            setTooltip(Tooltip.create(text));
+        }
+
+        void setBitmap(String[] bitmap) {
+            this.bitmap = bitmap;
         }
 
         @Override
@@ -822,10 +901,15 @@ public class BlueprintScreen extends Screen {
                 g.item(new ItemStack(Items.KNOWLEDGE_BOOK), x, y);
                 return;
             }
-            g.fill(x, y, x + width, y + height, isHoveredOrFocused() ? 0xA0405A78 : 0x70000000);
+            // Ein inaktiver Reiter ist der gewaehlte: hell hinterlegt mit Unterstrich (Queue N29).
+            boolean selected = !active;
+            g.fill(x, y, x + width, y + height, selected ? 0xC0405A78 : isHoveredOrFocused() ? 0xA0405A78 : 0x70000000);
+            if (selected) {
+                g.fill(x + 1, y + height - 1, x + width - 1, y + height, 0xFFFFFFFF);
+            }
             int ox = x + (width - bitmap[0].length()) / 2;
             int oy = y + (height - bitmap.length) / 2;
-            int colour = isHoveredOrFocused() ? 0xFFFFFFFF : 0xFFC8D6E8;
+            int colour = selected || isHoveredOrFocused() ? 0xFFFFFFFF : 0xFFC8D6E8;
             for (int row = 0; row < bitmap.length; row++) {
                 for (int col = 0; col < bitmap[row].length(); col++) {
                     if (bitmap[row].charAt(col) == '#') {

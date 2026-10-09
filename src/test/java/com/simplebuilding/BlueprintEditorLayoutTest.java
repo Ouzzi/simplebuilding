@@ -79,7 +79,10 @@ class BlueprintEditorLayoutTest {
         assertTrue(l.blocksTab.x() < l.guideTab.x(), "Blocks is the first tab");
         assertTrue(l.insertButton.x() >= l.insertField.right() && l.insertButton.y() == l.insertField.y(),
                 "Insert sits right next to the text field");
-        assertTrue(l.copy.y() >= l.guideText.bottom(), "the copy button is at the very bottom of the guide");
+        assertTrue(l.copy.y() == l.blocksTab.y() && l.copy.x() > l.guideTab.right() && l.copy.w() == BlueprintEditorLayout.ICON,
+                "the copy icon sits in the tab row, right of the tabs");
+        assertTrue(l.blocksTab.w() <= BlueprintEditorLayout.TAB_W && l.guideTab.w() <= BlueprintEditorLayout.TAB_W,
+                "the tabs are icons, not text buttons");
     }
 
     @Test

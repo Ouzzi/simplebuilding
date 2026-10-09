@@ -216,22 +216,22 @@ public final class BlueprintViewClientTest {
             }
         });
         script.shot("blueprint-help-blocks");
+        script.act("the help tabs are icons with their names as tooltips (Queue N29)", client -> {
+            BlueprintScreen sc = screen(client);
+            iconWithTooltip(widgetField(sc, "blocksTab"), "simplebuilding.blueprint.help.blocks_tab");
+            iconWithTooltip(widgetField(sc, "guideTab"), "simplebuilding.blueprint.help.guide_tab");
+        });
         script.act("switch to the Guide tab", client -> screen(client).showTab(false));
         script.idle("let the guide render", 3);
         script.shot("blueprint-help-guide");
         script.act("the copy button puts the whole guide on the clipboard", client -> {
             BlueprintScreen sc = screen(client);
             String saved = client.keyboardHandler.getClipboard();
-            String label = net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.help.copy").getString();
-            net.minecraft.client.gui.components.Button copy = null;
-            for (GuiEventListener child : sc.children()) {
-                if (child instanceof net.minecraft.client.gui.components.Button b && b.visible && b.getMessage().getString().equals(label)) {
-                    copy = b;
-                }
+            net.minecraft.client.gui.components.AbstractWidget copy = widgetField(sc, "copyButton");
+            if (!copy.visible) {
+                throw new AssertionError("The Guide tab shows no visible copy button.");
             }
-            if (copy == null) {
-                throw new AssertionError("The Guide tab shows no visible '" + label + "' button.");
-            }
+            iconWithTooltip(copy, "simplebuilding.blueprint.help.copy");
             client.keyboardHandler.setClipboard("");
             copy.mouseClicked(new MouseButtonEvent(copy.getX() + 2, copy.getY() + 2,
                     new MouseButtonInfo(InputConstants.MOUSE_BUTTON_LEFT, 0)), false);
@@ -413,6 +413,40 @@ public final class BlueprintViewClientTest {
             return type.cast(read(owner, name).get(owner));
         } catch (IllegalAccessException e) {
             throw new IllegalStateException(e);
+        }
+    }
+
+    private static net.minecraft.client.gui.components.AbstractWidget widgetField(Object owner, String name) {
+        try {
+            return (net.minecraft.client.gui.components.AbstractWidget) read(owner, name).get(owner);
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    /**
+     * Queue N29: a help tab or the copy button is a small icon (no text label drawn, at most 20 px wide)
+     * whose name ({@code key}) is its narration message and appears in its tooltip.
+     */
+    private static void iconWithTooltip(net.minecraft.client.gui.components.AbstractWidget widget, String key) {
+        String name = net.minecraft.network.chat.Component.translatable(key).getString();
+        if (widget.getWidth() > 20 || widget instanceof net.minecraft.client.gui.components.Button) {
+            throw new AssertionError("'" + name + "' is still a " + widget.getWidth() + " px text button, not an icon: " + widget);
+        }
+        if (!widget.getMessage().getString().equals(name)) {
+            throw new AssertionError("The icon for '" + name + "' is named '" + widget.getMessage().getString() + "'.");
+        }
+        Object tip;
+        try {
+            tip = read(widget, "tipText").get(widget);
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+        if (!(tip instanceof net.minecraft.network.chat.Component text)) {
+            throw new AssertionError("The icon for '" + name + "' has no tooltip.");
+        }
+        if (!text.getString().contains(name)) {
+            throw new AssertionError("The tooltip of the '" + name + "' icon reads '" + text + "' and does not name it.");
         }
     }
 

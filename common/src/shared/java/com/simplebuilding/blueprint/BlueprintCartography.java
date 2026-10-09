@@ -48,11 +48,19 @@ public final class BlueprintCartography {
 
     /**
      * Kopieren wie bei Karten: signierte Blaupause oben, leere unten -> eine unsignierte Kopie mit
-     * demselben Code und Titel, ohne Autor, also wieder bearbeitbar. Sonst leer.
+     * demselben Code und Titel, ohne Autor, also wieder bearbeitbar. Eine signierte Kreativ-Blaupause gibt
+     * eine genaue, signierte Kopie (Queue N29). Sonst leer.
      */
     public static ItemStack copyResult(ItemStack original, ItemStack blank) {
         if (!isSigned(original) || !isBlank(blank)) {
             return ItemStack.EMPTY;
+        }
+        if (com.simplebuilding.items.custom.BlueprintItem.isCreative(original)) {
+            // Kreativ-Blaupause (Queue N29): signiert ist sie endgueltig, auch als Kopie - eine genaue,
+            // signierte Kopie statt einer bearbeitbaren (Autor, Titel, Code; ohne die Drehung im Baumodus).
+            ItemStack exact = original.copyWithCount(1);
+            exact.remove(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT_ROTATION);
+            return exact;
         }
         BlueprintContent source = com.simplebuilding.items.custom.BlueprintItem.content(original);
         ItemStack copy = blank.copyWithCount(1);

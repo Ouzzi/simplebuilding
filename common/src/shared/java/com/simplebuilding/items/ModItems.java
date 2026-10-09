@@ -590,6 +590,10 @@ public class ModItems {
 
     public static final BuildingWandItem ENDERITE_BUILDING_WAND = registerBuildingWand("enderite_building_wand", DURABILITY_ENDERITE_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_ENDERITE, ENCHANTABILITY_ENDERITE);
 
+    // Kreativ-Baustab (Queue N29): nur im Kreativ-Tab, kein Rezept; Flaeche wie Enderit, unbegrenzte
+    // Reichweite, ohne Haltbarkeit und Materialverbrauch (BuildingWandItem#freeBuild).
+    public static final BuildingWandItem CREATIVE_BUILDING_WAND = registerCreativeBuildingWand();
+
     // Sledgehammer
 
     public static final SledgehammerItem STONE_SLEDGEHAMMER = registerSledgehammer("stone_sledgehammer", DURABILITY_STONE_SLEDGEHAMMER, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE, SledgehammerItem.STONE_ATTACK_DAMAGE, SledgehammerItem.STONE_ATTACK_SPEED);
@@ -651,6 +655,9 @@ public class ModItems {
     // Blaupause (docs/BLUEPRINT.md): leer stapelbar wie Karten, gefuellt einzeln verschieden.
     public static final com.simplebuilding.items.custom.BlueprintItem BLUEPRINT = (com.simplebuilding.items.custom.BlueprintItem) registerItem("blueprint",
             settings -> new com.simplebuilding.items.custom.BlueprintItem(settings.stacksTo(16)));
+    // Kreativ-Blaupause (Queue N29): nur im Kreativ-Tab, kein Rezept; unbegrenzte Reichweite, signiert endgueltig.
+    public static final com.simplebuilding.items.custom.BlueprintItem CREATIVE_BLUEPRINT = (com.simplebuilding.items.custom.BlueprintItem) registerItem("creative_blueprint",
+            settings -> new com.simplebuilding.items.custom.BlueprintItem(settings.stacksTo(16).rarity(Rarity.EPIC), true));
 
     // EnumMap, not HashMap: datagen iterates this to build the octants_enchantable tag, and a
     // HashMap keyed by an enum orders by identity hash -- i.e. differently on every JVM run,
@@ -1129,6 +1136,13 @@ public class ModItems {
     }
 
 
+
+    private static BuildingWandItem registerCreativeBuildingWand() {
+        BuildingWandItem wand = (BuildingWandItem) registerItem("creative_building_wand", settings -> new BuildingWandItem(
+                settings.stacksTo(1).fireResistant().rarity(Rarity.EPIC).enchantable(ENCHANTABILITY_ENDERITE)).creative());
+        wand.setWandSquareDiameter(BUILDING_WAND_SQUARE_ENDERITE);
+        return wand;
+    }
 
     private static BuildingWandItem registerBuildingWand(String name, int maxDamage, int wandSquareDiameter, int enchantability) {
 
