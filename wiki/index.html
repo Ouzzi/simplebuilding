@@ -2560,7 +2560,7 @@ function guideLink(f) {
 }
 function itemTile(e) {
   var kind = kindOfId(e.id) || 'items';
-  return '<a class="itile" href="#/' + kind + '/' + esc(e.id) + '" data-id="' + esc(e.id) + '">' + slotHtml(e.id, 1, { noLink: true }) + '<span class="itile-name">' + esc(nameOf(e) || prettyFromId(e.id)) + '</span></a>';
+  return '<a class="itile" href="#/' + kind + '/' + esc(e.id) + '" data-id="' + esc(e.id) + '" data-item-id="' + esc(e.id) + '">' + slotHtml(e.id, 1, { noLink: true }) + '<span class="itile-name">' + esc(nameOf(e) || prettyFromId(e.id)) + '</span></a>';
 }
 function catCard(c) {
   var n = catEntries()[c.key].length;
@@ -2598,7 +2598,9 @@ function pageCategory(key) {
     var title = g.key ? prettyFromId(g.key) : T('catMore');
     h += '<section class="fam"><div class="fam-title"><span>' + esc(title) + ' · ' + g.members.length + '</span>' + (f ? '<a href="#/features/' + esc(f.id) + '">' + esc(featureTitle(f)) + ' →</a>' : '') + '</div><div class="tile-grid">' + g.members.map(itemTile).join('') + '</div></section>';
   });
-  return h;
+  var res = h;
+  setTimeout(function(){ try{ devHook('items', document.querySelector('.cat-items') || document.querySelector('.fam')?.parentElement); }catch(e){} }, 0);
+  return res;
 }
 function pageGuides() {
   var feats = arr(D.features).filter(isObj);
@@ -2614,8 +2616,8 @@ function pageOverview() {
   if (MODID !== 'simplebuilding') {
     return '<section class="home-hero"><h1>' + esc(MOD.name) + ' Wiki</h1></section>' + moduleInfo() +
       '<h2>' + esc(T('homeGuides')) + '</h2><div class="guide-grid">' + arr(D.features).map(guideLink).join('') + '</div>' +
-      '<h2>' + esc(T('navItems')) + '</h2><div class="tile-grid">' + arr(D.items).map(itemTile).join('') + '</div>' +
-      '<h2>' + esc(T('navBlocks')) + '</h2><div class="tile-grid">' + arr(D.blocks).map(itemTile).join('') + '</div>';
+      '<h2>' + esc(T('navItems')) + '</h2><div class="tile-grid" id="items-grid">' + arr(D.items).map(itemTile).join('') + '</div>' +
+      '<h2>' + esc(T('navBlocks')) + '</h2><div class="tile-grid" id="blocks-grid">' + arr(D.blocks).map(itemTile).join('') + '</div>';
   }
   var g = isObj(D.generatedFrom) ? D.generatedFrom : {};
   var counts = isObj(D.counts) ? D.counts : {};
@@ -2768,7 +2770,9 @@ function pageItems(kind) {
     '<div class="ar-frow" role="group" aria-label="' + esc(T('ivView')) + '"><span class="ar-flabel">' + esc(T('ivView')) + '</span>' + ivChip('view', 'list', T('ivList')) + ivChip('view', 'grid', T('ivGrid')) +
     '<label><input type="checkbox" id="iv-rc"' + (IV.rc ? ' checked' : '') + '> ' + esc(T('ivRecipes')) + '</label><a class="chip" href="#/allrecipes">' + esc(T('arTitle')) + ' →</a></div></div>';
   var h = listPage(T('ivTitle'), all.map(catalogRow), { intro: bar });
-  return h.replace('<div class="rows" data-filter-target>', '<div class="rows iv-rows' + (IV.view === 'grid' ? ' as-grid' : '') + (IV.rc ? ' with-rc' : '') + '" data-filter-target data-kind-filter="' + shownKind + '">');
+  var res = h.replace('<div class="rows" data-filter-target>', '<div class="rows iv-rows' + (IV.view === 'grid' ? ' as-grid' : '') + (IV.rc ? ' with-rc' : '') + '" data-filter-target data-kind-filter="' + shownKind + '">');
+  setTimeout(function(){ try{ devHook('items', document.querySelector('.iv-rows')); }catch(e){} }, 0);
+  return res;
 }
 function pageBlocks() { return pageItems('blocks'); }
 
@@ -2885,6 +2889,7 @@ function entryPage(id, kind) {
   if (!tagline) { var fx = featureFor([id]); if (fx) tagline = firstSentence(featureSummary(fx)); }
   if (tagline) h += '<p class="tagline">' + esc(tagline) + '</p>';
   h += '</div></div></header>';
+  setTimeout(function(){ try{ devHook('item-page', null, {id:id,label:main,module:e.module||''}); }catch(e){} }, 0);
 
   /* 2. Kennzahlen: Tempo der Maschine, Haltbarkeit & Co. */
   h += machineFeature(id);
@@ -4524,7 +4529,10 @@ function txTile(t, i) {
     if (TX.show !== 'final') body += '<span class="tx-pane" title="' + esc(T('txSheet')) + '">' + txSheetThumb(t, 48) + '</span>';
   }
   var meta = (t.shot ? t.w + '×' + t.h : txRes(t) + (t.anim ? ' · ▶ ' + t.anim.count : '')) + ' · ' + esc(t.shot ? txKindLabel('shot') : txKindLabel(t.kind));
-  return '<button type="button" class="tx-tile' + (TX.area === 'ui' ? ' tx-wide' : '') + '" data-tx-open="' + i + '" title="' + esc(t.id) + '"><span class="tx-imgs">' + body + '</span><span class="tx-name">' + esc(name) + '</span><span class="tx-meta">' + meta + ' · ' + esc(txModName(t.module)) + '</span></button>';
+  var txIdAttr = t.id ? esc(t.id) : '';
+  var txPathAttr = t.file ? esc(t.file) : '';
+  var txLabelAttr = esc(name);
+  return '<button type="button" class="tx-tile' + (TX.area === 'ui' ? ' tx-wide' : '') + '" data-tx-open="' + i + '" data-tx-id="' + txIdAttr + '" data-tx-path="' + txPathAttr + '" data-tx-label="' + txLabelAttr + '" title="' + esc(t.id) + '"><span class="tx-imgs">' + body + '</span><span class="tx-name">' + esc(name) + '</span><span class="tx-meta">' + meta + ' · ' + esc(txModName(t.module)) + '</span></button>';
 }
 function txGridHtml() {
   TX.list = txFiltered();
@@ -4573,6 +4581,7 @@ function txRefresh(full) {
   if (full) { var y = window.pageYOffset; render({ keepScroll: true }); window.scrollTo(0, y); return; }
   var box = document.getElementById('tx-results');
   if (box) box.innerHTML = txGridHtml();
+  try { devHook('textures', box); } catch (e) {}
 }
 $main.addEventListener('input', function (ev) {
   if (!ev.target.matches || !ev.target.matches('[data-tx-q]')) return;
@@ -4596,6 +4605,10 @@ $main.addEventListener('click', function (ev) {
   el.parentNode.querySelectorAll('[data-tx="' + key + '"]').forEach(function (b) { b.setAttribute('aria-pressed', String(b === el)); });
   txRefresh(false);
 });
+
+function devHook(kind, el, info){
+  if (window.sbDevHook) try { window.sbDevHook(kind, el, info); } catch (e) {}
+}
 
 /* Lightbox: beide Formen nebeneinander, Zoom, Hintergrund, Animation, Pfeiltasten. */
 var $txlb = null;
@@ -4652,6 +4665,7 @@ function txOpen(i) {
   $txlb.setAttribute('aria-label', txName(t));
   $txlb.hidden = false;
   document.body.classList.add('tx-lb-open');
+  try { devHook('texture-zoom', $txlb, t); } catch (e) {}
   txAnimate();
 }
 /* Grosse Dateien (GUI 256/512 px) nicht ueber 2048 px hochziehen: der Browser glaettet dann. */
