@@ -90,6 +90,8 @@ public final class BrewClientTest {
         script.act("close the Esc menu", c -> c.gui.setScreen(null));
         script.command("effect clear @a");
 
+        // The crosshair is part of the HUD, which the scene hides.
+        TestScene.showHudAgain(script);
         script.command("effect give @a simplebuilding:shivering 60 1 true");
         script.await("the client has Shivering", 60, c -> c.player.hasEffect(com.simplebuilding.effect.ModEffects.SHIVERING),
                 c -> "no Shivering on the client");
@@ -97,7 +99,12 @@ public final class BrewClientTest {
         script.shot("brew-shivering");
         script.command("effect clear @a");
 
-        script.command("tp @a 10.5 0.0 14.6 0.0 55.0");
+        script.act("hide the HUD again", c -> {
+            if (!c.gui.hud.isHidden()) c.gui.hud.toggle();
+        });
+        // Stand on a block in front of the table and look down onto its top (eye 1.6 above it, 2 blocks away).
+        script.command("setblock 10 0 14 minecraft:stone");
+        script.command("tp @a 10.5 1.0 14.5 0.0 38.0");
         script.awaitPackets();
         script.check("the client has the table's grid", c -> c.level.getBlockEntity(TABLE) instanceof StorageCraftingTableBlockEntity table
                 && table.items().get(4).is(Items.DIAMOND));
@@ -117,6 +124,7 @@ public final class BrewClientTest {
         script.shot("brew-storage-table-screen");
         script.act("close the screen", c -> c.gui.setScreen(null));
         script.command("setblock 10 0 16 minecraft:air");
+        script.command("setblock 10 0 14 minecraft:air");
         script.command("kill @e[type=!minecraft:player]", true);
         script.awaitPackets();
     }
