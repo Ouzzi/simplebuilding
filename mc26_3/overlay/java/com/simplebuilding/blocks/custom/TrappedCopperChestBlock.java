@@ -123,9 +123,13 @@ public class TrappedCopperChestBlock extends ChestBlock implements WeatheringCop
                 McVersion.waxOnEffects(level, pos);
                 stack.consume(1, player);
             } else {
-                boolean waxOff = waxed;
-                level.playSound(null, pos, waxOff ? SoundEvents.AXE_WAX_OFF : SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0f, 1.0f);
-                level.levelEvent(null, waxOff ? LevelEvent.PARTICLES_WAX_OFF : LevelEvent.PARTICLES_SCRAPE, pos, 0);
+                if (waxed) {
+                    level.playSound(null, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0f, 1.0f);
+                    level.levelEvent(null, LevelEvent.PARTICLES_WAX_OFF, pos, 0);
+                } else {
+                    level.playSound(null, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0f, 1.0f);
+                    level.levelEvent(null, LevelEvent.PARTICLES_SCRAPE, pos, 0);
+                }
                 stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
             }
         }

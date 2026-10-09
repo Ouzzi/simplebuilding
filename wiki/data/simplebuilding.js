@@ -1178,7 +1178,15 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_nugget",
         "simplebuilding:reinforced_trapped_chest",
         "simplebuilding:netherite_trapped_chest",
-        "simplebuilding:enderite_trapped_chest"
+        "simplebuilding:enderite_trapped_chest",
+        "simplebuilding:trapped_copper_chest",
+        "simplebuilding:exposed_trapped_copper_chest",
+        "simplebuilding:weathered_trapped_copper_chest",
+        "simplebuilding:oxidized_trapped_copper_chest",
+        "simplebuilding:waxed_trapped_copper_chest",
+        "simplebuilding:waxed_exposed_trapped_copper_chest",
+        "simplebuilding:waxed_weathered_trapped_copper_chest",
+        "simplebuilding:waxed_oxidized_trapped_copper_chest"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
@@ -1197,7 +1205,9 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
         "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java",
-        "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java"
+        "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
+        "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TrappedCopperChestBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TrappedCopperChestBlockEntity.java"
       ],
       "en": {
         "title": "Chest tiers",
@@ -1209,7 +1219,8 @@ window.WIKI_DATA = {
           "The menus show everything at once: 9x4, 9x5 and 9x6 for single chests, 12x6, 15x6 and 18x6 for double chests - all within GUI scale 4 at 1080p. Oversized slots are tinted; a trapped chest's menu carries the same title as the normal chest of its tier.",
           "Automation: vanilla hoppers, hopper minecarts and the mod's hoppers fill the oversized slots to their limit; comparators count against it. On NeoForge pipes see the chest (a double chest as one inventory) with the same limits through the item capability. On Forge (compile-only port) automation goes through Forge's own item handler and fills oversized slots only up to a normal stack.",
           "Rendering: the chests use vanilla's chest model and renderer path with their own textures (no extra per-tick work). Chest optimisation mods that replace the vanilla chest renderer with a static model only affect vanilla chests; the tier chests keep drawing themselves and nothing breaks.",
-          "26.3 adds a trapped variant of every tier: matching chest + tripwire hook, viewer signal 0–15, same storage and hammer upgrades. Only matching trapped tiers connect."
+          "26.3 adds a trapped variant of every tier: matching chest + tripwire hook, viewer signal 0–15, same storage and hammer upgrades. Only matching trapped tiers connect.",
+          "26.3 also adds the trapped copper chest: a copper chest of any stage (waxed too) + tripwire hook. It signals its viewer count like the Vanilla trapped chest, ages through the four copper stages like the copper chest (a pair takes the less oxidized stage), and a plain right-click with honeycomb waxes it or with an axe scrapes wax or one stage off. It pairs only with other trapped copper chests; a hint below the latch marks it."
         ]
       },
       "de": {
@@ -1222,7 +1233,8 @@ window.WIKI_DATA = {
           "Die Menüs zeigen alles auf einmal: 9x4, 9x5 und 9x6 für einzelne Truhen, 12x6, 15x6 und 18x6 für Doppeltruhen - alles innerhalb GUI-Skala 4 bei 1080p. Übergroße Plätze sind getönt; eine Fallentruhe trägt im Menü denselben Titel wie die normale Truhe ihrer Stufe.",
           "Automatisierung: Vanilla-Trichter, Trichterloren und die Mod-Trichter füllen die übergroßen Plätze bis zur Grenze; Komparatoren zählen dagegen. Auf NeoForge sehen Rohre die Truhe (eine Doppeltruhe als ein Lager) über die Item-Capability mit denselben Grenzen. Auf Forge (nur Kompilier-Portierung) läuft Automatisierung über Forges eigenen Item-Handler und füllt übergroße Plätze nur bis zu einem normalen Stapel.",
           "Darstellung: die Truhen nutzen Vanillas Truhenmodell und Renderer-Weg mit eigenen Texturen (keine zusätzliche Arbeit je Tick). Truhen-Optimierer, die Vanillas Truhen-Renderer durch ein statisches Modell ersetzen, betreffen nur Vanilla-Truhen; die Stufen-Truhen zeichnen sich weiter selbst, nichts bricht.",
-          "26.3 ergänzt eine Redstone-Variante jeder Stufe: passende Truhe + Haken, Betrachtersignal 0–15, gleicher Stauraum und gleiche Hammer-Aufwertungen. Nur passende Redstone-Stufen verbinden sich."
+          "26.3 ergänzt eine Redstone-Variante jeder Stufe: passende Truhe + Haken, Betrachtersignal 0–15, gleicher Stauraum und gleiche Hammer-Aufwertungen. Nur passende Redstone-Stufen verbinden sich.",
+          "26.3 bringt dazu die Redstone-Kupfertruhe: Kupfertruhe jeder Stufe (auch gewachst) + Haken. Sie gibt wie die Vanilla-Redstone-Truhe die Zahl der Betrachter als Signal, oxidiert wie die Kupfertruhe in vier Stufen (ein Paar nimmt die weniger oxidierte Stufe), und ein einfacher Rechtsklick mit Honigwabe wachst sie bzw. mit einer Axt kratzt er Wachs oder eine Stufe ab. Sie verbindet sich nur mit anderen Redstone-Kupfertruhen; ein Haken unter dem Schloss verrät sie."
         ]
       }
     },
@@ -3417,7 +3429,9 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "src/main/resources/assets/minecraft/atlases/shulker_boxes.json",
         "tools/textures/tiered_shulker_box_textures.py",
-        "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java"
+        "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java",
+        "common/src/shared/java/com/simplebuilding/util/ShulkerLids.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ShulkerOpenStateMixin.java"
       ],
       "en": {
         "title": "Shulker box tiers",
@@ -3428,7 +3442,8 @@ window.WIKI_DATA = {
           "Colors: one texture per tier, dyed by the game in all 16 colors (the shell takes the color, the metal plating stays). Dye with any dye in the crafting grid, undye in a water cauldron.",
           "The item keeps every slot, also oversized stacks; it never goes into another shulker box, a bundle or a backpack. When the item burns, the real counts spill out.",
           "Automation: hoppers fill oversized slots to their limit and never insert a shulker box; comparators count against the limit; dispensers place the boxes. On NeoForge pipes see the box through the item capability (sided, like vanilla's shulker box).",
-          "The menu is the tier chest menu (9x4, 9x5, 9x6) with tinted oversized slots."
+          "The menu is the tier chest menu (9x4, 9x5, 9x6) with tinted oversized slots.",
+          "Open shulker boxes: right-click a closed placed Vanilla shulker box with a shulker shell (not used up) and its lid stays up. A right-click on an open box closes it without opening the menu; the next right-click opens the menu as usual. Broken, an open box drops as an open item with its own open model and is placed open again."
         ]
       },
       "de": {
@@ -3440,7 +3455,8 @@ window.WIKI_DATA = {
           "Farben: eine Textur je Stufe, vom Spiel in allen 16 Farben eingefärbt (die Schale nimmt die Farbe an, der Metallbeschlag bleibt). Färben mit einem beliebigen Farbstoff in der Werkbank, entfärben im Wasserkessel.",
           "Das Item behält jeden Platz, auch übergroße Stapel; es passt nie in eine andere Shulkerkiste, ein Bündel oder einen Rucksack. Verbrennt das Item, fallen die echten Anzahlen heraus.",
           "Automatisierung: Trichter füllen übergroße Plätze bis zur Grenze und legen nie eine Shulkerkiste hinein; Komparatoren messen gegen die Grenze; Werfer stellen die Kisten auf. Auf NeoForge sehen Rohre die Kiste über die Item-Capability (seitenweise wie Vanillas Shulkerkiste).",
-          "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt."
+          "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt.",
+          "Offene Shulkerkisten: Rechtsklick mit einer Shulkerschale (wird nicht verbraucht) auf eine geschlossene platzierte Vanilla-Shulkerkiste, und ihr Deckel bleibt oben. Ein Rechtsklick auf eine offene Kiste schließt sie, ohne das Menü zu öffnen; der nächste Rechtsklick öffnet das Menü wie gewohnt. Abgebaut fällt eine offene Kiste als offenes Item mit eigenem offenen Modell heraus und wird wieder offen platziert."
         ]
       }
     },
@@ -3580,9 +3596,9 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Nihil Vault",
-        "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+        "summary": "One 54-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
         "details": [
-          "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+          "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a six-row menu, as large as a double chest and the Astral Vault; contents from the earlier 27-slot vault stay in the first three rows.",
           "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
           "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
           "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
@@ -3590,9 +3606,9 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Nihil-Gewölbe",
-        "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+        "summary": "Ein 54-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
         "details": [
-          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Menue mit sechs Reihen, so gross wie eine Doppeltruhe und das Astral-Gewoelbe; Inhalt aus dem frueheren 27-Platz-Gewoelbe bleibt in den ersten drei Reihen.",
           "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
           "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
           "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
@@ -18864,9 +18880,9 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Nihil Vault",
-          "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+          "summary": "One 54-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
           "details": [
-            "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+            "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a six-row menu, as large as a double chest and the Astral Vault; contents from the earlier 27-slot vault stay in the first three rows.",
             "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
             "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
             "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
@@ -18874,9 +18890,9 @@ window.WIKI_DATA = {
         },
         "de": {
           "title": "Nihil-Gewölbe",
-          "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+          "summary": "Ein 54-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
           "details": [
-            "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+            "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Menue mit sechs Reihen, so gross wie eine Doppeltruhe und das Astral-Gewoelbe; Inhalt aus dem frueheren 27-Platz-Gewoelbe bleibt in den ersten drei Reihen.",
             "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
             "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
             "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
@@ -36300,9 +36316,9 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Nihil Vault",
-          "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+          "summary": "One 54-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
           "details": [
-            "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+            "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a six-row menu, as large as a double chest and the Astral Vault; contents from the earlier 27-slot vault stay in the first three rows.",
             "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
             "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
             "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
@@ -36310,9 +36326,9 @@ window.WIKI_DATA = {
         },
         "de": {
           "title": "Nihil-Gewölbe",
-          "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+          "summary": "Ein 54-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
           "details": [
-            "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+            "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Menue mit sechs Reihen, so gross wie eine Doppeltruhe und das Astral-Gewoelbe; Inhalt aus dem frueheren 27-Platz-Gewoelbe bleibt in den ersten drei Reihen.",
             "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
             "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
             "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
@@ -112867,8 +112883,8 @@ window.WIKI_DATA = {
         "de_de": "Nihil-Gewölbe"
       },
       "description": {
-        "en_us": "Craft a vault whose 27 slots every player in the world shares.",
-        "de_de": "Stelle ein Gewölbe her, dessen 27 Plaetze alle Spieler der Welt teilen."
+        "en_us": "Craft a vault whose 54 slots every player in the world shares.",
+        "de_de": "Stelle ein Gewölbe her, dessen 54 Plaetze alle Spieler der Welt teilen."
       },
       "criteria": [
         {

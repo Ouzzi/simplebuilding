@@ -89,7 +89,7 @@ public final class TieredShulkerBoxTests {
      */
     public static void shulkerShellOpensABoxAndARightClickClosesIt(GameTestHelper helper) {
         BlockPos pos = new BlockPos(1, 2, 1);
-        helper.setBlock(pos, net.minecraft.world.level.block.Blocks.WHITE_SHULKER_BOX);
+        helper.setBlock(pos, net.minecraft.world.level.block.Blocks.SHULKER_BOX);
         var box = (net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(pos));
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
@@ -116,12 +116,12 @@ public final class TieredShulkerBoxTests {
     /** Shulker state: an open box drops as an open item (own item model) and is placed open again. */
     public static void anOpenShulkerBoxKeepsItsStateAsAnItem(GameTestHelper helper) {
         BlockPos pos = new BlockPos(1, 2, 1);
-        helper.setBlock(pos, net.minecraft.world.level.block.Blocks.LIME_SHULKER_BOX);
+        helper.setBlock(pos, net.minecraft.world.level.block.Blocks.SHULKER_BOX);
         var box = (net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(pos));
         ((com.simplebuilding.util.ShulkerLids.Kept) box).simplebuilding$setKeptOpen(true);
         List<ItemStack> drops = net.minecraft.world.level.block.Block.getDrops(helper.getBlockState(pos), helper.getLevel(), helper.absolutePos(pos), box);
         helper.assertTrue(drops.size() == 1 && com.simplebuilding.util.ShulkerLids.keptOpen(drops.get(0)), "the open box drops open, got " + drops);
-        helper.setBlock(pos.east(), net.minecraft.world.level.block.Blocks.LIME_SHULKER_BOX);
+        helper.setBlock(pos.east(), net.minecraft.world.level.block.Blocks.SHULKER_BOX);
         var placed = (net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(pos.east()));
         placed.applyComponentsFromItemStack(drops.get(0));
         helper.assertTrue(com.simplebuilding.util.ShulkerLids.keptOpen(placed), "placed from the open item, the box stands open");

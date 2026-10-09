@@ -11,7 +11,8 @@
           "Before a slot starts, it reserves the place for its result: the slot directly below first, then any other free or matching slot. A reserved slot shows the result faintly; anything else put there stops that slot until it is taken out. Finished results are never cooked again until taken out.",
           "After the heat source is gone the crucible keeps its heat for 2/4/8/16 seconds. Hoppers insert from above and the sides and take finished results from below.",
           "Build an iron crucible in the world: hold an axe, put a heavy weighted pressure plate in the off hand and use it on an iron block four times (walls), then twice with an iron ingot (handles).",
-          "Upgrade in place without SimpleBuilding: axe in the main hand, ten strikes on the crucible: Iron to Reinforced with 2 diamonds in the off hand, Reinforced to Netherite with 1 netherite ingot. Contents, progress and experience stay. With SimpleBuilding the sledgehammer replaces the axe."
+          "Upgrade in place without SimpleBuilding: axe in the main hand, ten strikes on the crucible: Iron to Reinforced with 2 diamonds in the off hand, Reinforced to Netherite with 1 netherite ingot. Contents, progress and experience stay. With SimpleBuilding the sledgehammer replaces the axe.",
+          "Raised stack limits (an Enderite crucible or barrel holds 128 of a 64-stack item) hold everywhere: in the crucible menu, in a loose barrel's own chest menu, for shift-clicks and for hoppers, which top such slots up to the raised limit (also double chests). Taking from such a slot gives at most one normal stack."
         ]
       },
       "de": {
@@ -23,9 +24,15 @@
           "Bevor ein Platz anfängt, reserviert er den Platz für sein Ergebnis: zuerst den Platz direkt darunter, sonst einen anderen freien oder passenden. Ein reservierter Platz zeigt das Ergebnis blass; legt man etwas anderes hinein, stoppt dieser Platz, bis es wieder herausgenommen wird. Fertige Ergebnisse werden nie erneut gegart, bis man sie entnimmt.",
           "Nach dem Entfernen der Hitzequelle hält der Tiegel die Hitze 2/4/8/16 Sekunden. Trichter füllen von oben und von der Seite ein und nehmen fertige Ergebnisse unten heraus.",
           "Eisen-Tiegel in der Welt bauen: Axt in der Hand, schwere Wägeplatte in der Nebenhand und viermal auf einen Eisenblock anwenden (Wände), dann zweimal mit einem Eisenbarren (Griffe).",
-          "Aufwerten ohne SimpleBuilding: Axt in der Haupthand, zehn Schläge auf den Tiegel: Eisen zu Verstärkt mit 2 Diamanten in der Nebenhand, Verstärkt zu Netherit mit 1 Netheritbarren. Inhalt, Fortschritt und Erfahrung bleiben. Mit SimpleBuilding ersetzt der Vorschlaghammer die Axt."
+          "Aufwerten ohne SimpleBuilding: Axt in der Haupthand, zehn Schläge auf den Tiegel: Eisen zu Verstärkt mit 2 Diamanten in der Nebenhand, Verstärkt zu Netherit mit 1 Netheritbarren. Inhalt, Fortschritt und Erfahrung bleiben. Mit SimpleBuilding ersetzt der Vorschlaghammer die Axt.",
+          "Erhöhte Stapelgrenzen (ein Enderit-Tiegel oder -Fass fasst 128 eines 64er-Items) gelten überall: im Tiegelmenü, im eigenen Truhenmenü eines losen Fasses, beim Shift-Klick und für Trichter, die solche Plätze bis zur erhöhten Grenze füllen (auch Doppeltruhen). Herausnehmen gibt höchstens einen normalen Stapel."
         ]
-      }
+      },
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/api/StackLimits.java",
+        "modules/simplelib/shared/java/com/simplelib/crucible/BarrelMenu.java",
+        "modules/simplelib/shared/java/com/simplelib/mixin/HopperStackLimitsMixin.java"
+      ]
     },
     {
       "id": "village_kitchen",
