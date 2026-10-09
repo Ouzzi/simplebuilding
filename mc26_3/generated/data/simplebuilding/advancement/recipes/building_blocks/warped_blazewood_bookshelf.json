@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blaze_book": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:blaze_book"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:warped_blazewood_bookshelf"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_blaze_book"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:warped_blazewood_bookshelf"
+    ]
+  }
+}

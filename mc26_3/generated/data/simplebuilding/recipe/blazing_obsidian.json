@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "minecraft:blaze_powder",
+    "O": "minecraft:crying_obsidian"
+  },
+  "pattern": [
+    "BBB",
+    "BOB",
+    "BBB"
+  ],
+  "result": {
+    "id": "simplebuilding:blazing_obsidian"
+  }
+}

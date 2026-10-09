@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "minecraft:blaze_powder",
+    "P": "minecraft:crimson_planks"
+  },
+  "pattern": [
+    "BBB",
+    "BPB",
+    "BBB"
+  ],
+  "result": {
+    "id": "simplebuilding:crimson_blazewood_planks"
+  }
+}
