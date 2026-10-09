@@ -83,15 +83,22 @@ def chest(vanilla, tier, width, seed):
 
 
 def trapped_texture(base, normal, trapped):
-    """Use Vanilla's exact accent mask, leaving the owner's tier texture untouched elsewhere."""
+    """Vanilla's own trapped hint, as subtle as Vanilla (owner 2026-10-07: "viel zu auffaellig").
+
+    Only the pixels Vanilla changes are touched, and only by Vanilla's red shift: (dR - dG) of the
+    oak pair moves the tier pixel a little towards red (R up, G/B down), keeping its brightness and
+    material. Vanilla's lighter latch pixels (no red shift) stay the tier's own colour.
+    """
     out = base.copy()
     for y in range(base.height):
         for x in range(base.width):
-            if normal.getpixel((x, y)) != trapped.getpixel((x, y)):
-                light = lum(base.getpixel((x, y)))
-                out.putpixel((x, y), (min(210, round(64 + light * .65)),
-                                     round(20 + light * .12), round(18 + light * .10),
-                                     base.getpixel((x, y))[3]))
+            a, b = normal.getpixel((x, y)), trapped.getpixel((x, y))
+            if a == b:
+                continue
+            shift = max(0, (b[0] - a[0]) - (b[1] - a[1])) * 0.6
+            r, g, bl, alpha = base.getpixel((x, y))
+            out.putpixel((x, y), (min(255, round(r + shift)), max(0, round(g - shift / 2)),
+                                  max(0, round(bl - shift / 2)), alpha))
     return out
 
 
@@ -148,7 +155,7 @@ def trapped_main():
             font = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 22)
         except OSError:
             font = ImageFont.load_default(size=22)
-        draw.text((24, 14), "Redstone-Truhen | Original / Rotakzent | 16x, ungefiltert", font=font, fill="white")
+        draw.text((24, 14), "Redstone-Truhen | Original / dezenter Vanilla-Rotstich | 16x, ungefiltert", font=font, fill="white")
         for x, label in [(24, "Einzeltruhe normal"), (280, "Redstone"), (550, "Doppeltruhe normal"), (1060, "Redstone")]:
             draw.text((x, 49), label, font=font, fill="#cbd5e1")
         for row, (label, normal, trapped, left, right, tleft, tright) in enumerate(rows):

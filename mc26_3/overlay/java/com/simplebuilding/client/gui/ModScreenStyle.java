@@ -94,30 +94,18 @@ public final class ModScreenStyle {
         box(g, left, top, ModScreenLayout.inventory(inv[0], inv[1]), UiPalette.INVENTORY);
         List<int[]> avoid = slotRects(menu, left, top);
         avoid.add(titleRect(font, title, left, top));
-        if (menu.tier().stackMultiplier() > 1) {
-            int w = font.width(bonus(menu.tier()));
-            avoid.add(new int[] {left + menu.imageWidth() - 8 - w - 12, top + 4, left + menu.imageWidth() - 4, top + 15});
-        }
         motif(g, left, top, container, p, motif(menu.tier()), avoid, 3);
         slots(g, menu, left, top, p);
         return true;
     }
 
-    /** Title in the box's label colour, the stack factor as a symbol + "xN" on its right; no inventory label. */
+    /**
+     * Only the title in the box's label colour: no stack factor and no inventory label (owner N23: no stack size or the
+     * like in chest/container screens; the item tooltip and Jade keep the factor).
+     */
     public static boolean tieredChestLabels(GuiGraphicsExtractor g, Font font, TieredChestMenu menu, Component title, int titleX, int titleY) {
-        UiPalette p = tier(menu.tier());
-        g.text(font, title, titleX, titleY, p.label(), false);
-        if (menu.tier().stackMultiplier() > 1) {
-            String bonus = bonus(menu.tier());
-            int x = menu.imageWidth() - 8 - font.width(bonus);
-            g.text(font, bonus, x, titleY, p.label(), false);
-            UiSymbols.engrave(g, UiSymbols.STACK, x - 10, titleY, p, p.label(), false);
-        }
+        g.text(font, title, titleX, titleY, tier(menu.tier()).label(), false);
         return true;
-    }
-
-    private static String bonus(ChestTier tier) {
-        return "x" + tier.stackMultiplier();
     }
 
     // ------------------------------------------------------------------ hoppers
