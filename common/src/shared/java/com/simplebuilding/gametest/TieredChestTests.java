@@ -542,6 +542,98 @@ public final class TieredChestTests {
         player.containerMenu = menu;
     }
 
+    // =====================================================================================
+    // TRAPPED COPPER CHEST (owner N16)
+    // =====================================================================================
+
+    /** A trapped copper chest signals its viewer count like Vanilla's trapped chest and powers a wire beside it. */
+    public static void trappedCopperChestSignalsItsViewers(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
+        ServerPlayer player = smith(helper);
+        BlockPos pos = new BlockPos(2, 2, 2);
+        BlockPos wire = pos.east();
+        helper.setBlock(pos.below(), Blocks.STONE);
+        helper.setBlock(wire.below(), Blocks.STONE);
+        for (Block block : ModBlocks.trappedCopperChests()) {
+            helper.setBlock(pos, block);
+            helper.setBlock(wire, Blocks.REDSTONE_WIRE);
+            var chest = (net.minecraft.world.level.block.entity.ChestBlockEntity) container(helper, pos);
+            helper.assertTrue(chest instanceof com.simplebuilding.blocks.entity.custom.TrappedCopperChestBlockEntity,
+                    block + " has the trapped copper chest entity");
+            standOn(helper, player, pos);
+            chest.startOpen(player);
+            assertTrappedSignal(helper, pos, 1);
+            helper.assertValueEqual(helper.getBlockState(wire).getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWER), 1,
+                    "neighbor wire powered by an open " + block);
+            chest.stopOpen(player);
+            assertTrappedSignal(helper, pos, 0);
+            helper.assertValueEqual(helper.getBlockState(wire).getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWER), 0,
+                    "neighbor wire off after closing " + block);
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Honeycomb waxes a trapped copper chest, an axe scrapes the wax and then one stage off, and aging keeps the
+     * contents (the block entity survives every stage change).
+     */
+    public static void trappedCopperChestWaxesScrapesAndAgesWithItsContents(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
+        ServerPlayer player = smith(helper);
+        BlockPos pos = new BlockPos(2, 2, 2);
+        helper.setBlock(pos.below(), Blocks.STONE);
+        helper.setBlock(pos, ModBlocks.TRAPPED_COPPER_CHEST);
+        container(helper, pos).setItem(0, new ItemStack(Items.DIAMOND, 5));
+        StringBuilder steps = new StringBuilder(name(helper, pos));
+        use(helper, player, pos, new ItemStack(Items.HONEYCOMB));
+        steps.append(" > ").append(name(helper, pos));
+        use(helper, player, pos, new ItemStack(Items.IRON_AXE));
+        steps.append(" > ").append(name(helper, pos));
+        helper.getLevel().setBlock(helper.absolutePos(pos), ModBlocks.WEATHERED_TRAPPED_COPPER_CHEST.withPropertiesOf(helper.getBlockState(pos)), 3);
+        steps.append(" > ").append(name(helper, pos));
+        use(helper, player, pos, new ItemStack(Items.IRON_AXE));
+        steps.append(" > ").append(name(helper, pos));
+        String expected = "trapped_copper_chest > waxed_trapped_copper_chest > trapped_copper_chest > weathered_trapped_copper_chest > exposed_trapped_copper_chest";
+        helper.assertTrue(steps.toString().equals(expected), "stages: expected " + expected + " but were " + steps);
+        ItemStack kept = container(helper, pos).getItem(0);
+        helper.assertTrue(kept.is(Items.DIAMOND) && kept.getCount() == 5, "contents survive every stage change, got " + kept);
+        helper.assertTrue(helper.getBlockState(pos).isRandomlyTicking() && !ModBlocks.WAXED_TRAPPED_COPPER_CHEST.defaultBlockState().isRandomlyTicking()
+                && !ModBlocks.OXIDIZED_TRAPPED_COPPER_CHEST.defaultBlockState().isRandomlyTicking(), "only unwaxed, not fully oxidized chests age");
+        helper.succeed();
+    }
+
+    /**
+     * Trapped copper chests pair only with each other (not with a Vanilla copper chest), and a pair takes the less
+     * oxidized stage of its halves.
+     */
+    public static void trappedCopperChestsPairOnlyWithEachOther(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setShiftKeyDown(false);
+        helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
+        place(helper, player, ModItems.EXPOSED_TRAPPED_COPPER_CHEST, new BlockPos(1, 1, 1));
+        place(helper, player, ModItems.TRAPPED_COPPER_CHEST, new BlockPos(2, 1, 1));
+        place(helper, player, Items.COPPER_CHEST.weathering().unaffected(), new BlockPos(1, 1, 4));
+        place(helper, player, ModItems.TRAPPED_COPPER_CHEST, new BlockPos(2, 1, 4));
+        String types = type(helper, 1, 1) + "," + type(helper, 2, 1) + "|" + type(helper, 1, 4) + "," + type(helper, 2, 4);
+        helper.assertTrue(types.equals("right/south,left/south|single/south,single/south"),
+                "chest types (two trapped copper | copper beside trapped copper): " + types);
+        String stages = name(helper, new BlockPos(1, 1, 1)) + "," + name(helper, new BlockPos(2, 1, 1));
+        helper.assertTrue(stages.equals("trapped_copper_chest,trapped_copper_chest"), "a pair takes the less oxidized stage: " + stages);
+        helper.succeed();
+    }
+
+    private static String name(GameTestHelper helper, BlockPos pos) {
+        return BuiltInRegistries.BLOCK.getKey(helper.getBlockState(pos).getBlock()).getPath();
+    }
+
+    private static void use(GameTestHelper helper, ServerPlayer player, BlockPos pos, ItemStack stack) {
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        BlockPos absolute = helper.absolutePos(pos);
+        helper.getBlockState(pos).useItemOn(stack, helper.getLevel(), player, InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(absolute), Direction.UP, absolute, false));
+    }
+
     private static void assertTrappedSignal(GameTestHelper helper, BlockPos pos, int expected) {
         BlockState state = helper.getBlockState(pos);
         for (Direction direction : Direction.values()) {

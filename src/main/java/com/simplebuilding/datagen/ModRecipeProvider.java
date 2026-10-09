@@ -703,6 +703,22 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                                 .requires(normal[i]).requires(Items.TRIPWIRE_HOOK)
                                 .unlockedBy(getHasName(normal[i]), has(normal[i])).save(output);
                     }
+                    // Fallen-Kupfertruhe (N16): Kupfertruhe derselben Stufe (auch gewachst) + Haken; Honigwabe wachst.
+                    String[] copper = {"copper_chest", "exposed_copper_chest", "weathered_copper_chest", "oxidized_copper_chest",
+                            "waxed_copper_chest", "waxed_exposed_copper_chest", "waxed_weathered_copper_chest", "waxed_oxidized_copper_chest"};
+                    Item[] trappedCopper = ModItems.trappedCopperChests();
+                    for (int i = 0; i < copper.length; i++) {
+                        Item chest = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(copper[i]));
+                        ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.REDSTONE, trappedCopper[i])
+                                .requires(chest).requires(Items.TRIPWIRE_HOOK)
+                                .unlockedBy(getHasName(chest), has(chest)).save(output);
+                    }
+                    for (int i = 0; i < 4; i++) {
+                        ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.REDSTONE, trappedCopper[i + 4])
+                                .requires(trappedCopper[i]).requires(Items.HONEYCOMB)
+                                .unlockedBy(getHasName(trappedCopper[i]), has(trappedCopper[i]))
+                                .save(output, getConversionRecipeName(trappedCopper[i + 4], Items.HONEYCOMB));
+                    }
                 }
 
                 // Verstaerkte Shulkerkiste aus einer Vanilla-Shulkerkiste (jede Farbe) und vier Rissigen

@@ -78,4 +78,19 @@ public final class TieredChestGameTest {
     public void chestItemsFollowTheFamilyScheme(GameTestHelper helper) {
         TieredChestTests.chestItemsFollowTheFamilyScheme(helper);
     }
+
+    @GameTest
+    public void trappedCopperChestSignalsItsViewers(GameTestHelper helper) {
+        TieredChestTests.trappedCopperChestSignalsItsViewers(helper);
+    }
+
+    @GameTest
+    public void trappedCopperChestWaxesScrapesAndAgesWithItsContents(GameTestHelper helper) {
+        TieredChestTests.trappedCopperChestWaxesScrapesAndAgesWithItsContents(helper);
+    }
+
+    @GameTest
+    public void trappedCopperChestsPairOnlyWithEachOther(GameTestHelper helper) {
+        TieredChestTests.trappedCopperChestsPairOnlyWithEachOther(helper);
+    }
 }

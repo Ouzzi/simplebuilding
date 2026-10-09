@@ -1596,6 +1596,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tiered_chest_game_test_chest_items_follow_the_family_scheme", TieredChestTests::chestItemsFollowTheFamilyScheme)
                     .build(),
+            GameTestSpec.named("tiered_chest_game_test_trapped_copper_chests_pair_only_with_each_other", TieredChestTests::trappedCopperChestsPairOnlyWithEachOther)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_trapped_copper_chest_waxes_scrapes_and_ages_with_its_contents", TieredChestTests::trappedCopperChestWaxesScrapesAndAgesWithItsContents)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_trapped_copper_chest_signals_its_viewers", TieredChestTests::trappedCopperChestSignalsItsViewers)
+                    .build(),
             GameTestSpec.named("tiered_chest_game_test_comparator_reads_oversized_slots_against_the_tier_limit", TieredChestTests::comparatorReadsOversizedSlotsAgainstTheTierLimit)
                     .build(),
             GameTestSpec.named("tiered_chest_game_test_double_chest_upgrades_both_halves_together", TieredChestTests::doubleChestUpgradesBothHalvesTogether)

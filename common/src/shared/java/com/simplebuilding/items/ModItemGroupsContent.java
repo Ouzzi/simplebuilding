@@ -462,6 +462,7 @@ public final class ModItemGroupsContent {
             int shulkers = rows.indexOf(rows.stream().filter(row -> row.name().equals("shulker_boxes")).findFirst().orElseThrow());
             rows.add(shulkers, CreativeTabLayout.Row.of("trapped_chests", Items.TRAPPED_CHEST,
                     ModItems.REINFORCED_TRAPPED_CHEST, ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST));
+            rows.add(shulkers + 1, CreativeTabLayout.Row.of("trapped_copper_chests", ModItems.trappedCopperChests()));
         }
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
             // Trainingspuppe (2026-10-02): der Stroh-Ruestungsstaender (Vanilla-Items gehoeren nicht in Mod-Tabs).

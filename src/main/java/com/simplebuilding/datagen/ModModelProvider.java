@@ -196,6 +196,10 @@ public class ModModelProvider extends FabricModelProvider {
             registerTieredChest(blockStateModelGenerator, ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.CRACKED_DIAMOND_BLOCK);
             registerTieredChest(blockStateModelGenerator, ModBlocks.NETHERITE_TRAPPED_CHEST, net.minecraft.world.level.block.Blocks.NETHERITE_BLOCK);
             registerTieredChest(blockStateModelGenerator, ModBlocks.ENDERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_BLOCK);
+            Block[] trappedCopper = ModBlocks.trappedCopperChests();
+            for (int i = 0; i < trappedCopper.length; i++) {
+                registerTrappedCopperChest(blockStateModelGenerator, trappedCopper[i], i % 4);
+            }
         }
 
         // Gestufte Shulkerkisten: wie Vanillas Shulkerkisten ein Partikel-Blockmodell (gezeichnet wird
@@ -525,6 +529,22 @@ public class ModModelProvider extends FabricModelProvider {
         generator.itemModelOutput.accept(chest.asItem(), ItemModelUtils.specialModel(Identifier.withDefaultNamespace("item/chest"),
                 new net.minecraft.client.renderer.special.ChestSpecialRenderer.Unbaked(
                         Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, texture))));
+    }
+
+    /**
+     * Trapped copper chest (N16): particle of the copper block of its stage; the item draws Vanilla's copper chest of
+     * that stage and the mod's trapped overlay on top (the same two sprites as {@code TrappedCopperChestRenderer}).
+     */
+    private void registerTrappedCopperChest(BlockModelGenerators generator, Block chest, int stage) {
+        String[] particles = {"copper_block", "exposed_copper", "weathered_copper", "oxidized_copper"};
+        String[] suffixes = {"", "_exposed", "_weathered", "_oxidized"};
+        generator.createParticleOnlyBlock(chest, net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace(particles[stage])));
+        Identifier base = Identifier.withDefaultNamespace("item/chest");
+        generator.itemModelOutput.accept(chest.asItem(), ItemModelUtils.composite(
+                ItemModelUtils.specialModel(base, new net.minecraft.client.renderer.special.ChestSpecialRenderer.Unbaked(
+                        Identifier.withDefaultNamespace("copper" + suffixes[stage]))),
+                ItemModelUtils.specialModel(base, new net.minecraft.client.renderer.special.ChestSpecialRenderer.Unbaked(
+                        Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "trapped_copper" + suffixes[stage])))));
     }
 
     private void registerTieredShulkerBox(BlockModelGenerators generator, Block box) {

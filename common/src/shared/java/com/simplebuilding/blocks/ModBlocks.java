@@ -144,6 +144,38 @@ public class ModBlocks {
                 : new Block[]{REINFORCED_CHEST, NETHERITE_CHEST, ENDERITE_CHEST};
     }
 
+    // Fallen-Kupfertruhe (Besitzer N16): vier Oxidationsstufen, je auch gewachst, wie Vanillas Kupfertruhe.
+    public static final Block TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("trapped_copper_chest",
+            net.minecraft.world.level.block.WeatheringCopper.WeatherState.UNAFFECTED, false, MapColor.COLOR_ORANGE) : null;
+    public static final Block EXPOSED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("exposed_trapped_copper_chest",
+            net.minecraft.world.level.block.WeatheringCopper.WeatherState.EXPOSED, false, MapColor.TERRACOTTA_LIGHT_GRAY) : null;
+    public static final Block WEATHERED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("weathered_trapped_copper_chest",
+            net.minecraft.world.level.block.WeatheringCopper.WeatherState.WEATHERED, false, MapColor.WARPED_STEM) : null;
+    public static final Block OXIDIZED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("oxidized_trapped_copper_chest",
+            net.minecraft.world.level.block.WeatheringCopper.WeatherState.OXIDIZED, false, MapColor.WARPED_NYLIUM) : null;
+    public static final Block WAXED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("waxed_trapped_copper_chest",
+            net.minecraft.world.level.block.WeatheringCopper.WeatherState.UNAFFECTED, true, MapColor.COLOR_ORANGE) : null;
+    public static final Block WAXED_EXPOSED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("waxed_exposed_trapped_copper_chest",
+            net.minecraft.world.level.block.WeatheringCopper.WeatherState.EXPOSED, true, MapColor.TERRACOTTA_LIGHT_GRAY) : null;
+    public static final Block WAXED_WEATHERED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("waxed_weathered_trapped_copper_chest",
+            net.minecraft.world.level.block.WeatheringCopper.WeatherState.WEATHERED, true, MapColor.WARPED_STEM) : null;
+    public static final Block WAXED_OXIDIZED_TRAPPED_COPPER_CHEST = McVersion.TRAPPED_TIERED_CHESTS ? trappedCopperChest("waxed_oxidized_trapped_copper_chest",
+            net.minecraft.world.level.block.WeatheringCopper.WeatherState.OXIDIZED, true, MapColor.WARPED_NYLIUM) : null;
+
+    private static Block trappedCopperChest(String name, net.minecraft.world.level.block.WeatheringCopper.WeatherState state,
+                                            boolean waxed, MapColor color) {
+        return registerBlock(name, Blocks.IRON_BLOCK, s -> new com.simplebuilding.blocks.custom.TrappedCopperChestBlock(state, waxed,
+                s.mapColor(color).strength(3.0F, 6.0F).sound(SoundType.COPPER).requiresCorrectToolForDrops()));
+    }
+
+    /** The eight trapped copper chests (oxidation order, then waxed), empty on older lines. */
+    public static Block[] trappedCopperChests() {
+        return McVersion.TRAPPED_TIERED_CHESTS
+                ? new Block[]{TRAPPED_COPPER_CHEST, EXPOSED_TRAPPED_COPPER_CHEST, WEATHERED_TRAPPED_COPPER_CHEST, OXIDIZED_TRAPPED_COPPER_CHEST,
+                        WAXED_TRAPPED_COPPER_CHEST, WAXED_EXPOSED_TRAPPED_COPPER_CHEST, WAXED_WEATHERED_TRAPPED_COPPER_CHEST, WAXED_OXIDIZED_TRAPPED_COPPER_CHEST}
+                : new Block[0];
+    }
+
     // Shulkerkisten-Stufen ueber der Vanilla-Shulkerkiste (siehe TieredShulkerBoxes): Plaetze und
     // Stapelfaktor der Truhen derselben Stufe. Aus Vanillas Shulkerkiste kopiert (dynamische Form,
     // keine Verdeckung, vom Kolben zerstoert und mit Inhalt fallen gelassen, kein Werkzeug noetig),
