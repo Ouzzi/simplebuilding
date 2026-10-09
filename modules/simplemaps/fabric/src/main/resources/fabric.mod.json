@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "simplemaps",
+  "version": "${version}",
+  "name": "Simple Maps",
+  "description": "Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar, framed views and cartography table upgrades.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplemaps.MapsFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplemaps.MapsFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplemaps.ModuleGameTest"
+    ]
+  },
+  "mixins": [
+    "simplemaps.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": "*"
+  }
+}

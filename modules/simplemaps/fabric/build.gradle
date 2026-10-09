@@ -1,0 +1,4 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+apply from: rootProject.file('gradle/module-fabric.gradle')
+// SimpleLib (shared UI blocks: box style, context menu, bookmarks) nested per principle 6a; compiled against.
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }

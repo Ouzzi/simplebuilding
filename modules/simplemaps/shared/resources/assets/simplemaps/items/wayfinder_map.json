@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "simplemaps:item/wayfinder_map"
+  }
+}

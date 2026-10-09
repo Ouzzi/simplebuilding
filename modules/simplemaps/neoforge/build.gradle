@@ -1,0 +1,15 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.147'
+}
+apply from: rootProject.file('gradle/module-neoforge.gradle')
+// SimpleLib (shared UI blocks) nested per principle 6a; compiled against.
+evaluationDependsOn(':modules:simplelib:neoforge')
+dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }
+
+neoForge.runs {
+    moduleIntegrationGameTest {
+        type = 'gameTestServer'
+        programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simplemaps:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
+    }
+}

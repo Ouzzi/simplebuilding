@@ -1,0 +1,10 @@
+{
+  "derivation": "Wayfinder maps are rare explorer gear (owner N18 F3: crafted or found in chests only); no merchant sells them.",
+  "excluded": {
+    "simplemaps:wayfinder_map": "Crafted or found in cartographer/shipwreck chests only (owner F3).",
+    "simplemaps:nether_wayfinder_map": "Crafted or found in bastions/fortresses only (owner F3).",
+    "simplemaps:end_wayfinder_map": "Crafted or found in end city treasure only (owner F3)."
+  },
+  "module": "simplemaps",
+  "prices": []
+}

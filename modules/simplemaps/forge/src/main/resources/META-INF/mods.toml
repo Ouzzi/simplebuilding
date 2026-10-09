@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[66,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplemaps"
+version="${version}"
+displayName="Simple Maps"
+description="Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar, framed views and cartography table upgrades."
+[[dependencies.simplemaps]]
+modId="forge"
+mandatory=true
+versionRange="[66,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplemaps]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplemaps]]
+modId="simplelib"
+mandatory=true
+versionRange="[0,)"
+ordering="AFTER"
+side="BOTH"
