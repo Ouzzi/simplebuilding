@@ -40,10 +40,12 @@ public final class RecipelessJeiInfo {
         }
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
             // Crucible P5: gefuellte Eimer entstehen nur durch Schoepfen (kein Rezept).
-            map.put("soul_lava_bucket", List.of(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET));
+            map.put("soul_lava_bucket", List.of(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET));
             map.put("copper_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET));
             map.put("enderite_crucible", List.of(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible(), com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel()));
-            map.put("enderite_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET));
+            map.put("enderite_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_LAVA_BUCKET));
             map.put("ceramic_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.CERAMIC_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_LAVA_BUCKET));
             // N12b: worn stages only come from use.
             map.put("ceramic_bucket_worn", List.<ItemLike>copyOf(com.simplebuilding.fluid.ModFluids.wornCeramicBuckets()));

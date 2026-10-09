@@ -649,7 +649,10 @@ public final class CrucibleTests {
             BlockPos water = helper.absolutePos(new BlockPos(x, 1, 3));
             ItemStack full = new ItemStack(kind[1]);
             int usesBefore = ModBucketItem.ceramicUses(full);
+            // Owner N21: a half Enderite bucket pours only on sneak + use (plain use scoops).
+            player.setShiftKeyDown(expected == ModBucketItem.Kind.ENDERITE);
             ItemStack poured = useBucket(level, player, full);
+            player.setShiftKeyDown(false);
             // Copper pours no source (owner 32), the others do.
             helper.assertTrue(level.getFluidState(water).is(net.minecraft.tags.FluidTags.WATER)
                             && level.getFluidState(water).isSource() == (expected != ModBucketItem.Kind.COPPER),
@@ -686,6 +689,104 @@ public final class CrucibleTests {
             player.setItemInHand(InteractionHand.MAIN_HAND, success.heldItemTransformedTo());
         }
         return player.getItemInHand(InteractionHand.MAIN_HAND);
+    }
+
+    /**
+     * Owner N21/N28: the Enderite bucket holds two buckets of one fluid. Use only scoops while there is room (empty to
+     * half to full); a full one pours one bucket on use; sneak + use pours one bucket from a full or half one. A half
+     * one never takes a different fluid and never pours on plain use. Soul lava works the same way.
+     */
+    public static void enderiteBucketHoldsTwoBucketsOfOneFluid(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        floor(helper);
+        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        Vec3 at = helper.absoluteVec(new Vec3(1.5, 2.0, 3.5));
+        player.snapTo(at.x, at.y, at.z, 0.0F, 90.0F);
+        BlockPos water = helper.absolutePos(new BlockPos(1, 1, 3));
+        level.setBlock(water, Blocks.WATER.defaultBlockState(), 3);
+        ItemStack hand = useBucket(level, player, new ItemStack(ModFluids.ENDERITE_BUCKET));
+        helper.assertTrue(hand.is(ModFluids.ENDERITE_WATER_BUCKET) && level.getFluidState(water).isEmpty(), "first scoop: half, got " + hand);
+        level.setBlock(water, Blocks.WATER.defaultBlockState(), 3);
+        hand = useBucket(level, player, hand);
+        helper.assertTrue(hand.is(ModFluids.FULL_ENDERITE_WATER_BUCKET) && level.getFluidState(water).isEmpty(), "second scoop: full, got " + hand);
+        helper.assertTrue(((ModBucketItem) hand.getItem()).amount() == 2 && ((ModBucketItem) ModFluids.ENDERITE_WATER_BUCKET).amount() == 1,
+                "fill amounts 2/2 and 1/2");
+        hand = useBucket(level, player, hand);
+        helper.assertTrue(hand.is(ModFluids.ENDERITE_WATER_BUCKET) && level.getFluidState(water).isSource(), "use on a full one pours one bucket, got " + hand);
+        hand = useBucket(level, player, hand);
+        helper.assertTrue(hand.is(ModFluids.FULL_ENDERITE_WATER_BUCKET) && level.getFluidState(water).isEmpty(),
+                "use on a half one only scoops (took the source back), got " + hand);
+        player.setShiftKeyDown(true);
+        hand = useBucket(level, player, hand);
+        helper.assertTrue(hand.is(ModFluids.ENDERITE_WATER_BUCKET) && level.getFluidState(water).isSource(), "sneak + use on a full one pours one bucket, got " + hand);
+        level.setBlock(water, Blocks.AIR.defaultBlockState(), 3);
+        hand = useBucket(level, player, hand);
+        helper.assertTrue(hand.is(ModFluids.ENDERITE_BUCKET) && level.getFluidState(water).isSource(), "sneak + use on a half one pours the last bucket, got " + hand);
+        player.setShiftKeyDown(false);
+        level.setBlock(water, Blocks.AIR.defaultBlockState(), 3);
+        hand = useBucket(level, player, new ItemStack(ModFluids.ENDERITE_WATER_BUCKET));
+        helper.assertTrue(hand.is(ModFluids.ENDERITE_WATER_BUCKET) && level.getFluidState(water).isEmpty(), "plain use on a half one never pours, got " + hand);
+        level.setBlock(water, Blocks.LAVA.defaultBlockState(), 3);
+        hand = useBucket(level, player, hand);
+        helper.assertTrue(hand.is(ModFluids.ENDERITE_WATER_BUCKET) && level.getFluidState(water).is(net.minecraft.tags.FluidTags.LAVA),
+                "a half water bucket takes no lava, got " + hand);
+        level.setBlock(water, Blocks.AIR.defaultBlockState(), 3);
+        helper.assertTrue(ModFluids.fullEnderite(ModFluids.ENDERITE_SOUL_LAVA_BUCKET) == ModFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET
+                && ModFluids.fullEnderite(ModFluids.ENDERITE_LAVA_BUCKET) == ModFluids.FULL_ENDERITE_LAVA_BUCKET, "soul lava and lava fill up to two too");
+        ModBucketItem soul = (ModBucketItem) ModFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET;
+        BlockPos soulAt = helper.absolutePos(new BlockPos(5, 1, 5));
+        helper.assertTrue(soul.pourAt(level, soulAt, new ItemStack(soul)).is(ModFluids.ENDERITE_SOUL_LAVA_BUCKET)
+                && level.getFluidState(soulAt).getType() == ModFluids.SOUL_LAVA, "a full soul lava bucket pours one and keeps one");
+        helper.assertTrue(!ModFluids.creativeBuckets().contains(ModFluids.FULL_ENDERITE_WATER_BUCKET)
+                && ModFluids.buckets().containsAll(ModFluids.fullEnderiteBuckets()), "full buckets: registered, not in the creative tab");
+        helper.succeed();
+    }
+
+    /**
+     * Owner N21: cauldrons and dispensers follow the two-bucket rule. A full Enderite bucket fills a Vanilla or
+     * reinforced cauldron with one bucket and stays half; a half one takes a full cauldron of its fluid and becomes
+     * full. A dispenser pours one bucket of a full one and keeps the half one; a half one pours and comes back empty.
+     */
+    public static void enderiteBucketTwoBucketsInCauldronsAndDispensers(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        floor(helper);
+        BlockPos cauldron = new BlockPos(2, 1, 2);
+        helper.setBlock(cauldron, Blocks.CAULDRON);
+        BlockPos abs = helper.absolutePos(cauldron);
+        ServerPlayer player = player(helper, new ItemStack(ModFluids.FULL_ENDERITE_WATER_BUCKET), ItemStack.EMPTY);
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
+        level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
+        helper.assertTrue(level.getBlockState(abs).is(Blocks.WATER_CAULDRON) && player.getMainHandItem().is(ModFluids.ENDERITE_WATER_BUCKET),
+                "full bucket fills the cauldron and stays half: " + player.getMainHandItem());
+        level.getBlockState(abs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, hit);
+        helper.assertTrue(level.getBlockState(abs).is(Blocks.CAULDRON) && player.getMainHandItem().is(ModFluids.FULL_ENDERITE_WATER_BUCKET),
+                "half bucket takes the full cauldron back: " + player.getMainHandItem());
+        BlockPos reinforced = new BlockPos(4, 1, 2);
+        helper.setBlock(reinforced, CrucibleCompat.reinforcedCauldron("empty"));
+        BlockPos rAbs = helper.absolutePos(reinforced);
+        BlockHitResult rHit = new BlockHitResult(Vec3.atCenterOf(rAbs), Direction.UP, rAbs, false);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET));
+        level.getBlockState(rAbs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, rHit);
+        helper.assertTrue("extreme".equals(CrucibleCompat.cauldronContent(level.getBlockState(rAbs)))
+                && player.getMainHandItem().is(ModFluids.ENDERITE_SOUL_LAVA_BUCKET), "reinforced cauldron: one bucket of soul lava, half stays");
+        level.getBlockState(rAbs).useItemOn(player.getMainHandItem(), level, player, InteractionHand.MAIN_HAND, rHit);
+        helper.assertTrue("empty".equals(CrucibleCompat.cauldronContent(level.getBlockState(rAbs)))
+                && player.getMainHandItem().is(ModFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET), "reinforced cauldron: half takes it back to full");
+        BlockPos dispenser = new BlockPos(1, 1, 6);
+        helper.setBlock(dispenser, Blocks.DISPENSER.defaultBlockState().setValue(net.minecraft.world.level.block.DispenserBlock.FACING, Direction.EAST));
+        BlockPos front = helper.absolutePos(dispenser.east());
+        var be = (net.minecraft.world.level.block.entity.DispenserBlockEntity) level.getBlockEntity(helper.absolutePos(dispenser));
+        be.setItem(0, new ItemStack(ModFluids.FULL_ENDERITE_LAVA_BUCKET));
+        helper.setBlock(dispenser.above(), Blocks.REDSTONE_BLOCK);
+        helper.runAfterDelay(10, () -> {
+            helper.assertTrue(level.getFluidState(front).is(net.minecraft.tags.FluidTags.LAVA) && level.getFluidState(front).isSource(), "dispenser poured lava");
+            helper.assertTrue(be.getItem(0).is(ModFluids.ENDERITE_LAVA_BUCKET), "dispenser keeps the half bucket: " + be.getItem(0));
+            ModBucketItem half = (ModBucketItem) ModFluids.ENDERITE_LAVA_BUCKET;
+            helper.assertTrue(half.afterPour(new ItemStack(half)).is(ModFluids.ENDERITE_BUCKET), "a half one pours its last bucket");
+            helper.succeed();
+        });
     }
 
     /**

@@ -27,6 +27,7 @@
     "simplebuilding:enderite_ingot",
     "simplebuilding:enderite_launchpad",
     "simplebuilding:enderite_lava_bucket",
+    "simplebuilding:enderite_lava_bucket_full",
     "simplebuilding:enderite_leggings",
     "simplebuilding:enderite_nautilus_armor",
     "simplebuilding:enderite_nugget",
@@ -42,10 +43,12 @@
     "simplebuilding:enderite_sledgehammer",
     "simplebuilding:enderite_smoker",
     "simplebuilding:enderite_soul_lava_bucket",
+    "simplebuilding:enderite_soul_lava_bucket_full",
     "simplebuilding:enderite_spawn_teleporter",
     "simplebuilding:enderite_spear",
     "simplebuilding:enderite_sword",
     "simplebuilding:enderite_trapped_chest",
-    "simplebuilding:enderite_water_bucket"
+    "simplebuilding:enderite_water_bucket",
+    "simplebuilding:enderite_water_bucket_full"
   ]
 }

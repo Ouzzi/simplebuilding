@@ -122,6 +122,16 @@ public final class CrucibleGameTest {
     }
 
     @GameTest
+    public void enderiteBucketHoldsTwoBucketsOfOneFluid(GameTestHelper helper) {
+        CrucibleTests.enderiteBucketHoldsTwoBucketsOfOneFluid(helper);
+    }
+
+    @GameTest(maxTicks = 100)
+    public void enderiteBucketTwoBucketsInCauldronsAndDispensers(GameTestHelper helper) {
+        CrucibleTests.enderiteBucketTwoBucketsInCauldronsAndDispensers(helper);
+    }
+
+    @GameTest
     public void crucibleCollisionAllowsWalkingInAndKeepsTheInteriorEmpty(GameTestHelper helper) {
         CrucibleTests.crucibleCollisionAllowsWalkingInAndKeepsTheInteriorEmpty(helper);
     }

@@ -644,6 +644,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_vanilla_cauldron_takes_copper_and_enderite_buckets", CrucibleTests::vanillaCauldronTakesCopperAndEnderiteBuckets)
                     .build(),
+            GameTestSpec.named("crucible_game_test_enderite_bucket_holds_two_buckets_of_one_fluid", CrucibleTests::enderiteBucketHoldsTwoBucketsOfOneFluid)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_enderite_bucket_two_buckets_in_cauldrons_and_dispensers", CrucibleTests::enderiteBucketTwoBucketsInCauldronsAndDispensers)
+                    .maxTicks(100).build(),
             GameTestSpec.named("crucible_game_test_water_touching_soul_lava_turns_to_quartz_or_blackstone", CrucibleTests::waterTouchingSoulLavaTurnsToQuartzOrBlackstone)
                     .build(),
             GameTestSpec.named("crucible_game_test_crucible_collision_allows_walking_in_and_keeps_the_interior_empty", CrucibleTests::crucibleCollisionAllowsWalkingInAndKeepsTheInteriorEmpty)

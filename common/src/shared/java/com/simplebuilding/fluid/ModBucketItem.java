@@ -38,7 +38,9 @@ import org.jspecify.annotations.Nullable;
  *   <li><b>Copper</b>: water and lava, never soul lava. Pouring oxidizes it one stage (0-3, looks only) unless
  *       waxed; poured water never makes a source (one flowing block that runs off); pouring lava breaks it.
  *       Main hand bucket + axe in the off hand scrapes one stage (or the wax) off, + honeycomb waxes it.</li>
- *   <li><b>Enderite</b>: water, lava and soul lava, never breaks.</li>
+ *   <li><b>Enderite</b>: water, lava and soul lava, never breaks. Owner N21/N28: it holds two buckets of one fluid
+ *       (half and full items, {@link ModFluids#fullEnderite}). Use only scoops while it has room (empty and half);
+ *       a full one pours one bucket on use; sneak + use pours one bucket from a half or full one.</li>
  *   <li><b>Iron</b> (only the soul lava bucket here - Vanilla's bucket scoops soul lava itself): breaks when
  *       the soul lava is poured.</li>
  *   <li><b>Ceramic</b> (owner addition 11): fired clay, water and (owner N12) lava - real crucibles are ceramic -,
@@ -125,9 +127,20 @@ public class ModBucketItem extends BucketItem {
         return getContent().isSame(ModFluids.SOUL_LAVA);
     }
 
-    /** What stays in the hand after pouring {@code stack} (survival): the empty bucket, or nothing when it breaks. */
+    /** Buckets of fluid this item holds: 0 empty, 2 a full Enderite bucket, otherwise 1. */
+    public int amount() {
+        if (getContent() == Fluids.EMPTY) return 0;
+        return ModFluids.halfEnderite(this) != null ? 2 : 1;
+    }
+
+    /**
+     * What stays in the hand after pouring {@code stack} (survival): the empty bucket, or nothing when it breaks; a full
+     * Enderite bucket pours one of its two buckets and becomes the half one.
+     */
     public ItemStack afterPour(ItemStack stack) {
         if (breaksOnPour()) return ItemStack.EMPTY;
+        Item half = ModFluids.halfEnderite(this);
+        if (half != null) return stack.transmuteCopy(half, 1);
         Item empty = kind == Kind.CERAMIC ? ModFluids.ceramic(Fluids.EMPTY, stage) : empty(kind);
         ItemStack out = stack.transmuteCopy(empty == null ? Items.BUCKET : empty, 1);
         if (kind == Kind.COPPER) oxidize(out);
@@ -217,6 +230,8 @@ public class ModBucketItem extends BucketItem {
             if (care != null) return care;
         }
         if (getContent() == Fluids.EMPTY) return scoop(level, player, hand, stack);
+        // Owner N21: a half Enderite bucket only scoops on use; sneak + use pours one bucket.
+        if (ModFluids.fullEnderite(this) != null && !player.isSecondaryUseActive()) return scoop(level, player, hand, stack);
         // super.use consumes the held stack (createFilledResult), so the follow-up is built from a copy.
         ItemStack poured = stack.copy();
         InteractionResult result = super.use(level, player, hand);
@@ -254,7 +269,7 @@ public class ModBucketItem extends BucketItem {
         return null;
     }
 
-    /** An empty copper/enderite bucket takes a fluid source it can hold. */
+    /** An empty copper/enderite bucket takes a fluid source it can hold; a half Enderite bucket one more of its fluid. */
     private InteractionResult scoop(Level level, Player player, InteractionHand hand, ItemStack stack) {
         BlockHitResult hit = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
         if (hit.getType() != HitResult.Type.BLOCK) return InteractionResult.PASS;
@@ -264,7 +279,8 @@ public class ModBucketItem extends BucketItem {
         BlockState state = level.getBlockState(pos);
         FluidState fluid = state.getFluidState();
         if (!fluid.isSource() || !(state.getBlock() instanceof BucketPickup pickup)) return InteractionResult.FAIL;
-        Item target = canScoop(stack) ? filled(kind, fluid.getType()) : null;
+        Item target = getContent() == Fluids.EMPTY ? (canScoop(stack) ? filled(kind, fluid.getType()) : null)
+                : fluid.getType().isSame(getContent()) ? ModFluids.fullEnderite(this) : null;
         if (target == null) {
             if (!level.isClientSide()) level.playSound(null, pos, SoundEvents.METAL_HIT, SoundSource.BLOCKS, 0.6F, 0.6F);
             return InteractionResult.FAIL;
@@ -324,7 +340,7 @@ public class ModBucketItem extends BucketItem {
         return loaderEmptyContents;
     }
 
-    /** Copper: hint when fully oxidized (unusable until scraped) and when waxed; ceramic: what it holds. */
+    /** Copper: hint when fully oxidized (unusable until scraped) and when waxed; Enderite: fill 1/2 or 2/2; ceramic: what it holds. */
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
                                 java.util.function.Consumer<net.minecraft.network.chat.Component> lines, net.minecraft.world.item.TooltipFlag flag) {
@@ -337,6 +353,12 @@ public class ModBucketItem extends BucketItem {
                 lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.copper_bucket.waxed")
                         .withStyle(net.minecraft.ChatFormatting.GOLD));
             }
+        } else if (kind == Kind.ENDERITE && getContent() != Fluids.EMPTY) {
+            lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.enderite_bucket.fill", amount(), 2)
+                    .withStyle(net.minecraft.ChatFormatting.GRAY));
+            lines.accept(net.minecraft.network.chat.Component.translatable(amount() < 2
+                    ? "tooltip.simplebuilding.enderite_bucket.half" : "tooltip.simplebuilding.enderite_bucket.full")
+                    .withStyle(net.minecraft.ChatFormatting.DARK_GRAY));
         } else if (kind == Kind.CERAMIC) {
             lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.ceramic_bucket")
                     .withStyle(net.minecraft.ChatFormatting.GRAY));

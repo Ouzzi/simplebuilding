@@ -275,7 +275,9 @@ public final class DataIntegrityTests {
             // Abgenutzte Keramik-Eimer (Besitzer N12b: Kreativtab nur sinnvolle Stufen): entstehen nur durch Benutzung.
             "chipped_ceramic_bucket", "chipped_ceramic_water_bucket", "chipped_ceramic_lava_bucket",
             "cracked_ceramic_bucket", "cracked_ceramic_water_bucket", "cracked_ceramic_lava_bucket",
-            "brittle_ceramic_bucket", "brittle_ceramic_water_bucket", "brittle_ceramic_lava_bucket");
+            "brittle_ceramic_bucket", "brittle_ceramic_water_bucket", "brittle_ceramic_lava_bucket",
+            // Volle Enderit-Eimer (Besitzer N21: fasst 2 Eimer): entstehen nur durch zweimal Schoepfen.
+            "enderite_water_bucket_full", "enderite_lava_bucket_full", "enderite_soul_lava_bucket_full");
 
     /**
      * Registry ids that exist for the sake of worlds that were saved with an older version, spelled

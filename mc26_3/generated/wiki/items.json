@@ -881,6 +881,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:enderite_lava_bucket_full",
+      "maxStackSize": 1
+    },
+    {
       "durability": 630,
       "enchantability": 18,
       "id": "simplebuilding:enderite_leggings",
@@ -953,6 +957,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:enderite_soul_lava_bucket_full",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:enderite_spawn_teleporter",
       "maxStackSize": 1
     },
@@ -980,6 +988,10 @@
     },
     {
       "id": "simplebuilding:enderite_water_bucket",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_water_bucket_full",
       "maxStackSize": 1
     },
     {

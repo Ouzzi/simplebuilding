@@ -52,6 +52,12 @@ public final class ModFluids {
     public static Item SOUL_LAVA_BUCKET;
     public static Item COPPER_BUCKET, COPPER_WATER_BUCKET, COPPER_LAVA_BUCKET;
     public static Item ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET;
+    /**
+     * Owner N21/N28: an Enderite bucket holds two buckets of one fluid. The items above hold one (half), these two
+     * (full). Own items rather than a fill component, so fuel, crafting remainder, dispenser behaviour, item model
+     * and tags stay per item like everywhere in Vanilla.
+     */
+    public static Item FULL_ENDERITE_WATER_BUCKET, FULL_ENDERITE_LAVA_BUCKET, FULL_ENDERITE_SOUL_LAVA_BUCKET;
     /** Ceramic bucket: 3 clay -> raw, fired in a furnace or crucible; water and lava, 4 pours. */
     public static Item RAW_CERAMIC_BUCKET, CERAMIC_BUCKET, CERAMIC_WATER_BUCKET, CERAMIC_LAVA_BUCKET;
     /** One item per wear stage (intact, chipped, cracked, brittle) and filling; index = stage. */
@@ -93,6 +99,13 @@ public final class ModFluids {
                 McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET), lava)));
         ENDERITE_SOUL_LAVA_BUCKET = item("enderite_soul_lava_bucket", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, SOUL_LAVA,
                 McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET), SoulLava.fuelTicks())));
+        // Full (two buckets): burning or crafting one bucket away leaves the half bucket of the same fluid.
+        FULL_ENDERITE_WATER_BUCKET = item("enderite_water_bucket_full", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, Fluids.WATER,
+                p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_WATER_BUCKET)));
+        FULL_ENDERITE_LAVA_BUCKET = item("enderite_lava_bucket_full", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, Fluids.LAVA,
+                McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_LAVA_BUCKET), lava)));
+        FULL_ENDERITE_SOUL_LAVA_BUCKET = item("enderite_soul_lava_bucket_full", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, SOUL_LAVA,
+                McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_SOUL_LAVA_BUCKET), SoulLava.fuelTicks())));
         // No crafting remainder on the ceramic water bucket: a fresh bucket back would repair it for free.
         RAW_CERAMIC_BUCKET = item("raw_ceramic_bucket", p -> new Item(p.stacksTo(16)));
         // Wear stages as items (like the copper bucket's oxidation, but visible in the name), no durability.
@@ -118,7 +131,32 @@ public final class ModFluids {
                 ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET,
                 RAW_CERAMIC_BUCKET, CERAMIC_EMPTY[0], CERAMIC_WATER[0], CERAMIC_LAVA[0],
                 CERAMIC_EMPTY[1], CERAMIC_WATER[1], CERAMIC_LAVA[1], CERAMIC_EMPTY[2], CERAMIC_WATER[2], CERAMIC_LAVA[2],
-                CERAMIC_EMPTY[3], CERAMIC_WATER[3], CERAMIC_LAVA[3]);
+                CERAMIC_EMPTY[3], CERAMIC_WATER[3], CERAMIC_LAVA[3],
+                FULL_ENDERITE_WATER_BUCKET, FULL_ENDERITE_LAVA_BUCKET, FULL_ENDERITE_SOUL_LAVA_BUCKET);
+    }
+
+    /** The full Enderite buckets (two buckets each): only reached by scooping twice, so not in the creative tab. */
+    public static java.util.List<Item> fullEnderiteBuckets() {
+        if (FULL_ENDERITE_WATER_BUCKET == null) return java.util.List.of();
+        return java.util.List.of(FULL_ENDERITE_WATER_BUCKET, FULL_ENDERITE_LAVA_BUCKET, FULL_ENDERITE_SOUL_LAVA_BUCKET);
+    }
+
+    /** Half Enderite bucket (one bucket) -> the full one of the same fluid; null for anything else. */
+    public static @org.jspecify.annotations.Nullable Item fullEnderite(Item half) {
+        if (half == null || FULL_ENDERITE_WATER_BUCKET == null) return null;
+        if (half == ENDERITE_WATER_BUCKET) return FULL_ENDERITE_WATER_BUCKET;
+        if (half == ENDERITE_LAVA_BUCKET) return FULL_ENDERITE_LAVA_BUCKET;
+        if (half == ENDERITE_SOUL_LAVA_BUCKET) return FULL_ENDERITE_SOUL_LAVA_BUCKET;
+        return null;
+    }
+
+    /** Full Enderite bucket (two buckets) -> the half one of the same fluid; null for anything else. */
+    public static @org.jspecify.annotations.Nullable Item halfEnderite(Item full) {
+        if (full == null || FULL_ENDERITE_WATER_BUCKET == null) return null;
+        if (full == FULL_ENDERITE_WATER_BUCKET) return ENDERITE_WATER_BUCKET;
+        if (full == FULL_ENDERITE_LAVA_BUCKET) return ENDERITE_LAVA_BUCKET;
+        if (full == FULL_ENDERITE_SOUL_LAVA_BUCKET) return ENDERITE_SOUL_LAVA_BUCKET;
+        return null;
     }
 
     /** The ceramic bucket of wear {@code stage} holding {@code content} (empty, water, lava), or null. */
@@ -130,10 +168,11 @@ public final class ModFluids {
         return null;
     }
 
-    /** {@link #buckets()} without the worn ceramic stages: what the creative and search tabs offer. */
+    /** {@link #buckets()} without the worn ceramic stages and the full Enderite buckets: what the creative and search tabs offer. */
     public static java.util.List<Item> creativeBuckets() {
         java.util.List<Item> worn = wornCeramicBuckets();
-        return buckets().stream().filter(item -> !worn.contains(item)).toList();
+        java.util.List<Item> full = fullEnderiteBuckets();
+        return buckets().stream().filter(item -> !worn.contains(item) && !full.contains(item)).toList();
     }
 
     /** The worn ceramic buckets (stage 1..3, every filling): only reached by pouring, so not in the creative tab. */

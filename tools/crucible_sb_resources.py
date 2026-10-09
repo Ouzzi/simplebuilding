@@ -71,8 +71,14 @@ def files():
     out[f"{a}/blockstates/soul_lava.json"] = {"variants": {"": {"model": f"{NS}:block/soul_lava"}}}
     # Buckets.
     for name in ("soul_lava_bucket", "enderite_bucket", "enderite_water_bucket", "enderite_lava_bucket", "enderite_soul_lava_bucket"):
-        out[f"{a}/models/item/{name}.json"] = item_model(name)
+        # Owner N21/N28: the filled Enderite items hold one bucket of two and show the half texture
+        # (tools/textures/enderite_bucket_half_2026_10_09.py); the _full items (two buckets) the full one.
+        half = name.startswith("enderite_") and name != "enderite_bucket"
+        out[f"{a}/models/item/{name}.json"] = item_model(name + "_half" if half else name)
         out[f"{a}/items/{name}.json"] = {"model": model_ref(f"{NS}:item/{name}")}
+        if half:
+            out[f"{a}/models/item/{name}_full.json"] = item_model(name)
+            out[f"{a}/items/{name}_full.json"] = {"model": model_ref(f"{NS}:item/{name}_full")}
     for name in ("copper_bucket", "copper_water_bucket", "copper_lava_bucket"):
         for stage in range(4):
             out[f"{a}/models/item/{name}_{stage}.json"] = item_model(f"{name}_{stage}")
