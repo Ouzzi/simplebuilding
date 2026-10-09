@@ -660,9 +660,9 @@ body.tx-lb-open { overflow: hidden; }
 .tx-lb-bar { display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; margin: .6rem 0; }
 .tx-lb-bar .ar-flabel { min-width: 0; margin-left: .4rem; }
 .tx-lb-panes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: .7rem; }
-.tx-lb-pane { margin: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+.tx-lb-pane { display: flex; flex-direction: column; margin: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
 .tx-lb-pane figcaption { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; padding: .3rem .55rem; background: var(--panel-2); color: var(--muted); }
-.tx-lb-view { display: flex; gap: 1rem; align-items: center; justify-content: center; min-height: 200px; max-height: 60vh; overflow: auto; padding: 12px; }
+.tx-lb-view { flex: 1; display: flex; gap: 1rem; align-items: center; justify-content: center; min-height: 200px; max-height: 60vh; overflow: auto; padding: 12px; }
 .tx-lb-view > img, .tx-lb-view .tx-crop img { image-rendering: pixelated; flex: none; max-width: none; }
 .tx-lb-view > .tx-crop { margin: auto; }
 .tx-lb-view > img { margin: auto; }
@@ -4417,7 +4417,7 @@ Object.assign(STR.en, {
   txSortName: 'Name', txSortModule: 'Module', txSortKind: 'Kind', txSortSize: 'Size', txSortModified: 'Last changed', txDir: 'Reverse order',
   txCount: '{0} of {1}', txEmpty: 'No texture matches the filters.', txReset: 'Reset filters',
   txUiShotsIntro: 'Screenshots of the mod screens, imported with python wiki/generate.py --ui-shots <folder>.', txUiNoShots: 'No screenshots imported (python wiki/generate.py --ui-shots <folder>), so this shows the GUI textures of the mods.',
-  txZoom: 'Zoom', txOriginal: 'Original', txBg: 'Background', txBgLight: 'Light', txBgDark: 'Dark', txBgSlot: 'Slot grey',
+  txZoom: 'Zoom', txZoomCap: '(here at most {0}×)', txOriginal: 'Original', txBg: 'Background', txBgLight: 'Light', txBgDark: 'Dark', txBgSlot: 'Slot grey',
   txPlay: 'Play', txPause: 'Pause', txFrame: 'Frame {0}/{1}', txFrames: '{0} frames, {1} ticks each', txClose: 'Close', txPrev: 'Previous', txNext: 'Next',
   txSource: 'Source', txFile: 'Wiki file', txSize: 'Size', txFrameSize: 'Frame', txBytes: 'Bytes', txModified: 'Last changed', txMcmeta: '.mcmeta', txOpenEntry: 'Open item page', txOpenFile: 'Open file',
   txKind_item: 'Item', txKind_block: 'Block', txKind_entity: 'Entity', txKind_gui: 'GUI', txKind_particle: 'Particle', txKind_mob_effect: 'Effect', txKind_trims: 'Armor trim', txKind_palettes: 'Palette', txKind_misc: 'Misc', txKind_painting: 'Painting', txKind_models: 'Armor model', txKind_environment: 'Environment', txKind_shot: 'Screenshot'
@@ -4430,7 +4430,7 @@ Object.assign(STR.de, {
   txSortName: 'Name', txSortModule: 'Modul', txSortKind: 'Art', txSortSize: 'Größe', txSortModified: 'Zuletzt geändert', txDir: 'Reihenfolge umkehren',
   txCount: '{0} von {1}', txEmpty: 'Keine Textur passt zu den Filtern.', txReset: 'Filter zurücksetzen',
   txUiShotsIntro: 'Bildschirmfotos der Mod-Oberflächen, übernommen mit python wiki/generate.py --ui-shots <ordner>.', txUiNoShots: 'Keine Bildschirmfotos übernommen (python wiki/generate.py --ui-shots <ordner>), daher hier die GUI-Texturen der Mods.',
-  txZoom: 'Zoom', txOriginal: 'Original', txBg: 'Hintergrund', txBgLight: 'Hell', txBgDark: 'Dunkel', txBgSlot: 'Slot-Grau',
+  txZoom: 'Zoom', txZoomCap: '(hier höchstens {0}×)', txOriginal: 'Original', txBg: 'Hintergrund', txBgLight: 'Hell', txBgDark: 'Dunkel', txBgSlot: 'Slot-Grau',
   txPlay: 'Abspielen', txPause: 'Anhalten', txFrame: 'Bild {0}/{1}', txFrames: '{0} Bilder, je {1} Ticks', txClose: 'Schließen', txPrev: 'Zurück', txNext: 'Weiter',
   txSource: 'Quelle', txFile: 'Wiki-Datei', txSize: 'Maße', txFrameSize: 'Einzelbild', txBytes: 'Bytes', txModified: 'Zuletzt geändert', txMcmeta: '.mcmeta', txOpenEntry: 'Zur Item-Seite', txOpenFile: 'Datei öffnen',
   txKind_item: 'Item', txKind_block: 'Block', txKind_entity: 'Kreatur', txKind_gui: 'GUI', txKind_particle: 'Partikel', txKind_mob_effect: 'Effekt', txKind_trims: 'Rüstungsbesatz', txKind_palettes: 'Palette', txKind_misc: 'Sonstiges', txKind_painting: 'Gemälde', txKind_models: 'Rüstungsmodell', txKind_environment: 'Umgebung', txKind_shot: 'Bildschirmfoto'
@@ -4619,10 +4619,11 @@ function txOpen(i) {
   var keep = TX.lb === i;
   TX.lb = i;
   if (!keep) TX.frame = 0;
-  var t = TX.list[i], z = TX.zoom, f = txFrame(t);
+  var t = TX.list[i], f = txFrame(t), z = txZoom(t);
   function chip(k, v, label) { return '<button type="button" class="chip" data-lb="' + k + '" data-v="' + v + '" aria-pressed="' + (String(TX[k]) === String(v)) + '">' + esc(label) + '</button>'; }
   var bar = '<div class="tx-lb-bar"><span class="ar-flabel">' + esc(T('txZoom')) + '</span>' + chip('zoom', 1, T('txOriginal')) + chip('zoom', 8, '8×') + chip('zoom', 16, '16×') +
     '<span class="ar-flabel">' + esc(T('txBg')) + '</span>' + chip('bg', 'light', T('txBgLight')) + chip('bg', 'dark', T('txBgDark')) + chip('bg', 'slot', T('txBgSlot')) +
+    (z !== TX.zoom ? '<span class="muted tiny">' + esc(T('txZoomCap', z)) + '</span>' : '') +
     (t.anim ? '<button type="button" class="chip" data-lb="play">' + esc(T(TX.playing ? 'txPause' : 'txPlay')) + '</button><span class="tx-fr muted tiny"></span>' : '') + '</div>';
   var panes;
   if (t.shot) {
@@ -4653,12 +4654,14 @@ function txOpen(i) {
   document.body.classList.add('tx-lb-open');
   txAnimate();
 }
+/* Grosse Dateien (GUI 256/512 px) nicht ueber 2048 px hochziehen: der Browser glaettet dann. */
+function txZoom(t) { return Math.max(1, Math.min(TX.zoom, Math.floor(2048 / Math.max(t.w, t.h, 1)))); }
 function txAnimate() {
   clearTimeout(TX.timer);
   var t = TX.list[TX.lb];
   if (!$txlb || $txlb.hidden || !t || !t.anim) return;
   var a = t.anim, order = a.order || Array.from({ length: a.count }, function (_, k) { return [k, a.frametime]; });
-  var step = order[TX.frame % order.length], idx = step[0], f = txFrame(t), z = TX.zoom;
+  var step = order[TX.frame % order.length], idx = step[0], f = txFrame(t), z = txZoom(t);
   $txlb.querySelectorAll('.tx-anim img').forEach(function (img) {
     img.style.left = (-(idx % f.cols) * f.w * z) + 'px';
     img.style.top = (-Math.floor(idx / f.cols) * f.h * z) + 'px';

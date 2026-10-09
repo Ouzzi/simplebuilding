@@ -25,7 +25,7 @@ funktioniert (`history.pushState`/`popstate`):
 |---|---|
 | Item / Block | `?item=simplebuilding:enderite_chisel` (reine Blöcke wie Pads landen auf `?block=`), mit `&tab=recipes\|uses\|drops\|trades\|inworld\|related\|technical` springt die Seite zum Abschnitt |
 | Kategorie | `?cat=tools\|building\|storage\|machines\|gadgets\|end\|trims\|materials\|misc` |
-| Listen | `?tab=items\|blocks\|recipes\|allrecipes\|inworld\|loot\|trades\|enchantments\|tags\|config\|advancements\|features` |
+| Listen | `?tab=items\|blocks\|recipes\|allrecipes\|inworld\|loot\|trades\|enchantments\|tags\|config\|advancements\|features\|textures` |
 | Einzelseiten | `?recipe=`, `?loot=`, `?trade=`, `?ench=`, `?tag=`, `?feature=`, `?config=`, `?inworld=`, `?make=`, `?use=`, `?tree=` |
 | Suche | `?q=hammer` |
 | Sprache | `&lang=de` (sonst gilt die gespeicherte Wahl) |
@@ -307,6 +307,43 @@ Verstärkten Köchers sind sein Stufenfaktor).
 **Das Einzige, was von Hand gepflegt wird, ist `wiki/manual.json`:** Fließtext, den keine
 Datei der Mod enthält – was ein Werkzeug *tut*, wie man es bedient, was sich je Stufe ändert.
 
+### Texturen-Seite (`?tab=textures`, `wiki/textures.py`)
+
+Zeigt **jede Textur aller Module** (Items, Blöcke, Kreaturen, GUI-/Container-Texturen,
+Partikel, Effekte, Besätze, Paletten …) – nichts davon wird von Hand gepflegt.
+`generate.py` ruft nach den Mod-Daten `wiki/textures.py` auf (Standardlauf und `--all`):
+
+- Quellen: SimpleBuilding `src/main/resources` mit `mc26_3/overlay/resources` darüber (wie
+  `mergeResources263`), Module `<shared>/resources`, Loader-Ressourcen und `generated`
+  (erster Fund gewinnt, wie bei den Item-Texturen in `modules.py`). Alle Namensräume unter `assets/`.
+- Je Textur: Art (erster Ordner unter `textures/`), Maße aus dem PNG-Kopf, Bytes, `.mcmeta`
+  (Animation: Einzelbildgröße, Anzahl, Ticks, eigene Reihenfolge), zuletzt geändert (Datum des letzten
+  Commits der Quelldatei, ein `git log`-Durchlauf), Name und „fertige“ Form aus den Wiki-Daten: ein
+  Item/Block mit genau dieser Textur bzw. gleicher Id liefert Namen (EN/DE) und Icon bzw. 3D-Render.
+- Bilddateien: eine byte-gleiche Kopie, die das Wiki schon unter `assets/textures/` hat, wird
+  benutzt; alles andere landet unter `assets/textures/sheets/<modul>/<namensraum>/…`. Verwaiste Kopien
+  werden gelöscht.
+- Ausgabe `data/textures.js` (`window.WIKI_TEXTURES`, eine Textur je Zeile). Die Seite lädt sie erst
+  beim ersten Besuch. `--check` vergleicht ohne das Datum (sonst wäre die Datei nach jedem Commit
+  „veraltet“).
+
+Die Seite filtert nach Name/Id (Volltext), Modul, Art, Animation und Auflösung (Einzelbildgröße)
+und sortiert nach Name, Modul, Art, Größe oder Änderungsdatum. Jede Kachel zeigt beide Formen:
+„Fertig“ (Icon/3D-Render, sonst das erste Einzelbild) und das Textur-Sheet. Klick öffnet die
+Lightbox: beide Formen nebeneinander, Zoom Original/8×/16× (große Dateien höchstens 2048 px),
+Hintergrund hell/dunkel/Slot-Grau, Animation abspielbar, Pfeiltasten blättern, Esc schließt.
+
+**Oberflächen (UIs):** zeigt die GUI-Texturen (ohne Einzel-Sprites unter `gui/sprites/`), solange
+keine Screenshots übernommen wurden. Screenshots aus Client-Tests werden **nicht eingecheckt**:
+
+```bash
+python wiki/generate.py --all --ui-shots build/run/clientGameTest/screenshots
+```
+
+kopiert alle PNGs des Ordners (rekursiv) nach `wiki/assets/ui/` und schreibt `wiki/data/ui-shots.js`.
+Das Modul ergibt sich aus dem Pfad oder Dateinamen (z. B. `module-simplefun-client-263/…`). Beides
+steht in `.gitignore`; `tools/wiki_site.py` veröffentlicht es nicht.
+
 ### Der Zwang, nicht die Bitte
 
 Ein Wiki, das „bitte aktuell halten" sagt, veraltet. Deshalb ist die Pflicht in den Build
@@ -419,6 +456,7 @@ die `source`-Felder nennen weiter die echte Datei.
 | `index.html` | die App, eine Datei, Vanilla-JS | ja, selten |
 | `data/simplebuilding.json` | die Doku als JSON | nein, generiert |
 | `data/simplebuilding.js` | dasselbe als `window.WIKI_DATA`, damit `file://` funktioniert | nein, generiert |
+| `textures.py`, `data/textures.js` | Texturen-Seite: Index aller Mod-Texturen | Skript ja, Daten nein |
 | `data/vanilla-<linie>.js` | Vanilla-Rezepte je Minecraft-Linie für den Rezeptbaum | nein, generiert |
 | `../tools/wiki_site.py` | stellt die statische Seite für das Hosting zusammen (ohne Vanilla-Texturen) | ja, selten |
 | `../tools/git-hooks/pre-commit` | optionaler Hook: `--check` vor jedem Commit | ja, selten |
