@@ -32,8 +32,8 @@ public final class HopperGameTest {
     }
 
     @GameTest
-    public void automationOnlyTopsUpSlotsThatHoldAMatch(GameTestHelper helper) {
-        HopperTests.automationOnlyTopsUpSlotsThatHoldAMatch(helper);
+    public void automationOnlyTopsUpMatchingSlots(GameTestHelper helper) {
+        HopperTests.automationOnlyTopsUpMatchingSlots(helper);
     }
 
     @GameTest

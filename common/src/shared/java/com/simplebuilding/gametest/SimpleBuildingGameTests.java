@@ -1317,7 +1317,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("hopper_game_test_the_mode_delegate_reads_and_writes_the_filter_mode", HopperTests::theModeDelegateReadsAndWritesTheFilterMode)
                     .build(),
-            GameTestSpec.named("hopper_game_test_automation_only_tops_up_slots_that_hold_a_match", HopperTests::automationOnlyTopsUpSlotsThatHoldAMatch)
+            GameTestSpec.named("hopper_game_test_automation_only_tops_up_matching_slots", HopperTests::automationOnlyTopsUpMatchingSlots)
                     .build(),
             GameTestSpec.named("hopper_game_test_hopper_configuration_survives_the_save_and_load_round_trip", HopperTests::hopperConfigurationSurvivesTheSaveAndLoadRoundTrip)
                     .build(),

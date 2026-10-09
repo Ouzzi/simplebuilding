@@ -512,7 +512,7 @@ public final class HopperTests {
      * ({@code mayPlayerPlace}) refusing an empty slot, {@code canTakeItem}/{@code canTakeItemThroughFace} letting the
      * last item go, or the two modes swapping their comparison.
      */
-    public static void automationOnlyTopsUpSlotsThatHoldAMatch(GameTestHelper helper) {
+    public static void automationOnlyTopsUpMatchingSlots(GameTestHelper helper) {
         ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.NETHERITE_HOPPER);
         ItemStack namedDiamond = new ItemStack(Items.DIAMOND);
         namedDiamond.set(DataComponents.CUSTOM_NAME, Component.literal("a very particular diamond"));
