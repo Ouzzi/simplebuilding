@@ -2,7 +2,7 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.config.ServerTuning;
 import com.simplebuilding.config.ServerTuningConfig;
-import com.simplebuilding.dummy.PartialArmorStand;
+import com.simplebuilding.dummy.SmallArmorStand;
 import com.simplebuilding.entity.ModEntities;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.version.McVersion;
@@ -33,7 +33,7 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * Ruestungsstaender (Besitzer 2026-10-08, docs/ai/PLAN-STAENDER-2026-10-09.md): Ruestung tauschen, Arme fuer neu
- * aufgestellte Staender, mittlerer und kleiner Staender. Alle Wege wie im Spiel ({@code interact}, {@code useOn},
+ * aufgestellte Staender, kleiner Staender (Nachtrag 29: genau ein Ruestungsteil oder eine Tier-Ruestung, Spender, alte Welten). Alle Wege wie im Spiel ({@code interact}, {@code useOn},
  * {@code Player.attack}). Loader-neutral; ohne {@link McVersion#TRAINING_DUMMY} gelingen die Tests sofort.
  */
 public final class ArmorStandTests {
@@ -177,7 +177,7 @@ public final class ArmorStandTests {
         return found.get(0);
     }
 
-    /** Neu aufgestellte Staender (Vanilla-, Stroh-Item) haben Arme; per Befehl/Code erzeugte und ausgeschaltet wie Vanilla ohne; mittel/klein nie. */
+    /** Neu aufgestellte Staender (Vanilla-, Stroh-Item) haben Arme; per Befehl/Code erzeugte und ausgeschaltet wie Vanilla ohne; der kleine nie. */
     public static void placedStandsHaveArms(GameTestHelper helper) {
         if (!McVersion.TRAINING_DUMMY) {
             helper.succeed();
@@ -186,7 +186,7 @@ public final class ArmorStandTests {
         ServerPlayer player = player(helper);
         helper.assertTrue(((ArmorStand) place(helper, player, Items.ARMOR_STAND, 1, 1)).showArms(), "a placed armor stand has no arms");
         helper.assertTrue(((ArmorStand) place(helper, player, ModItems.STRAW_ARMOR_STAND, 3, 1)).showArms(), "a placed straw stand has no arms");
-        helper.assertFalse(((ArmorStand) place(helper, player, ModItems.MEDIUM_ARMOR_STAND, 5, 1)).showArms(), "the medium stand has arms");
+        helper.assertFalse(((ArmorStand) place(helper, player, ModItems.SMALL_ARMOR_STAND, 5, 1)).showArms(), "the small stand has arms");
         helper.assertFalse(EntityTypes.ARMOR_STAND.create(helper.getLevel(), EntitySpawnReason.COMMAND).showArms(),
                 "a stand made by a command (or code) got arms");
         ServerTuningConfig.Features features = ServerTuning.get().features;
@@ -200,88 +200,229 @@ public final class ArmorStandTests {
         helper.succeed();
     }
 
-    /** Mittel: Hose und Stiefel, sonst nichts; klein: nur Stiefel. Rechtsklick wie Vanilla, Fremdes bleibt in der Hand. */
-    public static void partialStandsHoldOnlyTheirSlots(GameTestHelper helper) {
+    /** Jedes Vanilla-Ruestungsteil mit seinem Slot. */
+    private static final Object[][] PIECES = {
+            {EquipmentSlot.HEAD, new Item[]{Items.LEATHER_HELMET, Items.COPPER_HELMET, Items.CHAINMAIL_HELMET, Items.IRON_HELMET, Items.GOLDEN_HELMET,
+                    Items.DIAMOND_HELMET, Items.NETHERITE_HELMET, Items.TURTLE_HELMET}},
+            {EquipmentSlot.CHEST, new Item[]{Items.LEATHER_CHESTPLATE, Items.COPPER_CHESTPLATE, Items.CHAINMAIL_CHESTPLATE, Items.IRON_CHESTPLATE,
+                    Items.GOLDEN_CHESTPLATE, Items.DIAMOND_CHESTPLATE, Items.NETHERITE_CHESTPLATE}},
+            {EquipmentSlot.LEGS, new Item[]{Items.LEATHER_LEGGINGS, Items.COPPER_LEGGINGS, Items.CHAINMAIL_LEGGINGS, Items.IRON_LEGGINGS,
+                    Items.GOLDEN_LEGGINGS, Items.DIAMOND_LEGGINGS, Items.NETHERITE_LEGGINGS}},
+            {EquipmentSlot.FEET, new Item[]{Items.LEATHER_BOOTS, Items.COPPER_BOOTS, Items.CHAINMAIL_BOOTS, Items.IRON_BOOTS, Items.GOLDEN_BOOTS,
+                    Items.DIAMOND_BOOTS, Items.NETHERITE_BOOTS}},
+            {EquipmentSlot.BODY, new Item[]{Items.LEATHER_HORSE_ARMOR, Items.COPPER_HORSE_ARMOR, Items.IRON_HORSE_ARMOR, Items.GOLDEN_HORSE_ARMOR,
+                    Items.DIAMOND_HORSE_ARMOR, Items.NETHERITE_HORSE_ARMOR, Items.WOLF_ARMOR, Items.COPPER_NAUTILUS_ARMOR, Items.IRON_NAUTILUS_ARMOR,
+                    Items.GOLDEN_NAUTILUS_ARMOR, Items.DIAMOND_NAUTILUS_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR}},
+    };
+
+    /** Was der kleine Staender ablehnt: Waffen, Elytren, Koepfe/Kuerbis, Lama-Teppich, Geschirr, Sattel, Schild, Stock. */
+    private static final Item[] FOREIGN = {Items.IRON_SWORD, Items.ELYTRA, Items.CARVED_PUMPKIN, Items.SKELETON_SKULL, Items.WHITE_CARPET,
+            Items.WHITE_HARNESS, Items.SADDLE, Items.SHIELD, Items.STICK, Items.ARMOR_STAND};
+
+    private static final Vec3 POST = new Vec3(0.0, 0.6, 0.0);
+
+    /**
+     * Jedes Ruestungsteil und jede Tier-Ruestung: Rechtsklick legt es in den passenden Slot (Tier-Ruestung: Koerper, mit
+     * der richtigen Tierform), leere Hand nimmt es wieder ab. Fremdes bleibt in der Hand.
+     */
+    public static void theSmallStandTakesEveryArmorPieceAndAnimalArmor(GameTestHelper helper) {
         if (!McVersion.TRAINING_DUMMY) {
             helper.succeed();
             return;
         }
         ServerPlayer player = player(helper);
-        PartialArmorStand medium = (PartialArmorStand) place(helper, player, ModItems.MEDIUM_ARMOR_STAND, 1, 1);
-        PartialArmorStand small = (PartialArmorStand) place(helper, player, ModItems.SMALL_ARMOR_STAND, 4, 1);
-        helper.assertTrue(medium.getType() == ModEntities.MEDIUM_ARMOR_STAND && small.getType() == ModEntities.SMALL_ARMOR_STAND, "wrong stand types");
-        helper.assertTrue(medium.getBbHeight() < 1.1F && small.getBbHeight() < 0.6F, "partial stands are as tall as a full stand");
-        for (Item item : new Item[]{Items.IRON_LEGGINGS, Items.IRON_BOOTS}) {
-            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(item));
-            medium.interact(player, InteractionHand.MAIN_HAND, new Vec3(0.0, 0.3, 0.0));
-            helper.assertTrue(player.getMainHandItem().isEmpty(), "the medium stand did not take " + item);
+        SmallArmorStand stand = (SmallArmorStand) place(helper, player, ModItems.SMALL_ARMOR_STAND, 1, 1);
+        helper.assertTrue(stand.getType() == ModEntities.SMALL_ARMOR_STAND && stand.getBbHeight() < 1.1F && stand.getBbHeight() > 0.9F,
+                "the small stand is not one block tall: " + stand.getBbHeight());
+        int count = 0;
+        for (Object[] row : PIECES) {
+            EquipmentSlot slot = (EquipmentSlot) row[0];
+            for (Item item : (Item[]) row[1]) {
+                player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(item));
+                stand.interact(player, InteractionHand.MAIN_HAND, POST);
+                helper.assertTrue(player.getMainHandItem().isEmpty(), "the small stand did not take " + item);
+                helper.assertTrue(stand.getItemBySlot(slot).is(item) && stand.shown().is(item) && stand.shownSlot() == slot,
+                        item + " is not shown in " + slot.getName() + ": " + stand.getItemBySlot(slot));
+                stand.interact(player, InteractionHand.MAIN_HAND, POST);
+                helper.assertTrue(player.getMainHandItem().is(item) && stand.shownSlot() == null, "an empty hand did not take " + item + " back");
+                count++;
+            }
         }
-        for (Item item : new Item[]{Items.IRON_HELMET, Items.IRON_CHESTPLATE, Items.IRON_SWORD}) {
+        helper.assertTrue(count == 41, "expected 41 pieces, tried " + count);
+        helper.assertTrue(SmallArmorStand.animal(new ItemStack(Items.DIAMOND_HORSE_ARMOR)) == SmallArmorStand.Animal.HORSE
+                        && SmallArmorStand.animal(new ItemStack(Items.WOLF_ARMOR)) == SmallArmorStand.Animal.WOLF
+                        && SmallArmorStand.animal(new ItemStack(Items.IRON_NAUTILUS_ARMOR)) == SmallArmorStand.Animal.NAUTILUS
+                        && SmallArmorStand.animal(new ItemStack(Items.WHITE_CARPET)) == null,
+                "animal armor is shown in the wrong animal shape");
+        for (Item item : FOREIGN) {
             player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(item));
-            medium.interact(player, InteractionHand.MAIN_HAND, new Vec3(0.0, 0.3, 0.0));
-            helper.assertTrue(player.getMainHandItem().is(item), "the medium stand took " + item);
+            stand.interact(player, InteractionHand.MAIN_HAND, POST);
+            helper.assertTrue(player.getMainHandItem().is(item) && player.getMainHandItem().getCount() == 1 && stand.shownSlot() == null,
+                    "the small stand took " + item);
+            for (EquipmentSlot slot : EquipmentSlot.VALUES) {
+                helper.assertTrue(stand.getItemBySlot(slot).isEmpty(), "the small stand holds " + stand.getItemBySlot(slot) + " after " + item);
+            }
         }
-        wears(helper, medium, "medium", Items.AIR, Items.AIR, Items.IRON_LEGGINGS, Items.IRON_BOOTS);
-        for (Item item : new Item[]{Items.IRON_LEGGINGS, Items.IRON_CHESTPLATE}) {
-            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(item));
-            small.interact(player, InteractionHand.MAIN_HAND, new Vec3(0.0, 0.2, 0.0));
-            helper.assertTrue(player.getMainHandItem().is(item), "the small stand took " + item);
-        }
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_BOOTS));
-        small.interact(player, InteractionHand.MAIN_HAND, new Vec3(0.0, 0.2, 0.0));
-        wears(helper, small, "small", Items.AIR, Items.AIR, Items.AIR, Items.GOLDEN_BOOTS);
-        // leere Hand nimmt die Stiefel wieder ab
-        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-        small.interact(player, InteractionHand.MAIN_HAND, new Vec3(0.0, 0.2, 0.0));
-        helper.assertTrue(player.getMainHandItem().is(Items.GOLDEN_BOOTS) && small.getItemBySlot(EquipmentSlot.FEET).isEmpty(),
-                "the small stand kept its boots");
-        // Tausch: nur Hose und Stiefel wandern, Helm und Brust bleiben am Spieler
-        wear(player, Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS);
-        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-        player.setShiftKeyDown(true);
-        medium.interact(player, InteractionHand.MAIN_HAND, new Vec3(0.0, 0.3, 0.0));
-        wears(helper, player, "player", Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.IRON_LEGGINGS, Items.IRON_BOOTS);
-        wears(helper, medium, "medium", Items.AIR, Items.AIR, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS);
-        helper.assertTrue(medium.getPickResult().is(ModItems.MEDIUM_ARMOR_STAND) && small.getPickResult().is(ModItems.SMALL_ARMOR_STAND),
-                "pick block gives the wrong item");
         helper.succeed();
     }
 
-    /** Zwei schnelle Schlaege (echter Weg) bauen die Staender ab: das eigene Item faellt, nicht der Vanilla-Staender. */
-    public static void partialStandsDropTheirOwnItem(GameTestHelper helper) {
+    /**
+     * Genau ein Item: ein zweites passendes Teil tauscht mit dem gezeigten (das alte kommt in die Hand), ein Stapel aus mehreren
+     * nicht; Fremdes neben dem Item bleibt abgelehnt. Schleichen + leere Hand tauscht nur das eine Teil mit dem Spieler.
+     */
+    public static void theSmallStandHoldsExactlyOneItem(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = player(helper);
+        SmallArmorStand stand = (SmallArmorStand) place(helper, player, ModItems.SMALL_ARMOR_STAND, 1, 1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_CHESTPLATE));
+        stand.interact(player, InteractionHand.MAIN_HAND, POST);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_HORSE_ARMOR));
+        stand.interact(player, InteractionHand.MAIN_HAND, POST);
+        helper.assertTrue(player.getMainHandItem().is(Items.IRON_CHESTPLATE) && stand.getItemBySlot(EquipmentSlot.BODY).is(Items.DIAMOND_HORSE_ARMOR)
+                && stand.getItemBySlot(EquipmentSlot.CHEST).isEmpty(), "a second piece did not swap with the shown one");
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_BOOTS, 2));
+        stand.interact(player, InteractionHand.MAIN_HAND, POST);
+        helper.assertTrue(player.getMainHandItem().getCount() == 2 && stand.shown().is(Items.DIAMOND_HORSE_ARMOR),
+                "a stack of two swapped onto a full stand");
+        // Schleich-Tausch: nur das eine Teil wandert, die uebrige Ruestung bleibt am Spieler
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        stand.interact(player, InteractionHand.MAIN_HAND, POST);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_CHESTPLATE));
+        stand.interact(player, InteractionHand.MAIN_HAND, POST);
+        wear(player, Items.IRON_HELMET, Items.IRON_CHESTPLATE, Items.IRON_LEGGINGS, Items.IRON_BOOTS);
+        player.setShiftKeyDown(true);
+        stand.interact(player, InteractionHand.MAIN_HAND, POST);
+        wears(helper, player, "player", Items.IRON_HELMET, Items.DIAMOND_CHESTPLATE, Items.IRON_LEGGINGS, Items.IRON_BOOTS);
+        wears(helper, stand, "small stand", Items.AIR, Items.IRON_CHESTPLATE, Items.AIR, Items.AIR);
+        // leerer Staender nimmt beim Tausch das erste getragene Teil (Brust)
+        player.setShiftKeyDown(false);
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        stand.interact(player, InteractionHand.MAIN_HAND, POST);
+        helper.assertTrue(player.getMainHandItem().is(Items.IRON_CHESTPLATE) && stand.shownSlot() == null, "the chestplate did not come off");
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        player.setShiftKeyDown(true);
+        stand.interact(player, InteractionHand.MAIN_HAND, POST);
+        wears(helper, player, "player (empty stand)", Items.IRON_HELMET, Items.AIR, Items.IRON_LEGGINGS, Items.IRON_BOOTS);
+        wears(helper, stand, "small stand (empty)", Items.AIR, Items.DIAMOND_CHESTPLATE, Items.AIR, Items.AIR);
+        helper.assertTrue(stand.getPickResult().is(ModItems.SMALL_ARMOR_STAND), "pick block gives the wrong item");
+        helper.succeed();
+    }
+
+    /** Zwei schnelle Schlaege (echter Weg) bauen den kleinen Staender ab: er selbst und sein Item fallen, kein Vanilla-Staender. */
+    public static void theSmallStandDropsItselfAndItsItem(GameTestHelper helper) {
         if (!McVersion.TRAINING_DUMMY) {
             helper.succeed();
             return;
         }
         ServerLevel level = helper.getLevel();
         ServerPlayer player = player(helper);
-        for (EntityType<PartialArmorStand> type : List.of(ModEntities.MEDIUM_ARMOR_STAND, ModEntities.SMALL_ARMOR_STAND)) {
-            PartialArmorStand stand = stand(helper, type, 3, 3);
-            stand.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
+        int x = 1;
+        for (Item item : new Item[]{Items.IRON_BOOTS, Items.GOLDEN_HORSE_ARMOR, Items.WOLF_ARMOR}) {
+            SmallArmorStand stand = stand(helper, ModEntities.SMALL_ARMOR_STAND, x, 3);
+            x += 2;
+            helper.assertTrue(stand.put(new ItemStack(item)), "put " + item);
             player.snapTo(stand.getX() - 1.5, stand.getY(), stand.getZ());
             player.lookAt(EntityAnchorArgument.Anchor.EYES, stand.position());
             player.attack(stand);
             player.attack(stand);
-            helper.assertTrue(stand.isRemoved(), "two fast hits do not break the " + type.toShortString());
-            List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, stand.getBoundingBox().inflate(2.0));
-            Item own = stand.item();
-            helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(own)), "the " + type.toShortString() + " did not drop itself");
-            helper.assertFalse(drops.stream().anyMatch(e -> e.getItem().is(Items.ARMOR_STAND)), "the " + type.toShortString() + " dropped a vanilla stand");
-            helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(Items.IRON_BOOTS)), "the " + type.toShortString() + " lost its boots");
+            helper.assertTrue(stand.isRemoved(), "two fast hits do not break the small stand");
+            List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, stand.getBoundingBox().inflate(1.5));
+            helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(ModItems.SMALL_ARMOR_STAND)), "the small stand did not drop itself");
+            helper.assertFalse(drops.stream().anyMatch(e -> e.getItem().is(Items.ARMOR_STAND)), "the small stand dropped a vanilla stand");
+            helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(item)), "the small stand lost its " + item);
             drops.forEach(Entity::discard);
         }
         helper.succeed();
     }
 
-    /** Die Testzentrale fuehrt die neuen Staender. */
-    public static void theTestCentreStocksThePartialStands(GameTestHelper helper) {
+    /**
+     * Spender (echter Weg, Redstone): ein Helm, eine Pferde- und eine Wolfs-Ruestung landen auf je einem leeren kleinen
+     * Staender; ein voller Staender nimmt nichts (der Spender wirft das Item wie Vanilla aus), ein Schwert auch nicht.
+     */
+    public static void aDispenserPutsArmorOnTheSmallStand(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        Item[] items = {Items.IRON_HELMET, Items.DIAMOND_HORSE_ARMOR, Items.WOLF_ARMOR, Items.GOLDEN_BOOTS, Items.IRON_SWORD};
+        SmallArmorStand[] stands = new SmallArmorStand[items.length];
+        net.minecraft.world.level.block.entity.DispenserBlockEntity[] dispensers = new net.minecraft.world.level.block.entity.DispenserBlockEntity[items.length];
+        for (int i = 0; i < items.length; i++) {
+            BlockPos dispenser = new BlockPos(0, 1, i);
+            helper.setBlock(dispenser, Blocks.DISPENSER.defaultBlockState().setValue(net.minecraft.world.level.block.DispenserBlock.FACING, Direction.EAST));
+            stands[i] = stand(helper, ModEntities.SMALL_ARMOR_STAND, 1, i);
+            stands[i].setNoGravity(true);
+            dispensers[i] = (net.minecraft.world.level.block.entity.DispenserBlockEntity) level.getBlockEntity(helper.absolutePos(dispenser));
+            dispensers[i].setItem(0, new ItemStack(items[i]));
+        }
+        stands[3].put(new ItemStack(Items.IRON_LEGGINGS));
+        for (int i = 0; i < items.length; i++) {
+            helper.setBlock(new BlockPos(0, 2, i), Blocks.REDSTONE_BLOCK);
+        }
+        helper.runAfterDelay(10, () -> {
+            for (int i = 0; i < 3; i++) {
+                helper.assertTrue(stands[i].shown().is(items[i]) && dispensers[i].getItem(0).isEmpty(),
+                        "the dispenser did not put " + items[i] + " on the small stand: " + stands[i].shown());
+            }
+            helper.assertTrue(stands[3].shown().is(Items.IRON_LEGGINGS) && stands[3].getItemBySlot(EquipmentSlot.FEET).isEmpty(),
+                    "a full stand took boots from a dispenser");
+            helper.assertTrue(stands[4].shownSlot() == null && stands[4].getItemBySlot(EquipmentSlot.MAINHAND).isEmpty(),
+                    "the small stand took a sword from a dispenser");
+            helper.succeed();
+        });
+    }
+
+    /**
+     * Alte Welten: ein gespeicherter mittlerer Staender (Hose + Stiefel) laedt als kleiner Staender, behaelt die Hose und
+     * laesst die Stiefel fallen; ein altes Item {@code medium_armor_stand} wird ein kleiner Staender.
+     */
+    public static void anOldMediumStandBecomesASmallStand(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        net.minecraft.resources.Identifier old = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "medium_armor_stand");
+        helper.assertTrue(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(old) == ModItems.SMALL_ARMOR_STAND,
+                "an old medium stand item does not load as a small stand");
+        helper.assertTrue(net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getValue(old) == ModEntities.SMALL_ARMOR_STAND,
+                "the old medium stand entity id does not load as a small stand");
+        SmallArmorStand template = stand(helper, ModEntities.SMALL_ARMOR_STAND, 2, 2);
+        template.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.DIAMOND_LEGGINGS));
+        template.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.DIAMOND_BOOTS));
+        net.minecraft.world.level.storage.TagValueOutput output = net.minecraft.world.level.storage.TagValueOutput.createWithContext(
+                net.minecraft.util.ProblemReporter.DISCARDING, level.registryAccess());
+        template.saveAsPassenger(output);
+        template.discard();
+        net.minecraft.nbt.CompoundTag tag = output.buildResult();
+        tag.putString("id", old.toString());
+        Entity loaded = EntityType.loadEntityRecursive(net.minecraft.world.level.storage.TagValueInput.create(
+                net.minecraft.util.ProblemReporter.DISCARDING, level.registryAccess(), tag), level, EntitySpawnReason.LOAD,
+                net.minecraft.world.entity.EntityProcessor.NOP);
+        helper.assertTrue(loaded instanceof SmallArmorStand && loaded.getType() == ModEntities.SMALL_ARMOR_STAND,
+                "the old medium stand loaded as " + (loaded == null ? "nothing" : loaded.getType().toShortString()));
+        SmallArmorStand stand = (SmallArmorStand) loaded;
+        level.addFreshEntity(stand);
+        stand.tick();
+        wears(helper, stand, "converted stand", Items.AIR, Items.AIR, Items.DIAMOND_LEGGINGS, Items.AIR);
+        List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, stand.getBoundingBox().inflate(1.5));
+        helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(Items.DIAMOND_BOOTS)), "the converted stand lost its boots");
+        drops.forEach(Entity::discard);
+        helper.succeed();
+    }
+
+    /** Die Testzentrale fuehrt den kleinen Staender. */
+    public static void theTestCentreStocksTheSmallStand(GameTestHelper helper) {
         if (!McVersion.TRAINING_DUMMY) {
             helper.succeed();
             return;
         }
         var plan = com.simplebuilding.dev.testcentre.TestCentreLayout.plan(helper.getLevel().registryAccess(), new BlockPos(0, 64, 0));
-        helper.assertTrue(plan.coveredItems().contains(ModItems.MEDIUM_ARMOR_STAND) && plan.coveredItems().contains(ModItems.SMALL_ARMOR_STAND),
-                "the partial armor stands have no place in the test centre");
+        helper.assertTrue(plan.coveredItems().contains(ModItems.SMALL_ARMOR_STAND), "the small armor stand has no place in the test centre");
         helper.succeed();
     }
 }

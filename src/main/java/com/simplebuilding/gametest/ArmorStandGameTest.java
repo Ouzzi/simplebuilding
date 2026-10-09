@@ -35,17 +35,32 @@ public final class ArmorStandGameTest {
     }
 
     @GameTest
-    public void partialStandsHoldOnlyTheirSlots(GameTestHelper helper) {
-        ArmorStandTests.partialStandsHoldOnlyTheirSlots(helper);
+    public void theSmallStandTakesEveryArmorPieceAndAnimalArmor(GameTestHelper helper) {
+        ArmorStandTests.theSmallStandTakesEveryArmorPieceAndAnimalArmor(helper);
     }
 
     @GameTest
-    public void partialStandsDropTheirOwnItem(GameTestHelper helper) {
-        ArmorStandTests.partialStandsDropTheirOwnItem(helper);
+    public void theSmallStandHoldsExactlyOneItem(GameTestHelper helper) {
+        ArmorStandTests.theSmallStandHoldsExactlyOneItem(helper);
     }
 
     @GameTest
-    public void theTestCentreStocksThePartialStands(GameTestHelper helper) {
-        ArmorStandTests.theTestCentreStocksThePartialStands(helper);
+    public void theSmallStandDropsItselfAndItsItem(GameTestHelper helper) {
+        ArmorStandTests.theSmallStandDropsItselfAndItsItem(helper);
+    }
+
+    @GameTest
+    public void aDispenserPutsArmorOnTheSmallStand(GameTestHelper helper) {
+        ArmorStandTests.aDispenserPutsArmorOnTheSmallStand(helper);
+    }
+
+    @GameTest
+    public void anOldMediumStandBecomesASmallStand(GameTestHelper helper) {
+        ArmorStandTests.anOldMediumStandBecomesASmallStand(helper);
+    }
+
+    @GameTest
+    public void theTestCentreStocksTheSmallStand(GameTestHelper helper) {
+        ArmorStandTests.theTestCentreStocksTheSmallStand(helper);
     }
 }

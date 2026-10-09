@@ -1,7 +1,7 @@
 package com.simplebuilding.mixin;
 
 import com.simplebuilding.config.ServerTuning;
-import com.simplebuilding.dummy.PartialArmorStand;
+import com.simplebuilding.dummy.SmallArmorStand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -24,7 +24,7 @@ public abstract class EntityTypeArmorStandArmsMixin {
     @Inject(method = "create(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnReason;)Lnet/minecraft/world/entity/Entity;",
             at = @At("RETURN"))
     private void simplebuilding$armsForPlacedStands(Level level, EntitySpawnReason reason, CallbackInfoReturnable<Entity> cir) {
-        if (cir.getReturnValue() instanceof ArmorStand stand && !(stand instanceof PartialArmorStand) && !level.isClientSide()
+        if (cir.getReturnValue() instanceof ArmorStand stand && !(stand instanceof SmallArmorStand) && !level.isClientSide()
                 && (reason == EntitySpawnReason.SPAWN_ITEM_USE || reason == EntitySpawnReason.DISPENSER)
                 && ServerTuning.get().features.armorStandArms) {
             stand.setShowArms(true);

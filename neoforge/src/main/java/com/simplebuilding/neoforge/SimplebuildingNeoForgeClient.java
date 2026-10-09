@@ -123,8 +123,7 @@ public final class SimplebuildingNeoForgeClient {
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
             event.registerEntityRenderer(ModEntities.STRAW_ARMOR_STAND, com.simplebuilding.dummy.client.TrainingDummyRenderer.straw());
             event.registerEntityRenderer(ModEntities.TRAINING_DUMMY, com.simplebuilding.dummy.client.TrainingDummyRenderer.dummy());
-            event.registerEntityRenderer(ModEntities.MEDIUM_ARMOR_STAND, com.simplebuilding.dummy.client.PartialArmorStandRenderer.medium());
-            event.registerEntityRenderer(ModEntities.SMALL_ARMOR_STAND, com.simplebuilding.dummy.client.PartialArmorStandRenderer.small());
+            event.registerEntityRenderer(ModEntities.SMALL_ARMOR_STAND, com.simplebuilding.dummy.client.SmallArmorStandRenderer::new);
         }
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         event.registerBlockEntityRenderer(NeoForgeModRegistries.PLACED_TEMPLATE_BE.get(), com.simplebuilding.client.render.PlacedTemplateRenderer::new);

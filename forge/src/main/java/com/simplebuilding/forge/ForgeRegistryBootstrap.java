@@ -40,6 +40,7 @@ public final class ForgeRegistryBootstrap {
         // Forge entsperrt je RegisterEvent nur die eine Registry - Entitaeten gehoeren in ihr eigenes Ereignis.
         if (event.getRegistryKey().equals(Registries.ENTITY_TYPE)) {
             ModEntities.registerModEntities();
+            registerLegacyAliases(event);
             return;
         }
         // Listiger Shulker (2026-10-02): Effekt vor den Traenken, jeweils in ihrem eigenen Ereignis.
@@ -90,6 +91,12 @@ public final class ForgeRegistryBootstrap {
         if (!(event.getForgeRegistry() instanceof ForgeRegistry<?> registry)) {
             return;
         }
+        if (event.getRegistryKey().equals(Registries.ITEM) || event.getRegistryKey().equals(Registries.ENTITY_TYPE)) {
+            LegacyItemIds.RENAMED_STANDS.forEach((oldPath, newPath) -> registry.addAlias(
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, oldPath),
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, newPath)));
+        }
+        if (event.getRegistryKey().equals(Registries.ENTITY_TYPE)) return;
         if (event.getRegistryKey().equals(Registries.ITEM)) LegacyItemIds.RENAMED.forEach((oldPath, newPath) -> registry.addAlias(
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, oldPath),
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, newPath)));

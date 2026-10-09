@@ -2891,7 +2891,7 @@ public final class DataIntegrityTests {
         }
         if (McVersion.TRAINING_DUMMY) {
             expected.add(CreativeTabLayout.Row.of("training_dummy", ModItems.STRAW_ARMOR_STAND, ModItems.TRAINING_DUMMY,
-                    ModItems.MEDIUM_ARMOR_STAND, ModItems.SMALL_ARMOR_STAND));
+                    ModItems.SMALL_ARMOR_STAND));
         }
         if (McVersion.HAMMOCK) {
             // Haengematten (2026-10-02): 16 Farben in Vanillas Bett-Reihenfolge, laufen ueber zwei Zeilen.

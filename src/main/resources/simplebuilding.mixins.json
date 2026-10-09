@@ -41,6 +41,7 @@
     "ArmorStandAccessor",
     "ArmorStandStandsMixin",
     "EntityTypeArmorStandArmsMixin",
+    "EquipmentDispenseStandMixin",
     "FletchingTableMixin",
     "MetalRodLightningMixin",
     "HammockPlayerMixin",

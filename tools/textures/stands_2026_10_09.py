@@ -1,11 +1,11 @@
 """Usage: python tools/textures/stands_2026_10_09.py [<vanilla textures dir> [preview.png]]
 
-Medium and Small Armor Stand item icons (owner 2026-10-08, docs/ai/PLAN-STAENDER-2026-10-09.md). Own shapes in the
-vanilla armor stand's wood and stone tones (no vanilla pixels copied):
-- item/medium_armor_stand: hip bar, two leg sticks, stone base plate - the stand without its upper body.
-- item/small_armor_stand: a wider stone base plate with the two short wooden pegs of the entity model.
+Small Armor Stand item icon (owner 2026-10-09, Nachtrag 29, docs/ai/PLAN-STAENDER-2026-10-09.md). Own shape in the
+vanilla armor stand's wood and stone tones (no vanilla pixels copied): a wooden post with dark rings and a cross bar
+on top (a T, like the entity model and the owner's reference pictures), standing on a smooth stone plate.
+The medium armor stand was removed in the same round.
 Writes into mc26_3/overlay/resources/assets/simplebuilding/textures/item/ and, if a vanilla dir and a preview path are
-given, a 16x preview sheet: vanilla armor stand | medium | small, each also on a light background."""
+given, a 16x preview sheet: vanilla armor stand | small, each also on a light background."""
 from PIL import Image
 import os
 import sys
@@ -25,44 +25,26 @@ PAL = {
     '2': (168, 168, 168),  # smooth stone mid
     '3': (176, 176, 176),  # smooth stone light
     'k': (118, 118, 118),  # stone shadow edge
+    'K': (88, 88, 88),     # stone outline
 }
-
-MEDIUM = [
-    '................',
-    '................',
-    '................',
-    '................',
-    '....ddddddd.....',
-    '...dhlhlhlho....',
-    '....ooooooo.....',
-    '....dho.dlo.....',
-    '....dlo.dho.....',
-    '....dho.dlo.....',
-    '....dlo.dho.....',
-    '....dho.dlo.....',
-    '....dlo.dho.....',
-    '...kdmo1dmok....',
-    '...k3232323o....',
-    '....ooooooo.....',
-]
 
 SMALL = [
     '................',
     '................',
-    '................',
-    '................',
-    '................',
-    '................',
-    '................',
-    '................',
-    '................',
-    '................',
-    '....dho.dho.....',
-    '....dlo.dlo.....',
-    '..k332323233o...',
-    '..k212121212o...',
-    '...oooooooooo...',
-    '................',
+    '....ddddddddd...',
+    '...dhlhlhlhlho..',
+    '....ooodloooo...',
+    '.......dho......',
+    '.......dlo......',
+    '.......ooo......',
+    '.......dho......',
+    '.......dlo......',
+    '.......dho......',
+    '.......ooo......',
+    '.......dlo......',
+    '..k3232323232K..',
+    '..k2121212121K..',
+    '...KKKKKKKKKKK..',
 ]
 
 
@@ -77,13 +59,13 @@ def draw(rows):
 
 
 def main():
-    out = {'medium_armor_stand': draw(MEDIUM), 'small_armor_stand': draw(SMALL)}
+    out = {'small_armor_stand': draw(SMALL)}
     os.makedirs(OUT, exist_ok=True)
     for name, img in out.items():
         img.save(os.path.join(OUT, name + '.png'))
     if V and PREVIEW:
         vanilla = Image.open(os.path.join(V, 'item', 'armor_stand.png')).convert('RGBA')
-        icons = [vanilla, out['medium_armor_stand'], out['small_armor_stand']]
+        icons = [vanilla, out['small_armor_stand']]
         scale, pad = 16, 16
         sheet = Image.new('RGBA', (len(icons) * (16 * scale + pad) + pad, 2 * (16 * scale + pad) + pad), (40, 40, 40, 255))
         for i, icon in enumerate(icons):

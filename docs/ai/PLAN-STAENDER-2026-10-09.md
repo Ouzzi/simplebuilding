@@ -60,3 +60,35 @@ Aufträge: N21 „Puppen/Ständer“ (Interaktionen), N24 „Trainingspuppe mit 
 Compile 3 Loader; `simplebuilding:training_dummy_game_test_*` und `simplebuilding:armor_stand_game_test_*` auf
 fabric/neoforge/forge-263; Config-/Daten-Tests (`config_option*`, `data_integrity*`, `test_centre*`); Wiki-/Textur-
 Checks; Vorschau ansehen. Nicht abgedeckt: Skin-Darstellung am Client (braucht Profil-Auflösung im Netz).
+
+## Runde 2 – Nachtrag 29 (Branch claude-q-stands2, Referenzen /root/previews/refs-stands/2–4)
+
+Besitzer: mittleren Ständer entfernen; der kleine wird ein Holzpfosten mit Querholz (T) auf einer Steinplatte und
+zeigt **genau ein** Item: ein Rüstungsteil oder eine Tier-Rüstung (Pferd wie Bild 2, Wolf, Nautilus).
+
+Entscheidungen (selbst getroffen):
+- **Entfernt:** Item, Entity-Typ, Rezept, Lang, Wiki, Tests, Testzentrale, Kreativ-/Suchreihe des mittleren Ständers.
+- **Alte Welten:** Registry-Alias wie bei umbenannten Items (`LegacyItemIds`, auch Forge-`addAlias`):
+  `simplebuilding:medium_armor_stand` → `small_armor_stand` für Items **und** Entity-Typ. Ein geladener alter
+  mittlerer Ständer wird so ein kleiner; trägt er mehr als ein Teil (Hose + Stiefel), behält er beim ersten Tick
+  eines (Reihenfolge Brust, Kopf, Hose, Füße, Tier) und lässt die übrigen als Item fallen – nichts geht verloren.
+- **Klasse** `SmallArmorStand extends ArmorStand` (Vanilla-Abbau, Speicherung, Name, Pick-Block): eigenes
+  `interact` – leere Hand nimmt das Item, ein passendes Item wird abgelegt (einzeln; liegt schon eines und hält der
+  Spieler genau ein passendes, werden sie getauscht), alles andere wird abgelehnt (FAIL).
+  Passend: `Equippable` mit Slot Kopf/Brust/Beine/Füße, Asset vorhanden, kein Gleiter (Elytra) – oder Slot Körper,
+  den ein Pferd, Wolf oder Nautilus tragen darf (`canBeEquippedBy`). Llama-Teppich, Geschirr, Sattel: abgelehnt.
+  Das Item liegt im passenden Vanilla-Slot (Tier-Rüstung im `BODY`-Slot), Vanillas Abbau lässt alle Slots fallen.
+- **Rüstungstausch** (Schleichen + leere Hand oder bestromt): nur das eine Teil wird mit dem gleichen Slot des
+  Spielers getauscht (Fluch der Bindung bleibt); leerer Ständer nimmt das erste getragene Teil (Brust, Kopf, Hose,
+  Füße). Tier-Rüstung: kein Tausch, normaler Rechtsklick.
+- **Spender:** Mixin am Kopf von `EquipmentDispenseItemBehavior.dispenseEquipment` – ein leerer kleiner Ständer vor
+  dem Spender nimmt ein passendes Item (Tier-Rüstungen erlauben Vanilla sonst nur ihren Tieren);
+  `canDispenserEquipIntoSlot` false, damit Vanilla nichts Unpassendes (Kürbis) aufsetzt.
+- **Maße:** 0,5 × 1,0 Blöcke. **Modell** (eigener Renderer, Vanilla-Ständer-Textur = Holz mit Ringen + Steinplatte):
+  Platte 12×1×12, Pfosten 2×2 bis 16 px, Querholz 8×2×2 oben. Rüstung je Teil verschoben: Brust und Helm 8/7 px
+  tiefer (Schultern auf dem Querholz, Helm auf dem T), Hose/Stiefel 1 px höher (stehen auf der Platte).
+  Tier-Rüstung mit Vanillas Modell (Pferd/Wolf/Nautilus-Rüstungsebene), seitlich gedreht, Pfosten im Bauch.
+- **Rezept:** Stock, Stock, Glatte-Stein-Stufe senkrecht (Pfosten auf Platte). **Icon:** neues T auf Platte.
+- Tests: jedes Rüstungsteil (4 Slots, mehrere Materialien), jede Tier-Rüstung, Fremd-Items, nur ein Item, Tausch,
+  Abbau-Drop, Spender (Teil + Tier-Rüstung, voll lehnt ab), Migration (Entity + Item-Alias).
+  Client-Bild `/root/previews/stands2/` mit Brust, Helm, Hose, Stiefel, Pferd, Wolf, Nautilus.
