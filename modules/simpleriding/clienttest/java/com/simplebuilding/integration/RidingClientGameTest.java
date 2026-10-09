@@ -82,6 +82,27 @@ public final class RidingClientGameTest implements FabricClientGameTest {
     player.stopRiding();mount.discard();
    });
    context.takeScreenshot("riding-world");
+   // Hoof panel in the container style (SimpleLib style blocks): open a tamed horse's inventory.
+   world.getServer().runOnServer(server->{
+    var player=server.getPlayerList().getPlayers().getFirst();
+    var horse=net.minecraft.world.entity.EntityTypes.HORSE.create(player.level(),net.minecraft.world.entity.EntitySpawnReason.COMMAND);
+    horse.snapTo(player.getX()+2,player.getY(),player.getZ(),0,0);horse.tameWithName(player);
+    player.level().addFreshEntity(horse);
+   });
+   context.waitTicks(5);world.getConnection().waitForClientboundPackets();
+   world.getServer().runOnServer(server->{
+    var player=server.getPlayerList().getPlayers().getFirst();
+    player.level().getEntities((net.minecraft.world.entity.Entity)null,player.getBoundingBox().inflate(8),e->e instanceof net.minecraft.world.entity.animal.equine.Horse)
+     .forEach(e->((net.minecraft.world.entity.animal.equine.Horse)e).openCustomInventoryScreen(player));
+   });
+   context.waitTicks(10);world.getConnection().waitForClientboundPackets();
+   context.runOnClient(client->{
+    if(!(client.gui.screen() instanceof net.minecraft.client.gui.screens.inventory.HorseInventoryScreen screen))throw new AssertionError("Horse inventory opens: "+client.gui.screen());
+    if(!com.simpleriding.HorseshoePanel.hasShoeSlots(screen.getMenu()))throw new AssertionError("Horse inventory has the hoof slots");
+   });
+   context.takeScreenshot("riding-horse-panel");
+   context.runOnClient(client->client.setScreenAndShow(null));
+   world.getServer().runOnServer(server->server.getPlayerList().getPlayers().getFirst().level().getEntities((net.minecraft.world.entity.Entity)null,new net.minecraft.world.phys.AABB(-1e4,-64,-1e4,1e4,320,1e4),e->e instanceof net.minecraft.world.entity.animal.equine.Horse).forEach(net.minecraft.world.entity.Entity::discard));
    context.runOnClient(client->{try{
     var cls=Class.forName("com.simpleriding.client.RidingConfigScreen");var screen=(Screen)cls.getMethod("create",Screen.class).invoke(null,client.gui.screen());
     var categories=(java.util.Map<?,?>)screen.getClass().getMethod("getCategorizedEntries").invoke(screen);

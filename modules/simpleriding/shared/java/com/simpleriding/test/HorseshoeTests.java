@@ -35,6 +35,7 @@ public final class HorseshoeTests {
   ALL.put("horseshoe_items",HorseshoeTests::items); ALL.put("horseshoe_recipes",HorseshoeTests::recipes);
   ALL.put("horseshoe_points",HorseshoeTests::points); ALL.put("horseshoe_effects",HorseshoeTests::effects);
   ALL.put("horseshoe_handling",HorseshoeTests::handling); ALL.put("horseshoe_menu",HorseshoeTests::menu);
+  ALL.put("horseshoe_panel_layout",HorseshoeTests::panelLayout);
   ALL.put("horseshoe_save_and_drop",HorseshoeTests::saveAndDrop); ALL.put("horseshoe_wear",HorseshoeTests::wear);
   ALL.put("horseshoe_mending",HorseshoeTests::mending); ALL.put("horseshoe_fall",HorseshoeTests::fall);
   ALL.put("horseshoe_loot",HorseshoeTests::loot);
@@ -210,7 +211,34 @@ public final class HorseshoeTests {
   var donkeyMenu=new HorseInventoryMenu(2,player.getInventory(),chest,donkey,5);
   donkeyMenu.quickMoveStack(player,2);
   h.assertTrue(Horseshoes.container(donkey).isEmpty()&&chest.getItem(0).isEmpty(),"Chest items go to the player inventory, not onto the hooves");
-  h.assertTrue(HorseshoePanel.contains(-10,40)&&!HorseshoePanel.contains(5,40),"Panel bounds");
+  h.assertTrue(HorseshoePanel.contains(HorseshoeSlot.X,HorseshoeSlot.Y)&&!HorseshoePanel.contains(5,40),"Panel bounds cover the slots");
+  h.succeed();
+ }
+
+ /**
+  * Round 2: the hoof panel is a short 2x2 tab, not one tall column. The four slots form a 2x2 grid inside the panel's
+  * fill area, and the panel's bottom stays above the container box's bottom (the old column ran into the inventory).
+  * Uses the same SimpleLib frame numbers the client draws with.
+  */
+ public static void panelLayout(GameTestHelper h){
+  var horse=shod(h);var player=h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+  var menu=new HorseInventoryMenu(0,player.getInventory(),new SimpleContainer(horse.getInventorySize()),horse,horse.getInventoryColumns());
+  var hooves=new ArrayList<HorseshoeSlot>();
+  for(var slot:menu.slots)if(slot instanceof HorseshoeSlot shoe)hooves.add(shoe);
+  h.assertTrue(hooves.size()==4,"Four hoof slots");
+  var xs=new java.util.TreeSet<Integer>();var ys=new java.util.TreeSet<Integer>();
+  for(var shoe:hooves){xs.add(shoe.x);ys.add(shoe.y);}
+  var wantX=new java.util.TreeSet<>(List.of(HorseshoeSlot.X,HorseshoeSlot.X+HorseshoeSlot.STEP));
+  var wantY=new java.util.TreeSet<>(List.of(HorseshoeSlot.Y,HorseshoeSlot.Y+HorseshoeSlot.STEP));
+  h.assertTrue(xs.equals(wantX)&&ys.equals(wantY),"Hoof slots in a 2x2 grid: x "+xs+", y "+ys);
+  int frame=com.simplelib.api.client.ui.UiBoxes.FRAME, bottom=com.simplelib.api.client.ui.UiBoxes.FRAME_BOTTOM;
+  for(var shoe:hooves){
+   h.assertTrue(shoe.x>=HorseshoePanel.X+frame&&shoe.x+17<=HorseshoePanel.X+HorseshoePanel.BOX_W-frame,"Hoof slot "+shoe.getContainerSlot()+" inside the panel's sides");
+   h.assertTrue(shoe.y>=HorseshoePanel.Y+frame&&shoe.y+17<=HorseshoePanel.Y+HorseshoePanel.H-bottom,"Hoof slot "+shoe.getContainerSlot()+" inside the panel's top/bottom");
+  }
+  int invY=Integer.MAX_VALUE;
+  for(var slot:menu.slots)if(slot.container instanceof net.minecraft.world.entity.player.Inventory inv&&slot.getContainerSlot()>=9&&slot.getContainerSlot()<36)invY=Math.min(invY,slot.y);
+  h.assertTrue(HorseshoePanel.Y+HorseshoePanel.H<=invY-7,"Panel bottom "+(HorseshoePanel.Y+HorseshoePanel.H)+" above the container box bottom "+(invY-7));
   h.succeed();
  }
 

@@ -1,27 +1,36 @@
 package com.simpleriding.mixin.client;
 
 import com.simpleriding.*;
+import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiPalette;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.*;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.*;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/** Vanilla-style side panel with the four hoof slots to the left of the horse inventory. */
+/**
+ * The hoof panel left of the horse inventory in the container style (SimpleLib's style blocks, IRON palette;
+ * simplecontainers preview W0-B decision 9): a tab whose right end lies under the horse window's left frame, so the
+ * slot (x -20) and two frames fit into the 20 px. Drawn right after the dimmed world and before the horse window
+ * (Vanilla PNG or a styled box), which then covers that end. Empty hoof slots keep their own horseshoe icon
+ * ({@code HorseshoeSlot#getNoItemIcon}, drawn by Vanilla over the slot).
+ */
 @Mixin(AbstractMountInventoryScreen.class)
 public abstract class HorseshoeScreenMixin<T extends AbstractMountInventoryMenu> extends AbstractContainerScreen<T> {
- @Unique private static final Identifier SIMPLERIDING$PANEL=Riding.id("textures/gui/container/horseshoe_panel.png");
- @Unique private static final Identifier SIMPLERIDING$SLOT=Identifier.withDefaultNamespace("container/slot");
  private HorseshoeScreenMixin(){super(null,null,Component.empty());}
- @Inject(method="extractBackground",at=@At("TAIL"))
+ @Inject(method="extractBackground",at=@At(value="INVOKE",shift=At.Shift.AFTER,
+   target="Lnet/minecraft/client/gui/screens/inventory/AbstractContainerScreen;extractBackground(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V"))
  private void simpleriding$panel(GuiGraphicsExtractor graphics,int mouseX,int mouseY,float a,CallbackInfo ci){
   if(!HorseshoePanel.hasShoeSlots(this.menu))return;
   int xo=this.leftPos, yo=this.topPos;
-  graphics.blit(RenderPipelines.GUI_TEXTURED,SIMPLERIDING$PANEL,xo+HorseshoePanel.X,yo+HorseshoePanel.Y,0F,0F,HorseshoePanel.W,HorseshoePanel.H,HorseshoePanel.W,HorseshoePanel.H);
-  for(int i=0;i<Horseshoes.SLOTS;i++)graphics.blitSprite(RenderPipelines.GUI_TEXTURED,SIMPLERIDING$SLOT,xo+HorseshoeSlot.X-1,yo+HorseshoeSlot.Y-1+i*18,18,18);
+  UiPalette p=UiPalette.IRON;
+  UiBoxes.box(graphics,xo+HorseshoePanel.X,yo+HorseshoePanel.Y,HorseshoePanel.BOX_W,HorseshoePanel.H,p);
+  for(Slot slot:this.menu.slots){
+   if(!(slot instanceof HorseshoeSlot))continue;
+   UiBoxes.slot(graphics,xo+slot.x,yo+slot.y,p);
+  }
  }
 }

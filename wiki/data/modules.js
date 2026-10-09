@@ -264,5 +264,26 @@ window.WIKI_MODULES = [
     "requires": [],
     "optional": [],
     "dataHash": "c7f4ffe18ca2"
+  },
+  {
+    "id": "simplecontainers",
+    "displayName": "Simple Containers",
+    "description": "Client-only restyle of the Vanilla container screens in the Simple style: a coloured box per block and a light inventory box, drawn in code.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "cloth_config",
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "modmenu"
+    ],
+    "dataHash": "b57586f123d8"
   }
 ];

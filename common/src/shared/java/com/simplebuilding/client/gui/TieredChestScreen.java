@@ -16,6 +16,9 @@ import net.minecraft.world.inventory.Slot;
  *
  * <p>Netherit- und Enderit-Plaetze tragen eine leichte Toenung (sie fassen doppelte bzw.
  * vierfache Stapel), rechts in der Titelzeile steht der Faktor.
+ *
+ * <p>26.3: im Kasten-Stil ({@link ModScreenStyle}, Palette je Stufe, Stapel-Symbol statt Text); die Flaechen hier
+ * bleiben der 26.2-Weg.
  */
 public class TieredChestScreen extends AbstractContainerScreen<TieredChestMenu> {
     private static final int BACKGROUND = 0xFFC6C6C6;
@@ -29,14 +32,23 @@ public class TieredChestScreen extends AbstractContainerScreen<TieredChestMenu> 
     private static final int TINT_ENDERITE = 0x306A3FC8;
 
     public TieredChestScreen(TieredChestMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, menu.imageWidth(), menu.imageHeight());
+        super(menu, inventory, displayTitle(menu, title), menu.imageWidth(), menu.imageHeight());
         this.inventoryLabelX = menu.inventoryLeft();
         this.inventoryLabelY = this.imageHeight - 94;
+    }
+
+    private static Component displayTitle(TieredChestMenu menu, Component title) {
+        if (menu.isShulkerBox()) return title;
+        Component block = Component.translatable("block.simplebuilding." + menu.tier().textureName() + "_chest");
+        return menu.isDouble() ? Component.translatable("container.simplebuilding.double_chest", block) : block;
     }
 
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
         super.extractBackground(graphics, mouseX, mouseY, a);
+        if (ModScreenStyle.tieredChest(graphics, this.menu, this.font, this.title, this.leftPos, this.topPos)) {
+            return;
+        }
         panel(graphics, this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
         int tint = tint(this.menu.tier());
         for (Slot slot : this.menu.slots) {
@@ -51,6 +63,9 @@ public class TieredChestScreen extends AbstractContainerScreen<TieredChestMenu> 
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor graphics, int xm, int ym) {
+        if (ModScreenStyle.tieredChestLabels(graphics, this.font, this.menu, this.title, this.titleLabelX, this.titleLabelY)) {
+            return;
+        }
         super.extractLabels(graphics, xm, ym);
         // Owner 2026-10-08: no stack factor in the menu (the item tooltip still names it).
     }

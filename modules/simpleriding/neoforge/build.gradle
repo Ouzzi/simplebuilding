@@ -6,6 +6,9 @@ ext.moduleVersion = '1.0.5'
 apply from: rootProject.file('gradle/module-neoforge.gradle')
 // Bundles the shared framework API (guide-book quest installer) for standalone runs.
 dependencies { jarJar project(':framework') }
+// SimpleLib (style blocks for the hoof panel) nested per principle 6a; compiled against.
+evaluationDependsOn(':modules:simplelib:neoforge')
+dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }
 
 
 repositories { maven { url = "https://maven.shedaniel.me/" }; maven { url = "https://maven.terraformersmc.com/releases/" } }

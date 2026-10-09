@@ -36,6 +36,7 @@ public final class RidingGameTest {
  @GameTest(maxTicks=100) public void horseshoeEffects(GameTestHelper h){com.simpleriding.test.HorseshoeTests.effects(h);}
  @GameTest(maxTicks=100) public void horseshoeHandling(GameTestHelper h){com.simpleriding.test.HorseshoeTests.handling(h);}
  @GameTest(maxTicks=100) public void horseshoeMenu(GameTestHelper h){com.simpleriding.test.HorseshoeTests.menu(h);}
+ @GameTest(maxTicks=100) public void horseshoePanelLayout(GameTestHelper h){com.simpleriding.test.HorseshoeTests.panelLayout(h);}
  @GameTest(maxTicks=100) public void horseshoeSaveAndDrop(GameTestHelper h){com.simpleriding.test.HorseshoeTests.saveAndDrop(h);}
  @GameTest(maxTicks=100) public void horseshoeWear(GameTestHelper h){com.simpleriding.test.HorseshoeTests.wear(h);}
  @GameTest(maxTicks=100) public void horseshoeMending(GameTestHelper h){com.simpleriding.test.HorseshoeTests.mending(h);}

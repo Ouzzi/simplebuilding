@@ -63,3 +63,416 @@ zeigt die Flammen in sich, großer Ergebnis-Slot, Pfeil, dezente Motive im Kaste
 - 26.3-Rendering-API (GuiGraphicsExtractor statt GuiGraphics) – Muster aus CrucibleScreen übernehmen.
 - Fremde Mods mit eigenen Screens auf Vanilla-Menüs: nur exakte Vanilla-Screen-Klassen stylen.
 - Ressourcenpakete: Hauptschalter aus = reines Vanilla.
+
+## W0-A Umsetzung (Branch `claude-sc-base`)
+Ist-Zustand (26.3-Quellen, NeoForge-patched 26.3.0.16-beta): `AbstractContainerScreen` **überschreibt
+`extractBackground` nicht**; jede Unterklasse (ContainerScreen, ShulkerBoxScreen, HopperScreen, DispenserScreen …)
+ruft `super.extractBackground` (= `Screen`: Abdunkeln/Blur) und blittet danach ihr PNG. Labels zeichnet
+`AbstractContainerScreen#extractLabels` (Farbe 0xFF404040). Slot-Lücke zwischen Container- und Spieler-Slots ist in
+Vanilla nur 13–14 px (inkl. heller Slot-Kante): Truhe 9×N/Trichter/Spender 14, Shulker 13.
+
+Entscheidungen (Claude):
+1. **Paket `com.simplelib.api.client.ui`** statt `com.simplelib.client.ui`: Prinzip 6a erlaubt Modulen nur Importe aus
+   `com.simplelib.api`. Inhalt: `UiPalette` (record + INVENTORY/BARREL + `derived`), `UiBoxes` (box, slot, bigSlot,
+   arrow, progressFill, progressBar, veil, rounded, scale, FRAME 5/7, RIM), `UiFlames` (Flammenstreifen nach Zielhöhe
+   und Ruhe, Kern aus CrucibleFlames). CrucibleScreen/CrucibleFlames delegieren – gleicher Code, gleiche Pixel.
+2. **Mixin je Screen-Klasse statt auf AbstractContainerScreen** (dort gibt es die Methode nicht): HEAD-Inject in
+   `extractBackground` der Ziel-Klassen, bei aktivem Stil `super.extractBackground` (nur Screen-Hintergrund) + eigener
+   Hintergrund + cancel. Labels: HEAD-Inject in `AbstractContainerScreen#extractLabels`. Weitere Gruppen legen eine
+   eigene Mixin-Klasse für ihre Screen-Klassen an (eine Zeile in `simplecontainers.mixins.json`).
+3. **Kasten-Grenzen aus Slots** (`BoxLayout`, rein, serverseitig testbar): waagerecht über alle Slots ±8 (Truhe: 0..176),
+   Container-Kasten oben bis Bildrand (Titel liegt im Kasten), Rahmen 5/7. Fuge nach der W0-B-Regel („Kasten-Fuge“):
+   freie Zeilen ≥ 12 → zwei Kästen, Fuge min(2, frei−12), Rest polstert den Container-Kasten; < 12 → vorerst Vanilla
+   (schattenloser Kasten 10–11 und Ein-Kasten-Variante < 10 kommen mit den Screens, die sie brauchen, W1). Das
+   „Inventar“-Label entfällt im Stil (kein Platz, Bild 3 zeigt auch keins); der Titel steht in der Label-Farbe.
+4. **Registry** (`ContainerStyles`, serverseitig ladbar): Schlüssel = `MenuType` + exakter Vanilla-Screen-Klassenname
+   (fremde Unterklassen bleiben Vanilla). Je Gruppe eine Klasse (`StorageStyles` = W0), zentrale Liste
+   `ContainerStyles.GROUPS`. Palette aus `StyleContext` (Menü, Titel-Schlüssel, angeschauter Block): Titel bestimmt die
+   Familie (Truhe/Fass/Endertruhe/Shulker/Trichter/Spender), der Block verfeinert (Kupfertruhen-Stufen,
+   Shulkerfarbe); sonst Standard je Menü (Eiche-Truhe). Füllfarben = W0-B-Palettentabelle, Rest über
+   `UiPalette.derived` (gleiche Regel wie `derive` im Vorschau-Skript; Test prüft Eiche/Trichter gegen die Tabelle).
+5. **Config** `config/simplecontainers.json` (nur Client): Hauptschalter `enabled` + `screens.<stil-id>` (Standard an);
+   Cloth-Screen aus der Registry erzeugt (Forge: native-config wie simplesounds).
+6. **SimpleLib gebündelt** (Prinzip 6a, wie Sandwiches: Fabric `include`+`implementation`, NeoForge `jarJar`, Forge
+   `forgeBundleSimplelib`); `requires` nennt `cloth_config` + `simplelib`. Folge: SimpleLib bringt Blöcke mit – ein
+   reiner Client ohne SimpleLib auf dem Server ist damit nicht garantiert (Registry-Abgleich). Offener Punkt für
+   den Besitzer: UI-Bausteine später ggf. in eine inhaltsfreie Client-Bibliothek.
+7. Tests: GameTests (Fabric @GameTest + NeoForge-Katalog) für BoxLayout (alle W0-Geometrien, zu enge Lücke → null),
+   Registry-Abdeckung (alle W0-Menüs, exakte Klassen, eindeutige Ids), Palettenwahl, Config-Default; Standalone-Target
+   Fabric/NeoForge; Client-Smoke mit Truhen-Screenshot.
+
+### W0-A Verifikation (2026-10-08, sb-test)
+- Compile: `:modules:simplecontainers:{fabric,neoforge}:compileJava`, `:modules:simplelib:{fabric,neoforge}:compileJava`,
+  `:integration:compileGametestJava`, Forge (`-Pforge263=true`) simplecontainers + simplelib: grün.
+- `run.py --targets module-simplecontainers-{fabric,neoforge,standalone-fabric,standalone-neoforge}-263`:
+  „alles gruen: 20/20 bestanden, 0 rot“. `module-simplelib-fabric-263` (Tiegel-Regression): 25/25 grün.
+- Client-Smoke `module-simplecontainers-client-263` (unter `xvfb-run`, ohne Display stürzt der Client bei SDL ab):
+  „alles gruen: 7/7 bestanden, 0 rot“; Screenshots `/root/previews/simplecontainers/w0a/` (Truhe, Doppeltruhe, Fass,
+  Endertruhe, Shulker, Trichter, Werfer).
+- Nicht getestet: NeoForge/Forge-Client-Sicht, Tiegel-Bildschirm im Client (Code nur verschoben), reiner Client gegen
+  Vanilla-Server, echte Blöcke angeschaut (Smoke öffnet Screens clientseitig ohne Block).
+- Abweichungen: Paket `com.simplelib.api.client.ui` (statt `com.simplelib.client.ui`), Mixin je Screen-Klasse statt
+  auf AbstractContainerScreen (Methode existiert dort nicht), Fugenregel/Paletten aus W0-B übernommen.
+## Paletten (Vorschau W0-B)
+Quelle: `tools/ui/simplecontainers_preview.py` (P / derive), Vorschauen + Entscheidungen (Kasten-Fuge, bigSlot, Brennstoff-Slot, Symbole, Motive): `/root/previews/simplecontainers/README.md` (refs-assets). Reihenfolge = `UiPalette(fill, light, shade, slot, slotTop, label)`.
+
+| Schlüssel | Block | fill | light | shade | slot | slotTop | label | Motiv |
+|---|---|---|---|---|---|---|---|---|
+| `chest_oak` | Truhe (Eiche) | #CE9148 | #FFB85B | #A8763B | #A07138 | #835C2E | #2E3034 | wood |
+| `barrel` | Fass | #B9774F | #D08F68 | #955839 | #94573A | #74412B | #404040 | wood |
+| `ender_chest` | Endertruhe | #597880 | #7198A2 | #486268 | #455D63 | #384C51 | #F2EEE8 | ender |
+| `shulker_purple` | Shulkerkiste lila | #876C99 | #AB89C2 | #6E587D | #695477 | #564561 | #F2EEE8 | shulker |
+| `shulker_light_blue` | Shulkerkiste hellblau | #5C97B8 | #74BFE9 | #4B7B96 | #47758F | #3A6075 | #2E3034 | shulker |
+| `hopper` | Trichter | #5A5C63 | #84868B | #494B51 | #46474D | #393A3F | #F2EEE8 | metal |
+| `dispenser` | Spender/Werfer | #878787 | #ABABAB | #6E6E6E | #696969 | #565656 | #2E3034 | stone |
+| `crafter` | Crafter | #7A736A | #9A9286 | #645E56 | #5F5952 | #4E4943 | #F2EEE8 | redstone |
+| `horse` | Reittier (Sattelleder) | #8B5E3C | #A9876E | #714D31 | #6C492E | #583C26 | #F2EEE8 | leather |
+| `crafting` | Werkbank | #B7935B | #E8BA73 | #96784A | #8E7246 | #755E3A | #2E3034 | wood |
+| `furnace` | Ofen | #929699 | #B9BEC2 | #777A7D | #717577 | #5D6061 | #2E3034 | stone |
+| `blast_furnace` | Schmelzofen | #6E7179 | #8B8F99 | #5A5C63 | #55585E | #46484D | #F2EEE8 | metal |
+| `smoker` | Raeucherofen | #7D6B57 | #9E876E | #665747 | #615343 | #504437 | #F2EEE8 | smoke |
+| `brewing` | Braustand | #847D7D | #A79E9E | #6C6666 | #666161 | #545050 | #2E3034 | stone |
+| `beacon` | Leuchtfeuer | #6FB4B1 | #8CE4E0 | #5B9391 | #568C8A | #477371 | #2E3034 | glass |
+| `enchanting` | Zaubertisch | #A1282B | #B95F62 | #842023 | #7D1F21 | #67191B | #F2EEE8 | rune |
+| `anvil` | Amboss | #666666 | #8D8D8D | #535353 | #4F4F4F | #414141 | #F2EEE8 | metal |
+| `grindstone` | Schleifstein | #9E9A92 | #C8C3B9 | #817E77 | #7B7871 | #65625D | #2E3034 | stone |
+| `stonecutter` | Steinsaege | #857A72 | #A89A90 | #6D645D | #675F58 | #554E48 | #F2EEE8 | stone |
+| `loom` | Webstuhl | #9C8262 | #C6A57C | #7F6A50 | #79654C | #63533E | #2E3034 | wool |
+| `cartography` | Kartentisch | #6B5A45 | #918475 | #574938 | #534635 | #44392C | #F2EEE8 | paper |
+| `smithing` | Schmiedetisch | #4B1E19 | #795854 | #3D1814 | #3A1713 | #301310 | #F2EEE8 | metal |
+| `merchant` | Handel | #3F8A55 | #70A881 | #337145 | #316B42 | #285836 | #F2EEE8 | leather |
+| `player` | Inventar | #E3E6E9 | #F8F9FA | #C5CACE | #B4BABF | #979DA3 | #404040 | none |
+| `chest_reinforced` | Verstaerkt | #6F9095 | #9DBCC1 | #587378 | #55737A | #425C61 | #F0F6F6 | metal |
+| `chest_netherite` | Netherit | #5F524C | #867870 | #4A3F3A | #473C37 | #352C28 | #EFE4DA | nether |
+| `chest_enderite` | Enderit | #8E6CB0 | #B99AD6 | #735693 | #70538E | #594073 | #F7F0FF | ender |
+| `backpack` | Rucksack (Leder) | #8E6440 | #AB8C71 | #745234 | #6E4E31 | #5A4028 | #F2EEE8 | leather |
+| `backpack_enderite` | Enderit | #8E6CB0 | #B99AD6 | #735693 | #70538E | #594073 | #F7F0FF | ender |
+| `auto_smither` | Auto-Schmied | #4F5560 | #7C8189 | #40454E | #3D424A | #32363D | #F2EEE8 | redstone |
+| `fletching` | Befiederungstisch | #C5B485 | #FAE4A8 | #A1936D | #998C67 | #7E7355 | #2E3034 | wood |
+| `hopper_netherite` | Netherit | #5F524C | #867870 | #4A3F3A | #473C37 | #352C28 | #EFE4DA | nether |
+| `horseshoe` | Eisen | #9A9DA2 | #C4C7CB | #7E8186 | #7B7E83 | #64676C | #2E3034 | metal |
+| `crucible_iron` | Eisen | #9A9DA2 | #C4C7CB | #7E8186 | #7B7E83 | #64676C | #2E3034 | metal |
+
+Kasten-Fuge (für den generischen Renderer): free = erste Inventar-Slotzeile − erste freie Zeile unter dem untersten Container-Element. free ≥ 12 → zwei Kästen, Fuge min(2, free−12), Rest polstert den Container-Kasten; 10–11 → Container-Kasten ohne 2-px-Schatten; < 10 → ein Kasten, Inventarteil als helle Fläche hinter einer Naht (Braustand, Webstuhl, Spieler-Inventar, Rucksack, Leuchtfeuer, Handel). Kein „Inventar“-Label (kein Platz).
+
+## W1 G1 Lager (Branch `claude-sc-g1`)
+Ist: W0-A zeichnet Truhe/Doppeltruhe/Fass/Endertruhe/Shulker/Trichter/Spender als Kästen + Slots. Abweichungen zur
+Vorschau g1-*.png: keine Motive (Maserung, Funkeln, Schuppen, Nieten, Risse), Spender-Titel zentriert statt (8, 6).
+Crafter und Reittier-Inventar sind Vanilla.
+
+Plan (Claude, autonom entschieden):
+1. `BoxLayout` (eigener Commit „feat(simplecontainers): narrow box layouts“, für G2–G4 zum Cherry-Pick): Varianten
+   `NO_SHADOW` (frei 10–11) und `SEAM` (frei 3–9, Naht 3 px über der ersten Inventarzeile), Zusatz-Elemente
+   (großer Slot, Tiervorschau) zählen wie Slots; `UiBoxes.box(…, shadow)` + `UiBoxes.seam`; GameTests.
+2. Motive/Symbole/Slot-Icons: **G2-Bausteine** (`UiSymbols`, `UiMotifs`, `UiBoxes.inset`, `SlotIconMixin` +
+   `StyledScreens.slotIconColor`; G2-Commits b4076457a, e4d8f4d36, c72362e75, d7c56ae7e per Cherry-Pick übernommen).
+   Eigene Erstfassung (UiSymbol/UiMotif) verworfen; ergänzt nur `UiSymbols.REDSTONE`. Motivwahl für G1 in
+   simplecontainers `BoxMotifs` (Füllfarbe → Art + Vorschau-Seed).
+3. Generisch in `StyledScreens.drawBackground`: Motiv im Container-Kasten (meidet Slots, Elemente, Titel), `Decor` je
+   Screen (Zusatz-Elemente, große Slots, Slot-Farben, eigene Zeichnung). Titel aller gestylten Screens bei x = 8
+   (README: „Titel bleibt bei (8, 6)“; betrifft auch zentrierte Vanilla-Titel wie Spender/Crafter/Ofen).
+4. Crafter (`CrafterScreen`, Palette `crafter`, Motiv redstone): großer Ergebnis-Slot, Redstone-Staub-Symbol (rot bei
+   Strom, sonst eingraviert) bei (86, 22), Pfeil 22×15 bei (103, 36); gesperrte Slots = eingraviertes Kreuz statt
+   Vanilla-Sprite; Vanilla-Redstone-Pfeil entfällt.
+5. Reittier (`HorseInventoryScreen` = Pferd/Esel/Maultier/Lama/Kamel …, `NautilusInventoryScreen`; Menüs ohne
+   MenuType → Stil mit leerer Menüliste, Treffer nur über die exakte Klasse): Leder-Palette `horse` mit Steppnaht,
+   Sattel-/Rüstungs-Slot, Tiervorschau als eingelassenes Feld 52×52 (Tier rendert Vanilla darüber), Truhen-Slots.
+   Hufeisen-Panel (simpleriding) = G4.
+6. Astral-Gewölbe: optionale Kopplung über framework (`ContainerStyleHints`, 0.1.4): simplecontainers meldet „Screen
+   gestylt“, SimpleBuildings `AstralVaultScreenMixin` lässt dann die Tönung aus; simplecontainers zeichnet das Gewölbe
+   (Titel `block.simplebuilding.astral_vault`) als Endertruhe, die drei Astralreihen in Enderit-Violett.
+7. Tests: GameTests (Varianten, Motivtabelle = Palettentabelle, Registry inkl. typloser Menüs), Client-Smoke um Crafter
+   und Esel erweitert, Screenshots `/root/previews/simplecontainers/w1-g1/`.
+
+### W1 G1 Umsetzung/Verifikation (2026-10-08)
+- Commits: 681d25c3f narrow box layouts (von G2/G3 gepickt), Crafter/Reittier/Astral, Umbau auf G2-Bausteine
+  (G2 b4076457a/e4d8f4d36/c72362e75/d7c56ae7e + G4 2b479f8a2 gepickt; eigene UiSymbol/UiMotif/SlotIconMixin verworfen).
+- Abweichungen bewusst: Titel aller gestylten Screens bei x = 8 (auch G2-Screens, wie Vorschau); Leer-Slot-Icon-Tönung
+  je Sprite-Grau (Sattel/Rüstung 124, Trank 104, sonst 85; G2 nahm 104 → Sattel unsichtbar); Slots außerhalb des Bildes
+  (Hufeisen-Panel, LinkedPanel) zählen nicht für die Kästen; Reittier-Stil wird am Vanilla-Blit gezeichnet (nach dem
+  Hufeisen-Panel von simpleriding/G4, dessen Lasche unter dem Rahmen liegt); Crafter-Pfeil wird von Motiven gemieden
+  (Vorschau nicht); Astral-Gewölbe-Kopplung über framework 0.1.4 `ContainerStyleHints` + SB-Bridge `ModuleScreenStyles`.
+- Hufeisen-Panel selbst = G4 (geprüft mit G4 513b64ed9/9b8b2412c auf Hilfsbranch `claude-sc-g1-check`: Lasche liegt unter
+  dem Lederkasten, Screenshot /root/previews/simplecontainers/w1-g1/mit-g4-panel/).
+
+## W1 G2 (Arbeit I, Branch `claude-sc-g2`)
+Screens: Werkbank (`CraftingScreen`), Ofen/Schmelzofen/Räucherofen (`FurnaceScreen`/`BlastFurnaceScreen`/`SmokerScreen`,
+gemeinsam über `AbstractFurnaceScreen`), Braustand (`BrewingStandScreen`), Leuchtfeuer (`BeaconScreen` + Knöpfe),
+Verzauberungstisch (`EnchantmentScreen`). Vorschau: `g2-*.png`, `kontakt-g2.png`.
+
+Plan:
+1. `style/WorkStyles.java` (Gruppe „work“, 7 Stile: crafting, furnace, blast_furnace, smoker, brewing_stand, beacon,
+   enchanting; Füllfarben aus der W0-B-Tabelle über `UiPalette.derived`) → `ContainerStyles.GROUPS`.
+2. simplelib (additiv): `UiSymbols` (eingravierte Symbole wie die Vorschau: Pfeil 22×15, Wärme, Rauch, Pfeil ab 9×26,
+   Haken, Kreuz, Pyramide, Stern; Fortschritt füllt weiß), `UiBoxes.fuelSlot` (Zungen-Silhouetten + Füllung),
+   `UiBoxes.inset`/`raised`, `ProgressColors.BLAST`/`BLAZE`.
+3. `client/WorkScreens.java`: Zeichnung je Screen aus dem Menü-Zustand (Brenn-/Kochfortschritt, Lohenpulver, Brauzeit,
+   Blasen wie Vanilla getaktet, Verzauberungs-Kosten). Kästen über `BoxLayout` aus Slots + Zusatz-Elementen
+   (Verzauberungszeilen, Leuchtfeuer-Knöpfe als Pseudo-Slots), damit die Fuge wie in der Vorschau sitzt.
+4. Mixins je Screen-Klasse (`CraftingBackgroundMixin`, `FurnaceBackgroundMixin`, `BrewingBackgroundMixin`,
+   `BeaconBackgroundMixin` + `BeaconButtonMixin`, `EnchantmentBackgroundMixin`): Vanilla-PNG und Vanilla-Sprites
+   (Flamme, Pfeil, Lohen-Balken, Blasen, Verzauberungsfelder, Leuchtfeuer-Knöpfe) per `@WrapWithCondition` aus,
+   Titel bei (8, 6) wie in der Vorschau. Rezeptbuch-Knopf unverändert (Vanilla-Position, Vanilla-Funktion).
+5. Braustand/Leuchtfeuer: Ein-Kasten-Variante aus G1 (`feat(simplecontainers): narrow box layouts`, cherry-pick).
+6. Lang EN/DE, Wiki-Features `style_work` + `config_screen_<id>`, Tests (Registry/Paletten/Layouts der G2-Geometrien),
+   Client-Smoke um die 7 Screens erweitert, Screenshots nach `/root/previews/simplecontainers/w1-g2/`.
+
+Entscheidungen (Claude): Verzauberungstisch behält das animierte 3D-Buch (echtes Modell wie die Tier-Vorschauen,
+README-Punkt 11) statt des eingravierten Buch-Symbols; Leuchtfeuer: Texte „Primäre/Sekundäre Kraft“ entfallen
+zugunsten von Pyramide/Stern (Symbole statt Text), Tooltips der Knöpfe bleiben.
+
+### W1 G2 Umsetzung + Verifikation (2026-10-08, sb-test)
+- Umgesetzt wie geplant; G1-Commit `feat(simplecontainers): narrow box layouts` (681d25c3f) übernommen (cherry-pick).
+  Zusätzlich (gemeinsam nutzbar, simplelib): `UiMotifs` (Port von `motif()` der Vorschau, gleiche Formen/Seeds) und
+  `SlotIconMixin` + `StyledScreens.slotIconColor` (leere Slot-Symbole wie Trank/Lapis als Silhouette in slotTop 80 %,
+  gilt für alle gestylten Screens; Lohenpulver-Symbol des Braustands entfällt, sein Slot zeigt den Füllstand).
+- Compile Fabric/NeoForge/Forge(`-Pforge263=true`) simplecontainers + simplelib + `:integration:compileGametestJava`: grün.
+- `run.py --targets module-simplecontainers-{fabric,neoforge,standalone-fabric,standalone-neoforge}-263,module-simplelib-fabric-263`:
+  „alles gruen: 57/57 bestanden, 0 rot“ (je 8 simplecontainers-Tests inkl. `workLayouts`, `workPalettes`, `narrowBoxLayouts`).
+- Client-Smoke (xvfb) `module-simplecontainers-client-263`: „alles gruen: 14/14 bestanden, 0 rot“; Screenshots
+  `/root/previews/simplecontainers/w1-g2/` (+ `kontakt-w1-g2.png`): Werkbank, Ofen (brennt, halb gar), Schmelzofen,
+  Räucherofen, Braustand (braut), Leuchtfeuer (Stufe 4), Zaubertisch (3 Angebote) – mit der Vorschau verglichen.
+- Abweichungen von der Vorschau: Zaubertisch behält das animierte 3D-Buch (kein eingraviertes Buch); Titel in der
+  Spielsprache (Motiv-Lage hängt an der Titelbreite); Bezahl-Items des Leuchtfeuers an den Vanilla-Positionen
+  (20/41/63/86/108 statt 20+22k); Blasen nur während des Brauens im Vanilla-Takt; deaktivierte/gehoverte Zustände
+  (Knöpfe, Angebotszeilen) eigene Ableitungen (Vorschau zeigt sie nicht).
+- Nicht getestet: Hover-/Klick-Zustände im Bild, Rezeptbuch offen (Knopf unverändert Vanilla), NeoForge-/Forge-Client-Sicht
+  (Mixins nur auf Fabric im Client geladen), echte Blöcke/Server-Menüs (Smoke öffnet Screens clientseitig).
+## W1 G3 (Arbeit II, Branch `claude-sc-g3`)
+Screens: Amboss, Schleifstein, Steinsäge, Webstuhl, Kartografietisch, Schmiedetisch (Vanilla + SB-Ersatz), Handel,
+Spieler-Inventar. Basis: claude-sc-base + G1 „narrow box layouts“ (cherry-pick, Varianten NO_SHADOW/SEAM, Elemente).
+Plan:
+1. `style/StationStyles.java` (Gruppe „work“, Paletten aus der W0-B-Tabelle über `UiPalette.derived`, Spieler = INVENTORY)
+   → `ContainerStyles.GROUPS`. Spieler-Inventar hat keinen MenuType: Stil mit leerer Menüliste, Suche nach Klasse
+   (`ContainerStyles.findMenuless`), `StyledScreens.style` nutzt sie, wenn `getType()` wirft.
+2. Zeichnen in `client/StationScreens.java` (eigene Datei, nicht `drawBackground` umbauen): Layout mit Zusatz-Elementen
+   (großer Ergebnis-Slot, Namensfeld, Kartenfeld, Rüstungsständer, Spielermodell) über `BoxLayout.compute(slots, elements…)`,
+   Kästen über `StyledScreens.drawBoxes`, Slots, `bigSlot`, Symbole/Felder/Kacheln nach `tools/ui/simplecontainers_preview.py`.
+   Symbole (Pfeil 22×15, kleiner Pfeil, Plus, Kreuz, Schleifrad, Hammer, XP, Handelspfeil) als Bitmaps in
+   `client/StationDraw.java` (eingraviert: Strich slot + 1 px light darunter; Fortschritt weiß).
+   Spieler-Slots = `Inventory`-Slots mit Index < 36 (Rüstung/Schild zählen zum Kasten).
+3. Mixins je Screen-Klasse (eigene Dateien, eine Zeile je Klasse in `simplecontainers.mixins.json`): Stil nach dem
+   `super.extractBackground`, Vanilla-PNG per `@WrapWithCondition` aus; Vanilla-Sprites, die der Stil ersetzt
+   (Namensfeld, Fehlerpfeil → rotes Kreuz, Scrollbalken, Rezept-/Muster-Kacheln, XP-Balken, Handelspfeile), ebenso.
+   Keine HEAD-Cancels, damit fremde Injektionen (simplevisuals Amboss-Label, SB Kartentisch-Vorschau, TrimStatsPanel)
+   weiterlaufen. Amboss-Kosten: Vanilla-Feld/Text aus, eigene Zeile „XP-Symbol + Zahl“ (rot bei zu teuer/unbezahlbar).
+4. Titel immer bei (8, 6) wie in der Vorschau (`StyledScreens.drawLabels`); Handel/Inventar haben eigene Labels.
+5. SB-Ersatz `RecipeBookSmithingScreen` (Unterklasse von SmithingScreen, gleiche Geometrie): optionale Kopplung über
+   den **Klassennamen als String** (`ContainerStyles.LAYOUT_ALIASES`), kein Import, kein `Class.forName`; ohne SB
+   passiert nichts. (Alternative „SB nutzt simplelib selbst“ braucht SB→simplelib-Bündelung + 26.2 – später.)
+6. Lang EN/DE + Wiki-Features je Stil-Id, `check_data.py`; GameTests: Registry deckt G3-Menüs ab, Paletten = Tabelle,
+   Layout-Varianten je G3-Screen (zwei Kästen / Naht); Client-Smoke öffnet alle G3-Screens, Screenshots.
+Risiken: Handel-Kacheln sind Widgets (Button-Sprites) – Mixin auf `MerchantScreen.TradeOfferButton`; Inventar-Rezeptbuch
+verschiebt `leftPos` (Zeichnung folgt `leftPos`). Platzhalter-Sprites leerer Slots zeichnet Vanilla selbst (grau).
+### W1 G3 Umsetzung + Verifikation (2026-10-08, sb-test)
+Abweichungen vom Plan: Klassen heißen `Station*` (G2 belegt `WorkStyles/WorkScreens`); Zeichnen über G2s simplelib-API
+(cherry-pick b4076457a, e4d8f4d36, c72362e75 als Voraussetzung, d7c56ae7e): `UiBoxes.inset/sunkRect/raised`,
+`UiSymbols` (G3-Bitmaps additiv ergänzt: ARROW_SMALL, PLUS, WHEEL, ANVIL_HAMMER, XP, TRADE_ARROW), `UiMotifs`
+(Motiv/Seed je Screen wie die Vorschau), `StyledScreens.slotIconColor` (auch Webstuhl-Slot-Sprites und die
+wechselnden Schmiedetisch-Icons, `CyclingIconStationMixin`). `StyledScreens`: Spieler-Slots = `Inventory`-Index < 36
+(Rüstung/Schild gehören zum Kasten), Titel der G3-Screens bei (8, 6), menülose Stile über `findMenuless`.
+Abweichungen von der Vorschau: Namensfeld 107 breit (EditBox reicht bis x 165, Vorschau 103); Webstuhl-Musterfeld
+y 12 (Vanilla-Kacheln beginnen bei 13); Kartenfeld 66 hoch, darauf bleibt Vanillas Papier-/Karten-Sprite (zeigt
+Kopieren/Vergrößern/Sperren); Rezeptbuch-Knopf (Inventar, SB-Schmiedetisch) bleibt Vanilla; Fehlerpfeile = rotes Kreuz
+über dem eingravierten Pfeil; Handels-Angebote: gewählt = eingelassen, Pfeil in slotTop.
+- Compile Fabric/NeoForge/Forge(-Pforge263=true) simplecontainers + simplelib Fabric: grün.
+- `run.py --targets module-simplecontainers-{fabric,neoforge,standalone-fabric,standalone-neoforge}-263`:
+  „alles gruen: 44/44 bestanden, 0 rot“ (je 11, inkl. G2-Tests und G3 stationRegistry/stationPalettes/stationLayouts).
+- Client-Smoke `module-simplecontainers-client-263` (xvfb): „alles gruen: 22/22 bestanden, 0 rot“; G3-Screenshots
+  `/root/previews/simplecontainers/w1-g3/` (+ `crop-*` 2-fach). SB-Schmiedebildschirm mit Rezeptbuch erscheint gestylt
+  (Alias greift, SB im Client geladen), TrimStatsPanel und Rezeptbuch-Knopf im Inventar sichtbar.
+- Nicht getestet: NeoForge/Forge-Client-Sicht, echte Blöcke/Dorfbewohner (Smoke öffnet Menüs clientseitig: keine
+  Amboss-Namensübernahme, kein Schmiede-Fehlerkreuz, keine Banner-Vorschau), Klicks auf Kacheln/Scrollbalken, Rezeptbuch
+  geöffnet (verschobenes `leftPos`), simplevisuals-Amboss-Label (dunkler Text auf dunklem Kasten möglich).
+## W1 G4 Mod-UIs (Branch `claude-sc-g4`)
+Ziel: Vorschauen `g4-*.png` im Spiel, **ohne** simplecontainers (Entscheidung 4); nur Darstellung, Menüs/Slots/Filter
+unverändert. Ist-Zustand: SB 26.3 bündelt SimpleLib schon (Crucible P5, `CrucibleCompat`); `common/src/shared` muss
+aber auch für 26.2 kompilieren (dort kein SimpleLib). Riding/QoL bündeln SimpleLib noch nicht.
+
+Entscheidungen (Claude):
+1. **SB-Kern über das Overlay-Muster von `CrucibleCompat`:** `client/gui/ModScreenStyle` in `mc26_3/overlay/java`
+   (einziger SimpleLib-Import der Screens) zeichnet den Stil; der 26.2-Zwilling in `common/src/mc26_2/java` liefert
+   `false` → die Screens zeichnen dort wie bisher. Die Screens in `shared` rufen nur `ModScreenStyle.*` auf.
+2. **Bausteine aus SimpleLib (`com.simplelib.api.client.ui`):** die von G2 (`UiSymbols`, `UiMotifs`, `UiBoxes.seam/
+   inset/raised/box(shadow)`; per Cherry-pick übernommen, keine eigenen Varianten). G4 ergänzt nur additiv:
+   `UiPalette` IRON/REINFORCED/NETHERITE/ENDERITE (Tiegel nutzt sie, gleiche Werte) und die Symbole ARROW_SMALL,
+   FUNNEL, STACK, REDSTONE, HORSESHOE aus der Vorschau.
+3. **BoxLayout bleibt in simplecontainers:** Mod-Screens haben feste Geometrie (Kästen wie in der Vorschau direkt
+   berechnet); die „ein Kasten“-Variante ist als Baustein `UiBoxes.seam` in SimpleLib. Kein Umzug nötig.
+4. **Riding/QoL bündeln SimpleLib** (Prinzip 6a, wie Sandwiches): Fabric `include`+`implementation`, NeoForge `jarJar`
+   +`implementation`, Forge `forgeBundleSimplelib`. Folge wie W0-A #6: SimpleLib-Inhalte (Tiegel) kommen mit.
+5. Paletten: Mod-Truhen/-Trichter je Stufe (Verstärkt/Netherit/Enderit), Rucksack Leder (#8E6440; gefärbt: Farbe
+   wie Shulker-Regel, Enderit-Rucksack ENDERITE), Auto-Schmied #4F5560, Befiederung #C5B485, Hufeisen IRON,
+   LinkedPanel Eiche (#CE9148, Truhen-Stil).
+6. Mod-Truhe: „×N Stapel“-Text entfällt → Stapel-Symbol + „xN“ rechts im Titel; Inventar-Kasten 176 breit zentriert.
+   Trichter: Filter-Taste als eigener Button (gleiche Position/Größe/Aktion), erhaben, Trichter eingraviert,
+   Abzeichen aus/genau/Sorte; „Filter“-Text entfällt (Tooltip bleibt). Rucksack: ein Kasten + Naht bei y 81,
+   Rucksack-Reihen/Zusatzspalten auf getöntem Streifen, kein „Handwerk“-Text, Rezeptbuch-Knopf bleibt.
+   Hufeisen-Panel: Lasche x −28, 33 breit, unter dem Reittier-Kasten (Inject nach dem Screen-Hintergrund, vor dem PNG).
+7. Tests: reine Funktionen (Palettenwahl je Stufe, Kasten-Geometrie Mod-Truhe/Rucksack/LinkedPanel innerhalb der
+   Rahmen) als GameTests in SB (`ModScreenStyleGameTest`, Katalog), Riding/QoL-Tests unverändert grün; Client-Smoke
+   mit Screenshots der Mod-Screens.
+
+### W1 G4 Verifikation (2026-10-08, sb-test)
+- Compile (inkl. 26.2-Wurzel `:compileJava :compileGametestJava`, `checkOverlays`): SB 26.3 Fabric/NeoForge/Forge,
+  simplelib, simpleriding, simplequalityoflife, simplecontainers je Fabric/NeoForge/Forge: grün.
+- `run.py --targets fabric-263,neoforge-263,forge-263 --filter 'simplebuilding:mod_screen_style_*'`: „alles gruen: 9/9“.
+- Riding/QoL je Fabric/NeoForge integration + standalone, SimpleLib-Fabric (Tiegel), simplecontainers-Fabric:
+  „alles gruen: 321/321“.
+- Client `client-fabric-263` mit `SIMPLEBUILDING_CLIENT_ONLY=mod-ui-style,backpack`: „alles gruen: 19/19“; Screenshots
+  `/root/previews/simplecontainers/w1-g4/` (Mod-Truhen 3 Stufen + einzeln, Rucksack 4 Stufen + gefärbt, Auto-Schmied,
+  Befiederung, Trichter 3 Stufen/3 Filtermodi, Hufeisen-Panel) – Vergleich mit `g4-*.png`: Maße, Paletten, Symbole stimmen.
+- `module-simpleriding-client-263`: Hufeisen-Schritt grün (Screenshot), danach rot an der **vorbestehenden** Prüfung
+  „All server options appear in three config tabs“ (RidingConfigScreen, von G4 unberührt).
+- Abweichungen: Rucksack-Rüstungs-/Hufeisen-Platzhalter bleiben Vanillas Sprites (nicht eingraviert); Auto-Schmied ohne
+  Fortschritt (Menü hat keinen), Fehler = roter Pfeil statt Vanilla-Fehlerpfeil; Motive meiden zusätzlich die
+  Diagonale der Befiederung und das „xN“; LinkedPanel ohne Motiv. Nicht getestet: LinkedPanel im Client, NeoForge-/
+  Forge-Client-Sicht, Riding/QoL-Forge-Laufzeit, 26.2-Client (zeigt per Zwilling die alte Optik).
+
+## Merge (Branch `claude-sc-merge`, 2026-10-08)
+Basis claude-wave1 e27188645; gemergt in dieser Reihenfolge: claude-sc-base, claude-sc-g1, claude-sc-g2, claude-sc-g3,
+claude-sc-g4. Die gegenseitig gepickten Commits (narrow box layouts, G2-Kette, G4 2b479f8a2) sind inhaltlich gleich:
+Konflikte daraus auf den jeweils neueren Stand (G1 enthält G2+G4-Bausteine) aufgelöst, nichts doppelt.
+
+Entscheidungen:
+1. **Menüs ohne MenuType:** G1s `ContainerStyles.find(null, …)` bleibt (eine Methode statt zwei), G3s `findMenuless`
+   entfällt; `find` wendet zusätzlich G3s Alias `StationStyles.SUBCLASSES` an (SB-RecipeBookSmithingScreen). Tests:
+   `TYPELESS` um `InventoryScreen` ergänzt, `stationRegistry` nutzt `find(null, …)`.
+2. **Slot-Icons:** ein `SlotIconMixin` (G2/G1); Tönung über G1s gemessene `StyledScreens.iconGrey`-Tabelle.
+3. **Titel:** `StyledScreens.drawLabels` zeichnet für alle gestylten Screens bei (`TITLE_X` 8, `TITLE_Y` 6) in der
+   Label-Farbe (vorher G1: nur x 8 und nur mit Container-Kasten; G3: nur Station-Screens). Ausnahmen mit eigenen
+   Labels bleiben: Handel (Titel bei 107, 6) und Spieler-Inventar („Handwerk“ an der Vanilla-Stelle).
+4. **Slot-Regeln:** `StyledScreens.playerSlot` (G3: `Inventory`-Index < 36 = Inventar-Kasten, Rüstung/Schild zum
+   Container) und `StyledScreens.inImage` (G1: Slots außerhalb des Bildes zählen nicht) gelten in StyledScreens,
+   WorkScreens und StationScreens (Layout, Slot-Zeichnung, Motiv-Aussparung). `WorkScreens.slots` bekommt dafür die
+   Bildbreite.
+5. **framework 0.1.4** (G1, `ContainerStyleHints`), Forge-jarJar-Range `[0.1.4,0.2)` geprüft.
+6. Gemeinsame Dateien vereinigt: mixins.json (21 Client-Mixins), Lang EN/DE (48 Schlüssel), manual.json (26 Features;
+   Übersicht `style_storage` nennt Crafter und Reittiere), `ContainerStyles.GROUPS` = Storage, Work, Station,
+   Testkataloge Fabric/NeoForge (12 Tests), Client-Smoke (25 Screens), `UiSymbols` (G4/G1 + G3, `ARROW_SMALL` einmal),
+   UiBoxes/UiPalette unverändert aus G1. Wiki-Daten neu erzeugt. G4s versehentlich mitgeänderte Kopf-Renders zurück.
+   Nach dem Merge doppelte `W1_G2`-Tabelle in ContainerTests (Auto-Merge) entfernt.
+
+### Merge Verifikation (sb-test, Kopf e146e4f03 + Doku)
+- 26.2: `./gradlew :compileJava :compileGametestJava checkOverlays`: grün.
+- 26.3 `-Pforge263=true`: `:mc26_3:{fabric,neoforge,forge}:compileJava :mc26_3:fabric:compileGametestJava`,
+  `:modules:{simplelib,simplecontainers,simpleriding,simplequalityoflife}:{fabric,neoforge,forge}:compileJava`,
+  `:integration:compileGametestJava`: grün.
+- `run.py --targets module-simplecontainers-{fabric,neoforge,standalone-fabric,standalone-neoforge}-263,module-simplelib-{fabric,neoforge}-263`:
+  „alles gruen: 98/98 bestanden, 0 rot“ (simplecontainers je 12, simplelib je 25).
+- `run.py --targets fabric-263,neoforge-263,forge-263 --filter 'simplebuilding:mod_screen_style_*'`: „alles gruen: 9/9“.
+- Client (xvfb) `module-simplecontainers-client-263`: „alles gruen: 25/25“; `client-fabric-263` mit
+  `SIMPLEBUILDING_CLIENT_ONLY=mod-ui-style,backpack`: „alles gruen: 19/19“.
+- Lokal: `tools/multimod.py` gültig, alle 12 `modules/*/tools/check_data.py` gültig (simplecontainers: 22 Stile in
+  3 Gruppen), `wiki/generate.py --all` + `--check`: „up to date“.
+- Screenshots `/root/previews/simplecontainers/merge/` (module/, sb/, Kontaktbogen `kontakt.png`, Vergleiche `cmp-*`):
+  Lager-Screens und alle G4-Screens pixelgleich mit w1-g1/w1-g4; G2/G3-Screens gleich bis auf Umgebung (Toasts,
+  Kreativ-Tab-Lage nach G3s Survival-Wechsel, Eimer im ersten Inventar-Slot aus G1s Crafter-Smoke); Esel/Pferd zeigen das
+  G4-Hufeisenpanel (wie G1 `mit-g4-panel`).
+- Nicht getestet: NeoForge/Forge-Client-Sicht, echte Blöcke/Dorfbewohner, Klickzustände, LinkedPanel im Client,
+  Astral-Gewölbe im Client, Gate (macht die Hauptsitzung).
+
+## Abnahme-Runde 1 (2026-10-09)
+
+Ursachen und Korrekturen:
+- **Befiederung:** Die drei Teile lagen noch auf der alten Werkbank-Diagonale. `FletchingMenu` verwendet nun
+  `(8,48)`, `(26,48)`, `(44,48)` mit 18 px Abstand; Ergebnis und Simple-Stil-Pfeil liegen auf derselben Reihe.
+  Der Vanilla-Rezeptbuchpfad und die drei `arrow_tip`/`arrow_shaft`/`arrow_fletching`-Icons bleiben unverändert.
+- **Vergleichsschalter:** `UiStyleToggle` liegt in SimpleLib und wird von `StyledScreens` sowie `ModScreenStyle`
+  gemeinsam abgefragt. Der 16x16-V-Knopf sitzt außerhalb oben rechts an jedem `AbstractContainerScreen`; die
+  unbelegte Taste ist auf Fabric, NeoForge und Forge registriert. Sichtbarkeit: Entwicklungsumgebung oder
+  `showStyleToggle`, standardmäßig aus. Der reine Toggle-Test ist in den Modul-Katalogen registriert.
+- **Ein-Kasten-/Rucksack-Audit:** Die Inventar-Seam bleibt die helle `UiPalette.INVENTORY`; die Zusatzspalten-Tönung
+  ist jetzt eine eigene 18x18-Spalte je Slot und kann nicht mehr über den Kastenrand hinausragen.
+- **Verzauberung:** Die vorhandene `runeColor`-Korrektur verwendet bereits den hellen Palettenton; sie wurde in dieser
+  Runde nicht erneut verändert.
+- **Mod-Truhen:** Der Screen-Titel wird für Einzel- und Doppeltruhen aus dem Stufen-Blocknamen aufgebaut
+  (`Reinforced Chest`, `Large Reinforced Chest` usw.; deutsche Block-/`Large`-Übersetzungen vorhanden), Shulker-Titel
+  bleiben unverändert.
+
+Abweichungen/Rest:
+- Die Vorschau-Dateien unter `/root/previews/simplecontainers` waren in dieser Umgebung nicht lesbar; daher keine
+  neue pixelweise Screenshot-Gegenprobe und kein Client-Smoke-Nachweis aus diesem Lauf. Der vorhandene Screenshot-
+  Vergleich aus dem Merge bleibt als vorheriger Beleg bestehen.
+- Die helle Inventar-Seam war im Code bereits korrekt gefüllt; es gab dort keine zusätzliche Farbänderung, nur die
+  separate Zusatzspalte wurde korrigiert.
+
+Verifikation dieser Runde:
+- `git diff --check` und JSON-Prüfung (`en_us.json`, `de_de.json`, `manual.json`): grün.
+- `python wiki/generate.py --all && python wiki/generate.py --all --check`: `wiki: up to date, everything documented.`
+- `./gradlew :modules:simplecontainers:fabric:compileJava :modules:simplecontainers:neoforge:compileJava :modules:simplecontainers:forge:compileJava -Pforge263=true`: `BUILD SUCCESSFUL`.
+- Nicht ausgeführt: NeoForge-/Forge-Client-Sicht und ein vollständiger unfiltrierter Client-Lauf; die geforderten
+  Fabric-/Server-Filter und der Modul-Client-Smoke liefen. Der neue Smoke-Test erzeugt und prüft nun ausdrücklich
+  `simplecontainers-chest` (Simple) sowie `simplecontainers-chest-vanilla` (Schalter aus).
+
+Nachlauf 2026-10-09:
+- `./gradlew :compileJava :compileGametestJava -Pforge263=true`: `BUILD SUCCESSFUL`.
+- `python3.12 tools/testrunner/run.py --targets module-simplecontainers-fabric-263,module-simplecontainers-neoforge-263`:
+  `alles gruen: 26/26 bestanden, 0 rot`.
+- `python3.12 tools/testrunner/run.py --targets fabric-263,neoforge-263,forge-263 --filter 'simplebuilding:mod_screen_style_*'`:
+  `alles gruen: 9/9 bestanden, 0 rot`.
+- `xvfb-run -a -s '-screen 0 1920x1080x24' python3.12 tools/testrunner/run.py --targets module-simplecontainers-client-263`:
+  `alles gruen: 26/26 bestanden, 0 rot`; beide Toggle-Screenshots wurden erzeugt/geprüft.
+- `SIMPLEBUILDING_CLIENT_ONLY=mod-ui-style,backpack xvfb-run -a -s '-screen 0 1920x1080x24' python3.12 tools/testrunner/run.py --targets client-fabric-263`:
+  `alles gruen: 19/19 bestanden, 0 rot`.
+
+## Abnahme-Runde 2 (2026-10-09)
+
+Drei Client-Befunde des Besitzers aus der Runde-1-Abnahme:
+
+1. **Befiederungstisch: Rezeptbuch-Knopf über dem ersten Teil-Slot.** `FletchingScreen.getRecipeBookButtonPosition()`
+   lieferte `(leftPos+5, height/2-49)`; der 20x18-Knopf lag damit bei y 34–52 genau über der Teile-Reihe (Spitzen-Slot
+   `(8, 48)`). Fix: Vanillas Schmiedetisch-Position `(leftPos+42, topPos+27)` übernehmen (wie
+   `RecipeBookSmithingScreen`, `BUTTON_X/Y`), also zwischen Titel und Teile-Reihe, ohne Slot oder Pfeil zu berühren.
+   Geometrie als `ModScreenLayout.FLETCHING_BOOK_*` (server-sichtbar), damit der GameTest sie prüfen kann;
+   `ModScreenStyle.fletching` meidet den Knopf zusätzlich im Motiv.
+2. **Hufeisen-Panel ragt nach unten.** Vier Slots lagen in einer Spalte (y 18/36/54/72), das Panel `H=82`
+   (y 12..94) lief über den Container-Kasten (Boden y 77) hinaus in Fuge und Inventar. Fix: **2x2-Raster**
+   (Spalten `X`/`X+18`, Zeilen `Y`/`Y+18`), Panel `X=-43, BOX_W=48, H=49, W=43` — rechte Kante weiter bei x 5 unter
+   dem linken Fensterrahmen, Box y 12..61 vollständig im Container-Kasten; Slots sitzen symmetrisch im Füllbereich.
+3. **Verzauberungstisch: Runentext zu dunkel.** `WorkScreens.runeColor` hebt den hellen Ton an
+   (verfügbar `0xFFE8D8B0` → `0xFFFFEFC8`, deaktiviert `0xFFB8A888` → `0xFFD9C7A0`), damit die Namen auf den roten
+   Angebotszeilen (`ENCHANTING` fill `#A1282B`) lesbar sind; die grüne Kostenzahl bleibt Vanilla.
+
+Tests:
+- `ModScreenStyleTests.machineSlotsSitInsideTheirBoxes`: das Knopf-Rechteck `FLETCHING_BOOK_*` liegt im Container-Kasten
+  und überlappt keinen Teil-/Ergebnis-Slot (der Regressionsfall der Runde 1).
+- `HorseshoeTests.panelLayout` (neu; Katalog Fabric über `RidingGameTest`, NeoForge automatisch über `RidingTests.ALL`):
+  die vier Hoof-Slots bilden ein 2x2-Raster, alle innerhalb des Panel-Füllbereichs, und der Panel-Boden liegt über dem
+  Container-Kasten-Boden (Spieler-Inventar-Zeile minus 7).
+- `HorseshoeTests.menu`: die Panel-Grenzen-Prüfung an die neue Box angepasst.
+
+### Verifikation (2026-10-09, Branch `cp-scfix`, Stand `ec5e9ea` schmutzig)
+
+Testläufe (jeweils einzeln, sequenziert über `heavy.sh job`):
+
+- `run.py --targets module-simpleriding-fabric-263,module-simpleriding-neoforge-263`
+  → **alles gruen: 82/82 bestanden, 0 rot** (je Loader 41; inkl. neuem `horseshoe_panel_layout`).
+- `run.py --targets fabric-263,neoforge-263,forge-263 --filter 'simplebuilding:mod_screen_style_*'`
+  → **alles gruen: 9/9 bestanden, 0 rot** (3 Tests × 3 Loader; inkl. `fletchingBookButton`).
+- `run.py --targets module-simplecontainers-client-263`
+  → **alles gruen: 26/26 bestanden, 0 rot**.
+- `run.py --targets client-fabric-263` (`SIMPLEBUILDING_CLIENT_ONLY=mod-ui-style`)
+  → **alles gruen: 14/14 bestanden, 0 rot** (erzeugt `modui-fletching.png`).
+- `run.py --targets module-simpleriding-client-263`
+  → `NICHT gruen: 3/4 bestanden, 1 rot` — rot nur `simpleriding:riding-config`
+  („kein frischer Screenshot"), die **vorbestehende** Config-Tab-Prüfung aus Runde 1; der Fuchs-Screenshot
+  `riding-horse-panel` wird vorher frisch erzeugt. **Unabhängig** von den drei Befunden (kein Config-Code angefasst).
+
+Screenshot-Prüfung (PIL-Pixelanalyse, da Bilder nicht direkt sichtbar):
+- `0002_riding-horse-panel.png` (854x480, GUI-Skala 2): Hoof-Slots als **2x2** bestätigt (Spalten x 180/216,
+  Zeilen y 110/146, Schritt 36 px = 18 GUI); Panel-Füllung endet bei GUI y ≈ 61, Container-Kasten-Boden y 77 →
+  **kein Überlauf**. Fenster links/oben (250/74) aus der FLETCHING/Horse-Füllfarbe rekonstruiert.
+- `0012_modui-fletching.png` (854x480, Skala 2): Rezeptbuch-Knopf rendert bei GUI `(42,27)` (dominante
+  Button-Farbe `(198,198,198)`); die Pfeil-Region `(92,44)` und der dritte Teil-Slot `(44,48)` sind **frei von
+  Button-Pixeln** → keine Überlappung.
+- `0025_simplecontainers-enchanting.png`: neue Runen-Farben vorhanden (`0xFFD9C7A0` = 1396 px),
+  alte (`0xFFE8D8B0`/`0xFFB8A888`) mit **0 px** → Umfärbung wirksam (Testbild zeigt die deaktivierte Variante).
+
+Abweichungen vom Entwurf:
+- Befund 2: endgültige Box `X=-43, BOX_W=48, H=49, W=43` (statt Entwurf `-38/47`); Spalten `X=-36/-18`,
+  Zeilen `Y=18/36` — rechte Kante weiterhin bei x 5 unter dem Fensterrahmen, Box-Boden y 61 < 77.
+
+**NICHT getestet:** kein volles Gate (`./gradlew check`), keine komplette Server-Suite für simplecontainers,
+kein `module-simpleriding-forge-263` und kein Client-Forge/NeoForge-Lauf; die `riding-config`-Rotmeldung ist
+vorbestehend und wurde nicht gefixt.
