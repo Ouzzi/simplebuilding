@@ -88,11 +88,11 @@ public final class ChessClientTest {
                 client -> cells.size() == 8 * 2 + ChessColor.values().length * 3 && countPieces(client, cells) == pieces[0],
                 client -> "the client shows " + countPieces(client, cells) + " of " + pieces[0] + " pieces in " + cells.size() + " cells");
         fly(script);
-        look(script, "tp @a 7.0 0.8 16.6 180.0 32.0");
+        look(script, "tp @a 7.0 1.0 15.8 180.0 40.0");
         script.shot("chess-board-pieces");
         look(script, "tp @a 14.0 1.5 16.0 180.0 48.0");
         script.shot("chess-board-flat");
-        look(script, "tp @a 10.5 2.0 11.0 0.0 30.0");
+        look(script, "tp @a 10.5 2.5 14.5 0.0 45.0");
         script.shot("chess-gallery");
         script.act("every piece stands on its own quarter, on top of the block below", client -> {
             int checked = 0;
