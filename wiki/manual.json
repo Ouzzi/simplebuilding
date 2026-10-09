@@ -4844,16 +4844,6 @@
           "Kreativinventar: im Tab „SimpleTools“ in der Baustab-Reihe nach einem leeren Feld direkt neben dem Enderit-Baustab, der sie baut, gefolgt vom Vanilla-Kartografentisch - alles, was Scan und Bau brauchen, griffbereit.",
           "Rückgängig: Schleichen + Rechtsklick in die Luft mit dem Stab nimmt den letzten Blaupausen-Bau zurück, so weit er gekommen ist (nur in derselben Sitzung, nur unveränderte Blöcke, die Kosten-Items zurück ins Inventar)."
         ]
-      },
-      "items": {
-        "simplebuilding:creative_blueprint": {
-          "en": "Creative Blueprint: creative tab only; a wand builds it at any distance, and once signed it stays final (copies stay signed).",
-          "de": "Kreativ-Blaupause: nur im Kreativ-Tab; ein Baustab baut sie in jeder Entfernung, signiert bleibt sie endgültig (Kopien bleiben signiert).",
-          "sources": [
-            "common/src/shared/java/com/simplebuilding/blueprint/BlueprintCartography.java",
-            "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java"
-          ]
-        }
       }
     },
     "magnet": {
@@ -12115,6 +12105,30 @@
           "Bedienung, Tooltip und Farbpinsel wie beim Farbkasten."
         ]
       }
+    },
+    "creative_blueprint": {
+      "en": {
+        "summary": "The Creative Blueprint is a creative-tab-only Blueprint (no recipe): a building wand with it in the off hand builds at any distance, and once signed it is final.",
+        "details": [
+          "Same editor, code, scanning and building as the Blueprint; the sheet is violet with a small gold star.",
+          "Unlimited reach: when the normal reach hits nothing, a right click with any building wand in the main hand and this blueprint in the off hand targets the block in view up to 1024 blocks away (CreativeReach.FAR_REACH); the ghost preview follows the same ray.",
+          "Final once signed: the editor opens read-only, the server ignores edit packets, and the copy at a cartography table is an exact signed Creative Blueprint instead of an editable one. The wand's tier still limits the size."
+        ]
+      },
+      "de": {
+        "summary": "Die Kreativ-Blaupause gibt es nur im Kreativ-Tab (kein Rezept): ein Baustab mit ihr in der Nebenhand baut in jeder Entfernung, und signiert ist sie endgültig.",
+        "details": [
+          "Gleicher Editor, Code, Scan und Bau wie die Blaupause; das Blatt ist violett mit einem kleinen goldenen Stern.",
+          "Unbegrenzte Reichweite: trifft die normale Reichweite nichts, zielt ein Rechtsklick mit einem Baustab in der Haupthand und dieser Blaupause in der Nebenhand auf den Block im Blick bis 1024 Blöcke weit (CreativeReach.FAR_REACH); die Geister-Vorschau folgt demselben Strahl.",
+          "Signiert endgültig: der Editor öffnet nur lesend, der Server ignoriert Edit-Pakete, und die Kopie am Kartentisch ist eine genaue, signierte Kreativ-Blaupause statt einer bearbeitbaren. Die Stufe des Stabs begrenzt weiter die Größe."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java",
+        "common/src/shared/java/com/simplebuilding/blueprint/BlueprintCartography.java",
+        "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+      ]
     }
   },
   "inWorld": {
