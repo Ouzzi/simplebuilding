@@ -31,6 +31,11 @@ public final class GadgetsClientTest {
         script.await("the client aims the laser", 60, client -> TweaksClient.isAimingLaser(client.player),
                 client -> "the rod is not aiming while the right button is held. " + TestScene.describeAim(client));
         script.idle("let the tilt settle", 20);
+        script.act("dismiss toasts and chat before the shot", client -> {
+            client.gui.toastManager().clear();
+            client.gui.hud.getChat().clearMessages(true);
+        });
+        script.idle("let one frame pass without the chat", 1);
         script.shot("resonance-rod-aiming");
         script.harness("let go of the right mouse button", harness -> harness.releaseMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         script.command("item replace entity @a weapon.mainhand with minecraft:air");
