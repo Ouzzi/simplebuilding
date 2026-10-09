@@ -192,7 +192,9 @@ public final class SearchTabPlacement {
             out.add(Placement.after(INGREDIENTS, Items.BLAZE_ROD, ModItems.DIAMOND_ROD));
         }
         if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
-            out.add(Placement.after(REDSTONE_BLOCKS, Items.CRAFTER, ModItems.AUTO_SMITHER));
+            out.add(com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER
+                    ? Placement.after(REDSTONE_BLOCKS, Items.CRAFTER, ModItems.AUTO_SMITHER, ModItems.AUTONOMOUS_CRAFTER)
+                    : Placement.after(REDSTONE_BLOCKS, Items.CRAFTER, ModItems.AUTO_SMITHER));
         }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Platten hinter der letzten Vanilla-Platte, Lautsprecher hinter Notenblock und Plattenspieler (Redstone).

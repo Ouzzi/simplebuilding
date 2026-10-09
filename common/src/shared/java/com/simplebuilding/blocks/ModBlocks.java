@@ -199,6 +199,9 @@ public class ModBlocks {
     /** Auto-Schmied: der Crafter des Schmiedetischs (2026-10-02, McVersion.AUTO_SMITHER). Eigenschaften wie der Crafter. */
     public static final Block AUTO_SMITHER = McVersion.AUTO_SMITHER
             ? registerBlock("auto_smither", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutoSmitherBlock::new) : null;
+    /** Autonomer Crafter: craftet selbst in den Trichter darunter (2026-10-09, McVersion.AUTONOMOUS_CRAFTER). Wie der Crafter. */
+    public static final Block AUTONOMOUS_CRAFTER = McVersion.AUTONOMOUS_CRAFTER
+            ? registerBlock("autonomous_crafter", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutonomousCrafterBlock::new) : null;
     public static final Block PLACED_SMALL_PARTS = McVersion.SMALL_PLACEABLES ? registerBlock("placed_small_parts", s -> new com.simplebuilding.blocks.custom.PlacedSmallPartsBlock(s
             .strength(0.2F).sound(SoundType.STONE).noCollision().noLootTable().noOcclusion().mapColor(MapColor.NONE)
             .lightLevel(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock::light)

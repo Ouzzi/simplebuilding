@@ -740,6 +740,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("workstation_game_test_auto_smither_smiths_once_per_pulse", WorkstationTests::autoSmitherSmithsOncePerPulse)
                     .maxTicks(200).build(),
+            GameTestSpec.named("workstation_game_test_autonomous_crafter_crafts_only_above_hoppers", WorkstationTests::autonomousCrafterCraftsOnlyAboveHoppers)
+                    .maxTicks(WorkstationTests.CRAFTER_MAX_TICKS).build(),
+            GameTestSpec.named("workstation_game_test_autonomous_crafter_stops_on_redstone", WorkstationTests::autonomousCrafterStopsOnRedstone)
+                    .maxTicks(WorkstationTests.CRAFTER_MAX_TICKS).build(),
+            GameTestSpec.named("workstation_game_test_autonomous_crafter_filter_keeps_the_recipe_items", WorkstationTests::autonomousCrafterFilterKeepsTheRecipeItems)
+                    .maxTicks(WorkstationTests.CRAFTER_MAX_TICKS).build(),
             GameTestSpec.named("workstation_game_test_auto_smither_sorts_hopper_input", WorkstationTests::autoSmitherSortsHopperInput)
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_dimensional_scrap_is_enderite_gated_and_indestructible", OreGenAndItemFrameTests::dimensionalScrapIsEnderiteGatedAndIndestructible)

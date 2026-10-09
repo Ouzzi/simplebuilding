@@ -38,4 +38,19 @@ public final class WorkstationGameTest {
     public void autoSmitherSortsHopperInput(GameTestHelper helper) {
         WorkstationTests.autoSmitherSortsHopperInput(helper);
     }
+
+    @GameTest(maxTicks = WorkstationTests.CRAFTER_MAX_TICKS)
+    public void autonomousCrafterCraftsOnlyAboveHoppers(GameTestHelper helper) {
+        WorkstationTests.autonomousCrafterCraftsOnlyAboveHoppers(helper);
+    }
+
+    @GameTest(maxTicks = WorkstationTests.CRAFTER_MAX_TICKS)
+    public void autonomousCrafterStopsOnRedstone(GameTestHelper helper) {
+        WorkstationTests.autonomousCrafterStopsOnRedstone(helper);
+    }
+
+    @GameTest(maxTicks = WorkstationTests.CRAFTER_MAX_TICKS)
+    public void autonomousCrafterFilterKeepsTheRecipeItems(GameTestHelper helper) {
+        WorkstationTests.autonomousCrafterFilterKeepsTheRecipeItems(helper);
+    }
 }

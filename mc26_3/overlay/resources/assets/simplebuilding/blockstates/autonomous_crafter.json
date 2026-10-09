@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "crafting=false,triggered=false": {
+      "model": "simplebuilding:block/autonomous_crafter"
+    },
+    "crafting=false,triggered=true": {
+      "model": "simplebuilding:block/autonomous_crafter_triggered"
+    },
+    "crafting=true,triggered=false": {
+      "model": "simplebuilding:block/autonomous_crafter_crafting"
+    },
+    "crafting=true,triggered=true": {
+      "model": "simplebuilding:block/autonomous_crafter_crafting"
+    }
+  }
+}

@@ -50,6 +50,19 @@ public final class ModScreenStyle {
         return false;
     }
 
+    public static Button crafterFilterButton(int x, int y, Button.OnPress onPress, com.simplebuilding.screen.AutonomousCrafterMenu menu) {
+        return Button.builder(Component.empty(), onPress).bounds(x, y, 18, 18).build();
+    }
+
+    public static boolean autonomousCrafter(GuiGraphicsExtractor g, com.simplebuilding.screen.AutonomousCrafterMenu menu, Font font,
+            Component title, int left, int top, int imageWidth) {
+        return false;
+    }
+
+    public static boolean autonomousCrafterLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
+        return false;
+    }
+
     public static boolean fletching(GuiGraphicsExtractor g, FletchingMenu menu, Font font, Component title, int left, int top,
             int imageWidth) {
         return false;

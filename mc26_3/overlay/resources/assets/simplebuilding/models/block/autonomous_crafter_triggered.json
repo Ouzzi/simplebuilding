@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "simplebuilding:block/autonomous_crafter_bottom",
+    "up": "simplebuilding:block/autonomous_crafter_top_triggered",
+    "north": "simplebuilding:block/autonomous_crafter_side_triggered",
+    "south": "simplebuilding:block/autonomous_crafter_side_triggered",
+    "east": "simplebuilding:block/autonomous_crafter_side_triggered",
+    "west": "simplebuilding:block/autonomous_crafter_side_triggered",
+    "particle": "simplebuilding:block/autonomous_crafter_side_triggered"
+  }
+}

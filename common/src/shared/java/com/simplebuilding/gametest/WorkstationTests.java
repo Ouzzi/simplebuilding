@@ -327,4 +327,110 @@ public final class WorkstationTests {
         }
         helper.succeed();
     }
+
+    // ------------------------------------------------------------------ autonomous crafter (N26)
+
+    /** Tick budget of the autonomous crafter tests. */
+    public static final int CRAFTER_MAX_TICKS = 200;
+
+    private static com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity plankCrafter(GameTestHelper helper, BlockPos pos, int planks) {
+        helper.setBlock(pos, ModBlocks.AUTONOMOUS_CRAFTER);
+        var crafter = helper.getBlockEntity(pos, com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity.class);
+        // Two planks over each other: four sticks.
+        crafter.setItem(0, new ItemStack(Items.OAK_PLANKS, planks));
+        crafter.setItem(3, new ItemStack(Items.OAK_PLANKS, planks));
+        return crafter;
+    }
+
+    private static int countIn(net.minecraft.world.Container container, net.minecraft.world.item.Item item) {
+        int n = 0;
+        for (int i = 0; i < container.getContainerSize(); i++) {
+            if (container.getItem(i).is(item)) n += container.getItem(i).getCount();
+        }
+        return n;
+    }
+
+    /**
+     * Owner N26: the autonomous crafter crafts only while a hopper stands below it. Without one, two planks over each
+     * other stay; once a (Vanilla) hopper is placed below, the sticks arrive in it, and the hopper below cannot pull
+     * the planks out of the crafter (its bottom offers no slots).
+     */
+    public static void autonomousCrafterCraftsOnlyAboveHoppers(GameTestHelper helper) {
+        if (!McVersion.AUTONOMOUS_CRAFTER) {
+            helper.succeed();
+            return;
+        }
+        BlockPos pos = new BlockPos(2, 2, 2);
+        var crafter = plankCrafter(helper, pos, 2);
+        helper.startSequence()
+                .thenIdle(20)
+                .thenExecute(() -> {
+                    helper.assertValueEqual(crafter.getItem(0).getCount(), 2, "planks used up without a hopper below");
+                    helper.setBlock(pos.below(), net.minecraft.world.level.block.Blocks.HOPPER);
+                })
+                .thenWaitUntil(() -> helper.assertValueEqual(countIn(helper.getBlockEntity(pos.below(),
+                        net.minecraft.world.level.block.entity.HopperBlockEntity.class), Items.STICK), 8,
+                        "sticks in the hopper below after two crafts"))
+                .thenExecute(() -> {
+                    helper.assertTrue(crafter.isEmpty(), "the crafter kept " + crafter.getItem(0) + " / " + crafter.getItem(3));
+                    helper.assertValueEqual(countIn(helper.getBlockEntity(pos.below(),
+                            net.minecraft.world.level.block.entity.HopperBlockEntity.class), Items.OAK_PLANKS), 0,
+                            "planks the hopper below pulled out of the crafter");
+                })
+                .thenSucceed();
+    }
+
+    /** A redstone signal stops the autonomous crafter; without it, it crafts again. */
+    public static void autonomousCrafterStopsOnRedstone(GameTestHelper helper) {
+        if (!McVersion.AUTONOMOUS_CRAFTER) {
+            helper.succeed();
+            return;
+        }
+        BlockPos pos = new BlockPos(2, 2, 2);
+        BlockPos power = pos.east();
+        helper.setBlock(pos.below(), net.minecraft.world.level.block.Blocks.HOPPER);
+        helper.setBlock(power, net.minecraft.world.level.block.Blocks.REDSTONE_BLOCK);
+        var crafter = plankCrafter(helper, pos, 2);
+        helper.assertTrue(crafter.isTriggered(), "the redstone block next to the crafter did not trigger it");
+        helper.startSequence()
+                .thenIdle(20)
+                .thenExecute(() -> {
+                    helper.assertValueEqual(crafter.getItem(0).getCount(), 2, "planks used up while powered");
+                    helper.setBlock(power, net.minecraft.world.level.block.Blocks.AIR);
+                })
+                .thenWaitUntil(() -> helper.assertTrue(crafter.isEmpty(), "the crafter did not craft once the signal was gone"))
+                .thenSucceed();
+    }
+
+    /**
+     * Filter principle on the crafter: with the filter key on, every filled slot keeps one plank as its recipe item. Three
+     * planks per slot give two crafts, then it stops with one plank in each slot; automation only tops up a slot holding
+     * a match, an empty slot takes nothing.
+     */
+    public static void autonomousCrafterFilterKeepsTheRecipeItems(GameTestHelper helper) {
+        if (!McVersion.AUTONOMOUS_CRAFTER) {
+            helper.succeed();
+            return;
+        }
+        BlockPos pos = new BlockPos(2, 2, 2);
+        helper.setBlock(pos.below(), net.minecraft.world.level.block.Blocks.HOPPER);
+        var crafter = plankCrafter(helper, pos, 3);
+        crafter.cycleFilterMode();
+        helper.assertTrue(crafter.canPlaceItem(0, new ItemStack(Items.OAK_PLANKS)) || crafter.canPlaceItem(3, new ItemStack(Items.OAK_PLANKS)),
+                "a slot holding planks refuses planks with the filter on");
+        helper.assertFalse(crafter.canPlaceItem(0, new ItemStack(Items.STONE)), "a plank slot takes stone with the filter on");
+        helper.assertFalse(crafter.canPlaceItem(1, new ItemStack(Items.OAK_PLANKS)), "an empty slot takes planks with the filter on");
+        helper.startSequence()
+                .thenWaitUntil(() -> helper.assertValueEqual(countIn(helper.getBlockEntity(pos.below(),
+                        net.minecraft.world.level.block.entity.HopperBlockEntity.class), Items.STICK), 8, "sticks after two crafts"))
+                .thenIdle(20)
+                .thenExecute(() -> {
+                    helper.assertValueEqual(countIn(helper.getBlockEntity(pos.below(),
+                            net.minecraft.world.level.block.entity.HopperBlockEntity.class), Items.STICK), 8,
+                            "sticks a while later - the recipe items must stay");
+                    helper.assertValueEqual(crafter.getItem(0).getCount(), 1, "planks left in slot 0 (its recipe item)");
+                    helper.assertValueEqual(crafter.getItem(3).getCount(), 1, "planks left in slot 3 (its recipe item)");
+                })
+                .thenSucceed();
+    }
 }

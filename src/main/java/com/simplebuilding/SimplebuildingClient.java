@@ -244,6 +244,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         if (ModScreenHandlers.AUTO_SMITHER_MENU != null) {
             MenuScreens.register(ModScreenHandlers.AUTO_SMITHER_MENU, com.simplebuilding.client.gui.AutoSmitherScreen::new);
         }
+        if (ModScreenHandlers.AUTONOMOUS_CRAFTER_MENU != null) {
+            MenuScreens.register(ModScreenHandlers.AUTONOMOUS_CRAFTER_MENU, com.simplebuilding.client.gui.AutonomousCrafterScreen::new);
+        }
 
         // --- NETZWERK REGISTRIERUNG CLIENT-SEITE ---
         registerClientReceivers();

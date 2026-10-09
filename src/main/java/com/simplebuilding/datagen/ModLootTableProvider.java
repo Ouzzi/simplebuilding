@@ -80,6 +80,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             dropSelf(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel());
         }
         if (ModBlocks.AUTO_SMITHER != null) dropSelf(ModBlocks.AUTO_SMITHER);
+        if (ModBlocks.AUTONOMOUS_CRAFTER != null) dropSelf(ModBlocks.AUTONOMOUS_CRAFTER);
         if (ModBlocks.JUKEBOX_AMPLIFIER != null) dropSelf(ModBlocks.JUKEBOX_AMPLIFIER);
         if (ModBlocks.NOTE_AMPLIFIER != null) dropSelf(ModBlocks.NOTE_AMPLIFIER);
         if (ModBlocks.GOLD_ROD != null) dropSelf(ModBlocks.GOLD_ROD);

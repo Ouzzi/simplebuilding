@@ -7,6 +7,7 @@ import com.simplebuilding.client.gui.ModScreenLayout.Box;
 import com.simplebuilding.fletching.FletchingMenu;
 import com.simplebuilding.items.custom.BackpackTier;
 import com.simplebuilding.screen.AutoSmitherMenu;
+import com.simplebuilding.screen.AutonomousCrafterMenu;
 import com.simplebuilding.screen.BackpackLayout;
 import com.simplebuilding.screen.BackpackMenu;
 import com.simplebuilding.screen.BackpackSlot;
@@ -44,6 +45,8 @@ public final class ModScreenStyle {
     /** Leather backpack (W0-B palette table "backpack"). */
     static final UiPalette LEATHER = UiPalette.derived(0xFF8E6440);
     static final UiPalette AUTO_SMITHER = UiPalette.derived(0xFF4F5560);
+    /** Crafter stone with a hint of the copper of its textures. */
+    static final UiPalette AUTONOMOUS_CRAFTER = UiPalette.derived(0xFF5E5651);
     static final UiPalette FLETCHING = UiPalette.derived(0xFFC5B485);
     private static final int REDSTONE_ON = 0xFFD8261E;
     private static final int ERROR = 0xFFC9503E;
@@ -172,6 +175,48 @@ public final class ModScreenStyle {
 
     public static boolean autoSmitherLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
         g.text(font, title, x, y, AUTO_SMITHER.label(), false);
+        return true;
+    }
+
+    // ------------------------------------------------------------------ autonomous crafter
+
+    /** The filter key of the mod hoppers (filter principle): same SimpleLib key, the crafter's colours. */
+    public static Button crafterFilterButton(int x, int y, Button.OnPress onPress, AutonomousCrafterMenu menu) {
+        return new UiFilterButton(x, y, onPress, () -> menu.filterMode().ordinal(), () -> AUTONOMOUS_CRAFTER);
+    }
+
+    /**
+     * The crafter's layout in the container style: 3x3 grid, redstone sign (red while a signal stops it), arrow, the
+     * recipe result as the big slot, and under the arrow the filter caption (funnel + colon) and the filter key.
+     */
+    public static boolean autonomousCrafter(GuiGraphicsExtractor g, AutonomousCrafterMenu menu, Font font, Component title, int left,
+            int top, int imageWidth) {
+        if (!UiStyleToggle.isEnabled()) return false;
+        UiPalette p = AUTONOMOUS_CRAFTER;
+        int[] inv = ModScreenLayout.inventoryOrigin(menu);
+        Box container = ModScreenLayout.container(imageWidth, inv[1]);
+        box(g, left, top, container, p);
+        box(g, left, top, ModScreenLayout.inventory(inv[0], inv[1]), UiPalette.INVENTORY);
+        Slot result = menu.getSlot(AutonomousCrafterMenu.RESULT_SLOT);
+        int keyX = left + AutonomousCrafterMenu.FILTER_BUTTON_X, keyY = top + AutonomousCrafterMenu.FILTER_BUTTON_Y;
+        int captionX = keyX - 3 - UiFilterButton.LABEL_WIDTH;
+        List<int[]> avoid = slotRects(menu, left, top);
+        avoid.add(titleRect(font, title, left, top));
+        avoid.add(new int[] {left + 98, top + 22, left + 110, top + 34});
+        avoid.add(new int[] {left + 99, top + 36, left + 121, top + 51});
+        avoid.add(new int[] {captionX - 2, keyY, keyX + UiFilterButton.SIZE + 1, keyY + UiFilterButton.SIZE});
+        avoid.add(bigRect(result, left, top));
+        motif(g, left, top, container, p, UiMotifs.Kind.REDSTONE, avoid, 5);
+        slots(g, menu, left, top, p, result);
+        if (menu.isPowered()) UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 98, top + 22, p, REDSTONE_ON, true);
+        else UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 98, top + 22, p);
+        UiSymbols.engrave(g, UiSymbols.ARROW, left + 99, top + 36, p);
+        UiFilterButton.label(g, captionX, keyY + 3, p);
+        return true;
+    }
+
+    public static boolean autonomousCrafterLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
+        g.text(font, title, x, y, AUTONOMOUS_CRAFTER.label(), false);
         return true;
     }
 
