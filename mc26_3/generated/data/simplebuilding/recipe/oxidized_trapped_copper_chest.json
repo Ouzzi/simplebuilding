@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "minecraft:oxidized_copper_chest",
+    "minecraft:tripwire_hook"
+  ],
+  "result": {
+    "id": "simplebuilding:oxidized_trapped_copper_chest"
+  }
+}
