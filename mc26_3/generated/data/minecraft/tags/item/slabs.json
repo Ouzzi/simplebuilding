@@ -18,6 +18,10 @@
     "simplebuilding:ender_quartz_checker_slab",
     "simplebuilding:polished_astralit_checker_slab",
     "simplebuilding:polished_nihilith_checker_slab",
-    "simplebuilding:polished_ender_quartz_checker_slab"
+    "simplebuilding:polished_ender_quartz_checker_slab",
+    "simplebuilding:dirt_slab",
+    "simplebuilding:grass_slab",
+    "simplebuilding:sand_slab",
+    "simplebuilding:gravel_slab"
   ]
 }

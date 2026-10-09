@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "simplebuilding:block/scarlet_froglight",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "simplebuilding:block/scarlet_froglight"
+    },
+    "axis=z": {
+      "model": "simplebuilding:block/scarlet_froglight",
+      "x": 90
+    }
+  }
+}

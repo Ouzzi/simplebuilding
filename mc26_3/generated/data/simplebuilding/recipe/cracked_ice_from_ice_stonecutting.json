@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:ice",
+  "result": {
+    "id": "simplebuilding:cracked_ice"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplebuilding:block/nautilus_shell_block_top",
+    "side": "simplebuilding:block/nautilus_shell_block_side"
+  }
+}
