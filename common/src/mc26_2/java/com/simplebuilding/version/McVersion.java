@@ -60,6 +60,10 @@ public final class McVersion {
     public static final boolean AUTO_SMITHER = false;
     /** Autonomous Crafter: crafts on its own over a hopper (owner 2026-10-09, queue N26). */
     public static final boolean AUTONOMOUS_CRAFTER = false;
+    /** Crafting table that keeps its 3x3 grid and shows it on top (owner 2026-10-09, queue N26). */
+    public static final boolean STORAGE_CRAFTING_TABLE = false;
+    /** Potions of darkness/nausea/shivering/mirage/reverse mirage/faded and the warden tendril (queue N20/N24). */
+    public static final boolean BREWING_EFFECTS = false;
     /** Small items (pebbles, sticks, ingots, gems, bricks) placeable on blocks (2026-10-02). */
     public static final boolean SMALL_PLACEABLES = false;
     /** Bundles, backpacks and quivers dye like vanilla bundles: one fixed colour per dye, no mixing, no washing (2026-10-02). */

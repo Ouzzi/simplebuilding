@@ -202,6 +202,9 @@ public class ModBlocks {
     /** Autonomer Crafter: craftet selbst in den Trichter darunter (2026-10-09, McVersion.AUTONOMOUS_CRAFTER). Wie der Crafter. */
     public static final Block AUTONOMOUS_CRAFTER = McVersion.AUTONOMOUS_CRAFTER
             ? registerBlock("autonomous_crafter", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutonomousCrafterBlock::new) : null;
+    /** Werkbank mit Lager (2026-10-09, McVersion.STORAGE_CRAFTING_TABLE): Eigenschaften wie die Werkbank. */
+    public static final Block STORAGE_CRAFTING_TABLE = McVersion.STORAGE_CRAFTING_TABLE
+            ? registerBlock("storage_crafting_table", Blocks.CRAFTING_TABLE, com.simplebuilding.blocks.custom.StorageCraftingTableBlock::new) : null;
     public static final Block PLACED_SMALL_PARTS = McVersion.SMALL_PLACEABLES ? registerBlock("placed_small_parts", s -> new com.simplebuilding.blocks.custom.PlacedSmallPartsBlock(s
             .strength(0.2F).sound(SoundType.STONE).noCollision().noLootTable().noOcclusion().mapColor(MapColor.NONE)
             .lightLevel(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock::light)

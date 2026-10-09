@@ -33,6 +33,8 @@ public class ModBlockEntities {
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity> AUTO_SMITHER_BE;
     /** Autonomer Crafter; nur, wenn es den Block gibt (McVersion.AUTONOMOUS_CRAFTER). */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity> AUTONOMOUS_CRAFTER_BE;
+    /** Werkbank mit Lager; nur, wenn es den Block gibt (McVersion.STORAGE_CRAFTING_TABLE). */
+    public static BlockEntityType<com.simplebuilding.blocks.entity.custom.StorageCraftingTableBlockEntity> STORAGE_CRAFTING_TABLE_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity> TIERED_SHULKER_BOX_BE;
 
     public static void registerBlockEntities() {
@@ -94,6 +96,11 @@ public class ModBlockEntities {
             AUTONOMOUS_CRAFTER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                     Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "autonomous_crafter"),
                     FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity::new, ModBlocks.AUTONOMOUS_CRAFTER).build());
+        }
+        if (ModBlocks.STORAGE_CRAFTING_TABLE != null) {
+            STORAGE_CRAFTING_TABLE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "storage_crafting_table"),
+                    FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.StorageCraftingTableBlockEntity::new, ModBlocks.STORAGE_CRAFTING_TABLE).build());
         }
 
         if (ModBlocks.PLACED_SMALL_PARTS != null) {

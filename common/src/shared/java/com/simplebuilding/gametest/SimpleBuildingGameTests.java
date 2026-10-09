@@ -574,6 +574,20 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("combat_game_test_crafty_shulker_potions_are_registered_and_brewable", CombatTests::craftyShulkerPotionsAreRegisteredAndBrewable)
                     .build(),
+            GameTestSpec.named("brewing_game_test_new_potions_brew_from_their_ingredients", BrewingTests::newPotionsBrewFromTheirIngredients)
+                    .build(),
+            GameTestSpec.named("brewing_game_test_drinking_the_new_potions_applies_their_effects", BrewingTests::drinkingTheNewPotionsAppliesTheirEffects)
+                    .build(),
+            GameTestSpec.named("brewing_game_test_mirage_keeps_the_size_class_and_is_stable", BrewingTests::mirageKeepsTheSizeClassAndIsStable)
+                    .build(),
+            GameTestSpec.named("brewing_game_test_warden_drops_tendrils", BrewingTests::wardenDropsTendrils)
+                    .build(),
+            GameTestSpec.named("brewing_game_test_storage_crafting_table_keeps_its_grid", BrewingTests::storageCraftingTableKeepsItsGrid)
+                    .build(),
+            GameTestSpec.named("brewing_game_test_storage_crafting_table_shares_its_grid", BrewingTests::storageCraftingTableSharesItsGrid)
+                    .build(),
+            GameTestSpec.named("brewing_game_test_storage_crafting_table_drops_its_grid_and_ignores_hoppers", BrewingTests::storageCraftingTableDropsItsGridAndIgnoresHoppers)
+                    .build(),
             GameTestSpec.named("combat_game_test_crafty_shulker_only_triggers_on_hits_by_creatures", CombatTests::craftyShulkerOnlyTriggersOnHitsByCreatures)
                     .build(),
             GameTestSpec.named("combat_game_test_crafty_shulker_lands_only_on_safe_ground", CombatTests::craftyShulkerLandsOnlyOnSafeGround)

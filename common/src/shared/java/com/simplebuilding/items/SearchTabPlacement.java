@@ -197,6 +197,14 @@ public final class SearchTabPlacement {
                     ? Placement.after(REDSTONE_BLOCKS, Items.CRAFTER, ModItems.AUTO_SMITHER, ModItems.AUTONOMOUS_CRAFTER)
                     : Placement.after(REDSTONE_BLOCKS, Items.CRAFTER, ModItems.AUTO_SMITHER));
         }
+        if (com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE) {
+            // Werkbank mit Lager (N26) hinter die Werkbank (Gebrauchsbloecke).
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.CRAFTING_TABLE, ModItems.STORAGE_CRAFTING_TABLE));
+        }
+        if (com.simplebuilding.version.McVersion.BREWING_EFFECTS) {
+            // Waerter-Fuehler (N24) zu den Brauzutaten, hinter das fermentierte Spinnenauge.
+            out.add(Placement.after(INGREDIENTS, Items.FERMENTED_SPIDER_EYE, ModItems.WARDEN_TENDRIL));
+        }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Platten hinter der letzten Vanilla-Platte, Lautsprecher hinter Notenblock und Plattenspieler (Redstone).
             out.add(Placement.after(TOOLS_AND_UTILITIES, Items.MUSIC_DISC_BOUNCE,

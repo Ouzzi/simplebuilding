@@ -2851,9 +2851,8 @@ public final class DataIntegrityTests {
         if (McVersion.AUTO_SMITHER) {
             // Auto-Schmied (2026-10-02) direkt hinter den Kolben.
             // Autonomer Crafter (2026-10-09) in derselben Zeile.
-            expected.add(McVersion.AUTONOMOUS_CRAFTER
-                    ? CreativeTabLayout.Row.of("auto_smither", ModItems.AUTO_SMITHER, ModItems.AUTONOMOUS_CRAFTER)
-                    : CreativeTabLayout.Row.of("auto_smither", ModItems.AUTO_SMITHER));
+            // Werkbank mit Lager (2026-10-09) ebenfalls.
+            expected.add(com.simplebuilding.items.ModItemGroupsContent.autoSmitherRow());
         }
         expected.addAll(List.of(
                 CreativeTabLayout.Row.of("bundles_and_quivers",
@@ -3108,6 +3107,9 @@ public final class DataIntegrityTests {
         }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             expected.add(CreativeTabLayout.Row.of("silent_dandelion", Items.GOLDEN_DANDELION, ModItems.SILENT_DANDELION, ModItems.YARN_BALL));
+        }
+        if (McVersion.BREWING_EFFECTS) {
+            expected.add(CreativeTabLayout.Row.besides("warden_tendril", ModItems.WARDEN_TENDRIL));
         }
         expected.addAll(List.of(
                 CreativeTabLayout.Row.of("resources_diamond", ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND),

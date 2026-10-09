@@ -8,6 +8,7 @@ import com.simplebuilding.fletching.FletchingMenu;
 import com.simplebuilding.items.custom.BackpackTier;
 import com.simplebuilding.screen.AutoSmitherMenu;
 import com.simplebuilding.screen.AutonomousCrafterMenu;
+import com.simplebuilding.screen.StorageCraftingMenu;
 import com.simplebuilding.screen.BackpackLayout;
 import com.simplebuilding.screen.BackpackMenu;
 import com.simplebuilding.screen.BackpackSlot;
@@ -48,6 +49,8 @@ public final class ModScreenStyle {
     /** Crafter stone with a hint of the copper of its textures. */
     static final UiPalette AUTONOMOUS_CRAFTER = UiPalette.derived(0xFF5E5651);
     static final UiPalette FLETCHING = UiPalette.derived(0xFFC5B485);
+    /** Oak of the crafting table, a little darker than the fletching table's birch. */
+    static final UiPalette STORAGE_CRAFTING_TABLE = UiPalette.derived(0xFFA27A4A);
     private static final int REDSTONE_ON = 0xFFD8261E;
     private static final int ERROR = 0xFFC9503E;
 
@@ -217,6 +220,38 @@ public final class ModScreenStyle {
 
     public static boolean autonomousCrafterLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
         g.text(font, title, x, y, AUTONOMOUS_CRAFTER.label(), false);
+        return true;
+    }
+
+    // ------------------------------------------------------------------ storage crafting table
+
+    /**
+     * The Storage Crafting Table (queue N26) in the container style: the crafting table's layout (3x3 grid, arrow, big
+     * result slot) on oak, the recipe book button left of the grid kept free of the wood motif.
+     */
+    public static boolean storageCraftingTable(GuiGraphicsExtractor g, StorageCraftingMenu menu, Font font, Component title, int left,
+            int top, int imageWidth) {
+        if (!UiStyleToggle.isEnabled()) return false;
+        UiPalette p = STORAGE_CRAFTING_TABLE;
+        int[] inv = ModScreenLayout.inventoryOrigin(menu);
+        Box container = ModScreenLayout.container(imageWidth, inv[1]);
+        box(g, left, top, container, p);
+        box(g, left, top, ModScreenLayout.inventory(inv[0], inv[1]), UiPalette.INVENTORY);
+        Slot result = menu.getSlot(StorageCraftingMenu.RESULT_SLOT);
+        List<int[]> avoid = slotRects(menu, left, top);
+        avoid.add(titleRect(font, title, left, top));
+        avoid.add(bigRect(result, left, top));
+        avoid.add(new int[] {left + 89, top + 34, left + 113, top + 51});
+        avoid.add(new int[] {left + ModScreenLayout.CRAFTING_BOOK_X, top + ModScreenLayout.CRAFTING_BOOK_Y,
+                left + ModScreenLayout.CRAFTING_BOOK_X + 20, top + ModScreenLayout.CRAFTING_BOOK_Y + 18});
+        motif(g, left, top, container, p, UiMotifs.Kind.WOOD, avoid, 7);
+        slots(g, menu, left, top, p, result);
+        UiSymbols.engrave(g, UiSymbols.ARROW, left + 90, top + 35, p);
+        return true;
+    }
+
+    public static boolean storageCraftingTableLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
+        g.text(font, title, x, y, STORAGE_CRAFTING_TABLE.label(), false);
         return true;
     }
 

@@ -131,6 +131,8 @@ public final class SimplebuildingNeoForgeClient {
         // Abgestelltes Buendel: das gezeigte Item schwebt darueber, solange man schleichend hinschaut.
         event.registerBlockEntityRenderer(NeoForgeModRegistries.PLACED_BUNDLE_BE.get(), com.simplebuilding.client.render.PlacedBundleRenderer::new);
         // Kleinteile auf einem Fleck: liegende Teile als Platten, Eier als 3D-Ei.
+        if (NeoForgeModRegistries.STORAGE_CRAFTING_TABLE_BE != null) event.registerBlockEntityRenderer(
+                NeoForgeModRegistries.STORAGE_CRAFTING_TABLE_BE.get(), com.simplebuilding.client.render.StorageCraftingTableRenderer::new);
         if (NeoForgeModRegistries.PLACED_SMALL_PARTS_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.PLACED_SMALL_PARTS_BE.get(), com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
         if (NeoForgeModRegistries.CHESS_PIECES_BE != null) event.registerBlockEntityRenderer(
@@ -174,6 +176,9 @@ public final class SimplebuildingNeoForgeClient {
         }
         if (NeoForgeModRegistries.AUTONOMOUS_CRAFTER_MENU != null) {
             event.register(NeoForgeModRegistries.AUTONOMOUS_CRAFTER_MENU.get(), com.simplebuilding.client.gui.AutonomousCrafterScreen::new);
+        }
+        if (NeoForgeModRegistries.STORAGE_CRAFTING_TABLE_MENU != null) {
+            event.register(NeoForgeModRegistries.STORAGE_CRAFTING_TABLE_MENU.get(), com.simplebuilding.client.gui.StorageCraftingScreen::new);
         }
     }
 

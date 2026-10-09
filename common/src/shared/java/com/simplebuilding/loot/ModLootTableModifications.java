@@ -68,6 +68,11 @@ public final class ModLootTableModifications {
                         EntityPredicate.Builder.entity().entityType(
                                 EntityTypePredicate.of(registry.lookupOrThrow(Registries.ENTITY_TYPE), victim))));
     }
+
+    /** The warden's own loot table (entities/warden). */
+    public static ResourceKey<LootTable> wardenTable() {
+        return EntityTypes.WARDEN.getDefaultLootTable().orElseThrow();
+    }
     // Kern-Chancen nach der Besitzerentscheidung 2026-09-28; Enderit auf 26.3 am 2026-10-05 angepasst.
     // Die historischen Zeitalter-Ziele sind Modellannahmen, keine gemessenen Beschaffungszeiten.
     // Aktuelle Werte und Quellen: docs/KERNE-SELTENHEIT.md, Stand 2026-10-05 und Abschnitt 5.3.
@@ -113,6 +118,15 @@ public final class ModLootTableModifications {
             editor.addPool(headPool(registry, EntityTypes.BREEZE, TweaksItems.BREEZE_HEAD));
             editor.addPool(headPool(registry, EntityTypes.SHULKER, TweaksItems.SHULKER_HEAD));
             editor.addPool(headPool(registry, EntityTypes.DROWNED, TweaksItems.DROWNED_HEAD));
+        }
+
+        // 0a. Waerter-Fuehler (Queue N24, McVersion.BREWING_EFFECTS): jeder Waerter laesst 1-2 fallen. Einzige Quelle der
+        // Brauzutat des Dunkelheitstranks, darum wie die Koepfe unabhaengig vom Schalter enableLootTableChanges.
+        if (McVersion.BREWING_EFFECTS && ModItems.WARDEN_TENDRIL != null && wardenTable().equals(key)) {
+            editor.addPool(LootPool.lootPool()
+                    .setRolls(LootNumbers.exactly(1))
+                    .add(LootItem.lootTableItem(ModItems.WARDEN_TENDRIL)
+                            .apply(SetItemCountFunction.setCount(LootNumbers.between(1, 2)))));
         }
 
         if (!Simplebuilding.getConfig().worldGen.enableLootTableChanges) {

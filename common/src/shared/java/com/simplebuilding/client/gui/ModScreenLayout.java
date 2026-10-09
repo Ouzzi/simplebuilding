@@ -32,6 +32,8 @@ public final class ModScreenLayout {
      * one row reads book, feather, shaft, tip, arrow, result.
      */
     public static final int FLETCHING_BOOK_X = 6, FLETCHING_BOOK_Y = 47, FLETCHING_BOOK_W = 20, FLETCHING_BOOK_H = 18;
+    /** Storage Crafting Table's recipe book button: Vanilla's crafting table spot (left of the grid's middle row). */
+    public static final int CRAFTING_BOOK_X = 5, CRAFTING_BOOK_Y = 34;
 
     /** A box relative to the screen image. */
     public record Box(int x, int y, int width, int height) {

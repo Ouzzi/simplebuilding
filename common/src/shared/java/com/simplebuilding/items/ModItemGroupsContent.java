@@ -375,6 +375,10 @@ public final class ModItemGroupsContent {
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             rows.add(CreativeTabLayout.Row.of("silent_dandelion", Items.GOLDEN_DANDELION, ModItems.SILENT_DANDELION, ModItems.YARN_BALL));
         }
+        if (com.simplebuilding.version.McVersion.BREWING_EFFECTS) {
+            // Waerter-Fuehler (Queue N24): Brauzutat, nach einer Luecke neben der vorigen Zeile.
+            rows.add(CreativeTabLayout.Row.besides("warden_tendril", ModItems.WARDEN_TENDRIL));
+        }
         rows.addAll(List.of(
                 // Vanilla-Diamant und -Netherit gehoeren zur Werkstoffkette (Besitzer 2026-10-01): je Material
                 // eine Zeile vom Rohstoff zum fertigen Werkstoff, der Lederfetzen hinter Netherit.
@@ -443,9 +447,7 @@ public final class ModItemGroupsContent {
         if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
             // Auto-Schmied direkt hinter den Kolben (2026-10-02); der Vanilla-Crafter gehoert nicht in Mod-Tabs.
             int pistons = rows.indexOf(rows.stream().filter(row -> row.name().equals("pistons")).findFirst().orElseThrow());
-            rows.add(pistons + 1, com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER
-                    ? CreativeTabLayout.Row.of("auto_smither", ModItems.AUTO_SMITHER, ModItems.AUTONOMOUS_CRAFTER)
-                    : CreativeTabLayout.Row.of("auto_smither", ModItems.AUTO_SMITHER));
+            rows.add(pistons + 1, autoSmitherRow());
         }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             // Endertruhe und Astral-Lager nach einer Luecke neben den Truhen (Audit 2026-10-02).
@@ -507,6 +509,18 @@ public final class ModItemGroupsContent {
      * Luecke, 4 Schmelzoefen; die 6 Kolben; 4 Buendel, Luecke, 4 Koecher; 4 Rucksaecke. Gestufte Truhen
      * gehoeren als eigene Zeile direkt hinter die Rucksaecke.
      */
+    /**
+     * Auto-Schmied, Autonomer Crafter (2026-10-09) und Werkbank mit Lager (2026-10-09, N26) in einer Werkstatt-Zeile.
+     * Oeffentlich, weil der Datenintegritaetstest dieselbe Zeile erwartet.
+     */
+    public static CreativeTabLayout.Row autoSmitherRow() {
+        List<net.minecraft.world.level.ItemLike> items = new java.util.ArrayList<>();
+        items.add(ModItems.AUTO_SMITHER);
+        if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) items.add(ModItems.AUTONOMOUS_CRAFTER);
+        if (com.simplebuilding.version.McVersion.STORAGE_CRAFTING_TABLE) items.add(ModItems.STORAGE_CRAFTING_TABLE);
+        return CreativeTabLayout.Row.of("auto_smither", items.toArray(net.minecraft.world.level.ItemLike[]::new));
+    }
+
     private static List<CreativeTabLayout.Row> baseFunctionalRows() {
         return List.of(
                 CreativeTabLayout.Row.of("hoppers_and_furnaces",

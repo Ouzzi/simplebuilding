@@ -83,6 +83,8 @@ public class SimplebuildingClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_BUNDLE_BE, com.simplebuilding.client.render.PlacedBundleRenderer::new);
         // Kleinteile auf einem Fleck: liegende Teile als Platten, Eier als 3D-Ei.
+        if (com.simplebuilding.blocks.entity.ModBlockEntities.STORAGE_CRAFTING_TABLE_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                com.simplebuilding.blocks.entity.ModBlockEntities.STORAGE_CRAFTING_TABLE_BE, com.simplebuilding.client.render.StorageCraftingTableRenderer::new);
         if (com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_SMALL_PARTS_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_SMALL_PARTS_BE, com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
         if (com.simplebuilding.blocks.entity.ModBlockEntities.CHESS_PIECES_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
@@ -248,6 +250,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         }
         if (ModScreenHandlers.AUTONOMOUS_CRAFTER_MENU != null) {
             MenuScreens.register(ModScreenHandlers.AUTONOMOUS_CRAFTER_MENU, com.simplebuilding.client.gui.AutonomousCrafterScreen::new);
+        }
+        if (ModScreenHandlers.STORAGE_CRAFTING_TABLE_MENU != null) {
+            MenuScreens.register(ModScreenHandlers.STORAGE_CRAFTING_TABLE_MENU, com.simplebuilding.client.gui.StorageCraftingScreen::new);
         }
 
         // --- NETZWERK REGISTRIERUNG CLIENT-SEITE ---
