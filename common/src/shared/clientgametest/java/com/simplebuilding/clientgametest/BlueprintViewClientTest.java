@@ -88,6 +88,8 @@ public final class BlueprintViewClientTest {
                 client -> "code '" + code(client) + "' never produced a model, so the preview would "
                         + "draw its empty-view text and the test could not prove anything. Problems: "
                         + problems(client));
+        script.idle("let the preview settle for the screenshot", 5);
+        script.shot("blueprint-editor-layout");
 
         Later<double[]> centre = new Later<>("the window position of the preview centre");
         Later<double[]> top = new Later<>("the window position of the preview's top row");
