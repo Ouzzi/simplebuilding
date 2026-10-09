@@ -233,50 +233,6 @@
             "minecraft:polished_tuff_stairs"
           ],
           [
-            "simplebuilding:hollow_acacia_log",
-            "minecraft:acacia_log"
-          ],
-          [
-            "simplebuilding:hollow_bamboo_block",
-            "minecraft:bamboo_block"
-          ],
-          [
-            "simplebuilding:hollow_birch_log",
-            "minecraft:birch_log"
-          ],
-          [
-            "simplebuilding:hollow_cherry_log",
-            "minecraft:cherry_log"
-          ],
-          [
-            "simplebuilding:hollow_crimson_stem",
-            "minecraft:crimson_stem"
-          ],
-          [
-            "simplebuilding:hollow_dark_oak_log",
-            "minecraft:dark_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_jungle_log",
-            "minecraft:jungle_log"
-          ],
-          [
-            "simplebuilding:hollow_mangrove_log",
-            "minecraft:mangrove_log"
-          ],
-          [
-            "simplebuilding:hollow_oak_log",
-            "minecraft:oak_log"
-          ],
-          [
-            "simplebuilding:hollow_pale_oak_log",
-            "minecraft:pale_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_spruce_log",
-            "minecraft:spruce_log"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -323,17 +279,9 @@
           [
             "simplebuilding:hollow_stripped_warped_stem",
             "minecraft:stripped_warped_stem"
-          ],
-          [
-            "simplebuilding:hollow_warped_stem",
-            "minecraft:warped_stem"
           ]
         ],
         "forward": [
-          [
-            "minecraft:acacia_log",
-            "simplebuilding:hollow_acacia_log"
-          ],
           [
             "minecraft:acacia_planks",
             "minecraft:acacia_stairs"
@@ -341,10 +289,6 @@
           [
             "minecraft:acacia_stairs",
             "minecraft:acacia_slab"
-          ],
-          [
-            "minecraft:bamboo_block",
-            "simplebuilding:hollow_bamboo_block"
           ],
           [
             "minecraft:bamboo_planks",
@@ -355,20 +299,12 @@
             "minecraft:bamboo_slab"
           ],
           [
-            "minecraft:birch_log",
-            "simplebuilding:hollow_birch_log"
-          ],
-          [
             "minecraft:birch_planks",
             "minecraft:birch_stairs"
           ],
           [
             "minecraft:birch_stairs",
             "minecraft:birch_slab"
-          ],
-          [
-            "minecraft:cherry_log",
-            "simplebuilding:hollow_cherry_log"
           ],
           [
             "minecraft:cherry_planks",
@@ -381,10 +317,6 @@
           [
             "minecraft:chiseled_stone_bricks",
             "minecraft:stone_bricks"
-          ],
-          [
-            "minecraft:crimson_stem",
-            "simplebuilding:hollow_crimson_stem"
           ],
           [
             "minecraft:cut_red_sandstone",
@@ -403,20 +335,12 @@
             "minecraft:smooth_sandstone_slab"
           ],
           [
-            "minecraft:dark_oak_log",
-            "simplebuilding:hollow_dark_oak_log"
-          ],
-          [
             "minecraft:dark_oak_planks",
             "minecraft:dark_oak_stairs"
           ],
           [
             "minecraft:dark_oak_stairs",
             "minecraft:dark_oak_slab"
-          ],
-          [
-            "minecraft:jungle_log",
-            "simplebuilding:hollow_jungle_log"
           ],
           [
             "minecraft:jungle_planks",
@@ -427,10 +351,6 @@
             "minecraft:jungle_slab"
           ],
           [
-            "minecraft:mangrove_log",
-            "simplebuilding:hollow_mangrove_log"
-          ],
-          [
             "minecraft:mangrove_planks",
             "minecraft:mangrove_stairs"
           ],
@@ -439,20 +359,12 @@
             "minecraft:mangrove_slab"
           ],
           [
-            "minecraft:oak_log",
-            "simplebuilding:hollow_oak_log"
-          ],
-          [
             "minecraft:oak_planks",
             "minecraft:oak_stairs"
           ],
           [
             "minecraft:oak_stairs",
             "minecraft:oak_slab"
-          ],
-          [
-            "minecraft:pale_oak_log",
-            "simplebuilding:hollow_pale_oak_log"
           ],
           [
             "minecraft:pale_oak_planks",
@@ -547,10 +459,6 @@
             "minecraft:stone_slab"
           ],
           [
-            "minecraft:spruce_log",
-            "simplebuilding:hollow_spruce_log"
-          ],
-          [
             "minecraft:spruce_planks",
             "minecraft:spruce_stairs"
           ],
@@ -625,10 +533,6 @@
           [
             "minecraft:stripped_warped_stem",
             "simplebuilding:hollow_stripped_warped_stem"
-          ],
-          [
-            "minecraft:warped_stem",
-            "simplebuilding:hollow_warped_stem"
           ]
         ],
         "touchBackward": [
@@ -957,50 +861,6 @@
             "minecraft:warped_planks"
           ],
           [
-            "simplebuilding:hollow_acacia_log",
-            "minecraft:acacia_log"
-          ],
-          [
-            "simplebuilding:hollow_bamboo_block",
-            "minecraft:bamboo_block"
-          ],
-          [
-            "simplebuilding:hollow_birch_log",
-            "minecraft:birch_log"
-          ],
-          [
-            "simplebuilding:hollow_cherry_log",
-            "minecraft:cherry_log"
-          ],
-          [
-            "simplebuilding:hollow_crimson_stem",
-            "minecraft:crimson_stem"
-          ],
-          [
-            "simplebuilding:hollow_dark_oak_log",
-            "minecraft:dark_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_jungle_log",
-            "minecraft:jungle_log"
-          ],
-          [
-            "simplebuilding:hollow_mangrove_log",
-            "minecraft:mangrove_log"
-          ],
-          [
-            "simplebuilding:hollow_oak_log",
-            "minecraft:oak_log"
-          ],
-          [
-            "simplebuilding:hollow_pale_oak_log",
-            "minecraft:pale_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_spruce_log",
-            "minecraft:spruce_log"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -1047,10 +907,6 @@
           [
             "simplebuilding:hollow_stripped_warped_stem",
             "minecraft:stripped_warped_stem"
-          ],
-          [
-            "simplebuilding:hollow_warped_stem",
-            "minecraft:warped_stem"
           ]
         ],
         "touchForward": [
@@ -1069,10 +925,6 @@
           [
             "minecraft:acacia_wood",
             "minecraft:stripped_acacia_wood"
-          ],
-          [
-            "minecraft:bamboo_block",
-            "simplebuilding:hollow_bamboo_block"
           ],
           [
             "minecraft:bamboo_planks",
@@ -1149,10 +1001,6 @@
           [
             "minecraft:crimson_stairs",
             "minecraft:crimson_slab"
-          ],
-          [
-            "minecraft:crimson_stem",
-            "simplebuilding:hollow_crimson_stem"
           ],
           [
             "minecraft:cut_red_sandstone",
@@ -1433,10 +1281,6 @@
           [
             "minecraft:warped_stairs",
             "minecraft:warped_slab"
-          ],
-          [
-            "minecraft:warped_stem",
-            "simplebuilding:hollow_warped_stem"
           ]
         ]
       },
@@ -1791,50 +1635,6 @@
             "minecraft:polished_tuff_stairs"
           ],
           [
-            "simplebuilding:hollow_acacia_log",
-            "minecraft:acacia_log"
-          ],
-          [
-            "simplebuilding:hollow_bamboo_block",
-            "minecraft:bamboo_block"
-          ],
-          [
-            "simplebuilding:hollow_birch_log",
-            "minecraft:birch_log"
-          ],
-          [
-            "simplebuilding:hollow_cherry_log",
-            "minecraft:cherry_log"
-          ],
-          [
-            "simplebuilding:hollow_crimson_stem",
-            "minecraft:crimson_stem"
-          ],
-          [
-            "simplebuilding:hollow_dark_oak_log",
-            "minecraft:dark_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_jungle_log",
-            "minecraft:jungle_log"
-          ],
-          [
-            "simplebuilding:hollow_mangrove_log",
-            "minecraft:mangrove_log"
-          ],
-          [
-            "simplebuilding:hollow_oak_log",
-            "minecraft:oak_log"
-          ],
-          [
-            "simplebuilding:hollow_pale_oak_log",
-            "minecraft:pale_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_spruce_log",
-            "minecraft:spruce_log"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -1881,17 +1681,9 @@
           [
             "simplebuilding:hollow_stripped_warped_stem",
             "minecraft:stripped_warped_stem"
-          ],
-          [
-            "simplebuilding:hollow_warped_stem",
-            "minecraft:warped_stem"
           ]
         ],
         "forward": [
-          [
-            "minecraft:acacia_log",
-            "simplebuilding:hollow_acacia_log"
-          ],
           [
             "minecraft:acacia_planks",
             "minecraft:acacia_stairs"
@@ -1899,10 +1691,6 @@
           [
             "minecraft:acacia_stairs",
             "minecraft:acacia_slab"
-          ],
-          [
-            "minecraft:bamboo_block",
-            "simplebuilding:hollow_bamboo_block"
           ],
           [
             "minecraft:bamboo_planks",
@@ -1915,10 +1703,6 @@
           [
             "minecraft:basalt",
             "minecraft:smooth_basalt"
-          ],
-          [
-            "minecraft:birch_log",
-            "simplebuilding:hollow_birch_log"
           ],
           [
             "minecraft:birch_planks",
@@ -1939,10 +1723,6 @@
           [
             "minecraft:blackstone_stairs",
             "minecraft:polished_blackstone_brick_stairs"
-          ],
-          [
-            "minecraft:cherry_log",
-            "simplebuilding:hollow_cherry_log"
           ],
           [
             "minecraft:cherry_planks",
@@ -1985,10 +1765,6 @@
             "minecraft:cobblestone"
           ],
           [
-            "minecraft:crimson_stem",
-            "simplebuilding:hollow_crimson_stem"
-          ],
-          [
             "minecraft:cut_red_sandstone",
             "minecraft:red_sandstone"
           ],
@@ -2003,10 +1779,6 @@
           [
             "minecraft:cut_sandstone_slab",
             "minecraft:smooth_sandstone_slab"
-          ],
-          [
-            "minecraft:dark_oak_log",
-            "simplebuilding:hollow_dark_oak_log"
           ],
           [
             "minecraft:dark_oak_planks",
@@ -2045,20 +1817,12 @@
             "minecraft:cracked_deepslate_tiles"
           ],
           [
-            "minecraft:jungle_log",
-            "simplebuilding:hollow_jungle_log"
-          ],
-          [
             "minecraft:jungle_planks",
             "minecraft:jungle_stairs"
           ],
           [
             "minecraft:jungle_stairs",
             "minecraft:jungle_slab"
-          ],
-          [
-            "minecraft:mangrove_log",
-            "simplebuilding:hollow_mangrove_log"
           ],
           [
             "minecraft:mangrove_planks",
@@ -2069,20 +1833,12 @@
             "minecraft:mangrove_slab"
           ],
           [
-            "minecraft:oak_log",
-            "simplebuilding:hollow_oak_log"
-          ],
-          [
             "minecraft:oak_planks",
             "minecraft:oak_stairs"
           ],
           [
             "minecraft:oak_stairs",
             "minecraft:oak_slab"
-          ],
-          [
-            "minecraft:pale_oak_log",
-            "simplebuilding:hollow_pale_oak_log"
           ],
           [
             "minecraft:pale_oak_planks",
@@ -2229,10 +1985,6 @@
             "minecraft:stone_slab"
           ],
           [
-            "minecraft:spruce_log",
-            "simplebuilding:hollow_spruce_log"
-          ],
-          [
             "minecraft:spruce_planks",
             "minecraft:spruce_stairs"
           ],
@@ -2327,10 +2079,6 @@
           [
             "minecraft:tuff_stairs",
             "minecraft:tuff_brick_stairs"
-          ],
-          [
-            "minecraft:warped_stem",
-            "simplebuilding:hollow_warped_stem"
           ]
         ],
         "touchBackward": [
@@ -2879,50 +2627,6 @@
             "minecraft:warped_planks"
           ],
           [
-            "simplebuilding:hollow_acacia_log",
-            "minecraft:acacia_log"
-          ],
-          [
-            "simplebuilding:hollow_bamboo_block",
-            "minecraft:bamboo_block"
-          ],
-          [
-            "simplebuilding:hollow_birch_log",
-            "minecraft:birch_log"
-          ],
-          [
-            "simplebuilding:hollow_cherry_log",
-            "minecraft:cherry_log"
-          ],
-          [
-            "simplebuilding:hollow_crimson_stem",
-            "minecraft:crimson_stem"
-          ],
-          [
-            "simplebuilding:hollow_dark_oak_log",
-            "minecraft:dark_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_jungle_log",
-            "minecraft:jungle_log"
-          ],
-          [
-            "simplebuilding:hollow_mangrove_log",
-            "minecraft:mangrove_log"
-          ],
-          [
-            "simplebuilding:hollow_oak_log",
-            "minecraft:oak_log"
-          ],
-          [
-            "simplebuilding:hollow_pale_oak_log",
-            "minecraft:pale_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_spruce_log",
-            "minecraft:spruce_log"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -2969,10 +2673,6 @@
           [
             "simplebuilding:hollow_stripped_warped_stem",
             "minecraft:stripped_warped_stem"
-          ],
-          [
-            "simplebuilding:hollow_warped_stem",
-            "minecraft:warped_stem"
           ]
         ],
         "touchForward": [
@@ -2991,10 +2691,6 @@
           [
             "minecraft:acacia_wood",
             "minecraft:stripped_acacia_wood"
-          ],
-          [
-            "minecraft:bamboo_block",
-            "simplebuilding:hollow_bamboo_block"
           ],
           [
             "minecraft:bamboo_planks",
@@ -3131,10 +2827,6 @@
           [
             "minecraft:crimson_stairs",
             "minecraft:crimson_slab"
-          ],
-          [
-            "minecraft:crimson_stem",
-            "simplebuilding:hollow_crimson_stem"
           ],
           [
             "minecraft:cut_copper",
@@ -3575,10 +3267,6 @@
           [
             "minecraft:warped_stairs",
             "minecraft:warped_slab"
-          ],
-          [
-            "minecraft:warped_stem",
-            "simplebuilding:hollow_warped_stem"
           ]
         ]
       },
@@ -4041,50 +3729,6 @@
             "simplebuilding:crystalline_nihilith"
           ],
           [
-            "simplebuilding:hollow_acacia_log",
-            "minecraft:acacia_log"
-          ],
-          [
-            "simplebuilding:hollow_bamboo_block",
-            "minecraft:bamboo_block"
-          ],
-          [
-            "simplebuilding:hollow_birch_log",
-            "minecraft:birch_log"
-          ],
-          [
-            "simplebuilding:hollow_cherry_log",
-            "minecraft:cherry_log"
-          ],
-          [
-            "simplebuilding:hollow_crimson_stem",
-            "minecraft:crimson_stem"
-          ],
-          [
-            "simplebuilding:hollow_dark_oak_log",
-            "minecraft:dark_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_jungle_log",
-            "minecraft:jungle_log"
-          ],
-          [
-            "simplebuilding:hollow_mangrove_log",
-            "minecraft:mangrove_log"
-          ],
-          [
-            "simplebuilding:hollow_oak_log",
-            "minecraft:oak_log"
-          ],
-          [
-            "simplebuilding:hollow_pale_oak_log",
-            "minecraft:pale_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_spruce_log",
-            "minecraft:spruce_log"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -4133,10 +3777,6 @@
             "minecraft:stripped_warped_stem"
           ],
           [
-            "simplebuilding:hollow_warped_stem",
-            "minecraft:warped_stem"
-          ],
-          [
             "simplebuilding:layered_astralit",
             "simplebuilding:crystalline_astralit"
           ],
@@ -4175,20 +3815,12 @@
         ],
         "forward": [
           [
-            "minecraft:acacia_log",
-            "simplebuilding:hollow_acacia_log"
-          ],
-          [
             "minecraft:acacia_planks",
             "minecraft:acacia_stairs"
           ],
           [
             "minecraft:acacia_stairs",
             "minecraft:acacia_slab"
-          ],
-          [
-            "minecraft:bamboo_block",
-            "simplebuilding:hollow_bamboo_block"
           ],
           [
             "minecraft:bamboo_planks",
@@ -4201,10 +3833,6 @@
           [
             "minecraft:basalt",
             "minecraft:smooth_basalt"
-          ],
-          [
-            "minecraft:birch_log",
-            "simplebuilding:hollow_birch_log"
           ],
           [
             "minecraft:birch_planks",
@@ -4225,10 +3853,6 @@
           [
             "minecraft:blackstone_stairs",
             "minecraft:polished_blackstone_brick_stairs"
-          ],
-          [
-            "minecraft:cherry_log",
-            "simplebuilding:hollow_cherry_log"
           ],
           [
             "minecraft:cherry_planks",
@@ -4287,10 +3911,6 @@
             "minecraft:cobblestone"
           ],
           [
-            "minecraft:crimson_stem",
-            "simplebuilding:hollow_crimson_stem"
-          ],
-          [
             "minecraft:cut_red_sandstone",
             "minecraft:red_sandstone"
           ],
@@ -4305,10 +3925,6 @@
           [
             "minecraft:cut_sandstone_slab",
             "minecraft:smooth_sandstone_slab"
-          ],
-          [
-            "minecraft:dark_oak_log",
-            "simplebuilding:hollow_dark_oak_log"
           ],
           [
             "minecraft:dark_oak_planks",
@@ -4347,20 +3963,12 @@
             "minecraft:cracked_deepslate_tiles"
           ],
           [
-            "minecraft:jungle_log",
-            "simplebuilding:hollow_jungle_log"
-          ],
-          [
             "minecraft:jungle_planks",
             "minecraft:jungle_stairs"
           ],
           [
             "minecraft:jungle_stairs",
             "minecraft:jungle_slab"
-          ],
-          [
-            "minecraft:mangrove_log",
-            "simplebuilding:hollow_mangrove_log"
           ],
           [
             "minecraft:mangrove_planks",
@@ -4379,20 +3987,12 @@
             "minecraft:nether_bricks"
           ],
           [
-            "minecraft:oak_log",
-            "simplebuilding:hollow_oak_log"
-          ],
-          [
             "minecraft:oak_planks",
             "minecraft:oak_stairs"
           ],
           [
             "minecraft:oak_stairs",
             "minecraft:oak_slab"
-          ],
-          [
-            "minecraft:pale_oak_log",
-            "simplebuilding:hollow_pale_oak_log"
           ],
           [
             "minecraft:pale_oak_planks",
@@ -4543,10 +4143,6 @@
             "minecraft:stone_slab"
           ],
           [
-            "minecraft:spruce_log",
-            "simplebuilding:hollow_spruce_log"
-          ],
-          [
             "minecraft:spruce_planks",
             "minecraft:spruce_stairs"
           ],
@@ -4641,10 +4237,6 @@
           [
             "minecraft:tuff_stairs",
             "minecraft:tuff_brick_stairs"
-          ],
-          [
-            "minecraft:warped_stem",
-            "simplebuilding:hollow_warped_stem"
           ],
           [
             "simplebuilding:astralit_block",
@@ -5501,50 +5093,6 @@
             "simplebuilding:crystalline_nihilith"
           ],
           [
-            "simplebuilding:hollow_acacia_log",
-            "minecraft:acacia_log"
-          ],
-          [
-            "simplebuilding:hollow_bamboo_block",
-            "minecraft:bamboo_block"
-          ],
-          [
-            "simplebuilding:hollow_birch_log",
-            "minecraft:birch_log"
-          ],
-          [
-            "simplebuilding:hollow_cherry_log",
-            "minecraft:cherry_log"
-          ],
-          [
-            "simplebuilding:hollow_crimson_stem",
-            "minecraft:crimson_stem"
-          ],
-          [
-            "simplebuilding:hollow_dark_oak_log",
-            "minecraft:dark_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_jungle_log",
-            "minecraft:jungle_log"
-          ],
-          [
-            "simplebuilding:hollow_mangrove_log",
-            "minecraft:mangrove_log"
-          ],
-          [
-            "simplebuilding:hollow_oak_log",
-            "minecraft:oak_log"
-          ],
-          [
-            "simplebuilding:hollow_pale_oak_log",
-            "minecraft:pale_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_spruce_log",
-            "minecraft:spruce_log"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -5591,10 +5139,6 @@
           [
             "simplebuilding:hollow_stripped_warped_stem",
             "minecraft:stripped_warped_stem"
-          ],
-          [
-            "simplebuilding:hollow_warped_stem",
-            "minecraft:warped_stem"
           ],
           [
             "simplebuilding:layered_astralit",
@@ -5649,10 +5193,6 @@
           [
             "minecraft:acacia_wood",
             "minecraft:stripped_acacia_wood"
-          ],
-          [
-            "minecraft:bamboo_block",
-            "simplebuilding:hollow_bamboo_block"
           ],
           [
             "minecraft:bamboo_planks",
@@ -6839,50 +6379,6 @@
             "minecraft:polished_tuff_stairs"
           ],
           [
-            "simplebuilding:hollow_acacia_log",
-            "minecraft:acacia_log"
-          ],
-          [
-            "simplebuilding:hollow_bamboo_block",
-            "minecraft:bamboo_block"
-          ],
-          [
-            "simplebuilding:hollow_birch_log",
-            "minecraft:birch_log"
-          ],
-          [
-            "simplebuilding:hollow_cherry_log",
-            "minecraft:cherry_log"
-          ],
-          [
-            "simplebuilding:hollow_crimson_stem",
-            "minecraft:crimson_stem"
-          ],
-          [
-            "simplebuilding:hollow_dark_oak_log",
-            "minecraft:dark_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_jungle_log",
-            "minecraft:jungle_log"
-          ],
-          [
-            "simplebuilding:hollow_mangrove_log",
-            "minecraft:mangrove_log"
-          ],
-          [
-            "simplebuilding:hollow_oak_log",
-            "minecraft:oak_log"
-          ],
-          [
-            "simplebuilding:hollow_pale_oak_log",
-            "minecraft:pale_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_spruce_log",
-            "minecraft:spruce_log"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -6929,17 +6425,9 @@
           [
             "simplebuilding:hollow_stripped_warped_stem",
             "minecraft:stripped_warped_stem"
-          ],
-          [
-            "simplebuilding:hollow_warped_stem",
-            "minecraft:warped_stem"
           ]
         ],
         "forward": [
-          [
-            "minecraft:acacia_log",
-            "simplebuilding:hollow_acacia_log"
-          ],
           [
             "minecraft:acacia_planks",
             "minecraft:acacia_stairs"
@@ -6947,10 +6435,6 @@
           [
             "minecraft:acacia_stairs",
             "minecraft:acacia_slab"
-          ],
-          [
-            "minecraft:bamboo_block",
-            "simplebuilding:hollow_bamboo_block"
           ],
           [
             "minecraft:bamboo_planks",
@@ -6963,10 +6447,6 @@
           [
             "minecraft:basalt",
             "minecraft:smooth_basalt"
-          ],
-          [
-            "minecraft:birch_log",
-            "simplebuilding:hollow_birch_log"
           ],
           [
             "minecraft:birch_planks",
@@ -6987,10 +6467,6 @@
           [
             "minecraft:blackstone_stairs",
             "minecraft:polished_blackstone_brick_stairs"
-          ],
-          [
-            "minecraft:cherry_log",
-            "simplebuilding:hollow_cherry_log"
           ],
           [
             "minecraft:cherry_planks",
@@ -7049,10 +6525,6 @@
             "minecraft:cobblestone"
           ],
           [
-            "minecraft:crimson_stem",
-            "simplebuilding:hollow_crimson_stem"
-          ],
-          [
             "minecraft:cut_red_sandstone",
             "minecraft:red_sandstone"
           ],
@@ -7067,10 +6539,6 @@
           [
             "minecraft:cut_sandstone_slab",
             "minecraft:smooth_sandstone_slab"
-          ],
-          [
-            "minecraft:dark_oak_log",
-            "simplebuilding:hollow_dark_oak_log"
           ],
           [
             "minecraft:dark_oak_planks",
@@ -7109,20 +6577,12 @@
             "minecraft:cracked_deepslate_tiles"
           ],
           [
-            "minecraft:jungle_log",
-            "simplebuilding:hollow_jungle_log"
-          ],
-          [
             "minecraft:jungle_planks",
             "minecraft:jungle_stairs"
           ],
           [
             "minecraft:jungle_stairs",
             "minecraft:jungle_slab"
-          ],
-          [
-            "minecraft:mangrove_log",
-            "simplebuilding:hollow_mangrove_log"
           ],
           [
             "minecraft:mangrove_planks",
@@ -7141,20 +6601,12 @@
             "minecraft:nether_bricks"
           ],
           [
-            "minecraft:oak_log",
-            "simplebuilding:hollow_oak_log"
-          ],
-          [
             "minecraft:oak_planks",
             "minecraft:oak_stairs"
           ],
           [
             "minecraft:oak_stairs",
             "minecraft:oak_slab"
-          ],
-          [
-            "minecraft:pale_oak_log",
-            "simplebuilding:hollow_pale_oak_log"
           ],
           [
             "minecraft:pale_oak_planks",
@@ -7305,10 +6757,6 @@
             "minecraft:stone_slab"
           ],
           [
-            "minecraft:spruce_log",
-            "simplebuilding:hollow_spruce_log"
-          ],
-          [
             "minecraft:spruce_planks",
             "minecraft:spruce_stairs"
           ],
@@ -7403,10 +6851,6 @@
           [
             "minecraft:tuff_stairs",
             "minecraft:tuff_brick_stairs"
-          ],
-          [
-            "minecraft:warped_stem",
-            "simplebuilding:hollow_warped_stem"
           ]
         ],
         "touchBackward": [
@@ -8067,50 +7511,6 @@
             "minecraft:yellow_concrete"
           ],
           [
-            "simplebuilding:hollow_acacia_log",
-            "minecraft:acacia_log"
-          ],
-          [
-            "simplebuilding:hollow_bamboo_block",
-            "minecraft:bamboo_block"
-          ],
-          [
-            "simplebuilding:hollow_birch_log",
-            "minecraft:birch_log"
-          ],
-          [
-            "simplebuilding:hollow_cherry_log",
-            "minecraft:cherry_log"
-          ],
-          [
-            "simplebuilding:hollow_crimson_stem",
-            "minecraft:crimson_stem"
-          ],
-          [
-            "simplebuilding:hollow_dark_oak_log",
-            "minecraft:dark_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_jungle_log",
-            "minecraft:jungle_log"
-          ],
-          [
-            "simplebuilding:hollow_mangrove_log",
-            "minecraft:mangrove_log"
-          ],
-          [
-            "simplebuilding:hollow_oak_log",
-            "minecraft:oak_log"
-          ],
-          [
-            "simplebuilding:hollow_pale_oak_log",
-            "minecraft:pale_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_spruce_log",
-            "minecraft:spruce_log"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -8157,10 +7557,6 @@
           [
             "simplebuilding:hollow_stripped_warped_stem",
             "minecraft:stripped_warped_stem"
-          ],
-          [
-            "simplebuilding:hollow_warped_stem",
-            "minecraft:warped_stem"
           ]
         ],
         "touchForward": [
@@ -8179,10 +7575,6 @@
           [
             "minecraft:acacia_wood",
             "minecraft:stripped_acacia_wood"
-          ],
-          [
-            "minecraft:bamboo_block",
-            "simplebuilding:hollow_bamboo_block"
           ],
           [
             "minecraft:bamboo_planks",
@@ -8937,50 +8329,6 @@
             "minecraft:smooth_stone_slab"
           ],
           [
-            "simplebuilding:hollow_acacia_log",
-            "minecraft:acacia_log"
-          ],
-          [
-            "simplebuilding:hollow_bamboo_block",
-            "minecraft:bamboo_block"
-          ],
-          [
-            "simplebuilding:hollow_birch_log",
-            "minecraft:birch_log"
-          ],
-          [
-            "simplebuilding:hollow_cherry_log",
-            "minecraft:cherry_log"
-          ],
-          [
-            "simplebuilding:hollow_crimson_stem",
-            "minecraft:crimson_stem"
-          ],
-          [
-            "simplebuilding:hollow_dark_oak_log",
-            "minecraft:dark_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_jungle_log",
-            "minecraft:jungle_log"
-          ],
-          [
-            "simplebuilding:hollow_mangrove_log",
-            "minecraft:mangrove_log"
-          ],
-          [
-            "simplebuilding:hollow_oak_log",
-            "minecraft:oak_log"
-          ],
-          [
-            "simplebuilding:hollow_pale_oak_log",
-            "minecraft:pale_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_spruce_log",
-            "minecraft:spruce_log"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -9027,33 +8375,9 @@
           [
             "simplebuilding:hollow_stripped_warped_stem",
             "minecraft:stripped_warped_stem"
-          ],
-          [
-            "simplebuilding:hollow_warped_stem",
-            "minecraft:warped_stem"
           ]
         ],
         "forward": [
-          [
-            "minecraft:acacia_log",
-            "simplebuilding:hollow_acacia_log"
-          ],
-          [
-            "minecraft:bamboo_block",
-            "simplebuilding:hollow_bamboo_block"
-          ],
-          [
-            "minecraft:birch_log",
-            "simplebuilding:hollow_birch_log"
-          ],
-          [
-            "minecraft:cherry_log",
-            "simplebuilding:hollow_cherry_log"
-          ],
-          [
-            "minecraft:crimson_stem",
-            "simplebuilding:hollow_crimson_stem"
-          ],
           [
             "minecraft:cut_red_sandstone",
             "minecraft:red_sandstone"
@@ -9069,26 +8393,6 @@
           [
             "minecraft:cut_sandstone_slab",
             "minecraft:smooth_sandstone_slab"
-          ],
-          [
-            "minecraft:dark_oak_log",
-            "simplebuilding:hollow_dark_oak_log"
-          ],
-          [
-            "minecraft:jungle_log",
-            "simplebuilding:hollow_jungle_log"
-          ],
-          [
-            "minecraft:mangrove_log",
-            "simplebuilding:hollow_mangrove_log"
-          ],
-          [
-            "minecraft:oak_log",
-            "simplebuilding:hollow_oak_log"
-          ],
-          [
-            "minecraft:pale_oak_log",
-            "simplebuilding:hollow_pale_oak_log"
           ],
           [
             "minecraft:red_sandstone",
@@ -9125,10 +8429,6 @@
           [
             "minecraft:smooth_stone_slab",
             "minecraft:stone_slab"
-          ],
-          [
-            "minecraft:spruce_log",
-            "simplebuilding:hollow_spruce_log"
           ],
           [
             "minecraft:stone",
@@ -9185,10 +8485,6 @@
           [
             "minecraft:stripped_warped_stem",
             "simplebuilding:hollow_stripped_warped_stem"
-          ],
-          [
-            "minecraft:warped_stem",
-            "simplebuilding:hollow_warped_stem"
           ]
         ],
         "touchBackward": [
@@ -9309,50 +8605,6 @@
             "minecraft:spruce_log"
           ],
           [
-            "simplebuilding:hollow_acacia_log",
-            "minecraft:acacia_log"
-          ],
-          [
-            "simplebuilding:hollow_bamboo_block",
-            "minecraft:bamboo_block"
-          ],
-          [
-            "simplebuilding:hollow_birch_log",
-            "minecraft:birch_log"
-          ],
-          [
-            "simplebuilding:hollow_cherry_log",
-            "minecraft:cherry_log"
-          ],
-          [
-            "simplebuilding:hollow_crimson_stem",
-            "minecraft:crimson_stem"
-          ],
-          [
-            "simplebuilding:hollow_dark_oak_log",
-            "minecraft:dark_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_jungle_log",
-            "minecraft:jungle_log"
-          ],
-          [
-            "simplebuilding:hollow_mangrove_log",
-            "minecraft:mangrove_log"
-          ],
-          [
-            "simplebuilding:hollow_oak_log",
-            "minecraft:oak_log"
-          ],
-          [
-            "simplebuilding:hollow_pale_oak_log",
-            "minecraft:pale_oak_log"
-          ],
-          [
-            "simplebuilding:hollow_spruce_log",
-            "minecraft:spruce_log"
-          ],
-          [
             "simplebuilding:hollow_stripped_acacia_log",
             "minecraft:stripped_acacia_log"
           ],
@@ -9399,20 +8651,12 @@
           [
             "simplebuilding:hollow_stripped_warped_stem",
             "minecraft:stripped_warped_stem"
-          ],
-          [
-            "simplebuilding:hollow_warped_stem",
-            "minecraft:warped_stem"
           ]
         ],
         "touchForward": [
           [
             "minecraft:acacia_log",
             "minecraft:stripped_acacia_log"
-          ],
-          [
-            "minecraft:bamboo_block",
-            "simplebuilding:hollow_bamboo_block"
           ],
           [
             "minecraft:birch_log",
@@ -9433,10 +8677,6 @@
           [
             "minecraft:cobblestone_stairs",
             "minecraft:mossy_cobblestone_stairs"
-          ],
-          [
-            "minecraft:crimson_stem",
-            "simplebuilding:hollow_crimson_stem"
           ],
           [
             "minecraft:cut_red_sandstone",
@@ -9577,10 +8817,6 @@
           [
             "minecraft:stripped_warped_stem",
             "simplebuilding:hollow_stripped_warped_stem"
-          ],
-          [
-            "minecraft:warped_stem",
-            "simplebuilding:hollow_warped_stem"
           ]
         ]
       }
