@@ -72,6 +72,8 @@
     "VillagerTradePriceMixin",
     "ChestBlockMixin",
     "ShulkerBoxBlockMixin",
+    "ShulkerOpenStateMixin",
+    "ShulkerOpenComponentsMixin",
     "CompoundContainerAccessor",
     "DisplayStrikeAccessor",
     "ItemDisplayStrikeAccessor",
