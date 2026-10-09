@@ -6838,7 +6838,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:carved_bamboo_block",
       "name": {
-        "en_us": "Carved Bamboo Block",
+        "en_us": "Block of Carved Bamboo",
         "de_de": "Geschnitzter Bambusblock"
       },
       "texture": null,
@@ -14643,7 +14643,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -14652,7 +14652,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -14664,7 +14664,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:hollow_bamboo_block",
       "name": {
-        "en_us": "Hollow Bamboo Block",
+        "en_us": "Block of Hollow Bamboo",
         "de_de": "Ausgehöhlter Bambusblock"
       },
       "texture": null,
@@ -14688,7 +14688,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -14697,7 +14697,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -14733,7 +14733,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -14742,7 +14742,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -14778,7 +14778,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -14787,7 +14787,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -14823,7 +14823,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -14832,7 +14832,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -14868,7 +14868,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -14877,7 +14877,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -14913,7 +14913,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -14922,7 +14922,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -14958,7 +14958,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -14967,7 +14967,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15003,7 +15003,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15012,7 +15012,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15048,7 +15048,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15057,7 +15057,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15093,7 +15093,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15102,7 +15102,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15138,7 +15138,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15147,7 +15147,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15159,7 +15159,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:hollow_stripped_bamboo_block",
       "name": {
-        "en_us": "Hollow Stripped Bamboo Block",
+        "en_us": "Block of Hollow Stripped Bamboo",
         "de_de": "Ausgehöhlter geschälter Bambusblock"
       },
       "texture": null,
@@ -15183,7 +15183,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15192,7 +15192,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15228,7 +15228,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15237,7 +15237,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15273,7 +15273,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15282,7 +15282,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15318,7 +15318,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15327,7 +15327,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15363,7 +15363,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15372,7 +15372,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15408,7 +15408,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15417,7 +15417,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15453,7 +15453,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15462,7 +15462,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15498,7 +15498,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15507,7 +15507,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15543,7 +15543,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15552,7 +15552,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15588,7 +15588,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15597,7 +15597,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15633,7 +15633,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15642,7 +15642,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -15678,7 +15678,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -15687,7 +15687,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -34515,7 +34515,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:carved_bamboo_block",
       "name": {
-        "en_us": "Carved Bamboo Block",
+        "en_us": "Block of Carved Bamboo",
         "de_de": "Geschnitzter Bambusblock"
       },
       "texture": null,
@@ -38362,7 +38362,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38371,7 +38371,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38383,7 +38383,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:hollow_bamboo_block",
       "name": {
-        "en_us": "Hollow Bamboo Block",
+        "en_us": "Block of Hollow Bamboo",
         "de_de": "Ausgehöhlter Bambusblock"
       },
       "texture": null,
@@ -38411,7 +38411,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38420,7 +38420,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38460,7 +38460,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38469,7 +38469,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38509,7 +38509,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38518,7 +38518,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38558,7 +38558,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38567,7 +38567,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38607,7 +38607,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38616,7 +38616,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38656,7 +38656,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38665,7 +38665,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38705,7 +38705,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38714,7 +38714,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38754,7 +38754,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38763,7 +38763,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38803,7 +38803,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38812,7 +38812,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38852,7 +38852,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38861,7 +38861,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38901,7 +38901,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38910,7 +38910,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38922,7 +38922,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:hollow_stripped_bamboo_block",
       "name": {
-        "en_us": "Hollow Stripped Bamboo Block",
+        "en_us": "Block of Hollow Stripped Bamboo",
         "de_de": "Ausgehöhlter geschälter Bambusblock"
       },
       "texture": null,
@@ -38950,7 +38950,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -38959,7 +38959,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -38999,7 +38999,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -39008,7 +39008,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -39048,7 +39048,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -39057,7 +39057,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -39097,7 +39097,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -39106,7 +39106,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -39146,7 +39146,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -39155,7 +39155,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -39195,7 +39195,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -39204,7 +39204,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -39244,7 +39244,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -39253,7 +39253,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -39293,7 +39293,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -39302,7 +39302,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -39342,7 +39342,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -39351,7 +39351,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -39391,7 +39391,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -39400,7 +39400,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -39440,7 +39440,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -39449,7 +39449,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -39489,7 +39489,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
           "details": [
-            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+            "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
             "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
             "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
             "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -39498,7 +39498,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
           "details": [
-            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+            "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
             "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
             "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
             "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
@@ -106987,35 +106987,6 @@ window.WIKI_DATA = {
         ]
       },
       {
-        "id": "chisel/minecraft:acacia_log/simplebuilding:hollow_acacia_log",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:acacia_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:hollow_acacia_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
         "id": "chisel/minecraft:acacia_planks/minecraft:acacia_stairs",
         "kind": "chisel",
         "inputs": [
@@ -107072,35 +107043,6 @@ window.WIKI_DATA = {
         "lines": [
           "1.21.11",
           "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel/minecraft:bamboo_block/simplebuilding:hollow_bamboo_block",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:bamboo_block",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:hollow_bamboo_block",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
           "26.3"
         ]
       },
@@ -107189,35 +107131,6 @@ window.WIKI_DATA = {
         "lines": [
           "1.21.11",
           "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel/minecraft:birch_log/simplebuilding:hollow_birch_log",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:birch_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:hollow_birch_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
           "26.3"
         ]
       },
@@ -107362,35 +107275,6 @@ window.WIKI_DATA = {
         "lines": [
           "1.21.11",
           "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel/minecraft:cherry_log/simplebuilding:hollow_cherry_log",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:cherry_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:hollow_cherry_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
           "26.3"
         ]
       },
@@ -107785,35 +107669,6 @@ window.WIKI_DATA = {
         ]
       },
       {
-        "id": "chisel/minecraft:crimson_stem/simplebuilding:hollow_crimson_stem",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:crimson_stem",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:hollow_crimson_stem",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
         "id": "chisel/minecraft:cut_red_sandstone/minecraft:red_sandstone",
         "kind": "chisel",
         "inputs": [
@@ -107934,35 +107789,6 @@ window.WIKI_DATA = {
         "lines": [
           "1.21.11",
           "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel/minecraft:dark_oak_log/simplebuilding:hollow_dark_oak_log",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:dark_oak_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:hollow_dark_oak_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
           "26.3"
         ]
       },
@@ -108223,35 +108049,6 @@ window.WIKI_DATA = {
         ]
       },
       {
-        "id": "chisel/minecraft:jungle_log/simplebuilding:hollow_jungle_log",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:jungle_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:hollow_jungle_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
         "id": "chisel/minecraft:jungle_planks/minecraft:jungle_stairs",
         "kind": "chisel",
         "inputs": [
@@ -108308,35 +108105,6 @@ window.WIKI_DATA = {
         "lines": [
           "1.21.11",
           "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel/minecraft:mangrove_log/simplebuilding:hollow_mangrove_log",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:mangrove_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:hollow_mangrove_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
           "26.3"
         ]
       },
@@ -108453,35 +108221,6 @@ window.WIKI_DATA = {
         ]
       },
       {
-        "id": "chisel/minecraft:oak_log/simplebuilding:hollow_oak_log",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:oak_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:hollow_oak_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
         "id": "chisel/minecraft:oak_planks/minecraft:oak_stairs",
         "kind": "chisel",
         "inputs": [
@@ -108538,35 +108277,6 @@ window.WIKI_DATA = {
         "lines": [
           "1.21.11",
           "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel/minecraft:pale_oak_log/simplebuilding:hollow_pale_oak_log",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:pale_oak_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:hollow_pale_oak_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
           "26.3"
         ]
       },
@@ -109660,35 +109370,6 @@ window.WIKI_DATA = {
         ]
       },
       {
-        "id": "chisel/minecraft:spruce_log/simplebuilding:hollow_spruce_log",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:spruce_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:hollow_spruce_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
         "id": "chisel/minecraft:spruce_planks/minecraft:spruce_stairs",
         "kind": "chisel",
         "inputs": [
@@ -110385,35 +110066,6 @@ window.WIKI_DATA = {
         "lines": [
           "1.21.11",
           "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel/minecraft:warped_stem/simplebuilding:hollow_warped_stem",
-        "kind": "chisel",
-        "inputs": [
-          {
-            "id": "minecraft:warped_stem",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "simplebuilding:hollow_warped_stem",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "lines": [
           "26.3"
         ]
       },
@@ -116431,325 +116083,6 @@ window.WIKI_DATA = {
         ]
       },
       {
-        "id": "chisel_reverse/simplebuilding:hollow_acacia_log/minecraft:acacia_log",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:hollow_acacia_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:acacia_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel_reverse/simplebuilding:hollow_bamboo_block/minecraft:bamboo_block",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:hollow_bamboo_block",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:bamboo_block",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel_reverse/simplebuilding:hollow_birch_log/minecraft:birch_log",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:hollow_birch_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:birch_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel_reverse/simplebuilding:hollow_cherry_log/minecraft:cherry_log",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:hollow_cherry_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:cherry_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel_reverse/simplebuilding:hollow_crimson_stem/minecraft:crimson_stem",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:hollow_crimson_stem",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:crimson_stem",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel_reverse/simplebuilding:hollow_dark_oak_log/minecraft:dark_oak_log",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:hollow_dark_oak_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:dark_oak_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel_reverse/simplebuilding:hollow_jungle_log/minecraft:jungle_log",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:hollow_jungle_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:jungle_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel_reverse/simplebuilding:hollow_mangrove_log/minecraft:mangrove_log",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:hollow_mangrove_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:mangrove_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel_reverse/simplebuilding:hollow_oak_log/minecraft:oak_log",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:hollow_oak_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:oak_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel_reverse/simplebuilding:hollow_pale_oak_log/minecraft:pale_oak_log",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:hollow_pale_oak_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:pale_oak_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel_reverse/simplebuilding:hollow_spruce_log/minecraft:spruce_log",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:hollow_spruce_log",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:spruce_log",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
         "id": "chisel_reverse/simplebuilding:hollow_stripped_acacia_log/minecraft:stripped_acacia_log",
         "kind": "chisel_reverse",
         "inputs": [
@@ -117088,35 +116421,6 @@ window.WIKI_DATA = {
         ],
         "output": {
           "id": "minecraft:stripped_warped_stem",
-          "count": 1
-        },
-        "stats": {
-          "damage": 2
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "chisel_reverse/simplebuilding:hollow_warped_stem/minecraft:warped_stem",
-        "kind": "chisel_reverse",
-        "inputs": [
-          {
-            "id": "simplebuilding:hollow_warped_stem",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:stone_chisel",
-          "simplebuilding:copper_chisel",
-          "simplebuilding:iron_chisel",
-          "simplebuilding:diamond_chisel",
-          "simplebuilding:gold_chisel",
-          "simplebuilding:netherite_chisel",
-          "simplebuilding:enderite_chisel"
-        ],
-        "output": {
-          "id": "minecraft:warped_stem",
           "count": 1
         },
         "stats": {
@@ -129017,7 +128321,7 @@ window.WIKI_DATA = {
     "enchantments": 19,
     "tags": 49,
     "config": 221,
-    "inWorld": 516,
+    "inWorld": 492,
     "advancements": 127,
     "features": 48,
     "undocumented": 0,
