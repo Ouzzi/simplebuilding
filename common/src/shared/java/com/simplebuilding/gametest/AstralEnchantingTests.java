@@ -56,7 +56,7 @@ public final class AstralEnchantingTests {
         eq(helper, AstralEnchanting.tier(0, false), 0, "tier without shelves");
         eq(helper, AstralEnchanting.tier(15, false), 30, "tier of 15 bookshelves");
         eq(helper, AstralEnchanting.tier(30, false), 30, "tier of 15 blazewood shelves without floor");
-        eq(helper, AstralEnchanting.tier(19, true), 38, "tier of 19 points on the floor");
+        eq(helper, AstralEnchanting.tier(19, true), 30, "tier of 19 points on the floor (below 40 the floor adds nothing)");
         eq(helper, AstralEnchanting.tier(20, true), 40, "tier of 20 points on the floor");
         eq(helper, AstralEnchanting.tier(30, true), 50, "tier of 30 points on the floor");
         int[] fifteenBlaze = new int[32];
