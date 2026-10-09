@@ -30,8 +30,10 @@ Aufträge: N21 „Puppen/Ständer“ (Interaktionen), N24 „Trainingspuppe mit 
      (auch mit Item in der Hand) – wie das bestromte Regal mit der Hotbar.
    - Teile mit Fluch der Bindung bleiben am Spieler (außer Kreativ); gesperrte Slots des Ständers bleiben; ein
      Teil, das in den Spieler-Slot nicht passt, bleibt am Ständer. Config `server.features.armorStandSwap` (an).
-4. **Arme:** jeder neu aufgestellte Rüstungsständer (Item, Spender; Vanilla, Stroh, Puppe) hat Arme.
-   Geladene/gerufene Ständer behalten ihren NBT-Wert. Config `server.features.armorStandArms` (an).
+4. **Arme:** jeder neu aufgestellte Rüstungsständer (Item, Spender; Vanilla, Stroh, Puppe) hat Arme – gesetzt in
+   `EntityType.create(Level, EntitySpawnReason)` nur für `SPAWN_ITEM_USE`/`DISPENSER`. Geladene, gerufene und per Code
+   erzeugte Ständer bleiben Vanilla (erste Fassung im Konstruktor brach den Löwenzahn-Test, weil per Code erzeugte
+   Ständer plötzlich Items in die Hand nahmen). Config `server.features.armorStandArms` (an).
 5. **Neue Ständer** (eigene Entity-Klasse `PartialArmorStand extends ArmorStand`, Vanilla-Modell mit ausgeblendeten
    Teilen, Vanilla-Holztextur, nur Rüstungsslots frei über `DisabledSlots`):
    - **Mittlerer Rüstungsständer** `medium_armor_stand`: Hose + Stiefel (Beine, Hüftstange, Bodenplatte), 0,5×1,0.
@@ -47,8 +49,8 @@ Aufträge: N21 „Puppen/Ständer“ (Interaktionen), N24 „Trainingspuppe mit 
   `dummy/PartialArmorStand.java`, `dummy/ArmorStandSwap.java`, `dummy/DummySkins.java`
 - `dummy/client/TrainingDummyRenderer.java`, `DummyStuffingLayer.java`, neu `client/DummySkinLayer.java`,
   `client/PartialArmorStandRenderer.java`
-- Mixins: neu `ArmorStandStandsMixin` (Arme im Konstruktor, Tausch in `interact`, Drop in `brokenByPlayer`),
-  `ArmorStandAccessor` (`disabledSlots`)
+- Mixins: neu `ArmorStandStandsMixin` (Tausch in `interact`, Drop in `brokenByPlayer`), `EntityTypeArmorStandArmsMixin`
+  (Arme), `ArmorStandAccessor` (`disabledSlots`)
 - Registrierung: `ModEntities`, `ModItems`, Attribute/Renderer je Loader, Kreativ-Reihe, Suche, Testzentrale,
   Rezepte (Datagen), Item-Modelle, Lang EN/DE (beide Ablagen), Wiki `manual.json`, Config + `ConfigOptionTests`.
 - Tests: `TrainingDummyTests` + neu `ArmorStandTests` (Wrapper + Katalog).

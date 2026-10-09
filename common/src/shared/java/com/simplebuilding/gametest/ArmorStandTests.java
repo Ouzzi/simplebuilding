@@ -177,7 +177,7 @@ public final class ArmorStandTests {
         return found.get(0);
     }
 
-    /** Neu aufgestellte Staender (Vanilla-, Stroh-Item) haben Arme; ausgeschaltet wie Vanilla ohne; mittel/klein nie. */
+    /** Neu aufgestellte Staender (Vanilla-, Stroh-Item) haben Arme; per Befehl/Code erzeugte und ausgeschaltet wie Vanilla ohne; mittel/klein nie. */
     public static void placedStandsHaveArms(GameTestHelper helper) {
         if (!McVersion.TRAINING_DUMMY) {
             helper.succeed();
@@ -187,6 +187,8 @@ public final class ArmorStandTests {
         helper.assertTrue(((ArmorStand) place(helper, player, Items.ARMOR_STAND, 1, 1)).showArms(), "a placed armor stand has no arms");
         helper.assertTrue(((ArmorStand) place(helper, player, ModItems.STRAW_ARMOR_STAND, 3, 1)).showArms(), "a placed straw stand has no arms");
         helper.assertFalse(((ArmorStand) place(helper, player, ModItems.MEDIUM_ARMOR_STAND, 5, 1)).showArms(), "the medium stand has arms");
+        helper.assertFalse(EntityTypes.ARMOR_STAND.create(helper.getLevel(), EntitySpawnReason.COMMAND).showArms(),
+                "a stand made by a command (or code) got arms");
         ServerTuningConfig.Features features = ServerTuning.get().features;
         boolean before = features.armorStandArms;
         try {
