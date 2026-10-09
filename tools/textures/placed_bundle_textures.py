@@ -37,13 +37,39 @@ BELLY_SIDE = ["2333333332",
               "1223333221",
               "1122222211",
               "0111111110"]
-BELLY_TOP = ["3444444443"] + ["4" + "3" * 8 + "4"] * 8 + ["3444444443"]
-BELLY_BOTTOM = ["1111111111"] + ["1" + "0" * 8 + "1"] * 8 + ["1111111111"]
+# Rounded footprints (owner 2026-10-09: "von oben nicht quadratisch, leicht abgerundet"): every corner is stepped
+# in by STEPS pixels, the belly by two (rows 6, 8, 10, ..., 10, 8, 6 wide), base, shoulder and tuft by one.
+STEPS = {'base': 1, 'belly': 2, 'shoulder': 1, 'tuft': 1}
+
+
+def round_mask(size, steps):
+    """True where the rounded footprint covers a size x size square (row = z, column = x)."""
+    return [[min(z, size - 1 - z) + min(x, size - 1 - x) >= steps or min(z, size - 1 - z) >= steps
+             or min(x, size - 1 - x) >= steps for x in range(size)] for z in range(size)]
+
+
+def rim(size, steps, edge, inner, corner):
+    """Top/bottom face map: ``edge`` along the rounded outline, ``corner`` where it turns, ``inner`` inside."""
+    m = round_mask(size, steps)
+    def inside(x, z):
+        return 0 <= x < size and 0 <= z < size and m[z][x]
+    rows = []
+    for z in range(size):
+        row = ''
+        for x in range(size):
+            out = sum(not inside(x + dx, z + dz) for dx, dz in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+            row += inner if not m[z][x] or out == 0 else (corner if out >= 2 else edge)
+        rows.append(row)
+    return rows
+
+
+BELLY_TOP = rim(10, STEPS['belly'], '4', '3', '3')
+BELLY_BOTTOM = rim(10, STEPS['belly'], '1', '0', '1')
 BASE_SIDE = ["01111110"]
 BASE_BOTTOM = ["0" * 8] * 8
 SHOULDER_FRONT = ["23444432"]
 SHOULDER_SIDE = ["23444432"]
-SHOULDER_TOP = ["34444443"] + ["4" + "3" * 6 + "4"] * 6 + ["34444443"]
+SHOULDER_TOP = rim(8, STEPS['shoulder'], '4', '3', '3')
 TIE_SIDE = ["sStS"]
 TUFT_FRONT = ["434343",
               "212121"]
@@ -199,8 +225,8 @@ def uv(region, w, h, dx=0, dy=0):
     return [(x0 + dx) / 2, (y0 + dy) / 2, (x0 + dx + w) / 2, (y0 + dy + h) / 2]
 
 
-def face(region, w, h, tex, tint, cull=None):
-    f = {"uv": uv(region, w, h), "texture": tex}
+def face(region, w, h, tex, tint, cull=None, dx=0, dy=0):
+    f = {"uv": uv(region, w, h, dx, dy), "texture": tex}
     if tint:
         f["tintindex"] = 0
     if cull:
@@ -208,32 +234,52 @@ def face(region, w, h, tex, tint, cull=None):
     return f
 
 
+def boxes(x0, x1, z0, z1, steps):
+    """Non-overlapping boxes of a rounded footprint (no coplanar overlaps, so no z-fighting): the full-width
+    middle band, then per step k a k-inset row in front and behind. Returns (bx0, bx1, bz0, bz1, inner face)."""
+    out = [(x0, x1, z0 + steps, z1 - steps, None)]
+    for k in range(1, steps + 1):
+        out.append((x0 + k, x1 - k, z0 + steps - k, z0 + steps - k + 1, 'south'))
+        out.append((x0 + k, x1 - k, z1 - steps + k - 1, z1 - steps + k, 'north'))
+    return out
+
+
+def rounded(x0, x1, y0, y1, z0, z1, steps, regions, tex, tint, skip=(), cull=None):
+    """One part with a rounded footprint; ``regions`` maps north/south/east/west/up/down to a sheet region of the
+    whole part (width x1-x0 resp. z1-z0), each box takes its slice so the faces read as one surface."""
+    h = y1 - y0
+    E = []
+    for bx0, bx1, bz0, bz1, inner in boxes(x0, x1, z0, z1, steps):
+        w, d = bx1 - bx0, bz1 - bz0
+        offs = {'north': (x1 - bx1, 0, w, h), 'south': (bx0 - x0, 0, w, h), 'west': (bz0 - z0, 0, d, h),
+                'east': (z1 - bz1, 0, d, h), 'up': (bx0 - x0, bz0 - z0, w, d), 'down': (bx0 - x0, z1 - bz1, w, d)}
+        faces = {}
+        for side, (dx, dy, fw, fh) in offs.items():
+            if side == inner or side in skip or side not in regions:
+                continue
+            faces[side] = face(regions[side], fw, fh, tex, tint, cull if side == 'down' else None, dx, dy)
+        E.append({"from": [bx0, y0, bz0], "to": [bx1, y1, bz1], "faces": faces})
+    return E
+
+
 def elements(tex, tint):
     E = []
-    # base 8x1x8
-    E.append({"from": [4, 0, 4], "to": [12, 1, 12], "faces": {
-        "north": face('base_side', 8, 1, tex, tint), "south": face('base_side', 8, 1, tex, tint),
-        "east": face('base_side', 8, 1, tex, tint), "west": face('base_side', 8, 1, tex, tint),
-        "down": face('base_bottom', 8, 8, tex, tint, "down")}})
-    # belly 10x6x10
-    E.append({"from": [3, 1, 3], "to": [13, 7, 13], "faces": {
-        "north": face('belly_front', 10, 6, tex, tint), "south": face('belly_back', 10, 6, tex, tint),
-        "east": face('belly_side', 10, 6, tex, tint), "west": face('belly_side', 10, 6, tex, tint),
-        "up": face('belly_top', 10, 10, tex, tint), "down": face('belly_bottom', 10, 10, tex, tint)}})
-    # shoulder 8x1x8
-    E.append({"from": [4, 7, 4], "to": [12, 8, 12], "faces": {
-        "north": face('shoulder_front', 8, 1, tex, tint), "south": face('shoulder_side', 8, 1, tex, tint),
-        "east": face('shoulder_side', 8, 1, tex, tint), "west": face('shoulder_side', 8, 1, tex, tint),
-        "up": face('shoulder_top', 8, 8, tex, tint)}})
+    # base 8x1x8, rounded
+    E += rounded(4, 12, 0, 1, 4, 12, STEPS['base'], {s: 'base_side' for s in ('north', 'south', 'east', 'west')}
+                 | {'down': 'base_bottom'}, tex, tint, cull='down')
+    # belly 10x6x10, rounded by two steps
+    E += rounded(3, 13, 1, 7, 3, 13, STEPS['belly'], {'north': 'belly_front', 'south': 'belly_back', 'east': 'belly_side',
+                 'west': 'belly_side', 'up': 'belly_top', 'down': 'belly_bottom'}, tex, tint)
+    # shoulder 8x1x8, rounded
+    E += rounded(4, 12, 7, 8, 4, 12, STEPS['shoulder'], {'north': 'shoulder_front', 'south': 'shoulder_side',
+                 'east': 'shoulder_side', 'west': 'shoulder_side', 'up': 'shoulder_top'}, tex, tint)
     # neck 4x1x4: the string around it
     E.append({"from": [6, 8, 6], "to": [10, 9, 10], "faces": {
         "north": face('tie_side', 4, 1, tex, tint), "south": face('tie_side', 4, 1, tex, tint),
         "east": face('tie_side', 4, 1, tex, tint), "west": face('tie_side', 4, 1, tex, tint)}})
-    # tuft 6x2x6: the gathered top, closed
-    E.append({"from": [5, 9, 5], "to": [11, 11, 11], "faces": {
-        "north": face('tuft_front', 6, 2, tex, tint), "south": face('tuft_side', 6, 2, tex, tint),
-        "east": face('tuft_side', 6, 2, tex, tint), "west": face('tuft_side', 6, 2, tex, tint),
-        "up": face('tuft_top', 6, 6, tex, tint), "down": face('tuft_bottom', 6, 6, tex, tint)}})
+    # tuft 6x2x6: the gathered top, closed, rounded
+    E += rounded(5, 11, 9, 11, 5, 11, STEPS['tuft'], {'north': 'tuft_front', 'south': 'tuft_side', 'east': 'tuft_side',
+                 'west': 'tuft_side', 'up': 'tuft_top', 'down': 'tuft_bottom'}, tex, tint)
     # knot 2x2x2 in front of the neck
     E.append({"from": [7, 8, 4], "to": [9, 10, 6], "faces": {
         "north": face('knot_front', 2, 2, tex, tint), "east": face('knot_side', 2, 2, tex, tint),
@@ -242,7 +288,8 @@ def elements(tex, tint):
 
 
 COMMENT = ("Abgestelltes Buendel (PlacedBundleBlock): Boden, Bauch 10x6x10, Schulter, Hals mit Schnur, "
-           "gebundener Zipfel und Knoten, Vorderseite nach Norden. Textur 32x32, ein Texel je Modellpixel (UV = Texel/2); erzeugt von "
+           "gebundener Zipfel und Knoten; von oben abgerundet (Ecken gestuft, Bauch zwei Stufen), "
+           "Vorderseite nach Norden. Textur 32x32, ein Texel je Modellpixel (UV = Texel/2); erzeugt von "
            "tools/textures/placed_bundle_textures.py. Die Trefferform in PlacedBundleBlock#NORTH_SHAPE muss zu den Quadern passen.")
 
 

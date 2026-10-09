@@ -66,13 +66,21 @@ public class PlacedBundleBlock extends BaseEntityBlock {
 
     public static final MapCodec<PlacedBundleBlock> CODEC = BlockCodecs.simple(PlacedBundleBlock::new);
 
-    /** Die Quader des Modells (Pixel, Vorderseite nach Norden); das Modell muss dazu passen. */
+    /**
+     * Die Quader des Modells (Pixel, Vorderseite nach Norden); das Modell muss dazu passen. Von oben abgerundet:
+     * Boden, Schulter und Zipfel mit einer Stufe an jeder Ecke, der Bauch mit zwei (tools/textures/placed_bundle_textures.py).
+     */
     private static final VoxelShape NORTH_SHAPE = Shapes.or(
-            Block.box(4.0, 0.0, 4.0, 12.0, 1.0, 12.0),
-            Block.box(3.0, 1.0, 3.0, 13.0, 7.0, 13.0),
-            Block.box(4.0, 7.0, 4.0, 12.0, 8.0, 12.0),
+            Block.box(4.0, 0.0, 5.0, 12.0, 1.0, 11.0),
+            Block.box(5.0, 0.0, 4.0, 11.0, 1.0, 12.0),
+            Block.box(3.0, 1.0, 5.0, 13.0, 7.0, 11.0),
+            Block.box(4.0, 1.0, 4.0, 12.0, 7.0, 12.0),
+            Block.box(5.0, 1.0, 3.0, 11.0, 7.0, 13.0),
+            Block.box(4.0, 7.0, 5.0, 12.0, 8.0, 11.0),
+            Block.box(5.0, 7.0, 4.0, 11.0, 8.0, 12.0),
             Block.box(6.0, 8.0, 6.0, 10.0, 9.0, 10.0),
-            Block.box(5.0, 9.0, 5.0, 11.0, 11.0, 11.0),
+            Block.box(5.0, 9.0, 6.0, 11.0, 11.0, 10.0),
+            Block.box(6.0, 9.0, 5.0, 10.0, 11.0, 11.0),
             Block.box(7.0, 8.0, 4.0, 9.0, 10.0, 6.0));
     private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(NORTH_SHAPE);
 
