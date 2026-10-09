@@ -1,0 +1,77 @@
+package com.simplebuilding.blocks.custom;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ParticleUtils;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.Fallable;
+import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.SlabType;
+
+/**
+ * Sand- und Kies-Stufe (Besitzer N25): eine Stufe, die faellt wie Sand ({@link FallingBlock} nachgebaut, weil eine
+ * Klasse nicht zugleich {@link SlabBlock} und {@code FallingBlock} sein kann).
+ *
+ * <ul>
+ *   <li>Ist unter ihr frei ({@link FallingBlock#isFree}), faellt sie als Entity - eine obere Stufe faellt als untere,
+ *       eine doppelte bleibt doppelt (Wasser bleibt wie bei Vanilla zurueck).</li>
+ *   <li>Landet eine untere Stufe auf einer unteren Stufe derselben Art, werden beide zur Doppelstufe (die Entity
+ *       stuende sonst auf halber Hoehe in deren Zelle und zerfiele zu einem Item).</li>
+ * </ul>
+ */
+public class FallingSlabBlock extends SlabBlock implements Fallable {
+    /** Wie Vanilla: zwei Ticks Vorlauf, damit eine frisch gesetzte Stufe nicht sofort faellt. */
+    private static final int DELAY_AFTER_PLACE = 2;
+
+    public FallingSlabBlock(Properties settings) {
+        super(settings);
+    }
+
+    @Override
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
+        level.scheduleTick(pos, this, DELAY_AFTER_PLACE);
+    }
+
+    @Override
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos,
+                                     Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+        ticks.scheduleTick(pos, this, DELAY_AFTER_PLACE);
+        return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
+    }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (FallingBlock.isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinY()) {
+            BlockState falling = state.getValue(TYPE) == SlabType.TOP ? state.setValue(TYPE, SlabType.BOTTOM) : state;
+            FallingBlockEntity.fall(level, pos, falling);
+        }
+    }
+
+    /** Landet die Entity in der Zelle einer unteren Stufe derselben Art (sie liegt dort auf halber Hoehe auf): Doppelstufe statt Item. */
+    @Override
+    public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity entity) {
+        BlockState there = level.getBlockState(pos);
+        if (entity.getBlockState().is(this) && entity.getBlockState().getValue(TYPE) == SlabType.BOTTOM
+                && there.is(this) && there.getValue(TYPE) == SlabType.BOTTOM) {
+            level.setBlockAndUpdate(pos, there.setValue(TYPE, SlabType.DOUBLE).setValue(WATERLOGGED, false));
+            entity.dropItem = false;
+        }
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (random.nextInt(16) == 0 && FallingBlock.isFree(level.getBlockState(pos.below()))) {
+            ParticleUtils.spawnParticleBelow(level, pos, random, new BlockParticleOption(ParticleTypes.FALLING_DUST, state));
+        }
+    }
+}

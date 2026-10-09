@@ -1908,6 +1908,62 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "nature_variants",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/FallingSlabBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+        "common/src/shared/java/com/simplebuilding/items/SearchTabPlacement.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/grass_slab.json",
+        "common/src/shared/java/com/simplebuilding/gametest/NatureBlockTests.java"
+      ],
+      "related": [
+        "simplebuilding:dirt_slab",
+        "simplebuilding:grass_slab",
+        "simplebuilding:sand_slab",
+        "simplebuilding:gravel_slab",
+        "simplebuilding:cracked_ice",
+        "simplebuilding:chiseled_packed_ice",
+        "simplebuilding:chiseled_blue_ice",
+        "simplebuilding:nautilus_shell_block",
+        "simplebuilding:scarlet_froglight",
+        "simplebuilding:aqua_froglight",
+        "simplebuilding:azure_froglight"
+      ],
+      "en": {
+        "title": "Natural Block Variants",
+        "summary": "Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.",
+        "details": [
+          "Dirt, Grass, Sand and Gravel Slabs: three of the full block in a row make six slabs, like every vanilla slab. There is no stonecutter recipe, because the stonecutter only cuts stone. A shovel mines them fastest.",
+          "The Grass Slab is tinted by the biome like the grass block. Without Silk Touch it drops a Dirt Slab (a double slab drops two). It neither spreads nor turns into dirt.",
+          "Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into a double slab instead of breaking. The Gravel Slab never drops flint.",
+          "Cracked Ice (stonecutter: one ice makes one): a living entity standing on it cracks it one stage per second, four stages that look like vanilla frosted ice; after the last stage it turns into water (in the Nether it evaporates). With nobody on it the cracks stay. Otherwise it behaves like ice and drops only with Silk Touch.",
+          "Chiseled Packed Ice and Chiseled Blue Ice come from the stonecutter (one packed or blue ice makes one), are as slippery as their base block and drop only with Silk Touch.",
+          "Nautilus Shell Block: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
+          "Scarlet, Aqua and Azure Froglights: any froglight plus red, cyan or blue dye. They glow at light level 15 like the vanilla froglights; the three vanilla colors still come only from frogs.",
+          "Creative mode: a row of their own in SimpleBlocks before the gravity blocks and, while addItemsToVanillaTabs is on, next to their base block in Natural Blocks (the froglights also in Functional Blocks)."
+        ]
+      },
+      "de": {
+        "title": "Naturvarianten",
+        "summary": "Stufen aus Erde, Gras, Sand und Kies, gemeißeltes Pack- und Blaueis, rissiges Eis, ein Nautilusschalenblock und Froschlichter in drei weiteren Farben.",
+        "details": [
+          "Erd-, Gras-, Sand- und Kiesstufe: drei Vollblöcke nebeneinander ergeben sechs Stufen, wie bei jeder Vanilla-Stufe. Ein Steinmetz-Rezept gibt es nicht, weil der Steinmetz nur Stein schneidet. Am schnellsten baut man sie mit der Schaufel ab.",
+          "Die Grasstufe ist wie der Grasblock nach Biom gefärbt. Ohne Behutsamkeit droppt sie eine Erdstufe (die Doppelstufe zwei). Sie breitet sich nicht aus und wird nicht zu Erde.",
+          "Sand- und Kiesstufe fallen wie Sand. Eine obere Stufe fällt als untere; eine untere Stufe, die auf einer unteren Stufe derselben Art landet, wird mit ihr zur Doppelstufe, statt zu zerfallen. Die Kiesstufe droppt nie Feuerstein.",
+          "Rissiges Eis (Steinmetz: ein Eis ergibt eins): steht ein Lebewesen darauf, reißt es jede Sekunde eine Stufe weiter, vier Stufen im Aussehen von Vanillas brüchigem Eis; nach der letzten wird es zu Wasser (im Nether verdampft es). Steht niemand darauf, bleiben die Risse. Sonst verhält es sich wie Eis und droppt nur mit Behutsamkeit.",
+          "Gemeißeltes Packeis und gemeißeltes Blaueis entstehen am Steinmetz (ein Pack- bzw. Blaueis ergibt eins), sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
+          "Nautilusschalenblock: vier Nautilusschalen im Quadrat; er lässt sich wieder in vier Schalen zerlegen. Er wird wie der Knochenblock entlang einer Achse gesetzt.",
+          "Scharlachrotes, türkises und azurblaues Froschlicht: ein beliebiges Froschlicht plus roter, cyanfarbener oder blauer Farbstoff. Sie leuchten wie die Vanilla-Froschlichter mit Lichtstufe 15; die drei Vanilla-Farben gibt es weiterhin nur von Fröschen.",
+          "Kreativmodus: eine eigene Zeile in SimpleBlocks vor den Schwerkraftblöcken und, solange addItemsToVanillaTabs an ist, neben dem Grundblock in Naturblöcke (die Froschlichter auch in Gebrauchsblöcke)."
+        ]
+      }
+    },
+    {
       "id": "enchant_mining",
       "related": [
         "simplebuilding:vein_miner",
@@ -78485,6 +78541,23 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gold_rod.json"
     },
     {
+      "id": "simplebuilding:blocks/grass_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:grass_slab",
+            "simplebuilding:dirt_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/grass_slab.json"
+    },
+    {
       "id": "simplebuilding:blocks/gray_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -86287,6 +86360,50 @@ window.WIKI_DATA = {
         {
           "id": "simplebuilding:waxed_weathered_copper_pressure_plate",
           "required": true
+        },
+        {
+          "id": "simplebuilding:dirt_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:grass_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:sand_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:gravel_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cracked_ice",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:chiseled_packed_ice",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:chiseled_blue_ice",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nautilus_shell_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:scarlet_froglight",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:aqua_froglight",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:azure_froglight",
+          "required": true
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/tags/item/craftable.json"
@@ -89613,6 +89730,26 @@ window.WIKI_DATA = {
       "labelDe": "Gegenstände in Vanilla-Kreativ-Tabs einsortieren",
       "tooltip": "Adds this mod's items next to their Vanilla\ncounterparts in Vanilla creative tabs and the\nsearch tab. Off: Vanilla tabs stay unchanged;\nthe mod's own creative tabs remain available.\nApplies when joining a world. Default: on.",
       "tooltipDe": "Sortiert die Gegenstände dieser Mod neben ihre\nVanilla-Gegenstücke in Vanilla-Kreativ-Tabs und\nden Suchtab ein. Aus: Vanilla-Tabs bleiben\nunverändert; die eigenen Kreativ-Tabs der Mod\nbleiben erhalten. Wirkt beim Betreten einer Welt.\nStandard: an."
+    },
+    {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "creativeTabSpacers",
+      "shortName": "creativeTabSpacers",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Compatibility & Advanced",
+      "categoryDe": "Kompatibilität & Erweitert",
+      "group": null,
+      "groupDe": null,
+      "label": "Empty Cells Between Creative Tab Categories",
+      "labelDe": "Leere Zellen zwischen Kreativ-Tab-Kategorien",
+      "tooltip": "Leaves an empty cell between the categories\nof this mod's own creative tabs, so each\ncategory starts visibly apart. Off: items\nfollow each other without gaps. Applies when\njoining a world. Default: off.",
+      "tooltipDe": "Lässt in den eigenen Kreativ-Tabs dieser Mod\neine leere Zelle zwischen den Kategorien, damit\njede Kategorie sichtbar abgesetzt beginnt. Aus:\ndie Gegenstände folgen lückenlos aufeinander.\nWirkt beim Betreten einer Welt. Standard: aus."
     },
     {
       "range": null,
@@ -116401,14 +116538,14 @@ window.WIKI_DATA = {
     "items": 480,
     "blocks": 236,
     "recipes": 846,
-    "lootTables": 230,
+    "lootTables": 231,
     "trades": 20,
     "enchantments": 19,
     "tags": 49,
-    "config": 221,
+    "config": 222,
     "inWorld": 468,
     "advancements": 127,
-    "features": 48,
+    "features": 49,
     "undocumented": 0,
     "incompleteProse": 0
   },

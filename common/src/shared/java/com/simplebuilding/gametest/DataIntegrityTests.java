@@ -3040,6 +3040,16 @@ public final class DataIntegrityTests {
             }
             expected.addAll(10, chess);
         }
+        if (McVersion.NATURE_VARIANTS) {
+            // Naturvarianten (N24/N25) vor den Schwerkraftbloecken: vier Stufen; Eis und Nautilus; drei Froschlichter.
+            expected.addAll(expected.size() - 2, List.of(
+                    CreativeTabLayout.Row.of("nature_slabs",
+                            ModItems.DIRT_SLAB, ModItems.GRASS_SLAB, ModItems.SAND_SLAB, ModItems.GRAVEL_SLAB),
+                    CreativeTabLayout.Row.of("nature_ice_and_shells",
+                            ModItems.CRACKED_ICE, ModItems.CHISELED_PACKED_ICE, ModItems.CHISELED_BLUE_ICE, ModItems.NAUTILUS_SHELL_BLOCK),
+                    CreativeTabLayout.Row.of("froglights",
+                            ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT)));
+        }
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.BUILDING_BLOCKS, problems), flowed(expected), "SimpleBlocks", problems);
         helper.assertTrue(problems.isEmpty(), "building blocks layout: " + problems);
         helper.succeed();

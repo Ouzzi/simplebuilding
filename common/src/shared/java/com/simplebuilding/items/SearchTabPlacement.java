@@ -213,8 +213,26 @@ public final class SearchTabPlacement {
             out.add(Placement.after(INGREDIENTS, Items.EXPERIENCE_BOTTLE, ModItems.SAGE_ORB));
         }
 
-        out.add(Placement.after(NATURAL_BLOCKS, Items.GRAVEL, ModItems.SUSPENDED_GRAVEL, ModItems.LEVITATING_GRAVEL));
-        out.add(Placement.after(NATURAL_BLOCKS, Items.SAND, ModItems.SUSPENDED_SAND, ModItems.LEVITATING_SAND));
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            // Naturvarianten (N24/N25) direkt hinter ihrem Grundblock; die Stufen vor den Schwebe-/Levitationsbloecken.
+            out.add(Placement.after(NATURAL_BLOCKS, Items.GRASS_BLOCK, ModItems.GRASS_SLAB));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.DIRT, ModItems.DIRT_SLAB));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.ICE, ModItems.CRACKED_ICE));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.PACKED_ICE, ModItems.CHISELED_PACKED_ICE));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.BLUE_ICE, ModItems.CHISELED_BLUE_ICE));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.BONE_BLOCK, ModItems.NAUTILUS_SHELL_BLOCK));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.PEARLESCENT_FROGLIGHT,
+                    ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT));
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.PEARLESCENT_FROGLIGHT,
+                    ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT).asSecondary());
+        }
+        boolean slabs = com.simplebuilding.version.McVersion.NATURE_VARIANTS;
+        out.add(Placement.after(NATURAL_BLOCKS, Items.GRAVEL, slabs
+                ? new ItemLike[]{ModItems.GRAVEL_SLAB, ModItems.SUSPENDED_GRAVEL, ModItems.LEVITATING_GRAVEL}
+                : new ItemLike[]{ModItems.SUSPENDED_GRAVEL, ModItems.LEVITATING_GRAVEL}));
+        out.add(Placement.after(NATURAL_BLOCKS, Items.SAND, slabs
+                ? new ItemLike[]{ModItems.SAND_SLAB, ModItems.SUSPENDED_SAND, ModItems.LEVITATING_SAND}
+                : new ItemLike[]{ModItems.SUSPENDED_SAND, ModItems.LEVITATING_SAND}));
 
         // --- Gebrauchsbloecke: Licht, Blaupause beim Kartografentisch, Oefen, Truhen, Koepfe.
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SEA_LANTERN, ModItems.CONSTRUCTION_LIGHT));

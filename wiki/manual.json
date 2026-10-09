@@ -1876,6 +1876,62 @@
       }
     },
     {
+      "id": "nature_variants",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/FallingSlabBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+        "common/src/shared/java/com/simplebuilding/items/SearchTabPlacement.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/grass_slab.json",
+        "common/src/shared/java/com/simplebuilding/gametest/NatureBlockTests.java"
+      ],
+      "related": [
+        "simplebuilding:dirt_slab",
+        "simplebuilding:grass_slab",
+        "simplebuilding:sand_slab",
+        "simplebuilding:gravel_slab",
+        "simplebuilding:cracked_ice",
+        "simplebuilding:chiseled_packed_ice",
+        "simplebuilding:chiseled_blue_ice",
+        "simplebuilding:nautilus_shell_block",
+        "simplebuilding:scarlet_froglight",
+        "simplebuilding:aqua_froglight",
+        "simplebuilding:azure_froglight"
+      ],
+      "en": {
+        "title": "Natural Block Variants",
+        "summary": "Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.",
+        "details": [
+          "Dirt, Grass, Sand and Gravel Slabs: three of the full block in a row make six slabs, like every vanilla slab. There is no stonecutter recipe, because the stonecutter only cuts stone. A shovel mines them fastest.",
+          "The Grass Slab is tinted by the biome like the grass block. Without Silk Touch it drops a Dirt Slab (a double slab drops two). It neither spreads nor turns into dirt.",
+          "Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into a double slab instead of breaking. The Gravel Slab never drops flint.",
+          "Cracked Ice (stonecutter: one ice makes one): a living entity standing on it cracks it one stage per second, four stages that look like vanilla frosted ice; after the last stage it turns into water (in the Nether it evaporates). With nobody on it the cracks stay. Otherwise it behaves like ice and drops only with Silk Touch.",
+          "Chiseled Packed Ice and Chiseled Blue Ice come from the stonecutter (one packed or blue ice makes one), are as slippery as their base block and drop only with Silk Touch.",
+          "Nautilus Shell Block: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
+          "Scarlet, Aqua and Azure Froglights: any froglight plus red, cyan or blue dye. They glow at light level 15 like the vanilla froglights; the three vanilla colors still come only from frogs.",
+          "Creative mode: a row of their own in SimpleBlocks before the gravity blocks and, while addItemsToVanillaTabs is on, next to their base block in Natural Blocks (the froglights also in Functional Blocks)."
+        ]
+      },
+      "de": {
+        "title": "Naturvarianten",
+        "summary": "Stufen aus Erde, Gras, Sand und Kies, gemeißeltes Pack- und Blaueis, rissiges Eis, ein Nautilusschalenblock und Froschlichter in drei weiteren Farben.",
+        "details": [
+          "Erd-, Gras-, Sand- und Kiesstufe: drei Vollblöcke nebeneinander ergeben sechs Stufen, wie bei jeder Vanilla-Stufe. Ein Steinmetz-Rezept gibt es nicht, weil der Steinmetz nur Stein schneidet. Am schnellsten baut man sie mit der Schaufel ab.",
+          "Die Grasstufe ist wie der Grasblock nach Biom gefärbt. Ohne Behutsamkeit droppt sie eine Erdstufe (die Doppelstufe zwei). Sie breitet sich nicht aus und wird nicht zu Erde.",
+          "Sand- und Kiesstufe fallen wie Sand. Eine obere Stufe fällt als untere; eine untere Stufe, die auf einer unteren Stufe derselben Art landet, wird mit ihr zur Doppelstufe, statt zu zerfallen. Die Kiesstufe droppt nie Feuerstein.",
+          "Rissiges Eis (Steinmetz: ein Eis ergibt eins): steht ein Lebewesen darauf, reißt es jede Sekunde eine Stufe weiter, vier Stufen im Aussehen von Vanillas brüchigem Eis; nach der letzten wird es zu Wasser (im Nether verdampft es). Steht niemand darauf, bleiben die Risse. Sonst verhält es sich wie Eis und droppt nur mit Behutsamkeit.",
+          "Gemeißeltes Packeis und gemeißeltes Blaueis entstehen am Steinmetz (ein Pack- bzw. Blaueis ergibt eins), sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
+          "Nautilusschalenblock: vier Nautilusschalen im Quadrat; er lässt sich wieder in vier Schalen zerlegen. Er wird wie der Knochenblock entlang einer Achse gesetzt.",
+          "Scharlachrotes, türkises und azurblaues Froschlicht: ein beliebiges Froschlicht plus roter, cyanfarbener oder blauer Farbstoff. Sie leuchten wie die Vanilla-Froschlichter mit Lichtstufe 15; die drei Vanilla-Farben gibt es weiterhin nur von Fröschen.",
+          "Kreativmodus: eine eigene Zeile in SimpleBlocks vor den Schwerkraftblöcken und, solange addItemsToVanillaTabs an ist, neben dem Grundblock in Naturblöcke (die Froschlichter auch in Gebrauchsblöcke)."
+        ]
+      }
+    },
+    {
       "id": "enchant_mining",
       "related": [
         "simplebuilding:vein_miner",

@@ -188,6 +188,11 @@ public final class SimplebuildingForgeClient {
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.PLACED_BUNDLE);
+        if (com.simplebuilding.blocks.ModBlocks.GRASS_SLAB != null) {
+            // Gras-Stufe (N25) biomgefaerbt wie der Grasblock.
+            event.register(java.util.List.of(net.minecraft.client.color.block.BlockTintSources.grassBlock()),
+                    com.simplebuilding.blocks.ModBlocks.GRASS_SLAB);
+        }
     }
 
     @SubscribeEvent

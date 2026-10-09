@@ -258,7 +258,26 @@ public final class ModItemGroupsContent {
             }
             rows.addAll(checkers + 1, chessRows());
         }
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            // Naturvarianten (N24/N25) vor den Schwerkraftbloecken: Stufen, Eis, Nautilus | Froschlichter.
+            int gravity = 0;
+            while (!rows.get(gravity).name().equals("gravity_blocks")) {
+                gravity++;
+            }
+            rows.addAll(gravity, natureRows());
+        }
         return List.copyOf(rows);
+    }
+
+    /** Naturvarianten (N24/N25): die vier Stufen, das Eis, der Nautilusschalen-Block; die drei Froschlichter. */
+    public static List<CreativeTabLayout.Row> natureRows() {
+        return List.of(
+                CreativeTabLayout.Row.of("nature_slabs",
+                        ModItems.DIRT_SLAB, ModItems.GRASS_SLAB, ModItems.SAND_SLAB, ModItems.GRAVEL_SLAB),
+                CreativeTabLayout.Row.of("nature_ice_and_shells",
+                        ModItems.CRACKED_ICE, ModItems.CHISELED_PACKED_ICE, ModItems.CHISELED_BLUE_ICE, ModItems.NAUTILUS_SHELL_BLOCK),
+                CreativeTabLayout.Row.of("froglights",
+                        ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT));
     }
 
     /**

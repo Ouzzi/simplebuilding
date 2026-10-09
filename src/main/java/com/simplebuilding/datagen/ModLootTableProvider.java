@@ -28,6 +28,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.SetComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 // List all Loot Table types:
@@ -172,6 +173,19 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             alternates.alternates().forEach(this::dropSelf);
         }
 
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            // Naturvarianten (N24/N25): Stufen wie Stufen (doppelt = 2), Eis wie Eis (nur mit Behutsamkeit), der Rest sich selbst.
+            // Die Gras-Stufe (Behutsamkeit: sie selbst, sonst die Erd-Stufe) steht handgeschrieben unter mc26_3/overlay.
+            for (Block slab : List.of(ModBlocks.DIRT_SLAB, ModBlocks.SAND_SLAB, ModBlocks.GRAVEL_SLAB)) {
+                add(slab, createSlabItemTable(slab));
+            }
+            for (Block ice : List.of(ModBlocks.CRACKED_ICE, ModBlocks.CHISELED_PACKED_ICE, ModBlocks.CHISELED_BLUE_ICE)) {
+                dropWhenSilkTouch(ice);
+            }
+            for (Block block : List.of(ModBlocks.NAUTILUS_SHELL_BLOCK, ModBlocks.SCARLET_FROGLIGHT, ModBlocks.AQUA_FROGLIGHT, ModBlocks.AZURE_FROGLIGHT)) {
+                dropSelf(block);
+            }
+        }
         dropSelf(ModBlocks.SUSPENDED_SAND);
         dropSelf(ModBlocks.SUSPENDED_GRAVEL);
         dropSelf(ModBlocks.LEVITATING_SAND);

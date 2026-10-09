@@ -491,6 +491,36 @@ public class ModBlocks {
     public static final Block LEVITATING_SAND = registerBlock("levitating_sand", unused -> new LevitatingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).setId(keyOf("levitating_sand"))));
     public static final Block LEVITATING_GRAVEL = registerBlock("levitating_gravel", unused -> new LevitatingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRAVEL).setId(keyOf("levitating_gravel"))));
 
+    // --- Naturvarianten (N24/N25, 2026-10-09, nur Hauptlinie): Stufen aus Erde/Gras/Sand/Kies, gemeisseltes Pack-/Blaueis,
+    // rissiges Eis, Nautilusschalen-Block, Froschlichter in weiteren Farben. Modelle zeigen auf Vanilla-Texturen, wo es passt.
+    public static final Block DIRT_SLAB = McVersion.NATURE_VARIANTS ? registerBlock("dirt_slab", Blocks.DIRT, SlabBlock::new) : null;
+    /** Biomgefaerbt wie der Grasblock; ohne Behutsamkeit droppt sie die Erd-Stufe. Breitet sich nicht aus und stirbt nicht ab. */
+    public static final Block GRASS_SLAB = McVersion.NATURE_VARIANTS ? registerBlock("grass_slab", Blocks.GRASS_BLOCK, SlabBlock::new) : null;
+    /** Fallen wie Sand und Kies ({@link FallingSlabBlock}). */
+    public static final Block SAND_SLAB = McVersion.NATURE_VARIANTS ? registerBlock("sand_slab", Blocks.SAND, FallingSlabBlock::new) : null;
+    public static final Block GRAVEL_SLAB = McVersion.NATURE_VARIANTS ? registerBlock("gravel_slab", Blocks.GRAVEL, FallingSlabBlock::new) : null;
+    public static final Block CHISELED_PACKED_ICE = McVersion.NATURE_VARIANTS ? registerBlock("chiseled_packed_ice", Blocks.PACKED_ICE, Block::new) : null;
+    public static final Block CHISELED_BLUE_ICE = McVersion.NATURE_VARIANTS ? registerBlock("chiseled_blue_ice", Blocks.BLUE_ICE, Block::new) : null;
+    /** Reisst unter Lebewesen in vier Stufen und wird dann zu Wasser ({@link CrackedIceBlock}). */
+    public static final Block CRACKED_ICE = McVersion.NATURE_VARIANTS ? registerBlock("cracked_ice", Blocks.ICE, CrackedIceBlock::new) : null;
+    /** Saeule wie der Knochenblock: Stirnseite mit Spirale, Seiten gestreift. */
+    public static final Block NAUTILUS_SHELL_BLOCK = McVersion.NATURE_VARIANTS ? registerBlock("nautilus_shell_block", Blocks.BONE_BLOCK,
+            s -> new RotatedPillarBlock(s.mapColor(MapColor.TERRACOTTA_WHITE))) : null;
+    /** Froschlichter in den Farbkreis-Luecken der drei Vanilla-Farben: rot, cyan, blau. */
+    public static final Block SCARLET_FROGLIGHT = McVersion.NATURE_VARIANTS ? froglight("scarlet_froglight", MapColor.COLOR_RED) : null;
+    public static final Block AQUA_FROGLIGHT = McVersion.NATURE_VARIANTS ? froglight("aqua_froglight", MapColor.COLOR_CYAN) : null;
+    public static final Block AZURE_FROGLIGHT = McVersion.NATURE_VARIANTS ? froglight("azure_froglight", MapColor.COLOR_BLUE) : null;
+
+    private static Block froglight(String name, MapColor color) {
+        return registerBlock(name, Blocks.OCHRE_FROGLIGHT, s -> new RotatedPillarBlock(s.mapColor(color)));
+    }
+
+    /** Alle Naturvarianten in Tab-Reihenfolge (leer auf Linien ohne {@link McVersion#NATURE_VARIANTS}). */
+    public static List<Block> natureVariants() {
+        return McVersion.NATURE_VARIANTS ? List.of(DIRT_SLAB, GRASS_SLAB, SAND_SLAB, GRAVEL_SLAB, CRACKED_ICE, CHISELED_PACKED_ICE,
+                CHISELED_BLUE_ICE, NAUTILUS_SHELL_BLOCK, SCARLET_FROGLIGHT, AQUA_FROGLIGHT, AZURE_FROGLIGHT) : List.of();
+    }
+
     public static final Block ENDERITE_BLOCK = registerBlock("enderite_block", unused -> new Block(BlockBehaviour.Properties.of().setId(keyOf("enderite_block")).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(50.0f, 1200.0f).sound(SoundType.NETHERITE_BLOCK)));
     public static final Block NIHILITH_ORE = registerBlock("nihilith_ore", unused -> new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("nihilith_ore")).strength(25.0f, 1200.0f).requiresCorrectToolForDrops()));
     /**
