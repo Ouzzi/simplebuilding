@@ -1,441 +1,210 @@
+/* Dev overlay for the wiki mirror in the Zentrale (only the Zentrale loads this file).
+ * Adds selection boxes to texture and item tiles, a bar to send the selection with one optional comment to the
+ * dev queue (/api/queue), a request button in the texture zoom and a panel on item pages.
+ * The wiki calls window.sbDevHook after rendering; a MutationObserver covers renders before this script loaded. */
 (function () {
-  if (window.sbDevHook) {
-    return;
-  }
-  const queue = new Map();
-  let queueLoaded = false;
+  if (window.sbDevHook) return;
+  var sel = new Map();          // key -> {id, label, path}
+  var open = new Set();         // category::id of open/started queue entries
+  var mode = '';                // 'textures' | 'items' | ''
+  var lastZoom = null;
+  var bar = null;
 
-  function apiBase() {
-    return "/api";
+  function el(tag, css, text) {
+    var e = document.createElement(tag);
+    if (css) e.style.cssText = css;
+    if (text) e.textContent = text;
+    return e;
   }
-
-  function showError(msg) {
-    try {
-      const el = document.createElement("div");
-      el.style.cssText = "position:fixed;bottom:10px;left:10px;background:#b3362b;color:#fff;padding:8px 12px;border-radius:4px;z-index:30000;font-size:13px;";
-      el.textContent = msg;
-      document.body.appendChild(el);
-      setTimeout(() => {
-        el.remove();
-      }, 3000);
-    } catch (e) {
-    }
+  function toast(msg, ok) {
+    var t = el('div', 'position:fixed;bottom:64px;left:12px;z-index:30001;padding:8px 12px;border-radius:4px;font-size:13px;color:#fff;background:' + (ok ? '#2f7d3a' : '#b3362b'), msg);
+    t.className = ok ? 'dev-toast-ok' : 'dev-toast-err';
+    document.body.appendChild(t);
+    setTimeout(function () { t.remove(); }, ok ? 2000 : 4000);
   }
-
-  function showMsg(msg) {
-    try {
-      const el = document.createElement("div");
-      el.style.cssText = "position:fixed;bottom:10px;left:10px;background:#2f7d3a;color:#fff;padding:8px 12px;border-radius:4px;z-index:30000;font-size:13px;";
-      el.textContent = msg;
-      document.body.appendChild(el);
-      setTimeout(() => {
-        el.remove();
-      }, 2000);
-    } catch (e) {
-    }
+  function send(category, kind, targets, comment) {
+    if (!targets.length) { toast('Nichts ausgewählt', false); return Promise.resolve(false); }
+    return fetch('/api/queue', {
+      method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ category: category, kind: kind, targets: targets, comment: comment || '' })
+    }).then(function (r) {
+      if (!r.ok) return r.json().catch(function () { return {}; }).then(function (j) { toast('Fehler: ' + (j.error || r.status), false); return false; });
+      toast(targets.length + ' in die KI-Queue gelegt', true);
+      loadQueue();
+      return true;
+    }).catch(function () { toast('Netzwerkfehler', false); return false; });
   }
-
-  async function loadQueue() {
-    try {
-      const res = await fetch(apiBase() + "/queue", { credentials: "same-origin" });
-      if (!res.ok) {
-        return;
-      }
-      const data = await res.json();
-      queue.clear();
-      for (const item of data) {
-        if (item.status === "open" || item.status === "started") {
-          for (const t of item.targets || []) {
-            const key = item.category + "::" + (t.id || t.path);
-            queue.set(key, item);
-          }
-        }
-      }
-      queueLoaded = true;
-      document.querySelectorAll("[data-dev-badge]").forEach((b) => b.remove());
-      document.querySelectorAll(".tx-tile, .itile, [data-item-id]").forEach((el) => markOpen(el));
-    } catch (e) {
-      showError("Queue-Fehler");
-    }
-  }
-
-  function markOpen(el) {
-    if (!queueLoaded) return;
-    let key = null;
-    if (el.classList && el.classList.contains("tx-tile")) {
-      key = "textures::" + (el.getAttribute("data-tx-id") || el.getAttribute("data-tx-path") || "");
-    } else if (el.hasAttribute("data-item-id")) {
-      key = "code::" + el.getAttribute("data-item-id");
-    } else if (el.classList && el.classList.contains("itile")) {
-      const id = el.getAttribute("data-id");
-      if (id) key = "code::" + id;
-    }
-    if (!key || !queue.get(key)) return;
-    const badge = document.createElement("span");
-    badge.setAttribute("data-dev-badge", "1");
-    badge.textContent = "Angefragt";
-    badge.style.cssText = "position:absolute;top:4px;left:4px;background:#a86b00;color:#fff;font-size:10px;padding:1px 4px;border-radius:3px;z-index:10;";
-    el.style.position = el.style.position || "relative";
-    el.appendChild(badge);
-  }
-
-  function buildBar(selected, onAction) {
-    const bar = document.createElement("div");
-    bar.className = "dev-queue-bar";
-    bar.style.cssText = "position:fixed;bottom:0;left:0;right:0;background:#1d1b18;color:#ece6dc;border-top:1px solid #3a352f;display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 12px;z-index:20000;font-size:13px;";
-    const cnt = document.createElement("span");
-    cnt.textContent = selected.size + " ausgewählt";
-    bar.appendChild(cnt);
-    const selAll = document.createElement("button");
-    selAll.textContent = "Alle sichtbaren auswählen";
-    selAll.onclick = () => onAction("selectAll");
-    bar.appendChild(selAll);
-    const none = document.createElement("button");
-    none.textContent = "Keine";
-    none.onclick = () => onAction("none");
-    bar.appendChild(none);
-    const ta = document.createElement("input");
-    ta.type = "text";
-    ta.placeholder = "Kommentar (optional)";
-    ta.style.cssText = "flex:1;min-width:200px;padding:4px 6px;border-radius:4px;border:1px solid #3a352f;background:#262320;color:#ece6dc;";
-    bar.appendChild(ta);
-    const btn = document.createElement("button");
-    btn.textContent = "Rework anfragen";
-    btn.onclick = () => onAction("submit", ta.value);
-    bar.appendChild(btn);
-    return { bar, ta };
-  }
-
-  function hookTextures() {
-    const tiles = document.querySelectorAll(".tx-tile");
-    const selected = new Set();
-    let bar = null;
-    function refresh() {
-      tiles.forEach((t) => {
-        const has = selected.has(t);
-        t.style.outline = has ? "2px solid #3b5b8c" : "";
-        t.style.outlineOffset = has ? "2px" : "";
+  function loadQueue() {
+    fetch('/api/queue', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : []; }).then(function (q) {
+      open.clear();
+      q.forEach(function (e) {
+        if (e.status !== 'open' && e.status !== 'started') return;
+        (e.targets || []).forEach(function (t) { open.add(e.category + '::' + t.id); });
       });
-      if (bar) bar.querySelector("span").textContent = selected.size + " ausgewählt";
+      scan();
+    }).catch(function () {});
+  }
+
+  /* ---- tiles ---- */
+  function tileInfo(t) {
+    if (t.classList.contains('tx-tile')) {
+      var id = t.getAttribute('data-tx-id') || t.getAttribute('title') || '';
+      return { kind: 'textures', key: 'tx:' + id, target: { id: id, label: t.getAttribute('data-tx-label') || id, path: t.getAttribute('data-tx-path') || '' } };
     }
-    const { bar: b, ta } = buildBar(selected, async (action, val) => {
-      if (action === "selectAll") {
-        tiles.forEach((t) => selected.add(t));
-      } else if (action === "none") {
-        selected.clear();
-      } else if (action === "submit") {
-        if (selected.size === 0) return;
-        const targets = [];
-        for (const t of selected) {
-          const id = t.getAttribute("data-tx-id") || t.getAttribute("data-tx-path") || t.getAttribute("title") || "";
-          const label = t.querySelector(".tx-name")?.textContent || id;
-          const path = t.getAttribute("data-tx-path") || "";
-          targets.push({ id, label, path });
-        }
-        try {
-          const res = await fetch(apiBase() + "/queue", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: "same-origin",
-            body: JSON.stringify({ category: "textures", kind: "texture", targets, comment: val || "" })
-          });
-          if (!res.ok) {
-            const j = await res.json().catch(() => ({}));
-            showError("Fehler: " + (j.error || res.status));
-            return;
-          }
-          showMsg("Gesendet");
-          selected.clear();
-          refresh();
-          loadQueue();
-        } catch (e) {
-          showError("Netzwerkfehler");
-        }
-      }
-      refresh();
-    });
-    bar = b;
-    document.body.appendChild(bar);
-    tiles.forEach((t) => {
-      t.addEventListener("click", (e) => {
-        if (e.target.tagName === "INPUT" || e.target.closest("input")) return;
-        const cb = t.querySelector(".dev-tx-check");
-        if (cb && e.target === cb) return;
-        selected.add(t);
-        refresh();
+    var iid = t.getAttribute('data-item-id') || t.getAttribute('data-id') || '';
+    var name = t.querySelector('.itile-name');
+    return { kind: 'items', key: 'it:' + iid, target: { id: iid, label: name ? name.textContent : iid, path: '' } };
+  }
+  function decorate(t) {
+    var info = tileInfo(t);
+    if (!info.target.id) return;
+    var cb = t.querySelector(':scope > .dev-check');
+    if (!cb) {
+      if (getComputedStyle(t).position === 'static') t.style.position = 'relative';
+      cb = el('input', 'position:absolute;top:4px;right:4px;z-index:5;width:16px;height:16px;cursor:pointer');
+      cb.type = 'checkbox';
+      cb.className = 'dev-check';
+      cb.title = 'Für die KI-Queue auswählen';
+      // the tile itself keeps its own click (zoom / item page)
+      cb.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var i = tileInfo(t);
+        if (cb.checked) sel.set(i.key, i.target); else sel.delete(i.key);
+        mode = i.kind;
+        paint();
       });
-      const cb = document.createElement("input");
-      cb.type = "checkbox";
-      cb.className = "dev-tx-check";
-      cb.style.cssText = "position:absolute;top:6px;right:6px;z-index:10;";
-      cb.onchange = () => {
-        if (cb.checked) selected.add(t); else selected.delete(t);
-        refresh();
-      };
-      t.style.position = t.style.position || "relative";
       t.appendChild(cb);
-    });
-    refresh();
-  }
-
-  function hookTextureZoom(info) {
-    const lb = document.querySelector(".tx-lb, .tx-lb-box");
-    if (!lb) return;
-    const box = document.querySelector(".tx-lb-box") || lb;
-    if (box.querySelector(".dev-tx-zoom-btn")) return;
-    const ta = document.createElement("input");
-    ta.type = "text";
-    ta.placeholder = "Kommentar";
-    ta.style.cssText = "margin-left:6px;padding:2px 4px;border-radius:4px;border:1px solid #3a352f;background:#262320;color:#ece6dc;font-size:12px;";
-    const btn = document.createElement("button");
-    btn.className = "dev-tx-zoom-btn";
-    btn.textContent = "Rework anfragen";
-    btn.style.cssText = "margin-left:4px;padding:2px 6px;border-radius:4px;background:#3b5b8c;color:#fff;border:0;font-size:12px;cursor:pointer;";
-    btn.onclick = async () => {
-      const id = info && (info.id || (typeof info === "string" ? info : "")) || "";
-      const label = document.querySelector(".tx-lb-title")?.textContent || id;
-      try {
-        const res = await fetch(apiBase() + "/queue", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "same-origin",
-          body: JSON.stringify({ category: "textures", kind: "texture", targets: [{ id: String(id), label: String(label), path: info && info.file ? String(info.file) : "" }], comment: ta.value || "" })
-        });
-        if (!res.ok) {
-          const j = await res.json().catch(() => ({}));
-          showError("Fehler: " + (j.error || res.status));
-          return;
-        }
-        showMsg("Gesendet");
-      } catch (e) {
-        showError("Netzwerkfehler");
-      }
-    };
-    const head = document.querySelector(".tx-lb-head") || box;
-    head.appendChild(ta);
-    head.appendChild(btn);
-  }
-
-  function hookItemPage(info) {
-    const container = document.querySelector("main, article, .hero-card")?.parentElement || document.body;
-    if (container.querySelector(".dev-item-actions")) return;
-    const wrap = document.createElement("div");
-    wrap.className = "dev-item-actions";
-    wrap.style.cssText = "margin:10px 0;padding:10px;background:#262320;border:1px solid #3a352f;border-radius:6px;";
-    const id = info && info.id ? info.id : (location.hash.split("/").pop() || "");
-    const label = info && info.label ? info.label : document.querySelector("h1")?.textContent || id;
-    wrap.innerHTML = "<div style='margin-bottom:6px;font-weight:600'>KI-Queue</div>";
-    const taR = document.createElement("input");
-    taR.type = "text";
-    taR.placeholder = "Kommentar für Rezept";
-    taR.style.cssText = "width:100%;margin-bottom:6px;padding:4px 6px;border-radius:4px;border:1px solid #3a352f;background:#1d1b18;color:#ece6dc;";
-    const btnR = document.createElement("button");
-    btnR.textContent = "Rezept ändern";
-    btnR.onclick = async () => {
-      try {
-        const res = await fetch(apiBase() + "/queue", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "same-origin",
-          body: JSON.stringify({ category: "code", kind: "recipe", targets: [{ id: String(id), label: String(label), path: "" }], comment: taR.value || "" })
-        });
-        if (!res.ok) {
-          const j = await res.json().catch(() => ({}));
-          showError("Fehler: " + (j.error || res.status));
-          return;
-        }
-        showMsg("Gesendet");
-      } catch (e) {
-        showError("Netzwerkfehler");
-      }
-    };
-    const taN = document.createElement("input");
-    taN.type = "text";
-    taN.placeholder = "Kommentar für Anmerkung";
-    taN.style.cssText = "width:100%;margin-bottom:6px;padding:4px 6px;border-radius:4px;border:1px solid #3a352f;background:#1d1b18;color:#ece6dc;";
-    const btnN = document.createElement("button");
-    btnN.textContent = "Anmerkung";
-    btnN.onclick = async () => {
-      try {
-        const res = await fetch(apiBase() + "/queue", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "same-origin",
-          body: JSON.stringify({ category: "code", kind: "note", targets: [{ id: String(id), label: String(label), path: "" }], comment: taN.value || "" })
-        });
-        if (!res.ok) {
-          const j = await res.json().catch(() => ({}));
-          showError("Fehler: " + (j.error || res.status));
-          return;
-        }
-        showMsg("Gesendet");
-      } catch (e) {
-        showError("Netzwerkfehler");
-      }
-    };
-    wrap.appendChild(btnR);
-    wrap.appendChild(taR);
-    wrap.appendChild(btnN);
-    wrap.appendChild(taN);
-    const hero = document.querySelector(".hero-card") || document.querySelector("h1");
-    if (hero && hero.parentElement) {
-      hero.parentElement.insertBefore(wrap, hero.nextSibling);
-    } else {
-      container.insertBefore(wrap, container.firstChild);
     }
+    cb.checked = sel.has(info.key);
+    t.style.outline = cb.checked ? '2px solid #3b82f6' : '';
+    var cat = info.kind === 'textures' ? 'textures' : 'code';
+    var badge = t.querySelector(':scope > .dev-badge');
+    var queued = open.has(cat + '::' + info.target.id);
+    if (queued && !badge) {
+      badge = el('span', 'position:absolute;top:4px;left:4px;z-index:5;font-size:10px;padding:1px 4px;border-radius:3px;background:#b45309;color:#fff', 'Queue');
+      badge.className = 'dev-badge';
+      t.appendChild(badge);
+    } else if (!queued && badge) badge.remove();
   }
+  function tiles() { return Array.prototype.slice.call(document.querySelectorAll('.tx-tile, a.itile')); }
 
-  function hookItems() {
-    const tiles = document.querySelectorAll(".itile, [data-item-id]");
-    if (tiles.length === 0) return;
-    const selected = new Set();
-    let bar = null;
-    function refresh() {
-      tiles.forEach((t) => {
-        const has = selected.has(t);
-        t.style.outline = has ? "2px solid #3b5b8c" : "";
-        t.style.outlineOffset = has ? "2px" : "";
+  /* ---- bar ---- */
+  function buildBar() {
+    bar = el('div', 'position:fixed;left:0;right:0;bottom:0;z-index:30000;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 12px;background:#1d1b18;color:#ece6dc;border-top:1px solid #3a352f;font:13px system-ui,sans-serif');
+    bar.className = 'dev-bar';
+    var count = el('strong', '', '');
+    count.className = 'dev-count';
+    var all = el('button', '', 'Alle sichtbaren');
+    all.onclick = function () {
+      tiles().forEach(function (t) {
+        if (t.offsetParent === null) return;
+        var i = tileInfo(t);
+        if (i.kind === mode || !mode) { mode = i.kind; if (i.target.id) sel.set(i.key, i.target); }
       });
-      if (bar) bar.querySelector("span").textContent = selected.size + " ausgewählt";
+      paint();
+    };
+    var none = el('button', '', 'Keine');
+    none.onclick = function () { sel.clear(); paint(); };
+    var comment = el('input', 'flex:1;min-width:180px;padding:5px 8px;border-radius:4px;border:1px solid #3a352f;background:#262320;color:#ece6dc');
+    comment.placeholder = 'Kommentar (optional, gilt für alle ausgewählten)';
+    comment.className = 'dev-comment';
+    function go(category, kind) {
+      send(category, kind, Array.from(sel.values()), comment.value).then(function (ok) {
+        if (ok) { sel.clear(); comment.value = ''; paint(); }
+      });
     }
-    const { bar: b, ta } = buildBar(selected, async (action, val) => {
-      if (action === "selectAll") {
-        tiles.forEach((t) => selected.add(t));
-      } else if (action === "none") {
-        selected.clear();
-      } else if (action === "submit") {
-        if (selected.size === 0) return;
-        const targets = [];
-        for (const t of selected) {
-          const id = t.getAttribute("data-id") || t.getAttribute("data-item-id") || "";
-          const label = t.querySelector(".itile-name, .name")?.textContent || id;
-          const path = "";
-          targets.push({ id, label, path });
-        }
-        try {
-          const res = await fetch(apiBase() + "/queue", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: "same-origin",
-            body: JSON.stringify({ category: "code", kind: "recipe", targets, comment: val || "" })
-          });
-          if (!res.ok) {
-            const j = await res.json().catch(() => ({}));
-            showError("Fehler: " + (j.error || res.status));
-            return;
-          }
-          showMsg("Gesendet");
-          selected.clear();
-          refresh();
-          loadQueue();
-        } catch (e) {
-          showError("Netzwerkfehler");
-        }
-      }
-      refresh();
-    });
-    bar = b;
-    const actions = document.createElement("div");
-    actions.style.cssText = "margin-left:8px;display:flex;gap:6px;";
-    const btnA = document.createElement("button");
-    btnA.textContent = "Rezept ändern";
-    btnA.onclick = async () => {
-      if (selected.size === 0) return;
-      const targets = [];
-      for (const t of selected) {
-        const id = t.getAttribute("data-id") || t.getAttribute("data-item-id") || "";
-        const label = t.querySelector(".itile-name, .name")?.textContent || id;
-        targets.push({ id, label, path: "" });
-      }
-      try {
-        const res = await fetch(apiBase() + "/queue", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "same-origin",
-          body: JSON.stringify({ category: "code", kind: "recipe", targets, comment: ta.value || "" })
-        });
-        if (!res.ok) {
-          const j = await res.json().catch(() => ({}));
-          showError("Fehler: " + (j.error || res.status));
-          return;
-        }
-        showMsg("Gesendet");
-        selected.clear();
-        refresh();
-        loadQueue();
-      } catch (e) {
-        showError("Netzwerkfehler");
-      }
-    };
-    const btnB = document.createElement("button");
-    btnB.textContent = "Anmerkung";
-    btnB.onclick = async () => {
-      if (selected.size === 0) return;
-      const targets = [];
-      for (const t of selected) {
-        const id = t.getAttribute("data-id") || t.getAttribute("data-item-id") || "";
-        const label = t.querySelector(".itile-name, .name")?.textContent || id;
-        targets.push({ id, label, path: "" });
-      }
-      try {
-        const res = await fetch(apiBase() + "/queue", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "same-origin",
-          body: JSON.stringify({ category: "code", kind: "note", targets, comment: ta.value || "" })
-        });
-        if (!res.ok) {
-          const j = await res.json().catch(() => ({}));
-          showError("Fehler: " + (j.error || res.status));
-          return;
-        }
-        showMsg("Gesendet");
-        selected.clear();
-        refresh();
-        loadQueue();
-      } catch (e) {
-        showError("Netzwerkfehler");
-      }
-    };
-    actions.appendChild(btnA);
-    actions.appendChild(btnB);
-    bar.insertBefore(actions, bar.querySelector("input").nextSibling);
+    var rework = el('button', 'background:#3b82f6;color:#fff;border:0;border-radius:4px;padding:5px 10px', 'Rework anfragen');
+    rework.className = 'dev-rework';
+    rework.onclick = function () { go('textures', 'texture'); };
+    var recipe = el('button', 'background:#3b82f6;color:#fff;border:0;border-radius:4px;padding:5px 10px', 'Rezept ändern');
+    recipe.className = 'dev-recipe';
+    recipe.onclick = function () { go('code', 'recipe'); };
+    var note = el('button', 'background:#6b7280;color:#fff;border:0;border-radius:4px;padding:5px 10px', 'Anmerkung');
+    note.className = 'dev-note';
+    note.onclick = function () { go('code', 'note'); };
+    [count, all, none, comment, rework, recipe, note].forEach(function (c) { bar.appendChild(c); });
     document.body.appendChild(bar);
-    tiles.forEach((t) => {
-      const cb = document.createElement("input");
-      cb.type = "checkbox";
-      cb.style.cssText = "position:absolute;top:4px;right:4px;z-index:10;";
-      cb.onchange = () => {
-        if (cb.checked) selected.add(t); else selected.delete(t);
-        refresh();
-      };
-      t.style.position = t.style.position || "relative";
-      t.appendChild(cb);
-    });
-    refresh();
+    document.body.style.paddingBottom = '56px';
+  }
+  function paint() {
+    var list = tiles();
+    list.forEach(decorate);
+    if (!list.length && !sel.size) { if (bar) bar.style.display = 'none'; return; }
+    if (!bar) buildBar();
+    if (!mode && list.length) mode = tileInfo(list[0]).kind;
+    bar.style.display = 'flex';
+    bar.querySelector('.dev-count').textContent = sel.size + ' ausgewählt';
+    bar.querySelector('.dev-rework').style.display = mode === 'textures' ? '' : 'none';
+    bar.querySelector('.dev-recipe').style.display = mode === 'items' ? '' : 'none';
+    bar.querySelector('.dev-note').style.display = mode === 'items' ? '' : 'none';
   }
 
-  window.sbDevHook = function (kind, el, info) {
-    try {
-      if (kind === "textures") {
-        hookTextures();
-        return;
-      }
-      if (kind === "texture-zoom") {
-        hookTextureZoom(info);
-        return;
-      }
-      if (kind === "item-page") {
-        hookItemPage(info);
-        return;
-      }
-      if (kind === "items") {
-        hookItems();
-        return;
-      }
-    } catch (e) {
-    }
+  /* ---- zoom and item page ---- */
+  function zoomButton() {
+    var head = document.querySelector('.tx-lb-bar');
+    if (!head || head.querySelector('.dev-zoom') || !lastZoom) return;
+    var wrap = el('span', 'display:inline-flex;gap:4px;margin-left:8px');
+    wrap.className = 'dev-zoom';
+    var c = el('input', 'padding:2px 6px;border-radius:4px;border:1px solid #3a352f;background:#262320;color:#ece6dc;font-size:12px');
+    c.placeholder = 'Kommentar (optional)';
+    var b = el('button', 'background:#3b82f6;color:#fff;border:0;border-radius:4px;padding:2px 8px;font-size:12px', 'Rework anfragen');
+    var t = lastZoom;
+    b.onclick = function () {
+      send('textures', 'texture', [{ id: t.id, label: t.name || t.id, path: t.file || '' }], c.value).then(function (ok) { if (ok) c.value = ''; });
+    };
+    wrap.appendChild(c); wrap.appendChild(b); head.appendChild(wrap);
+  }
+  function itemPanel(info) {
+    var m = /^#\/(items?|blocks?)\/([^?&]+)/.exec(location.hash || '');
+    if (!m && !info) return;
+    var id = info && info.id ? info.id : decodeURIComponent(m[2]);
+    var h1 = document.querySelector('main h1, h1');
+    if (!h1 || document.querySelector('.dev-item[data-id="' + id + '"]')) return;
+    document.querySelectorAll('.dev-item').forEach(function (x) { x.remove(); });
+    var label = info && info.label ? info.label : h1.textContent;
+    var p = el('div', 'margin:10px 0;padding:10px;border:1px solid #3a352f;border-radius:6px;background:#262320;color:#ece6dc;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font:13px system-ui,sans-serif');
+    p.className = 'dev-item';
+    p.setAttribute('data-id', id);
+    p.appendChild(el('strong', '', 'KI-Queue'));
+    var c = el('input', 'flex:1;min-width:200px;padding:5px 8px;border-radius:4px;border:1px solid #3a352f;background:#1d1b18;color:#ece6dc');
+    c.placeholder = 'Was soll anders werden? (optional)';
+    p.appendChild(c);
+    [['Rezept ändern', 'recipe'], ['Anmerkung', 'note']].forEach(function (x) {
+      var b = el('button', 'background:#3b82f6;color:#fff;border:0;border-radius:4px;padding:5px 10px', x[0]);
+      b.onclick = function () {
+        send('code', x[1], [{ id: id, label: label, path: '' }], c.value).then(function (ok) { if (ok) c.value = ''; });
+      };
+      p.appendChild(b);
+    });
+    h1.insertAdjacentElement('afterend', p);
+  }
+
+  var pending = false;
+  function scan(info) {
+    paint();
+    zoomButton();
+    itemPanel(info);
+  }
+  function later() {
+    if (pending) return;
+    pending = true;
+    setTimeout(function () { pending = false; scan(); }, 120);
+  }
+
+  window.sbDevHook = function (kind, node, info) {
+    if (kind === 'texture-zoom') lastZoom = info || null;
+    if (kind === 'item-page') { scan(info); return; }
+    later();
   };
-
-  setTimeout(loadQueue, 500);
+  window.addEventListener('hashchange', function () { sel.clear(); mode = ''; later(); });
+  new MutationObserver(function (records) {
+    for (var i = 0; i < records.length; i++) {
+      var n = records[i].target;
+      if (bar && bar.contains(n)) continue;
+      if (n.nodeType === 1 && n.closest && n.closest('.dev-item, .dev-zoom')) continue;
+      later();
+      return;
+    }
+  }).observe(document.body, { childList: true, subtree: true });
+  loadQueue();
 })();
