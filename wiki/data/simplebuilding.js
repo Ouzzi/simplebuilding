@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 531,
+      "count": 532,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -5063,6 +5063,51 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutoSmitherBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java",
           "common/src/shared/java/com/simplebuilding/client/gui/AutoSmitherScreen.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:autonomous_crafter",
+      "name": {
+        "en_us": "Autonomous Crafter",
+        "de_de": "Autonomer Crafter"
+      },
+      "texture": "assets/textures/block/autonomous_crafter_side.png",
+      "craftedBy": [
+        "simplebuilding:autonomous_crafter"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/autonomous_crafter.png",
+      "note": {
+        "en": {
+          "summary": "The Autonomous Crafter is a Crafter that crafts its grid by itself every 4 ticks as long as a hopper stands below it. A redstone signal stops it; results go into that hopper.",
+          "details": [
+            "It crafts only with a hopper (vanilla or mod hopper) directly below and no redstone signal reaching it. Result and recipe remainders go into that hopper; if the result does not fit completely, nothing is crafted. Remainders that do not fit drop on top of the crafter.",
+            "The 3x3 grid works like the Crafter's: clicking an empty slot with an empty cursor switches it off, clicking it again switches it on. Hoppers and droppers fill it from the top and the sides; nothing can be pulled out, and the hopper below cannot suck up the ingredients.",
+            "Filter key (same key as the mod hoppers, modes Disabled, Exact Match and Type Match): with it on, every filled slot keeps one real item as its recipe item - it crafts only when each filled slot holds at least two and uses up one of each; hoppers only top up slots that hold a match, empty slots take nothing. With the filter off it uses up the last items like the Crafter.",
+            "A comparator reads the filled or switched-off slots (0 to 9), like the Crafter. The faces light up for a moment after each craft and show red lights while powered.",
+            "Recipe (shapeless): Crafter + Hopper + Redstone Comparator."
+          ]
+        },
+        "de": {
+          "summary": "Der Autonome Crafter ist ein Crafter, der sein Raster alle 4 Ticks selbst craftet, solange ein Trichter unter ihm steht. Ein Redstone-Signal hält ihn an; Ergebnisse gehen in diesen Trichter.",
+          "details": [
+            "Er craftet nur mit einem Trichter (Vanilla- oder Mod-Trichter) direkt darunter und ohne Redstone-Signal. Ergebnis und Rezept-Reste gehen in diesen Trichter; passt das Ergebnis nicht ganz hinein, wird nichts gecraftet. Reste, die nicht passen, fallen oben auf den Crafter.",
+            "Das 3x3-Raster funktioniert wie beim Crafter: Klick mit leerem Mauszeiger auf einen leeren Platz schaltet ihn ab, ein weiterer Klick wieder an. Trichter und Spender füllen von oben und den Seiten; herausziehen lässt sich nichts, auch der Trichter darunter saugt die Zutaten nicht ab.",
+            "Filter-Knopf (derselbe wie bei den Mod-Trichtern, Modi Aus, Exakt gleich und Gleiche Art): eingeschaltet behält jeder belegte Platz ein echtes Item als Rezept-Item - gecraftet wird erst, wenn jeder belegte Platz mindestens zwei hat, verbraucht wird je eins; Trichter füllen nur Plätze mit passendem Item auf, leere Plätze nehmen nichts. Ohne Filter verbraucht er wie der Crafter auch die letzten Items.",
+            "Ein Komparator liest die belegten oder abgeschalteten Plätze (0 bis 9), wie beim Crafter. Nach jedem Craft leuchten die Seiten kurz auf, mit Redstone-Signal zeigen sie rote Lichter.",
+            "Rezept (formlos): Crafter + Trichter + Redstone-Komparator."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AutonomousCrafterBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutonomousCrafterBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/AutonomousCrafterMenu.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/AutonomousCrafterScreen.java",
+          "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
@@ -29814,6 +29859,55 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:autonomous_crafter",
+      "name": {
+        "en_us": "Autonomous Crafter",
+        "de_de": "Autonomer Crafter"
+      },
+      "texture": "assets/textures/block/autonomous_crafter_side.png",
+      "craftedBy": [
+        "simplebuilding:autonomous_crafter"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/autonomous_crafter.png",
+      "lootTable": "simplebuilding:blocks/autonomous_crafter",
+      "drops": [
+        "simplebuilding:autonomous_crafter"
+      ],
+      "note": {
+        "en": {
+          "summary": "The Autonomous Crafter is a Crafter that crafts its grid by itself every 4 ticks as long as a hopper stands below it. A redstone signal stops it; results go into that hopper.",
+          "details": [
+            "It crafts only with a hopper (vanilla or mod hopper) directly below and no redstone signal reaching it. Result and recipe remainders go into that hopper; if the result does not fit completely, nothing is crafted. Remainders that do not fit drop on top of the crafter.",
+            "The 3x3 grid works like the Crafter's: clicking an empty slot with an empty cursor switches it off, clicking it again switches it on. Hoppers and droppers fill it from the top and the sides; nothing can be pulled out, and the hopper below cannot suck up the ingredients.",
+            "Filter key (same key as the mod hoppers, modes Disabled, Exact Match and Type Match): with it on, every filled slot keeps one real item as its recipe item - it crafts only when each filled slot holds at least two and uses up one of each; hoppers only top up slots that hold a match, empty slots take nothing. With the filter off it uses up the last items like the Crafter.",
+            "A comparator reads the filled or switched-off slots (0 to 9), like the Crafter. The faces light up for a moment after each craft and show red lights while powered.",
+            "Recipe (shapeless): Crafter + Hopper + Redstone Comparator."
+          ]
+        },
+        "de": {
+          "summary": "Der Autonome Crafter ist ein Crafter, der sein Raster alle 4 Ticks selbst craftet, solange ein Trichter unter ihm steht. Ein Redstone-Signal hält ihn an; Ergebnisse gehen in diesen Trichter.",
+          "details": [
+            "Er craftet nur mit einem Trichter (Vanilla- oder Mod-Trichter) direkt darunter und ohne Redstone-Signal. Ergebnis und Rezept-Reste gehen in diesen Trichter; passt das Ergebnis nicht ganz hinein, wird nichts gecraftet. Reste, die nicht passen, fallen oben auf den Crafter.",
+            "Das 3x3-Raster funktioniert wie beim Crafter: Klick mit leerem Mauszeiger auf einen leeren Platz schaltet ihn ab, ein weiterer Klick wieder an. Trichter und Spender füllen von oben und den Seiten; herausziehen lässt sich nichts, auch der Trichter darunter saugt die Zutaten nicht ab.",
+            "Filter-Knopf (derselbe wie bei den Mod-Trichtern, Modi Aus, Exakt gleich und Gleiche Art): eingeschaltet behält jeder belegte Platz ein echtes Item als Rezept-Item - gecraftet wird erst, wenn jeder belegte Platz mindestens zwei hat, verbraucht wird je eins; Trichter füllen nur Plätze mit passendem Item auf, leere Plätze nehmen nichts. Ohne Filter verbraucht er wie der Crafter auch die letzten Items.",
+            "Ein Komparator liest die belegten oder abgeschalteten Plätze (0 bis 9), wie beim Crafter. Nach jedem Craft leuchten die Seiten kurz auf, mit Redstone-Signal zeigen sie rote Lichter.",
+            "Rezept (formlos): Crafter + Trichter + Redstone-Komparator."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AutonomousCrafterBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutonomousCrafterBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/AutonomousCrafterMenu.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/AutonomousCrafterScreen.java",
+          "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:backpack",
       "name": {
         "en_us": "Backpack",
@@ -43275,6 +43369,65 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:autonomous_crafter",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:autonomous_crafter",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/autonomous_crafter.json",
+      "ingredients": [
+        "minecraft:comparator",
+        "minecraft:crafter",
+        "minecraft:hopper"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:crafter"
+        ],
+        [
+          "minecraft:hopper"
+        ],
+        [
+          "minecraft:comparator"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 10
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 7
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 3.375
+          },
+          {
+            "id": "minecraft:stone",
+            "count": 3
+          },
+          {
+            "id": "minecraft:quartz",
             "count": 1
           }
         ]
@@ -77247,6 +77400,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/auto_smither.json"
+    },
+    {
+      "id": "simplebuilding:blocks/autonomous_crafter",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:autonomous_crafter"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/autonomous_crafter.json"
     },
     {
       "id": "simplebuilding:blocks/backpack",
@@ -116107,10 +116276,10 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 475,
-    "blocks": 236,
-    "recipes": 844,
-    "lootTables": 230,
+    "items": 476,
+    "blocks": 237,
+    "recipes": 845,
+    "lootTables": 231,
     "trades": 20,
     "enchantments": 19,
     "tags": 49,
