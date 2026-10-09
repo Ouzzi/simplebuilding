@@ -11273,8 +11273,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:enderite_lava_bucket_full",
       "name": {
-        "en_us": "Full Enderite Lava Bucket",
-        "de_de": "Voller Enderit-Lavaeimer"
+        "en_us": "Enderite Lava Bucket (Full)",
+        "de_de": "Enderit-Lavaeimer (voll)"
       },
       "texture": "assets/textures/item/enderite_lava_bucket.png",
       "craftedBy": [],
@@ -12112,8 +12112,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:enderite_soul_lava_bucket_full",
       "name": {
-        "en_us": "Full Enderite Soul Lava Bucket",
-        "de_de": "Voller Enderit-Seelen-Lava-Eimer"
+        "en_us": "Enderite Soul Lava Bucket (Full)",
+        "de_de": "Enderit-Seelen-Lava-Eimer (voll)"
       },
       "texture": "assets/textures/item/enderite_soul_lava_bucket.png",
       "craftedBy": [],
@@ -12277,8 +12277,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:enderite_water_bucket_full",
       "name": {
-        "en_us": "Full Enderite Water Bucket",
-        "de_de": "Voller Enderit-Wassereimer"
+        "en_us": "Enderite Water Bucket (Full)",
+        "de_de": "Enderit-Wassereimer (voll)"
       },
       "texture": "assets/textures/item/enderite_water_bucket.png",
       "craftedBy": [],
