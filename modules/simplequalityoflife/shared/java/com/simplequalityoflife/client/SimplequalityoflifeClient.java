@@ -5,7 +5,7 @@ import net.minecraft.resources.Identifier;
 public final class SimplequalityoflifeClient {
  public static KeyMapping autoWalkKey,crawlKey;
  private static boolean walking;
- public static void initClient(){Simplequalityoflife.clientConfig(ClientNetworking::getSyncedConfig);var cat=KeyMapping.Category.register(Identifier.fromNamespaceAndPath("simplequalityoflife","general"));autoWalkKey=new KeyMapping("key.simplequalityoflife.autowalk",82,cat);crawlKey=new KeyMapping("key.simplequalityoflife.crawl",80,cat);}
+ public static void initClient(){Simplequalityoflife.clientConfig(ClientNetworking::getSyncedConfig);var cat=KeyMapping.Category.register(Identifier.fromNamespaceAndPath("simplequalityoflife","general"));autoWalkKey=new KeyMapping("key.simplequalityoflife.autowalk",com.mojang.blaze3d.platform.InputConstants.KEY_R,cat);crawlKey=new KeyMapping("key.simplequalityoflife.crawl",com.mojang.blaze3d.platform.InputConstants.KEY_P,cat);}
  public static void tick(Minecraft c){
   if(c.player==null||c.gui.screen()!=null){if(walking)c.options.keyUp.setDown(false);walking=false;return;}
   if(crawlKey.consumeClick())c.player.connection.sendCommand("crawl");

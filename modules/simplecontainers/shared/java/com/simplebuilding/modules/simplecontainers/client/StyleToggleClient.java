@@ -8,7 +8,8 @@ import net.minecraft.resources.Identifier;
 /** Client key for the screen-style comparison switch. */
 public final class StyleToggleClient {
     public static boolean development;
-    public static final KeyMapping KEY = new KeyMapping("key.simplecontainers.toggle_style", -1,
+    public static final KeyMapping KEY = new KeyMapping("key.simplecontainers.toggle_style",
+            com.mojang.blaze3d.platform.InputConstants.UNKNOWN.getValue(),
             KeyMapping.Category.register(Identifier.fromNamespaceAndPath("simplecontainers", "general")));
 
     private StyleToggleClient() {}
