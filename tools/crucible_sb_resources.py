@@ -72,7 +72,7 @@ def files():
     # Buckets.
     for name in ("soul_lava_bucket", "enderite_bucket", "enderite_water_bucket", "enderite_lava_bucket", "enderite_soul_lava_bucket"):
         # Owner N21/N28: the filled Enderite items hold one bucket of two and show the half texture
-        # (tools/textures/enderite_bucket_half_2026_10_09.py); the _full items (two buckets) the full one.
+        # (tools/textures/enderite_bucket_fill_2026_10_09.py); the _full items (two buckets) the full one.
         half = name.startswith("enderite_") and name != "enderite_bucket"
         out[f"{a}/models/item/{name}.json"] = item_model(name + "_half" if half else name)
         out[f"{a}/items/{name}.json"] = {"model": model_ref(f"{NS}:item/{name}")}

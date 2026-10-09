@@ -584,9 +584,8 @@ def bucket_resources(copper_variant, enderite_variant):
             else:
                 img = copper_bucket(p.ramp(p.vanilla('block/' + name)), copper_variant, content)
             out[SB / f'item/copper_{suffix}_{stage}.png'] = img
-    for content in (None, 'water', 'lava', 'soul_lava'):
-        suffix = (content + '_' if content else '') + 'bucket'
-        out[SB / f'item/enderite_{suffix}.png'] = enderite_bucket_strip(enderite_variant, content)
+    # The filled Enderite buckets (full + half) come from enderite_bucket_fill_2026_10_09.py since N29.
+    out[SB / 'item/enderite_bucket.png'] = enderite_bucket_strip(enderite_variant)
     out[SB / 'item/soul_lava_bucket.png'] = iron_soul_lava_bucket()
     return out
 

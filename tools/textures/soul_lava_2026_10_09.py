@@ -7,9 +7,10 @@ ramp (soul soil browns for the coolest crust, soul lantern teal for the body, pa
 streaks). Single highlights brighter than their neighbourhood are flattened, so no lone bright pixel flickers.
 
 * still: 20 frames, ping-pong 0..19..1, frametime 2 (as Vanilla);
-* flow: 16 frames, now also ping-pong 0..15..1 (owner wish), frametime 3 (as Vanilla);
-* soul lava buckets (iron, Enderite): the liquid tones of the Vanilla lava bucket are swapped 1:1 for tones of the
-  same ramp (SOUL_FOR_LAVA, shared with crucible_art_v2_2026_10_05.py), the Enderite bucket keeps its shimmer frames.
+* flow: 16 frames, forward loop 0..15, frametime 3 (as Vanilla; N29: the ping-pong made it run back and forth);
+* iron soul lava bucket: the liquid tones of the Vanilla lava bucket are swapped 1:1 for tones of the same ramp
+  (SOUL_FOR_LAVA, shared with crucible_art_v2_2026_10_05.py and enderite_bucket_fill_2026_10_09.py, which writes
+  the Enderite soul lava buckets).
 
 Run from the repository root (Pillow + numpy):
   python3.12 tools/textures/soul_lava_2026_10_09.py              write textures + .mcmeta
@@ -56,13 +57,6 @@ SOUL_FOR_LAVA = {
     (228, 210, 92): (122, 245, 248),
     (159, 127, 120): (112, 146, 150),
     (182, 140, 123): (128, 170, 174),
-}
-# Round 1 bucket tones (crucible art v2), replaced in the Enderite bucket's shimmer frames.
-OLD_SOUL_FOR_LAVA = {
-    (127, 62, 44): (3, 96, 104),
-    (204, 70, 40): (3, 150, 154),
-    (227, 140, 63): (42, 201, 207),
-    (228, 210, 92): (122, 245, 248),
 }
 
 KINDS = {'still': (16, 2), 'flow': (32, 3)}  # frame size, frametime
@@ -117,6 +111,8 @@ def soul_lava(kind: str) -> Image.Image:
 
 def mcmeta(kind: str, frames: int) -> str:
     _, frametime = KINDS[kind]
+    if kind == 'flow':  # N29: one direction only, a plain forward loop like Vanilla lava_flow (seamless 15 -> 0)
+        return json.dumps({'animation': {'frametime': frametime}}, indent=2) + '\n'
     order = list(range(frames)) + list(range(frames - 2, 0, -1))
     return json.dumps({'animation': {'frametime': frametime, 'frames': order}}, indent=2) + '\n'
 
@@ -136,10 +132,6 @@ def outputs() -> dict:
         out[TEX / f'block/soul_lava_{kind}.png'] = img
         out[TEX / f'block/soul_lava_{kind}.png.mcmeta'] = mcmeta(kind, img.height // KINDS[kind][0])
     out[TEX / 'item/soul_lava_bucket.png'] = swap(vanilla('item/lava_bucket'), SOUL_FOR_LAVA)
-    ender = TEX / 'item/enderite_soul_lava_bucket.png'
-    with Image.open(ender) as cur:
-        old_to_new = {OLD_SOUL_FOR_LAVA[k]: v for k, v in SOUL_FOR_LAVA.items() if k in OLD_SOUL_FOR_LAVA}
-        out[ender] = swap(cur, old_to_new)
     return out
 
 
@@ -166,8 +158,8 @@ def preview(dest: Path, old: Path | None) -> None:
     if old:
         rows.insert(0, ('alt', {k: Image.open(old / f'soul_lava_{k}.png').convert('RGBA') for k in KINDS}))
     rows.append(('neu', new))
-    # Animated GIF: per row still (2x2 tiled, 8x) and flow (8x), in-game timing, ping-pong as in the new .mcmeta
-    # (the old flow looped forward, the Vanilla flow too).
+    # Animated GIF: per row still (2x2 tiled, 8x) and flow (8x), in-game timing; still ping-pong, flow forward
+    # (as Vanilla and the .mcmeta).
     scale, pad = 8, 12
     cell = 32 * scale
     w = pad + 2 * (cell + pad)
@@ -183,7 +175,7 @@ def preview(dest: Path, old: Path | None) -> None:
                 size, ft = KINDS[kind]
                 fr = frames_of(imgs[kind], size)
                 n = len(fr)
-                pingpong = label == 'neu' or kind == 'still'
+                pingpong = kind == 'still'
                 seq = list(range(n)) + list(range(n - 2, 0, -1)) if pingpong else list(range(n))
                 f = fr[seq[(t // ft) % len(seq)]]
                 if kind == 'still':
@@ -194,7 +186,7 @@ def preview(dest: Path, old: Path | None) -> None:
                     f = tile
                 canvas.paste(f.resize((cell, cell), Image.NEAREST).convert('RGB'), (pad + c * (cell + pad), y + 14))
         gif.append(canvas)
-    gif[0].save(dest / 'soullava-v2.gif', save_all=True, append_images=gif[1:], duration=100, loop=0)
+    gif[0].save(dest / 'soullava-flow.gif', save_all=True, append_images=gif[1:], duration=100, loop=0)
     # Contact sheet: every frame of still and flow, old / Vanilla / new.
     sheets = []
     for label, imgs in rows:
@@ -225,7 +217,7 @@ def preview(dest: Path, old: Path | None) -> None:
     for s in sheets:
         sheet.paste(s, (0, y))
         y += s.height + 6
-    sheet.save(dest / 'soullava-v2-frames.png')
+    sheet.save(dest / 'soullava-frames.png')
 
 
 def main() -> int:
