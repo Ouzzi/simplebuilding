@@ -1,6 +1,7 @@
 """Paint box (owner 2026-10-09, round 3): a box of paint pots in four tiers, own pixel art.
 
-The lid stands open behind, four paint pots (red, yellow, blue, green) sit in the box, a clasp holds the front. The
+The lid stands open behind, a palette tray with all 16 dye colours (one pixel each, N29) sits in the box, a clasp
+holds the front. The
 tiers differ in material: oak (basic), oak with iron corners and a diamond clasp (reinforced), netherite and
 enderite (with purple specks), colours taken from the mod's netherite/enderite backpacks.
 
@@ -22,9 +23,9 @@ ROWS = [
     "..OllllllllllO..",
     "..OmmmmmmmmmmO..",
     "..OmmmmmmmmmmO..",
-    ".ORROYYOOBBOGGO.",
-    ".ORrDYyDDBbDGgO.",
-    ".OrrDyyDDbbDggO.",
+    ".OTT01234567TTO.",
+    ".OTTTTTTTTTTTTO.",
+    ".OTT89abcdefTTO.",
     ".OOOOOOOOOOOOOO.",
     ".OcLLLLLLLLLLcO.",
     ".OMMMMMMMMMMMMO.",
@@ -34,10 +35,12 @@ ROWS = [
     "..OOOOOOOOOOOO..",
     "................",
 ]
-POTS = {
-    "R": (0xD8, 0x3A, 0x30), "r": (0x9C, 0x24, 0x1E), "Y": (0xFE, 0xD8, 0x3D), "y": (0xC8, 0xA0, 0x20),
-    "B": (0x4A, 0x6C, 0xD8), "b": (0x2C, 0x40, 0x98), "G": (0x80, 0xC7, 0x1F), "g": (0x52, 0x86, 0x14),
-}
+# N29 (owner 2026-10-09): every colour of the palette is one pixel in the box, in DyeColor id order (white first,
+# black last; 0-f), two rows of eight pans on a grey palette tray (T) so black and white both stand out.
+DYES = [0xF9FFFE, 0xF9801D, 0xC74EBD, 0x3AB3DA, 0xFED83D, 0x80C71F, 0xF38BAA, 0x474F52,
+        0x9D9D97, 0x169C9C, 0x8932B8, 0x3C44AA, 0x835432, 0x5E7C16, 0xB02E26, 0x1D1D21]  # DyeColor texture colours
+POTS = {f"{i:x}": ((c >> 16) & 255, (c >> 8) & 255, c & 255) for i, c in enumerate(DYES)}
+POTS["T"] = (0x6E, 0x6B, 0x72)
 OAK = {"O": (0x4A, 0x32, 0x18), "l": (0xC8, 0x9A, 0x5E), "m": (0xA8, 0x7E, 0x48), "L": (0xC8, 0x9A, 0x5E),
        "M": (0xA8, 0x7E, 0x48), "D": (0x86, 0x62, 0x36)}
 TIERS = {

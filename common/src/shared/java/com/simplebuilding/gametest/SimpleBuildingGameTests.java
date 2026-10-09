@@ -1031,6 +1031,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_resonance_panel_layout_sits_beside_recipe_book", TrimWiringTests::resonancePanelLayoutSitsBesideRecipeBook)
                     .build(),
+            GameTestSpec.named("trim_wiring_game_test_max_resonance_shows_the_diamond_heart", TrimWiringTests::maxResonanceShowsTheDiamondHeart)
+                    .build(),
             GameTestSpec.named("rare_structure_finds_game_test_better_chest_tables_rate_and_double_chest_rule", RareStructureFindsTests::betterChestTablesRateAndDoubleChestRule)
                     .build(),
             GameTestSpec.named("rare_structure_finds_game_test_bastion_template_chest_becomes_netherite_chest", RareStructureFindsTests::bastionTemplateChestBecomesNetheriteChest)

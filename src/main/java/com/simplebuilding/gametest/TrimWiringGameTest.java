@@ -80,4 +80,9 @@ public final class TrimWiringGameTest {
     public void resonancePanelLayoutSitsBesideRecipeBook(GameTestHelper helper) {
         TrimWiringTests.resonancePanelLayoutSitsBesideRecipeBook(helper);
     }
+
+    @GameTest
+    public void maxResonanceShowsTheDiamondHeart(GameTestHelper helper) {
+        TrimWiringTests.maxResonanceShowsTheDiamondHeart(helper);
+    }
 }

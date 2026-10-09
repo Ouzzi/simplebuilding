@@ -28,8 +28,9 @@ public final class TrimStatsPanel {
     /** Rahmen des Rezeptbuch-Knopfs ohne Buch, Nine-Slice (tools/textures/resonance_heart_2026_10_09.py). */
     private static final Identifier PANEL_SPRITE = Identifier.fromNamespaceAndPath("simplebuilding", "resonance_field");
     private static final Identifier PANEL_SPRITE_HIGHLIGHTED = Identifier.fromNamespaceAndPath("simplebuilding", "resonance_field_highlighted");
-    /** Herz mit Bruchstein-Struktur (10x9, tools/textures/resonance_heart_2026_10_09.py). */
-    private static final Identifier HEART_SPRITE = Identifier.fromNamespaceAndPath("simplebuilding", "resonance_heart");
+    /** Herz mit Bruchstein-Struktur, bei maximaler Resonanz aus Diamant (9x9, tools/textures/resonance_heart_2026_10_09.py). */
+    private static final Identifier HEART_SPRITE = Identifier.fromNamespaceAndPath("simplebuilding", TrimStatsLayout.HEART_SPRITE);
+    private static final Identifier HEART_SPRITE_MAX = Identifier.fromNamespaceAndPath("simplebuilding", TrimStatsLayout.HEART_SPRITE_MAX);
     /** Rezeptbuch-Knopf des Vanilla-Inventars relativ zu leftPos/topPos (x 104, height / 2 - 22 = 61 bei 166 Hoehe). */
     public static final int BOOK_X = 104, BOOK_Y = 61;
     public static final int HEIGHT = TrimStatsLayout.HEIGHT;
@@ -56,14 +57,16 @@ public final class TrimStatsPanel {
             return;
         }
         Player player = minecraft.player;
-        String text = compact(TrimMultiplierLogic.getMultiplier(player));
+        double total = TrimMultiplierLogic.getMultiplier(player);
+        String text = compact(total);
+        boolean max = TrimStatsLayout.isMaxResonance(total, TrimMultiplierLogic.baseMultiplier(true));
         TrimStatsLayout.Panel panel = panel(font, text, bookX, bookY);
 
         boolean hovered = mouseX >= panel.x() && mouseX < panel.x() + panel.width()
                 && mouseY >= panel.y() && mouseY < panel.y() + panel.height();
         context.blitSprite(RenderPipelines.GUI_TEXTURED, hovered ? PANEL_SPRITE_HIGHLIGHTED : PANEL_SPRITE,
                 panel.x(), panel.y(), panel.width(), panel.height());
-        context.blitSprite(RenderPipelines.GUI_TEXTURED, HEART_SPRITE, panel.iconX(), panel.iconY(),
+        context.blitSprite(RenderPipelines.GUI_TEXTURED, max ? HEART_SPRITE_MAX : HEART_SPRITE, panel.iconX(), panel.iconY(),
                 TrimStatsLayout.ICON_WIDTH, TrimStatsLayout.ICON_HEIGHT);
         // Dunkelgrau ohne Schatten wie die Vanilla-Beschriftung "Crafting" daneben: auf #C6C6C6 klar lesbar
         // (Weiss mit Schatten war im Client-Screenshot zu blass).
@@ -116,7 +119,7 @@ public final class TrimStatsPanel {
         tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.damage_taken", damage / 20).withStyle(ChatFormatting.GRAY));
 
         tooltip.add(Component.empty());
-        boolean capped = total >= base - 0.005;
+        boolean capped = TrimStatsLayout.isMaxResonance(total, base);
         tooltip.add(Component.translatable(capped ? "gui.simplebuilding.trim_stats.capped" : "gui.simplebuilding.trim_stats.cap", fmt(base))
                 .withStyle(capped ? ChatFormatting.GOLD : ChatFormatting.GRAY));
         tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.death").withStyle(ChatFormatting.DARK_GRAY));

@@ -1441,17 +1441,36 @@ public final class TrimWiringTests {
         TrimStatsLayout.Panel shortPanel = TrimStatsLayout.panel(100, 60, 24);
         helper.assertValueEqual(shortPanel.x(), 122, "resonance panel starts two pixels after the book button");
         helper.assertValueEqual(shortPanel.y(), 60, "resonance panel keeps the book button y position");
-        helper.assertValueEqual(shortPanel.width(), 43, "resonance panel width follows the value text");
+        helper.assertValueEqual(shortPanel.width(), 42, "resonance panel width follows the value text");
         helper.assertValueEqual(shortPanel.height(), 18, "resonance panel stays compact");
         helper.assertValueEqual(shortPanel.iconX(), 125, "the heart sits three pixels in");
         helper.assertValueEqual(shortPanel.iconY(), 64, "the heart is centred vertically");
-        helper.assertValueEqual(shortPanel.textX(), 137, "value follows the heart");
+        helper.assertValueEqual(shortPanel.textX(), 136, "value follows the heart");
         helper.assertValueEqual(shortPanel.textY(), 65, "value is vertically centered in the field");
 
         TrimStatsLayout.Panel longPanel = TrimStatsLayout.panel(-17, 12, 80);
         helper.assertValueEqual(longPanel.x(), 5, "panel x depends only on the book anchor");
-        helper.assertValueEqual(longPanel.width(), 99, "longer values receive the required extra width");
+        helper.assertValueEqual(longPanel.width(), 98, "longer values receive the required extra width");
         helper.assertTrue(longPanel.width() > shortPanel.width(), "panel width grows with text width");
+        helper.assertValueEqual(TrimStatsLayout.ICON_WIDTH, 9, "the heart is 9 wide again (owner N29)");
+        helper.assertValueEqual(TrimStatsLayout.ICON_HEIGHT, 9, "the heart is 9 high");
+        helper.succeed();
+    }
+
+    /** Owner N29: at maximum resonance (all factors 1.0, value = base) the heart turns into a diamond heart. */
+    public static void maxResonanceShowsTheDiamondHeart(GameTestHelper helper) {
+        helper.assertTrue(TrimStatsLayout.isMaxResonance(3.0, 3.0), "value equal to the base is the maximum");
+        helper.assertTrue(TrimStatsLayout.isMaxResonance(2.996, 3.0), "a value shown as the base (3.00x) is the maximum");
+        helper.assertFalse(TrimStatsLayout.isMaxResonance(2.99, 3.0), "2.99x below a base of 3.00 is not the maximum");
+        helper.assertValueEqual(TrimStatsLayout.heartSprite(1.5, 1.5), "resonance_heart_max", "diamond heart at the maximum");
+        helper.assertValueEqual(TrimStatsLayout.heartSprite(0.4, 1.5), "resonance_heart", "cobblestone heart below it");
+        ServerPlayer player = mockPlayer(helper);
+        double base = TrimMultiplierLogic.baseMultiplier(false);
+        double total = TrimMultiplierLogic.getMultiplier(player);
+        helper.assertFalse(TrimStatsLayout.isMaxResonance(total, base),
+                "a fresh player (" + total + " of " + base + ") has no maximum resonance yet");
+        helper.assertValueEqual(TrimStatsLayout.heartSprite(base * (1.0 + 1.0 + 1.0) / 3.0, base), "resonance_heart_max",
+                "all three factors at 1.0 give the diamond heart");
         helper.succeed();
     }
 
