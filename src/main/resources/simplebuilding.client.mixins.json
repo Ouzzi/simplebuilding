@@ -37,6 +37,7 @@
     "PistonHeadRendererMixin",
     "QuickPlayTestWorldMixin",
     "HubWorldOpenFlowsMixin",
+    "InputConstantsGuardMixin",
     "SmithingScreenMixin",
     "ShulkerRendererMixin",
     "ShulkerRenderStateMixin",
