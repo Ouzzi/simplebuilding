@@ -190,6 +190,8 @@ public final class PaintBoxItem extends Item {
                                 net.minecraft.world.item.TooltipFlag flag) {
         lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.paint_box", capacity())
                 .withStyle(net.minecraft.ChatFormatting.GRAY));
+        lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.paint_box.scroll")
+                .withStyle(net.minecraft.ChatFormatting.GRAY));
         super.appendHoverText(stack, context, display, lines, flag);
     }
 
