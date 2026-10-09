@@ -12086,6 +12086,125 @@
           "Bedienung, Tooltip und Farbpinsel wie beim Farbkasten."
         ]
       }
+    },
+    "hollow_*": {
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/woodwork/HollowLogBlock.java",
+        "common/src/shared/java/com/simplebuilding/woodwork/HollowLogCrawl.java",
+        "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
+      ],
+      "en": {
+        "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
+        "details": [
+          "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+          "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
+          "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
+          "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
+        ]
+      },
+      "de": {
+        "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
+        "details": [
+          "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+          "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
+          "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
+          "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
+        ]
+      }
+    },
+    "*_sheet": {
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "tools/textures/woodwork_2026_10_09.py"
+      ],
+      "en": {
+        "summary": "Wood sheets (normal and stripped, per wood type) are thin panels that connect like glass panes and iron bars and let light through.",
+        "details": [
+          "Crafting: 6 hollow logs (two rows of three) give 16 sheets; hollow stripped logs give stripped sheets.",
+          "Mined with an axe; burnable woods burn and smelt as fuel (100 ticks)."
+        ]
+      },
+      "de": {
+        "summary": "Holzplatten (normal und entrindet, je Holzart) sind dünne Platten, die sich wie Glasscheiben und Eisengitter verbinden und Licht durchlassen.",
+        "details": [
+          "Herstellung: 6 ausgehöhlte Stämme (zwei Reihen zu drei) ergeben 16 Platten; ausgehöhlte entrindete Stämme ergeben entrindete Platten.",
+          "Abbau mit der Axt; brennbare Hölzer brennen und dienen als Brennstoff (100 Ticks)."
+        ]
+      }
+    },
+    "*_cauldron": {
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+        "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+      ],
+      "en": {
+        "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+        "details": [
+          "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+          "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+          "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+        ]
+      },
+      "de": {
+        "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+        "details": [
+          "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+          "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+          "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+        ]
+      }
+    },
+    "*_crate": {
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
+        "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+      ],
+      "en": {
+        "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+        "details": [
+          "Crafting: 7 planks of one wood in a U shape.",
+          "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+          "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate."
+        ]
+      },
+      "de": {
+        "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+        "details": [
+          "Herstellung: 7 Bretter einer Holzart in U-Form.",
+          "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+          "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus."
+        ]
+      }
+    },
+    "carved_*": {
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/woodwork/CarvedLogBlock.java",
+        "common/src/shared/java/com/simplebuilding/woodwork/PotteryCarving.java",
+        "common/src/shared/java/com/simplebuilding/woodwork/SherdMotif.java",
+        "tools/textures/woodwork_2026_10_09.py"
+      ],
+      "en": {
+        "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+        "details": [
+          "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+          "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
+          "Breaking drops the carved log with its motif; placed again, the motif faces you."
+        ]
+      },
+      "de": {
+        "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+        "details": [
+          "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+          "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
+          "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+        ]
+      }
     }
   },
   "inWorld": {
