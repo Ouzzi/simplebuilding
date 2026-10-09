@@ -197,6 +197,14 @@ public final class SearchTabPlacement {
                     ? Placement.after(REDSTONE_BLOCKS, Items.CRAFTER, ModItems.AUTO_SMITHER, ModItems.AUTONOMOUS_CRAFTER)
                     : Placement.after(REDSTONE_BLOCKS, Items.CRAFTER, ModItems.AUTO_SMITHER));
         }
+        if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
+            // Astral-Verzauberung (Queue N27) neben ihre Vanilla-Vorbilder.
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.ENCHANTING_TABLE, ModItems.ASTRAL_ENCHANTING_TABLE));
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.BOOKSHELF, ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF));
+            out.add(Placement.after(BUILDING_BLOCKS, Items.WARPED_BUTTON, ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.CRYING_OBSIDIAN, ModItems.BLAZING_OBSIDIAN));
+            out.add(Placement.after(INGREDIENTS, Items.BOOK, ModItems.BLAZE_BOOK));
+        }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Platten hinter der letzten Vanilla-Platte, Lautsprecher hinter Notenblock und Plattenspieler (Redstone).
             out.add(Placement.after(TOOLS_AND_UTILITIES, Items.MUSIC_DISC_BOUNCE,

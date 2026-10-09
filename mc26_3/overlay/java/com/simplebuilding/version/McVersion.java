@@ -55,6 +55,8 @@ public final class McVersion {
     public static final boolean AUTO_SMITHER = true;
     /** Autonomous Crafter: crafts on its own over a hopper (owner 2026-10-09, queue N26). */
     public static final boolean AUTONOMOUS_CRAFTER = true;
+    /** Astral Enchanting Table, blazewood, blaze books and shelves, blazing obsidian (owner 2026-10-09, queue N27). */
+    public static final boolean ASTRAL_ENCHANTING = true;
     /** Small items (pebbles, sticks, ingots, gems, bricks) placeable on blocks (2026-10-02). */
     public static final boolean SMALL_PLACEABLES = true;
     /** Bundles, backpacks and quivers dye like vanilla bundles: one fixed colour per dye, no mixing, no washing (2026-10-02). */

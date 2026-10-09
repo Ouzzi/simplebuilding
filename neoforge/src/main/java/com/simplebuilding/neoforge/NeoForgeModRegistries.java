@@ -112,6 +112,18 @@ public final class NeoForgeModRegistries {
                             net.minecraft.world.flag.FeatureFlags.VANILLA_SET))
                     : null;
 
+    /** Astral-Verzauberungstisch, nur Hauptlinie (McVersion.ASTRAL_ENCHANTING). */
+    public static final Supplier<MenuType<com.simplebuilding.screen.AstralEnchantingMenu>> ASTRAL_ENCHANTING_MENU =
+            com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+                    ? MENUS.register("astral_enchanting_table", () -> new MenuType<>(com.simplebuilding.screen.AstralEnchantingMenu::new,
+                            net.minecraft.world.flag.FeatureFlags.VANILLA_SET))
+                    : null;
+    public static final Supplier<BlockEntityType<com.simplebuilding.enchanting.AstralEnchantingTableBlockEntity>> ASTRAL_ENCHANTING_TABLE_BE =
+            com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+                    ? BLOCK_ENTITIES.register("astral_enchanting_table", () -> new BlockEntityType<>(
+                            com.simplebuilding.enchanting.AstralEnchantingTableBlockEntity::new, ModBlocks.ASTRAL_ENCHANTING_TABLE))
+                    : null;
+
     /** Autonomer Crafter, nur Hauptlinie (McVersion.AUTONOMOUS_CRAFTER). */
     public static final Supplier<MenuType<com.simplebuilding.screen.AutonomousCrafterMenu>> AUTONOMOUS_CRAFTER_MENU =
             com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER
@@ -287,6 +299,8 @@ public final class NeoForgeModRegistries {
         if (AUTO_SMITHER_BE != null) ModBlockEntities.AUTO_SMITHER_BE = AUTO_SMITHER_BE.get();
         if (AUTONOMOUS_CRAFTER_MENU != null) ModScreenHandlers.AUTONOMOUS_CRAFTER_MENU = AUTONOMOUS_CRAFTER_MENU.get();
         if (AUTONOMOUS_CRAFTER_BE != null) ModBlockEntities.AUTONOMOUS_CRAFTER_BE = AUTONOMOUS_CRAFTER_BE.get();
+        if (ASTRAL_ENCHANTING_MENU != null) ModScreenHandlers.ASTRAL_ENCHANTING_MENU = ASTRAL_ENCHANTING_MENU.get();
+        if (ASTRAL_ENCHANTING_TABLE_BE != null) ModBlockEntities.ASTRAL_ENCHANTING_TABLE_BE = ASTRAL_ENCHANTING_TABLE_BE.get();
         if (FLETCHING_TYPE != null) {
             com.simplebuilding.fletching.FletchingRecipes.TYPE = FLETCHING_TYPE.get();
             com.simplebuilding.fletching.FletchingRecipes.CATEGORY = FLETCHING_CATEGORY.get();

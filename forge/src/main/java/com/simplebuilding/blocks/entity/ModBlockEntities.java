@@ -27,6 +27,8 @@ public class ModBlockEntities {
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity> AUTO_SMITHER_BE;
     /** Autonomer Crafter; nur, wenn es den Block gibt (McVersion.AUTONOMOUS_CRAFTER). */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity> AUTONOMOUS_CRAFTER_BE;
+    /** Astral-Verzauberungstisch (McVersion.ASTRAL_ENCHANTING). */
+    public static BlockEntityType<com.simplebuilding.enchanting.AstralEnchantingTableBlockEntity> ASTRAL_ENCHANTING_TABLE_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity> TIERED_SHULKER_BOX_BE;
 
     private ModBlockEntities() {

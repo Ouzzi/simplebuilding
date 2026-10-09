@@ -48,6 +48,8 @@ public final class ModScreenStyle {
     /** Crafter stone with a hint of the copper of its textures. */
     static final UiPalette AUTONOMOUS_CRAFTER = UiPalette.derived(0xFF5E5651);
     static final UiPalette FLETCHING = UiPalette.derived(0xFFC5B485);
+    /** Astral Enchanting Table: obsidian violet with a hint of enderite. */
+    static final UiPalette ASTRAL_ENCHANTING = UiPalette.derived(0xFF4B3866);
     private static final int REDSTONE_ON = 0xFFD8261E;
     private static final int ERROR = 0xFFC9503E;
 
@@ -254,6 +256,37 @@ public final class ModScreenStyle {
 
     public static boolean fletchingLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
         g.text(font, title, x, y, FLETCHING.label(), false);
+        return true;
+    }
+
+    // ------------------------------------------------------------------ astral enchanting table
+
+    /**
+     * Astral Enchanting Table (queue N27): the violet box with Ender motifs around item, lapis and blaze powder slots; the
+     * slider panel and the enchant button are drawn by {@link AstralEnchantingScreen} on top (both lines).
+     */
+    public static boolean astralEnchanting(GuiGraphicsExtractor g, com.simplebuilding.screen.AstralEnchantingMenu menu, Font font,
+            Component title, int left, int top, int imageWidth) {
+        if (!UiStyleToggle.isEnabled()) return false;
+        UiPalette p = ASTRAL_ENCHANTING;
+        int[] inv = ModScreenLayout.inventoryOrigin(menu);
+        Box container = ModScreenLayout.container(imageWidth, inv[1]);
+        box(g, left, top, container, p);
+        box(g, left, top, ModScreenLayout.inventory(inv[0], inv[1]), UiPalette.INVENTORY);
+        List<int[]> avoid = slotRects(menu, left, top);
+        avoid.add(titleRect(font, title, left, top));
+        avoid.add(new int[] {left + AstralEnchantingScreen.PANEL_X - 2, top + 3, left + AstralEnchantingScreen.PANEL_X
+                + AstralEnchantingScreen.PANEL_W + 2, top + AstralEnchantingScreen.PANEL_Y + AstralEnchantingScreen.PANEL_H + 2});
+        avoid.add(new int[] {left + AstralEnchantingScreen.BUTTON_X - 1, top + AstralEnchantingScreen.BUTTON_Y - 1,
+                left + AstralEnchantingScreen.BUTTON_X + AstralEnchantingScreen.BUTTON_W + 1,
+                top + AstralEnchantingScreen.BUTTON_Y + AstralEnchantingScreen.BUTTON_H + 1});
+        motif(g, left, top, container, p, UiMotifs.Kind.ENDER, avoid, 9);
+        slots(g, menu, left, top, p);
+        return true;
+    }
+
+    public static boolean astralEnchantingLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
+        g.text(font, title, x, y, ASTRAL_ENCHANTING.label(), false);
         return true;
     }
 

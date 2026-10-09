@@ -467,6 +467,22 @@ public class ModItems {
             ? registerItem("auto_smither", s -> new BlockItem(ModBlocks.AUTO_SMITHER, s)) : null;
     public static final Item AUTONOMOUS_CRAFTER = com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER
             ? registerItem("autonomous_crafter", s -> new BlockItem(ModBlocks.AUTONOMOUS_CRAFTER, s)) : null;
+    // Astral-Verzauberung (Queue N27).
+    public static final Item ASTRAL_ENCHANTING_TABLE = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("astral_enchanting_table", s -> new BlockItem(ModBlocks.ASTRAL_ENCHANTING_TABLE, s.fireResistant())) : null;
+    public static final Item CRIMSON_BLAZEWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("crimson_blazewood_planks", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_PLANKS, s)) : null;
+    public static final Item WARPED_BLAZEWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("warped_blazewood_planks", s -> new BlockItem(ModBlocks.WARPED_BLAZEWOOD_PLANKS, s)) : null;
+    public static final Item CRIMSON_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("crimson_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_BOOKSHELF, s)) : null;
+    public static final Item WARPED_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("warped_blazewood_bookshelf", s -> new BlockItem(ModBlocks.WARPED_BLAZEWOOD_BOOKSHELF, s)) : null;
+    public static final Item BLAZING_OBSIDIAN = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("blazing_obsidian", s -> new BlockItem(ModBlocks.BLAZING_OBSIDIAN, s)) : null;
+    /** Lohenbuch: wie ein Buch, mit Lohenstaub statt Leder; drei davon und sechs Lohenholz ergeben ein Lohen-Regal. */
+    public static final Item BLAZE_BOOK = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("blaze_book", s -> new Item(s)) : null;
     public static final Item SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE
             ? registerItem("sage_ore", s -> new BlockItem(ModBlocks.SAGE_ORE, s)) : null;
     public static final Item DEEPSLATE_SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE

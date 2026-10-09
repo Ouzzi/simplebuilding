@@ -11,6 +11,7 @@ public final class ModScreenHandlers {
     public static MenuType<com.simplebuilding.fletching.FletchingMenu> FLETCHING_MENU;
     public static MenuType<AutoSmitherMenu> AUTO_SMITHER_MENU;
     public static MenuType<AutonomousCrafterMenu> AUTONOMOUS_CRAFTER_MENU;
+    public static MenuType<AstralEnchantingMenu> ASTRAL_ENCHANTING_MENU;
 
     private ModScreenHandlers() {
     }

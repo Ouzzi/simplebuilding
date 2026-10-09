@@ -202,6 +202,28 @@ public class ModBlocks {
     /** Autonomer Crafter: craftet selbst in den Trichter darunter (2026-10-09, McVersion.AUTONOMOUS_CRAFTER). Wie der Crafter. */
     public static final Block AUTONOMOUS_CRAFTER = McVersion.AUTONOMOUS_CRAFTER
             ? registerBlock("autonomous_crafter", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutonomousCrafterBlock::new) : null;
+    // Astral-Verzauberung (2026-10-09, N27, docs/ai/KONZEPT-ASTRAL-VERZAUBERUNG-2026-10-09.md, McVersion.ASTRAL_ENCHANTING).
+    /** Astral-Verzauberungstisch: wie der Verzauberungstisch, doppelt so lange abzubauen (Haerte 10 statt 5). */
+    public static final Block ASTRAL_ENCHANTING_TABLE = McVersion.ASTRAL_ENCHANTING ? registerBlock("astral_enchanting_table",
+            Blocks.ENCHANTING_TABLE, s -> new com.simplebuilding.enchanting.AstralEnchantingTableBlock(s
+                    .strength(com.simplebuilding.enchanting.AstralEnchantingTableBlock.HARDNESS, 1200.0F).lightLevel(state -> 10))) : null;
+    /** Lohenholz je Nether-Holzart: 8 Lohenstaub um ein Brett. */
+    public static final Block CRIMSON_BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
+            ? registerBlock("crimson_blazewood_planks", Blocks.CRIMSON_PLANKS, Block::new) : null;
+    public static final Block WARPED_BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
+            ? registerBlock("warped_blazewood_planks", Blocks.WARPED_PLANKS, Block::new) : null;
+    /** Lohen-Buecherregale: zaehlen am Astral-Tisch doppelt (am Vanilla-Tisch wie ein Regal). */
+    public static final Block CRIMSON_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
+            ? registerBlock("crimson_blazewood_bookshelf", Blocks.BOOKSHELF, s -> new Block(s.sound(SoundType.NETHER_WOOD))) : null;
+    public static final Block WARPED_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
+            ? registerBlock("warped_blazewood_bookshelf", Blocks.BOOKSHELF, s -> new Block(s.sound(SoundType.NETHER_WOOD))) : null;
+    public static final List<Block> BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
+            ? List.of(CRIMSON_BLAZEWOOD_PLANKS, WARPED_BLAZEWOOD_PLANKS) : List.of();
+    public static final List<Block> BLAZEWOOD_BOOKSHELVES = McVersion.ASTRAL_ENCHANTING
+            ? List.of(CRIMSON_BLAZEWOOD_BOOKSHELF, WARPED_BLAZEWOOD_BOOKSHELF) : List.of();
+    /** Lohen-Obsidian: leuchtende Variante des weinenden Obsidians, 5x5 unter dem Astral-Tisch fuer Stufe 40/50. */
+    public static final Block BLAZING_OBSIDIAN = McVersion.ASTRAL_ENCHANTING ? registerBlock("blazing_obsidian", Blocks.CRYING_OBSIDIAN,
+            s -> new com.simplebuilding.enchanting.BlazingObsidianBlock(s.lightLevel(state -> 12))) : null;
     public static final Block PLACED_SMALL_PARTS = McVersion.SMALL_PLACEABLES ? registerBlock("placed_small_parts", s -> new com.simplebuilding.blocks.custom.PlacedSmallPartsBlock(s
             .strength(0.2F).sound(SoundType.STONE).noCollision().noLootTable().noOcclusion().mapColor(MapColor.NONE)
             .lightLevel(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock::light)

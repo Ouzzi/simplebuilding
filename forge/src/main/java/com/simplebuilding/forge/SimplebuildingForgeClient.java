@@ -67,6 +67,9 @@ public final class SimplebuildingForgeClient {
             if (ForgeModRegistries.AUTONOMOUS_CRAFTER_MENU != null) {
                 MenuScreens.register(ForgeModRegistries.AUTONOMOUS_CRAFTER_MENU.get(), com.simplebuilding.client.gui.AutonomousCrafterScreen::new);
             }
+            if (ForgeModRegistries.ASTRAL_ENCHANTING_MENU != null) {
+                MenuScreens.register(ForgeModRegistries.ASTRAL_ENCHANTING_MENU.get(), com.simplebuilding.client.gui.AstralEnchantingScreen::new);
+            }
         });
     }
 
