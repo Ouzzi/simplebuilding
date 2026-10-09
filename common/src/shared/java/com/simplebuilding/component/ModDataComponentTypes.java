@@ -31,7 +31,7 @@ public class ModDataComponentTypes {
             .persistent(Codec.intRange(0, 3)).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT)) : null;
     public static final DataComponentType<Boolean> WAXED = com.simplebuilding.version.McVersion.CRUCIBLE ? register("waxed", builder -> builder
             .persistent(Codec.BOOL).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.BOOL)) : null;
-    /** Ceramic bucket (owner N12b): fills and pours so far (0..31); the wear stage is the item itself. */
+    /** Ceramic bucket pours so far (0..3); the wear stage is the item itself. */
     public static final DataComponentType<Integer> CERAMIC_USES = com.simplebuilding.version.McVersion.CRUCIBLE ? register("ceramic_uses", builder -> builder
             .persistent(Codec.intRange(0, 31)).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT)) : null;
 

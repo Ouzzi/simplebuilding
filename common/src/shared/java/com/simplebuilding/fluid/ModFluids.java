@@ -52,9 +52,9 @@ public final class ModFluids {
     public static Item SOUL_LAVA_BUCKET;
     public static Item COPPER_BUCKET, COPPER_WATER_BUCKET, COPPER_LAVA_BUCKET;
     public static Item ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET;
-    /** Ceramic bucket (owner addition 11): 3 clay -> raw, fired in a furnace or crucible; water and (N12) lava, 32 uses. */
+    /** Ceramic bucket: 3 clay -> raw, fired in a furnace or crucible; water and lava, 4 pours. */
     public static Item RAW_CERAMIC_BUCKET, CERAMIC_BUCKET, CERAMIC_WATER_BUCKET, CERAMIC_LAVA_BUCKET;
-    /** Owner N12b: one item per wear stage (intact, chipped, cracked, brittle) and filling; index = stage. */
+    /** One item per wear stage (intact, chipped, cracked, brittle) and filling; index = stage. */
     public static final Item[] CERAMIC_EMPTY = new Item[ModBucketItem.CERAMIC_STAGES], CERAMIC_WATER = new Item[ModBucketItem.CERAMIC_STAGES],
             CERAMIC_LAVA = new Item[ModBucketItem.CERAMIC_STAGES];
     /** Name prefix of each ceramic wear stage. */
@@ -95,7 +95,7 @@ public final class ModFluids {
                 McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET), SoulLava.fuelTicks())));
         // No crafting remainder on the ceramic water bucket: a fresh bucket back would repair it for free.
         RAW_CERAMIC_BUCKET = item("raw_ceramic_bucket", p -> new Item(p.stacksTo(16)));
-        // Owner N12b: wear stages as items (like the copper bucket's oxidation, but visible in the name), no durability.
+        // Wear stages as items (like the copper bucket's oxidation, but visible in the name), no durability.
         // Lava (owner N12) is fuel like a lava bucket, but leaves no remainder - the clay bucket burns up with its lava
         // (a fresh empty bucket back would also undo its wear).
         for (int stage = 0; stage < ModBucketItem.CERAMIC_STAGES; stage++) {
@@ -136,7 +136,7 @@ public final class ModFluids {
         return buckets().stream().filter(item -> !worn.contains(item)).toList();
     }
 
-    /** The worn ceramic buckets (stage 1..3, every filling): only reached by use, so not in the creative tab. */
+    /** The worn ceramic buckets (stage 1..3, every filling): only reached by pouring, so not in the creative tab. */
     public static java.util.List<Item> wornCeramicBuckets() {
         if (CERAMIC_EMPTY[0] == null) return java.util.List.of();
         java.util.List<Item> out = new java.util.ArrayList<>();

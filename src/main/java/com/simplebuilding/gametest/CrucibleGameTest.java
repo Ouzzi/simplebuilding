@@ -87,8 +87,8 @@ public final class CrucibleGameTest {
     }
 
     @GameTest
-    public void ceramicBucketHoldsWaterAndWearsOutAfterThirtyTwoUses(GameTestHelper helper) {
-        CrucibleTests.ceramicBucketHoldsWaterAndWearsOutAfterThirtyTwoUses(helper);
+    public void ceramicBucketHoldsWaterAndBreaksAfterFourPours(GameTestHelper helper) {
+        CrucibleTests.ceramicBucketHoldsWaterAndBreaksAfterFourPours(helper);
     }
 
     @GameTest

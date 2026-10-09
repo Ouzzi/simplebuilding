@@ -44,9 +44,9 @@ import org.jspecify.annotations.Nullable;
  *   <li><b>Ceramic</b> (owner addition 11): fired clay, water and (owner N12) lava - real crucibles are ceramic -,
  *       no soul lava, no milk. Owner N12b: it wears like copper oxidizes - in {@link #CERAMIC_STAGES} stages (as many
  *       as the copper bucket's oxidation stages), each its own item for every filling: intact, chipped, cracked,
- *       brittle. Every scoop and every pour is one of {@link #CERAMIC_USES} uses (counted in a hidden component, no
- *       durability bar); every {@link #CERAMIC_USES_PER_STAGE} uses it moves one stage on and keeps its filling; the
- *       last use (the 16th pour) breaks the brittle bucket. As furnace fuel a ceramic lava bucket burns up.</li>
+ *       brittle. Every pour is one of {@link #CERAMIC_USES} uses (counted in a hidden component, no durability bar);
+ *       every {@link #CERAMIC_USES_PER_STAGE} pours it moves one stage on and keeps its filling. Scooping does not
+ *       wear it; the last pour breaks the brittle bucket. As furnace fuel a ceramic lava bucket burns up.</li>
  * </ul>
  * A fully oxidized copper bucket (stage 3) scoops nothing any more (owner addition 11); pouring one that is
  * already full still works, and the axe/honeycomb care keeps working.
@@ -135,19 +135,19 @@ public class ModBucketItem extends BucketItem {
     }
 
     /**
-     * A filled copy of an empty bucket of this kind, keeping its components (oxidation, wax, uses); a ceramic bucket
-     * keeps its wear stage and uses one more. Scooping is always an odd use (0 -> 1, 2 -> 3 ...), so it never breaks it.
+     * A filled copy of an empty bucket of this kind, keeping its components (oxidation, wax, uses). Scooping a ceramic
+     * bucket does not wear it.
      */
     public static ItemStack fill(ItemStack empty, Item filled) {
         if (empty.getItem() instanceof ModBucketItem bucket && bucket.kind == Kind.CERAMIC && filled instanceof ModBucketItem target) {
             Item staged = ModFluids.ceramic(target.getContent(), bucket.stage);
             if (staged != null) filled = staged;
         }
-        return wear(empty.transmuteCopy(filled, 1));
+        return empty.transmuteCopy(filled, 1);
     }
 
-    /** Fill/pour operations of a ceramic bucket (owner: 32, i.e. 16 full cycles). */
-    public static final int CERAMIC_USES = 32;
+    /** Successful pours of a ceramic bucket before it breaks (owner rule: four pours). */
+    public static final int CERAMIC_USES = 4;
     /** Wear stages of the ceramic bucket: as many as the copper bucket's oxidation stages (0..3). */
     public static final int CERAMIC_STAGES = 4;
     public static final int CERAMIC_USES_PER_STAGE = CERAMIC_USES / CERAMIC_STAGES;
@@ -160,7 +160,7 @@ public class ModBucketItem extends BucketItem {
     }
 
     /**
-     * Ceramic buckets: one use more; every {@link #CERAMIC_USES_PER_STAGE} uses the next stage's item with the same
+     * Ceramic buckets: one pour more; every {@link #CERAMIC_USES_PER_STAGE} pours the next stage's item with the same
      * filling; at {@link #CERAMIC_USES} the bucket is gone (empty stack). Other kinds unchanged.
      */
     public static ItemStack wear(ItemStack stack) {

@@ -576,7 +576,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
                     .build(),
-            GameTestSpec.named("crucible_game_test_ceramic_bucket_holds_water_and_wears_out_after_thirty_two_uses", CrucibleTests::ceramicBucketHoldsWaterAndWearsOutAfterThirtyTwoUses)
+            GameTestSpec.named("crucible_game_test_ceramic_bucket_holds_water_and_breaks_after_four_pours", CrucibleTests::ceramicBucketHoldsWaterAndBreaksAfterFourPours)
                     .build(),
             GameTestSpec.named("crucible_game_test_cauldron_world_catalog_matches_the_rules", CrucibleTests::cauldronWorldCatalogMatchesTheRules)
                     .build(),
