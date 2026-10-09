@@ -185,9 +185,9 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .unlockedBy(getHasName(ModItems.NAUTILUS_SHELL_BLOCK), has(ModItems.NAUTILUS_SHELL_BLOCK))
                             .save(output, "nautilus_shell_from_nautilus_shell_block");
                     Item[][] froglights = {
-                            {ModItems.SCARLET_FROGLIGHT, Items.RED_DYE},
-                            {ModItems.AQUA_FROGLIGHT, Items.CYAN_DYE},
-                            {ModItems.AZURE_FROGLIGHT, Items.BLUE_DYE}};
+                            {ModItems.SCARLET_FROGLIGHT, Items.DYE.pick(net.minecraft.world.item.DyeColor.RED)},
+                            {ModItems.AQUA_FROGLIGHT, Items.DYE.pick(net.minecraft.world.item.DyeColor.CYAN)},
+                            {ModItems.AZURE_FROGLIGHT, Items.DYE.pick(net.minecraft.world.item.DyeColor.BLUE)}};
                     for (Item[] pair : froglights) {
                         shapeless(RecipeCategory.BUILDING_BLOCKS, pair[0]).requires(com.simplebuilding.util.ModTags.Items.FROGLIGHTS).requires(pair[1])
                                 .unlockedBy("has_froglight", has(com.simplebuilding.util.ModTags.Items.FROGLIGHTS)).save(output);

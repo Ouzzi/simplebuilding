@@ -15,7 +15,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.context.ContextMap;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
@@ -69,8 +69,8 @@ public final class NatureBlockTests {
         ItemStack shell = new ItemStack(Items.NAUTILUS_SHELL);
         craft(helper, CraftingInput.of(2, 2, List.of(shell, shell, shell, shell)), "1 " + path(ModItems.NAUTILUS_SHELL_BLOCK), missing);
         craft(helper, CraftingInput.of(1, 1, List.of(new ItemStack(ModItems.NAUTILUS_SHELL_BLOCK))), "4 nautilus_shell", missing);
-        Object[][] dyes = {{Items.RED_DYE, ModItems.SCARLET_FROGLIGHT}, {Items.CYAN_DYE, ModItems.AQUA_FROGLIGHT},
-                {Items.BLUE_DYE, ModItems.AZURE_FROGLIGHT}};
+        Object[][] dyes = {{Items.DYE.pick(net.minecraft.world.item.DyeColor.RED), ModItems.SCARLET_FROGLIGHT}, {Items.DYE.pick(net.minecraft.world.item.DyeColor.CYAN), ModItems.AQUA_FROGLIGHT},
+                {Items.DYE.pick(net.minecraft.world.item.DyeColor.BLUE), ModItems.AZURE_FROGLIGHT}};
         for (Object[] pair : dyes) {
             for (Item froglight : List.of(Items.OCHRE_FROGLIGHT, Items.PEARLESCENT_FROGLIGHT, ModItems.AQUA_FROGLIGHT)) {
                 craft(helper, CraftingInput.of(2, 1, List.of(new ItemStack(froglight), new ItemStack((Item) pair[0]))),
@@ -156,7 +156,7 @@ public final class NatureBlockTests {
         BlockPos alone = new BlockPos(4, 1, 1);
         helper.setBlock(stoodOn, ModBlocks.CRACKED_ICE);
         helper.setBlock(alone, ModBlocks.CRACKED_ICE);
-        ArmorStand stand = helper.spawn(EntityType.ARMOR_STAND, new BlockPos(1, 2, 1));
+        ArmorStand stand = helper.spawn(EntityTypes.ARMOR_STAND, new BlockPos(1, 2, 1));
         helper.assertTrue(stand != null, "no armor stand");
         int[] seenAge = {0};
         helper.runAfterDelay(CrackedIceBlock.TICKS_PER_CRACK / 2, () -> helper.assertTrue(
