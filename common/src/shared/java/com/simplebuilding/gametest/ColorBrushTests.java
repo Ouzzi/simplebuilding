@@ -195,9 +195,9 @@ public final class ColorBrushTests {
         helper.assertTrue(brush.is(ModItems.COLOR_BRUSH), "brush + gold nugget + feather make " + brush);
 
         ItemStack basic = box(ModItems.PAINT_BOX, new ItemStack(item("purple_dye"), 10));
-        ItemStack d = new ItemStack(ModItems.DIAMOND_PEBBLE), e = ItemStack.EMPTY;
+        ItemStack d = new ItemStack(ModItems.DIAMOND_PEBBLE), n = new ItemStack(Items.GOLD_NUGGET);
         ItemStack reinforced = craft(helper, net.minecraft.world.item.crafting.CraftingInput.of(3, 3,
-                java.util.List.of(e, d, e, d, basic, d, e, d, e)), "simplebuilding:reinforced_paint_box");
+                java.util.List.of(n, d, n, d, basic, d, n, d, n)), "simplebuilding:reinforced_paint_box");
         helper.assertTrue(reinforced.is(ModItems.REINFORCED_PAINT_BOX)
                 && PaintBoxItem.contents(reinforced).count(DyeColor.PURPLE.getId()) == 10, "reinforced box keeps its dyes: " + reinforced);
         ItemStack netherite = smith(helper, new net.minecraft.world.item.crafting.SmithingRecipeInput(
@@ -224,7 +224,8 @@ public final class ColorBrushTests {
         BlockPos rel = new BlockPos(2, 1, 2);
         BlockPos pos = helper.absolutePos(rel);
         ItemStack brush = brushInHand(player, pos);
-        player.setXRot(90f); // look straight down at the sand
+        player.setXRot(90f); // look straight down at the sand; the brush ray reads the old rotation (partial tick 0)
+        player.xRotO = 90f;
         player.getInventory().setItem(5, new ItemStack(item("red_dye"), 4));
         helper.setBlock(rel, Blocks.SUSPICIOUS_SAND);
         var sand = (net.minecraft.world.level.block.entity.BrushableBlockEntity) helper.getLevel().getBlockEntity(pos);

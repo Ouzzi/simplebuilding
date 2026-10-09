@@ -3,12 +3,13 @@
   "category": "equipment",
   "key": {
     "B": "simplebuilding:paint_box",
-    "D": "simplebuilding:diamond_pebble"
+    "D": "simplebuilding:diamond_pebble",
+    "N": "minecraft:gold_nugget"
   },
   "pattern": [
-    " D ",
+    "NDN",
     "DBD",
-    " D "
+    "NDN"
   ],
   "result": {
     "id": "simplebuilding:reinforced_paint_box"

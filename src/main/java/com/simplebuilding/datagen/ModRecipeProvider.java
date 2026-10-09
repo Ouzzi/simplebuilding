@@ -80,7 +80,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Farbkasten: Rot, Gelb, Blau ueber drei Holzbrettern (nimmt dann nur Farbstoffe auf). Stufen wie das
                 // Buendel: Verstaerkt an der Werkbank (behaelt den Inhalt), Netherit und Enderit am Schmiedetisch.
                 createContainerUpgrade(ModItems.REINFORCED_PAINT_BOX, ModItems.PAINT_BOX,
-                        Map.of('D', ModItems.DIAMOND_PEBBLE, 'B', ModItems.PAINT_BOX), " D ", "DBD", " D ");
+                        // Volles Raster: die Buendel-Aufwertung kann keine leeren Felder ueber das Netz schicken.
+                        Map.of('D', ModItems.DIAMOND_PEBBLE, 'N', Items.GOLD_NUGGET, 'B', ModItems.PAINT_BOX), "NDN", "DBD", "NDN");
                 createSmithing(ModItems.REINFORCED_PAINT_BOX, ModItems.NETHERITE_PAINT_BOX, RecipeCategory.TOOLS);
                 shaped(RecipeCategory.TOOLS, ModItems.PAINT_BOX)
                         .pattern("RYB").pattern("PPP")

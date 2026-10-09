@@ -96,7 +96,8 @@ Plan:
    Tooltip-Bild: alle 16 Farbstoffe in 8x2 Feldern, fehlende ausgegraut, Menge je Farbe, gewaehlte Farbe umrahmt.
    Pinsel nimmt aus dem Kasten weiter zufaellig (Farbe != Blockfarbe).
    Stufen-Weg wie beim Buendel: Verstaerkt = Werkbank-Aufwertung (`ReinforcedBundleRecipe`, behaelt Inhalt; erkennt
-   jetzt auch den Kasten) mit vier Diamantkieseln, Netherit = Schmiedetisch (Netherit-Vorlage + Barren), Enderit =
+   jetzt auch den Kasten) mit vier Diamantkieseln und vier Goldnuggets (volles Raster: das
+   Buendel-Rezept kann keine leeren Felder synchronisieren), Netherit = Schmiedetisch (Netherit-Vorlage + Barren), Enderit =
    Schmiedetisch (Enderit-Vorlage + Enderitbarren). Texturen: eigene Pixelart je Stufe (Holz, Holz mit Eisen-Beschlag,
    Netherit, Enderit; Farbtoepfe oben), Generator `tools/textures/paint_box_2026_10_09.py`.
 3. Resonanz-Herz: 10x9, Bruchstein-Struktur, dunkler Umriss (`TrimStatsLayout.ICON_WIDTH`/`ICON_HEIGHT`).

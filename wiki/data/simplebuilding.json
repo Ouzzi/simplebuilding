@@ -20519,7 +20519,7 @@
           "details": [
             "Craft it from a red, a yellow and a blue dye over three planks. Left-click puts dyes in (also a whole stack at once), right-click with an empty cursor takes up to a stack of the color in front - the color chosen with the mouse wheel over the box, otherwise the first color it holds. The choice stays when the mouse leaves the box.",
             "The tooltip shows all 16 dyes with their counts; colors the box does not hold are greyed out and the color in front is framed.",
-            "Tiers like the bundle: Reinforced Paint Box (crafting table, the box in the middle and four diamond pebbles around it, keeps its dyes) holds 128 of each color, Netherite Paint Box (smithing table, Netherite Upgrade + netherite ingot) 256, Enderite Paint Box (smithing table, Enderite Upgrade + enderite ingot) 512.",
+            "Tiers like the bundle: Reinforced Paint Box (crafting table, the box in the middle, four diamond pebbles beside it and four gold nuggets in the corners, keeps its dyes) holds 128 of each color, Netherite Paint Box (smithing table, Netherite Upgrade + netherite ingot) 256, Enderite Paint Box (smithing table, Enderite Upgrade + enderite ingot) 512.",
             "While it holds dyes, the Color Brush finds it like a loose dye (other hand first, then the inventory in slot order) and paints each stroke with a random one of its colors other than the block's, taking out exactly that dye."
           ]
         },
@@ -20528,7 +20528,7 @@
           "details": [
             "Rezept: ein roter, ein gelber und ein blauer Farbstoff über drei Brettern. Linksklick legt Farbstoffe hinein (auch einen ganzen Stapel), Rechtsklick mit leerem Cursor nimmt bis zu einen Stapel der vorn liegenden Farbe heraus - der Farbe, die das Mausrad über dem Kasten gewählt hat, sonst der ersten enthaltenen. Die Wahl bleibt, wenn die Maus den Kasten verlässt.",
             "Der Tooltip zeigt alle 16 Farbstoffe mit ihrer Anzahl; Farben, die der Kasten nicht enthält, sind ausgegraut, die vorn liegende ist umrahmt.",
-            "Stufen wie beim Bündel: Verstärkter Farbkasten (Werkbank, Kasten in der Mitte, vier Diamantkiesel ringsum, behält seine Farbstoffe) fasst 128 je Farbe, Netheritfarbkasten (Schmiedetisch, Netherit-Aufwertung + Netheritbarren) 256, Enderitfarbkasten (Schmiedetisch, Enderit-Aufwertung + Enderitbarren) 512.",
+            "Stufen wie beim Bündel: Verstärkter Farbkasten (Werkbank, Kasten in der Mitte, vier Diamantkiesel daneben und vier Goldnuggets in den Ecken, behält seine Farbstoffe) fasst 128 je Farbe, Netheritfarbkasten (Schmiedetisch, Netherit-Aufwertung + Netheritbarren) 256, Enderitfarbkasten (Schmiedetisch, Enderit-Aufwertung + Enderitbarren) 512.",
             "Solange er Farbstoffe enthält, findet der Farbpinsel ihn wie einen losen Farbstoff (zuerst die andere Hand, dann das Inventar in Slot-Reihenfolge) und malt jeden Strich mit einer zufälligen seiner Farben (nie der des Blocks); genau dieser Farbstoff wird entnommen."
           ]
         }
@@ -26532,14 +26532,14 @@
         "en": {
           "summary": "The Reinforced Paint Box is a Paint Box tier that holds up to 128 dyes of each color.",
           "details": [
-            "Crafted from a Paint Box with four diamond pebbles around it; keeps its dyes.",
+            "Crafted from a Paint Box with four diamond pebbles beside it and four gold nuggets in the corners; keeps its dyes.",
             "Handling, tooltip and the Color Brush work as with the Paint Box."
           ]
         },
         "de": {
           "summary": "Der Verstärkte Farbkasten ist eine Farbkasten-Stufe, die bis zu 128 Farbstoffe je Farbe fasst.",
           "details": [
-            "Aus einem Farbkasten mit vier Diamantkieseln ringsum; behält seine Farbstoffe.",
+            "Aus einem Farbkasten mit vier Diamantkieseln daneben und vier Goldnuggets in den Ecken; behält seine Farbstoffe.",
             "Bedienung, Tooltip und Farbpinsel wie beim Farbkasten."
           ]
         }
@@ -51165,6 +51165,10 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.75
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 0.444
           }
         ]
       }
@@ -58597,6 +58601,10 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.75
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 0.444
           }
         ]
       }
@@ -69918,13 +69926,14 @@
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_paint_box.json",
       "ingredients": [
+        "minecraft:gold_nugget",
         "simplebuilding:diamond_pebble",
         "simplebuilding:paint_box"
       ],
       "pattern": [
-        " D ",
+        "NDN",
         "DBD",
-        " D "
+        "NDN"
       ],
       "key": {
         "B": [
@@ -69932,6 +69941,9 @@
         ],
         "D": [
           "simplebuilding:diamond_pebble"
+        ],
+        "N": [
+          "minecraft:gold_nugget"
         ]
       },
       "lines": [
@@ -69959,6 +69971,10 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.75
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 0.444
           }
         ]
       }
