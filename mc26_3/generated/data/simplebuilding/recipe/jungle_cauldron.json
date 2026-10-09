@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_cauldron",
+  "key": {
+    "H": [
+      "simplebuilding:hollow_jungle_log",
+      "simplebuilding:hollow_stripped_jungle_log"
+    ],
+    "S": [
+      "simplebuilding:jungle_sheet",
+      "simplebuilding:stripped_jungle_sheet"
+    ]
+  },
+  "pattern": [
+    "H",
+    "S"
+  ],
+  "result": {
+    "id": "simplebuilding:jungle_cauldron"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:hollow_stripped_pale_oak_log"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

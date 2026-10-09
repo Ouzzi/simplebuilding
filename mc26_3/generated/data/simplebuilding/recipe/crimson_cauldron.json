@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_cauldron",
+  "key": {
+    "H": [
+      "simplebuilding:hollow_crimson_stem",
+      "simplebuilding:hollow_stripped_crimson_stem"
+    ],
+    "S": [
+      "simplebuilding:crimson_sheet",
+      "simplebuilding:stripped_crimson_sheet"
+    ]
+  },
+  "pattern": [
+    "H",
+    "S"
+  ],
+  "result": {
+    "id": "simplebuilding:crimson_cauldron"
+  }
+}

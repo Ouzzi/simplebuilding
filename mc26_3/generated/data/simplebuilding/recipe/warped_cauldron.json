@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_cauldron",
+  "key": {
+    "H": [
+      "simplebuilding:hollow_warped_stem",
+      "simplebuilding:hollow_stripped_warped_stem"
+    ],
+    "S": [
+      "simplebuilding:warped_sheet",
+      "simplebuilding:stripped_warped_sheet"
+    ]
+  },
+  "pattern": [
+    "H",
+    "S"
+  ],
+  "result": {
+    "id": "simplebuilding:warped_cauldron"
+  }
+}
