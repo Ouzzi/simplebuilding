@@ -411,6 +411,44 @@ public class ModBlocks {
             BlockBehaviour.Properties.of().setId(keyOf("chess_pieces")).mapColor(MapColor.NONE).strength(0.3F)
                     .sound(SoundType.STONE).noLootTable().noOcclusion().pushReaction(McVersion.PUSH_DESTROYS))) : null;
 
+    // --- MATERIAL-ACHTEL (Queue Nachtrag 24, docs/ai/PLAN-Q-HAMMER-OCTETS-2026-10-09.md) ---
+    /** Holzarten mit Brettern, Treppe und Stufe; was die Version nicht kennt, entfaellt. */
+    public static final List<String> OCTET_WOODS = List.of("oak", "spruce", "birch", "jungle", "acacia", "dark_oak",
+            "mangrove", "cherry", "pale_oak", "poplar", "bamboo", "crimson", "warped");
+    /** Je Holzart eine Achtelzelle {@code <holz>_octet} mit den Eigenschaften der Bretter (Klang, Haerte). */
+    public static final List<Block> WOOD_OCTETS = McVersion.CHESS ? woodOctets() : List.of();
+    /** Melonen-Achtel: eine gesetzte Melonenscheibe (Schleichen + Rechtsklick); droppt Melonenscheiben. */
+    public static final Block MELON_OCTET = McVersion.CHESS ? registerBlock("melon_octet", Blocks.MELON,
+            s -> new MaterialOctetBlock(Blocks.MELON, () -> net.minecraft.world.item.Items.MELON_SLICE, octetProperties(s))) : null;
+
+    private static List<Block> woodOctets() {
+        List<Block> out = new java.util.ArrayList<>();
+        for (String wood : OCTET_WOODS) {
+            Block planks = BuiltInRegistries.BLOCK.getOptional(Identifier.withDefaultNamespace(wood + "_planks")).orElse(null);
+            if (planks == null) {
+                continue;
+            }
+            String name = wood + "_octet";
+            Identifier itemId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
+            out.add(registerBlock(name, planks, s -> new MaterialOctetBlock(planks,
+                    () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s))));
+        }
+        return List.copyOf(out);
+    }
+
+    private static BlockBehaviour.Properties octetProperties(BlockBehaviour.Properties s) {
+        return s.noLootTable().isValidSpawn((state, world, pos, type) -> false);
+    }
+
+    /** Holz-Achtel brennen wie ihre Bretter (Feuer-Tabelle; Nether-Holz brennt nicht). */
+    private static void registerOctetFlammability() {
+        for (Block cell : WOOD_OCTETS) {
+            if (((MaterialOctetBlock) cell).source().defaultBlockState().ignitedByLava()) {
+                ((com.simplebuilding.mixin.FireBlockFlammables) Blocks.FIRE).simplebuilding$setFlammable(cell, 5, 20);
+            }
+        }
+    }
+
     /**
      * Eine End-Palette nach dem Vorbild von Endstein und Purpur: Grundblock, Ziegel samt Treppe,
      * Stufe und Mauer, polierter Block samt Treppe, Stufe und Mauer, Saeule und gemeisselte Ziegel.
@@ -533,6 +571,7 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         Simplebuilding.LOGGER.info("Registering Mod Blocks for " + Simplebuilding.MOD_ID);
+        registerOctetFlammability();
         if (McVersion.CRUCIBLE) {
             // Crucible P5: soul lava (fluids first; on Forge already in the FLUID event) and the SimpleLib-based blocks.
             com.simplebuilding.fluid.ModFluids.registerFluids();

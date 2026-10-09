@@ -3038,6 +3038,8 @@ public final class DataIntegrityTests {
                 chess.add(new CreativeTabLayout.Row("chess_" + color.id() + "_flat", second));
             }
             expected.addAll(10, chess);
+            expected.add(10 + chess.size(), CreativeTabLayout.Row.of("wood_octets",
+                    ModItems.WOOD_OCTETS.toArray(new net.minecraft.world.level.ItemLike[0])));
         }
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.BUILDING_BLOCKS, problems), flowed(expected), "SimpleBlocks", problems);
         helper.assertTrue(problems.isEmpty(), "building blocks layout: " + problems);

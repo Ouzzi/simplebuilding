@@ -47,6 +47,8 @@
     "ItemFrameEntityMixin",
     "ItemParserStateMixin",
     "ItemUseOnMixin",
+    "FireBlockFlammables",
+    "GlisteringMelonFoodMixin",
     "ItemStackUseOnMixin",
     "LivingEntityMixin",
     "MappedRegistryAliasMixin",
