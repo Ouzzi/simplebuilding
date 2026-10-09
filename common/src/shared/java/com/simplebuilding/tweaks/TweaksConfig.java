@@ -17,6 +17,10 @@ public class TweaksConfig {
     public static final int MAX_SPAWN_ELYTRA_RADIUS = 256;
     public static final float MAX_BOOST_STRENGTH = 1.2f;
     public static final int MAX_LASER_RANGE = 1024;
+    /** Resonance Rod dot: light amethyst from the texture script's amethyst ramp (owner N11 P7). */
+    public static final int LASER_DEFAULT_COLOR = 0xB38EF3;
+    /** Dot default until 2026-10-07; {@link #validate()} lifts it to {@link #LASER_DEFAULT_COLOR}. */
+    public static final int LASER_LEGACY_DEFAULT_COLOR = 0xFF0000;
     public static final int MAX_ECHO_COOLDOWN_TICKS = 12000;
 
 
@@ -65,6 +69,9 @@ public class TweaksConfig {
         optimization.xpClumpRadius = bounded("optimization.xpClumpRadius", optimization.xpClumpRadius, 0, MAX_XP_CLUMP_RADIUS, 2.0);
         spawn.spawnElytraRadius = (int) bounded("spawn.spawnElytraRadius", spawn.spawnElytraRadius, 1, MAX_SPAWN_ELYTRA_RADIUS, 25);
         spawn.boostStrength = (float) bounded("spawn.boostStrength", spawn.boostStrength, 0.1, MAX_BOOST_STRENGTH, 0.6);
+        // Owner N11 P7 (2026-10-07): amethyst instead of red. A saved file still carries the old default red,
+        // so exactly that value moves to the new default; any other picked colour stays.
+        if (laserPointer.color == LASER_LEGACY_DEFAULT_COLOR) laserPointer.color = LASER_DEFAULT_COLOR;
         laserPointer.range = (int) bounded("laserPointer.range", laserPointer.range, 1, MAX_LASER_RANGE, 512);
         laserPointer.chargePerSecond = Math.max(0, laserPointer.chargePerSecond);
         laserPointer.effectCost = Math.max(0, laserPointer.effectCost);
@@ -321,7 +328,7 @@ public class TweaksConfig {
         public boolean enable = true;
         @ConfigEntry.Gui.Tooltip
         @ConfigEntry.ColorPicker
-        public int color = 0xB38EF3;
+        public int color = LASER_DEFAULT_COLOR;
         @ConfigEntry.Gui.Tooltip
         public float scale = 0.25f;
         @ConfigEntry.Gui.Tooltip

@@ -130,4 +130,9 @@ public final class ModuleGameTest {
     public void axeUpgradesBarrelToNetherite(GameTestHelper h) {
         LibTests.ALL.get("axe_upgrades_barrel_to_netherite").accept(h);
     }
+
+    @GameTest
+    public void crucibleBurnDamageFollowsConfig(GameTestHelper h) {
+        LibTests.ALL.get("crucible_burn_damage_follows_config").accept(h);
+    }
 }

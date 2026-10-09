@@ -1160,6 +1160,15 @@ public final class TweaksTests {
                 "laserPointer.enable=true", "laserPointer.color=11767539", "laserPointer.scale=0.25", "laserPointer.range=512",
                 "laserPointer.showLine=false"));
         helper.assertValueEqual(found, expected, "tweaks config options with their defaults");
+        // N11 P7: a saved file with the old default red moves to amethyst, a picked colour stays.
+        TweaksConfig oldFile = new TweaksConfig();
+        oldFile.laserPointer.color = TweaksConfig.LASER_LEGACY_DEFAULT_COLOR;
+        oldFile.validate();
+        helper.assertValueEqual(oldFile.laserPointer.color, TweaksConfig.LASER_DEFAULT_COLOR, "old default red laser colour kept");
+        TweaksConfig picked = new TweaksConfig();
+        picked.laserPointer.color = 0x00FF00;
+        picked.validate();
+        helper.assertValueEqual(picked.laserPointer.color, 0x00FF00, "a picked laser colour was overwritten");
         helper.assertTrue(Simplebuilding.getConfig().tweaks == SimpleTweaks.config(), "SimpleTweaks.config() is not the live tweaks section");
         helper.succeed();
     }
