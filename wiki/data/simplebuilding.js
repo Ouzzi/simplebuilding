@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 537,
+      "count": 545,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -4804,6 +4804,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/astralit_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -6054,6 +6057,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/blackstone_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -9907,6 +9913,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/ender_quartz_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -12346,6 +12355,23 @@ window.WIKI_DATA = {
       "properties": {
         "maxStackSize": 1
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:exposed_trapped_copper_chest",
+      "name": {
+        "en_us": "Exposed Trapped Copper Chest",
+        "de_de": "Angelaufene Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:exposed_trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/exposed_trapped_copper_chest.png",
       "hasCustomBehaviour": false
     },
     {
@@ -14992,6 +15018,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/lapis_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -16611,6 +16640,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/nether_brick_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -19692,6 +19724,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/nihilith_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -20646,6 +20681,23 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:oxidized_trapped_copper_chest",
+      "name": {
+        "en_us": "Oxidized Trapped Copper Chest",
+        "de_de": "Oxidierte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:oxidized_trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/oxidized_trapped_copper_chest.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:paint_box",
       "name": {
         "en_us": "Paint Box",
@@ -21521,6 +21573,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/polished_astralit_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -22415,6 +22470,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/polished_ender_quartz_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -23264,6 +23322,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/polished_nihilith_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -24075,6 +24136,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/purpur_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -24864,6 +24928,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/quartz_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -25794,6 +25861,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/red_nether_brick_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -27894,6 +27964,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/resin_octet.png",
+      "properties": {
+        "maxStackSize": 99
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
@@ -29090,6 +29163,23 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:trapped_copper_chest",
+      "name": {
+        "en_us": "Trapped Copper Chest",
+        "de_de": "Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/trapped_copper_chest.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:veined_astralit",
       "name": {
         "en_us": "Veined Astralit",
@@ -29171,6 +29261,87 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Exposed Trapped Copper Chest",
+        "de_de": "Gewachste angelaufene Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_exposed_trapped_copper_chest",
+        "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_exposed_trapped_copper_chest.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Oxidized Trapped Copper Chest",
+        "de_de": "Gewachste oxidierte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_oxidized_trapped_copper_chest",
+        "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_oxidized_trapped_copper_chest.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Trapped Copper Chest",
+        "de_de": "Gewachste Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_trapped_copper_chest",
+        "simplebuilding:waxed_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_trapped_copper_chest.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Weathered Trapped Copper Chest",
+        "de_de": "Gewachste verwitterte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_weathered_trapped_copper_chest",
+        "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_weathered_trapped_copper_chest.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:weathered_trapped_copper_chest",
+      "name": {
+        "en_us": "Weathered Trapped Copper Chest",
+        "de_de": "Verwitterte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:weathered_trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/weathered_trapped_copper_chest.png",
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:white_hammock",
@@ -33359,6 +33530,27 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:exposed_trapped_copper_chest",
+      "name": {
+        "en_us": "Exposed Trapped Copper Chest",
+        "de_de": "Angelaufene Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:exposed_trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/exposed_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/exposed_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:exposed_trapped_copper_chest"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:fine_elytra_pad",
       "name": {
         "en_us": "Fine Elytra Pad (Legacy)",
@@ -36933,6 +37125,27 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:oxidized_trapped_copper_chest",
+      "name": {
+        "en_us": "Oxidized Trapped Copper Chest",
+        "de_de": "Oxidierte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:oxidized_trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/oxidized_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/oxidized_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:oxidized_trapped_copper_chest"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -40570,6 +40783,27 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:trapped_copper_chest",
+      "name": {
+        "en_us": "Trapped Copper Chest",
+        "de_de": "Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/trapped_copper_chest",
+      "drops": [
+        "simplebuilding:trapped_copper_chest"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:veined_astralit",
       "name": {
         "en_us": "Veined Astralit",
@@ -40714,6 +40948,26 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Exposed Trapped Copper Chest",
+        "de_de": "Gewachste angelaufene Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_exposed_trapped_copper_chest",
+        "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_exposed_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/waxed_exposed_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:waxed_exposed_trapped_copper_chest"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:waxed_oxidized_copper_pressure_plate",
       "name": {
         "en_us": "Waxed Oxidized Copper Pressure Plate",
@@ -40762,6 +41016,46 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Oxidized Trapped Copper Chest",
+        "de_de": "Gewachste oxidierte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_oxidized_trapped_copper_chest",
+        "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_oxidized_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/waxed_oxidized_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:waxed_oxidized_trapped_copper_chest"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Trapped Copper Chest",
+        "de_de": "Gewachste Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_trapped_copper_chest",
+        "simplebuilding:waxed_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/waxed_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:waxed_trapped_copper_chest"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -40816,6 +41110,26 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
+      "name": {
+        "en_us": "Waxed Weathered Trapped Copper Chest",
+        "de_de": "Gewachste verwitterte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_weathered_trapped_copper_chest",
+        "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/waxed_weathered_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/waxed_weathered_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:waxed_weathered_trapped_copper_chest"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:weathered_copper_pressure_plate",
       "name": {
         "en_us": "Weathered Copper Pressure Plate",
@@ -40864,6 +41178,27 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:weathered_trapped_copper_chest",
+      "name": {
+        "en_us": "Weathered Trapped Copper Chest",
+        "de_de": "Verwitterte Redstone-Kupfertruhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:weathered_trapped_copper_chest"
+      ],
+      "usedIn": [
+        "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/weathered_trapped_copper_chest.png",
+      "lootTable": "simplebuilding:blocks/weathered_trapped_copper_chest",
+      "drops": [
+        "simplebuilding:weathered_trapped_copper_chest"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -52217,6 +52552,49 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:exposed_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:exposed_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/exposed_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:exposed_copper_chest",
+        "minecraft:tripwire_hook"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:exposed_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:fire_charge_from_fire_chips",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -62948,6 +63326,49 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:oxidized_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:oxidized_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/oxidized_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:oxidized_copper_chest",
+        "minecraft:tripwire_hook"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:oxidized_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oxidized_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:paint_box",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -72736,6 +73157,49 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:copper_chest",
+        "minecraft:tripwire_hook"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2.188
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:upgrade_copper_axe_to_iron_axe",
       "type": "simplebuilding:count_based_smithing",
       "category": null,
@@ -74922,6 +75386,100 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_exposed_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "minecraft:waxed_exposed_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:waxed_exposed_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_exposed_trapped_copper_chest_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_exposed_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_exposed_trapped_copper_chest_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:exposed_trapped_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:exposed_trapped_copper_chest"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -74963,6 +75521,194 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_oxidized_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "minecraft:waxed_oxidized_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:waxed_oxidized_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oxidized_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_trapped_copper_chest_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_oxidized_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_oxidized_trapped_copper_chest_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:oxidized_trapped_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:oxidized_trapped_copper_chest"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oxidized_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "minecraft:waxed_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:waxed_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2.188
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_trapped_copper_chest_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_trapped_copper_chest_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:trapped_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:trapped_copper_chest"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2.188
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -74999,6 +75745,143 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:weathered_copper_pressure_plate",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_weathered_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "minecraft:waxed_weathered_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:waxed_weathered_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:weathered_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_trapped_copper_chest_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_weathered_trapped_copper_chest_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:weathered_trapped_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:weathered_trapped_copper_chest"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:weathered_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:weathered_trapped_copper_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:weathered_trapped_copper_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/weathered_trapped_copper_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "minecraft:weathered_copper_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:weathered_copper_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:weathered_copper_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
           }
         ]
       }
@@ -78604,6 +79487,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/exposed_copper_pressure_plate.json"
     },
     {
+      "id": "simplebuilding:blocks/exposed_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:exposed_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/exposed_trapped_copper_chest.json"
+    },
+    {
       "id": "simplebuilding:blocks/fine_elytra_pad",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -79587,6 +80486,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/oxidized_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/oxidized_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:oxidized_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/oxidized_trapped_copper_chest.json"
     },
     {
       "id": "simplebuilding:blocks/pink_hammock",
@@ -80606,6 +81521,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json"
     },
     {
+      "id": "simplebuilding:blocks/trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/trapped_copper_chest.json"
+    },
+    {
       "id": "simplebuilding:blocks/veined_astralit",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -80670,6 +81601,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_exposed_copper_pressure_plate.json"
     },
     {
+      "id": "simplebuilding:blocks/waxed_exposed_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:waxed_exposed_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_exposed_trapped_copper_chest.json"
+    },
+    {
       "id": "simplebuilding:blocks/waxed_oxidized_copper_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -80684,6 +81631,38 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_oxidized_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/waxed_oxidized_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:waxed_oxidized_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_oxidized_trapped_copper_chest.json"
+    },
+    {
+      "id": "simplebuilding:blocks/waxed_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:waxed_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_trapped_copper_chest.json"
     },
     {
       "id": "simplebuilding:blocks/waxed_weathered_copper_pressure_plate",
@@ -80702,6 +81681,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_weathered_copper_pressure_plate.json"
     },
     {
+      "id": "simplebuilding:blocks/waxed_weathered_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:waxed_weathered_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_weathered_trapped_copper_chest.json"
+    },
+    {
       "id": "simplebuilding:blocks/weathered_copper_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -80716,6 +81711,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/weathered_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/weathered_trapped_copper_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:weathered_trapped_copper_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/weathered_trapped_copper_chest.json"
     },
     {
       "id": "simplebuilding:blocks/white_hammock",
@@ -116581,10 +117592,10 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 481,
-    "blocks": 237,
-    "recipes": 847,
-    "lootTables": 231,
+    "items": 489,
+    "blocks": 245,
+    "recipes": 859,
+    "lootTables": 239,
     "trades": 20,
     "enchantments": 19,
     "tags": 49,
