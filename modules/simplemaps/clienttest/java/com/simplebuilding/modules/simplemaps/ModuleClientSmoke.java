@@ -57,7 +57,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.takeScreenshot("simplemaps-pick-slot");
             screen(context, "simplemaps-contour", true, false, true, 0);
             screen(context, "simplemaps-zoom", false, true, false, 2);
-            context.runOnClient(c -> c.setScreen(null));
+            context.runOnClient(c -> c.gui.setScreen(null));
             context.waitTicks(5);
             context.takeScreenshot("simplemaps-locator");
             // Feature 4: a framed copy shows its stored view.

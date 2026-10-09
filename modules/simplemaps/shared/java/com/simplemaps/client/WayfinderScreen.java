@@ -688,7 +688,7 @@ public final class WayfinderScreen extends Screen {
             zoomBy(-1, mapX + MAP_W / 2.0, mapY + MAP_H / 2.0);
             return true;
         }
-        if (key == InputConstants.KEY_MINUS || key == org.lwjgl.glfw.GLFW.GLFW_KEY_KP_SUBTRACT) {
+        if (key == InputConstants.KEY_MINUS || key == 333 /* GLFW_KEY_KP_SUBTRACT */) {
             zoomBy(1, mapX + MAP_W / 2.0, mapY + MAP_H / 2.0);
             return true;
         }

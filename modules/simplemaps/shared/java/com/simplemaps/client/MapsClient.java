@@ -44,8 +44,8 @@ public final class MapsClient {
     private MapsClient() {}
 
     public static void init() {
-        SimpleMaps.openHand = hand -> Minecraft.getInstance().setScreen(WayfinderScreen.forHand(hand));
-        SimpleMaps.openFrame = entityId -> Minecraft.getInstance().setScreen(WayfinderScreen.forFrame(entityId));
+        SimpleMaps.openHand = hand -> Minecraft.getInstance().gui.setScreen(WayfinderScreen.forHand(hand));
+        SimpleMaps.openFrame = entityId -> Minecraft.getInstance().gui.setScreen(WayfinderScreen.forFrame(entityId));
     }
 
     public static void receive(TileDataPayload payload) {
