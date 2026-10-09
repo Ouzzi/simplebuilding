@@ -24,7 +24,7 @@ td.num{font-variant-numeric:tabular-nums;text-align:right}.md h2,.md h3{font-siz
 </head>
 <body>
 <header><h1>Simplemods Zentrale</h1>
-<nav><a href="#status" data-t="status">Status</a><a href="#start" data-t="start">Laptop-Start</a><a href="#tests" data-t="tests">Tests</a><a href="#roadmap" data-t="roadmap">Roadmap</a><a href="#links" data-t="links">Links</a></nav>
+<nav><a href="#status" data-t="status">Status</a><a href="#start" data-t="start">Laptop-Start</a><a href="#tests" data-t="tests">Tests</a><a href="#roadmap" data-t="roadmap">Roadmap</a><a href="#links" data-t="links">Links</a><a href="#dev" data-t="dev">Wiki (dev)</a><a href="#queue" data-t="queue">KI-Queue</a></nav>
 <span class="mut" id="stamp"></span></header>
 <main>
 <section id="status">
@@ -57,6 +57,22 @@ td.num{font-variant-numeric:tabular-nums;text-align:right}.md h2,.md h3{font-siz
   <div class="card"><h3>Wiki</h3><a class="btn" href="https://simplemods-wiki.azarfane.com">Wiki (master)</a><a class="btn" href="https://simplemods-wiki-dev.azarfane.com">Wiki-dev (Arbeitsstand)</a></div>
   <div class="card"><h3>Repo</h3><a class="btn" href="https://github.com/Ouzzi/simplebuilding">GitHub</a></div>
 </section>
+<section id="dev">
+  <div class="card"><h3>Wiki (dev)</h3><a class="btn" href="/wiki/" target="_blank" rel="noopener">Wiki (dev) öffnen</a></div>
+</section>
+<section id="queue">
+  <div class="card"><h3>KI-Queue</h3>
+    <div id="queue-tx"></div>
+    <div id="queue-code"></div>
+    <div id="queue-actions">
+      <button onclick="devQueue.startTextures()">Texturen starten</button>
+      <button onclick="devQueue.startCode()">Code starten</button>
+      <button onclick="devQueue.startAll()">Alles starten</button>
+    </div>
+    <h3>Läufe</h3>
+    <div id="queue-runs"></div>
+  </div>
+</section>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -87,3 +103,81 @@ load();setInterval(load,30000);
 </script>
 </body>
 </html>
+<script>
+const _origLoad = load;
+async function load2() {
+  if (_origLoad) await _origLoad();
+  await devQueueLoad();
+}
+load = load2;
+setInterval(load, 30000);
+</script>
+<script>
+window.devQueue = {
+  async fetchQueue() {
+    const r = await fetch('/api/queue');
+    if (!r.ok) return [];
+    return r.json();
+  },
+  async fetchRuns() {
+    const r = await fetch('/api/runs');
+    if (!r.ok) return [];
+    return r.json();
+  },
+  async startTextures() {
+    if (!confirm('Texturen starten?')) return;
+    await fetch('/api/run', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({category:'textures'})});
+    await devQueueLoad();
+  },
+  async startCode() {
+    if (!confirm('Code starten?')) return;
+    await fetch('/api/run', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({category:'code'})});
+    await devQueueLoad();
+  },
+  async startAll() {
+    if (!confirm('Alles starten?')) return;
+    await fetch('/api/run', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({category:'all'})});
+    await devQueueLoad();
+  },
+  async delete(id) {
+    if (!confirm('Löschen?')) return;
+    await fetch('/api/queue/'+id, {method:'DELETE'});
+    await devQueueLoad();
+  },
+  async edit(id) {
+    const c = prompt('Kommentar');
+    if (c === null) return;
+    await fetch('/api/queue/'+id, {method:'PATCH', headers:{'Content-Type':'application/json'}, body:JSON.stringify({comment:c})});
+    await devQueueLoad();
+  }
+};
+async function devQueueLoad() {
+  if (!document.getElementById('queue-tx')) return;
+  const [q, r] = await Promise.all([devQueue.fetchQueue(), devQueue.fetchRuns()]);
+  const tx = q.filter(x=>x.category==='textures');
+  const code = q.filter(x=>x.category==='code');
+  function renderList(arr) {
+    if (arr.length===0) return '<p class="mut">leer</p>';
+    let h = '<table><tr><th>Ziele</th><th>Kommentar</th><th>von</th><th>Zeit</th><th>Status</th><th>Lauf</th><th>Ergebnis</th><th>Aktion</th></tr>';
+    for (const it of arr) {
+      const t = it.targets.map(x=>esc(x.label)).join(', ');
+      const d = new Date(it.createdAt).toLocaleString('de-DE');
+      h += '<tr><td>'+esc(t)+'</td><td>'+esc(it.comment)+'</td><td>'+esc(it.by)+'</td><td>'+esc(d)+'</td><td>'+esc(it.status)+'</td><td>'+esc(it.run||'')+'</td><td>'+esc(it.result||'')+'</td><td><button onclick="devQueue.edit(\''+it.id+'\')">edit</button> <button onclick="devQueue.delete(\''+it.id+'\')">del</button></td></tr>';
+    }
+    h += '</table>';
+    return h;
+  }
+  document.getElementById('queue-tx').innerHTML = '<h3>Texturen</h3>'+renderList(tx);
+  document.getElementById('queue-code').innerHTML = '<h3>Code</h3>'+renderList(code);
+  let rh = '';
+  if (r.length===0) rh = '<p class="mut">keine</p>';
+  else {
+    rh = '<table><tr><th>ID</th><th>Kategorie</th><th>Zeit</th><th>Entries</th><th>State</th></tr>';
+    for (const run of r) {
+      const d = new Date(run.createdAt).toLocaleString('de-DE');
+      rh += '<tr><td>'+esc(run.id)+'</td><td>'+esc(run.category)+'</td><td>'+esc(d)+'</td><td>'+run.entries.length+'</td><td>'+esc(run.state)+'</td></tr>';
+    }
+    rh += '</table>';
+  }
+  document.getElementById('queue-runs').innerHTML = rh;
+}
