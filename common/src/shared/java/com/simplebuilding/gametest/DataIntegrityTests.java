@@ -1096,6 +1096,26 @@ public final class DataIntegrityTests {
                 }
                 continue;
             }
+            if (McVersion.ASTRAL_ENCHANTING && blockId.getPath().equals("astral_enchanting_table")) {
+                // Konzept Astral-Verzauberung "Abbauen": zurueck in seine Teile, Verzauberungstisch + Enderit-Nugget.
+                for (List<ItemStack> produced : rolls) {
+                    if (produced.size() != 2 || produced.stream().anyMatch(s -> s.getCount() != 1)
+                            || produced.stream().noneMatch(s -> s.is(Items.ENCHANTING_TABLE))
+                            || produced.stream().noneMatch(s -> s.is(ModItems.ENDERITE_NUGGET))) {
+                        problems.add(actual + " must drop one enchanting table and one enderite nugget: " + produced);
+                    }
+                }
+                continue;
+            }
+            if (McVersion.ASTRAL_ENCHANTING && blockId.getPath().endsWith("_blazewood_bookshelf")) {
+                // Wie Vanillas Buecherregal: ohne Behutsamkeit 3 Lohenbuecher (Konzept Astral-Verzauberung).
+                for (List<ItemStack> produced : rolls) {
+                    if (produced.size() != 1 || !produced.getFirst().is(ModItems.BLAZE_BOOK) || produced.getFirst().getCount() != 3) {
+                        problems.add(actual + " must drop three blaze books to an empty hand: " + produced);
+                    }
+                }
+                continue;
+            }
             if (McVersion.NATURE_VARIANTS && Set.of("grass_slab", "cracked_ice", "chiseled_packed_ice", "chiseled_blue_ice")
                     .contains(blockId.getPath())) {
                 // Naturvarianten wie ihr Vanilla-Vorbild: Gras-Stufe ohne Behutsamkeit eine Erd-Stufe (wie der Grasblock),
@@ -2929,6 +2949,12 @@ public final class DataIntegrityTests {
         if (McVersion.END_RAILS) {
             // Astral-/Nihil-Schienen (2026-10-04) direkt unter den End-Signalen.
             expected.add(CreativeTabLayout.Row.of("end_rails", ModItems.NIHIL_RAIL, ModItems.ASTRAL_RAIL));
+        }
+        if (McVersion.ASTRAL_ENCHANTING) {
+            // Astral-Verzauberung (Queue N27): Tisch und Boden, Luecke, Lohenholz, Lohen-Regale, Lohenbuch.
+            expected.add(CreativeTabLayout.Row.of("astral_enchanting", ModItems.ASTRAL_ENCHANTING_TABLE, ModItems.BLAZING_OBSIDIAN, gap,
+                    ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS,
+                    ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF, ModItems.BLAZE_BOOK));
         }
         if (McVersion.TRAINING_DUMMY) {
             expected.add(CreativeTabLayout.Row.of("training_dummy", ModItems.STRAW_ARMOR_STAND, ModItems.TRAINING_DUMMY,
@@ -4953,6 +4979,9 @@ public final class DataIntegrityTests {
             // Nahrung: verzaubert wie Vanillas verzauberter goldener Apfel, Enderit bleibt ganz oben
             Map.entry("enchanted_netherite_apple", net.minecraft.world.item.Rarity.RARE),
             Map.entry("enchanted_enderite_apple", net.minecraft.world.item.Rarity.EPIC),
+            // Kreativ-Werkzeuge (Queue N29): nur im Kreativmodus erhaeltlich, ganz oben wie Enderit
+            Map.entry("creative_building_wand", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("creative_blueprint", net.minecraft.world.item.Rarity.EPIC),
             // Pads nach dem Material ihrer Stufe (Netherit-Druckplatte bzw. Enderit-Platte/-Kern)
             Map.entry("spawn_teleporter_tier_2", net.minecraft.world.item.Rarity.UNCOMMON),
             Map.entry("spawn_teleporter_tier_3", net.minecraft.world.item.Rarity.UNCOMMON),
@@ -4990,7 +5019,9 @@ public final class DataIntegrityTests {
             "potion_pad", "reinforced_potion_pad", "infused_potion_pad", "flypad", "reinforced_flypad", "stellar_flypad",
             "fine_elytra_pad",
             // Ausnahmen mit eigenem Grund: die geliehene Spawn-Elytra verbrennt nicht ueber Lava, der Easter-Stock nie
-            "spawn_elytra", "funny_stick");
+            "spawn_elytra", "funny_stick",
+            // Astral-Verzauberungstisch: mit einem Enderit-Nugget gebaut; Kreativ-Baustab wie die Enderit-Staebe
+            "astral_enchanting_table", "creative_building_wand");
 
     /** Die Seltenheit, die das Schema aus docs/RARITAETEN.md einem Mod-Item gibt. */
     static net.minecraft.world.item.Rarity expectedRarity(String path) {

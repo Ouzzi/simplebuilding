@@ -696,9 +696,9 @@ def updated_lang(path: Path, entries: dict[str, str]) -> str:
         entries = dict(entries)
         german = path.stem == "de_de"
         entries[LANG_KEY + ".stage_1.stone_sledgehammer.description"] += (
-            " Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs eine Zielecke mit 1,5-fachem Tempo ab: Innenecke, gerade Treppe, Außenecke, Stufe."
+            " Auf 26.3 trägt Schleichen + Rechtsklick halten das angezielte Achtel ab; ungewöhnliche Formen zerfallen in 0,125er-Blöcke."
             if german else
-            " On 26.3, sneak without Constructor's Touch to remove one aimed corner at 1.5x speed: inner corner, straight stair, outer corner, slab.")
+            " On 26.3, sneak and hold right-click to carve the aimed eighth off a block; odd shapes fall apart into 0.125 blocks.")
         entries[LANG_KEY + ".stage_1.guide_book.description"] = (
             "Ein Buch und eine Werkbank ergeben das Einsteiger-Handbuch. Mit dem passenden Gegenstand wird daraus ein Themen-Handbuch."
             if german else
@@ -716,6 +716,12 @@ def updated_lang(path: Path, entries: dict[str, str]) -> str:
             ("storage.guide.description", "Learn a Chest, Backpack, Quiver or Reinforced Bundle recipe: the Storage tab of the guide opens by itself.", "Lerne das Rezept für Truhe, Rucksack, Köcher oder Verstärktes Bündel: der Reiter Lager im Handbuch öffnet sich von selbst."),
             ("gadgets.guide.description", "Learn a pressure plate recipe: the Pads tab of the guide opens by itself.", "Lerne ein Druckplatten-Rezept: der Reiter Pads im Handbuch öffnet sich von selbst.")]:
             entries[LANG_KEY + "." + suffix] = de if german else en
+    if path.is_relative_to(REPO / "mc26_3/overlay/resources"):
+        # 26.3 only: the sledgehammer carves eighths (octets, claude-q-hammer).
+        entries[LANG_KEY + ".stage_1.stone_sledgehammer.description"] = (
+            "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab. Schleichen + Rechtsklick halten trägt das angezielte Achtel eines Blocks ab."
+            if path.stem == "de_de" else
+            "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once. Sneak and hold right-click to carve the aimed eighth off a block.")
     items = [(k, v) for k, v in data.items() if not k.startswith(LANG_KEY + ".")]
     anchor = max((i for i, (k, _) in enumerate(items) if k.startswith("advancements." + NS + ".")), default=len(items) - 1)
     items = items[:anchor + 1] + list(entries.items()) + items[anchor + 1:]

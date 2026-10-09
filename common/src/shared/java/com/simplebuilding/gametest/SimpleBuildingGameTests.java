@@ -1560,9 +1560,11 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("blueprint_game_test_recipe_crafts_one_blank_blueprint", BlueprintTests::recipeCraftsOneBlankBlueprint)
                     .build(),
-            GameTestSpec.named("blueprint_game_test_creative_wand_reaches_a_far_block_without_cost", BlueprintTests::creativeWandReachesAFarBlockWithoutCost)
+            GameTestSpec.named("blueprint_game_test_creative_wand_reaches_afar_block_without_cost", BlueprintTests::creativeWandReachesAFarBlockWithoutCost)
+                    .skyAccess(true)
                     .build(),
             GameTestSpec.named("blueprint_game_test_creative_blueprint_builds_far_and_stays_locked_once_signed", BlueprintTests::creativeBlueprintBuildsFarAndStaysLockedOnceSigned)
+                    .skyAccess(true)
                     .build(),
             GameTestSpec.named("blueprint_game_test_survival_build_resets_grown_and_filled_states", BlueprintTests::survivalBuildResetsGrownAndFilledStates)
                     .build(),
