@@ -203,7 +203,7 @@ public final class PlaceN24Tests {
      * torch goes in and lights it, a second one does not fit, an empty hand takes it out; rods fit too (the blaze rod
      * glows a little); breaking drops the horn with its instrument and the held item.
      */
-    public static void goatHornHoldsATorchOrARod(GameTestHelper helper) {
+    public static void goatHornHoldsTorchesAndRods(GameTestHelper helper) {
         if (ModBlocks.GOAT_HORN_HOLDER == null) {
             helper.succeed();
             return;
@@ -277,7 +277,7 @@ public final class PlaceN24Tests {
     // =====================================================================================
 
     /** A powered dispenser with a spear thrusts: the pig in front is hurt, the spear stays in and loses one point. */
-    public static void spearInADispenserThrustsLikeASpikeTrap(GameTestHelper helper) {
+    public static void spearInDispenserThrustsLikeSpikeTrap(GameTestHelper helper) {
         BlockPos dispenser = new BlockPos(1, 2, 3);
         helper.setBlock(dispenser.below(), Blocks.STONE);
         helper.setBlock(dispenser, Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, Direction.EAST));
@@ -304,7 +304,7 @@ public final class PlaceN24Tests {
     // =====================================================================================
 
     /** A rod with another one on it reaches the top of its block (state up, full-height shape); taken off, it shrinks back. */
-    public static void stackedStandingRodsJoinWithoutAGap(GameTestHelper helper) {
+    public static void stackedStandingRodsJoinWithoutGap(GameTestHelper helper) {
         if (!McVersion.STANDING_RODS) {
             helper.succeed();
             return;

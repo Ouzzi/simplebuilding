@@ -15,7 +15,7 @@ Writes into mc26_3/overlay/resources/assets/simplebuilding/:
   models/block/placed_<ingot>.json     the 3D bar
   items/placed_<ingot>.json            item model definition; the small-parts renderer draws the bar through it
                                        (ITEM_MODEL on a stand-in stack)
-The cuboids must match PlacedSmallParts#INGOT_BOXES (Java); the game test place_n24_game_test_the_ingot_model_matches_the_ingot_hitbox
+The cuboids must match PlacedSmallParts#INGOT_BOXES (Java); the game test placing_game_test_ingots_lie_as_bars_and_stack
 checks that.
 """
 import importlib.util
