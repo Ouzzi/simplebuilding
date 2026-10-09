@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 536,
+      "count": 547,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3865,6 +3865,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:aqua_froglight",
+      "name": {
+        "en_us": "Aqua Froglight",
+        "de_de": "Türkises Froschlicht"
+      },
+      "texture": "assets/textures/block/aqua_froglight_side.png",
+      "craftedBy": [
+        "simplebuilding:aqua_froglight"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/aqua_froglight.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_end_stone",
       "name": {
         "en_us": "Astral End Stone",
@@ -5125,6 +5140,21 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:azure_froglight",
+      "name": {
+        "en_us": "Azure Froglight",
+        "de_de": "Azurblaues Froschlicht"
+      },
+      "texture": "assets/textures/block/azure_froglight_side.png",
+      "craftedBy": [
+        "simplebuilding:azure_froglight"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/azure_froglight.png",
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:backpack",
@@ -6601,6 +6631,40 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:chiseled_blue_ice",
+      "name": {
+        "en_us": "Chiseled Blue Ice",
+        "de_de": "Gemeißeltes Blaueis"
+      },
+      "texture": "assets/textures/block/chiseled_blue_ice.png",
+      "craftedBy": [
+        "simplebuilding:chiseled_blue_ice_from_blue_ice_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/chiseled_blue_ice.png",
+      "note": {
+        "en": {
+          "summary": "Decorative blue ice with a carved diamond, as slippery as blue ice.",
+          "details": [
+            "Stonecutter: one blue ice makes one. It copies the blue ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
+          ]
+        },
+        "de": {
+          "summary": "Dekoratives Blaueis mit eingemeißelter Raute, so rutschig wie Blaueis.",
+          "details": [
+            "Steinmetz: ein Blaueis ergibt eins. Es übernimmt die Eigenschaften von Blaueis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks",
       "name": {
         "en_us": "Chiseled Ender Quartz Bricks",
@@ -6681,6 +6745,40 @@ window.WIKI_DATA = {
             "Der Enderitmeißel formt jeden gemeißelten Block zum Grundblock seiner Palette um; beim Schleichen zurück zur Ziegelvariante."
           ]
         }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:chiseled_packed_ice",
+      "name": {
+        "en_us": "Chiseled Packed Ice",
+        "de_de": "Gemeißeltes Packeis"
+      },
+      "texture": "assets/textures/block/chiseled_packed_ice.png",
+      "craftedBy": [
+        "simplebuilding:chiseled_packed_ice_from_packed_ice_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/chiseled_packed_ice.png",
+      "note": {
+        "en": {
+          "summary": "Decorative packed ice with a carved ice crystal, as slippery as packed ice.",
+          "details": [
+            "Stonecutter: one packed ice makes one. It copies the packed ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
+          ]
+        },
+        "de": {
+          "summary": "Dekoratives Packeis mit eingemeißeltem Eiskristall, so rutschig wie Packeis.",
+          "details": [
+            "Steinmetz: ein Packeis ergibt eins. Es übernimmt die Eigenschaften von Packeis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
       },
       "hasCustomBehaviour": true
     },
@@ -7645,6 +7743,45 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/cracked_diamond_block.png",
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cracked_ice",
+      "name": {
+        "en_us": "Cracked Ice",
+        "de_de": "Rissiges Eis"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:cracked_ice_from_ice_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/cracked_ice.png",
+      "note": {
+        "en": {
+          "summary": "Ice that cracks under anyone standing on it and turns into water after four stages.",
+          "details": [
+            "A living entity standing on it (no spectator) cracks it one stage every 20 ticks; the four stages use the look of vanilla frosted ice. After the last stage it melts into water, or evaporates in the Nether.",
+            "With nobody on it the reached crack stays. Like ice it also melts in bright block light and drops only with Silk Touch.",
+            "Stonecutter: one ice makes one cracked ice."
+          ]
+        },
+        "de": {
+          "summary": "Eis, das unter jedem reißt, der darauf steht, und nach vier Stufen zu Wasser wird.",
+          "details": [
+            "Steht ein Lebewesen (kein Zuschauer) darauf, reißt es alle 20 Ticks eine Stufe weiter; die vier Stufen sehen aus wie Vanillas brüchiges Eis. Nach der letzten Stufe schmilzt es zu Wasser, im Nether verdampft es.",
+            "Steht niemand darauf, bleibt der erreichte Riss. Wie Eis schmilzt es auch bei hellem Blocklicht und droppt nur mit Behutsamkeit.",
+            "Steinmetz: ein Eis ergibt ein rissiges Eis."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:crafted_arrow",
@@ -8835,6 +8972,21 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:dirt_slab",
+      "name": {
+        "en_us": "Dirt Slab",
+        "de_de": "Erdstufe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:dirt_slab"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/dirt_slab.png",
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:echo_sounder",
@@ -13234,6 +13386,36 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:grass_slab",
+      "name": {
+        "en_us": "Grass Slab",
+        "de_de": "Grasstufe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:grass_slab"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/grass_slab.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:gravel_slab",
+      "name": {
+        "en_us": "Gravel Slab",
+        "de_de": "Kiesstufe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:gravel_slab"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/gravel_slab.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:gray_hammock",
       "name": {
         "en_us": "Gray Hammock",
@@ -15980,6 +16162,23 @@ window.WIKI_DATA = {
       "properties": {
         "maxStackSize": 1
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nautilus_shell_block",
+      "name": {
+        "en_us": "Nautilus Shell Block",
+        "de_de": "Nautilusschalenblock"
+      },
+      "texture": "assets/textures/block/nautilus_shell_block_side.png",
+      "craftedBy": [
+        "simplebuilding:nautilus_shell_block"
+      ],
+      "usedIn": [
+        "simplebuilding:nautilus_shell_from_nautilus_shell_block"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/nautilus_shell_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -28257,6 +28456,36 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:sand_slab",
+      "name": {
+        "en_us": "Sand Slab",
+        "de_de": "Sandstufe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:sand_slab"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/sand_slab.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:scarlet_froglight",
+      "name": {
+        "en_us": "Scarlet Froglight",
+        "de_de": "Scharlachrotes Froschlicht"
+      },
+      "texture": "assets/textures/block/scarlet_froglight_side.png",
+      "craftedBy": [
+        "simplebuilding:scarlet_froglight"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/scarlet_froglight.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:silent_dandelion",
       "name": {
         "en_us": "Silent Dandelion",
@@ -29364,6 +29593,25 @@ window.WIKI_DATA = {
   ],
   "blocks": [
     {
+      "id": "simplebuilding:aqua_froglight",
+      "name": {
+        "en_us": "Aqua Froglight",
+        "de_de": "Türkises Froschlicht"
+      },
+      "texture": "assets/textures/block/aqua_froglight_side.png",
+      "craftedBy": [
+        "simplebuilding:aqua_froglight"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/aqua_froglight.png",
+      "lootTable": "simplebuilding:blocks/aqua_froglight",
+      "drops": [
+        "simplebuilding:aqua_froglight"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_end_stone",
       "name": {
         "en_us": "Astral End Stone",
@@ -30010,6 +30258,25 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:azure_froglight",
+      "name": {
+        "en_us": "Azure Froglight",
+        "de_de": "Azurblaues Froschlicht"
+      },
+      "texture": "assets/textures/block/azure_froglight_side.png",
+      "craftedBy": [
+        "simplebuilding:azure_froglight"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/azure_froglight.png",
+      "lootTable": "simplebuilding:blocks/azure_froglight",
+      "drops": [
+        "simplebuilding:azure_froglight"
+      ],
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:backpack",
@@ -30848,6 +31115,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:chiseled_blue_ice",
+      "name": {
+        "en_us": "Chiseled Blue Ice",
+        "de_de": "Gemeißeltes Blaueis"
+      },
+      "texture": "assets/textures/block/chiseled_blue_ice.png",
+      "craftedBy": [
+        "simplebuilding:chiseled_blue_ice_from_blue_ice_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/chiseled_blue_ice.png",
+      "lootTable": "simplebuilding:blocks/chiseled_blue_ice",
+      "drops": [
+        "simplebuilding:chiseled_blue_ice"
+      ],
+      "note": {
+        "en": {
+          "summary": "Decorative blue ice with a carved diamond, as slippery as blue ice.",
+          "details": [
+            "Stonecutter: one blue ice makes one. It copies the blue ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
+          ]
+        },
+        "de": {
+          "summary": "Dekoratives Blaueis mit eingemeißelter Raute, so rutschig wie Blaueis.",
+          "details": [
+            "Steinmetz: ein Blaueis ergibt eins. Es übernimmt die Eigenschaften von Blaueis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks",
       "name": {
         "en_us": "Chiseled Ender Quartz Bricks",
@@ -30936,6 +31241,44 @@ window.WIKI_DATA = {
             "Der Enderitmeißel formt jeden gemeißelten Block zum Grundblock seiner Palette um; beim Schleichen zurück zur Ziegelvariante."
           ]
         }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:chiseled_packed_ice",
+      "name": {
+        "en_us": "Chiseled Packed Ice",
+        "de_de": "Gemeißeltes Packeis"
+      },
+      "texture": "assets/textures/block/chiseled_packed_ice.png",
+      "craftedBy": [
+        "simplebuilding:chiseled_packed_ice_from_packed_ice_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/chiseled_packed_ice.png",
+      "lootTable": "simplebuilding:blocks/chiseled_packed_ice",
+      "drops": [
+        "simplebuilding:chiseled_packed_ice"
+      ],
+      "note": {
+        "en": {
+          "summary": "Decorative packed ice with a carved ice crystal, as slippery as packed ice.",
+          "details": [
+            "Stonecutter: one packed ice makes one. It copies the packed ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
+          ]
+        },
+        "de": {
+          "summary": "Dekoratives Packeis mit eingemeißeltem Eiskristall, so rutschig wie Packeis.",
+          "details": [
+            "Steinmetz: ein Packeis ergibt eins. Es übernimmt die Eigenschaften von Packeis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
       },
       "hasCustomBehaviour": true
     },
@@ -31115,6 +31458,49 @@ window.WIKI_DATA = {
         "simplebuilding:cracked_diamond_block"
       ],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cracked_ice",
+      "name": {
+        "en_us": "Cracked Ice",
+        "de_de": "Rissiges Eis"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:cracked_ice_from_ice_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/cracked_ice.png",
+      "lootTable": "simplebuilding:blocks/cracked_ice",
+      "drops": [
+        "simplebuilding:cracked_ice"
+      ],
+      "note": {
+        "en": {
+          "summary": "Ice that cracks under anyone standing on it and turns into water after four stages.",
+          "details": [
+            "A living entity standing on it (no spectator) cracks it one stage every 20 ticks; the four stages use the look of vanilla frosted ice. After the last stage it melts into water, or evaporates in the Nether.",
+            "With nobody on it the reached crack stays. Like ice it also melts in bright block light and drops only with Silk Touch.",
+            "Stonecutter: one ice makes one cracked ice."
+          ]
+        },
+        "de": {
+          "summary": "Eis, das unter jedem reißt, der darauf steht, und nach vier Stufen zu Wasser wird.",
+          "details": [
+            "Steht ein Lebewesen (kein Zuschauer) darauf, reißt es alle 20 Ticks eine Stufe weiter; die vier Stufen sehen aus wie Vanillas brüchiges Eis. Nach der letzten Stufe schmilzt es zu Wasser, im Nether verdampft es.",
+            "Steht niemand darauf, bleibt der erreichte Riss. Wie Eis schmilzt es auch bei hellem Blocklicht und droppt nur mit Behutsamkeit.",
+            "Steinmetz: ein Eis ergibt ein rissiges Eis."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:crystalline_astralit",
@@ -31373,6 +31759,25 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:dirt_slab",
+      "name": {
+        "en_us": "Dirt Slab",
+        "de_de": "Erdstufe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:dirt_slab"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/dirt_slab.png",
+      "lootTable": "simplebuilding:blocks/dirt_slab",
+      "drops": [
+        "simplebuilding:dirt_slab"
+      ],
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:drowned_head",
@@ -33494,6 +33899,45 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:grass_slab",
+      "name": {
+        "en_us": "Grass Slab",
+        "de_de": "Grasstufe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:grass_slab"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/grass_slab.png",
+      "lootTable": "simplebuilding:blocks/grass_slab",
+      "drops": [
+        "simplebuilding:dirt_slab",
+        "simplebuilding:grass_slab"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:gravel_slab",
+      "name": {
+        "en_us": "Gravel Slab",
+        "de_de": "Kiesstufe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:gravel_slab"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/gravel_slab.png",
+      "lootTable": "simplebuilding:blocks/gravel_slab",
+      "drops": [
+        "simplebuilding:gravel_slab"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:gray_hammock",
       "name": {
         "en_us": "Gray Hammock",
@@ -34592,6 +35036,27 @@ window.WIKI_DATA = {
           "tools/textures/hammock.py"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nautilus_shell_block",
+      "name": {
+        "en_us": "Nautilus Shell Block",
+        "de_de": "Nautilusschalenblock"
+      },
+      "texture": "assets/textures/block/nautilus_shell_block_side.png",
+      "craftedBy": [
+        "simplebuilding:nautilus_shell_block"
+      ],
+      "usedIn": [
+        "simplebuilding:nautilus_shell_from_nautilus_shell_block"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/nautilus_shell_block.png",
+      "lootTable": "simplebuilding:blocks/nautilus_shell_block",
+      "drops": [
+        "simplebuilding:nautilus_shell_block"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -39829,6 +40294,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:sand_slab",
+      "name": {
+        "en_us": "Sand Slab",
+        "de_de": "Sandstufe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:sand_slab"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/sand_slab.png",
+      "lootTable": "simplebuilding:blocks/sand_slab",
+      "drops": [
+        "simplebuilding:sand_slab"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:scarlet_froglight",
+      "name": {
+        "en_us": "Scarlet Froglight",
+        "de_de": "Scharlachrotes Froschlicht"
+      },
+      "texture": "assets/textures/block/scarlet_froglight_side.png",
+      "craftedBy": [
+        "simplebuilding:scarlet_froglight"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/scarlet_froglight.png",
+      "lootTable": "simplebuilding:blocks/scarlet_froglight",
+      "drops": [
+        "simplebuilding:scarlet_froglight"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:shulker_head",
       "name": {
         "en_us": "Shulker Head",
@@ -41185,6 +41688,52 @@ window.WIKI_DATA = {
             "id": "minecraft:redstone",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:aqua_froglight",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:aqua_froglight",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/aqua_froglight.json",
+      "ingredients": [
+        "#simplebuilding:froglights",
+        "minecraft:cyan_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:froglights"
+        ],
+        [
+          "minecraft:cyan_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ochre_froglight",
+            "count": 1
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 0.5
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:froglights"
         ]
       }
     },
@@ -43479,6 +44028,48 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:azure_froglight",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:azure_froglight",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/azure_froglight.json",
+      "ingredients": [
+        "#simplebuilding:froglights",
+        "minecraft:blue_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:froglights"
+        ],
+        [
+          "minecraft:blue_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ochre_froglight",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:froglights"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:backpack",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -45529,6 +46120,37 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:chiseled_blue_ice_from_blue_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:chiseled_blue_ice",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/chiseled_blue_ice_from_blue_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:blue_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_ice"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -45915,6 +46537,37 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:chiseled_packed_ice_from_packed_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:chiseled_packed_ice",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/chiseled_packed_ice_from_packed_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:packed_ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:packed_ice"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
+            "count": 9
           }
         ]
       }
@@ -46570,6 +47223,37 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "simplebuilding:cracked_diamond_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cracked_ice_from_ice_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cracked_ice",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cracked_ice_from_ice_stonecutting.json",
+      "ingredients": [
+        "minecraft:ice"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:ice"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:ice",
             "count": 1
           }
         ]
@@ -47424,6 +48108,40 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:dirt_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:dirt_slab",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/dirt_slab.json",
+      "ingredients": [
+        "minecraft:dirt"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:dirt"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:dirt",
+            "count": 3
           }
         ]
       }
@@ -54139,6 +54857,74 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:grass_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:grass_slab",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/grass_slab.json",
+      "ingredients": [
+        "minecraft:grass_block"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:grass_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:grass_block",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:gravel_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:gravel_slab",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/gravel_slab.json",
+      "ingredients": [
+        "minecraft:gravel"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:gravel"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:gray_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -57455,6 +58241,72 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:stone",
             "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nautilus_shell_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nautilus_shell_block",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nautilus_shell_block.json",
+      "ingredients": [
+        "minecraft:nautilus_shell"
+      ],
+      "pattern": [
+        "SS",
+        "SS"
+      ],
+      "key": {
+        "S": [
+          "minecraft:nautilus_shell"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:nautilus_shell",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nautilus_shell_from_nautilus_shell_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:nautilus_shell",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nautilus_shell_from_nautilus_shell_block.json",
+      "ingredients": [
+        "simplebuilding:nautilus_shell_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:nautilus_shell_block"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:nautilus_shell_block",
+            "count": 1
           }
         ]
       }
@@ -71957,6 +72809,82 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:sand_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:sand_slab",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/sand_slab.json",
+      "ingredients": [
+        "minecraft:sand"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:sand"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:scarlet_froglight",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:scarlet_froglight",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/scarlet_froglight.json",
+      "ingredients": [
+        "#simplebuilding:froglights",
+        "minecraft:red_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:froglights"
+        ],
+        [
+          "minecraft:red_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:beetroot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ochre_froglight",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:froglights"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:silent_dandelion",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -77219,6 +78147,22 @@ window.WIKI_DATA = {
   ],
   "lootTables": [
     {
+      "id": "simplebuilding:blocks/aqua_froglight",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:aqua_froglight"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/aqua_froglight.json"
+    },
+    {
       "id": "simplebuilding:blocks/astral_end_stone",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -77532,6 +78476,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/auto_smither.json"
     },
     {
+      "id": "simplebuilding:blocks/azure_froglight",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:azure_froglight"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/azure_froglight.json"
+    },
+    {
       "id": "simplebuilding:blocks/backpack",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -77724,6 +78684,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_astralit_bricks.json"
     },
     {
+      "id": "simplebuilding:blocks/chiseled_blue_ice",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:chiseled_blue_ice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_blue_ice.json"
+    },
+    {
       "id": "simplebuilding:blocks/chiseled_ender_quartz_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -77754,6 +78730,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_nihilith_bricks.json"
+    },
+    {
+      "id": "simplebuilding:blocks/chiseled_packed_ice",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:chiseled_packed_ice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_packed_ice.json"
     },
     {
       "id": "simplebuilding:blocks/chunk_loader",
@@ -77818,6 +78810,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_diamond_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/cracked_ice",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:cracked_ice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_ice.json"
     },
     {
       "id": "simplebuilding:blocks/crystalline_astralit",
@@ -77915,6 +78923,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/dimensional_scrap.json"
+    },
+    {
+      "id": "simplebuilding:blocks/dirt_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:dirt_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/dirt_slab.json"
     },
     {
       "id": "simplebuilding:blocks/drowned_head",
@@ -78558,6 +79582,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/grass_slab.json"
     },
     {
+      "id": "simplebuilding:blocks/gravel_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:gravel_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gravel_slab.json"
+    },
+    {
       "id": "simplebuilding:blocks/gray_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -78828,6 +79868,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/magenta_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nautilus_shell_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nautilus_shell_block"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nautilus_shell_block.json"
     },
     {
       "id": "simplebuilding:blocks/nether_brick_quartz_checker",
@@ -80286,6 +81342,38 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json"
+    },
+    {
+      "id": "simplebuilding:blocks/sand_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:sand_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/sand_slab.json"
+    },
+    {
+      "id": "simplebuilding:blocks/scarlet_froglight",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:scarlet_froglight"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/scarlet_froglight.json"
     },
     {
       "id": "simplebuilding:blocks/shulker_head",
@@ -86969,6 +88057,37 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/extra_inventory_items.json"
+    },
+    {
+      "id": "simplebuilding:item/froglights",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:ochre_froglight",
+          "required": true
+        },
+        {
+          "id": "minecraft:verdant_froglight",
+          "required": true
+        },
+        {
+          "id": "minecraft:pearlescent_froglight",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:scarlet_froglight",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:aqua_froglight",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:azure_froglight",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/froglights.json"
     },
     {
       "id": "simplebuilding:item/funnel_enchantable",
@@ -116535,13 +117654,13 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 480,
-    "blocks": 236,
-    "recipes": 846,
-    "lootTables": 231,
+    "items": 491,
+    "blocks": 247,
+    "recipes": 858,
+    "lootTables": 241,
     "trades": 20,
     "enchantments": 19,
-    "tags": 49,
+    "tags": 50,
     "config": 222,
     "inWorld": 468,
     "advancements": 127,

@@ -12114,6 +12114,68 @@
           "Bedienung, Tooltip und Farbpinsel wie beim Farbkasten."
         ]
       }
+    },
+    "cracked_ice": {
+      "en": {
+        "summary": "Ice that cracks under anyone standing on it and turns into water after four stages.",
+        "details": [
+          "A living entity standing on it (no spectator) cracks it one stage every 20 ticks; the four stages use the look of vanilla frosted ice. After the last stage it melts into water, or evaporates in the Nether.",
+          "With nobody on it the reached crack stays. Like ice it also melts in bright block light and drops only with Silk Touch.",
+          "Stonecutter: one ice makes one cracked ice."
+        ]
+      },
+      "de": {
+        "summary": "Eis, das unter jedem reißt, der darauf steht, und nach vier Stufen zu Wasser wird.",
+        "details": [
+          "Steht ein Lebewesen (kein Zuschauer) darauf, reißt es alle 20 Ticks eine Stufe weiter; die vier Stufen sehen aus wie Vanillas brüchiges Eis. Nach der letzten Stufe schmilzt es zu Wasser, im Nether verdampft es.",
+          "Steht niemand darauf, bleibt der erreichte Riss. Wie Eis schmilzt es auch bei hellem Blocklicht und droppt nur mit Behutsamkeit.",
+          "Steinmetz: ein Eis ergibt ein rissiges Eis."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java"
+      ]
+    },
+    "chiseled_packed_ice": {
+      "en": {
+        "summary": "Decorative packed ice with a carved ice crystal, as slippery as packed ice.",
+        "details": [
+          "Stonecutter: one packed ice makes one. It copies the packed ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
+        ]
+      },
+      "de": {
+        "summary": "Dekoratives Packeis mit eingemeißeltem Eiskristall, so rutschig wie Packeis.",
+        "details": [
+          "Steinmetz: ein Packeis ergibt eins. Es übernimmt die Eigenschaften von Packeis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+      ]
+    },
+    "chiseled_blue_ice": {
+      "en": {
+        "summary": "Decorative blue ice with a carved diamond, as slippery as blue ice.",
+        "details": [
+          "Stonecutter: one blue ice makes one. It copies the blue ice properties (slipperiness, hardness, no melting) and drops only with Silk Touch."
+        ]
+      },
+      "de": {
+        "summary": "Dekoratives Blaueis mit eingemeißelter Raute, so rutschig wie Blaueis.",
+        "details": [
+          "Steinmetz: ein Blaueis ergibt eins. Es übernimmt die Eigenschaften von Blaueis (Rutschigkeit, Härte, schmilzt nicht) und droppt nur mit Behutsamkeit."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+      ]
     }
   },
   "inWorld": {
