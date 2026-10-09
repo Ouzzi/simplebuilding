@@ -792,11 +792,17 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("armor_stand_game_test_placed_stands_have_arms", ArmorStandTests::placedStandsHaveArms)
                     .build(),
-            GameTestSpec.named("armor_stand_game_test_partial_stands_hold_only_their_slots", ArmorStandTests::partialStandsHoldOnlyTheirSlots)
+            GameTestSpec.named("armor_stand_game_test_the_small_stand_takes_every_armor_piece_and_animal_armor", ArmorStandTests::theSmallStandTakesEveryArmorPieceAndAnimalArmor)
                     .build(),
-            GameTestSpec.named("armor_stand_game_test_partial_stands_drop_their_own_item", ArmorStandTests::partialStandsDropTheirOwnItem)
+            GameTestSpec.named("armor_stand_game_test_the_small_stand_holds_exactly_one_item", ArmorStandTests::theSmallStandHoldsExactlyOneItem)
                     .build(),
-            GameTestSpec.named("armor_stand_game_test_the_test_centre_stocks_the_partial_stands", ArmorStandTests::theTestCentreStocksThePartialStands)
+            GameTestSpec.named("armor_stand_game_test_the_small_stand_drops_itself_and_its_item", ArmorStandTests::theSmallStandDropsItselfAndItsItem)
+                    .build(),
+            GameTestSpec.named("armor_stand_game_test_a_dispenser_puts_armor_on_the_small_stand", ArmorStandTests::aDispenserPutsArmorOnTheSmallStand)
+                    .build(),
+            GameTestSpec.named("armor_stand_game_test_an_old_medium_stand_turns_into_the_small_stand", ArmorStandTests::anOldMediumStandTurnsIntoTheSmallStand)
+                    .build(),
+            GameTestSpec.named("armor_stand_game_test_the_test_centre_stocks_the_small_stand", ArmorStandTests::theTestCentreStocksTheSmallStand)
                     .build(),
             GameTestSpec.named("workstation_game_test_smithing_recipe_book_hides_dummy_displays", WorkstationTests::smithingRecipeBookHidesDummyDisplays)
                     .build(),

@@ -34,6 +34,14 @@ public final class LegacyItemIds {
     public static final Map<String, String> RENAMED_BLOCKS = com.simplebuilding.version.McVersion.END_SYSTEMS
             ? Map.of("astralit_powder", "astral_redstone", "nihilith_powder", "nihil_redstone") : Map.of();
 
+    /**
+     * Item and entity type ids both renamed (Nachtrag 29, 2026-10-09): the medium armor stand was removed; old stacks
+     * become small stands, and a placed medium stand loads as a small stand ({@code SmallArmorStand} keeps one piece
+     * and drops the rest on its first tick).
+     */
+    public static final Map<String, String> RENAMED_STANDS = com.simplebuilding.version.McVersion.TRAINING_DUMMY
+            ? Map.of("medium_armor_stand", "small_armor_stand") : Map.of();
+
     /** Old path -> new path, both in the {@code simplebuilding} namespace. */
     public static final Map<String, String> RENAMED = !com.simplebuilding.version.McVersion.MEGA_GUIDES ? Map.of(
             "velocity-gauge", "velocity_gauge", "echo_compass", "echo_sounder",
@@ -72,7 +80,7 @@ public final class LegacyItemIds {
             return null;
         }
         if (!com.simplebuilding.version.McVersion.MEGA_GUIDES && id.getPath().startsWith("guide_book_")) return null;
-        String now = RENAMED_BLOCKS.getOrDefault(id.getPath(), RENAMED.get(id.getPath()));
+        String now = RENAMED_BLOCKS.getOrDefault(id.getPath(), RENAMED.getOrDefault(id.getPath(), RENAMED_STANDS.get(id.getPath())));
         return now == null ? null : Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, now);
     }
 
@@ -84,6 +92,10 @@ public final class LegacyItemIds {
             return null;
         }
         if (r.key().equals(Registries.ITEM)) return renamedTo(id);
+        if (r.key().equals(Registries.ENTITY_TYPE)) {
+            String stand = RENAMED_STANDS.get(id.getPath());
+            return stand == null ? null : Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, stand);
+        }
         if (!r.key().equals(Registries.BLOCK)) return null;
         String now = RENAMED_BLOCKS.get(id.getPath());
         return now == null ? null : Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, now);

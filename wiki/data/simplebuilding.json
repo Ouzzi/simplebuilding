@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 539,
+      "count": 536,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -15790,48 +15790,6 @@
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:medium_armor_stand",
-      "name": {
-        "en_us": "Medium Armor Stand",
-        "de_de": "Mittlerer Rüstungsständer"
-      },
-      "texture": "assets/textures/item/medium_armor_stand.png",
-      "craftedBy": [
-        "simplebuilding:medium_armor_stand"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The lower half of an armor stand, for leggings and boots: two rows \"/ /\" and \"/_/\" (/ = stick, _ = smooth stone slab).",
-          "details": [
-            "Shows legs, a hip bar and the base plate (vanilla wood), 1 block tall. Takes only leggings and boots, by right-click like an armor stand, from a dispenser or by the armor swap; everything else stays in your hand. No arms.",
-            "Two quick hits break it (one in creative): the Medium Armor Stand and its armor drop. Pick block gives the Medium Armor Stand.",
-            "Armor swap (any armor stand, also straw stands, training dummies and the medium and small stands): sneak + right-click with an empty main hand, or any right-click while the stand is powered by redstone (like a powered shelf with the hotbar), swaps all its armor with your armor slots. Pieces with Curse of Binding stay on you (outside creative), pieces that do not fit your slot stay on the stand. Switch: server.features.armorStandSwap (default on)."
-          ]
-        },
-        "de": {
-          "summary": "Die untere Hälfte eines Rüstungsständers, für Hose und Stiefel: zwei Reihen \"/ /\" und \"/_/\" (/ = Stock, _ = glatte Steinstufe).",
-          "details": [
-            "Zeigt Beine, eine Hüftstange und die Bodenplatte (Vanilla-Holz), 1 Block hoch. Nimmt nur Hose und Stiefel, per Rechtsklick wie ein Rüstungsständer, aus dem Spender oder beim Rüstungstausch; alles andere bleibt in der Hand. Keine Arme.",
-            "Zwei schnelle Schläge bauen ihn ab (im Kreativmodus einer): der Mittlere Rüstungsständer und seine Rüstung fallen. Block auswählen gibt den Mittleren Rüstungsständer.",
-            "Rüstung tauschen (jeder Rüstungsständer, auch Stroh-Ständer, Trainingspuppen und die mittleren und kleinen Ständer): Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange der Ständer mit Redstone bestromt ist (wie ein bestromtes Regal mit der Hotbar), tauscht seine ganze Rüstung mit deinen Rüstungsslots. Teile mit Fluch der Bindung bleiben an dir (außer im Kreativmodus), Teile, die nicht in deinen Slot passen, bleiben am Ständer. Schalter: server.features.armorStandSwap (Standard an)."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/dummy/PartialArmorStand.java",
-          "common/src/shared/java/com/simplebuilding/dummy/client/PartialArmorStandRenderer.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ArmorStandStandsMixin.java",
-          "common/src/shared/java/com/simplebuilding/dummy/ArmorStandSwap.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:music_disc_brimstone",
       "name": {
         "en_us": "Music Disc",
@@ -28290,26 +28248,35 @@
       },
       "note": {
         "en": {
-          "summary": "A base plate with two short pegs, for one pair of boots: one row \"/_/\" (/ = stick, _ = smooth stone slab).",
+          "summary": "A wooden post with a cross bar on a smooth stone plate that shows exactly one item: one piece of armor or one horse, wolf or nautilus armor. Recipe: a column of stick, stick, smooth stone slab.",
           "details": [
-            "Half a block tall; the boots stand on the plate over the pegs. Takes only boots (right-click, dispenser, armor swap); everything else stays in your hand. No arms.",
-            "Two quick hits break it (one in creative): the Small Armor Stand and its boots drop. Pick block gives the Small Armor Stand.",
-            "Armor swap (any armor stand, also straw stands, training dummies and the medium and small stands): sneak + right-click with an empty main hand, or any right-click while the stand is powered by redstone (like a powered shelf with the hotbar), swaps all its armor with your armor slots. Pieces with Curse of Binding stay on you (outside creative), pieces that do not fit your slot stay on the stand. Switch: server.features.armorStandSwap (default on)."
+            "One block tall, made like the reference pictures: a post with a cross bar (a T, vanilla armor stand wood) on a stone plate. A chestplate hangs with its shoulders on the cross bar, a helmet sits on top, leggings and boots stand on the plate.",
+            "Horse armor is shown in horse shape, wolf armor in wolf shape and nautilus armor in nautilus shape, sideways on the post (the post sits in the belly).",
+            "Right-click with a helmet, chestplate, leggings, boots or animal armor puts it on; with an empty hand you take it back. Holding a single other piece swaps it with the shown one. Everything else (weapons, elytra, heads, pumpkins, carpets, saddles, harnesses) stays in your hand. No arms.",
+            "A dispenser in front of an empty small stand puts a piece of armor or animal armor on it; a full stand takes nothing.",
+            "Armor swap (sneak + right-click with an empty main hand, or any right-click while powered by redstone) swaps only its one piece with the same slot on you; an empty stand takes the first piece you wear (chest, head, legs, feet). Curse of Binding stays on you (outside creative). Animal armor is not swapped.",
+            "Two quick hits break it (one in creative): the Small Armor Stand and its item drop. Pick block gives the Small Armor Stand.",
+            "The medium armor stand was removed: old medium stands in a world load as small stands, keep one piece (the leggings) and drop the other; old medium stand items become small stands."
           ]
         },
         "de": {
-          "summary": "Eine Bodenplatte mit zwei kurzen Zapfen, für ein Paar Stiefel: eine Reihe \"/_/\" (/ = Stock, _ = glatte Steinstufe).",
+          "summary": "Ein Holzpfosten mit Querholz auf einer glatten Steinplatte, der genau ein Item zeigt: ein Rüstungsteil oder eine Pferde-, Wolfs- oder Nautilus-Rüstung. Rezept: senkrecht Stock, Stock, glatte Steinstufe.",
           "details": [
-            "Einen halben Block hoch; die Stiefel stehen auf der Platte über den Zapfen. Nimmt nur Stiefel (Rechtsklick, Spender, Rüstungstausch); alles andere bleibt in der Hand. Keine Arme.",
-            "Zwei schnelle Schläge bauen ihn ab (im Kreativmodus einer): der Kleine Rüstungsständer und seine Stiefel fallen. Block auswählen gibt den Kleinen Rüstungsständer.",
-            "Rüstung tauschen (jeder Rüstungsständer, auch Stroh-Ständer, Trainingspuppen und die mittleren und kleinen Ständer): Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange der Ständer mit Redstone bestromt ist (wie ein bestromtes Regal mit der Hotbar), tauscht seine ganze Rüstung mit deinen Rüstungsslots. Teile mit Fluch der Bindung bleiben an dir (außer im Kreativmodus), Teile, die nicht in deinen Slot passen, bleiben am Ständer. Schalter: server.features.armorStandSwap (Standard an)."
+            "Einen Block hoch, wie auf den Referenzbildern: ein Pfosten mit Querholz (ein T, Holz des Vanilla-Rüstungsständers) auf einer Steinplatte. Ein Brustpanzer hängt mit den Schultern auf dem Querholz, ein Helm sitzt oben auf, Hose und Stiefel stehen auf der Platte.",
+            "Pferderüstung wird in Pferdeform gezeigt, Wolfsrüstung in Wolfsform, Nautilus-Rüstung in Nautilusform, seitlich auf dem Pfosten (der Pfosten steckt im Bauch).",
+            "Rechtsklick mit Helm, Brustpanzer, Hose, Stiefeln oder Tier-Rüstung legt sie auf; mit leerer Hand nimmst du sie wieder ab. Ein einzelnes anderes passendes Teil in der Hand wird mit dem gezeigten getauscht. Alles andere (Waffen, Elytren, Köpfe, Kürbisse, Teppiche, Sättel, Geschirre) bleibt in der Hand. Keine Arme.",
+            "Ein Spender vor einem leeren kleinen Ständer legt ein Rüstungsteil oder eine Tier-Rüstung auf; ein voller Ständer nimmt nichts.",
+            "Rüstung tauschen (Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange bestromt) tauscht nur sein eines Teil mit dem gleichen Slot an dir; ein leerer Ständer nimmt dein erstes getragenes Teil (Brust, Kopf, Beine, Füße). Fluch der Bindung bleibt an dir (außer im Kreativmodus). Tier-Rüstung wird nicht getauscht.",
+            "Zwei schnelle Schläge bauen ihn ab (im Kreativmodus einer): der Kleine Rüstungsständer und sein Item fallen. Block auswählen gibt den Kleinen Rüstungsständer.",
+            "Der mittlere Rüstungsständer wurde entfernt: alte mittlere Ständer in einer Welt laden als kleine Ständer, behalten ein Teil (die Hose) und lassen das andere fallen; alte Items werden kleine Ständer."
           ]
         },
         "sources": [
-          "common/src/shared/java/com/simplebuilding/dummy/PartialArmorStand.java",
-          "common/src/shared/java/com/simplebuilding/dummy/client/PartialArmorStandRenderer.java",
+          "common/src/shared/java/com/simplebuilding/dummy/SmallArmorStand.java",
+          "common/src/shared/java/com/simplebuilding/dummy/client/SmallArmorStandRenderer.java",
           "common/src/shared/java/com/simplebuilding/mixin/ArmorStandStandsMixin.java",
-          "common/src/shared/java/com/simplebuilding/dummy/ArmorStandSwap.java",
+          "common/src/shared/java/com/simplebuilding/mixin/EquipmentDispenseStandMixin.java",
+          "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
@@ -28836,46 +28803,6 @@
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:storage_crafting_table",
-      "name": {
-        "en_us": "Storage Crafting Table",
-        "de_de": "Werkbank mit Lager"
-      },
-      "texture": "assets/textures/block/storage_crafting_table_front.png",
-      "craftedBy": [
-        "simplebuilding:storage_crafting_table"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/storage_crafting_table.png",
-      "note": {
-        "en": {
-          "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top.",
-          "details": [
-            "It works like the crafting table, recipe book and shift clicks included. The grid belongs to the table, not to the player: two players at one table see and use the same grid.",
-            "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Autonomous Crafter.",
-            "Recipe (shapeless): Crafting Table + Chest."
-          ]
-        },
-        "de": {
-          "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches.",
-          "details": [
-            "Sie funktioniert wie die Werkbank, mit Rezeptbuch und Umschalt-Klick. Das Raster gehört zum Tisch, nicht zum Spieler: Zwei Spieler an einem Tisch sehen und nutzen dasselbe Raster.",
-            "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Autonomen Crafter.",
-            "Rezept (formlos): Werkbank + Truhe."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/StorageCraftingTableBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/StorageCraftingTableBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/StorageCraftingMenu.java",
-          "common/src/shared/java/com/simplebuilding/client/render/StorageCraftingTableRenderer.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:straw_armor_stand",
       "name": {
         "en_us": "Straw Armor Stand",
@@ -28899,7 +28826,7 @@
             "Placed and dressed like an armor stand; two quick hits (one in creative) or an explosion break it and drop the Straw Armor Stand and its equipment.",
             "Scarecrow: within server.features.scarecrowRadius blocks (default 8, 0 = off, at most 16) of a Straw Armor Stand or a Training Dummy, animals and monsters do not trample farmland; players still do.",
             "Right-click with a carved pumpkin: the pumpkin is used up (it does not sit on the head) and the stand becomes a Training Dummy with the same equipment, name and rotation. Plain armor stands are not changed by a pumpkin.",
-            "Armor swap (any armor stand, also straw stands, training dummies and the medium and small stands): sneak + right-click with an empty main hand, or any right-click while the stand is powered by redstone (like a powered shelf with the hotbar), swaps all its armor with your armor slots. Pieces with Curse of Binding stay on you (outside creative), pieces that do not fit your slot stay on the stand. Switch: server.features.armorStandSwap (default on).",
+            "Armor swap (any armor stand, also straw stands and training dummies; the small stand swaps only its one piece): sneak + right-click with an empty main hand, or any right-click while the stand is powered by redstone (like a powered shelf with the hotbar), swaps all its armor with your armor slots. Pieces with Curse of Binding stay on you (outside creative), pieces that do not fit your slot stay on the stand. Switch: server.features.armorStandSwap (default on).",
             "Arms: every newly placed armor stand (item or dispenser; vanilla, straw stand, training dummy) has arms and can hold items in both hands. Stands already in the world and summoned ones keep their ShowArms value. Switch: server.features.armorStandArms (default on)."
           ]
         },
@@ -28909,7 +28836,7 @@
             "Wird aufgestellt und angezogen wie ein Rüstungsständer; zwei schnelle Schläge (im Kreativmodus einer) oder eine Explosion zerstören ihn, dann fallen der Stroh-Rüstungsständer und seine Ausrüstung.",
             "Vogelscheuche: im Umkreis von server.features.scarecrowRadius Blöcken (Standard 8, 0 = aus, höchstens 16) um einen Stroh-Rüstungsständer oder eine Trainingspuppe zertrampeln Tiere und Monster kein Ackerland; Spieler weiterhin.",
             "Rechtsklick mit einem geschnitzten Kürbis: der Kürbis wird verbraucht (er sitzt nicht auf dem Kopf) und der Ständer wird zur Trainingspuppe mit derselben Ausrüstung, demselben Namen und derselben Drehung. Normale Rüstungsständer ändert ein Kürbis nicht.",
-            "Rüstung tauschen (jeder Rüstungsständer, auch Stroh-Ständer, Trainingspuppen und die mittleren und kleinen Ständer): Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange der Ständer mit Redstone bestromt ist (wie ein bestromtes Regal mit der Hotbar), tauscht seine ganze Rüstung mit deinen Rüstungsslots. Teile mit Fluch der Bindung bleiben an dir (außer im Kreativmodus), Teile, die nicht in deinen Slot passen, bleiben am Ständer. Schalter: server.features.armorStandSwap (Standard an).",
+            "Rüstung tauschen (jeder Rüstungsständer, auch Stroh-Ständer und Trainingspuppen; der kleine Ständer tauscht nur sein eines Teil): Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange der Ständer mit Redstone bestromt ist (wie ein bestromtes Regal mit der Hotbar), tauscht seine ganze Rüstung mit deinen Rüstungsslots. Teile mit Fluch der Bindung bleiben an dir (außer im Kreativmodus), Teile, die nicht in deinen Slot passen, bleiben am Ständer. Schalter: server.features.armorStandSwap (Standard an).",
             "Arme: jeder neu aufgestellte Rüstungsständer (Item oder Spender; Vanilla, Stroh-Ständer, Trainingspuppe) hat Arme und kann in beiden Händen Items halten. Ständer, die schon in der Welt stehen oder gerufen werden, behalten ihren ShowArms-Wert. Schalter: server.features.armorStandArms (Standard an)."
           ]
         },
@@ -29192,43 +29119,6 @@
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:warden_tendril",
-      "name": {
-        "en_us": "Warden Tendril",
-        "de_de": "Wärter-Fühler"
-      },
-      "texture": "assets/textures/item/warden_tendril.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "note": {
-        "en": {
-          "summary": "Every warden drops 1 to 2 Warden Tendrils. In the brewing stand an Awkward Potion with a tendril becomes a Potion of Darkness.",
-          "details": [
-            "New potions, each with an extended version (redstone), a splash version (gunpowder) and a lingering version (dragon's breath): Darkness (Awkward Potion + Warden Tendril), Nausea (Awkward Potion + Red Mushroom), Shivering (Awkward Potion + Snowball; glowstone makes Shivering II), Mirage (Awkward Potion + Amethyst Shard), Reverse Mirage (Mirage + Fermented Spider Eye) and Fading (Awkward Potion + Ink Sac).",
-            "Harmful potions last 1:30, extended 4:00; Shivering II lasts 0:45; Nausea 0:45, extended 2:00.",
-            "Shivering: the crosshair trembles (level II stronger). Mirage: peaceful mobs look like hostile mobs of their size, Reverse Mirage the other way round; each mob keeps its disguise and only its look changes. Faded: everything turns black and white, inventories included, but not the Esc menu. Milk removes all of them."
-          ]
-        },
-        "de": {
-          "summary": "Jeder Wärter lässt 1 bis 2 Wärter-Fühler fallen. Im Braustand wird aus einem Seltsamen Trank mit einem Fühler ein Trank der Dunkelheit.",
-          "details": [
-            "Neue Tränke, jeweils mit verlängerter Fassung (Redstone), Wurftrank (Schwarzpulver) und Verweiltrank (Drachenatem): Dunkelheit (Seltsamer Trank + Wärter-Fühler), Übelkeit (Seltsamer Trank + Roter Pilz), Zittern (Seltsamer Trank + Schneeball; Glowstone macht Zittern II), Trugbild (Seltsamer Trank + Amethystscherbe), Umgekehrtes Trugbild (Trugbild + Fermentiertes Spinnenauge) und Verblassen (Seltsamer Trank + Tintenbeutel).",
-            "Schädliche Tränke wirken 1:30, verlängert 4:00; Zittern II 0:45; Übelkeit 0:45, verlängert 2:00.",
-            "Zittern: das Fadenkreuz zittert (Stufe II stärker). Trugbild: friedliche Mobs sehen aus wie feindliche ihrer Größe, Umgekehrtes Trugbild umgekehrt; jeder Mob behält seine Tarnung, nur das Aussehen ändert sich. Verblasst: alles wird schwarz-weiß, auch Inventare, aber nicht das Esc-Menü. Milch entfernt alle."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/effect/ModEffects.java",
-          "common/src/shared/java/com/simplebuilding/effect/MirageTable.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "mc26_3/fabric/src/main/java/com/simplebuilding/datagen/ModBrewingProvider.java",
-          "mc26_3/overlay/java/com/simplebuilding/client/effect/PerceptionClient.java"
-        ]
-      },
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:white_hammock",
@@ -40454,50 +40344,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:storage_crafting_table",
-      "name": {
-        "en_us": "Storage Crafting Table",
-        "de_de": "Werkbank mit Lager"
-      },
-      "texture": "assets/textures/block/storage_crafting_table_front.png",
-      "craftedBy": [
-        "simplebuilding:storage_crafting_table"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/storage_crafting_table.png",
-      "lootTable": "simplebuilding:blocks/storage_crafting_table",
-      "drops": [
-        "simplebuilding:storage_crafting_table"
-      ],
-      "note": {
-        "en": {
-          "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top.",
-          "details": [
-            "It works like the crafting table, recipe book and shift clicks included. The grid belongs to the table, not to the player: two players at one table see and use the same grid.",
-            "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Autonomous Crafter.",
-            "Recipe (shapeless): Crafting Table + Chest."
-          ]
-        },
-        "de": {
-          "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches.",
-          "details": [
-            "Sie funktioniert wie die Werkbank, mit Rezeptbuch und Umschalt-Klick. Das Raster gehört zum Tisch, nicht zum Spieler: Zwei Spieler an einem Tisch sehen und nutzen dasselbe Raster.",
-            "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Autonomen Crafter.",
-            "Rezept (formlos): Werkbank + Truhe."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/StorageCraftingTableBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/StorageCraftingTableBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/StorageCraftingMenu.java",
-          "common/src/shared/java/com/simplebuilding/client/render/StorageCraftingTableRenderer.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:stray_skull",
       "name": {
         "en_us": "Stray Skull",
@@ -45074,72 +44920,6 @@
       }
     },
     {
-      "id": "simplebuilding:brewing/lingering_potion_awkward_amethyst_shard",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_amethyst_shard.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_awkward_ink_sac",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_ink_sac.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_awkward_red_mushroom",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_red_mushroom.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:brewing/lingering_potion_awkward_shulker_head",
       "type": "minecraft:brewing",
       "category": null,
@@ -45149,50 +44929,6 @@
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_shulker_head.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_awkward_snowball",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_snowball.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_awkward_warden_tendril",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_warden_tendril.json",
       "ingredients": [
         "minecraft:lingering_potion"
       ],
@@ -45228,270 +44964,6 @@
       ]
     },
     {
-      "id": "simplebuilding:brewing/lingering_potion_darkness_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_darkness_redstone.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_faded_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_faded_redstone.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_long_mirage_fermented_spider_eye",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_long_mirage_fermented_spider_eye.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_mirage_fermented_spider_eye",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_mirage_fermented_spider_eye.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_mirage_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_mirage_redstone.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_nausea_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_nausea_redstone.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_reverse_mirage_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_reverse_mirage_redstone.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_shivering_glowstone_dust",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_shivering_glowstone_dust.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_shivering_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_shivering_redstone.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_awkward_amethyst_shard",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_amethyst_shard.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_awkward_ink_sac",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_ink_sac.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_awkward_red_mushroom",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_red_mushroom.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:brewing/potion_awkward_shulker_head",
       "type": "minecraft:brewing",
       "category": null,
@@ -45501,50 +44973,6 @@
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_shulker_head.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_awkward_snowball",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_snowball.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_awkward_warden_tendril",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_warden_tendril.json",
       "ingredients": [
         "minecraft:potion"
       ],
@@ -45602,94 +45030,6 @@
       ]
     },
     {
-      "id": "simplebuilding:brewing/potion_darkness_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_darkness_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_darkness_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_darkness_redstone.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_faded_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_faded_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_faded_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_faded_redstone.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:brewing/potion_long_crafty_shulker_gunpowder",
       "type": "minecraft:brewing",
       "category": null,
@@ -45712,468 +45052,6 @@
       ]
     },
     {
-      "id": "simplebuilding:brewing/potion_long_darkness_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_darkness_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_long_faded_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_faded_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_long_mirage_fermented_spider_eye",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_mirage_fermented_spider_eye.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_long_mirage_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_mirage_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_long_nausea_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_nausea_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_long_reverse_mirage_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_reverse_mirage_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_long_shivering_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_shivering_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_mirage_fermented_spider_eye",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_mirage_fermented_spider_eye.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_mirage_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_mirage_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_mirage_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_mirage_redstone.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_nausea_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_nausea_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_nausea_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_nausea_redstone.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_reverse_mirage_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_reverse_mirage_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_reverse_mirage_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_reverse_mirage_redstone.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_shivering_glowstone_dust",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_shivering_glowstone_dust.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_shivering_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_shivering_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_shivering_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_shivering_redstone.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/potion_strong_shivering_gunpowder",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_strong_shivering_gunpowder.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_awkward_amethyst_shard",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_amethyst_shard.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_awkward_ink_sac",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_ink_sac.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_awkward_red_mushroom",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_red_mushroom.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:brewing/splash_potion_awkward_shulker_head",
       "type": "minecraft:brewing",
       "category": null,
@@ -46183,50 +45061,6 @@
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_shulker_head.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_awkward_snowball",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_snowball.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_awkward_warden_tendril",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_warden_tendril.json",
       "ingredients": [
         "minecraft:splash_potion"
       ],
@@ -46284,94 +45118,6 @@
       ]
     },
     {
-      "id": "simplebuilding:brewing/splash_potion_darkness_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_darkness_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_darkness_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_darkness_redstone.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_faded_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_faded_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_faded_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_faded_redstone.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:brewing/splash_potion_long_crafty_shulker_dragon_breath",
       "type": "minecraft:brewing",
       "category": null,
@@ -46381,402 +45127,6 @@
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_crafty_shulker_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_long_darkness_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_darkness_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_long_faded_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_faded_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_long_mirage_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_mirage_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_long_mirage_fermented_spider_eye",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_mirage_fermented_spider_eye.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_long_nausea_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_nausea_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_long_reverse_mirage_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_reverse_mirage_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_long_shivering_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_shivering_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_mirage_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_mirage_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_mirage_fermented_spider_eye",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_mirage_fermented_spider_eye.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_mirage_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_mirage_redstone.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_nausea_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_nausea_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_nausea_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_nausea_redstone.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_reverse_mirage_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_reverse_mirage_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_reverse_mirage_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_reverse_mirage_redstone.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_shivering_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_shivering_dragon_breath.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_shivering_glowstone_dust",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_shivering_glowstone_dust.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_shivering_redstone",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_shivering_redstone.json",
-      "ingredients": [
-        "minecraft:splash_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:splash_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/splash_potion_strong_shivering_dragon_breath",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_strong_shivering_dragon_breath.json",
       "ingredients": [
         "minecraft:splash_potion"
       ],
@@ -59121,49 +57471,6 @@
           {
             "id": "minecraft:redstone",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:medium_armor_stand",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:medium_armor_stand",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/medium_armor_stand.json",
-      "ingredients": [
-        "minecraft:smooth_stone_slab",
-        "minecraft:stick"
-      ],
-      "pattern": [
-        "/ /",
-        "/_/"
-      ],
-      "key": {
-        "/": [
-          "minecraft:stick"
-        ],
-        "_": [
-          "minecraft:smooth_stone_slab"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:stone",
-            "count": 0.5
           }
         ]
       }
@@ -73724,7 +72031,9 @@
         "minecraft:stick"
       ],
       "pattern": [
-        "/_/"
+        "/",
+        "/",
+        "_"
       ],
       "key": {
         "/": [
@@ -74147,41 +72456,6 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:storage_crafting_table",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:storage_crafting_table",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/storage_crafting_table.json",
-      "ingredients": [
-        "minecraft:chest",
-        "minecraft:crafting_table"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:crafting_table"
-        ],
-        [
-          "minecraft:chest"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:oak_log",
-            "count": 3
           }
         ]
       }
@@ -82191,22 +80465,6 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stellar_flypad.json"
     },
     {
-      "id": "simplebuilding:blocks/storage_crafting_table",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:storage_crafting_table"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/storage_crafting_table.json"
-    },
-    {
       "id": "simplebuilding:blocks/stray_skull",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -83081,22 +81339,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/woodland_mansion.json"
-    },
-    {
-      "id": "simplebuilding:inject/entities/warden",
-      "kind": "inject",
-      "type": "minecraft:entity",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:warden_tendril"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/entities/warden.json"
     },
     {
       "id": "simplebuilding:inject/gameplay/fishing/treasure",
@@ -108976,32 +107218,6 @@
         "how": "charged_creeper"
       },
       {
-        "type": "mob",
-        "item": "simplebuilding:warden_tendril",
-        "table": "minecraft:entities/warden",
-        "label": {
-          "en": "Warden",
-          "de": "Wärter"
-        },
-        "chance": 100.0,
-        "perChest": 1.5,
-        "count": [
-          1,
-          2
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 0,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "how": "charged_creeper"
-      },
-      {
         "type": "chest",
         "item": "simplebuilding:music_disc_voidline",
         "table": "minecraft:chests/end_city_treasure",
@@ -118272,10 +116488,10 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 483,
-    "blocks": 238,
-    "recipes": 916,
-    "lootTables": 233,
+    "items": 480,
+    "blocks": 237,
+    "recipes": 846,
+    "lootTables": 231,
     "trades": 20,
     "enchantments": 19,
     "tags": 49,

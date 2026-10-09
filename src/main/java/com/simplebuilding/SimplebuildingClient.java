@@ -73,8 +73,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
             EntityRendererRegistry.register(ModEntities.STRAW_ARMOR_STAND, com.simplebuilding.dummy.client.TrainingDummyRenderer.straw());
             EntityRendererRegistry.register(ModEntities.TRAINING_DUMMY, com.simplebuilding.dummy.client.TrainingDummyRenderer.dummy());
-            EntityRendererRegistry.register(ModEntities.MEDIUM_ARMOR_STAND, com.simplebuilding.dummy.client.PartialArmorStandRenderer.medium());
-            EntityRendererRegistry.register(ModEntities.SMALL_ARMOR_STAND, com.simplebuilding.dummy.client.PartialArmorStandRenderer.small());
+            EntityRendererRegistry.register(ModEntities.SMALL_ARMOR_STAND, com.simplebuilding.dummy.client.SmallArmorStandRenderer::new);
         }
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(

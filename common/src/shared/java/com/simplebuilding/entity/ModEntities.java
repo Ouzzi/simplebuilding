@@ -38,13 +38,12 @@ public final class ModEntities {
     public static final EntityType<com.simplebuilding.dummy.TrainingDummy> TRAINING_DUMMY = com.simplebuilding.version.McVersion.TRAINING_DUMMY
             ? registerDummy("training_dummy") : null;
 
-    /** Mittlerer Ruestungsstaender (2026-10-09): Hose und Stiefel. */
-    public static final EntityType<com.simplebuilding.dummy.PartialArmorStand> MEDIUM_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY
-            ? registerPartialStand("medium_armor_stand", 1.0F) : null;
-
-    /** Kleiner Ruestungsstaender (2026-10-09): nur Stiefel. */
-    public static final EntityType<com.simplebuilding.dummy.PartialArmorStand> SMALL_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY
-            ? registerPartialStand("small_armor_stand", 0.5F) : null;
+    /**
+     * Kleiner Ruestungsstaender (Nachtrag 29, 2026-10-09): Pfosten mit Querholz auf einer Steinplatte, genau ein
+     * Ruestungsteil oder eine Tier-Ruestung. Der fruehere mittlere Staender ist ein Alias hierauf ({@code LegacyItemIds}).
+     */
+    public static final EntityType<com.simplebuilding.dummy.SmallArmorStand> SMALL_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY
+            ? registerPartialStand("small_armor_stand", 1.0F) : null;
 
     private ModEntities() {
     }
@@ -61,10 +60,10 @@ public final class ModEntities {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
     }
 
-    private static EntityType<com.simplebuilding.dummy.PartialArmorStand> registerPartialStand(String name, float height) {
+    private static EntityType<com.simplebuilding.dummy.SmallArmorStand> registerPartialStand(String name, float height) {
         Identifier id = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
-        EntityType<com.simplebuilding.dummy.PartialArmorStand> type = EntityType.Builder
-                .<com.simplebuilding.dummy.PartialArmorStand>of(com.simplebuilding.dummy.PartialArmorStand::new, MobCategory.MISC)
+        EntityType<com.simplebuilding.dummy.SmallArmorStand> type = EntityType.Builder
+                .<com.simplebuilding.dummy.SmallArmorStand>of(com.simplebuilding.dummy.SmallArmorStand::new, MobCategory.MISC)
                 .noLootTable()
                 .sized(0.5F, height)
                 .eyeHeight(height * 0.9F)

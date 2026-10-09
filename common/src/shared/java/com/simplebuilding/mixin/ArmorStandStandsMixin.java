@@ -1,7 +1,7 @@
 package com.simplebuilding.mixin;
 
 import com.simplebuilding.dummy.ArmorStandSwap;
-import com.simplebuilding.dummy.PartialArmorStand;
+import com.simplebuilding.dummy.SmallArmorStand;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -42,7 +42,7 @@ public abstract class ArmorStandStandsMixin {
             target = "Lnet/minecraft/world/level/block/Block;popResource(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V"),
             index = 2)
     private ItemStack simplebuilding$ownItem(ItemStack stack) {
-        if ((Object) this instanceof PartialArmorStand partial && partial.item() != null) {
+        if ((Object) this instanceof SmallArmorStand partial && partial.item() != null) {
             return stack.transmuteCopy(partial.item());
         }
         return stack;

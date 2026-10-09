@@ -98,7 +98,7 @@ public final class ClientTests {
                 new Entry("trim-textures", TrimTextureClientTest::inWorld),
                 // Owner N21/N28 (26.3): half and full Enderite buckets in the inventory; hotbar back empty.
                 new Entry("enderite-buckets", EnderiteBucketClientTest::inWorld),
-                // Six armor stands in one documentary picture (2026-10-09); kills them again.
+                // Armor stands in one documentary picture (2026-10-09, small stand Nachtrag 29); kills them again.
                 new Entry("armor-stands", ArmorStandClientTest::inWorld),
                 // Placing N24/N16 (2026-10-09): ingot stacks, trims pile, goat horns, joined rods, hammock lead.
                 new Entry("placing", PlaceClientTest::inWorld),

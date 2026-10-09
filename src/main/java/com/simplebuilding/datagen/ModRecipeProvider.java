@@ -364,16 +364,11 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .requires(Items.CARVED_PUMPKIN)
                             .unlockedBy(getHasName(ModItems.STRAW_ARMOR_STAND), has(ModItems.STRAW_ARMOR_STAND))
                             .save(output);
-                    // Mittlerer/kleiner Ruestungsstaender (2026-10-09): Vanillas Staender-Rezept ohne den Oberkoerper.
-                    shaped(RecipeCategory.DECORATIONS, ModItems.MEDIUM_ARMOR_STAND)
-                            .pattern("/ /")
-                            .pattern("/_/")
-                            .define('/', Items.STICK)
-                            .define('_', Items.SMOOTH_STONE_SLAB)
-                            .unlockedBy(getHasName(Items.SMOOTH_STONE_SLAB), has(Items.SMOOTH_STONE_SLAB))
-                            .save(output);
+                    // Kleiner Ruestungsstaender (Nachtrag 29): Pfosten aus zwei Stoecken auf der Platte.
                     shaped(RecipeCategory.DECORATIONS, ModItems.SMALL_ARMOR_STAND)
-                            .pattern("/_/")
+                            .pattern("/")
+                            .pattern("/")
+                            .pattern("_")
                             .define('/', Items.STICK)
                             .define('_', Items.SMOOTH_STONE_SLAB)
                             .unlockedBy(getHasName(Items.SMOOTH_STONE_SLAB), has(Items.SMOOTH_STONE_SLAB))

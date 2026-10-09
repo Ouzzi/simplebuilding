@@ -18,7 +18,8 @@ import net.minecraft.world.level.gameevent.GameEvent;
  * Ruestung tauschen (Besitzer 2026-10-08, docs/ai/PLAN-STAENDER-2026-10-09.md), wie das Vanilla-Regal mit der Hotbar:
  * Schleich-Rechtsklick mit leerer Haupthand, oder jeder Rechtsklick auf einen bestromten Ruestungsstaender, tauscht
  * Kopf, Brust, Beine und Fuesse mit den Ruestungsslots des Spielers. Gilt fuer alle Ruestungsstaender (Vanilla, Stroh,
- * Puppe, mittel, klein); Haken in {@code ArmorStandStandsMixin#interact}.
+ * Puppe); Haken in {@code ArmorStandStandsMixin#interact}. Der kleine Staender tauscht nur sein eines Teil
+ * ({@code SmallArmorStand#swapWithWearer}).
  */
 public final class ArmorStandSwap {
     public static final EquipmentSlot[] ARMOR = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
