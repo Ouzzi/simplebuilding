@@ -125,8 +125,7 @@ public final class ModLootTableModifications {
         if (McVersion.BREWING_EFFECTS && ModItems.WARDEN_TENDRIL != null && wardenTable().equals(key)) {
             editor.addPool(LootPool.lootPool()
                     .setRolls(LootNumbers.exactly(1))
-                    .add(LootItem.lootTableItem(ModItems.WARDEN_TENDRIL)
-                            .apply(SetItemCountFunction.setCount(LootNumbers.between(1, 2)))));
+                    .add(counted(ModItems.WARDEN_TENDRIL, 1, 1, 2)));
         }
 
         if (!Simplebuilding.getConfig().worldGen.enableLootTableChanges) {

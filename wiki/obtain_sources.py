@@ -46,6 +46,8 @@ LOOT_TABLES = {
     "RUINED_PORTAL": ("minecraft:chests/ruined_portal", "chest", "Ruined portal", "Portalruine"),
     "FISHING_TREASURE": ("minecraft:gameplay/fishing/treasure", "fishing", "Fishing (treasure catch)", "Angeln (Schatzfang)"),
     "CHARGED_CREEPER": ("minecraft:charged_creeper/root", "mob", "Charged creeper explosion", "Explosion eines geladenen Creepers"),
+    # ModLootTableModifications.wardenTable() (queue N24): the warden's own table.
+    "WARDEN": ("minecraft:entities/warden", "mob", "Warden", "Wärter"),
 }
 
 ROLLS = r"(?:LootNumbers|ConstantValue|UniformGenerator|BinomialDistributionGenerator)\.(exactly|between|binomial)\(([^)]*)\)"
@@ -209,6 +211,8 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
         if "lootEnabledFor" in cond:
             continue
         tables = re.findall(r"BuiltInLootTables\.(\w+)\.equals\(key\)", cond)
+        if re.search(r"\bwardenTable\(\)\.equals\(key\)", cond):
+            tables.append("WARDEN")
         if not tables:
             problems.append(f"{path.name}: condition '{cond.strip()}' names no loot table")
             continue
