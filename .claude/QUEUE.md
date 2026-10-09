@@ -491,7 +491,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 21 (2026-10-07, Besitzer)
 - [ ] **Enderit-Eimer:** Kapazität genau 2 Eimer. Rechtsklick nur aufnehmen; wenn voll, Rechtsklick platziert wieder. Schleich-Rechtsklick platziert einen halben Eimer (nicht einen vollen). Seelenlava nur einfach aufnehmbar (begrenzt, hebt sich ab). Eigene Texturen für die Zwischenstufen (halbvoll je Flüssigkeit).
 - [ ] **Enderit-Speer:** statt des Eimer-Glanzes die hellen Glimmerpunkte auf der Enderit-Textur wie Schwert und die übrigen Enderit-Werkzeuge.
-- [ ] **Puppen/Ständer:** mehrere Interaktionen Spieler ↔ Trainingspuppe/Ständer sind unsauber oder funktionieren nicht (z. B. Speer) – inventarisieren, reproduzieren (GameTests), beheben.
+- [x] **Puppen/Ständer:** (claude-q-stands; Inventar docs/ai/PLAN-PUPPE-INTERAKTIONEN.md + PLAN-STAENDER-2026-10-09.md, Dreizack/Windladung/Streitkolben/Namensschild ergänzt) mehrere Interaktionen Spieler ↔ Trainingspuppe/Ständer sind unsauber oder funktionieren nicht (z. B. Speer) – inventarisieren, reproduzieren (GameTests), beheben.
 - [ ] **XP-Orbs:** bei Nutzung ähnliche Animation wie die Kerne (gleiches Prinzip, eigene Bewegung).
 - [ ] **Prinzip Entdeckbarkeit:** Jedes herstellbare oder umwandelbare Item soll in erster Linie intuitiv sein und zusätzlich im Spiel gehintet werden (z. B. Tiegel in Dörfern mit erloschenem Lagerfeuer zeigt die Nutzung). Crafting/Umwandlungen bisher nirgends gehintet → Konzept erarbeiten (Ideen: Bücher in Struktur-Truhen, Bilderrahmen/Gemälde mit Rezept, Dorfbewohner-Werkstätten als Vorführung, Fortschritts-Hinweise, Guide-Seiten). Erst Konzept vorlegen.
 
@@ -527,12 +527,12 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Froschlichter in zusätzlichen Farben.
 - [ ] Ziegenhorn platzierbar; Fackeln oder stabartige Items hineinstecken.
 - [ ] Schildkröten-Helm-Äquivalent aus Shellker-Schale.
-- [ ] Trainingspuppe mit Spielernamen umbenennen → Skin wechselt.
+- [x] Trainingspuppe mit Spielernamen umbenennen → Skin wechselt. (claude-q-stands; Client-Sicht mit echtem Profil offen)
 - [ ] Glitzernde Melone essbar; Melone auch als 0,125er-Block (platzierte Melonenscheibe = 0,125er-Block).
 - [ ] Farbpinsel? (Idee, offen).
-- [ ] Rüstungsständer per Redstone wie Item-Displays (Schleich-Rechtsklick?): tauscht die ganze Rüstung mit den Rüstungsslots des Spielers.
-- [ ] Rüstungsständer sollen Arme haben.
-- [ ] Weitere Rüstungsständer: mittel (Pferderüstung, oder zwei Rüstungsteile oben/unten), klein (nur ein Teil, z. B. Stiefel oder Nautilus-Rüstung).
+- [x] Rüstungsständer per Redstone wie Item-Displays (Schleich-Rechtsklick?): tauscht die ganze Rüstung mit den Rüstungsslots des Spielers. (claude-q-stands: Schleich-Rechtsklick leere Hand oder Rechtsklick auf bestromten Ständer)
+- [x] Rüstungsständer sollen Arme haben. (claude-q-stands, Config server.features.armorStandArms)
+- [x] Weitere Rüstungsständer: mittel (Pferderüstung, oder zwei Rüstungsteile oben/unten), klein (nur ein Teil, z. B. Stiefel oder Nautilus-Rüstung). (claude-q-stands: mittel = Hose+Stiefel, klein = Stiefel; Pferde-/Nautilus-Rüstung offen)
 - [ ] Speer im Spender: bei Aktivierung wie Stachelfalle.
 - [ ] Simple Respawn (neues Modul?): beim Tod niedergeschlagen, Mitspieler kann wiederbeleben; danach 3 Herzen und 0 Hunger.
 - [ ] Barren als 3D-Modell platzierbar.
