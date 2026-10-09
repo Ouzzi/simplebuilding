@@ -86,8 +86,7 @@ public final class SledgehammerOctetTests {
 
     /** A survival player standing well clear of the cells, so it never obstructs an octet. */
     private static ServerPlayer awayPlayer(GameTestHelper helper) {
-        ServerPlayer player = helper.makeMockServerPlayerInLevel();
-        player.setGameMode(GameType.SURVIVAL);
+        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
         Vec3 away = helper.absoluteVec(new Vec3(0.5, 6.0, 0.5));
         player.snapTo(away.x, away.y, away.z, 0.0F, 0.0F);
         return player;
@@ -169,8 +168,7 @@ public final class SledgehammerOctetTests {
     public static void sledgehammerCarveDropsTheRemovedOctet(GameTestHelper helper) {
         if (!McVersion.TRANSFORM_HINTS_AND_CORNERS || !McVersion.CHESS) { helper.succeed(); return; }
         helper.setBlock(CELL, Blocks.OAK_PLANKS);
-        ServerPlayer player = helper.makeMockServerPlayerInLevel();
-        player.setGameMode(GameType.SURVIVAL);
+        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
         Vec3 eye = helper.absoluteVec(new Vec3(CELL.getX() + 0.5, CELL.getY() + 2.0, CELL.getZ() + 0.5));
         player.snapTo(eye.x, eye.y, eye.z, 0.0F, 90.0F);
         ItemStack stack = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
