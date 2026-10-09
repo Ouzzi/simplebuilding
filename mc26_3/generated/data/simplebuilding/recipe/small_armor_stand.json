@@ -5,7 +5,9 @@
     "_": "minecraft:smooth_stone_slab"
   },
   "pattern": [
-    "/_/"
+    "/",
+    "/",
+    "_"
   ],
   "result": {
     "id": "simplebuilding:small_armor_stand"
