@@ -1,19 +1,34 @@
 {
   "variants": {
-    "rod=stick": {
+    "rod=stick,up=false": {
       "model": "simplebuilding:block/standing_stick"
     },
-    "rod=bone": {
+    "rod=stick,up=true": {
+      "model": "simplebuilding:block/standing_stick_up"
+    },
+    "rod=bone,up=false": {
       "model": "simplebuilding:block/standing_bone"
     },
-    "rod=blaze_rod": {
+    "rod=bone,up=true": {
+      "model": "simplebuilding:block/standing_bone_up"
+    },
+    "rod=blaze_rod,up=false": {
       "model": "simplebuilding:block/standing_blaze_rod"
     },
-    "rod=breeze_rod": {
+    "rod=blaze_rod,up=true": {
+      "model": "simplebuilding:block/standing_blaze_rod_up"
+    },
+    "rod=breeze_rod,up=false": {
       "model": "simplebuilding:block/standing_breeze_rod"
     },
-    "rod=diamond_rod": {
+    "rod=breeze_rod,up=true": {
+      "model": "simplebuilding:block/standing_breeze_rod_up"
+    },
+    "rod=diamond_rod,up=false": {
       "model": "simplebuilding:block/standing_diamond_rod"
+    },
+    "rod=diamond_rod,up=true": {
+      "model": "simplebuilding:block/standing_diamond_rod_up"
     }
   }
 }

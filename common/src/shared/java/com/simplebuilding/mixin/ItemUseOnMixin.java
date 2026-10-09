@@ -29,6 +29,10 @@ public abstract class ItemUseOnMixin {
         // Staebe (Stock, Knochen, Lohen-/Boeen-/Diamantstab) stellen sich auf einer Oberseite auf (2026-10-04).
         InteractionResult result = com.simplebuilding.blocks.custom.StandingRodBlock.tryPlace(context);
         if (result == null) {
+            // Ziegenhorn als Halter fuer Fackeln und Staebe (Queue N24, 2026-10-09).
+            result = com.simplebuilding.blocks.custom.GoatHornHolderBlock.tryPlace(context);
+        }
+        if (result == null) {
             result = com.simplebuilding.util.PlacedSmallParts.tryPlace(context);
         }
         if (result == null) {

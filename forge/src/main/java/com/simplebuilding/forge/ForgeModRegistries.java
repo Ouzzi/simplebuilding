@@ -157,6 +157,13 @@ public final class ForgeModRegistries {
                             com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity::new, Set.of(ModBlocks.PLACED_SMALL_PARTS)))
                     : null;
 
+    /** Ziegenhorn-Halter (Queue N24), nur Hauptlinie (McVersion.SMALL_PLACEABLES). */
+    public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity>> GOAT_HORN_HOLDER_BE =
+            com.simplebuilding.version.McVersion.SMALL_PLACEABLES
+                    ? BLOCK_ENTITIES.register("goat_horn_holder", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity>(
+                            com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity::new, Set.of(ModBlocks.GOAT_HORN_HOLDER)))
+                    : null;
+
     /** Schachfiguren auf einem Block, nur Hauptlinie (McVersion.CHESS). */
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity>> CHESS_PIECES_BE =
             com.simplebuilding.version.McVersion.CHESS
@@ -293,6 +300,7 @@ public final class ForgeModRegistries {
         ModBlockEntities.PLACED_TEMPLATE_BE = PLACED_TEMPLATE_BE.get();
         ModBlockEntities.PLACED_BUNDLE_BE = PLACED_BUNDLE_BE.get();
         if (PLACED_SMALL_PARTS_BE != null) ModBlockEntities.PLACED_SMALL_PARTS_BE = PLACED_SMALL_PARTS_BE.get();
+        if (GOAT_HORN_HOLDER_BE != null) ModBlockEntities.GOAT_HORN_HOLDER_BE = GOAT_HORN_HOLDER_BE.get();
         if (CHESS_PIECES_BE != null) ModBlockEntities.CHESS_PIECES_BE = CHESS_PIECES_BE.get();
         if (HAMMOCK_BE != null) ModBlockEntities.HAMMOCK_BE = HAMMOCK_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();

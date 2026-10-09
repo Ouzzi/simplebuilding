@@ -692,6 +692,18 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("standing_rod_game_test_piles_take_rods_and_the_server_options_gate_them", StandingRodTests::pilesTakeRodsAndTheServerOptionsGateThem)
                     .build(),
+            GameTestSpec.named("place_n24_game_test_smithing_templates_pile_up_to_four", PlaceN24Tests::smithingTemplatesPileUpToFour)
+                    .build(),
+            GameTestSpec.named("place_n24_game_test_ingots_lie_as_bars_and_stack", PlaceN24Tests::ingotsLieAsBarsAndStack)
+                    .build(),
+            GameTestSpec.named("place_n24_game_test_goat_horn_holds_a_torch_or_a_rod", PlaceN24Tests::goatHornHoldsATorchOrARod)
+                    .build(),
+            GameTestSpec.named("place_n24_game_test_spear_in_a_dispenser_thrusts_like_a_spike_trap", PlaceN24Tests::spearInADispenserThrustsLikeASpikeTrap)
+                    .maxTicks(60).build(),
+            GameTestSpec.named("place_n24_game_test_stacked_standing_rods_join_without_a_gap", PlaceN24Tests::stackedStandingRodsJoinWithoutAGap)
+                    .build(),
+            GameTestSpec.named("place_n24_game_test_tied_hammock_comes_loose_when_too_far", PlaceN24Tests::tiedHammockComesLooseWhenTooFar)
+                    .build(),
             GameTestSpec.named("training_dummy_game_test_pumpkin_turns_the_straw_stand_into_training_dummy", TrainingDummyTests::pumpkinTurnsTheStrawStandIntoTrainingDummy)
                     .build(),
             GameTestSpec.named("training_dummy_game_test_only_sneaking_hits_pick_the_dummy_up", TrainingDummyTests::onlySneakingHitsPickTheDummyUp)

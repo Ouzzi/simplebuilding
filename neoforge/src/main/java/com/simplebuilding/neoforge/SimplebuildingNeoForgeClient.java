@@ -133,6 +133,8 @@ public final class SimplebuildingNeoForgeClient {
         // Kleinteile auf einem Fleck: liegende Teile als Platten, Eier als 3D-Ei.
         if (NeoForgeModRegistries.PLACED_SMALL_PARTS_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.PLACED_SMALL_PARTS_BE.get(), com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
+        if (NeoForgeModRegistries.GOAT_HORN_HOLDER_BE != null) event.registerBlockEntityRenderer(
+                NeoForgeModRegistries.GOAT_HORN_HOLDER_BE.get(), com.simplebuilding.client.render.GoatHornHolderRenderer::new);
         if (NeoForgeModRegistries.CHESS_PIECES_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.CHESS_PIECES_BE.get(), com.simplebuilding.client.render.ChessPiecesRenderer::new);
         if (NeoForgeModRegistries.HAMMOCK_BE != null) event.registerBlockEntityRenderer(

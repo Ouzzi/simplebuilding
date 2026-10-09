@@ -112,5 +112,6 @@ public final class SimplebuildingNeoForge {
             ((CauldronInteractionDispatcherAccessor) (Object) CauldronInteractions.WATER).simplebuilding$put(box, com.simplebuilding.util.TieredShulkerBoxes.WASH);
         }
         com.simplebuilding.util.TieredShulkerBoxes.registerDispenserBehavior();
+        com.simplebuilding.util.SpearDispensing.register();
     }
 }

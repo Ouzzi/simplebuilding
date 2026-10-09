@@ -53,7 +53,9 @@ public class PlacedSmallPartsRenderer implements BlockEntityRenderer<PlacedSmall
     public static class State extends BlockEntityRenderState {
         public Direction facing = Direction.NORTH;
         public int count;
-        public final boolean[] standing = new boolean[PlacedSmallParts.MAX_PARTS];
+        public final PlacedSmallParts.Kind[] kinds = new PlacedSmallParts.Kind[PlacedSmallParts.MAX_PARTS];
+        /** Nur Barren auf dem Fleck: sie liegen als kleiner Stapel (Queue N24). */
+        public boolean ingotStack;
         public final ItemStackRenderState[] items = new ItemStackRenderState[PlacedSmallParts.MAX_PARTS];
 
         public State() {
@@ -93,6 +95,16 @@ public class PlacedSmallPartsRenderer implements BlockEntityRenderer<PlacedSmall
         });
     }
 
+    /** Der Ersatz-Stapel fuer einen 3D-Barren: Item-Definition {@code simplebuilding:placed_<barren>} (placed_ingots_2026_10_09.py). */
+    private static ItemStack ingotModel(ItemStack part) {
+        String name = "placed_" + net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(part.getItem()).getPath();
+        return BLOCK_MODELS.computeIfAbsent(name, n -> {
+            ItemStack stack = new ItemStack(part.getItem());
+            stack.set(DataComponents.ITEM_MODEL, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, n));
+            return stack;
+        });
+    }
+
     @Override
     public void extractRenderState(PlacedSmallPartsBlockEntity blockEntity, State state, float partialTicks, Vec3 cameraPosition,
                                    ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
@@ -104,6 +116,7 @@ public class PlacedSmallPartsRenderer implements BlockEntityRenderer<PlacedSmall
         boolean wet = pile && blockState.getValue(PlacedSmallPartsBlock.WATERLOGGED);
         List<ItemStack> parts = blockEntity.parts();
         state.count = Math.min(parts.size(), PlacedSmallParts.MAX_PARTS);
+        state.ingotStack = PlacedSmallParts.ingotStack(parts);
         int seed = (int) blockEntity.getBlockPos().asLong();
         for (int i = 0; i < state.items.length; i++) {
             if (i >= state.count) {
@@ -112,10 +125,11 @@ public class PlacedSmallPartsRenderer implements BlockEntityRenderer<PlacedSmall
             }
             ItemStack part = parts.get(i);
             PlacedSmallParts.Kind kind = PlacedSmallParts.kind(part);
-            state.standing[i] = kind.standing();
+            state.kinds[i] = kind;
             ItemStack model = switch (kind) {
                 case EGG -> eggModel(PlacedEggBlock.Egg.of(part));
                 case CANDLE, PICKLE -> blockModel(part, kind, lit, wet);
+                case INGOT -> ingotModel(part);
                 case PLATE -> part;
             };
             this.itemModelResolver.updateForTopItem(state.items[i], model, ItemDisplayContext.NONE, blockEntity.getLevel(), null, seed + i);
@@ -129,7 +143,7 @@ public class PlacedSmallPartsRenderer implements BlockEntityRenderer<PlacedSmall
                 continue;
             }
             poseStack.pushPose();
-            PlacedSmallParts.place(new PoseOps(poseStack), state.facing, state.count, i, state.standing[i]);
+            PlacedSmallParts.place(new PoseOps(poseStack), state.facing, state.count, i, state.kinds[i], state.ingotStack);
             state.items[i].submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.popPose();
         }

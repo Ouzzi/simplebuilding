@@ -57,6 +57,13 @@ import org.jspecify.annotations.Nullable;
 public class StandingRodBlock extends Block implements SimpleWaterloggedBlock {
     public static final EnumProperty<Rod> ROD = EnumProperty.create("rod", Rod.class);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    /**
+     * Another standing rod stands on this one (N16, 2026-10-09): the column goes on to the top of the block
+     * ({@code standing_<rod>_up}), so stacked rods join without a gap.
+     */
+    public static final BooleanProperty UP = BlockStateProperties.UP;
+    /** The column of a rod with another one above it: full block height. */
+    public static final VoxelShape CONNECTED_SHAPE = Block.box(6.0, 0.0, 6.0, 10.0, 16.0, 10.0);
     public static final MapCodec<StandingRodBlock> CODEC = BlockCodecs.simple(StandingRodBlock::new);
 
     /** The rods that stand: state name, item, column height in pixels (= rows of the item texture), light, sound. */
@@ -119,7 +126,7 @@ public class StandingRodBlock extends Block implements SimpleWaterloggedBlock {
 
     public StandingRodBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(ROD, Rod.STICK).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(ROD, Rod.STICK).setValue(WATERLOGGED, false).setValue(UP, false));
     }
 
     /** Light of the state: only the blaze rod glows (a little). */
@@ -134,7 +141,7 @@ public class StandingRodBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(ROD, WATERLOGGED);
+        builder.add(ROD, WATERLOGGED, UP);
     }
 
     // =====================================================================================
@@ -168,7 +175,8 @@ public class StandingRodBlock extends Block implements SimpleWaterloggedBlock {
         }
         BlockPos pos = place.getClickedPos();
         BlockState state = ModBlocks.STANDING_ROD.defaultBlockState().setValue(ROD, rod)
-                .setValue(WATERLOGGED, level.getFluidState(pos).getType() == Fluids.WATER);
+                .setValue(WATERLOGGED, level.getFluidState(pos).getType() == Fluids.WATER)
+                .setValue(UP, level.getBlockState(pos.above()).getBlock() instanceof StandingRodBlock);
         if (!state.canSurvive(level, pos) || !level.isUnobstructed(state, pos, CollisionContext.of(player))) {
             return null;
         }
@@ -198,10 +206,10 @@ public class StandingRodBlock extends Block implements SimpleWaterloggedBlock {
     // Block behaviour
     // =====================================================================================
 
-    /** The thin column (4 x 4 px around the middle, as tall as the rod) - outline and collision. */
+    /** The thin column (4 x 4 px around the middle, as tall as the rod, full height under another rod) - outline and collision. */
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return state.getValue(ROD).shape;
+        return state.getValue(UP) ? CONNECTED_SHAPE : state.getValue(ROD).shape;
     }
 
     /** On a floor that holds its middle, or on another standing rod. */
@@ -219,6 +227,9 @@ public class StandingRodBlock extends Block implements SimpleWaterloggedBlock {
         }
         if (direction == Direction.DOWN && !state.canSurvive(level, pos)) {
             return Blocks.AIR.defaultBlockState();
+        }
+        if (direction == Direction.UP) {
+            state = state.setValue(UP, neighborState.getBlock() instanceof StandingRodBlock);
         }
         return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
     }
