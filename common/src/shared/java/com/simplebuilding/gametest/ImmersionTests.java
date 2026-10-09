@@ -211,13 +211,13 @@ public final class ImmersionTests {
         }
         expectLines(helper, ModBlocks.REINFORCED_HOPPER, "Moves an item every 4 ticks",
                 "Filter in its menu: exact or type match",
-                "Click an empty slot to set or clear its filter item");
+                "The item lying in a slot is its filter; one always stays");
         expectLines(helper, ModBlocks.NETHERITE_HOPPER, "Moves an item every 2 ticks",
                 "Filter in its menu: exact or type match",
-                "Click an empty slot to set or clear its filter item");
+                "The item lying in a slot is its filter; one always stays");
         expectLines(helper, ModBlocks.ENDERITE_HOPPER, "Moves an item every tick",
                 "Filter in its menu: exact or type match",
-                "Click an empty slot to set or clear its filter item");
+                "The item lying in a slot is its filter; one always stays");
         expectLines(helper, ModBlocks.REINFORCED_STICKY_PISTON, "Pushes up to 18 blocks");
         expectLines(helper, ModBlocks.LEVITATING_SAND, "Falls upward instead of down");
         expectLines(helper, ModBlocks.SUSPENDED_GRAVEL, "Hangs in mid-air and never falls");
