@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:poplar_octet",
+    "simplebuilding:poplar_octet",
+    "simplebuilding:poplar_octet",
+    "simplebuilding:poplar_octet",
+    "simplebuilding:poplar_octet",
+    "simplebuilding:poplar_octet",
+    "simplebuilding:poplar_octet",
+    "simplebuilding:poplar_octet"
+  ],
+  "result": {
+    "id": "minecraft:poplar_planks"
+  }
+}

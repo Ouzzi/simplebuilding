@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:warped_planks_from_octets"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_warped_octet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:warped_octet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_warped_octet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:warped_planks_from_octets"
+    ]
+  }
+}

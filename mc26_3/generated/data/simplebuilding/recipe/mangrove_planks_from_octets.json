@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:mangrove_octet",
+    "simplebuilding:mangrove_octet",
+    "simplebuilding:mangrove_octet",
+    "simplebuilding:mangrove_octet",
+    "simplebuilding:mangrove_octet",
+    "simplebuilding:mangrove_octet",
+    "simplebuilding:mangrove_octet",
+    "simplebuilding:mangrove_octet"
+  ],
+  "result": {
+    "id": "minecraft:mangrove_planks"
+  }
+}
