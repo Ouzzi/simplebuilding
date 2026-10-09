@@ -1006,6 +1006,18 @@
       "id": "simplebuilding:frosted_nihilith"
     },
     {
+      "id": "simplebuilding:full_enderite_lava_bucket",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:full_enderite_soul_lava_bucket",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:full_enderite_water_bucket",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:funny_stick",
       "maxStackSize": 1
     },
