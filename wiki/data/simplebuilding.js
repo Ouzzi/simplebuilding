@@ -11271,6 +11271,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_lava_bucket_full",
+      "name": {
+        "en_us": "Full Enderite Lava Bucket",
+        "de_de": "Voller Enderit-Lavaeimer"
+      },
+      "texture": "assets/textures/item/enderite_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_leggings",
       "name": {
         "en_us": "Enderite Leggings",
@@ -12095,6 +12110,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_soul_lava_bucket_full",
+      "name": {
+        "en_us": "Full Enderite Soul Lava Bucket",
+        "de_de": "Voller Enderit-Seelen-Lava-Eimer"
+      },
+      "texture": "assets/textures/item/enderite_soul_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_spear",
       "name": {
         "en_us": "Enderite Spear",
@@ -12245,6 +12275,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_water_bucket_full",
+      "name": {
+        "en_us": "Full Enderite Water Bucket",
+        "de_de": "Voller Enderit-Wassereimer"
+      },
+      "texture": "assets/textures/item/enderite_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:fire_chip",
       "name": {
         "en_us": "Fire Chip",
@@ -12339,51 +12384,6 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/frosted_nihilith.png",
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:full_enderite_lava_bucket",
-      "name": {
-        "en_us": "Full Enderite Lava Bucket",
-        "de_de": "Voller Enderit-Lavaeimer"
-      },
-      "texture": "assets/textures/item/enderite_lava_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:full_enderite_soul_lava_bucket",
-      "name": {
-        "en_us": "Full Enderite Soul Lava Bucket",
-        "de_de": "Voller Enderit-Seelen-Lava-Eimer"
-      },
-      "texture": "assets/textures/item/enderite_soul_lava_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:full_enderite_water_bucket",
-      "name": {
-        "en_us": "Full Enderite Water Bucket",
-        "de_de": "Voller Enderit-Wassereimer"
-      },
-      "texture": "assets/textures/item/enderite_water_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -86289,6 +86289,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_lava_bucket_full",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_leggings",
           "required": true
         },
@@ -86349,6 +86353,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_soul_lava_bucket_full",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_spawn_teleporter",
           "required": true
         },
@@ -86366,6 +86374,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_water_bucket",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_water_bucket_full",
           "required": true
         }
       ],
@@ -86492,6 +86504,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_lava_bucket_full",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_leggings",
           "required": true
         },
@@ -86556,6 +86572,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_soul_lava_bucket_full",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_spawn_teleporter",
           "required": true
         },
@@ -86580,23 +86600,15 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_water_bucket_full",
+          "required": true
+        },
+        {
           "id": "simplebuilding:fine_elytra_pad",
           "required": true
         },
         {
           "id": "simplebuilding:flypad",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:full_enderite_lava_bucket",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:full_enderite_soul_lava_bucket",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:full_enderite_water_bucket",
           "required": true
         },
         {
