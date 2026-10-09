@@ -23,8 +23,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.chicken.Chicken;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -107,9 +105,9 @@ public final class WoodworkTests {
         AABB crouching = new AABB(cx - 0.3, floor, cz - 0.3, cx + 0.3, floor + 1.5, cz + 0.3);
         check(level.noCollision(crawling), fails, "a crawling player fits inside");
         check(!level.noCollision(crouching), fails, "a crouching player does not fit inside");
-        Chicken chicken = helper.spawn(EntityType.CHICKEN, rel);
-        chicken.setPos(cx, floor, cz);
-        check(level.noCollision(chicken, chicken.getBoundingBox()), fails, "a chicken fits inside");
+        // Chicken-sized (0.4 x 0.7) and cat-sized (0.6 x 0.7) boxes fit through the opening.
+        check(level.noCollision(new AABB(cx - 0.2, floor, cz - 0.2, cx + 0.2, floor + 0.7, cz + 0.2)), fails, "a chicken fits inside");
+        check(level.noCollision(new AABB(cx - 0.3, floor, cz - 0.3, cx + 0.3, floor + 0.7, cz + 0.3)), fails, "a cat fits inside");
         check(!level.noCollision(new AABB(cx - 0.45, floor, cz - 0.45, cx + 0.45, floor + 1.4, cz + 0.45)), fails, "a cow-sized mob does not fit");
         check(helper.getBlockState(rel).isPathfindable(net.minecraft.world.level.pathfinder.PathComputationType.LAND), fails, "lying tube is pathfindable");
 
@@ -123,7 +121,6 @@ public final class WoodworkTests {
         player.setShiftKeyDown(true);
         player.setYRot(0.0F); // facing south, across the tube
         check(!HollowLogCrawl.shouldCrawl(player), fails, "facing across the tube does not crawl");
-        chicken.discard();
         finish(helper, fails);
     }
 

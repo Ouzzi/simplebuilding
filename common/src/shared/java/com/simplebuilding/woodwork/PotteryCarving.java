@@ -74,7 +74,7 @@ public final class PotteryCarving {
             return InteractionResult.PASS;
         }
         level.setBlockAndUpdate(pos, carved);
-        level.playSound(null, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 0.8F, 1.1F + level.getRandom().nextFloat() * 0.2F);
+        level.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 0.8F, 1.1F + level.getRandom().nextFloat() * 0.2F);
         ((ServerLevel) level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, target),
                 pos.getX() + 0.5 + context.getClickedFace().getStepX() * 0.5, pos.getY() + 0.5,
                 pos.getZ() + 0.5 + context.getClickedFace().getStepZ() * 0.5, 10, 0.2, 0.2, 0.2, 0.05);

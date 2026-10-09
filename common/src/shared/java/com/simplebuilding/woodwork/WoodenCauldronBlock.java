@@ -210,7 +210,7 @@ public class WoodenCauldronBlock extends AbstractCauldronBlock {
 
     /** Lava in a burnable cauldron: start the fire timer. */
     @Override
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         if (burns() && state.getValue(CONTENT) == Content.LAVA && !level.isClientSide()) {
             level.scheduleTick(pos, this, BURN_TICKS);

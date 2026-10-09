@@ -88,9 +88,9 @@ public final class WoodBlocks {
         return List.copyOf(out);
     }
 
-    /** Tube properties: see-through, no suffocation, no view blocking (the log's map colour per axis stays). */
+    /** Tube properties: see-through, no suffocation (the log's map colour per axis stays). */
     private static BlockBehaviour.Properties tube(BlockBehaviour.Properties settings) {
-        return settings.noOcclusion().isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false);
+        return settings.noOcclusion().isSuffocating((state, level, pos) -> false);
     }
 
     @SuppressWarnings("unchecked")
