@@ -75,8 +75,8 @@ public final class WoodworkClientTest {
             set(level, 6, 1, bamboo.hollow().defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X));
             set(level, 7, 0, oak.cauldron().with(WoodenCauldronBlock.Content.WATER, 3));
             set(level, 8, 0, crimson.cauldron().with(WoodenCauldronBlock.Content.LAVA, 3));
-            set(level, 9, 0, oak.crate());
-            set(level, 10, 0, spruce.crate());
+            set(level, 9, 0, oak.crate().defaultBlockState());
+            set(level, 10, 0, spruce.crate().defaultBlockState());
             fill(level, 9, List.of(new ItemStack(Items.BREAD, 64), new ItemStack(Items.APPLE, 64), new ItemStack(Items.APPLE, 20)));
             fill(level, 10, List.of(new ItemStack(Items.CARROT, 64), new ItemStack(Items.CARROT, 64), new ItemStack(Items.CARROT, 64),
                     new ItemStack(Items.CARROT, 64), new ItemStack(Items.CARROT, 64), new ItemStack(Items.CARROT, 64), new ItemStack(Items.GOLDEN_CARROT, 40)));
