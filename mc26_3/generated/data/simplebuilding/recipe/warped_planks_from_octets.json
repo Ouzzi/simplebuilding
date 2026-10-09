@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:warped_octet",
+    "simplebuilding:warped_octet",
+    "simplebuilding:warped_octet",
+    "simplebuilding:warped_octet",
+    "simplebuilding:warped_octet",
+    "simplebuilding:warped_octet",
+    "simplebuilding:warped_octet",
+    "simplebuilding:warped_octet"
+  ],
+  "result": {
+    "id": "minecraft:warped_planks"
+  }
+}

@@ -1,6 +1,20 @@
 {
   "values": [
     "simplebuilding:jukebox_amplifier",
-    "simplebuilding:note_amplifier"
+    "simplebuilding:note_amplifier",
+    "simplebuilding:oak_octet",
+    "simplebuilding:spruce_octet",
+    "simplebuilding:birch_octet",
+    "simplebuilding:jungle_octet",
+    "simplebuilding:acacia_octet",
+    "simplebuilding:dark_oak_octet",
+    "simplebuilding:mangrove_octet",
+    "simplebuilding:cherry_octet",
+    "simplebuilding:pale_oak_octet",
+    "simplebuilding:poplar_octet",
+    "simplebuilding:bamboo_octet",
+    "simplebuilding:crimson_octet",
+    "simplebuilding:warped_octet",
+    "simplebuilding:melon_octet"
   ]
 }

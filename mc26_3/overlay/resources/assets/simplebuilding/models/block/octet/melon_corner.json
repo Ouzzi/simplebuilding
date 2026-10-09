@@ -1,0 +1,46 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "minecraft:block/melon_side",
+    "side": "minecraft:block/melon_side",
+    "end": "minecraft:block/melon_top",
+    "cut": "simplebuilding:block/melon_flesh"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        8,
+        8,
+        8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side",
+          "cullface": "north"
+        },
+        "west": {
+          "texture": "#side",
+          "cullface": "west"
+        },
+        "down": {
+          "texture": "#end",
+          "cullface": "down"
+        },
+        "south": {
+          "texture": "#cut"
+        },
+        "east": {
+          "texture": "#cut"
+        },
+        "up": {
+          "texture": "#cut"
+        }
+      }
+    }
+  ]
+}

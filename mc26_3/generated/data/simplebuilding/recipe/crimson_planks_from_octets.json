@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:crimson_octet",
+    "simplebuilding:crimson_octet",
+    "simplebuilding:crimson_octet",
+    "simplebuilding:crimson_octet",
+    "simplebuilding:crimson_octet",
+    "simplebuilding:crimson_octet",
+    "simplebuilding:crimson_octet",
+    "simplebuilding:crimson_octet"
+  ],
+  "result": {
+    "id": "minecraft:crimson_planks"
+  }
+}

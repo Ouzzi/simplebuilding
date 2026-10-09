@@ -1,0 +1,86 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "o000": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/octet/oak",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "o100": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/octet/oak",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "o010": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/octet/oak",
+        "uvlock": true,
+        "x": 180,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "o110": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/octet/oak",
+        "uvlock": true,
+        "x": 180,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "o001": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/octet/oak",
+        "uvlock": true,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "o101": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/octet/oak",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "o011": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/octet/oak",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "o111": "true"
+      },
+      "apply": {
+        "model": "simplebuilding:block/octet/oak",
+        "uvlock": true,
+        "x": 180,
+        "y": 270
+      }
+    }
+  ]
+}

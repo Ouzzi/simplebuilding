@@ -369,6 +369,12 @@ public class SledgehammerItem extends Item {
                 if (!world.isClientSide()) {
                     world.setBlockAndUpdate(pos, newState);
                     com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.HAMMER_RESHAPE);
+                    // Abgetragenes Achtel eines Materials mit Achteln (Holz, Melone) faellt heraus (Queue Nachtrag 24).
+                    net.minecraft.world.item.Item piece = cornerCharge && !player.isCreative()
+                            ? com.simplebuilding.util.HammerCorners.removedPiece(state) : null;
+                    if (piece != null) {
+                        Block.popResourceFromFace(world, pos, side, new ItemStack(piece));
+                    }
 
                     // Sound: Verwende den Break-Sound des Blocks, klingt natürlicher
                     world.playSound(null, pos, state.getSoundType().getBreakSound(), SoundSource.BLOCKS, 1.0f, 0.8f);
@@ -432,38 +438,64 @@ public class SledgehammerItem extends Item {
         return ItemUseAnimation.BOW;
     }
 
+    /** Was ein gehaltener Rechtsklick mit dem Hammer tut (Queue Nachtrag 24). */
+    public enum ReshapeMode {
+        /** Nichts: ohne Schleichen formt der Hammer nicht um (kein Laden, kein Wackeln). */
+        NONE,
+        /** Nur 26.2 (keine Achtel/Ecken): Block -> Treppe -> Stufe ohne Schleichen wie bisher. */
+        FORWARD,
+        /** Schleichen ohne Berührung des Konstrukteurs: das angezielte Achtel abtragen. */
+        CARVE,
+        /** Schleichen mit Berührung des Konstrukteurs: Stufe -> Treppe -> Block. */
+        REVERSE
+    }
+
+    /**
+     * Reine Regel, wann der Hammer umformt (und damit wackelt, {@link com.simplebuilding.util.TransformTargets}):
+     * nur beim Schleichen. Ohne Schleichen formt er nur dort vorwaerts um, wo es kein Abtragen gibt (26.2).
+     */
+    public static ReshapeMode reshapeMode(boolean sneaking, boolean constructorsTouch, boolean carvingSupported) {
+        if (sneaking) {
+            if (constructorsTouch) return ReshapeMode.REVERSE;
+            return carvingSupported ? ReshapeMode.CARVE : ReshapeMode.NONE;
+        }
+        return carvingSupported ? ReshapeMode.NONE : ReshapeMode.FORWARD;
+    }
+
+    public static ReshapeMode reshapeMode(Player player, ItemStack stack) {
+        return reshapeMode(player.isShiftKeyDown(), hasConstructorsTouch(stack, player.level()),
+                com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS);
+    }
+
     public static boolean isCornerMode(Player player, ItemStack stack) {
-        return com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
-                && player.isShiftKeyDown() && !hasConstructorsTouch(stack, player.level());
+        return reshapeMode(player, stack) == ReshapeMode.CARVE;
     }
 
     public BlockState getTransformationState(BlockState state, BlockPos pos, Direction side, Vec3 hit, Player player, ItemStack stack) {
         Block block = state.getBlock();
         Level world = player.level();
 
-        if (isCornerMode(player, stack)) {
-            return com.simplebuilding.util.HammerCorners.subtract(state, state.isCollisionShapeFullBlock(world, pos), side, hit);
-        }
-        // STRIKTE TRENNUNG:
-        if (player.isShiftKeyDown()) {
-            // === SNEAKING = REVERSE ===
-            // Voraussetzung: Constructor's Touch
-            if (!hasConstructorsTouch(stack, world)) {
-                return null; // Keine Reparatur ohne Enchantment -> Keine Animation
+        switch (reshapeMode(player, stack)) {
+            case CARVE -> {
+                return com.simplebuilding.util.HammerCorners.subtract(state, state.isCollisionShapeFullBlock(world, pos), side, hit);
             }
-            Optional<Block> target = reshapeTarget(block, true, false);
-            if (target.isEmpty()) {
+            case REVERSE -> {
+                Optional<Block> target = reshapeTarget(block, true, false);
+                if (target.isEmpty()) {
+                    return null;
+                }
+                // Treppe -> voller Block ohne Ausrichtung; Stufe -> Treppe ausgerichtet wie beim Setzen.
+                BlockState targetState = target.get().defaultBlockState();
+                return block instanceof StairBlock ? targetState : ChiselItem.applyIntuitiveOrientation(targetState, side, hit, player);
+            }
+            case FORWARD -> {
+                Optional<Block> target = reshapeTarget(block, false, state.isCollisionShapeFullBlock(world, pos));
+                return target.map(b -> ChiselItem.applyIntuitiveOrientation(b.defaultBlockState(), side, hit, player)).orElse(null);
+            }
+            default -> {
                 return null;
             }
-            // Treppe -> voller Block ohne Ausrichtung; Stufe -> Treppe ausgerichtet wie beim Setzen.
-            BlockState targetState = target.get().defaultBlockState();
-            return block instanceof StairBlock ? targetState : ChiselItem.applyIntuitiveOrientation(targetState, side, hit, player);
         }
-
-        // === NICHT SNEAKING = FORWARD ===
-        // FIX: world und pos an isFullCube übergeben, statt null
-        Optional<Block> target = reshapeTarget(block, false, state.isCollisionShapeFullBlock(world, pos));
-        return target.map(b -> ChiselItem.applyIntuitiveOrientation(b.defaultBlockState(), side, hit, player)).orElse(null);
     }
 
     /**

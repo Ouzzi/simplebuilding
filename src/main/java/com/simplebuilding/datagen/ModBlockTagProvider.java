@@ -193,6 +193,11 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         if (ModBlocks.CHECKER_OCTET != null) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.CHECKER_OCTET));
         }
+        // Material-Achtel (Queue Nachtrag 24): Holz mit der Axt, Melone mit Axt wie der Melonenblock.
+        ModBlocks.WOOD_OCTETS.forEach(block -> builder(BlockTags.MINEABLE_WITH_AXE).add(key(block)));
+        if (ModBlocks.MELON_OCTET != null) {
+            builder(BlockTags.MINEABLE_WITH_AXE).add(key(ModBlocks.MELON_OCTET));
+        }
         // Alternativbloecke der Grundbloecke (2026-10-03): Spitzhacke wie ihr Grundblock.
         for (ModBlocks.EndAlternates alternates : ModBlocks.END_ALTERNATES) {
             alternates.alternates().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));

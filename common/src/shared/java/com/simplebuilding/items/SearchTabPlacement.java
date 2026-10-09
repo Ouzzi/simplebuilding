@@ -148,6 +148,12 @@ public final class SearchTabPlacement {
                 chess.addAll(com.simplebuilding.chess.ChessItems.row(color));
             }
             out.add(Placement.after(BUILDING_BLOCKS, ModItems.POLISHED_ENDER_QUARTZ_CHECKER, chess.toArray(new ItemLike[0])));
+            // Holz-Achtel (Queue Nachtrag 24) je hinter der Stufe ihrer Holzart.
+            for (Item octet : ModItems.WOOD_OCTETS) {
+                String wood = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(octet).getPath().replace("_octet", "");
+                Item slab = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(wood + "_slab"));
+                out.add(Placement.after(BUILDING_BLOCKS, slab, octet));
+            }
         }
         // Kupfer folgt in der Erz-Reihenfolge auf Stein: die acht Kupferplatten hinter der Steinplatte.
         out.add(Placement.after(BUILDING_BLOCKS, Items.STONE_PRESSURE_PLATE,

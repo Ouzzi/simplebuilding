@@ -659,6 +659,15 @@ public final class SledgehammerTests {
         helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, CENTRE);
 
         // --- a full block with a stairs variant starts the reshaping ---
+        // 26.3 (Queue Nachtrag 24): only while sneaking; a plain right click passes through.
+        boolean carve = com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS;
+        if (carve) {
+            helper.setBlock(CENTRE, Blocks.STONE);
+            helper.assertValueEqual(useOnTop(helper, player, hammer, CENTRE), InteractionResult.PASS,
+                    "a plain right click still starts a reshape");
+            helper.assertFalse(player.isUsingItem(), "the hammer wound up without sneaking");
+        }
+        player.setShiftKeyDown(carve);
         helper.setBlock(CENTRE, Blocks.STONE);
         helper.assertValueEqual(useOnTop(helper, player, hammer, CENTRE), InteractionResult.CONSUME,
                 "right clicking stone did not start the charge");
@@ -690,6 +699,7 @@ public final class SledgehammerTests {
         player.setShiftKeyDown(false);
 
         // --- letting go early does nothing, and the very next finish proves the setup was live ---
+        player.setShiftKeyDown(carve);
         helper.setBlock(CENTRE, Blocks.STONE);
         ItemStack released = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
         player.setItemInHand(InteractionHand.MAIN_HAND, released);
@@ -748,6 +758,14 @@ public final class SledgehammerTests {
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
         player.setShiftKeyDown(false);
 
+        // 26.3 (Queue Nachtrag 24): no forward reshaping without sneaking - the sneaking hammer carves instead
+        // (sledgehammerCornersSubtractOnlyTheAimedQuarter, sledgehammerSplitsUnsupportedShapesIntoOctets).
+        if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) {
+            helper.setBlock(CENTRE, Blocks.STONE);
+            finish(helper, player, hammer);
+            helper.assertBlockPresent(Blocks.STONE, CENTRE);
+            helper.assertValueEqual(hammer.getDamageValue(), 0, "a plain right click still reshaped");
+        } else {
         // --- forward, step one: the stairs point where the player looks ---
         helper.setBlock(CENTRE, Blocks.STONE);
         finish(helper, player, hammer);
@@ -765,6 +783,7 @@ public final class SledgehammerTests {
         helper.assertBlockPresent(Blocks.STONE_STAIRS, CENTRE);
         assertStair(helper, CENTRE, Direction.NORTH, Half.BOTTOM, "a stair cut while facing north");
         look(player, 0.0F, 90.0F);
+        }
 
         // --- backward, with Constructor's Touch: slab to stairs ---
         ItemStack touch = hammerWith(helper, ModEnchantments.CONSTRUCTORS_TOUCH, 1);
@@ -1164,7 +1183,8 @@ public final class SledgehammerTests {
                     {ModItems.IRON_CORE, Blocks.STONE, false},
                     {ModItems.ROTATOR, Blocks.OAK_STAIRS, true},
                     {Items.ECHO_SHARD, Blocks.STONE, false}, {Items.GLOW_INK_SAC, Blocks.STONE, false},
-                    {ModItems.DIAMOND_SLEDGEHAMMER, Blocks.STONE, true}, {ModItems.STONE_CHISEL, Blocks.STONE, true}}) {
+                    // Queue Nachtrag 24: the hammer only tilts while sneaking (SledgehammerOctetTests).
+                    {ModItems.DIAMOND_SLEDGEHAMMER, Blocks.STONE, false}, {ModItems.STONE_CHISEL, Blocks.STONE, true}}) {
                 ItemStack stack = new ItemStack((Item) test[0]);
                 player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
                 player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
@@ -1782,6 +1802,8 @@ public final class SledgehammerTests {
         net.minecraft.world.phys.AABB around = new net.minecraft.world.phys.AABB(helper.absolutePos(PROBE)).inflate(2.0);
 
         // --- charged on the stone, let go while looking at the diamond block ---
+        // 26.3 (Queue Nachtrag 24): only the sneaking hammer charges.
+        player.setShiftKeyDown(com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS);
         InteractionResult started = useOnTop(helper, player, hammer, CENTRE);
         helper.assertTrue(started == InteractionResult.CONSUME, "the hammer did not charge on stone, got " + started);
         Vec3 abovePROBE = helper.absoluteVec(new Vec3(PROBE.getX() + 0.5, 3.0, PROBE.getZ() + 0.5));
@@ -1799,6 +1821,7 @@ public final class SledgehammerTests {
         helper.assertValueEqual(hammer.getDamageValue(), 0, "a finish that did nothing still cost durability");
 
         // --- the diamond block itself breaks on eight strikes, not on a charge (owner 2026-10-02) ---
+        player.setShiftKeyDown(false);
         InteractionResult onDiamond = useOnTop(helper, player, hammer, PROBE);
         helper.assertTrue(onDiamond == InteractionResult.SUCCESS, "the hammer did not strike the diamond block, got " + onDiamond);
         helper.assertFalse(player.isUsingItem(), "a diamond block strike started a charge");

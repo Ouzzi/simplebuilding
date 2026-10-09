@@ -1,5 +1,6 @@
 {
   "blocks": [
+    "simplebuilding:acacia_octet",
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_piston",
     "simplebuilding:astral_purpur_block",
@@ -21,6 +22,8 @@
     "simplebuilding:auto_smither",
     "simplebuilding:autonomous_crafter",
     "simplebuilding:backpack",
+    "simplebuilding:bamboo_octet",
+    "simplebuilding:birch_octet",
     "simplebuilding:black_hammock",
     "simplebuilding:blackstone_quartz_checker",
     "simplebuilding:blackstone_quartz_checker_slab",
@@ -36,6 +39,7 @@
     "simplebuilding:cave_spider_head",
     "simplebuilding:cave_spider_wall_head",
     "simplebuilding:checker_octet",
+    "simplebuilding:cherry_octet",
     "simplebuilding:chess_pieces",
     "simplebuilding:chiseled_astralit_bricks",
     "simplebuilding:chiseled_ender_quartz_bricks",
@@ -44,9 +48,11 @@
     "simplebuilding:construction_light",
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_diamond_block",
+    "simplebuilding:crimson_octet",
     "simplebuilding:crystalline_astralit",
     "simplebuilding:crystalline_nihilith",
     "simplebuilding:cyan_hammock",
+    "simplebuilding:dark_oak_octet",
     "simplebuilding:deepslate_sage_ore",
     "simplebuilding:diamond_pressure_plate",
     "simplebuilding:dimensional_scrap",
@@ -100,6 +106,7 @@
     "simplebuilding:infused_potion_pad",
     "simplebuilding:iron_rod",
     "simplebuilding:jukebox_amplifier",
+    "simplebuilding:jungle_octet",
     "simplebuilding:lapis_quartz_checker",
     "simplebuilding:lapis_quartz_checker_slab",
     "simplebuilding:lapis_quartz_checker_stairs",
@@ -111,6 +118,8 @@
     "simplebuilding:light_gray_hammock",
     "simplebuilding:lime_hammock",
     "simplebuilding:magenta_hammock",
+    "simplebuilding:mangrove_octet",
+    "simplebuilding:melon_octet",
     "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:nether_brick_quartz_checker_slab",
     "simplebuilding:nether_brick_quartz_checker_stairs",
@@ -150,8 +159,10 @@
     "simplebuilding:nihilith_quartz_checker_stairs",
     "simplebuilding:nihilith_switch",
     "simplebuilding:note_amplifier",
+    "simplebuilding:oak_octet",
     "simplebuilding:orange_hammock",
     "simplebuilding:oxidized_copper_pressure_plate",
+    "simplebuilding:pale_oak_octet",
     "simplebuilding:pink_hammock",
     "simplebuilding:placed_blueprint",
     "simplebuilding:placed_bundle",
@@ -180,6 +191,7 @@
     "simplebuilding:polished_nihilith_slab",
     "simplebuilding:polished_nihilith_stairs",
     "simplebuilding:polished_nihilith_wall",
+    "simplebuilding:poplar_octet",
     "simplebuilding:potion_pad",
     "simplebuilding:potted_silent_dandelion",
     "simplebuilding:purple_hammock",
@@ -222,6 +234,7 @@
     "simplebuilding:spawn_teleporter_tier_4",
     "simplebuilding:spider_head",
     "simplebuilding:spider_wall_head",
+    "simplebuilding:spruce_octet",
     "simplebuilding:standing_rod",
     "simplebuilding:stellar_flypad",
     "simplebuilding:stray_skull",
@@ -230,6 +243,7 @@
     "simplebuilding:suspended_sand",
     "simplebuilding:veined_astralit",
     "simplebuilding:veined_nihilith",
+    "simplebuilding:warped_octet",
     "simplebuilding:waxed_copper_pressure_plate",
     "simplebuilding:waxed_exposed_copper_pressure_plate",
     "simplebuilding:waxed_oxidized_copper_pressure_plate",
@@ -240,6 +254,9 @@
   ],
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
   "items": [
+    {
+      "id": "simplebuilding:acacia_octet"
+    },
     {
       "durability": 640,
       "id": "simplebuilding:amethyst_lens",
@@ -364,7 +381,13 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:bamboo_octet"
+    },
+    {
       "id": "simplebuilding:basic_upgrade_template"
+    },
+    {
+      "id": "simplebuilding:birch_octet"
     },
     {
       "id": "simplebuilding:black_hammock",
@@ -479,6 +502,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:cherry_octet"
+    },
+    {
       "id": "simplebuilding:chipped_ceramic_bucket",
       "maxStackSize": 16
     },
@@ -587,6 +613,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:crimson_octet"
+    },
+    {
       "id": "simplebuilding:crystalline_astralit"
     },
     {
@@ -595,6 +624,9 @@
     {
       "id": "simplebuilding:cyan_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:dark_oak_octet"
     },
     {
       "id": "simplebuilding:deepslate_sage_ore"
@@ -1134,6 +1166,9 @@
       "id": "simplebuilding:jukebox_amplifier"
     },
     {
+      "id": "simplebuilding:jungle_octet"
+    },
+    {
       "id": "simplebuilding:lapis_chess_bishop",
       "maxStackSize": 16
     },
@@ -1235,6 +1270,9 @@
     {
       "id": "simplebuilding:medium_armor_stand",
       "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:mangrove_octet"
     },
     {
       "id": "simplebuilding:music_disc_brimstone",
@@ -1559,6 +1597,9 @@
       "id": "simplebuilding:note_amplifier"
     },
     {
+      "id": "simplebuilding:oak_octet"
+    },
+    {
       "id": "simplebuilding:obsidian_chip"
     },
     {
@@ -1673,6 +1714,9 @@
     {
       "id": "simplebuilding:paint_box",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:pale_oak_octet"
     },
     {
       "id": "simplebuilding:pink_hammock",
@@ -1896,6 +1940,9 @@
     },
     {
       "id": "simplebuilding:polished_nihilith_wall"
+    },
+    {
+      "id": "simplebuilding:poplar_octet"
     },
     {
       "id": "simplebuilding:potion_pad",
@@ -2273,6 +2320,9 @@
       "id": "simplebuilding:spider_head"
     },
     {
+      "id": "simplebuilding:spruce_octet"
+    },
+    {
       "id": "simplebuilding:stellar_flypad",
       "maxStackSize": 1
     },
@@ -2329,6 +2379,9 @@
     {
       "id": "simplebuilding:velocity_gauge",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:warped_octet"
     },
     {
       "id": "simplebuilding:waxed_copper_pressure_plate"

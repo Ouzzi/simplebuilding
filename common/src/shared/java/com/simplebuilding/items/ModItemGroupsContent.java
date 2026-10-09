@@ -256,7 +256,10 @@ public final class ModItemGroupsContent {
             while (!rows.get(checkers).name().equals("checkers")) {
                 checkers++;
             }
-            rows.addAll(checkers + 1, chessRows());
+            List<CreativeTabLayout.Row> chess = chessRows();
+            rows.addAll(checkers + 1, chess);
+            // Holz-Achtel (Queue Nachtrag 24) hinter den Schach-Achteln und -Figuren.
+            rows.add(checkers + 1 + chess.size(), CreativeTabLayout.Row.of("wood_octets", ModItems.WOOD_OCTETS.toArray(new ItemLike[0])));
         }
         return List.copyOf(rows);
     }
