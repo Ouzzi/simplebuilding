@@ -744,6 +744,23 @@ public final class FeatureStations {
         chest.add(new ItemStack(Items.QUARTZ_BLOCK, 8));
         chest.add(new ItemStack(Items.STONECUTTER));
         c.contents(5, 0, 6, chest);
+        // Material-Achtel (Queue Nachtrag 24): je Holzart eine Zelle vor der Wand, eine Melonenzelle, Kiste mit allem.
+        for (int i = 0; i < ModBlocks.WOOD_OCTETS.size(); i++) {
+            c.place(11 + i, 0, 7, com.simplebuilding.blocks.custom.OctetCellBlock.withMask(
+                    ModBlocks.WOOD_OCTETS.get(i).defaultBlockState(), OCTET_MASKS[i % OCTET_MASKS.length]));
+        }
+        if (ModBlocks.MELON_OCTET != null) {
+            c.place(8, 0, 6, com.simplebuilding.blocks.custom.OctetCellBlock.withMask(ModBlocks.MELON_OCTET.defaultBlockState(), 0x7F));
+        }
+        c.place(7, 0, 6, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+        List<ItemStack> woods = new ArrayList<>();
+        for (Item octet : com.simplebuilding.items.ModItems.WOOD_OCTETS) {
+            woods.add(new ItemStack(octet, 16));
+        }
+        woods.add(new ItemStack(Items.MELON_SLICE, 16));
+        woods.add(new ItemStack(Items.GLISTERING_MELON_SLICE, 4));
+        woods.add(new ItemStack(Items.OAK_PLANKS, 8));
+        c.contents(7, 0, 6, woods);
         c.title(0, 3, wallZ, TcText.t("section.chess", "Chess"), TcText.t("section.chess.sub", "octets, pieces, checker stairs"));
         c.wallSign(3, 2, wallZ, TcText.bold(TcText.t("chess.place", "Pieces")),
                 TcText.t("chess.place.sub", "one per checker field"), TcText.t("chess.place.sub2", "empty hand: turn"));
