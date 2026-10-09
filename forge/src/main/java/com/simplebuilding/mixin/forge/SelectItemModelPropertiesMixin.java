@@ -42,5 +42,7 @@ public abstract class SelectItemModelPropertiesMixin {
                 TrimIconsModelProperty.PROPERTY_TYPE);
         ID_MAPPER.put(com.simplebuilding.client.property.BlueprintStateModelProperty.ID,
                 com.simplebuilding.client.property.BlueprintStateModelProperty.PROPERTY_TYPE);
+        ID_MAPPER.put(com.simplebuilding.client.property.BrushInkModelProperty.ID,
+                com.simplebuilding.client.property.BrushInkModelProperty.PROPERTY_TYPE);
     }
 }

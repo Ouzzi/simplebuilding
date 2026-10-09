@@ -359,6 +359,39 @@ public class ModModelProvider extends FabricModelProvider {
      * {@code simplebuilding:blueprint_state} ({@code BlueprintItem#modelState}). Die Eigenschaft muss
      * dafuer schon hier am {@code ID_MAPPER} haengen - die Datagen schreibt sie ueber deren Codec.
      */
+    /** Vanilla brush pose ({@code minecraft:item/brush}) with a body layer and an optional bristle-tip layer. */
+    private static final ModelTemplate BRUSH_TWO_LAYERS = new ModelTemplate(
+            Optional.of(Identifier.withDefaultNamespace("item/brush")), Optional.empty(), TextureSlot.LAYER0, TextureSlot.LAYER1);
+    private static final ModelTemplate BRUSH_ONE_LAYER = new ModelTemplate(
+            Optional.of(Identifier.withDefaultNamespace("item/brush")), Optional.empty(), TextureSlot.LAYER0);
+
+    /**
+     * Farbpinsel (Besitzer 2026-10-09): die Borstenspitze zeigt die naechste Tinte ({@code simplebuilding:brush_ink}):
+     * ohne Tinte neutrale Borsten, je Farbstoff die graue Spitzen-Ebene mit der Vanilla-Farbstofffarbe getoent,
+     * mit Malerpalette eine bunte Spitze.
+     */
+    private static void generateColorBrush(ItemModelGenerators generator) {
+        Item brush = ModItems.COLOR_BRUSH;
+        net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties.ID_MAPPER.put(
+                com.simplebuilding.client.property.BrushInkModelProperty.ID,
+                com.simplebuilding.client.property.BrushInkModelProperty.PROPERTY_TYPE);
+        Identifier plain = BRUSH_ONE_LAYER.create(brush, TextureMapping.layer0(brush), generator.modelOutput);
+        Identifier tip = BRUSH_TWO_LAYERS.create(ModelLocationUtils.getModelLocation(brush, "_tip"),
+                TextureMapping.layered(TextureMapping.getItemTexture(brush), TextureMapping.getItemTexture(brush, "_tip")),
+                generator.modelOutput);
+        Identifier palette = BRUSH_TWO_LAYERS.create(ModelLocationUtils.getModelLocation(brush, "_palette"),
+                TextureMapping.layered(TextureMapping.getItemTexture(brush), TextureMapping.getItemTexture(brush, "_tip_palette")),
+                generator.modelOutput);
+        java.util.List<net.minecraft.client.renderer.item.SelectItemModel.SwitchCase<String>> cases = new java.util.ArrayList<>();
+        for (net.minecraft.world.item.DyeColor color : net.minecraft.world.item.DyeColor.values()) {
+            cases.add(ItemModelUtils.when(color.getName(), ItemModelUtils.tintedModel(tip, ItemModelUtils.constantTint(-1),
+                    ItemModelUtils.constantTint(net.minecraft.util.ARGB.opaque(color.getTextureDiffuseColor())))));
+        }
+        cases.add(ItemModelUtils.when(com.simplebuilding.items.custom.ColorBrushItem.INK_PALETTE, ItemModelUtils.plainModel(palette)));
+        generator.itemModelOutput.accept(brush, ItemModelUtils.select(new com.simplebuilding.client.property.BrushInkModelProperty(),
+                ItemModelUtils.plainModel(plain), cases));
+    }
+
     private static void generateBlueprint(ItemModelGenerators generator) {
         Item blueprint = ModItems.BLUEPRINT;
         net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties.ID_MAPPER.put(
@@ -671,7 +704,8 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM); // NEW
-        itemModelGenerator.generateFlatItem(ModItems.COLOR_BRUSH, ModelTemplates.FLAT_HANDHELD_ITEM);
+        generateColorBrush(itemModelGenerator);
+        itemModelGenerator.generateFlatItem(ModItems.PAINT_PALETTE, ModelTemplates.FLAT_ITEM);
 
         // Die sechs Alt-Spatel (LegacySpatulaMigration) waren bisher modelllos, und jeder Start
         // meldete sie mit "No model loaded". Gehalten wie die Meissel, deren Variante sie sind;

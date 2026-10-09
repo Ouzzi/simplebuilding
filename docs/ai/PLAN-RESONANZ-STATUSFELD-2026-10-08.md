@@ -58,3 +58,12 @@ Tests; der namespaced Filter oben ist der maßgebliche erfolgreiche Lauf.
 - Ungewollte Änderung des Kreativtab-Absatzes im Handbuch aus dem WIP verworfen.
 - Client-Test `inventoryShowsTheResonanceFieldAndItsDetails` macht jetzt den Screenshot
   `inventory-resonance-field`.
+
+## Runde 2 (Besitzer 09.10.): Vanilla-Stil
+Befund Besitzer: dicker Rahmen (popup/background) + Farbe machen den Inhalt unleserlich, Herz kaum erkennbar.
+Plan: Hintergrund exakt wie der Rezeptbuch-Knopf (`recipe_book/button`: 1-px-Schwarzrand mit runden Ecken,
+weisse Kante oben/links, #555555 unten/rechts, Fuellung #C6C6C6) als eigenes Nine-Slice-Sprite
+`resonance_field` (Rand 3), Hoehe 18 wie der Knopf; Breite waechst mit dem Text (20 px reichen fuer Herz + "0.22x"
+nicht - Abweichung). Herz = Vanilla-Herzform (hud/heart container + full) in Steingrau mit schwarzem 1-px-Umriss.
+Wert weiss mit Schatten wie Vanilla-Stapelzahlen. Hover: `recipe_book/button_highlighted`-Rand analog.
+Pruefung: HudAndTooltip-Client-Test (Screenshot), 3x-Ausschnitt nach /root/previews/resonance/resonance-v2.png.

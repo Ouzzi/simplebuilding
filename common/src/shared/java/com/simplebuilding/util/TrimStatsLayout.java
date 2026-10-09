@@ -2,7 +2,8 @@ package com.simplebuilding.util;
 
 /**
  * Pure geometry of the compact resonance field right of a vanilla recipe-book button (owner 2026-10-08): as high as
- * the button, a 9x9 stone heart centred vertically, the gray value after it.
+ * the button and framed like it (round 2, 2026-10-09: vanilla style), a 9x9 stone heart centred vertically, the white
+ * value with shadow after it.
  */
 public final class TrimStatsLayout {
     public static final int BOOK_BUTTON_WIDTH = 20;
@@ -12,7 +13,8 @@ public final class TrimStatsLayout {
     /** Heart: 3 px from the left edge, vertically centred ((18 - 9) / 2 = 4). */
     public static final int ICON_INSET_X = 3, ICON_INSET_Y = (HEIGHT - ICON_SIZE) / 2;
     public static final int TEXT_X = ICON_INSET_X + ICON_SIZE + 2;
-    public static final int TEXT_PAD_RIGHT = 3;
+    /** 3 px inside the right edge plus the 1 px text shadow. */
+    public static final int TEXT_PAD_RIGHT = 4;
     /** Text row: font height 8 centred in the field ((18 - 8) / 2 = 5). */
     public static final int TEXT_Y = (HEIGHT - 8) / 2;
 

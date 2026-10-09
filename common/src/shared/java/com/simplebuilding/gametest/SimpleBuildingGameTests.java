@@ -81,11 +81,17 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("end_systems_game_test_nihil_rail_stops_and_fast_cart_takes_acurve", EndSystemsTests::nihilRailStopsAndFastCartTakesACurve).maxTicks(120).build(),
             GameTestSpec.named("smoke_game_test_mod_items_are_registered", SmokeTests::modItemsAreRegistered)
                     .build(),
-            GameTestSpec.named("color_brush_game_test_loads_and_consumes_one_dye", ColorBrushTests::loadsAndConsumesOneDye)
+            GameTestSpec.named("color_brush_game_test_dyes_are_used_in_bow_order", ColorBrushTests::dyesAreUsedInBowOrder)
+                    .build(),
+            GameTestSpec.named("color_brush_game_test_off_hand_comes_first", ColorBrushTests::offHandComesFirst)
+                    .build(),
+            GameTestSpec.named("color_brush_game_test_creative_uses_nothing", ColorBrushTests::creativeUsesNothing)
+                    .build(),
+            GameTestSpec.named("color_brush_game_test_palette_is_random", ColorBrushTests::paletteIsRandom)
+                    .build(),
+            GameTestSpec.named("color_brush_game_test_palette_takes_only_dyes", ColorBrushTests::paletteTakesOnlyDyes)
                     .build(),
             GameTestSpec.named("color_brush_game_test_paints_concrete_and_preserves_glass_pane_state", ColorBrushTests::paintsConcreteAndPreservesGlassPaneState)
-                    .build(),
-            GameTestSpec.named("color_brush_game_test_pipette_and_wash", ColorBrushTests::pipetteAndWash)
                     .build(),
             GameTestSpec.named("color_brush_game_test_keeps_contents_and_bed_halves_but_leaves_wood", ColorBrushTests::keepsContentsAndBedHalvesButLeavesWood)
                     .build(),

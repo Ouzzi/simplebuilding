@@ -16,7 +16,8 @@ import net.minecraft.world.entity.player.Player;
 
 /**
  * Die Resonanz der Ruestungsbesatz-Boni im Inventar: ein kleines Feld rechts neben dem
- * Rezeptbuch-Button mit einem Herz in Steinfarben und dem grauen Wert ("0.22x"); ueberfahren zeigt es die Einzelheiten
+ * Rezeptbuch-Button im Vanilla-Stil dieses Knopfs (Rahmen, Fuellung #C6C6C6, beim Ueberfahren blau wie er) mit einem
+ * Vanilla-Herz in Steingrau und dem weissen Wert mit Schatten ("0.22x"); ueberfahren zeigt es die Einzelheiten
  * (L, S, C mit ihren Hoechstwerten, woraus sie sich speisen, und wann alles zusammen gedeckelt ist).
  * Seit 2026-09-29 ohne Knopf: der Wert steht immer da (Besitzer).
  *
@@ -24,8 +25,10 @@ import net.minecraft.world.entity.player.Player;
  * Rucksack-Inventar ({@link BackpackScreen}) - eine gemeinsame Klasse statt einer Kopie.
  */
 public final class TrimStatsPanel {
-    private static final Identifier PANEL_SPRITE = Identifier.withDefaultNamespace("popup/background");
-    /** Herz in Steinfarben (9x9, tools/textures/resonance_heart_2026_10_09.py). */
+    /** Rahmen des Rezeptbuch-Knopfs ohne Buch, Nine-Slice (tools/textures/resonance_heart_2026_10_09.py). */
+    private static final Identifier PANEL_SPRITE = Identifier.fromNamespaceAndPath("simplebuilding", "resonance_field");
+    private static final Identifier PANEL_SPRITE_HIGHLIGHTED = Identifier.fromNamespaceAndPath("simplebuilding", "resonance_field_highlighted");
+    /** Vanilla-Herzform in Steingrau (9x9, tools/textures/resonance_heart_2026_10_09.py). */
     private static final Identifier HEART_SPRITE = Identifier.fromNamespaceAndPath("simplebuilding", "resonance_heart");
     /** Rezeptbuch-Knopf des Vanilla-Inventars relativ zu leftPos/topPos (x 104, height / 2 - 22 = 61 bei 166 Hoehe). */
     public static final int BOOK_X = 104, BOOK_Y = 61;
@@ -56,13 +59,16 @@ public final class TrimStatsPanel {
         String text = compact(TrimMultiplierLogic.getMultiplier(player));
         TrimStatsLayout.Panel panel = panel(font, text, bookX, bookY);
 
-        context.blitSprite(RenderPipelines.GUI_TEXTURED, PANEL_SPRITE, panel.x(), panel.y(), panel.width(), panel.height());
+        boolean hovered = mouseX >= panel.x() && mouseX < panel.x() + panel.width()
+                && mouseY >= panel.y() && mouseY < panel.y() + panel.height();
+        context.blitSprite(RenderPipelines.GUI_TEXTURED, hovered ? PANEL_SPRITE_HIGHLIGHTED : PANEL_SPRITE,
+                panel.x(), panel.y(), panel.width(), panel.height());
         context.blitSprite(RenderPipelines.GUI_TEXTURED, HEART_SPRITE, panel.iconX(), panel.iconY(),
                 TrimStatsLayout.ICON_SIZE, TrimStatsLayout.ICON_SIZE);
-        context.text(font, Component.literal(text).withStyle(ChatFormatting.GRAY), panel.textX(), panel.textY(), 0xFFFFFFFF, false);
+        // Weiss mit Schatten wie die Vanilla-Stapelzahlen.
+        context.text(font, Component.literal(text), panel.textX(), panel.textY(), 0xFFFFFFFF, true);
 
-        if (mouseX >= panel.x() && mouseX < panel.x() + panel.width()
-                && mouseY >= panel.y() && mouseY < panel.y() + panel.height()) {
+        if (hovered) {
             context.setComponentTooltipForNextFrame(font, tooltip(player), mouseX, mouseY);
         }
     }

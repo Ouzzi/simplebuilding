@@ -11910,21 +11910,39 @@
     },
     "color_brush": {
       "en": {
-        "summary": "The Color Brush recolors supported block families in place while preserving their block state.",
+        "summary": "The Color Brush recolors supported block families in place with the next dye from the inventory, keeping their block state.",
         "details": [
-          "Craft it from a stick, wool and a feather. Sneak-right-click a dye in the off hand or inventory to load eight strokes per dye, up to 256.",
-          "Right-click wool, carpet, concrete, concrete powder, terracotta, glazed terracotta, glass, glass panes, candles, beds, banners or shulker boxes to switch them to the loaded color (plain glass becomes stained glass). Direction and connection properties, shulker contents, banner patterns and both bed halves are kept. Each stroke costs one charge and one durability.",
-          "Sneak-right-click a colored block with an empty brush to pipette its color; in survival this uses one matching dye from the inventory. A sponge or water bottle in the other hand washes the brush. Creative players do not consume strokes, dye or durability. Holding right-click repeats the stroke, so sweeping across blocks paints them one after another.",
+          "Craft it from a stick, wool and a feather. It is not loaded: every stroke takes the next dye the way a bow finds its arrows - the other hand first, then the hand holding the brush, then the inventory in slot order (hotbar first). Each stroke uses one dye and one durability (256).",
+          "Right-click wool, carpet, concrete, concrete powder, terracotta, glazed terracotta, glass, glass panes, candles, beds, banners or shulker boxes to switch them to that color (plain glass becomes stained glass). Direction and connection properties, shulker contents, banner patterns and both bed halves are kept. Without a dye, on other blocks or on a block that already has the color nothing happens and nothing is used.",
+          "The bristle tip shows the color that comes next, and the tooltip names the dye. Creative players need a dye but use none and no durability. Holding right-click repeats the stroke, so sweeping across blocks paints them one after another.",
+          "A Paint Palette with dyes counts as ink too: it paints each stroke with a random one of its colors other than the block's and gives up that dye; the tip then shows rainbow bristles.",
           "Wood is not a brush family. Datapacks and mods can opt in additional families through simplebuilding:dyeable_families."
         ]
       },
       "de": {
-        "summary": "Der Farbpinsel färbt unterstützte Blockfamilien an Ort und Stelle um und bewahrt ihren Blockzustand.",
+        "summary": "Der Farbpinsel färbt unterstützte Blockfamilien mit dem nächsten Farbstoff aus dem Inventar an Ort und Stelle um und bewahrt ihren Blockzustand.",
         "details": [
-          "Rezept: Stock, Wolle und Feder. Schleichen und einen Farbstoff in Nebenhand oder Inventar rechtsklicken lädt acht Striche je Farbstoff, höchstens 256.",
-          "Rechtsklick auf Wolle, Teppiche, Beton, Betonpulver, Terrakotta, glasierte Terrakotta, Glas, Glasscheiben, Kerzen, Betten, Banner oder Shulkerboxen wechselt zur geladenen Farbe (normales Glas wird zu gefärbtem Glas). Ausrichtung, Verbindungen, Shulker-Inhalt, Bannermuster und beide Betthälften bleiben erhalten. Jeder Strich kostet eine Ladung und einen Haltbarkeitspunkt.",
-          "Schleichen und ein farbiges Ziel mit leerem Pinsel rechtsklicken nimmt die Farbe auf; im Überlebensmodus kostet das einen passenden Farbstoff aus dem Inventar. Ein Schwamm oder eine Wasserflasche in der anderen Hand wäscht den Pinsel aus. Im Kreativmodus werden Striche, Farbstoff und Haltbarkeit nicht verbraucht. Gedrückt gehaltener Rechtsklick wiederholt den Strich, so malt ein Schwenk über mehrere Blöcke einen nach dem anderen.",
+          "Rezept: Stock, Wolle und Feder. Er wird nicht geladen: Jeder Strich nimmt den nächsten Farbstoff so, wie ein Bogen seine Pfeile findet - zuerst die andere Hand, dann die Hand mit dem Pinsel, dann das Inventar in Slot-Reihenfolge (Schnellleiste zuerst). Jeder Strich kostet einen Farbstoff und einen Haltbarkeitspunkt (256).",
+          "Rechtsklick auf Wolle, Teppiche, Beton, Betonpulver, Terrakotta, glasierte Terrakotta, Glas, Glasscheiben, Kerzen, Betten, Banner oder Shulkerboxen wechselt zu dieser Farbe (normales Glas wird zu gefärbtem Glas). Ausrichtung, Verbindungen, Shulker-Inhalt, Bannermuster und beide Betthälften bleiben erhalten. Ohne Farbstoff, auf anderen Blöcken oder bei gleicher Farbe passiert nichts, und nichts wird verbraucht.",
+          "Die Borstenspitze zeigt die Farbe, die als Nächstes kommt, der Tooltip nennt den Farbstoff. Im Kreativmodus braucht der Pinsel einen Farbstoff, verbraucht aber weder ihn noch Haltbarkeit. Gedrückt gehaltener Rechtsklick wiederholt den Strich, so malt ein Schwenk über mehrere Blöcke einen nach dem anderen.",
+          "Eine Malerpalette mit Farbstoffen zählt ebenfalls: Sie malt jeden Strich mit einer zufälligen ihrer Farben (nie der des Blocks) und gibt genau diesen Farbstoff ab; die Spitze zeigt dann bunte Borsten.",
           "Holz gehört nicht zur Pinsel-Familie. Datenpakete und Mods können weitere Familien über simplebuilding:dyeable_families freischalten."
+        ]
+      }
+    },
+    "paint_palette": {
+      "en": {
+        "summary": "The Paint Palette is a bundle for dyes that feeds the Color Brush with random colors.",
+        "details": [
+          "Craft it from a red, a yellow and a blue dye over three planks. It takes only dyes, 64 in all, and is filled and emptied like a bundle.",
+          "While it holds dyes, the Color Brush finds it like a loose dye (other hand first, then the inventory in slot order) and paints each stroke with a random one of its colors other than the block's, taking out exactly that dye."
+        ]
+      },
+      "de": {
+        "summary": "Die Malerpalette ist ein Bündel für Farbstoffe, das den Farbpinsel mit zufälligen Farben versorgt.",
+        "details": [
+          "Rezept: ein roter, ein gelber und ein blauer Farbstoff über drei Brettern. Sie nimmt nur Farbstoffe auf, 64 insgesamt, und wird wie ein Bündel befüllt und geleert.",
+          "Solange sie Farbstoffe enthält, findet der Farbpinsel sie wie einen losen Farbstoff (zuerst die andere Hand, dann das Inventar in Slot-Reihenfolge) und malt jeden Strich mit einer zufälligen ihrer Farben (nie der des Blocks); genau dieser Farbstoff wird entnommen."
         ]
       }
     }

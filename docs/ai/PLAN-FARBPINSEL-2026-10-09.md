@@ -52,3 +52,27 @@ Blockzustand (z. B. Treppenrichtung und Wasser) soweit wie beim Zielblock moegli
   Testzentrale-Werkzeugreihe `color_brush`; Wiki-Text als Item-Notiz; Datagen-Ausgaben.
 - Ziehen: gehaltener Rechtsklick wiederholt den Strich (Vanilla-Wiederholung), kein eigener Tick-Pfad.
 - Offen: Textur (Platzhalter, Besitzer-Abnahme), Client-Sicht, Mod-Farbfamilien im Tag.
+
+## Runde 2 (Besitzer-Feedback 09.10., Branch claude-brush2)
+Plan:
+1. Mechanik: kein Laden, keine Ladung, keine Pipette, kein Auswaschen. Jeder Strich nimmt die naechste
+   "Tinte" wie der Bogen seine Pfeile: `ProjectileWeaponItem.getHeldProjectile` (Nebenhand, dann Haupthand),
+   danach das Inventar in Vanilla-Reihenfolge (Slot 0..n). Tinte = Farbstoff oder nicht leere Farbpalette.
+   Ein Strich kostet 1 Farbstoff + 1 Haltbarkeit (256); Kreativ verbraucht nichts. Ohne Tinte, auf
+   nicht faerbbaren Bloecken oder bei gleicher Farbe passiert nichts (nichts verbraucht).
+2. Farbpalette (Annahme, dem Besitzer melden): neues Item `color_palette`, buendelartig (BundleItem,
+   `bundle_contents`), nimmt nur Farbstoffe auf (64 gesamt = Buendel-Gewicht 1). Als Tinte waehlt sie je Strich
+   zufaellig (level.random) eine ihrer Farben, die sich von der Blockfarbe unterscheidet, und verbraucht genau
+   diesen Farbstoff. Rezept: Rot/Gelb/Blau-Farbstoff ueber drei Holzbrettern (Tag planks).
+3. Anzeige: Item-Modell `select` auf `simplebuilding:brush_ink` (clientseitig aus dem Inventar des Halters:
+   `none`, Farbname, `palette`); je Farbe Ebene 1 (Borstenspitze, Graustufen) mit `constant`-Tint der
+   Vanilla-Farbstofffarbe; `none` = neutrale Borsten; `palette` = bunte Spitze (eigene Ebene).
+   Tooltip nennt die naechste Tinte. Registrierung: Fabric ID_MAPPER, NeoForge Event, Forge Mixin.
+4. Textur: Variation des Vanilla-Pinsels (gleiche Form, Elternmodell `minecraft:item/brush` fuer die Haltung),
+   Eisen-Zwinge statt Kupfer, lackierter dunkler Griff, Spitze als getoente Ebene; Palette eigene Pixelart.
+   Generator `tools/textures/color_brush_2026_10_09.py` (liest Vanilla-Pinsel aus dem 26.3-Client-Jar im
+   Gradle-Cache), Vorschau /root/previews/brush/brush-v2.png.
+5. Tests (shared + Fabric-Wrapper + Katalog): Bogen-Reihenfolge, Nebenhand-Vorrang, Kreativ gratis,
+   Palette zufaellig mit festem Seed, leerer Pinsel tut nichts, Zustaende/Inhalte bleiben.
+6. Lang EN/DE, Wiki, Rezept, Kreativreihe, Testzentrale (Reihe color_brush deckt Palette mit ab).
+Risiko: Datagen-Ausgaben von Hand gepflegt -> per runDatagen auf sb-test abgleichen.

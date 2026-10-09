@@ -217,6 +217,8 @@ public final class SimplebuildingNeoForgeClient {
         event.register(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "visible_trim_icons"), TrimIconsModelProperty.PROPERTY_TYPE);
         event.register(com.simplebuilding.client.property.BlueprintStateModelProperty.ID,
                 com.simplebuilding.client.property.BlueprintStateModelProperty.PROPERTY_TYPE);
+        event.register(com.simplebuilding.client.property.BrushInkModelProperty.ID,
+                com.simplebuilding.client.property.BrushInkModelProperty.PROPERTY_TYPE);
     }
 
     /** Messuhr: Nadel auf dem Item (simplebuilding:gauge_needle). */

@@ -521,6 +521,7 @@ public class ModItems {
     public static final Item ENDERITE_HOE = registerItem("enderite_hoe", s -> new Item(s.fireResistant().hoe(ModToolMaterials.ENDERITE, -4.0F, 0.0F)));
 
     public static final Item COLOR_BRUSH = registerItem("color_brush", s -> new ColorBrushItem(s));
+    public static final Item PAINT_PALETTE = registerItem("paint_palette", s -> new com.simplebuilding.items.custom.PaintPaletteItem(s));
 
     // Wands
 

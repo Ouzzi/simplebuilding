@@ -7,16 +7,13 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.ProjectileWeaponItem;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -26,16 +23,19 @@ import com.simplebuilding.util.ModTags;
 import java.util.Optional;
 
 /**
- * Colour brush (concept A, 2026-10-09): loads a dye colour (8 strokes per dye, up to 256) and recolours dyeable blocks
- * in place - wool, carpet, concrete (powder), terracotta, glazed terracotta, glass and panes, candles, beds, banners,
- * shulker boxes and blocks in {@code simplebuilding:dyeable_families} - keeping state and contents. No wood stain:
- * wood families stay out by design. Holding use repeats the stroke like any block use, so sweeping paints.
+ * Colour brush (owner 2026-10-09, round 2): every stroke takes the next dye from the inventory the way a bow finds its
+ * arrows - the other hand first, then the hand holding the brush, then the inventory in vanilla slot order - and
+ * recolours a dyeable block in place: wool, carpet, concrete (powder), terracotta, glazed terracotta, glass and panes,
+ * candles, beds, banners, shulker boxes and blocks in {@code simplebuilding:dyeable_families}, keeping state and
+ * contents. A {@link PaintPaletteItem} with dyes counts as ink too: it gives a random one of its colours per stroke.
+ * No loading, no pipette; creative strokes cost nothing. No wood stain: wood families stay out by design.
  */
 public final class ColorBrushItem extends Item {
-    public static final int MAX_CHARGES = 256;
-    public static final int STROKES_PER_DYE = 8;
-    private static final String COLOR = "Color";
-    private static final String CHARGES = "Charges";
+    public static final int MAX_DURABILITY = 256;
+    /** Model keys of {@link #inkKey}: no ink, or a palette (otherwise the dye colour's name). */
+    public static final String INK_NONE = "none", INK_PALETTE = "palette";
+    /** The client player for the tooltip; set by the client model property, stays null on servers. */
+    public static java.util.function.Supplier<Player> clientPlayer = () -> null;
     private static final DyeColor[] COLORS = {
             DyeColor.WHITE, DyeColor.ORANGE, DyeColor.MAGENTA, DyeColor.LIGHT_BLUE,
             DyeColor.YELLOW, DyeColor.LIME, DyeColor.PINK, DyeColor.GRAY,
@@ -43,48 +43,12 @@ public final class ColorBrushItem extends Item {
             DyeColor.BROWN, DyeColor.GREEN, DyeColor.RED, DyeColor.BLACK
     };
     public ColorBrushItem(Properties properties) {
-        super(properties.durability(MAX_CHARGES));
+        super(properties.durability(MAX_DURABILITY));
     }
 
-    private static int storedCharges(ItemStack stack) {
-        return stack.getOrDefault(net.minecraft.core.component.DataComponents.CUSTOM_DATA,
-                CustomData.EMPTY).copyTag().getIntOr(CHARGES, 0);
-    }
-
-    public static int charges(ItemStack stack) {
-        return storedCharges(stack);
-    }
-
-    private static DyeColor storedColor(ItemStack stack) {
-        int value = stack.getOrDefault(net.minecraft.core.component.DataComponents.CUSTOM_DATA,
-                CustomData.EMPTY).copyTag().getIntOr(COLOR, -1);
-        return value < 0 || value >= COLORS.length ? null : COLORS[value];
-    }
-
-    public static DyeColor color(ItemStack stack) {
-        return storedColor(stack);
-    }
-
-    private static void store(ItemStack stack, DyeColor color, int charges) {
-        CustomData.update(net.minecraft.core.component.DataComponents.CUSTOM_DATA, stack, tag -> {
-            if (color == null || charges <= 0) {
-                tag.remove(COLOR);
-                tag.remove(CHARGES);
-            } else {
-                tag.putInt(COLOR, colorIndex(color));
-                tag.putInt(CHARGES, Math.min(MAX_CHARGES, charges));
-            }
-        });
-    }
-
-    private static int colorIndex(DyeColor color) {
-        for (int i = 0; i < COLORS.length; i++) {
-            if (COLORS[i] == color) return i;
-        }
-        return 0;
-    }
-
-    private static DyeColor dyeColor(ItemStack stack) {
+    /** The colour of a vanilla dye item, or null. */
+    public static DyeColor dyeColor(ItemStack stack) {
+        if (stack.isEmpty()) return null;
         Identifier id = BuiltInRegistries.ITEM.getKey(stack.getItem());
         if (id != null && id.getNamespace().equals("minecraft")) {
             String path = id.getPath();
@@ -95,15 +59,32 @@ public final class ColorBrushItem extends Item {
         return null;
     }
 
-    private static ItemStack findDye(Player player, InteractionHand hand) {
-        ItemStack otherHand = player.getItemInHand(hand == InteractionHand.MAIN_HAND
-                ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND);
-        if (dyeColor(otherHand) != null) return otherHand;
+    /** Ink: a dye, or a colour palette holding at least one dye. */
+    public static boolean isInk(ItemStack stack) {
+        return dyeColor(stack) != null || PaintPaletteItem.hasDyes(stack);
+    }
+
+    /**
+     * The stack the next stroke draws from, found like {@code Player#getProjectile}: hands first (other hand before the
+     * main hand, {@link ProjectileWeaponItem#getHeldProjectile}), then the inventory in slot order. Empty if none.
+     */
+    public static ItemStack nextInk(Player player) {
+        ItemStack held = ProjectileWeaponItem.getHeldProjectile(player, ColorBrushItem::isInk);
+        if (!held.isEmpty()) return held;
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack candidate = player.getInventory().getItem(i);
-            if (dyeColor(candidate) != null && !candidate.isEmpty()) return candidate;
+            if (isInk(candidate)) return candidate;
         }
         return ItemStack.EMPTY;
+    }
+
+    /** {@link #INK_NONE}, {@link #INK_PALETTE} or the next dye's colour name; drives the bristle tip of the model. */
+    public static String inkKey(Player player) {
+        if (player == null) return INK_NONE;
+        ItemStack ink = nextInk(player);
+        if (ink.isEmpty()) return INK_NONE;
+        DyeColor color = dyeColor(ink);
+        return color == null ? INK_PALETTE : color.getName();
     }
 
     @Override
@@ -111,11 +92,13 @@ public final class ColorBrushItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
                                 java.util.function.Consumer<net.minecraft.network.chat.Component> lines,
                                 net.minecraft.world.item.TooltipFlag flag) {
-        DyeColor color = storedColor(stack);
-        if (color != null) {
-            lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.color_brush.loaded",
-                    net.minecraft.network.chat.Component.translatable("color.minecraft." + color.getName()), storedCharges(stack))
-                    .withStyle(net.minecraft.ChatFormatting.GRAY));
+        Player player = clientPlayer.get();
+        if (player != null) {
+            ItemStack ink = nextInk(player);
+            net.minecraft.network.chat.Component next = ink.isEmpty()
+                    ? net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.color_brush.no_ink")
+                    : net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.color_brush.next", ink.getHoverName());
+            lines.accept(next.copy().withStyle(net.minecraft.ChatFormatting.GRAY));
         }
         lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.color_brush")
                 .withStyle(net.minecraft.ChatFormatting.GRAY));
@@ -123,65 +106,30 @@ public final class ColorBrushItem extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        ItemStack brush = player.getItemInHand(hand);
-        if (!player.isShiftKeyDown()) return InteractionResult.PASS;
-        ItemStack dye = findDye(player, hand);
-        if (dye.isEmpty()) return InteractionResult.PASS;
-        DyeColor color = dyeColor(dye);
-        if (!level.isClientSide()) {
-            int existing = storedColor(brush) == color ? storedCharges(brush) : 0;
-            if (existing >= MAX_CHARGES) return InteractionResult.PASS;
-            int dyes = 1;
-            store(brush, color, (storedColor(brush) == color ? storedCharges(brush) : 0)
-                    + dyes * STROKES_PER_DYE);
-            if (!player.getAbilities().instabuild) dye.shrink(dyes);
-            level.playSound(null, player.blockPosition(), SoundEvents.DYE_USE, SoundSource.PLAYERS, 0.8f, 1.0f);
-        }
-        return InteractionResult.SUCCESS;
+    public InteractionResult useOn(UseOnContext context) {
+        return stroke(context, context.getLevel().getRandom());
     }
 
-    @Override
-    public InteractionResult useOn(UseOnContext context) {
+    /** One stroke; {@code random} picks a palette colour (tests pass a seeded one). */
+    public static InteractionResult stroke(UseOnContext context, RandomSource random) {
         Level level = context.getLevel();
         Player player = context.getPlayer();
         if (player == null) return InteractionResult.PASS;
         ItemStack brush = context.getItemInHand();
-        ItemStack other = player.getItemInHand(context.getHand() == InteractionHand.MAIN_HAND
-                ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND);
-        if (player.isShiftKeyDown() && dyeColor(other) != null) {
-            if (!level.isClientSide()) {
-                DyeColor color = dyeColor(other);
-                int existing = storedColor(brush) == color ? storedCharges(brush) : 0;
-                if (existing < MAX_CHARGES) {
-                    store(brush, color, existing + STROKES_PER_DYE);
-                    if (!player.getAbilities().instabuild) other.shrink(1);
-                }
-            }
-            return InteractionResult.SUCCESS;
-        }
-        if (player.isShiftKeyDown() && (other.is(Items.SPONGE) || isWaterBottle(other))) {
-            if (!level.isClientSide()) store(brush, null, 0);
-            return InteractionResult.SUCCESS;
-        }
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
-        DyeColor current = storedColor(brush);
-        if (player.isShiftKeyDown() && current == null) {
-            // Pipette: takes the block's colour; survival pays it with one matching dye from the inventory.
-            DyeColor picked = isDyeablePath(state, BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath())
-                    ? dyeColorForBlock(state) : null;
-            if (picked == null) return InteractionResult.PASS;
-            ItemStack dye = player.getAbilities().instabuild ? ItemStack.EMPTY : findDye(player, picked);
-            if (!player.getAbilities().instabuild && dye.isEmpty()) return InteractionResult.PASS;
-            if (!level.isClientSide()) {
-                store(brush, picked, player.getAbilities().instabuild ? MAX_CHARGES : STROKES_PER_DYE);
-                dye.shrink(1);
-            }
-            return InteractionResult.SUCCESS;
+        if (recolored(state, otherColor(state)) == null) return InteractionResult.PASS;
+        ItemStack ink = nextInk(player);
+        if (ink.isEmpty()) return InteractionResult.PASS;
+        DyeColor blockColor = dyeColorForBlock(state);
+        DyeColor color = dyeColor(ink);
+        int paletteIndex = -1;
+        if (color == null) {
+            paletteIndex = PaintPaletteItem.pickIndex(ink, blockColor, random);
+            if (paletteIndex < 0) return InteractionResult.PASS;
+            color = PaintPaletteItem.colorAt(ink, paletteIndex);
         }
-        if (current == null || storedCharges(brush) <= 0) return InteractionResult.PASS;
-        BlockState replacement = recolored(state, current);
+        BlockState replacement = recolored(state, color);
         if (replacement == null || replacement.equals(state)) return InteractionResult.PASS;
         if (!level.isClientSide()) {
             if (player.isSpectator() || !player.mayBuild() || !level.mayInteract(player, pos)
@@ -191,7 +139,8 @@ public final class ColorBrushItem extends Item {
             }
             paint(level, pos, state, replacement);
             if (!player.getAbilities().instabuild) {
-                store(brush, current, storedCharges(brush) - 1);
+                if (paletteIndex >= 0) PaintPaletteItem.removeOne(ink, paletteIndex);
+                else ink.shrink(1);
                 brush.hurtAndBreak(1, player, context.getHand().asEquipmentSlot());
             }
             level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 0.7f, 1.0f);
@@ -202,13 +151,9 @@ public final class ColorBrushItem extends Item {
         return InteractionResult.SUCCESS;
     }
 
-    /** A matching dye of {@code color} from the inventory, or empty. */
-    private static ItemStack findDye(Player player, DyeColor color) {
-        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-            ItemStack candidate = player.getInventory().getItem(i);
-            if (dyeColor(candidate) == color) return candidate;
-        }
-        return ItemStack.EMPTY;
+    /** Some colour other than the block's own, to ask whether the block belongs to a brush family at all. */
+    private static DyeColor otherColor(BlockState state) {
+        return dyeColorForBlock(state) == DyeColor.WHITE ? DyeColor.BLACK : DyeColor.WHITE;
     }
 
     /**
@@ -299,7 +244,7 @@ public final class ColorBrushItem extends Item {
         };
     }
 
-    private static DyeColor dyeColorForBlock(BlockState state) {
+    static DyeColor dyeColorForBlock(BlockState state) {
         String path = BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath();
         for (DyeColor color : COLORS) {
             if (path.startsWith(color.getName() + "_")) return color;
@@ -307,9 +252,4 @@ public final class ColorBrushItem extends Item {
         return null;
     }
 
-    private static boolean isWaterBottle(ItemStack stack) {
-        return stack.is(Items.POTION)
-                && stack.getOrDefault(net.minecraft.core.component.DataComponents.POTION_CONTENTS,
-                        PotionContents.EMPTY).is(Potions.WATER);
-    }
 }

@@ -107,7 +107,7 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("chisels",
                         ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
                         ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL),
-                CreativeTabLayout.Row.of("color_brush", ModItems.COLOR_BRUSH),
+                CreativeTabLayout.Row.of("color_brush", ModItems.COLOR_BRUSH, ModItems.PAINT_PALETTE),
                 CreativeTabLayout.Row.of("building_wands", buildingWands()),
                 buildingPlanningRow(),
                 CreativeTabLayout.Row.of("sledgehammers",
