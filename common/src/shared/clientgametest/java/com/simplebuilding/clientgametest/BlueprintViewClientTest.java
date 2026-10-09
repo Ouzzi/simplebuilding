@@ -52,7 +52,7 @@ public final class BlueprintViewClientTest {
      * the drag to prove anything. The editor's own test pastes the text {@code stone 2}, which is
      * not valid code and would leave the preview on its empty-view text.
      */
-    private static final String CODE_WITH_MODEL = "stone 0..3,0..3,0..3";
+    private static final String CODE_WITH_MODEL = "stone 0..3,0..3,0..3\noak_planks 0..3,4,0..3\nglass 1..2,1..2,0\n$roof = oak_stairs[facing=north]\n$roof 0..3,5,0";
 
     /** Window pixels the drag travels - large enough that a quarter of it is still visible. */
     private static final double DRAG_PIXELS = 60;
