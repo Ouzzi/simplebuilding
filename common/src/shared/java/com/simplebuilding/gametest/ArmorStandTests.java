@@ -380,7 +380,7 @@ public final class ArmorStandTests {
      * Alte Welten: ein gespeicherter mittlerer Staender (Hose + Stiefel) laedt als kleiner Staender, behaelt die Hose und
      * laesst die Stiefel fallen; ein altes Item {@code medium_armor_stand} wird ein kleiner Staender.
      */
-    public static void anOldMediumStandBecomesASmallStand(GameTestHelper helper) {
+    public static void anOldMediumStandTurnsIntoTheSmallStand(GameTestHelper helper) {
         if (!McVersion.TRAINING_DUMMY) {
             helper.succeed();
             return;

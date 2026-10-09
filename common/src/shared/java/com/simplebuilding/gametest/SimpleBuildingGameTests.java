@@ -760,7 +760,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("armor_stand_game_test_a_dispenser_puts_armor_on_the_small_stand", ArmorStandTests::aDispenserPutsArmorOnTheSmallStand)
                     .build(),
-            GameTestSpec.named("armor_stand_game_test_an_old_medium_stand_becomes_a_small_stand", ArmorStandTests::anOldMediumStandBecomesASmallStand)
+            GameTestSpec.named("armor_stand_game_test_an_old_medium_stand_turns_into_the_small_stand", ArmorStandTests::anOldMediumStandTurnsIntoTheSmallStand)
                     .build(),
             GameTestSpec.named("armor_stand_game_test_the_test_centre_stocks_the_small_stand", ArmorStandTests::theTestCentreStocksTheSmallStand)
                     .build(),

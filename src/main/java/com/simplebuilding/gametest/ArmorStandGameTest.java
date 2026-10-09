@@ -55,8 +55,8 @@ public final class ArmorStandGameTest {
     }
 
     @GameTest
-    public void anOldMediumStandBecomesASmallStand(GameTestHelper helper) {
-        ArmorStandTests.anOldMediumStandBecomesASmallStand(helper);
+    public void anOldMediumStandTurnsIntoTheSmallStand(GameTestHelper helper) {
+        ArmorStandTests.anOldMediumStandTurnsIntoTheSmallStand(helper);
     }
 
     @GameTest
