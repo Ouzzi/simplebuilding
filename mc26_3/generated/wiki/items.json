@@ -54,10 +54,10 @@
     "simplebuilding:construction_light",
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_diamond_block",
-    "simplebuilding:crimson_octet",
     "simplebuilding:cracked_ice",
     "simplebuilding:crimson_blazewood_bookshelf",
     "simplebuilding:crimson_blazewood_planks",
+    "simplebuilding:crimson_octet",
     "simplebuilding:crystalline_astralit",
     "simplebuilding:crystalline_nihilith",
     "simplebuilding:cyan_hammock",
@@ -177,8 +177,8 @@
     "simplebuilding:oak_octet",
     "simplebuilding:orange_hammock",
     "simplebuilding:oxidized_copper_pressure_plate",
-    "simplebuilding:pale_oak_octet",
     "simplebuilding:oxidized_trapped_copper_chest",
+    "simplebuilding:pale_oak_octet",
     "simplebuilding:pink_hammock",
     "simplebuilding:placed_blueprint",
     "simplebuilding:placed_bundle",
@@ -263,9 +263,9 @@
     "simplebuilding:trapped_copper_chest",
     "simplebuilding:veined_astralit",
     "simplebuilding:veined_nihilith",
-    "simplebuilding:warped_octet",
     "simplebuilding:warped_blazewood_bookshelf",
     "simplebuilding:warped_blazewood_planks",
+    "simplebuilding:warped_octet",
     "simplebuilding:waxed_copper_pressure_plate",
     "simplebuilding:waxed_exposed_copper_pressure_plate",
     "simplebuilding:waxed_exposed_trapped_copper_chest",
@@ -282,7 +282,8 @@
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
   "items": [
     {
-      "id": "simplebuilding:acacia_octet"
+      "id": "simplebuilding:acacia_octet",
+      "maxStackSize": 99
     },
     {
       "durability": 640,
@@ -418,13 +419,15 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:bamboo_octet"
+      "id": "simplebuilding:bamboo_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:basic_upgrade_template"
     },
     {
-      "id": "simplebuilding:birch_octet"
+      "id": "simplebuilding:birch_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:black_hammock",
@@ -546,7 +549,8 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:cherry_octet"
+      "id": "simplebuilding:cherry_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:chipped_ceramic_bucket",
@@ -676,13 +680,14 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:crimson_octet"
-    },
-    {
       "id": "simplebuilding:crimson_blazewood_bookshelf"
     },
     {
       "id": "simplebuilding:crimson_blazewood_planks"
+    },
+    {
+      "id": "simplebuilding:crimson_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:crystalline_astralit"
@@ -695,7 +700,8 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:dark_oak_octet"
+      "id": "simplebuilding:dark_oak_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:deepslate_sage_ore"
@@ -1248,7 +1254,8 @@
       "id": "simplebuilding:jukebox_amplifier"
     },
     {
-      "id": "simplebuilding:jungle_octet"
+      "id": "simplebuilding:jungle_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:lapis_chess_bishop",
@@ -1351,13 +1358,8 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:medium_armor_stand",
-      "maxStackSize": 16
-    },
-    {
-      "id": "simplebuilding:mangrove_octet"
-    },
-    {
+      "id": "simplebuilding:mangrove_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:music_disc_brimstone",
@@ -1687,7 +1689,8 @@
       "id": "simplebuilding:note_amplifier"
     },
     {
-      "id": "simplebuilding:oak_octet"
+      "id": "simplebuilding:oak_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:obsidian_chip"
@@ -1809,7 +1812,8 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:pale_oak_octet"
+      "id": "simplebuilding:pale_oak_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:pink_hammock",
@@ -2038,7 +2042,8 @@
       "id": "simplebuilding:polished_nihilith_wall"
     },
     {
-      "id": "simplebuilding:poplar_octet"
+      "id": "simplebuilding:poplar_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:potion_pad",
@@ -2426,7 +2431,8 @@
       "id": "simplebuilding:spider_head"
     },
     {
-      "id": "simplebuilding:spruce_octet"
+      "id": "simplebuilding:spruce_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:stellar_flypad",
@@ -2493,14 +2499,17 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:warped_octet"
+      "id": "simplebuilding:warden_tendril"
     },
     {
       "id": "simplebuilding:warped_blazewood_bookshelf"
     },
     {
-      "id": "simplebuilding:warped_blazewood_planks",
-      "id": "simplebuilding:warden_tendril"
+      "id": "simplebuilding:warped_blazewood_planks"
+    },
+    {
+      "id": "simplebuilding:warped_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:waxed_copper_pressure_plate"
