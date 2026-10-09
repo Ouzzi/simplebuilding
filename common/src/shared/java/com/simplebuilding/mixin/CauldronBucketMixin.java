@@ -26,7 +26,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * Copper and Enderite buckets on the Vanilla cauldron (Crucible P5, owner 33): pour water/lava into an empty
  * cauldron and take a full water/lava cauldron like the iron bucket - the copper bucket still breaks on lava and
- * oxidizes when pouring. Soul lava never goes into a normal cauldron (owner 30: only the reinforced one).
+ * oxidizes when pouring. Soul lava never goes into a normal cauldron (owner 30: only the reinforced one). A full
+ * Enderite bucket pours one of its two buckets, a half one tops up from a full cauldron of its fluid (owner N21).
  */
 @Mixin(AbstractCauldronBlock.class)
 public abstract class CauldronBucketMixin {
@@ -44,6 +45,19 @@ public abstract class CauldronBucketMixin {
                 player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, ModBucketItem.fill(stack, filled)));
                 level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
                 level.playSound(null, pos, take == Fluids.LAVA ? SoundEvents.BUCKET_FILL_LAVA : SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+            }
+            cir.setReturnValue(InteractionResult.SUCCESS);
+            return;
+        }
+        // Owner N21: a half Enderite bucket takes a full cauldron of its own fluid and becomes full.
+        Item fuller = com.simplebuilding.fluid.ModFluids.fullEnderite(bucket);
+        boolean same = content.isSame(Fluids.LAVA) ? state.is(Blocks.LAVA_CAULDRON)
+                : content.isSame(Fluids.WATER) && state.is(Blocks.WATER_CAULDRON) && state.getValue(LayeredCauldronBlock.LEVEL) == 3;
+        if (fuller != null && same) {
+            if (!level.isClientSide()) {
+                player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, ModBucketItem.fill(stack, fuller)));
+                level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+                level.playSound(null, pos, content.isSame(Fluids.LAVA) ? SoundEvents.BUCKET_FILL_LAVA : SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
             cir.setReturnValue(InteractionResult.SUCCESS);
             return;

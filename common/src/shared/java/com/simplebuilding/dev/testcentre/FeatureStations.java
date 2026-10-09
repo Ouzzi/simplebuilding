@@ -624,6 +624,7 @@ public final class FeatureStations {
         chest.add(new ItemStack(ModItems.NETHERITE_NUGGET, 4));
         chest.add(new ItemStack(ModItems.ENDERITE_NUGGET, 4));
         for (Item bucket : com.simplebuilding.fluid.ModFluids.buckets()) { // 6 + 21 Eimer = 27, eine Truhe voll
+            if (com.simplebuilding.fluid.ModFluids.fullEnderiteBuckets().contains(bucket)) continue; // volle: zweimal schoepfen
             chest.add(new ItemStack(bucket));
         }
         c.contents(1, 0, 1, chest);

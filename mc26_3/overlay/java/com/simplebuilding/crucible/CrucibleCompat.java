@@ -200,6 +200,9 @@ public final class CrucibleCompat {
 
         @Override
         public @Nullable ItemStack take(ItemStack held, String content) {
+            // Owner N21: a half Enderite bucket takes one more bucket of its own fluid and becomes full.
+            Item fuller = com.simplebuilding.fluid.ModFluids.fullEnderite(held.getItem());
+            if (fuller != null) return content.equals(pours(held)) ? com.simplebuilding.fluid.ModBucketItem.fill(held, fuller) : null;
             com.simplebuilding.fluid.ModBucketItem.Kind kind;
             if (held.is(net.minecraft.world.item.Items.BUCKET)) kind = com.simplebuilding.fluid.ModBucketItem.Kind.IRON;
             else if (held.getItem() instanceof com.simplebuilding.fluid.ModBucketItem bucket
