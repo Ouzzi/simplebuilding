@@ -79,7 +79,6 @@ public final class SpearDispensing {
             if (target.hurtServer(level, level.damageSources().generic(), damage)) {
                 hit++;
                 target.push(facing.getStepX() * KNOCKBACK, 0.1, facing.getStepZ() * KNOCKBACK);
-                target.hurtMarked = true;
             }
         }
         Vec3 tip = Vec3.atCenterOf(dispenser);

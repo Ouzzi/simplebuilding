@@ -285,7 +285,7 @@ public final class PlaceN24Tests {
         be.setItem(0, new ItemStack(Items.IRON_SPEAR));
         BlockPos front = dispenser.east(2);
         helper.setBlock(front.below(), Blocks.STONE);
-        Pig pig = helper.spawnWithNoFreeWill(EntityType.PIG, front);
+        Pig pig = helper.spawnWithNoFreeWill(net.minecraft.world.entity.EntityTypes.PIG, front);
         float full = pig.getHealth();
         helper.assertTrue(SpearDispensing.thrustDamage(new ItemStack(Items.IRON_SPEAR)) > 1.0F, "the spear has no attack damage");
         helper.setBlock(dispenser.west(), Blocks.REDSTONE_BLOCK);

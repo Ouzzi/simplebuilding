@@ -207,7 +207,7 @@ public class GoatHornHolderBlock extends FaceAttachedHorizontalDirectionalBlock 
             ItemStack out = be.held().copy();
             be.setHeld(ItemStack.EMPTY);
             if (!player.getInventory().add(out)) {
-                player.drop(out, false);
+                com.simplebuilding.version.McVersion.drop(player, out, false, false);
             }
             level.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 0.8F, 1.1F);
             level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
