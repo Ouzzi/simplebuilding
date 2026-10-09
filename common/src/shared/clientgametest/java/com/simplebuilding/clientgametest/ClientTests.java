@@ -98,6 +98,8 @@ public final class ClientTests {
                 new Entry("trim-textures", TrimTextureClientTest::inWorld),
                 // Owner N21/N28 (26.3): half and full Enderite buckets in the inventory; hotbar back empty.
                 new Entry("enderite-buckets", EnderiteBucketClientTest::inWorld),
+                // Owner N11 P7: the Resonance Rod tilt and its amethyst dot.
+                new Entry("resonance-rod", GadgetsClientTest::inWorld),
                 // Six armor stands in one documentary picture (2026-10-09); kills them again.
                 new Entry("armor-stands", ArmorStandClientTest::inWorld));
     }
