@@ -95,7 +95,9 @@ public final class ClientTests {
                 new Entry("piston-textures", PistonTextureClientTest::inWorld),
                 // Reads the stitched items atlas, then shows trimmed armour in the inventory and
                 // puts the hotbar back empty.
-                new Entry("trim-textures", TrimTextureClientTest::inWorld));
+                new Entry("trim-textures", TrimTextureClientTest::inWorld),
+                // Six armor stands in one documentary picture (2026-10-09); kills them again.
+                new Entry("armor-stands", ArmorStandClientTest::inWorld));
     }
 
     /**
