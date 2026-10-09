@@ -1,10 +1,7 @@
 {
   "blocks": [
-<<<<<<< HEAD
     "simplebuilding:acacia_octet",
-=======
     "simplebuilding:aqua_froglight",
->>>>>>> claude-q-blocks
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_piston",
     "simplebuilding:astral_purpur_block",
@@ -24,11 +21,8 @@
     "simplebuilding:astralit_quartz_checker_stairs",
     "simplebuilding:astralit_switch",
     "simplebuilding:auto_smither",
-<<<<<<< HEAD
     "simplebuilding:autonomous_crafter",
-=======
     "simplebuilding:azure_froglight",
->>>>>>> claude-q-blocks
     "simplebuilding:backpack",
     "simplebuilding:bamboo_octet",
     "simplebuilding:birch_octet",
@@ -58,11 +52,8 @@
     "simplebuilding:construction_light",
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_diamond_block",
-<<<<<<< HEAD
     "simplebuilding:crimson_octet",
-=======
     "simplebuilding:cracked_ice",
->>>>>>> claude-q-blocks
     "simplebuilding:crystalline_astralit",
     "simplebuilding:crystalline_nihilith",
     "simplebuilding:cyan_hammock",
@@ -135,12 +126,9 @@
     "simplebuilding:light_gray_hammock",
     "simplebuilding:lime_hammock",
     "simplebuilding:magenta_hammock",
-<<<<<<< HEAD
     "simplebuilding:mangrove_octet",
     "simplebuilding:melon_octet",
-=======
     "simplebuilding:nautilus_shell_block",
->>>>>>> claude-q-blocks
     "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:nether_brick_quartz_checker_slab",
     "simplebuilding:nether_brick_quartz_checker_stairs",
@@ -400,11 +388,10 @@
       "id": "simplebuilding:auto_smither"
     },
     {
-<<<<<<< HEAD
       "id": "simplebuilding:autonomous_crafter"
-=======
+    },
+    {
       "id": "simplebuilding:azure_froglight"
->>>>>>> claude-q-blocks
     },
     {
       "id": "simplebuilding:backpack",
