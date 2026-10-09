@@ -207,45 +207,51 @@ Noch nicht umgesetzt: relative Regionen und Spiegelung.
 
 ## 2. Editor
 
-Benutzen öffnet den Editor (nicht im Baumodus, siehe 4). Ein Kartenblatt, größer als ein Buch
-(bis 560 × 340 GUI-Pixel), kein Blättern:
+Benutzen öffnet den Editor (nicht im Baumodus, siehe 4). Eine **abgelegte** Blaupause
+(Schleichen + Rechtsklick, `placed_blueprint`) öffnet sich per Rechtsklick, wenn keine andere
+Aktion greift: Haupthand leer, Nebenhand kein Block (sonst setzt die Hand wie gewohnt). Gespeichert
+wird dann über `BlueprintEditPayload` mit Blockposition; der Server prüft Block, Reichweite
+(8 Blöcke), `WorldPermissions.mayChange` und Signatur (Queue N23).
 
-- **links** fest stehend die **Materialliste**: Item-Symbol, Menge, Name, größte Menge zuerst;
-  Mausrad rollt, Überfahren zeigt Stapel (`3×64 + 5`). Reine Kreativ-Blöcke rot. **Darunter**, in
-  ihrer Breite: die Maße (`5 × 4 × 5`) mit der Blockzahl daneben, darunter der nötige Baustab als
-  Item-Symbol mit Stufenname (Kupfer, Eisen …) und `Kante / Grenze`, darunter die Leiste
-  „genutzt / frei“ bezogen auf die Grenze dieser Stufe.
-- **Mitte** der **Code**: ein scrollbares Feld mit Bildlaufleiste, Zeilennummern,
-  Syntax-Farben und rot unterstrichenen Fehlern. Die Schrift ist bei GUI-Maßstab ≥ 3 kleiner
-  (3/4 bzw. 2/3, ganzzahlige Pixel). **Direkt darunter** nur der Status in Code-Breite: „Code in
-  Ordnung“ (grün), „Ungültig: Zeile n: …“ (rot, der Fehler unter dem Cursor, sonst der erste) oder
-  „Leer“. **Darunter die Einfüge-Leiste**: Suchfeld für Blöcke (angezeigter Name in der
-  Spielsprache oder ID), Treffer als Symbole; ein Klick wählt einen Treffer aus, erst der Knopf
-  „Einfügen“ setzt den technischen Namen (ID ohne `minecraft:`) an die Cursorposition – nie
-  versehentlich mit einem Klick.
-- **rechts** das **Bauwerk in 3D**: Ziehen dreht frei in jede Richtung (Trackball, auch kopfüber),
-  Mausrad zoomt, Doppelklick setzt zurück. Ist der Code leer, steht dort der Hinweis „Schreib eine
-  Zeile … und das Bauwerk erscheint hier“ und ganz unten der Knopf **„Beispiel einfügen“** (2.2).
-  Oben rechts ein **Buch-Knopf** (wie Vanillas Rezeptbuch) öffnet statt der 3D-Ansicht die
-  **Hilfe** (2.1). **Darunter** bündig „Signieren“ und „Fertig“, zusammen genau so breit wie die
-  Vorschau (signiert: nur „Fertig“ über die ganze Breite).
+Ein Kartenblatt (bis 560 × 340 GUI-Pixel), Geometrie aus `BlueprintEditorLayout` (reine Klasse,
+JUnit `BlueprintEditorLayoutTest`: alles im Blatt, nichts überlappt). Oben die **Überschrift**
+(Titel; signiert: Titel + Autor), darunter drei Bereiche:
+
+- **Materials**: Raster aus Item-Symbol + Menge (größte zuerst; ab 10 000 kurz `12k`/`1.2M`),
+  Name, genaue Menge und Stapel (`3×64 + 5`) im Tooltip, reine Kreativ-Blöcke rot; Mausrad rollt.
+  **Darunter** je eine eigene Zeile `X×Y×Z` und `= n Blöcke` (zu lange Zeilen werden kleiner
+  gezeichnet, nie überlappend), darunter der nötige Baustab als Icon mit **Fortschrittsbalken**
+  bis zur Grenze seiner Stufe (Tooltip: Stab, genutzt/frei). Die Spalte ist so breit wie die
+  längste dieser Zeilen im größten Fall.
+- **Code**: scrollbares Feld mit Bildlaufleiste, Zeilennummern, Syntax-Farben und rot
+  unterstrichenen Fehlern (Schrift bei GUI-Maßstab ≥ 3 kleiner). **Darunter** der Status („Code
+  in Ordnung“ grün, „Ungültig: Zeile n: …“ rot, „Leer“) und in der nächsten Zeile die Zeichenzahl
+  `n / 32000 Zeichen`; **rechtsbündig daneben** der Buch-Knopf (Hilfe, 2.1).
+- **Preview** (breiteste Spalte): das Bauwerk in 3D – Ziehen dreht frei (Trackball), **Strg +
+  Ziehen verschiebt**, Mausrad zoomt, Doppelklick oder das **Reset-Icon** (Kreispfeil oben rechts
+  im Fenster) setzt zurück. Ein Klick auf die freie Vorschau startet den Zug, bevor die Widgets
+  ihn bekommen (nur Knöpfe im Fenster gehen vor). Leerer Code: Hinweis und **„Beispiel
+  einfügen“** (2.2). **Darunter** „Signieren“ und „Fertig“ (signiert: nur „Fertig“).
 - **Signieren** wie beim Buch: Titel (1–32 Zeichen), danach schreibgeschützt; Titel wird zum
   Namen, der Autor steht im Tooltip. Signieren geht nur mit fehlerfreiem, nicht leerem Code.
 - **Autospeichern**: jede Änderung geht 1,5 s nach der letzten Eingabe per `BlueprintEditPayload`
   an den Server, zusätzlich beim Schließen (Esc, „Fertig“, Inventar-Taste, wenn kein Textfeld den
-  Fokus hat) und in `Screen.removed()` – also auch, wenn ein anderer Bildschirm übernimmt, die Welt
-  verlassen oder die Verbindung getrennt wird. Der Server prüft Slot, Item, Signatur, Länge (beim
-  Signieren Titel und Code) und legt den Code **sofort** am Item ab. Ein harter Abbruch (Absturz,
-  Kabel) kostet höchstens die letzten 1,5 s.
+  Fokus hat) und in `Screen.removed()`. Der Server prüft Slot bzw. Position, Item, Signatur,
+  Länge (beim Signieren Titel und Code) und legt den Code **sofort** ab.
 
 ### 2.1 Hilfe
 
-Zwei Reiter: **Anleitung** (Kurzfassung der Bausprache mit Beispielen, dreizehn Absätze – die letzten drei zu Formen,
-Hohl und Variablen –, Mausrad
-rollt) und **Blöcke** (Suchfeld für angezeigten Namen oder ID, Liste mit Symbol, Anzeigename und
-technischem Namen; ein Klick wählt den Block für die Einfüge-Leiste aus). Die Suche ist
-`BlueprintBlockSearch`: exakter Treffer (ID, Pfad oder Name) zuerst, dann Anfang von ID oder
-Name, dann Wortanfang, dann irgendwo enthalten.
+Das Buch nimmt den Platz der Vorschau ein. Zwei Reiter, **Blocks zuerst und Standard**:
+
+- **Blocks**: Textfeld + Knopf **„Einfügen“** daneben; beim Öffnen des Buchs hat das Textfeld den
+  Fokus. Darunter die Treffer (Symbol, Anzeigename, technischer Name). Klick wählt, Doppelklick,
+  Enter oder „Einfügen“ setzt die ID (ohne `minecraft:`) an die Cursorposition im Code; ohne
+  Auswahl nimmt „Einfügen“ den ersten Treffer. Suche: `BlueprintBlockSearch` (exakter Treffer
+  zuerst, dann Anfang von ID/Name, Wortanfang, irgendwo enthalten).
+- **Guide**: vollständige, leicht verständliche Anleitung in sechs Abschnitten (Was eine
+  Blaupause ist, Die ersten Zeilen, Mehr Kontrolle, Formen, Variablen, Der Editor), Mausrad rollt;
+  ganz unten fest **„Text kopieren“**: legt die ganze Anleitung als Text (Markdown-Überschriften)
+  in die Zwischenablage, z. B. für Fragen an eine KI.
 
 ### 2.2 Beispiele
 
