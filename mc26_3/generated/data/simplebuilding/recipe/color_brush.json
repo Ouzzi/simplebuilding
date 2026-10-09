@@ -1,15 +1,10 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "equipment",
-  "key": {
-    "F": "minecraft:feather",
-    "S": "minecraft:stick",
-    "W": "#minecraft:wool"
-  },
-  "pattern": [
-    " W",
-    "SF",
-    "S "
+  "ingredients": [
+    "minecraft:brush",
+    "minecraft:gold_nugget",
+    "minecraft:feather"
   ],
   "result": {
     "id": "simplebuilding:color_brush"

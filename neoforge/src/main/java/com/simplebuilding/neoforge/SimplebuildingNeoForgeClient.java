@@ -246,6 +246,7 @@ public final class SimplebuildingNeoForgeClient {
         event.register(com.simplebuilding.items.tooltip.BlueprintTooltipData.class, com.simplebuilding.client.blueprint.BlueprintTooltip::create);
         event.register(com.simplebuilding.items.tooltip.GuideTooltipData.class, com.simplebuilding.client.gui.tooltip.GuideTooltip::create);
         event.register(com.simplebuilding.items.tooltip.BackpackTooltipData.class, com.simplebuilding.client.gui.tooltip.BackpackTooltip::create);
+        event.register(com.simplebuilding.items.tooltip.PaintBoxTooltipData.class, com.simplebuilding.client.gui.tooltip.PaintBoxTooltip::create);
     }
 
     private void onPlayerLogin(ClientPlayerNetworkEvent.LoggingIn event) {

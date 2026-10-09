@@ -192,6 +192,9 @@ public class SimplebuildingClient implements ClientModInitializer {
             if (data instanceof com.simplebuilding.items.tooltip.BlueprintTooltipData blueprintData) {
                 return com.simplebuilding.client.blueprint.BlueprintTooltip.create(blueprintData);
             }
+            if (data instanceof com.simplebuilding.items.tooltip.PaintBoxTooltipData paintBox) {
+                return com.simplebuilding.client.gui.tooltip.PaintBoxTooltip.create(paintBox);
+            }
             if (data instanceof com.simplebuilding.items.tooltip.BackpackTooltipData backpackData) {
                 return com.simplebuilding.client.gui.tooltip.BackpackTooltip.create(backpackData);
             }

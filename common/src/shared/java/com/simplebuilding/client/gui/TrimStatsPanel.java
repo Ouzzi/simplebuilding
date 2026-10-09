@@ -28,7 +28,7 @@ public final class TrimStatsPanel {
     /** Rahmen des Rezeptbuch-Knopfs ohne Buch, Nine-Slice (tools/textures/resonance_heart_2026_10_09.py). */
     private static final Identifier PANEL_SPRITE = Identifier.fromNamespaceAndPath("simplebuilding", "resonance_field");
     private static final Identifier PANEL_SPRITE_HIGHLIGHTED = Identifier.fromNamespaceAndPath("simplebuilding", "resonance_field_highlighted");
-    /** Vanilla-Herzform in Steingrau (9x9, tools/textures/resonance_heart_2026_10_09.py). */
+    /** Herz mit Bruchstein-Struktur (10x9, tools/textures/resonance_heart_2026_10_09.py). */
     private static final Identifier HEART_SPRITE = Identifier.fromNamespaceAndPath("simplebuilding", "resonance_heart");
     /** Rezeptbuch-Knopf des Vanilla-Inventars relativ zu leftPos/topPos (x 104, height / 2 - 22 = 61 bei 166 Hoehe). */
     public static final int BOOK_X = 104, BOOK_Y = 61;
@@ -64,7 +64,7 @@ public final class TrimStatsPanel {
         context.blitSprite(RenderPipelines.GUI_TEXTURED, hovered ? PANEL_SPRITE_HIGHLIGHTED : PANEL_SPRITE,
                 panel.x(), panel.y(), panel.width(), panel.height());
         context.blitSprite(RenderPipelines.GUI_TEXTURED, HEART_SPRITE, panel.iconX(), panel.iconY(),
-                TrimStatsLayout.ICON_SIZE, TrimStatsLayout.ICON_SIZE);
+                TrimStatsLayout.ICON_WIDTH, TrimStatsLayout.ICON_HEIGHT);
         // Dunkelgrau ohne Schatten wie die Vanilla-Beschriftung "Crafting" daneben: auf #C6C6C6 klar lesbar
         // (Weiss mit Schatten war im Client-Screenshot zu blass).
         context.text(font, Component.literal(text), panel.textX(), panel.textY(), 0xFF404040, false);

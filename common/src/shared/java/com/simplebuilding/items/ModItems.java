@@ -521,7 +521,11 @@ public class ModItems {
     public static final Item ENDERITE_HOE = registerItem("enderite_hoe", s -> new Item(s.fireResistant().hoe(ModToolMaterials.ENDERITE, -4.0F, 0.0F)));
 
     public static final Item COLOR_BRUSH = registerItem("color_brush", s -> new ColorBrushItem(s));
-    public static final Item PAINT_PALETTE = registerItem("paint_palette", s -> new com.simplebuilding.items.custom.PaintPaletteItem(s));
+    // Farbkasten (Besitzer 2026-10-09): je Farbe ein Stapel mal Stufenfaktor 1/2/4/8, Seltenheiten wie die Buendel.
+    public static final Item PAINT_BOX = registerItem("paint_box", s -> new com.simplebuilding.items.custom.PaintBoxItem(s, 1));
+    public static final Item REINFORCED_PAINT_BOX = registerItem("reinforced_paint_box", s -> new com.simplebuilding.items.custom.PaintBoxItem(s, 2));
+    public static final Item NETHERITE_PAINT_BOX = registerItem("netherite_paint_box", s -> new com.simplebuilding.items.custom.PaintBoxItem(s.fireResistant().rarity(UNCOMMON), 4));
+    public static final Item ENDERITE_PAINT_BOX = registerItem("enderite_paint_box", s -> new com.simplebuilding.items.custom.PaintBoxItem(s.fireResistant().rarity(Rarity.EPIC), 8));
 
     // Wands
 

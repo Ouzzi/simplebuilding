@@ -30,7 +30,7 @@ import net.minecraft.world.item.crafting.TransmuteRecipe;
  * ({@link TransmuteRecipe#createWithOriginalComponents}).
  *
  * <p>Der Behaelter ist die erste Zutat im Raster, die ein {@link BundleItem} ist - der
- * {@code QuiverItem} ist ueber {@code ReinforcedBundleItem} auch eines; Faden, Lederplatte,
+ * {@code QuiverItem} ist ueber {@code ReinforcedBundleItem} auch eines, der Farbkasten (2026-10-09) zaehlt ebenso; Faden, Lederplatte,
  * Diamantkiesel und Kupfer-Nugget sind es nicht.
  */
 public class ReinforcedBundleRecipe extends ShapedRecipe {
@@ -87,7 +87,7 @@ public class ReinforcedBundleRecipe extends ShapedRecipe {
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
 
-            if (stack.getItem() instanceof BundleItem) {
+            if (stack.getItem() instanceof BundleItem || stack.getItem() instanceof com.simplebuilding.items.custom.PaintBoxItem) {
                 return TransmuteRecipe.createWithOriginalComponents(this.result, stack);
             }
         }

@@ -72,13 +72,18 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // WICHTIG: Registry Zugriff für Tags vorbereiten (für 1.21.2+)
                 // ---------------------------------------------------------
                 HolderGetter<Item> itemRegistry = items();
-                shaped(RecipeCategory.TOOLS, ModItems.COLOR_BRUSH)
-                        .pattern(" W").pattern("SF").pattern("S ")
-                        .define('W', ItemTags.WOOL).define('S', Items.STICK).define('F', Items.FEATHER)
-                        .unlockedBy(getHasName(Items.FEATHER), has(Items.FEATHER))
+                // Farbpinsel = verstaerkter Pinsel (Besitzer 2026-10-09, Runde 3): Vanilla-Pinsel + Goldnugget + Feder.
+                shapeless(RecipeCategory.TOOLS, ModItems.COLOR_BRUSH)
+                        .requires(Items.BRUSH).requires(Items.GOLD_NUGGET).requires(Items.FEATHER)
+                        .unlockedBy(getHasName(Items.BRUSH), has(Items.BRUSH))
                         .save(output);
-                // Malerpalette: Rot, Gelb, Blau ueber drei Holzbrettern (nimmt dann nur Farbstoffe auf).
-                shaped(RecipeCategory.TOOLS, ModItems.PAINT_PALETTE)
+                // Farbkasten: Rot, Gelb, Blau ueber drei Holzbrettern (nimmt dann nur Farbstoffe auf). Stufen wie das
+                // Buendel: Verstaerkt an der Werkbank (behaelt den Inhalt), Netherit und Enderit am Schmiedetisch.
+                createContainerUpgrade(ModItems.REINFORCED_PAINT_BOX, ModItems.PAINT_BOX,
+                        // Volles Raster: die Buendel-Aufwertung kann keine leeren Felder ueber das Netz schicken.
+                        Map.of('D', ModItems.DIAMOND_PEBBLE, 'N', Items.GOLD_NUGGET, 'B', ModItems.PAINT_BOX), "NDN", "DBD", "NDN");
+                createSmithing(ModItems.REINFORCED_PAINT_BOX, ModItems.NETHERITE_PAINT_BOX, RecipeCategory.TOOLS);
+                shaped(RecipeCategory.TOOLS, ModItems.PAINT_BOX)
                         .pattern("RYB").pattern("PPP")
                         .define('R', getDyeItem(DyeColor.RED)).define('Y', getDyeItem(DyeColor.YELLOW)).define('B', getDyeItem(DyeColor.BLUE))
                         .define('P', ItemTags.PLANKS)
@@ -1160,6 +1165,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // --- ENDERITE ITEMS (Smithing Upgrades) ---
                 // Bundle
                 createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_BUNDLE);
+                createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_PAINT_BOX, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_PAINT_BOX);
                 // Quiver
                 createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_QUIVER);
             }

@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplebuilding:item/paint_palette"
+    "model": "simplebuilding:item/paint_box"
   }
 }

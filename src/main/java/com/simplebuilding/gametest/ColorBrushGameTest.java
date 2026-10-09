@@ -21,13 +21,28 @@ public final class ColorBrushGameTest {
     }
 
     @GameTest
-    public void paletteIsRandom(GameTestHelper helper) {
-        ColorBrushTests.paletteIsRandom(helper);
+    public void paintBoxIsRandom(GameTestHelper helper) {
+        ColorBrushTests.paintBoxIsRandom(helper);
     }
 
     @GameTest
-    public void paletteTakesOnlyDyes(GameTestHelper helper) {
-        ColorBrushTests.paletteTakesOnlyDyes(helper);
+    public void paintBoxHoldsOneStackPerColourPerTier(GameTestHelper helper) {
+        ColorBrushTests.paintBoxHoldsOneStackPerColourPerTier(helper);
+    }
+
+    @GameTest
+    public void paintBoxScrollSelection(GameTestHelper helper) {
+        ColorBrushTests.paintBoxScrollSelection(helper);
+    }
+
+    @GameTest
+    public void recipesMakeTheBrushAndUpgradeTheBox(GameTestHelper helper) {
+        ColorBrushTests.recipesMakeTheBrushAndUpgradeTheBox(helper);
+    }
+
+    @GameTest(maxTicks = ColorBrushTests.BRUSHING_MAX_TICKS)
+    public void brushesSuspiciousSandLikeTheVanillaBrush(GameTestHelper helper) {
+        ColorBrushTests.brushesSuspiciousSandLikeTheVanillaBrush(helper);
     }
 
     @GameTest

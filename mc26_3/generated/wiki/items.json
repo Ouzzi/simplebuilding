@@ -894,6 +894,10 @@
       "id": "simplebuilding:enderite_nugget"
     },
     {
+      "id": "simplebuilding:enderite_paint_box",
+      "maxStackSize": 1
+    },
+    {
       "attackDamage": 7.0,
       "attackSpeed": 1.2,
       "durability": 2530,
@@ -1377,6 +1381,10 @@
       "id": "simplebuilding:netherite_nugget"
     },
     {
+      "id": "simplebuilding:netherite_paint_box",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:netherite_piston"
     },
     {
@@ -1643,7 +1651,7 @@
       "id": "simplebuilding:oxidized_copper_pressure_plate"
     },
     {
-      "id": "simplebuilding:paint_palette",
+      "id": "simplebuilding:paint_box",
       "maxStackSize": 1
     },
     {
@@ -2095,6 +2103,10 @@
     },
     {
       "id": "simplebuilding:reinforced_hopper"
+    },
+    {
+      "id": "simplebuilding:reinforced_paint_box",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:reinforced_piston"

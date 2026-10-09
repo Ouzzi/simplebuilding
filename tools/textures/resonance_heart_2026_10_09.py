@@ -1,7 +1,7 @@
 """Resonance field beside the recipe book (inventory), round 2 (owner 2026-10-09): vanilla style.
 
 Writes three GUI sprites:
-- resonance_heart.png: 9x9, the vanilla heart shape (hud/heart container + full) in stone grey with a dark outline.
+- resonance_heart.png: 10x9 heart with cobblestone inside (round 3) and a dark outline.
 - resonance_field.png / resonance_field_highlighted.png: the frame of the vanilla recipe-book button (20x18, rounded
   1 px black outline, white bevel top/left, dark bevel bottom/right, fill #C6C6C6; the highlighted one in the blue
   hover colours) without the book, as nine-slice sprites (border 3) so the field can grow with its text.
@@ -12,23 +12,24 @@ import json
 from pathlib import Path
 from PIL import Image
 
+# Round 3 (owner 2026-10-09): 10x9 and really stony - cobblestone inside (light stones, dark mortar), dark outline.
 HEART = [
-    "..##.##..",
-    ".#ll#mm#.",
-    "#lwmmmmm#",
-    "#mmmmmmm#",
-    "#dmmmmmd#",
-    ".#dmmmd#.",
-    "..#dmd#..",
-    "...#d#...",
-    "....#....",
+    ".###..###.",
+    "#wlm##llm#",
+    "#lmdlwdmd#",
+    "#ddmllmdm#",
+    "#lwdddlld#",
+    ".#mlmdmd#.",
+    "..#dllm#..",
+    "...#md#...",
+    "....##....",
 ]
-HEART_COLOURS = {  # stone: dark outline, glint, light, mid stone, shadow
-    "#": (0x20, 0x20, 0x20, 255),
-    "w": (0xF0, 0xF0, 0xF0, 255),
-    "l": (0xC8, 0xC8, 0xC8, 255),
-    "m": (0x8E, 0x8E, 0x8E, 255),
-    "d": (0x5E, 0x5E, 0x5E, 255),
+HEART_COLOURS = {  # cobblestone greys: dark outline, top light, light stone, mid stone, mortar
+    "#": (0x1E, 0x1E, 0x1E, 255),
+    "w": (0xBE, 0xBE, 0xBE, 255),
+    "l": (0x9C, 0x9C, 0x9C, 255),
+    "m": (0x7A, 0x7A, 0x7A, 255),
+    "d": (0x52, 0x52, 0x52, 255),
 }
 FIELD = [
     "..oooooooooooooooo..",

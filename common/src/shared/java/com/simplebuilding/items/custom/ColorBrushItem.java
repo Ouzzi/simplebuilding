@@ -23,16 +23,19 @@ import com.simplebuilding.util.ModTags;
 import java.util.Optional;
 
 /**
- * Colour brush (owner 2026-10-09, round 2): every stroke takes the next dye from the inventory the way a bow finds its
+ * Colour brush (owner 2026-10-09): a reinforced vanilla brush. Round 3: it is a {@link BrushItem} - without a dye it
+ * brushes like the vanilla one (suspicious sand and gravel, dust on other blocks). Conflict rule: on a brushable block
+ * it always brushes, even with dyes in the inventory; elsewhere a stroke paints when there is ink, the block is
+ * dyeable and gets another colour; otherwise it brushes like the vanilla brush. Round 2: every stroke takes the next dye from the inventory the way a bow finds its
  * arrows - the other hand first, then the hand holding the brush, then the inventory in vanilla slot order - and
  * recolours a dyeable block in place: wool, carpet, concrete (powder), terracotta, glazed terracotta, glass and panes,
  * candles, beds, banners, shulker boxes and blocks in {@code simplebuilding:dyeable_families}, keeping state and
- * contents. A {@link PaintPaletteItem} with dyes counts as ink too: it gives a random one of its colours per stroke.
+ * contents. A {@link PaintBoxItem} with dyes counts as ink too: it gives a random one of its colours per stroke.
  * No loading, no pipette; creative strokes cost nothing. No wood stain: wood families stay out by design.
  */
-public final class ColorBrushItem extends Item {
+public final class ColorBrushItem extends net.minecraft.world.item.BrushItem {
     public static final int MAX_DURABILITY = 256;
-    /** Model keys of {@link #inkKey}: no ink, or a palette (otherwise the dye colour's name). */
+    /** Model keys of {@link #inkKey}: no ink, or a paint box (rainbow tip; otherwise the dye colour's name). */
     public static final String INK_NONE = "none", INK_PALETTE = "palette";
     /** The client player for the tooltip; set by the client model property, stays null on servers. */
     public static java.util.function.Supplier<Player> clientPlayer = () -> null;
@@ -61,7 +64,7 @@ public final class ColorBrushItem extends Item {
 
     /** Ink: a dye, or a colour palette holding at least one dye. */
     public static boolean isInk(ItemStack stack) {
-        return dyeColor(stack) != null || PaintPaletteItem.hasDyes(stack);
+        return dyeColor(stack) != null || PaintBoxItem.hasDyes(stack);
     }
 
     /**
@@ -107,10 +110,20 @@ public final class ColorBrushItem extends Item {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        return stroke(context, context.getLevel().getRandom());
+        BlockState state = context.getLevel().getBlockState(context.getClickedPos());
+        if (!isBrushable(state)) {
+            InteractionResult painted = stroke(context, context.getLevel().getRandom());
+            if (painted != InteractionResult.PASS) return painted;
+        }
+        return super.useOn(context); // vanilla brushing
     }
 
-    /** One stroke; {@code random} picks a palette colour (tests pass a seeded one). */
+    /** Suspicious sand, suspicious gravel and every other {@link net.minecraft.world.level.block.BrushableBlock}. */
+    public static boolean isBrushable(BlockState state) {
+        return state.getBlock() instanceof net.minecraft.world.level.block.BrushableBlock;
+    }
+
+    /** One paint stroke, PASS when nothing is painted; {@code random} picks a box colour (tests pass a seeded one). */
     public static InteractionResult stroke(UseOnContext context, RandomSource random) {
         Level level = context.getLevel();
         Player player = context.getPlayer();
@@ -123,11 +136,10 @@ public final class ColorBrushItem extends Item {
         if (ink.isEmpty()) return InteractionResult.PASS;
         DyeColor blockColor = dyeColorForBlock(state);
         DyeColor color = dyeColor(ink);
-        int paletteIndex = -1;
-        if (color == null) {
-            paletteIndex = PaintPaletteItem.pickIndex(ink, blockColor, random);
-            if (paletteIndex < 0) return InteractionResult.PASS;
-            color = PaintPaletteItem.colorAt(ink, paletteIndex);
+        boolean fromBox = color == null;
+        if (fromBox) {
+            color = PaintBoxItem.pickColor(ink, blockColor, random);
+            if (color == null) return InteractionResult.PASS;
         }
         BlockState replacement = recolored(state, color);
         if (replacement == null || replacement.equals(state)) return InteractionResult.PASS;
@@ -139,7 +151,7 @@ public final class ColorBrushItem extends Item {
             }
             paint(level, pos, state, replacement);
             if (!player.getAbilities().instabuild) {
-                if (paletteIndex >= 0) PaintPaletteItem.removeOne(ink, paletteIndex);
+                if (fromBox) PaintBoxItem.removeOne(ink, color);
                 else ink.shrink(1);
                 brush.hurtAndBreak(1, player, context.getHand().asEquipmentSlot());
             }

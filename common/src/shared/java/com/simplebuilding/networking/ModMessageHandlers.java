@@ -87,6 +87,9 @@ public final class ModMessageHandlers {
             Slot slot = player.containerMenu.getSlot(slotId);
             if (slot != null && slot.hasItem() && slot.getItem().getItem() instanceof ReinforcedBundleItem) {
                 ReinforcedBundleItem.setBundleSelectedItem(slot.getItem(), payload.selectedIndex());
+            } else if (slot != null && slot.hasItem() && slot.getItem().getItem() instanceof com.simplebuilding.items.custom.PaintBoxItem) {
+                // Farbkasten (2026-10-09): dasselbe Paket waehlt die vorn liegende Farbe.
+                com.simplebuilding.items.custom.PaintBoxItem.select(slot.getItem(), payload.selectedIndex());
             }
         }
     }

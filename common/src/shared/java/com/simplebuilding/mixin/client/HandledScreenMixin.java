@@ -34,6 +34,7 @@ public abstract class HandledScreenMixin extends Screen {
     private void simplebuilding$addCustomBundleHandler(CallbackInfo ci) {
         if (this.minecraft != null) {
             this.addItemSlotMouseAction(new ReinforcedBundleTooltipSubmenuHandler(this.minecraft));
+            this.addItemSlotMouseAction(new com.simplebuilding.client.gui.tooltip.PaintBoxMouseAction(this.minecraft));
         }
     }
 

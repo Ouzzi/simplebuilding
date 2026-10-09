@@ -91,6 +91,12 @@ public class ModDataComponentTypes {
                     .networkSynchronized(ContainerCounts.STREAM_CODEC));
 
 
+    // Farbkasten (Besitzer 2026-10-09): Farbstoff-Anzahl je Farbe und die vorn gewaehlte Farbe.
+    public static final DataComponentType<PaintBoxContents> PAINT_BOX =
+            register("paint_box", builder -> builder
+                    .persistent(PaintBoxContents.CODEC)
+                    .networkSynchronized(PaintBoxContents.STREAM_CODEC));
+
     private static <T> DataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name), (builderOperator.apply(DataComponentType.builder())).build());
     }

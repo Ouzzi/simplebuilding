@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "simplebuilding:item/paint_palette"
+    "layer0": "simplebuilding:item/netherite_paint_box"
   }
 }

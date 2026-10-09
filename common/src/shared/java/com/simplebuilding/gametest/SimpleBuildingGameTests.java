@@ -87,10 +87,16 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("color_brush_game_test_creative_uses_nothing", ColorBrushTests::creativeUsesNothing)
                     .build(),
-            GameTestSpec.named("color_brush_game_test_palette_is_random", ColorBrushTests::paletteIsRandom)
+            GameTestSpec.named("color_brush_game_test_paint_box_is_random", ColorBrushTests::paintBoxIsRandom)
                     .build(),
-            GameTestSpec.named("color_brush_game_test_palette_takes_only_dyes", ColorBrushTests::paletteTakesOnlyDyes)
+            GameTestSpec.named("color_brush_game_test_paint_box_holds_one_stack_per_colour_per_tier", ColorBrushTests::paintBoxHoldsOneStackPerColourPerTier)
                     .build(),
+            GameTestSpec.named("color_brush_game_test_paint_box_scroll_selection", ColorBrushTests::paintBoxScrollSelection)
+                    .build(),
+            GameTestSpec.named("color_brush_game_test_recipes_make_the_brush_and_upgrade_the_box", ColorBrushTests::recipesMakeTheBrushAndUpgradeTheBox)
+                    .build(),
+            GameTestSpec.named("color_brush_game_test_brushes_suspicious_sand_like_the_vanilla_brush", ColorBrushTests::brushesSuspiciousSandLikeTheVanillaBrush)
+                    .maxTicks(ColorBrushTests.BRUSHING_MAX_TICKS).build(),
             GameTestSpec.named("color_brush_game_test_paints_concrete_and_preserves_glass_pane_state", ColorBrushTests::paintsConcreteAndPreservesGlassPaneState)
                     .build(),
             GameTestSpec.named("color_brush_game_test_keeps_contents_and_bed_halves_but_leaves_wood", ColorBrushTests::keepsContentsAndBedHalvesButLeavesWood)
