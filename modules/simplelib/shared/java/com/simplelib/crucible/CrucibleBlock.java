@@ -91,12 +91,16 @@ public class CrucibleBlock extends Block implements EntityBlock {
         return COLLISION;
     }
 
-    /** Owner tweaks P6: standing in an open high-heat crucible burns like a magma block (server, living, no sneak). */
+    /**
+     * Owner tweaks P6: standing in an open high-heat crucible burns like a magma block (server, living, no sneak);
+     * the damage is the server option {@code crucibleBurnDamage} (default 1, 0 = off).
+     */
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
         if (!level.isClientSide() && entity instanceof LivingEntity living && !living.isSteppingCarefully()
+                && com.simplelib.config.LibConfig.crucibleBurnDamage > 0
                 && level.getBlockEntity(pos) instanceof CrucibleBlockEntity be && be.heat().atLeast(HeatLevel.HIGH)) {
-            entity.hurt(level.damageSources().hotFloor(), 1.0F);
+            entity.hurt(level.damageSources().hotFloor(), (float) com.simplelib.config.LibConfig.crucibleBurnDamage);
         }
         super.stepOn(level, pos, state, entity);
     }

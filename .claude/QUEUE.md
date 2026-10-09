@@ -382,7 +382,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 11 (Besitzer 2026-10-06, Screenshots images/16–19)
 - [x] Seelenbrand: Dauer verdoppeln; sichtbarer Statuseffekt (leichter Blau-/Dunkelfilter); auf Kaltem (Eis, Schnee, Wasser …) Schaden im halben Intervall. (Audit 09.10.: claude-oc-tweaks11 2e67933c2 (N11 P1))
 - [x] Magnet: höhere Reichweite. (Audit 09.10.: 9d313e818 (N11 P2))
-- [x] Vorschlaghammer + Besatz-Interaktion: Rechtsklick wie alle In-World-Umwandlungen; alle In-World-Umwandlungen auf Konsistenz prüfen. (Audit 09.10.: claude-hammer12 5db8a809a; Inventur docs/ai/INWORLD-UMWANDLUNGEN-2026-10-06.md)
+- [x] Vorschlaghammer + Besatz-Interaktion: Rechtsklick wie alle In-World-Umwandlungen; alle In-World-Umwandlungen auf Konsistenz prüfen. (Audit 09.10.: claude-hammer12 5db8a809a; Inventur docs/ai/INWORLD-UMWANDLUNGEN-2026-10-06.md),
+- [x] Seelenbrand: Dauer verdoppeln; sichtbarer Statuseffekt (leichter Blau-/Dunkelfilter); auf Kaltem (Eis, Schnee, Wasser …) Schaden im halben Intervall. – 120 s, Filter `SoulBurnOverlay`, kalter Grund = Wurf alle 1,5 s (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
+- [x] Magnet: höhere Reichweite. – Basis 4, +2 je Reichweite, Deckel 9, platziert 8 (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
+- [ ] Vorschlaghammer + Besatz-Interaktion: Rechtsklick wie alle In-World-Umwandlungen; alle In-World-Umwandlungen auf Konsistenz prüfen.
 - [x] Crucible-UI scannen und verbessern: v2 zentriert, Hitze/Feuer eingelassen + Tooltip, Fass-Platzhalter; Vorschau `previews/crucible-ui-v2-vorschau.png` (Branch `claude-crucible4`, Plan `docs/ai/PLAN-CRUCIBLE-N11-2026-10-06.md`; Client-Abnahme offen).
 - [x] Crucible↔Kupfer-Fass-Verbindung (Risse je Schlag, Flansch+Rinne, 9 Felder/Rest droppt, Tiegel-UI, Abbau beider Seiten) (Branch `claude-crucible4`, Plan `docs/ai/PLAN-CRUCIBLE-N11-2026-10-06.md`; Client-Abnahme offen): Zerstörungs-Indikatoren beim Anbringen, neues verbundenes Modell, verbundenes Fass nur 9 Felder und öffnet die Crucible-UI; Abbau Fass → Inhalt droppt, Fass wird normal (analog Crucible).
 - [ ] simplelib-Elemente (Kessel usw.) immer in die Kreativtabs der jeweiligen Mods verteilen.
@@ -394,7 +397,13 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Andere Mods an SimpleBuilding-Stil angleichen (sauber, einheitlich). (teilweise: Mod-UIs im Container-Stil (simplecontainers G4 d5ec6b840); Stil-Audit der Module fehlt)
 - [x] Verstärkter Kessel erbt vom Kessel (alle Funktionen inkl. Milch). (Audit 09.10.: Duplikat, erledigt claude-crucible4 (unten))
 - [x] Milchkessel-JEI/Jade fixen (images/18: „Empty 1B“). (Audit 09.10.: Duplikat, erledigt claude-crucible4 (unten))
-- [x] Netherit-Fass fehlt. (Audit 09.10.: Duplikat, erledigt claude-crucible4 (unten))
+- [x] Netherit-Fass fehlt. (Audit 09.10.: Duplikat, erledigt claude-crucible4 (unten)),
+- [x] Raw-Enderite-Scrap-Rezept: 4 Fragmente statt 3. – formlos 4 Rohenderit; Leitfaden-/Erfolgstexte nachgezogen (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
+- [x] Kessel-In-World-Umwandlung in JEI (Kategorie `cauldron_world`); Bild 17 = verstärkter Kessel als flache Seitentextur → 2D-Item-Sprite; verstärktes Fass zusätzlich heller wie Truhe (Branch `claude-crucible4`, Plan `docs/ai/PLAN-CRUCIBLE-N11-2026-10-06.md`; Client-Abnahme offen).
+- [ ] Andere Mods an SimpleBuilding-Stil angleichen (sauber, einheitlich).
+- [x] Verstärkter Kessel erbt vom Kessel (alle Funktionen inkl. Milch). – Duplikat, siehe `claude-crucible4` unten (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
+- [x] Milchkessel-JEI/Jade fixen (images/18: „Empty 1B“). – Duplikat, siehe `claude-crucible4` unten (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
+- [x] Netherit-Fass fehlt. – Duplikat, siehe `claude-crucible4` unten; Vorschau previews/gadgets (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
 - [x] Eimer mit Seelen-Lava vanilla-näher; Enderit-Eimer: Eimer/Glimmern animieren, nicht den Inhalt (images/19). → `claude-tex7`.
 - [x] Verstärkter Kessel erbt vom Kessel (Vanilla-Interaktionstabellen, Stufen, Regen/Tropfstein, Milch → verstärkter Milchkessel) (Branch `claude-crucible4`, Plan `docs/ai/PLAN-CRUCIBLE-N11-2026-10-06.md`; Client-Abnahme offen).
 - [x] Milchkessel-JEI/Jade fixen (Fluid-Zeile entfernt, Topic `cauldron`: Inhalt/Reife/Füllstand; nur mit SB, Restzeit ohne Server-Daten nicht möglich) (Branch `claude-crucible4`, Plan `docs/ai/PLAN-CRUCIBLE-N11-2026-10-06.md`; Client-Abnahme offen).
@@ -405,7 +414,14 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Elytra-Pad drei Stufen: 5 / 32 (Netherit) / 128 (Enderit, Höhe ggf. 1,5×128). (Audit 09.10.: 0db3f38cc (N11 P4))
 - [x] Trank-Pad etwas buffen. (Audit 09.10.: af35d7f6c (N11 P5))
 - [x] Kreativ-Abstandshalter nur wo nötig, Lücken größtenteils schließen. (Audit 09.10.: 45f36c970 (N11 P8), ersetzt durch N22 ff143698a)
-- [x] Crucible betretbar; ab hoher Hitze Schaden wie Magma. (Audit 09.10.: 5dea165f4 (N11 P6))
+- [x] Crucible betretbar; ab hoher Hitze Schaden wie Magma. (Audit 09.10.: 5dea165f4 (N11 P6)),
+- [ ] TODO mit Rückfrage später: Blaupause überarbeiten.
+- [x] Resonanzstab: bei Nutzung weiter nach vorne neigen (Laser aus der Spitze), Laser amethystfarben. – Neigung −60°, Punkt #B38EF3, alte Datei mit Rot wechselt (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
+- [x] Kern-Items: Schimmer-Animation. → `claude-tex7`.
+- [x] Elytra-Pad drei Stufen: 5 / 32 (Netherit) / 128 (Enderit, Höhe ggf. 1,5×128). – 5×5×5 / 32×32×32 / 128×128×192, alte Pads migrieren (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
+- [x] Trank-Pad etwas buffen. – Wirkdauer 45/90/180 s (statt 30/60/120), Abklingfaktor 1,5 (statt 2) (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
+- [ ] Kreativ-Abstandshalter nur wo nötig, Lücken größtenteils schließen.
+- [x] Crucible betretbar; ab hoher Hitze Schaden wie Magma. – Kollision bis 9/16, Brand ab HIGH, Option `crucibleBurnDamage` (1, 0 = aus) (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
 - [x] Kern-Animationen mit Seltenheit (drehen, Bumerang, hochsteigen …; je cooler desto seltener), eigene längere Animation bei Erz-Umwandlung. → `claude-tex7` (`CoreHandMotion`, Erste Person, Config `tools.enableCoreAnimations`); Client-Sicht offen.
 - [ ] Rückfrage beantwortet: Elytra mit Reparatur im Schmiedetisch – Vanilla-Schmiederezepte prüfen nur Items, keine Verzauberungen; möglich nur mit eigener Rezept-Zutat je Loader (offen: soll das gebaut werden?).
 

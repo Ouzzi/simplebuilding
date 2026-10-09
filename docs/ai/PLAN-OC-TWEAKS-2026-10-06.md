@@ -109,3 +109,23 @@ Mod-Tabs verteilen, Stil-Audit, Blaupause-Rückfrage.
 - **P6** neue Kollisionsform kann tests berühren, die das Kesselform prüfen (Loot/Hammer/Platzierung); Form nur als
   Kollision neu, Ausformung unverändert.
 - **P8** Layout-Erwartungen in `DataIntegrityTests` können Spacer zählen – Prüfung, dann gezielt anpassen.
+
+## Nachprüfung 2026-10-09 (Branch `claude-q-gadgets`)
+
+Ist-Zustand: P1–P8 stecken bereits in `claude-wave1` (Commits `2e67933c2` … `45f36c970`, Fix `7a9a2ceef`); ebenso
+verstärkter Kessel, Milchkessel-Jade/JEI und Netherit-Fass aus `claude-crucible4`. Offen waren nur Reste:
+
+1. **P3 Texte:** Leitfaden-Seite `book.simplebuilding.end.3.text` und Erfolg `patience_is_a_virtue` sagten noch
+   „drei übereinander“ – auf „vier, beliebig angeordnet“ (EN/DE, beide Lang-Orte).
+2. **P7 Farbe:** Tooltip `laserPointer.color` nannte noch „rot (#FF0000)“; Wiki „red aiming dot“. Außerdem behält
+   eine vorhandene Config-Datei den alten Standard Rot – `TweaksConfig.validate` hebt genau den alten Standard
+   `0xFF0000` auf Amethyst `0xB38EF3` (Muster wie `migrateLegacyFirstJoinCount`; eigene Farben bleiben). Test in
+   `TweaksTests.tweaksConfigKeepsItsNamesAndDefaults`.
+3. **P6 Config + Wiki:** Brandschaden im heißen Tiegel als SimpleLib-Server-Option `crucibleBurnDamage`
+   (Standard 1,0 wie Magma, 0–4, 0 = aus) in `LibConfig`; `CrucibleBlock.stepOn` liest sie; Test in `CrucibleTests`
+   (Wert 0 → kein Schaden). Wiki SimpleLib `crucible` EN/DE: betretbar, Brand ab hoher Hitze.
+4. **P1 Wiki:** Bildschirmfilter im Wiki (`crucible_parts`) EN/DE erwähnen.
+5. Vorschauen `/root/previews/gadgets/` (Resonanzstab-Neigung + Amethyst-Punkt als Skizze aus den echten Sprites,
+   Netherit-Fass aus dem Modell-Renderer des Wikis), Queue abhaken, Wiki neu erzeugen.
+Verifikation: Compile Fabric/NeoForge/Forge 26.3, Filter `simplebuilding:crucible*` und `simplebuilding:tweaks*`
+auf fabric-263/neoforge-263/forge-263, `wiki/generate.py --all --check`.

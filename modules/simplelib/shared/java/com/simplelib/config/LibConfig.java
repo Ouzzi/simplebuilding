@@ -44,6 +44,9 @@ public final class LibConfig {
     public static final int VILLAGE_WEIGHT_DEFAULT = 3, VILLAGE_WEIGHT_MAX = 10;
     /** Weight of the field kitchen in each village houses pool (0 = off; owner 45: about every third village). */
     public static int villageKitchenWeight = VILLAGE_WEIGHT_DEFAULT;
+    public static final double BURN_DAMAGE_DEFAULT = 1.0, BURN_DAMAGE_MAX = 4.0;
+    /** Damage per hit while standing in a crucible at high heat or more, like magma (owner N11 P6; 0 = off). */
+    public static double crucibleBurnDamage = BURN_DAMAGE_DEFAULT;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final String FILE = "simplelib-server.json";
@@ -91,6 +94,7 @@ public final class LibConfig {
         warmBundleDurationTicks = clamp(getInt(json, "warmBundleDurationTicks", WARM_BUNDLE_DEFAULT), WARM_BUNDLE_MIN, WARM_BUNDLE_MAX);
         eatSpeedBonus = clamp(getDouble(json, "eatSpeedBonus", EAT_BONUS_DEFAULT), 0.0, EAT_BONUS_MAX);
         villageKitchenWeight = clamp(getInt(json, "villageKitchenWeight", VILLAGE_WEIGHT_DEFAULT), 0, VILLAGE_WEIGHT_MAX);
+        crucibleBurnDamage = clamp(getDouble(json, "crucibleBurnDamage", BURN_DAMAGE_DEFAULT), 0.0, BURN_DAMAGE_MAX);
     }
 
     public static JsonObject toJson() {
@@ -113,6 +117,7 @@ public final class LibConfig {
         o.addProperty("warmBundleDurationTicks", warmBundleDurationTicks);
         o.addProperty("eatSpeedBonus", eatSpeedBonus);
         o.addProperty("villageKitchenWeight", villageKitchenWeight);
+        o.addProperty("crucibleBurnDamage", crucibleBurnDamage);
         return o;
     }
 

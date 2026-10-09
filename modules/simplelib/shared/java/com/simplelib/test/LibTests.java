@@ -60,6 +60,7 @@ public final class LibTests {
         ALL.put("reinforced_cauldron_holds_buckets", LibTests::reinforcedCauldronBuckets);
         ALL.put("reinforced_cauldron_inherits_vanilla", LibTests::reinforcedCauldronInheritsVanilla);
         ALL.put("axe_upgrades_barrel_to_netherite", LibTests::axeUpgradesBarrelToNetherite);
+        ALL.put("crucible_burn_damage_follows_config", LibTests::crucibleBurnDamageFollowsConfig);
     }
 
     // ------------------------------------------------------------ helpers
@@ -101,14 +102,41 @@ public final class LibTests {
         json.addProperty("afterglowEnderite", 10_000);
         json.addProperty("warmDurationTicks", 5);
         json.addProperty("eatSpeedBonus", 0.9);
+        json.addProperty("crucibleBurnDamage", 50.0);
         LibConfig.apply(json);
         check(h, LibConfig.reinforcedSpeed == LibConfig.MAX_SPEED, "speed not clamped");
         check(h, LibConfig.factorMedium == LibConfig.FACTOR_MIN, "factor not clamped");
         check(h, LibConfig.afterglowSeconds[3] == LibConfig.AFTERGLOW_MAX_SECONDS, "afterglow not clamped");
         check(h, LibConfig.warmDurationTicks == LibConfig.WARM_DURATION_MIN, "warm duration not clamped");
         check(h, LibConfig.eatSpeedBonus == LibConfig.EAT_BONUS_MAX, "eat bonus not clamped");
+        check(h, LibConfig.crucibleBurnDamage == LibConfig.BURN_DAMAGE_MAX, "crucible burn damage not clamped");
         LibConfig.reset();
         check(h, LibConfig.factorHigh == 0.75 && LibConfig.afterglowSeconds[0] == 2, "defaults wrong");
+        check(h, LibConfig.crucibleBurnDamage == 1.0, "crucible burn damage default is not magma's 1");
+        h.succeed();
+    }
+
+    /** Owner N11 P6: a high-heat crucible burns like magma for crucibleBurnDamage; 0 switches the burn off. */
+    private static void crucibleBurnDamageFollowsConfig(GameTestHelper h) {
+        CrucibleBlockEntity be = crucible(h, new BlockPos(1, 2, 1), Blocks.LAVA_CAULDRON.defaultBlockState(), LibBlocks.IRON_CRUCIBLE);
+        run(h, be, 1);
+        check(h, be.heat().atLeast(HeatLevel.HIGH), "lava cauldron below: high heat");
+        ServerLevel level = h.getLevel();
+        BlockPos pos = be.getBlockPos();
+        BlockState state = level.getBlockState(pos);
+        try {
+            var pig = h.spawn(net.minecraft.world.entity.EntityTypes.PIG, new BlockPos(1, 3, 1));
+            float before = pig.getHealth();
+            state.getBlock().stepOn(level, pos, state, pig);
+            check(h, Math.abs(before - pig.getHealth() - 1.0F) < 1.0E-4, "default burn is 1 like magma: " + pig.getHealth());
+            var spared = h.spawn(net.minecraft.world.entity.EntityTypes.PIG, new BlockPos(1, 3, 1));
+            LibConfig.crucibleBurnDamage = 0;
+            float full = spared.getHealth();
+            state.getBlock().stepOn(level, pos, state, spared);
+            check(h, spared.getHealth() == full, "crucibleBurnDamage 0 still burns");
+        } finally {
+            LibConfig.crucibleBurnDamage = LibConfig.BURN_DAMAGE_DEFAULT;
+        }
         h.succeed();
     }
 

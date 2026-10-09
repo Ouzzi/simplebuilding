@@ -715,6 +715,8 @@ public final class ConfigOptionTests {
             "tweaks.MAX_KILL_COMMAND_RADIUS int runtime-only(static)",
             "tweaks.MAX_XP_CLUMP_RADIUS double runtime-only(static)",
             "tweaks.MAX_SPAWN_ELYTRA_RADIUS int runtime-only(static)",
+            "tweaks.LASER_DEFAULT_COLOR int runtime-only(static)",
+            "tweaks.LASER_LEGACY_DEFAULT_COLOR int runtime-only(static)",
             "tweaks.MAX_BOOST_STRENGTH float runtime-only(static)",
             "tweaks.MAX_LASER_RANGE int runtime-only(static)",
             "tweaks.MAX_ECHO_COOLDOWN_TICKS int runtime-only(static)",
