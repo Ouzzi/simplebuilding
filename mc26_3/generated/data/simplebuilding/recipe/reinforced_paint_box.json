@@ -1,0 +1,16 @@
+{
+  "type": "simplebuilding:reinforced_bundle",
+  "category": "equipment",
+  "key": {
+    "B": "simplebuilding:paint_box",
+    "D": "simplebuilding:diamond_pebble"
+  },
+  "pattern": [
+    " D ",
+    "DBD",
+    " D "
+  ],
+  "result": {
+    "id": "simplebuilding:reinforced_paint_box"
+  }
+}

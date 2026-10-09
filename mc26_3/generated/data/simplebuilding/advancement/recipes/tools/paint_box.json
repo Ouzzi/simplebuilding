@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_brush": {
+    "has_color_brush": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:brush"
+            "items": "simplebuilding:color_brush"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplebuilding:color_brush"
+        "recipes": "simplebuilding:paint_box"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_brush"
+      "has_color_brush"
     ]
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:color_brush"
+      "simplebuilding:paint_box"
     ]
   }
 }

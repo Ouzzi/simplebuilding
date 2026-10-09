@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simplebuilding:reinforced_paint_box",
+  "result": {
+    "id": "simplebuilding:netherite_paint_box"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_color_brush": {
+    "has_netherite_ingot": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:color_brush"
+            "items": "minecraft:netherite_ingot"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplebuilding:paint_palette"
+        "recipes": "simplebuilding:netherite_paint_box_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_color_brush"
+      "has_netherite_ingot"
     ]
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:paint_palette"
+      "simplebuilding:netherite_paint_box_smithing"
     ]
   }
 }

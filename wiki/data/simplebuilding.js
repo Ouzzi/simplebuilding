@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 528,
+      "count": 531,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -6646,22 +6646,22 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Color Brush recolors supported block families in place with the next dye from the inventory, keeping their block state.",
+          "summary": "The Color Brush is a reinforced brush: without a dye it brushes like the vanilla brush, with a dye it recolors supported block families in place, keeping their block state.",
           "details": [
-            "Craft it from a stick, wool and a feather. It is not loaded: every stroke takes the next dye the way a bow finds its arrows - the other hand first, then the hand holding the brush, then the inventory in slot order (hotbar first). Each stroke uses one dye and one durability (256).",
-            "Right-click wool, carpet, concrete, concrete powder, terracotta, glazed terracotta, glass, glass panes, candles, beds, banners or shulker boxes to switch them to that color (plain glass becomes stained glass). Direction and connection properties, shulker contents, banner patterns and both bed halves are kept. Without a dye, on other blocks or on a block that already has the color nothing happens and nothing is used.",
+            "Craft it from a vanilla brush, a gold nugget and a feather (shapeless); it looks like the brush with a gold ferrule. Brushing works like the vanilla brush (suspicious sand and gravel, dust on other blocks). Painting is not loaded: every stroke takes the next dye the way a bow finds its arrows - the other hand first, then the hand holding the brush, then the inventory in slot order (hotbar first). Each stroke uses one dye and one durability (256).",
+            "Right-click wool, carpet, concrete, concrete powder, terracotta, glazed terracotta, glass, glass panes, candles, beds, banners or shulker boxes to switch them to that color (plain glass becomes stained glass). Direction and connection properties, shulker contents, banner patterns and both bed halves are kept. Without a dye, on other blocks or on a block that already has the color nothing is painted and no dye is used; the brush brushes like the vanilla one instead. Suspicious sand and gravel are always brushed, even with dyes in the inventory.",
             "The bristle tip shows the color that comes next, and the tooltip names the dye. Creative players need a dye but use none and no durability. Holding right-click repeats the stroke, so sweeping across blocks paints them one after another.",
-            "A Paint Palette with dyes counts as ink too: it paints each stroke with a random one of its colors other than the block's and gives up that dye; the tip then shows rainbow bristles.",
+            "A Paint Box with dyes counts as ink too: it paints each stroke with a random one of its colors other than the block's and gives up that dye; the tip then shows rainbow bristles.",
             "Wood is not a brush family. Datapacks and mods can opt in additional families through simplebuilding:dyeable_families."
           ]
         },
         "de": {
-          "summary": "Der Farbpinsel färbt unterstützte Blockfamilien mit dem nächsten Farbstoff aus dem Inventar an Ort und Stelle um und bewahrt ihren Blockzustand.",
+          "summary": "Der Farbpinsel ist ein verstärkter Pinsel: Ohne Farbstoff bürstet er wie der Vanilla-Pinsel, mit Farbstoff färbt er unterstützte Blockfamilien an Ort und Stelle um und bewahrt ihren Blockzustand.",
           "details": [
-            "Rezept: Stock, Wolle und Feder. Er wird nicht geladen: Jeder Strich nimmt den nächsten Farbstoff so, wie ein Bogen seine Pfeile findet - zuerst die andere Hand, dann die Hand mit dem Pinsel, dann das Inventar in Slot-Reihenfolge (Schnellleiste zuerst). Jeder Strich kostet einen Farbstoff und einen Haltbarkeitspunkt (256).",
-            "Rechtsklick auf Wolle, Teppiche, Beton, Betonpulver, Terrakotta, glasierte Terrakotta, Glas, Glasscheiben, Kerzen, Betten, Banner oder Shulkerboxen wechselt zu dieser Farbe (normales Glas wird zu gefärbtem Glas). Ausrichtung, Verbindungen, Shulker-Inhalt, Bannermuster und beide Betthälften bleiben erhalten. Ohne Farbstoff, auf anderen Blöcken oder bei gleicher Farbe passiert nichts, und nichts wird verbraucht.",
+            "Rezept: Vanilla-Pinsel, Goldnugget und Feder (formlos); er sieht aus wie der Pinsel mit goldener Zwinge. Abbürsten funktioniert wie beim Vanilla-Pinsel (verdächtiger Sand und Kies, Staub auf anderen Blöcken). Zum Malen wird er nicht geladen: Jeder Strich nimmt den nächsten Farbstoff so, wie ein Bogen seine Pfeile findet - zuerst die andere Hand, dann die Hand mit dem Pinsel, dann das Inventar in Slot-Reihenfolge (Schnellleiste zuerst). Jeder Strich kostet einen Farbstoff und einen Haltbarkeitspunkt (256).",
+            "Rechtsklick auf Wolle, Teppiche, Beton, Betonpulver, Terrakotta, glasierte Terrakotta, Glas, Glasscheiben, Kerzen, Betten, Banner oder Shulkerboxen wechselt zu dieser Farbe (normales Glas wird zu gefärbtem Glas). Ausrichtung, Verbindungen, Shulker-Inhalt, Bannermuster und beide Betthälften bleiben erhalten. Ohne Farbstoff, auf anderen Blöcken oder bei gleicher Farbe wird nicht gemalt und kein Farbstoff verbraucht; der Pinsel bürstet dann wie der Vanilla-Pinsel. Verdächtiger Sand und Kies werden immer abgebürstet, auch mit Farbstoff im Inventar.",
             "Die Borstenspitze zeigt die Farbe, die als Nächstes kommt, der Tooltip nennt den Farbstoff. Im Kreativmodus braucht der Pinsel einen Farbstoff, verbraucht aber weder ihn noch Haltbarkeit. Gedrückt gehaltener Rechtsklick wiederholt den Strich, so malt ein Schwenk über mehrere Blöcke einen nach dem anderen.",
-            "Eine Malerpalette mit Farbstoffen zählt ebenfalls: Sie malt jeden Strich mit einer zufälligen ihrer Farben (nie der des Blocks) und gibt genau diesen Farbstoff ab; die Spitze zeigt dann bunte Borsten.",
+            "Ein Farbkasten mit Farbstoffen zählt ebenfalls: Er malt jeden Strich mit einer zufälligen seiner Farben (nie der des Blocks) und gibt genau diesen Farbstoff ab; die Spitze zeigt dann bunte Borsten.",
             "Holz gehört nicht zur Pinsel-Familie. Datenpakete und Mods können weitere Familien über simplebuilding:dyeable_families freischalten."
           ]
         }
@@ -8480,6 +8480,7 @@ window.WIKI_DATA = {
         "simplebuilding:cracked_diamond",
         "simplebuilding:reinforced_backpack",
         "simplebuilding:reinforced_bundle",
+        "simplebuilding:reinforced_paint_box",
         "simplebuilding:reinforced_quiver"
       ],
       "trades": [
@@ -11241,6 +11242,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_leggings_smithing",
         "simplebuilding:enderite_nautilus_armor_smithing",
         "simplebuilding:enderite_nugget_from_ingot",
+        "simplebuilding:enderite_paint_box_smithing",
         "simplebuilding:enderite_pickaxe_smithing",
         "simplebuilding:enderite_pressure_plate_smithing",
         "simplebuilding:enderite_quiver_smithing",
@@ -11353,6 +11355,39 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_paint_box",
+      "name": {
+        "en_us": "Enderite Paint Box",
+        "de_de": "Enderitfarbkasten"
+      },
+      "texture": "assets/textures/item/enderite_paint_box.png",
+      "craftedBy": [
+        "simplebuilding:enderite_paint_box_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "The Enderite Paint Box is a Paint Box tier that holds up to 512 dyes of each color.",
+          "details": [
+            "Smithing table: Enderite Upgrade + Netherite Paint Box + enderite ingot; fire resistant, keeps its dyes.",
+            "Handling, tooltip and the Color Brush work as with the Paint Box."
+          ]
+        },
+        "de": {
+          "summary": "Der Enderitfarbkasten ist eine Farbkasten-Stufe, die bis zu 512 Farbstoffe je Farbe fasst.",
+          "details": [
+            "Schmiedetisch: Enderit-Aufwertung + Netheritfarbkasten + Enderitbarren; feuerfest, behält seine Farbstoffe.",
+            "Bedienung, Tooltip und Farbpinsel wie beim Farbkasten."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:enderite_pickaxe",
@@ -12176,6 +12211,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_launchpad_smithing",
         "simplebuilding:enderite_leggings_smithing",
         "simplebuilding:enderite_nautilus_armor_smithing",
+        "simplebuilding:enderite_paint_box_smithing",
         "simplebuilding:enderite_pickaxe_smithing",
         "simplebuilding:enderite_pressure_plate_smithing",
         "simplebuilding:enderite_quiver_smithing",
@@ -17803,6 +17839,41 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:netherite_paint_box",
+      "name": {
+        "en_us": "Netherite Paint Box",
+        "de_de": "Netheritfarbkasten"
+      },
+      "texture": "assets/textures/item/netherite_paint_box.png",
+      "craftedBy": [
+        "simplebuilding:netherite_paint_box_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_paint_box_smithing"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "The Netherite Paint Box is a Paint Box tier that holds up to 256 dyes of each color.",
+          "details": [
+            "Smithing table: Netherite Upgrade + Reinforced Paint Box + netherite ingot; fire resistant, keeps its dyes.",
+            "Handling, tooltip and the Color Brush work as with the Paint Box."
+          ]
+        },
+        "de": {
+          "summary": "Der Netheritfarbkasten ist eine Farbkasten-Stufe, die bis zu 256 Farbstoffe je Farbe fasst.",
+          "details": [
+            "Schmiedetisch: Netherit-Aufwertung + Verstärkter Farbkasten + Netheritbarren; feuerfest, behält seine Farbstoffe.",
+            "Bedienung, Tooltip und Farbpinsel wie beim Farbkasten."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:netherite_piston",
       "name": {
         "en_us": "Netherite Piston",
@@ -20429,33 +20500,39 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:paint_palette",
+      "id": "simplebuilding:paint_box",
       "name": {
-        "en_us": "Paint Palette",
-        "de_de": "Malerpalette"
+        "en_us": "Paint Box",
+        "de_de": "Farbkasten"
       },
-      "texture": "assets/textures/item/paint_palette.png",
+      "texture": "assets/textures/item/paint_box.png",
       "craftedBy": [
-        "simplebuilding:paint_palette"
+        "simplebuilding:paint_box"
       ],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:reinforced_paint_box"
+      ],
       "trades": [],
       "properties": {
         "maxStackSize": 1
       },
       "note": {
         "en": {
-          "summary": "The Paint Palette is a bundle for dyes that feeds the Color Brush with random colors.",
+          "summary": "The Paint Box keeps dyes like a bundle: only dyes, up to one stack (64) of each of the 16 colors, and feeds the Color Brush with random colors.",
           "details": [
-            "Craft it from a red, a yellow and a blue dye over three planks. It takes only dyes, 64 in all, and is filled and emptied like a bundle.",
+            "Craft it from a red, a yellow and a blue dye over three planks. Left-click puts dyes in (also a whole stack at once), right-click with an empty cursor takes up to a stack of the color in front - the color chosen with the mouse wheel over the box, otherwise the first color it holds. The choice stays when the mouse leaves the box.",
+            "The tooltip shows all 16 dyes with their counts; colors the box does not hold are greyed out and the color in front is framed.",
+            "Tiers like the bundle: Reinforced Paint Box (crafting table, the box in the middle and four diamond pebbles around it, keeps its dyes) holds 128 of each color, Netherite Paint Box (smithing table, Netherite Upgrade + netherite ingot) 256, Enderite Paint Box (smithing table, Enderite Upgrade + enderite ingot) 512.",
             "While it holds dyes, the Color Brush finds it like a loose dye (other hand first, then the inventory in slot order) and paints each stroke with a random one of its colors other than the block's, taking out exactly that dye."
           ]
         },
         "de": {
-          "summary": "Die Malerpalette ist ein Bündel für Farbstoffe, das den Farbpinsel mit zufälligen Farben versorgt.",
+          "summary": "Der Farbkasten bewahrt Farbstoffe wie ein Bündel auf: nur Farbstoffe, bis zu einem Stapel (64) von jeder der 16 Farben, und versorgt den Farbpinsel mit zufälligen Farben.",
           "details": [
-            "Rezept: ein roter, ein gelber und ein blauer Farbstoff über drei Brettern. Sie nimmt nur Farbstoffe auf, 64 insgesamt, und wird wie ein Bündel befüllt und geleert.",
-            "Solange sie Farbstoffe enthält, findet der Farbpinsel sie wie einen losen Farbstoff (zuerst die andere Hand, dann das Inventar in Slot-Reihenfolge) und malt jeden Strich mit einer zufälligen ihrer Farben (nie der des Blocks); genau dieser Farbstoff wird entnommen."
+            "Rezept: ein roter, ein gelber und ein blauer Farbstoff über drei Brettern. Linksklick legt Farbstoffe hinein (auch einen ganzen Stapel), Rechtsklick mit leerem Cursor nimmt bis zu einen Stapel der vorn liegenden Farbe heraus - der Farbe, die das Mausrad über dem Kasten gewählt hat, sonst der ersten enthaltenen. Die Wahl bleibt, wenn die Maus den Kasten verlässt.",
+            "Der Tooltip zeigt alle 16 Farbstoffe mit ihrer Anzahl; Farben, die der Kasten nicht enthält, sind ausgegraut, die vorn liegende ist umrahmt.",
+            "Stufen wie beim Bündel: Verstärkter Farbkasten (Werkbank, Kasten in der Mitte, vier Diamantkiesel ringsum, behält seine Farbstoffe) fasst 128 je Farbe, Netheritfarbkasten (Schmiedetisch, Netherit-Aufwertung + Netheritbarren) 256, Enderitfarbkasten (Schmiedetisch, Enderit-Aufwertung + Enderitbarren) 512.",
+            "Solange er Farbstoffe enthält, findet der Farbpinsel ihn wie einen losen Farbstoff (zuerst die andere Hand, dann das Inventar in Slot-Reihenfolge) und malt jeden Strich mit einer zufälligen seiner Farben (nie der des Blocks); genau dieser Farbstoff wird entnommen."
           ]
         }
       },
@@ -26434,6 +26511,41 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:reinforced_paint_box",
+      "name": {
+        "en_us": "Reinforced Paint Box",
+        "de_de": "Verstärkter Farbkasten"
+      },
+      "texture": "assets/textures/item/reinforced_paint_box.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_paint_box"
+      ],
+      "usedIn": [
+        "simplebuilding:netherite_paint_box_smithing"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "The Reinforced Paint Box is a Paint Box tier that holds up to 128 dyes of each color.",
+          "details": [
+            "Crafted from a Paint Box with four diamond pebbles around it; keeps its dyes.",
+            "Handling, tooltip and the Color Brush work as with the Paint Box."
+          ]
+        },
+        "de": {
+          "summary": "Der Verstärkte Farbkasten ist eine Farbkasten-Stufe, die bis zu 128 Farbstoffe je Farbe fasst.",
+          "details": [
+            "Aus einem Farbkasten mit vier Diamantkieseln ringsum; behält seine Farbstoffe.",
+            "Bedienung, Tooltip und Farbpinsel wie beim Farbkasten."
+          ]
+        }
       },
       "hasCustomBehaviour": true
     },
@@ -45784,7 +45896,7 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:color_brush",
-      "type": "minecraft:crafting_shaped",
+      "type": "minecraft:crafting_shapeless",
       "category": "equipment",
       "group": null,
       "result": {
@@ -45793,26 +45905,21 @@ window.WIKI_DATA = {
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/color_brush.json",
       "ingredients": [
-        "#minecraft:wool",
+        "minecraft:brush",
         "minecraft:feather",
-        "minecraft:stick"
+        "minecraft:gold_nugget"
       ],
-      "pattern": [
-        " W",
-        "SF",
-        "S "
-      ],
-      "key": {
-        "F": [
+      "ingredientGroups": [
+        [
+          "minecraft:brush"
+        ],
+        [
+          "minecraft:gold_nugget"
+        ],
+        [
           "minecraft:feather"
-        ],
-        "S": [
-          "minecraft:stick"
-        ],
-        "W": [
-          "#minecraft:wool"
         ]
-      },
+      ],
       "lines": [
         "26.3"
       ],
@@ -45820,20 +45927,21 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:string",
-            "count": 4
+            "id": "minecraft:feather",
+            "count": 2
           },
           {
-            "id": "minecraft:feather",
+            "id": "minecraft:copper_ingot",
             "count": 1
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 0.111
           }
-        ],
-        "tagExamples": [
-          "#minecraft:wool"
         ]
       }
     },
@@ -50989,6 +51097,77 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:enderite_ingot",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_paint_box_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_paint_box",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_paint_box_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_paint_box"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_paint_box"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 4
+          },
+          {
+            "id": "minecraft:beetroot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:dandelion",
+            "count": 1
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.75
           }
         ]
       }
@@ -58363,6 +58542,69 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:netherite_paint_box_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_paint_box",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_paint_box_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:reinforced_paint_box"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:reinforced_paint_box"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 4
+          },
+          {
+            "id": "minecraft:beetroot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:dandelion",
+            "count": 1
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.75
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:netherite_pressure_plate_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -62348,15 +62590,15 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:paint_palette",
+      "id": "simplebuilding:paint_box",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
       "group": null,
       "result": {
-        "id": "simplebuilding:paint_palette",
+        "id": "simplebuilding:paint_box",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/paint_palette.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/paint_box.json",
       "ingredients": [
         "#minecraft:planks",
         "minecraft:blue_dye",
@@ -69664,6 +69906,62 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:copper_ingot",
             "count": 0.111
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_paint_box",
+      "type": "simplebuilding:reinforced_bundle",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_paint_box",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_paint_box.json",
+      "ingredients": [
+        "simplebuilding:diamond_pebble",
+        "simplebuilding:paint_box"
+      ],
+      "pattern": [
+        " D ",
+        "DBD",
+        " D "
+      ],
+      "key": {
+        "B": [
+          "simplebuilding:paint_box"
+        ],
+        "D": [
+          "simplebuilding:diamond_pebble"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 4
+          },
+          {
+            "id": "minecraft:beetroot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:dandelion",
+            "count": 1
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.75
           }
         ]
       }
@@ -85942,6 +86240,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_paint_box",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_pickaxe",
           "required": true
         },
@@ -86138,6 +86440,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_nugget",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_paint_box",
           "required": true
         },
         {
@@ -115787,9 +116093,9 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 472,
+    "items": 475,
     "blocks": 236,
-    "recipes": 841,
+    "recipes": 844,
     "lootTables": 230,
     "trades": 20,
     "enchantments": 19,

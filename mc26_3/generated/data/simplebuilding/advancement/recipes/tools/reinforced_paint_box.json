@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_diamond_pebble": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:diamond_pebble"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_paint_box": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:paint_box"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:reinforced_paint_box"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_paint_box",
+      "has_diamond_pebble"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:reinforced_paint_box"
+    ]
+  }
+}
