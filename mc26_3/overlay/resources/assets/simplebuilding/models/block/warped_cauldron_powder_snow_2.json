@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/template_cauldron_level2",
+  "textures": {
+    "particle": "minecraft:block/warped_stem",
+    "side": "minecraft:block/warped_stem",
+    "top": "minecraft:block/warped_stem_top",
+    "bottom": "minecraft:block/warped_stem_top",
+    "inside": "minecraft:block/stripped_warped_stem",
+    "content": "minecraft:block/powder_snow"
+  }
+}

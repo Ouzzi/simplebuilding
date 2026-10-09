@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "content=empty,level=1": {
+      "model": "simplebuilding:block/oak_cauldron"
+    },
+    "content=empty,level=2": {
+      "model": "simplebuilding:block/oak_cauldron"
+    },
+    "content=empty,level=3": {
+      "model": "simplebuilding:block/oak_cauldron"
+    },
+    "content=water,level=1": {
+      "model": "simplebuilding:block/oak_cauldron_water_1"
+    },
+    "content=water,level=2": {
+      "model": "simplebuilding:block/oak_cauldron_water_2"
+    },
+    "content=water,level=3": {
+      "model": "simplebuilding:block/oak_cauldron_water_3"
+    },
+    "content=lava,level=1": {
+      "model": "simplebuilding:block/oak_cauldron_lava"
+    },
+    "content=lava,level=2": {
+      "model": "simplebuilding:block/oak_cauldron_lava"
+    },
+    "content=lava,level=3": {
+      "model": "simplebuilding:block/oak_cauldron_lava"
+    },
+    "content=powder_snow,level=1": {
+      "model": "simplebuilding:block/oak_cauldron_powder_snow_1"
+    },
+    "content=powder_snow,level=2": {
+      "model": "simplebuilding:block/oak_cauldron_powder_snow_2"
+    },
+    "content=powder_snow,level=3": {
+      "model": "simplebuilding:block/oak_cauldron_powder_snow_3"
+    }
+  }
+}

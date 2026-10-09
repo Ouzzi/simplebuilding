@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_noside_alt",
+  "textures": {
+    "pane": "minecraft:block/bamboo_block",
+    "edge": "minecraft:block/stripped_bamboo_block"
+  }
+}

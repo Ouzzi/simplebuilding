@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_cauldron",
+  "key": {
+    "H": [
+      "simplebuilding:hollow_birch_log",
+      "simplebuilding:hollow_stripped_birch_log"
+    ],
+    "S": [
+      "simplebuilding:birch_sheet",
+      "simplebuilding:stripped_birch_sheet"
+    ]
+  },
+  "pattern": [
+    "H",
+    "S"
+  ],
+  "result": {
+    "id": "simplebuilding:birch_cauldron"
+  }
+}

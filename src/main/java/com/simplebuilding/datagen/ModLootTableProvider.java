@@ -172,6 +172,22 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             add(shapes.slab(), createSlabItemTable(shapes.slab()));
         }
 
+        // Holzwerk: alles droppt sich selbst, Schnitzholz mit seinem Motiv (copy_state), Kisten zusaetzlich ihren Inhalt.
+        for (com.simplebuilding.woodwork.WoodBlocks.Family family : ModBlocks.WOOD_FAMILIES) {
+            for (net.minecraft.world.level.block.Block block : family.blocks()) {
+                if (block == family.carved()) {
+                    add(block, net.minecraft.world.level.storage.loot.LootTable.lootTable().withPool(applyExplosionCondition(block,
+                            net.minecraft.world.level.storage.loot.LootPool.lootPool()
+                                    .setRolls(com.simplebuilding.version.LootNumbers.exactly(1))
+                                    .add(net.minecraft.world.level.storage.loot.entries.LootItem.lootTableItem(block)
+                                            .apply(net.minecraft.world.level.storage.loot.functions.CopyBlockState.copyState(block)
+                                                    .copy(com.simplebuilding.woodwork.CarvedLogBlock.MOTIF))))));
+                } else {
+                    dropSelf(block);
+                }
+            }
+        }
+
         dropSelf(ModBlocks.ASTRAL_PURPUR_BLOCK);
         dropSelf(ModBlocks.NIHIL_PURPUR_BLOCK);
         dropSelf(ModBlocks.ASTRAL_END_STONE);

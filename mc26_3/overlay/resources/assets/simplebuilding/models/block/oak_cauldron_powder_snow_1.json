@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/template_cauldron_level1",
+  "textures": {
+    "particle": "minecraft:block/oak_log",
+    "side": "minecraft:block/oak_log",
+    "top": "minecraft:block/oak_log_top",
+    "bottom": "minecraft:block/oak_log_top",
+    "inside": "minecraft:block/stripped_oak_log",
+    "content": "minecraft:block/powder_snow"
+  }
+}

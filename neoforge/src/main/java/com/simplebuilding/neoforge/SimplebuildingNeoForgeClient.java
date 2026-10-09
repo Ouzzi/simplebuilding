@@ -138,6 +138,8 @@ public final class SimplebuildingNeoForgeClient {
                 NeoForgeModRegistries.GOAT_HORN_HOLDER_BE.get(), com.simplebuilding.client.render.GoatHornHolderRenderer::new);
         if (NeoForgeModRegistries.CHESS_PIECES_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.CHESS_PIECES_BE.get(), com.simplebuilding.client.render.ChessPiecesRenderer::new);
+        if (NeoForgeModRegistries.CRATE_BE != null) event.registerBlockEntityRenderer(
+                NeoForgeModRegistries.CRATE_BE.get(), com.simplebuilding.woodwork.client.CrateRenderer::new);
         if (NeoForgeModRegistries.HAMMOCK_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.HAMMOCK_BE.get(), com.simplebuilding.client.render.HammockRenderer::new);
         if (NeoForgeModRegistries.ASTRAL_ENCHANTING_TABLE_BE != null) event.registerBlockEntityRenderer(
@@ -262,6 +264,8 @@ public final class SimplebuildingNeoForgeClient {
             event.register(java.util.List.of(net.minecraft.client.color.block.BlockTintSources.grassBlock()),
                     com.simplebuilding.blocks.ModBlocks.GRASS_SLAB);
         }
+        if (!com.simplebuilding.blocks.ModBlocks.WOOD_FAMILIES.isEmpty()) event.register(
+                java.util.List.of(com.simplebuilding.woodwork.client.WoodenCauldronTint.INSTANCE), com.simplebuilding.woodwork.WoodBlocks.cauldrons());
     }
 
     public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {

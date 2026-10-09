@@ -140,6 +140,8 @@ public final class McVersion {
     public static final boolean MEGA_GUIDES = true;
     /** Schachfiguren, Achtelbloecke, Checker-Stufen/-Treppen (docs/ai/PLAN-SCHACH-2026-10-06.md). */
     public static final boolean CHESS = true;
+    /** Holzwerk: ausgehoehlte Staemme, Holzplatten, Holzkessel, Kisten, Toepferscherben-Schnitzholz (docs/ai/PLAN-HOLZWERK-2026-10-09.md). */
+    public static final boolean WOODWORK = true;
 
     private McVersion() {
     }

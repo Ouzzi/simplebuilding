@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "crate",
+  "key": {
+    "P": "minecraft:acacia_planks"
+  },
+  "pattern": [
+    "P P",
+    "P P",
+    "PPP"
+  ],
+  "result": {
+    "id": "simplebuilding:acacia_crate"
+  }
+}

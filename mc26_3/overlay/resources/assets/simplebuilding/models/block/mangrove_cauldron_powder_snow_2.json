@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/template_cauldron_level2",
+  "textures": {
+    "particle": "minecraft:block/mangrove_log",
+    "side": "minecraft:block/mangrove_log",
+    "top": "minecraft:block/mangrove_log_top",
+    "bottom": "minecraft:block/mangrove_log_top",
+    "inside": "minecraft:block/stripped_mangrove_log",
+    "content": "minecraft:block/powder_snow"
+  }
+}

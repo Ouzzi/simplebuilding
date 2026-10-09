@@ -782,6 +782,58 @@ public final class FeatureStations {
         return c;
     }
 
+    /**
+     * Holzwerk-Station (docs/ai/PLAN-HOLZWERK-2026-10-09.md, McVersion.WOODWORK): je Holzart eine Spalte - liegende
+     * Roehre, liegende entrindete Roehre, Platte, entrindete Platte, Holzkessel (Wasser), Kiste mit Essen und Schnitzholz
+     * (je Holzart ein anderes Motiv); davor eine Truhe mit Meissel, Scherben, Lavaeimer und Staemmen.
+     */
+    public static TcCanvas woodwork(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        if (!com.simplebuilding.version.McVersion.WOODWORK) {
+            return c;
+        }
+        int wallZ = 10;
+        List<com.simplebuilding.woodwork.WoodBlocks.Family> families = com.simplebuilding.woodwork.WoodBlocks.families();
+        com.simplebuilding.woodwork.SherdMotif[] motifs = com.simplebuilding.woodwork.SherdMotif.values();
+        Item[] foods = {Items.BREAD, Items.APPLE, Items.CARROT, Items.POTATO, Items.BAKED_POTATO, Items.COOKED_BEEF,
+                Items.GOLDEN_CARROT, Items.BEETROOT, Items.MELON_SLICE, Items.COOKIE, Items.SWEET_BERRIES, Items.PUMPKIN_PIE};
+        for (int i = 0; i < families.size(); i++) {
+            com.simplebuilding.woodwork.WoodBlocks.Family f = families.get(i);
+            int x = 1 + i;
+            c.place(x, 0, 1, f.hollow().defaultBlockState().setValue(net.minecraft.world.level.block.RotatedPillarBlock.AXIS, Direction.Axis.Z));
+            c.place(x, 0, 2, f.hollowStripped().defaultBlockState().setValue(net.minecraft.world.level.block.RotatedPillarBlock.AXIS, Direction.Axis.Z));
+            c.place(x, 0, 3, f.sheet());
+            c.place(x, 0, 4, f.strippedSheet());
+            c.place(x, 0, 5, f.cauldron().with(com.simplebuilding.woodwork.WoodenCauldronBlock.Content.WATER, 3));
+            c.place(x, 0, 6, f.crate());
+            c.contents(x, 0, 6, List.of(new ItemStack(foods[i % foods.length], 64), new ItemStack(foods[(i + 3) % foods.length], 32)));
+            c.place(x, 0, 7, f.carved().defaultBlockState()
+                    .setValue(com.simplebuilding.woodwork.CarvedLogBlock.FACING, Direction.NORTH)
+                    .setValue(com.simplebuilding.woodwork.CarvedLogBlock.MOTIF, motifs[i % motifs.length]));
+        }
+        int chestX = families.size() + 2;
+        c.place(chestX, 0, 7, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+        List<ItemStack> chest = new ArrayList<>();
+        chest.add(new ItemStack(ModItems.STONE_CHISEL));
+        for (com.simplebuilding.woodwork.SherdMotif motif : motifs) {
+            chest.add(new ItemStack(motif.sherd()));
+        }
+        chest.add(new ItemStack(Items.LAVA_BUCKET));
+        chest.add(new ItemStack(Items.WATER_BUCKET));
+        chest.add(new ItemStack(Items.STRIPPED_OAK_LOG, 16));
+        chest.add(new ItemStack(Items.OAK_LOG, 16));
+        c.contents(chestX, 0, 7, chest);
+        c.title(0, 3, wallZ, TcText.t("section.woodwork", "Woodwork"), TcText.t("section.woodwork.sub", "hollow logs, sheets, cauldrons, crates, carving"));
+        c.wallSign(3, 2, wallZ, TcText.bold(TcText.t("woodwork.crawl", "Hollow logs")),
+                TcText.t("woodwork.crawl.sub", "sneak into a lying one"), TcText.t("woodwork.crawl.sub2", "to crawl through"));
+        c.wallSign(7, 2, wallZ, TcText.bold(TcText.t("woodwork.crate", "Crates")),
+                TcText.t("woodwork.crate.sub", "food in, empty hand out"), TcText.t("woodwork.crate.sub2", "8 stacks, hoppers"));
+        c.wallSign(11, 2, wallZ, TcText.bold(TcText.t("woodwork.carve", "Carving")),
+                TcText.t("woodwork.carve.sub", "sherd in off hand,"), TcText.t("woodwork.carve.sub2", "chisel a stripped log"));
+        c.backWall(0, chestX + 1, wallZ, 5);
+        return c;
+    }
+
     /** Brett aus 4 x 4 Schachbrettern ab {@code x0} (z 1-4) mit der Grundstellung: Weiss im Sueden, Schwarz im Norden. */
     private static void chessBoard(TcCanvas c, int x0, Block checker, com.simplebuilding.chess.ChessColor white,
                                    com.simplebuilding.chess.ChessColor black, boolean flat) {

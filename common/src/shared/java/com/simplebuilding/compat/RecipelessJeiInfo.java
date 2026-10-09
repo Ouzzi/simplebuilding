@@ -63,6 +63,11 @@ public final class RecipelessJeiInfo {
         }
         // Kreativ-Baustab und Kreativ-Blaupause (Queue N29): nur im Kreativ-Inventar.
         map.put("creative_tools", List.of(ModItems.CREATIVE_BUILDING_WAND, ModItems.CREATIVE_BLUEPRINT));
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            // Holzwerk: Schnitzholz entsteht nur in der Welt (Meissel + Toepferscherbe).
+            map.put("woodwork_carved", com.simplebuilding.woodwork.WoodBlocks.families().stream()
+                    .map(f -> (ItemLike) f.carved()).toList());
+        }
         return map;
     }
 

@@ -1737,7 +1737,12 @@ public final class ChiselTests {
      * Selbstabbildung, die den Weg der beiden Schlammziegel-Eintraege geht.
      */
     public static void conversionTablesArePinnedEntryByEntry(GameTestHelper helper) {
-        assertOwnContribution(helper, "stone", ChiselItem.FINAL_STONE_FWD, null, STONE_OWN);
+        // Holzwerk (26.3): der Meissel hoehlt jeden entrindeten Stamm aus.
+        List<String> stoneOwn = new ArrayList<>(Arrays.asList(STONE_OWN));
+        for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
+            stoneOwn.add(blockName(family.wood().strippedBlock()) + ">" + blockName(family.hollowStripped()));
+        }
+        assertOwnContribution(helper, "stone", ChiselItem.FINAL_STONE_FWD, null, stoneOwn.toArray(new String[0]));
         assertOwnContribution(helper, "iron", ChiselItem.FINAL_IRON_FWD,
                 ChiselItem.FINAL_STONE_FWD, IRON_OWN);
         assertOwnContribution(helper, "diamond", ChiselItem.FINAL_DIAMOND_FWD,

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_cauldron",
+  "key": {
+    "H": [
+      "simplebuilding:hollow_pale_oak_log",
+      "simplebuilding:hollow_stripped_pale_oak_log"
+    ],
+    "S": [
+      "simplebuilding:pale_oak_sheet",
+      "simplebuilding:stripped_pale_oak_sheet"
+    ]
+  },
+  "pattern": [
+    "H",
+    "S"
+  ],
+  "result": {
+    "id": "simplebuilding:pale_oak_cauldron"
+  }
+}

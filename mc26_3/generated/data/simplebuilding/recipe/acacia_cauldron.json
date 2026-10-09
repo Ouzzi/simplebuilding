@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_cauldron",
+  "key": {
+    "H": [
+      "simplebuilding:hollow_acacia_log",
+      "simplebuilding:hollow_stripped_acacia_log"
+    ],
+    "S": [
+      "simplebuilding:acacia_sheet",
+      "simplebuilding:stripped_acacia_sheet"
+    ]
+  },
+  "pattern": [
+    "H",
+    "S"
+  ],
+  "result": {
+    "id": "simplebuilding:acacia_cauldron"
+  }
+}

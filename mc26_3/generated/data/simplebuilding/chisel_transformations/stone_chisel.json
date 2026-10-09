@@ -1,0 +1,138 @@
+{
+  "chains": [
+    {
+      "blocks": [
+        "minecraft:smooth_sandstone",
+        "minecraft:cut_sandstone",
+        "minecraft:sandstone",
+        "minecraft:chiseled_sandstone"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:sandstone_stairs",
+        "minecraft:smooth_sandstone_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:sandstone_slab",
+        "minecraft:cut_sandstone_slab",
+        "minecraft:smooth_sandstone_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:smooth_red_sandstone",
+        "minecraft:cut_red_sandstone",
+        "minecraft:red_sandstone",
+        "minecraft:chiseled_red_sandstone"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:red_sandstone_stairs",
+        "minecraft:smooth_red_sandstone_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:red_sandstone_slab",
+        "minecraft:cut_red_sandstone_slab",
+        "minecraft:smooth_red_sandstone_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stone",
+        "minecraft:chiseled_stone_bricks"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:smooth_stone_slab",
+        "minecraft:stone_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stone_stairs",
+        "minecraft:cobblestone_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stripped_oak_log",
+        "simplebuilding:hollow_stripped_oak_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stripped_spruce_log",
+        "simplebuilding:hollow_stripped_spruce_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stripped_birch_log",
+        "simplebuilding:hollow_stripped_birch_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stripped_jungle_log",
+        "simplebuilding:hollow_stripped_jungle_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stripped_acacia_log",
+        "simplebuilding:hollow_stripped_acacia_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stripped_dark_oak_log",
+        "simplebuilding:hollow_stripped_dark_oak_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stripped_mangrove_log",
+        "simplebuilding:hollow_stripped_mangrove_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stripped_cherry_log",
+        "simplebuilding:hollow_stripped_cherry_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stripped_pale_oak_log",
+        "simplebuilding:hollow_stripped_pale_oak_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stripped_crimson_stem",
+        "simplebuilding:hollow_stripped_crimson_stem"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stripped_warped_stem",
+        "simplebuilding:hollow_stripped_warped_stem"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stripped_bamboo_block",
+        "simplebuilding:hollow_stripped_bamboo_block"
+      ]
+    }
+  ],
+  "table": "chisel",
+  "tier": "stone"
+}

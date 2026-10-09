@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_hollow_bamboo_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:hollow_bamboo_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:bamboo_cauldron"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_hollow_bamboo_block"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:bamboo_cauldron"
+    ]
+  }
+}

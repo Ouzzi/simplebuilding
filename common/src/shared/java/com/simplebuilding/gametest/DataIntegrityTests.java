@@ -1651,6 +1651,8 @@ public final class DataIntegrityTests {
         items.addAll(com.simplebuilding.chess.ChessItems.shapes());
         // Holz-Achtel (Queue Nachtrag 24), in einer Schleife registriert.
         items.addAll(ModItems.WOOD_OCTETS);
+        // Holzwerk (McVersion.WOODWORK): je Holzart in einer Schleife registriert (WoodBlocks).
+        items.addAll(com.simplebuilding.woodwork.WoodBlocks.items());
         // Ende der versteckten Easter-Kette (com.simplebuilding.tweaks.easter), eigene Registrierung.
         items.add(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick());
         return items;
@@ -1691,6 +1693,8 @@ public final class DataIntegrityTests {
         }
         // Holz-Achtel (Queue Nachtrag 24), in einer Schleife registriert.
         blocks.addAll(ModBlocks.WOOD_OCTETS);
+        // Holzwerk: je Holzart in einer Schleife registriert (ModBlocks.WOOD_FAMILIES).
+        blocks.addAll(com.simplebuilding.woodwork.WoodBlocks.blocks());
         return blocks;
     }
 
@@ -3123,6 +3127,13 @@ public final class DataIntegrityTests {
                     CreativeTabLayout.Row.of("froglights",
                             ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT)));
         }
+        if (McVersion.WOODWORK) {
+            // Holzwerk (2026-10-09) am Ende: je Holzart Roehren, Platten, Kessel, Kiste, Schnitzholz.
+            for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
+                expected.add(new CreativeTabLayout.Row("woodwork_" + family.wood().id(),
+                        family.blocks().stream().map(ItemStack::new).toList()));
+            }
+        }
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.BUILDING_BLOCKS, problems), flowed(expected), "SimpleBlocks", problems);
         helper.assertTrue(problems.isEmpty(), "building blocks layout: " + problems);
         helper.succeed();
@@ -4305,6 +4316,20 @@ public final class DataIntegrityTests {
                 json -> json.toString().contains(MOD_ID + ":"));
         if (atlas != null) {
             for (JsonElement source : atlas.getAsJsonArray("sources")) {
+                JsonObject s = source.getAsJsonObject();
+                if (!"minecraft:paletted_permutations".equals(s.get("type").getAsString())) continue;
+                for (JsonElement texture : s.getAsJsonArray("textures")) {
+                    for (String palette : s.getAsJsonObject("permutations").keySet()) {
+                        permuted.add(texture.getAsString() + "_" + palette);
+                    }
+                }
+            }
+        }
+        // Holzwerk: die Schnitzmotive leitet der Blocks-Atlas aus den Toepfermustern ab (paletted_permutations).
+        JsonObject blocksAtlas = shippedJson("assets/minecraft/atlases/blocks.json",
+                json -> json.toString().contains(MOD_ID + ":"));
+        if (blocksAtlas != null) {
+            for (JsonElement source : blocksAtlas.getAsJsonArray("sources")) {
                 JsonObject s = source.getAsJsonObject();
                 if (!"minecraft:paletted_permutations".equals(s.get("type").getAsString())) continue;
                 for (JsonElement texture : s.getAsJsonArray("textures")) {

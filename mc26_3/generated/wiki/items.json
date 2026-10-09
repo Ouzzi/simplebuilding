@@ -3,6 +3,9 @@
     "simplebuilding:acacia_octet",
     "simplebuilding:aqua_froglight",
     "simplebuilding:astral_enchanting_table",
+    "simplebuilding:acacia_cauldron",
+    "simplebuilding:acacia_crate",
+    "simplebuilding:acacia_sheet",
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_piston",
     "simplebuilding:astral_purpur_block",
@@ -27,6 +30,12 @@
     "simplebuilding:backpack",
     "simplebuilding:bamboo_octet",
     "simplebuilding:birch_octet",
+    "simplebuilding:bamboo_cauldron",
+    "simplebuilding:bamboo_crate",
+    "simplebuilding:bamboo_sheet",
+    "simplebuilding:birch_cauldron",
+    "simplebuilding:birch_crate",
+    "simplebuilding:birch_sheet",
     "simplebuilding:black_hammock",
     "simplebuilding:blackstone_quartz_checker",
     "simplebuilding:blackstone_quartz_checker_slab",
@@ -40,10 +49,25 @@
     "simplebuilding:breeze_head",
     "simplebuilding:breeze_wall_head",
     "simplebuilding:brown_hammock",
+    "simplebuilding:carved_acacia_log",
+    "simplebuilding:carved_bamboo_block",
+    "simplebuilding:carved_birch_log",
+    "simplebuilding:carved_cherry_log",
+    "simplebuilding:carved_crimson_stem",
+    "simplebuilding:carved_dark_oak_log",
+    "simplebuilding:carved_jungle_log",
+    "simplebuilding:carved_mangrove_log",
+    "simplebuilding:carved_oak_log",
+    "simplebuilding:carved_pale_oak_log",
+    "simplebuilding:carved_spruce_log",
+    "simplebuilding:carved_warped_stem",
     "simplebuilding:cave_spider_head",
     "simplebuilding:cave_spider_wall_head",
     "simplebuilding:checker_octet",
     "simplebuilding:cherry_octet",
+    "simplebuilding:cherry_cauldron",
+    "simplebuilding:cherry_crate",
+    "simplebuilding:cherry_sheet",
     "simplebuilding:chess_pieces",
     "simplebuilding:chiseled_astralit_bricks",
     "simplebuilding:chiseled_blue_ice",
@@ -62,6 +86,15 @@
     "simplebuilding:crystalline_nihilith",
     "simplebuilding:cyan_hammock",
     "simplebuilding:dark_oak_octet",
+    "simplebuilding:crimson_cauldron",
+    "simplebuilding:crimson_crate",
+    "simplebuilding:crimson_sheet",
+    "simplebuilding:crystalline_astralit",
+    "simplebuilding:crystalline_nihilith",
+    "simplebuilding:cyan_hammock",
+    "simplebuilding:dark_oak_cauldron",
+    "simplebuilding:dark_oak_crate",
+    "simplebuilding:dark_oak_sheet",
     "simplebuilding:deepslate_sage_ore",
     "simplebuilding:diamond_pressure_plate",
     "simplebuilding:dimensional_scrap",
@@ -115,12 +148,39 @@
     "simplebuilding:gray_hammock",
     "simplebuilding:green_hammock",
     "simplebuilding:hammock_rope",
+    "simplebuilding:hollow_acacia_log",
+    "simplebuilding:hollow_bamboo_block",
+    "simplebuilding:hollow_birch_log",
+    "simplebuilding:hollow_cherry_log",
+    "simplebuilding:hollow_crimson_stem",
+    "simplebuilding:hollow_dark_oak_log",
+    "simplebuilding:hollow_jungle_log",
+    "simplebuilding:hollow_mangrove_log",
+    "simplebuilding:hollow_oak_log",
+    "simplebuilding:hollow_pale_oak_log",
+    "simplebuilding:hollow_spruce_log",
+    "simplebuilding:hollow_stripped_acacia_log",
+    "simplebuilding:hollow_stripped_bamboo_block",
+    "simplebuilding:hollow_stripped_birch_log",
+    "simplebuilding:hollow_stripped_cherry_log",
+    "simplebuilding:hollow_stripped_crimson_stem",
+    "simplebuilding:hollow_stripped_dark_oak_log",
+    "simplebuilding:hollow_stripped_jungle_log",
+    "simplebuilding:hollow_stripped_mangrove_log",
+    "simplebuilding:hollow_stripped_oak_log",
+    "simplebuilding:hollow_stripped_pale_oak_log",
+    "simplebuilding:hollow_stripped_spruce_log",
+    "simplebuilding:hollow_stripped_warped_stem",
+    "simplebuilding:hollow_warped_stem",
     "simplebuilding:husk_head",
     "simplebuilding:husk_wall_head",
     "simplebuilding:infused_potion_pad",
     "simplebuilding:iron_rod",
     "simplebuilding:jukebox_amplifier",
     "simplebuilding:jungle_octet",
+    "simplebuilding:jungle_cauldron",
+    "simplebuilding:jungle_crate",
+    "simplebuilding:jungle_sheet",
     "simplebuilding:lapis_quartz_checker",
     "simplebuilding:lapis_quartz_checker_slab",
     "simplebuilding:lapis_quartz_checker_stairs",
@@ -135,6 +195,9 @@
     "simplebuilding:mangrove_octet",
     "simplebuilding:melon_octet",
     "simplebuilding:nautilus_shell_block",
+    "simplebuilding:mangrove_cauldron",
+    "simplebuilding:mangrove_crate",
+    "simplebuilding:mangrove_sheet",
     "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:nether_brick_quartz_checker_slab",
     "simplebuilding:nether_brick_quartz_checker_stairs",
@@ -179,6 +242,14 @@
     "simplebuilding:oxidized_copper_pressure_plate",
     "simplebuilding:oxidized_trapped_copper_chest",
     "simplebuilding:pale_oak_octet",
+    "simplebuilding:oak_cauldron",
+    "simplebuilding:oak_crate",
+    "simplebuilding:oak_sheet",
+    "simplebuilding:orange_hammock",
+    "simplebuilding:oxidized_copper_pressure_plate",
+    "simplebuilding:pale_oak_cauldron",
+    "simplebuilding:pale_oak_crate",
+    "simplebuilding:pale_oak_sheet",
     "simplebuilding:pink_hammock",
     "simplebuilding:placed_blueprint",
     "simplebuilding:placed_bundle",
@@ -253,11 +324,26 @@
     "simplebuilding:spider_head",
     "simplebuilding:spider_wall_head",
     "simplebuilding:spruce_octet",
+    "simplebuilding:spruce_cauldron",
+    "simplebuilding:spruce_crate",
+    "simplebuilding:spruce_sheet",
     "simplebuilding:standing_rod",
     "simplebuilding:stellar_flypad",
     "simplebuilding:storage_crafting_table",
     "simplebuilding:stray_skull",
     "simplebuilding:stray_wall_skull",
+    "simplebuilding:stripped_acacia_sheet",
+    "simplebuilding:stripped_bamboo_sheet",
+    "simplebuilding:stripped_birch_sheet",
+    "simplebuilding:stripped_cherry_sheet",
+    "simplebuilding:stripped_crimson_sheet",
+    "simplebuilding:stripped_dark_oak_sheet",
+    "simplebuilding:stripped_jungle_sheet",
+    "simplebuilding:stripped_mangrove_sheet",
+    "simplebuilding:stripped_oak_sheet",
+    "simplebuilding:stripped_pale_oak_sheet",
+    "simplebuilding:stripped_spruce_sheet",
+    "simplebuilding:stripped_warped_sheet",
     "simplebuilding:suspended_gravel",
     "simplebuilding:suspended_sand",
     "simplebuilding:trapped_copper_chest",
@@ -266,6 +352,9 @@
     "simplebuilding:warped_blazewood_bookshelf",
     "simplebuilding:warped_blazewood_planks",
     "simplebuilding:warped_octet",
+    "simplebuilding:warped_cauldron",
+    "simplebuilding:warped_crate",
+    "simplebuilding:warped_sheet",
     "simplebuilding:waxed_copper_pressure_plate",
     "simplebuilding:waxed_exposed_copper_pressure_plate",
     "simplebuilding:waxed_exposed_trapped_copper_chest",
@@ -283,7 +372,14 @@
   "items": [
     {
       "id": "simplebuilding:acacia_octet",
-      "maxStackSize": 99
+      "maxStackSize": 99,
+      "id": "simplebuilding:acacia_cauldron"
+    },
+    {
+      "id": "simplebuilding:acacia_crate"
+    },
+    {
+      "id": "simplebuilding:acacia_sheet"
     },
     {
       "durability": 640,
@@ -420,14 +516,28 @@
     },
     {
       "id": "simplebuilding:bamboo_octet",
-      "maxStackSize": 99
+      "maxStackSize": 99,
+      "id": "simplebuilding:bamboo_cauldron"
+    },
+    {
+      "id": "simplebuilding:bamboo_crate"
+    },
+    {
+      "id": "simplebuilding:bamboo_sheet"
     },
     {
       "id": "simplebuilding:basic_upgrade_template"
     },
     {
       "id": "simplebuilding:birch_octet",
-      "maxStackSize": 99
+      "maxStackSize": 99,
+      "id": "simplebuilding:birch_cauldron"
+    },
+    {
+      "id": "simplebuilding:birch_crate"
+    },
+    {
+      "id": "simplebuilding:birch_sheet"
     },
     {
       "id": "simplebuilding:black_hammock",
@@ -534,6 +644,42 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:carved_acacia_log"
+    },
+    {
+      "id": "simplebuilding:carved_bamboo_block"
+    },
+    {
+      "id": "simplebuilding:carved_birch_log"
+    },
+    {
+      "id": "simplebuilding:carved_cherry_log"
+    },
+    {
+      "id": "simplebuilding:carved_crimson_stem"
+    },
+    {
+      "id": "simplebuilding:carved_dark_oak_log"
+    },
+    {
+      "id": "simplebuilding:carved_jungle_log"
+    },
+    {
+      "id": "simplebuilding:carved_mangrove_log"
+    },
+    {
+      "id": "simplebuilding:carved_oak_log"
+    },
+    {
+      "id": "simplebuilding:carved_pale_oak_log"
+    },
+    {
+      "id": "simplebuilding:carved_spruce_log"
+    },
+    {
+      "id": "simplebuilding:carved_warped_stem"
+    },
+    {
       "id": "simplebuilding:cave_spider_head"
     },
     {
@@ -550,7 +696,14 @@
     },
     {
       "id": "simplebuilding:cherry_octet",
-      "maxStackSize": 99
+      "maxStackSize": 99,
+      "id": "simplebuilding:cherry_cauldron"
+    },
+    {
+      "id": "simplebuilding:cherry_crate"
+    },
+    {
+      "id": "simplebuilding:cherry_sheet"
     },
     {
       "id": "simplebuilding:chipped_ceramic_bucket",
@@ -687,7 +840,14 @@
     },
     {
       "id": "simplebuilding:crimson_octet",
-      "maxStackSize": 99
+      "maxStackSize": 99,
+      "id": "simplebuilding:crimson_cauldron"
+    },
+    {
+      "id": "simplebuilding:crimson_crate"
+    },
+    {
+      "id": "simplebuilding:crimson_sheet"
     },
     {
       "id": "simplebuilding:crystalline_astralit"
@@ -701,7 +861,14 @@
     },
     {
       "id": "simplebuilding:dark_oak_octet",
-      "maxStackSize": 99
+      "maxStackSize": 99,
+      "id": "simplebuilding:dark_oak_cauldron"
+    },
+    {
+      "id": "simplebuilding:dark_oak_crate"
+    },
+    {
+      "id": "simplebuilding:dark_oak_sheet"
     },
     {
       "id": "simplebuilding:deepslate_sage_ore"
@@ -1203,6 +1370,78 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:hollow_acacia_log"
+    },
+    {
+      "id": "simplebuilding:hollow_bamboo_block"
+    },
+    {
+      "id": "simplebuilding:hollow_birch_log"
+    },
+    {
+      "id": "simplebuilding:hollow_cherry_log"
+    },
+    {
+      "id": "simplebuilding:hollow_crimson_stem"
+    },
+    {
+      "id": "simplebuilding:hollow_dark_oak_log"
+    },
+    {
+      "id": "simplebuilding:hollow_jungle_log"
+    },
+    {
+      "id": "simplebuilding:hollow_mangrove_log"
+    },
+    {
+      "id": "simplebuilding:hollow_oak_log"
+    },
+    {
+      "id": "simplebuilding:hollow_pale_oak_log"
+    },
+    {
+      "id": "simplebuilding:hollow_spruce_log"
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_acacia_log"
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_bamboo_block"
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_birch_log"
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_cherry_log"
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_crimson_stem"
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_dark_oak_log"
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_jungle_log"
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_mangrove_log"
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_oak_log"
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_pale_oak_log"
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_spruce_log"
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_warped_stem"
+    },
+    {
+      "id": "simplebuilding:hollow_warped_stem"
+    },
+    {
       "id": "simplebuilding:husk_head"
     },
     {
@@ -1255,7 +1494,14 @@
     },
     {
       "id": "simplebuilding:jungle_octet",
-      "maxStackSize": 99
+      "maxStackSize": 99,
+      "id": "simplebuilding:jungle_cauldron"
+    },
+    {
+      "id": "simplebuilding:jungle_crate"
+    },
+    {
+      "id": "simplebuilding:jungle_sheet"
     },
     {
       "id": "simplebuilding:lapis_chess_bishop",
@@ -1359,7 +1605,18 @@
     },
     {
       "id": "simplebuilding:mangrove_octet",
-      "maxStackSize": 99
+      "maxStackSize": 99,
+      "id": "simplebuilding:mangrove_cauldron"
+    },
+    {
+      "id": "simplebuilding:mangrove_crate"
+    },
+    {
+      "id": "simplebuilding:mangrove_sheet"
+    },
+    {
+      "id": "simplebuilding:medium_armor_stand",
+      "maxStackSize": 16
     },
     {
       "id": "simplebuilding:music_disc_brimstone",
@@ -1690,7 +1947,14 @@
     },
     {
       "id": "simplebuilding:oak_octet",
-      "maxStackSize": 99
+      "maxStackSize": 99,
+      "id": "simplebuilding:oak_cauldron"
+    },
+    {
+      "id": "simplebuilding:oak_crate"
+    },
+    {
+      "id": "simplebuilding:oak_sheet"
     },
     {
       "id": "simplebuilding:obsidian_chip"
@@ -1813,7 +2077,14 @@
     },
     {
       "id": "simplebuilding:pale_oak_octet",
-      "maxStackSize": 99
+      "maxStackSize": 99,
+      "id": "simplebuilding:pale_oak_cauldron"
+    },
+    {
+      "id": "simplebuilding:pale_oak_crate"
+    },
+    {
+      "id": "simplebuilding:pale_oak_sheet"
     },
     {
       "id": "simplebuilding:pink_hammock",
@@ -2432,7 +2703,14 @@
     },
     {
       "id": "simplebuilding:spruce_octet",
-      "maxStackSize": 99
+      "maxStackSize": 99,
+      "id": "simplebuilding:spruce_cauldron"
+    },
+    {
+      "id": "simplebuilding:spruce_crate"
+    },
+    {
+      "id": "simplebuilding:spruce_sheet"
     },
     {
       "id": "simplebuilding:stellar_flypad",
@@ -2476,6 +2754,42 @@
       "id": "simplebuilding:stray_skull"
     },
     {
+      "id": "simplebuilding:stripped_acacia_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_bamboo_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_birch_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_cherry_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_crimson_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_dark_oak_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_jungle_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_mangrove_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_oak_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_pale_oak_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_spruce_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_warped_sheet"
+    },
+    {
       "id": "simplebuilding:suspended_gravel"
     },
     {
@@ -2509,7 +2823,14 @@
     },
     {
       "id": "simplebuilding:warped_octet",
-      "maxStackSize": 99
+      "maxStackSize": 99,
+      "id": "simplebuilding:warped_cauldron"
+    },
+    {
+      "id": "simplebuilding:warped_crate"
+    },
+    {
+      "id": "simplebuilding:warped_sheet"
     },
     {
       "id": "simplebuilding:waxed_copper_pressure_plate"

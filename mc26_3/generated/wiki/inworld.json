@@ -231,6 +231,54 @@
           [
             "minecraft:tuff_stairs",
             "minecraft:polished_tuff_stairs"
+          ],
+          [
+            "simplebuilding:hollow_stripped_acacia_log",
+            "minecraft:stripped_acacia_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_bamboo_block",
+            "minecraft:stripped_bamboo_block"
+          ],
+          [
+            "simplebuilding:hollow_stripped_birch_log",
+            "minecraft:stripped_birch_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_cherry_log",
+            "minecraft:stripped_cherry_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_crimson_stem",
+            "minecraft:stripped_crimson_stem"
+          ],
+          [
+            "simplebuilding:hollow_stripped_dark_oak_log",
+            "minecraft:stripped_dark_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_jungle_log",
+            "minecraft:stripped_jungle_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_mangrove_log",
+            "minecraft:stripped_mangrove_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_oak_log",
+            "minecraft:stripped_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_pale_oak_log",
+            "minecraft:stripped_pale_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_spruce_log",
+            "minecraft:stripped_spruce_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_warped_stem",
+            "minecraft:stripped_warped_stem"
           ]
         ],
         "forward": [
@@ -437,6 +485,54 @@
           [
             "minecraft:stone_stairs",
             "minecraft:cobblestone_stairs"
+          ],
+          [
+            "minecraft:stripped_acacia_log",
+            "simplebuilding:hollow_stripped_acacia_log"
+          ],
+          [
+            "minecraft:stripped_bamboo_block",
+            "simplebuilding:hollow_stripped_bamboo_block"
+          ],
+          [
+            "minecraft:stripped_birch_log",
+            "simplebuilding:hollow_stripped_birch_log"
+          ],
+          [
+            "minecraft:stripped_cherry_log",
+            "simplebuilding:hollow_stripped_cherry_log"
+          ],
+          [
+            "minecraft:stripped_crimson_stem",
+            "simplebuilding:hollow_stripped_crimson_stem"
+          ],
+          [
+            "minecraft:stripped_dark_oak_log",
+            "simplebuilding:hollow_stripped_dark_oak_log"
+          ],
+          [
+            "minecraft:stripped_jungle_log",
+            "simplebuilding:hollow_stripped_jungle_log"
+          ],
+          [
+            "minecraft:stripped_mangrove_log",
+            "simplebuilding:hollow_stripped_mangrove_log"
+          ],
+          [
+            "minecraft:stripped_oak_log",
+            "simplebuilding:hollow_stripped_oak_log"
+          ],
+          [
+            "minecraft:stripped_pale_oak_log",
+            "simplebuilding:hollow_stripped_pale_oak_log"
+          ],
+          [
+            "minecraft:stripped_spruce_log",
+            "simplebuilding:hollow_stripped_spruce_log"
+          ],
+          [
+            "minecraft:stripped_warped_stem",
+            "simplebuilding:hollow_stripped_warped_stem"
           ]
         ],
         "touchBackward": [
@@ -763,6 +859,54 @@
           [
             "minecraft:warped_stairs",
             "minecraft:warped_planks"
+          ],
+          [
+            "simplebuilding:hollow_stripped_acacia_log",
+            "minecraft:stripped_acacia_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_bamboo_block",
+            "minecraft:stripped_bamboo_block"
+          ],
+          [
+            "simplebuilding:hollow_stripped_birch_log",
+            "minecraft:stripped_birch_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_cherry_log",
+            "minecraft:stripped_cherry_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_crimson_stem",
+            "minecraft:stripped_crimson_stem"
+          ],
+          [
+            "simplebuilding:hollow_stripped_dark_oak_log",
+            "minecraft:stripped_dark_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_jungle_log",
+            "minecraft:stripped_jungle_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_mangrove_log",
+            "minecraft:stripped_mangrove_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_oak_log",
+            "minecraft:stripped_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_pale_oak_log",
+            "minecraft:stripped_pale_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_spruce_log",
+            "minecraft:stripped_spruce_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_warped_stem",
+            "minecraft:stripped_warped_stem"
           ]
         ],
         "touchForward": [
@@ -1081,6 +1225,54 @@
           [
             "minecraft:stone_stairs",
             "minecraft:cobblestone_stairs"
+          ],
+          [
+            "minecraft:stripped_acacia_log",
+            "simplebuilding:hollow_stripped_acacia_log"
+          ],
+          [
+            "minecraft:stripped_bamboo_block",
+            "simplebuilding:hollow_stripped_bamboo_block"
+          ],
+          [
+            "minecraft:stripped_birch_log",
+            "simplebuilding:hollow_stripped_birch_log"
+          ],
+          [
+            "minecraft:stripped_cherry_log",
+            "simplebuilding:hollow_stripped_cherry_log"
+          ],
+          [
+            "minecraft:stripped_crimson_stem",
+            "simplebuilding:hollow_stripped_crimson_stem"
+          ],
+          [
+            "minecraft:stripped_dark_oak_log",
+            "simplebuilding:hollow_stripped_dark_oak_log"
+          ],
+          [
+            "minecraft:stripped_jungle_log",
+            "simplebuilding:hollow_stripped_jungle_log"
+          ],
+          [
+            "minecraft:stripped_mangrove_log",
+            "simplebuilding:hollow_stripped_mangrove_log"
+          ],
+          [
+            "minecraft:stripped_oak_log",
+            "simplebuilding:hollow_stripped_oak_log"
+          ],
+          [
+            "minecraft:stripped_pale_oak_log",
+            "simplebuilding:hollow_stripped_pale_oak_log"
+          ],
+          [
+            "minecraft:stripped_spruce_log",
+            "simplebuilding:hollow_stripped_spruce_log"
+          ],
+          [
+            "minecraft:stripped_warped_stem",
+            "simplebuilding:hollow_stripped_warped_stem"
           ],
           [
             "minecraft:warped_planks",
@@ -1441,6 +1633,54 @@
           [
             "minecraft:tuff_stairs",
             "minecraft:polished_tuff_stairs"
+          ],
+          [
+            "simplebuilding:hollow_stripped_acacia_log",
+            "minecraft:stripped_acacia_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_bamboo_block",
+            "minecraft:stripped_bamboo_block"
+          ],
+          [
+            "simplebuilding:hollow_stripped_birch_log",
+            "minecraft:stripped_birch_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_cherry_log",
+            "minecraft:stripped_cherry_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_crimson_stem",
+            "minecraft:stripped_crimson_stem"
+          ],
+          [
+            "simplebuilding:hollow_stripped_dark_oak_log",
+            "minecraft:stripped_dark_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_jungle_log",
+            "minecraft:stripped_jungle_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_mangrove_log",
+            "minecraft:stripped_mangrove_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_oak_log",
+            "minecraft:stripped_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_pale_oak_log",
+            "minecraft:stripped_pale_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_spruce_log",
+            "minecraft:stripped_spruce_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_warped_stem",
+            "minecraft:stripped_warped_stem"
           ]
         ],
         "forward": [
@@ -1771,6 +2011,54 @@
           [
             "minecraft:stone_stairs",
             "minecraft:cobblestone_stairs"
+          ],
+          [
+            "minecraft:stripped_acacia_log",
+            "simplebuilding:hollow_stripped_acacia_log"
+          ],
+          [
+            "minecraft:stripped_bamboo_block",
+            "simplebuilding:hollow_stripped_bamboo_block"
+          ],
+          [
+            "minecraft:stripped_birch_log",
+            "simplebuilding:hollow_stripped_birch_log"
+          ],
+          [
+            "minecraft:stripped_cherry_log",
+            "simplebuilding:hollow_stripped_cherry_log"
+          ],
+          [
+            "minecraft:stripped_crimson_stem",
+            "simplebuilding:hollow_stripped_crimson_stem"
+          ],
+          [
+            "minecraft:stripped_dark_oak_log",
+            "simplebuilding:hollow_stripped_dark_oak_log"
+          ],
+          [
+            "minecraft:stripped_jungle_log",
+            "simplebuilding:hollow_stripped_jungle_log"
+          ],
+          [
+            "minecraft:stripped_mangrove_log",
+            "simplebuilding:hollow_stripped_mangrove_log"
+          ],
+          [
+            "minecraft:stripped_oak_log",
+            "simplebuilding:hollow_stripped_oak_log"
+          ],
+          [
+            "minecraft:stripped_pale_oak_log",
+            "simplebuilding:hollow_stripped_pale_oak_log"
+          ],
+          [
+            "minecraft:stripped_spruce_log",
+            "simplebuilding:hollow_stripped_spruce_log"
+          ],
+          [
+            "minecraft:stripped_warped_stem",
+            "simplebuilding:hollow_stripped_warped_stem"
           ],
           [
             "minecraft:tuff",
@@ -2337,6 +2625,54 @@
           [
             "minecraft:warped_stairs",
             "minecraft:warped_planks"
+          ],
+          [
+            "simplebuilding:hollow_stripped_acacia_log",
+            "minecraft:stripped_acacia_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_bamboo_block",
+            "minecraft:stripped_bamboo_block"
+          ],
+          [
+            "simplebuilding:hollow_stripped_birch_log",
+            "minecraft:stripped_birch_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_cherry_log",
+            "minecraft:stripped_cherry_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_crimson_stem",
+            "minecraft:stripped_crimson_stem"
+          ],
+          [
+            "simplebuilding:hollow_stripped_dark_oak_log",
+            "minecraft:stripped_dark_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_jungle_log",
+            "minecraft:stripped_jungle_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_mangrove_log",
+            "minecraft:stripped_mangrove_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_oak_log",
+            "minecraft:stripped_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_pale_oak_log",
+            "minecraft:stripped_pale_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_spruce_log",
+            "minecraft:stripped_spruce_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_warped_stem",
+            "minecraft:stripped_warped_stem"
           ]
         ],
         "touchForward": [
@@ -2853,6 +3189,54 @@
             "minecraft:cobblestone_stairs"
           ],
           [
+            "minecraft:stripped_acacia_log",
+            "simplebuilding:hollow_stripped_acacia_log"
+          ],
+          [
+            "minecraft:stripped_bamboo_block",
+            "simplebuilding:hollow_stripped_bamboo_block"
+          ],
+          [
+            "minecraft:stripped_birch_log",
+            "simplebuilding:hollow_stripped_birch_log"
+          ],
+          [
+            "minecraft:stripped_cherry_log",
+            "simplebuilding:hollow_stripped_cherry_log"
+          ],
+          [
+            "minecraft:stripped_crimson_stem",
+            "simplebuilding:hollow_stripped_crimson_stem"
+          ],
+          [
+            "minecraft:stripped_dark_oak_log",
+            "simplebuilding:hollow_stripped_dark_oak_log"
+          ],
+          [
+            "minecraft:stripped_jungle_log",
+            "simplebuilding:hollow_stripped_jungle_log"
+          ],
+          [
+            "minecraft:stripped_mangrove_log",
+            "simplebuilding:hollow_stripped_mangrove_log"
+          ],
+          [
+            "minecraft:stripped_oak_log",
+            "simplebuilding:hollow_stripped_oak_log"
+          ],
+          [
+            "minecraft:stripped_pale_oak_log",
+            "simplebuilding:hollow_stripped_pale_oak_log"
+          ],
+          [
+            "minecraft:stripped_spruce_log",
+            "simplebuilding:hollow_stripped_spruce_log"
+          ],
+          [
+            "minecraft:stripped_warped_stem",
+            "simplebuilding:hollow_stripped_warped_stem"
+          ],
+          [
             "minecraft:tube_coral_block",
             "minecraft:brain_coral_block"
           ],
@@ -3345,6 +3729,54 @@
             "simplebuilding:crystalline_nihilith"
           ],
           [
+            "simplebuilding:hollow_stripped_acacia_log",
+            "minecraft:stripped_acacia_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_bamboo_block",
+            "minecraft:stripped_bamboo_block"
+          ],
+          [
+            "simplebuilding:hollow_stripped_birch_log",
+            "minecraft:stripped_birch_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_cherry_log",
+            "minecraft:stripped_cherry_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_crimson_stem",
+            "minecraft:stripped_crimson_stem"
+          ],
+          [
+            "simplebuilding:hollow_stripped_dark_oak_log",
+            "minecraft:stripped_dark_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_jungle_log",
+            "minecraft:stripped_jungle_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_mangrove_log",
+            "minecraft:stripped_mangrove_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_oak_log",
+            "minecraft:stripped_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_pale_oak_log",
+            "minecraft:stripped_pale_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_spruce_log",
+            "minecraft:stripped_spruce_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_warped_stem",
+            "minecraft:stripped_warped_stem"
+          ],
+          [
             "simplebuilding:layered_astralit",
             "simplebuilding:crystalline_astralit"
           ],
@@ -3737,6 +4169,54 @@
           [
             "minecraft:stone_stairs",
             "minecraft:cobblestone_stairs"
+          ],
+          [
+            "minecraft:stripped_acacia_log",
+            "simplebuilding:hollow_stripped_acacia_log"
+          ],
+          [
+            "minecraft:stripped_bamboo_block",
+            "simplebuilding:hollow_stripped_bamboo_block"
+          ],
+          [
+            "minecraft:stripped_birch_log",
+            "simplebuilding:hollow_stripped_birch_log"
+          ],
+          [
+            "minecraft:stripped_cherry_log",
+            "simplebuilding:hollow_stripped_cherry_log"
+          ],
+          [
+            "minecraft:stripped_crimson_stem",
+            "simplebuilding:hollow_stripped_crimson_stem"
+          ],
+          [
+            "minecraft:stripped_dark_oak_log",
+            "simplebuilding:hollow_stripped_dark_oak_log"
+          ],
+          [
+            "minecraft:stripped_jungle_log",
+            "simplebuilding:hollow_stripped_jungle_log"
+          ],
+          [
+            "minecraft:stripped_mangrove_log",
+            "simplebuilding:hollow_stripped_mangrove_log"
+          ],
+          [
+            "minecraft:stripped_oak_log",
+            "simplebuilding:hollow_stripped_oak_log"
+          ],
+          [
+            "minecraft:stripped_pale_oak_log",
+            "simplebuilding:hollow_stripped_pale_oak_log"
+          ],
+          [
+            "minecraft:stripped_spruce_log",
+            "simplebuilding:hollow_stripped_spruce_log"
+          ],
+          [
+            "minecraft:stripped_warped_stem",
+            "simplebuilding:hollow_stripped_warped_stem"
           ],
           [
             "minecraft:tuff",
@@ -4613,6 +5093,54 @@
             "simplebuilding:crystalline_nihilith"
           ],
           [
+            "simplebuilding:hollow_stripped_acacia_log",
+            "minecraft:stripped_acacia_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_bamboo_block",
+            "minecraft:stripped_bamboo_block"
+          ],
+          [
+            "simplebuilding:hollow_stripped_birch_log",
+            "minecraft:stripped_birch_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_cherry_log",
+            "minecraft:stripped_cherry_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_crimson_stem",
+            "minecraft:stripped_crimson_stem"
+          ],
+          [
+            "simplebuilding:hollow_stripped_dark_oak_log",
+            "minecraft:stripped_dark_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_jungle_log",
+            "minecraft:stripped_jungle_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_mangrove_log",
+            "minecraft:stripped_mangrove_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_oak_log",
+            "minecraft:stripped_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_pale_oak_log",
+            "minecraft:stripped_pale_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_spruce_log",
+            "minecraft:stripped_spruce_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_warped_stem",
+            "minecraft:stripped_warped_stem"
+          ],
+          [
             "simplebuilding:layered_astralit",
             "simplebuilding:crystalline_astralit"
           ],
@@ -5263,6 +5791,54 @@
             "minecraft:cobblestone_stairs"
           ],
           [
+            "minecraft:stripped_acacia_log",
+            "simplebuilding:hollow_stripped_acacia_log"
+          ],
+          [
+            "minecraft:stripped_bamboo_block",
+            "simplebuilding:hollow_stripped_bamboo_block"
+          ],
+          [
+            "minecraft:stripped_birch_log",
+            "simplebuilding:hollow_stripped_birch_log"
+          ],
+          [
+            "minecraft:stripped_cherry_log",
+            "simplebuilding:hollow_stripped_cherry_log"
+          ],
+          [
+            "minecraft:stripped_crimson_stem",
+            "simplebuilding:hollow_stripped_crimson_stem"
+          ],
+          [
+            "minecraft:stripped_dark_oak_log",
+            "simplebuilding:hollow_stripped_dark_oak_log"
+          ],
+          [
+            "minecraft:stripped_jungle_log",
+            "simplebuilding:hollow_stripped_jungle_log"
+          ],
+          [
+            "minecraft:stripped_mangrove_log",
+            "simplebuilding:hollow_stripped_mangrove_log"
+          ],
+          [
+            "minecraft:stripped_oak_log",
+            "simplebuilding:hollow_stripped_oak_log"
+          ],
+          [
+            "minecraft:stripped_pale_oak_log",
+            "simplebuilding:hollow_stripped_pale_oak_log"
+          ],
+          [
+            "minecraft:stripped_spruce_log",
+            "simplebuilding:hollow_stripped_spruce_log"
+          ],
+          [
+            "minecraft:stripped_warped_stem",
+            "simplebuilding:hollow_stripped_warped_stem"
+          ],
+          [
             "minecraft:tube_coral_block",
             "minecraft:brain_coral_block"
           ],
@@ -5801,6 +6377,54 @@
           [
             "minecraft:tuff_stairs",
             "minecraft:polished_tuff_stairs"
+          ],
+          [
+            "simplebuilding:hollow_stripped_acacia_log",
+            "minecraft:stripped_acacia_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_bamboo_block",
+            "minecraft:stripped_bamboo_block"
+          ],
+          [
+            "simplebuilding:hollow_stripped_birch_log",
+            "minecraft:stripped_birch_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_cherry_log",
+            "minecraft:stripped_cherry_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_crimson_stem",
+            "minecraft:stripped_crimson_stem"
+          ],
+          [
+            "simplebuilding:hollow_stripped_dark_oak_log",
+            "minecraft:stripped_dark_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_jungle_log",
+            "minecraft:stripped_jungle_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_mangrove_log",
+            "minecraft:stripped_mangrove_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_oak_log",
+            "minecraft:stripped_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_pale_oak_log",
+            "minecraft:stripped_pale_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_spruce_log",
+            "minecraft:stripped_spruce_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_warped_stem",
+            "minecraft:stripped_warped_stem"
           ]
         ],
         "forward": [
@@ -6159,6 +6783,54 @@
           [
             "minecraft:stone_stairs",
             "minecraft:cobblestone_stairs"
+          ],
+          [
+            "minecraft:stripped_acacia_log",
+            "simplebuilding:hollow_stripped_acacia_log"
+          ],
+          [
+            "minecraft:stripped_bamboo_block",
+            "simplebuilding:hollow_stripped_bamboo_block"
+          ],
+          [
+            "minecraft:stripped_birch_log",
+            "simplebuilding:hollow_stripped_birch_log"
+          ],
+          [
+            "minecraft:stripped_cherry_log",
+            "simplebuilding:hollow_stripped_cherry_log"
+          ],
+          [
+            "minecraft:stripped_crimson_stem",
+            "simplebuilding:hollow_stripped_crimson_stem"
+          ],
+          [
+            "minecraft:stripped_dark_oak_log",
+            "simplebuilding:hollow_stripped_dark_oak_log"
+          ],
+          [
+            "minecraft:stripped_jungle_log",
+            "simplebuilding:hollow_stripped_jungle_log"
+          ],
+          [
+            "minecraft:stripped_mangrove_log",
+            "simplebuilding:hollow_stripped_mangrove_log"
+          ],
+          [
+            "minecraft:stripped_oak_log",
+            "simplebuilding:hollow_stripped_oak_log"
+          ],
+          [
+            "minecraft:stripped_pale_oak_log",
+            "simplebuilding:hollow_stripped_pale_oak_log"
+          ],
+          [
+            "minecraft:stripped_spruce_log",
+            "simplebuilding:hollow_stripped_spruce_log"
+          ],
+          [
+            "minecraft:stripped_warped_stem",
+            "simplebuilding:hollow_stripped_warped_stem"
           ],
           [
             "minecraft:tuff",
@@ -6837,6 +7509,54 @@
           [
             "minecraft:yellow_concrete_powder",
             "minecraft:yellow_concrete"
+          ],
+          [
+            "simplebuilding:hollow_stripped_acacia_log",
+            "minecraft:stripped_acacia_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_bamboo_block",
+            "minecraft:stripped_bamboo_block"
+          ],
+          [
+            "simplebuilding:hollow_stripped_birch_log",
+            "minecraft:stripped_birch_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_cherry_log",
+            "minecraft:stripped_cherry_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_crimson_stem",
+            "minecraft:stripped_crimson_stem"
+          ],
+          [
+            "simplebuilding:hollow_stripped_dark_oak_log",
+            "minecraft:stripped_dark_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_jungle_log",
+            "minecraft:stripped_jungle_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_mangrove_log",
+            "minecraft:stripped_mangrove_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_oak_log",
+            "minecraft:stripped_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_pale_oak_log",
+            "minecraft:stripped_pale_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_spruce_log",
+            "minecraft:stripped_spruce_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_warped_stem",
+            "minecraft:stripped_warped_stem"
           ]
         ],
         "touchForward": [
@@ -7453,6 +8173,54 @@
             "minecraft:cobblestone_stairs"
           ],
           [
+            "minecraft:stripped_acacia_log",
+            "simplebuilding:hollow_stripped_acacia_log"
+          ],
+          [
+            "minecraft:stripped_bamboo_block",
+            "simplebuilding:hollow_stripped_bamboo_block"
+          ],
+          [
+            "minecraft:stripped_birch_log",
+            "simplebuilding:hollow_stripped_birch_log"
+          ],
+          [
+            "minecraft:stripped_cherry_log",
+            "simplebuilding:hollow_stripped_cherry_log"
+          ],
+          [
+            "minecraft:stripped_crimson_stem",
+            "simplebuilding:hollow_stripped_crimson_stem"
+          ],
+          [
+            "minecraft:stripped_dark_oak_log",
+            "simplebuilding:hollow_stripped_dark_oak_log"
+          ],
+          [
+            "minecraft:stripped_jungle_log",
+            "simplebuilding:hollow_stripped_jungle_log"
+          ],
+          [
+            "minecraft:stripped_mangrove_log",
+            "simplebuilding:hollow_stripped_mangrove_log"
+          ],
+          [
+            "minecraft:stripped_oak_log",
+            "simplebuilding:hollow_stripped_oak_log"
+          ],
+          [
+            "minecraft:stripped_pale_oak_log",
+            "simplebuilding:hollow_stripped_pale_oak_log"
+          ],
+          [
+            "minecraft:stripped_spruce_log",
+            "simplebuilding:hollow_stripped_spruce_log"
+          ],
+          [
+            "minecraft:stripped_warped_stem",
+            "simplebuilding:hollow_stripped_warped_stem"
+          ],
+          [
             "minecraft:tube_coral_block",
             "minecraft:brain_coral_block"
           ],
@@ -7559,6 +8327,54 @@
           [
             "minecraft:stone_slab",
             "minecraft:smooth_stone_slab"
+          ],
+          [
+            "simplebuilding:hollow_stripped_acacia_log",
+            "minecraft:stripped_acacia_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_bamboo_block",
+            "minecraft:stripped_bamboo_block"
+          ],
+          [
+            "simplebuilding:hollow_stripped_birch_log",
+            "minecraft:stripped_birch_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_cherry_log",
+            "minecraft:stripped_cherry_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_crimson_stem",
+            "minecraft:stripped_crimson_stem"
+          ],
+          [
+            "simplebuilding:hollow_stripped_dark_oak_log",
+            "minecraft:stripped_dark_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_jungle_log",
+            "minecraft:stripped_jungle_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_mangrove_log",
+            "minecraft:stripped_mangrove_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_oak_log",
+            "minecraft:stripped_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_pale_oak_log",
+            "minecraft:stripped_pale_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_spruce_log",
+            "minecraft:stripped_spruce_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_warped_stem",
+            "minecraft:stripped_warped_stem"
           ]
         ],
         "forward": [
@@ -7621,6 +8437,54 @@
           [
             "minecraft:stone_stairs",
             "minecraft:cobblestone_stairs"
+          ],
+          [
+            "minecraft:stripped_acacia_log",
+            "simplebuilding:hollow_stripped_acacia_log"
+          ],
+          [
+            "minecraft:stripped_bamboo_block",
+            "simplebuilding:hollow_stripped_bamboo_block"
+          ],
+          [
+            "minecraft:stripped_birch_log",
+            "simplebuilding:hollow_stripped_birch_log"
+          ],
+          [
+            "minecraft:stripped_cherry_log",
+            "simplebuilding:hollow_stripped_cherry_log"
+          ],
+          [
+            "minecraft:stripped_crimson_stem",
+            "simplebuilding:hollow_stripped_crimson_stem"
+          ],
+          [
+            "minecraft:stripped_dark_oak_log",
+            "simplebuilding:hollow_stripped_dark_oak_log"
+          ],
+          [
+            "minecraft:stripped_jungle_log",
+            "simplebuilding:hollow_stripped_jungle_log"
+          ],
+          [
+            "minecraft:stripped_mangrove_log",
+            "simplebuilding:hollow_stripped_mangrove_log"
+          ],
+          [
+            "minecraft:stripped_oak_log",
+            "simplebuilding:hollow_stripped_oak_log"
+          ],
+          [
+            "minecraft:stripped_pale_oak_log",
+            "simplebuilding:hollow_stripped_pale_oak_log"
+          ],
+          [
+            "minecraft:stripped_spruce_log",
+            "simplebuilding:hollow_stripped_spruce_log"
+          ],
+          [
+            "minecraft:stripped_warped_stem",
+            "simplebuilding:hollow_stripped_warped_stem"
           ]
         ],
         "touchBackward": [
@@ -7739,6 +8603,54 @@
           [
             "minecraft:stripped_spruce_log",
             "minecraft:spruce_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_acacia_log",
+            "minecraft:stripped_acacia_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_bamboo_block",
+            "minecraft:stripped_bamboo_block"
+          ],
+          [
+            "simplebuilding:hollow_stripped_birch_log",
+            "minecraft:stripped_birch_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_cherry_log",
+            "minecraft:stripped_cherry_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_crimson_stem",
+            "minecraft:stripped_crimson_stem"
+          ],
+          [
+            "simplebuilding:hollow_stripped_dark_oak_log",
+            "minecraft:stripped_dark_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_jungle_log",
+            "minecraft:stripped_jungle_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_mangrove_log",
+            "minecraft:stripped_mangrove_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_oak_log",
+            "minecraft:stripped_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_pale_oak_log",
+            "minecraft:stripped_pale_oak_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_spruce_log",
+            "minecraft:stripped_spruce_log"
+          ],
+          [
+            "simplebuilding:hollow_stripped_warped_stem",
+            "minecraft:stripped_warped_stem"
           ]
         ],
         "touchForward": [
@@ -7857,6 +8769,54 @@
           [
             "minecraft:stone_stairs",
             "minecraft:cobblestone_stairs"
+          ],
+          [
+            "minecraft:stripped_acacia_log",
+            "simplebuilding:hollow_stripped_acacia_log"
+          ],
+          [
+            "minecraft:stripped_bamboo_block",
+            "simplebuilding:hollow_stripped_bamboo_block"
+          ],
+          [
+            "minecraft:stripped_birch_log",
+            "simplebuilding:hollow_stripped_birch_log"
+          ],
+          [
+            "minecraft:stripped_cherry_log",
+            "simplebuilding:hollow_stripped_cherry_log"
+          ],
+          [
+            "minecraft:stripped_crimson_stem",
+            "simplebuilding:hollow_stripped_crimson_stem"
+          ],
+          [
+            "minecraft:stripped_dark_oak_log",
+            "simplebuilding:hollow_stripped_dark_oak_log"
+          ],
+          [
+            "minecraft:stripped_jungle_log",
+            "simplebuilding:hollow_stripped_jungle_log"
+          ],
+          [
+            "minecraft:stripped_mangrove_log",
+            "simplebuilding:hollow_stripped_mangrove_log"
+          ],
+          [
+            "minecraft:stripped_oak_log",
+            "simplebuilding:hollow_stripped_oak_log"
+          ],
+          [
+            "minecraft:stripped_pale_oak_log",
+            "simplebuilding:hollow_stripped_pale_oak_log"
+          ],
+          [
+            "minecraft:stripped_spruce_log",
+            "simplebuilding:hollow_stripped_spruce_log"
+          ],
+          [
+            "minecraft:stripped_warped_stem",
+            "simplebuilding:hollow_stripped_warped_stem"
           ]
         ]
       }

@@ -45,6 +45,8 @@
     "FletchingTableMixin",
     "MetalRodLightningMixin",
     "HammockPlayerMixin",
+    "HollowLogCrawlMixin",
+    "FireBlockFlammableInvoker",
     "HammockServerLevelMixin",
     "HostileEntityMixin",
     "ItemEntityMixin",

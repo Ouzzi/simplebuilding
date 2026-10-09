@@ -465,6 +465,10 @@ public class ModBlocks {
         return List.copyOf(out);
     }
 
+    /** Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md, McVersion.WOODWORK): Roehren, Platten, Holzkessel, Kisten, Schnitzholz je Holzart. */
+    public static final List<com.simplebuilding.woodwork.WoodBlocks.Family> WOOD_FAMILIES = McVersion.WOODWORK
+            ? com.simplebuilding.woodwork.WoodBlocks.registerBlocks() : List.of();
+
     /**
      * Achtelbloecke aller Farben in einem Block (Farbe und acht Bits im Zustand); kein Werkzeug noetig, mit der
      * Spitzhacke schneller. Drops aus dem Zustand (CheckerOctetBlock#getDrops), keine Loot-Tabelle.
@@ -674,6 +678,9 @@ public class ModBlocks {
             com.simplebuilding.fluid.ModFluids.registerFluids();
             com.simplebuilding.fluid.ModFluids.registerBlocks();
             com.simplebuilding.crucible.CrucibleCompat.registerBlocks();
+        }
+        if (McVersion.WOODWORK) {
+            com.simplebuilding.woodwork.WoodBlocks.registerFlammability();
         }
     }
 

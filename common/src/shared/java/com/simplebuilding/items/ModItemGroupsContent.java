@@ -270,6 +270,13 @@ public final class ModItemGroupsContent {
             }
             rows.addAll(gravity, natureRows());
         }
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): je Holzart eine Zeile - Roehren, Platten, Kessel, Kiste, Schnitzholz.
+            for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
+                rows.add(new CreativeTabLayout.Row("woodwork_" + family.wood().id(),
+                        family.blocks().stream().map(ItemStack::new).toList()));
+            }
+        }
         return List.copyOf(rows);
     }
 

@@ -112,6 +112,8 @@ public final class SimplebuildingForgeClient {
                 com.simplebuilding.forge.ForgeModRegistries.GOAT_HORN_HOLDER_BE.get(), com.simplebuilding.client.render.GoatHornHolderRenderer::new);
         if (com.simplebuilding.forge.ForgeModRegistries.CHESS_PIECES_BE != null) event.registerBlockEntityRenderer(
                 com.simplebuilding.forge.ForgeModRegistries.CHESS_PIECES_BE.get(), com.simplebuilding.client.render.ChessPiecesRenderer::new);
+        if (com.simplebuilding.forge.ForgeModRegistries.CRATE_BE != null) event.registerBlockEntityRenderer(
+                com.simplebuilding.forge.ForgeModRegistries.CRATE_BE.get(), com.simplebuilding.woodwork.client.CrateRenderer::new);
         // Haengematte: das Kopfteil zeichnet die ganze Matte entlang der Ankerlinie (jeder Winkel).
         if (com.simplebuilding.forge.ForgeModRegistries.HAMMOCK_BE != null) event.registerBlockEntityRenderer(
                 com.simplebuilding.forge.ForgeModRegistries.HAMMOCK_BE.get(), com.simplebuilding.client.render.HammockRenderer::new);
@@ -209,6 +211,8 @@ public final class SimplebuildingForgeClient {
             event.register(java.util.List.of(net.minecraft.client.color.block.BlockTintSources.grassBlock()),
                     com.simplebuilding.blocks.ModBlocks.GRASS_SLAB);
         }
+        if (!com.simplebuilding.blocks.ModBlocks.WOOD_FAMILIES.isEmpty()) event.register(
+                java.util.List.of(com.simplebuilding.woodwork.client.WoodenCauldronTint.INSTANCE), com.simplebuilding.woodwork.WoodBlocks.cauldrons());
     }
 
     @SubscribeEvent

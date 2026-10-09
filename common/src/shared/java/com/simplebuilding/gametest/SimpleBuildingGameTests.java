@@ -299,6 +299,20 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(NatureBlockTests.FALLING_SLAB_MAX_TICKS).build(),
             GameTestSpec.named("nature_block_game_test_cracked_ice_melts_under_an_entity_after_some_seconds", NatureBlockTests::crackedIceMeltsUnderAnEntityAfterSomeSeconds)
                     .maxTicks(NatureBlockTests.CRACKED_ICE_MAX_TICKS).build(),
+            GameTestSpec.named("woodwork_game_test_hollow_logs_let_small_mobs_and_crawlers_through", WoodworkTests::hollowLogsLetSmallMobsAndCrawlersThrough)
+                    .build(),
+            GameTestSpec.named("woodwork_game_test_sheets_connect_and_let_light_through", WoodworkTests::sheetsConnectAndLetLightThrough)
+                    .build(),
+            GameTestSpec.named("woodwork_game_test_wooden_cauldron_holds_water_and_burns_with_lava", WoodworkTests::woodenCauldronHoldsWaterAndBurnsWithLava)
+                    .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("woodwork_game_test_crates_store_food_for_hoppers_and_comparators", WoodworkTests::cratesStoreFoodForHoppersAndComparators)
+                    .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("woodwork_game_test_chisel_carves_sherd_motifs_and_hollows_logs", WoodworkTests::chiselCarvesSherdMotifsAndHollowsLogs)
+                    .build(),
+            GameTestSpec.named("woodwork_game_test_woodwork_recipes_exist_for_every_wood", WoodworkTests::woodworkRecipesExistForEveryWood)
+                    .build(),
             GameTestSpec.named("chisel_game_test_conversion_tables_are_pinned_entry_by_entry", ChiselTests::conversionTablesArePinnedEntryByEntry)
                     .build(),
             GameTestSpec.named("chisel_game_test_enderite_tier_walks_the_end_stone_palettes", ChiselTests::enderiteTierWalksTheEndStonePalettes)

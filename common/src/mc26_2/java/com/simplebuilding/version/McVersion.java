@@ -121,6 +121,8 @@ public final class McVersion {
     public static final boolean MEGA_GUIDES = false;
     /** Schachfiguren, Achtelbloecke, Checker-Stufen/-Treppen: nur Hauptlinie 26.3. */
     public static final boolean CHESS = false;
+    /** Holzwerk: nur Hauptlinie 26.3. */
+    public static final boolean WOODWORK = false;
 
     private McVersion() {
     }

@@ -41,7 +41,7 @@ public final class TestCentreLayout {
 
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
     public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "states", "storage", "food",
-            "materials", "placeables", "arrows", "archery", "music", "crucible", "chess", "astral", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
+            "materials", "placeables", "arrows", "archery", "music", "crucible", "chess", "astral", "woodwork", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
             "mining", "enchants", "sinkdamper", "tweaks", "devices",
             // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
             "tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads", "tab_arrows",
@@ -213,6 +213,8 @@ public final class TestCentreLayout {
         builders.put("chess", FeatureStations::chess);
         // Astral-Verzauberung (Queue N27); auf 26.2 leer.
         builders.put("astral", FeatureStations::astralEnchanting);
+        // Holzwerk-Station (2026-10-09); auf 26.2 leer.
+        builders.put("woodwork", FeatureStations::woodwork);
         builders.put("chisel", TestCentreSections::chisel);
         builders.put("inworld", TestCentreSections::inWorld);
         builders.put("templates", TestCentreSections::templates);

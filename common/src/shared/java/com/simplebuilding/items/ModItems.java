@@ -199,6 +199,12 @@ public class ModItems {
             com.simplebuilding.chess.ChessItems.register(ModItems::registerItem);
         }
     }
+    // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): je Holzart Roehren, Platten, Kessel, Kiste, Schnitzholz.
+    static {
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            com.simplebuilding.woodwork.WoodBlocks.registerItems(ModItems::registerItem);
+        }
+    }
 
     /** Holz-Achtel (Queue Nachtrag 24): je Holzart ein Item, das ins Sub-Raster setzt wie die Schach-Achtel. */
     public static final java.util.List<Item> WOOD_OCTETS = registerWoodOctets();

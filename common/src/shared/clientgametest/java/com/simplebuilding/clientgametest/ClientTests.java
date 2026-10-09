@@ -98,8 +98,8 @@ public final class ClientTests {
                 new Entry("trim-textures", TrimTextureClientTest::inWorld),
                 // Owner N21/N28 (26.3): half and full Enderite buckets in the inventory; hotbar back empty.
                 new Entry("enderite-buckets", EnderiteBucketClientTest::inWorld),
-                    // Owner N11 P7: the Resonance Rod tilt and its amethyst dot.
-                    new Entry("resonance-rod", GadgetsClientTest::inWorld),
+                // Owner N11 P7: the Resonance Rod tilt and its amethyst dot.
+                new Entry("resonance-rod", GadgetsClientTest::inWorld),
                 // Armor stands in one documentary picture (2026-10-09, small stand Nachtrag 29); kills them again.
                 new Entry("armor-stands", ArmorStandClientTest::inWorld),
                 // Placing N24/N16 (2026-10-09): ingot stacks, trims pile, goat horns, joined rods, hammock lead.
@@ -108,7 +108,9 @@ public final class ClientTests {
                 // Table; clears its effects, the table and the mobs again.
                 new Entry("brew", BrewClientTest::inWorld),
                 // Queue N15 (26.3): every chess piece stands on its quarter; boards and gallery in three pictures.
-                new Entry("chess-pieces", ChessClientTest::inWorld));
+                new Entry("chess-pieces", ChessClientTest::inWorld),
+                // Holzwerk (2026-10-09, 26.3): motif sprites baked, one overview and one close-up; clears its blocks.
+                new Entry("woodwork", WoodworkClientTest::inWorld));
     }
 
     /**

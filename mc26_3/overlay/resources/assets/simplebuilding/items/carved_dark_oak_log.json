@@ -1,0 +1,174 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:block_state",
+    "block_state_property": "motif",
+    "cases": [
+      {
+        "when": "angler",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_angler"
+        }
+      },
+      {
+        "when": "archer",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_archer"
+        }
+      },
+      {
+        "when": "arms_up",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_arms_up"
+        }
+      },
+      {
+        "when": "blade",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_blade"
+        }
+      },
+      {
+        "when": "brewer",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_brewer"
+        }
+      },
+      {
+        "when": "burn",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_burn"
+        }
+      },
+      {
+        "when": "danger",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_danger"
+        }
+      },
+      {
+        "when": "explorer",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_explorer"
+        }
+      },
+      {
+        "when": "flow",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_flow"
+        }
+      },
+      {
+        "when": "friend",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_friend"
+        }
+      },
+      {
+        "when": "guster",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_guster"
+        }
+      },
+      {
+        "when": "heart",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_heart"
+        }
+      },
+      {
+        "when": "heartbreak",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_heartbreak"
+        }
+      },
+      {
+        "when": "howl",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_howl"
+        }
+      },
+      {
+        "when": "miner",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_miner"
+        }
+      },
+      {
+        "when": "mourner",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_mourner"
+        }
+      },
+      {
+        "when": "plenty",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_plenty"
+        }
+      },
+      {
+        "when": "prize",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_prize"
+        }
+      },
+      {
+        "when": "scrape",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_scrape"
+        }
+      },
+      {
+        "when": "sheaf",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_sheaf"
+        }
+      },
+      {
+        "when": "shelter",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_shelter"
+        }
+      },
+      {
+        "when": "skull",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_skull"
+        }
+      },
+      {
+        "when": "snort",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:block/carved/carved_dark_oak_log_snort"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "simplebuilding:block/carved/carved_dark_oak_log_angler"
+    }
+  }
+}

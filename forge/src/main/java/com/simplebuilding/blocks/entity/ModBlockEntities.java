@@ -21,6 +21,8 @@ public class ModBlockEntities {
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity> GOAT_HORN_HOLDER_BE;
     /** Schachfiguren auf einem Block; nur mit McVersion.CHESS. */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity> CHESS_PIECES_BE;
+    /** Kisten (Holzwerk); nur mit McVersion.WOODWORK. */
+    public static BlockEntityType<com.simplebuilding.woodwork.CrateBlockEntity> CRATE_BE;
     /** Haengematten (Tuch und Seil kennen ihre Matte); nur mit McVersion.HAMMOCK. */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.HammockBlockEntity> HAMMOCK_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity> TIERED_CHEST_BE;
