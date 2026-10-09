@@ -42,9 +42,9 @@ public final class ChessClientTest {
     private static final int BOARD_Z = 11;
     private static final int BOARD_3D_X = 5;
     private static final int BOARD_FLAT_X = 12;
-    /** Gallery: one column per colour from x 4, three piece cells at z 17-19, an octet block at z 16. */
+    /** Gallery: one column per colour from x 4, three piece cells at z 16-18, an octet block behind them at z 19. */
     private static final int GALLERY_X = 4;
-    private static final int GALLERY_Z = 17;
+    private static final int GALLERY_Z = 16;
     private static final int[] OCTET_MASKS = {0x01, 0x03, 0x05, 0x0F, 0x33, 0x55, 0x3F, 0x77, 0x7F, 0xFF, 0x8B, 0x17, 0xE8};
     private static final ChessPiece[] BACK = {ChessPiece.ROOK, ChessPiece.KNIGHT, ChessPiece.BISHOP, ChessPiece.QUEEN,
             ChessPiece.KING, ChessPiece.BISHOP, ChessPiece.KNIGHT, ChessPiece.ROOK};
@@ -79,7 +79,7 @@ public final class ChessClientTest {
                     level.setBlock(pos.below(), floor.defaultBlockState(), Block.UPDATE_ALL);
                     pieces[0] += cell(level, pos, Direction.NORTH, all.subList(cell * 4, cell * 4 + 4), cells);
                 }
-                level.setBlock(new BlockPos(x, 0, GALLERY_Z - 1), CheckerOctetBlock.withMask(ModBlocks.CHECKER_OCTET.defaultBlockState()
+                level.setBlock(new BlockPos(x, 0, GALLERY_Z + 3), CheckerOctetBlock.withMask(ModBlocks.CHECKER_OCTET.defaultBlockState()
                         .setValue(CheckerOctetBlock.COLOR, color), OCTET_MASKS[i % OCTET_MASKS.length]), Block.UPDATE_ALL);
             }
         });
@@ -87,12 +87,16 @@ public final class ChessClientTest {
         script.await("the client has every chess cell with its pieces", 200,
                 client -> cells.size() == 8 * 2 + ChessColor.values().length * 3 && countPieces(client, cells) == pieces[0],
                 client -> "the client shows " + countPieces(client, cells) + " of " + pieces[0] + " pieces in " + cells.size() + " cells");
-        fly(script);
-        look(script, "tp @a 7.0 1.0 15.8 180.0 40.0");
+        onServer(script, "put invisible barriers where the cameras stand", server -> {
+            for (BlockPos pos : List.of(new BlockPos(7, 0, 15), new BlockPos(14, 1, 15), new BlockPos(10, 1, 13))) {
+                server.overworld().setBlock(pos, Blocks.BARRIER.defaultBlockState(), Block.UPDATE_ALL);
+            }
+        });
+        look(script, "tp @a 7.0 1.0 15.5 180.0 42.0");
         script.shot("chess-board-pieces");
-        look(script, "tp @a 14.0 1.5 16.0 180.0 48.0");
+        look(script, "tp @a 14.0 2.0 15.5 180.0 52.0");
         script.shot("chess-board-flat");
-        look(script, "tp @a 10.5 2.5 14.5 0.0 45.0");
+        look(script, "tp @a 10.5 2.0 13.5 0.0 40.0");
         script.shot("chess-gallery");
         script.act("every piece stands on its own quarter, on top of the block below", client -> {
             int checked = 0;
@@ -103,7 +107,8 @@ public final class ChessClientTest {
                 throw new AssertionError("Checked " + checked + " pieces, the scene holds " + pieces[0]);
             }
         });
-        land(script);
+        script.command("tp @a 10.5 0.0 15.5 0.0 0.0");
+        script.awaitPackets();
     }
 
     /** Starting position on a 4 x 4 checker board: black in the north cells (facing south), white in the south. */
@@ -201,34 +206,6 @@ public final class ChessClientTest {
             checked++;
         }
         return checked;
-    }
-
-    /** Creative flight on both sides, so the camera can hang above the boards. */
-    private static void fly(Script script) {
-        script.act("fly, so the camera stays where it is put", client -> {
-            client.player.getAbilities().flying = true;
-            client.player.onUpdateAbilities();
-        });
-        onServer(script, "fly on the server too", server -> server.getPlayerList().getPlayers().forEach(player -> {
-            player.getAbilities().flying = true;
-            player.onUpdateAbilities();
-        }));
-        script.awaitPackets();
-    }
-
-    private static void land(Script script) {
-        script.act("stop flying", client -> {
-            client.player.getAbilities().flying = false;
-            client.player.onUpdateAbilities();
-        });
-        onServer(script, "stop flying on the server", server -> {
-            server.getPlayerList().getPlayers().forEach(player -> {
-                player.getAbilities().flying = false;
-                player.onUpdateAbilities();
-            });
-        });
-        script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
-        script.awaitPackets();
     }
 
     private static void look(Script script, String tp) {
