@@ -578,7 +578,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
   - Herstellung: Enderit-Nugget in der Nebenhand, mindestens Netherit-Hammer in der Haupthand, ca. 20 Schläge auf einen Verzauberungstisch.
   - UI nach den Prinzipien des normalen Tisches, aber: die 3 vorgeschlagenen Verzauberungen sind zufällig (passend zum Item, z. B. Spitzhacke: Haltbarkeit, Effizienz, Glück). Jede hat einen Regler (Stufe 0..max).
   - Regler-Grenzen je Bücherregal-Stärke: ohne Regale nur Stufe 1 der niedrigen Verzauberungen, hohe ausgegraut (0). Volle Regale: Regler zusammen bis 30 Level wählbar, Kosten skalieren mit der Wahl (0–3 Level verbraucht).
-  - Höhere Stufen: bessere Regale + besonderer Boden 5×5 (Platzhalter weinender Obsidian): Zwischenstufe 40 (4 Level Verbrauch), Maximum 50 (alle gewählten Verzauberungen bis Max, 5 Level Verbrauch).
+  - Höhere Stufen: bessere Regale + besonderer Boden 5×5 aus Lohen-Obsidian (leuchtende Variante des weinenden Obsidians, 8 Lohenstaub + 1 weinender Obsidian; später Astralit-/Nihilit-Fliesen): Zwischenstufe 40 (4 Level Verbrauch), Maximum 50 (alle gewählten Verzauberungen bis Max, 5 Level Verbrauch).
+  - Abbauen dauert doppelt so lange wie beim normalen Tisch; Drop: normaler Tisch + eingesetztes Enderit-Teil.
   - Lagert Lapislazuli und Lohenstaub (je bis 1 Stack), bleibt beim Verlassen erhalten. Lohenstaub wird doppelt so viel benötigt wie Lapis.
 - [ ] **Lohenholz** (Blazewood): 8 Lohenstaub + 1 Nether-Holz (Varianten je Nether-Holzart: Karmesin, Wirr, …).
 - [ ] **Lohenbuch** (Blaze Book): analog zum Buch aus Lohen-Zutaten.

@@ -22,12 +22,19 @@ festgelegt, Besitzer kann jederzeit ändern.
   1 Stack, bleiben im Block gespeichert (auch beim Verlassen, droppen beim Abbau).
 - 3 zufällige, zum Item passende Verzauberungen (keine Schatz-Verzauberungen, wie Vanilla), je mit Regler 0..Max.
   Neuer Zufallssatz nach jedem Verzaubern (wie Vanilla-Seed).
-- Budget = Stufe des Tisches; jede Reglerstufe kostet Punkte nach Seltenheit (entschieden: häufig 3, selten 6,
-  sehr selten 10 je Stufe, so dass 30 grob zwei mittlere Verzauberungen erlaubt). Bei 50 sind alle Regler bis Max frei.
+- Budget = Stufe des Tisches; jede Reglerstufe kostet Punkte nach Seltenheit (häufig 3, selten 6, sehr selten 10 je
+  Stufe, so dass 30 grob zwei mittlere Verzauberungen erlaubt). Besitzer: fair, aber ein klein wenig teurer als ein
+  vergleichbarer Vanilla-Wurf, weil man gezielt wählen kann. Bei 50 sind alle Regler bis Max frei.
   Zu teure Stufen sind ausgegraut.
 - Kosten: bis 30 → 1–3 Level je nach gewähltem Anteil (wie Vanilla 1–3); 40 → 4, 50 → 5 Level. Lapis = verbrauchte
   Level, Lohenstaub = doppelt so viel.
 
-## Offene Besitzer-Fragen
-1. Budget-Rechnung (Punkte je Stufe nach Seltenheit) so passend?
-2. Sonderboden: eigener Block später (Vorschlag „Astralit-Fliesen“) – vorerst weinender Obsidian.
+## Abbauen
+- Dauert doppelt so lange wie ein normaler Verzauberungstisch. Drop: normaler Verzauberungstisch + das eingesetzte
+  Enderit-Teil zurück (Besitzer sagte „Enderit-Barren“; hergestellt wird mit einem Nugget – zurück kommt das
+  eingesetzte Nugget, sonst entstünde ein Barren aus einem Nugget). Gelagerter Lapis/Lohenstaub droppt.
+
+## Boden
+- **Lohen-Obsidian** (Blazing Obsidian): Variante des weinenden Obsidians, leuchtet; Rezept analog zu den anderen
+  Lohenstaub-Rezepten (8 Lohenstaub um 1 weinenden Obsidian). 5×5 unter dem Tisch für Stufe 40/50.
+- Später ggf. Astralit- oder Nihilit-Fliesen als weitere Böden.
