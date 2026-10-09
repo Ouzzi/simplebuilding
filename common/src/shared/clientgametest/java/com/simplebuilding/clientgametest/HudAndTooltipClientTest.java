@@ -2069,6 +2069,14 @@ public final class HudAndTooltipClientTest {
      */
     private static void inventoryShowsTheResonanceFieldAndItsDetails(Script script) {
         TestScene.build(script, "minecraft:stone", "survival");
+        // Colour brushes beside it for the screenshot: the first shows the red tip of the next dye (2026-10-09).
+        runOnServer(script, "put colour brushes, a red dye and a paint palette in the inventory", server -> {
+            var inventory = firstPlayer(server).getInventory();
+            inventory.setItem(SAFE_INVENTORY_SLOT, new ItemStack(ModItems.COLOR_BRUSH));
+            inventory.setItem(SAFE_INVENTORY_SLOT + 1, new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM
+                    .getValue(net.minecraft.resources.Identifier.withDefaultNamespace("red_dye")), 3));
+            inventory.setItem(SAFE_INVENTORY_SLOT + 2, new ItemStack(ModItems.PAINT_PALETTE));
+        });
 
         openInventoryScreen(script);
         parkCursor(script);
@@ -2140,6 +2148,10 @@ public final class HudAndTooltipClientTest {
         parkCursor(script);
         clearWidgetFocus(script);
         script.shot("inventory-resonance-field");
+        runOnServer(script, "take the colour brushes away again", server -> {
+            var inventory = firstPlayer(server).getInventory();
+            for (int i = 0; i < 3; i++) inventory.setItem(SAFE_INVENTORY_SLOT + i, ItemStack.EMPTY);
+        });
         closeScreen(script);
     }
 
