@@ -19,6 +19,7 @@
     "simplebuilding:astralit_quartz_checker_stairs",
     "simplebuilding:astralit_switch",
     "simplebuilding:auto_smither",
+    "simplebuilding:autonomous_crafter",
     "simplebuilding:backpack",
     "simplebuilding:black_hammock",
     "simplebuilding:blackstone_quartz_checker",
@@ -354,6 +355,9 @@
     },
     {
       "id": "simplebuilding:auto_smither"
+    },
+    {
+      "id": "simplebuilding:autonomous_crafter"
     },
     {
       "id": "simplebuilding:backpack",
