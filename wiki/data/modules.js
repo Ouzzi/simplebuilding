@@ -285,5 +285,22 @@ window.WIKI_MODULES = [
       "modmenu"
     ],
     "dataHash": "b57586f123d8"
+  },
+  {
+    "id": "simplemaps",
+    "displayName": "Simple Maps",
+    "description": "Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar, framed views and cartography table upgrades.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [],
+    "dataHash": "ecf4dbe3659f"
   }
 ];
