@@ -172,6 +172,11 @@ public final class TestCentreBuilder {
                         pieces.setPieces(fill.contents());
                     } else if (level.getBlockEntity(fill.pos()) instanceof com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity pile) {
                         pile.setParts(fill.contents());
+                    } else if (level.getBlockEntity(fill.pos()) instanceof com.simplebuilding.blocks.entity.custom.GoatHornHolderBlockEntity holder
+                            && !fill.contents().isEmpty()) {
+                        // Ziegenhorn-Halter (Queue N24): erstes Item das Horn, ein zweites steckt darin.
+                        holder.setHorn(fill.contents().getFirst());
+                        holder.setHeld(fill.contents().size() > 1 ? fill.contents().get(1) : ItemStack.EMPTY);
                     } else if (level.getBlockEntity(fill.pos()) instanceof com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity bundle
                             && !fill.contents().isEmpty()) {
                         bundle.setBundle(fill.contents().getFirst());

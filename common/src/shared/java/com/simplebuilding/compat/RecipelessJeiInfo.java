@@ -53,6 +53,12 @@ public final class RecipelessJeiInfo {
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             map.put("dimensional_scrap", List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP));
         }
+        if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
+            // Astral-Verzauberung (Queue N27): entsteht in der Welt mit dem Netherit-Vorschlaghammer.
+            map.put("astral_enchanting_table", List.of(ModItems.ASTRAL_ENCHANTING_TABLE));
+        }
+        // Kreativ-Baustab und Kreativ-Blaupause (Queue N29): nur im Kreativ-Inventar.
+        map.put("creative_tools", List.of(ModItems.CREATIVE_BUILDING_WAND, ModItems.CREATIVE_BLUEPRINT));
         return map;
     }
 

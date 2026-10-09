@@ -1822,7 +1822,8 @@ public final class BlueprintTests {
     // KREATIV-BLAUPAUSE UND KREATIV-BAUSTAB (Queue N29)
     // =====================================================================================
 
-    /** So hoch ueber dem Spieler liegt das ferne Ziel: weit hinter Vanillas Reichweite und ihrem Attribut-Deckel 64. */
+    /** So hoch ueber dem Spieler liegt das ferne Ziel: weit hinter Vanillas Reichweite und ihrem Attribut-Deckel 64.
+     *  Beide Tests brauchen {@code skyAccess(true)}, sonst trifft der Strahl die Barriere-Decke des Testraums. */
     private static final int FAR_UP = 100;
 
     /**

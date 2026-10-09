@@ -80,6 +80,10 @@ class ItemNoteTests(unittest.TestCase):
                                ('*_building_wand', ('durability', 'wandSquareDiameter'))]:
             for identifier, extra in manual['notes'][family]['items'].items():
                 for field in fields:
+                    if field not in props[identifier]:
+                        # The creative building wand (Queue N29) is unbreakable: no durability to quote.
+                        self.assertEqual((identifier, field), ('simplebuilding:creative_building_wand', 'durability'))
+                        continue
                     for language in ('en', 'de'):
                         self.assertIn(str(props[identifier][field]), extra[language])
 

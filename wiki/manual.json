@@ -4640,8 +4640,8 @@
           ]
         },
         "simplebuilding:creative_building_wand": {
-          "en": "Creative Building Wand: creative tab only, unlimited reach (up to 1024 blocks), no durability, no material use.",
-          "de": "Kreativ-Baustab: nur im Kreativ-Tab, unbegrenzte Reichweite (bis 1024 Blöcke), ohne Haltbarkeit und Materialverbrauch.",
+          "en": "Creative Building Wand: creative tab only, building area up to 13x13 blocks, unlimited reach (up to 1024 blocks), no durability, no material use.",
+          "de": "Kreativ-Baustab: nur im Kreativ-Tab, Baufläche bis zu 13x13 Blöcke, unbegrenzte Reichweite (bis 1024 Blöcke), ohne Haltbarkeit und Materialverbrauch.",
           "sources": [
             "common/src/shared/java/com/simplebuilding/items/ModItems.java",
             "common/src/shared/java/com/simplebuilding/items/custom/CreativeReach.java"

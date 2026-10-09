@@ -14,12 +14,12 @@ import net.minecraft.gametest.framework.GameTestHelper;
  */
 public final class BlueprintGameTest {
 
-    @GameTest
+    @GameTest(skyAccess = true)
     public void creativeWandReachesAFarBlockWithoutCost(GameTestHelper helper) {
         BlueprintTests.creativeWandReachesAFarBlockWithoutCost(helper);
     }
 
-    @GameTest
+    @GameTest(skyAccess = true)
     public void creativeBlueprintBuildsFarAndStaysLockedOnceSigned(GameTestHelper helper) {
         BlueprintTests.creativeBlueprintBuildsFarAndStaysLockedOnceSigned(helper);
     }

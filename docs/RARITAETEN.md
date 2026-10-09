@@ -35,7 +35,7 @@ Verzauberung hebt die angezeigte Seltenheit (COMMON/UNCOMMON -> RARE, RARE -> EP
 | **Köpfe** | UNCOMMON wie Vanillas Mob-Köpfe | Lohenkopf |
 | **Bücher** | COMMON wie das beschriebene Buch | alle Handbücher |
 | **Easter** | EPIC wie das Drachenei | Lustiger Stock |
-| **Technik** | EPIC wie Barriere/Licht | Kreativ-Platzhalter |
+| **Technik** | EPIC wie Barriere/Licht | Kreativ-Platzhalter, Kreativ-Baustab und Kreativ-Blaupause (Queue N29, nur im Kreativmodus) |
 | Spawn-Elytra | COMMON: Leihgabe des Elytra-Pads, ihr Name ist eigens aqua/kursiv gefärbt | - |
 | Altlasten | wie ihre Familie | alte Spachtel COMMON (Ausrüstung), altes Netherit-/Enderit-Flugpad UNCOMMON/EPIC, Verstärktes (II) COMMON und Feines (V) EPIC Elytra-Pad (alt) |
 | Abklingende Trank-Pads | wie ihre Stufe: dasselbe Item mit der Komponente `potion_pad_cooldown` (Restzeit), nur Modell und Tooltip anders; feuerfest wie alle Trank-Pads, Stapelgröße 1 wie jedes Pad | abklingendes Trank-Pad I und Verstärktes Trank-Pad II UNCOMMON, abklingendes Durchtränktes Trank-Pad III EPIC |
@@ -45,7 +45,7 @@ Verzauberung hebt die angezeigte Seltenheit (COMMON/UNCOMMON -> RARE, RARE -> EP
 Feuerfest ist genau, was `netherite_`/`enderite_` heißt (Werkstoffe, Ausrüstung, Maschinen, Lager,
 Kerne, Nahrung, Druckplatten, Pads - seit 2026-09-28 auch der **Netheritklumpen**) oder mit Netherit/Enderit
 gebaut wird: verzauberte Äpfel, Echolot, Spawn-Teleporter II-III (Netherit-/Enderit-Druckplatten), alle Trank-Pads,
-Flugpads I-III, Enderit-Elytra-Pad III und das alte Feine Elytra-Pad V. Ausnahmen mit eigenem Grund: Spawn-Elytra (verbrennt nicht über Lava)
+Flugpads I-III, Enderit-Elytra-Pad III, das alte Feine Elytra-Pad V, der Astral-Verzauberungstisch (Enderit-Nugget) und der Kreativ-Baustab (wie die Enderit-Baustäbe). Ausnahmen mit eigenem Grund: Spawn-Elytra (verbrennt nicht über Lava)
 und der Lustige Stock. Nicht feuerfest: Rohenderit (es steckt noch kein Netherit darin) und die
 Enderit-Schmiedevorlage (Diamanten + Endstein; brennt wie Vanillas Netherit-Aufwertung).
 

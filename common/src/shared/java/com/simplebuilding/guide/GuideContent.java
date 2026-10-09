@@ -381,8 +381,9 @@ public final class GuideContent {
             STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
         }
         if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
-            // Astral-Verzauberung (Queue N27): ein Kapitel im Verzauberungsbuch, Rezepte der Lohen-Familie.
-            GuideBooks.Book book = GuideBooks.Book.ENCHANTMENTS;
+            // Astral-Verzauberung (Queue N27): ein Kapitel im Maschinenbuch (das Verzauberungsbuch zeigt je Seite genau einen
+            // Mod-Zauber, Besitzer 2026-09-29), Rezepte der Lohen-Familie.
+            GuideBooks.Book book = GuideBooks.Book.MACHINES;
             BookStyle old = STYLES.get(book);
             var chapters = new ArrayList<>(old.chapters());
             chapters.add(ch("simplebuilding:astral_enchanting_table", List.of("simplebuilding:crimson_blazewood_planks", "simplebuilding:blaze_book",
