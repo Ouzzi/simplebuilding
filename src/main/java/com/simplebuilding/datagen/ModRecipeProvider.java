@@ -80,7 +80,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Malerpalette: Rot, Gelb, Blau ueber drei Holzbrettern (nimmt dann nur Farbstoffe auf).
                 shaped(RecipeCategory.TOOLS, ModItems.PAINT_PALETTE)
                         .pattern("RYB").pattern("PPP")
-                        .define('R', Items.RED_DYE).define('Y', Items.YELLOW_DYE).define('B', Items.BLUE_DYE)
+                        .define('R', getDyeItem(DyeColor.RED)).define('Y', getDyeItem(DyeColor.YELLOW)).define('B', getDyeItem(DyeColor.BLUE))
                         .define('P', ItemTags.PLANKS)
                         .unlockedBy(getHasName(ModItems.COLOR_BRUSH), has(ModItems.COLOR_BRUSH))
                         .save(output);
