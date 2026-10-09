@@ -60,3 +60,15 @@ Tests `NatureBlockTests` + Wrapper/Katalog, `DataIntegrityTests` (Zeilen, Tab-In
 
 Compile 3 Loader (+26.2 Fabric), Tests `simplebuilding:nature_block*`, `*tab*`, `*creative*`, Config-Optionen,
 Wiki `--all --check`, Texturvorschau `/root/previews/blocks/`.
+
+## Testbericht (b866dd676)
+
+- Compile `:mc26_3:fabric/neoforge/forge` + 26.2 `:compileJava :neoforge:compileJava`: grün.
+- `simplebuilding:nature_block*` fabric/neoforge/forge-263: **alles gruen: 12/12**.
+- `simplebuilding:data_integrity*` (Tabs, Spacer-Config, Framework-Schalter, Suchtab, Beute, Namen): **alles gruen: 147/147**.
+- `simplebuilding:config_option*`: **alles gruen: 57/57**; Module simplemoney 19/19, simplefun 35/35, simpleriding 41/41 (fabric-263).
+- Wiki `--all --check` grün, `nature_blocks_2026_10_09.py --check` grün, check_data der Module grün.
+
+Abweichungen: Schalter in `framework` statt SimpleLib (Begründung oben); EN-Name „Block of Nautilus Shell“ (Namensmuster-Test);
+Landen einer unteren Stufe auf gleicher unterer Stufe wird in `canBeReplaced` zur Doppelstufe (gleicher Zustand ließe
+FallingBlockEntity sonst ein Item droppen). Nicht getestet: Client-Sicht (Färbung Grasstufe, Texturen), Geldpreise.
