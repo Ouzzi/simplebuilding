@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "K": "simplebuilding:blaze_book",
+    "W": "simplebuilding:warped_blazewood_planks"
+  },
+  "pattern": [
+    "WWW",
+    "KKK",
+    "WWW"
+  ],
+  "result": {
+    "id": "simplebuilding:warped_blazewood_bookshelf"
+  }
+}

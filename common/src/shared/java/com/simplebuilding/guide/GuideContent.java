@@ -380,6 +380,17 @@ public final class GuideContent {
                     "simplebuilding:raw_ceramic_bucket"), List.of("simplebuilding:soul_lava_bucket", "simplebuilding:ceramic_bucket")));
             STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
         }
+        if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
+            // Astral-Verzauberung (Queue N27): ein Kapitel im Verzauberungsbuch, Rezepte der Lohen-Familie.
+            GuideBooks.Book book = GuideBooks.Book.ENCHANTMENTS;
+            BookStyle old = STYLES.get(book);
+            var chapters = new ArrayList<>(old.chapters());
+            chapters.add(ch("simplebuilding:astral_enchanting_table", List.of("simplebuilding:crimson_blazewood_planks", "simplebuilding:blaze_book",
+                    "simplebuilding:crimson_blazewood_bookshelf", "simplebuilding:blazing_obsidian"),
+                    List.of("minecraft:enchanting_table", "simplebuilding:netherite_sledgehammer", "simplebuilding:enderite_nugget",
+                            "simplebuilding:astral_enchanting_table")));
+            STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
+        }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             for (GuideBooks.Book book : List.of(GuideBooks.Book.STORAGE, GuideBooks.Book.END)) {
                 BookStyle old = STYLES.get(book);

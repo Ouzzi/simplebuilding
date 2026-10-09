@@ -137,6 +137,8 @@ public final class SimplebuildingNeoForgeClient {
                 NeoForgeModRegistries.CHESS_PIECES_BE.get(), com.simplebuilding.client.render.ChessPiecesRenderer::new);
         if (NeoForgeModRegistries.HAMMOCK_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.HAMMOCK_BE.get(), com.simplebuilding.client.render.HammockRenderer::new);
+        if (NeoForgeModRegistries.ASTRAL_ENCHANTING_TABLE_BE != null) event.registerBlockEntityRenderer(
+                NeoForgeModRegistries.ASTRAL_ENCHANTING_TABLE_BE.get(), com.simplebuilding.client.render.AstralEnchantingTableRenderer::new);
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) event.registerBlockEntityRenderer(
                 net.minecraft.world.level.block.entity.BlockEntityTypes.ENDER_CHEST, com.simplebuilding.client.render.AstralVaultRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
@@ -174,6 +176,9 @@ public final class SimplebuildingNeoForgeClient {
         }
         if (NeoForgeModRegistries.AUTONOMOUS_CRAFTER_MENU != null) {
             event.register(NeoForgeModRegistries.AUTONOMOUS_CRAFTER_MENU.get(), com.simplebuilding.client.gui.AutonomousCrafterScreen::new);
+        }
+        if (NeoForgeModRegistries.ASTRAL_ENCHANTING_MENU != null) {
+            event.register(NeoForgeModRegistries.ASTRAL_ENCHANTING_MENU.get(), com.simplebuilding.client.gui.AstralEnchantingScreen::new);
         }
     }
 

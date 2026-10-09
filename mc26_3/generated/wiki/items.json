@@ -2,6 +2,7 @@
   "blocks": [
     "simplebuilding:acacia_octet",
     "simplebuilding:aqua_froglight",
+    "simplebuilding:astral_enchanting_table",
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_piston",
     "simplebuilding:astral_purpur_block",
@@ -32,6 +33,7 @@
     "simplebuilding:blackstone_quartz_checker_stairs",
     "simplebuilding:blaze_head",
     "simplebuilding:blaze_wall_head",
+    "simplebuilding:blazing_obsidian",
     "simplebuilding:blue_hammock",
     "simplebuilding:bogged_skull",
     "simplebuilding:bogged_wall_skull",
@@ -54,6 +56,8 @@
     "simplebuilding:cracked_diamond_block",
     "simplebuilding:crimson_octet",
     "simplebuilding:cracked_ice",
+    "simplebuilding:crimson_blazewood_bookshelf",
+    "simplebuilding:crimson_blazewood_planks",
     "simplebuilding:crystalline_astralit",
     "simplebuilding:crystalline_nihilith",
     "simplebuilding:cyan_hammock",
@@ -255,6 +259,8 @@
     "simplebuilding:veined_astralit",
     "simplebuilding:veined_nihilith",
     "simplebuilding:warped_octet",
+    "simplebuilding:warped_blazewood_bookshelf",
+    "simplebuilding:warped_blazewood_planks",
     "simplebuilding:waxed_copper_pressure_plate",
     "simplebuilding:waxed_exposed_copper_pressure_plate",
     "simplebuilding:waxed_oxidized_copper_pressure_plate",
@@ -275,6 +281,9 @@
     },
     {
       "id": "simplebuilding:aqua_froglight"
+    },
+    {
+      "id": "simplebuilding:astral_enchanting_table"
     },
     {
       "id": "simplebuilding:astral_end_stone"
@@ -471,7 +480,13 @@
       "id": "simplebuilding:blackstone_quartz_checker_stairs"
     },
     {
+      "id": "simplebuilding:blaze_book"
+    },
+    {
       "id": "simplebuilding:blaze_head"
+    },
+    {
+      "id": "simplebuilding:blazing_obsidian"
     },
     {
       "id": "simplebuilding:blue_hammock",
@@ -640,6 +655,12 @@
     },
     {
       "id": "simplebuilding:crimson_octet"
+    },
+    {
+      "id": "simplebuilding:crimson_blazewood_bookshelf"
+    },
+    {
+      "id": "simplebuilding:crimson_blazewood_planks"
     },
     {
       "id": "simplebuilding:crystalline_astralit"
@@ -2426,6 +2447,12 @@
     },
     {
       "id": "simplebuilding:warped_octet"
+    },
+    {
+      "id": "simplebuilding:warped_blazewood_bookshelf"
+    },
+    {
+      "id": "simplebuilding:warped_blazewood_planks"
     },
     {
       "id": "simplebuilding:waxed_copper_pressure_plate"

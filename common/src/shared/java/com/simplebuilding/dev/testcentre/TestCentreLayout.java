@@ -211,6 +211,8 @@ public final class TestCentreLayout {
         builders.put("crucible", FeatureStations::crucible);
         // Schach-Station (2026-10-06); auf 26.2 leer.
         builders.put("chess", FeatureStations::chess);
+        // Astral-Verzauberung (Queue N27); auf 26.2 leer.
+        builders.put("astral", FeatureStations::astralEnchanting);
         builders.put("chisel", TestCentreSections::chisel);
         builders.put("inworld", TestCentreSections::inWorld);
         builders.put("templates", TestCentreSections::templates);

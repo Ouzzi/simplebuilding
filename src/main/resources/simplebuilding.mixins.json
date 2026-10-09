@@ -74,6 +74,7 @@
     "VillagerTradePriceMixin",
     "ChestBlockMixin",
     "ShulkerBoxBlockMixin",
+    "EnchantingTableBlockMixin",
     "CompoundContainerAccessor",
     "DisplayStrikeAccessor",
     "ItemDisplayStrikeAccessor",

@@ -11240,6 +11240,155 @@
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
       ]
     },
+    "astral_enchanting_table": {
+      "en": {
+        "summary": "The Astral Enchanting Table lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid from a budget set by the bookshelves and the floor.",
+        "details": [
+          "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding an Enderite Nugget in the off hand and keep holding - 20 blows (four times a machine upgrade); the nugget is used up at the last blow.",
+          "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), at most 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Strength = 2 x points, at most 30. With a 5x5 floor of Blazing Obsidian right under the table: 40 from 20 points, 50 from 30 points (15 blazewood bookshelves).",
+          "The strength is the budget in points (3 without any shelf, enough for one level of a common enchantment). Each slider level costs points by rarity: common and uncommon 3, rare 6, very rare 10. Levels the budget does not allow are greyed out. At 50 every slider goes to its maximum.",
+          "Enchanting uses up 1 to 3 levels (one per started 10 points), at strength 40 four and at 50 five levels; lapis lazuli as many as levels, blaze powder twice that. You need as many levels as points spent (at most 30). Treasure enchantments are never offered; after each enchanting the three offers are new, like Vanilla's seed.",
+          "Lapis lazuli and blaze powder stay stored in the table (one stack each) when you leave; hoppers can top them up but never pull them out.",
+          "Breaking it takes twice as long as the Vanilla table and drops a Vanilla Enchanting Table, the Enderite Nugget and the stored lapis and blaze powder."
+        ]
+      },
+      "de": {
+        "summary": "Am Astral-Verzauberungstisch wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
+        "details": [
+          "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, Enderit-Nugget in der Nebenhand, und halten - 20 Schläge (viermal eine Maschinen-Aufwertung); das Nugget wird beim letzten Schlag verbraucht.",
+          "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), höchstens 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Stärke = 2 x Punkte, höchstens 30. Mit einem 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch: 40 ab 20 Punkten, 50 ab 30 Punkten (15 Lohen-Regale).",
+          "Die Stärke ist das Budget in Punkten (3 ganz ohne Regal, genug für eine Stufe einer häufigen Verzauberung). Jede Reglerstufe kostet Punkte nach Seltenheit: häufig und gewöhnlich 3, selten 6, sehr selten 10. Was das Budget nicht erlaubt, ist ausgegraut. Bei 50 gehen alle Regler bis zum Maximum.",
+          "Verzaubern verbraucht 1 bis 3 Level (eins je angefangene 10 Punkte), bei Stärke 40 vier und bei 50 fünf Level; Lapislazuli so viel wie Level, Lohenstaub doppelt so viel. Man braucht so viele Level wie ausgegebene Punkte (höchstens 30). Schatz-Verzauberungen gibt es nie; nach jedem Verzaubern sind die drei Angebote neu, wie beim Vanilla-Seed.",
+          "Lapislazuli und Lohenstaub bleiben im Tisch gelagert (je ein Stapel), auch wenn man ihn verlässt; Trichter füllen nach, ziehen aber nichts heraus.",
+          "Abbauen dauert doppelt so lange wie beim Vanilla-Tisch; er gibt einen Vanilla-Verzauberungstisch, das Enderit-Nugget und den gelagerten Lapislazuli und Lohenstaub zurück."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java",
+        "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlock.java",
+        "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/screen/AstralEnchantingMenu.java",
+        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+      ]
+    },
+    "crimson_blazewood_planks": {
+      "en": {
+        "summary": "Blazewood planks from Crimson planks: eight blaze powder around one crimson plank give one. Material for blazewood bookshelves.",
+        "details": [
+          "Recipe: 8 Blaze Powder around 1 Crimson Planks."
+        ]
+      },
+      "de": {
+        "summary": "Lohenholz aus Karmesinbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
+        "details": [
+          "Rezept: 8 Lohenstaub um 1 Karmesinbretter."
+        ]
+      },
+      "sources": [
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+      ]
+    },
+    "crimson_blazewood_bookshelf": {
+      "en": {
+        "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanting Table, one at the Vanilla table.",
+        "details": [
+          "Recipe like the bookshelf: 6 Crimson Blazewood Planks and 3 Blaze Books.",
+          "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
+        ]
+      },
+      "de": {
+        "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberungstisch wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+        "details": [
+          "Rezept wie das Bücherregal: 6 Karmesin-Lohenholzbretter und 3 Lohenbücher.",
+          "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
+        ]
+      },
+      "sources": [
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
+      ]
+    },
+    "warped_blazewood_planks": {
+      "en": {
+        "summary": "Blazewood planks from Warped planks: eight blaze powder around one warped plank give one. Material for blazewood bookshelves.",
+        "details": [
+          "Recipe: 8 Blaze Powder around 1 Warped Planks."
+        ]
+      },
+      "de": {
+        "summary": "Lohenholz aus Wirrbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
+        "details": [
+          "Rezept: 8 Lohenstaub um 1 Wirrbretter."
+        ]
+      },
+      "sources": [
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+      ]
+    },
+    "warped_blazewood_bookshelf": {
+      "en": {
+        "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanting Table, one at the Vanilla table.",
+        "details": [
+          "Recipe like the bookshelf: 6 Warped Blazewood Planks and 3 Blaze Books.",
+          "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
+        ]
+      },
+      "de": {
+        "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberungstisch wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+        "details": [
+          "Rezept wie das Bücherregal: 6 Wirr-Lohenholzbretter und 3 Lohenbücher.",
+          "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
+        ]
+      },
+      "sources": [
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
+      ]
+    },
+    "blaze_book": {
+      "en": {
+        "summary": "A book bound with blaze powder instead of leather; three of them go into a blazewood bookshelf.",
+        "details": [
+          "Recipe (shapeless): 3 Paper + 1 Blaze Powder."
+        ]
+      },
+      "de": {
+        "summary": "Ein Buch, mit Lohenstaub statt Leder gebunden; drei davon kommen in ein Lohen-Bücherregal.",
+        "details": [
+          "Rezept (formlos): 3 Papier + 1 Lohenstaub."
+        ]
+      },
+      "sources": [
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+      ]
+    },
+    "blazing_obsidian": {
+      "en": {
+        "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Astral Enchanting Table unlocks strength 40 and 50.",
+        "details": [
+          "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
+          "Light level 12, mined with a diamond pickaxe or better; small flames rise from a free top."
+        ]
+      },
+      "de": {
+        "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Astral-Verzauberungstisch schaltet Stärke 40 und 50 frei.",
+        "details": [
+          "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
+          "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus einer freien Oberseite steigen kleine Flammen."
+        ]
+      },
+      "sources": [
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java"
+      ]
+    },
     "stone_pebble": {
       "en": {
         "summary": "A small stone: one cobblestone gives 9 Stone Pebbles, 9 pebbles in the crafting grid give the cobblestone back.",

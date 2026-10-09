@@ -485,6 +485,12 @@ public final class ModItemGroupsContent {
             rows.add(shulkers, CreativeTabLayout.Row.of("trapped_chests", Items.TRAPPED_CHEST,
                     ModItems.REINFORCED_TRAPPED_CHEST, ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST));
         }
+        if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
+            // Astral-Verzauberung (Queue N27): Tisch, Lohen-Obsidian-Boden, Lohenholz, Lohen-Regale, Lohenbuch.
+            rows.add(CreativeTabLayout.Row.of("astral_enchanting", ModItems.ASTRAL_ENCHANTING_TABLE, ModItems.BLAZING_OBSIDIAN,
+                    CreativeTabLayout.GAP, ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS,
+                    ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF, ModItems.BLAZE_BOOK));
+        }
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
             // Trainingspuppe (2026-10-02): der Stroh-Ruestungsstaender (Vanilla-Items gehoeren nicht in Mod-Tabs).
             rows.add(CreativeTabLayout.Row.of("training_dummy", ModItems.STRAW_ARMOR_STAND, ModItems.TRAINING_DUMMY,

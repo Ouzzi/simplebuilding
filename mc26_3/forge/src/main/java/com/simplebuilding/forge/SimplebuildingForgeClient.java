@@ -67,6 +67,9 @@ public final class SimplebuildingForgeClient {
             if (ForgeModRegistries.AUTONOMOUS_CRAFTER_MENU != null) {
                 MenuScreens.register(ForgeModRegistries.AUTONOMOUS_CRAFTER_MENU.get(), com.simplebuilding.client.gui.AutonomousCrafterScreen::new);
             }
+            if (ForgeModRegistries.ASTRAL_ENCHANTING_MENU != null) {
+                MenuScreens.register(ForgeModRegistries.ASTRAL_ENCHANTING_MENU.get(), com.simplebuilding.client.gui.AstralEnchantingScreen::new);
+            }
         });
     }
 
@@ -106,6 +109,8 @@ public final class SimplebuildingForgeClient {
         // Haengematte: das Kopfteil zeichnet die ganze Matte entlang der Ankerlinie (jeder Winkel).
         if (com.simplebuilding.forge.ForgeModRegistries.HAMMOCK_BE != null) event.registerBlockEntityRenderer(
                 com.simplebuilding.forge.ForgeModRegistries.HAMMOCK_BE.get(), com.simplebuilding.client.render.HammockRenderer::new);
+        if (com.simplebuilding.forge.ForgeModRegistries.ASTRAL_ENCHANTING_TABLE_BE != null) event.registerBlockEntityRenderer(
+                com.simplebuilding.forge.ForgeModRegistries.ASTRAL_ENCHANTING_TABLE_BE.get(), com.simplebuilding.client.render.AstralEnchantingTableRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
         event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_CHEST_BE.get(),
                 com.simplebuilding.client.render.TieredChestRenderer::new);

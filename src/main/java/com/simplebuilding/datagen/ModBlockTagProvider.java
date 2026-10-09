@@ -108,6 +108,17 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.AUTONOMOUS_CRAFTER));
         }
+        if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
+            // Astral-Verzauberung (Queue N27): Tisch und Lohen-Obsidian mit der Spitzhacke (Obsidian ab Diamant),
+            // Lohenholz und Lohen-Regale mit der Axt; die Regale zaehlen auch am Vanilla-Tisch (als ein Regal).
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_ENCHANTING_TABLE)).add(key(ModBlocks.BLAZING_OBSIDIAN));
+            builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(ModBlocks.BLAZING_OBSIDIAN));
+            for (net.minecraft.world.level.block.Block block : ModBlocks.BLAZEWOOD_PLANKS) builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
+            for (net.minecraft.world.level.block.Block block : ModBlocks.BLAZEWOOD_BOOKSHELVES) {
+                builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
+                builder(BlockTags.ENCHANTMENT_POWER_PROVIDER).add(key(block));
+            }
+        }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Lautsprecher wie Notenblock und Plattenspieler: Axt.
             builder(BlockTags.MINEABLE_WITH_AXE).add(key(ModBlocks.JUKEBOX_AMPLIFIER)).add(key(ModBlocks.NOTE_AMPLIFIER));

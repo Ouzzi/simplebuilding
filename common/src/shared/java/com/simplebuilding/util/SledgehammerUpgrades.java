@@ -275,6 +275,13 @@ public final class SledgehammerUpgrades {
             map.put(ModBlocks.NETHERITE_SHULKER_BOX, new Upgrade(ModBlocks.NETHERITE_SHULKER_BOX, ModBlocks.ENDERITE_SHULKER_BOX,
                     ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
             if (McVersion.CRUCIBLE) crucibleUpgrades(map);
+            // Astral-Verzauberungstisch (Queue N27): Verzauberungstisch + Enderit-Nugget, ab Netherit-Hammer, 4x so viele
+            // Schlaege (Standard 5 -> 20); verbraucht wird das Nugget beim letzten Schlag.
+            if (McVersion.ASTRAL_ENCHANTING) {
+                map.put(net.minecraft.world.level.block.Blocks.ENCHANTING_TABLE, new Upgrade(net.minecraft.world.level.block.Blocks.ENCHANTING_TABLE,
+                        ModBlocks.ASTRAL_ENCHANTING_TABLE, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false,
+                        ASTRAL_TABLE_DURATION_FACTOR, 1));
+            }
             table = map;
         }
         return table;
@@ -309,6 +316,8 @@ public final class SledgehammerUpgrades {
     public static final int CRUCIBLE_UPGRADE_DURATION_FACTOR = 2;
     public static final int CRUCIBLE_UPGRADE_MATERIAL_COST = 2;
     public static final int CAULDRON_UPGRADE_MATERIAL_COST = 8;
+    /** Astral Enchanting Table: four times the blows of a machine upgrade (about 20, owner N27). */
+    public static final int ASTRAL_TABLE_DURATION_FACTOR = 4;
 
     private static @Nullable Block lib(String path) {
         return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", path)).orElse(null);

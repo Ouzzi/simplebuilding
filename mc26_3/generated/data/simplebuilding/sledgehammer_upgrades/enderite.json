@@ -2,6 +2,15 @@
   "upgrades": [
     {
       "damage_per_hit": 10,
+      "duration_factor": 4,
+      "from": "minecraft:enchanting_table",
+      "material": "simplebuilding:enderite_nugget",
+      "min_hammer": "netherite",
+      "tier": "enderite",
+      "to": "simplebuilding:astral_enchanting_table"
+    },
+    {
+      "damage_per_hit": 10,
       "from": "simplebuilding:netherite_blast_furnace",
       "material": "simplebuilding:enderite_nugget",
       "min_hammer": "netherite",

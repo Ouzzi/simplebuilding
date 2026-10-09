@@ -82,6 +82,20 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         }
         if (ModBlocks.AUTO_SMITHER != null) dropSelf(ModBlocks.AUTO_SMITHER);
         if (ModBlocks.AUTONOMOUS_CRAFTER != null) dropSelf(ModBlocks.AUTONOMOUS_CRAFTER);
+        if (ModBlocks.ASTRAL_ENCHANTING_TABLE != null) {
+            // Astral-Verzauberung (Queue N27): der Tisch gibt den Vanilla-Tisch und das eingesetzte Enderit-Nugget zurueck
+            // (gelagerter Lapis/Lohenstaub faellt als Inhalt heraus), Lohen-Regale drei Lohenbuecher wie Vanilla-Regale.
+            add(ModBlocks.ASTRAL_ENCHANTING_TABLE, LootTable.lootTable()
+                    .withPool(applyExplosionCondition(Items.ENCHANTING_TABLE, LootPool.lootPool().setRolls(LootNumbers.exactly(1))
+                            .add(LootItem.lootTableItem(Items.ENCHANTING_TABLE))))
+                    .withPool(applyExplosionCondition(ModItems.ENDERITE_NUGGET, LootPool.lootPool().setRolls(LootNumbers.exactly(1))
+                            .add(LootItem.lootTableItem(ModItems.ENDERITE_NUGGET)))));
+            for (Block planks : ModBlocks.BLAZEWOOD_PLANKS) dropSelf(planks);
+            for (Block shelf : ModBlocks.BLAZEWOOD_BOOKSHELVES) {
+                add(shelf, createSingleItemTableWithSilkTouch(shelf, ModItems.BLAZE_BOOK, LootNumbers.exactly(3)));
+            }
+            dropSelf(ModBlocks.BLAZING_OBSIDIAN);
+        }
         if (ModBlocks.JUKEBOX_AMPLIFIER != null) dropSelf(ModBlocks.JUKEBOX_AMPLIFIER);
         if (ModBlocks.NOTE_AMPLIFIER != null) dropSelf(ModBlocks.NOTE_AMPLIFIER);
         if (ModBlocks.GOLD_ROD != null) dropSelf(ModBlocks.GOLD_ROD);

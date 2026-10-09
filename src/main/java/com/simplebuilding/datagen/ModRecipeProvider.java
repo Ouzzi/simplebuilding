@@ -217,6 +217,37 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .save(output);
                 }
 
+                // Astral-Verzauberung (Queue N27, docs/ai/KONZEPT-ASTRAL-VERZAUBERUNG-2026-10-09.md): Lohenholz = 8 Lohenstaub um
+                // ein Nether-Brett je Holzart, Lohenbuch wie das Buch mit Lohenstaub statt Leder, Lohen-Regal wie das
+                // Buecherregal, Lohen-Obsidian = 8 Lohenstaub um weinenden Obsidian. Der Tisch selbst entsteht mit dem Hammer.
+                if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
+                    net.minecraft.world.level.ItemLike[][] woods = {
+                            {Items.CRIMSON_PLANKS, ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF},
+                            {Items.WARPED_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_BOOKSHELF}};
+                    for (net.minecraft.world.level.ItemLike[] wood : woods) {
+                        shaped(RecipeCategory.BUILDING_BLOCKS, wood[1])
+                                .pattern("BBB").pattern("BPB").pattern("BBB")
+                                .define('B', Items.BLAZE_POWDER).define('P', wood[0])
+                                .unlockedBy(getHasName(Items.BLAZE_POWDER), has(Items.BLAZE_POWDER))
+                                .save(output);
+                        shaped(RecipeCategory.BUILDING_BLOCKS, wood[2])
+                                .pattern("WWW").pattern("KKK").pattern("WWW")
+                                .define('W', wood[1]).define('K', ModItems.BLAZE_BOOK)
+                                .unlockedBy(getHasName(ModItems.BLAZE_BOOK), has(ModItems.BLAZE_BOOK))
+                                .save(output);
+                    }
+                    shapeless(RecipeCategory.MISC, ModItems.BLAZE_BOOK)
+                            .requires(Items.PAPER, 3)
+                            .requires(Items.BLAZE_POWDER)
+                            .unlockedBy(getHasName(Items.BLAZE_POWDER), has(Items.BLAZE_POWDER))
+                            .save(output);
+                    shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.BLAZING_OBSIDIAN)
+                            .pattern("BBB").pattern("BOB").pattern("BBB")
+                            .define('B', Items.BLAZE_POWDER).define('O', Items.CRYING_OBSIDIAN)
+                            .unlockedBy(getHasName(Items.CRYING_OBSIDIAN), has(Items.CRYING_OBSIDIAN))
+                            .save(output);
+                }
+
                 // Lautsprecher (2026-10-03) wie Notenblock (Redstone in der Mitte) und Plattenspieler (Diamant):
                 // acht Bretter um Astralitstaub bzw. Nihilitsplitter.
                 if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {

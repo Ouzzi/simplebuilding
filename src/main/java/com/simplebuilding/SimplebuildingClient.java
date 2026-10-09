@@ -90,6 +90,8 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Haengematte: das Kopfteil zeichnet die ganze Matte entlang der Ankerlinie (jeder Winkel).
         if (com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE, com.simplebuilding.client.render.HammockRenderer::new);
+        if (com.simplebuilding.blocks.entity.ModBlockEntities.ASTRAL_ENCHANTING_TABLE_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                com.simplebuilding.blocks.entity.ModBlockEntities.ASTRAL_ENCHANTING_TABLE_BE, com.simplebuilding.client.render.AstralEnchantingTableRenderer::new);
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 net.minecraft.world.level.block.entity.BlockEntityTypes.ENDER_CHEST, com.simplebuilding.client.render.AstralVaultRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
@@ -253,6 +255,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         }
         if (ModScreenHandlers.AUTONOMOUS_CRAFTER_MENU != null) {
             MenuScreens.register(ModScreenHandlers.AUTONOMOUS_CRAFTER_MENU, com.simplebuilding.client.gui.AutonomousCrafterScreen::new);
+        }
+        if (ModScreenHandlers.ASTRAL_ENCHANTING_MENU != null) {
+            MenuScreens.register(ModScreenHandlers.ASTRAL_ENCHANTING_MENU, com.simplebuilding.client.gui.AstralEnchantingScreen::new);
         }
 
         // --- NETZWERK REGISTRIERUNG CLIENT-SEITE ---

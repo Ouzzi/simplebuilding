@@ -23,6 +23,9 @@ public abstract class AutoSmitherItemHandlerMixin {
         } else if (McVersion.AUTONOMOUS_CRAFTER && (Object) this instanceof com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity crafter) {
             // Autonomous crafter: insert only, never extract (the hopper below must not pull the ingredients).
             cir.setReturnValue(new SidedInvWrapper(crafter, Direction.UP));
+        } else if (McVersion.ASTRAL_ENCHANTING && (Object) this instanceof com.simplebuilding.enchanting.AstralEnchantingTableBlockEntity table) {
+            // Astral Enchanting Table: hoppers top up lapis and blaze powder, never pull them out.
+            cir.setReturnValue(new SidedInvWrapper(table, Direction.UP));
         }
     }
 }
