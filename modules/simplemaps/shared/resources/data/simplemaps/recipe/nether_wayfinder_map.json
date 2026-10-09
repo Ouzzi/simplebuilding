@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:map",
+    "minecraft:compass",
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:echo_shard",
+    "minecraft:echo_shard",
+    "minecraft:netherite_scrap"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplemaps:nether_wayfinder_map"
+  }
+}

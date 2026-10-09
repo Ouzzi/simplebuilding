@@ -75,3 +75,71 @@ Status: **nur geplant**, nichts umgesetzt. Grundlagen: KONZEPT-SUPERMOD-SUBMOD-2
 - Feature 5 (Höhenlinien-Modus): ja.
 - Feature 7 neu gefasst: Bergungskompass + Wegfinder-Karte gleichzeitig in den Händen → Todespunkt auf der Karte sichtbar, auch in unerkundetem Gebiet (Terrain bleibt dort verborgen, nur der Punkt erscheint).
 - F3 entschieden: Rezept A (Karte + Kompass + 4 Goldbarren + 1 Echo-Splitter) plus seltener Fundort (Kartografen-Truhen, Schiffswracks ~5 %). Nether- und End-Karte zusätzlich mit seltenem Fundort (Vorschlag: Nether-Karte in Bastionen/Netherfestungen ~2 %, End-Karte in Endstadt-Truhen ~2 %).
+
+## Antworten Besitzer (2026-10-09, Simple Maps)
+- Feature 1 ja: Kopieren übernimmt die Wegpunkte.
+- Feature 2 entfällt: Todespunkt nur über Feature 7 (Bergungskompass in der anderen Hand).
+- Feature 4: Karte im Gegenstandsrahmen → Rechtsklick öffnet die Karten-UI, dort scrollbar; der Rahmen zeigt danach den Ausschnitt, zu dem man gescrollt hat.
+- Feature 6 = F8 (eigene Karte je Dimension). Feature 7 ja. Feature 8 ja.
+- Feature 3 (Struktur-Markierungen): keine Antwort → nicht umgesetzt.
+
+## Umsetzung Simple Maps (Branch claude-q-maps, 2026-10-09)
+Eigenes Modul `modules/simplemaps` (Mod-ID `simplemaps`, Paket `com.simplemaps`, Loader-Adapter
+`com.simplebuilding.modules.simplemaps`). Allein spielbar (nur Vanilla + SimpleLib, gebündelt nach Regel 6a
+für die UI-Bausteine); kennt SimpleBuilding nicht. Standalone-Target wie alle Module.
+
+**Items.** `simplemaps:wayfinder_map` (Oberwelt und jede fremde Dimension), `nether_wayfinder_map`,
+`end_wayfinder_map`. Welche Dimension eine Karte annimmt, steht in den Dimensionstyp-Tags
+`simplemaps:nether_wayfinder` / `simplemaps:end_wayfinder` (Datapack-erweiterbar, F8); die Oberwelt-Karte
+nimmt alles, was in keinem der beiden Tags steht. Eine Karte bindet sich beim ersten Benutzen an die
+Dimension, in der sie ist; in anderen Dimensionen deckt sie nichts auf.
+Rezept A (formlos): Karte + Kompass + 4 Gold + 1 Echo-Splitter. Nether: dazu 2 Echo + 1 Netherit-Platte
+(statt 1 Echo); End: 2 Echo + 1 Shulker-Schale (Entscheidung Agent, Balancing offen). Fundorte: Kartografen-
+Truhe und Schiffswrack-Kartentruhe 5 %, Bastion (übrige) und Netherfestung 2 % (Nether-Karte),
+Endstadt-Schatz 2 % (End-Karte).
+
+**Daten (Server).** Eine `SavedData` je Karten-ID (`simplemaps:wayfinder_<id>`, IDs zählt
+`simplemaps:wayfinder_ids`). Gespeichert wird nur Erkundetes: Kacheln zu 128×128 Blöcken (1 Block = 1 Pixel),
+je Kachel Farbbytes (Vanilla-`MapColor`-Packed-ID) und Höhenbytes ((y − minY)/2 + 1, 0 = unbekannt). Die
+Datei ist wie alle `.dat` gzip-komprimiert (F6: unbegrenzt, aber optimiert). Obergrenze je Karte
+`maxTilesPerMap` (Server-Config, harte Grenzen, Feature 8).
+Aufdecken (wie Vanilla nur in Haupt-/Nebenhand): Scheibe mit `revealRadius` Blöcken (Config 16–128,
+Standard 96), je Tick 1/16 der Spalten (Vanilla-Takt), nur geladene Chunks (lädt nie Chunks).
+Farbe/Helligkeit wie Vanilla-`MapItem.update` bei Maßstab 1:1. Dimensionen mit Decke (Nether): Abtastung
+unterhalb des Spielers statt Vanilla-Rauschen.
+Wegpunkte gehören dem Stapel (F2): Komponente `simplemaps:waypoints` (Platz 1–8, x/z, Name ≤ 32, Farbe
+oder Mob-Kopf). Karten-ID: `simplemaps:map_id`. Rahmen-Ausschnitt: `simplemaps:view` (Mitte x/z, Zoom).
+
+**Kartentisch (F4/F5, Feature 1/8).** Mixin ersetzt die beiden Eingabe-Slots (nehmen zusätzlich
+Wegfinder-/gefüllte Karten an) und übernimmt `setupResultSlot`, wenn eine Wegfinder-Karte beteiligt ist:
+- Wegfinder + leere Karte → 2 Kopien (gleiche ID, Wegpunkte übernommen).
+- Wegfinder + gefüllte Karte (gleiche Dimension) → Wegfinder; nur die gefüllte Karte wird verbraucht, ihr
+  Bereich wird beim Entnehmen übernommen (Komponente `simplemaps:pending`, ausgewertet in
+  `onCraftedPostProcess` wie Vanillas Maßstab/Sperre, Rückfall im Inventar-Tick).
+- Wegfinder + Wegfinder (gleiche Dimension) → die erste bleibt, die zweite wird verbraucht; Bereiche
+  vereinigt, Wegpunkte der ersten bleiben, freie Plätze bekommen die der zweiten.
+Jede Funktion per Server-Config abschaltbar (`allowCopy`, `allowExtend`, `allowCombine`).
+
+**Netzwerk.** C2S `tiles` (Karten-ID, Zoom, bis 48 Kacheln mit bekannter Version; höchstens alle 4 Ticks
+je Spieler) → S2C `tile` (Deflate-komprimierte Farben+Höhen, Version) nur für geänderte Kacheln, dazu
+S2C `map_state` (gebundene Dimension). Gröbere Zoomstufen rechnet der Server aus den 1:1-Kacheln
+(Stichprobe je Pixel). C2S `waypoint` (Hand, setzen/konfigurieren/löschen; Server prüft Hand, Platz,
+Namenslänge, Kopf-Liste) und C2S `frame_view` (Rahmen in Reichweite, Wegfinder darin).
+
+**Client-UI.** Bildschirm ohne Menü (Rechtsklick mit der Karte), SimpleLib-Kasten im N12-Stil.
+Kartenfläche 192×144 (4:3, 12×9 Rasterzellen zu 16 px). Zoom 1, 4, 8, 16, 64 Blöcke je Pixel (F9) per
+Mausrad oder +/−; Ziehen verschiebt. Lesezeichen links: Snap, Raster, Zoomstufe, Höhenlinien (Feature 5).
+Lesezeichen rechts: Spieler + Wegpunkt 1–8; Klick zentriert (Snap: Rasterzelle des Spielers).
+Kontextmenü (neuer SimpleLib-Baustein `UiContextMenu`, Doku `docs/ai/UI-BAUSTEINE.md`): Karte →
+„Wegpunkt erstellen“ (Auswahl-Modus, alles ausgegraut außer den 8 Lesezeichen; belegt = erst rot, zweiter
+Klick ersetzt). Lesezeichen → „Wegpunkt konfigurieren“ (Name, 16 Farben oder Mob-Kopf), „Wegpunkt löschen“.
+Bergungskompass in der anderen Hand → letzter Todespunkt auf der Karte, auch im Unerkundeten (Feature 7).
+Locator-Bar: Wegpunkte der Karte in Haupt-/Nebenhand (F7), Farbe bzw. Kopf (Mixins `Hud`, `LocatorBar`).
+In der Hand: Vanilla-Kartenansicht mit dem 128×128-Ausschnitt um den Spieler (Spieler mittig).
+Gegenstandsrahmen (Feature 4): Rahmen zeigt den gespeicherten Ausschnitt; Rechtsklick öffnet die UI,
+Verschieben/Zoomen schreibt den Ausschnitt zurück (Wegpunkte dort nur lesbar).
+
+**Tests.** Modul-Targets `module-simplemaps-{fabric,neoforge}-263` und Standalone; GameTests für
+Registrierung/Rezepte/Tags, Aufdecken + Speichern, Kachel-Codec, Kartentisch (Kopie/Erweitern/Kombinieren +
+Verbrauch + Config-Schalter), Wegpunkt-Validierung, Dimensionsbindung, Config-Grenzen, Loot. Client-Smoke mit
+Screenshots der UI. Forge 26.3: kompilieren im selben Zug (Testziel wie bei Sandwiches/Containers noch ohne).

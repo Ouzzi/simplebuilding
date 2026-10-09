@@ -1,0 +1,8 @@
+plugins {
+    id 'java-library'
+    id 'net.minecraftforge.gradle' version '7.0.36'
+}
+ext.forgeMixinConfigs = ['simplemaps.mixins.json', 'simplemaps.forge.mixins.json']
+// SimpleLib (shared UI blocks) nested next to framework (principle 6a).
+ext.forgeBundleSimplelib = true
+apply from: rootProject.file('gradle/module-forge.gradle')

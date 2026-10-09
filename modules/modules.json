@@ -1224,6 +1224,85 @@
         "neoforge": ":modules:simplecontainers:neoforge",
         "forge": ":modules:simplecontainers:forge"
       }
+    },
+    {
+      "id": "simplemaps",
+      "name": "Simple Maps",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Maps",
+      "description": "Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar, framed views and cartography table upgrades.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [],
+      "checks": [
+        "modules/simplemaps/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplemaps",
+        "catalogues": [
+          "modules/simplemaps/fabric/src/main/java/com/simplebuilding/modules/simplemaps/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplemaps"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplemapsGameTest",
+            "report": "integration/build/simplemaps-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplemaps:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplemaps/neoforge/build/module-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplemapsStandaloneGameTest",
+              "report": "integration/build/standalone/simplemaps-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplemaps:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplemaps/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplemaps.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplemaps/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplemaps",
+        "shared": "modules/simplemaps/shared",
+        "fabric": "modules/simplemaps/fabric",
+        "neoforge": "modules/simplemaps/neoforge",
+        "forge": "modules/simplemaps/forge",
+        "generated": "modules/simplemaps/generated/resources",
+        "lang": "modules/simplemaps/shared/resources/assets/simplemaps/lang",
+        "wikiManual": "modules/simplemaps/wiki/manual.json",
+        "balanceDir": "balance/simplemaps"
+      },
+      "projects": {
+        "fabric": ":modules:simplemaps:fabric",
+        "neoforge": ":modules:simplemaps:neoforge",
+        "forge": ":modules:simplemaps:forge"
+      }
     }
   ]
 }

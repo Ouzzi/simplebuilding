@@ -14,7 +14,8 @@
     "simpledimensions",
     "simplesandwiches",
     "simplelib",
-    "simplecontainers"
+    "simplecontainers",
+    "simplemaps"
   ],
   "devMods": [
     "jei",
