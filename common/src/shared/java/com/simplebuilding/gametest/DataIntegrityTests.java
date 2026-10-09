@@ -3712,27 +3712,30 @@ public final class DataIntegrityTests {
      * its items to the Vanilla tabs and gets its key written; switched off it reads false; the switch is per mod.
      */
     public static void creativeTabSettingsArePerModAndDefaultOn(GameTestHelper helper) {
-        java.nio.file.Path dir;
+        // Reflektion: der Framework-Baustein liegt nur auf der Hauptlinie 26.3 auf dem Klassenpfad (26.2 ohne Framework).
+        Class<?> settings;
         try {
-            dir = java.nio.file.Files.createTempDirectory("simple-creative-tabs");
-        } catch (java.io.IOException e) {
-            throw helper.assertionException("no temp directory: " + e);
+            settings = Class.forName("com.simplebuilding.framework.api.CreativeTabSettings");
+        } catch (ClassNotFoundException e) {
+            helper.succeed();
+            return;
         }
-        var settings = com.simplebuilding.framework.api.CreativeTabSettings.class;
-        helper.assertTrue(com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(dir, "simplemoney"),
-                "a mod without a key must add its items to the Vanilla tabs");
-        java.nio.file.Path file = dir.resolve(com.simplebuilding.framework.api.CreativeTabSettings.FILE);
         try {
+            java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("simple-creative-tabs");
+            java.lang.reflect.Method read = settings.getMethod("addItemsToVanillaTabs", java.nio.file.Path.class, String.class);
+            java.lang.reflect.Method set = settings.getMethod("set", java.nio.file.Path.class, String.class, boolean.class);
+            String fileName = (String) settings.getField("FILE").get(null);
+            helper.assertTrue((Boolean) read.invoke(null, dir, "simplemoney"), "a mod without a key must add its items to the Vanilla tabs");
+            java.nio.file.Path file = dir.resolve(fileName);
             helper.assertTrue(java.nio.file.Files.readString(file).contains("simplemoney.addItemsToVanillaTabs=true"),
                     "the default key was not written to " + file);
-            com.simplebuilding.framework.api.CreativeTabSettings.set(dir, "simplemoney", false);
-        } catch (java.io.IOException e) {
-            throw helper.assertionException("settings file: " + e);
+            set.invoke(null, dir, "simplemoney", false);
+            helper.assertFalse((Boolean) read.invoke(null, dir, "simplemoney"),
+                    "switched off, CreativeTabSettings still allows Vanilla-tab placements");
+            helper.assertTrue((Boolean) read.invoke(null, dir, "simpleriding"), "switching one mod off must not switch another");
+        } catch (ReflectiveOperationException | java.io.IOException e) {
+            throw helper.assertionException("CreativeTabSettings: " + e);
         }
-        helper.assertFalse(com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(dir, "simplemoney"),
-                "switched off, " + settings.getSimpleName() + " still allows Vanilla-tab placements");
-        helper.assertTrue(com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(dir, "simpleriding"),
-                "switching one mod off must not switch another");
         helper.succeed();
     }
 
