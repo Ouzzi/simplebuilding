@@ -33534,6 +33534,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:goat_horn_holder",
+      "name": {
+        "en_us": "Goat Horn Holder",
+        "de_de": "Ziegenhorn-Halter"
+      },
+      "texture": "assets/textures/block/goat_horn_holder.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/goat_horn_holder.png",
+      "note": {
+        "en": {
+          "summary": "A goat horn put down as a holder for a torch or a rod: sneak + right-click with a goat horn on the top of a block (mouth up) or on a wall (hanging from a little peg). Not under a ceiling. It keeps the horn with its sound and name and drops it again.",
+          "details": [
+            "Right-click with a torch (every torch block item: torch, soul, copper and redstone torch) or a stick, bone, blaze rod, breeze rod or diamond rod puts one into the empty horn; it stands upright in the mouth as its 3D model. A torch lights the holder like the torch block (torch 14, soul torch 10) and flickers with its flame; the blaze rod glows a little (5).",
+            "An empty hand takes the item out again (into the inventory, or dropped when it is full). A second item does not fit while one is in.",
+            "Breaking it, explosions and pistons drop the horn and the held item; there is no loot table and no block item. Without sneaking a goat horn is blown as usual."
+          ]
+        },
+        "de": {
+          "summary": "Ein Ziegenhorn als Halter für eine Fackel oder einen Stab abgelegt: Schleichen + Rechtsklick mit einem Ziegenhorn auf die Oberseite eines Blocks (Öffnung nach oben) oder an eine Wand (hängt an einem kleinen Haken). Nicht unter einer Decke. Das Horn behält Klang und Namen und fällt wieder heraus.",
+          "details": [
+            "Rechtsklick mit einer Fackel (jedes Fackel-Block-Item: Fackel, Seelen-, Kupfer- und Redstone-Fackel) oder einem Stock, Knochen, einer Lohenrute, Böenrute oder einem Diamantstab steckt eins ins leere Horn; es steht aufrecht in der Öffnung als 3D-Modell. Eine Fackel lässt den Halter leuchten wie den Fackelblock (Fackel 14, Seelenfackel 10) und flackert mit ihrer Flamme; die Lohenrute leuchtet leicht (5).",
+            "Mit leerer Hand nimmt man das Item wieder heraus (ins Inventar, bei vollem Inventar fällt es). Ein zweites Item passt nicht, solange eins drinsteckt.",
+            "Abbauen, Explosionen und Kolben geben Horn und Inhalt zurück; es gibt keine Loot-Tabelle und kein Block-Item. Ohne Schleichen wird ein Ziegenhorn wie gewohnt geblasen."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/GoatHornHolderBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/GoatHornHolderBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/client/render/GoatHornHolderRenderer.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java",
+          "tools/textures/goat_horn_holder_2026_10_09.py"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:gold_rod",
       "name": {
         "en_us": "Gold Rod",
@@ -116629,7 +116667,7 @@ window.WIKI_DATA = {
   },
   "counts": {
     "items": 481,
-    "blocks": 237,
+    "blocks": 238,
     "recipes": 847,
     "lootTables": 231,
     "trades": 20,
