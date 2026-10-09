@@ -28,7 +28,7 @@ import net.minecraft.world.phys.AABB;
  *   <li>Ist unter ihr frei ({@link FallingBlock#isFree}), faellt sie als Entity - eine obere Stufe faellt als untere,
  *       eine doppelte bleibt doppelt (Wasser bleibt wie bei Vanilla zurueck).</li>
  *   <li>Landet eine untere Stufe auf einer unteren Stufe derselben Art, werden beide zur Doppelstufe
- *       ({@link #canBeReplaced} + {@link #onLand}).</li>
+ *       ({@link #canBeReplaced}).</li>
  * </ul>
  */
 public class FallingSlabBlock extends SlabBlock implements Fallable {
@@ -61,24 +61,24 @@ public class FallingSlabBlock extends SlabBlock implements Fallable {
     }
 
     /**
-     * Nur fuer eine fallende untere Stufe derselben Art (FallingBlockEntity prueft mit leerer Hand und
-     * {@link DirectionalPlaceContext}): sie darf die untere Stufe "ersetzen", {@link #onLand} macht daraus die Doppelstufe.
-     * Ohne das stuende die Entity auf halber Hoehe in deren Zelle und zerfiele zu einem Item.
+     * Landende untere Stufe derselben Art (FallingBlockEntity fragt mit leerer Hand und {@link DirectionalPlaceContext},
+     * ob sie die Zelle uebernehmen darf): die Entity steht dann auf halber Hoehe in der Zelle dieser unteren Stufe. Statt
+     * sie zu einem Item zerfallen zu lassen (das Setzen des gleichen Zustands schlaegt fehl), wird die liegende Stufe hier
+     * zur Doppelstufe und die Entity verschwindet ohne Drop. Nur der Server, nur diese eine Lage.
      */
     @Override
     protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-        if (context instanceof DirectionalPlaceContext && context.getItemInHand().isEmpty() && state.getValue(TYPE) == SlabType.BOTTOM) {
-            return !context.getLevel().getEntitiesOfClass(FallingBlockEntity.class, new AABB(context.getClickedPos()),
-                    entity -> entity.getBlockState().is(this) && entity.getBlockState().getValue(TYPE) == SlabType.BOTTOM).isEmpty();
+        if (context instanceof DirectionalPlaceContext && context.getItemInHand().isEmpty() && state.getValue(TYPE) == SlabType.BOTTOM
+                && !context.getLevel().isClientSide()) {
+            BlockPos pos = context.getClickedPos();
+            for (FallingBlockEntity entity : context.getLevel().getEntitiesOfClass(FallingBlockEntity.class, new AABB(pos),
+                    e -> e.isAlive() && e.getBlockState().is(this) && e.getBlockState().getValue(TYPE) == SlabType.BOTTOM)) {
+                entity.dropItem = false;
+                context.getLevel().setBlockAndUpdate(pos, state.setValue(TYPE, SlabType.DOUBLE).setValue(WATERLOGGED, false));
+                return false;
+            }
         }
         return super.canBeReplaced(state, context);
-    }
-
-    @Override
-    public void onLand(Level level, BlockPos pos, BlockState falling, BlockState replaced, FallingBlockEntity entity) {
-        if (replaced.is(this) && replaced.getValue(TYPE) == SlabType.BOTTOM && falling.getValue(TYPE) == SlabType.BOTTOM) {
-            level.setBlockAndUpdate(pos, falling.setValue(TYPE, SlabType.DOUBLE).setValue(WATERLOGGED, false));
-        }
     }
 
     @Override
