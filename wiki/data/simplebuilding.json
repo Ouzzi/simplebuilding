@@ -8319,7 +8319,7 @@
       },
       "note": {
         "en": {
-          "summary": "Creative Building Wand: creative tab only, unlimited reach (up to 1024 blocks), no durability, no material use. Right-clicking a block face with a building wand fills a whole square area with blocks taken from your inventory; the tier (copper through enderite) sets how large that area can get.",
+          "summary": "Creative Building Wand: creative tab only, building area up to 13x13 blocks, unlimited reach (up to 1024 blocks), no durability, no material use. Right-clicking a block face with a building wand fills a whole square area with blocks taken from your inventory; the tier (copper through enderite) sets how large that area can get.",
           "details": [
             "Six tiers are registered: Copper Building Wand, Iron Building Wand, Gold Building Wand, Diamond Building Wand, Netherite Building Wand and Enderite Building Wand.",
             "Right-clicking a block face with the wand in the main hand starts the build; in the off-hand the wand ignores the click (useOn returns PASS).",
@@ -8401,7 +8401,7 @@
           ]
         },
         "de": {
-          "summary": "Kreativ-Baustab: nur im Kreativ-Tab, unbegrenzte Reichweite (bis 1024 Blöcke), ohne Haltbarkeit und Materialverbrauch. Der Baustab platziert mit einem Rechtsklick auf eine Blockseite eine ganze quadratische Fläche aus Blöcken deines Inventars; die Stufe (Kupfer bis Enderit) bestimmt, wie groß diese Fläche höchstens wird.",
+          "summary": "Kreativ-Baustab: nur im Kreativ-Tab, Baufläche bis zu 13x13 Blöcke, unbegrenzte Reichweite (bis 1024 Blöcke), ohne Haltbarkeit und Materialverbrauch. Der Baustab platziert mit einem Rechtsklick auf eine Blockseite eine ganze quadratische Fläche aus Blöcken deines Inventars; die Stufe (Kupfer bis Enderit) bestimmt, wie groß diese Fläche höchstens wird.",
           "details": [
             "Sechs Stufen sind registriert: Kupfer-Baustab, Eisen-Baustab, Gold-Baustab, Diamant-Baustab, Netherit-Baustab und Enderit-Baustab.",
             "Ein Rechtsklick mit dem Stab in der Haupthand auf eine Blockseite startet den Bau; in der Zweithand reagiert der Stab auf den Klick nicht (useOn gibt PASS zurück).",
