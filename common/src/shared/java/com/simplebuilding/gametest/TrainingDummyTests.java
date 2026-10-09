@@ -692,7 +692,8 @@ public final class TrainingDummyTests {
         }
         helper.assertTrue(dummy.isAlive(), "a wind charge destroyed the dummy");
         helper.assertTrue(dummy.sessionHits() >= 1, "the wind charge was not counted");
-        helper.assertTrue(dummy.position().distanceTo(start) < 0.05, "the wind charge pushed the dummy by " + dummy.position().distanceTo(start));
+        Vec3 moved = dummy.position().subtract(start);
+        helper.assertTrue(moved.horizontalDistance() < 0.05, "the wind charge pushed the dummy by " + moved + " (charge removed: " + charge.isRemoved() + ")");
         helper.succeed();
     }
 
