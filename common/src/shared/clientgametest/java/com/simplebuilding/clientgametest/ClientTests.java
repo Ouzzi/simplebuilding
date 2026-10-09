@@ -95,7 +95,9 @@ public final class ClientTests {
                 new Entry("piston-textures", PistonTextureClientTest::inWorld),
                 // Reads the stitched items atlas, then shows trimmed armour in the inventory and
                 // puts the hotbar back empty.
-                new Entry("trim-textures", TrimTextureClientTest::inWorld));
+                new Entry("trim-textures", TrimTextureClientTest::inWorld),
+                // Owner N21/N28 (26.3): half and full Enderite buckets in the inventory; hotbar back empty.
+                new Entry("enderite-buckets", EnderiteBucketClientTest::inWorld));
     }
 
     /**

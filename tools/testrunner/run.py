@@ -603,7 +603,9 @@ SKIPPED_SHOTS = {
     # The mega-guide screen is a 26.3 feature, pending the separate port run.
     "26.2": {"mega-guide-locked", "mega-guide-unlocked",
              # McVersion.AUTO_SMITHER / FLETCHING are 26.3 features (ModUiStyleClientTest).
-             "modui-auto-smither", "modui-fletching"},
+             "modui-auto-smither", "modui-fletching",
+             # McVersion.CRUCIBLE: the Enderite buckets are 26.3 only (EnderiteBucketClientTest).
+             "enderite-buckets-inventory"},
     # McVersion.SMITHING_RECIPE_BOOK (owner 2026-10-02): the vanilla recipe book replaced the trim
     # reference button in the smithing table, so ModScreensClientTest checks the book and returns
     # before the button path that takes this shot.
