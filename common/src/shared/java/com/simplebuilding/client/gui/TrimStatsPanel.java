@@ -17,7 +17,7 @@ import net.minecraft.world.entity.player.Player;
 /**
  * Die Resonanz der Ruestungsbesatz-Boni im Inventar: ein kleines Feld rechts neben dem
  * Rezeptbuch-Button im Vanilla-Stil dieses Knopfs (Rahmen, Fuellung #C6C6C6, beim Ueberfahren blau wie er) mit einem
- * Vanilla-Herz in Steingrau und dem weissen Wert mit Schatten ("0.22x"); ueberfahren zeigt es die Einzelheiten
+ * Vanilla-Herz in Steingrau und dem dunkelgrauen Wert ("0.22x"); ueberfahren zeigt es die Einzelheiten
  * (L, S, C mit ihren Hoechstwerten, woraus sie sich speisen, und wann alles zusammen gedeckelt ist).
  * Seit 2026-09-29 ohne Knopf: der Wert steht immer da (Besitzer).
  *
@@ -65,8 +65,9 @@ public final class TrimStatsPanel {
                 panel.x(), panel.y(), panel.width(), panel.height());
         context.blitSprite(RenderPipelines.GUI_TEXTURED, HEART_SPRITE, panel.iconX(), panel.iconY(),
                 TrimStatsLayout.ICON_SIZE, TrimStatsLayout.ICON_SIZE);
-        // Weiss mit Schatten wie die Vanilla-Stapelzahlen.
-        context.text(font, Component.literal(text), panel.textX(), panel.textY(), 0xFFFFFFFF, true);
+        // Dunkelgrau ohne Schatten wie die Vanilla-Beschriftung "Crafting" daneben: auf #C6C6C6 klar lesbar
+        // (Weiss mit Schatten war im Client-Screenshot zu blass).
+        context.text(font, Component.literal(text), panel.textX(), panel.textY(), 0xFF404040, false);
 
         if (hovered) {
             context.setComponentTooltipForNextFrame(font, tooltip(player), mouseX, mouseY);
