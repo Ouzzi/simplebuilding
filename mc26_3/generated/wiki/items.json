@@ -224,6 +224,7 @@
     "simplebuilding:spider_wall_head",
     "simplebuilding:standing_rod",
     "simplebuilding:stellar_flypad",
+    "simplebuilding:storage_crafting_table",
     "simplebuilding:stray_skull",
     "simplebuilding:stray_wall_skull",
     "simplebuilding:suspended_gravel",
@@ -2304,6 +2305,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:storage_crafting_table"
+    },
+    {
       "id": "simplebuilding:straw_armor_stand",
       "maxStackSize": 16
     },
@@ -2329,6 +2333,9 @@
     {
       "id": "simplebuilding:velocity_gauge",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:warden_tendril"
     },
     {
       "id": "simplebuilding:waxed_copper_pressure_plate"
