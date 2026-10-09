@@ -584,3 +584,12 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **Lohenholz** (Blazewood): 8 Lohenstaub + 1 Nether-Holz (Varianten je Nether-Holzart: Karmesin, Wirr, …).
 - [ ] **Lohenbuch** (Blaze Book): analog zum Buch aus Lohen-Zutaten.
 - [ ] **Lohen-Bücherregal** (Varianten je Lohenholz): doppelter Verzauberungswert eines normalen Regals; ermöglicht die höheren Astral-Stufen.
+
+## Nachtrag 28 (2026-10-09, Besitzer)
+- [x] Farbkasten (paint_box, 4 Stufen) so übernommen.
+- [ ] **Farbkasten-Textur überarbeiten** (Besitzer: Funktion ok, Textur soll später neu).
+- [x] Enderit-Eimer Variante A: Voll-Wasser bedeckt den Rand und läuft wie Lava über.
+- [ ] Enderit-Eimer halb-Texturen (Wasser/Lava/Seelenlava: wie voll, nur die zwei obersten äußeren Flüssigkeitspixel zeigen den Eimer) mit der Kapazität „2 Eimer“ aus Nachtrag 21 einbauen.
+- [ ] Seelenlava Textur + Animation neu, fließende Seelenlava vor- und rückwärts (in Arbeit, claude-soullava).
+- [ ] Platzierte Bündel von oben leicht abgerundet (in Arbeit, claude-soullava).
+- [ ] Tiegel-Flammen Form „Mittel“ (in Arbeit, claude-soullava).
