@@ -78,6 +78,8 @@ Speichern schreibt Zahlen direkt in Java/JSON. Details: `docs/BALANCING-ZENTRALE
 ## 8. Ablauf für neue Wünsche des Besitzers
 1. Wunsch in `.claude/QUEUE.md` eintragen. 2. Umsetzen nur auf 26.3. 3. Server-Tests gefiltert, am Ende volles Gate im Worktree.
 4. Grün lesen → committen → pushen. 5. Wiki/Bücher/Testzentrale aktualisieren. 6. Erst nach Abnahme: Port-Run.
+7. Neues oder geändertes Feature, neues Modul, geänderte Abhängigkeit: `docs/MODS-UND-FEATURES.md` im selben Commit nachziehen
+   (Übersicht aller Mods/Sub-Mods; Grundlage für die Entscheidung, wohin ein Feature gehört).
 
 ## 9. Wichtige Entscheidungen des Besitzers (Kurzfassung, Details in `docs/HANDOFF.md`)
 Config serverseitig + Obergrenzen · Chunk-Loader nur bei Online-Besitzer · Steinmetz verkauft keine Kerne, fahrender Händler
