@@ -133,7 +133,7 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implem
         this.extractCarriedItem(graphics, mouseX, mouseY);
         this.extractTooltip(graphics, mouseX, mouseY);
         this.recipeBookComponent.extractTooltip(graphics, mouseX, mouseY, this.hoveredSlot);
-        this.trimStats.render(graphics, this.font, this.minecraft, this.leftPos, this.topPos, mouseX, mouseY);
+        this.trimStats.render(graphics, this.font, this.minecraft, recipeButtonX(), recipeButtonY(), mouseX, mouseY);
         this.xMouse = mouseX;
         this.yMouse = mouseY;
     }

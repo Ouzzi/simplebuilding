@@ -75,4 +75,9 @@ public final class TrimWiringGameTest {
     public void theTrimMultiplierCommandSavesAndSyncsItsValue(GameTestHelper helper) {
         TrimWiringTests.theTrimMultiplierCommandSavesAndSyncsItsValue(helper);
     }
+
+    @GameTest
+    public void resonancePanelLayoutSitsBesideRecipeBook(GameTestHelper helper) {
+        TrimWiringTests.resonancePanelLayoutSitsBesideRecipeBook(helper);
+    }
 }

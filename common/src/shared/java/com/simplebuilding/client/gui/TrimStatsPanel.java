@@ -2,6 +2,7 @@ package com.simplebuilding.client.gui;
 
 import com.simplebuilding.util.SurvivalTracerAccessor;
 import com.simplebuilding.util.TrimMultiplierLogic;
+import com.simplebuilding.util.TrimStatsLayout;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.ChatFormatting;
@@ -12,12 +13,10 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 /**
- * Die Resonanz der Ruestungsbesatz-Boni im Inventar: ein kleines Feld links neben dem Inventar mit
- * dem Symbol der Ward-Schmiedevorlage und dem Wert ("0.22x"); ueberfahren zeigt es die Einzelheiten
+ * Die Resonanz der Ruestungsbesatz-Boni im Inventar: ein kleines Feld rechts neben dem
+ * Rezeptbuch-Button mit einem Herz in Steinfarben und dem grauen Wert ("0.22x"); ueberfahren zeigt es die Einzelheiten
  * (L, S, C mit ihren Hoechstwerten, woraus sie sich speisen, und wann alles zusammen gedeckelt ist).
  * Seit 2026-09-29 ohne Knopf: der Wert steht immer da (Besitzer).
  *
@@ -26,13 +25,11 @@ import net.minecraft.world.item.Items;
  */
 public final class TrimStatsPanel {
     private static final Identifier PANEL_SPRITE = Identifier.withDefaultNamespace("popup/background");
-    /** Abstand des Felds zur linken Inventarkante und zur Oberkante (wie der Besatz-Knopf am Schmiedetisch). */
-    public static final int GAP_LEFT = 5, OFFSET_Y = 5;
-    /** Feldhoehe; die Breite waechst mit dem Text ({@link #width}). */
-    public static final int HEIGHT = 20;
-    /** Symbol: 2 px vom linken Rand und von der Oberkante. */
-    public static final int ICON_INSET = 2;
-    private static final int TEXT_X = 20, TEXT_PAD_RIGHT = 5;
+    /** Herz in Steinfarben (9x9, tools/textures/resonance_heart_2026_10_09.py). */
+    private static final Identifier HEART_SPRITE = Identifier.fromNamespaceAndPath("simplebuilding", "resonance_heart");
+    /** Rezeptbuch-Knopf des Vanilla-Inventars relativ zu leftPos/topPos (x 104, height / 2 - 22 = 61 bei 166 Hoehe). */
+    public static final int BOOK_X = 104, BOOK_Y = 61;
+    public static final int HEIGHT = TrimStatsLayout.HEIGHT;
     /** Jeder der drei Faktoren liegt in 0,1..1,0. */
     public static final double FACTOR_MIN = 0.1, FACTOR_MAX = 1.0;
 
@@ -43,29 +40,29 @@ public final class TrimStatsPanel {
 
     /** Breite des Felds fuer diesen Text. */
     public static int width(Font font, String text) {
-        return TEXT_X + font.width(text) + TEXT_PAD_RIGHT;
+        return TrimStatsLayout.panel(0, 0, font.width(text)).width();
     }
 
-    /** Linke Kante des Felds bei dieser Breite. */
-    public static int x(int leftPos, int width) {
-        return leftPos - GAP_LEFT - width;
+    /** Das Feld fuer diesen Text rechts neben dem Buch-Knopf bei (bookX, bookY); oeffentlich fuer die Client-Tests. */
+    public static TrimStatsLayout.Panel panel(Font font, String text, int bookX, int bookY) {
+        return TrimStatsLayout.panel(bookX, bookY, font.width(text));
     }
 
-    public void render(GuiGraphicsExtractor context, Font font, Minecraft minecraft, int leftPos, int topPos, int mouseX, int mouseY) {
+    public void render(GuiGraphicsExtractor context, Font font, Minecraft minecraft, int bookX, int bookY, int mouseX, int mouseY) {
         if (minecraft == null || minecraft.player == null) {
             return;
         }
         Player player = minecraft.player;
         String text = compact(TrimMultiplierLogic.getMultiplier(player));
-        int w = width(font, text);
-        int x = x(leftPos, w);
-        int y = topPos + OFFSET_Y;
+        TrimStatsLayout.Panel panel = panel(font, text, bookX, bookY);
 
-        context.blitSprite(RenderPipelines.GUI_TEXTURED, PANEL_SPRITE, x, y, w, HEIGHT);
-        context.item(new ItemStack(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE), x + ICON_INSET, y + ICON_INSET);
-        context.text(font, Component.literal(text).withStyle(ChatFormatting.DARK_GREEN), x + TEXT_X, y + 6, 0xFFFFFFFF, false);
+        context.blitSprite(RenderPipelines.GUI_TEXTURED, PANEL_SPRITE, panel.x(), panel.y(), panel.width(), panel.height());
+        context.blitSprite(RenderPipelines.GUI_TEXTURED, HEART_SPRITE, panel.iconX(), panel.iconY(),
+                TrimStatsLayout.ICON_SIZE, TrimStatsLayout.ICON_SIZE);
+        context.text(font, Component.literal(text).withStyle(ChatFormatting.GRAY), panel.textX(), panel.textY(), 0xFFFFFFFF, false);
 
-        if (mouseX >= x && mouseX < x + w && mouseY >= y && mouseY < y + HEIGHT) {
+        if (mouseX >= panel.x() && mouseX < panel.x() + panel.width()
+                && mouseY >= panel.y() && mouseY < panel.y() + panel.height()) {
             context.setComponentTooltipForNextFrame(font, tooltip(player), mouseX, mouseY);
         }
     }

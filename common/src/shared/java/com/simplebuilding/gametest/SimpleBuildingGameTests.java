@@ -983,6 +983,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_the_trim_multiplier_command_saves_and_syncs_its_value", TrimWiringTests::theTrimMultiplierCommandSavesAndSyncsItsValue)
                     .build(),
+            GameTestSpec.named("trim_wiring_game_test_resonance_panel_layout_sits_beside_recipe_book", TrimWiringTests::resonancePanelLayoutSitsBesideRecipeBook)
+                    .build(),
             GameTestSpec.named("rare_structure_finds_game_test_better_chest_tables_rate_and_double_chest_rule", RareStructureFindsTests::betterChestTablesRateAndDoubleChestRule)
                     .build(),
             GameTestSpec.named("rare_structure_finds_game_test_bastion_template_chest_becomes_netherite_chest", RareStructureFindsTests::bastionTemplateChestBecomesNetheriteChest)

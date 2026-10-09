@@ -30,6 +30,7 @@ public abstract class InventoryScreenMixin extends AbstractContainerScreen<Inven
 
     @Inject(method = "extractRenderState", at = @At("TAIL"))
     private void renderTrimStats(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        this.trimStats.render(context, this.font, this.minecraft, this.leftPos, this.topPos, mouseX, mouseY);
+        this.trimStats.render(context, this.font, this.minecraft, this.leftPos + com.simplebuilding.client.gui.TrimStatsPanel.BOOK_X,
+                this.topPos + com.simplebuilding.client.gui.TrimStatsPanel.BOOK_Y, mouseX, mouseY);
     }
 }

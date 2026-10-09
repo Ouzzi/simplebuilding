@@ -50,7 +50,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
@@ -2065,8 +2064,7 @@ public final class HudAndTooltipClientTest {
      * mixin only sits on the survival screen.
      *
      * <p>What breaks this test: the mixin no longer drawing the field, the field moving (it sits
-     * {@link TrimStatsPanel#GAP_LEFT} left of the inventory, {@link TrimStatsPanel#OFFSET_Y} below its
-     * top edge), the value no longer being the compact resonance, a leftover 20x20 button, or the
+     * right of the recipe book button, {@link TrimStatsPanel#BOOK_X}/{@link TrimStatsPanel#BOOK_Y}), the value no longer being the compact resonance, a leftover 20x20 button, or the
      * hover no longer showing the details with their maximum values.
      */
     private static void inventoryShowsTheResonanceFieldAndItsDetails(Script script) {
@@ -2078,7 +2076,7 @@ public final class HudAndTooltipClientTest {
         clearWidgetFocus(script);
 
         Later<int[]> field = new Later<>("the resonance field (x, y, width)");
-        script.act("the resonance field shows the ward template and the compact value, and no button is left", client -> {
+        script.act("the resonance field shows its heart and the compact value, and no button is left", client -> {
             AbstractContainerScreen<?> screen = containerScreen(client);
             for (GuiEventListener child : screen.children()) {
                 if (child instanceof Button button && button.getWidth() == 20 && button.getHeight() == 20) {
@@ -2087,26 +2085,26 @@ public final class HudAndTooltipClientTest {
                 }
             }
             String value = TrimStatsPanel.compact(com.simplebuilding.util.TrimMultiplierLogic.getMultiplier(client.player));
-            int width = TrimStatsPanel.width(client.font, value);
-            int x = TrimStatsPanel.x(leftPos(screen), width);
-            int y = topPos(screen) + TrimStatsPanel.OFFSET_Y;
+            com.simplebuilding.util.TrimStatsLayout.Panel panel = TrimStatsPanel.panel(client.font, value,
+                    leftPos(screen) + TrimStatsPanel.BOOK_X, topPos(screen) + TrimStatsPanel.BOOK_Y);
+            int width = panel.width();
+            int x = panel.x();
+            int y = panel.y();
             GuiRenderState state = extractScreenState(client);
 
-            List<String> sprites = new ArrayList<>();
-            List<String> elsewhere = new ArrayList<>();
-            state.forEachItem(item -> {
-                org.joml.Vector2f onScreen = item.pose().transformPosition(item.x(), item.y(), new org.joml.Vector2f());
-                String sprite = String.valueOf(item.itemStackRenderState()
-                        .pickParticleMaterial(RandomSource.create()).sprite().contents().name());
-                if (Math.round(onScreen.x) == x + TrimStatsPanel.ICON_INSET && Math.round(onScreen.y) == y + TrimStatsPanel.ICON_INSET) {
-                    sprites.add(sprite);
-                } else {
-                    elsewhere.add(sprite + "@" + Math.round(onScreen.x) + "/" + Math.round(onScreen.y));
+            // The heart is a GUI sprite, not an item: look for an element with exactly its bounds.
+            int size = com.simplebuilding.util.TrimStatsLayout.ICON_SIZE;
+            boolean[] heart = {false};
+            state.forEachElement(element -> {
+                var bounds = element.bounds();
+                if (bounds != null && bounds.left() == panel.iconX() && bounds.top() == panel.iconY()
+                        && bounds.width() == size && bounds.height() == size) {
+                    heart[0] = true;
                 }
-            });
-            if (!sprites.contains("minecraft:item/ward_armor_trim_smithing_template")) {
-                throw new AssertionError("The resonance field at " + x + "/" + y + " does not show the ward smithing template: items "
-                        + "drawn at its icon spot " + sprites + ", items drawn elsewhere " + elsewhere);
+            }, GuiRenderState.TraverseRange.ALL);
+            if (!heart[0]) {
+                throw new AssertionError("The resonance field at " + x + "/" + y + " draws no " + size + "x" + size
+                        + " heart at " + panel.iconX() + "/" + panel.iconY());
             }
             List<String> texts = new ArrayList<>();
             for (DrawnText text : drawnTexts(state)) {
@@ -2141,6 +2139,7 @@ public final class HudAndTooltipClientTest {
 
         parkCursor(script);
         clearWidgetFocus(script);
+        script.shot("inventory-resonance-field");
         closeScreen(script);
     }
 
@@ -2379,7 +2378,7 @@ public final class HudAndTooltipClientTest {
      * {@code leftPos + 75 / topPos + 78}.
      *
      * <p>Before handing the rectangle out it is checked against the resonance field
-     * ({@link TrimStatsPanel}: left of the inventory, {@link TrimStatsPanel#HEIGHT} high; 80 GUI
+     * ({@link TrimStatsPanel}: right of the recipe book button, {@link TrimStatsPanel#HEIGHT} high; 80 GUI
      * pixels are reserved for its width). If the two ever overlapped the mask would swallow part of
      * that field in every masked comparison.
      */
@@ -2399,10 +2398,11 @@ public final class HudAndTooltipClientTest {
             };
 
             int[] panel = {
-                    (int) Math.floor((leftPos(screen) - TrimStatsPanel.GAP_LEFT - 80) * scaleX),
-                    (int) Math.floor((topPos(screen) + TrimStatsPanel.OFFSET_Y) * scaleY),
-                    (int) Math.ceil((leftPos(screen) - TrimStatsPanel.GAP_LEFT) * scaleX),
-                    (int) Math.ceil((topPos(screen) + TrimStatsPanel.OFFSET_Y + TrimStatsPanel.HEIGHT) * scaleY),
+                    // The field right of the recipe book button, generously 80 GUI pixels wide.
+                    (int) Math.floor((leftPos(screen) + TrimStatsPanel.BOOK_X + 20) * scaleX),
+                    (int) Math.floor((topPos(screen) + TrimStatsPanel.BOOK_Y) * scaleY),
+                    (int) Math.ceil((leftPos(screen) + TrimStatsPanel.BOOK_X + 20 + 80) * scaleX),
+                    (int) Math.ceil((topPos(screen) + TrimStatsPanel.BOOK_Y + TrimStatsPanel.HEIGHT) * scaleY),
             };
 
             boolean overlaps = model[0] < panel[2] && panel[0] < model[2]
