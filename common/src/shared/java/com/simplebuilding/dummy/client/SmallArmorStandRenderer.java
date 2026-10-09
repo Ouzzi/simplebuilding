@@ -146,7 +146,7 @@ public class SmallArmorStandRenderer extends ArmorStandRenderer {
 
     /**
      * Tier-Ruestung in Tierform mit Vanillas Ruestungsmodellen und Ebenen (Farbe, Glanz wie am Tier), quer zum Staender
-     * gedreht, damit man sie von vorn seitlich sieht; Wolf und Nautilus etwas hoeher, damit der Pfosten im Bauch steckt.
+     * gedreht, damit man sie von vorn seitlich sieht; Wolf 5 px und Nautilus 7 px hoeher, damit der Pfosten im Bauch steckt.
      * Die Zustaende sind feste Ruhe-Posen (keine Animation), deshalb teilen sich alle Staender je einen.
      */
     static final class AnimalArmorLayer extends RenderLayer<ArmorStandRenderState, ArmorStandArmorModel> {
@@ -184,8 +184,11 @@ public class SmallArmorStandRenderer extends ArmorStandRenderer {
                     poseStack.translate(0.0F, -5.0F / 16.0F, 0.0F);
                     render(EquipmentClientInfo.LayerType.WOLF_BODY, equippable, this.wolf, this.wolfState, own, poseStack, collector, lightCoords);
                 }
-                case NAUTILUS -> render(EquipmentClientInfo.LayerType.NAUTILUS_BODY, equippable, this.nautilus, this.nautilusState, own, poseStack,
-                        collector, lightCoords);
+                case NAUTILUS -> {
+                    poseStack.translate(0.0F, -7.0F / 16.0F, 0.0F);
+                    render(EquipmentClientInfo.LayerType.NAUTILUS_BODY, equippable, this.nautilus, this.nautilusState, own, poseStack, collector,
+                            lightCoords);
+                }
             }
             poseStack.popPose();
         }
