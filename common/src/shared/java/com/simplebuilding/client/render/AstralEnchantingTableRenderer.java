@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.blockentity.EnchantTableRenderer;
 import net.minecraft.client.renderer.blockentity.state.EnchantTableRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.sprite.SpriteGetter;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
@@ -51,13 +50,13 @@ public class AstralEnchantingTableRenderer implements BlockEntityRenderer<Astral
         poseStack.pushPose();
         poseStack.translate(0.5F, 0.75F, 0.5F);
         poseStack.translate(0.0F, 0.1F + Mth.sin(state.time * 0.1F) * 0.01F, 0.0F);
-        poseStack.rotate(Axis.YP, -state.yRot);
-        poseStack.rotateDegrees(Axis.ZP, 80.0F);
+        com.simplebuilding.version.McClientVersion.rotate(poseStack, Axis.YP.rotation(-state.yRot));
+        com.simplebuilding.version.McClientVersion.rotate(poseStack, Axis.ZP.rotationDegrees(80.0F));
         float ff1 = Mth.frac(state.flip + 0.25F) * 1.6F - 0.3F;
         float ff2 = Mth.frac(state.flip + 0.75F) * 1.6F - 0.3F;
         BookModel.State book = BookModel.State.forAnimation(state.time, Mth.clamp(ff1, 0.0F, 1.0F), Mth.clamp(ff2, 0.0F, 1.0F), state.open);
-        collector.submitModel(this.bookModel, book, poseStack, state.lightCoords, OverlayTexture.NO_OVERLAY, -1,
-                EnchantTableRenderer.BOOK_TEXTURE, this.sprites, 0);
+        com.simplebuilding.version.McClientVersion.submitSpriteModel(collector, this.bookModel, book, poseStack, state.lightCoords,
+                EnchantTableRenderer.BOOK_TEXTURE, this.sprites);
         poseStack.popPose();
     }
 }

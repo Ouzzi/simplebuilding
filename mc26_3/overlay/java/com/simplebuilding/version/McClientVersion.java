@@ -60,4 +60,12 @@ public final class McClientVersion {
                                        RenderType renderType, int lightCoords, int overlayCoords, int outlineColor) {
         collector.submitModel(model, state, poseStack, renderType, lightCoords, overlayCoords, outlineColor);
     }
+
+    /** Submits a whole model textured with a sprite, without break overlay (26.2 takes the overlay as last parameter). */
+    public static <S> void submitSpriteModel(net.minecraft.client.renderer.SubmitNodeCollector collector,
+                                             net.minecraft.client.model.Model<? super S> model, S state, PoseStack poseStack, int lightCoords,
+                                             net.minecraft.client.resources.model.sprite.SpriteId sprite,
+                                             net.minecraft.client.resources.model.sprite.SpriteGetter sprites) {
+        collector.submitModel(model, state, poseStack, lightCoords, net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY, -1, sprite, sprites, 0);
+    }
 }

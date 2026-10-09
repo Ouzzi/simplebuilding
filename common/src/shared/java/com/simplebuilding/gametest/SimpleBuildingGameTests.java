@@ -776,6 +776,13 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(WorkstationTests.CRAFTER_MAX_TICKS).build(),
             GameTestSpec.named("workstation_game_test_auto_smither_sorts_hopper_input", WorkstationTests::autoSmitherSortsHopperInput)
                     .build(),
+            GameTestSpec.named("astral_enchanting_game_test_budget_and_cost_rules", AstralEnchantingTests::budgetAndCostRules).build(),
+            GameTestSpec.named("astral_enchanting_game_test_shelves_and_floor_set_the_tier", AstralEnchantingTests::shelvesAndFloorSetTheTier).build(),
+            GameTestSpec.named("astral_enchanting_game_test_hammer_turns_the_enchanting_table_astral", AstralEnchantingTests::hammerTurnsTheEnchantingTableAstral).maxTicks(AstralEnchantingTests.MAX_TICKS).build(),
+            GameTestSpec.named("astral_enchanting_game_test_breaking_drops_table_nugget_and_stock", AstralEnchantingTests::breakingDropsTableNuggetAndStock).build(),
+            GameTestSpec.named("astral_enchanting_game_test_stock_stays_in_the_table", AstralEnchantingTests::stockStaysInTheTable).build(),
+            GameTestSpec.named("astral_enchanting_game_test_enchanting_uses_up_what_the_rules_say", AstralEnchantingTests::enchantingUsesUpWhatTheRulesSay).build(),
+            GameTestSpec.named("astral_enchanting_game_test_recipes_are_loaded", AstralEnchantingTests::recipesAreLoaded).build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_dimensional_scrap_is_enderite_gated_and_indestructible", OreGenAndItemFrameTests::dimensionalScrapIsEnderiteGatedAndIndestructible)
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_sage_ore_generates_in_the_overworld_and_drops_only_with_silk_touch", OreGenAndItemFrameTests::sageOreGeneratesInTheOverworldAndDropsOnlyWithSilkTouch)

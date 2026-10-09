@@ -74,6 +74,7 @@
       "com.simplebuilding.gametest.StandingRodGameTest",
       "com.simplebuilding.gametest.ChessGameTest",
       "com.simplebuilding.gametest.WorkstationGameTest",
+      "com.simplebuilding.gametest.AstralEnchantingGameTest",
       "com.simplebuilding.gametest.ConfigOptionGameTest",
       "com.simplebuilding.gametest.ServerTuningGameTest",
       "com.simplebuilding.gametest.AirJumpGameTest",
