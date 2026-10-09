@@ -696,6 +696,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("training_dummy_game_test_spear_thrusts_count_and_break_only_while_sneaking", TrainingDummyTests::spearThrustsCountAndBreakOnlyWhileSneaking)
                     .build(),
+            GameTestSpec.named("training_dummy_game_test_spear_charge_while_running_hits_the_dummy", TrainingDummyTests::spearChargeWhileRunningHitsTheDummy)
+                    .build(),
             GameTestSpec.named("training_dummy_game_test_arrows_tick_into_the_dummy_and_show_their_number", TrainingDummyTests::arrowsTickIntoTheDummyAndShowTheirNumber)
                     .build(),
             GameTestSpec.named("training_dummy_game_test_an_explosion_breaks_the_straw_stand_but_only_numbers_the_dummy", TrainingDummyTests::anExplosionBreaksTheStrawStandButOnlyNumbersTheDummy)

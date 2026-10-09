@@ -75,6 +75,11 @@ public final class TrainingDummyGameTest {
     }
 
     @GameTest
+    public void spearChargeWhileRunningHitsTheDummy(GameTestHelper helper) {
+        TrainingDummyTests.spearChargeWhileRunningHitsTheDummy(helper);
+    }
+
+    @GameTest
     public void arrowsTickIntoTheDummyAndShowTheirNumber(GameTestHelper helper) {
         TrainingDummyTests.arrowsTickIntoTheDummyAndShowTheirNumber(helper);
     }

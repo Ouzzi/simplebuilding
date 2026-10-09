@@ -31,6 +31,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.arrow.Arrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.KineticWeapon;
 import net.minecraft.world.item.component.PiercingWeapon;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -469,6 +470,40 @@ public final class TrainingDummyTests {
         helper.assertTrue(dummy.isRemoved(), "a sneaking spear thrust does not pick the dummy up");
         List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, dummy.getBoundingBox().inflate(2.0));
         helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(ModItems.TRAINING_DUMMY)), "no Training Dummy item dropped");
+        helper.succeed();
+    }
+
+    /**
+     * Speer-Ansturm (halten + rennen) ueber den echten Weg {@code startUsingItem} -> {@code onUseTick} ->
+     * {@code KineticWeapon#damageEntities}: die Puppe zaehlt den Treffer. Das Tempo des Ansturms liest Vanilla aus
+     * {@code ServerPlayer#getKnownSpeed()}, das sonst die Bewegungspakete des Clients setzen; der Schein-Spieler hat
+     * keinen Client, deshalb setzt der Test es je Tick selbst ({@code setKnownMovement}) wie ein rennender Spieler.
+     */
+    public static void spearChargeWhileRunningHitsTheDummy(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        TrainingDummy dummy = dummy(helper, 6, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        ServerPlayer player = fighter(helper);
+        ItemStack spear = new ItemStack(Items.IRON_SPEAR);
+        player.setItemInHand(InteractionHand.MAIN_HAND, spear);
+        // Mitten in der Speer-Reichweite (nicht unter ihrem Mindestabstand): der Ansturm trifft, sobald die Ladezeit um ist.
+        player.snapTo(dummy.getX() - 3.0, dummy.getY(), dummy.getZ());
+        player.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(dummy.getX(), player.getEyeY(), dummy.getZ()));
+        player.setYHeadRot(player.getYRot());
+        helper.assertTrue(spear.get(DataComponents.KINETIC_WEAPON) instanceof KineticWeapon, "the iron spear has no kinetic weapon component");
+        player.startUsingItem(InteractionHand.MAIN_HAND);
+        helper.assertTrue(player.isUsingItem(), "the player did not start using the iron spear");
+        Vec3 run = new Vec3(0.4, 0.0, 0.0);
+        int guard = 0;
+        while (dummy.sessionHits() == 0 && guard++ < 60) {
+            player.setKnownMovement(run);
+            player.doTick();
+        }
+        helper.assertTrue(dummy.isAlive(), "the spear charge broke the dummy");
+        helper.assertValueEqual(dummy.sessionHits(), 1, "the running spear charge did not hit the dummy after " + guard + " ticks");
+        helper.assertTrue(dummy.lastShown() > 0.0F, "the running spear charge shows no number");
         helper.succeed();
     }
 
