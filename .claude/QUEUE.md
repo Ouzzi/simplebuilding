@@ -470,7 +470,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 18 (2026-10-07, Besitzer) – Plan: docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md
 - [ ] Simple Trims als Sub-Mod von SB (Vorlagen, platzierbar, Axt ohne SB / Hammer mit SB) – Frage F1
-- [ ] Simple Maps als Sub-Mod von SB: Wegfinder-Karte (unendlich, Spieler mittig, erweitern/kopieren/kombinieren, GUI mit Lesezeichen, Wegpunkte 1–8, Kontextmenü, Snap/Raster, Locator-Bar) – Fragebogen F2–F10, Feature-Vorschläge 1–8
+- [x] (claude-q-maps; offen: SB-Bündelung als Super-Mod, Feature 3, Forge-Testziel, Besitzer-Abnahme) Simple Maps als Sub-Mod von SB: Wegfinder-Karte (unendlich, Spieler mittig, erweitern/kopieren/kombinieren, GUI mit Lesezeichen, Wegpunkte 1–8, Kontextmenü, Snap/Raster, Locator-Bar) – Fragebogen F2–F10, Feature-Vorschläge 1–8
 - [ ] Config je Super-/Sub-Mod: Items in Kreativ-Tabs an/aus (simplelib)
 - [ ] Guides: farbigen Strich an freigeschalteten Lesezeichen entfernen
 - [ ] Dev-Kreativtabs immer ans Ende der Reihenfolge
@@ -483,7 +483,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **0,125er-Block (Achtel) für jeden Block, der Stufen und Treppen hat** (Vanilla + Mod), ohne Schachfiguren. Generator-basiert (Datagen), Stapelgröße 128 (siehe N18), Kreativtab-Einordnung neben Stufe/Treppe.
 
 ## Nachtrag 20 (2026-10-07, Besitzer) – Konzept: docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md
-- [ ] Simple Maps: Rezept A + seltene Fundorte (auch Nether-/End-Karte) – in PLAN-N18 festgehalten
+- [x] (claude-q-maps) Simple Maps: Rezept A + seltene Fundorte (auch Nether-/End-Karte) – in PLAN-N18 festgehalten
 - [ ] Neue Effekte (zuerst als Tränke): Zittern I/II, Trugbild, Umgekehrtes Trugbild, Verblasst (Graustufen inkl. Inventare, ohne Esc-Menü)
 - [ ] Mob Deceiver: Endgame-Gegner, Name, Tarnumhang, Spawns, Eskalation, Top-Animationen (Kupfergolem-Vorbild) – Konzept freigegeben, Umsetzung offen
 - [ ] Später: Furcht-Mob (extrem stark, verursacht Zittern) – Konzept folgt
