@@ -20,8 +20,8 @@ import net.minecraft.world.item.Items;
 /**
  * Bildschirm des Befiederungstischs wie die Werkbank ({@code CraftingScreen}): Vanilla-Hintergrund der Werkbank ohne die
  * sechs Felder, die der Pfeil nicht braucht; Spitze, Schaft und Befiederung in einer Reihe, das Ergebnis rechts. Das
- * Rezeptbuch-Symbol sitzt exakt wie bei der Werkbank und oeffnet links Vanillas Rezeptbuch mit allen Pfeilen; ein Klick
- * legt die Teile ein.
+ * Rezeptbuch-Symbol sitzt wie am Schmiedetisch ueber dem dritten Teil (x 42, y 27 zwischen Titel und Teile-Reihe) und
+ * oeffnet links Vanillas Rezeptbuch mit allen Pfeilen; ein Klick legt die Teile ein.
  */
 public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
     private static final Identifier CRAFTING_TABLE_LOCATION = Identifier.withDefaultNamespace("textures/gui/container/crafting_table.png");
@@ -55,7 +55,7 @@ public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
 
     @Override
     protected ScreenPosition getRecipeBookButtonPosition() {
-        return new ScreenPosition(this.leftPos + 5, this.height / 2 - 49);
+        return new ScreenPosition(this.leftPos + ModScreenLayout.FLETCHING_BOOK_X, this.topPos + ModScreenLayout.FLETCHING_BOOK_Y);
     }
 
     @Override

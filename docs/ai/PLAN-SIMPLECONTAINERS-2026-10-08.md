@@ -415,3 +415,64 @@ Nachlauf 2026-10-09:
   `alles gruen: 26/26 bestanden, 0 rot`; beide Toggle-Screenshots wurden erzeugt/geprüft.
 - `SIMPLEBUILDING_CLIENT_ONLY=mod-ui-style,backpack xvfb-run -a -s '-screen 0 1920x1080x24' python3.12 tools/testrunner/run.py --targets client-fabric-263`:
   `alles gruen: 19/19 bestanden, 0 rot`.
+
+## Abnahme-Runde 2 (2026-10-09)
+
+Drei Client-Befunde des Besitzers aus der Runde-1-Abnahme:
+
+1. **Befiederungstisch: Rezeptbuch-Knopf über dem ersten Teil-Slot.** `FletchingScreen.getRecipeBookButtonPosition()`
+   lieferte `(leftPos+5, height/2-49)`; der 20x18-Knopf lag damit bei y 34–52 genau über der Teile-Reihe (Spitzen-Slot
+   `(8, 48)`). Fix: Vanillas Schmiedetisch-Position `(leftPos+42, topPos+27)` übernehmen (wie
+   `RecipeBookSmithingScreen`, `BUTTON_X/Y`), also zwischen Titel und Teile-Reihe, ohne Slot oder Pfeil zu berühren.
+   Geometrie als `ModScreenLayout.FLETCHING_BOOK_*` (server-sichtbar), damit der GameTest sie prüfen kann;
+   `ModScreenStyle.fletching` meidet den Knopf zusätzlich im Motiv.
+2. **Hufeisen-Panel ragt nach unten.** Vier Slots lagen in einer Spalte (y 18/36/54/72), das Panel `H=82`
+   (y 12..94) lief über den Container-Kasten (Boden y 77) hinaus in Fuge und Inventar. Fix: **2x2-Raster**
+   (Spalten `X`/`X+18`, Zeilen `Y`/`Y+18`), Panel `X=-43, BOX_W=48, H=49, W=43` — rechte Kante weiter bei x 5 unter
+   dem linken Fensterrahmen, Box y 12..61 vollständig im Container-Kasten; Slots sitzen symmetrisch im Füllbereich.
+3. **Verzauberungstisch: Runentext zu dunkel.** `WorkScreens.runeColor` hebt den hellen Ton an
+   (verfügbar `0xFFE8D8B0` → `0xFFFFEFC8`, deaktiviert `0xFFB8A888` → `0xFFD9C7A0`), damit die Namen auf den roten
+   Angebotszeilen (`ENCHANTING` fill `#A1282B`) lesbar sind; die grüne Kostenzahl bleibt Vanilla.
+
+Tests:
+- `ModScreenStyleTests.machineSlotsSitInsideTheirBoxes`: das Knopf-Rechteck `FLETCHING_BOOK_*` liegt im Container-Kasten
+  und überlappt keinen Teil-/Ergebnis-Slot (der Regressionsfall der Runde 1).
+- `HorseshoeTests.panelLayout` (neu; Katalog Fabric über `RidingGameTest`, NeoForge automatisch über `RidingTests.ALL`):
+  die vier Hoof-Slots bilden ein 2x2-Raster, alle innerhalb des Panel-Füllbereichs, und der Panel-Boden liegt über dem
+  Container-Kasten-Boden (Spieler-Inventar-Zeile minus 7).
+- `HorseshoeTests.menu`: die Panel-Grenzen-Prüfung an die neue Box angepasst.
+
+### Verifikation (2026-10-09, Branch `cp-scfix`, Stand `ec5e9ea` schmutzig)
+
+Testläufe (jeweils einzeln, sequenziert über `heavy.sh job`):
+
+- `run.py --targets module-simpleriding-fabric-263,module-simpleriding-neoforge-263`
+  → **alles gruen: 82/82 bestanden, 0 rot** (je Loader 41; inkl. neuem `horseshoe_panel_layout`).
+- `run.py --targets fabric-263,neoforge-263,forge-263 --filter 'simplebuilding:mod_screen_style_*'`
+  → **alles gruen: 9/9 bestanden, 0 rot** (3 Tests × 3 Loader; inkl. `fletchingBookButton`).
+- `run.py --targets module-simplecontainers-client-263`
+  → **alles gruen: 26/26 bestanden, 0 rot**.
+- `run.py --targets client-fabric-263` (`SIMPLEBUILDING_CLIENT_ONLY=mod-ui-style`)
+  → **alles gruen: 14/14 bestanden, 0 rot** (erzeugt `modui-fletching.png`).
+- `run.py --targets module-simpleriding-client-263`
+  → `NICHT gruen: 3/4 bestanden, 1 rot` — rot nur `simpleriding:riding-config`
+  („kein frischer Screenshot"), die **vorbestehende** Config-Tab-Prüfung aus Runde 1; der Fuchs-Screenshot
+  `riding-horse-panel` wird vorher frisch erzeugt. **Unabhängig** von den drei Befunden (kein Config-Code angefasst).
+
+Screenshot-Prüfung (PIL-Pixelanalyse, da Bilder nicht direkt sichtbar):
+- `0002_riding-horse-panel.png` (854x480, GUI-Skala 2): Hoof-Slots als **2x2** bestätigt (Spalten x 180/216,
+  Zeilen y 110/146, Schritt 36 px = 18 GUI); Panel-Füllung endet bei GUI y ≈ 61, Container-Kasten-Boden y 77 →
+  **kein Überlauf**. Fenster links/oben (250/74) aus der FLETCHING/Horse-Füllfarbe rekonstruiert.
+- `0012_modui-fletching.png` (854x480, Skala 2): Rezeptbuch-Knopf rendert bei GUI `(42,27)` (dominante
+  Button-Farbe `(198,198,198)`); die Pfeil-Region `(92,44)` und der dritte Teil-Slot `(44,48)` sind **frei von
+  Button-Pixeln** → keine Überlappung.
+- `0025_simplecontainers-enchanting.png`: neue Runen-Farben vorhanden (`0xFFD9C7A0` = 1396 px),
+  alte (`0xFFE8D8B0`/`0xFFB8A888`) mit **0 px** → Umfärbung wirksam (Testbild zeigt die deaktivierte Variante).
+
+Abweichungen vom Entwurf:
+- Befund 2: endgültige Box `X=-43, BOX_W=48, H=49, W=43` (statt Entwurf `-38/47`); Spalten `X=-36/-18`,
+  Zeilen `Y=18/36` — rechte Kante weiterhin bei x 5 unter dem Fensterrahmen, Box-Boden y 61 < 77.
+
+**NICHT getestet:** kein volles Gate (`./gradlew check`), keine komplette Server-Suite für simplecontainers,
+kein `module-simpleriding-forge-263` und kein Client-Forge/NeoForge-Lauf; die `riding-config`-Rotmeldung ist
+vorbestehend und wurde nicht gefixt.

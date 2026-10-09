@@ -27,6 +27,11 @@ public final class ModScreenLayout {
     public static final int INVENTORY_HEIGHT = FRAME + 58 + 17 + FRAME_BOTTOM;
     /** Row of the seam in the backpack's one box (the crafting part above, backpack rows from 84). */
     public static final int BACKPACK_SEAM_Y = BackpackLayout.FIRST_ROW_Y - 3;
+    /**
+     * Fletching table's recipe book button (relative to the image): Vanilla's smithing-table spot over the third part
+     * slot, between title (y 15) and the part row (y 48), clear of every slot and the arrow.
+     */
+    public static final int FLETCHING_BOOK_X = 42, FLETCHING_BOOK_Y = 27, FLETCHING_BOOK_W = 20, FLETCHING_BOOK_H = 18;
 
     /** A box relative to the screen image. */
     public record Box(int x, int y, int width, int height) {

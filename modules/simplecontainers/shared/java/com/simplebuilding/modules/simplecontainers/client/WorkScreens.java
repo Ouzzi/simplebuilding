@@ -253,7 +253,7 @@ public final class WorkScreens {
     public static int runeColor(int vanilla) {
         if (vanilla == -128) return vanilla;
         int disabled = 0xFF000000 | ((-9937334 & 0xFEFEFE) >> 1);
-        return vanilla == disabled ? 0xFFB8A888 : 0xFFE8D8B0;
+        return vanilla == disabled ? 0xFFD9C7A0 : 0xFFFFEFC8;
     }
 
     private static final int[][] GEM = {{1, 0, 0xFF6F9BFF}, {0, 1, 0xFF2D5FD0}, {1, 1, 0xFF4A7BE8}, {2, 1, 0xFF2D5FD0},

@@ -75,6 +75,7 @@ public final class ModScreenStyleTests {
             }
             twoBoxes(fletching, 176, 166, "fletching table", problems);
             bigSlot(fletching, fletching.getSlot(FletchingMenu.RESULT_SLOT), "fletching table", problems);
+            fletchingBookButton(fletching, problems);
         }
         report(helper, problems);
     }
@@ -125,6 +126,20 @@ public final class ModScreenStyleTests {
     private static void bigSlot(AbstractContainerMenu menu, Slot slot, String what, List<String> problems) {
         Box container = ModScreenLayout.container(176, ModScreenLayout.inventoryOrigin(menu)[1]);
         if (!container.holds(slot.x - 4, slot.y - 4, 25, 25)) problems.add(what + ": the big result slot leaves " + container);
+    }
+
+    /** The recipe book button (Vanilla's smithing-table spot) lies in the container box and over no slot (round 2). */
+    private static void fletchingBookButton(AbstractContainerMenu menu, List<String> problems) {
+        int bx = ModScreenLayout.FLETCHING_BOOK_X, by = ModScreenLayout.FLETCHING_BOOK_Y;
+        int bw = ModScreenLayout.FLETCHING_BOOK_W, bh = ModScreenLayout.FLETCHING_BOOK_H;
+        Box container = ModScreenLayout.container(176, ModScreenLayout.inventoryOrigin(menu)[1]);
+        if (!container.holds(bx, by, bw, bh)) problems.add("fletching: the recipe book button (" + bx + ", " + by + ") leaves " + container);
+        for (Slot slot : menu.slots) {
+            if (!slot.isActive() || slot.container instanceof Inventory) continue;
+            if (bx < slot.x + 17 && slot.x < bx + bw && by < slot.y + 17 && slot.y < by + bh) {
+                problems.add("fletching: the recipe book button overlaps slot " + slot.index + " (" + slot.x + ", " + slot.y + ")");
+            }
+        }
     }
 
     private static void report(GameTestHelper helper, List<String> problems) {
