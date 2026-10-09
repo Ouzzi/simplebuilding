@@ -254,6 +254,7 @@ public final class DataIntegrityTests {
      * checked in both directions, so an item added to a tab cannot stay listed here.
      */
     private static final Set<String> ITEMS_NOT_IN_THE_CREATIVE_TAB = Set.of(
+            "creative_spacer", // layout filler; spacers are switched off by default (owner N22)
             "stone_spatula",
             "copper_spatula",
             "iron_spatula",
@@ -755,9 +756,14 @@ public final class DataIntegrityTests {
 
         // Hoppers: five at a time out of five vanilla hoppers, a name tag and three cracked
         // diamonds. The old netherite column (two of those around a nugget) crafts nothing now.
-        assertShapedRecipe(helper, modRecipes, "reinforced_hopper_from_crafting", ModItems.REINFORCED_HOPPER, 5,
-                new String[]{"HNH", "DDD", "HHH"},
-                Map.of('H', Items.HOPPER, 'N', Items.NAME_TAG, 'D', ModItems.CRACKED_DIAMOND), shapes);
+        // Owner N23: one hopper, a cracked diamond and a name tag, in any arrangement.
+        ItemStack hopper = helper.getLevel().getServer().getRecipeManager()
+                .getRecipeFor(RecipeType.CRAFTING, grid(new String[]{"HDN"},
+                        Map.of('H', Items.HOPPER, 'D', ModItems.CRACKED_DIAMOND, 'N', Items.NAME_TAG)), helper.getLevel())
+                .map(match -> recipeResult(helper, match.value())).orElse(ItemStack.EMPTY);
+        if (!hopper.is(ModItems.REINFORCED_HOPPER) || hopper.getCount() != 1) {
+            shapes.add("hopper + cracked diamond + name tag crafts " + hopper + " instead of one reinforced hopper");
+        }
         assertNoCraftingRecipe(helper, new String[]{"H", "N", "H"},
                 Map.of('H', ModItems.REINFORCED_HOPPER, 'N', ModItems.NETHERITE_NUGGET),
                 "the old netherite hopper column", shapes);

@@ -1206,7 +1206,7 @@ window.WIKI_DATA = {
           "Upgrading: hold right-click on the placed chest for 5 seconds with a sledgehammer in the main hand and the tier material in the off hand - Cracked Diamond (any sledgehammer) for copper -> reinforced, Netherite Nugget (Diamond Sledgehammer or better) for reinforced -> netherite, Enderite Nugget (Netherite Sledgehammer or better) for netherite -> enderite. Contents, name and lock stay; a double chest is upgraded as a whole and takes two pieces of material.",
           "The Reinforced Chest can also be crafted (3 copper chests + 6 Cracked Diamonds -> 3); netherite and enderite only come from the hammer, like the machines.",
           "Double chests form only from equal tiers.",
-          "The menus show everything at once: 9x4, 9x5 and 9x6 for single chests, 12x6, 15x6 and 18x6 for double chests - all within GUI scale 4 at 1080p. Oversized slots are tinted and the title row names the stack factor.",
+          "The menus show everything at once: 9x4, 9x5 and 9x6 for single chests, 12x6, 15x6 and 18x6 for double chests - all within GUI scale 4 at 1080p. Oversized slots are tinted; a trapped chest's menu carries the same title as the normal chest of its tier.",
           "Automation: vanilla hoppers, hopper minecarts and the mod's hoppers fill the oversized slots to their limit; comparators count against it. On NeoForge pipes see the chest (a double chest as one inventory) with the same limits through the item capability. On Forge (compile-only port) automation goes through Forge's own item handler and fills oversized slots only up to a normal stack.",
           "Rendering: the chests use vanilla's chest model and renderer path with their own textures (no extra per-tick work). Chest optimisation mods that replace the vanilla chest renderer with a static model only affect vanilla chests; the tier chests keep drawing themselves and nothing breaks.",
           "26.3 adds a trapped variant of every tier: matching chest + tripwire hook, viewer signal 0–15, same storage and hammer upgrades. Only matching trapped tiers connect."
@@ -1219,7 +1219,7 @@ window.WIKI_DATA = {
           "Aufwerten: 5 Sekunden Rechtsklick auf die gesetzte Truhe halten, Vorschlaghammer in der Haupthand und das Stufenmaterial in der Nebenhand - Rissiger Diamant (jeder Vorschlaghammer) für Kupfer -> Verstärkt, Netheritklumpen (Diamant-Vorschlaghammer oder besser) für Verstärkt -> Netherit, Enderitklumpen (Netherit-Vorschlaghammer oder besser) für Netherit -> Enderit. Inhalt, Name und Schloss bleiben; eine Doppeltruhe wird als Ganzes aufgewertet und braucht zwei Stück Material.",
           "Die Verstärkte Truhe lässt sich auch herstellen (3 Kupfertruhen + 6 Rissige Diamanten -> 3); Netherit und Enderit gibt es nur mit dem Hammer, wie bei den Maschinen.",
           "Doppeltruhen bilden sich nur aus gleichen Stufen.",
-          "Die Menüs zeigen alles auf einmal: 9x4, 9x5 und 9x6 für einzelne Truhen, 12x6, 15x6 und 18x6 für Doppeltruhen - alles innerhalb GUI-Skala 4 bei 1080p. Übergroße Plätze sind getönt, die Titelzeile nennt den Stapelfaktor.",
+          "Die Menüs zeigen alles auf einmal: 9x4, 9x5 und 9x6 für einzelne Truhen, 12x6, 15x6 und 18x6 für Doppeltruhen - alles innerhalb GUI-Skala 4 bei 1080p. Übergroße Plätze sind getönt; eine Fallentruhe trägt im Menü denselben Titel wie die normale Truhe ihrer Stufe.",
           "Automatisierung: Vanilla-Trichter, Trichterloren und die Mod-Trichter füllen die übergroßen Plätze bis zur Grenze; Komparatoren zählen dagegen. Auf NeoForge sehen Rohre die Truhe (eine Doppeltruhe als ein Lager) über die Item-Capability mit denselben Grenzen. Auf Forge (nur Kompilier-Portierung) läuft Automatisierung über Forges eigenen Item-Handler und füllt übergroße Plätze nur bis zu einem normalen Stapel.",
           "Darstellung: die Truhen nutzen Vanillas Truhenmodell und Renderer-Weg mit eigenen Texturen (keine zusätzliche Arbeit je Tick). Truhen-Optimierer, die Vanillas Truhen-Renderer durch ein statisches Modell ersetzen, betreffen nur Vanilla-Truhen; die Stufen-Truhen zeichnen sich weiter selbst, nichts bricht.",
           "26.3 ergänzt eine Redstone-Variante jeder Stufe: passende Truhe + Haken, Betrachtersignal 0–15, gleicher Stauraum und gleiche Hammer-Aufwertungen. Nur passende Redstone-Stufen verbinden sich."
@@ -1528,7 +1528,7 @@ window.WIKI_DATA = {
           "Mode, filter items and cooldown are saved with the block ('FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload; a 'FilterMode' outside the three known modes (a hand-edited region file, a downgrade) falls back to Disabled instead of throwing, so the hopper keeps its contents and its filter items.",
           "The menu uses the vanilla hopper background (hopper.png); the filter button (18x18) sits to the right of the five slots and shows a barrier item (Disabled), a green check mark (Exact Match) or an orange T (Type Match); the tooltips name the mode in red, green and yellow respectively.",
           "The menu texts ('Filter:' in the label row, the mode names and 'Filtered Item:') are translated (English and German).",
-          "Getting them: 5 Hoppers + 1 Name Tag + 3 Cracked Diamonds yield 5 Reinforced Hoppers at the crafting table. The Netherite and Enderite Hoppers have no crafting recipe: a placed Reinforced Hopper becomes a Netherite Hopper after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, a Netherite Hopper becomes an Enderite Hopper with a Netherite Sledgehammer (or better) and an Enderite Nugget; items, filter items and filter mode stay in the hopper (see the Sledgehammer). The Reinforced and Netherite Hopper items say so in their tooltip.",
+          "Getting them: 1 Hopper + 1 Name Tag + 1 Cracked Diamond (shapeless) yield 1 Reinforced Hopper at the crafting table. The Netherite and Enderite Hoppers have no crafting recipe: a placed Reinforced Hopper becomes a Netherite Hopper after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, a Netherite Hopper becomes an Enderite Hopper with a Netherite Sledgehammer (or better) and an Enderite Nugget; items, filter items and filter mode stay in the hopper (see the Sledgehammer). The Reinforced and Netherite Hopper items say so in their tooltip.",
           "Reinforced Hopper: hardness 3.0, blast resistance 4.8, metal sound. Netherite Hopper: hardness 5.0, blast resistance 1200, netherite block sound, fire resistant item. Enderite Hopper: hardness 6.0, blast resistance 1500, netherite block sound, fire resistant item of rarity Epic. All three are in the pickaxe mining tag and drop themselves; like the vanilla hopper they are built from, they only drop when mined with a pickaxe.",
           "All three blocks share their block logic (block entity type simplebuilding:mod_hopper) and their menu (menu type simplebuilding:netherite_hopper, titled like the vanilla hopper); the cooldown depends only on which of the three blocks is placed.",
           "Game tests prove: the Netherite Hopper is faster than the Reinforced Hopper, which is faster than the vanilla hopper, and the Netherite Hopper needs at most half the vanilla hopper's time; the three filter modes behave as described; and the network payloads only take effect while a hopper menu is open."
@@ -1555,7 +1555,7 @@ window.WIKI_DATA = {
           "Modus, Filter-Items und Wartezeit werden mit dem Block gespeichert ('FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt; ein 'FilterMode' außerhalb der drei bekannten Modi (von Hand bearbeitete Regionsdatei, Rückstufung) fällt auf Aus zurück, statt zu werfen – Inhalt und Filter-Items des Trichters bleiben also erhalten.",
           "Das Menü nutzt die Trichter-Oberfläche des Spiels (hopper.png); der Filter-Knopf (18x18) sitzt rechts neben den fünf Slots und zeigt ein Barrier-Item (Aus), ein grünes Häkchen (Exakt gleich) oder ein oranges T (Gleicher Typ); Tooltips nennen den Modus in Rot, Grün bzw. Gelb.",
           "Die Menü-Texte („Filter:“ in der Beschriftungszeile, die Modusnamen und „Gefiltertes Item:“) sind übersetzt (Englisch und Deutsch).",
-          "Beschaffung: 5 Trichter + 1 Namensschild + 3 Rissige Diamanten ergeben an der Werkbank 5 Verstärkte Trichter. Für Netherit- und Enderittrichter gibt es kein Werkbankrezept: Ein gesetzter Verstärkter Trichter wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen in der Nebenhand zum Netherittrichter, ein Netherittrichter mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen zum Enderittrichter; Items, Filter-Items und Filtermodus bleiben im Trichter (siehe Vorschlaghammer). Die Items des Verstärkten und des Netherittrichters weisen im Tooltip darauf hin.",
+          "Beschaffung: 1 Trichter + 1 Namensschild + 1 Rissiger Diamant (formlos) ergeben an der Werkbank 1 Verstärkten Trichter. Für Netherit- und Enderittrichter gibt es kein Werkbankrezept: Ein gesetzter Verstärkter Trichter wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen in der Nebenhand zum Netherittrichter, ein Netherittrichter mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen zum Enderittrichter; Items, Filter-Items und Filtermodus bleiben im Trichter (siehe Vorschlaghammer). Die Items des Verstärkten und des Netherittrichters weisen im Tooltip darauf hin.",
           "Verstärkter Trichter: Härte 3,0, Explosionswiderstand 4,8, Metallklang. Netherittrichter: Härte 5,0, Explosionswiderstand 1200, Netheritblock-Klang, Item feuerfest. Enderittrichter: Härte 6,0, Explosionswiderstand 1500, Netheritblock-Klang, Item feuerfest und von der Seltenheit Episch. Alle drei im Spitzhacken-Abbau-Tag, alle drei droppen sich selbst; wie der Vanilla-Trichter, von dem sie kopiert sind, nur beim Abbau mit einer Spitzhacke.",
           "Alle drei Blöcke teilen Blocklogik (Block-Entity-Typ simplebuilding:mod_hopper) und Menü (Menütyp simplebuilding:netherite_hopper, Titel wie beim Vanilla-Trichter); die Wartezeit hängt nur davon ab, welcher der drei Blöcke gesetzt ist.",
           "Spieltests belegen: Netherittrichter schneller als Verstärkter Trichter, dieser schneller als der normale Trichter, Netherittrichter höchstens halbe Zeit des normalen; die drei Filtermodi verhalten sich wie beschrieben; die Netzwerkpakete wirken nur bei geöffnetem Trichter-Menü."
@@ -3430,7 +3430,7 @@ window.WIKI_DATA = {
           "Colors: one texture per tier, dyed by the game in all 16 colors (the shell takes the color, the metal plating stays). Dye with any dye in the crafting grid, undye in a water cauldron.",
           "The item keeps every slot, also oversized stacks; it never goes into another shulker box, a bundle or a backpack. When the item burns, the real counts spill out.",
           "Automation: hoppers fill oversized slots to their limit and never insert a shulker box; comparators count against the limit; dispensers place the boxes. On NeoForge pipes see the box through the item capability (sided, like vanilla's shulker box).",
-          "The menu is the tier chest menu (9x4, 9x5, 9x6) with tinted oversized slots and the stack factor in the title row."
+          "The menu is the tier chest menu (9x4, 9x5, 9x6) with tinted oversized slots."
         ]
       },
       "de": {
@@ -3442,7 +3442,7 @@ window.WIKI_DATA = {
           "Farben: eine Textur je Stufe, vom Spiel in allen 16 Farben eingefärbt (die Schale nimmt die Farbe an, der Metallbeschlag bleibt). Färben mit einem beliebigen Farbstoff in der Werkbank, entfärben im Wasserkessel.",
           "Das Item behält jeden Platz, auch übergroße Stapel; es passt nie in eine andere Shulkerkiste, ein Bündel oder einen Rucksack. Verbrennt das Item, fallen die echten Anzahlen heraus.",
           "Automatisierung: Trichter füllen übergroße Plätze bis zur Grenze und legen nie eine Shulkerkiste hinein; Komparatoren messen gegen die Grenze; Werfer stellen die Kisten auf. Auf NeoForge sehen Rohre die Kiste über die Item-Capability (seitenweise wie Vanillas Shulkerkiste).",
-          "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt, der Stapelfaktor in der Titelzeile."
+          "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt."
         ]
       }
     },
@@ -26285,7 +26285,7 @@ window.WIKI_DATA = {
             "Both mod hoppers share the block entity type simplebuilding:mod_hopper and the menu type simplebuilding:netherite_hopper.",
             "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
             "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
-            "Recipe (yields 5, category redstone): top row Hopper - Name Tag - Hopper, middle row three Cracked Diamonds (simplebuilding:cracked_diamond), bottom row three Hoppers; unlocked as soon as you own a minecraft:hopper.",
+            "Recipe (yields 1, category redstone, shapeless): one Hopper, one Name Tag and one Cracked Diamond (simplebuilding:cracked_diamond); unlocked as soon as you own a minecraft:hopper.",
             "Upgrade: hold right-click for 5 seconds on a placed Reinforced Hopper with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes a Netherite Hopper with its items, filter items and filter mode (SledgehammerUpgrades; the item's tooltip says so). There is no crafting recipe for the Netherite Hopper any more.",
             "Filter mode, filter items and the transfer cooldown are saved with the block (keys 'FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload; an unknown 'FilterMode' falls back to Disabled rather than throwing, so nothing is lost.",
             "Listed in the creative tab \"SimpleMachines\" (simplebuilding:functional), in its hopper group.",
@@ -26316,7 +26316,7 @@ window.WIKI_DATA = {
             "Beide Mod-Trichter teilen den Block-Entity-Typ simplebuilding:mod_hopper und den Menütyp simplebuilding:netherite_hopper.",
             "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
             "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
-            "Rezept (ergibt 5 Stück, Kategorie redstone): obere Reihe Trichter – Namensschild – Trichter, mittlere Reihe drei Rissige Diamanten (simplebuilding:cracked_diamond), untere Reihe drei Trichter; freigeschaltet, sobald man einen minecraft:hopper besitzt.",
+            "Rezept (ergibt 1 Stück, Kategorie redstone, formlos): ein Trichter, ein Namensschild und ein Rissiger Diamant (simplebuilding:cracked_diamond); freigeschaltet, sobald man einen minecraft:hopper besitzt.",
             "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netheritklumpen in der Nebenhand auf einen gesetzten Verstärkten Trichter halten, dann wird er samt Items, Filter-Items und Filtermodus zum Netherittrichter (SledgehammerUpgrades; der Tooltip des Items weist darauf hin). Ein Werkbankrezept für den Netherittrichter gibt es nicht mehr.",
             "Filtermodus, Filter-Items und Wartezeit werden mit dem Block gespeichert (Schlüssel 'FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt; ein unbekannter 'FilterMode' fällt auf Aus zurück, statt zu werfen – es geht nichts verloren.",
             "Im Kreativ-Tab „SimpleMachines“ (simplebuilding:functional) einsortiert, in der Gruppe der Trichter.",
@@ -38603,7 +38603,7 @@ window.WIKI_DATA = {
             "Both mod hoppers share the block entity type simplebuilding:mod_hopper and the menu type simplebuilding:netherite_hopper.",
             "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
             "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
-            "Recipe (yields 5, category redstone): top row Hopper - Name Tag - Hopper, middle row three Cracked Diamonds (simplebuilding:cracked_diamond), bottom row three Hoppers; unlocked as soon as you own a minecraft:hopper.",
+            "Recipe (yields 1, category redstone, shapeless): one Hopper, one Name Tag and one Cracked Diamond (simplebuilding:cracked_diamond); unlocked as soon as you own a minecraft:hopper.",
             "Upgrade: hold right-click for 5 seconds on a placed Reinforced Hopper with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes a Netherite Hopper with its items, filter items and filter mode (SledgehammerUpgrades; the item's tooltip says so). There is no crafting recipe for the Netherite Hopper any more.",
             "Filter mode, filter items and the transfer cooldown are saved with the block (keys 'FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload; an unknown 'FilterMode' falls back to Disabled rather than throwing, so nothing is lost.",
             "Listed in the creative tab \"SimpleMachines\" (simplebuilding:functional), in its hopper group.",
@@ -38634,7 +38634,7 @@ window.WIKI_DATA = {
             "Beide Mod-Trichter teilen den Block-Entity-Typ simplebuilding:mod_hopper und den Menütyp simplebuilding:netherite_hopper.",
             "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
             "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
-            "Rezept (ergibt 5 Stück, Kategorie redstone): obere Reihe Trichter – Namensschild – Trichter, mittlere Reihe drei Rissige Diamanten (simplebuilding:cracked_diamond), untere Reihe drei Trichter; freigeschaltet, sobald man einen minecraft:hopper besitzt.",
+            "Rezept (ergibt 1 Stück, Kategorie redstone, formlos): ein Trichter, ein Namensschild und ein Rissiger Diamant (simplebuilding:cracked_diamond); freigeschaltet, sobald man einen minecraft:hopper besitzt.",
             "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netheritklumpen in der Nebenhand auf einen gesetzten Verstärkten Trichter halten, dann wird er samt Items, Filter-Items und Filtermodus zum Netherittrichter (SledgehammerUpgrades; der Tooltip des Items weist darauf hin). Ein Werkbankrezept für den Netherittrichter gibt es nicht mehr.",
             "Filtermodus, Filter-Items und Wartezeit werden mit dem Block gespeichert (Schlüssel 'FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt; ein unbekannter 'FilterMode' fällt auf Aus zurück, statt zu werfen – es geht nichts verloren.",
             "Im Kreativ-Tab „SimpleMachines“ (simplebuilding:functional) einsortiert, in der Gruppe der Trichter.",
@@ -69359,12 +69359,12 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:reinforced_hopper_from_crafting",
-      "type": "minecraft:crafting_shaped",
+      "type": "minecraft:crafting_shapeless",
       "category": "redstone",
       "group": null,
       "result": {
         "id": "simplebuilding:reinforced_hopper",
-        "count": 5
+        "count": 1
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
       "ingredients": [
@@ -69372,41 +69372,100 @@ window.WIKI_DATA = {
         "minecraft:name_tag",
         "simplebuilding:cracked_diamond"
       ],
-      "pattern": [
-        "HNH",
-        "DDD",
-        "HHH"
-      ],
-      "key": {
-        "D": [
-          "simplebuilding:cracked_diamond"
-        ],
-        "H": [
+      "ingredientGroups": [
+        [
           "minecraft:hopper"
         ],
-        "N": [
+        [
+          "simplebuilding:cracked_diamond"
+        ],
+        [
           "minecraft:name_tag"
         ]
-      },
+      ],
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "minecraft:hopper"
+                ],
+                [
+                  "simplebuilding:cracked_diamond"
+                ],
+                [
+                  "minecraft:name_tag"
+                ]
+              ],
+              "other": null
+            },
+            {
+              "field": "key",
+              "this": null,
+              "other": {
+                "D": [
+                  "simplebuilding:cracked_diamond"
+                ],
+                "H": [
+                  "minecraft:hopper"
+                ],
+                "N": [
+                  "minecraft:name_tag"
+                ]
+              }
+            },
+            {
+              "field": "pattern",
+              "this": null,
+              "other": [
+                "HNH",
+                "DDD",
+                "HHH"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:reinforced_hopper",
+                "count": 1
+              },
+              "other": {
+                "id": "simplebuilding:reinforced_hopper",
+                "count": 5
+              }
+            },
+            {
+              "field": "type",
+              "this": "minecraft:crafting_shapeless",
+              "other": "minecraft:crafting_shaped"
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ],
       "baseMaterials": {
-        "yield": 5,
+        "yield": 1,
         "materials": [
           {
             "id": "simplebuilding:diamond_pebble",
-            "count": 27
+            "count": 9
           },
           {
             "id": "minecraft:iron_ingot",
-            "count": 25
+            "count": 5
           },
           {
             "id": "minecraft:oak_log",
-            "count": 10
+            "count": 2
           },
           {
             "id": "minecraft:sugar_cane",
@@ -76076,6 +76135,41 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:reinforced_hopper_from_crafting",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_hopper",
+        "count": 5
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
+      "ingredients": [
+        "minecraft:hopper",
+        "minecraft:name_tag",
+        "simplebuilding:cracked_diamond"
+      ],
+      "pattern": [
+        "HNH",
+        "DDD",
+        "HHH"
+      ],
+      "key": {
+        "D": [
+          "simplebuilding:cracked_diamond"
+        ],
+        "H": [
+          "minecraft:hopper"
+        ],
+        "N": [
+          "minecraft:name_tag"
+        ]
+      },
+      "lines": [
+        "1.21.11"
       ]
     },
     {
