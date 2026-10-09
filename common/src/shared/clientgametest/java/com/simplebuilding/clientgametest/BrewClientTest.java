@@ -92,6 +92,7 @@ public final class BrewClientTest {
 
         // The crosshair is part of the HUD, which the scene hides.
         TestScene.showHudAgain(script);
+        script.act("clear the chat so it does not cover the crosshair", c -> c.gui.hud.getChat().clearMessages(true));
         script.command("effect give @a simplebuilding:shivering 60 1 true");
         script.await("the client has Shivering", 60, c -> c.player.hasEffect(com.simplebuilding.effect.ModEffects.SHIVERING),
                 c -> "no Shivering on the client");
