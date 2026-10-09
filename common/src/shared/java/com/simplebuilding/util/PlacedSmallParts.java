@@ -96,6 +96,27 @@ public final class PlacedSmallParts {
             {0.0F, 0.5F, 1.5F}, {0.5F, 1.0F, 2.0F}, {1.0F, 3.5F, 2.5F}, {3.5F, 4.5F, 2.0F}, {4.5F, 5.0F, 1.5F}, {5.0F, 5.5F, 1.0F},
     };
 
+    /**
+     * Die Quader des 3D-Barrens (Queue N24, 2026-10-09): {y0, y1, halbe Laenge in x, halbe Breite in z} in Pixeln, um
+     * x = z = 8. Erzeugt von {@code tools/textures/placed_ingots_2026_10_09.py} - das Modell muss dazu passen.
+     */
+    public static final float[][] INGOT_BOXES = {{0.0F, 2.0F, 4.0F, 2.0F}, {2.0F, 3.0F, 3.0F, 1.0F}};
+
+    /**
+     * Barrenstapel (nur Barren auf dem Fleck): je Anzahl die Plaetze {Pixel x, Pixel z, Hoehe in Pixeln, Drehung in Grad}.
+     * Zwei liegen unten nebeneinander, der dritte und vierte quer darueber - wie ein kleiner Barrenstapel.
+     */
+    private static final float[][][] INGOT_STACK = {
+            {{8.0F, 8.0F, 0.0F, 0.0F}},
+            {{8.0F, 5.0F, 0.0F, 0.0F}, {8.0F, 11.0F, 0.0F, 0.0F}},
+            {{8.0F, 5.0F, 0.0F, 0.0F}, {8.0F, 11.0F, 0.0F, 0.0F}, {8.0F, 8.0F, 3.0F, 90.0F}},
+            {{8.0F, 5.0F, 0.0F, 0.0F}, {8.0F, 11.0F, 0.0F, 0.0F}, {5.0F, 8.0F, 3.0F, 90.0F}, {11.0F, 8.0F, 3.0F, 90.0F}},
+    };
+
+    /** Barren mit eigenem 3D-Modell ({@code simplebuilding:placed_<id>}); andere Barren liegen als flache Platte. */
+    public static final java.util.Set<String> MODELLED_INGOTS = java.util.Set.of("minecraft:copper_ingot", "minecraft:iron_ingot",
+            "minecraft:gold_ingot", "minecraft:netherite_ingot", "simplebuilding:enderite_ingot");
+
     /** Quader einer Vanilla-Kerze ({@code block/template_candle}, ohne Docht): {y0, y1, halbe Breite}. */
     public static final float[][] CANDLE_BOXES = {{0.0F, 6.0F, 1.0F}};
     /** Quader einer Vanilla-Seegurke ({@code block/sea_pickle}, ohne Spross): {y0, y1, halbe Breite}. */
@@ -110,7 +131,9 @@ public final class PlacedSmallParts {
         /** Eine Vanilla-Kerze (Blockmodell, brennt mit dem Fleck). */
         CANDLE,
         /** Eine Vanilla-Seegurke (Blockmodell, leuchtet unter Wasser). */
-        PICKLE;
+        PICKLE,
+        /** Ein 3D-Barren (Queue N24); nur Barren zusammen stapeln sich ({@link #INGOT_STACK}). */
+        INGOT;
 
         /** Steht aufrecht auf dem Boden (Blockmodell, Mitte im Ursprung) statt flach zu liegen. */
         public boolean standing() {
@@ -123,6 +146,7 @@ public final class PlacedSmallParts {
                 case EGG -> EGG_BOXES;
                 case CANDLE -> CANDLE_BOXES;
                 case PICKLE -> PICKLE_BOXES;
+                case INGOT -> INGOT_BOXES;
                 case PLATE -> new float[0][];
             };
         }
@@ -137,7 +161,40 @@ public final class PlacedSmallParts {
 
     /** Ein Kleinteil, ein Ei, eine Kerze oder eine Seegurke, das die Server-Optionen zulassen. */
     public static boolean isPart(ItemStack stack) {
-        return PlacedTemplates.isPlaceableSmall(stack) || PlacedEggs.isPlaceableEgg(stack) || isBlockPart(stack);
+        return PlacedTemplates.isPlaceableSmall(stack) || PlacedEggs.isPlaceableEgg(stack) || isBlockPart(stack) || isPileTemplate(stack);
+    }
+
+    /**
+     * Eine Schmiedevorlage, die sich zu anderen legt (Queue N24 "Trims bis zu 4", 2026-10-09): jede
+     * {@link net.minecraft.world.item.SmithingTemplateItem} und die zwei schlichten Aufwertungsvorlagen der Mod. Die erste
+     * liegt weiter einzeln ({@link PlacedTemplates}, mit Hammer-Aufwertung); eine weitere Vorlage darauf macht ein Haeufchen.
+     * Blaupause, Oktant, Attractor und Detector arbeiten im Block und bleiben einzeln.
+     */
+    public static boolean isPileTemplate(ItemStack stack) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES || stack.isEmpty()) {
+            return false;
+        }
+        net.minecraft.world.item.Item item = stack.getItem();
+        return item instanceof net.minecraft.world.item.SmithingTemplateItem
+                || item == com.simplebuilding.items.ModItems.ENDERITE_UPGRADE_TEMPLATE || item == com.simplebuilding.items.ModItems.BASIC_UPGRADE_TEMPLATE;
+    }
+
+    /** Ein Barren mit eigenem 3D-Modell ({@link #MODELLED_INGOTS}). */
+    public static boolean isModelledIngot(ItemStack stack) {
+        return !stack.isEmpty() && MODELLED_INGOTS.contains(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
+    }
+
+    /** Liegen nur Barren auf dem Fleck? Dann stapeln sie sich ({@link #INGOT_STACK}). */
+    public static boolean ingotStack(List<ItemStack> parts) {
+        if (parts.isEmpty()) {
+            return false;
+        }
+        for (ItemStack part : parts) {
+            if (kind(part) != Kind.INGOT) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -165,6 +222,9 @@ public final class PlacedSmallParts {
         }
         if (isCandle(stack)) {
             return Kind.CANDLE;
+        }
+        if (isModelledIngot(stack)) {
+            return Kind.INGOT;
         }
         return stack.is(Items.SEA_PICKLE) ? Kind.PICKLE : Kind.PLATE;
     }
@@ -198,8 +258,9 @@ public final class PlacedSmallParts {
             // Voll (oder nicht erweiterbar): abgelehnt, das Teil bleibt in der Hand - und ein Ei fliegt nicht los.
             return add(level, pile, player, stack) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
         }
-        // Kerzen und Seegurken legen allein nie ein Haeufchen an: das bleibt der Vanilla-Block.
-        if (isBlockPart(stack) || context.getClickedFace() != Direction.UP) {
+        // Kerzen und Seegurken legen allein nie ein Haeufchen an: das bleibt der Vanilla-Block. Eine einzelne Vorlage liegt
+        // als Vorlage (PlacedTemplates), erst die zweite macht ein Haeufchen.
+        if (isBlockPart(stack) || isPileTemplate(stack) || context.getClickedFace() != Direction.UP) {
             return null;
         }
         BlockPlaceContext place = new BlockPlaceContext(context);
@@ -243,7 +304,15 @@ public final class PlacedSmallParts {
             return !stack.is(Items.SEA_PICKLE);
         }
         return state.is(ModBlocks.PLACED_SMITHING_TEMPLATE) && state.getValue(PlacedTemplateBlock.FACE) == AttachFace.FLOOR
-                && level.getBlockEntity(pos) instanceof PlacedTemplateBlockEntity be && isSmallPart(be.getTemplate());
+                && level.getBlockEntity(pos) instanceof PlacedTemplateBlockEntity be && joinsLying(be.getTemplate(), stack);
+    }
+
+    /**
+     * Ob sich {@code stack} zu diesem einzeln liegenden Stapel legt: zu einem Kleinteil jedes Teil, zu einer
+     * Schmiedevorlage nur eine weitere Vorlage (bis zu vier Vorlagen, Queue N24).
+     */
+    private static boolean joinsLying(ItemStack lying, ItemStack stack) {
+        return isSmallPart(lying) || isPileTemplate(lying) && isPileTemplate(stack);
     }
 
     /** Ein Vanilla-Kerzenblock (1-4 Kerzen einer Farbe). */
@@ -283,7 +352,7 @@ public final class PlacedSmallParts {
         if (ModBlocks.PLACED_EGG != null && state.is(ModBlocks.PLACED_EGG)) {
             old.add(new ItemStack(state.getValue(PlacedEggBlock.EGG).item()));
         } else if (state.is(ModBlocks.PLACED_SMITHING_TEMPLATE) && level.getBlockEntity(pos) instanceof PlacedTemplateBlockEntity template
-                && isSmallPart(template.getTemplate())) {
+                && joinsLying(template.getTemplate(), stack)) {
             old.add(template.getTemplate().copyWithCount(1));
             facing = state.getValue(PlacedTemplateBlock.FACING);
         } else if (isCandleBlock(state) && !stack.is(state.getBlock().asItem())) {
@@ -428,6 +497,24 @@ public final class PlacedSmallParts {
      * seiner Unterkante auf dem Boden, die Modellmitte (8, 8, 8) im Ursprung - dort sitzt auch die Kerzenflamme.
      */
     public static void place(Ops ops, Direction facing, int count, int index, boolean standing) {
+        place(ops, facing, count, index, standing ? Kind.EGG : Kind.PLATE, false);
+    }
+
+    /**
+     * Wie {@link #place(Ops, Direction, int, int, boolean)}, mit der Art des Teils: Barren stehen als 3D-Barren und liegen,
+     * wenn nur Barren auf dem Fleck sind ({@code ingotStack}), als kleiner Stapel ({@link #INGOT_STACK}).
+     */
+    public static void place(Ops ops, Direction facing, int count, int index, Kind kind, boolean ingotStack) {
+        if (kind == Kind.INGOT && ingotStack) {
+            float[] spot = INGOT_STACK[Math.max(0, Math.min(MAX_PARTS, count) - 1)][Math.max(0, Math.min(index, count - 1))];
+            ops.translate(0.5F, 0.0F, 0.5F);
+            ops.rotateY(rad(180.0F - facing.toYRot()));
+            ops.translate((spot[0] - 8.0F) / 16.0F, spot[2] / 16.0F, (spot[1] - 8.0F) / 16.0F);
+            ops.rotateY(rad(spot[3]));
+            ops.translate(0.0F, 0.5F, 0.0F);
+            return;
+        }
+        boolean standing = kind.standing();
         float[] slot = SLOTS[Math.max(0, Math.min(MAX_PARTS, count) - 1)][Math.max(0, Math.min(index, count - 1))];
         float lift = index * LIFT;
         ops.translate(0.5F, 0.0F, 0.5F);
@@ -457,24 +544,30 @@ public final class PlacedSmallParts {
         }
         VoxelShape shape = Shapes.empty();
         int count = Math.min(parts.size(), MAX_PARTS);
+        boolean stack = ingotStack(parts);
         for (int i = 0; i < count; i++) {
-            shape = Shapes.or(shape, partShape(parts.get(i), facing, count, i));
+            shape = Shapes.or(shape, partShape(parts.get(i), facing, count, i, stack));
         }
         return shape.optimize();
     }
 
     /** Trefferform eines Teils: die Quader des stehenden Modells bzw. die deckenden Pixel der Item-Textur. */
     public static VoxelShape partShape(ItemStack part, Direction facing, int count, int index) {
+        return partShape(part, facing, count, index, false);
+    }
+
+    /** Wie {@link #partShape(ItemStack, Direction, int, int)}; {@code ingotStack}: nur Barren auf dem Fleck. */
+    public static VoxelShape partShape(ItemStack part, Direction facing, int count, int index, boolean ingotStack) {
         Kind kind = kind(part);
         Matrix4f m = new Matrix4f();
-        place(new MatrixOps(m), facing, count, index, kind.standing());
+        place(new MatrixOps(m), facing, count, index, kind, ingotStack);
         m.translate(-0.5F, -0.5F, -0.5F);
         VoxelShape shape = Shapes.empty();
         if (kind.standing()) {
             for (float[] box : kind.boxes()) {
-                float lo = (8.0F - box[2]) / 16.0F;
-                float hi = (8.0F + box[2]) / 16.0F;
-                shape = Shapes.or(shape, box(m, lo, box[0] / 16.0F, lo, hi, box[1] / 16.0F, hi));
+                float halfZ = box.length > 3 ? box[3] : box[2];
+                shape = Shapes.or(shape, box(m, (8.0F - box[2]) / 16.0F, box[0] / 16.0F, (8.0F - halfZ) / 16.0F,
+                        (8.0F + box[2]) / 16.0F, box[1] / 16.0F, (8.0F + halfZ) / 16.0F));
             }
             return shape;
         }

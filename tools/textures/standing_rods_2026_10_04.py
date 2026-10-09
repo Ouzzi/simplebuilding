@@ -148,6 +148,29 @@ def height(runs):
     return runs[-1][1] + 1
 
 
+def connected(mdl, runs):
+    """N16 (2026-10-09): the model with a standing rod above (state up=true) - the shaft goes on to the top of the
+    block, so stacked rods join without a gap. The extension is a 2x2 shaft piece textured with shaft rows."""
+    h = height(runs)
+    ext = 16 - h
+    out = json.loads(json.dumps(mdl))
+    if ext <= 0:
+        return out
+    shaft = max((r for r in runs if r[2] == 2), key=lambda r: r[1] - r[0])
+    r_a = max(shaft[0], (shaft[0] + shaft[1] + 1 - ext) // 2)
+    v0, v1 = 16 - (r_a + ext), 16 - r_a
+    off = 1
+    for el in out['elements']:
+        el['faces'].pop('up', None) if el['to'][1] == h and el['to'][0] - el['from'][0] == 2 else None
+    out['elements'].append({'from': [7, h, 7], 'to': [9, 16, 9], 'faces': {
+        'north': {'uv': [off + 2, v0, off, v1], 'texture': '#rod'},
+        'west': {'uv': [off, v0, off + 2, v1], 'texture': '#rod'},
+        'south': {'uv': [4 + off, v0, 4 + off + 2, v1], 'texture': '#rod'},
+        'east': {'uv': [4 + off + 2, v0, 4 + off, v1], 'texture': '#rod'},
+    }})
+    return out
+
+
 def write_json(rel, data):
     path = os.path.join(OUT, rel)
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -351,7 +374,9 @@ def main():
         os.makedirs(os.path.dirname(path), exist_ok=True)
         tex.save(path)
         write_json('models/block/standing_%s.json' % name, mdl)
-        variants['rod=%s' % name] = {'model': 'simplebuilding:block/standing_%s' % name}
+        write_json('models/block/standing_%s_up.json' % name, connected(mdl, runs))
+        variants['rod=%s,up=false' % name] = {'model': 'simplebuilding:block/standing_%s' % name}
+        variants['rod=%s,up=true' % name] = {'model': 'simplebuilding:block/standing_%s_up' % name}
         print('%-12s %2d px high, boxes %s' % (name, height(runs), [(r0, r1 + 1, w) for r0, r1, w in runs]))
     write_json('blockstates/standing_rod.json', {'variants': variants})
     if PREVIEW:

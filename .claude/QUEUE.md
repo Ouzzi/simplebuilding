@@ -463,8 +463,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **Neu: Trapped Copper Chest** (Redstone-Signal wie Vanilla-Trapped-Chest, Kupfer-Stil, Oxidation wie Kupfertruhe falls vorhanden).
 - [ ] **Nihil-Gewölbe:** Doppeltruhen-Größe wie das Astral-Gewölbe.
 - [ ] **Netherit-Shulker:** dunkle Highlights statt heller (Netherit-Farben); dasselbe für alle anderen Netherit-Maschinen/-Blöcke.
-- [ ] **Hängematte wie Leine:** erster Befestigungsklick hängt die Hängematte wie eine Leine (mit Hängematten-Textur) an; Modell sichtbar wie Leine/Lichterketten-Mods während des Ziehens; entfernt man sich z. B. > 10 Blöcke, löst sich die Verbindung von der ersten Seite wieder.
-- [ ] **Senkrecht platzierte Knochen/Stöcke/Ruten** (Diamant-, Lohen-, Böen-Rute …) verbinden sich nicht: übereinander platzierte sollen nahtlos verbunden sein (lang genug, keine Lücke).
+- [x] (claude-q-place: Woll-Streifen vom Anker zur Hand, löst sich > 10 Blöcke; Client-Abnahme offen) **Hängematte wie Leine:** erster Befestigungsklick hängt die Hängematte wie eine Leine (mit Hängematten-Textur) an; Modell sichtbar wie Leine/Lichterketten-Mods während des Ziehens; entfernt man sich z. B. > 10 Blöcke, löst sich die Verbindung von der ersten Seite wieder.
+- [x] (claude-q-place: Zustand up, Säule bis Blockoberkante) **Senkrecht platzierte Knochen/Stöcke/Ruten** (Diamant-, Lohen-, Böen-Rute …) verbinden sich nicht: übereinander platzierte sollen nahtlos verbunden sein (lang genug, keine Lücke).
 
 ## Nachtrag 17 (2026-10-07, Besitzer – Nachricht unterbrochen, ggf. Fortsetzung folgt)
 - [ ] **Shulker-Zustand:** platzierte Shulkerkiste schließt sich bei Rechtsklick; zwei Item-Zustände (offen/geschlossen) wie die Blume im Creaking-Wald (Augenblüte).
@@ -530,6 +530,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Sculk-Kiefer (Falle): lautlos, verhält sich wie Spinnennetz, greift mit Fangzähnen an.
 - [x] Froschlichter in zusätzlichen Farben. (claude-q-blocks: Scharlach/Aqua/Azur, Froschlicht + Farbstoff)
 - [ ] Ziegenhorn platzierbar; Fackeln oder stabartige Items hineinstecken.
+- [ ] Froschlichter in zusätzlichen Farben.
+- [x] Ziegenhorn platzierbar; Fackeln oder stabartige Items hineinstecken. (claude-q-place: Boden/Wand, Fackeln + Stäbe, Licht)
 - [ ] Schildkröten-Helm-Äquivalent aus Shellker-Schale.
 - [x] Trainingspuppe mit Spielernamen umbenennen → Skin wechselt. (claude-q-stands; Client-Sicht mit echtem Profil offen)
 - [x] Glitzernde Melone essbar; Melone auch als 0,125er-Block (platzierte Melonenscheibe = 0,125er-Block).
@@ -544,14 +546,17 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Rüstungsständer sollen Arme haben.
 - [ ] Weitere Rüstungsständer: mittel (Pferderüstung, oder zwei Rüstungsteile oben/unten), klein (nur ein Teil, z. B. Stiefel oder Nautilus-Rüstung).
 - [ ] Speer im Spender: bei Aktivierung wie Stachelfalle.
+- [x] Speer im Spender: bei Aktivierung wie Stachelfalle. (claude-q-place: Schaden 2 Blöcke, Haltbarkeit; ohne Stoß-Animation)
 - [ ] Simple Respawn (neues Modul?): beim Tod niedergeschlagen, Mitspieler kann wiederbeleben; danach 3 Herzen und 0 Hunger.
-- [ ] Barren als 3D-Modell platzierbar.
+- [x] Barren als 3D-Modell platzierbar. (claude-q-place: 5 Barren 3D, nur Barren = Stapel bis 4)
 - [ ] Schwefelwürfel (Sulfur Cubes) befüllbar mit allen Ofen-Varianten, Tischen usw. (Easter Egg); dann schwer wie Eisen (schwer zu verschieben).
 - [ ] Übelkeits-Trank.
 - [x] Holz auch als 0,125er-Blöcke (falls noch nicht). (claude-q-hammer)
 - [ ] Mob „Seelenfeuer-Lohe“ (Soulfire Blaze).
 - [ ] Trims bis zu 4 platzierbar; alle anderen so platzierbaren Items ebenfalls bis 4 Stück („Plex“).
 - [x] Hammer: Normal-Rechtsklick-Halten (Block → Treppe → Stufe) deaktivieren; nur Schleich-Rechtsklick-Halten transformiert (Teile werden abgebaut). Erreicht die Form eine nicht unterstützte Gestalt (z. B. oben und unten je ein Achtel entfernt), wird sie in 0,125er-Blöcke zerlegt. Hammer wackelt (Hinweis „transformierbar“) nur, wenn transformiert werden kann – also nur beim Schleichen. (claude-q-hammer)
+- [x] Trims bis zu 4 platzierbar; alle anderen so platzierbaren Items ebenfalls bis 4 Stück („Plex“). (claude-q-place: Vorlagen ins Häufchen; Funktions-Items bleiben einzeln)
+- [ ] Hammer: Normal-Rechtsklick-Halten (Block → Treppe → Stufe) deaktivieren; nur Schleich-Rechtsklick-Halten transformiert (Teile werden abgebaut). Erreicht die Form eine nicht unterstützte Gestalt (z. B. oben und unten je ein Achtel entfernt), wird sie in 0,125er-Blöcke zerlegt. Hammer wackelt (Hinweis „transformierbar“) nur, wenn transformiert werden kann – also nur beim Schleichen.
 - Konzept Farbpinsel/Respawn: docs/ai/KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md. Farbpinsel in Arbeit (v3: Goldpinsel, Farbkasten mit Stufen).
 
 **Besitzer-Antworten 09.10. (auf Respawn-Fragen bezogen):** 1 ja (Einzelspieler = normaler Tod), 2 Timer: Besitzer hat eigenes älteres Revive-Konzept, sucht Daten raus → Respawn-Modul WARTET darauf, 3 ja (Mobs ignorieren Niedergeschlagene), 4 nein (keine Item-Wiederbelebung vorerst). Farbpinsel-Fragen unbeantwortet → Besitzer: KEINE Holz-Beize, Kreativ unbegrenzt, Pinselstrich-Partikel/Klang ja.

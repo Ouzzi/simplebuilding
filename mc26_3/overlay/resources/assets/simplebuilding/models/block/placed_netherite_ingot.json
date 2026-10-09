@@ -1,0 +1,136 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "ingot": "simplebuilding:block/placed_netherite_ingot",
+    "particle": "simplebuilding:block/placed_netherite_ingot"
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        0,
+        6
+      ],
+      "to": [
+        12,
+        2,
+        10
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            8,
+            4
+          ],
+          "texture": "#ingot"
+        },
+        "down": {
+          "uv": [
+            0,
+            10,
+            8,
+            14
+          ],
+          "texture": "#ingot"
+        },
+        "north": {
+          "uv": [
+            0,
+            6,
+            8,
+            8
+          ],
+          "texture": "#ingot"
+        },
+        "south": {
+          "uv": [
+            0,
+            6,
+            8,
+            8
+          ],
+          "texture": "#ingot"
+        },
+        "west": {
+          "uv": [
+            8,
+            6,
+            12,
+            8
+          ],
+          "texture": "#ingot"
+        },
+        "east": {
+          "uv": [
+            8,
+            6,
+            12,
+            8
+          ],
+          "texture": "#ingot"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        2,
+        7
+      ],
+      "to": [
+        11,
+        3,
+        9
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            4,
+            6,
+            6
+          ],
+          "texture": "#ingot"
+        },
+        "north": {
+          "uv": [
+            0,
+            8,
+            6,
+            9
+          ],
+          "texture": "#ingot"
+        },
+        "south": {
+          "uv": [
+            0,
+            8,
+            6,
+            9
+          ],
+          "texture": "#ingot"
+        },
+        "west": {
+          "uv": [
+            8,
+            8,
+            10,
+            9
+          ],
+          "texture": "#ingot"
+        },
+        "east": {
+          "uv": [
+            8,
+            8,
+            10,
+            9
+          ],
+          "texture": "#ingot"
+        }
+      }
+    }
+  ]
+}

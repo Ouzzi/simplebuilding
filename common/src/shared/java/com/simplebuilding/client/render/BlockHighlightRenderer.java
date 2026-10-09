@@ -59,6 +59,8 @@ public class BlockHighlightRenderer {
             // Abgelegte Oktanten, die der eigene Spieler per Rechtsklick eingeblendet hat: eine eigene,
             // ausdrueckliche Wahl je Oktant, deshalb auch bei ausgeschalteten Hervorhebungen.
             drawPlacedOctants(collector, poseStack, client);
+            // Eine am ersten Anker festgemachte Haengematte haengt wie eine Leine zur Hand (Queue N16, 2026-10-09).
+            HammockLeashRenderer.render(collector, poseStack, client);
             if (!ClientState.showHighlights) {
                 return;
             }

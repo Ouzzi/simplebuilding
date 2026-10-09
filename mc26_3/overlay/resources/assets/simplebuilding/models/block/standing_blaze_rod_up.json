@@ -1,0 +1,118 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "#rod",
+    "rod": "simplebuilding:block/standing_blaze_rod"
+  },
+  "elements": [
+    {
+      "from": [
+        7.0,
+        0,
+        7.0
+      ],
+      "to": [
+        9.0,
+        14,
+        9.0
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            2,
+            1,
+            16
+          ],
+          "texture": "#rod"
+        },
+        "west": {
+          "uv": [
+            1,
+            2,
+            3,
+            16
+          ],
+          "texture": "#rod"
+        },
+        "south": {
+          "uv": [
+            5,
+            2,
+            7,
+            16
+          ],
+          "texture": "#rod"
+        },
+        "east": {
+          "uv": [
+            7,
+            2,
+            5,
+            16
+          ],
+          "texture": "#rod"
+        },
+        "down": {
+          "uv": [
+            13,
+            1,
+            15,
+            3
+          ],
+          "texture": "#rod"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        14,
+        7
+      ],
+      "to": [
+        9,
+        16,
+        9
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            8,
+            1,
+            10
+          ],
+          "texture": "#rod"
+        },
+        "west": {
+          "uv": [
+            1,
+            8,
+            3,
+            10
+          ],
+          "texture": "#rod"
+        },
+        "south": {
+          "uv": [
+            5,
+            8,
+            7,
+            10
+          ],
+          "texture": "#rod"
+        },
+        "east": {
+          "uv": [
+            7,
+            8,
+            5,
+            10
+          ],
+          "texture": "#rod"
+        }
+      }
+    }
+  ]
+}

@@ -102,6 +102,12 @@ public final class RecipelessJeiInfo {
             map.put("standing_rods", List.of(net.minecraft.world.item.Items.STICK, net.minecraft.world.item.Items.BONE,
                     net.minecraft.world.item.Items.BLAZE_ROD, net.minecraft.world.item.Items.BREEZE_ROD, ModItems.DIAMOND_ROD));
         }
+        if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            // Ziegenhorn-Halter (Queue N24, 2026-10-09): Horn ablegen, Fackel oder Stab hineinstecken.
+            map.put("goat_horn_holder", List.of(net.minecraft.world.item.Items.GOAT_HORN));
+        }
+        // Speer im Spender (Queue N24): stoesst wie eine Stachelfalle zu (SpearDispensing).
+        map.put("spear_dispenser", List.<ItemLike>copyOf(com.simplebuilding.util.SpearDispensing.spears()));
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Fundorte und B-Seite der Platten (2026-10-03), Wirkung der Lautsprecher.
             map.put("music_discs", List.<ItemLike>copyOf(com.simplebuilding.util.MusicDiscs.items()));

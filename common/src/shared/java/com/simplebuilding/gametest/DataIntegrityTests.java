@@ -154,7 +154,9 @@ public final class DataIntegrityTests {
                 // the ropes of a hammock (end and span), placed and dropped with their hammock
                 "hammock_rope",
                 // a stick/bone/blaze/breeze/diamond rod standing upright: placed and dropped as the rod item itself
-                "standing_rod"));
+                "standing_rod",
+                // a goat horn put down as a holder: placed and dropped as the horn itself (queue N24)
+                "goat_horn_holder"));
         blocks.addAll(wallVariants().keySet());
         blocks.add("potted_silent_dandelion");
         // Crucible P5: the soul lava fluid block (like vanilla lava, only a bucket form).
@@ -190,6 +192,8 @@ public final class DataIntegrityTests {
             "hammock_rope",
             // drops the rod item of its state (StandingRodBlock#getDrops)
             "standing_rod",
+            // drops the horn and the held item stored in its block entity (GoatHornHolderBlock#getDrops)
+            "goat_horn_holder",
             // soul lava (Crucible P5): a fluid block like vanilla lava, removed only by scooping
             "soul_lava",
             // chess: an octet cell drops its octets (CheckerOctetBlock#getDrops), a piece cell its pieces

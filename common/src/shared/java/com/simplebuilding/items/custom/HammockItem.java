@@ -39,15 +39,18 @@ import org.jspecify.annotations.Nullable;
  *       free blocks away fits.</li>
  *   <li>Two clicks: otherwise (or always while sneaking) a click on an anchor remembers it (custom data on the item,
  *       green sparks at the anchor for the holder only); a click on the second anchor hangs a hammock at any angle
- *       (2 to 4 free cells along the main axis, same height, {@link HammockLayout#between}). The first anchor is
- *       forgotten when it is clicked again, the item leaves the main hand, after 30 s, in another dimension or when
- *       the anchor is gone.</li>
+ *       (2 to 4 free cells along the main axis, same height, {@link HammockLayout#between}). Like a lead (queue N16,
+ *       2026-10-09): the first click ties the hammock to the anchor and everybody sees it hanging from the anchor to
+ *       the holder's hand ({@code HammockLeashRenderer}); it comes loose (lead break sound) when the holder goes more
+ *       than {@link #LEASH_RANGE} blocks away, the anchor is clicked again, the item leaves the main hand, in another
+ *       dimension or when the anchor is gone.</li>
  * </ul>
  * Refusals are the fail sound for the player only (no text).
  */
 public class HammockItem extends BlockItem {
     public static final String ANCHOR_KEY = "simplebuilding_hammock_anchor";
-    public static final int ANCHOR_TICKS = 600;
+    /** The tied hammock comes loose when its holder is farther than this from the anchor (blocks, like a lead). */
+    public static final double LEASH_RANGE = 10.0;
 
     public HammockItem(Block block, Properties properties) {
         super(block, properties);
@@ -86,6 +89,9 @@ public class HammockItem extends BlockItem {
                 if (player instanceof ServerPlayer serverPlayer) {
                     sparks(server, serverPlayer, hit);
                     com.simplebuilding.util.Feedback.playTo(serverPlayer, SoundEvents.WOOL_PLACE, SoundSource.PLAYERS, 0.5F, 1.4F);
+                }
+                if (player != null) {
+                    level.playSound(null, hit, SoundEvents.LEAD_TIED, SoundSource.PLAYERS, 0.6F, 1.0F);
                 }
             }
             return InteractionResult.SUCCESS;
@@ -146,7 +152,7 @@ public class HammockItem extends BlockItem {
         }
     }
 
-    /** The remembered first anchor while it is valid: same dimension, younger than 30 s, still an anchor. */
+    /** The remembered first anchor while it is valid: same dimension, still an anchor (the distance is checked while held). */
     public static Optional<BlockPos> storedAnchor(ItemStack stack, Level level) {
         CustomData data = stack.get(DataComponents.CUSTOM_DATA);
         if (data == null) {
@@ -159,7 +165,7 @@ public class HammockItem extends BlockItem {
         CompoundTag a = anchor.get();
         BlockPos pos = new BlockPos(a.getIntOr("x", 0), a.getIntOr("y", 0), a.getIntOr("z", 0));
         boolean valid = level.dimension().identifier().toString().equals(a.getStringOr("dimension", ""))
-                && level.getGameTime() - a.getLongOr("time", 0L) <= ANCHOR_TICKS && HammockLayout.isAnchor(level, pos);
+                && HammockLayout.isAnchor(level, pos);
         return valid ? Optional.of(pos) : Optional.empty();
     }
 
@@ -168,7 +174,12 @@ public class HammockItem extends BlockItem {
                 anchor.getZ() + 0.5, 4, 0.4, 0.4, 0.4, 0.0);
     }
 
-    /** Forgets the first anchor when the item leaves the main hand or the anchor runs out; sparks while it waits. */
+    /** Whether a holder at {@code holder} is too far from the tied anchor: the hammock comes loose. */
+    public static boolean tooFar(BlockPos anchor, net.minecraft.world.phys.Vec3 holder) {
+        return net.minecraft.world.phys.Vec3.atCenterOf(anchor).distanceToSqr(holder) > LEASH_RANGE * LEASH_RANGE;
+    }
+
+    /** Forgets the first anchor when the item leaves the main hand, the anchor is gone or the holder walks too far; sparks while it waits. */
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
         CustomData data = stack.get(DataComponents.CUSTOM_DATA);
@@ -178,6 +189,11 @@ public class HammockItem extends BlockItem {
         Optional<BlockPos> anchor = storedAnchor(stack, level);
         if (anchor.isEmpty() || slot != EquipmentSlot.MAINHAND) {
             clearAnchor(stack);
+            return;
+        }
+        if (tooFar(anchor.get(), entity.position())) {
+            clearAnchor(stack);
+            level.playSound(null, entity.blockPosition(), SoundEvents.LEAD_BREAK, SoundSource.PLAYERS, 0.8F, 1.0F);
             return;
         }
         if (entity instanceof ServerPlayer player && level.getGameTime() % 10 == 0) {

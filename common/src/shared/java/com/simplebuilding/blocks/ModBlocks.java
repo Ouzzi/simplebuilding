@@ -257,6 +257,13 @@ public class ModBlocks {
             .lightLevel(com.simplebuilding.blocks.custom.StandingRodBlock::light)
             .pushReaction(McVersion.PUSH_DESTROYS))) : null;
 
+    // Ziegenhorn-Halter (Queue N24, 2026-10-09): abgelegtes Ziegenhorn, haelt eine Fackel oder einen Stab (GoatHornHolderBlock).
+    // Kein Block-Item: das Horn selbst wird abgelegt und faellt wieder heraus.
+    public static final Block GOAT_HORN_HOLDER = McVersion.SMALL_PLACEABLES ? registerBlock("goat_horn_holder", s -> new com.simplebuilding.blocks.custom.GoatHornHolderBlock(s
+            .strength(0.5F).sound(SoundType.BONE_BLOCK).noLootTable().noOcclusion().mapColor(MapColor.TERRACOTTA_WHITE)
+            .lightLevel(com.simplebuilding.blocks.custom.GoatHornHolderBlock::light)
+            .pushReaction(McVersion.PUSH_DESTROYS))) : null;
+
     // Haengematten (2026-10-02, McVersion.HAMMOCK): 16 Farben wie Betten, haengen zwischen zwei Ankern (HammockLayout).
     // Untere Lage = Tuch, obere = Seile; nur das untere Kopfteil hat Beute (das Item). Bei 3 Bloecken Abstand
     // ueberbrueckt das Seilstueck (ohne Item/Beute) den Rest bis zum Kopf-Anker.
