@@ -1075,6 +1075,22 @@ public final class DataIntegrityTests {
                 }
                 continue;
             }
+            if (McVersion.NATURE_VARIANTS && Set.of("grass_slab", "cracked_ice", "chiseled_packed_ice", "chiseled_blue_ice")
+                    .contains(blockId.getPath())) {
+                // Naturvarianten wie ihr Vanilla-Vorbild: Gras-Stufe ohne Behutsamkeit eine Erd-Stufe (wie der Grasblock),
+                // Eis ohne Behutsamkeit nichts (wie Eis, Pack- und Blaueis). Die Behutsamkeits-Seite prueft NatureBlockTests.
+                boolean grass = blockId.getPath().equals("grass_slab");
+                for (List<ItemStack> produced : rolls) {
+                    boolean ok = grass ? produced.size() == 1 && produced.getFirst().is(ModItems.DIRT_SLAB) && produced.getFirst().getCount() == 1
+                            : produced.isEmpty();
+                    if (!ok) {
+                        problems.add(actual + " handed over " + produced + " to an empty hand; expected "
+                                + (grass ? "one dirt slab" : "nothing (silk touch only)"));
+                        break;
+                    }
+                }
+                continue;
+            }
             if (EXPERIENCE_ORES.contains(blockId.getPath())) {
                 for (List<ItemStack> produced : rolls) {
                     if (produced.size() > 1 || produced.stream().anyMatch(s -> !s.is(ModItems.SAGE_ORB) || s.getCount() != 1)) {

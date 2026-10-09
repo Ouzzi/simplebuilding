@@ -16,6 +16,9 @@ import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.DirectionalPlaceContext;
+import net.minecraft.world.phys.AABB;
 
 /**
  * Sand- und Kies-Stufe (Besitzer N25): eine Stufe, die faellt wie Sand ({@link FallingBlock} nachgebaut, weil eine
@@ -24,8 +27,8 @@ import net.minecraft.world.level.block.state.properties.SlabType;
  * <ul>
  *   <li>Ist unter ihr frei ({@link FallingBlock#isFree}), faellt sie als Entity - eine obere Stufe faellt als untere,
  *       eine doppelte bleibt doppelt (Wasser bleibt wie bei Vanilla zurueck).</li>
- *   <li>Landet eine untere Stufe auf einer unteren Stufe derselben Art, werden beide zur Doppelstufe (die Entity
- *       stuende sonst auf halber Hoehe in deren Zelle und zerfiele zu einem Item).</li>
+ *   <li>Landet eine untere Stufe auf einer unteren Stufe derselben Art, werden beide zur Doppelstufe
+ *       ({@link #canBeReplaced} + {@link #onLand}).</li>
  * </ul>
  */
 public class FallingSlabBlock extends SlabBlock implements Fallable {
@@ -57,14 +60,24 @@ public class FallingSlabBlock extends SlabBlock implements Fallable {
         }
     }
 
-    /** Landet die Entity in der Zelle einer unteren Stufe derselben Art (sie liegt dort auf halber Hoehe auf): Doppelstufe statt Item. */
+    /**
+     * Nur fuer eine fallende untere Stufe derselben Art (FallingBlockEntity prueft mit leerer Hand und
+     * {@link DirectionalPlaceContext}): sie darf die untere Stufe "ersetzen", {@link #onLand} macht daraus die Doppelstufe.
+     * Ohne das stuende die Entity auf halber Hoehe in deren Zelle und zerfiele zu einem Item.
+     */
     @Override
-    public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity entity) {
-        BlockState there = level.getBlockState(pos);
-        if (entity.getBlockState().is(this) && entity.getBlockState().getValue(TYPE) == SlabType.BOTTOM
-                && there.is(this) && there.getValue(TYPE) == SlabType.BOTTOM) {
-            level.setBlockAndUpdate(pos, there.setValue(TYPE, SlabType.DOUBLE).setValue(WATERLOGGED, false));
-            entity.dropItem = false;
+    protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+        if (context instanceof DirectionalPlaceContext && context.getItemInHand().isEmpty() && state.getValue(TYPE) == SlabType.BOTTOM) {
+            return !context.getLevel().getEntitiesOfClass(FallingBlockEntity.class, new AABB(context.getClickedPos()),
+                    entity -> entity.getBlockState().is(this) && entity.getBlockState().getValue(TYPE) == SlabType.BOTTOM).isEmpty();
+        }
+        return super.canBeReplaced(state, context);
+    }
+
+    @Override
+    public void onLand(Level level, BlockPos pos, BlockState falling, BlockState replaced, FallingBlockEntity entity) {
+        if (replaced.is(this) && replaced.getValue(TYPE) == SlabType.BOTTOM && falling.getValue(TYPE) == SlabType.BOTTOM) {
+            level.setBlockAndUpdate(pos, falling.setValue(TYPE, SlabType.DOUBLE).setValue(WATERLOGGED, false));
         }
     }
 

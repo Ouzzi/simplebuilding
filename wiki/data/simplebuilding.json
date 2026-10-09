@@ -1940,7 +1940,7 @@
           "Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into a double slab instead of breaking. The Gravel Slab never drops flint.",
           "Cracked Ice (stonecutter: one ice makes one): a living entity standing on it cracks it one stage per second, four stages that look like vanilla frosted ice; after the last stage it turns into water (in the Nether it evaporates). With nobody on it the cracks stay. Otherwise it behaves like ice and drops only with Silk Touch.",
           "Chiseled Packed Ice and Chiseled Blue Ice come from the stonecutter (one packed or blue ice makes one), are as slippery as their base block and drop only with Silk Touch.",
-          "Nautilus Shell Block: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
+          "Block of Nautilus Shell: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
           "Scarlet, Aqua and Azure Froglights: any froglight plus red, cyan or blue dye. They glow at light level 15 like the vanilla froglights; the three vanilla colors still come only from frogs.",
           "Creative mode: a row of their own in SimpleBlocks before the gravity blocks and, while addItemsToVanillaTabs is on, next to their base block in Natural Blocks (the froglights also in Functional Blocks)."
         ]
@@ -16164,7 +16164,7 @@
     {
       "id": "simplebuilding:nautilus_shell_block",
       "name": {
-        "en_us": "Nautilus Shell Block",
+        "en_us": "Block of Nautilus Shell",
         "de_de": "Nautilusschalenblock"
       },
       "texture": "assets/textures/block/nautilus_shell_block_side.png",
@@ -35038,7 +35038,7 @@
     {
       "id": "simplebuilding:nautilus_shell_block",
       "name": {
-        "en_us": "Nautilus Shell Block",
+        "en_us": "Block of Nautilus Shell",
         "de_de": "Nautilusschalenblock"
       },
       "texture": "assets/textures/block/nautilus_shell_block_side.png",
