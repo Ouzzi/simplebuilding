@@ -68,9 +68,21 @@ public final class InfoTooltips {
                 && item instanceof com.simplebuilding.items.custom.SledgehammerItem) {
             out.add(gray("tooltip.simplebuilding.sledgehammer.corner"));
             out.add(gray("tooltip.simplebuilding.sledgehammer.corner.2"));
+            out.add(gray("tooltip.simplebuilding.sledgehammer.corner.3"));
             out.add(gray("tooltip.simplebuilding.sledgehammer.mining_time"));
             out.add(gray("tooltip.simplebuilding.sledgehammer.mining_time.2"));
             out.add(gray("tooltip.simplebuilding.sledgehammer.mining_time.3"));
+        }
+        // Material-Achtel (Queue Nachtrag 24): setzen, Steinmetz, Melonenscheibe, essbare Glitzermelone.
+        if (item instanceof com.simplebuilding.items.custom.MaterialOctetItem) {
+            out.add(gray("tooltip.simplebuilding.material_octet"));
+            out.add(gray("tooltip.simplebuilding.material_octet.2"));
+        }
+        if (com.simplebuilding.blocks.ModBlocks.MELON_OCTET != null && item == net.minecraft.world.item.Items.MELON_SLICE) {
+            out.add(gray("tooltip.simplebuilding.melon_slice.place"));
+        }
+        if (item == net.minecraft.world.item.Items.GLISTERING_MELON_SLICE) {
+            out.add(gray("tooltip.simplebuilding.glistering_melon_slice.food"));
         }
         if (item instanceof BlockItem blockItem) {
             blockLines(blockItem.getBlock(), out);

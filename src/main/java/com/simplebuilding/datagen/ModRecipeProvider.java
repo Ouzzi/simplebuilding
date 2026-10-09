@@ -1055,6 +1055,15 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             }
                         }
                     }
+                    // Holz-Achtel (Queue Nachtrag 24): Steinmetz Bretter -> 8 Achtel, formlos 8 Achtel -> 1 Bretter.
+                    for (Block cell : ModBlocks.WOOD_OCTETS) {
+                        Block planks = ((com.simplebuilding.blocks.custom.MaterialOctetBlock) cell).source();
+                        Item octet = BuiltInRegistries.ITEM.getValue(BuiltInRegistries.BLOCK.getKey(cell));
+                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, octet, planks, 8);
+                        shapeless(RecipeCategory.BUILDING_BLOCKS, planks).requires(octet, 8)
+                                .unlockedBy(getHasName(octet), has(octet))
+                                .save(output, BuiltInRegistries.BLOCK.getKey(planks).getPath() + "_from_octets");
+                    }
                 }
 
                 // --- ASTRAL / NIHIL BLOCKS (8 Block + 1 Powder/Shard) ---

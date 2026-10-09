@@ -434,25 +434,26 @@ public final class ConsumptionAndDurabilityTests {
         ServerPlayer creative = detachedPlayer(helper, GameType.CREATIVE, new Vec3(3.5, 3.0, 3.5));
 
         // --- forward: full block -> stairs, one point of wear ---
+        // 26.3 (Queue Nachtrag 24): only the sneaking hammer reshapes, one eighth per charge; older lines reshape
+        // forward without sneaking and refuse the plain sneaking hammer.
+        boolean cornerHit = com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS;
         helper.setBlock(target, Blocks.STONE);
         ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
-        survival.setShiftKeyDown(false);
+        survival.setShiftKeyDown(cornerHit);
         survival.setItemInHand(InteractionHand.MAIN_HAND, hammer);
         chargeAndFinish(hammer, level, survival);
 
         helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
         helper.assertValueEqual(hammer.getDamageValue(), 1, "wear for one forward transformation");
-
-        // 26.3 cuts one corner; older lines refuse the plain sneaking hammer.
-        survival.setShiftKeyDown(true);
-        chargeAndFinish(hammer, level, survival);
-
-        helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
-        boolean cornerHit = com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS;
-        helper.assertValueEqual(hammer.getDamageValue(), cornerHit ? 2 : 1,
-                "plain sneak action charged the wrong durability");
-        if (cornerHit) helper.assertValueEqual(Integer.bitCount(com.simplebuilding.util.HammerCorners.mask(
-                level.getBlockState(helper.absolutePos(target)))), 1, "plain sneak action did not cut exactly one stair quarter");
+        if (cornerHit) {
+            helper.assertValueEqual(Integer.bitCount(com.simplebuilding.util.HammerCorners.mask(
+                    level.getBlockState(helper.absolutePos(target)))), 3, "the sneaking hammer did not cut exactly one eighth");
+        } else {
+            survival.setShiftKeyDown(true);
+            chargeAndFinish(hammer, level, survival);
+            helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
+            helper.assertValueEqual(hammer.getDamageValue(), 1, "plain sneak action charged durability");
+        }
 
         // --- reverse with Constructor's Touch costs two ---
         ItemStack touchHammer = enchantedStack(helper, ModItems.DIAMOND_SLEDGEHAMMER,
@@ -491,8 +492,9 @@ public final class ConsumptionAndDurabilityTests {
         survival.setItemInHand(InteractionHand.MAIN_HAND, stepHammer);
         chargeAndFinish(stepHammer, level, survival);
 
-        helper.assertBlockPresent(Blocks.STONE_SLAB, target);
-        helper.assertValueEqual(stepHammer.getDamageValue(), 1,
+        // 26.3: a plain right click does not reshape at all (and costs nothing).
+        helper.assertBlockPresent(cornerHit ? Blocks.STONE_STAIRS : Blocks.STONE_SLAB, target);
+        helper.assertValueEqual(stepHammer.getDamageValue(), cornerHit ? 0 : 1,
                 "the forward step from a stairs block to a slab either did not happen or cost the "
                         + "reverse direction's price");
 
@@ -502,12 +504,13 @@ public final class ConsumptionAndDurabilityTests {
 
         // --- creative: the same forward transformation, free ---
         ItemStack creativeHammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
-        creative.setShiftKeyDown(false);
+        creative.setShiftKeyDown(cornerHit);
         creative.setItemInHand(InteractionHand.MAIN_HAND, creativeHammer);
         chargeAndFinish(creativeHammer, level, creative);
 
         helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
         helper.assertValueEqual(creativeHammer.getDamageValue(), 0, "the hammer wore down in creative");
+        creative.setShiftKeyDown(false);
 
         // --- crushing a diamond block: 81 pebbles either way, one point of wear in survival ---
         helper.setBlock(target, Blocks.DIAMOND_BLOCK);
@@ -522,7 +525,7 @@ public final class ConsumptionAndDurabilityTests {
                         && sizes.stream().allMatch(size -> size > 0 && size <= 64)
                         && sizes.stream().mapToInt(Integer::intValue).sum() == 81,
                 "the 81 pebbles did not come out as one part per strike within a stack size: " + sizes);
-        helper.assertValueEqual(hammer.getDamageValue(), cornerHit ? 3 : 2, "wear after also crushing a diamond block");
+        helper.assertValueEqual(hammer.getDamageValue(), 2, "wear after also crushing a diamond block");
 
         helper.killAllEntitiesOfClass(ItemEntity.class);
 

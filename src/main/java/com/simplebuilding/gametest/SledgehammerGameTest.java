@@ -130,6 +130,30 @@ public final class SledgehammerGameTest {
         SledgehammerTests.sledgehammerCornersSubtractOnlyTheAimedQuarter(helper);
     }
     @GameTest
+    public void reshapeModeNeedsSneaking(GameTestHelper helper) {
+        SledgehammerOctetTests.reshapeModeNeedsSneaking(helper);
+    }
+    @GameTest
+    public void hammerTiltsOnlyWhileSneaking(GameTestHelper helper) {
+        SledgehammerOctetTests.hammerTiltsOnlyWhileSneaking(helper);
+    }
+    @GameTest
+    public void sledgehammerSplitsUnsupportedShapesIntoOctets(GameTestHelper helper) {
+        SledgehammerOctetTests.sledgehammerSplitsUnsupportedShapesIntoOctets(helper);
+    }
+    @GameTest
+    public void sledgehammerCarveDropsTheRemovedOctet(GameTestHelper helper) {
+        SledgehammerOctetTests.sledgehammerCarveDropsTheRemovedOctet(helper);
+    }
+    @GameTest
+    public void woodOctetsPlaceBurnAndDrop(GameTestHelper helper) {
+        SledgehammerOctetTests.woodOctetsPlaceBurnAndDrop(helper);
+    }
+    @GameTest
+    public void melonSlicePlacesAnOctetAndGlisteringMelonIsEdible(GameTestHelper helper) {
+        SledgehammerOctetTests.melonSlicePlacesAnOctetAndGlisteringMelonIsEdible(helper);
+    }
+    @GameTest
     public void sledgehammerTransformHintsCoverBothHandsWithoutSideEffects(GameTestHelper helper) {
         SledgehammerTests.sledgehammerTransformHintsCoverBothHandsWithoutSideEffects(helper);
     }
