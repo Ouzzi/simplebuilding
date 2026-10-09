@@ -23,6 +23,7 @@ public final class MoneyNeoForge {
    if(event.getRegistryKey().equals(Registries.LOOT_FUNCTION_TYPE)) Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE,Identifier.fromNamespaceAndPath("simplemoney","weighted_enchant"),WeightedEnchantFunction.MAP_CODEC);
   });
   bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent event)->{
+   if(!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get(),"simplemoney"))return;
    var anchor=new net.minecraft.world.item.ItemStack(MoneyItems.SEARCH_ANCHOR);
    if(!event.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS)||!event.getParentEntries().contains(anchor))return;
    var previous=anchor;

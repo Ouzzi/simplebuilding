@@ -17,6 +17,7 @@ import net.minecraft.core.registries.Registries;
    if(e.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB))Riding.tab();
   });
   bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent event)->{
+   if(!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get(),"simpleriding"))return;
    var anchorItem=Riding.vanillaTabAnchor(event.getTabKey());if(anchorItem==null)return;
    var anchor=new net.minecraft.world.item.ItemStack(anchorItem);
    if(!event.getParentEntries().contains(anchor))return;

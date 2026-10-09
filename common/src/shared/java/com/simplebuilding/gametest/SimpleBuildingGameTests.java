@@ -217,6 +217,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("data_integrity_game_test_vanilla_tabs_stay_unchanged_when_mod_items_are_disabled",
                     DataIntegrityTests::vanillaTabsStayUnchangedWhenModItemsAreDisabled)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_creative_tab_spacers_follow_the_config",
+                    DataIntegrityTests::creativeTabSpacersFollowTheConfig)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_creative_tab_settings_are_per_mod_and_default_on",
+                    DataIntegrityTests::creativeTabSettingsArePerModAndDefaultOn)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_dev_enchanted_tab_offers_every_exclusive_choice_at_max_level_on_top_tiers", DataIntegrityTests::devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_dev_enchanted_tab_is_only_filled_in_development_or_when_configured", DataIntegrityTests::devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured)

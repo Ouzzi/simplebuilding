@@ -30,6 +30,7 @@ public final class ConfigOptions {
             "enableDoubleJump",
             "enableArmorTrimBenefits",
             "showDevEnchantedTab",
+            "creativeTabSpacers",
             "vanillaEnchantedBookTextures",
             "modEnchantedBookTextures",
             "visibleTrimIconsVanillaArmor",

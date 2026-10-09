@@ -31,6 +31,7 @@ public class SimplefunFabric implements ModInitializer {
     CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT)
         .register(
             entries -> {
+              if(!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir(),"simplefun"))return;
               if (entries.getDisplayStacks().stream()
                   .anyMatch(s -> s.is(com.simplefun.heads.AnimalHeads.SNOWBALL_ANCHOR)))
                 entries.insertAfter(
@@ -41,6 +42,7 @@ public class SimplefunFabric implements ModInitializer {
     CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS)
         .register(
             entries -> {
+              if(!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir(),"simplefun"))return;
               if (entries.getDisplayStacks().stream()
                   .anyMatch(s -> s.is(com.simplefun.heads.AnimalHeads.HEAD_ANCHOR)))
                 entries.insertAfter(

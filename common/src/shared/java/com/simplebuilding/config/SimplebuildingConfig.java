@@ -187,6 +187,12 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean addItemsToVanillaTabs = true;
 
+    // Leere Trennzellen zwischen den Kategorien der eigenen Kreativ-Tabs (alte Zeilen-Logik, Besitzer N22:
+    // Standard aus, Logik bleibt abschaltbar erhalten, siehe CreativeTabLayout).
+    @ConfigEntry.Category("advanced")
+    @ConfigEntry.Gui.Tooltip
+    public boolean creativeTabSpacers = false;
+
     // =====================================================================================
     // Reiter 8: Server & Modpack Tuning (Besitzer 2026-09-28)
     // =====================================================================================

@@ -500,6 +500,8 @@
   "text.autoconfig.simplebuilding.option.showDevEnchantedTab.@Tooltip": "Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“\nauch außerhalb von Entwicklungsumgebungen:\ndie beste Stufe jedes verzauberbaren\nGegenstands, vorverzaubert auf Höchststufe.\nWirkt beim Neuaufbau der Kreativ-Tabs\n(spätestens nach erneutem Betreten).\nStandard: aus.",
   "text.autoconfig.simplebuilding.option.addItemsToVanillaTabs": "Gegenstände in Vanilla-Kreativ-Tabs einsortieren",
   "text.autoconfig.simplebuilding.option.addItemsToVanillaTabs.@Tooltip": "Sortiert die Gegenstände dieser Mod neben ihre\nVanilla-Gegenstücke in Vanilla-Kreativ-Tabs und\nden Suchtab ein. Aus: Vanilla-Tabs bleiben\nunverändert; die eigenen Kreativ-Tabs der Mod\nbleiben erhalten. Wirkt beim Betreten einer Welt.\nStandard: an.",
+  "text.autoconfig.simplebuilding.option.creativeTabSpacers": "Leere Zellen zwischen Kreativ-Tab-Kategorien",
+  "text.autoconfig.simplebuilding.option.creativeTabSpacers.@Tooltip": "Lässt in den eigenen Kreativ-Tabs dieser Mod\neine leere Zelle zwischen den Kategorien, damit\njede Kategorie sichtbar abgesetzt beginnt. Aus:\ndie Gegenstände folgen lückenlos aufeinander.\nWirkt beim Betreten einer Welt. Standard: aus.",
   "text.autoconfig.simplebuilding.option.vanillaEnchantedBookTextures": "Eigene Texturen für Vanilla-Zauberbücher",
   "text.autoconfig.simplebuilding.option.vanillaEnchantedBookTextures.@Tooltip": "Jede Vanilla-Verzauberung bekommt ihr eigenes\nBuch. Aus: wieder das Vanilla-Buch, etwa wenn\nein Ressourcenpaket oder eine andere Mod die\nBücher neu gestaltet. Wirkt sofort. Standard:\nan.",
   "text.autoconfig.simplebuilding.option.modEnchantedBookTextures": "Eigene Texturen für Mod-Zauberbücher",

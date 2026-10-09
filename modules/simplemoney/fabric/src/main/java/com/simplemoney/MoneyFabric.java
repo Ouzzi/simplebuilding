@@ -14,6 +14,7 @@ public final class MoneyFabric implements ModInitializer {
   MoneyCondition.register();
   if(FabricLoader.getInstance().isModLoaded("ftbquests"))com.simplemoney.guide.MoneyGuide.installQuests(FabricLoader.getInstance().getConfigDir());
   net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS).register(out->{
+   if(!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir(),"simplemoney"))return;
    if(out.getDisplayStacks().stream().anyMatch(s->s.is(MoneyItems.SEARCH_ANCHOR)))out.insertAfter(MoneyItems.SEARCH_ANCHOR,MoneyItems.tabStacks(),net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
   });
   LootTableEvents.MODIFY.register((key,builder,source,registries)->MoneyLoot.inject(key.identifier().toString(),builder::withPool));

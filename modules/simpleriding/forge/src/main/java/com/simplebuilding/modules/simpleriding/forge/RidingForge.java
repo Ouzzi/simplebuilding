@@ -16,6 +16,7 @@ public final class RidingForge {
    if(e.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB))Riding.tab();
   });
   net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event->{
+   if(!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get(),"simpleriding"))return;
    var anchorItem=Riding.vanillaTabAnchor(event.getTabKey());if(anchorItem==null)return;
    var entries=event.getEntries();var anchor=new net.minecraft.world.item.ItemStack(anchorItem);
    if(!entries.contains(anchor))return;

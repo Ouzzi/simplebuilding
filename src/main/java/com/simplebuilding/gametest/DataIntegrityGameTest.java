@@ -167,6 +167,16 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void creativeTabSpacersFollowTheConfig(GameTestHelper helper) {
+        DataIntegrityTests.creativeTabSpacersFollowTheConfig(helper);
+    }
+
+    @GameTest
+    public void creativeTabSettingsArePerModAndDefaultOn(GameTestHelper helper) {
+        DataIntegrityTests.creativeTabSettingsArePerModAndDefaultOn(helper);
+    }
+
+    @GameTest
     public void devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers(GameTestHelper helper) {
         DataIntegrityTests.devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers(helper);
     }

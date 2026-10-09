@@ -3660,6 +3660,72 @@ public final class DataIntegrityTests {
         helper.succeed();
     }
 
+    /**
+     * Owner N22: the spacer logic stays, behind the config switch {@code creativeTabSpacers} (default off). Off, a
+     * layout with a gap and two categories emits only the items; on, the gap and the cell between the
+     * categories come out as spacers again, visible in the tab only.
+     */
+    public static void creativeTabSpacersFollowTheConfig(GameTestHelper helper) {
+        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
+        boolean original = config.creativeTabSpacers;
+        List<com.simplebuilding.items.CreativeTabLayout.Row> rows = List.of(
+                com.simplebuilding.items.CreativeTabLayout.Row.of("first", Items.DIRT, com.simplebuilding.items.CreativeTabLayout.GAP, Items.STONE),
+                com.simplebuilding.items.CreativeTabLayout.Row.of("second", Items.SAND));
+        try {
+            helper.assertFalse(new com.simplebuilding.config.SimplebuildingConfig().creativeTabSpacers,
+                    "creativeTabSpacers must default to off");
+            config.creativeTabSpacers = false;
+            List<ItemStack> off = new ArrayList<>();
+            com.simplebuilding.items.CreativeTabLayout.emit((stack, visibility) -> off.add(stack), rows);
+            helper.assertTrue(off.size() == 3 && off.stream().noneMatch(s -> s.is(ModItems.CREATIVE_SPACER)),
+                    "spacers off should emit dirt, stone, sand only, got " + off);
+            config.creativeTabSpacers = true;
+            List<ItemStack> on = new ArrayList<>();
+            List<CreativeModeTab.TabVisibility> visibilities = new ArrayList<>();
+            com.simplebuilding.items.CreativeTabLayout.emit((stack, visibility) -> { on.add(stack); visibilities.add(visibility); }, rows);
+            long spacers = on.stream().filter(s -> s.is(ModItems.CREATIVE_SPACER)).count();
+            helper.assertTrue(on.size() == 5 && spacers == 2, "spacers on should emit 3 items and 2 spacers, got " + on);
+            for (int i = 0; i < on.size(); i++) {
+                if (on.get(i).is(ModItems.CREATIVE_SPACER)) {
+                    helper.assertTrue(visibilities.get(i) == CreativeModeTab.TabVisibility.PARENT_TAB_ONLY,
+                            "a spacer must stay out of the search tab");
+                }
+            }
+        } finally {
+            config.creativeTabSpacers = original;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Owner N22, shared switch of every Simple mod (framework {@code CreativeTabSettings}): a mod without a key adds
+     * its items to the Vanilla tabs and gets its key written; switched off it reads false; the switch is per mod.
+     */
+    public static void creativeTabSettingsArePerModAndDefaultOn(GameTestHelper helper) {
+        java.nio.file.Path dir;
+        try {
+            dir = java.nio.file.Files.createTempDirectory("simple-creative-tabs");
+        } catch (java.io.IOException e) {
+            throw helper.assertionException("no temp directory: " + e);
+        }
+        var settings = com.simplebuilding.framework.api.CreativeTabSettings.class;
+        helper.assertTrue(com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(dir, "simplemoney"),
+                "a mod without a key must add its items to the Vanilla tabs");
+        java.nio.file.Path file = dir.resolve(com.simplebuilding.framework.api.CreativeTabSettings.FILE);
+        try {
+            helper.assertTrue(java.nio.file.Files.readString(file).contains("simplemoney.addItemsToVanillaTabs=true"),
+                    "the default key was not written to " + file);
+            com.simplebuilding.framework.api.CreativeTabSettings.set(dir, "simplemoney", false);
+        } catch (java.io.IOException e) {
+            throw helper.assertionException("settings file: " + e);
+        }
+        helper.assertFalse(com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(dir, "simplemoney"),
+                "switched off, " + settings.getSimpleName() + " still allows Vanilla-tab placements");
+        helper.assertTrue(com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(dir, "simpleriding"),
+                "switching one mod off must not switch another");
+        helper.succeed();
+    }
+
     /** Every non-curse enchantment whose supported items hold the stack, straight from the registry. */
     private static List<Holder<Enchantment>> supportedEnchantments(GameTestHelper helper, ItemStack stack) {
         List<Holder<Enchantment>> out = new ArrayList<>();

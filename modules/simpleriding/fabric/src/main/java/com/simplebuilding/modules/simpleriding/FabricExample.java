@@ -7,6 +7,7 @@ public final class FabricExample implements ModInitializer {
   if(FabricLoader.getInstance().isModLoaded("ftbquests"))com.simpleriding.guide.RidingGuide.installQuests(FabricLoader.getInstance().getConfigDir());
   for(var key:java.util.List.of(net.minecraft.world.item.CreativeModeTabs.COMBAT,net.minecraft.world.item.CreativeModeTabs.INGREDIENTS))
    net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(key).register(out->{
+    if(!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir(),"simpleriding"))return;
     var anchor=Riding.vanillaTabAnchor(key);var stacks=Riding.vanillaTabStacks(key);
     if(!stacks.isEmpty()&&out.getDisplayStacks().stream().anyMatch(s->s.is(anchor)))out.insertBefore(anchor,stacks,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
    });

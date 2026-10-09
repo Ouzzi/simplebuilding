@@ -60,6 +60,7 @@ public class SimplefunNeoForge {
 
     modBus.addListener(
         (BuildCreativeModeTabContentsEvent event) -> {
+          if(!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get(),"simplefun"))return;
           // Beside the vanilla models, so the search tab lists them there (AnimalHeads.SNOWBALL_ANCHOR).
           java.util.List<net.minecraft.world.item.ItemStack> stacks;
           net.minecraft.world.item.ItemStack previous;

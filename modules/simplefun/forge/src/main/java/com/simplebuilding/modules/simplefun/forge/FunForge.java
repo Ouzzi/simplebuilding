@@ -17,6 +17,7 @@ public final class FunForge {
   });
   // Beside the vanilla models, so the search tab lists them there (AnimalHeads.SNOWBALL_ANCHOR).
   net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e->{
+   if(!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get(),"simplefun"))return;
    java.util.List<net.minecraft.world.item.ItemStack> stacks;net.minecraft.world.item.ItemStack previous;
    if(e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.COMBAT)){previous=new net.minecraft.world.item.ItemStack(com.simplefun.heads.AnimalHeads.SNOWBALL_ANCHOR);stacks=java.util.List.of(new net.minecraft.world.item.ItemStack(ModItems.BRICK_SNOWBALL));}
    else if(e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS)){previous=new net.minecraft.world.item.ItemStack(com.simplefun.heads.AnimalHeads.HEAD_ANCHOR);stacks=com.simplefun.heads.AnimalHeads.headStacks();}
