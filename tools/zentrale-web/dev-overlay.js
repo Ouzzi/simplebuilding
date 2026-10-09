@@ -46,13 +46,19 @@
   }
 
   /* ---- tiles ---- */
+  /* item id from a wiki link: query mode (?item=ns:id) or hash mode (#/items/ns:id) */
+  function itemOf(href) {
+    var h = /#\/(?:items|blocks)\/([^?&]+)/.exec(href);
+    if (h) return decodeURIComponent(h[1]);
+    var q = /[?&]item=([^&#]+)/.exec(href);
+    return q ? decodeURIComponent(q[1]) : '';
+  }
   function tileInfo(t) {
     if (t.classList.contains('tx-tile')) {
       var id = t.getAttribute('data-tx-id') || t.getAttribute('title') || '';
       return { kind: 'textures', key: 'tx:' + id, target: { id: id, label: t.getAttribute('data-tx-label') || id, path: t.getAttribute('data-tx-path') || '' } };
     }
-    var href = /^#\/(?:items|blocks)\/([^?&]+)/.exec(t.getAttribute('href') || '');
-    var iid = t.getAttribute('data-item-id') || t.getAttribute('data-id') || (href ? decodeURIComponent(href[1]) : '');
+    var iid = t.getAttribute('data-item-id') || t.getAttribute('data-id') || itemOf(t.getAttribute('href') || '');
     var name = t.querySelector('.itile-name, .row-title');
     return { kind: 'items', key: 'it:' + iid, target: { id: iid, label: name ? name.textContent : iid, path: '' } };
   }
@@ -87,7 +93,7 @@
       t.appendChild(badge);
     } else if (!queued && badge) badge.remove();
   }
-  function tiles() { return Array.prototype.slice.call(document.querySelectorAll('.tx-tile, a.itile, a.row[href^="#/items/"], a.row[href^="#/blocks/"]')); }
+  function tiles() { return Array.prototype.slice.call(document.querySelectorAll('.tx-tile, a.itile, a.row[href*="item="], a.row[href^="#/items/"], a.row[href^="#/blocks/"]')); }
 
   /* ---- bar ---- */
   function buildBar() {
@@ -156,9 +162,8 @@
     wrap.appendChild(c); wrap.appendChild(b); head.appendChild(wrap);
   }
   function itemPanel(info) {
-    var m = /^#\/(items?|blocks?)\/([^?&]+)/.exec(location.hash || '');
-    if (!m && !info) return;
-    var id = info && info.id ? info.id : decodeURIComponent(m[2]);
+    var id = info && info.id ? info.id : itemOf(location.hash || '') || itemOf(location.search || '');
+    if (!id) return;
     var h1 = document.querySelector('main h1, h1');
     if (!h1 || document.querySelector('.dev-item[data-id="' + id + '"]')) return;
     document.querySelectorAll('.dev-item').forEach(function (x) { x.remove(); });
@@ -197,7 +202,9 @@
     if (kind === 'item-page') { scan(info); return; }
     later();
   };
-  window.addEventListener('hashchange', function () { sel.clear(); mode = ''; later(); });
+  function moved() { sel.clear(); mode = ''; later(); }
+  window.addEventListener('hashchange', moved);
+  window.addEventListener('popstate', moved);
   new MutationObserver(function (records) {
     for (var i = 0; i < records.length; i++) {
       var n = records[i].target;
