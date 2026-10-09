@@ -227,6 +227,7 @@ public final class ColorBrushTests {
         player.setXRot(90f); // look straight down at the sand; the brush ray reads the old rotation (partial tick 0)
         player.xRotO = 90f;
         player.getInventory().setItem(5, new ItemStack(item("red_dye"), 4));
+        helper.setBlock(rel.below(), Blocks.STONE); // suspicious sand falls like sand
         helper.setBlock(rel, Blocks.SUSPICIOUS_SAND);
         var sand = (net.minecraft.world.level.block.entity.BrushableBlockEntity) helper.getLevel().getBlockEntity(pos);
         sand.setLootTable(net.minecraft.world.level.storage.loot.BuiltInLootTables.DESERT_PYRAMID_ARCHAEOLOGY, 1L);
