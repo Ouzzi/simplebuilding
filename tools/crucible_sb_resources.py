@@ -72,13 +72,13 @@ def files():
     # Buckets.
     for name in ("soul_lava_bucket", "enderite_bucket", "enderite_water_bucket", "enderite_lava_bucket", "enderite_soul_lava_bucket"):
         # Owner N21/N28: the filled Enderite items hold one bucket of two and show the half texture
-        # (tools/textures/enderite_bucket_half_2026_10_09.py); the full_ items (two buckets) the full one.
+        # (tools/textures/enderite_bucket_half_2026_10_09.py); the _full items (two buckets) the full one.
         half = name.startswith("enderite_") and name != "enderite_bucket"
         out[f"{a}/models/item/{name}.json"] = item_model(name + "_half" if half else name)
         out[f"{a}/items/{name}.json"] = {"model": model_ref(f"{NS}:item/{name}")}
         if half:
-            out[f"{a}/models/item/full_{name}.json"] = item_model(name)
-            out[f"{a}/items/full_{name}.json"] = {"model": model_ref(f"{NS}:item/full_{name}")}
+            out[f"{a}/models/item/{name}_full.json"] = item_model(name)
+            out[f"{a}/items/{name}_full.json"] = {"model": model_ref(f"{NS}:item/{name}_full")}
     for name in ("copper_bucket", "copper_water_bucket", "copper_lava_bucket"):
         for stage in range(4):
             out[f"{a}/models/item/{name}_{stage}.json"] = item_model(f"{name}_{stage}")

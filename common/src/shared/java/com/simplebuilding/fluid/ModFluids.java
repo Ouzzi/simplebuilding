@@ -100,11 +100,11 @@ public final class ModFluids {
         ENDERITE_SOUL_LAVA_BUCKET = item("enderite_soul_lava_bucket", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, SOUL_LAVA,
                 McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET), SoulLava.fuelTicks())));
         // Full (two buckets): burning or crafting one bucket away leaves the half bucket of the same fluid.
-        FULL_ENDERITE_WATER_BUCKET = item("full_enderite_water_bucket", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, Fluids.WATER,
+        FULL_ENDERITE_WATER_BUCKET = item("enderite_water_bucket_full", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, Fluids.WATER,
                 p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_WATER_BUCKET)));
-        FULL_ENDERITE_LAVA_BUCKET = item("full_enderite_lava_bucket", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, Fluids.LAVA,
+        FULL_ENDERITE_LAVA_BUCKET = item("enderite_lava_bucket_full", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, Fluids.LAVA,
                 McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_LAVA_BUCKET), lava)));
-        FULL_ENDERITE_SOUL_LAVA_BUCKET = item("full_enderite_soul_lava_bucket", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, SOUL_LAVA,
+        FULL_ENDERITE_SOUL_LAVA_BUCKET = item("enderite_soul_lava_bucket_full", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, SOUL_LAVA,
                 McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_SOUL_LAVA_BUCKET), SoulLava.fuelTicks())));
         // No crafting remainder on the ceramic water bucket: a fresh bucket back would repair it for free.
         RAW_CERAMIC_BUCKET = item("raw_ceramic_bucket", p -> new Item(p.stacksTo(16)));
