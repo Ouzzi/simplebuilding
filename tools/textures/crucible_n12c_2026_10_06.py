@@ -4,7 +4,7 @@ Usage (repository root, Pillow + numpy, Vanilla textures in build/vanilla-textur
   python tools/textures/crucible_n12c_2026_10_06.py
     -> previews/crucible-n12c-ui.png     every tier with an attached barrel: before (N12b) | after (own barrel box,
                                           as many barrel fields as crucible slots)
-       previews/crucible-n12c-feuer.gif   flames per heat: current (pointed, built in) | broad (wide low tongues)
+       previews/crucible-n12c-feuer.gif   flames per heat: built in (SHAPE, since 2026-10-09 middle) | broad (wide low tongues)
 Mirrors CrucibleMenu.layout (N12c), CrucibleScreen and CrucibleFlames (SHAPE); keep them in step.
 """
 from pathlib import Path
@@ -44,15 +44,25 @@ def layout(tier, barrel):
 
 
 # ---------------------------------------------------------------- flames with the SHAPE switch
+# UiFlames.Shape (Java) values; SHAPE = the built-in one (owner 2026-10-09: "Mittel").
+SHAPES = {
+    'POINTED': dict(spacing=10, half=4.5, half_step=0.5, exponent=1.5, band=0.3, scale=0.75, cap=8),
+    'MIDDLE': dict(spacing=12, half=5.5, half_step=0.55, exponent=1.05, band=0.375, scale=0.625, cap=7),
+    'BROAD': dict(spacing=14, half=6.5, half_step=0.6, exponent=0.6, band=0.45, scale=0.5, cap=6),
+}
+SHAPE = 'MIDDLE'
+
+
 def height(col, millis, target, calm, broad):
+    p = SHAPES['BROAD' if broad else SHAPE]
     t = millis / 1000.0 * (1.0 if calm == b.LIVELY else 0.55 if calm == b.MEDIUM else 0.35)
     flick = millis // b.flick_ms(calm)
-    spacing = 14 if broad else 10
+    spacing = p['spacing']
     best = 0.0
     first = col // spacing - 1
     for j in range(first, first + 3):
         center = j * spacing + spacing // 2 + 1.5 * math.sin(t * 1.7 + j * 2.1)
-        half = 6.5 + (hash_(j, 5) & 3) * 0.6 if broad else 4.5 + (hash_(j, 5) & 3) * 0.5
+        half = p['half'] + (hash_(j, 5) & 3) * p['half_step']
         skew = 0.3 if (hash_(j, 3) & 1) == 0 else -0.3
         off = col + 0.5 - center
         d = abs(off) / (half * (1 + skew if off < 0 else 1 - skew))
@@ -62,10 +72,10 @@ def height(col, millis, target, calm, broad):
             amp = 0.78 + 0.3 * math.sin(t * 2.3 + j * 1.7) + 0.14 * math.sin(t * 5.1 + j * 0.9) + (hash_(j, 9) & 3) * 0.06
         else:
             amp = 0.8 + 0.12 * math.sin(t * 2.3 + j * 1.7) + (hash_(j, 9) & 3) * 0.04
-        best = max(best, amp * math.pow(1 - d, 0.6 if broad else 1.5))
+        best = max(best, amp * math.pow(1 - d, p['exponent']))
     jitter = 1 if calm == b.LIVELY and (hash_(col, flick) & 3) == 0 else 0
-    h = jround(target * ((0.45 + 0.5 * best) if broad else (0.3 + 0.75 * best))) + jitter
-    return max(2, min(target * (6 if broad else 8) // 5, h))
+    h = jround(target * (p['band'] + p['scale'] * best)) + jitter
+    return max(2, min(target * p['cap'] // 5, h))
 
 
 def flames(c, x, bottom, width, section, heat, glowing, millis, broad=False):
@@ -145,7 +155,7 @@ def fire_gif():
                 img = screen('netherite', barrel=False, heat=heat, glowing=glow, millis=t, broad=broad, demo=False)
                 img = img.crop((0, 0, img.width, L['section'] * K))
                 d = ImageDraw.Draw(img)
-                text = f'{label} - {"breit (Vorschau)" if broad else "aktuell (spitz)"}'
+                text = f'{label} - {"breit (Vorschau)" if broad else "aktuell (" + SHAPE.lower() + ")"}'
                 d.rectangle((img.width - 380, 4, img.width - 8, 30), fill=SHEET_BG)
                 d.text((img.width - 374, 6), text, font=FONT, fill='white')
                 row.append(img)

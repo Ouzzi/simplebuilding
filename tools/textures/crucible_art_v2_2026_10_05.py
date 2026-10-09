@@ -510,14 +510,8 @@ def enderite_bucket_strip(variant, content=None):
 
 # Soul lava: Vanilla lava bucket tones (dark drip, red, orange, yellow, lava-lit rim) -> soul fire / soul lantern
 # tones of the same rank, so the bucket reads exactly like Vanilla's lava bucket, only in the soul palette.
-SOUL_FOR_LAVA = {
-    (127, 62, 44): (3, 96, 104),
-    (204, 70, 40): (3, 150, 154),
-    (227, 140, 63): (42, 201, 207),
-    (228, 210, 92): (122, 245, 248),
-    (159, 127, 120): (112, 146, 150),
-    (182, 140, 123): (128, 170, 174),
-}
+# Soul lava round 2 (2026-10-09): bucket tones and the soul lava textures come from soul_lava_2026_10_09.py.
+from soul_lava_2026_10_09 import SOUL_FOR_LAVA  # noqa: E402
 
 
 def soul_remap(img):
@@ -811,8 +805,6 @@ def resources():
         for part, path in barrel_paths(tier).items():
             out[path] = tex[part]
     out[LIB.parent / 'item/reinforced_cauldron.png'] = reinforced_cauldron_item()
-    out[SB / 'block/soul_lava_still.png'] = soul_lava('still')
-    out[SB / 'block/soul_lava_flow.png'] = soul_lava('flow')
     out.update(bucket_resources(CHOICE['copper_bucket'], CHOICE['enderite_bucket']))
     return out
 
