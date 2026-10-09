@@ -12098,7 +12098,7 @@
       "en": {
         "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
         "details": [
-          "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
+          "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
           "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
           "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
           "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
@@ -12107,7 +12107,7 @@
       "de": {
         "summary": "Ausgehöhlte Stämme gibt es für Stämme und entrindete Stämme jeder Holzart (auch Karmesin, Wirr und Bambus) mit einem 12 × 12 Pixel großen Tunnel entlang der Achse.",
         "details": [
-          "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
+          "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
           "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
           "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
           "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."

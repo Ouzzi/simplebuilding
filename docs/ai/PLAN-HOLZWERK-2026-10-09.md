@@ -15,7 +15,7 @@ Blasseiche, Karmesin, Wirr, Bambus (12; `woodwork/WoodKind`).
 2. **Ausgehöhlte Stämme** (`hollow_<stamm>`, `hollow_stripped_<stamm>`): Röhre mit 2-Pixel-Wänden (innen 12×12),
    Achse wie ein Stamm. Kleine Mobs passen physikalisch hindurch. Spieler: Schleichen vor/in einer liegenden
    Röhre längs ihrer Achse → Kriech-Haltung (Mixin `Player#updatePlayerPose`), drinnen hält Vanilla das Kriechen.
-   Herstellung: 8 Stämme im Ring → 8, oder Meißel (Steinstufe) auf den Stamm (Spachtel/Schleichen zurück).
+   Herstellung: 8 Stämme im Ring → 8, oder Meißel (Steinstufe) auf den entrindeten Stamm (Spachtel/Schleichen zurück; Stämme mit Rinde entrindet Constructor’s Touch schon).
 3. **Holzplatten** (`<holz>_sheet`, `stripped_<holz>_sheet`): Vanilla-`IronBarsBlock` (verbindet sich wie
    Glasscheibe/Eisengitter, lässt Licht durch). 6 Röhren (2×3) → 16.
 4. **Holz-Kessel** (`<holz>_cauldron`): Inhalt leer/Wasser/Lava/Pulverschnee wie der verstärkte Kessel aus

@@ -53,6 +53,11 @@ public final class RecipelessJeiInfo {
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             map.put("dimensional_scrap", List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP));
         }
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            // Holzwerk: Schnitzholz entsteht nur in der Welt (Meissel + Toepferscherbe).
+            map.put("woodwork_carved", com.simplebuilding.woodwork.WoodBlocks.families().stream()
+                    .map(f -> (ItemLike) f.carved()).toList());
+        }
         return map;
     }
 
@@ -83,11 +88,6 @@ public final class RecipelessJeiInfo {
             List<ItemLike> chess = new java.util.ArrayList<>(com.simplebuilding.chess.ChessItems.octets());
             chess.addAll(com.simplebuilding.chess.ChessItems.pieces().values());
             map.put("chess", chess);
-        }
-        if (com.simplebuilding.version.McVersion.WOODWORK) {
-            // Holzwerk: Schnitzholz entsteht nur in der Welt (Meissel + Toepferscherbe).
-            map.put("woodwork_carved", com.simplebuilding.woodwork.WoodBlocks.families().stream()
-                    .map(f -> (ItemLike) f.carved()).toList());
         }
         // Pfeile: seit 2026-10-02 mit Befiederungsrezepten (nur fuers Vanilla-Rezeptbuch), JEI zeigt sie nicht - Hinweis bleibt.
         if (com.simplebuilding.version.McVersion.FLETCHING) {

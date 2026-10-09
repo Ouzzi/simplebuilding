@@ -301,9 +301,9 @@ public class ChiselItem extends Item {
         registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ENDER_QUARTZ_SLAB, ModBlocks.ENDER_QUARTZ_BRICK_SLAB, ModBlocks.ENDER_QUARTZ_SLAB);
         registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ENDER_QUARTZ_WALL, ModBlocks.ENDER_QUARTZ_BRICK_WALL);
 
-        // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): der Meissel hoehlt Staemme aus (Steinstufe).
+        // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): der Meissel hoehlt entrindete Staemme aus (Steinstufe).
+        // Nur entrindete: Staemme mit Rinde entrindet Constructor's Touch bereits (Tabelle touch).
         for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
-            registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP, family.wood().logBlock(), family.hollow());
             registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP, family.wood().strippedBlock(), family.hollowStripped());
         }
 

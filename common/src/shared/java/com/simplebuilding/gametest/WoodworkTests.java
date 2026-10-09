@@ -209,9 +209,10 @@ public final class WoodworkTests {
         check(signal >= 14, fails, "comparator reads it nearly full (" + signal + ")");
         useBlock(helper, player, ItemStack.EMPTY, rel);
         check(player.getInventory().countItem(Items.APPLE) == 64, fails, "empty hand takes the top stack");
+        player.getInventory().clearContent();
         player.setShiftKeyDown(true);
         useBlock(helper, player, ItemStack.EMPTY, rel);
-        check(player.getInventory().countItem(Items.APPLE) == 65, fails, "sneaking takes one");
+        check(player.getInventory().countItem(Items.APPLE) == 1, fails, "sneaking takes one");
         crate.clearContent();
         crate.insert(new ItemStack(Items.CARROT, 5));
         helper.setBlock(rel.below(), Blocks.HOPPER);
