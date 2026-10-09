@@ -16,6 +16,7 @@ public final class ModScreenHandlers {
     public static MenuType<TieredChestMenu> TIERED_CHEST_MENU;
     public static MenuType<com.simplebuilding.fletching.FletchingMenu> FLETCHING_MENU;
     public static MenuType<AutoSmitherMenu> AUTO_SMITHER_MENU;
+    public static MenuType<AutonomousCrafterMenu> AUTONOMOUS_CRAFTER_MENU;
 
     public static void registerScreenHandlers() {
         Simplebuilding.LOGGER.info("Registering Screen Handlers for " + Simplebuilding.MOD_ID);
@@ -43,6 +44,13 @@ public final class ModScreenHandlers {
                     BuiltInRegistries.MENU,
                     Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "auto_smither"),
                     new MenuType<>(AutoSmitherMenu::new, net.minecraft.world.flag.FeatureFlags.VANILLA_SET)
+            );
+        }
+        if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) {
+            AUTONOMOUS_CRAFTER_MENU = Registry.register(
+                    BuiltInRegistries.MENU,
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "autonomous_crafter"),
+                    new MenuType<>(AutonomousCrafterMenu::new, net.minecraft.world.flag.FeatureFlags.VANILLA_SET)
             );
         }
         if (com.simplebuilding.version.McVersion.FLETCHING) {

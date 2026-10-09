@@ -2850,7 +2850,10 @@ public final class DataIntegrityTests {
                         ModItems.NETHERITE_PISTON, ModItems.ENDERITE_PISTON)));
         if (McVersion.AUTO_SMITHER) {
             // Auto-Schmied (2026-10-02) direkt hinter den Kolben.
-            expected.add(CreativeTabLayout.Row.of("auto_smither", ModItems.AUTO_SMITHER));
+            // Autonomer Crafter (2026-10-09) in derselben Zeile.
+            expected.add(McVersion.AUTONOMOUS_CRAFTER
+                    ? CreativeTabLayout.Row.of("auto_smither", ModItems.AUTO_SMITHER, ModItems.AUTONOMOUS_CRAFTER)
+                    : CreativeTabLayout.Row.of("auto_smither", ModItems.AUTO_SMITHER));
         }
         expected.addAll(List.of(
                 CreativeTabLayout.Row.of("bundles_and_quivers",

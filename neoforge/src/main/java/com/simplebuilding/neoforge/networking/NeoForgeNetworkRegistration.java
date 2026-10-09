@@ -41,24 +41,6 @@ public final class NeoForgeNetworkRegistration {
                 PacketDistributor.sendToPlayer(player, payload);
             }
         });
-        PlatformServices.setHopperSync((blockEntity, slot, stack) -> {
-            if (blockEntity.getLevel() instanceof ServerLevel serverLevel) {
-                // Deliberately not PacketDistributor.sendToPlayersTrackingChunk: that hands the
-                // payload to every tracking player unconditionally, and NeoForge throws
-                // "Payload ... may not be sent to the client!" for anyone whose connection has not
-                // negotiated the channel. The throw escapes into ModHopperBlockEntity#setGhostItem,
-                // i.e. into gameplay code. Fabric's send is permissive and never throws, so without
-                // this filter the two loaders behave differently. Same canSend guard the rest of
-                // the mod already uses before sending.
-                var payload = new SyncHopperGhostItemPayload(blockEntity.getBlockPos(), slot, stack);
-                var chunkPos = new ChunkPos(blockEntity.getBlockPos().getX() >> 4, blockEntity.getBlockPos().getZ() >> 4);
-                for (ServerPlayer player : serverLevel.getChunkSource().chunkMap.getPlayers(chunkPos, false)) {
-                    if (PlatformServices.canSendToPlayer(player, SyncHopperGhostItemPayload.ID)) {
-                        PacketDistributor.sendToPlayer(player, payload);
-                    }
-                }
-            }
-        });
     }
 
     @SubscribeEvent
@@ -67,8 +49,6 @@ public final class NeoForgeNetworkRegistration {
 
         registrar.playToServer(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC,
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleToggleHopperFilter(payload, player)));
-        registrar.playToServer(SetHopperGhostItemPayload.ID, SetHopperGhostItemPayload.CODEC,
-                (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleSetHopperGhostItem(payload, player)));
         registrar.playToServer(SpaceKeyPayload.ID, SpaceKeyPayload.CODEC,
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleSpaceKey(payload, player)));
         registrar.playToServer(DoubleJumpPayload.ID, DoubleJumpPayload.CODEC,
@@ -96,12 +76,6 @@ public final class NeoForgeNetworkRegistration {
         registrar.playToServer(com.simplebuilding.networking.GuideUnlockPayload.ID, com.simplebuilding.networking.GuideUnlockPayload.CODEC,
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleGuideUnlock(payload, player)));
 
-        registrar.playToClient(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC, (payload, context) -> context.enqueueWork(() -> {
-            Minecraft client = Minecraft.getInstance();
-            if (client.level != null && client.level.getBlockEntity(payload.pos()) instanceof ModHopperBlockEntity blockEntity) {
-                blockEntity.setGhostItemClient(payload.slot(), payload.stack());
-            }
-        }));
         registrar.playToClient(com.simplebuilding.networking.PistonConfigPayload.ID, com.simplebuilding.networking.PistonConfigPayload.CODEC,
                 (payload, context) -> context.enqueueWork(payload::apply));
         registrar.playToClient(com.simplebuilding.networking.GuideStatePayload.ID, com.simplebuilding.networking.GuideStatePayload.CODEC,

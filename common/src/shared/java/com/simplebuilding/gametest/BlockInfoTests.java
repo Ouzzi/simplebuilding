@@ -175,7 +175,7 @@ public final class BlockInfoTests {
         helper.succeed();
     }
 
-    /** Mod hopper: filter off; exact match without ghost items; then the names of the ghost items in slot order. */
+    /** Mod hopper: filter off; exact match with empty slots; then the names of the filter items (the real items in the slots) in slot order. */
     public static void hopperFilterNamesTheModeAndItems(GameTestHelper helper) {
         BlockPos pos = new BlockPos(1, 1, 1);
         helper.setBlock(pos, ModBlocks.NETHERITE_HOPPER);
@@ -185,14 +185,14 @@ public final class BlockInfoTests {
         hopper.toggleFilterMode();
         expect(helper, BlockInfo.serverLines(Topic.HOPPER_FILTER, hopper),
                 List.of("jade.simplebuilding.hopper.mode [simplebuilding.hopper_filter.whitelist]", "jade.simplebuilding.hopper.nothing []"),
-                "exact-match hopper without ghost items");
-        hopper.setGhostItem(0, new ItemStack(Items.STONE));
-        hopper.setGhostItem(2, new ItemStack(Items.DIAMOND, 5));
+                "exact-match hopper with empty slots");
+        hopper.setItem(0, new ItemStack(Items.STONE));
+        hopper.setItem(2, new ItemStack(Items.DIAMOND, 5));
         hopper.toggleFilterMode();
         expect(helper, BlockInfo.serverLines(Topic.HOPPER_FILTER, hopper),
                 List.of("jade.simplebuilding.hopper.mode [simplebuilding.hopper_filter.type]",
                         "jade.simplebuilding.hopper.items [block.minecraft.stone, item.minecraft.diamond]"),
-                "type-match hopper with two ghost items");
+                "type-match hopper with two filter items");
         helper.succeed();
     }
 

@@ -1,16 +1,13 @@
 package com.simplebuilding.platform;
 
-import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 public final class PlatformServices {
-    private static HopperSync hopperSync = HopperSync.NOOP;
     private static PlayerPacketSender playerPacketSender = PlayerPacketSender.NOOP;
     private static ItemAutomation itemAutomation = ItemAutomation.NOT_INSTALLED;
     private static PistonBreakGuard pistonBreakGuard = PistonBreakGuard.ALLOW;
@@ -19,20 +16,12 @@ public final class PlatformServices {
     private PlatformServices() {
     }
 
-    public static void setHopperSync(HopperSync hopperSync) {
-        PlatformServices.hopperSync = hopperSync != null ? hopperSync : HopperSync.NOOP;
-    }
-
     public static void setPlayerPacketSender(PlayerPacketSender playerPacketSender) {
         PlatformServices.playerPacketSender = playerPacketSender != null ? playerPacketSender : PlayerPacketSender.NOOP;
     }
 
     public static PlayerPacketSender playerPacketSender() {
         return playerPacketSender;
-    }
-
-    public static void broadcastHopperGhostItem(ModHopperBlockEntity blockEntity, int slot, ItemStack stack) {
-        hopperSync.broadcastGhostItem(blockEntity, slot, stack);
     }
 
     public static boolean canSendToPlayer(ServerPlayer player, CustomPacketPayload.Type<?> type) {

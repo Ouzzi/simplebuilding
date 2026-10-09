@@ -6,7 +6,6 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.networking.ModMessageHandlers;
-import com.simplebuilding.networking.SetHopperGhostItemPayload;
 import com.simplebuilding.networking.ToggleHopperFilterPayload;
 import com.simplebuilding.screen.ModHopperScreenHandler;
 import com.simplebuilding.util.HopperFilterMode;
@@ -45,8 +44,8 @@ public final class HopperAndTrimTests {
 
     /**
      * The three filter modes in turn. Disabled lets everything through; Exact Match compares the
-     * whole stack including components; Type Match only compares the item. A slot whose ghost is
-     * empty must reject everything once a filter is on - otherwise an unconfigured slot would
+     * whole stack including components; Type Match only compares the item. The filter of a slot is
+     * the real item lying in it (filter principle); an empty slot must reject everything once a filter is on - otherwise an unconfigured slot would
      * quietly behave as if the filter were off.
      *
      * <p>Before any of that, the block entity itself: its registered id, and the two blocks the
@@ -91,28 +90,28 @@ public final class HopperAndTrimTests {
         helper.assertTrue(hopper.canPlaceItem(0, stone) && hopper.canPlaceItem(0, dirt),
                 "the disabled filter rejected an item");
 
-        // --- Exact Match with no ghost set: nothing goes in ---
+        // --- Exact Match with an empty slot: nothing goes in ---
         hopper.toggleFilterMode();
         helper.assertTrue(hopper.getFilterMode() == HopperFilterMode.WHITELIST,
                 "the first toggle did not reach Exact Match, it is " + hopper.getFilterMode());
         helper.assertTrue(!hopper.canPlaceItem(0, stone),
                 "an unconfigured slot accepted an item while the filter was on");
 
-        // --- Exact Match with a ghost: only the very same stack ---
-        hopper.setGhostItem(0, stone.copy());
+        // --- Exact Match with a stone lying in slot 0: only the very same stack ---
+        hopper.setItem(0, stone.copy());
         helper.assertTrue(hopper.canPlaceItem(0, stone), "Exact Match rejected the item it was set to");
         // The filter compares item and components, never the count. Nothing in the game asks about a
         // single item: HopperBlockEntity#addItem hands canPlaceItem the whole stack it just picked up
         // and a slot asks with the whole cursor stack, so a filter that also compared counts would
-        // refuse every stack larger than the one-item ghost while every count-1 probe still passed.
+        // refuse every stack larger than the one item lying there while every count-1 probe still passed.
         helper.assertTrue(hopper.canPlaceItem(0, new ItemStack(Items.STONE, 16)),
-                "Exact Match rejected a stack of 16 of the very item it was set to; the stored ghost "
-                        + "is a one-item placeholder, so the count must not take part in the match");
+                "Exact Match rejected a stack of 16 of the very item it was set to; the count must not "
+                        + "take part in the match");
         helper.assertTrue(!hopper.canPlaceItem(0, dirt), "Exact Match accepted a different item");
         helper.assertTrue(!hopper.canPlaceItem(0, namedStone),
                 "Exact Match ignored the components and accepted a renamed stone");
         helper.assertTrue(!hopper.canPlaceItem(1, stone),
-                "a slot without a ghost accepted an item in Exact Match");
+                "an empty slot accepted an item in Exact Match");
 
         // --- Type Match: same item, components irrelevant ---
         hopper.toggleFilterMode();
@@ -132,59 +131,25 @@ public final class HopperAndTrimTests {
     }
 
     /**
-     * Both hopper payloads are only allowed to act while that hopper's screen is actually open.
-     * Without the guard any client could retune a hopper it is not looking at, from anywhere in
-     * the world.
-     *
-     * <p><b>And a filter item is a placeholder, not the stack that arrived.</b> The payload is
-     * client input: the stack inside it may hold any count, and the server object must not stay
-     * connected to it. {@code ModHopperBlockEntity#setGhostItemInternal} therefore stores a copy
-     * shrunk to one item. Both halves are checked here, because the earlier version of this test
-     * sent a stack that already held exactly one item and only asked which item came back - which
-     * is true of the incoming stack itself, so "store the payload as it is" passed. That would put
-     * a stack of 64 into the filter row of the screen and leave the server holding an object the
-     * network layer still owns.
+     * The filter key's payload is only allowed to act while that hopper's screen is actually open. Without the guard
+     * any client could retune a hopper it is not looking at, from anywhere in the world. (The ghost item payload of
+     * the old filter is gone with the filter principle, 2026-10-09.)
      */
     public static void hopperPayloadsOnlyActOnAnOpenHopperMenu(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
         ModHopperBlockEntity hopper = placeHopper(helper);
 
-        // --- no menu open: both payloads have to be ignored ---
+        // --- no menu open: the payload has to be ignored ---
         player.containerMenu = player.inventoryMenu;
         ModMessageHandlers.handleToggleHopperFilter(new ToggleHopperFilterPayload(), player);
         helper.assertTrue(hopper.getFilterMode() == HopperFilterMode.NONE,
                 "the filter was toggled without the hopper screen being open");
 
-        ModMessageHandlers.handleSetHopperGhostItem(
-                new SetHopperGhostItemPayload(0, new ItemStack(Items.DIAMOND)), player);
-        helper.assertTrue(hopper.getGhostItem(0).isEmpty(),
-                "a ghost item was set without the hopper screen being open");
-
-        // --- with the hopper menu open: both take effect ---
+        // --- with the hopper menu open: it takes effect ---
         player.containerMenu = new ModHopperScreenHandler(1, player.getInventory(), hopper, hopper);
-
         ModMessageHandlers.handleToggleHopperFilter(new ToggleHopperFilterPayload(), player);
         helper.assertTrue(hopper.getFilterMode() == HopperFilterMode.WHITELIST,
                 "the toggle payload did not reach the open hopper, mode is " + hopper.getFilterMode());
-
-        // A whole stack, so "count 1" cannot be inherited from the payload.
-        ItemStack sent = new ItemStack(Items.DIAMOND, 16);
-        ModMessageHandlers.handleSetHopperGhostItem(new SetHopperGhostItemPayload(2, sent), player);
-        helper.assertTrue(hopper.getGhostItem(2).is(Items.DIAMOND),
-                "the ghost item payload did not reach the open hopper, slot 2 holds "
-                        + hopper.getGhostItem(2));
-        helper.assertTrue(hopper.getGhostItem(2).getCount() == 1,
-                "a filter item is a placeholder and has to be stored as a single item, but slot 2 holds "
-                        + hopper.getGhostItem(2).getCount());
-        helper.assertTrue(hopper.getGhostItem(0).isEmpty(),
-                "the ghost item landed in the wrong slot");
-
-        // The stored filter has to be the hopper's own object: changing the stack the payload
-        // carried must not reach into the block entity.
-        sent.setCount(64);
-        helper.assertTrue(hopper.getGhostItem(2).getCount() == 1,
-                "the hopper stored the payload's own stack instead of a copy, so writing to it from "
-                        + "outside changed the filter to " + hopper.getGhostItem(2).getCount() + " items");
 
         player.containerMenu = player.inventoryMenu;
         helper.succeed();

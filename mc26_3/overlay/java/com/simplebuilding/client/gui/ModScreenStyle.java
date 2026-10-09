@@ -7,14 +7,16 @@ import com.simplebuilding.client.gui.ModScreenLayout.Box;
 import com.simplebuilding.fletching.FletchingMenu;
 import com.simplebuilding.items.custom.BackpackTier;
 import com.simplebuilding.screen.AutoSmitherMenu;
+import com.simplebuilding.screen.AutonomousCrafterMenu;
 import com.simplebuilding.screen.BackpackLayout;
 import com.simplebuilding.screen.BackpackMenu;
 import com.simplebuilding.screen.BackpackSlot;
+import com.simplebuilding.screen.ModHopperScreenHandler;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.screen.TieredChestMenu;
 import com.simplebuilding.util.DyedStorage;
-import com.simplebuilding.util.HopperFilterMode;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiFilterButton;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiSymbols;
@@ -28,7 +30,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 /**
@@ -44,6 +45,8 @@ public final class ModScreenStyle {
     /** Leather backpack (W0-B palette table "backpack"). */
     static final UiPalette LEATHER = UiPalette.derived(0xFF8E6440);
     static final UiPalette AUTO_SMITHER = UiPalette.derived(0xFF4F5560);
+    /** Crafter stone with a hint of the copper of its textures. */
+    static final UiPalette AUTONOMOUS_CRAFTER = UiPalette.derived(0xFF5E5651);
     static final UiPalette FLETCHING = UiPalette.derived(0xFFC5B485);
     private static final int REDSTONE_ON = 0xFFD8261E;
     private static final int ERROR = 0xFFC9503E;
@@ -94,39 +97,32 @@ public final class ModScreenStyle {
         box(g, left, top, ModScreenLayout.inventory(inv[0], inv[1]), UiPalette.INVENTORY);
         List<int[]> avoid = slotRects(menu, left, top);
         avoid.add(titleRect(font, title, left, top));
-        if (menu.tier().stackMultiplier() > 1) {
-            int w = font.width(bonus(menu.tier()));
-            avoid.add(new int[] {left + menu.imageWidth() - 8 - w - 12, top + 4, left + menu.imageWidth() - 4, top + 15});
-        }
         motif(g, left, top, container, p, motif(menu.tier()), avoid, 3);
         slots(g, menu, left, top, p);
         return true;
     }
 
-    /** Title in the box's label colour, the stack factor as a symbol + "xN" on its right; no inventory label. */
+    /**
+     * Only the title in the box's label colour: no stack factor and no inventory label (owner N23: no stack size or the
+     * like in chest/container screens; the item tooltip and Jade keep the factor).
+     */
     public static boolean tieredChestLabels(GuiGraphicsExtractor g, Font font, TieredChestMenu menu, Component title, int titleX, int titleY) {
-        UiPalette p = tier(menu.tier());
-        g.text(font, title, titleX, titleY, p.label(), false);
-        if (menu.tier().stackMultiplier() > 1) {
-            String bonus = bonus(menu.tier());
-            int x = menu.imageWidth() - 8 - font.width(bonus);
-            g.text(font, bonus, x, titleY, p.label(), false);
-            UiSymbols.engrave(g, UiSymbols.STACK, x - 10, titleY, p, p.label(), false);
-        }
+        g.text(font, title, titleX, titleY, tier(menu.tier()).label(), false);
         return true;
-    }
-
-    private static String bonus(ChestTier tier) {
-        return "x" + tier.stackMultiplier();
     }
 
     // ------------------------------------------------------------------ hoppers
 
-    /** Filter key: 4 px right of the slots, 18x18, the same place and action as before. */
+    /** Filter key: SimpleLib's {@link UiFilterButton} in the hopper's tier colours, showing the synced mode. */
     public static Button hopperFilterButton(int x, int y, Button.OnPress onPress, NetheriteHopperScreenHandler menu) {
-        return new FilterButton(x, y, onPress, menu);
+        return new UiFilterButton(x, y, onPress, () -> menu.getSyncedFilterMode().ordinal(), () -> tier(hopperTier(menu)));
     }
 
+    /**
+     * Owner N23: the five slots, a gap one slot wider than before with the filter caption (funnel + colon) instead of
+     * the word "Filter", then the key - the whole row centred ({@link ModHopperScreenHandler#FIRST_SLOT_X}). With a
+     * filter on, the items in the slots are the filter (filter principle), so nothing but the slots is drawn for it.
+     */
     public static boolean hopper(GuiGraphicsExtractor g, NetheriteHopperScreenHandler menu, Font font, Component title, int left, int top,
             int imageWidth) {
         if (!UiStyleToggle.isEnabled()) return false;
@@ -136,58 +132,20 @@ public final class ModScreenStyle {
         Box container = ModScreenLayout.container(imageWidth, inv[1]);
         box(g, left, top, container, p);
         box(g, left, top, ModScreenLayout.inventory(inv[0], inv[1]), UiPalette.INVENTORY);
+        int keyX = left + ModHopperScreenHandler.FILTER_BUTTON_X, keyY = top + ModHopperScreenHandler.FILTER_BUTTON_Y;
+        int captionX = keyX - 3 - UiFilterButton.LABEL_WIDTH;
         List<int[]> avoid = slotRects(menu, left, top);
         avoid.add(titleRect(font, title, left, top));
-        avoid.add(new int[] {left + 138, top + 19, left + 157, top + 38});
+        avoid.add(new int[] {captionX - 2, keyY, keyX + UiFilterButton.SIZE + 1, keyY + UiFilterButton.SIZE + 1});
         motif(g, left, top, container, p, motif(tier), avoid, 7);
         slots(g, menu, left, top, p);
-        // Filter ghosts (only while a filter is on): the item faint behind a veil, like the crucible's reserved slots.
-        if (menu.getBlockEntity() instanceof ModHopperBlockEntity be && menu.getSyncedFilterMode() != HopperFilterMode.NONE) {
-            g.nextStratum();
-            for (int i = 0; i < 5; i++) {
-                Slot slot = menu.slots.get(i);
-                ItemStack ghost = be.getGhostItem(i);
-                if (!ghost.isEmpty() && slot.getItem().isEmpty()) g.fakeItem(ghost, left + slot.x, top + slot.y);
-            }
-            g.nextStratum();
-            for (int i = 0; i < 5; i++) {
-                Slot slot = menu.slots.get(i);
-                if (!be.getGhostItem(i).isEmpty() && slot.getItem().isEmpty()) UiBoxes.veil(g, left + slot.x, top + slot.y, p);
-            }
-        }
+        UiFilterButton.label(g, captionX, keyY + 3, p);
         return true;
     }
 
     public static boolean hopperLabels(GuiGraphicsExtractor g, Font font, NetheriteHopperScreenHandler menu, Component title, int x, int y) {
         g.text(font, title, x, y, tier(hopperTier(menu)).label(), false);
         return true;
-    }
-
-    /** The filter key: raised, an engraved funnel, the mode as a badge (off: red slash, exact: green check, kind: three squares). */
-    private static final class FilterButton extends Button {
-        private final NetheriteHopperScreenHandler menu;
-
-        FilterButton(int x, int y, Button.OnPress onPress, NetheriteHopperScreenHandler menu) {
-            super(x, y, 18, 18, Component.empty(), onPress, DEFAULT_NARRATION);
-            this.menu = menu;
-        }
-
-        @Override
-        protected void extractContents(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
-            UiPalette p = tier(hopperTier(this.menu));
-            int x = this.getX(), y = this.getY();
-            UiBoxes.raised(g, x, y, 18, 18, UiPalette.mix(p.fill(), 0xFFFFFFFF, this.isHoveredOrFocused() ? 0.32 : 0.18));
-            UiSymbols.engrave(g, UiSymbols.FUNNEL, x + 3, y + 3, p, p.slotTop(), false);
-            switch (this.menu.getSyncedFilterMode()) {
-                case NONE -> {
-                    for (int k = 0; k < 14; k++) g.fill(x + 2 + k, y + 15 - k, x + 4 + k, y + 16 - k, 0xFFD8402F);
-                }
-                case WHITELIST -> UiSymbols.engrave(g, UiSymbols.CHECK, x + 10, y + 11, p, 0xFF55FF55, false);
-                case TYPE -> {
-                    for (int k = 0; k < 3; k++) g.fill(x + 9 + k * 3, y + 13, x + 11 + k * 3, y + 15, 0xFFFFE055);
-                }
-            }
-        }
     }
 
     // ------------------------------------------------------------------ auto smither
@@ -217,6 +175,48 @@ public final class ModScreenStyle {
 
     public static boolean autoSmitherLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
         g.text(font, title, x, y, AUTO_SMITHER.label(), false);
+        return true;
+    }
+
+    // ------------------------------------------------------------------ autonomous crafter
+
+    /** The filter key of the mod hoppers (filter principle): same SimpleLib key, the crafter's colours. */
+    public static Button crafterFilterButton(int x, int y, Button.OnPress onPress, AutonomousCrafterMenu menu) {
+        return new UiFilterButton(x, y, onPress, () -> menu.filterMode().ordinal(), () -> AUTONOMOUS_CRAFTER);
+    }
+
+    /**
+     * The crafter's layout in the container style: 3x3 grid, redstone sign (red while a signal stops it), arrow, the
+     * recipe result as the big slot, and under the arrow the filter caption (funnel + colon) and the filter key.
+     */
+    public static boolean autonomousCrafter(GuiGraphicsExtractor g, AutonomousCrafterMenu menu, Font font, Component title, int left,
+            int top, int imageWidth) {
+        if (!UiStyleToggle.isEnabled()) return false;
+        UiPalette p = AUTONOMOUS_CRAFTER;
+        int[] inv = ModScreenLayout.inventoryOrigin(menu);
+        Box container = ModScreenLayout.container(imageWidth, inv[1]);
+        box(g, left, top, container, p);
+        box(g, left, top, ModScreenLayout.inventory(inv[0], inv[1]), UiPalette.INVENTORY);
+        Slot result = menu.getSlot(AutonomousCrafterMenu.RESULT_SLOT);
+        int keyX = left + AutonomousCrafterMenu.FILTER_BUTTON_X, keyY = top + AutonomousCrafterMenu.FILTER_BUTTON_Y;
+        int captionX = keyX - 3 - UiFilterButton.LABEL_WIDTH;
+        List<int[]> avoid = slotRects(menu, left, top);
+        avoid.add(titleRect(font, title, left, top));
+        avoid.add(new int[] {left + 98, top + 22, left + 110, top + 34});
+        avoid.add(new int[] {left + 99, top + 36, left + 121, top + 51});
+        avoid.add(new int[] {captionX - 2, keyY, keyX + UiFilterButton.SIZE + 1, keyY + UiFilterButton.SIZE});
+        avoid.add(bigRect(result, left, top));
+        motif(g, left, top, container, p, UiMotifs.Kind.REDSTONE, avoid, 5);
+        slots(g, menu, left, top, p, result);
+        if (menu.isPowered()) UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 98, top + 22, p, REDSTONE_ON, true);
+        else UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 98, top + 22, p);
+        UiSymbols.engrave(g, UiSymbols.ARROW, left + 99, top + 36, p);
+        UiFilterButton.label(g, captionX, keyY + 3, p);
+        return true;
+    }
+
+    public static boolean autonomousCrafterLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
+        g.text(font, title, x, y, AUTONOMOUS_CRAFTER.label(), false);
         return true;
     }
 

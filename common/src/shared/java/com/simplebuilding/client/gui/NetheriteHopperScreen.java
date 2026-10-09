@@ -1,16 +1,13 @@
 package com.simplebuilding.client.gui;
 
-import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
-import com.simplebuilding.networking.SetHopperGhostItemPayload;
 import com.simplebuilding.networking.ToggleHopperFilterPayload;
+import com.simplebuilding.screen.ModHopperScreenHandler;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.util.HopperFilterMode;
 import com.simplebuilding.platform.ClientNetworking;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -18,9 +15,12 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * The mod hoppers' menu. Filter principle (docs/ai/PRINZIPIEN-FILTER.md): the real items in the five slots are the
+ * filter, so a click is an ordinary click - there are no ghost items to set any more. The filter key cycles the mode
+ * (off / exact / same kind).
+ */
 public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopperScreenHandler> {
     private static final Identifier TEXTURE = Identifier.withDefaultNamespace("textures/gui/container/hopper.png");
     private Button filterButton;
@@ -33,12 +33,9 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
     @Override
     protected void init() {
         super.init();
-        // Positionierung: Rechts neben den 5 Slots
-        int buttonX = this.leftPos + 44 + (5 * 18) + 4;
-        int buttonY = this.topPos + 19;
-
-        // Button erstellen (Text lassen wir leer, wir zeichnen das Icon selber drüber)
-        // 26.3: eine erhabene Taste im Kasten-Stil mit eingraviertem Trichter und Modus-Abzeichen (ModScreenStyle).
+        int buttonX = this.leftPos + ModHopperScreenHandler.FILTER_BUTTON_X;
+        int buttonY = this.topPos + ModHopperScreenHandler.FILTER_BUTTON_Y;
+        // 26.3: SimpleLib's filter key in the container style (ModScreenStyle); 26.2: a plain button, the mode drawn on top.
         this.filterButton = this.addRenderableWidget(ModScreenStyle.hopperFilterButton(buttonX, buttonY,
                 btn -> ClientNetworking.send(new ToggleHopperFilterPayload()), this.menu));
     }
@@ -49,9 +46,7 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
 
         HopperFilterMode mode = this.menu.getSyncedFilterMode();
 
-        // 1. Label: im Beschriftungs-Durchgang (extractLabels/renderLabels), wie Titel und Inventar.
-
-        // 2. Button Overlay (26.2; im Kasten-Stil zeichnet die Taste ihr Abzeichen selbst)
+        // Button Overlay (26.2; im Kasten-Stil zeichnet die Taste ihr Symbol selbst)
         if (!ModScreenStyle.ACTIVE && mode == HopperFilterMode.NONE) {
             context.item(new ItemStack(Items.BARRIER), this.filterButton.getX() + 1, this.filterButton.getY() + 1);
         } else if (!ModScreenStyle.ACTIVE) {
@@ -64,62 +59,6 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
         if (this.filterButton.isHovered()) {
             context.setTooltipForNextFrame(this.font, mode.getText(), mouseX, mouseY);
         }
-
-        // 3. Tooltip der Geister-Items. Overlay und Symbol liegen seit 2026-09 im Hintergrund-
-        // Durchgang, also UNTER den echten Items und der Slot-Hervorhebung, wie bei Vanilla.
-        if (this.menu.getBlockEntity() instanceof ModHopperBlockEntity be && mode != HopperFilterMode.NONE) {
-            for (int i = 0; i < 5; i++) {
-                Slot slot = this.menu.slots.get(i);
-                ItemStack ghostStack = be.getGhostItem(i);
-                if (!ghostStack.isEmpty() && slot.getItem().isEmpty()
-                        && isHovering(slot.x, slot.y, 16, 16, mouseX, mouseY)) {
-                    List<Component> tooltip = new ArrayList<>();
-                    tooltip.add(Component.translatable("container.simplebuilding.hopper_filter.ghost").withStyle(ChatFormatting.GOLD));
-                    tooltip.add(ghostStack.getHoverName());
-                    context.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
-                }
-            }
-        }
-    }
-
-    // FIX FÜR GLITCH: Abfangen der Klicks auf die Slots, um Ghost Items zu setzen
-    @Override
-    public boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
-        // Nutzen der synchronisierten Daten
-        if (this.menu.getSyncedFilterMode() != HopperFilterMode.NONE) {
-            Slot hoveredSlot = this.getHoveredSlot(click.x(), click.y());
-
-            // Nur eingreifen, wenn wir auf einen der 5 Hopper-Slots klicken. Der MENUE-Index
-            // entscheidet, nicht der Container-Index: HopperMenu haengt das Spielerinventar mit
-            // addStandardInventorySlots an, und dort hat die Hotbar die Container-Indizes 0..8 -
-            // "getContainerSlot() < 5" verschluckte die Klicks auf die Hotbar-Slots 1 bis 5 und
-            // schrieb stattdessen ein Geister-Item in den Trichter.
-            // Nur auf leeren Trichterslots (Audit #48): ein belegter Slot ist ein normaler Klick,
-            // sein Inhalt laesst sich herausnehmen (siehe ModHopperScreenHandler#clicked).
-            if (hoveredSlot != null && hoveredSlot.index < 5 && !hoveredSlot.hasItem()) {
-                ItemStack cursorStack = this.menu.getCarried();
-
-                // Senden des Pakets (jetzt crash-sicher auch mit leerem Stack)
-                ClientNetworking.send(new SetHopperGhostItemPayload(hoveredSlot.getContainerSlot(), cursorStack));
-
-                // Client-seitiges Update für sofortiges Feedback
-                if (this.menu.getBlockEntity() instanceof ModHopperBlockEntity be) {
-                    be.setGhostItemClient(hoveredSlot.getContainerSlot(), cursorStack);
-                }
-
-                return true; // Event konsumieren, damit kein echtes Item gelegt wird
-            }
-        }
-        return super.mouseClicked(click, doubled);
-    }
-
-    private Slot getHoveredSlot(double x, double y) {
-        for (Slot slot : this.menu.slots) {
-            if (this.isHovering(slot.x, slot.y, 16, 16, x, y)) {
-                return slot;
-            }
-        }
-        return null;
     }
 
     @Override
@@ -129,29 +68,21 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
             return;
         }
         context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
-
-        if (this.menu.getBlockEntity() instanceof ModHopperBlockEntity be && this.menu.getSyncedFilterMode() != HopperFilterMode.NONE) {
+        if (ModHopperScreenHandler.FIRST_SLOT_X != 44) {
+            // The style is switched off for a comparison on a line whose slots are centred: hopper.png has its slot
+            // frames at Vanilla's x, so they are painted over and copied to where the slots really are.
+            context.fill(this.leftPos + 43, this.topPos + 19, this.leftPos + 43 + 5 * 18, this.topPos + 37, 0xFFC6C6C6);
             for (int i = 0; i < 5; i++) {
                 Slot slot = this.menu.slots.get(i);
-                ItemStack ghostStack = be.getGhostItem(i);
-
-                if (!ghostStack.isEmpty()) {
-                    int slotX = this.leftPos + slot.x;
-                    int slotY = this.topPos + slot.y;
-
-                    context.fill(slotX, slotY, slotX + 16, slotY + 16, 0x60FFAA00);
-
-                    if (slot.getItem().isEmpty()) {
-                        context.item(ghostStack, slotX, slotY);
-                    }
-                }
+                context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + slot.x - 1, this.topPos + slot.y - 1,
+                        43, 19, 18, 18, 256, 256);
             }
         }
     }
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor context, int mouseX, int mouseY) {
-        // Kasten-Stil: nur der Titel in der Label-Farbe; "Filter" zeigt die Taste als Symbol (Tooltip bleibt).
+        // Kasten-Stil: nur der Titel in der Label-Farbe; "Filter" zeigen Trichter-Symbol + Doppelpunkt vor der Taste.
         if (ModScreenStyle.hopperLabels(context, this.font, this.menu, this.title, this.titleLabelX, this.titleLabelY)) {
             return;
         }

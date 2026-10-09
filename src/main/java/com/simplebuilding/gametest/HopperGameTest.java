@@ -21,9 +21,9 @@ public final class HopperGameTest {
         HopperTests.redstonePowerStopsEveryHopperTransfer(helper);
     }
 
-    @GameTest
-    public void filterItemsAreStoredAsSingleCountCopiesAndCanBeCleared(GameTestHelper helper) {
-        HopperTests.filterItemsAreStoredAsSingleCountCopiesAndCanBeCleared(helper);
+    @GameTest(maxTicks = HopperTests.KEEP_ONE_MAX_TICKS)
+    public void aFilteredHopperKeepsOneFilterItemInEverySlot(GameTestHelper helper) {
+        HopperTests.aFilteredHopperKeepsOneFilterItemInEverySlot(helper);
     }
 
     @GameTest
@@ -32,8 +32,8 @@ public final class HopperGameTest {
     }
 
     @GameTest
-    public void theFilterLearnsItsGhostFromTheFirstItemThatIsPlaced(GameTestHelper helper) {
-        HopperTests.theFilterLearnsItsGhostFromTheFirstItemThatIsPlaced(helper);
+    public void automationOnlyTopsUpMatchingSlots(GameTestHelper helper) {
+        HopperTests.automationOnlyTopsUpMatchingSlots(helper);
     }
 
     @GameTest
@@ -42,13 +42,13 @@ public final class HopperGameTest {
     }
 
     @GameTest
-    public void theUpdateTagCarriesModeAndFilterItemsToTheClient(GameTestHelper helper) {
-        HopperTests.theUpdateTagCarriesModeAndFilterItemsToTheClient(helper);
+    public void theUpdateTagCarriesTheFilterModeToTheClient(GameTestHelper helper) {
+        HopperTests.theUpdateTagCarriesTheFilterModeToTheClient(helper);
     }
 
     @GameTest
-    public void hopperMenuOpensOnUseAndFilterClicksNeverStoreTheItem(GameTestHelper helper) {
-        HopperTests.hopperMenuOpensOnUseAndFilterClicksNeverStoreTheItem(helper);
+    public void hopperMenuOpensOnUseAndFilterSlotsTakeOnlyTheirItem(GameTestHelper helper) {
+        HopperTests.hopperMenuOpensOnUseAndFilterSlotsTakeOnlyTheirItem(helper);
     }
 
     @GameTest

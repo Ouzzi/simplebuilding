@@ -18,6 +18,8 @@ public class ModBlockEntities {
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity> TIERED_CHEST_BE;
     /** Auto-Schmied; nur, wenn es den Block gibt (McVersion.AUTO_SMITHER). */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity> AUTO_SMITHER_BE;
+    /** Autonomer Crafter; nur, wenn es den Block gibt (McVersion.AUTONOMOUS_CRAFTER). */
+    public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity> AUTONOMOUS_CRAFTER_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity> TIERED_SHULKER_BOX_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity> PLACED_TEMPLATE_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity> PLACED_BUNDLE_BE;

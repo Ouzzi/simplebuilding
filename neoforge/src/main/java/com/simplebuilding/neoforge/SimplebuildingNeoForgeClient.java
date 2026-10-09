@@ -172,6 +172,9 @@ public final class SimplebuildingNeoForgeClient {
         if (NeoForgeModRegistries.AUTO_SMITHER_MENU != null) {
             event.register(NeoForgeModRegistries.AUTO_SMITHER_MENU.get(), com.simplebuilding.client.gui.AutoSmitherScreen::new);
         }
+        if (NeoForgeModRegistries.AUTONOMOUS_CRAFTER_MENU != null) {
+            event.register(NeoForgeModRegistries.AUTONOMOUS_CRAFTER_MENU.get(), com.simplebuilding.client.gui.AutonomousCrafterScreen::new);
+        }
     }
 
     public static void registerKeys(RegisterKeyMappingsEvent event) {

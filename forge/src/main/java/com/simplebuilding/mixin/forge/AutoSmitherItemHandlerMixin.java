@@ -20,6 +20,9 @@ public abstract class AutoSmitherItemHandlerMixin {
             // All faces share the same rules, including unsided capability queries. The base
             // class still owns the LazyOptional and its invalidation/revival lifecycle.
             cir.setReturnValue(new SidedInvWrapper(smither, Direction.DOWN));
+        } else if (McVersion.AUTONOMOUS_CRAFTER && (Object) this instanceof com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity crafter) {
+            // Autonomous crafter: insert only, never extract (the hopper below must not pull the ingredients).
+            cir.setReturnValue(new SidedInvWrapper(crafter, Direction.UP));
         }
     }
 }

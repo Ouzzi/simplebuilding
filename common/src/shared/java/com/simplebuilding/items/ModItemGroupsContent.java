@@ -443,7 +443,9 @@ public final class ModItemGroupsContent {
         if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
             // Auto-Schmied direkt hinter den Kolben (2026-10-02); der Vanilla-Crafter gehoert nicht in Mod-Tabs.
             int pistons = rows.indexOf(rows.stream().filter(row -> row.name().equals("pistons")).findFirst().orElseThrow());
-            rows.add(pistons + 1, CreativeTabLayout.Row.of("auto_smither", ModItems.AUTO_SMITHER));
+            rows.add(pistons + 1, com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER
+                    ? CreativeTabLayout.Row.of("auto_smither", ModItems.AUTO_SMITHER, ModItems.AUTONOMOUS_CRAFTER)
+                    : CreativeTabLayout.Row.of("auto_smither", ModItems.AUTO_SMITHER));
         }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             // Endertruhe und Astral-Lager nach einer Luecke neben den Truhen (Audit 2026-10-02).

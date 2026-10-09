@@ -177,6 +177,16 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .save(output);
                 }
 
+                // Autonomer Crafter (2026-10-09, N26): Crafter + Trichter + Komparator, formlos.
+                if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) {
+                    shapeless(RecipeCategory.REDSTONE, ModItems.AUTONOMOUS_CRAFTER)
+                            .requires(Items.CRAFTER)
+                            .requires(Items.HOPPER)
+                            .requires(Items.COMPARATOR)
+                            .unlockedBy(getHasName(Items.CRAFTER), has(Items.CRAFTER))
+                            .save(output);
+                }
+
                 // Lautsprecher (2026-10-03) wie Notenblock (Redstone in der Mitte) und Plattenspieler (Diamant):
                 // acht Bretter um Astralitstaub bzw. Nihilitsplitter.
                 if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {

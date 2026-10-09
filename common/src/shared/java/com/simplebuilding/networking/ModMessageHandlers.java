@@ -59,13 +59,6 @@ public final class ModMessageHandlers {
         }
     }
 
-    public static void handleSetHopperGhostItem(SetHopperGhostItemPayload payload, ServerPlayer player) {
-        if (player.containerMenu instanceof ModHopperScreenHandler screenHandler
-                && screenHandler.getBlockEntity() instanceof ModHopperBlockEntity blockEntity) {
-            blockEntity.setGhostItem(payload.slotIndex(), payload.stack());
-        }
-    }
-
     public static void handleSpaceKey(SpaceKeyPayload payload, ServerPlayer player) {
         if (player instanceof ISpaceKeyTracker tracker) {
             tracker.simplebuilding$setSpacePressed(payload.pressed());

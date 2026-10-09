@@ -768,6 +768,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("workstation_game_test_auto_smither_smiths_once_per_pulse", WorkstationTests::autoSmitherSmithsOncePerPulse)
                     .maxTicks(200).build(),
+            GameTestSpec.named("workstation_game_test_autonomous_crafter_crafts_only_above_hoppers", WorkstationTests::autonomousCrafterCraftsOnlyAboveHoppers)
+                    .maxTicks(WorkstationTests.CRAFTER_MAX_TICKS).build(),
+            GameTestSpec.named("workstation_game_test_autonomous_crafter_stops_on_redstone", WorkstationTests::autonomousCrafterStopsOnRedstone)
+                    .maxTicks(WorkstationTests.CRAFTER_MAX_TICKS).build(),
+            GameTestSpec.named("workstation_game_test_autonomous_crafter_filter_keeps_the_recipe_items", WorkstationTests::autonomousCrafterFilterKeepsTheRecipeItems)
+                    .maxTicks(WorkstationTests.CRAFTER_MAX_TICKS).build(),
             GameTestSpec.named("workstation_game_test_auto_smither_sorts_hopper_input", WorkstationTests::autoSmitherSortsHopperInput)
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_dimensional_scrap_is_enderite_gated_and_indestructible", OreGenAndItemFrameTests::dimensionalScrapIsEnderiteGatedAndIndestructible)
@@ -1340,17 +1346,18 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("hopper_game_test_redstone_power_stops_every_hopper_transfer", HopperTests::redstonePowerStopsEveryHopperTransfer)
                     .maxTicks(HopperTests.REDSTONE_LOCK_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("hopper_game_test_filter_items_are_stored_as_single_count_copies_and_can_be_cleared", HopperTests::filterItemsAreStoredAsSingleCountCopiesAndCanBeCleared)
+            GameTestSpec.named("hopper_game_test_a_filtered_hopper_keeps_one_filter_item_in_every_slot", HopperTests::aFilteredHopperKeepsOneFilterItemInEverySlot)
+                    .maxTicks(HopperTests.KEEP_ONE_MAX_TICKS)
                     .build(),
             GameTestSpec.named("hopper_game_test_the_mode_delegate_reads_and_writes_the_filter_mode", HopperTests::theModeDelegateReadsAndWritesTheFilterMode)
                     .build(),
-            GameTestSpec.named("hopper_game_test_the_filter_learns_its_ghost_from_the_first_item_that_is_placed", HopperTests::theFilterLearnsItsGhostFromTheFirstItemThatIsPlaced)
+            GameTestSpec.named("hopper_game_test_automation_only_tops_up_matching_slots", HopperTests::automationOnlyTopsUpMatchingSlots)
                     .build(),
             GameTestSpec.named("hopper_game_test_hopper_configuration_survives_the_save_and_load_round_trip", HopperTests::hopperConfigurationSurvivesTheSaveAndLoadRoundTrip)
                     .build(),
-            GameTestSpec.named("hopper_game_test_the_update_tag_carries_mode_and_filter_items_to_the_client", HopperTests::theUpdateTagCarriesModeAndFilterItemsToTheClient)
+            GameTestSpec.named("hopper_game_test_the_update_tag_carries_the_filter_mode_to_the_client", HopperTests::theUpdateTagCarriesTheFilterModeToTheClient)
                     .build(),
-            GameTestSpec.named("hopper_game_test_hopper_menu_opens_on_use_and_filter_clicks_never_store_the_item", HopperTests::hopperMenuOpensOnUseAndFilterClicksNeverStoreTheItem)
+            GameTestSpec.named("hopper_game_test_hopper_menu_opens_on_use_and_filter_slots_take_only_their_item", HopperTests::hopperMenuOpensOnUseAndFilterSlotsTakeOnlyTheirItem)
                     .build(),
             GameTestSpec.named("hopper_game_test_hopper_blocks_carry_their_registered_strength_sound_and_tags", HopperTests::hopperBlocksCarryTheirRegisteredStrengthSoundAndTags)
                     .build(),

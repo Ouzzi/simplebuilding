@@ -24,7 +24,6 @@ import com.simplebuilding.world.gen.ModOreGeneration;
 import com.simplebuilding.platform.ModEnvironment;
 import com.simplebuilding.platform.PlatformServices;
 import com.simplebuilding.platform.PlayerPacketSender;
-import com.simplebuilding.networking.SyncHopperGhostItemPayload;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
@@ -155,25 +154,12 @@ public class Simplebuilding implements ModInitializer {
                 net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, payload);
             }
         });
-        // The canSend guard is not cosmetic here: NeoForge refuses to send a payload over a
-        // connection that has not negotiated the channel and throws from inside
-        // ModHopperBlockEntity#setGhostItem. Fabric is permissive, so the same code path used to
-        // behave differently on the two loaders. Filtering on both keeps them identical.
         PlatformServices.setItemAutomation(new com.simplebuilding.platform.FabricItemAutomation());
         com.simplebuilding.platform.FabricPistonBreakGuard.install();
         com.simplebuilding.platform.FabricBuildGuard.install();
         // Datapack tables (chisel transformations, sledgehammer upgrades): load on every datapack
         // (re)load, send to each client on join and after /reload.
         com.simplebuilding.platform.FabricDataTables.register();
-        PlatformServices.setHopperSync((blockEntity, slot, stack) -> {
-            var payload = new SyncHopperGhostItemPayload(blockEntity.getBlockPos(), slot, stack);
-            for (net.minecraft.server.level.ServerPlayer player
-                    : net.fabricmc.fabric.api.networking.v1.PlayerLookup.tracking(blockEntity)) {
-                if (PlatformServices.canSendToPlayer(player, SyncHopperGhostItemPayload.ID)) {
-                    net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, payload);
-                }
-            }
-        });
         ModMessages.registerC2SPackets();
     }
 

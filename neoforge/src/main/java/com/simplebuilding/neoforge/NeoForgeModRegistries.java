@@ -112,6 +112,18 @@ public final class NeoForgeModRegistries {
                             net.minecraft.world.flag.FeatureFlags.VANILLA_SET))
                     : null;
 
+    /** Autonomer Crafter, nur Hauptlinie (McVersion.AUTONOMOUS_CRAFTER). */
+    public static final Supplier<MenuType<com.simplebuilding.screen.AutonomousCrafterMenu>> AUTONOMOUS_CRAFTER_MENU =
+            com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER
+                    ? MENUS.register("autonomous_crafter", () -> new MenuType<>(com.simplebuilding.screen.AutonomousCrafterMenu::new,
+                            net.minecraft.world.flag.FeatureFlags.VANILLA_SET))
+                    : null;
+    public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity>> AUTONOMOUS_CRAFTER_BE =
+            com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER
+                    ? BLOCK_ENTITIES.register("autonomous_crafter", () -> new BlockEntityType<>(
+                            com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity::new, ModBlocks.AUTONOMOUS_CRAFTER))
+                    : null;
+
     /** Auto-Schmied, nur Hauptlinie (McVersion.AUTO_SMITHER). */
     public static final Supplier<MenuType<com.simplebuilding.screen.AutoSmitherMenu>> AUTO_SMITHER_MENU =
             com.simplebuilding.version.McVersion.AUTO_SMITHER
@@ -273,6 +285,8 @@ public final class NeoForgeModRegistries {
         if (FLETCHING_MENU != null) ModScreenHandlers.FLETCHING_MENU = FLETCHING_MENU.get();
         if (AUTO_SMITHER_MENU != null) ModScreenHandlers.AUTO_SMITHER_MENU = AUTO_SMITHER_MENU.get();
         if (AUTO_SMITHER_BE != null) ModBlockEntities.AUTO_SMITHER_BE = AUTO_SMITHER_BE.get();
+        if (AUTONOMOUS_CRAFTER_MENU != null) ModScreenHandlers.AUTONOMOUS_CRAFTER_MENU = AUTONOMOUS_CRAFTER_MENU.get();
+        if (AUTONOMOUS_CRAFTER_BE != null) ModBlockEntities.AUTONOMOUS_CRAFTER_BE = AUTONOMOUS_CRAFTER_BE.get();
         if (FLETCHING_TYPE != null) {
             com.simplebuilding.fletching.FletchingRecipes.TYPE = FLETCHING_TYPE.get();
             com.simplebuilding.fletching.FletchingRecipes.CATEGORY = FLETCHING_CATEGORY.get();
