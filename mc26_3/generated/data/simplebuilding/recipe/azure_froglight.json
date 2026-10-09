@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#simplebuilding:froglights",
+    "minecraft:blue_dye"
+  ],
+  "result": {
+    "id": "simplebuilding:azure_froglight"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#simplebuilding:froglights",
+    "minecraft:red_dye"
+  ],
+  "result": {
+    "id": "simplebuilding:scarlet_froglight"
+  }
+}

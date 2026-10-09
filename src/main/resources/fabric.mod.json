@@ -73,6 +73,7 @@
       "com.simplebuilding.gametest.HammockGameTest",
       "com.simplebuilding.gametest.StandingRodGameTest",
       "com.simplebuilding.gametest.ChessGameTest",
+      "com.simplebuilding.gametest.NatureBlockGameTest",
       "com.simplebuilding.gametest.WorkstationGameTest",
       "com.simplebuilding.gametest.ConfigOptionGameTest",
       "com.simplebuilding.gametest.ServerTuningGameTest",

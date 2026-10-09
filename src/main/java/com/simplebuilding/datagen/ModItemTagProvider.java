@@ -220,6 +220,21 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             builder(BlockItemTags.SLABS.item()).add(key(shapes.slab().asItem()));
         }
 
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            // Naturvarianten (N24/N25): die vier Stufen als Stufen; alle Froschlichter (Vanilla + Mod) als Faerbe-Zutat.
+            for (net.minecraft.world.level.block.Block slab : java.util.List.of(ModBlocks.DIRT_SLAB, ModBlocks.GRASS_SLAB,
+                    ModBlocks.SAND_SLAB, ModBlocks.GRAVEL_SLAB)) {
+                builder(BlockItemTags.SLABS.item()).add(key(slab.asItem()));
+            }
+            builder(ModTags.Items.FROGLIGHTS)
+                    .add(key(net.minecraft.world.item.Items.OCHRE_FROGLIGHT))
+                    .add(key(net.minecraft.world.item.Items.VERDANT_FROGLIGHT))
+                    .add(key(net.minecraft.world.item.Items.PEARLESCENT_FROGLIGHT))
+                    .add(key(ModItems.SCARLET_FROGLIGHT))
+                    .add(key(ModItems.AQUA_FROGLIGHT))
+                    .add(key(ModItems.AZURE_FROGLIGHT));
+        }
+
         // Alle acht Vanilla-Kupfertruhen (Oxidationsstufen, gewachst): Zutat der Verstaerkten Truhe.
         var copperChests = builder(ModTags.Items.COPPER_CHESTS);
         net.minecraft.core.registries.BuiltInRegistries.ITEM.stream()

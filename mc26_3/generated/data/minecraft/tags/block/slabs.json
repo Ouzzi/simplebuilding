@@ -1,5 +1,9 @@
 {
   "values": [
+    "simplebuilding:dirt_slab",
+    "simplebuilding:grass_slab",
+    "simplebuilding:sand_slab",
+    "simplebuilding:gravel_slab",
     "simplebuilding:astralit_brick_slab",
     "simplebuilding:polished_astralit_slab",
     "simplebuilding:nihilith_brick_slab",

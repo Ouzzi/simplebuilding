@@ -12,6 +12,7 @@ public final class MoneyForge {
   ModuleForgeTests.register(bus);
   if(net.minecraftforge.fml.ModList.isLoaded("ftbquests"))com.simplemoney.guide.MoneyGuide.installQuests(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
   net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event->{
+   if(!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get(),"simplemoney"))return;
    var entries=event.getEntries();var anchor=new net.minecraft.world.item.ItemStack(MoneyItems.SEARCH_ANCHOR);
    if(!event.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS)||!entries.contains(anchor))return;
    var previous=anchor;

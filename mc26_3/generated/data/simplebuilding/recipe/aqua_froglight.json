@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#simplebuilding:froglights",
+    "minecraft:cyan_dye"
+  ],
+  "result": {
+    "id": "simplebuilding:aqua_froglight"
+  }
+}

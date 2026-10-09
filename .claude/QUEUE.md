@@ -500,6 +500,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 22 (2026-10-07, Besitzer)
 - [x] **Kreativ-Tabs wieder normal, aber sauber:** Kreativ-Abstandshalter (Spacer/Lücken) entfernen; die Spacer-Logik im Code behalten (abschaltbar, z. B. Konstante/Config), falls sie später wieder gebraucht wird. Ersetzt N11 P8 (eine Lücke zwischen Kategorien). Datenintegritätstests der Tabs entsprechend. (Audit 09.10.: ff143698a (CreativeTabLayout.SPACERS_ENABLED))
 - [ ] **Kreativ-Tab-Struktur:** jede Super-Mod hat einen eigenen Tab; die einzelnen Items werden zusätzlich in die passenden Vanilla-Tabs einsortiert. Config (simplelib-Gerüst, je Mod): „in Vanilla-Tabs einsortieren“ an/aus – aus = Vanilla-Tabs bleiben unverändert (Stock). (teilweise: Schalter „in Vanilla-Tabs einsortieren“ nur in SB (ff143698a); eigener Tab je Super-Mod und simplelib-Gerüst fehlen)
+- [x] (claude-q-blocks: Config creativeTabSpacers, Standard aus) **Kreativ-Tabs wieder normal, aber sauber:** Kreativ-Abstandshalter (Spacer/Lücken) entfernen; die Spacer-Logik im Code behalten (abschaltbar, z. B. Konstante/Config), falls sie später wieder gebraucht wird. Ersetzt N11 P8 (eine Lücke zwischen Kategorien). Datenintegritätstests der Tabs entsprechend.
+- [x] (claude-q-blocks: framework CreativeTabSettings je Mod, Fun/Money/Riding + SimpleBuilding-Option; Handbuch-only-Module ohne eigenen Tab ungeschaltet) **Kreativ-Tab-Struktur:** jede Super-Mod hat einen eigenen Tab; die einzelnen Items werden zusätzlich in die passenden Vanilla-Tabs einsortiert. Config (simplelib-Gerüst, je Mod): „in Vanilla-Tabs einsortieren“ an/aus – aus = Vanilla-Tabs bleiben unverändert (Stock).
 
 ## Nachtrag 23 (2026-10-07 nachts, Besitzer)
 - [ ] **Mob „Shellker“** (End, Gateway-Wächter; Konzept in docs/ai/KONZEPT-MOBS-2026-10-07.md ergänzen, dann Vorschau): Shulker-Variante mit harter Schale; 1×1×1, öffnet zum Schießen alle Seiten, wird dabei NICHT größer (schießt aus 1×1-Loch). Geschlossen kein Schaden (wie Gürteltier), offen normal. Leben 4× Shulker. Teleportiert nie; nur per (Klebe-)Kolben verschiebbar. Je End-Gateway genau 4 Stück rund um die Öffnung (Zugang erst nach Besiegen/Wegschieben). Projektile wie Shulker, 1,5× schneller, Effekt **Schwerkraft (High Gravity)** statt Schweben: alle Aufwärtskräfte (Sprung, Levitation, Elytra-Auftrieb) auf 10 %, Elytra gleitet 10× schlechter. Schwerkraft auch als Trank: Brauzutat **Shellker-Schale**. Vermehrung wie Shulker (Shulker trifft Shulker-Kugel). Erschaffen: Shulker Schale „anziehen“ (Rechtsklick) → wird Shellker. Drop Ø 2,5 Schalen; Farmen nur über Umwandlung von Shulkern.
@@ -526,7 +528,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Schnellere Elytra (Astralit).
 - [ ] Shellker-Textur wie Grundgestein (Bedrock-Tarnung).
 - [ ] Sculk-Kiefer (Falle): lautlos, verhält sich wie Spinnennetz, greift mit Fangzähnen an.
-- [ ] Froschlichter in zusätzlichen Farben.
+- [x] Froschlichter in zusätzlichen Farben. (claude-q-blocks: Scharlach/Aqua/Azur, Froschlicht + Farbstoff)
 - [ ] Ziegenhorn platzierbar; Fackeln oder stabartige Items hineinstecken.
 - [ ] Schildkröten-Helm-Äquivalent aus Shellker-Schale.
 - [x] Trainingspuppe mit Spielernamen umbenennen → Skin wechselt. (claude-q-stands; Client-Sicht mit echtem Profil offen)
@@ -557,10 +559,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 25 (2026-10-09, Besitzer)
 - [ ] **Crates/Körbe** (Art Komposter/Kessel): Items hineinlegen → eigene Füll-Texturen sichtbar; voll = Aufbewahrung, insgesamt 8 Stacks einlagerbar. Start mit allen Essens-Items.
 - [ ] **Ausgehöhlte Stämme** (auch entrindete Variante): Spieler und kleine Mobs können hindurchkriechen. Craftbar zu Platten/Brettern („sheets/plates“) je Holzart in Normal- und entrindeter Variante; diese verhalten sich wie Eisengitter/Glas(scheibe) und lassen Licht durch. Ausgehöhlter Stamm + Holzplatte → Holz-Kessel: wie normaler Kessel, aber brennbar; Lava kann ihn entzünden (verbrennt → Lava wird frei).
-- [ ] **Gemeißeltes Packeis, gemeißeltes Blaueis, rissiges Eis** (rissiges Eis wird nach ein paar Sekunden Draufstehen zu Wasser).
+- [x] (claude-q-blocks) **Gemeißeltes Packeis, gemeißeltes Blaueis, rissiges Eis** (rissiges Eis wird nach ein paar Sekunden Draufstehen zu Wasser).
 - [ ] **Töpferscherben-Meißel:** Scherbe in der Nebenhand + Meißel in der Haupthand auf entrindeten Stamm → gemeißeltes Holz mit dem Motiv der Scherbe (jede Scherbe eigenes Motiv, Overlay in dunklerer Holzfarbe).
-- [ ] **Nautilusschalen-Block.**
-- [ ] **Stufen aus Erde und Gras**, ebenso Sand und Kies.
+- [x] (claude-q-blocks: 4 Schalen 2x2, umkehrbar) **Nautilusschalen-Block.**
+- [x] (claude-q-blocks: Sand/Kies fallen) **Stufen aus Erde und Gras**, ebenso Sand und Kies.
 
 **Simple Maps Antworten 09.10. (in docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md unter „Antworten Besitzer“ ergänzen):** Feature 1 ja (Wegpunkte beim Kopieren), Feature 2 entfällt (Todespunkt nur über Feature 7: Bergungskompass in der Hand), Feature 6 = F8 (eigene Karte je Dimension), Feature 7 ja, Feature 8 ja; Feature 4 (Karte im Rahmen zeigt Umgebung) erklärt, Antwort offen (Empfehlung weglassen). WICHTIG: Besitzer-Antworten stehen meist schon in docs/ai/PLAN-*.md „Antworten Besitzer“ – vor Rückfragen dort nachlesen!
 - Simple Maps Feature 4 (Besitzer 09.10.): Karte im Gegenstandsrahmen → Rechtsklick öffnet die Karten-UI; dort scrollbar; der Rahmen zeigt danach den Ausschnitt, zu dem man gescrollt hat.

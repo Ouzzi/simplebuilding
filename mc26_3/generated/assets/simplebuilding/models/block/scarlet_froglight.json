@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplebuilding:block/scarlet_froglight_top",
+    "side": "simplebuilding:block/scarlet_froglight_side"
+  }
+}

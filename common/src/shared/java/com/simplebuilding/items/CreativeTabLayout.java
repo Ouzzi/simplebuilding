@@ -15,7 +15,7 @@ import java.util.List;
  * Zeilen-Layout fuer einen Kreativ-Tab: eine Kategorie nacheinander, zwischen zwei Kategorien nur
  * eine leere Zelle, wenn die vorige Zeile nicht exakt aufhoerte (Besitzer tweaks P8). Die
  * Spacer-Ausgabe ist standardmaessig aus, damit die Kategorien wieder ohne kuenstliche Luecken
- * aufeinanderfolgen; die alte Logik bleibt fuer gezielte Layout-Vorschauen abschaltbar.
+ * aufeinanderfolgen; die alte Logik bleibt per Config {@code creativeTabSpacers} einschaltbar.
  *
  * <p>Das Kreativinventar ist 9 Plaetze breit und fuellt Zeile fuer Zeile. Damit zwischen zwei
  * Kategorien eine leere Zelle sichtbar bleibt, werden Trennzellen als unsichtbare Platzhalter
@@ -44,8 +44,14 @@ import java.util.List;
  * und {@link #emit} aufrufen.
  */
 public final class CreativeTabLayout {
-    /** Spacer layout is retained for previews/tests but disabled for normal creative tabs. */
-    public static final boolean SPACERS_ENABLED = false;
+    /**
+     * Ob {@link #emit} Trennzellen ausgibt: Config {@code creativeTabSpacers}, Standard aus (Besitzer N22: Tabs wieder
+     * ohne Luecken, die Spacer-Logik bleibt abschaltbar erhalten).
+     */
+    public static boolean spacersEnabled() {
+        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
+        return config != null && config.creativeTabSpacers;
+    }
     /** Breite des Kreativinventars in Plaetzen. */
     public static final int ROW_WIDTH = 9;
 
@@ -94,7 +100,7 @@ public final class CreativeTabLayout {
      * Fueller.
      */
     public static void emit(CreativeModeTab.Output entries, List<Row> rows) {
-        if (!SPACERS_ENABLED) {
+        if (!spacersEnabled()) {
             for (Row row : rows) {
                 for (ItemStack stack : row.stacks()) {
                     if (!stack.isEmpty()) {

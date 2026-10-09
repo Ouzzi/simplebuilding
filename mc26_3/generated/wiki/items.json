@@ -1,6 +1,10 @@
 {
   "blocks": [
+<<<<<<< HEAD
     "simplebuilding:acacia_octet",
+=======
+    "simplebuilding:aqua_froglight",
+>>>>>>> claude-q-blocks
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_piston",
     "simplebuilding:astral_purpur_block",
@@ -20,7 +24,11 @@
     "simplebuilding:astralit_quartz_checker_stairs",
     "simplebuilding:astralit_switch",
     "simplebuilding:auto_smither",
+<<<<<<< HEAD
     "simplebuilding:autonomous_crafter",
+=======
+    "simplebuilding:azure_froglight",
+>>>>>>> claude-q-blocks
     "simplebuilding:backpack",
     "simplebuilding:bamboo_octet",
     "simplebuilding:birch_octet",
@@ -42,13 +50,19 @@
     "simplebuilding:cherry_octet",
     "simplebuilding:chess_pieces",
     "simplebuilding:chiseled_astralit_bricks",
+    "simplebuilding:chiseled_blue_ice",
     "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
+    "simplebuilding:chiseled_packed_ice",
     "simplebuilding:chunk_loader",
     "simplebuilding:construction_light",
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_diamond_block",
+<<<<<<< HEAD
     "simplebuilding:crimson_octet",
+=======
+    "simplebuilding:cracked_ice",
+>>>>>>> claude-q-blocks
     "simplebuilding:crystalline_astralit",
     "simplebuilding:crystalline_nihilith",
     "simplebuilding:cyan_hammock",
@@ -56,6 +70,7 @@
     "simplebuilding:deepslate_sage_ore",
     "simplebuilding:diamond_pressure_plate",
     "simplebuilding:dimensional_scrap",
+    "simplebuilding:dirt_slab",
     "simplebuilding:drowned_head",
     "simplebuilding:drowned_wall_head",
     "simplebuilding:elytra_pad",
@@ -98,6 +113,8 @@
     "simplebuilding:flypad",
     "simplebuilding:frosted_nihilith",
     "simplebuilding:gold_rod",
+    "simplebuilding:grass_slab",
+    "simplebuilding:gravel_slab",
     "simplebuilding:gray_hammock",
     "simplebuilding:green_hammock",
     "simplebuilding:hammock_rope",
@@ -118,8 +135,12 @@
     "simplebuilding:light_gray_hammock",
     "simplebuilding:lime_hammock",
     "simplebuilding:magenta_hammock",
+<<<<<<< HEAD
     "simplebuilding:mangrove_octet",
     "simplebuilding:melon_octet",
+=======
+    "simplebuilding:nautilus_shell_block",
+>>>>>>> claude-q-blocks
     "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:nether_brick_quartz_checker_slab",
     "simplebuilding:nether_brick_quartz_checker_stairs",
@@ -220,6 +241,8 @@
     "simplebuilding:resin_quartz_checker_slab",
     "simplebuilding:resin_quartz_checker_stairs",
     "simplebuilding:sage_ore",
+    "simplebuilding:sand_slab",
+    "simplebuilding:scarlet_froglight",
     "simplebuilding:shulker_head",
     "simplebuilding:shulker_wall_head",
     "simplebuilding:silent_dandelion",
@@ -261,6 +284,9 @@
       "durability": 640,
       "id": "simplebuilding:amethyst_lens",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:aqua_froglight"
     },
     {
       "id": "simplebuilding:astral_end_stone"
@@ -374,7 +400,11 @@
       "id": "simplebuilding:auto_smither"
     },
     {
+<<<<<<< HEAD
       "id": "simplebuilding:autonomous_crafter"
+=======
+      "id": "simplebuilding:azure_froglight"
+>>>>>>> claude-q-blocks
     },
     {
       "id": "simplebuilding:backpack",
@@ -520,10 +550,16 @@
       "id": "simplebuilding:chiseled_astralit_bricks"
     },
     {
+      "id": "simplebuilding:chiseled_blue_ice"
+    },
+    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks"
     },
     {
       "id": "simplebuilding:chiseled_nihilith_bricks"
+    },
+    {
+      "id": "simplebuilding:chiseled_packed_ice"
     },
     {
       "id": "simplebuilding:chunk_loader",
@@ -606,6 +642,9 @@
       "id": "simplebuilding:cracked_diamond_block"
     },
     {
+      "id": "simplebuilding:cracked_ice"
+    },
+    {
       "id": "simplebuilding:crafted_arrow"
     },
     {
@@ -683,6 +722,9 @@
     },
     {
       "id": "simplebuilding:dimensional_scrap"
+    },
+    {
+      "id": "simplebuilding:dirt_slab"
     },
     {
       "id": "simplebuilding:drowned_head"
@@ -1099,6 +1141,12 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:grass_slab"
+    },
+    {
+      "id": "simplebuilding:gravel_slab"
+    },
+    {
       "id": "simplebuilding:gray_hammock",
       "maxStackSize": 1
     },
@@ -1309,6 +1357,9 @@
     {
       "id": "simplebuilding:music_disc_voidline_track_3",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:nautilus_shell_block"
     },
     {
       "id": "simplebuilding:nether_brick_chess_bishop",
@@ -2275,6 +2326,12 @@
     },
     {
       "id": "simplebuilding:sage_ore"
+    },
+    {
+      "id": "simplebuilding:sand_slab"
+    },
+    {
+      "id": "simplebuilding:scarlet_froglight"
     },
     {
       "id": "simplebuilding:shulker_head"

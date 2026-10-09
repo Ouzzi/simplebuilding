@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "simplebuilding:block/cracked_ice_0"
+    },
+    "age=1": {
+      "model": "simplebuilding:block/cracked_ice_1"
+    },
+    "age=2": {
+      "model": "simplebuilding:block/cracked_ice_2"
+    },
+    "age=3": {
+      "model": "simplebuilding:block/cracked_ice_3"
+    }
+  }
+}

@@ -163,6 +163,36 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                                 .save(output);
                     }
                 }
+                // Naturvarianten (N24/N25): Stufen 3 -> 6 wie Vanilla (keine Steinsaege: die schneidet nur Stein);
+                // Eisvarianten am Steinmetz 1:1; Nautilusschalen 2x2 <-> Block; Froschlicht + Farbstoff -> neue Farbe.
+                if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+                    Block[][] slabs = {
+                            {ModBlocks.DIRT_SLAB, net.minecraft.world.level.block.Blocks.DIRT},
+                            {ModBlocks.GRASS_SLAB, net.minecraft.world.level.block.Blocks.GRASS_BLOCK},
+                            {ModBlocks.SAND_SLAB, net.minecraft.world.level.block.Blocks.SAND},
+                            {ModBlocks.GRAVEL_SLAB, net.minecraft.world.level.block.Blocks.GRAVEL}};
+                    for (Block[] pair : slabs) {
+                        slabBuilder(RecipeCategory.BUILDING_BLOCKS, pair[0], Ingredient.of(pair[1]))
+                                .unlockedBy(getHasName(pair[1]), has(pair[1])).save(output);
+                    }
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_ICE, net.minecraft.world.level.block.Blocks.ICE);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_PACKED_ICE, net.minecraft.world.level.block.Blocks.PACKED_ICE);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_BLUE_ICE, net.minecraft.world.level.block.Blocks.BLUE_ICE);
+                    shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.NAUTILUS_SHELL_BLOCK).pattern("SS").pattern("SS")
+                            .define('S', Items.NAUTILUS_SHELL)
+                            .unlockedBy(getHasName(Items.NAUTILUS_SHELL), has(Items.NAUTILUS_SHELL)).save(output);
+                    shapeless(RecipeCategory.MISC, Items.NAUTILUS_SHELL, 4).requires(ModItems.NAUTILUS_SHELL_BLOCK)
+                            .unlockedBy(getHasName(ModItems.NAUTILUS_SHELL_BLOCK), has(ModItems.NAUTILUS_SHELL_BLOCK))
+                            .save(output, "nautilus_shell_from_nautilus_shell_block");
+                    Item[][] froglights = {
+                            {ModItems.SCARLET_FROGLIGHT, Items.DYE.pick(net.minecraft.world.item.DyeColor.RED)},
+                            {ModItems.AQUA_FROGLIGHT, Items.DYE.pick(net.minecraft.world.item.DyeColor.CYAN)},
+                            {ModItems.AZURE_FROGLIGHT, Items.DYE.pick(net.minecraft.world.item.DyeColor.BLUE)}};
+                    for (Item[] pair : froglights) {
+                        shapeless(RecipeCategory.BUILDING_BLOCKS, pair[0]).requires(com.simplebuilding.util.ModTags.Items.FROGLIGHTS).requires(pair[1])
+                                .unlockedBy("has_froglight", has(com.simplebuilding.util.ModTags.Items.FROGLIGHTS)).save(output);
+                    }
+                }
                 // Auto-Schmied wie der Crafter: Eisen ringsum, Schmiedetisch in der Mitte, Redstone und Spender unten.
                 if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
                     shaped(RecipeCategory.REDSTONE, ModItems.AUTO_SMITHER)

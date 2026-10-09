@@ -110,6 +110,11 @@ public class SimplebuildingClient implements ClientModInitializer {
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK,
                 com.simplebuilding.blocks.ModBlocks.PLACED_BUNDLE);
+        if (com.simplebuilding.blocks.ModBlocks.GRASS_SLAB != null) {
+            // Gras-Stufe (N25) biomgefaerbt wie der Grasblock.
+            net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(java.util.List.of(net.minecraft.client.color.block.BlockTintSources.grassBlock()),
+                    com.simplebuilding.blocks.ModBlocks.GRASS_SLAB);
+        }
         LivingEntityRenderLayerRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
                 helper.register(new com.simplebuilding.client.render.BackpackLayer(avatar));

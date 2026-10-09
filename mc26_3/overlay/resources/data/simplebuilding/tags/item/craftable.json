@@ -381,6 +381,17 @@
     "simplebuilding:waxed_copper_pressure_plate",
     "simplebuilding:waxed_exposed_copper_pressure_plate",
     "simplebuilding:waxed_oxidized_copper_pressure_plate",
-    "simplebuilding:waxed_weathered_copper_pressure_plate"
+    "simplebuilding:waxed_weathered_copper_pressure_plate",
+    "simplebuilding:dirt_slab",
+    "simplebuilding:grass_slab",
+    "simplebuilding:sand_slab",
+    "simplebuilding:gravel_slab",
+    "simplebuilding:cracked_ice",
+    "simplebuilding:chiseled_packed_ice",
+    "simplebuilding:chiseled_blue_ice",
+    "simplebuilding:nautilus_shell_block",
+    "simplebuilding:scarlet_froglight",
+    "simplebuilding:aqua_froglight",
+    "simplebuilding:azure_froglight"
   ]
 }

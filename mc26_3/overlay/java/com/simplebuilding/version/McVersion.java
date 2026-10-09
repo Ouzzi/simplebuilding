@@ -93,6 +93,8 @@ public final class McVersion {
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = true;
     /** Building cores move in the hand when used (weighted pulse/spin/rise/boomerang, longer ore animation; Nachtrag 11). */
     public static final boolean CORE_MOTIONS = true;
+    /** Natural block variants (N24/N25, 2026-10-09): dirt/grass/sand/gravel slabs, chiseled packed/blue ice, cracked ice, nautilus shell block, more froglight colors. */
+    public static final boolean NATURE_VARIANTS = true;
 
     public static boolean canVanillaTransform(net.minecraft.world.level.Level level,
             net.minecraft.world.phys.BlockHitResult hit, Player player, InteractionHand hand) {

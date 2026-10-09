@@ -1,0 +1,54 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "condition": "minecraft:tool/can_silk_touch",
+              "modifier": [
+                {
+                  "type": "minecraft:set_count",
+                  "condition": {
+                    "type": "minecraft:match_block",
+                    "blocks": "simplebuilding:grass_slab",
+                    "state": {
+                      "type": "double"
+                    }
+                  },
+                  "count": 2
+                }
+              ],
+              "name": "simplebuilding:grass_slab"
+            },
+            {
+              "type": "minecraft:item",
+              "modifier": [
+                {
+                  "type": "minecraft:set_count",
+                  "condition": {
+                    "type": "minecraft:match_block",
+                    "blocks": "simplebuilding:grass_slab",
+                    "state": {
+                      "type": "double"
+                    }
+                  },
+                  "count": 2
+                },
+                {
+                  "type": "minecraft:explosion_decay"
+                }
+              ],
+              "name": "simplebuilding:dirt_slab"
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simplebuilding:blocks/grass_slab"
+}

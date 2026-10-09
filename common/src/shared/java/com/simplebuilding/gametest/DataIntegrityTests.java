@@ -1092,6 +1092,22 @@ public final class DataIntegrityTests {
                 }
                 continue;
             }
+            if (McVersion.NATURE_VARIANTS && Set.of("grass_slab", "cracked_ice", "chiseled_packed_ice", "chiseled_blue_ice")
+                    .contains(blockId.getPath())) {
+                // Naturvarianten wie ihr Vanilla-Vorbild: Gras-Stufe ohne Behutsamkeit eine Erd-Stufe (wie der Grasblock),
+                // Eis ohne Behutsamkeit nichts (wie Eis, Pack- und Blaueis). Die Behutsamkeits-Seite prueft NatureBlockTests.
+                boolean grass = blockId.getPath().equals("grass_slab");
+                for (List<ItemStack> produced : rolls) {
+                    boolean ok = grass ? produced.size() == 1 && produced.getFirst().is(ModItems.DIRT_SLAB) && produced.getFirst().getCount() == 1
+                            : produced.isEmpty();
+                    if (!ok) {
+                        problems.add(actual + " handed over " + produced + " to an empty hand; expected "
+                                + (grass ? "one dirt slab" : "nothing (silk touch only)"));
+                        break;
+                    }
+                }
+                continue;
+            }
             if (EXPERIENCE_ORES.contains(blockId.getPath())) {
                 for (List<ItemStack> produced : rolls) {
                     if (produced.size() > 1 || produced.stream().anyMatch(s -> !s.is(ModItems.SAGE_ORB) || s.getCount() != 1)) {
@@ -3066,6 +3082,16 @@ public final class DataIntegrityTests {
             expected.add(10 + chess.size(), CreativeTabLayout.Row.of("wood_octets",
                     ModItems.WOOD_OCTETS.toArray(new net.minecraft.world.level.ItemLike[0])));
         }
+        if (McVersion.NATURE_VARIANTS) {
+            // Naturvarianten (N24/N25) vor den Schwerkraftbloecken: vier Stufen; Eis und Nautilus; drei Froschlichter.
+            expected.addAll(expected.size() - 2, List.of(
+                    CreativeTabLayout.Row.of("nature_slabs",
+                            ModItems.DIRT_SLAB, ModItems.GRASS_SLAB, ModItems.SAND_SLAB, ModItems.GRAVEL_SLAB),
+                    CreativeTabLayout.Row.of("nature_ice_and_shells",
+                            ModItems.CRACKED_ICE, ModItems.CHISELED_PACKED_ICE, ModItems.CHISELED_BLUE_ICE, ModItems.NAUTILUS_SHELL_BLOCK),
+                    CreativeTabLayout.Row.of("froglights",
+                            ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT)));
+        }
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.BUILDING_BLOCKS, problems), flowed(expected), "SimpleBlocks", problems);
         helper.assertTrue(problems.isEmpty(), "building blocks layout: " + problems);
         helper.succeed();
@@ -3682,6 +3708,75 @@ public final class DataIntegrityTests {
                     "Vanilla-tab placements were enabled while addItemsToVanillaTabs was off");
         } finally {
             config.addItemsToVanillaTabs = original;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Owner N22: the spacer logic stays, behind the config switch {@code creativeTabSpacers} (default off). Off, a
+     * layout with a gap and two categories emits only the items; on, the gap and the cell between the
+     * categories come out as spacers again, visible in the tab only.
+     */
+    public static void creativeTabSpacersFollowTheConfig(GameTestHelper helper) {
+        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
+        boolean original = config.creativeTabSpacers;
+        List<com.simplebuilding.items.CreativeTabLayout.Row> rows = List.of(
+                com.simplebuilding.items.CreativeTabLayout.Row.of("first", Items.DIRT, com.simplebuilding.items.CreativeTabLayout.GAP, Items.STONE),
+                com.simplebuilding.items.CreativeTabLayout.Row.of("second", Items.SAND));
+        try {
+            helper.assertFalse(new com.simplebuilding.config.SimplebuildingConfig().creativeTabSpacers,
+                    "creativeTabSpacers must default to off");
+            config.creativeTabSpacers = false;
+            List<ItemStack> off = new ArrayList<>();
+            com.simplebuilding.items.CreativeTabLayout.emit((stack, visibility) -> off.add(stack), rows);
+            helper.assertTrue(off.size() == 3 && off.stream().noneMatch(s -> s.is(ModItems.CREATIVE_SPACER)),
+                    "spacers off should emit dirt, stone, sand only, got " + off);
+            config.creativeTabSpacers = true;
+            List<ItemStack> on = new ArrayList<>();
+            List<CreativeModeTab.TabVisibility> visibilities = new ArrayList<>();
+            com.simplebuilding.items.CreativeTabLayout.emit((stack, visibility) -> { on.add(stack); visibilities.add(visibility); }, rows);
+            long spacers = on.stream().filter(s -> s.is(ModItems.CREATIVE_SPACER)).count();
+            helper.assertTrue(on.size() == 5 && spacers == 2, "spacers on should emit 3 items and 2 spacers, got " + on);
+            for (int i = 0; i < on.size(); i++) {
+                if (on.get(i).is(ModItems.CREATIVE_SPACER)) {
+                    helper.assertTrue(visibilities.get(i) == CreativeModeTab.TabVisibility.PARENT_TAB_ONLY,
+                            "a spacer must stay out of the search tab");
+                }
+            }
+        } finally {
+            config.creativeTabSpacers = original;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Owner N22, shared switch of every Simple mod (framework {@code CreativeTabSettings}): a mod without a key adds
+     * its items to the Vanilla tabs and gets its key written; switched off it reads false; the switch is per mod.
+     */
+    public static void creativeTabSettingsArePerModAndDefaultOn(GameTestHelper helper) {
+        // Reflektion: der Framework-Baustein liegt nur auf der Hauptlinie 26.3 auf dem Klassenpfad (26.2 ohne Framework).
+        Class<?> settings;
+        try {
+            settings = Class.forName("com.simplebuilding.framework.api.CreativeTabSettings");
+        } catch (ClassNotFoundException e) {
+            helper.succeed();
+            return;
+        }
+        try {
+            java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("simple-creative-tabs");
+            java.lang.reflect.Method read = settings.getMethod("addItemsToVanillaTabs", java.nio.file.Path.class, String.class);
+            java.lang.reflect.Method set = settings.getMethod("set", java.nio.file.Path.class, String.class, boolean.class);
+            String fileName = (String) settings.getField("FILE").get(null);
+            helper.assertTrue((Boolean) read.invoke(null, dir, "simplemoney"), "a mod without a key must add its items to the Vanilla tabs");
+            java.nio.file.Path file = dir.resolve(fileName);
+            helper.assertTrue(java.nio.file.Files.readString(file).contains("simplemoney.addItemsToVanillaTabs=true"),
+                    "the default key was not written to " + file);
+            set.invoke(null, dir, "simplemoney", false);
+            helper.assertFalse((Boolean) read.invoke(null, dir, "simplemoney"),
+                    "switched off, CreativeTabSettings still allows Vanilla-tab placements");
+            helper.assertTrue((Boolean) read.invoke(null, dir, "simpleriding"), "switching one mod off must not switch another");
+        } catch (ReflectiveOperationException | java.io.IOException e) {
+            throw helper.assertionException("CreativeTabSettings: " + e);
         }
         helper.succeed();
     }
