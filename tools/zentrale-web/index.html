@@ -24,7 +24,7 @@ td.num{font-variant-numeric:tabular-nums;text-align:right}.md h2,.md h3{font-siz
 </head>
 <body>
 <header><h1>Simplemods Zentrale</h1>
-<nav><a href="#status" data-t="status">Status</a><a href="#start" data-t="start">Laptop-Start</a><a href="#tests" data-t="tests">Tests</a><a href="#roadmap" data-t="roadmap">Roadmap</a><a href="#links" data-t="links">Links</a><a href="#dev" data-t="dev">Wiki (dev)</a><a href="#queue" data-t="queue">KI-Queue</a></nav>
+<nav><a href="#status" data-t="status">Status</a><a href="#start" data-t="start">Laptop-Start</a><a href="#tests" data-t="tests">Tests</a><a href="#roadmap" data-t="roadmap">Roadmap</a><a href="#links" data-t="links">Links</a><a href="#dev" data-t="dev">Wiki (dev)</a><a href="#kiqueue" data-t="kiqueue">KI-Queue</a></nav>
 <span class="mut" id="stamp"></span></header>
 <main>
 <section id="status">
@@ -38,7 +38,7 @@ td.num{font-variant-numeric:tabular-nums;text-align:right}.md h2,.md h3{font-siz
 </section>
 <section id="tests">
   <div class="card"><h3>Testzentralen: letzte Ergebnisse je Ziel</h3><p class="mut">Aus dem neuesten Gate und dem letzten Nachtlauf. Rot = Handlungsbedarf, Grau = ohne Ergebnis.</p>
-  <div style="overflow-x:auto"><table id="tests"></table></div></div>
+  <div style="overflow-x:auto"><table id="testtab"></table></div></div>
   <div class="card"><h3>Gate-Logs</h3><div id="logs"></div></div>
 </section>
 <section id="roadmap">
@@ -60,15 +60,16 @@ td.num{font-variant-numeric:tabular-nums;text-align:right}.md h2,.md h3{font-siz
 <section id="dev">
   <div class="card"><h3>Wiki (dev)</h3><a class="btn" href="/wiki/" target="_blank" rel="noopener">Wiki (dev) öffnen</a></div>
 </section>
-<section id="queue">
+<section id="kiqueue">
   <div class="card"><h3>KI-Queue</h3>
+    <p class="mut">Wünsche aus dem Wiki-Spiegel (Reiter „Wiki (dev)“). Ein Start gibt alle offenen Einträge auf einmal an Claude: Texturen macht Claude, Code verteilt Claude an Helfer-Jobs.</p>
+    <div id="queue-actions">
+      <button class="btn" onclick="devQueue.start('textures')">Texturen starten</button>
+      <button class="btn" onclick="devQueue.start('code')">Code starten</button>
+      <button class="btn" onclick="devQueue.start('all')">Alles starten</button>
+    </div>
     <div id="queue-tx"></div>
     <div id="queue-code"></div>
-    <div id="queue-actions">
-      <button onclick="devQueue.startTextures()">Texturen starten</button>
-      <button onclick="devQueue.startCode()">Code starten</button>
-      <button onclick="devQueue.startAll()">Alles starten</button>
-    </div>
     <h3>Läufe</h3>
     <div id="queue-runs"></div>
   </div>
@@ -92,7 +93,7 @@ async function load(){
     $('night').textContent=d.nightly||'–';
     $('jobs').innerHTML=(d.jobs||[]).map(j=>`<div class="card"><h3>${esc(j.job)}</h3><pre>${esc(j.tail)}</pre></div>`).join('');
     $('wavelog').textContent=(d.waveLog||[]).join('\n');
-    $('tests').innerHTML='<tr><th>Quelle</th><th>Ziel</th><th>Ergebnis</th></tr>'+(d.tests||[]).map(x=>`<tr><td>${esc(x.source)}</td><td>${esc(x.target)}</td><td class="${cls(x.result)}">${esc(x.result)}</td></tr>`).join('');
+    $('testtab').innerHTML='<tr><th>Quelle</th><th>Ziel</th><th>Ergebnis</th></tr>'+(d.tests||[]).map(x=>`<tr><td>${esc(x.source)}</td><td>${esc(x.target)}</td><td class="${cls(x.result)}">${esc(x.result)}</td></tr>`).join('');
     $('logs').innerHTML=(d.logs||[]).map(r=>`<a class="btn" href="logs/${esc(r)}.log" target="_blank" rel="noopener">${esc(r)}</a>`).join('')||'<span class="mut">keine</span>';
     $('queueopen').innerHTML='<tr><th>Nachtrag</th><th class="num">offen</th><th class="num">erledigt</th></tr>'+(d.queueOpen||[]).map(q=>`<tr><td>${esc(q.title)}</td><td class="num">${q.open}</td><td class="num">${q.done}</td></tr>`).join('');
     $('rmfile').textContent='Roadmap ('+(d.roadmapFile||'–')+')';$('rm').innerHTML=md(d.roadmap||'');
@@ -100,84 +101,33 @@ async function load(){
   }catch(e){$('stamp').textContent='Status nicht erreichbar';}
 }
 load();setInterval(load,30000);
+/* KI-Queue: entries from the wiki mirror, runs started from here (API /api/, behind the Zentrale login) */
+const devQueue={
+  async get(p){try{const r=await fetch('/api/'+p);return r.ok?r.json():[];}catch(e){return [];}},
+  async call(method,p,body){const r=await fetch('/api/'+p,{method,headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});
+    if(!r.ok){const j=await r.json().catch(()=>({}));alert('Fehler: '+(j.error||r.status));}return r;},
+  async start(cat){const open=(await this.get('queue')).filter(x=>x.status==='open'&&(cat==='all'||x.category===cat)).length;
+    if(!open){alert('Nichts Offenes in dieser Kategorie.');return;}
+    if(!confirm(open+' Einträge an Claude geben?'))return;await this.call('POST','run',{category:cat});devQueueLoad();},
+  async del(id){if(!confirm('Eintrag löschen?'))return;await this.call('DELETE','queue/'+id);devQueueLoad();},
+  async edit(id,old){const c=prompt('Kommentar',old||'');if(c===null)return;await this.call('PATCH','queue/'+id,{comment:c});devQueueLoad();}
+};
+function devList(title,arr){
+  if(!arr.length)return '<h3>'+title+'</h3><p class="mut">leer</p>';
+  return '<h3>'+title+' ('+arr.length+')</h3><div style="overflow-x:auto"><table><tr><th>Ziele</th><th>Kommentar</th><th>von</th><th>Zeit</th><th>Status</th><th>Lauf / Ergebnis</th><th></th></tr>'+
+    arr.map(it=>{const t=it.targets.map(x=>esc(x.label||x.id)).join(', ');const id=esc(it.id);
+      return `<tr><td>${t}</td><td>${esc(it.comment)||'<span class="mut">–</span>'}</td><td>${esc(it.by)}</td><td>${esc(new Date(it.createdAt).toLocaleString('de-DE'))}</td><td>${esc(it.status)}</td><td>${esc(it.run||'')} ${esc(it.result||'')}</td>`+
+        `<td><button onclick="devQueue.edit('${id}',${esc(JSON.stringify(it.comment||'')).replace(/"/g,'&quot;')})">Kommentar</button> <button onclick="devQueue.del('${id}')">Löschen</button></td></tr>`;}).join('')+'</table></div>';
+}
+async function devQueueLoad(){
+  const [q,r]=await Promise.all([devQueue.get('queue'),devQueue.get('runs')]);
+  const live=q.filter(x=>x.status!=='done'&&x.status!=='dropped');
+  $('queue-tx').innerHTML=devList('Texturen',live.filter(x=>x.category==='textures'));
+  $('queue-code').innerHTML=devList('Code (Rezepte, Anmerkungen)',live.filter(x=>x.category==='code'));
+  $('queue-runs').innerHTML=r.length?'<div style="overflow-x:auto"><table><tr><th>Lauf</th><th>Kategorie</th><th>Einträge</th><th>Zustand</th><th>Notiz</th></tr>'+
+    r.map(x=>`<tr><td>${esc(x.id)}</td><td>${esc(x.category)}</td><td class="num">${x.entries.length}</td><td>${esc(x.state)}</td><td>${esc(x.note||'')}</td></tr>`).join('')+'</table></div>':'<p class="mut">keine</p>';
+}
+devQueueLoad();setInterval(devQueueLoad,30000);
 </script>
 </body>
 </html>
-<script>
-const _origLoad = load;
-async function load2() {
-  if (_origLoad) await _origLoad();
-  await devQueueLoad();
-}
-load = load2;
-setInterval(load, 30000);
-</script>
-<script>
-window.devQueue = {
-  async fetchQueue() {
-    const r = await fetch('/api/queue');
-    if (!r.ok) return [];
-    return r.json();
-  },
-  async fetchRuns() {
-    const r = await fetch('/api/runs');
-    if (!r.ok) return [];
-    return r.json();
-  },
-  async startTextures() {
-    if (!confirm('Texturen starten?')) return;
-    await fetch('/api/run', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({category:'textures'})});
-    await devQueueLoad();
-  },
-  async startCode() {
-    if (!confirm('Code starten?')) return;
-    await fetch('/api/run', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({category:'code'})});
-    await devQueueLoad();
-  },
-  async startAll() {
-    if (!confirm('Alles starten?')) return;
-    await fetch('/api/run', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({category:'all'})});
-    await devQueueLoad();
-  },
-  async delete(id) {
-    if (!confirm('Löschen?')) return;
-    await fetch('/api/queue/'+id, {method:'DELETE'});
-    await devQueueLoad();
-  },
-  async edit(id) {
-    const c = prompt('Kommentar');
-    if (c === null) return;
-    await fetch('/api/queue/'+id, {method:'PATCH', headers:{'Content-Type':'application/json'}, body:JSON.stringify({comment:c})});
-    await devQueueLoad();
-  }
-};
-async function devQueueLoad() {
-  if (!document.getElementById('queue-tx')) return;
-  const [q, r] = await Promise.all([devQueue.fetchQueue(), devQueue.fetchRuns()]);
-  const tx = q.filter(x=>x.category==='textures');
-  const code = q.filter(x=>x.category==='code');
-  function renderList(arr) {
-    if (arr.length===0) return '<p class="mut">leer</p>';
-    let h = '<table><tr><th>Ziele</th><th>Kommentar</th><th>von</th><th>Zeit</th><th>Status</th><th>Lauf</th><th>Ergebnis</th><th>Aktion</th></tr>';
-    for (const it of arr) {
-      const t = it.targets.map(x=>esc(x.label)).join(', ');
-      const d = new Date(it.createdAt).toLocaleString('de-DE');
-      h += '<tr><td>'+esc(t)+'</td><td>'+esc(it.comment)+'</td><td>'+esc(it.by)+'</td><td>'+esc(d)+'</td><td>'+esc(it.status)+'</td><td>'+esc(it.run||'')+'</td><td>'+esc(it.result||'')+'</td><td><button onclick="devQueue.edit(\''+it.id+'\')">edit</button> <button onclick="devQueue.delete(\''+it.id+'\')">del</button></td></tr>';
-    }
-    h += '</table>';
-    return h;
-  }
-  document.getElementById('queue-tx').innerHTML = '<h3>Texturen</h3>'+renderList(tx);
-  document.getElementById('queue-code').innerHTML = '<h3>Code</h3>'+renderList(code);
-  let rh = '';
-  if (r.length===0) rh = '<p class="mut">keine</p>';
-  else {
-    rh = '<table><tr><th>ID</th><th>Kategorie</th><th>Zeit</th><th>Entries</th><th>State</th></tr>';
-    for (const run of r) {
-      const d = new Date(run.createdAt).toLocaleString('de-DE');
-      rh += '<tr><td>'+esc(run.id)+'</td><td>'+esc(run.category)+'</td><td>'+esc(d)+'</td><td>'+run.entries.length+'</td><td>'+esc(run.state)+'</td></tr>';
-    }
-    rh += '</table>';
-  }
-  document.getElementById('queue-runs').innerHTML = rh;
-}
