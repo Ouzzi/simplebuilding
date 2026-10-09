@@ -189,7 +189,7 @@ public final class MapsTests {
         ServerPlayer player = h.makeMockServerPlayerInLevel();
         CartographyTableMenu menu = table(h, player);
         ItemStack map = bound(h, Waypoints.EMPTY.with(Waypoint.fresh(2, 7, 8)));
-        h.assertTrue(menu.getSlot(0).mayPlace(map) && menu.getSlot(1).mayPlace(new ItemStack(Items.FILLED_MAP)), "wider slots");
+        h.assertTrue(menu.getSlot(0).mayPlace(map) && menu.getSlot(1).mayPlace(map), "wider slots");
         menu.container.setItem(0, map);
         menu.container.setItem(1, new ItemStack(Items.MAP));
         ItemStack result = menu.getSlot(2).getItem();
@@ -230,15 +230,16 @@ public final class MapsTests {
         var server = h.getLevel().getServer();
         int color = MapColor.SNOW.getPackedId(MapColor.Brightness.NORMAL) & 0xFF;
         WayfinderData.get(server, second.get(MapsComponents.MAP_ID).id()).set(300, 300, color, 10, true);
+        int firstId = first.get(MapsComponents.MAP_ID).id();
         CartographyTableMenu menu = table(h, player);
         menu.container.setItem(0, first);
         menu.container.setItem(1, second);
         ItemStack result = menu.getSlot(2).getItem();
-        h.assertTrue(result.get(MapsComponents.MAP_ID).equals(first.get(MapsComponents.MAP_ID)), "the first map stays");
+        h.assertTrue(result.get(MapsComponents.MAP_ID).id() == firstId, "the first map stays");
         Waypoints w = result.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY);
         h.assertTrue(w.get(0).get().x() == 1 && w.get(1).get().x() == 9, "first keeps slot 1, second fills slot 2");
         menu.getSlot(2).onTake(player, result);
-        h.assertTrue(WayfinderData.get(server, first.get(MapsComponents.MAP_ID).id()).color(300, 300) == color, "areas united");
+        h.assertTrue(WayfinderData.get(server, firstId).color(300, 300) == color, "areas united");
         h.assertTrue(menu.container.getItem(1).isEmpty(), "second map used up");
         ItemStack nether = new ItemStack(MapsItems.NETHER_WAYFINDER_MAP);
         h.assertTrue(Cartography.result(bound(h, Waypoints.EMPTY), nether, h.getLevel()).isEmpty(), "different kinds do not combine");
