@@ -74,6 +74,14 @@ public class AutonomousCrafterBlock extends BaseEntityBlock {
         }
     }
 
+    /** Also when the block is set without a player (commands, structures): read the signal right away, like the hopper. */
+    @Override
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        if (!oldState.is(state.getBlock())) {
+            neighborChanged(state, level, pos, this, null, movedByPiston);
+        }
+    }
+
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof AutonomousCrafterBlockEntity crafter) {
