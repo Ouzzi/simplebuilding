@@ -77,12 +77,19 @@ public class ChessPiecesRenderer implements BlockEntityRenderer<ChessPiecesBlock
                 continue;
             }
             poseStack.pushPose();
-            // Mitte des Viertels, dort um die Hochachse drehen, das mittig gebaute Modell zurueck auf den Ursprung.
-            poseStack.translate((slot & 1) * 0.5F + 0.25F, 0.0F, (slot >> 1) * 0.5F + 0.25F);
-            McClientVersion.rotate(poseStack, Axis.YP.rotationDegrees(state.yaw[slot]));
-            poseStack.translate(-0.5F, 0.0F, -0.5F);
+            placePiece(poseStack, slot, state.yaw[slot]);
             state.items[slot].submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.popPose();
         }
+    }
+
+    /**
+     * Pose einer Figur relativ zum Block: Mitte ihres Viertels, dort um die Hochachse gedreht. Oeffentlich fuer den
+     * Client-Test, der damit nachrechnet, wo das Modell landet.
+     */
+    public static void placePiece(PoseStack poseStack, int slot, float yaw) {
+        poseStack.translate((slot & 1) * 0.5F + 0.25F, 0.0F, (slot >> 1) * 0.5F + 0.25F);
+        McClientVersion.rotate(poseStack, Axis.YP.rotationDegrees(yaw));
+        poseStack.translate(-0.5F, 0.0F, -0.5F);
     }
 }

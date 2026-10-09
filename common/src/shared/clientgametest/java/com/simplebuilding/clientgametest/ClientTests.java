@@ -99,7 +99,9 @@ public final class ClientTests {
                 // Owner N21/N28 (26.3): half and full Enderite buckets in the inventory; hotbar back empty.
                 new Entry("enderite-buckets", EnderiteBucketClientTest::inWorld),
                 // Six armor stands in one documentary picture (2026-10-09); kills them again.
-                new Entry("armor-stands", ArmorStandClientTest::inWorld));
+                new Entry("armor-stands", ArmorStandClientTest::inWorld),
+                // Queue N15 (26.3): every chess piece stands on its quarter; boards and gallery in three pictures.
+                new Entry("chess-pieces", ChessClientTest::inWorld));
     }
 
     /**
