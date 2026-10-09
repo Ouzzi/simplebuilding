@@ -1959,6 +1959,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_template_game_test_blueprints_are_placed_like_templates_and_drop_themselves", PlacedTemplateTests::blueprintsArePlacedLikeTemplatesAndDropThemselves)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_placed_blueprint_opens_with_an_empty_hand_and_saves_at_its_position", PlacedTemplateTests::placedBlueprintOpensWithAnEmptyHandAndSavesAtItsPosition)
+                    .build(),
             GameTestSpec.named("placed_template_game_test_placed_attractors_pull_loose_items_toward_themselves", PlacedTemplateTests::placedAttractorsPullLooseItemsTowardThemselves)
                     .maxTicks(PlacedTemplateTests.ATTRACTOR_MAX_TICKS)
                     .build(),

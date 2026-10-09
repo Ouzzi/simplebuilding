@@ -601,6 +601,80 @@ public final class PlacedTemplateTests {
         succeed(helper);
     }
 
+    /**
+     * Queue N23 "Blaupause am Boden": Rechtsklick auf eine abgelegte Blaupause oeffnet den Editor, wenn
+     * keine andere Aktion greift - leere Haupthand, Nebenhand ohne Block. Mit einem Block in der
+     * Haupt- oder Nebenhand bleibt es beim Setzen (PASS). Gespeichert wird ueber die Blockposition:
+     * Entwurf und Signatur landen am Stapel in der Block-Entity; zu weit weg, signiert oder an einer
+     * Stelle ohne abgelegte Blaupause aendert sich nichts.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Editor, der auch mit Block in der Hand aufgeht
+     * (und so das Bauen neben der Blaupause verhindert), oder einer, der nie aufgeht; ein Handler, der
+     * die abgelegte Blaupause aus der Ferne, signiert oder an fremden Bloecken beschreibt.
+     */
+    public static void placedBlueprintOpensWithAnEmptyHandAndSavesAtItsPosition(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
+        helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
+        player.setShiftKeyDown(true);
+        use(helper, player, new ItemStack(ModItems.BLUEPRINT), new BlockPos(1, 1, 1), Direction.UP);
+        player.setShiftKeyDown(false);
+        BlockPos rel = new BlockPos(1, 2, 1);
+        BlockPos abs = helper.absolutePos(rel);
+        BlockState state = helper.getBlockState(rel);
+        helper.assertTrue(state.is(ModBlocks.PLACED_BLUEPRINT), "no blueprint was laid down: " + state);
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
+
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        helper.assertTrue(state.useWithoutItem(helper.getLevel(), player, hit).consumesAction(),
+                "a right-click with empty hands did not open the placed blueprint");
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.STICK));
+        helper.assertTrue(state.useWithoutItem(helper.getLevel(), player, hit).consumesAction(),
+                "a stick in the off hand kept the placed blueprint from opening");
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.TORCH));
+        helper.assertTrue(!state.useWithoutItem(helper.getLevel(), player, hit).consumesAction(),
+                "a torch in the off hand should be placed, not open the editor");
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.STONE));
+        helper.assertTrue(!state.useWithoutItem(helper.getLevel(), player, hit).consumesAction(),
+                "a block in the main hand should be placed, not open the editor");
+        helper.assertTrue(!PlacedTemplates.opensPlacedBlueprint(new ItemStack(Items.STONE), ItemStack.EMPTY)
+                        && PlacedTemplates.opensPlacedBlueprint(ItemStack.EMPTY, new ItemStack(Items.STICK))
+                        && !PlacedTemplates.opensPlacedBlueprint(ItemStack.EMPTY, new ItemStack(Items.TORCH)),
+                "opensPlacedBlueprint decides the hands wrongly");
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+
+        PlacedTemplateBlockEntity be = helper.getBlockEntity(rel, PlacedTemplateBlockEntity.class);
+        com.simplebuilding.networking.ModMessageHandlers.handleBlueprintEdit(
+                com.simplebuilding.networking.BlueprintEditPayload.placed(abs, "stone 0..1,0,0", false, ""), player);
+        helper.assertTrue(com.simplebuilding.items.custom.BlueprintItem.content(be.getTemplate()).code().equals("stone 0..1,0,0"),
+                "the draft did not reach the placed blueprint: " + com.simplebuilding.items.custom.BlueprintItem.content(be.getTemplate()));
+
+        Vec3 far = helper.absoluteVec(new Vec3(3.5, 2.0, 30.5));
+        player.snapTo(far.x, far.y, far.z, 0.0F, 0.0F);
+        com.simplebuilding.networking.ModMessageHandlers.handleBlueprintEdit(
+                com.simplebuilding.networking.BlueprintEditPayload.placed(abs, "dirt 0,0,0", false, ""), player);
+        helper.assertTrue(com.simplebuilding.items.custom.BlueprintItem.content(be.getTemplate()).code().equals("stone 0..1,0,0"),
+                "a player far away edited the placed blueprint");
+        Vec3 near = helper.absoluteVec(new Vec3(3.5, 2.0, 3.5));
+        player.snapTo(near.x, near.y, near.z, 0.0F, 0.0F);
+
+        com.simplebuilding.networking.ModMessageHandlers.handleBlueprintEdit(
+                com.simplebuilding.networking.BlueprintEditPayload.placed(helper.absolutePos(new BlockPos(1, 1, 1)), "dirt 0,0,0", false, ""), player);
+        helper.assertTrue(helper.getBlockState(new BlockPos(1, 1, 1)).is(Blocks.STONE), "an edit aimed at a plain block changed it");
+
+        com.simplebuilding.networking.ModMessageHandlers.handleBlueprintEdit(
+                com.simplebuilding.networking.BlueprintEditPayload.placed(abs, "stone 0..1,0,0", true, "Hut"), player);
+        com.simplebuilding.blueprint.BlueprintContent signed = com.simplebuilding.items.custom.BlueprintItem.content(be.getTemplate());
+        helper.assertTrue(signed.signed() && signed.title().equals("Hut") && signed.author().equals(player.getName().getString()),
+                "signing the placed blueprint failed: " + signed);
+        com.simplebuilding.networking.ModMessageHandlers.handleBlueprintEdit(
+                com.simplebuilding.networking.BlueprintEditPayload.placed(abs, "dirt 0,0,0", false, ""), player);
+        helper.assertTrue(com.simplebuilding.items.custom.BlueprintItem.content(be.getTemplate()).equals(signed),
+                "a signed placed blueprint was edited");
+        succeed(helper);
+    }
+
     // =====================================================================================
     // Attractor (Besitzer 2026-09-28)
     // =====================================================================================

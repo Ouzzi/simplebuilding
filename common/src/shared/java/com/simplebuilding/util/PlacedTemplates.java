@@ -187,6 +187,38 @@ public final class PlacedTemplates {
     }
 
     // =====================================================================================
+    // Abgelegte Blaupause: Rechtsklick oeffnet den Editor (Queue N23)
+    // =====================================================================================
+
+    /**
+     * Ob ein Rechtsklick auf eine abgelegte Blaupause den Editor oeffnet: nur, wenn keine andere
+     * Aktion greift - die Haupthand ist leer und die Nebenhand haelt keinen Block (der wuerde sonst
+     * daneben gesetzt). Mit irgendetwas in der Haupthand wirkt wie bisher das Item.
+     */
+    public static boolean opensPlacedBlueprint(ItemStack mainHand, ItemStack offHand) {
+        return mainHand.isEmpty() && !(offHand.getItem() instanceof net.minecraft.world.item.BlockItem);
+    }
+
+    /**
+     * Rechtsklick ohne Item-Aktion auf eine abgelegte Blaupause ({@code PlacedTemplateBlock#useWithoutItem}):
+     * oeffnet auf dem Client den Editor fuer genau diesen Stapel; gespeichert wird ueber
+     * {@code BlueprintEditPayload.placed}. PASS, wenn es keine Blaupause ist, eine andere Aktion greift
+     * oder die Blaupause auf dem Server abgeschaltet ist.
+     */
+    public static InteractionResult usePlacedBlueprint(Level level, BlockPos pos, Player player) {
+        ItemStack stored = templateAt(level, pos);
+        if (player.isSpectator() || !(stored.getItem() instanceof BlueprintItem)
+                || !opensPlacedBlueprint(player.getMainHandItem(), player.getOffhandItem())
+                || com.simplebuilding.config.ServerTuning.featureDenied(com.simplebuilding.config.ServerTuning.get().features.blueprint, player)) {
+            return InteractionResult.PASS;
+        }
+        if (level.isClientSide()) {
+            BlueprintItem.openPlaced(pos.immutable(), stored.copy());
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    // =====================================================================================
     // Abgelegter Oktant: Auswahl je Spieler ein- und ausblenden
     // =====================================================================================
 

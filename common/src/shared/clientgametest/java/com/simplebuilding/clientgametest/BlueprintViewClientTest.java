@@ -106,8 +106,8 @@ public final class BlueprintViewClientTest {
             centre.set(windowPos(client, viewX + viewW / 2.0, bodyY + bodyH / 2.0));
             top.set(windowPos(client, viewX + viewW / 2.0, bodyY + 8.0));
             bottom.set(windowPos(client, viewX + viewW / 2.0, bodyY + bodyH - 15.0));
-            // Left of the help book, one row above the preview - outside the view rectangle.
-            reset.set(windowPos(client, viewX + viewW - 24.0, bodyY - 8.0));
+            // Queue N23: the reset icon sits inside the preview, top right (16x16, 2 px from the edge).
+            reset.set(windowPos(client, viewX + viewW - 10.0, bodyY + 10.0));
         });
 
         // ================================================================================
@@ -198,6 +198,51 @@ public final class BlueprintViewClientTest {
         });
 
         script.shot("screen-blueprint-preview-dragged");
+
+        // ================================================================================
+        // 4. Queue N23: the help book opens on the Blocks tab with the insert field focused;
+        //    the Guide tab ends in a copy button. Screenshots of both for the owner.
+        // ================================================================================
+        script.act("open the help book", client -> screen(client).toggleHelp());
+        script.idle("let the help book render", 3);
+        script.act("the help book opens on Blocks with the insert field focused", client -> {
+            BlueprintScreen sc = screen(client);
+            if (!boolField(sc, "helpOpen") || !boolField(sc, "helpBlocks")) {
+                throw new AssertionError("The book opened with helpOpen=" + boolField(sc, "helpOpen")
+                        + ", helpBlocks=" + boolField(sc, "helpBlocks") + " - Blocks must be the default tab.");
+            }
+            if (!(sc.getFocused() instanceof net.minecraft.client.gui.components.EditBox box) || !box.isVisible()) {
+                throw new AssertionError("Opening the book focused " + sc.getFocused() + ", not the visible insert field.");
+            }
+        });
+        script.shot("blueprint-help-blocks");
+        script.act("switch to the Guide tab", client -> screen(client).showTab(false));
+        script.idle("let the guide render", 3);
+        script.shot("blueprint-help-guide");
+        script.act("the copy button puts the whole guide on the clipboard", client -> {
+            BlueprintScreen sc = screen(client);
+            String saved = client.keyboardHandler.getClipboard();
+            String label = net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.help.copy").getString();
+            net.minecraft.client.gui.components.Button copy = null;
+            for (GuiEventListener child : sc.children()) {
+                if (child instanceof net.minecraft.client.gui.components.Button b && b.visible && b.getMessage().getString().equals(label)) {
+                    copy = b;
+                }
+            }
+            if (copy == null) {
+                throw new AssertionError("The Guide tab shows no visible '" + label + "' button.");
+            }
+            client.keyboardHandler.setClipboard("");
+            copy.mouseClicked(new MouseButtonEvent(copy.getX() + 2, copy.getY() + 2,
+                    new MouseButtonInfo(InputConstants.MOUSE_BUTTON_LEFT, 0)), false);
+            String copied = client.keyboardHandler.getClipboard();
+            client.keyboardHandler.setClipboard(saved == null ? "" : saved);
+            if (!copied.equals(BlueprintScreen.guideText()) || copied.split("\n## ").length != 7) {
+                throw new AssertionError("The copy button put " + copied.length() + " characters with "
+                        + (copied.split("\n## ").length - 1) + " headings on the clipboard, not the whole guide.");
+            }
+        });
+        script.act("close the help book", client -> screen(client).toggleHelp());
     }
 
     /**

@@ -138,11 +138,15 @@ public class PlacedTemplateBlock extends FaceAttachedHorizontalDirectionalBlock 
 
     /**
      * Rechtsklick auf einen abgelegten Oktanten: blendet dessen Auswahl fuer diesen Spieler ein oder
-     * aus ({@link PlacedTemplates#toggleOctantOutline}). Vorlagen, Blaupausen und der Attractor
-     * reagieren nicht auf Rechtsklick.
+     * aus ({@link PlacedTemplates#toggleOctantOutline}). Eine abgelegte Blaupause oeffnet mit leerer
+     * Hand den Editor ({@link PlacedTemplates#usePlacedBlueprint}, Queue N23). Vorlagen und der
+     * Attractor reagieren nicht auf Rechtsklick.
      */
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (state.is(com.simplebuilding.blocks.ModBlocks.PLACED_BLUEPRINT)) {
+            return PlacedTemplates.usePlacedBlueprint(level, pos, player);
+        }
         if (player.isSpectator() || !(level.getBlockEntity(pos) instanceof PlacedTemplateBlockEntity be)
                 || !PlacedTemplates.isPlacedOctant(level, pos)) {
             return InteractionResult.PASS;

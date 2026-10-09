@@ -396,6 +396,10 @@ public final class ModMessageHandlers {
      * N16; frueher blieb der Klick auf "Signieren" stumm).
      */
     public static void handleBlueprintEdit(BlueprintEditPayload payload, ServerPlayer player) {
+        if (payload.placed().isPresent()) {
+            handlePlacedBlueprintEdit(payload, payload.placed().get(), player);
+            return;
+        }
         int slot = payload.slot();
         if (!(net.minecraft.world.entity.player.Inventory.isHotbarSlot(slot) || slot == net.minecraft.world.entity.player.Inventory.SLOT_OFFHAND)) {
             return;
@@ -404,36 +408,9 @@ public final class ModMessageHandlers {
         if (!(stack.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem)) {
             return;
         }
-        com.simplebuilding.blueprint.BlueprintContent old = com.simplebuilding.items.custom.BlueprintItem.content(stack);
-        if (old.signed()) {
+        com.simplebuilding.blueprint.BlueprintContent written = editedBlueprint(com.simplebuilding.items.custom.BlueprintItem.content(stack), payload, player);
+        if (written == null) {
             return;
-        }
-        String code = payload.code().replace("\r", "");
-        if (code.length() > com.simplebuilding.blueprint.BlueprintCode.MAX_CODE_LENGTH) {
-            return;
-        }
-        com.simplebuilding.blueprint.BlueprintContent written;
-        if (payload.sign()) {
-            String title = payload.title().strip();
-            if (title.isEmpty() || title.length() > com.simplebuilding.blueprint.BlueprintCode.MAX_TITLE_LENGTH) {
-                return;
-            }
-            if (!takeSignBudget(player, code.length())) {
-                player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.sign.too_fast")
-                        .withStyle(net.minecraft.ChatFormatting.YELLOW));
-                return;
-            }
-            // Zwischengespeichert: der Bau (Tooltip, Vorschau, Baustab) fragt gleich denselben Code.
-            com.simplebuilding.blueprint.BlueprintCode.ParseResult parsed = com.simplebuilding.blueprint.BlueprintCode.parseCached(code);
-            if (!parsed.ok() || parsed.model().isEmpty()) {
-                return;
-            }
-            written = new com.simplebuilding.blueprint.BlueprintContent(code, title, player.getName().getString(), true);
-        } else {
-            if (code.equals(old.code())) {
-                return;
-            }
-            written = new com.simplebuilding.blueprint.BlueprintContent(code, old.title(), "", false);
         }
         if (stack.getCount() > 1) {
             // Die beschriebene bleibt im Slot (dorthin gehen auch die naechsten Autospeicherungen),
@@ -447,6 +424,69 @@ public final class ModMessageHandlers {
             return;
         }
         stack.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT, written);
+    }
+
+    /** So weit (Bloecke, Mitte zu Auge) darf eine abgelegte Blaupause entfernt sein, die man bearbeitet. */
+    public static final double PLACED_BLUEPRINT_EDIT_RANGE = 8.0;
+
+    /**
+     * Die abgelegte Blaupause an {@code pos} (Rechtsklick mit leerer Hand, Queue N23): gleiche
+     * Regeln wie im Slot, dazu muss dort wirklich eine {@code placed_blueprint} liegen, der Spieler
+     * in Reichweite sein und den Block aendern duerfen.
+     */
+    private static void handlePlacedBlueprintEdit(BlueprintEditPayload payload, net.minecraft.core.BlockPos pos, ServerPlayer player) {
+        net.minecraft.world.level.Level level = player.level();
+        if (!level.isLoaded(pos) || player.isSpectator()
+                || player.getEyePosition().distanceToSqr(net.minecraft.world.phys.Vec3.atCenterOf(pos)) > PLACED_BLUEPRINT_EDIT_RANGE * PLACED_BLUEPRINT_EDIT_RANGE
+                || !level.getBlockState(pos).is(com.simplebuilding.blocks.ModBlocks.PLACED_BLUEPRINT)
+                || !(level.getBlockEntity(pos) instanceof com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity be)
+                || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos)) {
+            return;
+        }
+        ItemStack stack = be.getTemplate();
+        if (!(stack.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem)) {
+            return;
+        }
+        com.simplebuilding.blueprint.BlueprintContent written = editedBlueprint(com.simplebuilding.items.custom.BlueprintItem.content(stack), payload, player);
+        if (written == null) {
+            return;
+        }
+        ItemStack updated = stack.copyWithCount(1);
+        updated.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT, written);
+        be.setTemplate(updated);
+    }
+
+    /** Der neue Inhalt nach den Regeln des Editors, oder null, wenn der Server die Aenderung abweist. */
+    private static com.simplebuilding.blueprint.BlueprintContent editedBlueprint(com.simplebuilding.blueprint.BlueprintContent old,
+            BlueprintEditPayload payload, ServerPlayer player) {
+        if (old.signed()) {
+            return null;
+        }
+        String code = payload.code().replace("\r", "");
+        if (code.length() > com.simplebuilding.blueprint.BlueprintCode.MAX_CODE_LENGTH) {
+            return null;
+        }
+        if (payload.sign()) {
+            String title = payload.title().strip();
+            if (title.isEmpty() || title.length() > com.simplebuilding.blueprint.BlueprintCode.MAX_TITLE_LENGTH) {
+                return null;
+            }
+            if (!takeSignBudget(player, code.length())) {
+                player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.sign.too_fast")
+                        .withStyle(net.minecraft.ChatFormatting.YELLOW));
+                return null;
+            }
+            // Zwischengespeichert: der Bau (Tooltip, Vorschau, Baustab) fragt gleich denselben Code.
+            com.simplebuilding.blueprint.BlueprintCode.ParseResult parsed = com.simplebuilding.blueprint.BlueprintCode.parseCached(code);
+            if (!parsed.ok() || parsed.model().isEmpty()) {
+                return null;
+            }
+            return new com.simplebuilding.blueprint.BlueprintContent(code, title, player.getName().getString(), true);
+        }
+        if (code.equals(old.code())) {
+            return null;
+        }
+        return new com.simplebuilding.blueprint.BlueprintContent(code, old.title(), "", false);
     }
 
     /** Strg+Mausrad im Baumodus: nur mit Baustab in der Haupthand und Blaupause in der Nebenhand. */

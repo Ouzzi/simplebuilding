@@ -32,6 +32,10 @@ public class BlueprintItem extends Item {
     private static BiConsumer<Player, InteractionHand> clientOpener = (player, hand) -> {
     };
 
+    /** Oeffnet auf dem Client den Editor fuer eine abgelegte Blaupause (Position, gespeicherter Stapel). */
+    private static BiConsumer<net.minecraft.core.BlockPos, ItemStack> placedOpener = (pos, stack) -> {
+    };
+
     public BlueprintItem(Properties properties) {
         super(properties);
     }
@@ -39,6 +43,16 @@ public class BlueprintItem extends Item {
     public static void setClientOpener(BiConsumer<Player, InteractionHand> opener) {
         clientOpener = opener != null ? opener : (player, hand) -> {
         };
+    }
+
+    public static void setPlacedOpener(BiConsumer<net.minecraft.core.BlockPos, ItemStack> opener) {
+        placedOpener = opener != null ? opener : (pos, stack) -> {
+        };
+    }
+
+    /** Nur auf dem Client: Editor fuer die abgelegte Blaupause an {@code pos} (Queue N23). */
+    public static void openPlaced(net.minecraft.core.BlockPos pos, ItemStack stack) {
+        placedOpener.accept(pos, stack);
     }
 
     public static BlueprintContent content(ItemStack stack) {

@@ -55,6 +55,11 @@ public final class PlacedTemplateGameTest {
         PlacedTemplateTests.blueprintsArePlacedLikeTemplatesAndDropThemselves(helper);
     }
 
+    @GameTest
+    public void placedBlueprintOpensWithAnEmptyHandAndSavesAtItsPosition(GameTestHelper helper) {
+        PlacedTemplateTests.placedBlueprintOpensWithAnEmptyHandAndSavesAtItsPosition(helper);
+    }
+
     @GameTest(maxTicks = PlacedTemplateTests.ATTRACTOR_MAX_TICKS)
     public void placedAttractorsPullLooseItemsTowardThemselves(GameTestHelper helper) {
         PlacedTemplateTests.placedAttractorsPullLooseItemsTowardThemselves(helper);

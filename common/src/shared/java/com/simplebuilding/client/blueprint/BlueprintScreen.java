@@ -1,8 +1,11 @@
 package com.simplebuilding.client.blueprint;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.blueprint.BlueprintBlockSearch;
 import com.simplebuilding.blueprint.BlueprintCode;
 import com.simplebuilding.blueprint.BlueprintContent;
+import com.simplebuilding.blueprint.BlueprintEditorLayout;
+import com.simplebuilding.blueprint.BlueprintEditorLayout.Rect;
 import com.simplebuilding.blueprint.BlueprintExamples;
 import com.simplebuilding.blueprint.BlueprintMaterials;
 import com.simplebuilding.blueprint.BlueprintModel;
@@ -18,11 +21,14 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Util;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
@@ -31,21 +37,25 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Nullable;
 
 /**
- * Der Blaupausen-Editor: ein Kartenblatt in drei Spalten.
+ * Der Blaupausen-Editor (Umbau Queue N23): ein Kartenblatt mit Ueberschrift und drei Bereichen,
+ * Geometrie aus {@link BlueprintEditorLayout}.
  * <ul>
- *   <li>links die Materialliste (Icon, Menge, Name; groesste Menge zuerst), darunter die Masse mit
- *       Blockzahl, der noetige Baustab (Icon + Stufe) und die Leiste "genutzt / frei" zur Stufengrenze,</li>
- *   <li>Mitte der Code (Syntax-Farben, Zeilennummern, unterstrichene Fehler), darunter nur der
- *       Code-Status und die Einfuege-Leiste (Blocksuche, Auswahl per Klick, "Einfuegen" bestaetigt),</li>
- *   <li>rechts das Bauwerk in 3D (frei drehbar, Mausrad zoomt) oder, per Buch-Knopf, die Hilfe
- *       (Code-Anleitung und durchsuchbare Blockliste); bei leerem Code "Beispiel einfuegen";
- *       darunter buendig "Signieren" und "Fertig".</li>
+ *   <li><b>Materials</b>: Raster aus Icon + Zahl (groesste Menge zuerst, Name im Tooltip); darunter
+ *       "X×Y×Z", darunter "= n Bloecke", darunter der noetige Baustab als Icon mit Fortschrittsbalken
+ *       zur Stufengrenze.</li>
+ *   <li><b>Code</b>: Syntax-Farben, Zeilennummern, unterstrichene Fehler; darunter der Status und die
+ *       Zeichenzahl, rechtsbuendig der Buch-Knopf (Hilfe).</li>
+ *   <li><b>Preview</b>: das Bauwerk in 3D (Ziehen dreht, Strg+Ziehen verschiebt, Mausrad zoomt,
+ *       Reset-Icon oben rechts im Fenster); darunter Signieren und Fertig. Das Hilfe-Buch nimmt
+ *       dieselbe Flaeche ein: Reiter <i>Blocks</i> (Standard; Textfeld + Einfuegen, beim Oeffnen
+ *       fokussiert) und <i>Guide</i> (vollstaendige Anleitung, unten "Text kopieren").</li>
  * </ul>
- * Speichern: jede Aenderung geht 1,5 s nach dem letzten Tastendruck und beim Schliessen (auch
- * ueber {@link #removed()}, also bei Verbindungsabbruch/Weltverlassen) per {@link BlueprintEditPayload}
- * an den Server, der sie sofort am Item ablegt.
+ * Geoeffnet aus der Hand oder - Rechtsklick mit leerer Hand - fuer eine abgelegte Blaupause.
+ * Speichern: jede Aenderung geht 1,5 s nach dem letzten Tastendruck und beim Schliessen (auch ueber
+ * {@link #removed()}) per {@link BlueprintEditPayload} an den Server.
  */
 public class BlueprintScreen extends Screen {
     private static final int PAPER = 0xFFEADFBF;
@@ -56,58 +66,86 @@ public class BlueprintScreen extends Screen {
     private static final int VIEW_BG = 0xFF26384F;
     private static final int ERROR = 0xFFC62828;
     private static final int OK = 0xFF2E7D32;
-    private static final int ROW = 17;
-    private static final int FOOTER = 56;
+    private static final int SELECT = 0xFF3A6EA5;
     /** Autospeichern so lange nach der letzten Aenderung. */
     public static final long AUTOSAVE_MS = 1500;
     private static final int[] TIER_COLOURS = {0xFFB87333, 0xFFA8A8A8, 0xFFE0B82E, 0xFF4FC3C7, 0xFF5A4A4A, 0xFF7B3FA0};
+    /** Groesster Fall der Materials-Fusszeilen: so breit wird die Spalte. */
+    private static final String WIDEST_DIMS = "256×256×256";
+    private static final int WIDEST_BLOCKS = 4_194_304;
+
+    /**
+     * Die Anleitung im Reiter Guide, in Lesereihenfolge: {@code h<n>} ist eine Ueberschrift
+     * ({@code simplebuilding.blueprint.help.guide.head.<n>}), eine Zahl ein Absatz
+     * ({@code simplebuilding.blueprint.help.guide.<n>}).
+     */
+    public static final String[] GUIDE = {
+            "h1", "1",
+            "h2", "2", "3", "4",
+            "h3", "5", "6", "7", "9", "8",
+            "h4", "11", "12",
+            "h5", "13",
+            "h6", "10", "14", "15", "16", "17", "18"};
 
     private final int slot;
+    private final @Nullable BlockPos placedPos;
     private final BlueprintContent original;
     private final boolean readOnly;
     private String code;
     private String lastSent;
 
+    private BlueprintEditorLayout layout;
     private BlueprintCodeArea codeArea;
-    private EditBox titleBox;
     private EditBox insertBox;
-    private EditBox helpSearch;
+    private EditBox titleBox;
     private Button doneButton;
     private Button signButton;
     private Button confirmSignButton;
     private Button cancelSignButton;
     private Button insertButton;
     private Button exampleButton;
-    private BookButton helpButton;
-    private ResetViewButton resetViewButton;
+    private Button copyButton;
+    private IconButton helpButton;
+    private IconButton resetViewButton;
     private Button guideTab;
     private Button blocksTab;
     private boolean signing;
     private boolean helpOpen;
-    private boolean helpBlocks;
+    /** Reiter der Hilfe: true = Blocks (Standard), false = Guide. */
+    private boolean helpBlocks = true;
+    private long copiedUntil;
 
     private BlueprintCode.ParseResult parsed;
     private List<BlueprintMaterials.Entry> materials = List.of();
     private boolean dirty;
     private long lastEdit;
 
-    private List<Block> insertResults = List.of();
-    private Block selected;
     private List<Block> helpResults = List.of();
+    private @Nullable Block selected;
     private double helpScroll;
 
-    private int panelX, panelY, panelW, panelH;
-    private int listX, listW, codeX, codeW, viewX, viewW, bodyY, bodyH, footerY;
+    // Von BlueprintViewClientTest per Reflexion gelesen: Namen nicht aendern.
+    private int viewX, viewW, bodyY, bodyH;
     private double listScroll;
     private final BlueprintViewControls controls = new BlueprintViewControls();
     private boolean draggingView;
     /** Ob der laufende Ziehvorgang Verschieben (Strg beim Tastendruck) oder Drehen ist. */
     private boolean draggingPan;
 
+    /** Die Blaupause in der Hand. */
     public BlueprintScreen(Player player, InteractionHand hand) {
+        this(player.getItemInHand(hand), hand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() : Inventory.SLOT_OFFHAND, null);
+    }
+
+    /** Die abgelegte Blaupause an {@code pos} (Rechtsklick mit leerer Hand). */
+    public BlueprintScreen(ItemStack stack, BlockPos pos) {
+        this(stack, -1, pos);
+    }
+
+    private BlueprintScreen(ItemStack stack, int slot, @Nullable BlockPos placedPos) {
         super(Component.translatable("item.simplebuilding.blueprint"));
-        ItemStack stack = player.getItemInHand(hand);
-        this.slot = hand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() : Inventory.SLOT_OFFHAND;
+        this.slot = slot;
+        this.placedPos = placedPos;
         this.original = BlueprintItem.content(stack);
         this.readOnly = original.signed();
         this.code = original.code();
@@ -126,92 +164,79 @@ public class BlueprintScreen extends Screen {
         return block.getName().getString();
     }
 
+    private static Button button(Component label, Rect r, Button.OnPress press) {
+        return Button.builder(label, press).bounds(r.x(), r.y(), r.w(), r.h()).build();
+    }
+
     @Override
     protected void init() {
-        panelW = Math.min(width - 12, 560);
-        panelH = Math.min(height - 12, 340);
-        panelX = (width - panelW) / 2;
-        panelY = (height - panelH) / 2;
-        int inner = panelW - 16;
-        listW = Math.max(90, Math.min(130, inner * 22 / 100));
-        viewW = Math.max(120, inner * 32 / 100);
-        codeW = inner - listW - viewW - 8;
-        listX = panelX + 8;
-        codeX = listX + listW + 4;
-        viewX = codeX + codeW + 4;
-        bodyY = panelY + 30;
-        bodyH = panelH - 30 - FOOTER - 6;
-        footerY = bodyY + bodyH + 3;
+        int statsW = Math.max(font.width(WIDEST_DIMS), font.width(Component.translatable("simplebuilding.blueprint.editor.blocks_total", WIDEST_BLOCKS)));
+        layout = BlueprintEditorLayout.of(width, height, statsW + 2);
+        viewX = layout.view.x();
+        viewW = layout.view.w();
+        bodyY = layout.view.y();
+        bodyH = layout.view.h();
 
         String current = codeArea != null ? codeArea.getValue() : code;
-        codeArea = new BlueprintCodeArea(font, codeX, bodyY, codeW, bodyH, codeScale(), readOnly, current, this::onCodeChanged);
+        Rect c = layout.code;
+        codeArea = new BlueprintCodeArea(font, c.x(), c.y(), c.w(), c.h(), codeScale(), readOnly, current, this::onCodeChanged);
         codeArea.setHighlight(parsed.styles(), parsed.problems());
         addRenderableWidget(codeArea);
 
-        // Einfuege-Leiste unter dem Code: Suche, Ergebnis-Symbole (gezeichnet), "Einfuegen"
-        insertBox = new EditBox(font, codeX, footerY + 12, codeW - 62, 16, Component.translatable("simplebuilding.blueprint.editor.insert_search"));
+        // Hilfe-Buch, Reiter Blocks: das Textfeld ist zugleich Suche und Einfuege-Feld (erstes EditBox-Kind).
+        String query = insertBox != null ? insertBox.getValue() : "";
+        Rect f = layout.insertField;
+        insertBox = new EditBox(font, f.x(), f.y(), f.w(), f.h(), Component.translatable("simplebuilding.blueprint.editor.insert_search"));
         insertBox.setHint(Component.translatable("simplebuilding.blueprint.editor.insert_hint"));
+        insertBox.setValue(query);
         insertBox.setResponder(q -> {
-            insertResults = q.isBlank() ? List.of() : BlueprintBlockSearch.search(q, BlueprintScreen::displayName, 64);
-            if (selected != null && !insertResults.contains(selected)) {
+            helpResults = BlueprintBlockSearch.search(q, BlueprintScreen::displayName, 400);
+            helpScroll = 0;
+            if (selected != null && !helpResults.contains(selected)) {
                 selected = null;
             }
             updateButtons();
         });
-        insertBox.visible = !readOnly;
+        helpResults = BlueprintBlockSearch.search(query, BlueprintScreen::displayName, 400);
         addRenderableWidget(insertBox);
-        insertButton = addRenderableWidget(Button.builder(Component.translatable("simplebuilding.blueprint.editor.insert"), b -> insertSelected())
-                .bounds(codeX + codeW - 58, footerY + 12, 58, 16).build());
+        insertButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.editor.insert"), layout.insertButton, b -> insertTarget()));
 
-        // Rechte Spalte: Buch-Knopf (Hilfe), Beispiel, Signieren/Fertig
-        helpButton = addRenderableWidget(new BookButton(viewX + viewW - 16, bodyY - 16, () -> {
-            helpOpen = !helpOpen;
-            updateButtons();
-        }));
-        resetViewButton = addRenderableWidget(new ResetViewButton(viewX + viewW - 32, bodyY - 16, controls::reset));
-        exampleButton = addRenderableWidget(Button.builder(Component.translatable("simplebuilding.blueprint.editor.example"), b -> insertExample())
-                .bounds(viewX + 6, bodyY + bodyH - 24, viewW - 12, 18).build());
-        guideTab = addRenderableWidget(Button.builder(Component.translatable("simplebuilding.blueprint.help.guide_tab"), b -> {
-            helpBlocks = false;
-            helpScroll = 0;
-            updateButtons();
-        }).bounds(viewX + 2, bodyY + 2, viewW / 2 - 3, 14).build());
-        blocksTab = addRenderableWidget(Button.builder(Component.translatable("simplebuilding.blueprint.help.blocks_tab"), b -> {
-            helpBlocks = true;
-            helpScroll = 0;
-            updateButtons();
-        }).bounds(viewX + viewW / 2 + 1, bodyY + 2, viewW / 2 - 3, 14).build());
-        helpSearch = new EditBox(font, viewX + 3, bodyY + 19, viewW - 6, 14, Component.translatable("simplebuilding.blueprint.help.search"));
-        helpSearch.setHint(Component.translatable("simplebuilding.blueprint.editor.insert_hint"));
-        helpSearch.setResponder(q -> {
-            helpResults = BlueprintBlockSearch.search(q, BlueprintScreen::displayName, 400);
-            helpScroll = 0;
-        });
-        helpResults = BlueprintBlockSearch.search("", BlueprintScreen::displayName, 400);
-        addRenderableWidget(helpSearch);
+        helpButton = addRenderableWidget(new IconButton(layout.book, Component.translatable("simplebuilding.blueprint.help.title"),
+                Component.translatable("simplebuilding.blueprint.help.open"), null, this::toggleHelp));
+        resetViewButton = addRenderableWidget(new IconButton(layout.reset, Component.translatable("simplebuilding.blueprint.editor.view_reset"),
+                Component.translatable("simplebuilding.blueprint.editor.view_reset_tip"), RESET_ICON, controls::reset));
+        exampleButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.editor.example"), layout.example, b -> insertExample()));
+        blocksTab = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.help.blocks_tab"), layout.blocksTab, b -> showTab(true)));
+        guideTab = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.help.guide_tab"), layout.guideTab, b -> showTab(false)));
+        copyButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.help.copy"), layout.copy, b -> copyGuide()));
+        copyButton.setTooltip(Tooltip.create(Component.translatable("simplebuilding.blueprint.help.copy_tip")));
 
-        int bw = (viewW - 4) / 2;
-        doneButton = addRenderableWidget(Button.builder(Component.translatable("gui.done"), b -> onClose())
-                .bounds(readOnly ? viewX : viewX + viewW - bw, footerY, readOnly ? viewW : bw, 20).build());
-        signButton = addRenderableWidget(Button.builder(Component.translatable("book.signButton"), b -> {
+        doneButton = addRenderableWidget(button(Component.translatable("gui.done"), readOnly ? layout.doneWide : layout.done, b -> onClose()));
+        signButton = addRenderableWidget(button(Component.translatable("book.signButton"), layout.sign, b -> {
             signing = true;
             updateButtons();
             setFocused(titleBox);
-        }).bounds(viewX, footerY, bw, 20).build());
-        titleBox = new EditBox(font, viewX, footerY, viewW, 18, Component.translatable("simplebuilding.blueprint.editor.title"));
+        }));
+        Rect t = layout.titleBox;
+        String title = titleBox != null ? titleBox.getValue() : "";
+        titleBox = new EditBox(font, t.x(), t.y(), t.w(), t.h(), Component.translatable("simplebuilding.blueprint.editor.title"));
         titleBox.setMaxLength(BlueprintCode.MAX_TITLE_LENGTH);
         titleBox.setHint(Component.translatable("simplebuilding.blueprint.editor.title_hint"));
-        titleBox.setResponder(t -> updateButtons());
+        titleBox.setValue(title);
+        titleBox.setResponder(v -> updateButtons());
         addRenderableWidget(titleBox);
-        confirmSignButton = addRenderableWidget(Button.builder(Component.translatable("book.finalizeButton"), b -> sign())
-                .bounds(viewX, footerY + 22, bw, 20).build());
-        cancelSignButton = addRenderableWidget(Button.builder(Component.translatable("gui.cancel"), b -> {
+        confirmSignButton = addRenderableWidget(button(Component.translatable("book.finalizeButton"), layout.confirm, b -> sign()));
+        cancelSignButton = addRenderableWidget(button(Component.translatable("gui.cancel"), layout.cancel, b -> {
             signing = false;
             updateButtons();
             setFocused(codeArea);
-        }).bounds(viewX + viewW - bw, footerY + 22, bw, 20).build());
+        }));
         updateButtons();
-        if (!signing) {
+        if (signing) {
+            setFocused(titleBox);
+        } else if (helpOpen && helpBlocks) {
+            setInitialFocus(insertBox);
+        } else {
             setInitialFocus(codeArea);
         }
     }
@@ -225,16 +250,46 @@ public class BlueprintScreen extends Screen {
         confirmSignButton.visible = signing;
         cancelSignButton.visible = signing;
         confirmSignButton.active = !titleBox.getValue().isBlank() && valid;
-        insertButton.visible = !readOnly;
-        insertButton.active = selected != null;
-        insertButton.setTooltip(selected == null ? null : net.minecraft.client.gui.components.Tooltip.create(
-                Component.translatable("simplebuilding.blueprint.editor.insert_tip", selected.getName(), BlueprintBlockSearch.codeName(selected))));
+        boolean blocks = helpOpen && helpBlocks;
+        insertBox.visible = blocks;
+        insertButton.visible = blocks && !readOnly;
+        Block target = target();
+        insertButton.active = target != null;
+        insertButton.setTooltip(target == null ? null : Tooltip.create(
+                Component.translatable("simplebuilding.blueprint.editor.insert_tip", target.getName(), BlueprintBlockSearch.codeName(target))));
+        copyButton.visible = helpOpen && !helpBlocks;
         exampleButton.visible = !readOnly && !helpOpen && code.isBlank();
-        guideTab.visible = helpOpen;
+        resetViewButton.visible = !helpOpen && !parsed.model().isEmpty();
         blocksTab.visible = helpOpen;
-        guideTab.active = helpBlocks;
+        guideTab.visible = helpOpen;
         blocksTab.active = !helpBlocks;
-        helpSearch.visible = helpOpen && helpBlocks;
+        guideTab.active = helpBlocks;
+    }
+
+    /**
+     * Buch-Knopf: oeffnet die Hilfe im Reiter Blocks mit fokussiertem Einfuege-Feld ("Insert
+     * vorausgewaehlt") oder schliesst sie wieder. Oeffentlich fuer den Client-Test.
+     */
+    public void toggleHelp() {
+        helpOpen = !helpOpen;
+        draggingView = false;
+        if (helpOpen) {
+            helpBlocks = true;
+            helpScroll = 0;
+            updateButtons();
+            setFocused(insertBox);
+        } else {
+            updateButtons();
+            setFocused(codeArea);
+        }
+    }
+
+    /** Reiter der Hilfe waehlen (true = Blocks); oeffentlich fuer den Client-Test. */
+    public void showTab(boolean blocks) {
+        helpBlocks = blocks;
+        helpScroll = 0;
+        updateButtons();
+        setFocused(blocks ? insertBox : null);
     }
 
     private void onCodeChanged(String value) {
@@ -262,19 +317,35 @@ public class BlueprintScreen extends Screen {
         if (!readOnly && !code.equals(lastSent) && now - lastEdit > AUTOSAVE_MS) {
             save();
         }
+        if (copiedUntil != 0 && now > copiedUntil) {
+            copiedUntil = 0;
+            copyButton.setMessage(Component.translatable("simplebuilding.blueprint.help.copy"));
+        }
+    }
+
+    private BlueprintEditPayload payload(boolean sign, String title) {
+        return placedPos != null ? BlueprintEditPayload.placed(placedPos, code, sign, title) : new BlueprintEditPayload(slot, code, sign, title);
     }
 
     private void save() {
         if (!readOnly && !code.equals(lastSent)) {
-            ClientNetworking.send(new BlueprintEditPayload(slot, code, false, ""));
+            ClientNetworking.send(payload(false, ""));
             lastSent = code;
         }
     }
 
-    private void insertSelected() {
-        if (selected != null && !readOnly) {
-            codeArea.insert(BlueprintBlockSearch.codeName(selected));
-            setFocused(codeArea);
+    /** Der Block, den "Einfuegen" setzt: der gewaehlte, sonst der erste Treffer einer Suche. */
+    private @Nullable Block target() {
+        if (selected != null) {
+            return selected;
+        }
+        return insertBox != null && !insertBox.getValue().isBlank() && !helpResults.isEmpty() ? helpResults.get(0) : null;
+    }
+
+    private void insertTarget() {
+        Block target = target();
+        if (target != null && !readOnly) {
+            codeArea.insert(BlueprintBlockSearch.codeName(target));
         }
     }
 
@@ -288,6 +359,27 @@ public class BlueprintScreen extends Screen {
         setFocused(codeArea);
     }
 
+    /** Die ganze Anleitung als Text: Ueberschriften mit "## ", Absaetze durch Leerzeilen getrennt. */
+    public static String guideText() {
+        StringBuilder out = new StringBuilder();
+        out.append("# ").append(Component.translatable("simplebuilding.blueprint.help.guide.title").getString()).append("\n\n");
+        for (String part : GUIDE) {
+            if (part.startsWith("h")) {
+                out.append("## ").append(Component.translatable("simplebuilding.blueprint.help.guide.head." + part.substring(1)).getString());
+            } else {
+                out.append(Component.translatable("simplebuilding.blueprint.help.guide." + part).getString());
+            }
+            out.append("\n\n");
+        }
+        return out.toString().strip() + "\n";
+    }
+
+    private void copyGuide() {
+        minecraft.keyboardHandler.setClipboard(guideText());
+        copyButton.setMessage(Component.translatable("simplebuilding.blueprint.help.copied"));
+        copiedUntil = Util.getMillis() + 2000;
+    }
+
     private void sign() {
         if (dirty) {
             reparse();
@@ -295,7 +387,7 @@ public class BlueprintScreen extends Screen {
         if (!parsed.ok() || titleBox.getValue().isBlank()) {
             return;
         }
-        ClientNetworking.send(new BlueprintEditPayload(slot, code, true, titleBox.getValue().strip()));
+        ClientNetworking.send(payload(true, titleBox.getValue().strip()));
         lastSent = code;
         minecraft.gui.setScreen(null);
     }
@@ -315,7 +407,12 @@ public class BlueprintScreen extends Screen {
 
     @Override
     public boolean keyPressed(KeyEvent event) {
-        boolean typing = codeArea.isFocused() || insertBox.isFocused() || titleBox.isFocused() || helpSearch.isFocused();
+        if (insertBox.isFocused() && insertBox.visible
+                && (event.key() == InputConstants.KEY_RETURN || event.key() == InputConstants.KEY_NUMPADENTER)) {
+            insertTarget();
+            return true;
+        }
+        boolean typing = codeArea.isFocused() || insertBox.isFocused() || titleBox.isFocused();
         if (!typing && minecraft.options.keyInventory.matches(event)) {
             onClose();
             return true;
@@ -335,13 +432,15 @@ public class BlueprintScreen extends Screen {
     @Override
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractBackground(g, mouseX, mouseY, a);
-        g.fill(panelX - 1, panelY - 1, panelX + panelW + 1, panelY + panelH + 1, PAPER_EDGE);
-        g.fill(panelX, panelY, panelX + panelW, panelY + panelH, PAPER);
-        g.fill(panelX + 2, panelY + 2, panelX + panelW - 2, panelY + 3, PAPER_SHADE);
-        g.fill(panelX + 2, panelY + panelH - 3, panelX + panelW - 2, panelY + panelH - 2, PAPER_SHADE);
-        // Hintergrund der rechten Spalte vor den Knoepfen, damit die Knoepfe darauf liegen
-        g.fill(viewX, bodyY, viewX + viewW, bodyY + bodyH, PAPER_EDGE);
-        g.fill(viewX + 1, bodyY + 1, viewX + viewW - 1, bodyY + bodyH - 1, helpOpen ? PAPER_SHADE : VIEW_BG);
+        Rect p = layout.panel;
+        g.fill(p.x() - 1, p.y() - 1, p.right() + 1, p.bottom() + 1, PAPER_EDGE);
+        g.fill(p.x(), p.y(), p.right(), p.bottom(), PAPER);
+        g.fill(p.x() + 2, p.y() + 2, p.right() - 2, p.y() + 3, PAPER_SHADE);
+        g.fill(p.x() + 2, p.bottom() - 3, p.right() - 2, p.bottom() - 2, PAPER_SHADE);
+        // Hintergrund der Vorschau vor den Knoepfen, damit die Knoepfe darauf liegen
+        Rect v = layout.view;
+        g.fill(v.x(), v.y(), v.right(), v.bottom(), PAPER_EDGE);
+        g.fill(v.x() + 1, v.y() + 1, v.right() - 1, v.bottom() - 1, helpOpen ? PAPER_SHADE : VIEW_BG);
     }
 
     @Override
@@ -356,9 +455,20 @@ public class BlueprintScreen extends Screen {
         drawMaterials(g, mouseX, mouseY);
         drawStats(g, mouseX, mouseY);
         drawStatus(g);
-        if (!readOnly) {
-            drawInsertResults(g, mouseX, mouseY);
+    }
+
+    /** Text, der in {@code w} passt: wird bei Bedarf kleiner gezeichnet statt abgeschnitten. */
+    private void fitted(GuiGraphicsExtractor g, Component text, int x, int y, int w, int colour) {
+        float scale = BlueprintEditorLayout.fitScale(font.width(text), w);
+        if (scale >= 1f) {
+            g.text(font, text, x, y, colour, false);
+            return;
         }
+        g.pose().pushMatrix();
+        g.pose().translate(x, y + (font.lineHeight * (1f - scale)) / 2f);
+        g.pose().scale(scale, scale);
+        g.text(font, text, 0, 0, colour, false);
+        g.pose().popMatrix();
     }
 
     private void drawHeader(GuiGraphicsExtractor g) {
@@ -371,44 +481,46 @@ public class BlueprintScreen extends Screen {
         } else {
             title.append(Component.translatable("item.simplebuilding.blueprint").withStyle(ChatFormatting.BOLD));
         }
-        g.text(font, title, panelX + 8, panelY + 7, INK, false);
-        Component chars = Component.translatable("simplebuilding.blueprint.editor.chars", code.length(), BlueprintCode.MAX_CODE_LENGTH);
-        g.text(font, chars, panelX + panelW - 8 - font.width(chars), panelY + 7,
-                code.length() > BlueprintCode.MAX_CODE_LENGTH * 9 / 10 ? ERROR : INK_SOFT, false);
+        Rect p = layout.panel;
+        fitted(g, title, p.x() + 8, p.y() + 7, p.w() - 16, INK);
+        g.fill(p.x() + 8, p.y() + 18, p.right() - 8, p.y() + 19, PAPER_SHADE);
         int labelY = bodyY - font.lineHeight - 1;
-        g.text(font, Component.translatable("simplebuilding.blueprint.editor.materials"), listX, labelY, INK_SOFT, false);
-        g.text(font, Component.translatable("simplebuilding.blueprint.editor.code"), codeX, labelY, INK_SOFT, false);
+        g.text(font, Component.translatable("simplebuilding.blueprint.editor.materials"), layout.list.x(), labelY, INK_SOFT, false);
+        g.text(font, Component.translatable("simplebuilding.blueprint.editor.code"), layout.code.x(), labelY, INK_SOFT, false);
         g.text(font, Component.translatable(helpOpen ? "simplebuilding.blueprint.help.title" : "simplebuilding.blueprint.editor.view"),
                 viewX, labelY, INK_SOFT, false);
     }
 
+    /** Materialraster: je Zelle Icon + Menge; Name, genaue Zahl und Stapel im Tooltip. */
     private void drawMaterials(GuiGraphicsExtractor g, int mouseX, int mouseY) {
-        g.fill(listX, bodyY, listX + listW, bodyY + bodyH, PAPER_SHADE);
+        Rect l = layout.list;
+        g.fill(l.x(), l.y(), l.right(), l.bottom(), PAPER_SHADE);
         if (materials.isEmpty()) {
-            g.textWithWordWrap(font, Component.translatable("simplebuilding.blueprint.editor.no_materials"), listX + 3, bodyY + 3, listW - 6, INK_SOFT, false);
+            g.textWithWordWrap(font, Component.translatable("simplebuilding.blueprint.editor.no_materials"), l.x() + 3, l.y() + 3, l.w() - 6, INK_SOFT, false);
             return;
         }
-        listScroll = Math.max(0, Math.min(listScroll, Math.max(0, materials.size() * ROW - bodyH + 2)));
-        g.enableScissor(listX, bodyY, listX + listW, bodyY + bodyH);
-        int y0 = bodyY + 1 - (int) listScroll;
+        int cols = layout.materialColumns();
+        int cellW = l.w() / cols;
+        int rows = (materials.size() + cols - 1) / cols;
+        listScroll = Math.max(0, Math.min(listScroll, Math.max(0, rows * BlueprintEditorLayout.CELL_H - l.h() + 2)));
+        g.enableScissor(l.x(), l.y(), l.right(), l.bottom());
+        int y0 = l.y() + 1 - (int) listScroll;
         Component hovered = null;
         for (int i = 0; i < materials.size(); i++) {
-            int ry = y0 + i * ROW;
-            if (ry + ROW < bodyY || ry > bodyY + bodyH) {
+            int x = l.x() + (i % cols) * cellW;
+            int y = y0 + (i / cols) * BlueprintEditorLayout.CELL_H;
+            if (y + BlueprintEditorLayout.CELL_H < l.y() || y > l.bottom()) {
                 continue;
             }
             BlueprintMaterials.Entry e = materials.get(i);
-            Component name = e.block() != null ? e.block().getName() : new ItemStack(e.item()).getHoverName();
             if (e.block() == null) {
-                g.item(new ItemStack(e.item()), listX + 2, ry);
+                g.item(new ItemStack(e.item()), x + 2, y);
             } else {
-                g.fill(listX + 3, ry + 1, listX + 17, ry + 15, 0x40C62828);
+                g.fill(x + 3, y + 1, x + 17, y + 15, 0x40C62828);
             }
-            String count = e.count() + "×";
-            g.text(font, count, listX + 20, ry + 4, e.block() != null ? ERROR : INK, false);
-            int nameX = listX + 22 + font.width(count);
-            g.text(font, font.plainSubstrByWidth(name.getString(), listX + listW - 2 - nameX), nameX, ry + 4, INK_SOFT, false);
-            if (mouseX >= listX && mouseX < listX + listW && mouseY >= Math.max(ry, bodyY) && mouseY < Math.min(ry + ROW, bodyY + bodyH)) {
+            g.text(font, BlueprintEditorLayout.compactCount(e.count()), x + 20, y + 4, e.block() != null ? ERROR : INK, false);
+            if (mouseX >= x && mouseX < x + cellW && mouseY >= Math.max(y, l.y()) && mouseY < Math.min(y + BlueprintEditorLayout.CELL_H, l.bottom())) {
+                Component name = e.block() != null ? e.block().getName() : new ItemStack(e.item()).getHoverName();
                 MutableComponent tip = Component.literal(e.count() + "× ").append(name);
                 if (e.block() == null && e.count() >= 64) {
                     tip.append(Component.literal(" (" + (e.count() / 64) + "×64 + " + (e.count() % 64) + ")").withStyle(ChatFormatting.GRAY));
@@ -436,45 +548,42 @@ public class BlueprintScreen extends Screen {
         };
     }
 
-    /** Unter der Materialliste: Masse + Blockzahl, der noetige Baustab, die Leiste genutzt/frei. */
+    /** Unter dem Raster: "X×Y×Z", darunter "= n Bloecke", darunter Stab-Icon + Balken zur Stufengrenze. */
     private void drawStats(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         BlueprintModel model = parsed.model();
-        int x = listX;
-        int y = footerY;
+        Rect dims = layout.dimsLine;
         if (model.isEmpty()) {
-            g.text(font, Component.translatable("simplebuilding.blueprint.editor.size_empty"), x, y, INK_SOFT, false);
+            fitted(g, Component.translatable("simplebuilding.blueprint.editor.size_empty"), dims.x(), dims.y(), dims.w(), INK_SOFT);
             return;
         }
-        String dims = model.sizeX() + " × " + model.sizeY() + " × " + model.sizeZ();
-        g.text(font, dims, x, y, INK, false);
-        Component blocks = Component.translatable("simplebuilding.blueprint.editor.blocks", model.size());
-        g.text(font, blocks, x + listW - font.width(blocks), y, INK_SOFT, false);
+        fitted(g, Component.literal(model.sizeX() + "×" + model.sizeY() + "×" + model.sizeZ()), dims.x(), dims.y(), dims.w(), INK);
+        Rect blocks = layout.blocksLine;
+        fitted(g, Component.translatable("simplebuilding.blueprint.editor.blocks_total", model.size()), blocks.x(), blocks.y(), blocks.w(), INK_SOFT);
 
         int edge = model.maxEdge();
         int tier = BlueprintTiers.tierIndexFor(edge);
+        Rect icon = layout.wandIcon;
+        Rect bar = layout.wandBar;
         if (tier < 0) {
-            g.textWithWordWrap(font, Component.translatable("simplebuilding.blueprint.editor.too_big", BlueprintCode.GRID), x, y + 12, listW, ERROR, false);
+            g.item(new ItemStack(Items.BARRIER), icon.x(), icon.y());
+            fitted(g, Component.translatable("simplebuilding.blueprint.editor.too_big", BlueprintCode.GRID), bar.x(), icon.y() + 4, bar.w(), ERROR);
             return;
         }
-        g.item(new ItemStack(wandFor(tier)), x, y + 11);
-        Component tierName = Component.translatable("simplebuilding.blueprint.tier." + BlueprintTiers.NAMES[tier]);
-        g.text(font, tierName, x + 19, y + 15, INK, false);
-        String limit = edge + " / " + BlueprintTiers.EDGES[tier];
-        g.text(font, limit, x + listW - font.width(limit), y + 15, INK_SOFT, false);
-        if (mouseX >= x && mouseX < x + listW && mouseY >= y + 11 && mouseY < y + 27) {
-            g.setTooltipForNextFrame(font, Component.translatable("simplebuilding.blueprint.tooltip.needs", BlueprintTiers.wandName(tier)), mouseX, mouseY);
+        g.item(new ItemStack(wandFor(tier)), icon.x(), icon.y());
+        g.fill(bar.x(), bar.y(), bar.right(), bar.bottom(), PAPER_EDGE);
+        g.fill(bar.x() + 1, bar.y() + 1, bar.right() - 1, bar.bottom() - 1, PAPER_SHADE);
+        int filled = (int) ((bar.w() - 2) * Math.min(1.0, edge / (double) BlueprintTiers.EDGES[tier]));
+        g.fill(bar.x() + 1, bar.y() + 1, bar.x() + 1 + filled, bar.bottom() - 1, TIER_COLOURS[tier]);
+        if (mouseX >= icon.x() && mouseX < bar.right() && mouseY >= icon.y() && mouseY < icon.bottom()) {
+            List<FormattedCharSequence> tip = new ArrayList<>();
+            tip.add(Component.translatable("simplebuilding.blueprint.tooltip.needs", BlueprintTiers.wandName(tier)).getVisualOrderText());
+            tip.add(Component.translatable("simplebuilding.blueprint.editor.usage", edge, BlueprintTiers.EDGES[tier] - edge)
+                    .withStyle(ChatFormatting.GRAY).getVisualOrderText());
+            g.setTooltipForNextFrame(font, tip, mouseX, mouseY);
         }
-        // Leiste genutzt / frei bezogen auf die Stufengrenze
-        int barY = y + 30;
-        g.fill(x, barY, x + listW, barY + 6, PAPER_EDGE);
-        g.fill(x + 1, barY + 1, x + listW - 1, barY + 5, PAPER_SHADE);
-        int filled = (int) ((listW - 2) * Math.min(1.0, edge / (double) BlueprintTiers.EDGES[tier]));
-        g.fill(x + 1, barY + 1, x + 1 + filled, barY + 5, TIER_COLOURS[tier]);
-        Component usage = Component.translatable("simplebuilding.blueprint.editor.usage", edge, BlueprintTiers.EDGES[tier] - edge);
-        g.text(font, font.plainSubstrByWidth(usage.getString(), listW), x, barY + 9, INK_SOFT, false);
     }
 
-    /** Direkt unter dem Code: nur der Status, in Code-Breite. */
+    /** Unter dem Code: Status, darunter die Zeichenzahl; rechts daneben der Buch-Knopf. */
     private void drawStatus(GuiGraphicsExtractor g) {
         BlueprintCode.Problem shown = null;
         int cursor = codeArea.cursor();
@@ -500,37 +609,11 @@ public class BlueprintScreen extends Screen {
             text = Component.translatable("simplebuilding.blueprint.editor.ok").getString();
             colour = OK;
         }
-        g.text(font, font.plainSubstrByWidth(text, codeW), codeX, footerY, colour, false);
-    }
-
-    /** Die Ergebnis-Symbole der Einfuege-Suche; der erste Klick waehlt, "Einfuegen" bestaetigt. */
-    private void drawInsertResults(GuiGraphicsExtractor g, int mouseX, int mouseY) {
-        int y = footerY + 32;
-        int max = Math.max(1, codeW / 18);
-        Component hover = null;
-        if (insertResults.isEmpty() && !insertBox.getValue().isBlank()) {
-            g.text(font, Component.translatable("simplebuilding.blueprint.editor.no_hits"), codeX, y + 4, INK_SOFT, false);
-        }
-        for (int i = 0; i < insertResults.size() && i < max; i++) {
-            Block block = insertResults.get(i);
-            int x = codeX + i * 18;
-            if (block == selected) {
-                g.fill(x - 1, y - 1, x + 17, y + 17, 0xFF3A6EA5);
-            }
-            g.fill(x, y, x + 16, y + 16, 0x30000000);
-            Item item = block.asItem();
-            if (item != Items.AIR) {
-                g.item(new ItemStack(item), x, y);
-            } else {
-                g.text(font, "?", x + 5, y + 4, INK, false);
-            }
-            if (mouseX >= x && mouseX < x + 16 && mouseY >= y && mouseY < y + 16) {
-                hover = Component.literal("").append(block.getName()).append(Component.literal("  " + BlueprintBlockSearch.codeName(block)).withStyle(ChatFormatting.GRAY));
-            }
-        }
-        if (hover != null) {
-            g.setTooltipForNextFrame(font, hover, mouseX, mouseY);
-        }
+        Rect status = layout.status;
+        g.text(font, font.plainSubstrByWidth(text, status.w()), status.x(), status.y(), colour, false);
+        Rect chars = layout.chars;
+        fitted(g, Component.translatable("simplebuilding.blueprint.editor.chars", code.length(), BlueprintCode.MAX_CODE_LENGTH),
+                chars.x(), chars.y(), chars.w(), code.length() > BlueprintCode.MAX_CODE_LENGTH * 9 / 10 ? ERROR : INK_SOFT);
     }
 
     private void drawView(GuiGraphicsExtractor g) {
@@ -545,102 +628,108 @@ public class BlueprintScreen extends Screen {
         if (mesh.truncated()) {
             g.text(font, Component.translatable("simplebuilding.blueprint.editor.truncated"), viewX + 4, bodyY + bodyH - 12, 0xFFFFB74D, false);
         }
-        g.text(font, Component.translatable("simplebuilding.blueprint.editor.view_hint"), viewX + 4, bodyY + 4, 0x90B0C4DE, false);
+        // Hinweis oben links, nicht unter das Reset-Icon
+        fitted(g, Component.translatable("simplebuilding.blueprint.editor.view_hint"), viewX + 4, bodyY + 6,
+                layout.reset.x() - 4 - (viewX + 4), 0x90B0C4DE);
     }
 
-    /** Hilfe statt 3D-Ansicht: Code-Anleitung oder durchsuchbare Blockliste. */
+    /** Hilfe statt 3D-Ansicht: Blockliste (Reiter Blocks) oder Anleitung (Reiter Guide). */
     private void drawHelp(GuiGraphicsExtractor g, int mouseX, int mouseY) {
-        int top = bodyY + (helpBlocks ? 36 : 19);
-        int bottom = bodyY + bodyH - 2;
-        g.enableScissor(viewX + 1, top, viewX + viewW - 1, bottom);
         if (!helpBlocks) {
-            List<net.minecraft.util.FormattedCharSequence> lines = new ArrayList<>();
-            for (int i = 1; i <= GUIDE_LINES; i++) {
-                lines.addAll(font.split(Component.translatable("simplebuilding.blueprint.help.guide." + i), viewW - 10));
-                lines.add(net.minecraft.util.FormattedCharSequence.EMPTY);
-            }
-            helpScroll = Math.max(0, Math.min(helpScroll, Math.max(0, lines.size() * 10 - (bottom - top))));
-            int y = top - (int) helpScroll;
-            for (net.minecraft.util.FormattedCharSequence line : lines) {
-                if (y > top - 10 && y < bottom) {
-                    g.text(font, line, viewX + 5, y, INK, false);
+            Rect r = layout.guideText;
+            List<FormattedCharSequence> lines = guideLines(r.w() - 8);
+            helpScroll = Math.max(0, Math.min(helpScroll, Math.max(0, lines.size() * 10 - r.h() + 4)));
+            g.enableScissor(r.x(), r.y(), r.right(), r.bottom());
+            int y = r.y() + 2 - (int) helpScroll;
+            for (FormattedCharSequence line : lines) {
+                if (y > r.y() - 10 && y < r.bottom()) {
+                    g.text(font, line, r.x() + 4, y, INK, false);
                 }
                 y += 10;
             }
-        } else {
-            helpScroll = Math.max(0, Math.min(helpScroll, Math.max(0, helpResults.size() * 18 - (bottom - top))));
-            int y = top - (int) helpScroll;
-            Component hover = null;
-            for (Block block : helpResults) {
-                if (y > top - 18 && y < bottom) {
-                    if (block == selected) {
-                        g.fill(viewX + 2, y, viewX + viewW - 2, y + 18, 0x503A6EA5);
-                    }
-                    Item item = block.asItem();
-                    if (item != Items.AIR) {
-                        g.item(new ItemStack(item), viewX + 3, y + 1);
-                    }
-                    String name = font.plainSubstrByWidth(displayName(block), viewW - 26);
-                    g.text(font, name, viewX + 22, y + 1, INK, false);
-                    String id = font.plainSubstrByWidth(BlueprintBlockSearch.codeName(block), viewW - 26);
-                    g.pose().pushMatrix();
-                    g.pose().translate(viewX + 22, y + 10);
-                    g.pose().scale(0.75f, 0.75f);
-                    g.text(font, id, 0, 0, INK_SOFT, false);
-                    g.pose().popMatrix();
-                    if (mouseX >= viewX && mouseX < viewX + viewW && mouseY >= Math.max(y, top) && mouseY < Math.min(y + 18, bottom)) {
-                        hover = Component.translatable("simplebuilding.blueprint.help.pick");
-                    }
+            g.disableScissor();
+            return;
+        }
+        Rect r = layout.helpList;
+        int row = BlueprintEditorLayout.HELP_ROW;
+        if (helpResults.isEmpty()) {
+            g.text(font, Component.translatable("simplebuilding.blueprint.editor.no_hits"), r.x() + 4, r.y() + 4, INK_SOFT, false);
+            return;
+        }
+        helpScroll = Math.max(0, Math.min(helpScroll, Math.max(0, helpResults.size() * row - r.h())));
+        g.enableScissor(r.x(), r.y(), r.right(), r.bottom());
+        int y = r.y() - (int) helpScroll;
+        Component hover = null;
+        for (Block block : helpResults) {
+            if (y > r.y() - row && y < r.bottom()) {
+                if (block == selected) {
+                    g.fill(r.x() + 1, y, r.right() - 1, y + row, 0x50000000 | (SELECT & 0xFFFFFF));
                 }
-                y += 18;
+                Item item = block.asItem();
+                if (item != Items.AIR) {
+                    g.item(new ItemStack(item), r.x() + 2, y + 1);
+                }
+                g.text(font, font.plainSubstrByWidth(displayName(block), r.w() - 24), r.x() + 21, y + 1, INK, false);
+                String id = font.plainSubstrByWidth(BlueprintBlockSearch.codeName(block), (int) ((r.w() - 24) / 0.75f));
+                g.pose().pushMatrix();
+                g.pose().translate(r.x() + 21, y + 10);
+                g.pose().scale(0.75f, 0.75f);
+                g.text(font, id, 0, 0, INK_SOFT, false);
+                g.pose().popMatrix();
+                if (r.contains(mouseX, mouseY) && mouseY >= y && mouseY < y + row) {
+                    hover = Component.translatable(readOnly ? "simplebuilding.blueprint.help.pick_readonly" : "simplebuilding.blueprint.help.pick");
+                }
             }
-            if (hover != null) {
-                g.setTooltipForNextFrame(font, hover, mouseX, mouseY);
-            }
+            y += row;
         }
         g.disableScissor();
+        if (hover != null) {
+            g.setTooltipForNextFrame(font, hover, mouseX, mouseY);
+        }
     }
 
-    private static final int GUIDE_LINES = 13;
+    private List<FormattedCharSequence> guideLines(int w) {
+        List<FormattedCharSequence> lines = new ArrayList<>();
+        for (String part : GUIDE) {
+            if (part.startsWith("h")) {
+                if (!lines.isEmpty()) {
+                    lines.add(FormattedCharSequence.EMPTY);
+                }
+                lines.addAll(font.split(Component.translatable("simplebuilding.blueprint.help.guide.head." + part.substring(1))
+                        .withStyle(ChatFormatting.BOLD, ChatFormatting.UNDERLINE), w));
+            } else {
+                lines.addAll(font.split(Component.translatable("simplebuilding.blueprint.help.guide." + part), w));
+            }
+            lines.add(FormattedCharSequence.EMPTY);
+        }
+        return lines;
+    }
 
     // =====================================================================================
     // MAUS
     // =====================================================================================
 
     private boolean overView(double mx, double my) {
-        return mx >= viewX && mx < viewX + viewW && my >= bodyY && my < bodyY + bodyH;
-    }
-
-    private boolean overList(double mx, double my) {
-        return mx >= listX && mx < listX + listW && my >= bodyY && my < bodyY + bodyH;
+        return layout.view.contains(mx, my);
     }
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
         double mx = event.x(), my = event.y();
-        // Einfuege-Ergebnisse: erster Klick waehlt (ein zweiter auf "Einfuegen" fuegt ein)
-        if (!readOnly && my >= footerY + 32 && my < footerY + 48 && mx >= codeX && mx < codeX + codeW) {
-            int i = (int) ((mx - codeX) / 18);
-            if (i >= 0 && i < insertResults.size() && i < Math.max(1, codeW / 18)) {
-                selected = insertResults.get(i);
-                updateButtons();
-                return true;
-            }
-        }
-        if (helpOpen && helpBlocks && overView(mx, my) && my >= bodyY + 36) {
-            int i = (int) ((my - (bodyY + 36) + helpScroll) / 18);
+        if (helpOpen && helpBlocks && layout.helpList.contains(mx, my)) {
+            int i = (int) ((my - layout.helpList.y() + helpScroll) / BlueprintEditorLayout.HELP_ROW);
             if (i >= 0 && i < helpResults.size()) {
                 selected = helpResults.get(i);
-                insertBox.setValue(BlueprintBlockSearch.codeName(selected));
-                selected = helpResults.get(i);
                 updateButtons();
+                if (doubleClick) {
+                    insertTarget();
+                }
                 return true;
             }
         }
-        if (super.mouseClicked(event, doubleClick)) {
-            return true;
-        }
-        if (!helpOpen && overView(mx, my)) {
+        // Freie Vorschau: der Drag startet vor der Verteilung an die Widgets, damit kein Widget ihn
+        // abfangen kann - nur Knoepfe im Fenster (Reset, Beispiel) gehen vor.
+        if (!helpOpen && overView(mx, my) && getChildAt(mx, my).isEmpty()) {
             draggingView = true;
             // Strg beim Tastendruck entscheidet fuer den ganzen Ziehvorgang: Verschieben statt Drehen.
             draggingPan = event.hasControlDown();
@@ -651,7 +740,7 @@ public class BlueprintScreen extends Screen {
         }
         draggingView = false;
         draggingPan = false;
-        return false;
+        return super.mouseClicked(event, doubleClick);
     }
 
     @Override
@@ -678,62 +767,44 @@ public class BlueprintScreen extends Screen {
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         if (overView(mouseX, mouseY)) {
             if (helpOpen) {
-                helpScroll -= scrollY * 18;
+                helpScroll -= scrollY * (helpBlocks ? BlueprintEditorLayout.HELP_ROW : 20);
             } else {
                 controls.zoom(scrollY);
             }
             return true;
         }
-        if (overList(mouseX, mouseY)) {
-            listScroll -= scrollY * ROW;
+        if (layout.list.contains(mouseX, mouseY)) {
+            listScroll -= scrollY * BlueprintEditorLayout.CELL_H;
             return true;
         }
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
 
-    /** Buch-Symbol wie Vanillas Rezeptbuch-Knopf: oeffnet und schliesst die Hilfe. */
-    private static final class BookButton extends net.minecraft.client.gui.components.AbstractButton {
-        private final Runnable action;
-
-        BookButton(int x, int y, Runnable action) {
-            super(x, y, 16, 16, Component.translatable("simplebuilding.blueprint.help.title"));
-            this.action = action;
-            setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable("simplebuilding.blueprint.help.open")));
-        }
-
-        @Override
-        public void onPress(net.minecraft.client.input.InputWithModifiers input) {
-            action.run();
-        }
-
-        @Override
-        protected void extractContents(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
-            if (isHoveredOrFocused()) {
-                g.fill(getX() - 1, getY() - 1, getX() + 17, getY() + 17, 0x40FFFFFF);
-            }
-            g.item(new ItemStack(Items.KNOWLEDGE_BOOK), getX(), getY());
-        }
-
-        @Override
-        protected void updateWidgetNarration(net.minecraft.client.gui.narration.NarrationElementOutput output) {
-            defaultButtonNarrationText(output);
-        }
-    }
+    /** Kreispfeil "Ansicht zuruecksetzen", 9×8, im Stil der eingravierten Symbole. */
+    private static final String[] RESET_ICON = {
+            "..####.#.",
+            ".#....##.",
+            "#....###.",
+            "#........",
+            "#.......#",
+            "#.......#",
+            ".#.....#.",
+            "..#####..",
+    };
 
     /**
-     * Setzt Drehung, Zoom und Verschiebung der Ansicht zurueck. Icon statt Text: der Knopf steht
-     * links neben dem Buch-Knopf ueber der Vorschau, ausserhalb des View-Rechtecks, damit er den
-     * Ziehvorgang nicht beansprucht. Keine eigene Textur - das Kompass-Item wie jeder andere
-     * Icon-Knopf auch.
+     * Kleiner 16×16-Knopf ohne Text: entweder das Wissensbuch (Hilfe, wie Vanillas Rezeptbuch-Knopf)
+     * oder ein gezeichnetes Pixel-Symbol auf dunklem Grund (Reset im Vorschaufenster).
      */
-    private static final class ResetViewButton extends net.minecraft.client.gui.components.AbstractButton {
+    private static final class IconButton extends net.minecraft.client.gui.components.AbstractButton {
         private final Runnable action;
+        private final String[] bitmap;
 
-        ResetViewButton(int x, int y, Runnable action) {
-            super(x, y, 16, 16, Component.translatable("simplebuilding.blueprint.editor.view_reset"));
+        IconButton(Rect r, Component label, Component tooltip, String[] bitmap, Runnable action) {
+            super(r.x(), r.y(), r.w(), r.h(), label);
             this.action = action;
-            setTooltip(net.minecraft.client.gui.components.Tooltip.create(
-                    Component.translatable("simplebuilding.blueprint.editor.view_reset_tip")));
+            this.bitmap = bitmap;
+            setTooltip(Tooltip.create(tooltip));
         }
 
         @Override
@@ -743,10 +814,25 @@ public class BlueprintScreen extends Screen {
 
         @Override
         protected void extractContents(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
-            if (isHoveredOrFocused()) {
-                g.fill(getX() - 1, getY() - 1, getX() + 17, getY() + 17, 0x40FFFFFF);
+            int x = getX(), y = getY();
+            if (bitmap == null) {
+                if (isHoveredOrFocused()) {
+                    g.fill(x - 1, y - 1, x + width + 1, y + height + 1, 0x40FFFFFF);
+                }
+                g.item(new ItemStack(Items.KNOWLEDGE_BOOK), x, y);
+                return;
             }
-            g.item(new ItemStack(Items.COMPASS), getX(), getY());
+            g.fill(x, y, x + width, y + height, isHoveredOrFocused() ? 0xA0405A78 : 0x70000000);
+            int ox = x + (width - bitmap[0].length()) / 2;
+            int oy = y + (height - bitmap.length) / 2;
+            int colour = isHoveredOrFocused() ? 0xFFFFFFFF : 0xFFC8D6E8;
+            for (int row = 0; row < bitmap.length; row++) {
+                for (int col = 0; col < bitmap[row].length(); col++) {
+                    if (bitmap[row].charAt(col) == '#') {
+                        g.fill(ox + col, oy + row, ox + col + 1, oy + row + 1, colour);
+                    }
+                }
+            }
         }
 
         @Override

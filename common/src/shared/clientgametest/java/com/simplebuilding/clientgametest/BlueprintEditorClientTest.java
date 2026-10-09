@@ -36,6 +36,7 @@ public final class BlueprintEditorClientTest {
     }
 
     public static void inWorld(Script script) {
+        String[] expectedCode = {"stone 2"};
         TestScene.build(script, "minecraft:stone", "creative");
         script.command("item replace entity @a weapon.mainhand with simplebuilding:blueprint");
         script.command("tp @a " + PLAYER_SPOT_LOOKING_UP);
@@ -75,21 +76,33 @@ public final class BlueprintEditorClientTest {
         expectCode(script, "stone 2", "pasting 'e 2' after 'ston'");
         script.act("give the clipboard back", client -> client.keyboardHandler.setClipboard(savedClipboard[0] == null ? "" : savedClipboard[0]));
 
-        script.act("focus the insert search as a click would", client -> {
+        script.act("open the help book with the book button's action", client -> ((BlueprintScreen) client.gui.screen()).toggleHelp());
+        script.act("the book opened with the insert field already focused (Queue N23)", client -> {
             EditBox insert = insertBox(client);
-            client.gui.screen().setFocused(insert);
+            if (focused(client) != insert || !insert.isVisible()) {
+                throw new AssertionError("Opening the help book focused " + focused(client) + ", not the visible insert field.");
+            }
         });
-        expectTextInput(script, true, "with the insert search focused (handed over from the code area)");
+        expectTextInput(script, true, "with the insert field focused (handed over from the code area)");
         typeLikeAKeyboard(script, "oak");
-        script.act("the insert search took 'oak' and the code stayed as it was", client -> {
+        script.act("the insert field took 'oak' and the code stayed as it was", client -> {
             EditBox insert = insertBox(client);
             if (!"oak".equals(insert.getValue())) {
-                throw new AssertionError("Typing 'oak' into the insert search left it at '" + insert.getValue() + "'.");
+                throw new AssertionError("Typing 'oak' into the insert field left it at '" + insert.getValue() + "'.");
             }
             if (!"stone 2".equals(codeArea(client).getValue())) {
-                throw new AssertionError("Typing into the insert search changed the code to '" + codeArea(client).getValue() + "'.");
+                throw new AssertionError("Typing into the insert field changed the code to '" + codeArea(client).getValue() + "'.");
             }
         });
+        script.harness("press Enter in the insert field", harness -> harness.pressKeyInScreen(InputConstants.KEY_RETURN, 0));
+        script.act("Enter inserted the first hit's ID at the cursor", client -> {
+            String code = codeArea(client).getValue();
+            if (!code.startsWith("stone 2") || !code.substring("stone 2".length()).contains("oak")) {
+                throw new AssertionError("After Enter in the insert field the code reads '" + code + "', expected 'stone 2' plus an oak block ID.");
+            }
+            expectedCode[0] = code;
+        });
+        script.act("close the help book again", client -> ((BlueprintScreen) client.gui.screen()).toggleHelp());
 
         script.act("focus the code area again", client -> client.gui.screen().setFocused(codeArea(client)));
         expectTextInput(script, true, "with the code area focused again");
@@ -104,8 +117,8 @@ public final class BlueprintEditorClientTest {
 
         script.act("the closing save reached the item", client -> {
             String code = com.simplebuilding.items.custom.BlueprintItem.content(client.player.getMainHandItem()).code();
-            if (!"stone 2".equals(code)) {
-                throw new AssertionError("After closing, the blueprint in the hand holds '" + code + "', expected 'stone 2'.");
+            if (!expectedCode[0].equals(code)) {
+                throw new AssertionError("After closing, the blueprint in the hand holds '" + code + "', expected '" + expectedCode[0] + "'.");
             }
         });
         script.command("clear @a", true);
@@ -166,7 +179,7 @@ public final class BlueprintEditorClientTest {
         return child(client, BlueprintCodeArea.class, 0);
     }
 
-    /** The insert search is the first text box the editor adds (then the help search, then the title). */
+    /** The insert field of the help book is the first text box the editor adds (then the title). */
     private static EditBox insertBox(Minecraft client) {
         return child(client, EditBox.class, 0);
     }

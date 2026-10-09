@@ -13,5 +13,6 @@ public final class BlueprintClient {
 
     public static void init() {
         BlueprintItem.setClientOpener((player, hand) -> Minecraft.getInstance().gui.setScreen(new BlueprintScreen(player, hand)));
+        BlueprintItem.setPlacedOpener((pos, stack) -> Minecraft.getInstance().gui.setScreen(new BlueprintScreen(stack, pos)));
     }
 }
