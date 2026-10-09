@@ -87,6 +87,13 @@ public final class ChessClientTest {
         script.await("the client has every chess cell with its pieces", 200,
                 client -> cells.size() == 8 * 2 + ChessColor.values().length * 3 && countPieces(client, cells) == pieces[0],
                 client -> "the client shows " + countPieces(client, cells) + " of " + pieces[0] + " pieces in " + cells.size() + " cells");
+        fly(script);
+        look(script, "tp @a 7.0 0.8 16.6 180.0 32.0");
+        script.shot("chess-board-pieces");
+        look(script, "tp @a 14.0 1.5 16.0 180.0 48.0");
+        script.shot("chess-board-flat");
+        look(script, "tp @a 10.5 2.0 11.0 0.0 30.0");
+        script.shot("chess-gallery");
         script.act("every piece stands on its own quarter, on top of the block below", client -> {
             int checked = 0;
             for (BlockPos pos : cells) {
@@ -96,14 +103,6 @@ public final class ChessClientTest {
                 throw new AssertionError("Checked " + checked + " pieces, the scene holds " + pieces[0]);
             }
         });
-
-        fly(script);
-        look(script, "tp @a 7.0 0.8 16.6 180.0 32.0");
-        script.shot("chess-board-pieces");
-        look(script, "tp @a 14.0 1.5 16.0 180.0 48.0");
-        script.shot("chess-board-flat");
-        look(script, "tp @a 10.5 2.0 11.0 0.0 30.0");
-        script.shot("chess-gallery");
         land(script);
     }
 
