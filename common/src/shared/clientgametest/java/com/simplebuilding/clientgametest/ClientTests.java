@@ -99,7 +99,10 @@ public final class ClientTests {
                 // Owner N21/N28 (26.3): half and full Enderite buckets in the inventory; hotbar back empty.
                 new Entry("enderite-buckets", EnderiteBucketClientTest::inWorld),
                 // Six armor stands in one documentary picture (2026-10-09); kills them again.
-                new Entry("armor-stands", ArmorStandClientTest::inWorld));
+                new Entry("armor-stands", ArmorStandClientTest::inWorld),
+                // Brewing wave 2026-10-09 (26.3): Mirage, Reverse Mirage, Faded, Shivering, the Storage Crafting
+                // Table; clears its effects, the table and the mobs again.
+                new Entry("brew", BrewClientTest::inWorld));
     }
 
     /**

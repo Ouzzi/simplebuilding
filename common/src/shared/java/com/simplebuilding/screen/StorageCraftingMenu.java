@@ -173,7 +173,10 @@ public class StorageCraftingMenu extends AbstractCraftingMenu {
             }
             slot.onTake(player, stack);
             if (slotIndex == RESULT_SLOT) {
-                player.getInventory().placeItemBackInInventory(stack);
+                // What did not fit: into the inventory or onto the ground (same on both lines, no Prediction API).
+                if (!player.getInventory().add(stack) && !stack.isEmpty()) {
+                    net.minecraft.world.Containers.dropItemStack(player.level(), player.getX(), player.getY(), player.getZ(), stack);
+                }
             }
         }
         return clicked;
