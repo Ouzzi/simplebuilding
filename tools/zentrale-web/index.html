@@ -64,7 +64,7 @@ function tab(){const t=(location.hash||'#status').slice(1);document.querySelecto
 addEventListener('hashchange',tab);tab();
 const cls=s=>/VERDICT: GREEN|alles gruen/.test(s)&&!/RED|NICHT gruen/.test(s)?'ok':/RED|NICHT gruen|NOT PUSHED|FEHLER/.test(s)?'bad':/DONE/.test(s)?'mut':'run';
 function md(s){const out=[];let tbl=null;for(const raw of s.split('\n')){const l=raw.trimEnd();
- if(/^\|/.test(l)){if(/^\|[-| :]+\|$/.test(l))continue;const c=l.slice(1,-1).split('|').map(x=>esc(x.trim()));if(!tbl){tbl=[];out.push(()=>'<div style="overflow-x:auto"><table>'+tbl.map((r,i)=>'<tr>'+r.map(x=>i?`<td>${x}</td>`:`<th>${x}</th>`).join('')+'</tr>').join('')+'</table></div>');}tbl.push(c);continue;}
+ if(/^\|/.test(l)){if(/^\|[-| :]+\|$/.test(l))continue;const c=l.slice(1,-1).split('|').map(x=>esc(x.trim()));if(!tbl){const rows=tbl=[];out.push(()=>'<div style="overflow-x:auto"><table>'+rows.map((r,i)=>'<tr>'+r.map(x=>i?`<td>${x}</td>`:`<th>${x}</th>`).join('')+'</tr>').join('')+'</table></div>');}tbl.push(c);continue;}
  tbl=null;if(/^#{1,3} /.test(l))out.push('<h3>'+esc(l.replace(/^#+ /,''))+'</h3>');else if(l)out.push('<p>'+esc(l)+'</p>');}
  return out.map(x=>typeof x==='function'?x():x).join('');}
 function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
