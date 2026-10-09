@@ -635,6 +635,44 @@ a.chip:hover { text-decoration: none; }
 .row-focused { outline: 3px solid var(--accent, #d6a34b); outline-offset: -3px; background: rgba(214, 163, 75, .18); scroll-margin: 5rem; }
 .ob-shared, .ob-attempts { display: block; margin-top: .4rem; }
 .ob-shared code { overflow-wrap: anywhere; }
+/* Texturen (?tab=textures) */
+.tx-bar select { height: 32px; padding: 0 .45rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); font: inherit; max-width: 16rem; }
+.tx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .55rem; }
+.tx-grid-wide { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.tx-tile { display: flex; flex-direction: column; align-items: center; gap: .3rem; min-width: 0; padding: .55rem .45rem .45rem; font: inherit; color: var(--text); text-align: center; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); cursor: zoom-in; content-visibility: auto; contain-intrinsic-size: 150px 120px; }
+.tx-tile:hover, .tx-tile:focus-visible { border-color: var(--accent); }
+.tx-imgs { display: flex; gap: .4rem; align-items: center; justify-content: center; min-height: 56px; }
+.tx-pane { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: var(--slot-bg); border-radius: 4px; box-shadow: inset 2px 2px 0 var(--slot-lo), inset -2px -2px 0 var(--slot-hi); }
+.tx-pane.tx-big { width: 208px; height: 208px; }
+.tx-crop { position: relative; display: inline-block; overflow: hidden; flex: none; }
+.tx-crop img { position: absolute; left: 0; top: 0; max-width: none; image-rendering: pixelated; image-rendering: crisp-edges; }
+.tx-crop img { image-rendering: pixelated; }
+.tx-shot { display: block; width: 100%; aspect-ratio: 16 / 9; background: var(--bg-2); border-radius: 4px; overflow: hidden; }
+.tx-shot img { width: 100%; height: 100%; object-fit: contain; }
+.tx-name { font-size: .82rem; font-weight: 650; line-height: 1.2; overflow-wrap: anywhere; }
+.tx-meta { font-size: .7rem; color: var(--muted); }
+body.tx-lb-open { overflow: hidden; }
+.tx-lb { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(0,0,0,.6); }
+.tx-lb[hidden] { display: none; }
+.tx-lb-box { width: min(1100px, 100%); max-height: 100%; overflow: auto; background: var(--panel); color: var(--text); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: .8rem 1rem 1rem; }
+.tx-lb-head { display: flex; gap: .5rem; align-items: center; }
+.tx-lb-title { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.tx-lb-bar { display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; margin: .6rem 0; }
+.tx-lb-bar .ar-flabel { min-width: 0; margin-left: .4rem; }
+.tx-lb-panes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: .7rem; }
+.tx-lb-pane { margin: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+.tx-lb-pane figcaption { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; padding: .3rem .55rem; background: var(--panel-2); color: var(--muted); }
+.tx-lb-view { display: flex; gap: 1rem; align-items: center; justify-content: center; min-height: 200px; max-height: 60vh; overflow: auto; padding: 12px; }
+.tx-lb-view > img, .tx-lb-view .tx-crop img { image-rendering: pixelated; flex: none; max-width: none; }
+.tx-lb-view > .tx-crop { margin: auto; }
+.tx-lb-view > img { margin: auto; }
+.tx-bg-light .tx-lb-view { background: #f4f4f4; }
+.tx-bg-dark .tx-lb-view { background: #1b1b1f; }
+.tx-bg-slot .tx-lb-view { background: #8b8b8b; }
+.tx-lb-info { margin-top: .7rem; font-size: .85rem; border-collapse: collapse; width: 100%; }
+.tx-lb-info th { text-align: left; color: var(--muted); font-weight: 600; padding: .15rem .8rem .15rem 0; vertical-align: top; white-space: nowrap; width: 1%; }
+.tx-lb-info td { padding: .15rem 0; overflow-wrap: anywhere; }
+.tx-meta-json { margin: 0; font-size: .75rem; max-height: 10rem; overflow: auto; background: var(--code-bg); padding: .3rem .5rem; border-radius: 4px; }
 </style>
 </head>
 <body>
@@ -4177,7 +4215,7 @@ document.getElementById('all-mods').addEventListener('change', function () { if 
    es beim Hash-Router - dann gilt HASHMODE. */
 var ROUTE_PARAM = { items: 'item', blocks: 'block', recipes: 'recipe', loot: 'loot', trades: 'trade', enchantments: 'ench', tags: 'tag', features: 'feature', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
 var PARAM_ROUTE = { item: 'items', block: 'blocks', recipe: 'recipes', loot: 'loot', trade: 'trades', ench: 'enchantments', enchantment: 'enchantments', tag: 'tags', feature: 'features', guide: 'features', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
-var TAB_SECTIONS = ['overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'tags', 'config', 'advancements', 'features', 'search'];
+var TAB_SECTIONS = ['overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'tags', 'config', 'advancements', 'features', 'search', 'textures'];
 var HASHMODE = false;
 function hashToRoute(h) {
   h = String(h || '');
@@ -4327,7 +4365,8 @@ var NAV_REF = [
 var NAV_PROG = [
   { key: 'features', labelKey: 'navGuides', glyph: '✎', count: function () { return arr(D.features).length; } },
   { key: 'advancements', labelKey: 'navAdvancements', glyph: '★', count: function () { return arr(D.advancements).length; } },
-  { key: 'config', labelKey: 'navConfig', glyph: '⚙', count: function () { return arr(D.config).length; } }
+  { key: 'config', labelKey: 'navConfig', glyph: '⚙', count: function () { return arr(D.config).length; } },
+  { key: 'textures', labelKey: 'navTextures', glyph: '▦', count: function () { return window.WIKI_TEXTURES ? arr(window.WIKI_TEXTURES.textures).length : null; } }
 ];
 function renderSidebar(active) {
   if (!D) { $side.innerHTML = ''; return; }
@@ -4336,7 +4375,8 @@ function renderSidebar(active) {
     NAV_REF.concat(NAV_PROG).forEach(function (entry) {
       var field = entry.key === 'loot' ? 'lootTables' : entry.key === 'allrecipes' ? 'recipes' : entry.key;
       var count = field === 'inworld' ? IW.entries.length : arr(D[field]).length;
-      if (entry.key !== 'features' && count) links.push([entry.key, T(entry.labelKey) + ' · ' + count]);
+      if (entry.key === 'textures') links.push([entry.key, T(entry.labelKey)]);
+      else if (entry.key !== 'features' && count) links.push([entry.key, T(entry.labelKey) + ' · ' + count]);
     });
     $side.innerHTML = links.map(function (entry) { return '<a href="#/' + entry[0] + '"' + ((active === entry[0] || (!entry[0] && active === 'overview')) ? ' aria-current="page" class="active"' : '') + '>' + esc(entry[1]) + '</a>'; }).join('');
     return;
@@ -4362,6 +4402,285 @@ function openNav() { document.body.classList.add('nav-open'); $menu.setAttribute
 function closeNav() { document.body.classList.remove('nav-open'); $menu.setAttribute('aria-expanded', 'false'); }
 $menu.addEventListener('click', function () { if (document.body.classList.contains('nav-open')) closeNav(); else openNav(); });
 document.getElementById('backdrop').addEventListener('click', closeNav);
+
+/* ------------------------------------------------------------------ */
+/* Texturen (?tab=textures): jede Textur aller Module, erzeugt von     */
+/* wiki/textures.py nach data/textures.js. Die Daten (gut 0,5 MB)      */
+/* laedt die Seite erst beim ersten Besuch nach; data/ui-shots.js gibt */
+/* es nur lokal (generate.py --ui-shots) und darf fehlen.              */
+/* ------------------------------------------------------------------ */
+Object.assign(STR.en, {
+  navTextures: 'Textures', txIntro: 'Every texture of every module, read straight from the resource packs. Left: as in game (item icon or 3D render), right: the texture file itself. Click for a larger view.',
+  txLoading: 'Loading textures…', txMissing: 'data/textures.js is missing - run python wiki/generate.py.',
+  txAreaAll: 'All textures', txAreaUi: 'Interfaces (UIs)', txSearch: 'Name or id…', txModule: 'Module', txKind: 'Kind', txAnimated: 'Animated', txRes: 'Resolution', txSort: 'Sort', txShow: 'Show',
+  txAll: 'All', txYes: 'Yes', txNo: 'No', txBoth: 'Both', txFinal: 'In game', txSheet: 'Texture sheet',
+  txSortName: 'Name', txSortModule: 'Module', txSortKind: 'Kind', txSortSize: 'Size', txSortModified: 'Last changed', txDir: 'Reverse order',
+  txCount: '{0} of {1}', txEmpty: 'No texture matches the filters.', txReset: 'Reset filters',
+  txUiShotsIntro: 'Screenshots of the mod screens, imported with python wiki/generate.py --ui-shots <folder>.', txUiNoShots: 'No screenshots imported (python wiki/generate.py --ui-shots <folder>), so this shows the GUI textures of the mods.',
+  txZoom: 'Zoom', txOriginal: 'Original', txBg: 'Background', txBgLight: 'Light', txBgDark: 'Dark', txBgSlot: 'Slot grey',
+  txPlay: 'Play', txPause: 'Pause', txFrame: 'Frame {0}/{1}', txFrames: '{0} frames, {1} ticks each', txClose: 'Close', txPrev: 'Previous', txNext: 'Next',
+  txSource: 'Source', txFile: 'Wiki file', txSize: 'Size', txFrameSize: 'Frame', txBytes: 'Bytes', txModified: 'Last changed', txMcmeta: '.mcmeta', txOpenEntry: 'Open item page', txOpenFile: 'Open file',
+  txKind_item: 'Item', txKind_block: 'Block', txKind_entity: 'Entity', txKind_gui: 'GUI', txKind_particle: 'Particle', txKind_mob_effect: 'Effect', txKind_trims: 'Armor trim', txKind_palettes: 'Palette', txKind_misc: 'Misc', txKind_painting: 'Painting', txKind_models: 'Armor model', txKind_environment: 'Environment', txKind_shot: 'Screenshot'
+});
+Object.assign(STR.de, {
+  navTextures: 'Texturen', txIntro: 'Jede Textur aller Module, direkt aus den Ressourcen gelesen. Links: wie im Spiel (Item-Icon bzw. 3D-Ansicht), rechts: die Texturdatei selbst. Klick vergrößert.',
+  txLoading: 'Texturen werden geladen …', txMissing: 'data/textures.js fehlt – python wiki/generate.py laufen lassen.',
+  txAreaAll: 'Alle Texturen', txAreaUi: 'Oberflächen (UIs)', txSearch: 'Name oder ID …', txModule: 'Modul', txKind: 'Art', txAnimated: 'Animiert', txRes: 'Auflösung', txSort: 'Sortierung', txShow: 'Zeigen',
+  txAll: 'Alle', txYes: 'Ja', txNo: 'Nein', txBoth: 'Beide', txFinal: 'Fertig', txSheet: 'Textur-Sheet',
+  txSortName: 'Name', txSortModule: 'Modul', txSortKind: 'Art', txSortSize: 'Größe', txSortModified: 'Zuletzt geändert', txDir: 'Reihenfolge umkehren',
+  txCount: '{0} von {1}', txEmpty: 'Keine Textur passt zu den Filtern.', txReset: 'Filter zurücksetzen',
+  txUiShotsIntro: 'Bildschirmfotos der Mod-Oberflächen, übernommen mit python wiki/generate.py --ui-shots <ordner>.', txUiNoShots: 'Keine Bildschirmfotos übernommen (python wiki/generate.py --ui-shots <ordner>), daher hier die GUI-Texturen der Mods.',
+  txZoom: 'Zoom', txOriginal: 'Original', txBg: 'Hintergrund', txBgLight: 'Hell', txBgDark: 'Dunkel', txBgSlot: 'Slot-Grau',
+  txPlay: 'Abspielen', txPause: 'Anhalten', txFrame: 'Bild {0}/{1}', txFrames: '{0} Bilder, je {1} Ticks', txClose: 'Schließen', txPrev: 'Zurück', txNext: 'Weiter',
+  txSource: 'Quelle', txFile: 'Wiki-Datei', txSize: 'Maße', txFrameSize: 'Einzelbild', txBytes: 'Bytes', txModified: 'Zuletzt geändert', txMcmeta: '.mcmeta', txOpenEntry: 'Zur Item-Seite', txOpenFile: 'Datei öffnen',
+  txKind_item: 'Item', txKind_block: 'Block', txKind_entity: 'Kreatur', txKind_gui: 'GUI', txKind_particle: 'Partikel', txKind_mob_effect: 'Effekt', txKind_trims: 'Rüstungsbesatz', txKind_palettes: 'Palette', txKind_misc: 'Sonstiges', txKind_painting: 'Gemälde', txKind_models: 'Rüstungsmodell', txKind_environment: 'Umgebung', txKind_shot: 'Bildschirmfoto'
+});
+var TX_STORE = 'simplebuilding-wiki-textures';
+var TX = { area: 'all', q: '', mod: '', kind: '', anim: '', res: '', sort: 'name', desc: false, show: 'both', zoom: 8, bg: 'slot', loading: false, list: [], lb: -1, playing: true, timer: 0, frame: 0 };
+(function () {
+  try { var s = JSON.parse(window.localStorage.getItem(TX_STORE) || '{}'); ['show', 'zoom', 'bg', 'sort', 'desc'].forEach(function (k) { if (s[k] != null) TX[k] = s[k]; }); } catch (err) { /* ohne Speicher: Standard */ }
+})();
+function txSave() { try { window.localStorage.setItem(TX_STORE, JSON.stringify({ show: TX.show, zoom: TX.zoom, bg: TX.bg, sort: TX.sort, desc: TX.desc })); } catch (err) { /* nur diese Sitzung */ } }
+function txLoad() {
+  if (window.WIKI_TEXTURES || TX.loading) return;
+  TX.loading = true;
+  var pending = 2;
+  function done() { if (--pending === 0 && currentRoute().section === 'textures') render({ keepScroll: true }); }
+  ['data/textures.js', 'data/ui-shots.js'].forEach(function (src) {
+    var s = document.createElement('script'); s.src = src;
+    s.onload = done; s.onerror = function () { if (src === 'data/textures.js') window.WIKI_TEXTURES = { textures: [], missing: true }; done(); };
+    document.head.appendChild(s);
+  });
+}
+function txAll() { return window.WIKI_TEXTURES ? arr(window.WIKI_TEXTURES.textures).filter(isObj) : []; }
+function txShots() { return window.WIKI_UI_SHOTS ? arr(window.WIKI_UI_SHOTS.shots).filter(isObj) : []; }
+function txName(t) { return isObj(t.name) ? (t.name[LANG] || t.name.en || t.id) : (t.name || prettyFromId(t.id || t.file)); }
+function txKindLabel(k) { return tId('txKind_', k, prettyFromId(k)); }
+function txModName(m) { var e = arr(window.WIKI_MODULES).find(function (x) { return x.id === m; }); return e ? e.displayName : (m || '–'); }
+function txFrame(t) { return t.anim ? { w: t.anim.w, h: t.anim.h, cols: t.anim.cols } : { w: t.w, h: t.h, cols: 1 }; }
+function txRes(t) { var f = txFrame(t); return f.w + '×' + f.h; }
+/* Die Oberflaechen-Ansicht: Screenshots, sonst die GUI-Texturen ohne Einzel-Sprites. */
+function txUiList() {
+  var shots = txShots();
+  if (shots.length) return shots.map(function (s) { return Object.assign({ kind: 'shot', shot: true, id: s.source || s.file }, s); });
+  return txAll().filter(function (t) { return t.kind === 'gui' && String(t.id).indexOf(':gui/sprites/') < 0; });
+}
+function txFiltered() {
+  var base = TX.area === 'ui' ? txUiList() : txAll();
+  var q = norm(TX.q.trim());
+  var out = base.filter(function (t) {
+    if (TX.mod && t.module !== TX.mod) return false;
+    if (TX.area !== 'ui' && TX.kind && t.kind !== TX.kind) return false;
+    if (TX.anim && (!!t.anim) !== (TX.anim === 'yes')) return false;
+    if (TX.res && !t.shot && txRes(t) !== TX.res) return false;
+    if (q) { var hay = norm([t.id, t.name && t.name.en, t.name && t.name.de, typeof t.name === 'string' ? t.name : '', t.item, t.source].join(' ')); if (hay.indexOf(q) < 0) return false; }
+    return true;
+  });
+  function key(t) {
+    switch (TX.sort) {
+      case 'module': return [txModName(t.module), txName(t)];
+      case 'kind': return [txKindLabel(t.kind), txName(t)];
+      case 'size': return [t.w * t.h, t.bytes || 0, txName(t)];
+      case 'modified': return [t.modified || '', txName(t)];
+      default: return [txName(t), t.id];
+    }
+  }
+  var dir = TX.desc ? -1 : 1;
+  if (TX.sort === 'modified') dir = -dir; /* neueste zuerst */
+  out.sort(function (a, b) {
+    var ka = key(a), kb = key(b);
+    for (var i = 0; i < ka.length; i++) {
+      if (ka[i] === kb[i]) continue;
+      if (typeof ka[i] === 'number') return (ka[i] - kb[i]) * dir;
+      return String(ka[i]).localeCompare(String(kb[i]), LANG) * dir;
+    }
+    return 0;
+  });
+  return out;
+}
+/* Ein Einzelbild der Datei in einem Kasten von box px, pixelgenau (ganzzahlig, wo es geht). */
+function txCrop(t, box, frame) {
+  var f = txFrame(t), s = box / Math.max(f.w, f.h);
+  if (s >= 1) s = Math.floor(s);
+  var i = frame || 0, col = i % f.cols, row = Math.floor(i / f.cols);
+  return '<span class="tx-crop" style="width:' + (f.w * s) + 'px;height:' + (f.h * s) + 'px"><img loading="lazy" decoding="async" alt="" src="' + esc(t.file) + '" style="width:' + (t.w * s) + 'px;height:' + (t.h * s) + 'px;left:' + (-col * f.w * s) + 'px;top:' + (-row * f.h * s) + 'px"></span>';
+}
+function txFinal(t, box) {
+  if (t.icon) return '<span class="tx-crop" style="width:' + box + 'px;height:' + box + 'px"><img loading="lazy" decoding="async" alt="" src="' + esc(t.icon) + '" style="width:' + box + 'px;height:' + box + 'px"></span>';
+  return txCrop(t, box, 0);
+}
+function txSheetThumb(t, box) {
+  var s = box / Math.max(t.w, t.h);
+  if (s >= 1) s = Math.floor(s);
+  return '<span class="tx-crop" style="width:' + Math.max(1, Math.round(t.w * s)) + 'px;height:' + Math.max(1, Math.round(t.h * s)) + 'px"><img loading="lazy" decoding="async" alt="" src="' + esc(t.file) + '" style="width:100%;height:100%"></span>';
+}
+function txTile(t, i) {
+  var name = txName(t), body;
+  if (t.shot) body = '<span class="tx-shot"><img loading="lazy" decoding="async" alt="" src="' + esc(t.file) + '"></span>';
+  else if (TX.area === 'ui') body = '<span class="tx-pane tx-big">' + txSheetThumb(t, 192) + '</span>';
+  else {
+    body = '';
+    if (TX.show !== 'sheet') body += '<span class="tx-pane" title="' + esc(T('txFinal')) + '">' + txFinal(t, 48) + '</span>';
+    if (TX.show !== 'final') body += '<span class="tx-pane" title="' + esc(T('txSheet')) + '">' + txSheetThumb(t, 48) + '</span>';
+  }
+  var meta = (t.shot ? t.w + '×' + t.h : txRes(t) + (t.anim ? ' · ▶ ' + t.anim.count : '')) + ' · ' + esc(t.shot ? txKindLabel('shot') : txKindLabel(t.kind));
+  return '<button type="button" class="tx-tile' + (TX.area === 'ui' ? ' tx-wide' : '') + '" data-tx-open="' + i + '" title="' + esc(t.id) + '"><span class="tx-imgs">' + body + '</span><span class="tx-name">' + esc(name) + '</span><span class="tx-meta">' + meta + ' · ' + esc(txModName(t.module)) + '</span></button>';
+}
+function txGridHtml() {
+  TX.list = txFiltered();
+  var total = TX.area === 'ui' ? txUiList().length : txAll().length;
+  var h = '<p class="ar-status" role="status">' + esc(T('txCount', TX.list.length, total)) + '</p>';
+  if (TX.area === 'ui') h += '<p class="hint">' + esc(T(txShots().length ? 'txUiShotsIntro' : 'txUiNoShots')) + '</p>';
+  if (!TX.list.length) return h + '<p class="hint">' + esc(T('txEmpty')) + ' <button type="button" class="chip" data-tx-reset>' + esc(T('txReset')) + '</button></p>';
+  return h + '<div class="tx-grid' + (TX.area === 'ui' ? ' tx-grid-wide' : '') + '">' + TX.list.map(txTile).join('') + '</div>';
+}
+function txOptions(values, current, label) {
+  return '<option value="">' + esc(T('txAll')) + '</option>' + values.map(function (v) {
+    return '<option value="' + esc(v[0]) + '"' + (v[0] === current ? ' selected' : '') + '>' + esc(v[1]) + ' (' + v[2] + ')</option>';
+  }).join('');
+}
+function txCounted(list, fn, labelFn) {
+  var m = new Map();
+  list.forEach(function (t) { var k = fn(t); if (k) m.set(k, (m.get(k) || 0) + 1); });
+  return Array.from(m.keys()).map(function (k) { return [k, labelFn ? labelFn(k) : k, m.get(k)]; });
+}
+function txChip(key, v, label) { return '<button type="button" class="chip" data-tx="' + key + '" data-v="' + esc(v) + '" aria-pressed="' + (String(TX[key]) === String(v)) + '">' + esc(label) + '</button>'; }
+function pageTextures() {
+  txLoad();
+  var h = '<div class="listhead"><h1>' + esc(T('navTextures')) + (window.WIKI_TEXTURES ? ' <span class="muted tiny" style="font-weight:400">' + txAll().length + '</span>' : '') + '</h1></div>';
+  if (!window.WIKI_TEXTURES) return h + '<p class="hint">' + esc(T('txLoading')) + '</p>';
+  if (window.WIKI_TEXTURES.missing) return h + '<div class="box box-danger">' + esc(T('txMissing')) + '</div>';
+  var all = txAll(), base = TX.area === 'ui' ? txUiList() : all;
+  var mods = txCounted(base, function (t) { return t.module; }, txModName);
+  var kinds = txCounted(all, function (t) { return t.kind; }, txKindLabel).sort(function (a, b) { return b[2] - a[2]; });
+  var res = txCounted(all, txRes).sort(function (a, b) { var pa = a[0].split('×'), pb = b[0].split('×'); return pa[0] * pa[1] - pb[0] * pb[1] || a[0].localeCompare(b[0]); });
+  var sorts = [['name', 'txSortName'], ['module', 'txSortModule'], ['kind', 'txSortKind'], ['size', 'txSortSize'], ['modified', 'txSortModified']];
+  h += '<p class="muted">' + esc(T('txIntro')) + '</p>';
+  h += '<div class="ar-filters tx-bar">' +
+    '<div class="ar-frow" role="group">' + txChip('area', 'all', T('txAreaAll')) + txChip('area', 'ui', T('txAreaUi')) +
+    '<input type="search" data-tx-q value="' + esc(TX.q) + '" placeholder="' + esc(T('txSearch')) + '" aria-label="' + esc(T('txSearch')) + '"></div>' +
+    '<div class="ar-frow">' +
+    '<label>' + esc(T('txModule')) + ' <select data-tx-sel="mod">' + txOptions(mods, TX.mod) + '</select></label>' +
+    (TX.area === 'ui' ? '' : '<label>' + esc(T('txKind')) + ' <select data-tx-sel="kind">' + txOptions(kinds, TX.kind) + '</select></label>') +
+    '<label>' + esc(T('txRes')) + ' <select data-tx-sel="res">' + txOptions(res, TX.res) + '</select></label>' +
+    '<label>' + esc(T('txSort')) + ' <select data-tx-sel="sort">' + sorts.map(function (s) { return '<option value="' + s[0] + '"' + (TX.sort === s[0] ? ' selected' : '') + '>' + esc(T(s[1])) + '</option>'; }).join('') + '</select></label>' +
+    '<button type="button" class="chip" data-tx-dir aria-pressed="' + TX.desc + '" title="' + esc(T('txDir')) + '">⇅</button></div>' +
+    '<div class="ar-frow" role="group"><span class="ar-flabel">' + esc(T('txAnimated')) + '</span>' + txChip('anim', '', T('txAll')) + txChip('anim', 'yes', T('txYes')) + txChip('anim', 'no', T('txNo')) +
+    (TX.area === 'ui' ? '' : '<span class="ar-flabel" style="margin-left:1rem">' + esc(T('txShow')) + '</span>' + txChip('show', 'both', T('txBoth')) + txChip('show', 'final', T('txFinal')) + txChip('show', 'sheet', T('txSheet'))) + '</div></div>';
+  return h + '<div id="tx-results">' + txGridHtml() + '</div>';
+}
+function txRefresh(full) {
+  if (full) { var y = window.pageYOffset; render({ keepScroll: true }); window.scrollTo(0, y); return; }
+  var box = document.getElementById('tx-results');
+  if (box) box.innerHTML = txGridHtml();
+}
+$main.addEventListener('input', function (ev) {
+  if (!ev.target.matches || !ev.target.matches('[data-tx-q]')) return;
+  TX.q = ev.target.value; txRefresh(false);
+});
+$main.addEventListener('change', function (ev) {
+  var key = ev.target.getAttribute && ev.target.getAttribute('data-tx-sel');
+  if (!key) return;
+  TX[key] = ev.target.value; if (key === 'sort') txSave(); txRefresh(false);
+});
+$main.addEventListener('click', function (ev) {
+  var el = ev.target.closest ? ev.target.closest('[data-tx],[data-tx-dir],[data-tx-open],[data-tx-reset]') : null;
+  if (!el || !$main.contains(el)) return;
+  if (el.hasAttribute('data-tx-open')) { txOpen(Number(el.getAttribute('data-tx-open'))); return; }
+  if (el.hasAttribute('data-tx-reset')) { TX.q = ''; TX.mod = ''; TX.kind = ''; TX.anim = ''; TX.res = ''; txRefresh(true); return; }
+  if (el.hasAttribute('data-tx-dir')) { TX.desc = !TX.desc; txSave(); el.setAttribute('aria-pressed', String(TX.desc)); txRefresh(false); return; }
+  var key = el.getAttribute('data-tx'), v = el.getAttribute('data-v');
+  TX[key] = v;
+  if (key === 'show') txSave();
+  if (key === 'area') { TX.mod = ''; TX.res = ''; txRefresh(true); return; }
+  el.parentNode.querySelectorAll('[data-tx="' + key + '"]').forEach(function (b) { b.setAttribute('aria-pressed', String(b === el)); });
+  txRefresh(false);
+});
+
+/* Lightbox: beide Formen nebeneinander, Zoom, Hintergrund, Animation, Pfeiltasten. */
+var $txlb = null;
+function txOpen(i) {
+  if (!TX.list[i]) return;
+  if (!$txlb) {
+    $txlb = document.createElement('div');
+    $txlb.className = 'tx-lb'; $txlb.hidden = true;
+    $txlb.setAttribute('role', 'dialog'); $txlb.setAttribute('aria-modal', 'true');
+    document.body.appendChild($txlb);
+    $txlb.addEventListener('click', function (ev) {
+      if (ev.target === $txlb || ev.target.closest('[data-lb-close]')) { txClose(); return; }
+      var b = ev.target.closest('[data-lb]');
+      if (!b) return;
+      var k = b.getAttribute('data-lb'), v = b.getAttribute('data-v');
+      if (k === 'nav') { txOpen((TX.lb + Number(v) + TX.list.length) % TX.list.length); return; }
+      if (k === 'play') { TX.playing = !TX.playing; txOpen(TX.lb); return; }
+      TX[k] = k === 'zoom' ? Number(v) : v; txSave(); txOpen(TX.lb);
+    });
+  }
+  var keep = TX.lb === i;
+  TX.lb = i;
+  if (!keep) TX.frame = 0;
+  var t = TX.list[i], z = TX.zoom, f = txFrame(t);
+  function chip(k, v, label) { return '<button type="button" class="chip" data-lb="' + k + '" data-v="' + v + '" aria-pressed="' + (String(TX[k]) === String(v)) + '">' + esc(label) + '</button>'; }
+  var bar = '<div class="tx-lb-bar"><span class="ar-flabel">' + esc(T('txZoom')) + '</span>' + chip('zoom', 1, T('txOriginal')) + chip('zoom', 8, '8×') + chip('zoom', 16, '16×') +
+    '<span class="ar-flabel">' + esc(T('txBg')) + '</span>' + chip('bg', 'light', T('txBgLight')) + chip('bg', 'dark', T('txBgDark')) + chip('bg', 'slot', T('txBgSlot')) +
+    (t.anim ? '<button type="button" class="chip" data-lb="play">' + esc(T(TX.playing ? 'txPause' : 'txPlay')) + '</button><span class="tx-fr muted tiny"></span>' : '') + '</div>';
+  var panes;
+  if (t.shot) {
+    panes = '<figure class="tx-lb-pane tx-bg-' + TX.bg + '"><div class="tx-lb-view"><img src="' + esc(t.file) + '" alt="" style="width:' + (z === 1 ? t.w + 'px' : '100%') + '"></div></figure>';
+  } else {
+    var finalBox = t.icon ? (z === 1 ? 'natural' : 16 * z) : 0;
+    var finalHtml = t.icon
+      ? '<img src="' + esc(t.icon) + '" alt=""' + (finalBox === 'natural' ? '' : ' style="width:' + finalBox + 'px;height:' + finalBox + 'px"') + '>'
+      : '<span class="tx-crop tx-anim" style="width:' + (f.w * z) + 'px;height:' + (f.h * z) + 'px"><img src="' + esc(t.file) + '" alt="" style="width:' + (t.w * z) + 'px;height:' + (t.h * z) + 'px;left:0;top:0"></span>';
+    if (t.icon && t.anim) finalHtml += '<span class="tx-crop tx-anim" style="width:' + (f.w * z) + 'px;height:' + (f.h * z) + 'px"><img src="' + esc(t.file) + '" alt="" style="width:' + (t.w * z) + 'px;height:' + (t.h * z) + 'px;left:0;top:0"></span>';
+    panes = '<figure class="tx-lb-pane tx-bg-' + TX.bg + '"><figcaption>' + esc(T('txFinal')) + '</figcaption><div class="tx-lb-view">' + finalHtml + '</div></figure>' +
+      '<figure class="tx-lb-pane tx-bg-' + TX.bg + '"><figcaption>' + esc(T('txSheet')) + '</figcaption><div class="tx-lb-view"><img src="' + esc(t.file) + '" alt="" style="width:' + (t.w * z) + 'px;height:' + (t.h * z) + 'px"></div></figure>';
+  }
+  var rows = [[T('txSource'), '<code>' + esc(t.source || '') + '</code>'], [T('txFile'), '<a href="' + esc(t.file) + '" target="_blank" rel="noopener"><code>' + esc(t.file) + '</code></a>'],
+    [T('txSize'), esc(t.w + ' × ' + t.h + ' px')]];
+  if (!t.shot) rows.push([T('txModule'), esc(txModName(t.module))], [T('txKind'), esc(txKindLabel(t.kind))]);
+  if (t.anim) rows.push([T('txFrameSize'), esc(f.w + ' × ' + f.h + ' px · ' + T('txFrames', t.anim.count, t.anim.frametime))]);
+  if (t.bytes) rows.push([T('txBytes'), esc(fmtNum(t.bytes))]);
+  if (t.modified) rows.push([T('txModified'), esc(t.modified)]);
+  if (t.mcmeta) rows.push([T('txMcmeta'), '<pre class="tx-meta-json">' + esc(JSON.stringify(t.mcmeta, null, 1)) + '</pre>']);
+  if (t.item) rows.push(['', '<a href="?mod=' + encodeURIComponent(t.itemMod || 'simplebuilding') + '&item=' + esc(t.item) + (LANG !== 'en' ? '&lang=' + LANG : '') + '">' + esc(T('txOpenEntry')) + ' →</a>']);
+  $txlb.innerHTML = '<div class="tx-lb-box"><div class="tx-lb-head"><button type="button" class="chip" data-lb="nav" data-v="-1" aria-label="' + esc(T('txPrev')) + '">←</button>' +
+    '<div class="tx-lb-title"><b>' + esc(txName(t)) + '</b> <code class="tiny">' + esc(t.id) + '</code> <span class="muted tiny">' + (i + 1) + '/' + TX.list.length + '</span></div>' +
+    '<button type="button" class="chip" data-lb="nav" data-v="1" aria-label="' + esc(T('txNext')) + '">→</button><button type="button" class="chip" data-lb-close aria-label="' + esc(T('txClose')) + '">✕</button></div>' +
+    bar + '<div class="tx-lb-panes">' + panes + '</div><table class="tx-lb-info">' + rows.map(function (r) { return '<tr><th>' + esc(r[0]) + '</th><td>' + r[1] + '</td></tr>'; }).join('') + '</table></div>';
+  $txlb.setAttribute('aria-label', txName(t));
+  $txlb.hidden = false;
+  document.body.classList.add('tx-lb-open');
+  txAnimate();
+}
+function txAnimate() {
+  clearTimeout(TX.timer);
+  var t = TX.list[TX.lb];
+  if (!$txlb || $txlb.hidden || !t || !t.anim) return;
+  var a = t.anim, order = a.order || Array.from({ length: a.count }, function (_, k) { return [k, a.frametime]; });
+  var step = order[TX.frame % order.length], idx = step[0], f = txFrame(t), z = TX.zoom;
+  $txlb.querySelectorAll('.tx-anim img').forEach(function (img) {
+    img.style.left = (-(idx % f.cols) * f.w * z) + 'px';
+    img.style.top = (-Math.floor(idx / f.cols) * f.h * z) + 'px';
+  });
+  var label = $txlb.querySelector('.tx-fr');
+  if (label) label.textContent = T('txFrame', (TX.frame % order.length) + 1, order.length);
+  if (TX.playing) TX.timer = setTimeout(function () { TX.frame = (TX.frame + 1) % order.length; txAnimate(); }, Math.max(1, step[1]) * 50);
+}
+function txClose() {
+  if (!$txlb || $txlb.hidden) return;
+  clearTimeout(TX.timer);
+  $txlb.hidden = true; document.body.classList.remove('tx-lb-open');
+  var tile = $main.querySelector('[data-tx-open="' + TX.lb + '"]');
+  TX.lb = -1;
+  if (tile) tile.focus();
+}
+document.addEventListener('keydown', function (ev) {
+  if (!$txlb || $txlb.hidden) return;
+  if (ev.key === 'Escape') { ev.preventDefault(); txClose(); }
+  else if (ev.key === 'ArrowLeft' || ev.key === 'ArrowRight') { ev.preventDefault(); txOpen((TX.lb + (ev.key === 'ArrowLeft' ? -1 : 1) + TX.list.length) % TX.list.length); }
+});
+window.addEventListener('popstate', txClose);
 
 function renderMeta() {
   if (!D) { $meta.innerHTML = ''; return; }
@@ -4401,6 +4720,7 @@ function render(opts) {
       case 'config': html = pageConfig(r.id); title = T('navConfig'); break;
       case 'inworld': html = pageInWorld(r.id); title = r.id ? iwKindTitle(r.id) : T('navInWorld'); break;
       case 'advancements': html = pageAdvancements(); title = T('navAdvancements'); break;
+      case 'textures': html = pageTextures(); title = T('navTextures'); break;
       case 'allrecipes': html = pageAllRecipes(); title = T('arTitle'); break;
       case 'make': case 'use': html = pageMake(r.id, r.section); title = T(r.section === 'use' ? 'mkUseTitle' : 'mkTitle', displayName(r.id)); active = 'allrecipes'; break;
       case 'tree': html = pageTree(r.id); title = T('treeTitle', r.id ? displayName(r.id) : '?'); active = ''; break;

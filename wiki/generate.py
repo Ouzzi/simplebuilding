@@ -2679,7 +2679,12 @@ def main() -> int:
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--module", help="generate one manifest module (default: simplebuilding)")
     selection.add_argument("--all", action="store_true", help="generate/check every manifest module")
+    parser.add_argument("--ui-shots", type=Path, metavar="DIR",
+                        help="copy the PNG screenshots under DIR (e.g. client-test output) to wiki/assets/ui/ "
+                             "and index them for the Textures page; local only, ignored by git")
     args = parser.parse_args()
+    global ARGS
+    ARGS = args
     import modules as module_wiki
     entries = module_wiki.discover(REPO)
     selected = {e['id'] for e in entries} if args.all else {args.module or 'simplebuilding'}
@@ -2804,5 +2809,34 @@ def main() -> int:
     return module_result
 
 
+ARGS = None
+
+
+def main_with_textures() -> int:
+    """main(), then the texture index (wiki/textures.py) once the item data is current."""
+    code = main()
+    args = ARGS
+    if args is None:
+        return code
+    import modules as module_wiki
+    import textures
+    entries = module_wiki.discover(REPO)
+    if args.ui_shots:
+        if not args.ui_shots.is_dir():
+            print(f"PROBLEM: --ui-shots {args.ui_shots} is not a folder")
+            return 1
+        shots = textures.import_ui_shots(args.ui_shots, WIKI, [e["id"] for e in entries])
+        print(f"UI screenshots: {len(shots['shots'])} copied to wiki/{textures.UI_DIR}/")
+    if args.all or not args.module or args.module == "simplebuilding":
+        problems = textures.sync(REPO, WIKI, entries, check=args.check)
+        for problem in problems:
+            print("PROBLEM:", problem)
+        if problems:
+            return 1
+        if not args.check:
+            print(f"Textures: wiki/{textures.DATA_FILE} written")
+    return code
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main_with_textures())

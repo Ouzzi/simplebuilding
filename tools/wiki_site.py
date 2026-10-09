@@ -71,6 +71,18 @@ def referenced_textures(data: dict) -> set[str]:
     return refs
 
 
+def texture_index_refs() -> set[str]:
+    """Bilder der Texturen-Seite (data/textures.js, wiki/textures.py)."""
+    path = WIKI / "data" / "textures.js"
+    if not path.is_file():
+        return set()
+    index = json.loads(path.read_text(encoding="utf-8").split("window.WIKI_TEXTURES = ", 1)[1].rstrip().rstrip(";"))
+    refs = set()
+    for entry in index.get("textures", []):
+        refs.update(value for value in (entry.get("file"), entry.get("icon")) if value)
+    return refs
+
+
 def vanilla_lines(data: dict) -> list[str]:
     """Die Linien, deren Vanilla-Rezepte der Rezeptbaum nachlaedt."""
     block = data.get("vanillaRecipes") or {}
@@ -151,7 +163,10 @@ def stage(out: Path, data: dict) -> None:
     for line in vanilla_lines(data):
         name = VANILLA_RECIPES.format(line=line)
         shutil.copyfile(WIKI / name, out / name)
-    refs = sorted(set().union(*(referenced_textures(payload) for payload in site_payloads())))
+    refs = sorted(set().union(*(referenced_textures(payload) for payload in site_payloads()), texture_index_refs()))
+    # Texturen-Seite; UI-Screenshots (data/ui-shots.js, assets/ui/) sind lokal und bleiben weg.
+    if (WIKI / "data/textures.js").is_file():
+        shutil.copyfile(WIKI / "data/textures.js", out / "data/textures.js")
     for ref in refs:
         target = out / ref
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -199,7 +214,16 @@ def main() -> int:
         print(f"{len(problems)} Problem(e): so ist das Wiki nicht statisch hostbar.")
         return 1
 
-    refs = set().union(*(referenced_textures(payload) for payload in site_payloads()))
+    try:
+        index_refs = texture_index_refs()
+    except (OSError, ValueError, IndexError) as error:
+        print("FEHLER: wiki/data/textures.js ist kaputt: " + str(error))
+        return 1
+    for ref in sorted(index_refs):
+        if not ref.startswith("assets/textures/") or ref.startswith(VANILLA_PREFIX) or not exists_exact(ref):
+            print(f"FEHLER: Texturen-Seite verweist auf {ref!r} (fehlt oder nicht unter den eigenen Texturen)")
+            return 1
+    refs = set().union(*(referenced_textures(payload) for payload in site_payloads()), index_refs)
     orphans = sorted(p.relative_to(WIKI).as_posix() for p in TEXTURES.rglob("*.png")
                      if not p.relative_to(WIKI).as_posix().startswith(VANILLA_PREFIX)
                      and p.relative_to(WIKI).as_posix() not in refs)

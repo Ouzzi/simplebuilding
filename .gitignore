@@ -112,3 +112,7 @@ tools/voicebridge/backups/
 graphify-out/
 graphify-build.log
 graphify-build.err
+
+# Wiki: lokale UI-Screenshots (generate.py --ui-shots), nie einchecken.
+wiki/assets/ui/
+wiki/data/ui-shots.js
