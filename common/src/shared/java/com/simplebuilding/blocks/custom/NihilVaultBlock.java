@@ -21,7 +21,8 @@ import net.minecraft.world.phys.BlockHitResult;
 
 /**
  * Nihil-Gewoelbe (Besitzer 2026-10-04): wie das Astralgewoelbe eine Vanilla-Endertruhe (Deckel, Sounds, Partikel,
- * Wasser, Oeffnerzaehler), aber alle Gewoelbe der Welt zeigen denselben 27-Platz-Inhalt ({@link NihilVaultStorage}).
+ * Wasser, Oeffnerzaehler), aber alle Gewoelbe der Welt zeigen denselben Inhalt ({@link NihilVaultStorage}); sechs Reihen wie das
+ * Astral-Gewoelbe (Besitzer N16).
  */
 public class NihilVaultBlock extends EnderChestBlock {
     public static final String TITLE = "block.simplebuilding.nihil_vault";
@@ -33,7 +34,7 @@ public class NihilVaultBlock extends EnderChestBlock {
         if (level.getBlockState(pos.above()).isRedstoneConductor(level, pos.above())) return InteractionResult.SUCCESS;
         if (level instanceof ServerLevel server && level.getBlockEntity(pos) instanceof EnderChestBlockEntity chest) {
             View view = new View(NihilVaultStorage.get(server.getServer()).items(), chest);
-            player.openMenu(new SimpleMenuProvider((id, inv, user) -> ChestMenu.threeRows(id, inv, view),
+            player.openMenu(new SimpleMenuProvider((id, inv, user) -> ChestMenu.sixRows(id, inv, view),
                     Component.translatable(TITLE)));
             player.awardStat(net.minecraft.stats.Stats.OPEN_ENDERCHEST);
             net.minecraft.world.entity.monster.piglin.PiglinAi.angerNearbyPiglins(server, player, true);

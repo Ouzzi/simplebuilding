@@ -277,6 +277,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("chess_game_test_octets_fill_the_sub_grid_by_hit_point", ChessTests::octetsFillTheSubGridByHitPoint)
                     .build(),
+            GameTestSpec.named("chess_game_test_octets_stack_to_the_engine_maximum", ChessTests::octetsStackToTheEngineMaximum)
+                    .build(),
             GameTestSpec.named("chess_game_test_octets_hold_water_until_full", ChessTests::octetsHoldWaterUntilFull)
                     .build(),
             GameTestSpec.named("chess_game_test_pieces_stand_on_quarters_and_swap", ChessTests::piecesStandOnQuartersAndSwap)
@@ -613,6 +615,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("crucible_game_test_mod_buckets_stay_in_the_hand_when_pouring_and_scooping", CrucibleTests::modBucketsStayInTheHandWhenPouringAndScooping)
                     .build(),
             GameTestSpec.named("crucible_game_test_a_barrel_attached_to_the_enderite_crucible_holds_its_double_stacks", CrucibleTests::aBarrelAttachedToTheEnderiteCrucibleHoldsItsDoubleStacks)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_a_loose_enderite_barrel_keeps_double_stacks_in_menu_and_hopper", CrucibleTests::aLooseEnderiteBarrelKeepsDoubleStacksInMenuAndHopper)
                     .build(),
             GameTestSpec.named("crucible_game_test_fire_resistance_only_blocks_soul_burn_damage", CrucibleTests::fireResistanceOnlyBlocksSoulBurnDamage)
                     .build(),

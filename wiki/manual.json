@@ -3548,9 +3548,9 @@
       ],
       "en": {
         "title": "Nihil Vault",
-        "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+        "summary": "One 54-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
         "details": [
-          "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+          "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a six-row menu, as large as a double chest and the Astral Vault; contents from the earlier 27-slot vault stay in the first three rows.",
           "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
           "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
           "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
@@ -3558,9 +3558,9 @@
       },
       "de": {
         "title": "Nihil-Gewölbe",
-        "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+        "summary": "Ein 54-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
         "details": [
-          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Menue mit sechs Reihen, so gross wie eine Doppeltruhe und das Astral-Gewoelbe; Inhalt aus dem frueheren 27-Platz-Gewoelbe bleibt in den ersten drei Reihen.",
           "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
           "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
           "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
@@ -10881,9 +10881,9 @@
       ],
       "en": {
         "title": "Nihil Vault",
-        "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+        "summary": "One 54-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
         "details": [
-          "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+          "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a six-row menu, as large as a double chest and the Astral Vault; contents from the earlier 27-slot vault stay in the first three rows.",
           "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
           "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
           "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
@@ -10891,9 +10891,9 @@
       },
       "de": {
         "title": "Nihil-Gewölbe",
-        "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+        "summary": "Ein 54-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
         "details": [
-          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Menue mit sechs Reihen, so gross wie eine Doppeltruhe und das Astral-Gewoelbe; Inhalt aus dem frueheren 27-Platz-Gewoelbe bleibt in den ersten drei Reihen.",
           "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
           "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
           "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."

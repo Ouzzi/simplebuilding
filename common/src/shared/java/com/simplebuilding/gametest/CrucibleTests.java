@@ -346,6 +346,28 @@ public final class CrucibleTests {
         helper.succeed();
     }
 
+    /**
+     * Owner N15: a loose Enderite barrel keeps its double stacks everywhere - its menu slot takes 128, a hopper tops a
+     * slot of 127 up to 128 and moves on, and a slot of 64 is not "full" for a hopper.
+     */
+    public static void aLooseEnderiteBarrelKeepsDoubleStacksInMenuAndHopper(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        BlockPos at = new BlockPos(2, 1, 2);
+        helper.setBlock(at, CrucibleCompat.enderiteBarrel());
+        var be = helper.getLevel().getBlockEntity(helper.absolutePos(at));
+        var barrel = (net.minecraft.world.Container) be;
+        ServerPlayer player = player(helper, ItemStack.EMPTY, ItemStack.EMPTY);
+        var menu = ((net.minecraft.world.MenuProvider) be).createMenu(0, player.getInventory(), player);
+        ItemStack cobble = new ItemStack(Items.COBBLESTONE);
+        helper.assertTrue(menu != null && menu.slots.get(0).getMaxStackSize(cobble) == 128,
+                "the loose enderite barrel's menu slot takes 128, got " + (menu == null ? "no menu" : menu.slots.get(0).getMaxStackSize(cobble)));
+        barrel.setItem(0, new ItemStack(Items.COBBLESTONE, 127));
+        ItemStack rest = net.minecraft.world.level.block.entity.HopperBlockEntity.addItem(null, barrel, new ItemStack(Items.COBBLESTONE, 2), Direction.UP);
+        String line = barrel.getItem(0).getCount() + "+" + barrel.getItem(1).getCount() + " rest " + rest.getCount();
+        helper.assertTrue(line.equals("128+1 rest 0"), "hopper into a loose enderite barrel slot of 127 plus 2: " + line);
+        helper.succeed();
+    }
+
     /** Sledgehammer on an iron block: 4 weighted plates, then 2 iron rods; 2 durability per strike. */
     public static void sledgehammerBuildsTheIronCrucible(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }

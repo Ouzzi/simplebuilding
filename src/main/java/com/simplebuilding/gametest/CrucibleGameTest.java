@@ -147,6 +147,11 @@ public final class CrucibleGameTest {
     }
 
     @GameTest
+    public void aLooseEnderiteBarrelKeepsDoubleStacksInMenuAndHopper(GameTestHelper helper) {
+        CrucibleTests.aLooseEnderiteBarrelKeepsDoubleStacksInMenuAndHopper(helper);
+    }
+
+    @GameTest
     public void modBucketsStayInTheHandWhenPouringAndScooping(GameTestHelper helper) {
         CrucibleTests.modBucketsStayInTheHandWhenPouringAndScooping(helper);
     }

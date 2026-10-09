@@ -49,7 +49,8 @@ public final class ChessItems {
     /** Registriert alle Items ueber {@code registrar} (Name, Fabrik) - aus {@code ModItems}. */
     public static void register(BiFunction<String, Function<Item.Properties, Item>, Item> registrar) {
         for (ChessColor color : ChessColor.values()) {
-            OCTETS.put(color, registrar.apply(octetId(color), s -> new CheckerOctetItem(color, s)));
+            // Owner N18 asked for 128; 99 is the engine maximum (ItemStack and max_stack_size codecs allow 1..99).
+            OCTETS.put(color, registrar.apply(octetId(color), s -> new CheckerOctetItem(color, s.stacksTo(CheckerOctetItem.MAX_STACK))));
         }
         for (ChessColor color : ChessColor.values()) {
             for (boolean flat : new boolean[]{false, true}) {

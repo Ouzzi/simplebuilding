@@ -130,4 +130,14 @@ public final class ModuleGameTest {
     public void axeUpgradesBarrelToNetherite(GameTestHelper h) {
         LibTests.ALL.get("axe_upgrades_barrel_to_netherite").accept(h);
     }
+
+    @GameTest
+    public void looseBarrelMenuKeepsTheRaisedLimit(GameTestHelper h) {
+        LibTests.ALL.get("loose_barrel_menu_keeps_the_raised_limit").accept(h);
+    }
+
+    @GameTest
+    public void hoppersFillRaisedSlots(GameTestHelper h) {
+        LibTests.ALL.get("hoppers_fill_raised_slots").accept(h);
+    }
 }
