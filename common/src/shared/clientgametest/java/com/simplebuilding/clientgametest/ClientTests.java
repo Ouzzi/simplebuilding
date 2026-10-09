@@ -101,10 +101,12 @@ public final class ClientTests {
                 // Six armor stands in one documentary picture (2026-10-09); kills them again.
                 new Entry("armor-stands", ArmorStandClientTest::inWorld),
                 // Placing N24/N16 (2026-10-09): ingot stacks, trims pile, goat horns, joined rods, hammock lead.
-                new Entry("placing", PlaceClientTest::inWorld));
+                new Entry("placing", PlaceClientTest::inWorld),
                 // Brewing wave 2026-10-09 (26.3): Mirage, Reverse Mirage, Faded, Shivering, the Storage Crafting
                 // Table; clears its effects, the table and the mobs again.
-                new Entry("brew", BrewClientTest::inWorld));
+                new Entry("brew", BrewClientTest::inWorld),
+                // Queue N15 (26.3): every chess piece stands on its quarter; boards and gallery in three pictures.
+                new Entry("chess-pieces", ChessClientTest::inWorld));
     }
 
     /**

@@ -80,3 +80,17 @@ Forge-26.3-Compile, Wiki venv `--all` + uv `--all --check`, Texturen `--check`. 
 ## Offen
 - Client-Sicht (Renderer-Ausrichtung, GUI-Darstellung der Figuren/Achtel, Multipart-Rotation der Achtel) – kein Client gestartet.
 - Forge-26.3 nur kompiliert, keine Forge-Server-Tests.
+
+## N15 Nachtrag (Branch `claude-q-chess`, 2026-10-09): Figuren unsichtbar/versetzt
+- **Ursache:** `ChessPiecesRenderer` schob das Modell nach der Drehung um (-0,5 | 0 | -0,5) zurück, aber das
+  Item-Rendering mit `ItemDisplayContext.NONE` (`ItemTransform.NO_TRANSFORM`) zieht selbst schon (0,5 | 0,5 | 0,5) ab.
+  Jede Figur stand damit einen halben Block tief im Brett und einen halben Block (je nach Blickrichtung gedreht) neben
+  ihrem Feld – von oben sah man nur Spitzen bzw. bei flachen Figuren gar nichts (Besitzer-Screenshot 08.10.).
+  Modelle, Blockstates, Achtel-Multipart (Rotationen nachgerechnet) waren in Ordnung.
+- **Fix:** Pose in `ChessPiecesRenderer.placePiece` (Viertelmitte, Drehung, dann nur +0,5 in y gegen den Abzug des
+  Item-Transforms).
+- **Tests:** Client-Test `chess-pieces` (`ChessClientTest`): 3D-Brett (Grundstellung, Springer gedreht), flaches Brett,
+  Galerie aller 13 Farben × 12 Figuren + Achtel; prüft je Figur über den echten Renderer-State + `visitExtents`, dass
+  das Modell in seinem Viertel steht (Fuß auf y 0); drei Bilder `chess-board-pieces`, `chess-board-flat`,
+  `chess-gallery`. Datenprüfung `tools/check_chess_assets.py` (Item-Definitionen, Modelle samt Eltern, Texturen,
+  Namen EN/DE in beiden Bäumen, Viertel-Passform, 13 × 8 Achtel-Teile).

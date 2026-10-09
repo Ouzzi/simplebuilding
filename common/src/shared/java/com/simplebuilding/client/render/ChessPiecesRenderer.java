@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
  * Zeichnet die Figuren einer Figurenzelle ({@link ChessPiecesBlock}): je Platz das Item-Modell der Figur ohne
  * Anzeige-Transformation ({@link ItemDisplayContext#NONE}). Die Modelle ({@code tools/textures/chess_2026_10_06.py})
  * stehen mittig im Block mit der Front nach Norden; hier werden sie auf ihr Viertel geschoben und in ihre
- * Blickrichtung gedreht. Loader-neutral; registriert wird der Renderer je Loader.
+ * Blickrichtung gedreht ({@link #placePiece}). Loader-neutral; registriert wird der Renderer je Loader.
  */
 public class ChessPiecesRenderer implements BlockEntityRenderer<ChessPiecesBlockEntity, ChessPiecesRenderer.State> {
     private final ItemModelResolver itemModelResolver;
@@ -77,12 +77,22 @@ public class ChessPiecesRenderer implements BlockEntityRenderer<ChessPiecesBlock
                 continue;
             }
             poseStack.pushPose();
-            // Mitte des Viertels, dort um die Hochachse drehen, das mittig gebaute Modell zurueck auf den Ursprung.
-            poseStack.translate((slot & 1) * 0.5F + 0.25F, 0.0F, (slot >> 1) * 0.5F + 0.25F);
-            McClientVersion.rotate(poseStack, Axis.YP.rotationDegrees(state.yaw[slot]));
-            poseStack.translate(-0.5F, 0.0F, -0.5F);
+            placePiece(poseStack, slot, state.yaw[slot]);
             state.items[slot].submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.popPose();
         }
+    }
+
+    /**
+     * Pose einer Figur relativ zum Block: Mitte ihres Viertels, dort um die Hochachse gedreht. Das Item-Rendering
+     * ({@link ItemDisplayContext#NONE}, {@code ItemTransform.NO_TRANSFORM}) zieht selbst (0,5 | 0,5 | 0,5) ab und
+     * zentriert das Modell damit schon auf den Drehpunkt; hier wird nur die Hoehe zurueckgegeben, damit der Fuss auf
+     * dem Block darunter steht. (Bis N15 wurde zusaetzlich x/z um 0,5 abgezogen: Figuren einen halben Block tief und
+     * neben ihrem Feld, Besitzer-Screenshot 08.10.) Oeffentlich fuer den Client-Test, der damit nachrechnet.
+     */
+    public static void placePiece(PoseStack poseStack, int slot, float yaw) {
+        poseStack.translate((slot & 1) * 0.5F + 0.25F, 0.0F, (slot >> 1) * 0.5F + 0.25F);
+        McClientVersion.rotate(poseStack, Axis.YP.rotationDegrees(yaw));
+        poseStack.translate(0.0F, 0.5F, 0.0F);
     }
 }

@@ -608,7 +608,9 @@ SKIPPED_SHOTS = {
              "enderite-buckets-inventory",
              # McVersion.BREWING_EFFECTS / STORAGE_CRAFTING_TABLE are 26.3 features (BrewClientTest).
              "brew-plain", "brew-mirage", "brew-reverse-mirage", "brew-faded", "brew-faded-inventory",
-             "brew-faded-pause", "brew-shivering", "brew-storage-table", "brew-storage-table-screen"},
+             "brew-faded-pause", "brew-shivering", "brew-storage-table", "brew-storage-table-screen",
+             # McVersion.CHESS: chess pieces are 26.3 only (ChessClientTest).
+             "chess-board-pieces", "chess-board-flat", "chess-gallery"},
     # McVersion.SMITHING_RECIPE_BOOK (owner 2026-10-02): the vanilla recipe book replaced the trim
     # reference button in the smithing table, so ModScreensClientTest checks the book and returns
     # before the button path that takes this shot.
