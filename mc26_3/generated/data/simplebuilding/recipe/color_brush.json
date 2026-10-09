@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "F": "minecraft:feather",
+    "S": "minecraft:stick",
+    "W": "#minecraft:wool"
+  },
+  "pattern": [
+    " W",
+    "SF",
+    "S "
+  ],
+  "result": {
+    "id": "simplebuilding:color_brush"
+  }
+}

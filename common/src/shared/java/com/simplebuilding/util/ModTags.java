@@ -179,6 +179,8 @@ public class ModTags {
     }
 
     public static class Blocks {
+        /** Optional opt-in tag for modded colour families supported by the brush. */
+        public static final TagKey<Block> DYEABLE_FAMILIES = createTag("dyeable_families");
         /**
          * Bloecke, die kein Kolben der Mod durchbricht, obwohl sie unzerstoerbar sind (Zerstoerungs-
          * geschwindigkeit unter 0): Barriere, Lichtblock, Portale, Befehls-, Struktur-, Verbund- und

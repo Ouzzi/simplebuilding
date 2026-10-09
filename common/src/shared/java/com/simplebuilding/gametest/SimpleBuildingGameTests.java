@@ -81,6 +81,14 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("end_systems_game_test_nihil_rail_stops_and_fast_cart_takes_acurve", EndSystemsTests::nihilRailStopsAndFastCartTakesACurve).maxTicks(120).build(),
             GameTestSpec.named("smoke_game_test_mod_items_are_registered", SmokeTests::modItemsAreRegistered)
                     .build(),
+            GameTestSpec.named("color_brush_game_test_loads_and_consumes_one_dye", ColorBrushTests::loadsAndConsumesOneDye)
+                    .build(),
+            GameTestSpec.named("color_brush_game_test_paints_concrete_and_preserves_glass_pane_state", ColorBrushTests::paintsConcreteAndPreservesGlassPaneState)
+                    .build(),
+            GameTestSpec.named("color_brush_game_test_pipette_and_wash", ColorBrushTests::pipetteAndWash)
+                    .build(),
+            GameTestSpec.named("color_brush_game_test_keeps_contents_and_bed_halves_but_leaves_wood", ColorBrushTests::keepsContentsAndBedHalvesButLeavesWood)
+                    .build(),
             GameTestSpec.named("test_centre_game_test_every_mod_item_and_block_has_its_place_in_the_test_centre", TestCentreTests::everyModItemAndBlockHasItsPlaceInTheTestCentre)
                     .build(),
             GameTestSpec.named("test_centre_game_test_fresh_world_origin_and_entrance_are_safe", TestCentreTests::freshWorldOriginAndEntranceAreSafe)

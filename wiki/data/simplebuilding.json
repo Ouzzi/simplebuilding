@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 526,
+      "count": 527,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -6620,6 +6620,44 @@
             "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilit auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
             "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilit- und die Enderquarz-Fassung gar nicht.",
             "Der Enderitmeißel formt jeden gemeißelten Block zum Grundblock seiner Palette um; beim Schleichen zurück zur Ziegelvariante."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:color_brush",
+      "name": {
+        "en_us": "Color Brush",
+        "de_de": "Farbpinsel"
+      },
+      "texture": "assets/textures/item/color_brush.png",
+      "craftedBy": [
+        "simplebuilding:color_brush"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "durability": 256,
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "The Color Brush recolors supported block families in place while preserving their block state.",
+          "details": [
+            "Craft it from a stick, wool and a feather. Sneak-right-click a dye in the off hand or inventory to load eight strokes per dye, up to 256.",
+            "Right-click wool, carpet, concrete, concrete powder, terracotta, glazed terracotta, glass, glass panes, candles, beds, banners or shulker boxes to switch them to the loaded color (plain glass becomes stained glass). Direction and connection properties, shulker contents, banner patterns and both bed halves are kept. Each stroke costs one charge and one durability.",
+            "Sneak-right-click a colored block with an empty brush to pipette its color; in survival this uses one matching dye from the inventory. A sponge or water bottle in the other hand washes the brush. Creative players do not consume strokes, dye or durability. Holding right-click repeats the stroke, so sweeping across blocks paints them one after another.",
+            "Wood is not a brush family. Datapacks and mods can opt in additional families through simplebuilding:dyeable_families."
+          ]
+        },
+        "de": {
+          "summary": "Der Farbpinsel färbt unterstützte Blockfamilien an Ort und Stelle um und bewahrt ihren Blockzustand.",
+          "details": [
+            "Rezept: Stock, Wolle und Feder. Schleichen und einen Farbstoff in Nebenhand oder Inventar rechtsklicken lädt acht Striche je Farbstoff, höchstens 256.",
+            "Rechtsklick auf Wolle, Teppiche, Beton, Betonpulver, Terrakotta, glasierte Terrakotta, Glas, Glasscheiben, Kerzen, Betten, Banner oder Shulkerboxen wechselt zur geladenen Farbe (normales Glas wird zu gefärbtem Glas). Ausrichtung, Verbindungen, Shulker-Inhalt, Bannermuster und beide Betthälften bleiben erhalten. Jeder Strich kostet eine Ladung und einen Haltbarkeitspunkt.",
+            "Schleichen und ein farbiges Ziel mit leerem Pinsel rechtsklicken nimmt die Farbe auf; im Überlebensmodus kostet das einen passenden Farbstoff aus dem Inventar. Ein Schwamm oder eine Wasserflasche in der anderen Hand wäscht den Pinsel aus. Im Kreativmodus werden Striche, Farbstoff und Haltbarkeit nicht verbraucht. Gedrückt gehaltener Rechtsklick wiederholt den Strich, so malt ein Schwenk über mehrere Blöcke einen nach dem anderen.",
+            "Holz gehört nicht zur Pinsel-Familie. Datenpakete und Mods können weitere Familien über simplebuilding:dyeable_families freischalten."
           ]
         }
       },
@@ -45703,6 +45741,61 @@
             "id": "simplebuilding:stone_pebble",
             "count": 9
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:color_brush",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:color_brush",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/color_brush.json",
+      "ingredients": [
+        "#minecraft:wool",
+        "minecraft:feather",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        " W",
+        "SF",
+        "S "
+      ],
+      "key": {
+        "F": [
+          "minecraft:feather"
+        ],
+        "S": [
+          "minecraft:stick"
+        ],
+        "W": [
+          "#minecraft:wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:feather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:wool"
         ]
       }
     },
@@ -86757,6 +86850,12 @@
       "source": "src/main/resources/data/simplebuilding/tags/block/crafty_shulker_unsafe.json"
     },
     {
+      "id": "simplebuilding:block/dyeable_families",
+      "replace": false,
+      "values": [],
+      "source": "src/main/resources/data/simplebuilding/tags/block/dyeable_families.json"
+    },
+    {
       "id": "simplebuilding:block/vein_miner_ores",
       "replace": false,
       "values": [
@@ -115588,13 +115687,13 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 470,
+    "items": 471,
     "blocks": 236,
-    "recipes": 839,
+    "recipes": 840,
     "lootTables": 230,
     "trades": 20,
     "enchantments": 19,
-    "tags": 48,
+    "tags": 49,
     "config": 219,
     "inWorld": 468,
     "advancements": 127,

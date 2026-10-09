@@ -248,7 +248,7 @@ public final class TestCentreSections {
     // =====================================================================================
 
     /** Familien in der Reihenfolge des Tabs SimpleTools. */
-    static final List<String> TOOL_FAMILIES = List.of("chisels", "building_wands", "sledgehammers", "pickaxes",
+    static final List<String> TOOL_FAMILIES = List.of("chisels", "color_brush", "building_wands", "sledgehammers", "pickaxes",
             "shovels", "hoes", "axes", "swords", "spears", "gadgets");
 
     public static TcCanvas tools(TcContext ctx) {

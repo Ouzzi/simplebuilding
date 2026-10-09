@@ -72,6 +72,11 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // WICHTIG: Registry Zugriff für Tags vorbereiten (für 1.21.2+)
                 // ---------------------------------------------------------
                 HolderGetter<Item> itemRegistry = items();
+                shaped(RecipeCategory.TOOLS, ModItems.COLOR_BRUSH)
+                        .pattern(" W").pattern("SF").pattern("S ")
+                        .define('W', ItemTags.WOOL).define('S', Items.STICK).define('F', Items.FEATHER)
+                        .unlockedBy(getHasName(Items.FEATHER), has(Items.FEATHER))
+                        .save(output);
                 // Nur 26.3: Brau-Rezepte des Listigen Shulkers (datengetriebenes Brauen, ModBrewingProvider).
                 buildVersionRecipes();
                 if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {

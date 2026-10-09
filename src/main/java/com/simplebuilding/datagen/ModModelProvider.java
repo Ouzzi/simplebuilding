@@ -671,6 +671,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM); // NEW
+        itemModelGenerator.generateFlatItem(ModItems.COLOR_BRUSH, ModelTemplates.FLAT_HANDHELD_ITEM);
 
         // Die sechs Alt-Spatel (LegacySpatulaMigration) waren bisher modelllos, und jeder Start
         // meldete sie mit "No model loaded". Gehalten wie die Meissel, deren Variante sie sind;

@@ -520,6 +520,8 @@ public class ModItems {
 
     public static final Item ENDERITE_HOE = registerItem("enderite_hoe", s -> new Item(s.fireResistant().hoe(ModToolMaterials.ENDERITE, -4.0F, 0.0F)));
 
+    public static final Item COLOR_BRUSH = registerItem("color_brush", s -> new ColorBrushItem(s));
+
     // Wands
 
     public static final BuildingWandItem COPPER_BUILDING_WAND = registerBuildingWand("copper_building_wand", DURABILITY_COPPER_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_COPPER, ENCHANTABILITY_COPPER);
@@ -1247,4 +1249,3 @@ public class ModItems {
     }
 
 }
-
