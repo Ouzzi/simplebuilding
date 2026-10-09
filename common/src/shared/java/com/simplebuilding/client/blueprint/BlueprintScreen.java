@@ -628,9 +628,9 @@ public class BlueprintScreen extends Screen {
         if (mesh.truncated()) {
             g.text(font, Component.translatable("simplebuilding.blueprint.editor.truncated"), viewX + 4, bodyY + bodyH - 12, 0xFFFFB74D, false);
         }
-        // Hinweis oben links, nicht unter das Reset-Icon
-        fitted(g, Component.translatable("simplebuilding.blueprint.editor.view_hint"), viewX + 4, bodyY + 6,
-                layout.reset.x() - 4 - (viewX + 4), 0x90B0C4DE);
+        // Hinweis oben links in Normalgroesse, umbrochen statt verkleinert, nicht unter das Reset-Icon
+        g.textWithWordWrap(font, Component.translatable("simplebuilding.blueprint.editor.view_hint"), viewX + 4, bodyY + 4,
+                layout.reset.x() - 4 - (viewX + 4), 0x90B0C4DE, false);
     }
 
     /** Hilfe statt 3D-Ansicht: Blockliste (Reiter Blocks) oder Anleitung (Reiter Guide). */
@@ -699,8 +699,8 @@ public class BlueprintScreen extends Screen {
                         .withStyle(ChatFormatting.BOLD, ChatFormatting.UNDERLINE), w));
             } else {
                 lines.addAll(font.split(Component.translatable("simplebuilding.blueprint.help.guide." + part), w));
+                lines.add(FormattedCharSequence.EMPTY);
             }
-            lines.add(FormattedCharSequence.EMPTY);
         }
         return lines;
     }

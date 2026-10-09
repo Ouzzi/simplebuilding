@@ -508,8 +508,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] **Verzauberung umbenennen:** `enchantment.simplefun.no_damage` „Damageless“ (DE „Schadlos“, Wiki/Guides mitgezogen; ID unverändert).
 - [ ] **Furcht-/Zitter-Mob:** Vorschläge im Konzept docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md (Abschnitt „Furcht-Mob Vorschläge“) – Besitzer-Entscheidung offen.
 - [ ] **Magnete, Konflikt mehrerer Magnete:** liegt ein Item im Bereich mehrerer Magnete, Zielpunkt = Mittelpunkt (Schwerpunkt) aller beteiligten Magnete (1,2,3,…), dort Anziehung mit toter Zone. Dazu Sweetspot für fallende Items: Item tariert sich auf richtiger Höhe aus und bleibt stehen (z. B. Magnet darüber), kein Zittern/Buggen.
-- [ ] **Blaupause am Boden:** Rechtsklick auf liegende Blaupause, wenn keine andere Aktion greift → Blaupausen-UI öffnen und bearbeiten.
-- [ ] **Blaupausen-UI Umbau** (Stil-Guide beachten, Stil ungefähr gleich):
+- [x] (claude-q-blueprint) **Blaupause am Boden:** Rechtsklick auf liegende Blaupause, wenn keine andere Aktion greift → Blaupausen-UI öffnen und bearbeiten.
+- [x] (claude-q-blueprint) **Blaupausen-UI Umbau** (Stil-Guide beachten, Stil ungefähr gleich):
   - 3D-Vorschau: Drag-Rotation reparieren; Strg+Drag verschiebt; Icon-Button „Ansicht zurücksetzen“ im Vorschaufenster.
   - Layout: Überschrift, dann 3 Bereiche. (1) **Materials:** „X×Y×Z“ Zeilenumbruch „= n Blöcke“ ohne Überlappung; darunter Stab-Icon + Fortschrittsbalken; Materialliste schmaler (nur Icon + Zahl). (2) **Code:** Codeblock, darunter „Code ok“ Zeilenumbruch „xyz/XYZ Zeichen“; rechtsbündig Buch-Button (Hilfe) – Zeichenzeile wandert dafür unter den Codeblock. (3) **Preview:** breiter, mit Reset-Icon; darunter Signieren und Fertig.
   - Insert-Feld wandert in das Hilfe-Buch: Tabs tauschen, „Blocks“ zuerst und Standard; im Blocks-Tab statt normaler Suche Textfeld + Insert-Button daneben; beim Öffnen des Buchs ist Insert vorausgewählt. Tab „Guide“: vollständige, leicht verständliche Erklärung, ganz unten Copy-Button (Text kopieren, z. B. für KI-Fragen).
