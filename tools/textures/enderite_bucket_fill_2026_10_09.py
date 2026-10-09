@@ -2,9 +2,11 @@
 
 Full (N29): the liquid fills the bucket opening up to the rim, including the inner top rim row (like the Vanilla
 axolotl / lava bucket), and nothing else: no overflow over the rim, no drips on the body.
-Half (owner 2026-10-09 evening: "wie vorher"): the look of claude-q-ebucket (8c595c074) again: the inner top rim
-row stays rim (Enderite purple for water, the greyish Vanilla lava-bucket rim tones for lava / soul lava), the two
-topmost outer liquid pixels (4, 3) and (11, 3) show the bucket, the liquid fills rows 3..5. HALF holds that table.
+Half (owner 2026-10-09 evening: "wie vorher", then "alle halben Eimer wie der halbe Wassereimer"): the half water
+bucket of claude-q-ebucket (8c595c074), and every other half bucket with exactly its mask: the inner top rim row
+and the two rim corners of row 3 stay Enderite rim (the same purples for every fluid), the two topmost outer liquid
+pixels (4, 3) and (11, 3) show the bucket, the liquid fills rows 3..5 in the fluid's own tones. HALF holds that
+table. (No mod bucket holds milk - PLAN-TEX7 / N12 decision - so there is no milk bucket to draw.)
 
 Every other pixel comes from the empty Enderite bucket of the same frame (enderite_bucket.png, 20 frames, a shine
 sweeping over frames 1..8), so the filled buckets keep its animation; the .mcmeta is the empty bucket's. On the
@@ -47,16 +49,18 @@ TONES = {
     'lava': {'d': (204, 70, 40), 'm': (227, 140, 63), 'h': (228, 210, 92)},
 }
 TONES['lava']['l'] = TONES['lava']['m']
-# Half (8c595c074): '.' keeps the bucket; R/r Enderite rim purples, g/G the Vanilla lava bucket rim tones,
-# e a second water tone.
+# Half (water of 8c595c074, its mask for every fluid): '.' keeps the bucket; R/r Enderite rim purples (shared by
+# all fluids), e a second water tone.
 HALF = {
     'water': {2: 'RRrrrr', 3: 'R.elmmee.R', 4: 'dlhhlmhmld', 5: 'dmllmd'},
-    'lava': {2: 'mgGGdd', 3: 'g.hhmmhm.G', 4: 'dmhmhhmhmd', 5: 'dmhdhh'},
+    'lava': {2: 'RRrrrr', 3: 'R.hhmmhm.R', 4: 'dmhmhhmhmd', 5: 'dmhdhh'},
 }
-TONES['water'].update({'R': (85, 48, 153), 'r': (115, 74, 191), 'e': (46, 88, 211)})
-TONES['lava'].update({'g': (159, 127, 120), 'G': (182, 140, 123)})
+RIM = {'R': (85, 48, 153), 'r': (115, 74, 191)}
+TONES['water']['e'] = (46, 88, 211)
 PATTERN['soul_lava'], HALF['soul_lava'] = PATTERN['lava'], HALF['lava']
 TONES['soul_lava'] = {k: SOUL_FOR_LAVA[v] for k, v in TONES['lava'].items()}
+for tones in TONES.values():
+    tones.update(RIM)
 # Shine colour per content (peak of the sweep; the empty bucket's shine is near white).
 GLINT = {'water': (150, 190, 255), 'lava': (255, 222, 110), 'soul_lava': (140, 238, 255)}
 FLUIDS = ('water', 'lava', 'soul_lava')
