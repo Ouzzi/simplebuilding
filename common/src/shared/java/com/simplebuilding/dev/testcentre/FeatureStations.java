@@ -258,6 +258,15 @@ public final class FeatureStations {
         if (!eggs.isEmpty()) {
             x++;
         }
+        // Ziegenhorn-Halter (Queue N24): Horn mit Fackel; Schleichen + Rechtsklick mit einem Horn stellt es ab.
+        if (ModBlocks.GOAT_HORN_HOLDER != null) {
+            c.place(x, 0, floorZ, ModBlocks.GOAT_HORN_HOLDER.defaultBlockState()
+                    .setValue(com.simplebuilding.blocks.custom.GoatHornHolderBlock.LIGHT, 14));
+            c.contents(x, 0, floorZ, List.of(new ItemStack(net.minecraft.world.item.Items.GOAT_HORN), new ItemStack(net.minecraft.world.item.Items.TORCH)));
+            c.wallFrame(x, 2, wallZ, new ItemStack(net.minecraft.world.item.Items.GOAT_HORN));
+            c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("placeables.horn", "Horn Holder")), TcText.t("placeables.horn.sub", "torch or rod in"));
+            x += 2;
+        }
         // Mischungen (2026-10-03): Kerzen und Seegurken mit Kleinteilen. Feuerzeug zuendet an, leere Hand loescht;
         // die Gurken liegen nass hinter einer Glasscheibe (leuchten nur unter Wasser).
         if (ModBlocks.PLACED_SMALL_PARTS != null) {
