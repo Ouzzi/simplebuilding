@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 537,
+      "count": 544,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3804,6 +3804,51 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_enchanting_table",
+      "name": {
+        "en_us": "Astral Enchanting Table",
+        "de_de": "Astral-Verzauberungstisch"
+      },
+      "texture": "assets/textures/block/astral_enchanting_table_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_enchanting_table.png",
+      "note": {
+        "en": {
+          "summary": "The Astral Enchanting Table lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid from a budget set by the bookshelves and the floor.",
+          "details": [
+            "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding an Enderite Nugget in the off hand and keep holding - 20 blows (four times a machine upgrade); the nugget is used up at the last blow.",
+            "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), at most 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Strength = 2 x points, at most 30. With a 5x5 floor of Blazing Obsidian right under the table: 40 from 20 points, 50 from 30 points (15 blazewood bookshelves).",
+            "The strength is the budget in points (3 without any shelf, enough for one level of a common enchantment). Each slider level costs points by rarity: common and uncommon 3, rare 6, very rare 10. Levels the budget does not allow are greyed out. At 50 every slider goes to its maximum.",
+            "Enchanting uses up 1 to 3 levels (one per started 10 points), at strength 40 four and at 50 five levels; lapis lazuli as many as levels, blaze powder twice that. You need as many levels as points spent (at most 30). Treasure enchantments are never offered; after each enchanting the three offers are new, like Vanilla's seed.",
+            "Lapis lazuli and blaze powder stay stored in the table (one stack each) when you leave; hoppers can top them up but never pull them out.",
+            "Breaking it takes twice as long as the Vanilla table and drops a Vanilla Enchanting Table, the Enderite Nugget and the stored lapis and blaze powder."
+          ]
+        },
+        "de": {
+          "summary": "Am Astral-Verzauberungstisch wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
+          "details": [
+            "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, Enderit-Nugget in der Nebenhand, und halten - 20 Schläge (viermal eine Maschinen-Aufwertung); das Nugget wird beim letzten Schlag verbraucht.",
+            "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), höchstens 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Stärke = 2 x Punkte, höchstens 30. Mit einem 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch: 40 ab 20 Punkten, 50 ab 30 Punkten (15 Lohen-Regale).",
+            "Die Stärke ist das Budget in Punkten (3 ganz ohne Regal, genug für eine Stufe einer häufigen Verzauberung). Jede Reglerstufe kostet Punkte nach Seltenheit: häufig und gewöhnlich 3, selten 6, sehr selten 10. Was das Budget nicht erlaubt, ist ausgegraut. Bei 50 gehen alle Regler bis zum Maximum.",
+            "Verzaubern verbraucht 1 bis 3 Level (eins je angefangene 10 Punkte), bei Stärke 40 vier und bei 50 fünf Level; Lapislazuli so viel wie Level, Lohenstaub doppelt so viel. Man braucht so viele Level wie ausgegebene Punkte (höchstens 30). Schatz-Verzauberungen gibt es nie; nach jedem Verzaubern sind die drei Angebote neu, wie beim Vanilla-Seed.",
+            "Lapislazuli und Lohenstaub bleiben im Tisch gelagert (je ein Stapel), auch wenn man ihn verlässt; Trichter füllen nach, ziehen aber nichts heraus.",
+            "Abbauen dauert doppelt so lange wie beim Vanilla-Tisch; er gibt einen Vanilla-Verzauberungstisch, das Enderit-Nugget und den gelagerten Lapislazuli und Lohenstaub zurück."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java",
+          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlock.java",
+          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/AstralEnchantingMenu.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_end_stone",
       "name": {
         "en_us": "Astral End Stone",
@@ -6199,6 +6244,77 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:blaze_book",
+      "name": {
+        "en_us": "Blaze Book",
+        "de_de": "Lohenbuch"
+      },
+      "texture": "assets/textures/item/blaze_book.png",
+      "craftedBy": [
+        "simplebuilding:blaze_book"
+      ],
+      "usedIn": [
+        "simplebuilding:crimson_blazewood_bookshelf",
+        "simplebuilding:warped_blazewood_bookshelf"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A book bound with blaze powder instead of leather; three of them go into a blazewood bookshelf.",
+          "details": [
+            "Recipe (shapeless): 3 Paper + 1 Blaze Powder."
+          ]
+        },
+        "de": {
+          "summary": "Ein Buch, mit Lohenstaub statt Leder gebunden; drei davon kommen in ein Lohen-Bücherregal.",
+          "details": [
+            "Rezept (formlos): 3 Papier + 1 Lohenstaub."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:blazing_obsidian",
+      "name": {
+        "en_us": "Blazing Obsidian",
+        "de_de": "Lohen-Obsidian"
+      },
+      "texture": "assets/textures/block/blazing_obsidian.png",
+      "craftedBy": [
+        "simplebuilding:blazing_obsidian"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/blazing_obsidian.png",
+      "note": {
+        "en": {
+          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Astral Enchanting Table unlocks strength 40 and 50.",
+          "details": [
+            "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
+            "Light level 12, mined with a diamond pickaxe or better; small flames rise from a free top."
+          ]
+        },
+        "de": {
+          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Astral-Verzauberungstisch schaltet Stärke 40 und 50 frei.",
+          "details": [
+            "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
+            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus einer freien Oberseite steigen kleine Flammen."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:blue_hammock",
       "name": {
         "en_us": "Blue Hammock",
@@ -7715,6 +7831,77 @@
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:crimson_blazewood_bookshelf",
+      "name": {
+        "en_us": "Crimson Blazewood Bookshelf",
+        "de_de": "Karmesin-Lohen-Bücherregal"
+      },
+      "texture": "assets/textures/block/crimson_blazewood_bookshelf.png",
+      "craftedBy": [
+        "simplebuilding:crimson_blazewood_bookshelf"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/crimson_blazewood_bookshelf.png",
+      "note": {
+        "en": {
+          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanting Table, one at the Vanilla table.",
+          "details": [
+            "Recipe like the bookshelf: 6 Crimson Blazewood Planks and 3 Blaze Books.",
+            "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
+          ]
+        },
+        "de": {
+          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberungstisch wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "details": [
+            "Rezept wie das Bücherregal: 6 Karmesin-Lohenholzbretter und 3 Lohenbücher.",
+            "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:crimson_blazewood_planks",
+      "name": {
+        "en_us": "Crimson Blazewood Planks",
+        "de_de": "Karmesin-Lohenholzbretter"
+      },
+      "texture": "assets/textures/block/crimson_blazewood_planks.png",
+      "craftedBy": [
+        "simplebuilding:crimson_blazewood_planks"
+      ],
+      "usedIn": [
+        "simplebuilding:crimson_blazewood_bookshelf"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/crimson_blazewood_planks.png",
+      "note": {
+        "en": {
+          "summary": "Blazewood planks from Crimson planks: eight blaze powder around one crimson plank give one. Material for blazewood bookshelves.",
+          "details": [
+            "Recipe: 8 Blaze Powder around 1 Crimson Planks."
+          ]
+        },
+        "de": {
+          "summary": "Lohenholz aus Karmesinbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
+          "details": [
+            "Rezept: 8 Lohenstaub um 1 Karmesinbretter."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+        ]
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:crystalline_astralit",
@@ -29154,6 +29341,77 @@
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:warped_blazewood_bookshelf",
+      "name": {
+        "en_us": "Warped Blazewood Bookshelf",
+        "de_de": "Wirr-Lohen-Bücherregal"
+      },
+      "texture": "assets/textures/block/warped_blazewood_bookshelf.png",
+      "craftedBy": [
+        "simplebuilding:warped_blazewood_bookshelf"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/warped_blazewood_bookshelf.png",
+      "note": {
+        "en": {
+          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanting Table, one at the Vanilla table.",
+          "details": [
+            "Recipe like the bookshelf: 6 Warped Blazewood Planks and 3 Blaze Books.",
+            "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
+          ]
+        },
+        "de": {
+          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberungstisch wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "details": [
+            "Rezept wie das Bücherregal: 6 Wirr-Lohenholzbretter und 3 Lohenbücher.",
+            "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:warped_blazewood_planks",
+      "name": {
+        "en_us": "Warped Blazewood Planks",
+        "de_de": "Wirr-Lohenholzbretter"
+      },
+      "texture": "assets/textures/block/warped_blazewood_planks.png",
+      "craftedBy": [
+        "simplebuilding:warped_blazewood_planks"
+      ],
+      "usedIn": [
+        "simplebuilding:warped_blazewood_bookshelf"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/warped_blazewood_planks.png",
+      "note": {
+        "en": {
+          "summary": "Blazewood planks from Warped planks: eight blaze powder around one warped plank give one. Material for blazewood bookshelves.",
+          "details": [
+            "Recipe: 8 Blaze Powder around 1 Warped Planks."
+          ]
+        },
+        "de": {
+          "summary": "Lohenholz aus Wirrbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
+          "details": [
+            "Rezept: 8 Lohenstaub um 1 Wirrbretter."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:white_hammock",
       "name": {
         "en_us": "White Hammock",
@@ -29347,6 +29605,56 @@
     }
   ],
   "blocks": [
+    {
+      "id": "simplebuilding:astral_enchanting_table",
+      "name": {
+        "en_us": "Astral Enchanting Table",
+        "de_de": "Astral-Verzauberungstisch"
+      },
+      "texture": "assets/textures/block/astral_enchanting_table_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_enchanting_table.png",
+      "lootTable": "simplebuilding:blocks/astral_enchanting_table",
+      "drops": [
+        "minecraft:enchanting_table",
+        "simplebuilding:enderite_nugget"
+      ],
+      "note": {
+        "en": {
+          "summary": "The Astral Enchanting Table lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid from a budget set by the bookshelves and the floor.",
+          "details": [
+            "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding an Enderite Nugget in the off hand and keep holding - 20 blows (four times a machine upgrade); the nugget is used up at the last blow.",
+            "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), at most 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Strength = 2 x points, at most 30. With a 5x5 floor of Blazing Obsidian right under the table: 40 from 20 points, 50 from 30 points (15 blazewood bookshelves).",
+            "The strength is the budget in points (3 without any shelf, enough for one level of a common enchantment). Each slider level costs points by rarity: common and uncommon 3, rare 6, very rare 10. Levels the budget does not allow are greyed out. At 50 every slider goes to its maximum.",
+            "Enchanting uses up 1 to 3 levels (one per started 10 points), at strength 40 four and at 50 five levels; lapis lazuli as many as levels, blaze powder twice that. You need as many levels as points spent (at most 30). Treasure enchantments are never offered; after each enchanting the three offers are new, like Vanilla's seed.",
+            "Lapis lazuli and blaze powder stay stored in the table (one stack each) when you leave; hoppers can top them up but never pull them out.",
+            "Breaking it takes twice as long as the Vanilla table and drops a Vanilla Enchanting Table, the Enderite Nugget and the stored lapis and blaze powder."
+          ]
+        },
+        "de": {
+          "summary": "Am Astral-Verzauberungstisch wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
+          "details": [
+            "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, Enderit-Nugget in der Nebenhand, und halten - 20 Schläge (viermal eine Maschinen-Aufwertung); das Nugget wird beim letzten Schlag verbraucht.",
+            "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), höchstens 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Stärke = 2 x Punkte, höchstens 30. Mit einem 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch: 40 ab 20 Punkten, 50 ab 30 Punkten (15 Lohen-Regale).",
+            "Die Stärke ist das Budget in Punkten (3 ganz ohne Regal, genug für eine Stufe einer häufigen Verzauberung). Jede Reglerstufe kostet Punkte nach Seltenheit: häufig und gewöhnlich 3, selten 6, sehr selten 10. Was das Budget nicht erlaubt, ist ausgegraut. Bei 50 gehen alle Regler bis zum Maximum.",
+            "Verzaubern verbraucht 1 bis 3 Level (eins je angefangene 10 Punkte), bei Stärke 40 vier und bei 50 fünf Level; Lapislazuli so viel wie Level, Lohenstaub doppelt so viel. Man braucht so viele Level wie ausgegebene Punkte (höchstens 30). Schatz-Verzauberungen gibt es nie; nach jedem Verzaubern sind die drei Angebote neu, wie beim Vanilla-Seed.",
+            "Lapislazuli und Lohenstaub bleiben im Tisch gelagert (je ein Stapel), auch wenn man ihn verlässt; Trichter füllen nach, ziehen aber nichts heraus.",
+            "Abbauen dauert doppelt so lange wie beim Vanilla-Tisch; er gibt einen Vanilla-Verzauberungstisch, das Enderit-Nugget und den gelagerten Lapislazuli und Lohenstaub zurück."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java",
+          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlock.java",
+          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/AstralEnchantingMenu.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
     {
       "id": "simplebuilding:astral_end_stone",
       "name": {
@@ -30504,6 +30812,46 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:blazing_obsidian",
+      "name": {
+        "en_us": "Blazing Obsidian",
+        "de_de": "Lohen-Obsidian"
+      },
+      "texture": "assets/textures/block/blazing_obsidian.png",
+      "craftedBy": [
+        "simplebuilding:blazing_obsidian"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/blazing_obsidian.png",
+      "lootTable": "simplebuilding:blocks/blazing_obsidian",
+      "drops": [
+        "simplebuilding:blazing_obsidian"
+      ],
+      "note": {
+        "en": {
+          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Astral Enchanting Table unlocks strength 40 and 50.",
+          "details": [
+            "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
+            "Light level 12, mined with a diamond pickaxe or better; small flames rise from a free top."
+          ]
+        },
+        "de": {
+          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Astral-Verzauberungstisch schaltet Stärke 40 und 50 frei.",
+          "details": [
+            "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
+            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus einer freien Oberseite steigen kleine Flammen."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:blue_hammock",
       "name": {
         "en_us": "Blue Hammock",
@@ -31147,6 +31495,86 @@
       "drops": [
         "simplebuilding:cracked_diamond_block"
       ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:crimson_blazewood_bookshelf",
+      "name": {
+        "en_us": "Crimson Blazewood Bookshelf",
+        "de_de": "Karmesin-Lohen-Bücherregal"
+      },
+      "texture": "assets/textures/block/crimson_blazewood_bookshelf.png",
+      "craftedBy": [
+        "simplebuilding:crimson_blazewood_bookshelf"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/crimson_blazewood_bookshelf.png",
+      "lootTable": "simplebuilding:blocks/crimson_blazewood_bookshelf",
+      "drops": [
+        "simplebuilding:blaze_book",
+        "simplebuilding:crimson_blazewood_bookshelf"
+      ],
+      "note": {
+        "en": {
+          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanting Table, one at the Vanilla table.",
+          "details": [
+            "Recipe like the bookshelf: 6 Crimson Blazewood Planks and 3 Blaze Books.",
+            "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
+          ]
+        },
+        "de": {
+          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberungstisch wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "details": [
+            "Rezept wie das Bücherregal: 6 Karmesin-Lohenholzbretter und 3 Lohenbücher.",
+            "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:crimson_blazewood_planks",
+      "name": {
+        "en_us": "Crimson Blazewood Planks",
+        "de_de": "Karmesin-Lohenholzbretter"
+      },
+      "texture": "assets/textures/block/crimson_blazewood_planks.png",
+      "craftedBy": [
+        "simplebuilding:crimson_blazewood_planks"
+      ],
+      "usedIn": [
+        "simplebuilding:crimson_blazewood_bookshelf"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/crimson_blazewood_planks.png",
+      "lootTable": "simplebuilding:blocks/crimson_blazewood_planks",
+      "drops": [
+        "simplebuilding:crimson_blazewood_planks"
+      ],
+      "note": {
+        "en": {
+          "summary": "Blazewood planks from Crimson planks: eight blaze powder around one crimson plank give one. Material for blazewood bookshelves.",
+          "details": [
+            "Recipe: 8 Blaze Powder around 1 Crimson Planks."
+          ]
+        },
+        "de": {
+          "summary": "Lohenholz aus Karmesinbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
+          "details": [
+            "Rezept: 8 Lohenstaub um 1 Karmesinbretter."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -40593,6 +41021,86 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:warped_blazewood_bookshelf",
+      "name": {
+        "en_us": "Warped Blazewood Bookshelf",
+        "de_de": "Wirr-Lohen-Bücherregal"
+      },
+      "texture": "assets/textures/block/warped_blazewood_bookshelf.png",
+      "craftedBy": [
+        "simplebuilding:warped_blazewood_bookshelf"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/warped_blazewood_bookshelf.png",
+      "lootTable": "simplebuilding:blocks/warped_blazewood_bookshelf",
+      "drops": [
+        "simplebuilding:blaze_book",
+        "simplebuilding:warped_blazewood_bookshelf"
+      ],
+      "note": {
+        "en": {
+          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanting Table, one at the Vanilla table.",
+          "details": [
+            "Recipe like the bookshelf: 6 Warped Blazewood Planks and 3 Blaze Books.",
+            "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
+          ]
+        },
+        "de": {
+          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberungstisch wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "details": [
+            "Rezept wie das Bücherregal: 6 Wirr-Lohenholzbretter und 3 Lohenbücher.",
+            "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:warped_blazewood_planks",
+      "name": {
+        "en_us": "Warped Blazewood Planks",
+        "de_de": "Wirr-Lohenholzbretter"
+      },
+      "texture": "assets/textures/block/warped_blazewood_planks.png",
+      "craftedBy": [
+        "simplebuilding:warped_blazewood_planks"
+      ],
+      "usedIn": [
+        "simplebuilding:warped_blazewood_bookshelf"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/warped_blazewood_planks.png",
+      "lootTable": "simplebuilding:blocks/warped_blazewood_planks",
+      "drops": [
+        "simplebuilding:warped_blazewood_planks"
+      ],
+      "note": {
+        "en": {
+          "summary": "Blazewood planks from Warped planks: eight blaze powder around one warped plank give one. Material for blazewood bookshelves.",
+          "details": [
+            "Recipe: 8 Blaze Powder around 1 Warped Planks."
+          ]
+        },
+        "de": {
+          "summary": "Lohenholz aus Wirrbrettern: acht Lohenstaub um ein Brett ergeben eins. Material für Lohen-Bücherregale.",
+          "details": [
+            "Rezept: 8 Lohenstaub um 1 Wirrbretter."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:waxed_copper_pressure_plate",
       "name": {
         "en_us": "Waxed Copper Pressure Plate",
@@ -44607,6 +45115,95 @@
       }
     },
     {
+      "id": "simplebuilding:blaze_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:blaze_book",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/blaze_book.json",
+      "ingredients": [
+        "minecraft:blaze_powder",
+        "minecraft:paper"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:paper"
+        ],
+        [
+          "minecraft:paper"
+        ],
+        [
+          "minecraft:paper"
+        ],
+        [
+          "minecraft:blaze_powder"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:blazing_obsidian",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:blazing_obsidian",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/blazing_obsidian.json",
+      "ingredients": [
+        "minecraft:blaze_powder",
+        "minecraft:crying_obsidian"
+      ],
+      "pattern": [
+        "BBB",
+        "BOB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:blaze_powder"
+        ],
+        "O": [
+          "minecraft:crying_obsidian"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 4
+          },
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:blue_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -46663,6 +47260,98 @@
           {
             "id": "simplebuilding:cracked_diamond_block",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:crimson_blazewood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:crimson_blazewood_bookshelf",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/crimson_blazewood_bookshelf.json",
+      "ingredients": [
+        "simplebuilding:blaze_book",
+        "simplebuilding:crimson_blazewood_planks"
+      ],
+      "pattern": [
+        "WWW",
+        "KKK",
+        "WWW"
+      ],
+      "key": {
+        "K": [
+          "simplebuilding:blaze_book"
+        ],
+        "W": [
+          "simplebuilding:crimson_blazewood_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 25.5
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 9
+          },
+          {
+            "id": "minecraft:crimson_stem",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:crimson_blazewood_planks",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:crimson_blazewood_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/crimson_blazewood_planks.json",
+      "ingredients": [
+        "minecraft:blaze_powder",
+        "minecraft:crimson_planks"
+      ],
+      "pattern": [
+        "BBB",
+        "BPB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:blaze_powder"
+        ],
+        "P": [
+          "minecraft:crimson_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 4
+          },
+          {
+            "id": "minecraft:crimson_stem",
+            "count": 0.25
           }
         ]
       }
@@ -74821,6 +75510,98 @@
       }
     },
     {
+      "id": "simplebuilding:warped_blazewood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:warped_blazewood_bookshelf",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/warped_blazewood_bookshelf.json",
+      "ingredients": [
+        "simplebuilding:blaze_book",
+        "simplebuilding:warped_blazewood_planks"
+      ],
+      "pattern": [
+        "WWW",
+        "KKK",
+        "WWW"
+      ],
+      "key": {
+        "K": [
+          "simplebuilding:blaze_book"
+        ],
+        "W": [
+          "simplebuilding:warped_blazewood_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 25.5
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 9
+          },
+          {
+            "id": "minecraft:warped_stem",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:warped_blazewood_planks",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:warped_blazewood_planks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/warped_blazewood_planks.json",
+      "ingredients": [
+        "minecraft:blaze_powder",
+        "minecraft:warped_planks"
+      ],
+      "pattern": [
+        "BBB",
+        "BPB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "minecraft:blaze_powder"
+        ],
+        "P": [
+          "minecraft:warped_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 4
+          },
+          {
+            "id": "minecraft:warped_stem",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:waxed_copper_pressure_plate_from_honeycomb",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -77311,6 +78092,30 @@
   ],
   "lootTables": [
     {
+      "id": "simplebuilding:blocks/astral_enchanting_table",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:enchanting_table"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:enderite_nugget"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_enchanting_table.json"
+    },
+    {
       "id": "simplebuilding:blocks/astral_end_stone",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -77736,6 +78541,22 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blaze_head.json"
     },
     {
+      "id": "simplebuilding:blocks/blazing_obsidian",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:blazing_obsidian"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blazing_obsidian.json"
+    },
+    {
       "id": "simplebuilding:blocks/blue_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -77926,6 +78747,39 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_diamond_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/crimson_blazewood_bookshelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:crimson_blazewood_bookshelf",
+            "simplebuilding:blaze_book"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crimson_blazewood_bookshelf.json"
+    },
+    {
+      "id": "simplebuilding:blocks/crimson_blazewood_planks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:crimson_blazewood_planks"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crimson_blazewood_planks.json"
     },
     {
       "id": "simplebuilding:blocks/crystalline_astralit",
@@ -80617,6 +81471,39 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/veined_nihilith.json"
+    },
+    {
+      "id": "simplebuilding:blocks/warped_blazewood_bookshelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:warped_blazewood_bookshelf",
+            "simplebuilding:blaze_book"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/warped_blazewood_bookshelf.json"
+    },
+    {
+      "id": "simplebuilding:blocks/warped_blazewood_planks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:warped_blazewood_planks"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/warped_blazewood_planks.json"
     },
     {
       "id": "simplebuilding:blocks/waxed_copper_pressure_plate",
@@ -116562,10 +117449,10 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 481,
-    "blocks": 237,
-    "recipes": 847,
-    "lootTables": 231,
+    "items": 488,
+    "blocks": 243,
+    "recipes": 853,
+    "lootTables": 237,
     "trades": 20,
     "enchantments": 19,
     "tags": 49,
