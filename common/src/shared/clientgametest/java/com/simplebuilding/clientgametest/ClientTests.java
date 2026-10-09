@@ -97,7 +97,9 @@ public final class ClientTests {
                 // puts the hotbar back empty.
                 new Entry("trim-textures", TrimTextureClientTest::inWorld),
                 // Owner N21/N28 (26.3): half and full Enderite buckets in the inventory; hotbar back empty.
-                new Entry("enderite-buckets", EnderiteBucketClientTest::inWorld));
+                new Entry("enderite-buckets", EnderiteBucketClientTest::inWorld),
+                // Six armor stands in one documentary picture (2026-10-09); kills them again.
+                new Entry("armor-stands", ArmorStandClientTest::inWorld));
     }
 
     /**

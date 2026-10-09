@@ -734,6 +734,30 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("training_dummy_game_test_generic_kill_removes_both_stands", TrainingDummyTests::genericKillRemovesBothStands)
                     .build(),
+            GameTestSpec.named("training_dummy_game_test_a_thrown_trident_ticks_into_the_dummy", TrainingDummyTests::aThrownTridentTicksIntoTheDummy)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_a_wind_charge_counts_but_does_not_push_the_dummy", TrainingDummyTests::aWindChargeCountsButDoesNotPushTheDummy)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_a_falling_mace_smash_shows_the_fall_bonus", TrainingDummyTests::aFallingMaceSmashShowsTheFallBonus)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_a_name_tag_names_the_dummy_and_picks_the_skin", TrainingDummyTests::aNameTagNamesTheDummyAndPicksTheSkin)
+                    .build(),
+            GameTestSpec.named("armor_stand_game_test_sneaking_empty_hand_swaps_the_whole_armour", ArmorStandTests::sneakingEmptyHandSwapsTheWholeArmour)
+                    .build(),
+            GameTestSpec.named("armor_stand_game_test_plain_right_clicks_keep_the_vanilla_single_slot", ArmorStandTests::plainRightClicksKeepTheVanillaSingleSlot)
+                    .build(),
+            GameTestSpec.named("armor_stand_game_test_a_powered_stand_swaps_on_every_right_click", ArmorStandTests::aPoweredStandSwapsOnEveryRightClick)
+                    .build(),
+            GameTestSpec.named("armor_stand_game_test_binding_curse_and_the_switch_stop_the_swap", ArmorStandTests::bindingCurseAndTheSwitchStopTheSwap)
+                    .build(),
+            GameTestSpec.named("armor_stand_game_test_placed_stands_have_arms", ArmorStandTests::placedStandsHaveArms)
+                    .build(),
+            GameTestSpec.named("armor_stand_game_test_partial_stands_hold_only_their_slots", ArmorStandTests::partialStandsHoldOnlyTheirSlots)
+                    .build(),
+            GameTestSpec.named("armor_stand_game_test_partial_stands_drop_their_own_item", ArmorStandTests::partialStandsDropTheirOwnItem)
+                    .build(),
+            GameTestSpec.named("armor_stand_game_test_the_test_centre_stocks_the_partial_stands", ArmorStandTests::theTestCentreStocksThePartialStands)
+                    .build(),
             GameTestSpec.named("workstation_game_test_smithing_recipe_book_hides_dummy_displays", WorkstationTests::smithingRecipeBookHidesDummyDisplays)
                     .build(),
             GameTestSpec.named("workstation_game_test_smithing_recipe_book_places_damaged_gear", WorkstationTests::smithingRecipeBookPlacesDamagedGear)

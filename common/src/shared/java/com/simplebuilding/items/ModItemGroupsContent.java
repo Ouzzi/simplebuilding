@@ -463,7 +463,8 @@ public final class ModItemGroupsContent {
         }
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
             // Trainingspuppe (2026-10-02): der Stroh-Ruestungsstaender (Vanilla-Items gehoeren nicht in Mod-Tabs).
-            rows.add(CreativeTabLayout.Row.of("training_dummy", ModItems.STRAW_ARMOR_STAND, ModItems.TRAINING_DUMMY));
+            rows.add(CreativeTabLayout.Row.of("training_dummy", ModItems.STRAW_ARMOR_STAND, ModItems.TRAINING_DUMMY,
+                    ModItems.MEDIUM_ARMOR_STAND, ModItems.SMALL_ARMOR_STAND));
         }
         if (com.simplebuilding.version.McVersion.HAMMOCK) {
             // Haengematten (2026-10-02): 16 Farben in Vanillas Bett-Reihenfolge, laufen in die naechste Zeile weiter.

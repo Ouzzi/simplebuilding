@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 534,
+      "count": 536,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -15750,6 +15750,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:medium_armor_stand",
+      "name": {
+        "en_us": "Medium Armor Stand",
+        "de_de": "Mittlerer Rüstungsständer"
+      },
+      "texture": "assets/textures/item/medium_armor_stand.png",
+      "craftedBy": [
+        "simplebuilding:medium_armor_stand"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The lower half of an armor stand, for leggings and boots: two rows \"/ /\" and \"/_/\" (/ = stick, _ = smooth stone slab).",
+          "details": [
+            "Shows legs, a hip bar and the base plate (vanilla wood), 1 block tall. Takes only leggings and boots, by right-click like an armor stand, from a dispenser or by the armor swap; everything else stays in your hand. No arms.",
+            "Two quick hits break it (one in creative): the Medium Armor Stand and its armor drop. Pick block gives the Medium Armor Stand.",
+            "Armor swap (any armor stand, also straw stands, training dummies and the medium and small stands): sneak + right-click with an empty main hand, or any right-click while the stand is powered by redstone (like a powered shelf with the hotbar), swaps all its armor with your armor slots. Pieces with Curse of Binding stay on you (outside creative), pieces that do not fit your slot stay on the stand. Switch: server.features.armorStandSwap (default on)."
+          ]
+        },
+        "de": {
+          "summary": "Die untere Hälfte eines Rüstungsständers, für Hose und Stiefel: zwei Reihen \"/ /\" und \"/_/\" (/ = Stock, _ = glatte Steinstufe).",
+          "details": [
+            "Zeigt Beine, eine Hüftstange und die Bodenplatte (Vanilla-Holz), 1 Block hoch. Nimmt nur Hose und Stiefel, per Rechtsklick wie ein Rüstungsständer, aus dem Spender oder beim Rüstungstausch; alles andere bleibt in der Hand. Keine Arme.",
+            "Zwei schnelle Schläge bauen ihn ab (im Kreativmodus einer): der Mittlere Rüstungsständer und seine Rüstung fallen. Block auswählen gibt den Mittleren Rüstungsständer.",
+            "Rüstung tauschen (jeder Rüstungsständer, auch Stroh-Ständer, Trainingspuppen und die mittleren und kleinen Ständer): Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange der Ständer mit Redstone bestromt ist (wie ein bestromtes Regal mit der Hotbar), tauscht seine ganze Rüstung mit deinen Rüstungsslots. Teile mit Fluch der Bindung bleiben an dir (außer im Kreativmodus), Teile, die nicht in deinen Slot passen, bleiben am Ständer. Schalter: server.features.armorStandSwap (Standard an)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/dummy/PartialArmorStand.java",
+          "common/src/shared/java/com/simplebuilding/dummy/client/PartialArmorStandRenderer.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ArmorStandStandsMixin.java",
+          "common/src/shared/java/com/simplebuilding/dummy/ArmorStandSwap.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:music_disc_brimstone",
       "name": {
         "en_us": "Music Disc",
@@ -28192,6 +28234,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:small_armor_stand",
+      "name": {
+        "en_us": "Small Armor Stand",
+        "de_de": "Kleiner Rüstungsständer"
+      },
+      "texture": "assets/textures/item/small_armor_stand.png",
+      "craftedBy": [
+        "simplebuilding:small_armor_stand"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "A base plate with two short pegs, for one pair of boots: one row \"/_/\" (/ = stick, _ = smooth stone slab).",
+          "details": [
+            "Half a block tall; the boots stand on the plate over the pegs. Takes only boots (right-click, dispenser, armor swap); everything else stays in your hand. No arms.",
+            "Two quick hits break it (one in creative): the Small Armor Stand and its boots drop. Pick block gives the Small Armor Stand.",
+            "Armor swap (any armor stand, also straw stands, training dummies and the medium and small stands): sneak + right-click with an empty main hand, or any right-click while the stand is powered by redstone (like a powered shelf with the hotbar), swaps all its armor with your armor slots. Pieces with Curse of Binding stay on you (outside creative), pieces that do not fit your slot stay on the stand. Switch: server.features.armorStandSwap (default on)."
+          ]
+        },
+        "de": {
+          "summary": "Eine Bodenplatte mit zwei kurzen Zapfen, für ein Paar Stiefel: eine Reihe \"/_/\" (/ = Stock, _ = glatte Steinstufe).",
+          "details": [
+            "Einen halben Block hoch; die Stiefel stehen auf der Platte über den Zapfen. Nimmt nur Stiefel (Rechtsklick, Spender, Rüstungstausch); alles andere bleibt in der Hand. Keine Arme.",
+            "Zwei schnelle Schläge bauen ihn ab (im Kreativmodus einer): der Kleine Rüstungsständer und seine Stiefel fallen. Block auswählen gibt den Kleinen Rüstungsständer.",
+            "Rüstung tauschen (jeder Rüstungsständer, auch Stroh-Ständer, Trainingspuppen und die mittleren und kleinen Ständer): Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange der Ständer mit Redstone bestromt ist (wie ein bestromtes Regal mit der Hotbar), tauscht seine ganze Rüstung mit deinen Rüstungsslots. Teile mit Fluch der Bindung bleiben an dir (außer im Kreativmodus), Teile, die nicht in deinen Slot passen, bleiben am Ständer. Schalter: server.features.armorStandSwap (Standard an)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/dummy/PartialArmorStand.java",
+          "common/src/shared/java/com/simplebuilding/dummy/client/PartialArmorStandRenderer.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ArmorStandStandsMixin.java",
+          "common/src/shared/java/com/simplebuilding/dummy/ArmorStandSwap.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:soul_lava_bucket",
       "name": {
         "en_us": "Soul Lava Bucket",
@@ -28734,7 +28818,9 @@ window.WIKI_DATA = {
           "details": [
             "Placed and dressed like an armor stand; two quick hits (one in creative) or an explosion break it and drop the Straw Armor Stand and its equipment.",
             "Scarecrow: within server.features.scarecrowRadius blocks (default 8, 0 = off, at most 16) of a Straw Armor Stand or a Training Dummy, animals and monsters do not trample farmland; players still do.",
-            "Right-click with a carved pumpkin: the pumpkin is used up (it does not sit on the head) and the stand becomes a Training Dummy with the same equipment, name and rotation. Plain armor stands are not changed by a pumpkin."
+            "Right-click with a carved pumpkin: the pumpkin is used up (it does not sit on the head) and the stand becomes a Training Dummy with the same equipment, name and rotation. Plain armor stands are not changed by a pumpkin.",
+            "Armor swap (any armor stand, also straw stands, training dummies and the medium and small stands): sneak + right-click with an empty main hand, or any right-click while the stand is powered by redstone (like a powered shelf with the hotbar), swaps all its armor with your armor slots. Pieces with Curse of Binding stay on you (outside creative), pieces that do not fit your slot stay on the stand. Switch: server.features.armorStandSwap (default on).",
+            "Arms: every newly placed armor stand (item or dispenser; vanilla, straw stand, training dummy) has arms and can hold items in both hands. Stands already in the world and summoned ones keep their ShowArms value. Switch: server.features.armorStandArms (default on)."
           ]
         },
         "de": {
@@ -28742,7 +28828,9 @@ window.WIKI_DATA = {
           "details": [
             "Wird aufgestellt und angezogen wie ein Rüstungsständer; zwei schnelle Schläge (im Kreativmodus einer) oder eine Explosion zerstören ihn, dann fallen der Stroh-Rüstungsständer und seine Ausrüstung.",
             "Vogelscheuche: im Umkreis von server.features.scarecrowRadius Blöcken (Standard 8, 0 = aus, höchstens 16) um einen Stroh-Rüstungsständer oder eine Trainingspuppe zertrampeln Tiere und Monster kein Ackerland; Spieler weiterhin.",
-            "Rechtsklick mit einem geschnitzten Kürbis: der Kürbis wird verbraucht (er sitzt nicht auf dem Kopf) und der Ständer wird zur Trainingspuppe mit derselben Ausrüstung, demselben Namen und derselben Drehung. Normale Rüstungsständer ändert ein Kürbis nicht."
+            "Rechtsklick mit einem geschnitzten Kürbis: der Kürbis wird verbraucht (er sitzt nicht auf dem Kopf) und der Ständer wird zur Trainingspuppe mit derselben Ausrüstung, demselben Namen und derselben Drehung. Normale Rüstungsständer ändert ein Kürbis nicht.",
+            "Rüstung tauschen (jeder Rüstungsständer, auch Stroh-Ständer, Trainingspuppen und die mittleren und kleinen Ständer): Schleichen + Rechtsklick mit leerer Haupthand oder jeder Rechtsklick, solange der Ständer mit Redstone bestromt ist (wie ein bestromtes Regal mit der Hotbar), tauscht seine ganze Rüstung mit deinen Rüstungsslots. Teile mit Fluch der Bindung bleiben an dir (außer im Kreativmodus), Teile, die nicht in deinen Slot passen, bleiben am Ständer. Schalter: server.features.armorStandSwap (Standard an).",
+            "Arme: jeder neu aufgestellte Rüstungsständer (Item oder Spender; Vanilla, Stroh-Ständer, Trainingspuppe) hat Arme und kann in beiden Händen Items halten. Ständer, die schon in der Welt stehen oder gerufen werden, behalten ihren ShowArms-Wert. Schalter: server.features.armorStandArms (Standard an)."
           ]
         },
         "sources": [
@@ -28750,7 +28838,9 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/dummy/StrawArmorStandItem.java",
           "common/src/shared/java/com/simplebuilding/dummy/Scarecrow.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/dummy/ArmorStandSwap.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ArmorStandStandsMixin.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -28913,7 +29003,8 @@ window.WIKI_DATA = {
             "Never takes damage and never dies (no XP, no loot), is not knocked back, and its armor does not wear out. Only a sneaking hit by a player who may build there picks it up: the Training Dummy item and its equipment drop (in creative nothing drops). Right-click with shears turns it back into a Straw Armor Stand: the carved pumpkin drops, the equipment stays, the shears lose 1 durability.",
             "Every hit makes it wobble and shows a floating number (a text display, 1 s): red bold = critical hit (full-strength falling melee hit, critical arrow), gold = fire, yellow = explosion, purple = magic, white = other, gray 0 = a hit inside the cooldown that would not count on a mob; at most 12 numbers per dummy. After 3 s without a hit and at least 2 hits it shows the total, the time from the first to the last hit (at least 1 s) and the damage per second, then starts counting anew.",
             "The number is the damage the mob of its head would take: the head picks the mob (vanilla, SimpleBuilding and Simple Fun heads; pumpkin, player head or none = no mob type). Damage enchantments (Smite, Bane of Arthropods, Impaling and any data-driven enchantment conditioned on entity type tags) and the fletching tips see that mob. The mob's immunities count (fire against a blaze head, arrows against an enderman head, shown as Immune), freezing hurts freeze-sensitive mobs five times, and hits within 10 ticks only count above the last one, as with mobs.",
-            "Armor reduces the number like on a mob: the dummy's armor and armor toughness plus the natural armor of its mob (a zombie has 2), then Protection enchantments and Resistance."
+            "Armor reduces the number like on a mob: the dummy's armor and armor toughness plus the natural armor of its mob (a zombie has 2), then Protection enchantments and Resistance.",
+            "Named after a player (name tag, or the item renamed in an anvil; 3 to 16 letters, digits or underscores) it shows that player's skin as a full player body in the stand's pose, looked up like a vanilla player head on the client; until the skin has loaded, or when the name has no player, it stays the straw dummy. A head in its head slot replaces the skin's head. The numbers do not change."
           ]
         },
         "de": {
@@ -28922,7 +29013,8 @@ window.WIKI_DATA = {
             "Nimmt nie Schaden und stirbt nie (kein XP, keine Beute), wird nicht zurückgestoßen, ihre Rüstung nutzt sich nicht ab. Nur ein Schleich-Schlag eines Spielers, der dort bauen darf, baut sie ab: das Item Trainingspuppe und die Ausrüstung fallen (im Kreativmodus nichts). Rechtsklick mit der Schere macht sie wieder zum Stroh-Rüstungsständer: der geschnitzte Kürbis fällt heraus, die Ausrüstung bleibt, die Schere verliert 1 Haltbarkeit.",
             "Jeder Treffer lässt sie wackeln und zeigt eine schwebende Zahl (Textanzeige, 1 s): rot fett = kritischer Treffer (voller Schlag im Fallen, kritischer Pfeil), gold = Feuer, gelb = Explosion, lila = Magie, weiß = sonst, graue 0 = ein Treffer in der Trefferpause, der bei einem Mob nicht zählen würde; höchstens 12 Zahlen je Puppe. Nach 3 s ohne Treffer und mindestens 2 Treffern zeigt sie die Summe, die Zeit vom ersten bis zum letzten Treffer (mindestens 1 s) und den Schaden je Sekunde und zählt dann neu.",
             "Die Zahl ist der Schaden, den der Mob ihres Kopfes bekäme: der Kopf bestimmt den Mob (Vanilla-, SimpleBuilding- und Simple-Fun-Köpfe; Kürbis, Spielerkopf oder keiner = keine Mob-Art). Schadens-Verzauberungen (Bann, Nemesis der Gliederfüßer, Harpune und jede datengetriebene Verzauberung mit Bedingung über Entity-Type-Tags) und die Befiederungs-Spitzen sehen diesen Mob. Seine Immunitäten zählen (Feuer gegen den Lohenkopf, Pfeile gegen den Endermankopf, angezeigt als Immun), Frost trifft frostempfindliche Mobs fünffach, und Treffer innerhalb von 10 Ticks zählen wie bei Mobs nur über dem letzten.",
-            "Rüstung senkt die Zahl wie bei einem Mob: Rüstung und Rüstungshärte der Puppe plus die natürliche Rüstung ihres Mobs (Zombie 2), danach Schutz-Verzauberungen und Resistenz."
+            "Rüstung senkt die Zahl wie bei einem Mob: Rüstung und Rüstungshärte der Puppe plus die natürliche Rüstung ihres Mobs (Zombie 2), danach Schutz-Verzauberungen und Resistenz.",
+            "Heißt sie wie ein Spieler (Namensschild oder das im Amboss umbenannte Item; 3 bis 16 Buchstaben, Ziffern oder Unterstriche), zeigt sie dessen Haut als vollen Spielerkörper in der Pose des Ständers, nachgeschlagen wie ein Vanilla-Spielerkopf auf dem Client; bis die Haut geladen ist oder wenn der Name keinem Spieler gehört, bleibt sie die Strohpuppe. Ein Kopf im Kopfslot ersetzt den Kopf der Haut. Die Zahlen ändern sich nicht."
           ]
         },
         "sources": [
@@ -28930,7 +29022,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/dummy/DummyTargets.java",
           "common/src/shared/java/com/simplebuilding/dummy/client/DummyStuffingLayer.java",
           "common/src/shared/java/com/simplebuilding/mixin/EnchantmentHelperDummyMixin.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/dummy/DummySkins.java",
+          "common/src/shared/java/com/simplebuilding/dummy/client/DummySkinLayer.java",
+          "common/src/shared/java/com/simplebuilding/dummy/client/TrainingDummyRenderer.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -57266,6 +57361,49 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:medium_armor_stand",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:medium_armor_stand",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/medium_armor_stand.json",
+      "ingredients": [
+        "minecraft:smooth_stone_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "/ /",
+        "/_/"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "_": [
+          "minecraft:smooth_stone_slab"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:stone",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nether_brick_chess_bishop_flat_from_nether_brick_octet_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -71802,6 +71940,48 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:dandelion",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:small_armor_stand",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:small_armor_stand",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/small_armor_stand.json",
+      "ingredients": [
+        "minecraft:smooth_stone_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "/_/"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "_": [
+          "minecraft:smooth_stone_slab"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
           }
         ]
       }
@@ -89776,6 +89956,46 @@ window.WIKI_DATA = {
       "labelDe": "Vogelscheuchen-Umkreis",
       "tooltip": "Within this many blocks of a Straw Armor\nStand or Training Dummy, animals and\nmonsters do not trample farmland\n(players still do). 0 = off, max 16.\nServer-side. Default: 8.",
       "tooltipDe": "In so vielen Blöcken um einen Stroh-\nRüstungsständer oder eine Trainingspuppe\nzertrampeln Tiere und Monster kein\nAckerland (Spieler schon). 0 = aus,\nhöchstens 16. Serverseitig. Standard: 8."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.features.armorStandArms",
+      "shortName": "armorStandArms",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Armor Stands with Arms",
+      "labelDe": "Rüstungsständer mit Armen",
+      "tooltip": "Newly placed armor stands (also\nstraw stands and training dummies)\nhave arms. Stands already in the\nworld keep theirs. Server-side.\nDefault: on.",
+      "tooltipDe": "Neu aufgestellte Rüstungsständer\n(auch Stroh-Ständer und Trainings-\npuppen) haben Arme. Ständer in der\nWelt behalten ihre. Serverseitig.\nStandard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.features.armorStandSwap",
+      "shortName": "armorStandSwap",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Armor Stand Armor Swap",
+      "labelDe": "Rüstung am Ständer tauschen",
+      "tooltip": "Sneak + right-click with an empty\nhand, or right-click a powered armor\nstand: swaps all its armor with\nyours. Server-side. Default: on.",
+      "tooltipDe": "Schleichen + Rechtsklick mit leerer\nHand oder Rechtsklick auf einen\nbestromten Rüstungsständer tauscht\nseine ganze Rüstung mit deiner.\nServerseitig. Standard: an."
     },
     {
       "range": [
@@ -116178,14 +116398,14 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 478,
+    "items": 480,
     "blocks": 236,
-    "recipes": 844,
+    "recipes": 846,
     "lootTables": 230,
     "trades": 20,
     "enchantments": 19,
     "tags": 49,
-    "config": 219,
+    "config": 221,
     "inWorld": 468,
     "advancements": 127,
     "features": 48,

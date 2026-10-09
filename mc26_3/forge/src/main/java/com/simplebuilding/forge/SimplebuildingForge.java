@@ -49,6 +49,8 @@ public final class SimplebuildingForge {
             net.minecraftforge.event.entity.EntityAttributeCreationEvent.BUS.addListener(event -> {
                 event.put(com.simplebuilding.entity.ModEntities.STRAW_ARMOR_STAND, com.simplebuilding.dummy.TrainingDummy.createAttributes().build());
                 event.put(com.simplebuilding.entity.ModEntities.TRAINING_DUMMY, com.simplebuilding.dummy.TrainingDummy.createAttributes().build());
+                event.put(com.simplebuilding.entity.ModEntities.MEDIUM_ARMOR_STAND, net.minecraft.world.entity.decoration.ArmorStand.createAttributes().build());
+                event.put(com.simplebuilding.entity.ModEntities.SMALL_ARMOR_STAND, net.minecraft.world.entity.decoration.ArmorStand.createAttributes().build());
             });
         }
         ForgeNetworkRegistration.register();

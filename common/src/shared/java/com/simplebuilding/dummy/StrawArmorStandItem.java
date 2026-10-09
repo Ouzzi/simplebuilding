@@ -19,12 +19,13 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-/** Stellt einen Stroh-Ruestungsstaender oder eine Trainingspuppe auf; Ablauf wie Vanillas {@code ArmorStandItem}. */
+/** Stellt einen Stroh-, mittleren oder kleinen Ruestungsstaender oder eine Trainingspuppe auf; Ablauf wie Vanillas {@code ArmorStandItem}. */
 public class StrawArmorStandItem extends Item {
-    private final java.util.function.Supplier<EntityType<TrainingDummy>> type;
+    private final java.util.function.Supplier<? extends EntityType<? extends net.minecraft.world.entity.decoration.ArmorStand>> type;
     private final String tooltip;
 
-    public StrawArmorStandItem(Properties properties, java.util.function.Supplier<EntityType<TrainingDummy>> type, String tooltip) {
+    public StrawArmorStandItem(Properties properties,
+            java.util.function.Supplier<? extends EntityType<? extends net.minecraft.world.entity.decoration.ArmorStand>> type, String tooltip) {
         super(properties);
         this.type = type;
         this.tooltip = tooltip;
@@ -39,14 +40,13 @@ public class StrawArmorStandItem extends Item {
         BlockPos pos = new BlockPlaceContext(context).getClickedPos();
         ItemStack stack = context.getItemInHand();
         Vec3 bottom = Vec3.atBottomCenterOf(pos);
-        EntityType<TrainingDummy> type = this.type.get();
+        EntityType<? extends net.minecraft.world.entity.decoration.ArmorStand> type = this.type.get();
         AABB box = type.getDimensions().makeBoundingBox(bottom.x(), bottom.y(), bottom.z());
         if (!level.noCollision(null, box) || !level.getEntities(null, box).isEmpty()) {
             return InteractionResult.FAIL;
         }
         if (level instanceof ServerLevel server) {
-            PostSpawnProcessor<TrainingDummy> config = EntityType.createDefaultStackConfig(server, stack, context.getPlayer());
-            TrainingDummy entity = type.create(server, config, pos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
+            net.minecraft.world.entity.decoration.ArmorStand entity = spawn(server, type, stack, context, pos);
             if (entity == null) {
                 return InteractionResult.FAIL;
             }
@@ -58,6 +58,12 @@ public class StrawArmorStandItem extends Item {
         }
         stack.shrink(1);
         return InteractionResult.SUCCESS;
+    }
+
+    private static <T extends net.minecraft.world.entity.decoration.ArmorStand> T spawn(ServerLevel server, EntityType<T> type, ItemStack stack,
+            UseOnContext context, BlockPos pos) {
+        PostSpawnProcessor<T> config = EntityType.createDefaultStackConfig(server, stack, context.getPlayer());
+        return type.create(server, config, pos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
     }
 
     @Override

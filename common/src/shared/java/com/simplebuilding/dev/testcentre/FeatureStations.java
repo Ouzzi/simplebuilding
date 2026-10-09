@@ -518,6 +518,8 @@ public final class FeatureStations {
                 chests.add(crafted.subList(i, Math.min(crafted.size(), i + 27)));
             }
         }
+        // Mittlerer/kleiner Ruestungsstaender (2026-10-09) als Items in der Truhe der Station.
+        chests.add(List.of(new ItemStack(ModItems.MEDIUM_ARMOR_STAND), new ItemStack(ModItems.SMALL_ARMOR_STAND)));
         List<ItemStack> tipped = tippedArrows();
         for (int i = 0; i < tipped.size(); i += 27) {
             chests.add(tipped.subList(i, Math.min(tipped.size(), i + 27)));

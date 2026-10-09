@@ -634,4 +634,109 @@ public final class TrainingDummyTests {
         helper.assertTrue(stand.isRemoved(), "genericKill does not remove the straw stand");
         helper.succeed();
     }
+
+    // ------------------------------------------------------------------ weitere echte Wege (2026-10-09, docs/ai/PLAN-STAENDER-2026-10-09.md)
+
+    /** Geworfener Dreizack, der ins Ziel tickt: Zahl, Puppe steht, auch wenn der Werfer schleicht (kein Abbau aus der Ferne). */
+    public static void aThrownTridentTicksIntoTheDummy(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        TrainingDummy dummy = dummy(helper, 1, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        ServerPlayer thrower = fighter(helper);
+        thrower.snapTo(dummy.getX() - 4.0, dummy.getY() - 1.0, dummy.getZ());
+        thrower.setShiftKeyDown(true);
+        net.minecraft.world.entity.projectile.arrow.ThrownTrident trident =
+                new net.minecraft.world.entity.projectile.arrow.ThrownTrident(level, thrower, new ItemStack(Items.TRIDENT));
+        trident.setPos(dummy.getX(), dummy.getY() + 0.8, dummy.getZ() - 1.5);
+        trident.setDeltaMovement(0.0, 0.0, 1.5);
+        trident.setNoGravity(true);
+        level.addFreshEntity(trident);
+        int guard = 0;
+        while (dummy.sessionHits() == 0 && !trident.isRemoved() && guard++ < 40) {
+            trident.tick();
+        }
+        helper.assertTrue(dummy.isAlive(), "a thrown trident picked the dummy up");
+        helper.assertValueEqual(dummy.sessionHits(), 1, "the thrown trident was not counted");
+        helper.assertTrue(dummy.lastShown() > 0.0F, "the thrown trident shows no number");
+        helper.succeed();
+    }
+
+    /** Windladung eines Spielers: Treffer zaehlt, die Puppe bleibt stehen (kein Rueckstoss, auch nicht von der Explosion). */
+    public static void aWindChargeCountsButDoesNotPushTheDummy(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        TrainingDummy dummy = dummy(helper, 3, 3, new ItemStack(Items.CARVED_PUMPKIN));
+        for (int i = 0; i < 5; i++) {
+            dummy.tick();
+        }
+        Vec3 start = dummy.position();
+        ServerPlayer shooter = fighter(helper);
+        shooter.snapTo(dummy.getX() - 4.0, dummy.getY() - 1.0, dummy.getZ());
+        net.minecraft.world.entity.projectile.hurtingprojectile.windcharge.WindCharge charge =
+                new net.minecraft.world.entity.projectile.hurtingprojectile.windcharge.WindCharge(shooter, level, dummy.getX(), dummy.getY() + 0.8,
+                        dummy.getZ() - 1.5);
+        charge.setDeltaMovement(0.0, 0.0, 0.8);
+        level.addFreshEntity(charge);
+        int guard = 0;
+        while (!charge.isRemoved() && guard++ < 40) {
+            charge.tick();
+        }
+        for (int i = 0; i < 10; i++) {
+            dummy.tick();
+        }
+        helper.assertTrue(dummy.isAlive(), "a wind charge destroyed the dummy");
+        helper.assertTrue(dummy.sessionHits() >= 1, "the wind charge was not counted");
+        Vec3 moved = dummy.position().subtract(start);
+        helper.assertTrue(moved.horizontalDistance() < 0.05, "the wind charge pushed the dummy by " + moved + " (charge removed: " + charge.isRemoved() + ")");
+        helper.succeed();
+    }
+
+    /** Streitkolben im Fallen (echter Weg {@code Player.attack}): der Fall-Bonus steht in der Zahl, die Puppe bleibt. */
+    public static void aFallingMaceSmashShowsTheFallBonus(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        TrainingDummy dummy = dummy(helper, 1, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        ServerPlayer player = fighter(helper);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.MACE));
+        charge(player);
+        ready(helper, player, dummy, 1.5);
+        player.setOnGround(false);
+        player.fallDistance = 4.0;
+        player.attack(dummy);
+        helper.assertTrue(dummy.isAlive(), "the mace smash broke the dummy");
+        // Grundschaden 6; im Fall je Block +4 fuer die ersten drei, dann weniger (Vanilla MaceItem#getAttackDamageBonus)
+        helper.assertTrue(dummy.lastShown() > 10.0F, "the mace smash shows no fall bonus: " + dummy.lastShown());
+        helper.succeed();
+    }
+
+    /** Namensschild (echter Weg {@code Player.interactOn}): die Puppe heisst so, ein Spielername wird zur Haut. */
+    public static void aNameTagNamesTheDummyAndPicksTheSkin(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        TrainingDummy dummy = dummy(helper, 1, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        ServerPlayer player = fighter(helper);
+        ItemStack tag = new ItemStack(Items.NAME_TAG);
+        tag.set(DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Notch"));
+        player.setItemInHand(InteractionHand.MAIN_HAND, tag);
+        player.interactOn(dummy, InteractionHand.MAIN_HAND, new Vec3(0.0, 1.0, 0.0));
+        helper.assertTrue(dummy.getCustomName() != null && dummy.getCustomName().getString().equals("Notch"), "the name tag did not name the dummy");
+        helper.assertTrue(player.getMainHandItem().isEmpty(), "the name tag was not used up");
+        helper.assertValueEqual(com.simplebuilding.dummy.DummySkins.playerName(dummy.getCustomName()).orElse(""), "Notch", "skin name");
+        for (String name : new String[]{"Bob the Dummy", "ab", "seventeen_letters", "Dummy!"}) {
+            helper.assertTrue(com.simplebuilding.dummy.DummySkins.playerName(net.minecraft.network.chat.Component.literal(name)).isEmpty(),
+                    "'" + name + "' is taken for a player name");
+        }
+        helper.assertTrue(dummy.getCustomName() != null, "lost the name");
+        helper.succeed();
+    }
 }

@@ -108,4 +108,24 @@ public final class TrainingDummyGameTest {
     public void genericKillRemovesBothStands(GameTestHelper helper) {
         TrainingDummyTests.genericKillRemovesBothStands(helper);
     }
+
+    @GameTest
+    public void aThrownTridentTicksIntoTheDummy(GameTestHelper helper) {
+        TrainingDummyTests.aThrownTridentTicksIntoTheDummy(helper);
+    }
+
+    @GameTest
+    public void aWindChargeCountsButDoesNotPushTheDummy(GameTestHelper helper) {
+        TrainingDummyTests.aWindChargeCountsButDoesNotPushTheDummy(helper);
+    }
+
+    @GameTest
+    public void aFallingMaceSmashShowsTheFallBonus(GameTestHelper helper) {
+        TrainingDummyTests.aFallingMaceSmashShowsTheFallBonus(helper);
+    }
+
+    @GameTest
+    public void aNameTagNamesTheDummyAndPicksTheSkin(GameTestHelper helper) {
+        TrainingDummyTests.aNameTagNamesTheDummyAndPicksTheSkin(helper);
+    }
 }

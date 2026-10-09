@@ -1229,6 +1229,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:medium_armor_stand",
+      "maxStackSize": 16
+    },
+    {
       "id": "simplebuilding:music_disc_brimstone",
       "maxStackSize": 1
     },
@@ -2232,6 +2236,10 @@
     },
     {
       "id": "simplebuilding:slime_head"
+    },
+    {
+      "id": "simplebuilding:small_armor_stand",
+      "maxStackSize": 16
     },
     {
       "id": "simplebuilding:soul_lava_bucket",

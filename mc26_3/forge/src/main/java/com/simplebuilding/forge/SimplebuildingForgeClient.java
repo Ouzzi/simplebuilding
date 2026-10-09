@@ -87,6 +87,8 @@ public final class SimplebuildingForgeClient {
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
             event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.STRAW_ARMOR_STAND, com.simplebuilding.dummy.client.TrainingDummyRenderer.straw());
             event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.TRAINING_DUMMY, com.simplebuilding.dummy.client.TrainingDummyRenderer.dummy());
+            event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.MEDIUM_ARMOR_STAND, com.simplebuilding.dummy.client.PartialArmorStandRenderer.medium());
+            event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.SMALL_ARMOR_STAND, com.simplebuilding.dummy.client.PartialArmorStandRenderer.small());
         }
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.PLACED_TEMPLATE_BE.get(),
