@@ -1257,9 +1257,15 @@ public final class HudAndTooltipClientTest {
         hotbarClicksStayHotbarClicks(script);
 
         closeScreen(script);
+        // The diamonds are in the hopper now (filter item): empty it first, so removing it drops nothing.
+        runOnServer(script, "empty the hopper and the inventory", server -> {
+            if (firstPlayer(server).level().getBlockEntity(CONTAINER_POS) instanceof Container container) {
+                container.clearContent();
+            }
+            firstPlayer(server).getInventory().clearContent();
+        });
         script.command("setblock " + CONTAINER_POS.getX() + " " + CONTAINER_POS.getY() + " "
                 + CONTAINER_POS.getZ() + " minecraft:air");
-        script.command("clear @a");
         script.awaitPackets();
         script.idle("let the removed hopper reach the client", 10);
     }
