@@ -372,7 +372,7 @@
   "tooltip.simplebuilding.hopper.speed": "Bewegt alle %s Ticks einen Gegenstand",
   "tooltip.simplebuilding.hopper.speed_every_tick": "Bewegt jeden Tick einen Gegenstand",
   "tooltip.simplebuilding.hopper.filter": "Filter im Menü: genau oder nach Art",
-  "tooltip.simplebuilding.hopper.filter.2": "Leeren Platz anklicken: Filter setzen oder löschen",
+  "tooltip.simplebuilding.hopper.filter.2": "Das Item im Platz ist sein Filter; eins bleibt immer liegen",
   "tooltip.simplebuilding.reinforced_piston.limit": "Schiebt bis zu %s Blöcke",
   "tooltip.simplebuilding.reinforced_piston.breach": "Schiebt einen unzerstörbaren Block.",
   "tooltip.simplebuilding.levitating": "Fällt nach oben statt nach unten",

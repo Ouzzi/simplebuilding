@@ -394,7 +394,7 @@
   "tooltip.simplebuilding.hopper.speed": "Moves an item every %s ticks",
   "tooltip.simplebuilding.hopper.speed_every_tick": "Moves an item every tick",
   "tooltip.simplebuilding.hopper.filter": "Filter in its menu: exact or type match",
-  "tooltip.simplebuilding.hopper.filter.2": "Click an empty slot to set or clear its filter item",
+  "tooltip.simplebuilding.hopper.filter.2": "The item lying in a slot is its filter; one always stays",
   "tooltip.simplebuilding.reinforced_piston.limit": "Pushes up to %s blocks",
   "tooltip.simplebuilding.reinforced_piston.breach": "Pushes one unbreakable block.",
   "tooltip.simplebuilding.levitating": "Falls upward instead of down",
