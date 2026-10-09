@@ -547,10 +547,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 **Besitzer-Antworten 09.10. (auf Respawn-Fragen bezogen):** 1 ja (Einzelspieler = normaler Tod), 2 Timer: Besitzer hat eigenes älteres Revive-Konzept, sucht Daten raus → Respawn-Modul WARTET darauf, 3 ja (Mobs ignorieren Niedergeschlagene), 4 nein (keine Item-Wiederbelebung vorerst). Farbpinsel-Fragen unbeantwortet → Besitzer: KEINE Holz-Beize, Kreativ unbegrenzt, Pinselstrich-Partikel/Klang ja.
 
 ## Nachtrag 25 (2026-10-09, Besitzer)
-- [ ] **Crates/Körbe** (Art Komposter/Kessel): Items hineinlegen → eigene Füll-Texturen sichtbar; voll = Aufbewahrung, insgesamt 8 Stacks einlagerbar. Start mit allen Essens-Items.
-- [ ] **Ausgehöhlte Stämme** (auch entrindete Variante): Spieler und kleine Mobs können hindurchkriechen. Craftbar zu Platten/Brettern („sheets/plates“) je Holzart in Normal- und entrindeter Variante; diese verhalten sich wie Eisengitter/Glas(scheibe) und lassen Licht durch. Ausgehöhlter Stamm + Holzplatte → Holz-Kessel: wie normaler Kessel, aber brennbar; Lava kann ihn entzünden (verbrennt → Lava wird frei).
+- [x] (claude-q-wood) **Crates/Körbe** (Art Komposter/Kessel): Items hineinlegen → eigene Füll-Texturen sichtbar; voll = Aufbewahrung, insgesamt 8 Stacks einlagerbar. Start mit allen Essens-Items.
+- [x] (claude-q-wood) **Ausgehöhlte Stämme** (auch entrindete Variante): Spieler und kleine Mobs können hindurchkriechen. Craftbar zu Platten/Brettern („sheets/plates“) je Holzart in Normal- und entrindeter Variante; diese verhalten sich wie Eisengitter/Glas(scheibe) und lassen Licht durch. Ausgehöhlter Stamm + Holzplatte → Holz-Kessel: wie normaler Kessel, aber brennbar; Lava kann ihn entzünden (verbrennt → Lava wird frei).
 - [ ] **Gemeißeltes Packeis, gemeißeltes Blaueis, rissiges Eis** (rissiges Eis wird nach ein paar Sekunden Draufstehen zu Wasser).
-- [ ] **Töpferscherben-Meißel:** Scherbe in der Nebenhand + Meißel in der Haupthand auf entrindeten Stamm → gemeißeltes Holz mit dem Motiv der Scherbe (jede Scherbe eigenes Motiv, Overlay in dunklerer Holzfarbe).
+- [x] (claude-q-wood) **Töpferscherben-Meißel:** Scherbe in der Nebenhand + Meißel in der Haupthand auf entrindeten Stamm → gemeißeltes Holz mit dem Motiv der Scherbe (jede Scherbe eigenes Motiv, Overlay in dunklerer Holzfarbe).
 - [ ] **Nautilusschalen-Block.**
 - [ ] **Stufen aus Erde und Gras**, ebenso Sand und Kies.
 
