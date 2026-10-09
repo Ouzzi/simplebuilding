@@ -51,8 +51,9 @@
       var id = t.getAttribute('data-tx-id') || t.getAttribute('title') || '';
       return { kind: 'textures', key: 'tx:' + id, target: { id: id, label: t.getAttribute('data-tx-label') || id, path: t.getAttribute('data-tx-path') || '' } };
     }
-    var iid = t.getAttribute('data-item-id') || t.getAttribute('data-id') || '';
-    var name = t.querySelector('.itile-name');
+    var href = /^#\/(?:items|blocks)\/([^?&]+)/.exec(t.getAttribute('href') || '');
+    var iid = t.getAttribute('data-item-id') || t.getAttribute('data-id') || (href ? decodeURIComponent(href[1]) : '');
+    var name = t.querySelector('.itile-name, .row-title');
     return { kind: 'items', key: 'it:' + iid, target: { id: iid, label: name ? name.textContent : iid, path: '' } };
   }
   function decorate(t) {
@@ -86,7 +87,7 @@
       t.appendChild(badge);
     } else if (!queued && badge) badge.remove();
   }
-  function tiles() { return Array.prototype.slice.call(document.querySelectorAll('.tx-tile, a.itile')); }
+  function tiles() { return Array.prototype.slice.call(document.querySelectorAll('.tx-tile, a.itile, a.row[href^="#/items/"], a.row[href^="#/blocks/"]')); }
 
   /* ---- bar ---- */
   function buildBar() {
