@@ -44,7 +44,7 @@ public class DummyStuffingLayer extends RenderLayer<ArmorStandRenderState, Armor
 
     @Override
     public void submit(PoseStack poseStack, SubmitNodeCollector collector, int lightCoords, ArmorStandRenderState state, float yRot, float xRot) {
-        if (state.isMarker || state.isInvisible) {
+        if (state.isMarker || state.isInvisible || DummySkinLayer.active(state)) {
             return;
         }
         RenderType type = RenderTypes.entityCutout(TEXTURE);

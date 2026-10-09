@@ -38,6 +38,14 @@ public final class ModEntities {
     public static final EntityType<com.simplebuilding.dummy.TrainingDummy> TRAINING_DUMMY = com.simplebuilding.version.McVersion.TRAINING_DUMMY
             ? registerDummy("training_dummy") : null;
 
+    /** Mittlerer Ruestungsstaender (2026-10-09): Hose und Stiefel. */
+    public static final EntityType<com.simplebuilding.dummy.PartialArmorStand> MEDIUM_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY
+            ? registerPartialStand("medium_armor_stand", 1.0F) : null;
+
+    /** Kleiner Ruestungsstaender (2026-10-09): nur Stiefel. */
+    public static final EntityType<com.simplebuilding.dummy.PartialArmorStand> SMALL_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY
+            ? registerPartialStand("small_armor_stand", 0.5F) : null;
+
     private ModEntities() {
     }
 
@@ -48,6 +56,18 @@ public final class ModEntities {
                 .noLootTable()
                 .sized(0.5F, 1.975F)
                 .eyeHeight(1.7775F)
+                .clientTrackingRange(10)
+                .build(ResourceKey.create(Registries.ENTITY_TYPE, id));
+        return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
+    }
+
+    private static EntityType<com.simplebuilding.dummy.PartialArmorStand> registerPartialStand(String name, float height) {
+        Identifier id = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
+        EntityType<com.simplebuilding.dummy.PartialArmorStand> type = EntityType.Builder
+                .<com.simplebuilding.dummy.PartialArmorStand>of(com.simplebuilding.dummy.PartialArmorStand::new, MobCategory.MISC)
+                .noLootTable()
+                .sized(0.5F, height)
+                .eyeHeight(height * 0.9F)
                 .clientTrackingRange(10)
                 .build(ResourceKey.create(Registries.ENTITY_TYPE, id));
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);

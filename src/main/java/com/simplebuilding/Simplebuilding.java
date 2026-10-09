@@ -96,6 +96,10 @@ public class Simplebuilding implements ModInitializer {
                     com.simplebuilding.dummy.TrainingDummy.createAttributes());
             net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry.register(ModEntities.TRAINING_DUMMY,
                     com.simplebuilding.dummy.TrainingDummy.createAttributes());
+            net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry.register(ModEntities.MEDIUM_ARMOR_STAND,
+                    net.minecraft.world.entity.decoration.ArmorStand.createAttributes());
+            net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry.register(ModEntities.SMALL_ARMOR_STAND,
+                    net.minecraft.world.entity.decoration.ArmorStand.createAttributes());
         }
         ModBlockEntities.registerBlockEntities();
         ModLootTableProvider.modifyLootTables();

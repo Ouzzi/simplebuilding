@@ -38,6 +38,8 @@
     "EnderiteSinkDamperMixin",
     "EnchantmentHelperDummyMixin",
     "PlayerAttackDummyMixin",
+    "ArmorStandAccessor",
+    "ArmorStandStandsMixin",
     "FletchingTableMixin",
     "MetalRodLightningMixin",
     "HammockPlayerMixin",

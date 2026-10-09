@@ -376,6 +376,13 @@ public class ModItems {
     public static final Item TRAINING_DUMMY = com.simplebuilding.version.McVersion.TRAINING_DUMMY
             ? registerItem("training_dummy", s -> new com.simplebuilding.dummy.StrawArmorStandItem(s.stacksTo(16),
                     () -> com.simplebuilding.entity.ModEntities.TRAINING_DUMMY, "tooltip.simplebuilding.training_dummy")) : null;
+    /** Mittlerer und kleiner Ruestungsstaender (2026-10-09): Hose + Stiefel bzw. nur Stiefel. */
+    public static final Item MEDIUM_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY
+            ? registerItem("medium_armor_stand", s -> new com.simplebuilding.dummy.StrawArmorStandItem(s.stacksTo(16),
+                    () -> com.simplebuilding.entity.ModEntities.MEDIUM_ARMOR_STAND, "tooltip.simplebuilding.medium_armor_stand")) : null;
+    public static final Item SMALL_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY
+            ? registerItem("small_armor_stand", s -> new com.simplebuilding.dummy.StrawArmorStandItem(s.stacksTo(16),
+                    () -> com.simplebuilding.entity.ModEntities.SMALL_ARMOR_STAND, "tooltip.simplebuilding.small_armor_stand")) : null;
 
     public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
 

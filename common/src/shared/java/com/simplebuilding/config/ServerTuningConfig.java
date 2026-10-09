@@ -244,6 +244,15 @@ public class ServerTuningConfig {
          */
         @ConfigEntry.Gui.Tooltip
         public int scarecrowRadius = 8;
+        /** Neu aufgestellte Ruestungsstaender (Item, Spender) haben Arme (2026-10-09); geladene behalten ihren Wert. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean armorStandArms = true;
+        /**
+         * Ruestung tauschen (2026-10-09): Schleich-Rechtsklick mit leerer Hand oder Rechtsklick auf einen bestromten
+         * Ruestungsstaender tauscht alle Ruestungsteile mit den Ruestungsslots des Spielers.
+         */
+        @ConfigEntry.Gui.Tooltip
+        public boolean armorStandSwap = true;
     }
 
     public static class ChunkLoaders {
