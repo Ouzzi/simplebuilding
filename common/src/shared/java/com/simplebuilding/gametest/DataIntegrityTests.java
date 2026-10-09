@@ -3431,7 +3431,7 @@ public final class DataIntegrityTests {
 
     /**
      * SimpleTools is laid out in categories from the lowest tier up to enderite, the vanilla tools,
-     * weapons and armour of every tier included: chisel, building wand (after one gap the building
+     * weapons and armour of every tier included: chisel, colour brush and paint palette, building wand (after one gap the building
      * planning in the same row: blueprint and cartography table, right next to the enderite wand that
      * builds a blueprint - owner 2026-09-29), sledgehammer, then shovel, pickaxe, axe and hoe in
      * vanilla order (weapons and armour moved into SimpleCombat, owner 2026-10-02), then the gadgets
@@ -3455,6 +3455,8 @@ public final class DataIntegrityTests {
                 CreativeTabLayout.Row.of("chisels",
                         ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
                         ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL),
+                // Farbpinsel und Malerpalette (2026-10-09) in einer eigenen Zeile nach den Meisseln.
+                CreativeTabLayout.Row.of("color_brush", ModItems.COLOR_BRUSH, ModItems.PAINT_PALETTE),
                 // Baustaebe, Luecke, Bauplanung (Blaupause, Kartografentisch) - die Bauplanung laeuft
                 // nach einer Luecke in der Zeile der Baustaebe weiter (Row#besides).
                 CreativeTabLayout.Row.of("building_wands",

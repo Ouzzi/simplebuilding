@@ -275,6 +275,8 @@ public final class SearchTabPlacement {
         // ganze Enderit-Stufe. Buendel, Koecher und Rucksaecke hinter dem Buendel; die Geraete hinter dem
         // Bergungskompass; Handbuecher hinter dem Buch und Feder; die Spawn-Elytra hinter der Elytra.
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.STONE_HOE, ModItems.STONE_CHISEL, ModItems.STONE_SLEDGEHAMMER));
+        // Farbpinsel und Malerpalette hinter dem Vanilla-Pinsel (2026-10-09).
+        out.add(Placement.after(TOOLS_AND_UTILITIES, Items.BRUSH, ModItems.COLOR_BRUSH, ModItems.PAINT_PALETTE));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.COPPER_HOE,
                 ModItems.COPPER_CHISEL, ModItems.COPPER_SLEDGEHAMMER, ModItems.COPPER_BUILDING_WAND));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.IRON_HOE,
