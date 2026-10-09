@@ -489,7 +489,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Später: Furcht-Mob (extrem stark, verursacht Zittern) – Konzept folgt
 
 ## Nachtrag 21 (2026-10-07, Besitzer)
-- [ ] **Enderit-Eimer:** Kapazität genau 2 Eimer. Rechtsklick nur aufnehmen; wenn voll, Rechtsklick platziert wieder. Schleich-Rechtsklick platziert einen halben Eimer (nicht einen vollen). Seelenlava nur einfach aufnehmbar (begrenzt, hebt sich ab). Eigene Texturen für die Zwischenstufen (halbvoll je Flüssigkeit).
+- [x] **Enderit-Eimer:** (→ `claude-q-ebucket`, Seelenlava ebenfalls 2 Eimer laut N28/Auftrag) Kapazität genau 2 Eimer. Rechtsklick nur aufnehmen; wenn voll, Rechtsklick platziert wieder. Schleich-Rechtsklick platziert einen halben Eimer (nicht einen vollen). Seelenlava nur einfach aufnehmbar (begrenzt, hebt sich ab). Eigene Texturen für die Zwischenstufen (halbvoll je Flüssigkeit).
 - [ ] **Enderit-Speer:** statt des Eimer-Glanzes die hellen Glimmerpunkte auf der Enderit-Textur wie Schwert und die übrigen Enderit-Werkzeuge.
 - [ ] **Puppen/Ständer:** mehrere Interaktionen Spieler ↔ Trainingspuppe/Ständer sind unsauber oder funktionieren nicht (z. B. Speer) – inventarisieren, reproduzieren (GameTests), beheben.
 - [ ] **XP-Orbs:** bei Nutzung ähnliche Animation wie die Kerne (gleiches Prinzip, eigene Bewegung).
@@ -589,7 +589,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Farbkasten (paint_box, 4 Stufen) so übernommen.
 - [ ] **Farbkasten-Textur überarbeiten** (Besitzer: Funktion ok, Textur soll später neu).
 - [x] Enderit-Eimer Variante A: Voll-Wasser bedeckt den Rand und läuft wie Lava über.
-- [ ] Enderit-Eimer halb-Texturen (Wasser/Lava/Seelenlava: wie voll, nur die zwei obersten äußeren Flüssigkeitspixel zeigen den Eimer) mit der Kapazität „2 Eimer“ aus Nachtrag 21 einbauen.
+- [x] (→ `claude-q-ebucket`) Enderit-Eimer halb-Texturen (Wasser/Lava/Seelenlava: wie voll, nur die zwei obersten äußeren Flüssigkeitspixel zeigen den Eimer) mit der Kapazität „2 Eimer“ aus Nachtrag 21 einbauen.
 - [ ] Seelenlava Textur + Animation neu, fließende Seelenlava vor- und rückwärts (in Arbeit, claude-soullava).
 - [ ] Platzierte Bündel von oben leicht abgerundet (in Arbeit, claude-soullava).
 - [ ] Tiegel-Flammen Form „Mittel“ (in Arbeit, claude-soullava).
