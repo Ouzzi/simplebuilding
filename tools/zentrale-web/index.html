@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simplemods Zentrale</title>
+<style>
+:root{--bg:#f4f1ea;--fg:#2b2620;--mut:#6d6458;--card:#fffdf8;--line:#d9d1c3;--ok:#2f7d3a;--bad:#b3362b;--run:#a86b00;--acc:#3b5b8c}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#1d1b18;--fg:#ece6dc;--mut:#a69d90;--card:#262320;--line:#3a352f;--ok:#6cc27a;--bad:#ff7a6b;--run:#e0a640;--acc:#8fb0e8}}
+:root[data-theme=dark]{--bg:#1d1b18;--fg:#ece6dc;--mut:#a69d90;--card:#262320;--line:#3a352f;--ok:#6cc27a;--bad:#ff7a6b;--run:#e0a640;--acc:#8fb0e8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif}
+header{padding:16px;border-bottom:1px solid var(--line);display:flex;gap:16px;flex-wrap:wrap;align-items:baseline}
+h1{font-size:20px;margin:0}nav a{margin-right:14px;color:var(--acc);text-decoration:none;font-weight:600}nav a.on{text-decoration:underline}
+main{max-width:1100px;margin:0 auto;padding:16px}section{display:none}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:0 0 12px}
+.card h3{margin:0 0 6px;font-size:15px}pre{white-space:pre-wrap;word-break:break-word;margin:0;font:12.5px/1.45 ui-monospace,Consolas,monospace;color:var(--mut)}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.run{color:var(--run)}.mut{color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+button,a.btn{background:var(--acc);color:#fff;border:0;border-radius:6px;padding:9px 14px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;margin:4px 6px 4px 0}
+code{font:13px ui-monospace,Consolas,monospace;background:var(--bg);padding:1px 4px;border-radius:4px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--mut);font-weight:600}
+td.num{font-variant-numeric:tabular-nums;text-align:right}.md h2,.md h3{font-size:15px;margin:14px 0 6px}.md p{margin:4px 0}
+</style>
+</head>
+<body>
+<header><h1>Simplemods Zentrale</h1>
+<nav><a href="#status" data-t="status">Status</a><a href="#start" data-t="start">Laptop-Start</a><a href="#tests" data-t="tests">Tests</a><a href="#roadmap" data-t="roadmap">Roadmap</a><a href="#links" data-t="links">Links</a></nav>
+<span class="mut" id="stamp"></span></header>
+<main>
+<section id="status">
+  <div class="grid"><div class="card"><h3>master (GitHub, öffentlich)</h3><pre id="master">…</pre></div>
+  <div class="card"><h3>claude-wave1 (Arbeitsstand)</h3><pre id="wave">…</pre></div></div>
+  <div class="card"><h3>Warteschlange Testrechner</h3><pre id="queue">…</pre></div>
+  <h2>Gates</h2><div id="gates"></div>
+  <h2>Nachtlauf</h2><div class="card"><pre id="night">…</pre></div>
+  <h2>Hilfs-Jobs (opencode / Copilot)</h2><div class="grid" id="jobs"></div>
+  <h2>Letzte Commits (Arbeitsstand)</h2><div class="card"><pre id="wavelog">…</pre></div>
+</section>
+<section id="tests">
+  <div class="card"><h3>Testzentralen: letzte Ergebnisse je Ziel</h3><p class="mut">Aus dem neuesten Gate und dem letzten Nachtlauf. Rot = Handlungsbedarf, Grau = ohne Ergebnis.</p>
+  <div style="overflow-x:auto"><table id="tests"></table></div></div>
+  <div class="card"><h3>Gate-Logs</h3><div id="logs"></div></div>
+</section>
+<section id="roadmap">
+  <div class="card"><h3>Offene Queue-Punkte je Nachtrag</h3><div style="overflow-x:auto"><table id="queueopen"></table></div></div>
+  <div class="card"><h3 id="rmfile">Roadmap</h3><div id="rm" class="md"></div></div>
+</section>
+<section id="start">
+  <div class="card"><h3>Dev-Instanz auf diesem Laptop starten</h3>
+  <p>Nur wenn der Laptop-Starter eingerichtet ist (<code>simplemods://</code>). Er holt den gewählten Stand und startet den Integration-Client (Fabric 26.3, alle Module).</p>
+  <a class="btn" href="simplemods://start?ref=wave">Neuester Arbeitsstand starten</a>
+  <a class="btn" href="simplemods://start?ref=master">master (geprüft) starten</a>
+  <a class="btn" href="simplemods://fetch?ref=wave">Nur holen</a>
+  <p class="mut">Ohne Starter passiert nichts. Einrichtung: siehe <code>tools/laptop-starter</code> bzw. Claude fragen.</p></div>
+</section>
+<section id="links">
+  <div class="card"><h3>Wiki</h3><a class="btn" href="https://simplemods-wiki.azarfane.com">Wiki (master)</a><a class="btn" href="https://simplemods-wiki-dev.azarfane.com">Wiki-dev (Arbeitsstand)</a></div>
+  <div class="card"><h3>Repo</h3><a class="btn" href="https://github.com/Ouzzi/simplebuilding">GitHub</a></div>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+function tab(){const t=(location.hash||'#status').slice(1);document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===t));document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.t===t));}
+addEventListener('hashchange',tab);tab();
+const cls=s=>/VERDICT: GREEN|alles gruen/.test(s)&&!/RED|NICHT gruen/.test(s)?'ok':/RED|NICHT gruen|NOT PUSHED|FEHLER/.test(s)?'bad':/DONE/.test(s)?'mut':'run';
+function md(s){const out=[];let tbl=null;for(const raw of s.split('\n')){const l=raw.trimEnd();
+ if(/^\|/.test(l)){if(/^\|[-| :]+\|$/.test(l))continue;const c=l.slice(1,-1).split('|').map(x=>esc(x.trim()));if(!tbl){tbl=[];out.push(()=>'<div style="overflow-x:auto"><table>'+tbl.map((r,i)=>'<tr>'+r.map(x=>i?`<td>${x}</td>`:`<th>${x}</th>`).join('')+'</tr>').join('')+'</table></div>');}tbl.push(c);continue;}
+ tbl=null;if(/^#{1,3} /.test(l))out.push('<h3>'+esc(l.replace(/^#+ /,''))+'</h3>');else if(l)out.push('<p>'+esc(l)+'</p>');}
+ return out.map(x=>typeof x==='function'?x():x).join('');}
+function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+async function load(){
+  try{const r=await fetch('status.json?'+Date.now());const d=await r.json();
+    $('master').textContent=d.master||'–';$('wave').textContent=d.wave||'–';
+    $('queue').textContent=(d.queue||[]).join('\n')||'leer';
+    $('gates').innerHTML=(d.gates||[]).map(g=>{const done=/DONE/.test(g.text);const c=done?cls(g.text):'run';return `<div class="card"><h3 class="${c}">${esc(g.ref)} – ${done?(c==='ok'?'GRÜN':'ROT'):'läuft'}</h3><pre>${esc(g.text)}</pre></div>`}).join('')||'<p class="mut">keine</p>';
+    $('night').textContent=d.nightly||'–';
+    $('jobs').innerHTML=(d.jobs||[]).map(j=>`<div class="card"><h3>${esc(j.job)}</h3><pre>${esc(j.tail)}</pre></div>`).join('');
+    $('wavelog').textContent=(d.waveLog||[]).join('\n');
+    $('tests').innerHTML='<tr><th>Quelle</th><th>Ziel</th><th>Ergebnis</th></tr>'+(d.tests||[]).map(x=>`<tr><td>${esc(x.source)}</td><td>${esc(x.target)}</td><td class="${cls(x.result)}">${esc(x.result)}</td></tr>`).join('');
+    $('logs').innerHTML=(d.logs||[]).map(r=>`<a class="btn" href="logs/${esc(r)}.log" target="_blank" rel="noopener">${esc(r)}</a>`).join('')||'<span class="mut">keine</span>';
+    $('queueopen').innerHTML='<tr><th>Nachtrag</th><th class="num">offen</th><th class="num">erledigt</th></tr>'+(d.queueOpen||[]).map(q=>`<tr><td>${esc(q.title)}</td><td class="num">${q.open}</td><td class="num">${q.done}</td></tr>`).join('');
+    $('rmfile').textContent='Roadmap ('+(d.roadmapFile||'–')+')';$('rm').innerHTML=md(d.roadmap||'');
+    $('stamp').textContent='aktualisiert '+new Date().toLocaleTimeString('de-DE');
+  }catch(e){$('stamp').textContent='Status nicht erreichbar';}
+}
+load();setInterval(load,30000);
+</script>
+</body>
+</html>
