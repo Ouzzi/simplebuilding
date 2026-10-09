@@ -331,7 +331,7 @@ public class BlueprintScreen extends Screen {
         if (copiedUntil != 0 && now > copiedUntil) {
             copiedUntil = 0;
             copyButton.setBitmap(COPY_ICON);
-            copyButton.setTooltip(Tooltip.create(copyTip()));
+            copyButton.tip(copyTip());
         }
     }
 
@@ -395,7 +395,7 @@ public class BlueprintScreen extends Screen {
     private void copyGuide() {
         minecraft.keyboardHandler.setClipboard(guideText());
         copyButton.setBitmap(CHECK_ICON);
-        copyButton.setTooltip(Tooltip.create(Component.translatable("simplebuilding.blueprint.help.copied")));
+        copyButton.tip(Component.translatable("simplebuilding.blueprint.help.copied"));
         copiedUntil = Util.getMillis() + 2000;
     }
 
@@ -867,12 +867,19 @@ public class BlueprintScreen extends Screen {
     private static final class IconButton extends net.minecraft.client.gui.components.AbstractButton {
         private final Runnable action;
         private String[] bitmap;
+        private Component tipText;
 
         IconButton(Rect r, Component label, Component tooltip, String[] bitmap, Runnable action) {
             super(r.x(), r.y(), r.w(), r.h(), label);
             this.action = action;
             this.bitmap = bitmap;
-            setTooltip(Tooltip.create(tooltip));
+            tip(tooltip);
+        }
+
+        /** Tooltip setzen und merken (BlueprintViewClientTest liest {@code tipText} per Reflexion). */
+        void tip(Component text) {
+            this.tipText = text;
+            setTooltip(Tooltip.create(text));
         }
 
         void setBitmap(String[] bitmap) {

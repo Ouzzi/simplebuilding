@@ -436,18 +436,16 @@ public final class BlueprintViewClientTest {
         if (!widget.getMessage().getString().equals(name)) {
             throw new AssertionError("The icon for '" + name + "' is named '" + widget.getMessage().getString() + "'.");
         }
-        net.minecraft.client.gui.components.Tooltip tooltip = widget.getTooltip();
-        if (tooltip == null) {
+        Object tip;
+        try {
+            tip = read(widget, "tipText").get(widget);
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+        if (!(tip instanceof net.minecraft.network.chat.Component text)) {
             throw new AssertionError("The icon for '" + name + "' has no tooltip.");
         }
-        StringBuilder text = new StringBuilder();
-        for (net.minecraft.util.FormattedCharSequence line : tooltip.toCharSequence(Minecraft.getInstance())) {
-            line.accept((i, style, cp) -> {
-                text.appendCodePoint(cp);
-                return true;
-            });
-        }
-        if (!text.toString().contains(name)) {
+        if (!text.getString().contains(name)) {
             throw new AssertionError("The tooltip of the '" + name + "' icon reads '" + text + "' and does not name it.");
         }
     }
