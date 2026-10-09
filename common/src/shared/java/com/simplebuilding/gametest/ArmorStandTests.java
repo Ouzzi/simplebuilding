@@ -216,8 +216,8 @@ public final class ArmorStandTests {
     };
 
     /** Was der kleine Staender ablehnt: Waffen, Elytren, Koepfe/Kuerbis, Lama-Teppich, Geschirr, Sattel, Schild, Stock. */
-    private static final Item[] FOREIGN = {Items.IRON_SWORD, Items.ELYTRA, Items.CARVED_PUMPKIN, Items.SKELETON_SKULL, Items.WHITE_CARPET,
-            Items.WHITE_HARNESS, Items.SADDLE, Items.SHIELD, Items.STICK, Items.ARMOR_STAND};
+    private static final Item[] FOREIGN = {Items.IRON_SWORD, Items.ELYTRA, Items.CARVED_PUMPKIN, Items.SKELETON_SKULL, Items.CARPET.white(),
+            Items.HARNESS.white(), Items.SADDLE, Items.SHIELD, Items.STICK, Items.ARMOR_STAND};
 
     private static final Vec3 POST = new Vec3(0.0, 0.6, 0.0);
 
@@ -252,7 +252,7 @@ public final class ArmorStandTests {
         helper.assertTrue(SmallArmorStand.animal(new ItemStack(Items.DIAMOND_HORSE_ARMOR)) == SmallArmorStand.Animal.HORSE
                         && SmallArmorStand.animal(new ItemStack(Items.WOLF_ARMOR)) == SmallArmorStand.Animal.WOLF
                         && SmallArmorStand.animal(new ItemStack(Items.IRON_NAUTILUS_ARMOR)) == SmallArmorStand.Animal.NAUTILUS
-                        && SmallArmorStand.animal(new ItemStack(Items.WHITE_CARPET)) == null,
+                        && SmallArmorStand.animal(new ItemStack(Items.CARPET.white())) == null,
                 "animal armor is shown in the wrong animal shape");
         for (Item item : FOREIGN) {
             player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(item));

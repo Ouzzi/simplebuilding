@@ -150,7 +150,7 @@ public class SmallArmorStand extends ArmorStand {
             if (held.isEmpty()) {
                 player.setItemInHand(hand, old);
             } else if (!player.getInventory().add(old)) {
-                player.drop(old, false);
+                Block.popResource(this.level(), player.blockPosition(), old);
             }
         }
         return InteractionResult.SUCCESS_SERVER;
