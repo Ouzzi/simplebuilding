@@ -235,15 +235,15 @@ public final class ModScreenStyle {
         avoid.add(titleRect(font, title, left, top));
         avoid.add(bigRect(result, left, top));
         avoid.add(new int[] {left + 92, top + 44, left + 114, top + 69});
-        avoid.add(new int[] {left + 4, top + 44, left + 63, top + 69});
-        // The recipe book button sits over the third part slot (Vanilla's smithing-table spot); keep the motif clear.
+        avoid.add(new int[] {left + 4, top + 44, left + 85, top + 69});
+        // The recipe book button sits left of the part row (crafting-table spot); keep the motif clear.
         avoid.add(new int[] {left + ModScreenLayout.FLETCHING_BOOK_X, top + ModScreenLayout.FLETCHING_BOOK_Y,
                 left + ModScreenLayout.FLETCHING_BOOK_X + ModScreenLayout.FLETCHING_BOOK_W,
                 top + ModScreenLayout.FLETCHING_BOOK_Y + ModScreenLayout.FLETCHING_BOOK_H});
         motif(g, left, top, container, p, UiMotifs.Kind.WOOD, avoid, 6);
-        // The three part slots sit in one row, as on the smithing table.
+        // The three part slots (feather, shaft, tip) sit in one row after the recipe book button.
         for (int k = 0; k < 54; k++) {
-            int x = 8 + k;
+            int x = 30 + k;
             g.fill(left + x, top + 56, left + x + 1, top + 57, p.light());
             g.fill(left + x, top + 55, left + x + 2, top + 56, p.slot());
         }

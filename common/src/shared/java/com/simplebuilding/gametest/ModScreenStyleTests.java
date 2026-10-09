@@ -69,7 +69,8 @@ public final class ModScreenStyleTests {
             for (int index : new int[] {FletchingMenu.SHAFT_SLOT, FletchingMenu.FLETCHING_SLOT}) {
                 Slot part = fletching.getSlot(index);
                 if (part.y != y) problems.add("fletching: part slots are not on one row");
-                if (part.x - x != 18 * (index - FletchingMenu.TIP_SLOT)) {
+                // Left to right: feather, shaft, tip (the tip sits next to the arrow).
+                if (x - part.x != 18 * (index - FletchingMenu.TIP_SLOT)) {
                     problems.add("fletching: part slots are not 18 px apart");
                 }
             }
@@ -128,7 +129,7 @@ public final class ModScreenStyleTests {
         if (!container.holds(slot.x - 4, slot.y - 4, 25, 25)) problems.add(what + ": the big result slot leaves " + container);
     }
 
-    /** The recipe book button (Vanilla's smithing-table spot) lies in the container box and over no slot (round 2). */
+    /** The recipe book button (left of the part row, crafting-table spot) lies in the container box and over no slot (round 2). */
     private static void fletchingBookButton(AbstractContainerMenu menu, List<String> problems) {
         int bx = ModScreenLayout.FLETCHING_BOOK_X, by = ModScreenLayout.FLETCHING_BOOK_Y;
         int bw = ModScreenLayout.FLETCHING_BOOK_W, bh = ModScreenLayout.FLETCHING_BOOK_H;

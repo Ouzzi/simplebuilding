@@ -66,9 +66,9 @@ public class FletchingMenu extends RecipeBookMenu {
         super(ModScreenHandlers.FLETCHING_MENU, containerId);
         this.access = access;
         // Wie beim Schmiedetisch: die drei Teile liegen in einer geraden Reihe, das Ergebnis rechts daneben.
-        this.addSlot(new PartSlot(this.parts, TIP_SLOT, 8, 48));
-        this.addSlot(new PartSlot(this.parts, SHAFT_SLOT, 26, 48));
-        this.addSlot(new PartSlot(this.parts, FLETCHING_SLOT, 44, 48));
+        this.addSlot(new PartSlot(this.parts, TIP_SLOT, 66, 48));
+        this.addSlot(new PartSlot(this.parts, SHAFT_SLOT, 48, 48));
+        this.addSlot(new PartSlot(this.parts, FLETCHING_SLOT, 30, 48));
         this.addSlot(new Slot(this.result, 0, 124, 48) {
             @Override
             public boolean mayPlace(ItemStack stack) {
