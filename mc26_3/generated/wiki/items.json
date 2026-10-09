@@ -583,6 +583,16 @@
       "id": "simplebuilding:crafted_arrow"
     },
     {
+      "id": "simplebuilding:creative_blueprint",
+      "maxStackSize": 16
+    },
+    {
+      "enchantability": 18,
+      "id": "simplebuilding:creative_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 13
+    },
+    {
       "id": "simplebuilding:creative_spacer",
       "maxStackSize": 1
     },
