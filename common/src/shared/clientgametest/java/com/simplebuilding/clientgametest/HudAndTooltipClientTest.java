@@ -2108,17 +2108,17 @@ public final class HudAndTooltipClientTest {
 
             // The heart is a GUI sprite, not an item: look for an element with exactly its bounds.
             int size = com.simplebuilding.util.TrimStatsLayout.ICON_HEIGHT;
-            int width = com.simplebuilding.util.TrimStatsLayout.ICON_WIDTH;
+            int heartWidth = com.simplebuilding.util.TrimStatsLayout.ICON_WIDTH;
             boolean[] heart = {false};
             state.forEachElement(element -> {
                 var bounds = element.bounds();
                 if (bounds != null && bounds.left() == panel.iconX() && bounds.top() == panel.iconY()
-                        && bounds.width() == width && bounds.height() == size) {
+                        && bounds.width() == heartWidth && bounds.height() == size) {
                     heart[0] = true;
                 }
             }, GuiRenderState.TraverseRange.ALL);
             if (!heart[0]) {
-                throw new AssertionError("The resonance field at " + x + "/" + y + " draws no " + width + "x" + size
+                throw new AssertionError("The resonance field at " + x + "/" + y + " draws no " + heartWidth + "x" + size
                         + " heart at " + panel.iconX() + "/" + panel.iconY());
             }
             List<String> texts = new ArrayList<>();
