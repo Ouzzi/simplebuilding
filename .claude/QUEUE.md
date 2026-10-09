@@ -517,3 +517,69 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **Resonanz-Statusfeld:** rechts neben das Buch-Icon verlagern; statt Vorlage ein Herz-Symbol in Steinfarben, Resonanzwert grau daneben, schmalerer Rahmen → kompakter, vanilla-näher.
 - [ ] **Truhen:** Fallen-Truhen ohne „Trapped“ im GUI-Titel; generell keine Stapelgröße o. ä. in Truhen-/Container-GUIs; Mod-Fallen-Truhen-Texturen viel zu auffällig → dezenter wie Vanilla (Vorschau).
 - [ ] **Trichter:** im GUI statt Text „Filter“: Lücke ca. 1 Slot breiter zwischen den 5 Trichterslots, darin Filter-Icon + Doppelpunkt; Gesamtblock mittig (nach links verschieben). Fehlende Lore-Trichter der Mod-Trichter ergänzen. Rezept verstärkter Trichter: Trichter + gesprungener Diamant + Namensschild.
+
+## Nachtrag 24 (2026-10-08 abends, Besitzer)
+- [ ] Dunkelheits-Trank aus neuem Warden-Drop (Warden-Item als Brauzutat).
+- [ ] Schnelleres Redstone (Astralit).
+- [ ] Schnellere Elytra (Astralit).
+- [ ] Shellker-Textur wie Grundgestein (Bedrock-Tarnung).
+- [ ] Sculk-Kiefer (Falle): lautlos, verhält sich wie Spinnennetz, greift mit Fangzähnen an.
+- [ ] Froschlichter in zusätzlichen Farben.
+- [ ] Ziegenhorn platzierbar; Fackeln oder stabartige Items hineinstecken.
+- [ ] Schildkröten-Helm-Äquivalent aus Shellker-Schale.
+- [ ] Trainingspuppe mit Spielernamen umbenennen → Skin wechselt.
+- [ ] Glitzernde Melone essbar; Melone auch als 0,125er-Block (platzierte Melonenscheibe = 0,125er-Block).
+- [ ] Farbpinsel? (Idee, offen).
+- [ ] Rüstungsständer per Redstone wie Item-Displays (Schleich-Rechtsklick?): tauscht die ganze Rüstung mit den Rüstungsslots des Spielers.
+- [ ] Rüstungsständer sollen Arme haben.
+- [ ] Weitere Rüstungsständer: mittel (Pferderüstung, oder zwei Rüstungsteile oben/unten), klein (nur ein Teil, z. B. Stiefel oder Nautilus-Rüstung).
+- [ ] Speer im Spender: bei Aktivierung wie Stachelfalle.
+- [ ] Simple Respawn (neues Modul?): beim Tod niedergeschlagen, Mitspieler kann wiederbeleben; danach 3 Herzen und 0 Hunger.
+- [ ] Barren als 3D-Modell platzierbar.
+- [ ] Schwefelwürfel (Sulfur Cubes) befüllbar mit allen Ofen-Varianten, Tischen usw. (Easter Egg); dann schwer wie Eisen (schwer zu verschieben).
+- [ ] Übelkeits-Trank.
+- [ ] Holz auch als 0,125er-Blöcke (falls noch nicht).
+- [ ] Mob „Seelenfeuer-Lohe“ (Soulfire Blaze).
+- [ ] Trims bis zu 4 platzierbar; alle anderen so platzierbaren Items ebenfalls bis 4 Stück („Plex“).
+- [ ] Hammer: Normal-Rechtsklick-Halten (Block → Treppe → Stufe) deaktivieren; nur Schleich-Rechtsklick-Halten transformiert (Teile werden abgebaut). Erreicht die Form eine nicht unterstützte Gestalt (z. B. oben und unten je ein Achtel entfernt), wird sie in 0,125er-Blöcke zerlegt. Hammer wackelt (Hinweis „transformierbar“) nur, wenn transformiert werden kann – also nur beim Schleichen.
+- Konzept Farbpinsel/Respawn: docs/ai/KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md. Farbpinsel in Arbeit (v3: Goldpinsel, Farbkasten mit Stufen).
+
+**Besitzer-Antworten 09.10. (auf Respawn-Fragen bezogen):** 1 ja (Einzelspieler = normaler Tod), 2 Timer: Besitzer hat eigenes älteres Revive-Konzept, sucht Daten raus → Respawn-Modul WARTET darauf, 3 ja (Mobs ignorieren Niedergeschlagene), 4 nein (keine Item-Wiederbelebung vorerst). Farbpinsel-Fragen unbeantwortet → Besitzer: KEINE Holz-Beize, Kreativ unbegrenzt, Pinselstrich-Partikel/Klang ja.
+
+## Nachtrag 25 (2026-10-09, Besitzer)
+- [ ] **Crates/Körbe** (Art Komposter/Kessel): Items hineinlegen → eigene Füll-Texturen sichtbar; voll = Aufbewahrung, insgesamt 8 Stacks einlagerbar. Start mit allen Essens-Items.
+- [ ] **Ausgehöhlte Stämme** (auch entrindete Variante): Spieler und kleine Mobs können hindurchkriechen. Craftbar zu Platten/Brettern („sheets/plates“) je Holzart in Normal- und entrindeter Variante; diese verhalten sich wie Eisengitter/Glas(scheibe) und lassen Licht durch. Ausgehöhlter Stamm + Holzplatte → Holz-Kessel: wie normaler Kessel, aber brennbar; Lava kann ihn entzünden (verbrennt → Lava wird frei).
+- [ ] **Gemeißeltes Packeis, gemeißeltes Blaueis, rissiges Eis** (rissiges Eis wird nach ein paar Sekunden Draufstehen zu Wasser).
+- [ ] **Töpferscherben-Meißel:** Scherbe in der Nebenhand + Meißel in der Haupthand auf entrindeten Stamm → gemeißeltes Holz mit dem Motiv der Scherbe (jede Scherbe eigenes Motiv, Overlay in dunklerer Holzfarbe).
+- [ ] **Nautilusschalen-Block.**
+- [ ] **Stufen aus Erde und Gras**, ebenso Sand und Kies.
+
+**Simple Maps Antworten 09.10. (in docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md unter „Antworten Besitzer“ ergänzen):** Feature 1 ja (Wegpunkte beim Kopieren), Feature 2 entfällt (Todespunkt nur über Feature 7: Bergungskompass in der Hand), Feature 6 = F8 (eigene Karte je Dimension), Feature 7 ja, Feature 8 ja; Feature 4 (Karte im Rahmen zeigt Umgebung) erklärt, Antwort offen (Empfehlung weglassen). WICHTIG: Besitzer-Antworten stehen meist schon in docs/ai/PLAN-*.md „Antworten Besitzer“ – vor Rückfragen dort nachlesen!
+- Simple Maps Feature 4 (Besitzer 09.10.): Karte im Gegenstandsrahmen → Rechtsklick öffnet die Karten-UI; dort scrollbar; der Rahmen zeigt danach den Ausschnitt, zu dem man gescrollt hat.
+- Tiegel-Flammen: Besitzer will 4. Vorschlag „Mittel“ (50 % zwischen spitz und rund, kein Hybrid) → cp-previews (p-flame3).
+
+## Nachtrag 26 (2026-10-09, Besitzer)
+- [ ] **Autonomer Crafter** (abgewandelter Vanilla-Crafter): craftet automatisch das vorgegebene Rezept, solange ein Trichter darunter liegt; ohne Trichter darunter oder bei Redstone-Signal craftet er nicht. UI: 3x3-Grid, gleiche abschaltbaren Slots wie der Crafter, Filter-Knopf wie beim Mod-Trichter (Modi: exakt / gleiche Art; dieselben Knopf-Texturen). Takt wie Crafter, ca. 4 Ticks Abklingzeit.
+- [ ] **Filter-Prinzip umsetzen** bei Mod-Trichtern und autonomem Crafter: im Filtermodus bleibt immer ein echtes Item fest im Slot (statt Schatten-Item); erst ab dem 2. wird verarbeitet/transportiert. Inklusive Filter-Knopf. (Prinzip: docs/ai/PRINZIPIEN-FILTER.md.)
+- [ ] **Konzept stärkerer Wither**: droppt ein Item, das später für ein Biom-Werkzeug dient („Biom-Pinsel“: Pinsel in der Haupthand, biomspezifisches Material in der Nebenhand; Haltbarkeit, verzauberbar). Erst Konzept vorlegen.
+- [ ] **Werkbank mit Lager** (verbesserte Werkbank): wie Werkbank, aber Items bleiben beim Schließen im 3x3-Feld liegen und werden auf dem Block angezeigt.
+
+## Weitere Besitzer-Entscheidungen 09.10. (noch in Queue/Roadmap übernehmen)
+- [ ] Tiegel-UI: Fass-Titel weglassen (N14).
+- [ ] Config-Migration: alte Optionsnamen einmalig beim ersten Start übernehmen (ja).
+- [ ] Keramik-Eimer 4× Ausgießen (in Arbeit, Review-Agent).
+- [ ] Furcht-Mob: später.
+- [ ] Tiegel-Flammenform: Besitzer wählt nach Vorschlag „Mittel“ (spitz/mittel/breit).
+- [ ] Hufeisen-Reiter: muss gut aussehen (Runde 2 simplecontainers).
+
+## Nachtrag 27 (2026-10-09, Besitzer)
+- [x] **Befiederungstisch** wie die Werkbank in einer Zeile: Rezeptbuch links, dann Feder, Stock, Spitze, Pfeil, Ergebnis.
+- [ ] **Astral-Verzauberungstisch** (Konzept docs/ai/KONZEPT-ASTRAL-VERZAUBERUNG-2026-10-09.md):
+  - Herstellung: Enderit-Nugget in der Nebenhand, mindestens Netherit-Hammer in der Haupthand, ca. 20 Schläge auf einen Verzauberungstisch.
+  - UI nach den Prinzipien des normalen Tisches, aber: die 3 vorgeschlagenen Verzauberungen sind zufällig (passend zum Item, z. B. Spitzhacke: Haltbarkeit, Effizienz, Glück). Jede hat einen Regler (Stufe 0..max).
+  - Regler-Grenzen je Bücherregal-Stärke: ohne Regale nur Stufe 1 der niedrigen Verzauberungen, hohe ausgegraut (0). Volle Regale: Regler zusammen bis 30 Level wählbar, Kosten skalieren mit der Wahl (0–3 Level verbraucht).
+  - Höhere Stufen: bessere Regale + besonderer Boden 5×5 (Platzhalter weinender Obsidian): Zwischenstufe 40 (4 Level Verbrauch), Maximum 50 (alle gewählten Verzauberungen bis Max, 5 Level Verbrauch).
+  - Lagert Lapislazuli und Lohenstaub (je bis 1 Stack), bleibt beim Verlassen erhalten. Lohenstaub wird doppelt so viel benötigt wie Lapis.
+- [ ] **Lohenholz** (Blazewood): 8 Lohenstaub + 1 Nether-Holz (Varianten je Nether-Holzart: Karmesin, Wirr, …).
+- [ ] **Lohenbuch** (Blaze Book): analog zum Buch aus Lohen-Zutaten.
+- [ ] **Lohen-Bücherregal** (Varianten je Lohenholz): doppelter Verzauberungswert eines normalen Regals; ermöglicht die höheren Astral-Stufen.
