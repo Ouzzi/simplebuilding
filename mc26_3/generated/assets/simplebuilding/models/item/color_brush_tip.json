@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/brush",
+  "textures": {
+    "layer0": "simplebuilding:item/color_brush",
+    "layer1": "simplebuilding:item/color_brush_tip"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "minecraft:blue_dye",
+    "P": "#minecraft:planks",
+    "R": "minecraft:red_dye",
+    "Y": "minecraft:yellow_dye"
+  },
+  "pattern": [
+    "RYB",
+    "PPP"
+  ],
+  "result": {
+    "id": "simplebuilding:paint_palette"
+  }
+}

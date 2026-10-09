@@ -1643,6 +1643,10 @@
       "id": "simplebuilding:oxidized_copper_pressure_plate"
     },
     {
+      "id": "simplebuilding:paint_palette",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:pink_hammock",
       "maxStackSize": 1
     },
