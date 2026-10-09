@@ -1,6 +1,66 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "minecraft:block/block",
   "textures": {
-    "layer0": "minecraft:block/stripped_bamboo_block"
-  }
+    "particle": "minecraft:block/stripped_bamboo_block",
+    "pane": "minecraft:block/stripped_bamboo_block",
+    "edge": "minecraft:block/stripped_bamboo_block"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        7
+      ],
+      "to": [
+        16,
+        16,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#pane"
+        },
+        "south": {
+          "texture": "#pane"
+        },
+        "west": {
+          "uv": [
+            7,
+            0,
+            9,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            7,
+            0,
+            9,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            7,
+            16,
+            9
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            7,
+            16,
+            9
+          ],
+          "texture": "#edge"
+        }
+      }
+    }
+  ]
 }

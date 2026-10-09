@@ -246,6 +246,9 @@ class Assets:
                 return self.jar.read(entry)
         return None
 
+    def _permuted(self, ref: str) -> bytes | None:
+        return _permuted_png(self, ref)
+
     def json(self, folder: str, ref: str):
         ns, path = rl(ref)
         key = (folder, ns, path)
@@ -263,6 +266,8 @@ class Assets:
         key = (ns, path)
         if key not in self._tex:
             payload = self._read(ns, f"textures/{path}.png")
+            if payload is None:
+                payload = self._permuted(f"{ns}:{path}")
             arr = None
             if payload:
                 import io
@@ -273,6 +278,57 @@ class Assets:
                 arr = np.asarray(image, dtype=np.float32) / 255.0
             self._tex[key] = arr
         return self._tex[key]
+
+
+def _full(ref: str) -> str:
+    return ref if ":" in ref else "minecraft:" + ref
+
+
+def _palette(assets: "Assets", ref: str):
+    ns, path = rl(ref)
+    payload = assets._read(ns, f"textures/palettes/{path}.png")
+    if payload is None:
+        return None
+    import io
+    return list(Image.open(io.BytesIO(payload)).convert("RGBA").getdata())
+
+
+def _permuted_png(assets: "Assets", wanted: str) -> bytes | None:
+    """A sprite the mod's blocks/items atlas derives with minecraft:paletted_permutations, built like the game
+    (key colour -> palette colour, alpha multiplied, other colours unchanged), or None."""
+    import io
+    for root in [r for roots in assets.own.values() for r in roots]:
+        atlases = root.parent / "minecraft" / "atlases"
+        if not atlases.is_dir():
+            continue
+        for atlas in sorted(atlases.glob("*.json")):
+            try:
+                sources = json.loads(atlas.read_text(encoding="utf-8")).get("sources", [])
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                continue
+            for source in sources:
+                if source.get("type", "").replace("minecraft:", "") != "paletted_permutations":
+                    continue
+                separator = source.get("separator", "_")
+                for texture in source.get("textures", []):
+                    for suffix, palette in source.get("permutations", {}).items():
+                        if _full(texture) + separator + suffix != wanted:
+                            continue
+                        ns, path = rl(_full(texture))
+                        base = assets._read(ns, f"textures/{path}.png")
+                        key = _palette(assets, _full(source.get("palette_key", "")))
+                        target = _palette(assets, _full(palette))
+                        if base is None or key is None or target is None or len(key) != len(target):
+                            return None
+                        mapping = {k[:3]: t for k, t in zip(key, target) if k[3]}
+                        image = Image.open(io.BytesIO(base)).convert("RGBA")
+                        out = [p if p[3] == 0 else (lambda t: (t[0], t[1], t[2], p[3] * t[3] // 255))(
+                            mapping.get(p[:3], p[:3] + (255,))) for p in image.getdata()]
+                        image.putdata(out)
+                        buffer = io.BytesIO()
+                        image.save(buffer, format="PNG")
+                        return buffer.getvalue()
+    return None
 
 
 class Face:

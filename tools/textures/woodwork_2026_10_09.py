@@ -163,7 +163,15 @@ def wood_assets(wood: str, log: str) -> None:
             {"when": {"south": "false"}, "apply": m("noside_alt", 90)},
             {"when": {"west": "false"}, "apply": m("noside", 270)},
         ]})
-        put_json(f"{NS}/models/item/{name}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": pane}})
+        # Inventory: the sheet as a thin standing panel (a 3D icon; a flat Vanilla-texture item has none in the wiki).
+        put_json(f"{NS}/models/item/{name}.json", {
+            "parent": "minecraft:block/block",
+            "textures": {"particle": pane, "pane": pane, "edge": tex["stripped"]},
+            "elements": [{"from": [0, 0, 7], "to": [16, 16, 9], "faces": {
+                "north": {"texture": "#pane"}, "south": {"texture": "#pane"},
+                "west": {"uv": [7, 0, 9, 16], "texture": "#edge"}, "east": {"uv": [7, 0, 9, 16], "texture": "#edge"},
+                "up": {"uv": [0, 7, 16, 9], "texture": "#edge"}, "down": {"uv": [0, 7, 16, 9], "texture": "#edge"}}}],
+        })
         block_item(name, sb(f"item/{name}"))
     # wooden cauldron: Vanilla cauldron shapes in wood (bark outside, stripped wood inside)
     name = f"{wood}_cauldron"

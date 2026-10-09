@@ -1,6 +1,66 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "minecraft:block/block",
   "textures": {
-    "layer0": "minecraft:block/warped_stem"
-  }
+    "particle": "minecraft:block/warped_stem",
+    "pane": "minecraft:block/warped_stem",
+    "edge": "minecraft:block/stripped_warped_stem"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        7
+      ],
+      "to": [
+        16,
+        16,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#pane"
+        },
+        "south": {
+          "texture": "#pane"
+        },
+        "west": {
+          "uv": [
+            7,
+            0,
+            9,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            7,
+            0,
+            9,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            7,
+            16,
+            9
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            7,
+            16,
+            9
+          ],
+          "texture": "#edge"
+        }
+      }
+    }
+  ]
 }
