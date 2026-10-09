@@ -163,6 +163,8 @@ public final class DataIntegrityTests {
         // (placed by the piece items).
         blocks.add("checker_octet");
         blocks.add("chess_pieces");
+        // Queue Nachtrag 24: the melon octet cell is placed by the vanilla melon slice (sneak + right-click).
+        blocks.add("melon_octet");
         return Set.copyOf(blocks);
     }
 
@@ -175,7 +177,7 @@ public final class DataIntegrityTests {
     }
 
     /** Blocks registered with {@code noLootTable()}. */
-    private static final Set<String> BLOCKS_WITHOUT_LOOT_TABLE = Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
+    private static final Set<String> BLOCKS_WITHOUT_LOOT_TABLE = withMaterialOctets("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
             // drops the template stored in its block entity (PlacedTemplateBlock#getDrops)
             "placed_smithing_template", "placed_blueprint",
             // drops the bundle (with its contents) stored in its block entity (PlacedBundleBlock#getDrops)
@@ -193,6 +195,16 @@ public final class DataIntegrityTests {
             // chess: an octet cell drops its octets (CheckerOctetBlock#getDrops), a piece cell its pieces
             // (ChessPiecesBlock#getDrops)
             "checker_octet", "chess_pieces");
+
+    /** Material octet cells (Queue Nachtrag 24) drop their octets from the state (OctetCellBlock#getDrops). */
+    private static Set<String> withMaterialOctets(String... names) {
+        Set<String> out = new java.util.HashSet<>(Set.of(names));
+        out.add("melon_octet");
+        for (String wood : ModBlocks.OCTET_WOODS) {
+            out.add(wood + "_octet");
+        }
+        return Set.copyOf(out);
+    }
 
     /**
      * The blocks that do <em>not</em> drop themselves, and what they drop instead without Silk
@@ -463,6 +475,11 @@ public final class DataIntegrityTests {
             }
             if (!itemPresent) {
                 problems.add(id + " has no item with a matching identifier");
+            } else if (BuiltInRegistries.ITEM.getValue(id) instanceof com.simplebuilding.items.custom.MaterialOctetItem octet) {
+                // wood octets: the item places one octet into its cell (sub-grid), not the whole block
+                if (octet.cell() != block) {
+                    problems.add(id + " has an octet item for " + BuiltInRegistries.BLOCK.getKey(octet.cell()));
+                }
             } else if (!(BuiltInRegistries.ITEM.getValue(id) instanceof BlockItem blockItem)) {
                 problems.add(id + " has an item with a matching identifier that is not a BlockItem");
             } else if (blockItem.getBlock() != block) {
@@ -1592,6 +1609,8 @@ public final class DataIntegrityTests {
         items.addAll(com.simplebuilding.chess.ChessItems.octets());
         items.addAll(com.simplebuilding.chess.ChessItems.pieces().values());
         items.addAll(com.simplebuilding.chess.ChessItems.shapes());
+        // Holz-Achtel (Queue Nachtrag 24), in einer Schleife registriert.
+        items.addAll(ModItems.WOOD_OCTETS);
         // Ende der versteckten Easter-Kette (com.simplebuilding.tweaks.easter), eigene Registrierung.
         items.add(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick());
         return items;
@@ -1630,6 +1649,8 @@ public final class DataIntegrityTests {
             blocks.add(shapes.stairs());
             blocks.add(shapes.slab());
         }
+        // Holz-Achtel (Queue Nachtrag 24), in einer Schleife registriert.
+        blocks.addAll(ModBlocks.WOOD_OCTETS);
         return blocks;
     }
 

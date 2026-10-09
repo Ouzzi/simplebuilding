@@ -33,6 +33,11 @@ public class MaterialOctetItem extends Item {
         this.cell = cell;
     }
 
+    /** Die Achtelzelle, in die dieses Item setzt. */
+    public Block cell() {
+        return this.cell.get();
+    }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         return place(context, this.cell.get());
