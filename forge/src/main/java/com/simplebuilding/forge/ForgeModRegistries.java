@@ -113,7 +113,7 @@ public final class ForgeModRegistries {
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity>> AUTONOMOUS_CRAFTER_BE =
             com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER
                     ? BLOCK_ENTITIES.register("autonomous_crafter", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity>(
-                            com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity::new, Set.of(ModBlocks.AUTONOMOUS_CRAFTER))))
+                            com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity::new, Set.of(ModBlocks.AUTONOMOUS_CRAFTER)))
                     : null;
 
     /** Auto-Schmied, nur Hauptlinie (McVersion.AUTO_SMITHER). */

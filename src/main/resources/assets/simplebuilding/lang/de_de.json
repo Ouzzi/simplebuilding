@@ -77,6 +77,7 @@
   "simplebuilding.testcentre.machines.pistons.sub2": "13 Blöcke: Vanilla nicht",
   "simplebuilding.testcentre.machines.push13": "schiebt 13?",
   "simplebuilding.testcentre.machines.auto_smither": "Hebel umlegen: schmiedet einmal",
+  "simplebuilding.testcentre.machines.autonomous_crafter": "craftet in den Trichter; Hebel hält ihn an",
   "simplebuilding.testcentre.machines.hammocks": "Hängematten",
   "simplebuilding.testcentre.machines.hammocks.gap": "%s frei (Hauptachse)",
   "simplebuilding.testcentre.machines.hammocks.sub": "hinlegen: Zeit läuft schneller",

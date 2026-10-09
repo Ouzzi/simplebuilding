@@ -73,6 +73,16 @@ public final class ModUiStyleClientTest {
             Inventory inv = c.player.getInventory();
             return new FletchingScreen(new FletchingMenu(0, inv), inv, Component.translatable("container.simplebuilding.fletching"));
         });
+        if (McVersion.AUTONOMOUS_CRAFTER) show(script, "modui-autonomous-crafter", c -> {
+            Inventory inv = c.player.getInventory();
+            com.simplebuilding.screen.AutonomousCrafterMenu menu = new com.simplebuilding.screen.AutonomousCrafterMenu(0, inv);
+            menu.getSlot(0).set(new ItemStack(Items.OAK_PLANKS, 5));
+            menu.getSlot(3).set(new ItemStack(Items.OAK_PLANKS, 5));
+            menu.setData(4, 1);
+            menu.setData(com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity.DATA_FILTER, 1);
+            return new com.simplebuilding.client.gui.AutonomousCrafterScreen(menu, inv,
+                    Component.translatable("container.simplebuilding.autonomous_crafter"));
+        });
         hopper(script, "modui-hopper-reinforced", "reinforced_hopper", 0);
         hopper(script, "modui-hopper-netherite", "netherite_hopper", 1);
         hopper(script, "modui-hopper-enderite", "enderite_hopper", 2);

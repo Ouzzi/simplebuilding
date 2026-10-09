@@ -54,8 +54,24 @@ public final class ModScreenStyleTests {
         NetheriteHopperScreenHandler hopper = new NetheriteHopperScreenHandler(0, inv, BlockPos.ZERO);
         twoBoxes(hopper, 176, 133, "hopper", problems);
         int[] origin = ModScreenLayout.inventoryOrigin(hopper);
-        if (!ModScreenLayout.container(176, origin[1]).holds(44 + 5 * 18 + 4, 19, 18, 18)) {
-            problems.add("hopper: the filter key (138, 19) leaves the box");
+        int keyX = com.simplebuilding.screen.ModHopperScreenHandler.FILTER_BUTTON_X;
+        if (!ModScreenLayout.container(176, origin[1]).holds(keyX, 19, 18, 18)) {
+            problems.add("hopper: the filter key (" + keyX + ", 19) leaves the box");
+        }
+        // Owner N23: slots, caption gap and key form one row centred in the 176 px image.
+        int rowLeft = hopper.getSlot(0).x - 1, rowRight = keyX + 18;
+        if (McVersion.CRUCIBLE && Math.abs(rowLeft - (176 - rowRight)) > 1) {
+            problems.add("hopper: the slot row with the filter key is not centred (" + rowLeft + " .. " + rowRight + ")");
+        }
+        if (McVersion.AUTONOMOUS_CRAFTER) {
+            com.simplebuilding.screen.AutonomousCrafterMenu crafter = new com.simplebuilding.screen.AutonomousCrafterMenu(0, inv);
+            twoBoxes(crafter, 176, 166, "autonomous crafter", problems);
+            bigSlot(crafter, crafter.getSlot(com.simplebuilding.screen.AutonomousCrafterMenu.RESULT_SLOT), "autonomous crafter", problems);
+            int[] o = ModScreenLayout.inventoryOrigin(crafter);
+            if (!ModScreenLayout.container(176, o[1]).holds(com.simplebuilding.screen.AutonomousCrafterMenu.FILTER_BUTTON_X,
+                    com.simplebuilding.screen.AutonomousCrafterMenu.FILTER_BUTTON_Y, 18, 18)) {
+                problems.add("autonomous crafter: the filter key leaves the box");
+            }
         }
         if (McVersion.AUTO_SMITHER) {
             AutoSmitherMenu smither = new AutoSmitherMenu(0, inv);

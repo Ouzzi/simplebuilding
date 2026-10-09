@@ -515,8 +515,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
   - Insert-Feld wandert in das Hilfe-Buch: Tabs tauschen, „Blocks“ zuerst und Standard; im Blocks-Tab statt normaler Suche Textfeld + Insert-Button daneben; beim Öffnen des Buchs ist Insert vorausgewählt. Tab „Guide“: vollständige, leicht verständliche Erklärung, ganz unten Copy-Button (Text kopieren, z. B. für KI-Fragen).
 - [ ] **Simple Models überarbeiten:** Modul insgesamt verbessern (Audit + Vorschläge zuerst). Models-Button im Stil der Guide-Lesezeichen, immer an der Inventar-UI über den Rüstungsslots angehängt, Icon statt Text (Rüstungsständer oder Namensschild, ggf. Besseres).
 - [ ] **Resonanz-Statusfeld:** rechts neben das Buch-Icon verlagern; statt Vorlage ein Herz-Symbol in Steinfarben, Resonanzwert grau daneben, schmalerer Rahmen → kompakter, vanilla-näher.
-- [ ] **Truhen:** Fallen-Truhen ohne „Trapped“ im GUI-Titel; generell keine Stapelgröße o. ä. in Truhen-/Container-GUIs; Mod-Fallen-Truhen-Texturen viel zu auffällig → dezenter wie Vanilla (Vorschau).
-- [ ] **Trichter:** im GUI statt Text „Filter“: Lücke ca. 1 Slot breiter zwischen den 5 Trichterslots, darin Filter-Icon + Doppelpunkt; Gesamtblock mittig (nach links verschieben). Fehlende Lore-Trichter der Mod-Trichter ergänzen. Rezept verstärkter Trichter: Trichter + gesprungener Diamant + Namensschild.
+- [x] (claude-q-hopper) **Truhen:** Fallen-Truhen ohne „Trapped“ im GUI-Titel; generell keine Stapelgröße o. ä. in Truhen-/Container-GUIs; Mod-Fallen-Truhen-Texturen viel zu auffällig → dezenter wie Vanilla (Vorschau).
+- [x] (claude-q-hopper; Lore-Trichter offen) **Trichter:** im GUI statt Text „Filter“: Lücke ca. 1 Slot breiter zwischen den 5 Trichterslots, darin Filter-Icon + Doppelpunkt; Gesamtblock mittig (nach links verschieben). Fehlende Lore-Trichter der Mod-Trichter ergänzen. Rezept verstärkter Trichter: Trichter + gesprungener Diamant + Namensschild.
 
 ## Nachtrag 24 (2026-10-08 abends, Besitzer)
 - [ ] Dunkelheits-Trank aus neuem Warden-Drop (Warden-Item als Brauzutat).
@@ -559,8 +559,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - Tiegel-Flammen: Besitzer will 4. Vorschlag „Mittel“ (50 % zwischen spitz und rund, kein Hybrid) → cp-previews (p-flame3).
 
 ## Nachtrag 26 (2026-10-09, Besitzer)
-- [ ] **Autonomer Crafter** (abgewandelter Vanilla-Crafter): craftet automatisch das vorgegebene Rezept, solange ein Trichter darunter liegt; ohne Trichter darunter oder bei Redstone-Signal craftet er nicht. UI: 3x3-Grid, gleiche abschaltbaren Slots wie der Crafter, Filter-Knopf wie beim Mod-Trichter (Modi: exakt / gleiche Art; dieselben Knopf-Texturen). Takt wie Crafter, ca. 4 Ticks Abklingzeit.
-- [ ] **Filter-Prinzip umsetzen** bei Mod-Trichtern und autonomem Crafter: im Filtermodus bleibt immer ein echtes Item fest im Slot (statt Schatten-Item); erst ab dem 2. wird verarbeitet/transportiert. Inklusive Filter-Knopf. (Prinzip: docs/ai/PRINZIPIEN-FILTER.md.)
+- [x] (claude-q-hopper) **Autonomer Crafter** (abgewandelter Vanilla-Crafter): craftet automatisch das vorgegebene Rezept, solange ein Trichter darunter liegt; ohne Trichter darunter oder bei Redstone-Signal craftet er nicht. UI: 3x3-Grid, gleiche abschaltbaren Slots wie der Crafter, Filter-Knopf wie beim Mod-Trichter (Modi: exakt / gleiche Art; dieselben Knopf-Texturen). Takt wie Crafter, ca. 4 Ticks Abklingzeit.
+- [x] (claude-q-hopper) **Filter-Prinzip umsetzen** bei Mod-Trichtern und autonomem Crafter: im Filtermodus bleibt immer ein echtes Item fest im Slot (statt Schatten-Item); erst ab dem 2. wird verarbeitet/transportiert. Inklusive Filter-Knopf. (Prinzip: docs/ai/PRINZIPIEN-FILTER.md.)
 - [ ] **Konzept stärkerer Wither**: droppt ein Item, das später für ein Biom-Werkzeug dient („Biom-Pinsel“: Pinsel in der Haupthand, biomspezifisches Material in der Nebenhand; Haltbarkeit, verzauberbar). Erst Konzept vorlegen.
 - [ ] **Werkbank mit Lager** (verbesserte Werkbank): wie Werkbank, aber Items bleiben beim Schließen im 3x3-Feld liegen und werden auf dem Block angezeigt.
 

@@ -988,9 +988,22 @@ public final class TestCentreSections {
             c.sign(sx, 0, pz - 1, Direction.NORTH, ModBlocks.AUTO_SMITHER.getName(),
                     TcText.t("machines.auto_smither", "flip the lever: smiths once"));
         }
+        // Autonomer Crafter: Truhe -> Trichter -> Crafter (Bretter als Rezept) -> Trichter -> Truhe; Hebel = Redstone-Stopp.
+        if (ModBlocks.AUTONOMOUS_CRAFTER != null) {
+            int ax = px + 3;
+            c.place(ax, 0, pz, facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+            c.place(ax, 1, pz, with(Blocks.HOPPER.defaultBlockState(), BlockStateProperties.FACING_HOPPER, Direction.DOWN));
+            c.place(ax, 2, pz, ModBlocks.AUTONOMOUS_CRAFTER.defaultBlockState());
+            c.contents(ax, 2, pz, List.of(new ItemStack(Items.OAK_PLANKS, 16), ItemStack.EMPTY, ItemStack.EMPTY,
+                    new ItemStack(Items.OAK_PLANKS, 16)));
+            c.place(ax + 1, 2, pz, Blocks.LEVER.defaultBlockState().setValue(LeverBlock.FACE, AttachFace.WALL)
+                    .setValue(LeverBlock.FACING, Direction.EAST));
+            c.sign(ax, 0, pz - 1, Direction.NORTH, ModBlocks.AUTONOMOUS_CRAFTER.getName(),
+                    TcText.t("machines.autonomous_crafter", "crafts into the hopper; lever stops it"));
+        }
         // Separate 9x9 exhibit bays leave room for posts, cloth, ropes and a front aisle.
         if (!ModBlocks.HAMMOCKS.isEmpty()) {
-            int hx = ModBlocks.AUTO_SMITHER != null ? px + 4 : px + 1;
+            int hx = ModBlocks.AUTONOMOUS_CRAFTER != null ? px + 6 : ModBlocks.AUTO_SMITHER != null ? px + 4 : px + 1;
             c.sign(hx, 0, 0, Direction.NORTH, TcText.bold(TcText.t("machines.hammocks", "Hammocks")),
                     TcText.t("machines.hammocks.sub", "rest: time runs faster"));
             int[][] spans = {{3, 0}, {4, 0}, {5, 0}, {0, 3}, {0, 4}, {0, 5},

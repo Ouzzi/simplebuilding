@@ -77,6 +77,7 @@
   "simplebuilding.testcentre.machines.pistons.sub2": "13 blocks: vanilla fails",
   "simplebuilding.testcentre.machines.push13": "pushes 13?",
   "simplebuilding.testcentre.machines.auto_smither": "flip the lever: smiths once",
+  "simplebuilding.testcentre.machines.autonomous_crafter": "crafts into the hopper; lever stops it",
   "simplebuilding.testcentre.machines.hammocks": "Hammocks",
   "simplebuilding.testcentre.machines.hammocks.gap": "%s free (main axis)",
   "simplebuilding.testcentre.machines.hammocks.sub": "rest: time runs faster",
