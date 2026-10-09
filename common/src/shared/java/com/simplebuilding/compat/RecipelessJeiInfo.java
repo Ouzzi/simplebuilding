@@ -84,6 +84,11 @@ public final class RecipelessJeiInfo {
             chess.addAll(com.simplebuilding.chess.ChessItems.pieces().values());
             map.put("chess", chess);
         }
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            // Holzwerk: Schnitzholz entsteht nur in der Welt (Meissel + Toepferscherbe).
+            map.put("woodwork_carved", com.simplebuilding.woodwork.WoodBlocks.families().stream()
+                    .map(f -> (ItemLike) f.carved()).toList());
+        }
         // Pfeile: seit 2026-10-02 mit Befiederungsrezepten (nur fuers Vanilla-Rezeptbuch), JEI zeigt sie nicht - Hinweis bleibt.
         if (com.simplebuilding.version.McVersion.FLETCHING) {
             map.put("crafted_arrow", List.of(ModItems.CRAFTED_ARROW));

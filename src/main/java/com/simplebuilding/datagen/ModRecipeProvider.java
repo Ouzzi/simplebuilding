@@ -258,6 +258,35 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 }
                 pulsating.unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD)).save(output);
 
+                // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): 8 Staemme im Ring -> 8 Roehren, 6 Roehren -> 16 Platten,
+                // Roehre ueber Platte -> Holzkessel, Bretter wie ein Kessel -> Kiste.
+                for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.blocks.ModBlocks.WOOD_FAMILIES) {
+                    com.simplebuilding.woodwork.WoodKind wood = family.wood();
+                    for (boolean stripped : new boolean[]{false, true}) {
+                        net.minecraft.world.level.block.Block log = stripped ? wood.strippedBlock() : wood.logBlock();
+                        net.minecraft.world.level.block.Block hollow = stripped ? family.hollowStripped() : family.hollow();
+                        net.minecraft.world.level.block.Block sheet = stripped ? family.strippedSheet() : family.sheet();
+                        shaped(RecipeCategory.BUILDING_BLOCKS, hollow, 8)
+                                .pattern("LLL").pattern("L L").pattern("LLL")
+                                .define('L', log).group("hollow_log")
+                                .unlockedBy(getHasName(log), has(log)).save(output);
+                        shaped(RecipeCategory.DECORATIONS, sheet, 16)
+                                .pattern("HHH").pattern("HHH")
+                                .define('H', hollow).group("wood_sheet")
+                                .unlockedBy(getHasName(hollow), has(hollow)).save(output);
+                    }
+                    shaped(RecipeCategory.DECORATIONS, family.cauldron())
+                            .pattern("H").pattern("S")
+                            .define('H', Ingredient.of(family.hollow(), family.hollowStripped()))
+                            .define('S', Ingredient.of(family.sheet(), family.strippedSheet()))
+                            .group("wooden_cauldron")
+                            .unlockedBy(getHasName(family.hollow()), has(family.hollow())).save(output);
+                    shaped(RecipeCategory.DECORATIONS, family.crate())
+                            .pattern("P P").pattern("P P").pattern("PPP")
+                            .define('P', wood.planks()).group("crate")
+                            .unlockedBy(getHasName(wood.planks()), has(wood.planks())).save(output);
+                }
+
                 // Haengematten (2026-10-02, v2 2026-10-04): Faden, Stock, Faden ueber drei Wolle einer Farbe; Faerben wie Betten
                 // (jede andere Haengematte + Farbstoff).
                 if (com.simplebuilding.version.McVersion.HAMMOCK) {

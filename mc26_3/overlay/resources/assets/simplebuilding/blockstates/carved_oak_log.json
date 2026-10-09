@@ -1,0 +1,349 @@
+{
+  "variants": {
+    "facing=north,motif=angler": {
+      "model": "simplebuilding:block/carved/carved_oak_log_angler"
+    },
+    "facing=east,motif=angler": {
+      "model": "simplebuilding:block/carved/carved_oak_log_angler",
+      "y": 90
+    },
+    "facing=south,motif=angler": {
+      "model": "simplebuilding:block/carved/carved_oak_log_angler",
+      "y": 180
+    },
+    "facing=west,motif=angler": {
+      "model": "simplebuilding:block/carved/carved_oak_log_angler",
+      "y": 270
+    },
+    "facing=north,motif=archer": {
+      "model": "simplebuilding:block/carved/carved_oak_log_archer"
+    },
+    "facing=east,motif=archer": {
+      "model": "simplebuilding:block/carved/carved_oak_log_archer",
+      "y": 90
+    },
+    "facing=south,motif=archer": {
+      "model": "simplebuilding:block/carved/carved_oak_log_archer",
+      "y": 180
+    },
+    "facing=west,motif=archer": {
+      "model": "simplebuilding:block/carved/carved_oak_log_archer",
+      "y": 270
+    },
+    "facing=north,motif=arms_up": {
+      "model": "simplebuilding:block/carved/carved_oak_log_arms_up"
+    },
+    "facing=east,motif=arms_up": {
+      "model": "simplebuilding:block/carved/carved_oak_log_arms_up",
+      "y": 90
+    },
+    "facing=south,motif=arms_up": {
+      "model": "simplebuilding:block/carved/carved_oak_log_arms_up",
+      "y": 180
+    },
+    "facing=west,motif=arms_up": {
+      "model": "simplebuilding:block/carved/carved_oak_log_arms_up",
+      "y": 270
+    },
+    "facing=north,motif=blade": {
+      "model": "simplebuilding:block/carved/carved_oak_log_blade"
+    },
+    "facing=east,motif=blade": {
+      "model": "simplebuilding:block/carved/carved_oak_log_blade",
+      "y": 90
+    },
+    "facing=south,motif=blade": {
+      "model": "simplebuilding:block/carved/carved_oak_log_blade",
+      "y": 180
+    },
+    "facing=west,motif=blade": {
+      "model": "simplebuilding:block/carved/carved_oak_log_blade",
+      "y": 270
+    },
+    "facing=north,motif=brewer": {
+      "model": "simplebuilding:block/carved/carved_oak_log_brewer"
+    },
+    "facing=east,motif=brewer": {
+      "model": "simplebuilding:block/carved/carved_oak_log_brewer",
+      "y": 90
+    },
+    "facing=south,motif=brewer": {
+      "model": "simplebuilding:block/carved/carved_oak_log_brewer",
+      "y": 180
+    },
+    "facing=west,motif=brewer": {
+      "model": "simplebuilding:block/carved/carved_oak_log_brewer",
+      "y": 270
+    },
+    "facing=north,motif=burn": {
+      "model": "simplebuilding:block/carved/carved_oak_log_burn"
+    },
+    "facing=east,motif=burn": {
+      "model": "simplebuilding:block/carved/carved_oak_log_burn",
+      "y": 90
+    },
+    "facing=south,motif=burn": {
+      "model": "simplebuilding:block/carved/carved_oak_log_burn",
+      "y": 180
+    },
+    "facing=west,motif=burn": {
+      "model": "simplebuilding:block/carved/carved_oak_log_burn",
+      "y": 270
+    },
+    "facing=north,motif=danger": {
+      "model": "simplebuilding:block/carved/carved_oak_log_danger"
+    },
+    "facing=east,motif=danger": {
+      "model": "simplebuilding:block/carved/carved_oak_log_danger",
+      "y": 90
+    },
+    "facing=south,motif=danger": {
+      "model": "simplebuilding:block/carved/carved_oak_log_danger",
+      "y": 180
+    },
+    "facing=west,motif=danger": {
+      "model": "simplebuilding:block/carved/carved_oak_log_danger",
+      "y": 270
+    },
+    "facing=north,motif=explorer": {
+      "model": "simplebuilding:block/carved/carved_oak_log_explorer"
+    },
+    "facing=east,motif=explorer": {
+      "model": "simplebuilding:block/carved/carved_oak_log_explorer",
+      "y": 90
+    },
+    "facing=south,motif=explorer": {
+      "model": "simplebuilding:block/carved/carved_oak_log_explorer",
+      "y": 180
+    },
+    "facing=west,motif=explorer": {
+      "model": "simplebuilding:block/carved/carved_oak_log_explorer",
+      "y": 270
+    },
+    "facing=north,motif=flow": {
+      "model": "simplebuilding:block/carved/carved_oak_log_flow"
+    },
+    "facing=east,motif=flow": {
+      "model": "simplebuilding:block/carved/carved_oak_log_flow",
+      "y": 90
+    },
+    "facing=south,motif=flow": {
+      "model": "simplebuilding:block/carved/carved_oak_log_flow",
+      "y": 180
+    },
+    "facing=west,motif=flow": {
+      "model": "simplebuilding:block/carved/carved_oak_log_flow",
+      "y": 270
+    },
+    "facing=north,motif=friend": {
+      "model": "simplebuilding:block/carved/carved_oak_log_friend"
+    },
+    "facing=east,motif=friend": {
+      "model": "simplebuilding:block/carved/carved_oak_log_friend",
+      "y": 90
+    },
+    "facing=south,motif=friend": {
+      "model": "simplebuilding:block/carved/carved_oak_log_friend",
+      "y": 180
+    },
+    "facing=west,motif=friend": {
+      "model": "simplebuilding:block/carved/carved_oak_log_friend",
+      "y": 270
+    },
+    "facing=north,motif=guster": {
+      "model": "simplebuilding:block/carved/carved_oak_log_guster"
+    },
+    "facing=east,motif=guster": {
+      "model": "simplebuilding:block/carved/carved_oak_log_guster",
+      "y": 90
+    },
+    "facing=south,motif=guster": {
+      "model": "simplebuilding:block/carved/carved_oak_log_guster",
+      "y": 180
+    },
+    "facing=west,motif=guster": {
+      "model": "simplebuilding:block/carved/carved_oak_log_guster",
+      "y": 270
+    },
+    "facing=north,motif=heart": {
+      "model": "simplebuilding:block/carved/carved_oak_log_heart"
+    },
+    "facing=east,motif=heart": {
+      "model": "simplebuilding:block/carved/carved_oak_log_heart",
+      "y": 90
+    },
+    "facing=south,motif=heart": {
+      "model": "simplebuilding:block/carved/carved_oak_log_heart",
+      "y": 180
+    },
+    "facing=west,motif=heart": {
+      "model": "simplebuilding:block/carved/carved_oak_log_heart",
+      "y": 270
+    },
+    "facing=north,motif=heartbreak": {
+      "model": "simplebuilding:block/carved/carved_oak_log_heartbreak"
+    },
+    "facing=east,motif=heartbreak": {
+      "model": "simplebuilding:block/carved/carved_oak_log_heartbreak",
+      "y": 90
+    },
+    "facing=south,motif=heartbreak": {
+      "model": "simplebuilding:block/carved/carved_oak_log_heartbreak",
+      "y": 180
+    },
+    "facing=west,motif=heartbreak": {
+      "model": "simplebuilding:block/carved/carved_oak_log_heartbreak",
+      "y": 270
+    },
+    "facing=north,motif=howl": {
+      "model": "simplebuilding:block/carved/carved_oak_log_howl"
+    },
+    "facing=east,motif=howl": {
+      "model": "simplebuilding:block/carved/carved_oak_log_howl",
+      "y": 90
+    },
+    "facing=south,motif=howl": {
+      "model": "simplebuilding:block/carved/carved_oak_log_howl",
+      "y": 180
+    },
+    "facing=west,motif=howl": {
+      "model": "simplebuilding:block/carved/carved_oak_log_howl",
+      "y": 270
+    },
+    "facing=north,motif=miner": {
+      "model": "simplebuilding:block/carved/carved_oak_log_miner"
+    },
+    "facing=east,motif=miner": {
+      "model": "simplebuilding:block/carved/carved_oak_log_miner",
+      "y": 90
+    },
+    "facing=south,motif=miner": {
+      "model": "simplebuilding:block/carved/carved_oak_log_miner",
+      "y": 180
+    },
+    "facing=west,motif=miner": {
+      "model": "simplebuilding:block/carved/carved_oak_log_miner",
+      "y": 270
+    },
+    "facing=north,motif=mourner": {
+      "model": "simplebuilding:block/carved/carved_oak_log_mourner"
+    },
+    "facing=east,motif=mourner": {
+      "model": "simplebuilding:block/carved/carved_oak_log_mourner",
+      "y": 90
+    },
+    "facing=south,motif=mourner": {
+      "model": "simplebuilding:block/carved/carved_oak_log_mourner",
+      "y": 180
+    },
+    "facing=west,motif=mourner": {
+      "model": "simplebuilding:block/carved/carved_oak_log_mourner",
+      "y": 270
+    },
+    "facing=north,motif=plenty": {
+      "model": "simplebuilding:block/carved/carved_oak_log_plenty"
+    },
+    "facing=east,motif=plenty": {
+      "model": "simplebuilding:block/carved/carved_oak_log_plenty",
+      "y": 90
+    },
+    "facing=south,motif=plenty": {
+      "model": "simplebuilding:block/carved/carved_oak_log_plenty",
+      "y": 180
+    },
+    "facing=west,motif=plenty": {
+      "model": "simplebuilding:block/carved/carved_oak_log_plenty",
+      "y": 270
+    },
+    "facing=north,motif=prize": {
+      "model": "simplebuilding:block/carved/carved_oak_log_prize"
+    },
+    "facing=east,motif=prize": {
+      "model": "simplebuilding:block/carved/carved_oak_log_prize",
+      "y": 90
+    },
+    "facing=south,motif=prize": {
+      "model": "simplebuilding:block/carved/carved_oak_log_prize",
+      "y": 180
+    },
+    "facing=west,motif=prize": {
+      "model": "simplebuilding:block/carved/carved_oak_log_prize",
+      "y": 270
+    },
+    "facing=north,motif=scrape": {
+      "model": "simplebuilding:block/carved/carved_oak_log_scrape"
+    },
+    "facing=east,motif=scrape": {
+      "model": "simplebuilding:block/carved/carved_oak_log_scrape",
+      "y": 90
+    },
+    "facing=south,motif=scrape": {
+      "model": "simplebuilding:block/carved/carved_oak_log_scrape",
+      "y": 180
+    },
+    "facing=west,motif=scrape": {
+      "model": "simplebuilding:block/carved/carved_oak_log_scrape",
+      "y": 270
+    },
+    "facing=north,motif=sheaf": {
+      "model": "simplebuilding:block/carved/carved_oak_log_sheaf"
+    },
+    "facing=east,motif=sheaf": {
+      "model": "simplebuilding:block/carved/carved_oak_log_sheaf",
+      "y": 90
+    },
+    "facing=south,motif=sheaf": {
+      "model": "simplebuilding:block/carved/carved_oak_log_sheaf",
+      "y": 180
+    },
+    "facing=west,motif=sheaf": {
+      "model": "simplebuilding:block/carved/carved_oak_log_sheaf",
+      "y": 270
+    },
+    "facing=north,motif=shelter": {
+      "model": "simplebuilding:block/carved/carved_oak_log_shelter"
+    },
+    "facing=east,motif=shelter": {
+      "model": "simplebuilding:block/carved/carved_oak_log_shelter",
+      "y": 90
+    },
+    "facing=south,motif=shelter": {
+      "model": "simplebuilding:block/carved/carved_oak_log_shelter",
+      "y": 180
+    },
+    "facing=west,motif=shelter": {
+      "model": "simplebuilding:block/carved/carved_oak_log_shelter",
+      "y": 270
+    },
+    "facing=north,motif=skull": {
+      "model": "simplebuilding:block/carved/carved_oak_log_skull"
+    },
+    "facing=east,motif=skull": {
+      "model": "simplebuilding:block/carved/carved_oak_log_skull",
+      "y": 90
+    },
+    "facing=south,motif=skull": {
+      "model": "simplebuilding:block/carved/carved_oak_log_skull",
+      "y": 180
+    },
+    "facing=west,motif=skull": {
+      "model": "simplebuilding:block/carved/carved_oak_log_skull",
+      "y": 270
+    },
+    "facing=north,motif=snort": {
+      "model": "simplebuilding:block/carved/carved_oak_log_snort"
+    },
+    "facing=east,motif=snort": {
+      "model": "simplebuilding:block/carved/carved_oak_log_snort",
+      "y": 90
+    },
+    "facing=south,motif=snort": {
+      "model": "simplebuilding:block/carved/carved_oak_log_snort",
+      "y": 180
+    },
+    "facing=west,motif=snort": {
+      "model": "simplebuilding:block/carved/carved_oak_log_snort",
+      "y": 270
+    }
+  }
+}

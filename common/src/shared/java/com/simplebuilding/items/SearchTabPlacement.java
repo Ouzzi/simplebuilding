@@ -149,6 +149,12 @@ public final class SearchTabPlacement {
             }
             out.add(Placement.after(BUILDING_BLOCKS, ModItems.POLISHED_ENDER_QUARTZ_CHECKER, chess.toArray(new ItemLike[0])));
         }
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            // Holzwerk: die Familie einer Holzart hinter deren entrindetem Stamm.
+            for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
+                out.add(Placement.after(BUILDING_BLOCKS, family.wood().strippedBlock().asItem(), family.blocks().toArray(new ItemLike[0])));
+            }
+        }
         // Kupfer folgt in der Erz-Reihenfolge auf Stein: die acht Kupferplatten hinter der Steinplatte.
         out.add(Placement.after(BUILDING_BLOCKS, Items.STONE_PRESSURE_PLATE,
                 TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE,

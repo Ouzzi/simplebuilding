@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "simplebuilding:block/hollow_bamboo_block",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "simplebuilding:block/hollow_bamboo_block"
+    },
+    "axis=z": {
+      "model": "simplebuilding:block/hollow_bamboo_block",
+      "x": 90
+    }
+  }
+}

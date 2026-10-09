@@ -190,6 +190,10 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             builder(BlockTags.STAIRS).add(key(shapes.stairs()));
             builder(BlockTags.SLABS).add(key(shapes.slab()));
         }
+        // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): alles mit der Axt.
+        for (com.simplebuilding.woodwork.WoodBlocks.Family family : ModBlocks.WOOD_FAMILIES) {
+            family.blocks().forEach(block -> builder(BlockTags.MINEABLE_WITH_AXE).add(key(block)));
+        }
         if (ModBlocks.CHECKER_OCTET != null) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.CHECKER_OCTET));
         }

@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/cauldron",
+  "textures": {
+    "particle": "minecraft:block/bamboo_block",
+    "side": "minecraft:block/bamboo_block",
+    "top": "minecraft:block/bamboo_block_top",
+    "bottom": "minecraft:block/bamboo_block_top",
+    "inside": "minecraft:block/stripped_bamboo_block"
+  }
+}

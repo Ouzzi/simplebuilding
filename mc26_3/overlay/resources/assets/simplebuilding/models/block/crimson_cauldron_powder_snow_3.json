@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/template_cauldron_full",
+  "textures": {
+    "particle": "minecraft:block/crimson_stem",
+    "side": "minecraft:block/crimson_stem",
+    "top": "minecraft:block/crimson_stem_top",
+    "bottom": "minecraft:block/crimson_stem_top",
+    "inside": "minecraft:block/stripped_crimson_stem",
+    "content": "minecraft:block/powder_snow"
+  }
+}

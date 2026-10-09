@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/template_cauldron_level1",
+  "textures": {
+    "particle": "minecraft:block/cherry_log",
+    "side": "minecraft:block/cherry_log",
+    "top": "minecraft:block/cherry_log_top",
+    "bottom": "minecraft:block/cherry_log_top",
+    "inside": "minecraft:block/stripped_cherry_log",
+    "content": "minecraft:block/powder_snow"
+  }
+}

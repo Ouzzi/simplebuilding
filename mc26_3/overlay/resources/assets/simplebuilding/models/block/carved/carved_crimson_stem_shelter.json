@@ -1,0 +1,8 @@
+{
+  "parent": "simplebuilding:block/template_carved_log",
+  "textures": {
+    "side": "minecraft:block/stripped_crimson_stem",
+    "end": "minecraft:block/stripped_crimson_stem_top",
+    "motif": "minecraft:entity/decorated_pot/shelter_pottery_pattern_crimson"
+  }
+}

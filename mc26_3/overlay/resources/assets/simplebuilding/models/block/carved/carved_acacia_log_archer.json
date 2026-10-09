@@ -1,0 +1,8 @@
+{
+  "parent": "simplebuilding:block/template_carved_log",
+  "textures": {
+    "side": "minecraft:block/stripped_acacia_log",
+    "end": "minecraft:block/stripped_acacia_log_top",
+    "motif": "minecraft:entity/decorated_pot/archer_pottery_pattern_acacia"
+  }
+}
