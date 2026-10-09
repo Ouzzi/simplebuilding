@@ -2575,6 +2575,7 @@
   "item.simplebuilding.storage_crafting_table": "Storage Crafting Table",
   "container.simplebuilding.storage_crafting_table": "Storage Crafting Table",
   "item.simplebuilding.warden_tendril": "Warden Tendril",
+  "jei.simplebuilding.info.warden_tendril": "Dropped by every warden (1 to 2). In the brewing stand an Awkward Potion with a Warden Tendril becomes a Potion of Darkness.",
   "effect.simplebuilding.shivering": "Shivering",
   "effect.simplebuilding.mirage": "Mirage",
   "effect.simplebuilding.reverse_mirage": "Reverse Mirage",

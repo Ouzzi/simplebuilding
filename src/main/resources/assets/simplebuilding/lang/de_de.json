@@ -2575,6 +2575,7 @@
   "item.simplebuilding.storage_crafting_table": "Werkbank mit Lager",
   "container.simplebuilding.storage_crafting_table": "Werkbank mit Lager",
   "item.simplebuilding.warden_tendril": "Wärter-Fühler",
+  "jei.simplebuilding.info.warden_tendril": "Lässt jeder Wärter fallen (1 bis 2). Im Braustand wird aus einem Seltsamen Trank mit einem Wärter-Fühler ein Trank der Dunkelheit.",
   "effect.simplebuilding.shivering": "Zittern",
   "effect.simplebuilding.mirage": "Trugbild",
   "effect.simplebuilding.reverse_mirage": "Umgekehrtes Trugbild",

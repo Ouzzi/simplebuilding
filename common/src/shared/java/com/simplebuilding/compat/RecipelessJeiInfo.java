@@ -38,6 +38,10 @@ public final class RecipelessJeiInfo {
             map.put("sage_ore", List.of(ModBlocks.SAGE_ORE, ModBlocks.DEEPSLATE_SAGE_ORE));
             map.put("sage_orb", List.of(ModItems.SAGE_ORB));
         }
+        if (com.simplebuilding.version.McVersion.BREWING_EFFECTS) {
+            // Waerter-Fuehler (N24): nur vom Waerter, Brauzutat des Dunkelheitstranks.
+            map.put("warden_tendril", List.of(ModItems.WARDEN_TENDRIL));
+        }
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
             // Crucible P5: gefuellte Eimer entstehen nur durch Schoepfen (kein Rezept).
             map.put("soul_lava_bucket", List.of(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET,
