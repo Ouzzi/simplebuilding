@@ -124,6 +124,42 @@ class DevQueueTest(unittest.TestCase):
             resp.read()
             conn.close()
 
+    def call(self, method, path, body=None, auth=True):
+        conn = self.conn()
+        headers = {'Content-Type': 'application/json'}
+        if auth:
+            headers['Cf-Access-Authenticated-User-Email'] = 'u@test'
+        conn.request(method, path, body=None if body is None else json.dumps(body), headers=headers)
+        resp = conn.getresponse()
+        raw = resp.read()
+        conn.close()
+        return resp.status, (json.loads(raw) if raw else None)
+
+    def test_needs_access_header(self):
+        for method, path in (('GET', '/api/queue'), ('GET', '/api/runs'), ('POST', '/api/run'), ('DELETE', '/api/queue/1')):
+            self.assertEqual(self.call(method, path, {} if method == 'POST' else None, auth=False)[0], 403, path)
+
+    def test_run_takes_only_open_entries_of_its_category(self):
+        t = {'id': 'a', 'label': 'A', 'path': 'p'}
+        self.call('POST', '/api/queue', {'category': 'textures', 'kind': 'texture', 'targets': [t, dict(t, id='b')], 'comment': 'one comment'})
+        self.call('POST', '/api/queue', {'category': 'code', 'kind': 'recipe', 'targets': [t], 'comment': ''})
+        self.call('POST', '/api/queue', {'category': 'code', 'kind': 'note', 'targets': [t], 'comment': 'n'})
+        status, run = self.call('POST', '/api/run', {'category': 'code'})
+        self.assertEqual((status, run['entries']), (201, 2))
+        status, queue = self.call('GET', '/api/queue')
+        self.assertEqual(sorted(e['status'] for e in queue), ['open', 'started', 'started'])
+        self.assertEqual(len([e for e in queue if e['category'] == 'textures'][0]['targets']), 2)
+        # nothing open in code any more: no empty run file
+        self.assertEqual(self.call('POST', '/api/run', {'category': 'code'})[1]['entries'], 0)
+        self.assertEqual(len(list((self.data / 'runs').glob('*.json'))), 1)
+        # the pickup marks the run; bad states and unknown runs are refused
+        self.assertEqual(self.call('PATCH', '/api/runs/' + run['id'], {'state': 'picked', 'note': 'claude'})[0], 200)
+        self.assertEqual(self.call('GET', '/api/runs')[1][0]['state'], 'picked')
+        self.assertEqual(self.call('PATCH', '/api/runs/' + run['id'], {'state': 'weird'})[0], 400)
+        self.assertEqual(self.call('PATCH', '/api/runs/nope', {'state': 'done'})[0], 404)
+        self.assertEqual(self.call('PATCH', '/api/queue/' + queue[0]['id'], {'status': 'weird'})[0], 400)
+        self.assertEqual(self.call('DELETE', '/api/queue/' + queue[0]['id'])[0], 204)
+
 
 if __name__ == '__main__':
     unittest.main()

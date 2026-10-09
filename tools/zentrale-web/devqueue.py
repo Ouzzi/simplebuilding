@@ -14,6 +14,8 @@ MAX_COMMENT = 4000
 MAX_TARGETS = 500
 CATEGORIES = {"textures", "code"}
 KINDS = {"texture", "recipe", "note"}
+STATUSES = {"open", "started", "done", "dropped"}
+RUN_STATES = {"new", "picked", "done", "failed"}
 
 
 def atomic_write_json(path: Path, data: dict | list) -> None:
@@ -32,6 +34,10 @@ class Handler(BaseHTTPRequestHandler):
         return
 
     def send_json(self, status: int, data: dict | list | None = None):
+        if status == 204:
+            self.send_response(204)
+            self.end_headers()
+            return
         body = b"{}" if data is None else json.dumps(data, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
@@ -40,8 +46,11 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def read_json(self) -> dict:
-        length = int(self.headers.get("Content-Length", "0"))
-        if length > MAX_BODY:
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+        except ValueError as e:
+            raise ValueError("invalid length") from e
+        if length < 0 or length > MAX_BODY:
             raise ValueError("body too large")
         data = self.rfile.read(length) if length > 0 else b"{}"
         try:
@@ -96,6 +105,14 @@ class Handler(BaseHTTPRequestHandler):
             return
         parsed = urlparse(self.path)
         path = parsed.path
+        if path.startswith("/api/runs/"):
+            try:
+                payload = self.read_json()
+            except ValueError as e:
+                self.send_json(400, {"error": str(e)})
+                return
+            self.handle_patch_run(path[len("/api/runs/") :], payload)
+            return
         if path.startswith("/api/queue/"):
             qid = path[len("/api/queue/") :]
             try:
@@ -176,7 +193,7 @@ class Handler(BaseHTTPRequestHandler):
                         item["comment"] = c
                     if "status" in payload:
                         s = payload["status"]
-                        if not isinstance(s, str):
+                        if s not in STATUSES:
                             self.send_json(400, {"error": "invalid status"})
                             return
                         item["status"] = s
@@ -191,6 +208,27 @@ class Handler(BaseHTTPRequestHandler):
                     self.send_json(200, item)
                     return
             self.send_json(404, {"error": "not found"})
+
+    def handle_patch_run(self, run_id: str, payload: dict):
+        """The pickup marks a run picked/done/failed and may attach a note (log, branch)."""
+        state = payload.get("state")
+        note = payload.get("note", "")
+        if state not in RUN_STATES or not isinstance(note, str) or len(note) > MAX_COMMENT:
+            self.send_json(400, {"error": "invalid state"})
+            return
+        run_path = self.server.runs_dir / f"{run_id}.json"
+        if "/" in run_id or ".." in run_id or not run_path.is_file():
+            self.send_json(404, {"error": "not found"})
+            return
+        with self.server.lock:
+            with open(run_path, "r", encoding="utf-8") as f:
+                run = json.load(f)
+            run["state"] = state
+            run["note"] = note
+            run["updatedAt"] = int(time.time() * 1000)
+            atomic_write_json(run_path, run)
+            self.server.refresh_runs()
+        self.send_json(200, run)
 
     def handle_delete_queue(self, qid: str):
         with self.server.lock:
@@ -208,7 +246,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json(400, {"error": "invalid category"})
             return
         now = time.localtime()
-        run_id = time.strftime("%Y%m%d-%H%M", now)
+        run_id = time.strftime("%Y%m%d-%H%M%S", now)
         if category == "textures":
             run_id = f"{run_id}-textures"
         elif category == "code":
@@ -224,6 +262,9 @@ class Handler(BaseHTTPRequestHandler):
                     entries.append(item)
                 elif item.get("category") == category:
                     entries.append(item)
+            if not entries:
+                self.send_json(200, {"id": None, "entries": 0})
+                return
             for item in entries:
                 item["status"] = "started"
                 item["run"] = run_id
