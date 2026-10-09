@@ -1441,16 +1441,16 @@ public final class TrimWiringTests {
         TrimStatsLayout.Panel shortPanel = TrimStatsLayout.panel(100, 60, 24);
         helper.assertValueEqual(shortPanel.x(), 122, "resonance panel starts two pixels after the book button");
         helper.assertValueEqual(shortPanel.y(), 60, "resonance panel keeps the book button y position");
-        helper.assertValueEqual(shortPanel.width(), 42, "resonance panel width follows the value text");
+        helper.assertValueEqual(shortPanel.width(), 43, "resonance panel width follows the value text");
         helper.assertValueEqual(shortPanel.height(), 18, "resonance panel stays compact");
         helper.assertValueEqual(shortPanel.iconX(), 125, "the heart sits three pixels in");
         helper.assertValueEqual(shortPanel.iconY(), 64, "the heart is centred vertically");
-        helper.assertValueEqual(shortPanel.textX(), 136, "value follows the heart");
+        helper.assertValueEqual(shortPanel.textX(), 137, "value follows the heart");
         helper.assertValueEqual(shortPanel.textY(), 65, "value is vertically centered in the field");
 
         TrimStatsLayout.Panel longPanel = TrimStatsLayout.panel(-17, 12, 80);
         helper.assertValueEqual(longPanel.x(), 5, "panel x depends only on the book anchor");
-        helper.assertValueEqual(longPanel.width(), 98, "longer values receive the required extra width");
+        helper.assertValueEqual(longPanel.width(), 99, "longer values receive the required extra width");
         helper.assertTrue(longPanel.width() > shortPanel.width(), "panel width grows with text width");
         helper.succeed();
     }

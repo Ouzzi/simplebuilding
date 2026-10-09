@@ -48,7 +48,7 @@ public abstract class ItemEntityMixin extends Entity implements com.simplebuildi
      * Enderit-Buendel und der Enderit-Koecher als hoechste Stufe genauso. Netherit- und
      * Enderit-Rucksack sind auf Wunsch des Mod-Autors explosionsfest wie die passenden Buendel, und
      * seit 2026-09-28 (Besitzer-Entscheidung) auch der Netherit-Koecher wie die anderen
-     * Spitzenstufen.
+     * Spitzenstufen. Ebenso Netherit- und Enderit-Farbkasten (2026-10-09).
      */
     @Inject(method = "ignoreExplosion", at = @At("HEAD"), cancellable = true)
     private void isTopTierContainerImmune(Explosion explosion, CallbackInfoReturnable<Boolean> cir) {
@@ -58,7 +58,9 @@ public abstract class ItemEntityMixin extends Entity implements com.simplebuildi
                 || droppedStack.is(ModItems.NETHERITE_QUIVER)
                 || droppedStack.is(ModItems.ENDERITE_QUIVER)
                 || droppedStack.is(ModItems.NETHERITE_BACKPACK)
-                || droppedStack.is(ModItems.ENDERITE_BACKPACK)) {
+                || droppedStack.is(ModItems.ENDERITE_BACKPACK)
+                || droppedStack.is(ModItems.NETHERITE_PAINT_BOX)
+                || droppedStack.is(ModItems.ENDERITE_PAINT_BOX)) {
             cir.setReturnValue(true);
         }
     }

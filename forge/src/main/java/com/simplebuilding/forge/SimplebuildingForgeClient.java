@@ -187,6 +187,7 @@ public final class SimplebuildingForgeClient {
         event.register(ReinforcedBundleTooltipData.class, ReinforcedBundleTooltips::create);
         event.register(com.simplebuilding.items.tooltip.BlueprintTooltipData.class, com.simplebuilding.client.blueprint.BlueprintTooltip::create);
         event.register(com.simplebuilding.items.tooltip.BackpackTooltipData.class, com.simplebuilding.client.gui.tooltip.BackpackTooltip::create);
+        event.register(com.simplebuilding.items.tooltip.PaintBoxTooltipData.class, com.simplebuilding.client.gui.tooltip.PaintBoxTooltip::create);
     }
     }
 }

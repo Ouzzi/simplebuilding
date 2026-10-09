@@ -76,3 +76,31 @@ Plan:
    Palette zufaellig mit festem Seed, leerer Pinsel tut nichts, Zustaende/Inhalte bleiben.
 6. Lang EN/DE, Wiki, Rezept, Kreativreihe, Testzentrale (Reihe color_brush deckt Palette mit ab).
 Risiko: Datagen-Ausgaben von Hand gepflegt -> per runDatagen auf sb-test abgleichen.
+
+## Runde 3 (Besitzer-Feedback 09.10., Branch claude-brush3)
+Plan:
+1. Farbpinsel = verstaerkter Vanilla-Pinsel: `ColorBrushItem extends BrushItem` (Haltbarkeit 256 bleibt).
+   Textur = Vanilla-`brush.png` aus dem 26.3-Client-Jar, nur die Kupfer-Zwinge auf Gold umgefaerbt (Gold-Nugget-Palette),
+   Spitzen-Ebene (`brush_ink`) bleibt. Rezept shapeless: Vanilla-Pinsel + Goldnugget + Feder.
+   Konfliktregel (Entscheidung): auf abbuerstbaren Bloecken (`BrushableBlock`: verdaechtiger Sand/Kies) wird immer
+   abgebuerstet, auch mit Farbstoff im Inventar; sonst faerbt ein Strich, wenn Tinte da ist und der Block faerbbar ist
+   und eine andere Farbe bekommt; in allen anderen Faellen verhaelt er sich wie der Vanilla-Pinsel (Buersten-Animation,
+   Staub, abbuersten via `BrushItem#onUseTick`).
+2. Malerpalette -> Farbkasten (`paint_box`, ID-Wechsel, paint_palette entfaellt, war nie auf master). Eigene Komponente
+   `simplebuilding:paint_box` (16 Zaehler in DyeColor-Reihenfolge + gewaehlte Farbe), nur Farbstoffe, je Farbe hoechstens
+   64 x Stufenfaktor: Basis 1 (64), Verstaerkt 2 (128), Netherit 4 (256), Enderit 8 (512) - wie `StackLimits.max`
+   (Faktor x Stapelgroesse). Klicks wie Buendel (Linksklick legt ein, Rechtsklick nimmt bis zu einen Stapel der
+   gewaehlten Farbe heraus; ohne Wahl die erste vorhandene). Mausrad ueber dem Kasten waehlt die naechste vorhandene
+   Farbe (reine Funktion `PaintBoxItem.nextSelection`), uebertragen ueber das vorhandene Buendel-Auswahlpaket
+   (`ReinforcedBundleSelectionPayload`, Handler um den Kasten erweitert) - kein neues Paket; Wahl bleibt nach dem Hovern.
+   Tooltip-Bild: alle 16 Farbstoffe in 8x2 Feldern, fehlende ausgegraut, Menge je Farbe, gewaehlte Farbe umrahmt.
+   Pinsel nimmt aus dem Kasten weiter zufaellig (Farbe != Blockfarbe).
+   Stufen-Weg wie beim Buendel: Verstaerkt = Werkbank-Aufwertung (`ReinforcedBundleRecipe`, behaelt Inhalt; erkennt
+   jetzt auch den Kasten) mit vier Diamantkieseln, Netherit = Schmiedetisch (Netherit-Vorlage + Barren), Enderit =
+   Schmiedetisch (Enderit-Vorlage + Enderitbarren). Texturen: eigene Pixelart je Stufe (Holz, Holz mit Eisen-Beschlag,
+   Netherit, Enderit; Farbtoepfe oben), Generator `tools/textures/paint_box_2026_10_09.py`.
+3. Resonanz-Herz: 10x9, Bruchstein-Struktur, dunkler Umriss (`TrimStatsLayout.ICON_WIDTH`/`ICON_HEIGHT`).
+4. Tests (shared + Fabric-Wrapper + Katalog): Rezept, Abbuersten echter Weg (verdaechtiger Sand mit Farbstoff im
+   Inventar -> Sand, Beute, Farbstoff bleibt), Faerben, Kasten-Limit je Stufe + nur Farbstoffe, Scroll-Auswahl,
+   Pinsel zufaellig mit festem Seed, Upgrade behaelt Inhalt. Client: Tooltip-Screenshot des Kastens.
+5. Lang EN/DE, Wiki, Kreativ-/Suchtab, Datagen-Ausgaben (von Hand, dann runDatagen auf sb-test abgleichen).

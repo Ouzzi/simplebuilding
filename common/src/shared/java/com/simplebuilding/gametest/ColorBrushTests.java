@@ -2,7 +2,8 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.ColorBrushItem;
-import com.simplebuilding.items.custom.PaintPaletteItem;
+import com.simplebuilding.component.PaintBoxContents;
+import com.simplebuilding.items.custom.PaintBoxItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -42,13 +43,14 @@ public final class ColorBrushTests {
         helper.assertTrue(player.getInventory().getItem(20).isEmpty(), "then the inventory dye");
         helper.assertValueEqual(ColorBrushItem.inkKey(player), ColorBrushItem.INK_NONE, "no dye left");
         helper.setBlock(rel, block("black_concrete"));
-        var result = useOn(player, brush, pos);
+        var result = stroke(player, pos, net.minecraft.util.RandomSource.create(1));
         helper.assertBlockPresent(block("black_concrete"), rel);
-        helper.assertTrue(!result.consumesAction() && brush.getDamageValue() == 2, "an empty brush does nothing");
+        helper.assertTrue(result == net.minecraft.world.InteractionResult.PASS && brush.getDamageValue() == 2,
+                "without a dye the brush paints nothing (it brushes like the vanilla brush instead)");
         helper.succeed();
     }
 
-    /** The other hand comes first, as for a bow; a palette there beats a loose dye in the inventory. */
+    /** The other hand comes first, as for a bow; a paint box there beats a loose dye in the inventory. */
     public static void offHandComesFirst(GameTestHelper helper) {
         var player = playerInLevel(helper);
         BlockPos rel = new BlockPos(2, 1, 2);
@@ -61,12 +63,12 @@ public final class ColorBrushTests {
         helper.assertBlockPresent(block("blue_wool"), rel);
         helper.assertTrue(player.getOffhandItem().getCount() == 1 && player.getInventory().getItem(1).getCount() == 4,
                 "the off-hand dye is used, the inventory dye stays");
-        ItemStack palette = palette(new ItemStack(item("green_dye"), 3));
-        player.setItemInHand(InteractionHand.OFF_HAND, palette);
-        helper.assertValueEqual(ColorBrushItem.inkKey(player), ColorBrushItem.INK_PALETTE, "the tip shows the palette");
+        ItemStack box = box(ModItems.PAINT_BOX, new ItemStack(item("green_dye"), 3));
+        player.setItemInHand(InteractionHand.OFF_HAND, box);
+        helper.assertValueEqual(ColorBrushItem.inkKey(player), ColorBrushItem.INK_PALETTE, "the tip shows the paint box");
         useOn(player, brush, pos);
         helper.assertBlockPresent(block("green_wool"), rel);
-        helper.assertValueEqual(paletteCount(palette), 2, "the palette gives one green dye");
+        helper.assertValueEqual(PaintBoxItem.contents(box).total(), 2, "the paint box gives one green dye");
         helper.assertValueEqual(player.getInventory().getItem(1).getCount(), 4, "the loose red dye stays");
         helper.succeed();
     }
@@ -87,61 +89,159 @@ public final class ColorBrushTests {
         helper.succeed();
     }
 
-    /** A palette paints a random colour of its own (seeded: reproducible), never the block's colour, and gives that dye. */
-    public static void paletteIsRandom(GameTestHelper helper) {
-        ItemStack palette = palette(new ItemStack(item("red_dye"), 3), new ItemStack(item("blue_dye"), 3),
+    /** A paint box paints a random colour of its own (seeded: reproducible), never the block's colour, and gives that dye. */
+    public static void paintBoxIsRandom(GameTestHelper helper) {
+        ItemStack box = box(ModItems.PAINT_BOX, new ItemStack(item("red_dye"), 3), new ItemStack(item("blue_dye"), 3),
                 new ItemStack(item("yellow_dye"), 3));
         java.util.Set<DyeColor> seen = new java.util.HashSet<>();
         net.minecraft.util.RandomSource a = net.minecraft.util.RandomSource.create(42), b = net.minecraft.util.RandomSource.create(42);
         for (int i = 0; i < 40; i++) {
-            int pick = PaintPaletteItem.pickIndex(palette, DyeColor.RED, a);
-            helper.assertValueEqual(pick, PaintPaletteItem.pickIndex(palette, DyeColor.RED, b), "same seed, same colour");
-            seen.add(PaintPaletteItem.colorAt(palette, pick));
+            DyeColor pick = PaintBoxItem.pickColor(box, DyeColor.RED, a);
+            helper.assertValueEqual(pick, PaintBoxItem.pickColor(box, DyeColor.RED, b), "same seed, same colour");
+            seen.add(pick);
         }
         helper.assertTrue(seen.equals(java.util.Set.of(DyeColor.BLUE, DyeColor.YELLOW)),
-                "random over the palette's colours except the block's: " + seen);
+                "random over the box's colours except the block's: " + seen);
 
         var player = playerInLevel(helper);
         BlockPos rel = new BlockPos(2, 1, 2);
         BlockPos pos = helper.absolutePos(rel);
         ItemStack brush = brushInHand(player, pos);
-        player.getInventory().setItem(2, palette);
+        player.getInventory().setItem(2, box);
         helper.setBlock(rel, block("white_wool"));
-        DyeColor expected = PaintPaletteItem.colorAt(palette,
-                PaintPaletteItem.pickIndex(palette, DyeColor.WHITE, net.minecraft.util.RandomSource.create(7)));
-        var hit = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false);
-        ColorBrushItem.stroke(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND, hit),
-                net.minecraft.util.RandomSource.create(7));
+        DyeColor expected = PaintBoxItem.pickColor(box, DyeColor.WHITE, net.minecraft.util.RandomSource.create(7));
+        stroke(player, pos, net.minecraft.util.RandomSource.create(7));
         helper.assertBlockPresent(block(expected.getName() + "_wool"), rel);
-        helper.assertValueEqual(paletteCount(palette), 8, "one dye leaves the palette");
+        helper.assertValueEqual(PaintBoxItem.contents(box).total(), 8, "one dye leaves the box");
+        helper.assertValueEqual(PaintBoxItem.contents(box).count(expected.getId()), 2, "exactly the painted colour");
 
-        ItemStack only = palette(new ItemStack(item("white_dye")));
+        ItemStack only = box(ModItems.PAINT_BOX, new ItemStack(item("white_dye")));
         player.getInventory().setItem(2, only);
         helper.setBlock(rel, block("white_wool"));
-        useOn(player, brush, pos);
-        helper.assertTrue(paletteCount(only) == 1 && brush.getDamageValue() == 1, "a palette with only the block's colour does nothing");
+        var result = stroke(player, pos, net.minecraft.util.RandomSource.create(7));
+        helper.assertTrue(result == net.minecraft.world.InteractionResult.PASS && PaintBoxItem.contents(only).total() == 1
+                && brush.getDamageValue() == 1, "a box with only the block's colour paints nothing");
         helper.succeed();
     }
 
-    /** The palette takes dyes only. */
-    public static void paletteTakesOnlyDyes(GameTestHelper helper) {
+    /** Only dyes go in, at most one stack per colour times the tier factor (64/128/256/512); clicks work like a bundle. */
+    public static void paintBoxHoldsOneStackPerColourPerTier(GameTestHelper helper) {
         var player = playerInLevel(helper);
-        ItemStack palette = new ItemStack(ModItems.PAINT_PALETTE);
+        ItemStack box = new ItemStack(ModItems.PAINT_BOX);
         var container = new net.minecraft.world.SimpleContainer(1);
-        container.setItem(0, palette);
+        container.setItem(0, box);
         var slot = new net.minecraft.world.inventory.Slot(container, 0, 0, 0);
         ItemStack[] carried = {new ItemStack(Items.COBBLESTONE, 5)};
         var access = net.minecraft.world.entity.SlotAccess.of(() -> carried[0], stack -> carried[0] = stack);
-        boolean took = palette.getItem().overrideOtherStackedOnMe(palette, carried[0], slot,
-                net.minecraft.world.inventory.ClickAction.PRIMARY, player, access);
-        helper.assertTrue(!took && paletteCount(palette) == 0 && carried[0].getCount() == 5, "cobblestone stays out");
-        // One dye at a time: Forge only lets single items into a bundle by click (BundleItem patch).
-        carried[0] = new ItemStack(item("cyan_dye"), 1);
-        took = palette.getItem().overrideOtherStackedOnMe(palette, carried[0], slot,
-                net.minecraft.world.inventory.ClickAction.PRIMARY, player, access);
-        helper.assertTrue(took && paletteCount(palette) == 1, "a dye goes in: " + paletteCount(palette));
-        helper.assertTrue(PaintPaletteItem.hasDyes(palette), "a filled palette is ink");
+        var primary = net.minecraft.world.inventory.ClickAction.PRIMARY;
+        box.getItem().overrideOtherStackedOnMe(box, carried[0], slot, primary, player, access);
+        helper.assertTrue(PaintBoxItem.contents(box).isEmpty() && carried[0].getCount() == 5, "cobblestone stays out");
+
+        carried[0] = new ItemStack(item("cyan_dye"), 64);
+        box.getItem().overrideOtherStackedOnMe(box, carried[0], slot, primary, player, access);
+        helper.assertTrue(PaintBoxItem.contents(box).count(DyeColor.CYAN.getId()) == 64 && carried[0].isEmpty(),
+                "a whole stack of cyan goes in");
+        carried[0] = new ItemStack(item("cyan_dye"), 5);
+        box.getItem().overrideOtherStackedOnMe(box, carried[0], slot, primary, player, access);
+        helper.assertTrue(PaintBoxItem.contents(box).count(DyeColor.CYAN.getId()) == 64 && carried[0].getCount() == 5,
+                "the basic box holds one stack of cyan");
+        carried[0] = new ItemStack(item("red_dye"), 20);
+        box.getItem().overrideOtherStackedOnMe(box, carried[0], slot, primary, player, access);
+        helper.assertValueEqual(PaintBoxItem.contents(box).count(DyeColor.RED.getId()), 20, "another colour has its own stack");
+
+        // Right-click with an empty cursor takes a stack of the colour in front (none chosen: the first held, cyan).
+        carried[0] = ItemStack.EMPTY;
+        box.getItem().overrideOtherStackedOnMe(box, carried[0], slot, net.minecraft.world.inventory.ClickAction.SECONDARY, player, access);
+        helper.assertTrue(carried[0].is(item("cyan_dye")) && carried[0].getCount() == 64, "takes the cyan stack: " + carried[0]);
+
+        int[] expected = {64, 128, 256, 512};
+        net.minecraft.world.item.Item[] tiers = {ModItems.PAINT_BOX, ModItems.REINFORCED_PAINT_BOX,
+                ModItems.NETHERITE_PAINT_BOX, ModItems.ENDERITE_PAINT_BOX};
+        for (int t = 0; t < tiers.length; t++) {
+            ItemStack tier = new ItemStack(tiers[t]);
+            for (int i = 0; i < 10; i++) PaintBoxItem.insert(tier, new ItemStack(item("lime_dye"), 64));
+            helper.assertValueEqual(PaintBoxItem.contents(tier).count(DyeColor.LIME.getId()), expected[t],
+                    "lime dyes in " + tiers[t]);
+        }
         helper.succeed();
+    }
+
+    /** The scroll wheel brings the next held colour to the front; right-click then takes that colour (pure functions). */
+    public static void paintBoxScrollSelection(GameTestHelper helper) {
+        ItemStack box = box(ModItems.PAINT_BOX, new ItemStack(item("white_dye"), 2), new ItemStack(item("lime_dye"), 3),
+                new ItemStack(item("black_dye"), 4));
+        PaintBoxContents contents = PaintBoxItem.contents(box);
+        helper.assertValueEqual(PaintBoxItem.frontColor(contents), DyeColor.WHITE.getId(), "nothing chosen: the first held");
+        int white = DyeColor.WHITE.getId(), lime = DyeColor.LIME.getId(), black = DyeColor.BLACK.getId();
+        helper.assertValueEqual(PaintBoxItem.nextSelection(contents, white, 1), lime, "forwards skips colours not held");
+        helper.assertValueEqual(PaintBoxItem.nextSelection(contents, lime, 1), black, "then black");
+        helper.assertValueEqual(PaintBoxItem.nextSelection(contents, black, 1), white, "and wraps around");
+        helper.assertValueEqual(PaintBoxItem.nextSelection(contents, white, -1), black, "backwards wraps too");
+        helper.assertValueEqual(PaintBoxItem.nextSelection(PaintBoxContents.EMPTY, PaintBoxContents.NONE, 1),
+                PaintBoxContents.NONE, "an empty box has no front colour");
+        PaintBoxItem.select(box, lime);
+        ItemStack taken = PaintBoxItem.takeFront(box);
+        helper.assertTrue(taken.is(item("lime_dye")) && taken.getCount() == 3, "takes the chosen lime: " + taken);
+        helper.assertValueEqual(PaintBoxItem.frontColor(PaintBoxItem.contents(box)), white,
+                "a chosen colour that runs out falls back to the first held");
+        helper.succeed();
+    }
+
+    /** Recipes: brush + gold nugget + feather; the reinforced box keeps the contents, netherite and enderite at the smithing table. */
+    public static void recipesMakeTheBrushAndUpgradeTheBox(GameTestHelper helper) {
+        var level = helper.getLevel();
+        ItemStack brush = craft(helper, net.minecraft.world.item.crafting.CraftingInput.of(3, 1, java.util.List.of(
+                new ItemStack(Items.FEATHER), new ItemStack(Items.BRUSH), new ItemStack(Items.GOLD_NUGGET))), "simplebuilding:color_brush");
+        helper.assertTrue(brush.is(ModItems.COLOR_BRUSH), "brush + gold nugget + feather make " + brush);
+
+        ItemStack basic = box(ModItems.PAINT_BOX, new ItemStack(item("purple_dye"), 10));
+        ItemStack d = new ItemStack(ModItems.DIAMOND_PEBBLE), e = ItemStack.EMPTY;
+        ItemStack reinforced = craft(helper, net.minecraft.world.item.crafting.CraftingInput.of(3, 3,
+                java.util.List.of(e, d, e, d, basic, d, e, d, e)), "simplebuilding:reinforced_paint_box");
+        helper.assertTrue(reinforced.is(ModItems.REINFORCED_PAINT_BOX)
+                && PaintBoxItem.contents(reinforced).count(DyeColor.PURPLE.getId()) == 10, "reinforced box keeps its dyes: " + reinforced);
+        ItemStack netherite = smith(helper, new net.minecraft.world.item.crafting.SmithingRecipeInput(
+                new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), reinforced, new ItemStack(Items.NETHERITE_INGOT)));
+        helper.assertTrue(netherite.is(ModItems.NETHERITE_PAINT_BOX)
+                && PaintBoxItem.contents(netherite).count(DyeColor.PURPLE.getId()) == 10, "netherite box keeps its dyes");
+        ItemStack enderite = smith(helper, new net.minecraft.world.item.crafting.SmithingRecipeInput(
+                new ItemStack(ModItems.ENDERITE_UPGRADE_TEMPLATE), netherite, new ItemStack(ModItems.ENDERITE_INGOT)));
+        helper.assertTrue(enderite.is(ModItems.ENDERITE_PAINT_BOX)
+                && PaintBoxItem.contents(enderite).count(DyeColor.PURPLE.getId()) == 10, "enderite box keeps its dyes");
+        helper.succeed();
+    }
+
+    /** Ticks the brush must keep brushing suspicious sand (10 brushes, 10 ticks apart) plus margin. */
+    public static final int BRUSHING_MAX_TICKS = 300;
+
+    /**
+     * Without painting, the brush is a vanilla brush, the real way: right-click starts brushing, every use tick runs
+     * {@code BrushItem#onUseTick} until the suspicious sand gives its loot and turns into sand. A dye in the inventory
+     * changes nothing on a brushable block (conflict rule: brushable blocks are always brushed).
+     */
+    public static void brushesSuspiciousSandLikeTheVanillaBrush(GameTestHelper helper) {
+        var player = playerInLevel(helper);
+        BlockPos rel = new BlockPos(2, 1, 2);
+        BlockPos pos = helper.absolutePos(rel);
+        ItemStack brush = brushInHand(player, pos);
+        player.setXRot(90f); // look straight down at the sand
+        player.getInventory().setItem(5, new ItemStack(item("red_dye"), 4));
+        helper.setBlock(rel, Blocks.SUSPICIOUS_SAND);
+        var sand = (net.minecraft.world.level.block.entity.BrushableBlockEntity) helper.getLevel().getBlockEntity(pos);
+        sand.setLootTable(net.minecraft.world.level.storage.loot.BuiltInLootTables.DESERT_PYRAMID_ARCHAEOLOGY, 1L);
+        var result = useOn(player, brush, pos);
+        helper.assertTrue(result.consumesAction() && player.isUsingItem(), "right-click starts brushing: " + result);
+        int[] remaining = {brush.getUseDuration(player)};
+        helper.onEachTick(() -> {
+            if (remaining[0] > 0) brush.getItem().onUseTick(helper.getLevel(), player, brush, remaining[0]--);
+        });
+        helper.succeedWhen(() -> {
+            helper.assertBlockPresent(Blocks.SAND, rel);
+            helper.assertTrue(player.getInventory().getItem(5).getCount() == 4, "brushing used no dye");
+            helper.assertTrue(brush.getDamageValue() == 1, "finished brushing costs one durability: " + brush.getDamageValue());
+            helper.assertTrue(!helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                    new net.minecraft.world.phys.AABB(pos).inflate(2)).isEmpty(), "the sand gave its find");
+        });
     }
 
     public static void paintsConcreteAndPreservesGlassPaneState(GameTestHelper helper) {
@@ -214,20 +314,31 @@ public final class ColorBrushTests {
         return brush;
     }
 
-    private static ItemStack palette(ItemStack... dyes) {
-        ItemStack palette = new ItemStack(ModItems.PAINT_PALETTE);
-        java.util.List<net.minecraft.world.item.ItemStackTemplate> items = new java.util.ArrayList<>();
-        for (ItemStack dye : dyes) items.add(net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(dye));
-        palette.set(net.minecraft.core.component.DataComponents.BUNDLE_CONTENTS,
-                new net.minecraft.world.item.component.BundleContents(items));
-        return palette;
+    private static ItemStack box(net.minecraft.world.item.Item tier, ItemStack... dyes) {
+        ItemStack box = new ItemStack(tier);
+        for (ItemStack dye : dyes) PaintBoxItem.insert(box, dye);
+        return box;
     }
 
-    private static int paletteCount(ItemStack palette) {
-        int count = 0;
-        var contents = palette.get(net.minecraft.core.component.DataComponents.BUNDLE_CONTENTS);
-        if (contents != null) for (var entry : contents.items()) count += entry.count();
-        return count;
+    private static net.minecraft.world.InteractionResult stroke(net.minecraft.world.entity.player.Player player, BlockPos pos,
+                                                                  net.minecraft.util.RandomSource random) {
+        var hit = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false);
+        return ColorBrushItem.stroke(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND, hit), random);
+    }
+
+    private static ItemStack craft(GameTestHelper helper, net.minecraft.world.item.crafting.CraftingInput grid, String recipeId) {
+        var level = helper.getLevel();
+        var match = level.getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, grid, level);
+        helper.assertTrue(match.isPresent(), recipeId + ": the grid crafts nothing");
+        helper.assertValueEqual(match.get().id().identifier().toString(), recipeId, "matched recipe");
+        return match.get().value().assemble(grid);
+    }
+
+    private static ItemStack smith(GameTestHelper helper, net.minecraft.world.item.crafting.SmithingRecipeInput input) {
+        var level = helper.getLevel();
+        var match = level.getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMITHING, input, level);
+        helper.assertTrue(match.isPresent(), "no smithing recipe for " + input.base());
+        return match.get().value().assemble(input);
     }
 
     private static net.minecraft.world.item.Item item(String path) {

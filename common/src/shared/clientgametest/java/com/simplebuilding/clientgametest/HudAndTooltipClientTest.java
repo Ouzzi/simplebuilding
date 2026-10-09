@@ -2070,12 +2070,18 @@ public final class HudAndTooltipClientTest {
     private static void inventoryShowsTheResonanceFieldAndItsDetails(Script script) {
         TestScene.build(script, "minecraft:stone", "survival");
         // Colour brushes beside it for the screenshot: the first shows the red tip of the next dye (2026-10-09).
-        runOnServer(script, "put colour brushes, a red dye and a paint palette in the inventory", server -> {
+        runOnServer(script, "put colour brushes, a red dye and a paint box in the inventory", server -> {
             var inventory = firstPlayer(server).getInventory();
             inventory.setItem(SAFE_INVENTORY_SLOT, new ItemStack(ModItems.COLOR_BRUSH));
             inventory.setItem(SAFE_INVENTORY_SLOT + 1, new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM
                     .getValue(net.minecraft.resources.Identifier.withDefaultNamespace("red_dye")), 3));
-            inventory.setItem(SAFE_INVENTORY_SLOT + 2, new ItemStack(ModItems.PAINT_PALETTE));
+            // Paint box with four colours (round 3): the tooltip shot shows the other twelve greyed out.
+            ItemStack box = new ItemStack(ModItems.PAINT_BOX);
+            for (String dye : new String[]{"red_dye", "yellow_dye", "blue_dye", "lime_dye"}) {
+                com.simplebuilding.items.custom.PaintBoxItem.insert(box, new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM
+                        .getValue(net.minecraft.resources.Identifier.withDefaultNamespace(dye)), dye.startsWith("b") ? 5 : 64));
+            }
+            inventory.setItem(SAFE_INVENTORY_SLOT + 2, box);
         });
 
         openInventoryScreen(script);
@@ -2101,17 +2107,18 @@ public final class HudAndTooltipClientTest {
             GuiRenderState state = extractScreenState(client);
 
             // The heart is a GUI sprite, not an item: look for an element with exactly its bounds.
-            int size = com.simplebuilding.util.TrimStatsLayout.ICON_SIZE;
+            int size = com.simplebuilding.util.TrimStatsLayout.ICON_HEIGHT;
+            int width = com.simplebuilding.util.TrimStatsLayout.ICON_WIDTH;
             boolean[] heart = {false};
             state.forEachElement(element -> {
                 var bounds = element.bounds();
                 if (bounds != null && bounds.left() == panel.iconX() && bounds.top() == panel.iconY()
-                        && bounds.width() == size && bounds.height() == size) {
+                        && bounds.width() == width && bounds.height() == size) {
                     heart[0] = true;
                 }
             }, GuiRenderState.TraverseRange.ALL);
             if (!heart[0]) {
-                throw new AssertionError("The resonance field at " + x + "/" + y + " draws no " + size + "x" + size
+                throw new AssertionError("The resonance field at " + x + "/" + y + " draws no " + width + "x" + size
                         + " heart at " + panel.iconX() + "/" + panel.iconY());
             }
             List<String> texts = new ArrayList<>();
@@ -2148,6 +2155,11 @@ public final class HudAndTooltipClientTest {
         parkCursor(script);
         clearWidgetFocus(script);
         script.shot("inventory-resonance-field");
+        // The paint box tooltip: all 16 dyes, the twelve it does not hold greyed out (owner 2026-10-09).
+        hoverSlot(script, fixed("paint box slot", SAFE_INVENTORY_SLOT + 2), "the paint box slot");
+        script.idle("let the paint box tooltip appear", 10);
+        script.shot("tooltip-paint-box");
+        parkCursor(script);
         runOnServer(script, "take the colour brushes away again", server -> {
             var inventory = firstPlayer(server).getInventory();
             for (int i = 0; i < 3; i++) inventory.setItem(SAFE_INVENTORY_SLOT + i, ItemStack.EMPTY);

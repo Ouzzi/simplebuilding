@@ -3455,8 +3455,9 @@ public final class DataIntegrityTests {
                 CreativeTabLayout.Row.of("chisels",
                         ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
                         ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL),
-                // Farbpinsel und Malerpalette (2026-10-09) in einer eigenen Zeile nach den Meisseln.
-                CreativeTabLayout.Row.of("color_brush", ModItems.COLOR_BRUSH, ModItems.PAINT_PALETTE),
+                // Farbpinsel und Farbkaesten (2026-10-09) in einer eigenen Zeile nach den Meisseln.
+                CreativeTabLayout.Row.of("color_brush", ModItems.COLOR_BRUSH, ModItems.PAINT_BOX,
+                        ModItems.REINFORCED_PAINT_BOX, ModItems.NETHERITE_PAINT_BOX, ModItems.ENDERITE_PAINT_BOX),
                 // Baustaebe, Luecke, Bauplanung (Blaupause, Kartografentisch) - die Bauplanung laeuft
                 // nach einer Luecke in der Zeile der Baustaebe weiter (Row#besides).
                 CreativeTabLayout.Row.of("building_wands",
