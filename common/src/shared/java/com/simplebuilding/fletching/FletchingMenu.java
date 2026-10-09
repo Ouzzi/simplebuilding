@@ -65,11 +65,11 @@ public class FletchingMenu extends RecipeBookMenu {
     public FletchingMenu(int containerId, Inventory inventory, ContainerLevelAccess access) {
         super(ModScreenHandlers.FLETCHING_MENU, containerId);
         this.access = access;
-        // Wie die Werkbank: die drei Teile liegen auf der Diagonale ihres 3x3-Gitters, das Ergebnis rechts daneben.
-        this.addSlot(new PartSlot(this.parts, TIP_SLOT, 66, 17));
-        this.addSlot(new PartSlot(this.parts, SHAFT_SLOT, 48, 35));
-        this.addSlot(new PartSlot(this.parts, FLETCHING_SLOT, 30, 53));
-        this.addSlot(new Slot(this.result, 0, 124, 35) {
+        // Wie beim Schmiedetisch: die drei Teile liegen in einer geraden Reihe, das Ergebnis rechts daneben.
+        this.addSlot(new PartSlot(this.parts, TIP_SLOT, 8, 48));
+        this.addSlot(new PartSlot(this.parts, SHAFT_SLOT, 26, 48));
+        this.addSlot(new PartSlot(this.parts, FLETCHING_SLOT, 44, 48));
+        this.addSlot(new Slot(this.result, 0, 124, 48) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;

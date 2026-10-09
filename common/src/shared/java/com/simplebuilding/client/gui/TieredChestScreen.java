@@ -33,9 +33,15 @@ public class TieredChestScreen extends AbstractContainerScreen<TieredChestMenu> 
     private static final int LABEL = 0xFF404040;
 
     public TieredChestScreen(TieredChestMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, menu.imageWidth(), menu.imageHeight());
+        super(menu, inventory, displayTitle(menu, title), menu.imageWidth(), menu.imageHeight());
         this.inventoryLabelX = menu.inventoryLeft();
         this.inventoryLabelY = this.imageHeight - 94;
+    }
+
+    private static Component displayTitle(TieredChestMenu menu, Component title) {
+        if (menu.isShulkerBox()) return title;
+        Component block = Component.translatable("block.simplebuilding." + menu.tier().textureName() + "_chest");
+        return menu.isDouble() ? Component.translatable("container.simplebuilding.double_chest", block) : block;
     }
 
     @Override

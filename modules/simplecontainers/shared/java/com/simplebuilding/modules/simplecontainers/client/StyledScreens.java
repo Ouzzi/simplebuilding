@@ -10,6 +10,7 @@ import com.simplebuilding.modules.simplecontainers.style.StyleContext;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
+import com.simplelib.api.client.ui.UiStyleToggle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,7 @@ public final class StyledScreens {
 
     /** The style that applies to {@code screen} right now, or {@code null} (Vanilla). */
     public static @Nullable ScreenStyle style(AbstractContainerScreen<?> screen) {
+        if (!UiStyleToggle.isEnabled()) return null;
         ScreenStyle style = ContainerStyles.find(menuType(screen), screen.getClass().getName());
         return style != null && ContainersClient.config().isOn(style.id()) ? style : null;
     }

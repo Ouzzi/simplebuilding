@@ -19,7 +19,7 @@ import net.minecraft.world.item.Items;
 
 /**
  * Bildschirm des Befiederungstischs wie die Werkbank ({@code CraftingScreen}): Vanilla-Hintergrund der Werkbank ohne die
- * sechs Felder, die der Pfeil nicht braucht; Spitze, Schaft und Befiederung auf der Diagonale, das Ergebnis rechts. Das
+ * sechs Felder, die der Pfeil nicht braucht; Spitze, Schaft und Befiederung in einer Reihe, das Ergebnis rechts. Das
  * Rezeptbuch-Symbol sitzt exakt wie bei der Werkbank und oeffnet links Vanillas Rezeptbuch mit allen Pfeilen; ein Klick
  * legt die Teile ein.
  */
@@ -67,10 +67,10 @@ public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
             return;
         }
         graphics.blit(RenderPipelines.GUI_TEXTURED, CRAFTING_TABLE_LOCATION, xo, yo, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
-        // Gitter 3x3 ab (29,16), Felder je 18 px: nur die Diagonale von unten links nach oben rechts bleibt.
+        // Gitter 3x3 ab (29,16), Felder je 18 px: nur die mittlere Reihe bleibt.
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
-                if (row + column != 2) {
+                if (row != 1) {
                     int x = xo + 29 + column * 18;
                     int y = yo + 16 + row * 18;
                     graphics.fill(x, y, x + 18, y + 18, PANEL);

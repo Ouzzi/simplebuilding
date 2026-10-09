@@ -20,6 +20,28 @@ window.WIKI_MODULE_DATA["simplecontainers"] = {
   },
   "features": [
     {
+      "id": "style_toggle",
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/api/client/ui/UiStyleToggle.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/ContainersConfig.java",
+        "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/mixin/StyleToggleMixin.java"
+      ],
+      "en": {
+        "title": "Style comparison switch",
+        "summary": "In development, or when showStyleToggle is enabled, the button and unbound key toggle all SimpleLib-based screens between the Simple style and Vanilla.",
+        "details": [
+          "The comparison switch is client-only and defaults to hidden. It affects Simple Containers screens and SimpleBuilding's styled mod screens together."
+        ]
+      },
+      "de": {
+        "title": "Stil-Vergleichsschalter",
+        "summary": "In der Entwicklung oder mit showStyleToggle schalten Knopf und unbelegte Taste alle SimpleLib-Bildschirme gemeinsam zwischen Simple-Stil und Vanilla um.",
+        "details": [
+          "Der Vergleichsschalter ist nur clientseitig und standardmäßig verborgen. Er betrifft Simple-Containers-Bildschirme und die gestylten SimpleBuilding-UIs gemeinsam."
+        ]
+      }
+    },
+    {
       "id": "style_storage",
       "sources": [
         "modules/simplecontainers/shared/java/com/simplebuilding/modules/simplecontainers/style/StorageStyles.java",
@@ -613,7 +635,7 @@ window.WIKI_MODULE_DATA["simplecontainers"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 26,
+    "features": 27,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

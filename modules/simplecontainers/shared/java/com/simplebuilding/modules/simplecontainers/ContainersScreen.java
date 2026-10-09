@@ -20,6 +20,8 @@ public final class ContainersScreen {
         var general = b.getOrCreateCategory(Component.translatable("simplecontainers.tab.general"));
         general.addEntry(e.startBooleanToggle(name("enabled"), c.enabled).setDefaultValue(true).setTooltip(tip("enabled"))
                 .setSaveConsumer(v -> c.enabled = v).build());
+        general.addEntry(e.startBooleanToggle(name("showStyleToggle"), c.showStyleToggle).setDefaultValue(false)
+                .setTooltip(tip("showStyleToggle")).setSaveConsumer(v -> c.showStyleToggle = v).build());
         for (ScreenStyle style : ContainerStyles.all()) {
             String key = "screen." + style.id();
             general.addEntry(e.startBooleanToggle(name(key), c.screens.getOrDefault(style.id(), true)).setDefaultValue(true)

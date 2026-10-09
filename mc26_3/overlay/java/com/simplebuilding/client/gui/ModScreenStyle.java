@@ -18,6 +18,7 @@ import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiSymbols;
+import com.simplelib.api.client.ui.UiStyleToggle;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.gui.Font;
@@ -85,6 +86,7 @@ public final class ModScreenStyle {
     // ------------------------------------------------------------------ tiered chests
 
     public static boolean tieredChest(GuiGraphicsExtractor g, TieredChestMenu menu, Font font, Component title, int left, int top) {
+        if (!UiStyleToggle.isEnabled()) return false;
         UiPalette p = tier(menu.tier());
         int[] inv = ModScreenLayout.inventoryOrigin(menu);
         Box container = ModScreenLayout.container(menu.imageWidth(), inv[1]);
@@ -127,6 +129,7 @@ public final class ModScreenStyle {
 
     public static boolean hopper(GuiGraphicsExtractor g, NetheriteHopperScreenHandler menu, Font font, Component title, int left, int top,
             int imageWidth) {
+        if (!UiStyleToggle.isEnabled()) return false;
         ChestTier tier = hopperTier(menu);
         UiPalette p = tier(tier);
         int[] inv = ModScreenLayout.inventoryOrigin(menu);
@@ -191,6 +194,7 @@ public final class ModScreenStyle {
 
     public static boolean autoSmither(GuiGraphicsExtractor g, AutoSmitherMenu menu, Font font, Component title, int left, int top,
             int imageWidth) {
+        if (!UiStyleToggle.isEnabled()) return false;
         UiPalette p = AUTO_SMITHER;
         int[] inv = ModScreenLayout.inventoryOrigin(menu);
         Box container = ModScreenLayout.container(imageWidth, inv[1]);
@@ -220,6 +224,7 @@ public final class ModScreenStyle {
 
     public static boolean fletching(GuiGraphicsExtractor g, FletchingMenu menu, Font font, Component title, int left, int top,
             int imageWidth) {
+        if (!UiStyleToggle.isEnabled()) return false;
         UiPalette p = FLETCHING;
         int[] inv = ModScreenLayout.inventoryOrigin(menu);
         Box container = ModScreenLayout.container(imageWidth, inv[1]);
@@ -230,35 +235,22 @@ public final class ModScreenStyle {
         avoid.add(titleRect(font, title, left, top));
         avoid.add(bigRect(result, left, top));
         avoid.add(new int[] {left + 92, top + 36, left + 114, top + 51});
-        avoid.add(new int[] {left + 30, top + 17, left + 87, top + 70});
+        avoid.add(new int[] {left + 4, top + 44, left + 63, top + 69});
         motif(g, left, top, container, p, UiMotifs.Kind.WOOD, avoid, 6);
-        // The three part slots sit on a diagonal: an engraved arrow shaft runs through them.
-        List<int[]> parts = new ArrayList<>();
-        for (int i : new int[] {FletchingMenu.TIP_SLOT, FletchingMenu.SHAFT_SLOT, FletchingMenu.FLETCHING_SLOT}) {
-            Slot s = menu.getSlot(i);
-            parts.add(new int[] {s.x, s.y, s.x + 17, s.y + 17});
-        }
-        for (int k = -6; k < 50; k++) {
-            int x = 36 + k, y = 59 - k;
-            if (inside(x, y, parts)) continue;
-            g.fill(left + x, top + y + 1, left + x + 1, top + y + 2, p.light());
-            g.fill(left + x, top + y, left + x + 2, top + y + 1, p.slot());
+        // The three part slots sit in one row, as on the smithing table.
+        for (int k = 0; k < 54; k++) {
+            int x = 8 + k;
+            g.fill(left + x, top + 56, left + x + 1, top + 57, p.light());
+            g.fill(left + x, top + 55, left + x + 2, top + 56, p.slot());
         }
         slots(g, menu, left, top, p, result);
-        UiSymbols.engrave(g, UiSymbols.ARROW, left + 92, top + 36, p);
+        UiSymbols.engrave(g, UiSymbols.ARROW, left + 92, top + 49, p);
         return true;
     }
 
     public static boolean fletchingLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
         g.text(font, title, x, y, FLETCHING.label(), false);
         return true;
-    }
-
-    private static boolean inside(int x, int y, List<int[]> rects) {
-        for (int[] r : rects) {
-            if (x >= r[0] && x < r[2] && y >= r[1] && y < r[3]) return true;
-        }
-        return false;
     }
 
     // ------------------------------------------------------------------ backpack
@@ -274,6 +266,7 @@ public final class ModScreenStyle {
     }
 
     public static boolean backpack(GuiGraphicsExtractor g, BackpackMenu menu, BackpackLayout layout, int left, int top) {
+        if (!UiStyleToggle.isEnabled()) return false;
         UiPalette p = backpack(menu.tier(), menu.openData().dyeColor());
         UiMotifs.Kind kind = menu.openData().dyeColor() == DyedStorage.UNDYED && menu.tier() == BackpackTier.ENDERITE
                 ? UiMotifs.Kind.ENDER : UiMotifs.Kind.LEATHER;
@@ -298,8 +291,7 @@ public final class ModScreenStyle {
         if (menu.tier().rows() > 0) g.fill(left + strip[0], top + strip[1], left + strip[2], top + strip[3], tint);
         for (Slot slot : menu.slots) {
             if (slot instanceof BackpackSlot b && b.isExtraColumn()) {
-                int y = slot.y == BackpackLayout.FIRST_ROW_Y ? slot.y - 2 : slot.y;
-                g.fill(left + slot.x - 2, top + y, left + slot.x + 18, top + slot.y + 18, tint);
+                g.fill(left + slot.x - 1, top + slot.y - 1, left + slot.x + 17, top + slot.y + 17, tint);
             }
         }
         for (Slot slot : menu.slots) {

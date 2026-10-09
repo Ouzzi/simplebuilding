@@ -1,7 +1,11 @@
 {
   "simplecontainers.title": "Simple Containers",
+  "simplecontainers.toggle_style": "Toggle screen style",
+  "key.simplecontainers.toggle_style": "Toggle screen style",
   "simplecontainers.tab.general": "Screens",
   "simplecontainers.option.enabled": "Simple style",
+  "simplecontainers.option.showStyleToggle": "Show style comparison button",
+  "simplecontainers.option.showStyleToggle.tooltip": "Show the button and keybind for switching Simple and Vanilla screen styles. Default: off.",
   "simplecontainers.option.enabled.tooltip": "Draw container screens in the Simple style: a box in the block's colour and a light inventory box. Off = every screen exactly Vanilla. Client only. Default: on.",
   "simplecontainers.option.screen.chest": "Chests, barrels, ender chests",
   "simplecontainers.option.screen.chest.tooltip": "Generic chest screens (1-6 rows: chest, double chest, barrel, ender chest, copper chests, chest boats and minecarts) in the block's colour. Default: on.",

@@ -371,3 +371,47 @@ Entscheidungen:
   G4-Hufeisenpanel (wie G1 `mit-g4-panel`).
 - Nicht getestet: NeoForge/Forge-Client-Sicht, echte Blöcke/Dorfbewohner, Klickzustände, LinkedPanel im Client,
   Astral-Gewölbe im Client, Gate (macht die Hauptsitzung).
+
+## Abnahme-Runde 1 (2026-10-09)
+
+Ursachen und Korrekturen:
+- **Befiederung:** Die drei Teile lagen noch auf der alten Werkbank-Diagonale. `FletchingMenu` verwendet nun
+  `(8,48)`, `(26,48)`, `(44,48)` mit 18 px Abstand; Ergebnis und Simple-Stil-Pfeil liegen auf derselben Reihe.
+  Der Vanilla-Rezeptbuchpfad und die drei `arrow_tip`/`arrow_shaft`/`arrow_fletching`-Icons bleiben unverändert.
+- **Vergleichsschalter:** `UiStyleToggle` liegt in SimpleLib und wird von `StyledScreens` sowie `ModScreenStyle`
+  gemeinsam abgefragt. Der 16x16-V-Knopf sitzt außerhalb oben rechts an jedem `AbstractContainerScreen`; die
+  unbelegte Taste ist auf Fabric, NeoForge und Forge registriert. Sichtbarkeit: Entwicklungsumgebung oder
+  `showStyleToggle`, standardmäßig aus. Der reine Toggle-Test ist in den Modul-Katalogen registriert.
+- **Ein-Kasten-/Rucksack-Audit:** Die Inventar-Seam bleibt die helle `UiPalette.INVENTORY`; die Zusatzspalten-Tönung
+  ist jetzt eine eigene 18x18-Spalte je Slot und kann nicht mehr über den Kastenrand hinausragen.
+- **Verzauberung:** Die vorhandene `runeColor`-Korrektur verwendet bereits den hellen Palettenton; sie wurde in dieser
+  Runde nicht erneut verändert.
+- **Mod-Truhen:** Der Screen-Titel wird für Einzel- und Doppeltruhen aus dem Stufen-Blocknamen aufgebaut
+  (`Reinforced Chest`, `Large Reinforced Chest` usw.; deutsche Block-/`Large`-Übersetzungen vorhanden), Shulker-Titel
+  bleiben unverändert.
+
+Abweichungen/Rest:
+- Die Vorschau-Dateien unter `/root/previews/simplecontainers` waren in dieser Umgebung nicht lesbar; daher keine
+  neue pixelweise Screenshot-Gegenprobe und kein Client-Smoke-Nachweis aus diesem Lauf. Der vorhandene Screenshot-
+  Vergleich aus dem Merge bleibt als vorheriger Beleg bestehen.
+- Die helle Inventar-Seam war im Code bereits korrekt gefüllt; es gab dort keine zusätzliche Farbänderung, nur die
+  separate Zusatzspalte wurde korrigiert.
+
+Verifikation dieser Runde:
+- `git diff --check` und JSON-Prüfung (`en_us.json`, `de_de.json`, `manual.json`): grün.
+- `python wiki/generate.py --all && python wiki/generate.py --all --check`: `wiki: up to date, everything documented.`
+- `./gradlew :modules:simplecontainers:fabric:compileJava :modules:simplecontainers:neoforge:compileJava :modules:simplecontainers:forge:compileJava -Pforge263=true`: `BUILD SUCCESSFUL`.
+- Nicht ausgeführt: NeoForge-/Forge-Client-Sicht und ein vollständiger unfiltrierter Client-Lauf; die geforderten
+  Fabric-/Server-Filter und der Modul-Client-Smoke liefen. Der neue Smoke-Test erzeugt und prüft nun ausdrücklich
+  `simplecontainers-chest` (Simple) sowie `simplecontainers-chest-vanilla` (Schalter aus).
+
+Nachlauf 2026-10-09:
+- `./gradlew :compileJava :compileGametestJava -Pforge263=true`: `BUILD SUCCESSFUL`.
+- `python3.12 tools/testrunner/run.py --targets module-simplecontainers-fabric-263,module-simplecontainers-neoforge-263`:
+  `alles gruen: 26/26 bestanden, 0 rot`.
+- `python3.12 tools/testrunner/run.py --targets fabric-263,neoforge-263,forge-263 --filter 'simplebuilding:mod_screen_style_*'`:
+  `alles gruen: 9/9 bestanden, 0 rot`.
+- `xvfb-run -a -s '-screen 0 1920x1080x24' python3.12 tools/testrunner/run.py --targets module-simplecontainers-client-263`:
+  `alles gruen: 26/26 bestanden, 0 rot`; beide Toggle-Screenshots wurden erzeugt/geprüft.
+- `SIMPLEBUILDING_CLIENT_ONLY=mod-ui-style,backpack xvfb-run -a -s '-screen 0 1920x1080x24' python3.12 tools/testrunner/run.py --targets client-fabric-263`:
+  `alles gruen: 19/19 bestanden, 0 rot`.

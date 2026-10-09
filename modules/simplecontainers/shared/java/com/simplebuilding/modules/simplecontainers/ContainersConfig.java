@@ -10,6 +10,8 @@ import java.util.Map;
 public final class ContainersConfig {
     /** Master switch: off = every screen exactly Vanilla. */
     public boolean enabled = true;
+    /** Shows the development style comparison button outside styled screens. */
+    public boolean showStyleToggle = false;
     /** Per screen kind (style id), default on. */
     public Map<String, Boolean> screens = new HashMap<>();
 

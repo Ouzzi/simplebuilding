@@ -12,6 +12,7 @@ import com.simplebuilding.modules.simplecontainers.style.WorkStyles;
 import com.simplebuilding.modules.simplecontainers.style.StationStyles;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiSymbols;
+import com.simplelib.api.client.ui.UiStyleToggle;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -237,6 +238,7 @@ public final class ContainerTests {
     /** Defaults: everything on; master switch off turns every style off; a saved file round-trips. */
     public static void config(GameTestHelper h) {
         var config = new ContainersConfig();
+        h.assertTrue(!config.showStyleToggle, "style comparison button defaults off");
         for (ScreenStyle style : ContainerStyles.all()) h.assertTrue(config.isOn(style.id()), "default on: " + style.id());
         config.screens.put("hopper", false);
         h.assertTrue(!config.isOn("hopper") && config.isOn("chest"), "per screen switch");
@@ -246,6 +248,14 @@ public final class ContainerTests {
         for (ScreenStyle style : ContainerStyles.all()) h.assertTrue(!copy.isOn(style.id()), "master switch off: " + style.id());
         var broken = new Gson().fromJson("{\"screens\":null}", ContainersConfig.class);
         h.assertTrue(broken.isOn("chest"), "missing map falls back to defaults");
+        h.succeed();
+    }
+
+    /** The shared comparison switch is a reversible pure client-state transition. */
+    public static void styleToggle(GameTestHelper h) {
+        UiStyleToggle.setEnabled(true);
+        h.assertTrue(UiStyleToggle.toggle() == false && !UiStyleToggle.isEnabled(), "toggle disables the style");
+        h.assertTrue(UiStyleToggle.toggle() && UiStyleToggle.isEnabled(), "toggle enables the style");
         h.succeed();
     }
 

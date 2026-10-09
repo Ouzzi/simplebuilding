@@ -12,6 +12,7 @@ public final class ModuleGameTest {
     @GameTest public void blockPalettes(GameTestHelper h) { ContainerTests.palettes(h); }
     @GameTest public void boxMotifs(GameTestHelper h) { ContainerTests.motifs(h); }
     @GameTest public void configDefaults(GameTestHelper h) { ContainerTests.config(h); }
+    @GameTest public void styleToggle(GameTestHelper h) { ContainerTests.styleToggle(h); }
     @GameTest public void stationRegistry(GameTestHelper h) { ContainerTests.stationRegistry(h); }
     @GameTest public void stationPalettes(GameTestHelper h) { ContainerTests.stationPalettes(h); }
     @GameTest public void stationLayouts(GameTestHelper h) { ContainerTests.stationLayouts(h); }

@@ -64,6 +64,15 @@ public final class ModScreenStyleTests {
         }
         if (McVersion.FLETCHING) {
             FletchingMenu fletching = new FletchingMenu(0, inv);
+            int y = fletching.getSlot(FletchingMenu.TIP_SLOT).y;
+            int x = fletching.getSlot(FletchingMenu.TIP_SLOT).x;
+            for (int index : new int[] {FletchingMenu.SHAFT_SLOT, FletchingMenu.FLETCHING_SLOT}) {
+                Slot part = fletching.getSlot(index);
+                if (part.y != y) problems.add("fletching: part slots are not on one row");
+                if (part.x - x != 18 * (index - FletchingMenu.TIP_SLOT)) {
+                    problems.add("fletching: part slots are not 18 px apart");
+                }
+            }
             twoBoxes(fletching, 176, 166, "fletching table", problems);
             bigSlot(fletching, fletching.getSlot(FletchingMenu.RESULT_SLOT), "fletching table", problems);
         }

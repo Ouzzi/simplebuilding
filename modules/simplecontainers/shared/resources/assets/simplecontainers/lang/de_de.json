@@ -1,7 +1,11 @@
 {
   "simplecontainers.title": "Simple Containers",
+  "simplecontainers.toggle_style": "Bildschirmstil umschalten",
+  "key.simplecontainers.toggle_style": "Bildschirmstil umschalten",
   "simplecontainers.tab.general": "Bildschirme",
   "simplecontainers.option.enabled": "Simple-Stil",
+  "simplecontainers.option.showStyleToggle": "Stil-Vergleichsknopf anzeigen",
+  "simplecontainers.option.showStyleToggle.tooltip": "Knopf und Taste zum Umschalten zwischen Simple- und Vanilla-Stil anzeigen. Standard: aus.",
   "simplecontainers.option.enabled.tooltip": "Container-Bildschirme im Simple-Stil zeichnen: ein Kasten in der Farbe des Blocks und ein heller Inventar-Kasten. Aus = jeder Bildschirm genau wie Vanilla. Nur clientseitig. Standard: an.",
   "simplecontainers.option.screen.chest": "Truhen, Fässer, Endertruhen",
   "simplecontainers.option.screen.chest.tooltip": "Allgemeine Truhen-Bildschirme (1-6 Reihen: Truhe, Doppeltruhe, Fass, Endertruhe, Kupfertruhen, Truhenboote und -loren) in der Farbe des Blocks. Standard: an.",

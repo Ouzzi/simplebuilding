@@ -12,6 +12,9 @@
     ],
     "modmenu": [
       "com.simplebuilding.modules.simplecontainers.ContainersModMenu"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplecontainers.ContainersFabricClient"
     ]
   },
   "depends": {

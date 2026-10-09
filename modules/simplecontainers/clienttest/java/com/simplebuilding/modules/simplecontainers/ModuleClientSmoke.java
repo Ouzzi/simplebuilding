@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simplecontainers;
 
+import com.simplelib.api.client.ui.UiStyleToggle;
 import java.util.function.Function;
 import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
@@ -45,7 +46,6 @@ import net.minecraft.world.inventory.StonecutterMenu;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
-
 /** Client smoke: the storage screens (W0 + W1 G1 crafter and mounts), the G2 and G3 work screens open styled in a world; screenshots for the owner's review. */
 public final class ModuleClientSmoke implements FabricClientGameTest {
     @Override public void runTest(ClientGameTestContext context) {
@@ -54,6 +54,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             world.getConnection().waitForClientboundPackets();
             world.getConnection().waitForChunksRender();
             show(context, "simplecontainers-chest", c -> new ContainerScreen(ChestMenu.threeRows(0, c.player.getInventory()), c.player.getInventory(), Component.translatable("container.chest")));
+            showVanillaComparison(context, "simplecontainers-chest-vanilla", c -> new ContainerScreen(
+                    ChestMenu.threeRows(0, c.player.getInventory()), c.player.getInventory(), Component.translatable("container.chest")));
             show(context, "simplecontainers-double-chest", c -> new ContainerScreen(ChestMenu.sixRows(0, c.player.getInventory()), c.player.getInventory(), Component.translatable("container.chestDouble")));
             show(context, "simplecontainers-barrel", c -> new ContainerScreen(ChestMenu.threeRows(0, c.player.getInventory()), c.player.getInventory(), Component.translatable("container.barrel")));
             show(context, "simplecontainers-ender-chest", c -> new ContainerScreen(ChestMenu.threeRows(0, c.player.getInventory()), c.player.getInventory(), Component.translatable("container.enderchest")));
@@ -150,6 +152,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     }
 
     private static void show(ClientGameTestContext context, String name, Function<Minecraft, Screen> screen) {
+        UiStyleToggle.setEnabled(true);
         context.runOnClient(c -> c.setScreenAndShow(screen.apply(c)));
         context.waitTicks(3);
         context.runOnClient(c -> {
@@ -162,6 +165,23 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             }
         });
         context.takeScreenshot(name);
+    }
+
+    private static void showVanillaComparison(ClientGameTestContext context, String name, Function<Minecraft, Screen> screen) {
+        UiStyleToggle.setEnabled(false);
+        context.runOnClient(c -> c.setScreenAndShow(screen.apply(c)));
+        context.waitTicks(3);
+        context.runOnClient(c -> {
+            try {
+                Object style = Class.forName("com.simplebuilding.modules.simplecontainers.client.StyledScreens")
+                        .getMethod("style", net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.class).invoke(null, c.gui.screen());
+                if (style != null) throw new AssertionError(name + ": style remained active after toggle");
+            } catch (ReflectiveOperationException e) {
+                throw new AssertionError(e);
+            }
+        });
+        context.takeScreenshot(name);
+        UiStyleToggle.setEnabled(true);
     }
 
     /** W1 G2: crafting table, the three furnaces (lit, half cooked), brewing stand (brewing), beacon, enchanting table. */
