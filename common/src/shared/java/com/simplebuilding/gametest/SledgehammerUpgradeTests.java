@@ -289,10 +289,10 @@ public final class SledgehammerUpgradeTests {
                 .setValue(HopperBlock.FACING, Direction.EAST)
                 .setValue(HopperBlock.ENABLED, Boolean.TRUE));
         ModHopperBlockEntity hopper = helper.getBlockEntity(pos, ModHopperBlockEntity.class);
-        // Stock first, while the filter is still off, so the stack cannot teach slot 1 a filter item.
+        // Filter principle: the diamond lying in slot 0 is its filter item.
         hopper.setItem(1, new ItemStack(Items.COBBLESTONE, 7));
+        hopper.setItem(0, new ItemStack(Items.DIAMOND));
         hopper.toggleFilterMode();
-        hopper.setGhostItem(0, new ItemStack(Items.DIAMOND));
         helper.assertTrue(hopper.getFilterMode() == HopperFilterMode.WHITELIST,
                 "test setup broken: one toggle should reach Exact Match, the hopper is in " + hopper.getFilterMode());
         String before = hopperSummary(helper, pos);
@@ -1009,7 +1009,7 @@ public final class SledgehammerUpgradeTests {
     /** Filter mode, filter item and stock of the hopper at {@code pos}, as one line. */
     private static String hopperSummary(GameTestHelper helper, BlockPos pos) {
         ModHopperBlockEntity hopper = helper.getBlockEntity(pos, ModHopperBlockEntity.class);
-        return "mode " + hopper.getFilterMode() + ", filter " + hopper.getGhostItem(0) + ", stock " + hopper.getItem(1);
+        return "mode " + hopper.getFilterMode() + ", filter " + hopper.getItem(0) + ", stock " + hopper.getItem(1);
     }
 
     private static void clearCooldown(ServerPlayer player, ItemStack hammer) {

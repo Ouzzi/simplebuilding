@@ -558,7 +558,6 @@
   "simplebuilding.gui.page.settings": "Settings >>",
   "simplebuilding.gui.page.selection": "<< Selection",
   "container.simplebuilding.hopper_filter": "Filter:",
-  "container.simplebuilding.hopper_filter.ghost": "Filtered Item:",
   "trim_bonus.simplebuilding.block_reach": "Block Interaction Range",
   "trim_bonus.simplebuilding.knockback_resistance": "Knockback Resistance",
   "screen.simplebuilding.trim_reference": "Trim Resonance Reference",

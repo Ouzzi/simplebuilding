@@ -406,13 +406,13 @@ public final class WorldUpgradeTests {
 
     /**
      * Mod hopper, enderite blast furnace and placed backpack from a 26.2 chunk: their items equal
-     * what vanilla made of the same stacks in the chest next to them, and their own settings (ghost
-     * filter, filter mode, cooldown, int cooking timers, bonus progress, backpack colour and the
+     * what vanilla made of the same stacks in the chest next to them, and their own settings (filter
+     * mode, cooldown, int cooking timers, bonus progress, backpack colour and the
      * 150-stack of deep pockets) are all still there.
      *
      * <p>What breaks this: ModDataFixer no longer treating the mod block entities as their vanilla
      * look-alikes (26.3: the explorer map in the hopper and furnace is gone, the pot loses its
-     * sherds or vanishes), the hopper's ghost list or the backpack's Contents not being fixed, or
+     * sherds or vanishes), the backpack's Contents not being fixed, or
      * a reader of the mod block entities changing its keys.
      */
     public static void modBlockEntitiesSurviveTheUpgrade(GameTestHelper helper) {
@@ -426,14 +426,9 @@ public final class WorldUpgradeTests {
         CompoundTag hopperResaved = hopper.saveCustomOnly(helper.getLevel().registryAccess());
         helper.assertValueEqual(hopperResaved.getIntOr("FilterMode", -1), 1, "mod hopper FilterMode");
         helper.assertValueEqual(hopperResaved.getIntOr("TransferCooldown", -1), 3, "mod hopper TransferCooldown");
-        ListTag ghost = hopperResaved.getCompoundOrEmpty("GhostItems").getListOrEmpty("Items");
-        // Slot 0 was set as a filter by hand; with a filter mode on, setItem copied slots 1 and 2 in.
-        List<ItemStack> expectedGhosts = List.of(oracle.get(POT), oracle.get(POT), oracle.get(BUNDLE));
-        helper.assertValueEqual(ghost.size(), expectedGhosts.size(), "ghost filter entries of the mod hopper");
-        for (int i = 0; i < expectedGhosts.size(); i++) {
-            assertSameStack(helper, ItemStack.CODEC.parse(ops(helper), ghost.getCompoundOrEmpty(i)).result().orElse(ItemStack.EMPTY),
-                    expectedGhosts.get(i), "mod hopper ghost filter " + i);
-        }
+        // The old ghost list of the chunk is dropped since the filter principle (2026-10-09): the items in the
+        // slots are the filter now, checked above.
+        helper.assertTrue(!hopperResaved.contains("GhostItems"), "the mod hopper still saves a ghost filter list");
 
         BlockEntity furnace = load(helper, FURNACE_POS, ModBlocks.ENDERITE_BLAST_FURNACE.defaultBlockState(), blockEntities.get(2));
         assertSameStack(helper, ((Container) furnace).getItem(0), oracle.get(MAP), "blast furnace input");

@@ -4,15 +4,13 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.util.HopperFilterMode;
+import com.simplebuilding.util.ItemFilter;
 import com.simplebuilding.platform.PlatformServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -38,13 +36,19 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BooleanSupplier;
 
-public class ModHopperBlockEntity extends RandomizableContainerBlockEntity implements Hopper {
+/**
+ * The mod hoppers (reinforced, netherite, enderite). With a filter on, the owner's filter principle applies
+ * ({@link ItemFilter}, docs/ai/PRINZIPIEN-FILTER.md): the real item lying in a slot is that slot's filter - there are no
+ * ghost items any more (until 2026-10-09). Automation only tops up slots that hold a matching item, and one item always
+ * stays behind: this hopper pushes, and others pull, only the second and every further one.
+ */
+public class ModHopperBlockEntity extends RandomizableContainerBlockEntity implements Hopper, WorldlyContainer {
+
+    private static final int[] SLOTS = {0, 1, 2, 3, 4};
 
     private NonNullList<ItemStack> inventory;
-    // Ghost Items und Filter Modes
-    private final NonNullList<ItemStack> ghostItems = NonNullList.withSize(5, ItemStack.EMPTY);
 
-    // Globaler Filter Modus (Passend zu deinem einen Button in der GUI)
+    // Globaler Filter Modus (die eine Filter-Taste in der GUI)
     private HopperFilterMode currentFilterMode = HopperFilterMode.NONE;
 
     private int transferCooldown = -1;
@@ -85,56 +89,48 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
         };
     }
 
-    // --- Filter & Ghost Logic ---
+    // --- Filter (Prinzip: das echte Item im Slot ist der Filter) ---
 
+    /** Automation (hoppers, pipes, droppers): with a filter on only onto a slot that already holds a match. */
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
-        // Wenn Filter aus ist, alles erlauben
-        if (currentFilterMode == HopperFilterMode.NONE) {
-            return true;
-        }
+        return slot >= 0 && slot < 5 && ItemFilter.accepts(currentFilterMode, getItem(slot), stack);
+    }
 
-        // Slot-spezifische Prüfung
-        if (slot >= 0 && slot < 5) {
-            ItemStack ghost = ghostItems.get(slot);
+    /**
+     * A player in the menu: an empty slot takes anything (that sets its filter), a filled one only a match. Without a
+     * filter every slot takes anything.
+     */
+    public boolean mayPlayerPlace(int slot, ItemStack stack) {
+        ItemStack held = getItem(slot);
+        return currentFilterMode == HopperFilterMode.NONE || held.isEmpty() || ItemFilter.matches(currentFilterMode, held, stack);
+    }
 
-            // Wenn Ghost Item leer ist, darf in diesem Modus nichts rein
-            if (ghost.isEmpty()) {
-                return false;
-            }
+    /** Automation may only take what lies above the one filter item. */
+    @Override
+    public boolean canTakeItem(Container target, int slot, ItemStack stack) {
+        return ItemFilter.movable(currentFilterMode, getItem(slot)) > 0;
+    }
 
-            if (currentFilterMode == HopperFilterMode.WHITELIST) {
-                // Exakter Match
-                return ItemStack.isSameItemSameComponents(stack, ghost);
-            } else if (currentFilterMode == HopperFilterMode.TYPE) {
-                // Nur Item Typ
-                return stack.is(ghost.getItem());
-            }
-        }
+    @Override
+    public int[] getSlotsForFace(Direction side) {
+        return SLOTS;
+    }
 
-        return true;
+    @Override
+    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction side) {
+        return canPlaceItem(slot, stack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) {
+        return ItemFilter.movable(currentFilterMode, getItem(slot)) > 0;
     }
 
     // Wird vom Packet aufgerufen (Button Klick)
     public void toggleFilterMode() {
         this.currentFilterMode = this.currentFilterMode.next();
         updateListeners();
-    }
-
-    /** @return true, wenn der Slot im Bereich 0..4 lag und wirklich geschrieben wurde. */
-    private boolean setGhostItemInternal(int slot, ItemStack stack) {
-        if (slot < 0 || slot >= 5) {
-            return false;
-        }
-        if (stack.isEmpty()) {
-            ghostItems.set(slot, ItemStack.EMPTY);
-        } else {
-            ItemStack copy = stack.copy();
-            copy.setCount(1);
-            ghostItems.set(slot, copy);
-        }
-        setChanged();
-        return true;
     }
 
     // Diese Methode sorgt dafür, dass das GUI sofort aktualisiert wird
@@ -146,13 +142,6 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
     }
 
 
-
-    public ItemStack getGhostItem(int slot) {
-        if (slot >= 0 && slot < 5) {
-            return ghostItems.get(slot);
-        }
-        return ItemStack.EMPTY;
-    }
 
     public HopperFilterMode getFilterMode() {
         return this.currentFilterMode;
@@ -172,10 +161,8 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
             ContainerHelper.loadAllItems(view, this.inventory);
         }
 
-        // KORRIGIERT: Ghost Items lesen
-        view.child("GhostItems").ifPresent(ghostView -> {
-            ContainerHelper.loadAllItems(ghostView, this.ghostItems);
-        });
+        // "GhostItems" of saves before 2026-10-09 are ignored on purpose: the filter is the real item now, and none
+        // can be made up from a ghost. Such slots stay empty and filter nothing until a player puts an item in.
 
         // Filter Mode lesen. Der Ordinal kommt aus der Regionsdatei bzw. vom Server und kann
         // alles sein; ein unbekannter Modus fällt auf NONE zurück, statt beim Chunkladen die
@@ -193,15 +180,6 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
         super.saveAdditional(view);
         if (!this.trySaveLootTable(view)) {
             ContainerHelper.saveAllItems(view, this.inventory);
-        }
-
-        ValueOutput ghostView = view.child("GhostItems"); // Achtung: Hängt von deiner Implementation von WriteView ab
-        // Falls .get() null liefert, müsste man ggf. view.put(...) nutzen.
-        // Ich übernehme hier deine Logik, aber idealerweise nutzt man NBT für komplexe Strukturen.
-        // Da du unten toInitialChunkDataNbt hast, scheint das Speichern hier evtl. custom zu sein?
-        // Standard Vanilla wäre Inventories.writeNbt(nbt, items).
-        if(ghostView != null) {
-             ContainerHelper.saveAllItems(ghostView, this.ghostItems);
         }
 
         view.putInt("FilterMode", currentFilterMode.ordinal());
@@ -222,29 +200,6 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
         CompoundTag nbt = super.getUpdateTag(registryLookup);
 
         nbt.putInt("FilterMode", currentFilterMode.ordinal());
-
-        // Ghost Items serialisieren für Client
-        CompoundTag ghostRoot = new CompoundTag();
-        ListTag ghostList = new ListTag();
-        for (int i = 0; i < ghostItems.size(); i++) {
-            ItemStack stack = ghostItems.get(i);
-            if (!stack.isEmpty()) {
-                CompoundTag itemTag = new CompoundTag();
-                itemTag.putByte("Slot", (byte)i);
-                try {
-                    // Item encode via Codec für Client
-                    Tag stackTag = ItemStack.CODEC.encodeStart(NbtOps.INSTANCE, stack).getOrThrow();
-                    if (stackTag instanceof CompoundTag stackCompound) {
-                        itemTag.merge(stackCompound);
-                    }
-                    ghostList.add(itemTag);
-                } catch (Exception ignored) { }
-            }
-        }
-        // Inventories.readData sucht nach Key "Items"
-        ghostRoot.put("Items", ghostList);
-        nbt.put("GhostItems", ghostRoot);
-
         return nbt;
     }
 
@@ -287,22 +242,6 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
 
     @Override
     public double getLevelZ() { return (double)this.worldPosition.getZ() + 0.5D; }
-
-    @Override
-    public void setItem(int slot, ItemStack stack) {
-        super.setItem(slot, stack);
-        // Automatisches Setzen des Ghost Items beim Einlegen (Optional, wie du es wolltest)
-        if (!stack.isEmpty() && currentFilterMode != HopperFilterMode.NONE) {
-             // Nur setzen wenn leer? Oder immer überschreiben?
-             // Hier einfach mal checken ob slot leer ist:
-             if(ghostItems.get(slot).isEmpty()) {
-                ItemStack ghost = stack.copy();
-                ghost.setCount(1);
-                ghostItems.set(slot, ghost);
-                setChanged(); // Sync Nötig? Eigentlich nur Server-Side Logic
-             }
-        }
-    }
 
     public static void serverTick(Level world, BlockPos pos, BlockState state, ModHopperBlockEntity blockEntity) {
         --blockEntity.transferCooldown;
@@ -355,7 +294,8 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
 
         for (int i = 0; i < blockEntity.getContainerSize(); ++i) {
             ItemStack itemStack = blockEntity.getItem(i);
-            if (!itemStack.isEmpty()) {
+            // Filter on: the last item of a slot is its filter and stays.
+            if (ItemFilter.movable(blockEntity.currentFilterMode, itemStack) > 0) {
                 int count = itemStack.getCount();
                 ItemStack itemStack2 = HopperBlockEntity.addItem(blockEntity, inventory, blockEntity.removeItem(i, 1), direction);
                 if (itemStack2.isEmpty()) {
@@ -387,7 +327,7 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
         }
         for (int i = 0; i < blockEntity.getContainerSize(); ++i) {
             ItemStack itemStack = blockEntity.getItem(i);
-            if (itemStack.isEmpty()) {
+            if (ItemFilter.movable(blockEntity.currentFilterMode, itemStack) < 1) {
                 continue;
             }
             int moved = PlatformServices.itemAutomation().insert(server, target, facing.getOpposite(), itemStack.copyWithCount(1));
@@ -448,33 +388,4 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
 
     private void setTransferCooldown(int transferCooldown) { this.transferCooldown = transferCooldown; }
     private boolean needsCooldown() { return this.transferCooldown > 0; }
-
-    // Diese Methode wird vom Server aufgerufen
-    public void setGhostItem(int slot, ItemStack stack) {
-        // Der Slot-Index kommt ungeprüft aus einem Paket. Wurde nichts gespeichert, darf auch
-        // nichts an die zuschauenden Clients gehen - sonst macht ein manipulierter Client aus
-        // einem Paket eines pro Umstehendem.
-        if (!setGhostItemInternal(slot, stack)) {
-            return;
-        }
-
-        // WICHTIG: Sende Update an alle Spieler, die zuschauen (Tracking)
-        if (level != null && !level.isClientSide()) {
-            PlatformServices.broadcastHopperGhostItem(this, slot, stack);
-        }
-        setChanged();
-    }
-
-    // Neue Methode nur für den Client (um Endlosschleifen zu vermeiden)
-    public void setGhostItemClient(int slot, ItemStack stack) {
-        if (slot >= 0 && slot < 5) {
-            if (stack.isEmpty()) {
-                ghostItems.set(slot, ItemStack.EMPTY);
-            } else {
-                ItemStack copy = stack.copy();
-                copy.setCount(1);
-                ghostItems.set(slot, copy);
-            }
-        }
-    }
 }

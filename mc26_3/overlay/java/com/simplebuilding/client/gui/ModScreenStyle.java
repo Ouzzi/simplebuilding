@@ -10,11 +10,12 @@ import com.simplebuilding.screen.AutoSmitherMenu;
 import com.simplebuilding.screen.BackpackLayout;
 import com.simplebuilding.screen.BackpackMenu;
 import com.simplebuilding.screen.BackpackSlot;
+import com.simplebuilding.screen.ModHopperScreenHandler;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.screen.TieredChestMenu;
 import com.simplebuilding.util.DyedStorage;
-import com.simplebuilding.util.HopperFilterMode;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiFilterButton;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiSymbols;
@@ -28,7 +29,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 /**
@@ -110,11 +110,16 @@ public final class ModScreenStyle {
 
     // ------------------------------------------------------------------ hoppers
 
-    /** Filter key: 4 px right of the slots, 18x18, the same place and action as before. */
+    /** Filter key: SimpleLib's {@link UiFilterButton} in the hopper's tier colours, showing the synced mode. */
     public static Button hopperFilterButton(int x, int y, Button.OnPress onPress, NetheriteHopperScreenHandler menu) {
-        return new FilterButton(x, y, onPress, menu);
+        return new UiFilterButton(x, y, onPress, () -> menu.getSyncedFilterMode().ordinal(), () -> tier(hopperTier(menu)));
     }
 
+    /**
+     * Owner N23: the five slots, a gap one slot wider than before with the filter caption (funnel + colon) instead of
+     * the word "Filter", then the key - the whole row centred ({@link ModHopperScreenHandler#FIRST_SLOT_X}). With a
+     * filter on, the items in the slots are the filter (filter principle), so nothing but the slots is drawn for it.
+     */
     public static boolean hopper(GuiGraphicsExtractor g, NetheriteHopperScreenHandler menu, Font font, Component title, int left, int top,
             int imageWidth) {
         if (!UiStyleToggle.isEnabled()) return false;
@@ -124,58 +129,20 @@ public final class ModScreenStyle {
         Box container = ModScreenLayout.container(imageWidth, inv[1]);
         box(g, left, top, container, p);
         box(g, left, top, ModScreenLayout.inventory(inv[0], inv[1]), UiPalette.INVENTORY);
+        int keyX = left + ModHopperScreenHandler.FILTER_BUTTON_X, keyY = top + ModHopperScreenHandler.FILTER_BUTTON_Y;
+        int captionX = keyX - 3 - UiFilterButton.LABEL_WIDTH;
         List<int[]> avoid = slotRects(menu, left, top);
         avoid.add(titleRect(font, title, left, top));
-        avoid.add(new int[] {left + 138, top + 19, left + 157, top + 38});
+        avoid.add(new int[] {captionX - 2, keyY, keyX + UiFilterButton.SIZE + 1, keyY + UiFilterButton.SIZE + 1});
         motif(g, left, top, container, p, motif(tier), avoid, 7);
         slots(g, menu, left, top, p);
-        // Filter ghosts (only while a filter is on): the item faint behind a veil, like the crucible's reserved slots.
-        if (menu.getBlockEntity() instanceof ModHopperBlockEntity be && menu.getSyncedFilterMode() != HopperFilterMode.NONE) {
-            g.nextStratum();
-            for (int i = 0; i < 5; i++) {
-                Slot slot = menu.slots.get(i);
-                ItemStack ghost = be.getGhostItem(i);
-                if (!ghost.isEmpty() && slot.getItem().isEmpty()) g.fakeItem(ghost, left + slot.x, top + slot.y);
-            }
-            g.nextStratum();
-            for (int i = 0; i < 5; i++) {
-                Slot slot = menu.slots.get(i);
-                if (!be.getGhostItem(i).isEmpty() && slot.getItem().isEmpty()) UiBoxes.veil(g, left + slot.x, top + slot.y, p);
-            }
-        }
+        UiFilterButton.label(g, captionX, keyY + 3, p);
         return true;
     }
 
     public static boolean hopperLabels(GuiGraphicsExtractor g, Font font, NetheriteHopperScreenHandler menu, Component title, int x, int y) {
         g.text(font, title, x, y, tier(hopperTier(menu)).label(), false);
         return true;
-    }
-
-    /** The filter key: raised, an engraved funnel, the mode as a badge (off: red slash, exact: green check, kind: three squares). */
-    private static final class FilterButton extends Button {
-        private final NetheriteHopperScreenHandler menu;
-
-        FilterButton(int x, int y, Button.OnPress onPress, NetheriteHopperScreenHandler menu) {
-            super(x, y, 18, 18, Component.empty(), onPress, DEFAULT_NARRATION);
-            this.menu = menu;
-        }
-
-        @Override
-        protected void extractContents(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
-            UiPalette p = tier(hopperTier(this.menu));
-            int x = this.getX(), y = this.getY();
-            UiBoxes.raised(g, x, y, 18, 18, UiPalette.mix(p.fill(), 0xFFFFFFFF, this.isHoveredOrFocused() ? 0.32 : 0.18));
-            UiSymbols.engrave(g, UiSymbols.FUNNEL, x + 3, y + 3, p, p.slotTop(), false);
-            switch (this.menu.getSyncedFilterMode()) {
-                case NONE -> {
-                    for (int k = 0; k < 14; k++) g.fill(x + 2 + k, y + 15 - k, x + 4 + k, y + 16 - k, 0xFFD8402F);
-                }
-                case WHITELIST -> UiSymbols.engrave(g, UiSymbols.CHECK, x + 10, y + 11, p, 0xFF55FF55, false);
-                case TYPE -> {
-                    for (int k = 0; k < 3; k++) g.fill(x + 9 + k * 3, y + 13, x + 11 + k * 3, y + 15, 0xFFFFE055);
-                }
-            }
-        }
     }
 
     // ------------------------------------------------------------------ auto smither

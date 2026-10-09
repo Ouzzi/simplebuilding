@@ -24,7 +24,6 @@ public class ModMessages {
 
         // Client -> Server (C2S)
         PayloadTypeRegistry.serverboundPlay().register(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC);
-        PayloadTypeRegistry.serverboundPlay().register(SetHopperGhostItemPayload.ID, SetHopperGhostItemPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(SpaceKeyPayload.ID, SpaceKeyPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(DoubleJumpPayload.ID, DoubleJumpPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(TrimBenefitPayload.ID, TrimBenefitPayload.CODEC);
@@ -43,7 +42,6 @@ public class ModMessages {
         // Server -> Client (S2C)
         PayloadTypeRegistry.clientboundPlay().register(AmplifiedNotePayload.ID, AmplifiedNotePayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(com.simplebuilding.networking.CoreMotionPayload.ID, com.simplebuilding.networking.CoreMotionPayload.CODEC);
-        PayloadTypeRegistry.clientboundPlay().register(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(TrimDataPayload.ID, TrimDataPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(PistonConfigPayload.ID, PistonConfigPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(GuideStatePayload.ID, GuideStatePayload.CODEC);
@@ -59,7 +57,6 @@ public class ModMessages {
         // ModMessageHandlers said nothing about what a Fabric server actually ran. Now they do.
         receive(DoubleJumpPayload.ID, ModMessageHandlers::handleDoubleJump);
         receive(ToggleHopperFilterPayload.ID, ModMessageHandlers::handleToggleHopperFilter);
-        receive(SetHopperGhostItemPayload.ID, ModMessageHandlers::handleSetHopperGhostItem);
         receive(SpaceKeyPayload.ID, ModMessageHandlers::handleSpaceKey);
         receive(TrimBenefitPayload.ID, ModMessageHandlers::handleTrimBenefit);
         receive(ReinforcedBundleSelectionPayload.ID, ModMessageHandlers::handleReinforcedBundleSelection);

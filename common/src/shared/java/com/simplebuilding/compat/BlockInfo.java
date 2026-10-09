@@ -263,14 +263,15 @@ public final class BlockInfo {
         }
         List<Piece> items = new ArrayList<>();
         for (int slot = 0; slot < hopper.getContainerSize(); slot++) {
-            ItemStack ghost = hopper.getGhostItem(slot);
-            if (ghost.isEmpty()) {
+            // Filter principle: the real item in a slot is its filter.
+            ItemStack filter = hopper.getItem(slot);
+            if (filter.isEmpty()) {
                 continue;
             }
             if (!items.isEmpty()) {
                 items.add(new Piece(", ", false));
             }
-            items.add(new Piece(ghost.getItem().getDescriptionId(), true));
+            items.add(new Piece(filter.getItem().getDescriptionId(), true));
         }
         lines.add(items.isEmpty()
                 ? Line.of("jade.simplebuilding.hopper.nothing")

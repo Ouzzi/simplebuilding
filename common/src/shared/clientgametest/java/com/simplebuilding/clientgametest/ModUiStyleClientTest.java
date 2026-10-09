@@ -1,7 +1,6 @@
 package com.simplebuilding.clientgametest;
 
 import com.simplebuilding.blocks.custom.ChestTier;
-import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.client.gui.AutoSmitherScreen;
 import com.simplebuilding.client.gui.BackpackScreen;
 import com.simplebuilding.client.gui.FletchingScreen;
@@ -98,7 +97,7 @@ public final class ModUiStyleClientTest {
         });
     }
 
-    /** A placed hopper of that kind, its screen with filter {@code mode} (0 off, 1 exact, 2 kind) and two ghosts. */
+    /** A placed hopper of that kind, its screen with filter {@code mode} (0 off, 1 exact, 2 kind) and two filter items. */
     private static void hopper(Script script, String name, String id, int mode) {
         script.command("setblock " + HOPPER_POS.getX() + " " + HOPPER_POS.getY() + " " + HOPPER_POS.getZ() + " simplebuilding:" + id);
         script.awaitPackets();
@@ -107,11 +106,9 @@ public final class ModUiStyleClientTest {
             Inventory inv = c.player.getInventory();
             NetheriteHopperScreenHandler menu = new NetheriteHopperScreenHandler(0, inv, HOPPER_POS);
             menu.setData(0, mode);
-            if (menu.getBlockEntity() instanceof ModHopperBlockEntity be) {
-                be.setGhostItemClient(1, new ItemStack(Items.IRON_INGOT));
-                be.setGhostItemClient(2, new ItemStack(Items.GOLD_INGOT));
-            }
+            // Filter principle: the real items in the slots are the filter.
             menu.getSlot(0).set(new ItemStack(Items.IRON_INGOT, 12));
+            menu.getSlot(1).set(new ItemStack(Items.GOLD_INGOT));
             return new NetheriteHopperScreen(menu, inv, Component.translatable("block.simplebuilding." + id));
         });
     }

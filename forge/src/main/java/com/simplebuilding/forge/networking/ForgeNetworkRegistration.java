@@ -36,8 +36,6 @@ public final class ForgeNetworkRegistration {
                 .serverbound()
                     .add(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC,
                             (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleToggleHopperFilter(payload, player)))
-                    .add(SetHopperGhostItemPayload.ID, SetHopperGhostItemPayload.CODEC,
-                            (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleSetHopperGhostItem(payload, player)))
                     .add(SpaceKeyPayload.ID, SpaceKeyPayload.CODEC,
                             (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleSpaceKey(payload, player)))
                     .add(DoubleJumpPayload.ID, DoubleJumpPayload.CODEC,
@@ -69,12 +67,6 @@ public final class ForgeNetworkRegistration {
                             (payload, ctx) -> handled(ctx).enqueueWork(() -> com.simplebuilding.client.AmplifiedNoteSound.play(payload)))
                     .add(com.simplebuilding.networking.CoreMotionPayload.ID, com.simplebuilding.networking.CoreMotionPayload.CODEC,
                             (payload, ctx) -> handled(ctx).enqueueWork(() -> com.simplebuilding.client.CoreMotionClient.apply(payload)))
-                    .add(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC, (payload, ctx) -> handled(ctx).enqueueWork(() -> {
-                        Minecraft client = Minecraft.getInstance();
-                        if (client.level != null && client.level.getBlockEntity(payload.pos()) instanceof ModHopperBlockEntity blockEntity) {
-                            blockEntity.setGhostItemClient(payload.slot(), payload.stack());
-                        }
-                    }))
                     .add(com.simplebuilding.networking.PistonConfigPayload.ID, com.simplebuilding.networking.PistonConfigPayload.CODEC,
                             (payload, ctx) -> handled(ctx).enqueueWork(payload::apply))
                     .add(com.simplebuilding.networking.GuideStatePayload.ID, com.simplebuilding.networking.GuideStatePayload.CODEC,
@@ -112,14 +104,6 @@ public final class ForgeNetworkRegistration {
             @Override
             public void send(ServerPlayer player, CustomPacketPayload payload) {
                 channel.send(payload, PacketDistributor.PLAYER.with(player));
-            }
-        });
-        PlatformServices.setHopperSync((blockEntity, slot, stack) -> {
-            if (blockEntity.getLevel() instanceof ServerLevel serverLevel) {
-                channel.send(
-                        new SyncHopperGhostItemPayload(blockEntity.getBlockPos(), slot, stack),
-                        PacketDistributor.TRACKING_CHUNK.with(serverLevel.getChunkAt(blockEntity.getBlockPos()))
-                );
             }
         });
     }

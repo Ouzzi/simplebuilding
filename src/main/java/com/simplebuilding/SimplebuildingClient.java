@@ -287,17 +287,6 @@ public class SimplebuildingClient implements ClientModInitializer {
     }
 
     private void registerClientReceivers() {
-        // Sync Hopper Ghost Item
-        ClientPlayNetworking.registerGlobalReceiver(SyncHopperGhostItemPayload.ID, (payload, context) -> {
-            context.client().execute(() -> {
-                if (context.client().level != null) {
-                    if (context.client().level.getBlockEntity(payload.pos()) instanceof ModHopperBlockEntity blockEntity) {
-                        blockEntity.setGhostItemClient(payload.slot(), payload.stack());
-                    }
-                }
-            });
-        });
-
         // Kolben-Optionen des Servers (Audit N16), fuer den nachgespielten Kolben
         ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.networking.PistonConfigPayload.ID,
                 (payload, context) -> context.client().execute(payload::apply));
