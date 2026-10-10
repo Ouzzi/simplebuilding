@@ -401,7 +401,7 @@ public final class MusicDiscTests {
     /** Nur die Kettenglieder im eigenen Testraum (Musik-Verstärker funken auch in Nachbarraeume anderer Tests). */
     private static List<BlockPos> own(GameTestHelper helper, List<BlockPos> chain) {
         BlockPos a = helper.absolutePos(BlockPos.ZERO);
-        BlockPos b = helper.absolutePos(new BlockPos(7, 0, 7));
+        BlockPos b = helper.absolutePos(new BlockPos(9, 0, 9));
         int minX = Math.min(a.getX(), b.getX()), maxX = Math.max(a.getX(), b.getX());
         int minZ = Math.min(a.getZ(), b.getZ()), maxZ = Math.max(a.getZ(), b.getZ());
         return chain.stream().filter(pos -> pos.getX() >= minX && pos.getX() <= maxX && pos.getZ() >= minZ && pos.getZ() <= maxZ).toList();
