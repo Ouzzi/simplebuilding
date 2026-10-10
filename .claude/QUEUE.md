@@ -515,7 +515,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] (claude-q-astralit: Animation entfernt, statische Glimmerpunkte Icon + Handmodell) **Enderit-Speer:** statt des Eimer-Glanzes die hellen Glimmerpunkte auf der Enderit-Textur wie Schwert und die übrigen Enderit-Werkzeuge.
 - [x] **Puppen/Ständer:** (claude-q-stands; Inventar docs/ai/PLAN-PUPPE-INTERAKTIONEN.md + PLAN-STAENDER-2026-10-09.md, Dreizack/Windladung/Streitkolben/Namensschild ergänzt) mehrere Interaktionen Spieler ↔ Trainingspuppe/Ständer sind unsauber oder funktionieren nicht (z. B. Speer) – inventarisieren, reproduzieren (GameTests), beheben.
 - [x] (claude-q-texrest: Weisheitskugel, eigene Handbewegung ORB statt Bogen-Haltung; Client-Sicht offen) **XP-Orbs:** bei Nutzung ähnliche Animation wie die Kerne (gleiches Prinzip, eigene Bewegung).
-- [ ] **Prinzip Entdeckbarkeit:** Jedes herstellbare oder umwandelbare Item soll in erster Linie intuitiv sein und zusätzlich im Spiel gehintet werden (z. B. Tiegel in Dörfern mit erloschenem Lagerfeuer zeigt die Nutzung). Crafting/Umwandlungen bisher nirgends gehintet → Konzept erarbeiten (Ideen: Bücher in Struktur-Truhen, Bilderrahmen/Gemälde mit Rezept, Dorfbewohner-Werkstätten als Vorführung, Fortschritts-Hinweise, Guide-Seiten). Erst Konzept vorlegen.
+- [ ] **Prinzip Entdeckbarkeit:** Jedes herstellbare oder umwandelbare Item soll in erster Linie intuitiv sein und zusätzlich im Spiel gehintet werden (z. B. Tiegel in Dörfern mit erloschenem Lagerfeuer zeigt die Nutzung). Crafting/Umwandlungen bisher nirgends gehintet → Konzept erarbeiten (Ideen: Bücher in Struktur-Truhen, Bilderrahmen/Gemälde mit Rezept, Dorfbewohner-Werkstätten als Vorführung, Fortschritts-Hinweise, Guide-Seiten). Erst Konzept vorlegen. (Konzept: docs/ai/PRINZIPIEN-ENTDECKBARKEIT.md)
 
 ## Nachtrag 22 (2026-10-07, Besitzer)
 - [x] **Kreativ-Tabs wieder normal, aber sauber:** Kreativ-Abstandshalter (Spacer/Lücken) entfernen; die Spacer-Logik im Code behalten (abschaltbar, z. B. Konstante/Config), falls sie später wieder gebraucht wird. Ersetzt N11 P8 (eine Lücke zwischen Kategorien). Datenintegritätstests der Tabs entsprechend. (Audit 09.10.: ff143698a (CreativeTabLayout.SPACERS_ENABLED))
@@ -524,7 +524,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] (claude-q-blocks: framework CreativeTabSettings je Mod, Fun/Money/Riding + SimpleBuilding-Option; Handbuch-only-Module ohne eigenen Tab ungeschaltet) **Kreativ-Tab-Struktur:** jede Super-Mod hat einen eigenen Tab; die einzelnen Items werden zusätzlich in die passenden Vanilla-Tabs einsortiert. Config (simplelib-Gerüst, je Mod): „in Vanilla-Tabs einsortieren“ an/aus – aus = Vanilla-Tabs bleiben unverändert (Stock).
 
 ## Nachtrag 23 (2026-10-07 nachts, Besitzer)
-- [ ] **Mob „Shellker“** (End, Gateway-Wächter; Konzept in docs/ai/KONZEPT-MOBS-2026-10-07.md ergänzen, dann Vorschau): Shulker-Variante mit harter Schale; 1×1×1, öffnet zum Schießen alle Seiten, wird dabei NICHT größer (schießt aus 1×1-Loch). Geschlossen kein Schaden (wie Gürteltier), offen normal. Leben 4× Shulker. Teleportiert nie; nur per (Klebe-)Kolben verschiebbar. Je End-Gateway genau 4 Stück rund um die Öffnung (Zugang erst nach Besiegen/Wegschieben). Projektile wie Shulker, 1,5× schneller, Effekt **Schwerkraft (High Gravity)** statt Schweben: alle Aufwärtskräfte (Sprung, Levitation, Elytra-Auftrieb) auf 10 %, Elytra gleitet 10× schlechter. Schwerkraft auch als Trank: Brauzutat **Shellker-Schale**. Vermehrung wie Shulker (Shulker trifft Shulker-Kugel). Erschaffen: Shulker Schale „anziehen“ (Rechtsklick) → wird Shellker. Drop Ø 2,5 Schalen; Farmen nur über Umwandlung von Shulkern.
+- [ ] **Mob „Shellker“** (End, Gateway-Wächter; Konzept in docs/ai/KONZEPT-MOBS-2026-10-07.md ergänzen, dann Vorschau): Shulker-Variante mit harter Schale; 1×1×1, öffnet zum Schießen alle Seiten, wird dabei NICHT größer (schießt aus 1×1-Loch). Geschlossen kein Schaden (wie Gürteltier), offen normal. Leben 4× Shulker. Teleportiert nie; nur per (Klebe-)Kolben verschiebbar. Je End-Gateway genau 4 Stück rund um die Öffnung (Zugang erst nach Besiegen/Wegschieben). Projektile wie Shulker, 1,5× schneller, Effekt **Schwerkraft (High Gravity)** statt Schweben: alle Aufwärtskräfte (Sprung, Levitation, Elytra-Auftrieb) auf 10 %, Elytra gleitet 10× schlechter. Schwerkraft auch als Trank: Brauzutat **Shellker-Schale**. Vermehrung wie Shulker (Shulker trifft Shulker-Kugel). Erschaffen: Shulker Schale „anziehen“ (Rechtsklick) → wird Shellker. Drop Ø 2,5 Schalen; Farmen nur über Umwandlung von Shulkern. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md)
 - [x] (claude-q-endstruct: Datapack-Jigsaw, tools/structures/generate_end_structures.py) **End-Struktur Brunnen:** wie der Ausgangsportal-Brunnen (Drachenei-Sockel) der Hauptinsel aus Endsteinziegeln/Endstein; 1 intakte Grundvariante + 2 kaputte Varianten.
 - [x] (claude-q-endstruct: Datapack-Jigsaw, tools/structures/generate_end_structures.py) **End-Struktur Fake-Gateway:** aus Endsteinziegeln, gleiche Generierungsregeln/Form wie echtes Gateway, aber verstreut, natürlich wirkend; ohne Funktion.
 - [x] (claude-q-endstruct: Datapack-Jigsaw, tools/structures/generate_end_structures.py) **End-Schiffswracks:** selten, Varianten analog Vanilla-Shipwrecks (Bug/Heck/kaputt/gekippt); 1–2 Kisten mit ca. 30 % des End-Schiff-Loots; 50 % Rahmen, davon 10 % (absolut) mit kaputter Elytra im Rahmen; sonst ohne Rahmen.
@@ -550,7 +550,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Sculk-Kiefer (Falle): lautlos, verhält sich wie Spinnennetz, greift mit Fangzähnen an. (claude-q-traps: Bau-Rezept Knochen+Echo-Splitter+Sculk, kein Beute-Eintrag)
 - [x] Froschlichter in zusätzlichen Farben. (claude-q-blocks: Scharlach/Aqua/Azur, Froschlicht + Farbstoff)
 - [x] Ziegenhorn platzierbar; Fackeln oder stabartige Items hineinstecken. (claude-q-place: Boden/Wand, Fackeln + Stäbe, Licht)
-- [ ] Schildkröten-Helm-Äquivalent aus Shellker-Schale.
+- [ ] Schildkröten-Helm-Äquivalent aus Shellker-Schale. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md)
 - [x] Trainingspuppe mit Spielernamen umbenennen → Skin wechselt. (claude-q-stands; Client-Sicht mit echtem Profil offen)
 - [x] Glitzernde Melone essbar; Melone auch als 0,125er-Block (platzierte Melonenscheibe = 0,125er-Block).
 - [x] Farbpinsel? (Idee, offen). (Audit 09.10.: claude-brush3 fa6aa3cf6 (Goldpinsel, Farbkasten 4 Stufen); Textur N28/N29 offen)
@@ -564,7 +564,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Schwefelwürfel (Sulfur Cubes) befüllbar mit allen Ofen-Varianten, Tischen usw. (Easter Egg); dann schwer wie Eisen (schwer zu verschieben). (claude-q-traps: Mob existiert in 26.3; Tag sulfur_cube_archetype/high_resistance = Seelensand-Archetyp)
 - [x] Übelkeits-Trank. (claude-q-brew)
 - [x] Holz auch als 0,125er-Blöcke (falls noch nicht). (claude-q-hammer)
-- [ ] Mob „Seelenfeuer-Lohe“ (Soulfire Blaze).
+- [ ] Mob „Seelenfeuer-Lohe“ (Soulfire Blaze). (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md)
 - [x] Hammer: Normal-Rechtsklick-Halten (Block → Treppe → Stufe) deaktivieren; nur Schleich-Rechtsklick-Halten transformiert (Teile werden abgebaut). Erreicht die Form eine nicht unterstützte Gestalt (z. B. oben und unten je ein Achtel entfernt), wird sie in 0,125er-Blöcke zerlegt. Hammer wackelt (Hinweis „transformierbar“) nur, wenn transformiert werden kann – also nur beim Schleichen. (claude-q-hammer)
 - [x] Trims bis zu 4 platzierbar; alle anderen so platzierbaren Items ebenfalls bis 4 Stück („Plex“). (claude-q-place: Vorlagen ins Häufchen; Funktions-Items bleiben einzeln)
 - Konzept Farbpinsel/Respawn: docs/ai/KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md. Farbpinsel in Arbeit (v3: Goldpinsel, Farbkasten mit Stufen).
@@ -592,7 +592,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 26 (2026-10-09, Besitzer)
 - [x] (claude-q-hopper) **Autonomer Crafter** (abgewandelter Vanilla-Crafter): craftet automatisch das vorgegebene Rezept, solange ein Trichter darunter liegt; ohne Trichter darunter oder bei Redstone-Signal craftet er nicht. UI: 3x3-Grid, gleiche abschaltbaren Slots wie der Crafter, Filter-Knopf wie beim Mod-Trichter (Modi: exakt / gleiche Art; dieselben Knopf-Texturen). Takt wie Crafter, ca. 4 Ticks Abklingzeit.
 - [x] (claude-q-hopper) **Filter-Prinzip umsetzen** bei Mod-Trichtern und autonomem Crafter: im Filtermodus bleibt immer ein echtes Item fest im Slot (statt Schatten-Item); erst ab dem 2. wird verarbeitet/transportiert. Inklusive Filter-Knopf. (Prinzip: docs/ai/PRINZIPIEN-FILTER.md.)
-- [ ] **Konzept stärkerer Wither**: droppt ein Item, das später für ein Biom-Werkzeug dient („Biom-Pinsel“: Pinsel in der Haupthand, biomspezifisches Material in der Nebenhand; Haltbarkeit, verzauberbar). Erst Konzept vorlegen.
+- [ ] **Konzept stärkerer Wither**: droppt ein Item, das später für ein Biom-Werkzeug dient („Biom-Pinsel“: Pinsel in der Haupthand, biomspezifisches Material in der Nebenhand; Haltbarkeit, verzauberbar). Erst Konzept vorlegen. (Konzept: docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md)
 - [x] (claude-q-brew) **Werkbank mit Lager** (verbesserte Werkbank): wie Werkbank, aber Items bleiben beim Schließen im 3x3-Feld liegen und werden auf dem Block angezeigt.
 
 ## Weitere Besitzer-Entscheidungen 09.10. (noch in Queue/Roadmap übernehmen)
@@ -674,12 +674,14 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Simple Maps als Sub-Mod in SimpleBuilding bündeln (Schalter „Simple Maps aktivieren“).
 - [ ] Simple Maps Feature 3: Struktur-Markierungen (nur entdeckte Strukturen), im Karten-GUI über die linken Lesezeichen abschaltbar.
 - [ ] Simple Trims als Sub-Mod starten (Plan N18).
-- [ ] Shellker: Konzept + Vorschau; Schale ergibt eine NEUE Helm-Variante (kein Ersatz des Schildkrötenhelms).
-- [ ] Seelenfeuer-Lohe: Konzept + Vorschau.
+- [ ] Shellker: Konzept + Vorschau; Schale ergibt eine NEUE Helm-Variante (kein Ersatz des Schildkrötenhelms). (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md)
+- [ ] Seelenfeuer-Lohe: Konzept + Vorschau. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md)
 - [ ] Deceiver umsetzen (Konzept freigegeben).
 - [ ] Furcht-Mob und niedlicher End-Mob: später.
-- [ ] Stärkerer Wither + Biom-Pinsel: Konzept.
+- [ ] Stärkerer Wither + Biom-Pinsel: Konzept. (Konzept: docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md)
 - [ ] Simple Respawn: noch nicht.
 - [ ] Prinzip Entdeckbarkeit: Konzept.
-- [ ] KI-Queue: Lauf per Button in der Zentrale freigeben → automatisch an Claude geben (Besitzer 10.10.).
+- [ ] KI-Queue: Lauf per Button in der Zentrale freigeben → automatisch an Claude geben (Besitzer 10.10.).,
+- [ ] Prinzip Entdeckbarkeit: Konzept. (Konzept: docs/ai/PRINZIPIEN-ENTDECKBARKEIT.md)
+- [x] KI-Queue: keine automatische Weitergabe an Claude (Abarbeitung auf Zuruf).
 - [ ] Port 26.2/1.21.11/26.4 erst nach Besitzer-Abnahme im Spiel.
