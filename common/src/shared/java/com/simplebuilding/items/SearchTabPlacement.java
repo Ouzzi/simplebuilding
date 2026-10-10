@@ -41,7 +41,7 @@ public final class SearchTabPlacement {
     public static final ResourceKey<CreativeModeTab> BUILDING_BLOCKS = vanilla("building_blocks");
     public static final ResourceKey<CreativeModeTab> NATURAL_BLOCKS = vanilla("natural_blocks");
     public static final ResourceKey<CreativeModeTab> FUNCTIONAL_BLOCKS = vanilla("functional_blocks");
-    private static final ResourceKey<CreativeModeTab> COLORED_BLOCKS = vanilla("colored_blocks");
+    public static final ResourceKey<CreativeModeTab> COLORED_BLOCKS = vanilla("colored_blocks");
     public static final ResourceKey<CreativeModeTab> REDSTONE_BLOCKS = vanilla("redstone_blocks");
     public static final ResourceKey<CreativeModeTab> TOOLS_AND_UTILITIES = vanilla("tools_and_utilities");
     public static final ResourceKey<CreativeModeTab> COMBAT = vanilla("combat");
@@ -49,7 +49,7 @@ public final class SearchTabPlacement {
     public static final ResourceKey<CreativeModeTab> INGREDIENTS = vanilla("ingredients");
     /** Die Vanilla-Tabs, in die {@link #placements()} einfuegt. */
     public static final List<ResourceKey<CreativeModeTab>> TABS = List.of(BUILDING_BLOCKS, NATURAL_BLOCKS,
-            FUNCTIONAL_BLOCKS, REDSTONE_BLOCKS, TOOLS_AND_UTILITIES, COMBAT, FOOD_AND_DRINKS, INGREDIENTS);
+            FUNCTIONAL_BLOCKS, COLORED_BLOCKS, REDSTONE_BLOCKS, TOOLS_AND_UTILITIES, COMBAT, FOOD_AND_DRINKS, INGREDIENTS);
 
     private SearchTabPlacement() {
     }
