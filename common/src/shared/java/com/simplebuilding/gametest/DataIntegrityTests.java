@@ -2925,6 +2925,9 @@ public final class DataIntegrityTests {
                         ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
                 CreativeTabLayout.Row.of("backpacks",
                         ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
+                // Farbkaesten aller Stufen (N30) bei Buendeln und Rucksaecken.
+                CreativeTabLayout.Row.of("paint_boxes",
+                        ModItems.PAINT_BOX, ModItems.REINFORCED_PAINT_BOX, ModItems.NETHERITE_PAINT_BOX, ModItems.ENDERITE_PAINT_BOX),
                 // Truhen: Vanilla-Truhe, Kupfertruhe (die erste Aufwertungsstufe), dann die Mod-Stufen.
                 CreativeTabLayout.Row.of("chests",
                         Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
@@ -3555,9 +3558,9 @@ public final class DataIntegrityTests {
                 CreativeTabLayout.Row.of("chisels",
                         ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
                         ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL),
-                // Farbpinsel und Farbkaesten (2026-10-09) in einer eigenen Zeile nach den Meisseln.
-                CreativeTabLayout.Row.of("color_brush", ModItems.COLOR_BRUSH, ModItems.PAINT_BOX,
-                        ModItems.REINFORCED_PAINT_BOX, ModItems.NETHERITE_PAINT_BOX, ModItems.ENDERITE_PAINT_BOX),
+                // Farbpinsel (2026-10-09) in einer eigenen Zeile nach den Meisseln; die Farbkaesten
+                // stehen seit N30 bei Buendeln und Rucksaecken.
+                CreativeTabLayout.Row.of("color_brush", ModItems.COLOR_BRUSH),
                 // Baustaebe, Luecke, Bauplanung (Blaupause, Kartografentisch) - die Bauplanung laeuft
                 // nach einer Luecke in der Zeile der Baustaebe weiter (Row#besides).
                 CreativeTabLayout.Row.of("building_wands",
