@@ -16,7 +16,8 @@
     "simplelib",
     "simplecontainers",
     "simplemaps",
-    "simpletrims"
+    "simpletrims",
+    "simplemobs"
   ],
   "devMods": [
     "jei",

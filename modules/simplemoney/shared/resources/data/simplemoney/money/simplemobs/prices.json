@@ -1,0 +1,9 @@
+{
+  "derivation": "Deceiver drops and the spawn egg are not sold by merchants (endgame mob loot, creative-only egg).",
+  "excluded": {
+    "simplemobs:deceiver_cloth": "Endgame mob drop only; not for sale.",
+    "simplemobs:deceiver_spawn_egg": "Creative-only spawn egg."
+  },
+  "module": "simplemobs",
+  "prices": []
+}
