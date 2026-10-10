@@ -454,7 +454,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - Kreaturen stummschalten bzw. mit Löwenzahn jung halten → Logik in simplelib, Integration aktiv, wenn simplequalityoflife oder „simple mobs“ installiert ist.
 - Tresor-Cooldown → eigene Sub-Mod „simple loot“/„simple looting“ (Name final wählen).
 - Schärfe/Schwert schneidet Gras → Sub-Mod „simple combat“ (passt nicht zu Farming).
-- [ ] **Übersichtsdokument** im Repo: alle Mods und Sub-Mods mit detaillierten Features (z. B. docs/MODS-UND-FEATURES.md); muss bei jeder Feature-Änderung aktualisiert werden (Regel in den Projektregeln verankern, ideal mit Prüf-Gate gegen modules.json). Grundlage für die Entscheidung, wohin Features gehören. (teilweise: docs/MODS-UND-FEATURES.md + Regel in AGENTS.md (claude-q-audit); Prüf-Gate gegen modules.json fehlt)
+- [x] **Übersichtsdokument** im Repo: alle Mods und Sub-Mods mit detaillierten Features (z. B. docs/MODS-UND-FEATURES.md); muss bei jeder Feature-Änderung aktualisiert werden (Regel in den Projektregeln verankern, ideal mit Prüf-Gate gegen modules.json). Grundlage für die Entscheidung, wohin Features gehören. (teilweise: docs/MODS-UND-FEATURES.md + Regel in AGENTS.md (claude-q-audit); Prüf-Gate gegen modules.json fehlt) (claude-q-audit (docs/MODS-UND-FEATURES.md))
 
 ## Nachtrag 15 (2026-10-07, Besitzer)
 - [x] **Bug: Alle Mod-Eimer verschwinden nach dem Benutzen** (Ausgießen/Schöpfen soll leeren bzw. gefüllten Eimer zurückgeben; Keramik nur Abnutzungsstufe). Höchste Priorität. (Audit 09.10.: 6f552f7fc + NeoForge e436faeee, Tests 1cf77e030)
@@ -486,12 +486,12 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 18 (2026-10-07, Besitzer) – Plan: docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md
 - [ ] Simple Trims als Sub-Mod von SB (Vorlagen, platzierbar, Axt ohne SB / Hammer mit SB) – Frage F1
-- [ ] Simple Maps als Sub-Mod von SB: Wegfinder-Karte (unendlich, Spieler mittig, erweitern/kopieren/kombinieren, GUI mit Lesezeichen, Wegpunkte 1–8, Kontextmenü, Snap/Raster, Locator-Bar) – Fragebogen F2–F10, Feature-Vorschläge 1–8
+- [x] Simple Maps als Sub-Mod von SB: Wegfinder-Karte (unendlich, Spieler mittig, erweitern/kopieren/kombinieren, GUI mit Lesezeichen, Wegpunkte 1–8, Kontextmenü, Snap/Raster, Locator-Bar) – Fragebogen F2–F10, Feature-Vorschläge 1–8 (claude-q-maps (Modul simplemaps; Sub-Mod-Bündelung offen))
 - [x] (schon erledigt durch claude-q-blocks/CreativeTabSettings, in wave1) Config je Super-/Sub-Mod: Items in Kreativ-Tabs an/aus (simplelib) (teilweise: SB-Schalter addItemsToVanillaTabs ff143698a; simplelib-Gerüst je Mod fehlt)
 - [x] Guides: farbigen Strich an freigeschalteten Lesezeichen entfernen (Audit 09.10.: 33b051693)
 - [x] Dev-Kreativtabs immer ans Ende der Reihenfolge (Audit 09.10.: ff143698a (Test: Dev-Tab zuletzt)),
 - [x] (claude-q-maps; offen: SB-Bündelung als Super-Mod, Feature 3, Forge-Testziel, Besitzer-Abnahme) Simple Maps als Sub-Mod von SB: Wegfinder-Karte (unendlich, Spieler mittig, erweitern/kopieren/kombinieren, GUI mit Lesezeichen, Wegpunkte 1–8, Kontextmenü, Snap/Raster, Locator-Bar) – Fragebogen F2–F10, Feature-Vorschläge 1–8
-- [ ] Config je Super-/Sub-Mod: Items in Kreativ-Tabs an/aus (simplelib)
+- [x] Config je Super-/Sub-Mod: Items in Kreativ-Tabs an/aus (simplelib) (claude-q-blocks/small)
 - [x] (schon erledigt 2026-10-08, GuideContent.bookmarkStripe; Test GuideBookTests) Guides: farbigen Strich an freigeschalteten Lesezeichen entfernen
 - [x] (schon erledigt ff143698a, Test in DataIntegrityTests) Dev-Kreativtabs immer ans Ende der Reihenfolge
 - [x] Sandwiches appetitlicher (Vorschau-Varianten) (claude-q-texrest: A/B/C, A eingebaut; Besitzer-Abnahme offen)
@@ -503,10 +503,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **0,125er-Block (Achtel) für jeden Block, der Stufen und Treppen hat** (Vanilla + Mod), ohne Schachfiguren. Generator-basiert (Datagen), Stapelgröße 128 (siehe N18), Kreativtab-Einordnung neben Stufe/Treppe.
 
 ## Nachtrag 20 (2026-10-07, Besitzer) – Konzept: docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md
-- [ ] Simple Maps: Rezept A + seltene Fundorte (auch Nether-/End-Karte) – in PLAN-N18 festgehalten
+- [x] Simple Maps: Rezept A + seltene Fundorte (auch Nether-/End-Karte) – in PLAN-N18 festgehalten (claude-q-maps)
 - [x] (claude-q-brew) Neue Effekte (zuerst als Tränke): Zittern I/II, Trugbild, Umgekehrtes Trugbild, Verblasst (Graustufen inkl. Inventare, ohne Esc-Menü),
 - [x] (claude-q-maps) Simple Maps: Rezept A + seltene Fundorte (auch Nether-/End-Karte) – in PLAN-N18 festgehalten
-- [ ] Neue Effekte (zuerst als Tränke): Zittern I/II, Trugbild, Umgekehrtes Trugbild, Verblasst (Graustufen inkl. Inventare, ohne Esc-Menü)
+- [x] Neue Effekte (zuerst als Tränke): Zittern I/II, Trugbild, Umgekehrtes Trugbild, Verblasst (Graustufen inkl. Inventare, ohne Esc-Menü) (claude-q-brew)
 - [ ] Mob Deceiver: Endgame-Gegner, Name, Tarnumhang, Spawns, Eskalation, Top-Animationen (Kupfergolem-Vorbild) – Konzept freigegeben, Umsetzung offen
 - [ ] Später: Furcht-Mob (extrem stark, verursacht Zittern) – Konzept folgt
 
@@ -519,7 +519,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 22 (2026-10-07, Besitzer)
 - [x] **Kreativ-Tabs wieder normal, aber sauber:** Kreativ-Abstandshalter (Spacer/Lücken) entfernen; die Spacer-Logik im Code behalten (abschaltbar, z. B. Konstante/Config), falls sie später wieder gebraucht wird. Ersetzt N11 P8 (eine Lücke zwischen Kategorien). Datenintegritätstests der Tabs entsprechend. (Audit 09.10.: ff143698a (CreativeTabLayout.SPACERS_ENABLED))
-- [ ] **Kreativ-Tab-Struktur:** jede Super-Mod hat einen eigenen Tab; die einzelnen Items werden zusätzlich in die passenden Vanilla-Tabs einsortiert. Config (simplelib-Gerüst, je Mod): „in Vanilla-Tabs einsortieren“ an/aus – aus = Vanilla-Tabs bleiben unverändert (Stock). (teilweise: Schalter „in Vanilla-Tabs einsortieren“ nur in SB (ff143698a); eigener Tab je Super-Mod und simplelib-Gerüst fehlen)
+- [x] **Kreativ-Tab-Struktur:** jede Super-Mod hat einen eigenen Tab; die einzelnen Items werden zusätzlich in die passenden Vanilla-Tabs einsortiert. Config (simplelib-Gerüst, je Mod): „in Vanilla-Tabs einsortieren“ an/aus – aus = Vanilla-Tabs bleiben unverändert (Stock). (teilweise: Schalter „in Vanilla-Tabs einsortieren“ nur in SB (ff143698a); eigener Tab je Super-Mod und simplelib-Gerüst fehlen) (claude-q-blocks)
 - [x] (claude-q-blocks: Config creativeTabSpacers, Standard aus) **Kreativ-Tabs wieder normal, aber sauber:** Kreativ-Abstandshalter (Spacer/Lücken) entfernen; die Spacer-Logik im Code behalten (abschaltbar, z. B. Konstante/Config), falls sie später wieder gebraucht wird. Ersetzt N11 P8 (eine Lücke zwischen Kategorien). Datenintegritätstests der Tabs entsprechend.
 - [x] (claude-q-blocks: framework CreativeTabSettings je Mod, Fun/Money/Riding + SimpleBuilding-Option; Handbuch-only-Module ohne eigenen Tab ungeschaltet) **Kreativ-Tab-Struktur:** jede Super-Mod hat einen eigenen Tab; die einzelnen Items werden zusätzlich in die passenden Vanilla-Tabs einsortiert. Config (simplelib-Gerüst, je Mod): „in Vanilla-Tabs einsortieren“ an/aus – aus = Vanilla-Tabs bleiben unverändert (Stock).
 
@@ -562,7 +562,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Simple Respawn (neues Modul?): beim Tod niedergeschlagen, Mitspieler kann wiederbeleben; danach 3 Herzen und 0 Hunger.
 - [x] Barren als 3D-Modell platzierbar. (claude-q-place: 5 Barren 3D, nur Barren = Stapel bis 4)
 - [ ] Schwefelwürfel (Sulfur Cubes) befüllbar mit allen Ofen-Varianten, Tischen usw. (Easter Egg); dann schwer wie Eisen (schwer zu verschieben).
-- [ ] Übelkeits-Trank.
+- [x] Übelkeits-Trank. (claude-q-brew)
 - [x] Holz auch als 0,125er-Blöcke (falls noch nicht). (claude-q-hammer)
 - [ ] Mob „Seelenfeuer-Lohe“ (Soulfire Blaze).
 - [x] Hammer: Normal-Rechtsklick-Halten (Block → Treppe → Stufe) deaktivieren; nur Schleich-Rechtsklick-Halten transformiert (Teile werden abgebaut). Erreicht die Form eine nicht unterstützte Gestalt (z. B. oben und unten je ein Achtel entfernt), wird sie in 0,125er-Blöcke zerlegt. Hammer wackelt (Hinweis „transformierbar“) nur, wenn transformiert werden kann – also nur beim Schleichen. (claude-q-hammer)
@@ -572,18 +572,18 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 **Besitzer-Antworten 09.10. (auf Respawn-Fragen bezogen):** 1 ja (Einzelspieler = normaler Tod), 2 Timer: Besitzer hat eigenes älteres Revive-Konzept, sucht Daten raus → Respawn-Modul WARTET darauf, 3 ja (Mobs ignorieren Niedergeschlagene), 4 nein (keine Item-Wiederbelebung vorerst). Farbpinsel-Fragen unbeantwortet → Besitzer: KEINE Holz-Beize, Kreativ unbegrenzt, Pinselstrich-Partikel/Klang ja.
 
 ## Nachtrag 25 (2026-10-09, Besitzer)
-- [ ] **Crates/Körbe** (Art Komposter/Kessel): Items hineinlegen → eigene Füll-Texturen sichtbar; voll = Aufbewahrung, insgesamt 8 Stacks einlagerbar. Start mit allen Essens-Items.
-- [ ] **Ausgehöhlte Stämme** (auch entrindete Variante): Spieler und kleine Mobs können hindurchkriechen. Craftbar zu Platten/Brettern („sheets/plates“) je Holzart in Normal- und entrindeter Variante; diese verhalten sich wie Eisengitter/Glas(scheibe) und lassen Licht durch. Ausgehöhlter Stamm + Holzplatte → Holz-Kessel: wie normaler Kessel, aber brennbar; Lava kann ihn entzünden (verbrennt → Lava wird frei).
+- [x] **Crates/Körbe** (Art Komposter/Kessel): Items hineinlegen → eigene Füll-Texturen sichtbar; voll = Aufbewahrung, insgesamt 8 Stacks einlagerbar. Start mit allen Essens-Items. (claude-q-wood/crates2)
+- [x] **Ausgehöhlte Stämme** (auch entrindete Variante): Spieler und kleine Mobs können hindurchkriechen. Craftbar zu Platten/Brettern („sheets/plates“) je Holzart in Normal- und entrindeter Variante; diese verhalten sich wie Eisengitter/Glas(scheibe) und lassen Licht durch. Ausgehöhlter Stamm + Holzplatte → Holz-Kessel: wie normaler Kessel, aber brennbar; Lava kann ihn entzünden (verbrennt → Lava wird frei). (claude-q-wood)
 - [x] (claude-q-blocks) **Gemeißeltes Packeis, gemeißeltes Blaueis, rissiges Eis** (rissiges Eis wird nach ein paar Sekunden Draufstehen zu Wasser).
-- [ ] **Töpferscherben-Meißel:** Scherbe in der Nebenhand + Meißel in der Haupthand auf entrindeten Stamm → gemeißeltes Holz mit dem Motiv der Scherbe (jede Scherbe eigenes Motiv, Overlay in dunklerer Holzfarbe).
+- [x] **Töpferscherben-Meißel:** Scherbe in der Nebenhand + Meißel in der Haupthand auf entrindeten Stamm → gemeißeltes Holz mit dem Motiv der Scherbe (jede Scherbe eigenes Motiv, Overlay in dunklerer Holzfarbe). (claude-q-wood)
 - [x] (claude-q-blocks: 4 Schalen 2x2, umkehrbar) **Nautilusschalen-Block.**
 - [x] (claude-q-blocks: Sand/Kies fallen) **Stufen aus Erde und Gras**, ebenso Sand und Kies.,
 - [x] (claude-q-wood) **Crates/Körbe** (Art Komposter/Kessel): Items hineinlegen → eigene Füll-Texturen sichtbar; voll = Aufbewahrung, insgesamt 8 Stacks einlagerbar. Start mit allen Essens-Items.
 - [x] (claude-q-wood) **Ausgehöhlte Stämme** (auch entrindete Variante): Spieler und kleine Mobs können hindurchkriechen. Craftbar zu Platten/Brettern („sheets/plates“) je Holzart in Normal- und entrindeter Variante; diese verhalten sich wie Eisengitter/Glas(scheibe) und lassen Licht durch. Ausgehöhlter Stamm + Holzplatte → Holz-Kessel: wie normaler Kessel, aber brennbar; Lava kann ihn entzünden (verbrennt → Lava wird frei).
-- [ ] **Gemeißeltes Packeis, gemeißeltes Blaueis, rissiges Eis** (rissiges Eis wird nach ein paar Sekunden Draufstehen zu Wasser).
+- [x] **Gemeißeltes Packeis, gemeißeltes Blaueis, rissiges Eis** (rissiges Eis wird nach ein paar Sekunden Draufstehen zu Wasser). (claude-q-blocks)
 - [x] (claude-q-wood) **Töpferscherben-Meißel:** Scherbe in der Nebenhand + Meißel in der Haupthand auf entrindeten Stamm → gemeißeltes Holz mit dem Motiv der Scherbe (jede Scherbe eigenes Motiv, Overlay in dunklerer Holzfarbe).
-- [ ] **Nautilusschalen-Block.**
-- [ ] **Stufen aus Erde und Gras**, ebenso Sand und Kies.
+- [x] **Nautilusschalen-Block.** (claude-q-blocks)
+- [x] **Stufen aus Erde und Gras**, ebenso Sand und Kies. (claude-q-blocks/misc31)
 
 **Simple Maps Antworten 09.10. (in docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md unter „Antworten Besitzer“ ergänzen):** Feature 1 ja (Wegpunkte beim Kopieren), Feature 2 entfällt (Todespunkt nur über Feature 7: Bergungskompass in der Hand), Feature 6 = F8 (eigene Karte je Dimension), Feature 7 ja, Feature 8 ja; Feature 4 (Karte im Rahmen zeigt Umgebung) erklärt, Antwort offen (Empfehlung weglassen). WICHTIG: Besitzer-Antworten stehen meist schon in docs/ai/PLAN-*.md „Antworten Besitzer“ – vor Rückfragen dort nachlesen!
 - Simple Maps Feature 4 (Besitzer 09.10.): Karte im Gegenstandsrahmen → Rechtsklick öffnet die Karten-UI; dort scrollbar; der Rahmen zeigt danach den Ausschnitt, zu dem man gescrollt hat.
@@ -650,14 +650,14 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 30 (2026-10-10, Besitzer)
 
 ## Nachtrag 31 (2026-10-10, Besitzer)
-- [ ] Jukebox-Verstärker funktioniert nicht wie gewünscht: soll als Repeater fungieren (wie Lautsprecher per Funk weitergeben); aus den Verstärkern kommen keine Musiknoten-Partikel.
+- [x] Jukebox-Verstärker funktioniert nicht wie gewünscht: soll als Repeater fungieren (wie Lautsprecher per Funk weitergeben); aus den Verstärkern kommen keine Musiknoten-Partikel. (claude-q-amp)
 - [x] Aufgeschnittene Wassermelone (Melonen-Achtel): 1 px schwarzer Rand zwischen Schale und Fruchtfleisch. (claude-q-misc31: dunkle Kante (28,38,14) rund um melon_flesh),
 - [x] (claude-q-amp) Jukebox-Verstärker funktioniert nicht wie gewünscht: soll als Repeater fungieren (wie Lautsprecher per Funk weitergeben); aus den Verstärkern kommen keine Musiknoten-Partikel.
-- [ ] Astral-Verzauberungstisch → Name „Astral Enchanter“ (DE „Astral-Verzauberer“): Regler lassen sich nicht ziehen; UI wirkt gequetscht → höher; Verzauberungs-Zeichen (Glyphen wie Vanilla-Tisch) zu den Verzauberungen; Regler-Stufen dezent markieren; Besitzer-Frage: was machen Plus/Minus unter Lapis/Lohenstaub? Lohen-Regale ca. doppelter Wert, d. h. dieselbe Anzahl Lohen-Regale wie normale Max-Anzahl bringt den Astral Enchanter auf Maximum.
+- [x] Astral-Verzauberungstisch → Name „Astral Enchanter“ (DE „Astral-Verzauberer“): Regler lassen sich nicht ziehen; UI wirkt gequetscht → höher; Verzauberungs-Zeichen (Glyphen wie Vanilla-Tisch) zu den Verzauberungen; Regler-Stufen dezent markieren; Besitzer-Frage: was machen Plus/Minus unter Lapis/Lohenstaub? Lohen-Regale ca. doppelter Wert, d. h. dieselbe Anzahl Lohen-Regale wie normale Max-Anzahl bringt den Astral Enchanter auf Maximum. (claude-q-astral2)
 - [x] (claude-q-crates2) Kisten (Crates): Item-Anzeige flackert (Z-Fighting um die y-Achse) und wirkt in Winkeln verbuggt; Kiste seitlich hinlegbar (Öffnung zur Seite, Items liegen auf der inneren Seitenwand); Kiste durchsichtig wie aus Holzlatten mit Lücken (echte Holzkiste).,
 - [x] (→ `claude-q-astral2`) Astral-Verzauberungstisch → Name „Astral Enchanter“ (DE „Astral-Verzauberer“): Regler lassen sich nicht ziehen; UI wirkt gequetscht → höher; Verzauberungs-Zeichen (Glyphen wie Vanilla-Tisch) zu den Verzauberungen; Regler-Stufen dezent markieren; Besitzer-Frage: was machen Plus/Minus unter Lapis/Lohenstaub? Lohen-Regale ca. doppelter Wert, d. h. dieselbe Anzahl Lohen-Regale wie normale Max-Anzahl bringt den Astral Enchanter auf Maximum.
   Erledigt auf claude-q-astral2: Name in Lang/Wiki/Handbuch/Testzentrale (IDs bleiben). Ziehen ging nicht, weil der Bildschirm die linke Taste als 0 erwartete – 26.3 zählt Maustasten wie SDL (links = 1); jetzt `InputConstants.MOUSE_BUTTON_LEFT`, abgesichert mit Client-Test `astral-enchanter` (echtes Drücken/Ziehen/Loslassen). UI 36 px höher, Glyphen (Vanilla-Schrift `alt`) unter jedem Namen, Lücken + Striche je Reglerstufe. „Plus/Minus“ war der Verzaubern-Knopf (Stern ≈ „+“, „-“ = nichts gewählt) → jetzt verzaubertes Buch + Level-Kosten. Stärke: 15 Lohen-Regale = 50 ohne Boden, Boden +10 ab 15 Punkten (Konzept-Nachtrag 31).
-- [ ] Kisten (Crates): Item-Anzeige flackert (Z-Fighting um die y-Achse) und wirkt in Winkeln verbuggt; Kiste seitlich hinlegbar (Öffnung zur Seite, Items liegen auf der inneren Seitenwand); Kiste durchsichtig wie aus Holzlatten mit Lücken (echte Holzkiste).
+- [x] Kisten (Crates): Item-Anzeige flackert (Z-Fighting um die y-Achse) und wirkt in Winkeln verbuggt; Kiste seitlich hinlegbar (Öffnung zur Seite, Items liegen auf der inneren Seitenwand); Kiste durchsichtig wie aus Holzlatten mit Lücken (echte Holzkiste). (claude-q-crates2)
 - [x] Farbkasten (paint_box, alle Stufen) in denselben Kreativ-Tab wie Bündel und Rucksäcke.
 - [x] Inventar-UI (simplecontainers/Mod-UIs, heller Inventar-Kasten) ist zu strahlend weiß: Stil behalten, aber Farben aus Vanilla nehmen (Vanilla-GUI-Grau/Schatten/Licht).
 - [x] Astral-Verzauberungstisch: Herstellung (Hammer-Umwandlung) in JEI anzeigen.
