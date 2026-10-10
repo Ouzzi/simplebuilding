@@ -66,10 +66,10 @@ public final class CrucibleUpgrades {
             done = cauldronStrike(server, pos);
             needed = CAULDRON_STRIKES;
         } else return true;
-        server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5,
-                6, 0.25, 0.1, 0.25, 0.05);
-        // Same progress feedback as every in-world conversion (owner 2026-10-06): cracks grow per strike, gone at the end.
-        server.destroyBlockProgress(CrucibleBarrelBlock.crackId(pos), pos, done >= needed ? -1 : CrucibleBlankBlock.crackStage(done, needed));
+        // Same progress feedback as every in-world conversion (owner 2026-10-06/10): cracks, particles and a rising hit
+        // sound per strike, plus the growing preview of the upgraded block (cracks gone at the end).
+        com.simplelib.api.InWorldStrikes.feedback(server, pos, state, SoundEvents.ANVIL_PLACE, 0.4F, done, needed);
+        com.simplelib.api.InWorldStrikes.preview(server, pos, previewState(state, step.to()), done, needed);
         if (done >= needed) {
             if (!player.getAbilities().instabuild) material.shrink(step.count());
             if (step.to() == LibBlocks.REINFORCED_CAULDRON) {
@@ -77,12 +77,19 @@ public final class CrucibleUpgrades {
                 server.setBlock(pos, LibBlocks.REINFORCED_CAULDRON.defaultBlockState(), Block.UPDATE_ALL);
             } else upgradeInPlace(server, pos, step.to());
             server.playSound(null, pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
-        } else {
-            server.playSound(null, pos, SoundEvents.ANVIL_PLACE, SoundSource.BLOCKS, 0.4F, 1.2F + 0.05F * done);
         }
         if (!player.getAbilities().instabuild) tool.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
         player.getCooldowns().addCooldown(tool, CrucibleBlankBlock.STRIKE_COOLDOWN);
         return true;
+    }
+
+    /** The upgraded block as the preview shows it: the target's default state with the old facing kept. */
+    private static BlockState previewState(BlockState from, Block to) {
+        BlockState next = to.defaultBlockState();
+        if (from.hasProperty(CrucibleBarrelBlock.FACING) && next.hasProperty(CrucibleBarrelBlock.FACING)) {
+            next = next.setValue(CrucibleBarrelBlock.FACING, from.getValue(CrucibleBarrelBlock.FACING));
+        }
+        return next;
     }
 
     private static int cauldronStrike(ServerLevel level, BlockPos pos) {

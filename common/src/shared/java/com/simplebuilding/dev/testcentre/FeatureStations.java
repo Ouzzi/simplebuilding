@@ -772,6 +772,16 @@ public final class FeatureStations {
         woods.add(new ItemStack(Items.GLISTERING_MELON_SLICE, 4));
         woods.add(new ItemStack(Items.OAK_PLANKS, 8));
         c.contents(7, 0, 6, woods);
+        // Material-Achtel (N19/N15): alle Achtel von Stein bis Beton, 27 je Kiste.
+        List<Item> materials = com.simplebuilding.items.ModItems.MATERIAL_OCTETS;
+        for (int chestIndex = 0; chestIndex * 27 < materials.size(); chestIndex++) {
+            c.place(11 + chestIndex, 0, 6, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+            List<ItemStack> chestItems = new ArrayList<>();
+            for (Item octet : materials.subList(chestIndex * 27, Math.min(materials.size(), chestIndex * 27 + 27))) {
+                chestItems.add(new ItemStack(octet, 16));
+            }
+            c.contents(11 + chestIndex, 0, 6, chestItems);
+        }
         c.title(0, 3, wallZ, TcText.t("section.chess", "Chess"), TcText.t("section.chess.sub", "octets, pieces, checker stairs"));
         c.wallSign(3, 2, wallZ, TcText.bold(TcText.t("chess.place", "Pieces")),
                 TcText.t("chess.place.sub", "one per checker field"), TcText.t("chess.place.sub2", "empty hand: turn"));

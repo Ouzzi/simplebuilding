@@ -226,6 +226,19 @@ public class TrimEffectUtil {
         }
     }
 
+    /** N24 "faster Elytra": gliding in Astralit trims adds a gentle push along the look direction per piece (flat, no progress scaling), up to {@link #ASTRALIT_GLIDE_MAX_SPEED}. */
+    public static final double ASTRALIT_GLIDE_PUSH = 0.012;
+    public static final double ASTRALIT_GLIDE_MAX_SPEED = 1.8;
+
+    public static void handleAstralitGlide(Player player) {
+        if (!player.isFallFlying()) return;
+        int pieces = getMaterialCount(player, "astralit");
+        if (pieces <= 0) return;
+        Vec3 velocity = player.getDeltaMovement();
+        if (velocity.length() >= ASTRALIT_GLIDE_MAX_SPEED) return;
+        player.push(player.getLookAngle().scale(ASTRALIT_GLIDE_PUSH * pieces));
+    }
+
     private static int countTrimById(Player player, Identifier patternId) {
         int count = 0;
         for (EquipmentSlot slot : EquipmentSlot.values()) {

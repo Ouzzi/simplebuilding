@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "triggered=false": {
+      "model": "simplebuilding:block/sculk_jaw"
+    },
+    "triggered=true": {
+      "model": "simplebuilding:block/sculk_jaw_snapped"
+    }
+  }
+}

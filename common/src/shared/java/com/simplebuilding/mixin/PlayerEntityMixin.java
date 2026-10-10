@@ -55,6 +55,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
 
         // 2. Nihilith Gravity (Client & Server für prediction)
         TrimEffectUtil.handleNihilithGravity(player);
+        TrimEffectUtil.handleAstralitGlide(player);
 
         // 2b. Luftsprung: die Landung setzt die Abklingzeit NICHT mehr zurueck (Besitzer 2026-09-29),
         //     deshalb kein Aufruf mehr hier - AirJumpGuard prueft die volle Abklingzeit beim Paket.

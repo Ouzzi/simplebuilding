@@ -42,6 +42,11 @@ public final class TrimEffectGameTest {
     }
 
     @GameTest
+    public void astralitSpeedsUpTheGlide(GameTestHelper helper) {
+        TrimEffectTests.astralitSpeedsUpTheGlide(helper);
+    }
+
+    @GameTest
     public void nihilithPullsDownTheSneakingAirbornePlayer(GameTestHelper helper) {
         TrimEffectTests.nihilithPullsDownTheSneakingAirbornePlayer(helper);
     }

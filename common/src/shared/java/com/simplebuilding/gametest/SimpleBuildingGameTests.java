@@ -63,6 +63,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("end_systems_game_test_redstone_aliases_resolve_items_and_blocks", EndSystemsTests::redstoneAliasesResolveItemsAndBlocks).build(),
             GameTestSpec.named("end_systems_game_test_vault_shares_only_its_first_half_and_persists", EndSystemsTests::vaultSharesOnlyItsFirstHalfAndPersists).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_vault_opens_and_config_preserves_contents", EndSystemsTests::vaultOpensAndConfigPreservesContents).maxTicks(220).build(),
+            GameTestSpec.named("end_systems_game_test_astral_signal_travels_faster_than_nihil", EndSystemsTests::astralSignalTravelsFasterThanNihil).maxTicks(60).build(),
             GameTestSpec.named("end_systems_game_test_channels_stay_isolated_and_stop_at_fifteen", EndSystemsTests::channelsStayIsolatedAndStopAtFifteen).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_matching_lamps_and_config_limits", EndSystemsTests::matchingLampsAndConfigLimits).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_powder_connects_like_redstone_wire", EndSystemsTests::powderConnectsLikeRedstoneWire).maxTicks(220).build(),
@@ -306,6 +307,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("nature_block_game_test_cracked_ice_melts_under_an_entity_after_some_seconds", NatureBlockTests::crackedIceMeltsUnderAnEntityAfterSomeSeconds)
                     .maxTicks(NatureBlockTests.CRACKED_ICE_MAX_TICKS).build(),
+            GameTestSpec.named("trap_game_test_sculk_jaw_bites_and_reopens_silently", TrapTests::sculkJawBitesAndReopensSilently)
+                    .maxTicks(TrapTests.JAW_MAX_TICKS).build(),
+            GameTestSpec.named("trap_game_test_workstations_are_heavy_sulfur_cube_food", TrapTests::workstationsAreHeavySulfurCubeFood)
+                    .build(),
             GameTestSpec.named("woodwork_game_test_hollow_logs_let_small_mobs_and_crawlers_through", WoodworkTests::hollowLogsLetSmallMobsAndCrawlersThrough)
                     .build(),
             GameTestSpec.named("woodwork_game_test_sheets_connect_and_let_light_through", WoodworkTests::sheetsConnectAndLetLightThrough)
@@ -611,6 +616,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("trim_effect_game_test_benefit_gate_switches_every_trim_effect_off", TrimEffectTests::benefitGateSwitchesEveryTrimEffectOff)
                     .build(),
             GameTestSpec.named("trim_effect_game_test_astralit_jump_boost_crosses_its_thresholds_on_tick", TrimEffectTests::astralitJumpBoostCrossesItsThresholdsOnTick)
+                    .build(),
+            GameTestSpec.named("trim_effect_game_test_astralit_speeds_up_the_glide", TrimEffectTests::astralitSpeedsUpTheGlide)
                     .build(),
             GameTestSpec.named("trim_effect_game_test_nihilith_pulls_down_the_sneaking_airborne_player", TrimEffectTests::nihilithPullsDownTheSneakingAirbornePlayer)
                     .build(),

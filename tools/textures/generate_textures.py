@@ -1152,8 +1152,6 @@ for _tier in MACHINE_TIERS:
     MACHINE_ANIMATIONS[f"block/{_tier}_blast_furnace_front_on.png"] = {"frametime": 20, "interpolate": True}
 # Trank-Pads in der Abklingzeit (potion_pad_textures.py): die erkalteten Adern pulsieren.
 MACHINE_ANIMATIONS.update(POTION_PAD_ANIMATIONS)
-# Runde 7: Enderit-Speer-Glanz (nur Hauptbaum, siehe MAIN_TREE_PREFIXES).
-MACHINE_ANIMATIONS["item/enderite_spear.png"] = {"frametime": 2, "interpolate": False}
 
 
 def _luma(c):
@@ -4373,25 +4371,18 @@ ENDERITE_HANDLE_PALS = {
 }
 
 
-# Runde 7 (Besitzer 2026-10-06): der Enderit-Speer bekommt NUR ein Glimmern - Form und Bild 0 bleiben, ein Glanz
-# laeuft ueber die Spitze (shimmer_2026_10_06: Kopftoene je zwei Stufen hoeher, ueber dem hellsten die Ader).
-SPEAR_FRAMES, SPEAR_FRAMETIME = 20, 2
+# N21 (Besitzer 2026-10-10): kein Eimer-Glanz mehr; der Speer ist statisch und bekommt helle Glimmerpunkte
+# (Ader #f4d2ff, Glow #c77dff) wie Schwert und die uebrigen Enderit-Werkzeuge.
+SPEAR_GLIMMER = {"vein": [(11, 4), (9, 2)], "glow": [(10, 3), (8, 4), (12, 2)]}
 
 
 def enderite_spear_shimmer(img):
-    import numpy as np
     v = ENDERITE_GEAR_VARIANTS[ENDERITE_GEAR_ACTIVE]
-    ramp = [hexrgb(c) for c in v["head"]] + [hexrgb(v["glow"])]
-    head = {hexrgb(c) for c in v["head"]} | {hexrgb(v["vein"]), hexrgb(v["glow"])}
-    a = img.convert("RGBA")
-    mask = np.zeros((16, 16), dtype=bool)
-    for y in range(16):
-        for x in range(16):
-            p = a.getpixel((x, y))
-            # nur die Enderit-Spitze (oben rechts), nicht der Knauf unten links
-            mask[y, x] = p[3] > 0 and p[:3] in head and y < 11
-    # Runde 7b (Besitzer: Glanz nicht erkennbar): breiter (3 Diagonalen) und heller (+3/+2 Stufen)
-    return shimmer.shimmer_strip(a, ramp, mask, frames=SPEAR_FRAMES, sweep=8, peak=hexrgb(v["vein"]), steps=(3, 2), width=1.5)
+    a = img.convert("RGBA").crop((0, 0, 16, 16))
+    for key in ("vein", "glow"):
+        for xy in SPEAR_GLIMMER[key]:
+            a.putpixel(xy, hexrgb(v[key]) + (255,))
+    return a
 
 
 def apply_enderite_handles(tex):

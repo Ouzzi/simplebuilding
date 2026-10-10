@@ -12512,6 +12512,29 @@
         "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java"
       ]
     },
+    "sculk_jaw": {
+      "en": {
+        "summary": "A silent trap that slows like a cobweb and bites with sculk fangs.",
+        "details": [
+          "Anything that wades into it is slowed like in a cobweb. The open jaw snaps shut and bites for 3 damage (1.5 hearts), then reopens after 20 ticks and bites again while someone is still inside. Wardens and spectators are ignored.",
+          "It makes no sound at all: placing, biting, opening and breaking are silent. Mine it with a hoe; it drops itself.",
+          "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare."
+        ]
+      },
+      "de": {
+        "summary": "Eine lautlose Falle, die wie ein Spinnennetz bremst und mit Sculk-Fangzähnen zubeißt.",
+        "details": [
+          "Wer hineingerät, wird wie im Spinnennetz verlangsamt. Die offene Kiefer schnappt zu und beißt für 3 Schaden (1,5 Herzen), öffnet sich nach 20 Ticks wieder und beißt erneut, solange noch jemand drinsteht. Wardens und Zuschauer ignoriert sie.",
+          "Sie macht überhaupt kein Geräusch: Platzieren, Zubeißen, Öffnen und Abbauen sind lautlos. Mit der Hacke abbauen; sie droppt sich selbst.",
+          "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/SculkJawBlock.java"
+      ]
+    },
     "chiseled_packed_ice": {
       "en": {
         "summary": "Decorative packed ice with a carved ice crystal, as slippery as packed ice.",

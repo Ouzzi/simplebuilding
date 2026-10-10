@@ -41,6 +41,8 @@ public class EndSignalBlock extends Block {
 
     public boolean astral() { return astral; }
     public Kind kind() { return kind; }
+    /** Ticks between two polls of this block, i.e. the delay per hop: Astral signals travel twice as fast (N24). */
+    public int tickDelay() { return astral ? 1 : 2; }
     public static int range() { return Math.clamp(ServerTuning.get().machines.endSignalRange, 1, 15); }
 
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -60,7 +62,7 @@ public class EndSignalBlock extends Block {
     }
 
     @Override protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState old, boolean moved) {
-        if (!level.isClientSide()) level.scheduleTick(pos, this, 2);
+        if (!level.isClientSide()) level.scheduleTick(pos, this, tickDelay());
     }
 
     @Override protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
@@ -71,7 +73,7 @@ public class EndSignalBlock extends Block {
         int power = ServerTuning.get().features.endSignals ? incomingPower(state, level, pos) : 0;
         BlockState next = withConnections(state.setValue(POWER, power), level, pos);
         if (next != state) level.setBlock(pos, next, Block.UPDATE_CLIENTS);
-        level.scheduleTick(pos, this, 2);
+        level.scheduleTick(pos, this, tickDelay());
     }
 
     /** Strongest same-channel signal this block receives from its horizontal neighbours. */

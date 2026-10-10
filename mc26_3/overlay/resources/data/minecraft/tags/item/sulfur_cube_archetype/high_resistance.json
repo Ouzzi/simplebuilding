@@ -1,0 +1,124 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:furnace",
+    "minecraft:blast_furnace",
+    "minecraft:smoker",
+    "minecraft:crafting_table",
+    "minecraft:smithing_table",
+    "minecraft:fletching_table",
+    "minecraft:cartography_table",
+    "minecraft:loom",
+    "minecraft:stonecutter",
+    "minecraft:grindstone",
+    "minecraft:enchanting_table",
+    "minecraft:brewing_stand",
+    "minecraft:anvil",
+    "minecraft:chipped_anvil",
+    "minecraft:damaged_anvil",
+    "minecraft:cauldron",
+    "minecraft:crafter",
+    "minecraft:lectern",
+    "minecraft:composter",
+    {
+      "id": "simplebuilding:reinforced_furnace",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:reinforced_blast_furnace",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:reinforced_smoker",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:netherite_furnace",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:netherite_blast_furnace",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:netherite_smoker",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:enderite_furnace",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:enderite_blast_furnace",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:enderite_smoker",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:auto_smither",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:autonomous_crafter",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:storage_crafting_table",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:astral_enchanting_table",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:oak_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:spruce_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:birch_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:jungle_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:acacia_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:dark_oak_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:mangrove_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:cherry_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:pale_oak_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:crimson_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:warped_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:bamboo_cauldron",
+      "required": false
+    }
+  ]
+}

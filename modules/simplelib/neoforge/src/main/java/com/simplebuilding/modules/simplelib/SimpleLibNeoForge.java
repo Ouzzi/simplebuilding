@@ -45,6 +45,8 @@ public final class SimpleLibNeoForge {
             com.simplelib.registry.LibRegistry.tabStacks().forEach(s -> event.accept(s,
                     net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         });
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.tick.ServerTickEvent.Post event) ->
+                com.simplelib.api.InWorldStrikes.tick(event.getServer()));
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.server.ServerAboutToStartEvent event) ->
                 com.simplelib.village.VillageKitchen.inject(event.getServer().registryAccess()));
         if (dist == Dist.CLIENT) SimpleLibNeoForgeClient.init(bus);

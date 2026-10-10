@@ -377,6 +377,7 @@
     "simplebuilding:sand_slab",
     "simplebuilding:sandstone_octet",
     "simplebuilding:scarlet_froglight",
+    "simplebuilding:sculk_jaw",
     "simplebuilding:shulker_head",
     "simplebuilding:shulker_wall_head",
     "simplebuilding:silent_dandelion",
@@ -3099,6 +3100,9 @@
     },
     {
       "id": "simplebuilding:scarlet_froglight"
+    },
+    {
+      "id": "simplebuilding:sculk_jaw"
     },
     {
       "id": "simplebuilding:shulker_head"

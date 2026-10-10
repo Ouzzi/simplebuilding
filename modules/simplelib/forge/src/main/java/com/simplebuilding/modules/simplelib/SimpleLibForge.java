@@ -43,6 +43,8 @@ public final class SimpleLibForge {
             LibRegistry.tabStacks().forEach(s -> event.getEntries().put(s,
                     net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         });
+        net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(event ->
+                com.simplelib.api.InWorldStrikes.tick(event.server()));
         net.minecraftforge.event.server.ServerAboutToStartEvent.BUS.addListener(event ->
                 com.simplelib.village.VillageKitchen.inject(event.getServer().registryAccess()));
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) {
