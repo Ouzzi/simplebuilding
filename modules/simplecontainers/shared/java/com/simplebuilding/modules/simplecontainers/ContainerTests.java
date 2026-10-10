@@ -297,7 +297,7 @@ public final class ContainerTests {
                 {0xFF6B5A45, 0xFF918475, 0xFF574938, 0xFF534635, 0xFF44392C, 0xFFF2EEE8},
                 {0xFF4B1E19, 0xFF795854, 0xFF3D1814, 0xFF3A1713, 0xFF301310, 0xFFF2EEE8},
                 {0xFF3F8A55, 0xFF70A881, 0xFF337145, 0xFF316B42, 0xFF285836, 0xFFF2EEE8},
-                {0xFFE3E6E9, 0xFFF8F9FA, 0xFFC5CACE, 0xFFB4BABF, 0xFF979DA3, 0xFF404040}};
+                {0xFFC6C6C6, 0xFFFFFFFF, 0xFF555555, 0xFF8B8B8B, 0xFF373737, 0xFF404040}}; // N30: Vanilla GUI colours
         UiPalette[] palettes = {StationStyles.ANVIL, StationStyles.GRINDSTONE, StationStyles.STONECUTTER, StationStyles.LOOM, StationStyles.CARTOGRAPHY,
                 StationStyles.SMITHING, StationStyles.MERCHANT, StationStyles.PLAYER};
         for (int i = 0; i < table.length; i++) {

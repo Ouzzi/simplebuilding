@@ -3,14 +3,14 @@ package com.simplelib.crucible;
 import com.simplelib.config.LibConfig;
 
 /**
- * The four crucible tiers (owner F4: 6/9/18/27 slots). Slots are laid out as 3-column grids,
+ * The four crucible tiers (owner F4: 6/9/18/27 slots; reinforced 12 since N30, one 3x4 grid). Slots are laid out as 3-column grids,
  * grid-major: index = grid * (rows * 3) + row * 3 + column. Enderite lives in SimpleBuilding (it
  * registers its block through {@code com.simplelib.api}); the tier data is here so the menu, screen
  * and logic stay in one place.
  */
 public enum CrucibleTier {
     IRON("iron", 1, 2, 1),
-    REINFORCED("reinforced", 1, 3, 1),
+    REINFORCED("reinforced", 1, 4, 1),
     NETHERITE("netherite", 2, 3, 1),
     ENDERITE("enderite", 3, 3, 2);
 

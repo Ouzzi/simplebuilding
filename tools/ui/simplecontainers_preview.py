@@ -87,7 +87,8 @@ def derive(name, fill, motif='none', label=None, light=None, slot=None):
 
 
 # The crucible's palettes exactly (CrucibleScreen.palette / INVENTORY / BARREL).
-INVENTORY = Pal(0xFFE3E6E9, 0xFFF8F9FA, 0xFFC5CACE, 0xFFB4BABF, 0xFF979DA3, 0xFF404040, 'none', 'Inventar')
+# N30: Vanilla container colours (generic_54.png): fill C6C6C6, white edge, shade 555555, slot 8B8B8B, top line 373737.
+INVENTORY = Pal(0xFFC6C6C6, 0xFFFFFFFF, 0xFF555555, 0xFF8B8B8B, 0xFF373737, 0xFF404040, 'none', 'Inventar')
 BARREL = Pal(0xFFB9774F, 0xFFD08F68, 0xFF955839, 0xFF94573A, 0xFF74412B, 0xFF404040, 'wood', 'Fass')
 IRON = Pal(0xFF9A9DA2, 0xFFC4C7CB, 0xFF7E8186, 0xFF7B7E83, 0xFF64676C, 0xFF2E3034, 'metal', 'Eisen')
 REINFORCED = Pal(0xFF6F9095, 0xFF9DBCC1, 0xFF587378, 0xFF55737A, 0xFF425C61, 0xFFF0F6F6, 'metal', 'Verstaerkt')

@@ -65,6 +65,9 @@ public final class InWorldExportTests {
         // Shulkerkisten: zwei Stueck Material und zehn Schlaege je Stufe, also doppelte Haltbarkeit.
         String expected = "[minecraft:copper_chest>copper_sledgehammer/cracked_diamondx1/2per/10, "
                 + "minecraft:shulker_box>copper_sledgehammer/cracked_diamondx2/2per/20, "
+                // Astral-Verzauberungstisch (N27/N30): vierfache Schlagzahl, ein Enderit-Nugget.
+                + (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+                        ? "minecraft:enchanting_table>netherite_sledgehammer/enderite_nuggetx1/10per/200, " : "")
                 + "netherite_blast_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_chest>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, "

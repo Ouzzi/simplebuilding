@@ -62,7 +62,7 @@ public final class CrucibleTests {
         int smokingTicks = helper.getLevel().recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMOKING,
                 new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.BEEF)), helper.getLevel()).orElseThrow().value().cookingTime();
         Block[] blocks = {lib("iron_crucible"), lib("reinforced_crucible"), lib("netherite_crucible"), CrucibleCompat.enderiteCrucible()};
-        int[] sizes = {6, 9, 18, 27};
+        int[] sizes = {6, 12, 18, 27}; // reinforced 12 since N30
         for (int i = 0; i < blocks.length; i++) {
             BlockPos pos = new BlockPos(i + 1, 2, 2);
             helper.setBlock(pos.below(), Blocks.CAMPFIRE);
@@ -251,7 +251,7 @@ public final class CrucibleTests {
         helper.assertTrue(barrel.inputs().get(0).items().contains(item("simplelib:copper_barrel"))
                 && barrel.inputs().get(0).items().contains(item("simplebuilding:enderite_barrel")), "barrels");
         helper.assertTrue(barrel.inputs().get(1).items().contains(item("simplelib:iron_crucible")), "next to a crucible");
-        helper.assertTrue(noteArgs(barrel, 0).equals(java.util.List.of(6)) && noteArgs(barrel, 1).equals(java.util.List.of("6/9/18/27")), "notes name 6 strikes, 6/9/18/27 fields (N12c: as many as the crucible)");
+        helper.assertTrue(noteArgs(barrel, 0).equals(java.util.List.of(6)) && noteArgs(barrel, 1).equals(java.util.List.of("6/12/18/27")), "notes name 6 strikes, 6/12/18/27 fields (N12c: as many as the crucible)");
 
         var cauldron = entries.get("cauldron_reinforce");
         helper.assertTrue(cauldron.inputs().get(0).items().equals(java.util.List.of(Items.CAULDRON)), "a cauldron");

@@ -263,7 +263,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "e4990f5867fd"
+    "dataHash": "667cfaf88e27"
   },
   {
     "id": "simplecontainers",
