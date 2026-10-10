@@ -3662,7 +3662,7 @@
   "item.simplebuilding.blaze_book": "Lohenbuch",
   "simplebuilding.testcentre.machines.astral_enchanting": "Regler; 15 Lohen-Regale + Boden = 50",
   "book.simplebuilding.machines.11.title": "Astraler Verzauberer",
-  "book.simplebuilding.machines.11.text": "Zaubertisch mit Enderitklumpen in der Nebenhand 20-mal hämmern (Netherit-Hammer). Bis 30: Bücherregale (15 = 30). 30-40: Lohen-Regale (2 Punkte, 15 davon = 40) ODER 5×5-Boden aus Lohen-Obsidian (+10). 50 braucht beides.",
+  "book.simplebuilding.machines.11.text": "Zaubertisch mit Enderitklumpen in der Nebenhand 20-mal hämmern (Netherit-Hammer). Bis 30: Bücherregale. 30-40: Lohen-Regale ODER Lohen-Obsidian-Boden. 50: beides.",
   "simplebuilding.testcentre.section.astral": "Astral-Verzauberer",
   "simplebuilding.testcentre.astral.hammer": "Hämmern",
   "simplebuilding.testcentre.astral.hammer.sub": "Netherit-Hammer,",

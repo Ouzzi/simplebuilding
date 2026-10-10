@@ -3662,7 +3662,7 @@
   "item.simplebuilding.blaze_book": "Blaze Book",
   "simplebuilding.testcentre.machines.astral_enchanting": "sliders; 15 blazewood shelves + floor = 50",
   "book.simplebuilding.machines.11.title": "Astral Enchanter",
-  "book.simplebuilding.machines.11.text": "Hit an enchanting table 20x with a netherite sledgehammer, enderite nugget in off hand. Up to 30: bookshelves (15 = 30). 30-40: blazewood shelves (2 points, 15 of them = 40) OR a 5x5 blazing obsidian floor (+10). 50 needs both.",
+  "book.simplebuilding.machines.11.text": "Hit an enchanting table 20x with a netherite sledgehammer, enderite nugget in off hand. To 30: bookshelves. 30-40: blazewood shelves OR blazing obsidian floor. 50: both.",
   "simplebuilding.testcentre.section.astral": "Astral Enchanter",
   "simplebuilding.testcentre.astral.hammer": "Hammer it",
   "simplebuilding.testcentre.astral.hammer.sub": "netherite hammer,",
