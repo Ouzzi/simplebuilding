@@ -1901,7 +1901,7 @@ window.WIKI_DATA = {
         "details": [
           "Materials: Astralit Dust, Nihilit Shard and Ender Quartz (1 Astralit Dust + 1 Nihilit Shard + 1 Quartz, shapeless, make 2).",
           "Crafting: 4 of the material in a square make 1 base block (like quartz and amethyst); 4 base blocks make 4 Polished; 4 Polished make 4 Bricks; 2 Polished on top of each other make 2 Pillars; 6 Bricks or Polished in a stair shape make 4 Stairs, 3 in a row 6 Slabs, 6 in two rows 6 Walls; 2 Brick Slabs on top of each other make 1 Chiseled Bricks. Like the Block of Quartz, the Block of Ender Quartz also has its own Ender Quartz Stairs (6 -> 4) and Ender Quartz Slab (3 -> 6), also cut in the stonecutter (1 stairs, 2 slabs).",
-          "Recolouring like dye: 8 of a vanilla end stone or purpur block around 1 of the material make 8 of the matching palette block - End Stone to the base block, End Stone Bricks and their stairs, slab and wall to the Bricks and theirs, Purpur Stairs and Slab to the Polished Stairs and Slab, the Purpur Pillar to the Pillar, and the Purpur Block to Polished Ender Quartz. For Astralit and Nihilit the Purpur Block grid stays the older coating recipe (Astral or Nihil Purpur Block), which the stonecutter turns into the Polished block.",
+          "Recoloring like dye: 8 of a vanilla end stone or purpur block around 1 of the material make 8 of the matching palette block - End Stone to the base block, End Stone Bricks and their stairs, slab and wall to the Bricks and theirs, Purpur Stairs and Slab to the Polished Stairs and Slab, the Purpur Pillar to the Pillar, and the Purpur Block to Polished Ender Quartz. For Astralit and Nihilit the Purpur Block grid stays the older coating recipe (Astral or Nihil Purpur Block), which the stonecutter turns into the Polished block.",
           "Ender Quartz also from vanilla quartz, the same way: 8 of a quartz block around 1 Ender Quartz make 8 - Block of Quartz to the base block, Quartz Bricks to the Bricks, the Quartz Pillar to the Pillar, Chiseled Quartz Block to the Chiseled Bricks, Smooth Quartz to Polished Ender Quartz, smooth quartz stairs and slab to the Polished Stairs and Slab, and quartz stairs and slab to Ender Quartz Stairs and Slab.",
           "Stonecutter: the base block cuts into every other block of its palette; the Polished block into its stairs, slab and wall, the Bricks and their stairs, slab and wall, the Pillar and the Chiseled Bricks; the Bricks into their stairs, slab, wall and the Chiseled Bricks. Slabs always come two for one. The older coated end stone (Astral and Nihil End Stone: 8 Polished End Stone around 1 dust or shard) still cuts into the brick set and the base block.",
           "All blocks: hardness 3, blast resistance 9, a pickaxe is needed for the drop. Astralit blocks emit light level 10, Nihilit and Ender Quartz blocks none.",
@@ -2481,7 +2481,7 @@ window.WIKI_DATA = {
           "Combat factor: combat score = monster kills x 1.0 + animal kills x 0.2 + damage taken (raw value of the vanilla statistic) x 0.05, each counted since your last death, fed into the same curve with scale 100.",
           "On death (respawn) distance, active time, damage taken, experience and the kill baselines are reset; the counters are stored in the player's save data under \"SimpleBuildingData\" (older saves without the active clock start it from zero), and the live values are sent to the client once a second (every 20 ticks).",
           "Anything that is not a player uses a fixed progress factor of 0.2 instead: every mob and every armor stand. Players get their real resonance on both sides - the client computes it from the synced counters, so the tooltips, the resonance panel, the reference screen and the client's own movement prediction show the same value as the server.",
-          "Inventory: a compact field 2 pixels right of the recipe book button shows a stone-coloured heart and the current resonance in gray, e.g. 0.22x - always visible, no button since 2026-09-29. Hovering it lists the details: resonance against its maximum, the formula, L (experience points since death / 1395), S (distance, active time) and C (hostiles, passives, damage taken), each with (max 1.00), and whether the cap is reached (all three at max). The backpack screen shows the same field (shared class TrimStatsPanel).",
+          "Inventory: a compact field 2 pixels right of the recipe book button shows a stone-colored heart and the current resonance in gray, e.g. 0.22x - always visible, no button since 2026-09-29. Hovering it lists the details: resonance against its maximum, the formula, L (experience points since death / 1395), S (distance, active time) and C (hostiles, passives, damage taken), each with (max 1.00), and whether the cap is reached (all three at max). The backpack screen shows the same field (shared class TrimStatsPanel).",
           "Smithing table: 25 pixels to the left of the interface there is a button that cycles through the trim templates in the #minecraft:trim_templates tag (plus Enderscape's Stasis template if that mod is installed); it opens the \"Trim Resonance Reference\" screen, which lists every material and pattern under its vanilla name with its per-piece bonuses at your current resonance (vanilla scrollbar, Done button).",
           "Damage reduction by pattern (per counted piece, times the multiplier): Sentry 5% against projectiles; Vex 6% against magic damage (direct or indirect) and against hits from a Vex; Wild 10% against cactus, sweet berry bush and stalagmite; Dune 8% against explosions; Coast 10% against drowning; Ward 3% against everything; Silence 20% against the Warden's sonic boom; Snout 5% against fire; Rib 10% against wither damage; Eye 10% against dragon breath; Spire 8% against fall damage; Flow 10% against wind charges (any entity whose type id contains \"wind_charge\", so the Breeze's charge counts too); Bolt 25% against lightning; Shaper gives no protection but +0.25 blocks of block reach per piece (see below).",
           "Pattern counting: a piece counts as 1.0; if its trim material is Netherite it counts 1.75, if it is Enderite 2.0 (3.5 until 2026-09).",
@@ -12727,7 +12727,7 @@ window.WIKI_DATA = {
           "summary": "Ender Quartz is the material of the purple end palette: a crystal of quartz with Astralit and Nihilit in it.",
           "details": [
             "Crafting (shapeless): 1 Astralit Dust + 1 Nihilit Shard + 1 Quartz anywhere in the grid make 2 Ender Quartz.",
-            "4 Ender Quartz in a square make 1 Block of Ender Quartz; 8 End Stone, End Stone Bricks (and their stairs, slab and wall), Purpur Blocks, Purpur Stairs, Purpur Slabs or Purpur Pillars around 1 Ender Quartz recolour them into 8 of the matching Ender Quartz block.",
+            "4 Ender Quartz in a square make 1 Block of Ender Quartz; 8 End Stone, End Stone Bricks (and their stairs, slab and wall), Purpur Blocks, Purpur Stairs, Purpur Slabs or Purpur Pillars around 1 Ender Quartz recolor them into 8 of the matching Ender Quartz block.",
             "It sits in the creative tab \"SimpleMaterials\", next to Astralit Dust."
           ]
         },
@@ -29797,7 +29797,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/polished_end_stone.png",
       "craftedBy": [
-        "simplebuilding:polished_end_stone"
+        "simplebuilding:polished_end_stone",
+        "simplebuilding:polished_end_stone_from_end_stone_bricks_stonecutting",
+        "simplebuilding:polished_end_stone_from_end_stone_stonecutting"
       ],
       "usedIn": [
         "simplebuilding:astral_end_stone",
@@ -57012,7 +57014,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/polished_end_stone.png",
       "craftedBy": [
-        "simplebuilding:polished_end_stone"
+        "simplebuilding:polished_end_stone",
+        "simplebuilding:polished_end_stone_from_end_stone_bricks_stonecutting",
+        "simplebuilding:polished_end_stone_from_end_stone_stonecutting"
       ],
       "usedIn": [
         "simplebuilding:astral_end_stone",
@@ -97634,7 +97638,7 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/polished_end_stone.json",
       "ingredients": [
-        "minecraft:end_stone"
+        "minecraft:end_stone_bricks"
       ],
       "pattern": [
         "SS",
@@ -97642,11 +97646,42 @@ window.WIKI_DATA = {
       ],
       "key": {
         "S": [
-          "minecraft:end_stone"
+          "minecraft:end_stone_bricks"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:end_stone_bricks"
+              ],
+              "other": [
+                "minecraft:end_stone"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "S": [
+                  "minecraft:end_stone_bricks"
+                ]
+              },
+              "other": {
+                "S": [
+                  "minecraft:end_stone"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/polished_end_stone.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ],
@@ -97656,6 +97691,70 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:end_stone",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_end_stone_from_end_stone_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_end_stone",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/polished_end_stone_from_end_stone_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:end_stone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:end_stone_bricks"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_end_stone_from_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_end_stone",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/polished_end_stone_from_end_stone_stonecutting.json",
+      "ingredients": [
+        "minecraft:end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:end_stone"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
           }
         ]
       }
@@ -115294,6 +115393,32 @@ window.WIKI_DATA = {
         ],
         "S": [
           "minecraft:calibrated_sculk_sensor"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:polished_end_stone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_end_stone",
+        "count": 4
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/polished_end_stone.json",
+      "ingredients": [
+        "minecraft:end_stone"
+      ],
+      "pattern": [
+        "SS",
+        "SS"
+      ],
+      "key": {
+        "S": [
+          "minecraft:end_stone"
         ]
       },
       "lines": [
@@ -156721,7 +156846,7 @@ window.WIKI_DATA = {
           },
           "description": {
             "en_us": "A compass, lightning rods, a lead, gold nuggets and a gold core make an Octant.",
-            "de_de": "Kompass, Blitzableiter, Leine, Goldklumpen und ein Goldkern ergeben einen Oktanten."
+            "de_de": "Kompass, Blitzableiter, Leine, Goldnuggets und ein Goldkern ergeben einen Oktanten."
           },
           "dependencies": [
             "building.toolkit"
@@ -157800,7 +157925,7 @@ window.WIKI_DATA = {
   "counts": {
     "items": 711,
     "blocks": 454,
-    "recipes": 1202,
+    "recipes": 1204,
     "lootTables": 344,
     "trades": 20,
     "enchantments": 19,

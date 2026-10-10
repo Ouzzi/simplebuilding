@@ -86,7 +86,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "34ee2d8f086d"
+    "dataHash": "814349a1b94c"
   },
   {
     "id": "simplemodels",
@@ -285,7 +285,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "5b9a99b1a260"
+    "dataHash": "a663ac27e962"
   },
   {
     "id": "simplemaps",
@@ -302,7 +302,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "ecf4dbe3659f"
+    "dataHash": "9b87a510e53f"
   },
   {
     "id": "simpletrims",

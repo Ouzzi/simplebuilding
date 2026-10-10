@@ -75,8 +75,6 @@
   "text.autoconfig.simpleriding.option.horseshoes.fullSetFallDamageIncrease.@Tooltip": "Zusätzlicher Fallschaden mit allen vier\nHufeisen, gerundet, damit kurze Stürze gleich\nbleiben. Bereich 0-0.25. Standard: 0.1.\nServereinstellung; Neustart erforderlich.",
   "text.autoconfig.simpleriding.option.horseshoes.blocksPerDurability": "Blöcke je Haltbarkeitspunkt",
   "text.autoconfig.simpleriding.option.horseshoes.blocksPerDurability.@Tooltip": "Gerittene Strecke am Boden je Abnutzungspunkt\njedes Hufeisens. Bereich 8-400. Standard: 40.\nServereinstellung; Neustart erforderlich.",
-  "item.simpleriding.enchanted_book_leaping": "Verzaubertes Buch (Sprungkraft)",
-  "item.simpleriding.enchanted_book_tailwind": "Verzaubertes Buch (Rückenwind)",
   "item.simpleriding.guide_book": "Simple-Riding-Handbuch",
   "simpleriding.guide.page.1.title": "Simple Riding",
   "simpleriding.guide.page.1": "Sattel-Tempo, Pferdesprünge, Nautilus-Sprints, Reittier-Rüstungshilfen, Beute und Handel.",

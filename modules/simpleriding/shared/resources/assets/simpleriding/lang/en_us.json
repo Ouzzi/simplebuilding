@@ -75,8 +75,6 @@
   "text.autoconfig.simpleriding.option.horseshoes.fullSetFallDamageIncrease.@Tooltip": "Extra fall damage with all four horseshoes,\nrounded, so short falls stay the same. Range\n0-0.25. Default: 0.1. Server setting; restart\nrequired.",
   "text.autoconfig.simpleriding.option.horseshoes.blocksPerDurability": "Blocks per Durability Point",
   "text.autoconfig.simpleriding.option.horseshoes.blocksPerDurability.@Tooltip": "Ridden distance on the ground per point of\nwear on each horseshoe. Range 8-400. Default:\n40. Server setting; restart required.",
-  "item.simpleriding.enchanted_book_leaping": "Enchanted Book (Leaping)",
-  "item.simpleriding.enchanted_book_tailwind": "Enchanted Book (Tailwind)",
   "item.simpleriding.guide_book": "Simple Riding Guide",
   "simpleriding.guide.page.1.title": "Simple Riding",
   "simpleriding.guide.page.1": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot and trades.",
