@@ -1,0 +1,6 @@
+{
+  "module": "simpletrims",
+  "derivation": "Age-of-game tier from KERNE-SELTENHEIT section 5.3. Stage 1 of Simple Trims has no items of its own yet; trim templates still come from SimpleBuilding and are priced there.",
+  "excluded": {},
+  "prices": []
+}
