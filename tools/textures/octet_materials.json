@@ -1,0 +1,1011 @@
+[
+ {
+  "ns": "minecraft",
+  "base": "andesite",
+  "key": "andesite",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/andesite"
+  },
+  "en": "Andesite",
+  "de": "Andesit"
+ },
+ {
+  "ns": "minecraft",
+  "base": "cobblestone",
+  "key": "cobblestone",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/cobblestone"
+  },
+  "en": "Cobblestone",
+  "de": "Bruchstein"
+ },
+ {
+  "ns": "minecraft",
+  "base": "diorite",
+  "key": "diorite",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/diorite"
+  },
+  "en": "Diorite",
+  "de": "Diorit"
+ },
+ {
+  "ns": "minecraft",
+  "base": "granite",
+  "key": "granite",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/granite"
+  },
+  "en": "Granite",
+  "de": "Granit"
+ },
+ {
+  "ns": "minecraft",
+  "base": "mossy_cobblestone",
+  "key": "mossy_cobblestone",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/mossy_cobblestone"
+  },
+  "en": "Mossy Cobblestone",
+  "de": "Bemooster Bruchstein"
+ },
+ {
+  "ns": "minecraft",
+  "base": "polished_andesite",
+  "key": "polished_andesite",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/polished_andesite"
+  },
+  "en": "Polished Andesite",
+  "de": "Polierter Andesit"
+ },
+ {
+  "ns": "minecraft",
+  "base": "polished_diorite",
+  "key": "polished_diorite",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/polished_diorite"
+  },
+  "en": "Polished Diorite",
+  "de": "Polierter Diorit"
+ },
+ {
+  "ns": "minecraft",
+  "base": "polished_granite",
+  "key": "polished_granite",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/polished_granite"
+  },
+  "en": "Polished Granite",
+  "de": "Polierter Granit"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stone",
+  "key": "stone",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/stone"
+  },
+  "en": "Stone",
+  "de": "Stein"
+ },
+ {
+  "ns": "minecraft",
+  "base": "red_sandstone",
+  "key": "red_sandstone",
+  "group": "sandstone",
+  "tex": {
+   "up": "minecraft:block/red_sandstone_top",
+   "down": "minecraft:block/red_sandstone_bottom",
+   "side": "minecraft:block/red_sandstone"
+  },
+  "en": "Red Sandstone",
+  "de": "Roter Sandstein"
+ },
+ {
+  "ns": "minecraft",
+  "base": "sandstone",
+  "key": "sandstone",
+  "group": "sandstone",
+  "tex": {
+   "up": "minecraft:block/sandstone_top",
+   "down": "minecraft:block/sandstone_bottom",
+   "side": "minecraft:block/sandstone"
+  },
+  "en": "Sandstone",
+  "de": "Sandstein"
+ },
+ {
+  "ns": "minecraft",
+  "base": "smooth_red_sandstone",
+  "key": "smooth_red_sandstone",
+  "group": "sandstone",
+  "tex": {
+   "all": "minecraft:block/red_sandstone_top"
+  },
+  "en": "Smooth Red Sandstone",
+  "de": "Glatter roter Sandstein"
+ },
+ {
+  "ns": "minecraft",
+  "base": "smooth_sandstone",
+  "key": "smooth_sandstone",
+  "group": "sandstone",
+  "tex": {
+   "all": "minecraft:block/sandstone_top"
+  },
+  "en": "Smooth Sandstone",
+  "de": "Glatter Sandstein"
+ },
+ {
+  "ns": "minecraft",
+  "base": "bamboo_mosaic",
+  "key": "bamboo_mosaic",
+  "group": "bricks",
+  "tex": {
+   "all": "minecraft:block/bamboo_mosaic"
+  },
+  "en": "Bamboo Mosaic",
+  "de": "Bambusmosaik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "bricks",
+  "key": "bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "minecraft:block/bricks"
+  },
+  "en": "Bricks",
+  "de": "Ziegelsteine"
+ },
+ {
+  "ns": "minecraft",
+  "base": "cinnabar_bricks",
+  "key": "cinnabar_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "minecraft:block/cinnabar_bricks"
+  },
+  "en": "Cinnabar Bricks",
+  "de": "Zinnoberziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "end_stone_bricks",
+  "key": "end_stone_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "minecraft:block/end_stone_bricks"
+  },
+  "en": "End Stone Bricks",
+  "de": "Endsteinziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "mossy_stone_bricks",
+  "key": "mossy_stone_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "minecraft:block/mossy_stone_bricks"
+  },
+  "en": "Mossy Stone Bricks",
+  "de": "Bemooste Steinziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "mud_bricks",
+  "key": "mud_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "minecraft:block/mud_bricks"
+  },
+  "en": "Mud Bricks",
+  "de": "Schlammziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "nether_bricks",
+  "key": "nether_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "minecraft:block/nether_bricks"
+  },
+  "en": "Nether Bricks",
+  "de": "Netherziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "red_nether_bricks",
+  "key": "red_nether_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "minecraft:block/red_nether_bricks"
+  },
+  "en": "Red Nether Bricks",
+  "de": "Rote Netherziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "resin_bricks",
+  "key": "resin_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "minecraft:block/resin_bricks"
+  },
+  "en": "Resin Bricks",
+  "de": "Harzziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stone_bricks",
+  "key": "stone_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "minecraft:block/stone_bricks"
+  },
+  "en": "Stone Bricks",
+  "de": "Steinziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "sulfur_bricks",
+  "key": "sulfur_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "minecraft:block/sulfur_bricks"
+  },
+  "en": "Sulfur Bricks",
+  "de": "Schwefelziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "blackstone",
+  "key": "blackstone_block",
+  "group": "deepslate",
+  "tex": {
+   "up": "minecraft:block/blackstone_top",
+   "down": "minecraft:block/blackstone_top",
+   "side": "minecraft:block/blackstone"
+  },
+  "en": "Blackstone",
+  "de": "Schwarzstein"
+ },
+ {
+  "ns": "minecraft",
+  "base": "cobbled_deepslate",
+  "key": "cobbled_deepslate",
+  "group": "deepslate",
+  "tex": {
+   "all": "minecraft:block/cobbled_deepslate"
+  },
+  "en": "Cobbled Deepslate",
+  "de": "Bruchtiefenschiefer"
+ },
+ {
+  "ns": "minecraft",
+  "base": "deepslate_bricks",
+  "key": "deepslate_bricks",
+  "group": "deepslate",
+  "tex": {
+   "all": "minecraft:block/deepslate_bricks"
+  },
+  "en": "Deepslate Bricks",
+  "de": "Tiefenschieferziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "deepslate_tiles",
+  "key": "deepslate_tiles",
+  "group": "deepslate",
+  "tex": {
+   "all": "minecraft:block/deepslate_tiles"
+  },
+  "en": "Deepslate Tiles",
+  "de": "Tiefenschieferfliesen"
+ },
+ {
+  "ns": "minecraft",
+  "base": "polished_blackstone",
+  "key": "polished_blackstone",
+  "group": "deepslate",
+  "tex": {
+   "all": "minecraft:block/polished_blackstone"
+  },
+  "en": "Polished Blackstone",
+  "de": "Polierter Schwarzstein"
+ },
+ {
+  "ns": "minecraft",
+  "base": "polished_blackstone_bricks",
+  "key": "polished_blackstone_bricks",
+  "group": "deepslate",
+  "tex": {
+   "all": "minecraft:block/polished_blackstone_bricks"
+  },
+  "en": "Polished Blackstone Bricks",
+  "de": "Polierte Schwarzsteinziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "polished_deepslate",
+  "key": "polished_deepslate",
+  "group": "deepslate",
+  "tex": {
+   "all": "minecraft:block/polished_deepslate"
+  },
+  "en": "Polished Deepslate",
+  "de": "Polierter Tiefenschiefer"
+ },
+ {
+  "ns": "minecraft",
+  "base": "polished_tuff",
+  "key": "polished_tuff",
+  "group": "tuff",
+  "tex": {
+   "all": "minecraft:block/polished_tuff"
+  },
+  "en": "Polished Tuff",
+  "de": "Polierter Tuffstein"
+ },
+ {
+  "ns": "minecraft",
+  "base": "tuff",
+  "key": "tuff",
+  "group": "tuff",
+  "tex": {
+   "all": "minecraft:block/tuff"
+  },
+  "en": "Tuff",
+  "de": "Tuffstein"
+ },
+ {
+  "ns": "minecraft",
+  "base": "tuff_bricks",
+  "key": "tuff_bricks",
+  "group": "tuff",
+  "tex": {
+   "all": "minecraft:block/tuff_bricks"
+  },
+  "en": "Tuff Bricks",
+  "de": "Tuffsteinziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "dark_prismarine",
+  "key": "dark_prismarine",
+  "group": "prismarine",
+  "tex": {
+   "all": "minecraft:block/dark_prismarine"
+  },
+  "en": "Dark Prismarine",
+  "de": "Dunkler Prismarin"
+ },
+ {
+  "ns": "minecraft",
+  "base": "prismarine",
+  "key": "prismarine",
+  "group": "prismarine",
+  "tex": {
+   "all": "minecraft:block/prismarine"
+  },
+  "en": "Prismarine",
+  "de": "Prismarin"
+ },
+ {
+  "ns": "minecraft",
+  "base": "prismarine_bricks",
+  "key": "prismarine_bricks",
+  "group": "prismarine",
+  "tex": {
+   "all": "minecraft:block/prismarine_bricks"
+  },
+  "en": "Prismarine Bricks",
+  "de": "Prismarinziegel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "purpur_block",
+  "key": "purpur_block",
+  "group": "quartz",
+  "tex": {
+   "all": "minecraft:block/purpur_block"
+  },
+  "en": "Purpur Block",
+  "de": "Purpurblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "quartz_block",
+  "key": "quartz_block",
+  "group": "quartz",
+  "tex": {
+   "up": "minecraft:block/quartz_block_top",
+   "down": "minecraft:block/quartz_block_top",
+   "side": "minecraft:block/quartz_block_side"
+  },
+  "en": "Block of Quartz",
+  "de": "Quarzblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "smooth_quartz",
+  "key": "smooth_quartz",
+  "group": "quartz",
+  "tex": {
+   "all": "minecraft:block/quartz_block_bottom"
+  },
+  "en": "Smooth Quartz Block",
+  "de": "Glatter Quarzblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "cut_copper",
+  "key": "cut_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/cut_copper"
+  },
+  "en": "Cut Copper",
+  "de": "Geschnittener Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "exposed_cut_copper",
+  "key": "exposed_cut_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/exposed_cut_copper"
+  },
+  "en": "Exposed Cut Copper",
+  "de": "Angelaufener geschnittener Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "weathered_cut_copper",
+  "key": "weathered_cut_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/weathered_cut_copper"
+  },
+  "en": "Weathered Cut Copper",
+  "de": "Verwitterter geschnittener Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "oxidized_cut_copper",
+  "key": "oxidized_cut_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/oxidized_cut_copper"
+  },
+  "en": "Oxidized Cut Copper",
+  "de": "Oxidierter geschnittener Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "waxed_cut_copper",
+  "key": "waxed_cut_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/cut_copper"
+  },
+  "en": "Waxed Cut Copper",
+  "de": "Gewachster geschnittener Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "waxed_exposed_cut_copper",
+  "key": "waxed_exposed_cut_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/exposed_cut_copper"
+  },
+  "en": "Waxed Exposed Cut Copper",
+  "de": "Gewachster angelaufener geschnittener Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "waxed_weathered_cut_copper",
+  "key": "waxed_weathered_cut_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/weathered_cut_copper"
+  },
+  "en": "Waxed Weathered Cut Copper",
+  "de": "Gewachster verwitterter geschnittener Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "waxed_oxidized_cut_copper",
+  "key": "waxed_oxidized_cut_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/oxidized_cut_copper"
+  },
+  "en": "Waxed Oxidized Cut Copper",
+  "de": "Gewachster oxidierter geschnittener Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "white_wool",
+  "key": "white_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/white_wool"
+  },
+  "en": "White Wool",
+  "de": "Weiße Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "light_gray_wool",
+  "key": "light_gray_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/light_gray_wool"
+  },
+  "en": "Light Gray Wool",
+  "de": "Hellgraue Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "gray_wool",
+  "key": "gray_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/gray_wool"
+  },
+  "en": "Gray Wool",
+  "de": "Graue Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "black_wool",
+  "key": "black_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/black_wool"
+  },
+  "en": "Black Wool",
+  "de": "Schwarze Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "brown_wool",
+  "key": "brown_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/brown_wool"
+  },
+  "en": "Brown Wool",
+  "de": "Braune Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "red_wool",
+  "key": "red_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/red_wool"
+  },
+  "en": "Red Wool",
+  "de": "Rote Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "orange_wool",
+  "key": "orange_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/orange_wool"
+  },
+  "en": "Orange Wool",
+  "de": "Orange Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "yellow_wool",
+  "key": "yellow_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/yellow_wool"
+  },
+  "en": "Yellow Wool",
+  "de": "Gelbe Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "lime_wool",
+  "key": "lime_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/lime_wool"
+  },
+  "en": "Lime Wool",
+  "de": "Hellgrüne Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "green_wool",
+  "key": "green_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/green_wool"
+  },
+  "en": "Green Wool",
+  "de": "Grüne Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "cyan_wool",
+  "key": "cyan_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/cyan_wool"
+  },
+  "en": "Cyan Wool",
+  "de": "Türkise Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "light_blue_wool",
+  "key": "light_blue_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/light_blue_wool"
+  },
+  "en": "Light Blue Wool",
+  "de": "Hellblaue Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "blue_wool",
+  "key": "blue_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/blue_wool"
+  },
+  "en": "Blue Wool",
+  "de": "Blaue Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "purple_wool",
+  "key": "purple_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/purple_wool"
+  },
+  "en": "Purple Wool",
+  "de": "Violette Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "magenta_wool",
+  "key": "magenta_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/magenta_wool"
+  },
+  "en": "Magenta Wool",
+  "de": "Magenta Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "pink_wool",
+  "key": "pink_wool",
+  "group": "wool",
+  "tex": {
+   "all": "minecraft:block/pink_wool"
+  },
+  "en": "Pink Wool",
+  "de": "Rosa Wolle"
+ },
+ {
+  "ns": "minecraft",
+  "base": "white_concrete",
+  "key": "white_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/white_concrete"
+  },
+  "en": "White Concrete",
+  "de": "Weißer Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "light_gray_concrete",
+  "key": "light_gray_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/light_gray_concrete"
+  },
+  "en": "Light Gray Concrete",
+  "de": "Hellgrauer Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "gray_concrete",
+  "key": "gray_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/gray_concrete"
+  },
+  "en": "Gray Concrete",
+  "de": "Grauer Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "black_concrete",
+  "key": "black_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/black_concrete"
+  },
+  "en": "Black Concrete",
+  "de": "Schwarzer Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "brown_concrete",
+  "key": "brown_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/brown_concrete"
+  },
+  "en": "Brown Concrete",
+  "de": "Brauner Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "red_concrete",
+  "key": "red_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/red_concrete"
+  },
+  "en": "Red Concrete",
+  "de": "Roter Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "orange_concrete",
+  "key": "orange_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/orange_concrete"
+  },
+  "en": "Orange Concrete",
+  "de": "Oranger Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "yellow_concrete",
+  "key": "yellow_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/yellow_concrete"
+  },
+  "en": "Yellow Concrete",
+  "de": "Gelber Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "lime_concrete",
+  "key": "lime_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/lime_concrete"
+  },
+  "en": "Lime Concrete",
+  "de": "Hellgrüner Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "green_concrete",
+  "key": "green_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/green_concrete"
+  },
+  "en": "Green Concrete",
+  "de": "Grüner Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "cyan_concrete",
+  "key": "cyan_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/cyan_concrete"
+  },
+  "en": "Cyan Concrete",
+  "de": "Türkiser Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "light_blue_concrete",
+  "key": "light_blue_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/light_blue_concrete"
+  },
+  "en": "Light Blue Concrete",
+  "de": "Hellblauer Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "blue_concrete",
+  "key": "blue_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/blue_concrete"
+  },
+  "en": "Blue Concrete",
+  "de": "Blauer Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "purple_concrete",
+  "key": "purple_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/purple_concrete"
+  },
+  "en": "Purple Concrete",
+  "de": "Violetter Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "magenta_concrete",
+  "key": "magenta_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/magenta_concrete"
+  },
+  "en": "Magenta Concrete",
+  "de": "Magenta Beton"
+ },
+ {
+  "ns": "minecraft",
+  "base": "pink_concrete",
+  "key": "pink_concrete",
+  "group": "concrete",
+  "tex": {
+   "all": "minecraft:block/pink_concrete"
+  },
+  "en": "Pink Concrete",
+  "de": "Rosa Beton"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "astralit_bricks",
+  "key": "astralit_bricks",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/astralit_bricks"
+  },
+  "en": "Astralit Bricks",
+  "de": "Astralitziegel"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "ender_quartz_block",
+  "key": "ender_quartz_block",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/ender_quartz_block"
+  },
+  "en": "Block of Ender Quartz",
+  "de": "Enderquarzblock"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "ender_quartz_bricks",
+  "key": "ender_quartz_bricks",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/ender_quartz_bricks"
+  },
+  "en": "Ender Quartz Bricks",
+  "de": "Enderquarzziegel"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "nihilith_bricks",
+  "key": "nihilith_bricks",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/nihilith_bricks"
+  },
+  "en": "Nihilit Bricks",
+  "de": "Nihilitziegel"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "polished_astralit",
+  "key": "polished_astralit_block",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/polished_astralit"
+  },
+  "en": "Polished Astralit",
+  "de": "Polierter Astralit"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "polished_ender_quartz",
+  "key": "polished_ender_quartz_block",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/polished_ender_quartz"
+  },
+  "en": "Polished Ender Quartz",
+  "de": "Polierter Enderquarz"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "polished_nihilith",
+  "key": "polished_nihilith_block",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/polished_nihilith"
+  },
+  "en": "Polished Nihilit",
+  "de": "Polierter Nihilit"
+ },
+ {
+  "ns": "minecraft",
+  "base": "cinnabar",
+  "key": "cinnabar",
+  "group": "other",
+  "tex": {
+   "all": "minecraft:block/cinnabar"
+  },
+  "en": "Cinnabar",
+  "de": "Zinnober"
+ },
+ {
+  "ns": "minecraft",
+  "base": "polished_cinnabar",
+  "key": "polished_cinnabar",
+  "group": "other",
+  "tex": {
+   "all": "minecraft:block/polished_cinnabar"
+  },
+  "en": "Polished Cinnabar",
+  "de": "Polierter Zinnober"
+ },
+ {
+  "ns": "minecraft",
+  "base": "polished_sulfur",
+  "key": "polished_sulfur",
+  "group": "other",
+  "tex": {
+   "all": "minecraft:block/polished_sulfur"
+  },
+  "en": "Polished Sulfur",
+  "de": "Polierter Schwefel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "sulfur",
+  "key": "sulfur",
+  "group": "other",
+  "tex": {
+   "all": "minecraft:block/sulfur"
+  },
+  "en": "Sulfur",
+  "de": "Schwefel"
+ }
+]

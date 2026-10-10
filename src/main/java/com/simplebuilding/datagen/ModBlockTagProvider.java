@@ -235,6 +235,16 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         }
         // Material-Achtel (Queue Nachtrag 24): Holz mit der Axt, Melone mit Axt wie der Melonenblock.
         ModBlocks.WOOD_OCTETS.forEach(block -> builder(BlockTags.MINEABLE_WITH_AXE).add(key(block)));
+        // Material-Achtel (N19/N15): Bambusmosaik mit der Axt, Wolle ohne Werkzeug, alles andere (Stein, Kupfer, Beton ...) mit der Spitzhacke.
+        for (net.minecraft.world.level.block.Block cell : ModBlocks.MATERIAL_OCTETS) {
+            net.minecraft.world.level.block.Block source = ((com.simplebuilding.blocks.custom.MaterialOctetBlock) cell).source();
+            String path = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(source).getPath();
+            if (path.equals("bamboo_mosaic")) {
+                builder(BlockTags.MINEABLE_WITH_AXE).add(key(cell));
+            } else if (!path.endsWith("_wool")) {
+                builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(cell));
+            }
+        }
         if (ModBlocks.MELON_OCTET != null) {
             builder(BlockTags.MINEABLE_WITH_AXE).add(key(ModBlocks.MELON_OCTET));
         }

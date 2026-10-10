@@ -1225,6 +1225,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_splits_unsupported_shapes_into_octets", SledgehammerOctetTests::sledgehammerSplitsUnsupportedShapesIntoOctets).build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_carve_drops_the_removed_octet", SledgehammerOctetTests::sledgehammerCarveDropsTheRemovedOctet).build(),
             GameTestSpec.named("sledgehammer_game_test_wood_octets_place_burn_and_drop", SledgehammerOctetTests::woodOctetsPlaceBurnAndDrop).build(),
+            GameTestSpec.named("sledgehammer_game_test_material_octets_cover_every_stair_block", SledgehammerOctetTests::materialOctetsCoverEveryStairBlock).build(),
             GameTestSpec.named("sledgehammer_game_test_melon_slice_places_an_octet_and_glistering_melon_is_edible", SledgehammerOctetTests::melonSlicePlacesAnOctetAndGlisteringMelonIsEdible).build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_transform_hints_cover_both_hands_without_side_effects", SledgehammerTests::sledgehammerTransformHintsCoverBothHandsWithoutSideEffects).build(),
             GameTestSpec.named("sledgehammer_game_test_transform_hint_partial_follows_the_upgrade_rules", SledgehammerTests::transformHintPartialFollowsTheUpgradeRules).build(),

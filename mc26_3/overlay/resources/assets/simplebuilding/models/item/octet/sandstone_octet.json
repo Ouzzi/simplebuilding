@@ -1,0 +1,8 @@
+{
+  "parent": "simplebuilding:item/octet/_sided",
+  "textures": {
+    "up": "minecraft:block/sandstone_top",
+    "down": "minecraft:block/sandstone_bottom",
+    "side": "minecraft:block/sandstone"
+  }
+}

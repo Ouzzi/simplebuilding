@@ -1224,7 +1224,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         }
                     }
                     // Holz-Achtel (Queue Nachtrag 24): Steinmetz Bretter -> 8 Achtel, formlos 8 Achtel -> 1 Bretter.
-                    for (Block cell : ModBlocks.WOOD_OCTETS) {
+                    // Material-Achtel (N19/N15): derselbe Weg fuer jeden Block mit Stufe und Treppe.
+                    java.util.List<Block> materialCells = new java.util.ArrayList<>(ModBlocks.WOOD_OCTETS);
+                    materialCells.addAll(ModBlocks.MATERIAL_OCTETS);
+                    for (Block cell : materialCells) {
                         Block planks = ((com.simplebuilding.blocks.custom.MaterialOctetBlock) cell).source();
                         Item octet = BuiltInRegistries.ITEM.getValue(BuiltInRegistries.BLOCK.getKey(cell));
                         stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, octet, planks, 8);

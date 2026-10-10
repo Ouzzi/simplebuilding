@@ -1,0 +1,6 @@
+{
+  "parent": "simplebuilding:item/chess/octet",
+  "textures": {
+    "all": "minecraft:block/green_wool"
+  }
+}

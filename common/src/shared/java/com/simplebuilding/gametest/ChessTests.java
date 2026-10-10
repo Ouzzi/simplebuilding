@@ -101,6 +101,9 @@ public final class ChessTests {
         for (net.minecraft.world.item.Item octet : com.simplebuilding.items.ModItems.WOOD_OCTETS) {
             helper.assertValueEqual(new ItemStack(octet).getMaxStackSize(), 99, octet + " stack size");
         }
+        for (net.minecraft.world.item.Item octet : com.simplebuilding.items.ModItems.MATERIAL_OCTETS) {
+            helper.assertValueEqual(new ItemStack(octet).getMaxStackSize(), 99, octet + " stack size");
+        }
         helper.succeed();
     }
 
