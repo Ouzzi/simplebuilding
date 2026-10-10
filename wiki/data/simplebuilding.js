@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 675,
+      "count": 766,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3971,7 +3971,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -3984,7 +3985,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -4418,6 +4420,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_bricks_from_astral_end_stone_stonecutting",
         "simplebuilding:astralit_bricks_from_astralit_block_stonecutting",
         "simplebuilding:astralit_bricks_from_end_stone_bricks",
+        "simplebuilding:astralit_bricks_from_octets",
         "simplebuilding:astralit_bricks_from_polished_astralit_stonecutting"
       ],
       "usedIn": [
@@ -4427,6 +4430,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_brick_stairs_from_astralit_bricks_stonecutting",
         "simplebuilding:astralit_brick_wall",
         "simplebuilding:astralit_brick_wall_from_astralit_bricks_stonecutting",
+        "simplebuilding:astralit_bricks_octet_from_astralit_bricks_stonecutting",
         "simplebuilding:chiseled_astralit_bricks_from_astralit_bricks_stonecutting"
       ],
       "trades": [],
@@ -5160,7 +5164,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -5173,7 +5178,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -5773,7 +5779,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -5786,7 +5793,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -5998,7 +6006,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -6011,7 +6020,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -6786,7 +6796,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -6799,7 +6810,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -7867,7 +7879,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -7880,7 +7893,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -9729,7 +9743,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -9742,7 +9757,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -10019,7 +10035,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -10032,7 +10049,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -11308,10 +11326,12 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:ender_quartz_block",
         "simplebuilding:ender_quartz_block_from_end_stone",
+        "simplebuilding:ender_quartz_block_from_octets",
         "simplebuilding:ender_quartz_block_from_quartz_block"
       ],
       "usedIn": [
         "simplebuilding:chiseled_ender_quartz_bricks_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_block_octet_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_brick_slab_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_brick_stairs_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_block_stonecutting",
@@ -11401,6 +11421,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_bricks",
         "simplebuilding:ender_quartz_bricks_from_end_stone_bricks",
         "simplebuilding:ender_quartz_bricks_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_bricks_from_octets",
         "simplebuilding:ender_quartz_bricks_from_polished_ender_quartz_stonecutting",
         "simplebuilding:ender_quartz_bricks_from_quartz_bricks"
       ],
@@ -11411,7 +11432,8 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_brick_stairs",
         "simplebuilding:ender_quartz_brick_stairs_from_ender_quartz_bricks_stonecutting",
         "simplebuilding:ender_quartz_brick_wall",
-        "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_bricks_stonecutting"
+        "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_bricks_stonecutting",
+        "simplebuilding:ender_quartz_bricks_octet_from_ender_quartz_bricks_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/ender_quartz_bricks.png",
@@ -12197,7 +12219,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -12210,7 +12233,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -18171,7 +18195,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -18184,7 +18209,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -18880,7 +18906,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -18893,7 +18920,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -19802,7 +19830,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -19815,7 +19844,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -20663,7 +20693,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -20676,7 +20707,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -23283,6 +23315,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_bricks_from_end_stone_bricks",
         "simplebuilding:nihilith_bricks_from_nihil_end_stone_stonecutting",
         "simplebuilding:nihilith_bricks_from_nihilith_block_stonecutting",
+        "simplebuilding:nihilith_bricks_from_octets",
         "simplebuilding:nihilith_bricks_from_polished_nihilith_stonecutting"
       ],
       "usedIn": [
@@ -23292,7 +23325,8 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_brick_stairs",
         "simplebuilding:nihilith_brick_stairs_from_nihilith_bricks_stonecutting",
         "simplebuilding:nihilith_brick_wall",
-        "simplebuilding:nihilith_brick_wall_from_nihilith_bricks_stonecutting"
+        "simplebuilding:nihilith_brick_wall_from_nihilith_bricks_stonecutting",
+        "simplebuilding:nihilith_bricks_octet_from_nihilith_bricks_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/nihilith_bricks.png",
@@ -23993,7 +24027,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -24006,7 +24041,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -24409,7 +24445,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -24422,7 +24459,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -25280,7 +25318,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -25293,7 +25332,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -25426,7 +25466,8 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:polished_astralit",
         "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting",
-        "simplebuilding:polished_astralit_from_astralit_block_stonecutting"
+        "simplebuilding:polished_astralit_from_astralit_block_stonecutting",
+        "simplebuilding:polished_astralit_from_octets"
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
@@ -25438,6 +25479,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_pillar",
         "simplebuilding:astralit_pillar_from_polished_astralit_stonecutting",
         "simplebuilding:chiseled_astralit_bricks_from_polished_astralit_stonecutting",
+        "simplebuilding:polished_astralit_block_octet_from_polished_astralit_stonecutting",
         "simplebuilding:polished_astralit_checker",
         "simplebuilding:polished_astralit_slab",
         "simplebuilding:polished_astralit_slab_from_polished_astralit_stonecutting",
@@ -26201,7 +26243,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -26214,7 +26257,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -26301,6 +26345,7 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:polished_ender_quartz",
         "simplebuilding:polished_ender_quartz_from_ender_quartz_block_stonecutting",
+        "simplebuilding:polished_ender_quartz_from_octets",
         "simplebuilding:polished_ender_quartz_from_purpur_block",
         "simplebuilding:polished_ender_quartz_from_smooth_quartz"
       ],
@@ -26313,6 +26358,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_bricks_from_polished_ender_quartz_stonecutting",
         "simplebuilding:ender_quartz_pillar",
         "simplebuilding:ender_quartz_pillar_from_polished_ender_quartz_stonecutting",
+        "simplebuilding:polished_ender_quartz_block_octet_from_polished_ender_quartz_stonecutting",
         "simplebuilding:polished_ender_quartz_checker",
         "simplebuilding:polished_ender_quartz_slab",
         "simplebuilding:polished_ender_quartz_slab_from_polished_ender_quartz_stonecutting",
@@ -27105,7 +27151,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -27118,7 +27165,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -27189,7 +27237,8 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:polished_nihilith",
         "simplebuilding:polished_nihilith_from_nihil_purpur_block_stonecutting",
-        "simplebuilding:polished_nihilith_from_nihilith_block_stonecutting"
+        "simplebuilding:polished_nihilith_from_nihilith_block_stonecutting",
+        "simplebuilding:polished_nihilith_from_octets"
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_polished_nihilith_stonecutting",
@@ -27201,6 +27250,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_bricks_from_polished_nihilith_stonecutting",
         "simplebuilding:nihilith_pillar",
         "simplebuilding:nihilith_pillar_from_polished_nihilith_stonecutting",
+        "simplebuilding:polished_nihilith_block_octet_from_polished_nihilith_stonecutting",
         "simplebuilding:polished_nihilith_checker",
         "simplebuilding:polished_nihilith_slab",
         "simplebuilding:polished_nihilith_slab_from_polished_nihilith_stonecutting",
@@ -27964,7 +28014,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -27977,7 +28028,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -28077,7 +28129,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -28090,7 +28143,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -28846,7 +28900,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -28859,7 +28914,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -29645,7 +29701,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -29658,7 +29715,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -30586,7 +30644,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -30599,7 +30658,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -32929,7 +32989,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -32942,7 +33003,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -33593,7 +33655,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -33606,7 +33669,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -35167,7 +35231,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -35180,7 +35245,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -35627,7 +35693,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -35640,7 +35707,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -36065,6 +36133,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_bricks_from_astral_end_stone_stonecutting",
         "simplebuilding:astralit_bricks_from_astralit_block_stonecutting",
         "simplebuilding:astralit_bricks_from_end_stone_bricks",
+        "simplebuilding:astralit_bricks_from_octets",
         "simplebuilding:astralit_bricks_from_polished_astralit_stonecutting"
       ],
       "usedIn": [
@@ -36074,6 +36143,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_brick_stairs_from_astralit_bricks_stonecutting",
         "simplebuilding:astralit_brick_wall",
         "simplebuilding:astralit_brick_wall_from_astralit_bricks_stonecutting",
+        "simplebuilding:astralit_bricks_octet_from_astralit_bricks_stonecutting",
         "simplebuilding:chiseled_astralit_bricks_from_astralit_bricks_stonecutting"
       ],
       "trades": [],
@@ -36775,7 +36845,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -36788,7 +36859,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -36962,7 +37034,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -36975,7 +37048,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -38129,7 +38203,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -38142,7 +38217,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -38274,7 +38350,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -38287,7 +38364,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -39006,7 +39084,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -39019,7 +39098,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -39320,7 +39400,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -39333,7 +39414,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -39700,10 +39782,12 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:ender_quartz_block",
         "simplebuilding:ender_quartz_block_from_end_stone",
+        "simplebuilding:ender_quartz_block_from_octets",
         "simplebuilding:ender_quartz_block_from_quartz_block"
       ],
       "usedIn": [
         "simplebuilding:chiseled_ender_quartz_bricks_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_block_octet_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_brick_slab_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_brick_stairs_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_block_stonecutting",
@@ -39809,6 +39893,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_bricks",
         "simplebuilding:ender_quartz_bricks_from_end_stone_bricks",
         "simplebuilding:ender_quartz_bricks_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_bricks_from_octets",
         "simplebuilding:ender_quartz_bricks_from_polished_ender_quartz_stonecutting",
         "simplebuilding:ender_quartz_bricks_from_quartz_bricks"
       ],
@@ -39819,7 +39904,8 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_brick_stairs",
         "simplebuilding:ender_quartz_brick_stairs_from_ender_quartz_bricks_stonecutting",
         "simplebuilding:ender_quartz_brick_wall",
-        "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_bricks_stonecutting"
+        "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_bricks_stonecutting",
+        "simplebuilding:ender_quartz_bricks_octet_from_ender_quartz_bricks_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/ender_quartz_bricks.png",
@@ -43507,7 +43593,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -43520,7 +43607,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -44422,7 +44510,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -44435,7 +44524,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -44517,7 +44607,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -44530,7 +44621,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -46387,6 +46479,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_bricks_from_end_stone_bricks",
         "simplebuilding:nihilith_bricks_from_nihil_end_stone_stonecutting",
         "simplebuilding:nihilith_bricks_from_nihilith_block_stonecutting",
+        "simplebuilding:nihilith_bricks_from_octets",
         "simplebuilding:nihilith_bricks_from_polished_nihilith_stonecutting"
       ],
       "usedIn": [
@@ -46396,7 +46489,8 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_brick_stairs",
         "simplebuilding:nihilith_brick_stairs_from_nihilith_bricks_stonecutting",
         "simplebuilding:nihilith_brick_wall",
-        "simplebuilding:nihilith_brick_wall_from_nihilith_bricks_stonecutting"
+        "simplebuilding:nihilith_brick_wall_from_nihilith_bricks_stonecutting",
+        "simplebuilding:nihilith_bricks_octet_from_nihilith_bricks_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/nihilith_bricks.png",
@@ -46855,7 +46949,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -46868,7 +46963,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -47197,7 +47293,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -47210,7 +47307,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -47548,7 +47646,8 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:polished_astralit",
         "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting",
-        "simplebuilding:polished_astralit_from_astralit_block_stonecutting"
+        "simplebuilding:polished_astralit_from_astralit_block_stonecutting",
+        "simplebuilding:polished_astralit_from_octets"
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
@@ -47560,6 +47659,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_pillar",
         "simplebuilding:astralit_pillar_from_polished_astralit_stonecutting",
         "simplebuilding:chiseled_astralit_bricks_from_polished_astralit_stonecutting",
+        "simplebuilding:polished_astralit_block_octet_from_polished_astralit_stonecutting",
         "simplebuilding:polished_astralit_checker",
         "simplebuilding:polished_astralit_slab",
         "simplebuilding:polished_astralit_slab_from_polished_astralit_stonecutting",
@@ -47784,6 +47884,7 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:polished_ender_quartz",
         "simplebuilding:polished_ender_quartz_from_ender_quartz_block_stonecutting",
+        "simplebuilding:polished_ender_quartz_from_octets",
         "simplebuilding:polished_ender_quartz_from_purpur_block",
         "simplebuilding:polished_ender_quartz_from_smooth_quartz"
       ],
@@ -47796,6 +47897,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_bricks_from_polished_ender_quartz_stonecutting",
         "simplebuilding:ender_quartz_pillar",
         "simplebuilding:ender_quartz_pillar_from_polished_ender_quartz_stonecutting",
+        "simplebuilding:polished_ender_quartz_block_octet_from_polished_ender_quartz_stonecutting",
         "simplebuilding:polished_ender_quartz_checker",
         "simplebuilding:polished_ender_quartz_slab",
         "simplebuilding:polished_ender_quartz_slab_from_polished_ender_quartz_stonecutting",
@@ -48029,7 +48131,8 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:polished_nihilith",
         "simplebuilding:polished_nihilith_from_nihil_purpur_block_stonecutting",
-        "simplebuilding:polished_nihilith_from_nihilith_block_stonecutting"
+        "simplebuilding:polished_nihilith_from_nihilith_block_stonecutting",
+        "simplebuilding:polished_nihilith_from_octets"
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_polished_nihilith_stonecutting",
@@ -48041,6 +48144,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_bricks_from_polished_nihilith_stonecutting",
         "simplebuilding:nihilith_pillar",
         "simplebuilding:nihilith_pillar_from_polished_nihilith_stonecutting",
+        "simplebuilding:polished_nihilith_block_octet_from_polished_nihilith_stonecutting",
         "simplebuilding:polished_nihilith_checker",
         "simplebuilding:polished_nihilith_slab",
         "simplebuilding:polished_nihilith_slab_from_polished_nihilith_stonecutting",
@@ -48274,7 +48378,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -48287,7 +48392,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -50888,7 +50994,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -50901,7 +51008,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -52039,7 +52147,8 @@ window.WIKI_DATA = {
             "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
             "Each octet cuts into every chess piece of its color in the stonecutter.",
             "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
-            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets."
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
           ]
         },
         "de": {
@@ -52052,7 +52161,8 @@ window.WIKI_DATA = {
             "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
             "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
-            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel."
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
       },
@@ -53025,6 +53135,93 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:redstone",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:andesite_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:andesite",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/andesite_from_octets.json",
+      "ingredients": [
+        "simplebuilding:andesite_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:andesite_octet"
+        ],
+        [
+          "simplebuilding:andesite_octet"
+        ],
+        [
+          "simplebuilding:andesite_octet"
+        ],
+        [
+          "simplebuilding:andesite_octet"
+        ],
+        [
+          "simplebuilding:andesite_octet"
+        ],
+        [
+          "simplebuilding:andesite_octet"
+        ],
+        [
+          "simplebuilding:andesite_octet"
+        ],
+        [
+          "simplebuilding:andesite_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:andesite_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:andesite_octet_from_andesite_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:andesite_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/andesite_octet_from_andesite_stonecutting.json",
+      "ingredients": [
+        "minecraft:andesite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:andesite"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
           }
         ]
       }
@@ -54349,6 +54546,58 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:astralit_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astralit_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:astralit_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:astralit_bricks_octet"
+        ],
+        [
+          "simplebuilding:astralit_bricks_octet"
+        ],
+        [
+          "simplebuilding:astralit_bricks_octet"
+        ],
+        [
+          "simplebuilding:astralit_bricks_octet"
+        ],
+        [
+          "simplebuilding:astralit_bricks_octet"
+        ],
+        [
+          "simplebuilding:astralit_bricks_octet"
+        ],
+        [
+          "simplebuilding:astralit_bricks_octet"
+        ],
+        [
+          "simplebuilding:astralit_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:astralit_bricks_from_polished_astralit_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -54373,6 +54622,37 @@ window.WIKI_DATA = {
       ],
       "baseMaterials": {
         "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_bricks_octet_from_astralit_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astralit_bricks_octet_from_astralit_bricks_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astralit_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
         "materials": [
           {
             "id": "simplebuilding:astralit_dust",
@@ -55608,6 +55888,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:bamboo_mosaic_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:bamboo_mosaic",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/bamboo_mosaic_from_octets.json",
+      "ingredients": [
+        "simplebuilding:bamboo_mosaic_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:bamboo_mosaic_octet"
+        ],
+        [
+          "simplebuilding:bamboo_mosaic_octet"
+        ],
+        [
+          "simplebuilding:bamboo_mosaic_octet"
+        ],
+        [
+          "simplebuilding:bamboo_mosaic_octet"
+        ],
+        [
+          "simplebuilding:bamboo_mosaic_octet"
+        ],
+        [
+          "simplebuilding:bamboo_mosaic_octet"
+        ],
+        [
+          "simplebuilding:bamboo_mosaic_octet"
+        ],
+        [
+          "simplebuilding:bamboo_mosaic_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:bamboo_mosaic_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:bamboo_mosaic_octet_from_bamboo_mosaic_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:bamboo_mosaic_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/bamboo_mosaic_octet_from_bamboo_mosaic_stonecutting.json",
+      "ingredients": [
+        "minecraft:bamboo_mosaic"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bamboo_mosaic"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 4.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:bamboo_octet_from_bamboo_planks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -56007,6 +56370,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:black_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:black_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/black_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:black_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:black_concrete_octet"
+        ],
+        [
+          "simplebuilding:black_concrete_octet"
+        ],
+        [
+          "simplebuilding:black_concrete_octet"
+        ],
+        [
+          "simplebuilding:black_concrete_octet"
+        ],
+        [
+          "simplebuilding:black_concrete_octet"
+        ],
+        [
+          "simplebuilding:black_concrete_octet"
+        ],
+        [
+          "simplebuilding:black_concrete_octet"
+        ],
+        [
+          "simplebuilding:black_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:black_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:black_concrete_octet_from_black_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:black_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/black_concrete_octet_from_black_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:black_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:black_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:black_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:black_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -56247,6 +56693,124 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:black_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:black_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/black_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:black_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:black_wool_octet"
+        ],
+        [
+          "simplebuilding:black_wool_octet"
+        ],
+        [
+          "simplebuilding:black_wool_octet"
+        ],
+        [
+          "simplebuilding:black_wool_octet"
+        ],
+        [
+          "simplebuilding:black_wool_octet"
+        ],
+        [
+          "simplebuilding:black_wool_octet"
+        ],
+        [
+          "simplebuilding:black_wool_octet"
+        ],
+        [
+          "simplebuilding:black_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:black_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:black_wool_octet_from_black_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:black_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/black_wool_octet_from_black_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:black_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:black_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:blackstone_block_octet_from_blackstone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:blackstone_block_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/blackstone_block_octet_from_blackstone_stonecutting.json",
+      "ingredients": [
+        "minecraft:blackstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blackstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:blackstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:blackstone_chess_bishop_flat_from_blackstone_octet_stonecutting",
@@ -56669,6 +57233,58 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:blackstone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:blackstone",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/blackstone_from_octets.json",
+      "ingredients": [
+        "simplebuilding:blackstone_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:blackstone_block_octet"
+        ],
+        [
+          "simplebuilding:blackstone_block_octet"
+        ],
+        [
+          "simplebuilding:blackstone_block_octet"
+        ],
+        [
+          "simplebuilding:blackstone_block_octet"
+        ],
+        [
+          "simplebuilding:blackstone_block_octet"
+        ],
+        [
+          "simplebuilding:blackstone_block_octet"
+        ],
+        [
+          "simplebuilding:blackstone_block_octet"
+        ],
+        [
+          "simplebuilding:blackstone_block_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:blackstone_block_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:blackstone_octet_from_blackstone_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -56986,6 +57602,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:blue_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:blue_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/blue_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:blue_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:blue_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:blue_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:blue_concrete_octet_from_blue_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:blue_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/blue_concrete_octet_from_blue_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:blue_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:blue_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:blue_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -57226,6 +57925,93 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:blue_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:blue_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/blue_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:blue_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:blue_wool_octet"
+        ],
+        [
+          "simplebuilding:blue_wool_octet"
+        ],
+        [
+          "simplebuilding:blue_wool_octet"
+        ],
+        [
+          "simplebuilding:blue_wool_octet"
+        ],
+        [
+          "simplebuilding:blue_wool_octet"
+        ],
+        [
+          "simplebuilding:blue_wool_octet"
+        ],
+        [
+          "simplebuilding:blue_wool_octet"
+        ],
+        [
+          "simplebuilding:blue_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:blue_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:blue_wool_octet_from_blue_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:blue_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/blue_wool_octet_from_blue_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:blue_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:blue_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:blueprint",
@@ -59048,6 +59834,172 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:bricks_octet"
+        ],
+        [
+          "simplebuilding:bricks_octet"
+        ],
+        [
+          "simplebuilding:bricks_octet"
+        ],
+        [
+          "simplebuilding:bricks_octet"
+        ],
+        [
+          "simplebuilding:bricks_octet"
+        ],
+        [
+          "simplebuilding:bricks_octet"
+        ],
+        [
+          "simplebuilding:bricks_octet"
+        ],
+        [
+          "simplebuilding:bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:bricks_octet_from_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/bricks_octet_from_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:clay_ball",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:brown_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:brown_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brown_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:brown_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:brown_concrete_octet"
+        ],
+        [
+          "simplebuilding:brown_concrete_octet"
+        ],
+        [
+          "simplebuilding:brown_concrete_octet"
+        ],
+        [
+          "simplebuilding:brown_concrete_octet"
+        ],
+        [
+          "simplebuilding:brown_concrete_octet"
+        ],
+        [
+          "simplebuilding:brown_concrete_octet"
+        ],
+        [
+          "simplebuilding:brown_concrete_octet"
+        ],
+        [
+          "simplebuilding:brown_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:brown_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:brown_concrete_octet_from_brown_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:brown_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brown_concrete_octet_from_brown_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:brown_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:brown_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:brown_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:brown_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -59288,6 +60240,93 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:brown_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:brown_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brown_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:brown_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:brown_wool_octet"
+        ],
+        [
+          "simplebuilding:brown_wool_octet"
+        ],
+        [
+          "simplebuilding:brown_wool_octet"
+        ],
+        [
+          "simplebuilding:brown_wool_octet"
+        ],
+        [
+          "simplebuilding:brown_wool_octet"
+        ],
+        [
+          "simplebuilding:brown_wool_octet"
+        ],
+        [
+          "simplebuilding:brown_wool_octet"
+        ],
+        [
+          "simplebuilding:brown_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:brown_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:brown_wool_octet_from_brown_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:brown_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brown_wool_octet_from_brown_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:brown_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:brown_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:cocoa_beans",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ceramic_bucket_from_smelting_raw_ceramic_bucket",
@@ -60281,6 +61320,307 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:cinnabar_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:cinnabar_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cinnabar_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:cinnabar_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:cinnabar_bricks_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_bricks_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_bricks_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_bricks_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_bricks_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_bricks_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_bricks_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:cinnabar_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cinnabar_bricks_octet_from_cinnabar_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cinnabar_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cinnabar_bricks_octet_from_cinnabar_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:cinnabar_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cinnabar_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cinnabar",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cinnabar_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:cinnabar",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cinnabar_from_octets.json",
+      "ingredients": [
+        "simplebuilding:cinnabar_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:cinnabar_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_octet"
+        ],
+        [
+          "simplebuilding:cinnabar_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:cinnabar_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cinnabar_octet_from_cinnabar_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cinnabar_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cinnabar_octet_from_cinnabar_stonecutting.json",
+      "ingredients": [
+        "minecraft:cinnabar"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cinnabar"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cinnabar",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cobbled_deepslate_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:cobbled_deepslate",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cobbled_deepslate_from_octets.json",
+      "ingredients": [
+        "simplebuilding:cobbled_deepslate_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:cobbled_deepslate_octet"
+        ],
+        [
+          "simplebuilding:cobbled_deepslate_octet"
+        ],
+        [
+          "simplebuilding:cobbled_deepslate_octet"
+        ],
+        [
+          "simplebuilding:cobbled_deepslate_octet"
+        ],
+        [
+          "simplebuilding:cobbled_deepslate_octet"
+        ],
+        [
+          "simplebuilding:cobbled_deepslate_octet"
+        ],
+        [
+          "simplebuilding:cobbled_deepslate_octet"
+        ],
+        [
+          "simplebuilding:cobbled_deepslate_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:cobbled_deepslate_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cobbled_deepslate_octet_from_cobbled_deepslate_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cobbled_deepslate_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cobbled_deepslate_octet_from_cobbled_deepslate_stonecutting.json",
+      "ingredients": [
+        "minecraft:cobbled_deepslate"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cobbled_deepslate"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cobblestone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:cobblestone",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cobblestone_from_octets.json",
+      "ingredients": [
+        "simplebuilding:cobblestone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:cobblestone_octet"
+        ],
+        [
+          "simplebuilding:cobblestone_octet"
+        ],
+        [
+          "simplebuilding:cobblestone_octet"
+        ],
+        [
+          "simplebuilding:cobblestone_octet"
+        ],
+        [
+          "simplebuilding:cobblestone_octet"
+        ],
+        [
+          "simplebuilding:cobblestone_octet"
+        ],
+        [
+          "simplebuilding:cobblestone_octet"
+        ],
+        [
+          "simplebuilding:cobblestone_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:cobblestone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:cobblestone_from_stone_pebbles",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -60312,6 +61652,37 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:stone_pebble",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cobblestone_octet_from_cobblestone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cobblestone_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cobblestone_octet_from_cobblestone_stonecutting.json",
+      "ingredients": [
+        "minecraft:cobblestone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cobblestone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
           }
         ]
       }
@@ -61258,6 +62629,172 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:cut_copper_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:cut_copper",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cut_copper_from_octets.json",
+      "ingredients": [
+        "simplebuilding:cut_copper_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:cut_copper_octet"
+        ],
+        [
+          "simplebuilding:cut_copper_octet"
+        ],
+        [
+          "simplebuilding:cut_copper_octet"
+        ],
+        [
+          "simplebuilding:cut_copper_octet"
+        ],
+        [
+          "simplebuilding:cut_copper_octet"
+        ],
+        [
+          "simplebuilding:cut_copper_octet"
+        ],
+        [
+          "simplebuilding:cut_copper_octet"
+        ],
+        [
+          "simplebuilding:cut_copper_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:cut_copper_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cut_copper_octet_from_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cut_copper_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cut_copper_octet_from_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cut_copper"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cyan_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:cyan_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cyan_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:cyan_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:cyan_concrete_octet"
+        ],
+        [
+          "simplebuilding:cyan_concrete_octet"
+        ],
+        [
+          "simplebuilding:cyan_concrete_octet"
+        ],
+        [
+          "simplebuilding:cyan_concrete_octet"
+        ],
+        [
+          "simplebuilding:cyan_concrete_octet"
+        ],
+        [
+          "simplebuilding:cyan_concrete_octet"
+        ],
+        [
+          "simplebuilding:cyan_concrete_octet"
+        ],
+        [
+          "simplebuilding:cyan_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:cyan_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cyan_concrete_octet_from_cyan_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cyan_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cyan_concrete_octet_from_cyan_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:cyan_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cyan_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cyan_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:cyan_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -61508,6 +63045,97 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:cyan_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:cyan_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cyan_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:cyan_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:cyan_wool_octet"
+        ],
+        [
+          "simplebuilding:cyan_wool_octet"
+        ],
+        [
+          "simplebuilding:cyan_wool_octet"
+        ],
+        [
+          "simplebuilding:cyan_wool_octet"
+        ],
+        [
+          "simplebuilding:cyan_wool_octet"
+        ],
+        [
+          "simplebuilding:cyan_wool_octet"
+        ],
+        [
+          "simplebuilding:cyan_wool_octet"
+        ],
+        [
+          "simplebuilding:cyan_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:cyan_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cyan_wool_octet_from_cyan_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cyan_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cyan_wool_octet_from_cyan_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:cyan_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:cyan_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:dark_oak_cauldron",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -61700,6 +63328,259 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:dark_oak_log",
             "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:dark_prismarine_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:dark_prismarine",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/dark_prismarine_from_octets.json",
+      "ingredients": [
+        "simplebuilding:dark_prismarine_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:dark_prismarine_octet"
+        ],
+        [
+          "simplebuilding:dark_prismarine_octet"
+        ],
+        [
+          "simplebuilding:dark_prismarine_octet"
+        ],
+        [
+          "simplebuilding:dark_prismarine_octet"
+        ],
+        [
+          "simplebuilding:dark_prismarine_octet"
+        ],
+        [
+          "simplebuilding:dark_prismarine_octet"
+        ],
+        [
+          "simplebuilding:dark_prismarine_octet"
+        ],
+        [
+          "simplebuilding:dark_prismarine_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dark_prismarine_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:dark_prismarine_octet_from_dark_prismarine_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:dark_prismarine_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/dark_prismarine_octet_from_dark_prismarine_stonecutting.json",
+      "ingredients": [
+        "minecraft:dark_prismarine"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_prismarine"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:prismarine_shard",
+            "count": 8
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:deepslate_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:deepslate_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/deepslate_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:deepslate_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:deepslate_bricks_octet"
+        ],
+        [
+          "simplebuilding:deepslate_bricks_octet"
+        ],
+        [
+          "simplebuilding:deepslate_bricks_octet"
+        ],
+        [
+          "simplebuilding:deepslate_bricks_octet"
+        ],
+        [
+          "simplebuilding:deepslate_bricks_octet"
+        ],
+        [
+          "simplebuilding:deepslate_bricks_octet"
+        ],
+        [
+          "simplebuilding:deepslate_bricks_octet"
+        ],
+        [
+          "simplebuilding:deepslate_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:deepslate_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:deepslate_bricks_octet_from_deepslate_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:deepslate_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/deepslate_bricks_octet_from_deepslate_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:deepslate_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:deepslate_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:deepslate_tiles_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:deepslate_tiles",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/deepslate_tiles_from_octets.json",
+      "ingredients": [
+        "simplebuilding:deepslate_tiles_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:deepslate_tiles_octet"
+        ],
+        [
+          "simplebuilding:deepslate_tiles_octet"
+        ],
+        [
+          "simplebuilding:deepslate_tiles_octet"
+        ],
+        [
+          "simplebuilding:deepslate_tiles_octet"
+        ],
+        [
+          "simplebuilding:deepslate_tiles_octet"
+        ],
+        [
+          "simplebuilding:deepslate_tiles_octet"
+        ],
+        [
+          "simplebuilding:deepslate_tiles_octet"
+        ],
+        [
+          "simplebuilding:deepslate_tiles_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:deepslate_tiles_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:deepslate_tiles_octet_from_deepslate_tiles_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:deepslate_tiles_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/deepslate_tiles_octet_from_deepslate_tiles_stonecutting.json",
+      "ingredients": [
+        "minecraft:deepslate_tiles"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:deepslate_tiles"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
           }
         ]
       }
@@ -62172,6 +64053,93 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:diorite_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:diorite",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/diorite_from_octets.json",
+      "ingredients": [
+        "simplebuilding:diorite_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:diorite_octet"
+        ],
+        [
+          "simplebuilding:diorite_octet"
+        ],
+        [
+          "simplebuilding:diorite_octet"
+        ],
+        [
+          "simplebuilding:diorite_octet"
+        ],
+        [
+          "simplebuilding:diorite_octet"
+        ],
+        [
+          "simplebuilding:diorite_octet"
+        ],
+        [
+          "simplebuilding:diorite_octet"
+        ],
+        [
+          "simplebuilding:diorite_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diorite_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:diorite_octet_from_diorite_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:diorite_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/diorite_octet_from_diorite_stonecutting.json",
+      "ingredients": [
+        "minecraft:diorite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:diorite"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:dirt_slab",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -62421,6 +64389,89 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:end_stone_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:end_stone_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/end_stone_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:end_stone_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:end_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:end_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:end_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:end_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:end_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:end_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:end_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:end_stone_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:end_stone_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:end_stone_bricks_octet_from_end_stone_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:end_stone_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/end_stone_bricks_octet_from_end_stone_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:end_stone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:end_stone_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:ender_quartz",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -62569,6 +64620,58 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:ender_quartz_block_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_block",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_quartz_block_from_octets.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_block_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:ender_quartz_block_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:ender_quartz_block_from_quartz_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -62614,6 +64717,45 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_quartz_block_octet_from_ender_quartz_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_block_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_quartz_block_octet_from_ender_quartz_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_quartz_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -63425,6 +65567,58 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:ender_quartz_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_quartz_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:ender_quartz_bricks_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_bricks_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_bricks_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_bricks_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_bricks_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_bricks_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_bricks_octet"
+        ],
+        [
+          "simplebuilding:ender_quartz_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:ender_quartz_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:ender_quartz_bricks_from_polished_ender_quartz_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -63511,6 +65705,45 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_quartz_bricks_octet_from_ender_quartz_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/ender_quartz_bricks_octet_from_ender_quartz_bricks_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_quartz_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -67666,6 +69899,89 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:exposed_cut_copper_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:exposed_cut_copper",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/exposed_cut_copper_from_octets.json",
+      "ingredients": [
+        "simplebuilding:exposed_cut_copper_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:exposed_cut_copper_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:exposed_cut_copper_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:exposed_cut_copper_octet_from_exposed_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:exposed_cut_copper_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/exposed_cut_copper_octet_from_exposed_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:exposed_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:exposed_cut_copper"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:exposed_trapped_copper_chest",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -68632,6 +70948,93 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:granite_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:granite",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/granite_from_octets.json",
+      "ingredients": [
+        "simplebuilding:granite_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:granite_octet"
+        ],
+        [
+          "simplebuilding:granite_octet"
+        ],
+        [
+          "simplebuilding:granite_octet"
+        ],
+        [
+          "simplebuilding:granite_octet"
+        ],
+        [
+          "simplebuilding:granite_octet"
+        ],
+        [
+          "simplebuilding:granite_octet"
+        ],
+        [
+          "simplebuilding:granite_octet"
+        ],
+        [
+          "simplebuilding:granite_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:granite_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:granite_octet_from_granite_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:granite_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/granite_octet_from_granite_stonecutting.json",
+      "ingredients": [
+        "minecraft:granite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:granite"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:grass_slab",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -68695,6 +71098,89 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:gravel",
             "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:gray_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:gray_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/gray_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:gray_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:gray_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:gray_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:gray_concrete_octet_from_gray_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:gray_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/gray_concrete_octet_from_gray_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:gray_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gray_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:gray_concrete",
+            "count": 1
           }
         ]
       }
@@ -68950,6 +71436,180 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:gray_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:gray_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/gray_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:gray_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:gray_wool_octet"
+        ],
+        [
+          "simplebuilding:gray_wool_octet"
+        ],
+        [
+          "simplebuilding:gray_wool_octet"
+        ],
+        [
+          "simplebuilding:gray_wool_octet"
+        ],
+        [
+          "simplebuilding:gray_wool_octet"
+        ],
+        [
+          "simplebuilding:gray_wool_octet"
+        ],
+        [
+          "simplebuilding:gray_wool_octet"
+        ],
+        [
+          "simplebuilding:gray_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:gray_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:gray_wool_octet_from_gray_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:gray_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/gray_wool_octet_from_gray_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:gray_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:gray_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.167
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:green_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:green_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/green_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:green_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:green_concrete_octet"
+        ],
+        [
+          "simplebuilding:green_concrete_octet"
+        ],
+        [
+          "simplebuilding:green_concrete_octet"
+        ],
+        [
+          "simplebuilding:green_concrete_octet"
+        ],
+        [
+          "simplebuilding:green_concrete_octet"
+        ],
+        [
+          "simplebuilding:green_concrete_octet"
+        ],
+        [
+          "simplebuilding:green_concrete_octet"
+        ],
+        [
+          "simplebuilding:green_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:green_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:green_concrete_octet_from_green_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:green_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/green_concrete_octet_from_green_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:green_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:green_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:green_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:green_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -69190,6 +71850,93 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:green_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:green_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/green_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:green_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:green_wool_octet"
+        ],
+        [
+          "simplebuilding:green_wool_octet"
+        ],
+        [
+          "simplebuilding:green_wool_octet"
+        ],
+        [
+          "simplebuilding:green_wool_octet"
+        ],
+        [
+          "simplebuilding:green_wool_octet"
+        ],
+        [
+          "simplebuilding:green_wool_octet"
+        ],
+        [
+          "simplebuilding:green_wool_octet"
+        ],
+        [
+          "simplebuilding:green_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:green_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:green_wool_octet_from_green_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:green_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/green_wool_octet_from_green_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:green_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:green_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:guide_book",
@@ -71946,6 +74693,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:light_blue_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:light_blue_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_blue_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:light_blue_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:light_blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_blue_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_blue_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:light_blue_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:light_blue_concrete_octet_from_light_blue_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:light_blue_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_blue_concrete_octet_from_light_blue_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:light_blue_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_blue_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:light_blue_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:light_blue_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -72188,6 +75018,176 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:light_blue_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:light_blue_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_blue_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:light_blue_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:light_blue_wool_octet"
+        ],
+        [
+          "simplebuilding:light_blue_wool_octet"
+        ],
+        [
+          "simplebuilding:light_blue_wool_octet"
+        ],
+        [
+          "simplebuilding:light_blue_wool_octet"
+        ],
+        [
+          "simplebuilding:light_blue_wool_octet"
+        ],
+        [
+          "simplebuilding:light_blue_wool_octet"
+        ],
+        [
+          "simplebuilding:light_blue_wool_octet"
+        ],
+        [
+          "simplebuilding:light_blue_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:light_blue_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:light_blue_wool_octet_from_light_blue_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:light_blue_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_blue_wool_octet_from_light_blue_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:light_blue_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_blue_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:blue_orchid",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:light_gray_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:light_gray_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_gray_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:light_gray_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:light_gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_gray_concrete_octet"
+        ],
+        [
+          "simplebuilding:light_gray_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:light_gray_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:light_gray_concrete_octet_from_light_gray_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:light_gray_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_gray_concrete_octet_from_light_gray_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:light_gray_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_gray_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:light_gray_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:light_gray_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -72428,6 +75428,176 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:light_gray_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:light_gray_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_gray_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:light_gray_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:light_gray_wool_octet"
+        ],
+        [
+          "simplebuilding:light_gray_wool_octet"
+        ],
+        [
+          "simplebuilding:light_gray_wool_octet"
+        ],
+        [
+          "simplebuilding:light_gray_wool_octet"
+        ],
+        [
+          "simplebuilding:light_gray_wool_octet"
+        ],
+        [
+          "simplebuilding:light_gray_wool_octet"
+        ],
+        [
+          "simplebuilding:light_gray_wool_octet"
+        ],
+        [
+          "simplebuilding:light_gray_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:light_gray_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:light_gray_wool_octet_from_light_gray_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:light_gray_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_gray_wool_octet_from_light_gray_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:light_gray_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:light_gray_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:azure_bluet",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:lime_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:lime_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/lime_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:lime_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:lime_concrete_octet"
+        ],
+        [
+          "simplebuilding:lime_concrete_octet"
+        ],
+        [
+          "simplebuilding:lime_concrete_octet"
+        ],
+        [
+          "simplebuilding:lime_concrete_octet"
+        ],
+        [
+          "simplebuilding:lime_concrete_octet"
+        ],
+        [
+          "simplebuilding:lime_concrete_octet"
+        ],
+        [
+          "simplebuilding:lime_concrete_octet"
+        ],
+        [
+          "simplebuilding:lime_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:lime_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:lime_concrete_octet_from_lime_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:lime_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/lime_concrete_octet_from_lime_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:lime_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:lime_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:lime_concrete",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:lime_dyed_storage",
@@ -72680,6 +75850,180 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:lime_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:lime_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/lime_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:lime_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:lime_wool_octet"
+        ],
+        [
+          "simplebuilding:lime_wool_octet"
+        ],
+        [
+          "simplebuilding:lime_wool_octet"
+        ],
+        [
+          "simplebuilding:lime_wool_octet"
+        ],
+        [
+          "simplebuilding:lime_wool_octet"
+        ],
+        [
+          "simplebuilding:lime_wool_octet"
+        ],
+        [
+          "simplebuilding:lime_wool_octet"
+        ],
+        [
+          "simplebuilding:lime_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:lime_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:lime_wool_octet_from_lime_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:lime_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/lime_wool_octet_from_lime_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:lime_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:lime_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.167
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:magenta_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:magenta_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/magenta_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:magenta_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:magenta_concrete_octet"
+        ],
+        [
+          "simplebuilding:magenta_concrete_octet"
+        ],
+        [
+          "simplebuilding:magenta_concrete_octet"
+        ],
+        [
+          "simplebuilding:magenta_concrete_octet"
+        ],
+        [
+          "simplebuilding:magenta_concrete_octet"
+        ],
+        [
+          "simplebuilding:magenta_concrete_octet"
+        ],
+        [
+          "simplebuilding:magenta_concrete_octet"
+        ],
+        [
+          "simplebuilding:magenta_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:magenta_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:magenta_concrete_octet_from_magenta_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:magenta_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/magenta_concrete_octet_from_magenta_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:magenta_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:magenta_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:magenta_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:magenta_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -72920,6 +76264,93 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:magenta_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:magenta_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/magenta_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:magenta_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:magenta_wool_octet"
+        ],
+        [
+          "simplebuilding:magenta_wool_octet"
+        ],
+        [
+          "simplebuilding:magenta_wool_octet"
+        ],
+        [
+          "simplebuilding:magenta_wool_octet"
+        ],
+        [
+          "simplebuilding:magenta_wool_octet"
+        ],
+        [
+          "simplebuilding:magenta_wool_octet"
+        ],
+        [
+          "simplebuilding:magenta_wool_octet"
+        ],
+        [
+          "simplebuilding:magenta_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:magenta_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:magenta_wool_octet_from_magenta_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:magenta_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/magenta_wool_octet_from_magenta_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:magenta_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:magenta_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:allium",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:magnet",
@@ -73231,6 +76662,267 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:mangrove_log",
             "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:mossy_cobblestone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:mossy_cobblestone",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/mossy_cobblestone_from_octets.json",
+      "ingredients": [
+        "simplebuilding:mossy_cobblestone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:mossy_cobblestone_octet"
+        ],
+        [
+          "simplebuilding:mossy_cobblestone_octet"
+        ],
+        [
+          "simplebuilding:mossy_cobblestone_octet"
+        ],
+        [
+          "simplebuilding:mossy_cobblestone_octet"
+        ],
+        [
+          "simplebuilding:mossy_cobblestone_octet"
+        ],
+        [
+          "simplebuilding:mossy_cobblestone_octet"
+        ],
+        [
+          "simplebuilding:mossy_cobblestone_octet"
+        ],
+        [
+          "simplebuilding:mossy_cobblestone_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:mossy_cobblestone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:mossy_cobblestone_octet_from_mossy_cobblestone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:mossy_cobblestone_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/mossy_cobblestone_octet_from_mossy_cobblestone_stonecutting.json",
+      "ingredients": [
+        "minecraft:mossy_cobblestone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mossy_cobblestone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:mossy_stone_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:mossy_stone_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/mossy_stone_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:mossy_stone_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:mossy_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:mossy_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:mossy_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:mossy_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:mossy_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:mossy_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:mossy_stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:mossy_stone_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:mossy_stone_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:mossy_stone_bricks_octet_from_mossy_stone_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:mossy_stone_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/mossy_stone_bricks_octet_from_mossy_stone_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:mossy_stone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mossy_stone_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          },
+          {
+            "id": "minecraft:stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:mud_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:mud_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/mud_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:mud_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:mud_bricks_octet"
+        ],
+        [
+          "simplebuilding:mud_bricks_octet"
+        ],
+        [
+          "simplebuilding:mud_bricks_octet"
+        ],
+        [
+          "simplebuilding:mud_bricks_octet"
+        ],
+        [
+          "simplebuilding:mud_bricks_octet"
+        ],
+        [
+          "simplebuilding:mud_bricks_octet"
+        ],
+        [
+          "simplebuilding:mud_bricks_octet"
+        ],
+        [
+          "simplebuilding:mud_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:mud_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:mud_bricks_octet_from_mud_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:mud_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/mud_bricks_octet_from_mud_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:mud_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:mud_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:mud",
+            "count": 1
+          },
+          {
+            "id": "minecraft:wheat",
+            "count": 1
           }
         ]
       }
@@ -73944,6 +77636,89 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:quartz",
             "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nether_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:nether_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nether_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:nether_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:nether_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nether_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nether_bricks_octet_from_nether_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nether_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nether_bricks_octet_from_nether_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:nether_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:nether_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 4
           }
         ]
       }
@@ -77093,6 +80868,58 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:nihilith_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihilith_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:nihilith_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:nihilith_bricks_octet"
+        ],
+        [
+          "simplebuilding:nihilith_bricks_octet"
+        ],
+        [
+          "simplebuilding:nihilith_bricks_octet"
+        ],
+        [
+          "simplebuilding:nihilith_bricks_octet"
+        ],
+        [
+          "simplebuilding:nihilith_bricks_octet"
+        ],
+        [
+          "simplebuilding:nihilith_bricks_octet"
+        ],
+        [
+          "simplebuilding:nihilith_bricks_octet"
+        ],
+        [
+          "simplebuilding:nihilith_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nihilith_bricks_from_polished_nihilith_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -77117,6 +80944,37 @@ window.WIKI_DATA = {
       ],
       "baseMaterials": {
         "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_bricks_octet_from_nihilith_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihilith_bricks_octet_from_nihilith_bricks_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihilith_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
         "materials": [
           {
             "id": "simplebuilding:nihilith_shard",
@@ -79449,6 +83307,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:orange_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:orange_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/orange_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:orange_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:orange_concrete_octet"
+        ],
+        [
+          "simplebuilding:orange_concrete_octet"
+        ],
+        [
+          "simplebuilding:orange_concrete_octet"
+        ],
+        [
+          "simplebuilding:orange_concrete_octet"
+        ],
+        [
+          "simplebuilding:orange_concrete_octet"
+        ],
+        [
+          "simplebuilding:orange_concrete_octet"
+        ],
+        [
+          "simplebuilding:orange_concrete_octet"
+        ],
+        [
+          "simplebuilding:orange_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:orange_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:orange_concrete_octet_from_orange_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:orange_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/orange_concrete_octet_from_orange_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:orange_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:orange_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:orange_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:orange_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -79689,6 +83630,176 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:orange_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:orange_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/orange_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:orange_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:orange_wool_octet"
+        ],
+        [
+          "simplebuilding:orange_wool_octet"
+        ],
+        [
+          "simplebuilding:orange_wool_octet"
+        ],
+        [
+          "simplebuilding:orange_wool_octet"
+        ],
+        [
+          "simplebuilding:orange_wool_octet"
+        ],
+        [
+          "simplebuilding:orange_wool_octet"
+        ],
+        [
+          "simplebuilding:orange_wool_octet"
+        ],
+        [
+          "simplebuilding:orange_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:orange_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:orange_wool_octet_from_orange_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:orange_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/orange_wool_octet_from_orange_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:orange_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:orange_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:open_eyeblossom",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:oxidized_cut_copper_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:oxidized_cut_copper",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/oxidized_cut_copper_from_octets.json",
+      "ingredients": [
+        "simplebuilding:oxidized_cut_copper_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:oxidized_cut_copper_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:oxidized_cut_copper_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:oxidized_cut_copper_octet_from_oxidized_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:oxidized_cut_copper_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/oxidized_cut_copper_octet_from_oxidized_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:oxidized_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:oxidized_cut_copper"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:oxidized_copper",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:oxidized_trapped_copper_chest",
@@ -79993,6 +84104,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:pink_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:pink_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pink_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:pink_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:pink_concrete_octet"
+        ],
+        [
+          "simplebuilding:pink_concrete_octet"
+        ],
+        [
+          "simplebuilding:pink_concrete_octet"
+        ],
+        [
+          "simplebuilding:pink_concrete_octet"
+        ],
+        [
+          "simplebuilding:pink_concrete_octet"
+        ],
+        [
+          "simplebuilding:pink_concrete_octet"
+        ],
+        [
+          "simplebuilding:pink_concrete_octet"
+        ],
+        [
+          "simplebuilding:pink_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:pink_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:pink_concrete_octet_from_pink_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:pink_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pink_concrete_octet_from_pink_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:pink_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pink_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:pink_concrete",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:pink_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -80235,6 +84429,180 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:pink_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:pink_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pink_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:pink_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:pink_wool_octet"
+        ],
+        [
+          "simplebuilding:pink_wool_octet"
+        ],
+        [
+          "simplebuilding:pink_wool_octet"
+        ],
+        [
+          "simplebuilding:pink_wool_octet"
+        ],
+        [
+          "simplebuilding:pink_wool_octet"
+        ],
+        [
+          "simplebuilding:pink_wool_octet"
+        ],
+        [
+          "simplebuilding:pink_wool_octet"
+        ],
+        [
+          "simplebuilding:pink_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:pink_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:pink_wool_octet_from_pink_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:pink_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pink_wool_octet_from_pink_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:pink_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:pink_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:cactus_flower",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_andesite_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:polished_andesite",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_andesite_from_octets.json",
+      "ingredients": [
+        "simplebuilding:polished_andesite_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:polished_andesite_octet"
+        ],
+        [
+          "simplebuilding:polished_andesite_octet"
+        ],
+        [
+          "simplebuilding:polished_andesite_octet"
+        ],
+        [
+          "simplebuilding:polished_andesite_octet"
+        ],
+        [
+          "simplebuilding:polished_andesite_octet"
+        ],
+        [
+          "simplebuilding:polished_andesite_octet"
+        ],
+        [
+          "simplebuilding:polished_andesite_octet"
+        ],
+        [
+          "simplebuilding:polished_andesite_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:polished_andesite_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_andesite_octet_from_polished_andesite_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_andesite_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_andesite_octet_from_polished_andesite_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_andesite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_andesite"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:polished_astralit",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -80267,6 +84635,37 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:astralit_dust",
             "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_astralit_block_octet_from_polished_astralit_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_astralit_block_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_astralit_block_octet_from_polished_astralit_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:polished_astralit"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:polished_astralit"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
           }
         ]
       }
@@ -80954,6 +85353,58 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:polished_astralit_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_astralit",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_astralit_from_octets.json",
+      "ingredients": [
+        "simplebuilding:polished_astralit_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:polished_astralit_block_octet"
+        ],
+        [
+          "simplebuilding:polished_astralit_block_octet"
+        ],
+        [
+          "simplebuilding:polished_astralit_block_octet"
+        ],
+        [
+          "simplebuilding:polished_astralit_block_octet"
+        ],
+        [
+          "simplebuilding:polished_astralit_block_octet"
+        ],
+        [
+          "simplebuilding:polished_astralit_block_octet"
+        ],
+        [
+          "simplebuilding:polished_astralit_block_octet"
+        ],
+        [
+          "simplebuilding:polished_astralit_block_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:polished_astralit_block_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:polished_astralit_octet_from_polished_astralit_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -81390,6 +85841,425 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:polished_blackstone_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:polished_blackstone_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_blackstone_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:polished_blackstone_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:polished_blackstone_bricks_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_bricks_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_bricks_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_bricks_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_bricks_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_bricks_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_bricks_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:polished_blackstone_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_blackstone_bricks_octet_from_polished_blackstone_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_blackstone_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_blackstone_bricks_octet_from_polished_blackstone_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_blackstone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_blackstone_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:blackstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_blackstone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:polished_blackstone",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_blackstone_from_octets.json",
+      "ingredients": [
+        "simplebuilding:polished_blackstone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:polished_blackstone_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_octet"
+        ],
+        [
+          "simplebuilding:polished_blackstone_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:polished_blackstone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_blackstone_octet_from_polished_blackstone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_blackstone_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_blackstone_octet_from_polished_blackstone_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_blackstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_blackstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:blackstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_cinnabar_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:polished_cinnabar",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_cinnabar_from_octets.json",
+      "ingredients": [
+        "simplebuilding:polished_cinnabar_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:polished_cinnabar_octet"
+        ],
+        [
+          "simplebuilding:polished_cinnabar_octet"
+        ],
+        [
+          "simplebuilding:polished_cinnabar_octet"
+        ],
+        [
+          "simplebuilding:polished_cinnabar_octet"
+        ],
+        [
+          "simplebuilding:polished_cinnabar_octet"
+        ],
+        [
+          "simplebuilding:polished_cinnabar_octet"
+        ],
+        [
+          "simplebuilding:polished_cinnabar_octet"
+        ],
+        [
+          "simplebuilding:polished_cinnabar_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:polished_cinnabar_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_cinnabar_octet_from_polished_cinnabar_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_cinnabar_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_cinnabar_octet_from_polished_cinnabar_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_cinnabar"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_cinnabar"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cinnabar",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_deepslate_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:polished_deepslate",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_deepslate_from_octets.json",
+      "ingredients": [
+        "simplebuilding:polished_deepslate_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:polished_deepslate_octet"
+        ],
+        [
+          "simplebuilding:polished_deepslate_octet"
+        ],
+        [
+          "simplebuilding:polished_deepslate_octet"
+        ],
+        [
+          "simplebuilding:polished_deepslate_octet"
+        ],
+        [
+          "simplebuilding:polished_deepslate_octet"
+        ],
+        [
+          "simplebuilding:polished_deepslate_octet"
+        ],
+        [
+          "simplebuilding:polished_deepslate_octet"
+        ],
+        [
+          "simplebuilding:polished_deepslate_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:polished_deepslate_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_deepslate_octet_from_polished_deepslate_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_deepslate_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_deepslate_octet_from_polished_deepslate_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_deepslate"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_deepslate"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_diorite_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:polished_diorite",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_diorite_from_octets.json",
+      "ingredients": [
+        "simplebuilding:polished_diorite_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:polished_diorite_octet"
+        ],
+        [
+          "simplebuilding:polished_diorite_octet"
+        ],
+        [
+          "simplebuilding:polished_diorite_octet"
+        ],
+        [
+          "simplebuilding:polished_diorite_octet"
+        ],
+        [
+          "simplebuilding:polished_diorite_octet"
+        ],
+        [
+          "simplebuilding:polished_diorite_octet"
+        ],
+        [
+          "simplebuilding:polished_diorite_octet"
+        ],
+        [
+          "simplebuilding:polished_diorite_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:polished_diorite_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_diorite_octet_from_polished_diorite_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_diorite_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_diorite_octet_from_polished_diorite_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_diorite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_diorite"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:polished_end_stone",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -81467,6 +86337,45 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_block_octet_from_polished_ender_quartz_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_ender_quartz_block_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_block_octet_from_polished_ender_quartz_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:polished_ender_quartz"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:polished_ender_quartz"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
           }
         ]
       }
@@ -82188,6 +87097,58 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_ender_quartz",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_from_octets.json",
+      "ingredients": [
+        "simplebuilding:polished_ender_quartz_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:polished_ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:polished_ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:polished_ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:polished_ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:polished_ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:polished_ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:polished_ender_quartz_block_octet"
+        ],
+        [
+          "simplebuilding:polished_ender_quartz_block_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:polished_ender_quartz_block_octet",
+            "count": 8
           }
         ]
       }
@@ -82925,6 +87886,93 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:polished_granite_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:polished_granite",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_granite_from_octets.json",
+      "ingredients": [
+        "simplebuilding:polished_granite_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:polished_granite_octet"
+        ],
+        [
+          "simplebuilding:polished_granite_octet"
+        ],
+        [
+          "simplebuilding:polished_granite_octet"
+        ],
+        [
+          "simplebuilding:polished_granite_octet"
+        ],
+        [
+          "simplebuilding:polished_granite_octet"
+        ],
+        [
+          "simplebuilding:polished_granite_octet"
+        ],
+        [
+          "simplebuilding:polished_granite_octet"
+        ],
+        [
+          "simplebuilding:polished_granite_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:polished_granite_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_granite_octet_from_polished_granite_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_granite_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_granite_octet_from_polished_granite_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_granite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_granite"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:polished_nihilith",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -82957,6 +88005,37 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_block_octet_from_polished_nihilith_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_nihilith_block_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_nihilith_block_octet_from_polished_nihilith_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:polished_nihilith"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:polished_nihilith"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
           }
         ]
       }
@@ -83644,6 +88723,58 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:polished_nihilith_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_nihilith",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_nihilith_from_octets.json",
+      "ingredients": [
+        "simplebuilding:polished_nihilith_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:polished_nihilith_block_octet"
+        ],
+        [
+          "simplebuilding:polished_nihilith_block_octet"
+        ],
+        [
+          "simplebuilding:polished_nihilith_block_octet"
+        ],
+        [
+          "simplebuilding:polished_nihilith_block_octet"
+        ],
+        [
+          "simplebuilding:polished_nihilith_block_octet"
+        ],
+        [
+          "simplebuilding:polished_nihilith_block_octet"
+        ],
+        [
+          "simplebuilding:polished_nihilith_block_octet"
+        ],
+        [
+          "simplebuilding:polished_nihilith_block_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:polished_nihilith_block_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:polished_nihilith_octet_from_polished_nihilith_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -84080,6 +89211,172 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:polished_sulfur_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:polished_sulfur",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_sulfur_from_octets.json",
+      "ingredients": [
+        "simplebuilding:polished_sulfur_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:polished_sulfur_octet"
+        ],
+        [
+          "simplebuilding:polished_sulfur_octet"
+        ],
+        [
+          "simplebuilding:polished_sulfur_octet"
+        ],
+        [
+          "simplebuilding:polished_sulfur_octet"
+        ],
+        [
+          "simplebuilding:polished_sulfur_octet"
+        ],
+        [
+          "simplebuilding:polished_sulfur_octet"
+        ],
+        [
+          "simplebuilding:polished_sulfur_octet"
+        ],
+        [
+          "simplebuilding:polished_sulfur_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:polished_sulfur_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_sulfur_octet_from_polished_sulfur_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_sulfur_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_sulfur_octet_from_polished_sulfur_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_sulfur"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_sulfur"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_tuff_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:polished_tuff",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_tuff_from_octets.json",
+      "ingredients": [
+        "simplebuilding:polished_tuff_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:polished_tuff_octet"
+        ],
+        [
+          "simplebuilding:polished_tuff_octet"
+        ],
+        [
+          "simplebuilding:polished_tuff_octet"
+        ],
+        [
+          "simplebuilding:polished_tuff_octet"
+        ],
+        [
+          "simplebuilding:polished_tuff_octet"
+        ],
+        [
+          "simplebuilding:polished_tuff_octet"
+        ],
+        [
+          "simplebuilding:polished_tuff_octet"
+        ],
+        [
+          "simplebuilding:polished_tuff_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:polished_tuff_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:polished_tuff_octet_from_polished_tuff_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_tuff_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_tuff_octet_from_polished_tuff_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_tuff"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_tuff"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:tuff",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:poplar_octet_from_poplar_planks_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -84303,6 +89600,172 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:prismarine_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:prismarine_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/prismarine_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:prismarine_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:prismarine_bricks_octet"
+        ],
+        [
+          "simplebuilding:prismarine_bricks_octet"
+        ],
+        [
+          "simplebuilding:prismarine_bricks_octet"
+        ],
+        [
+          "simplebuilding:prismarine_bricks_octet"
+        ],
+        [
+          "simplebuilding:prismarine_bricks_octet"
+        ],
+        [
+          "simplebuilding:prismarine_bricks_octet"
+        ],
+        [
+          "simplebuilding:prismarine_bricks_octet"
+        ],
+        [
+          "simplebuilding:prismarine_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:prismarine_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:prismarine_bricks_octet_from_prismarine_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:prismarine_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/prismarine_bricks_octet_from_prismarine_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:prismarine_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:prismarine_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:prismarine_shard",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:prismarine_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:prismarine",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/prismarine_from_octets.json",
+      "ingredients": [
+        "simplebuilding:prismarine_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:prismarine_octet"
+        ],
+        [
+          "simplebuilding:prismarine_octet"
+        ],
+        [
+          "simplebuilding:prismarine_octet"
+        ],
+        [
+          "simplebuilding:prismarine_octet"
+        ],
+        [
+          "simplebuilding:prismarine_octet"
+        ],
+        [
+          "simplebuilding:prismarine_octet"
+        ],
+        [
+          "simplebuilding:prismarine_octet"
+        ],
+        [
+          "simplebuilding:prismarine_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:prismarine_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:prismarine_octet_from_prismarine_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:prismarine_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/prismarine_octet_from_prismarine_stonecutting.json",
+      "ingredients": [
+        "minecraft:prismarine"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:prismarine"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:prismarine_shard",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:pulsating_armor_upgrade_dummy",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -84513,6 +89976,89 @@ window.WIKI_DATA = {
       "lines": [
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:purple_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:purple_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/purple_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:purple_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:purple_concrete_octet"
+        ],
+        [
+          "simplebuilding:purple_concrete_octet"
+        ],
+        [
+          "simplebuilding:purple_concrete_octet"
+        ],
+        [
+          "simplebuilding:purple_concrete_octet"
+        ],
+        [
+          "simplebuilding:purple_concrete_octet"
+        ],
+        [
+          "simplebuilding:purple_concrete_octet"
+        ],
+        [
+          "simplebuilding:purple_concrete_octet"
+        ],
+        [
+          "simplebuilding:purple_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:purple_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:purple_concrete_octet_from_purple_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:purple_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/purple_concrete_octet_from_purple_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:purple_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:purple_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:purple_concrete",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:purple_dyed_storage",
@@ -84763,6 +90309,180 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:purple_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:purple_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/purple_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:purple_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:purple_wool_octet"
+        ],
+        [
+          "simplebuilding:purple_wool_octet"
+        ],
+        [
+          "simplebuilding:purple_wool_octet"
+        ],
+        [
+          "simplebuilding:purple_wool_octet"
+        ],
+        [
+          "simplebuilding:purple_wool_octet"
+        ],
+        [
+          "simplebuilding:purple_wool_octet"
+        ],
+        [
+          "simplebuilding:purple_wool_octet"
+        ],
+        [
+          "simplebuilding:purple_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:purple_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:purple_wool_octet_from_purple_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:purple_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/purple_wool_octet_from_purple_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:purple_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:purple_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:beetroot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:purpur_block_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:purpur_block",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/purpur_block_from_octets.json",
+      "ingredients": [
+        "simplebuilding:purpur_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:purpur_block_octet"
+        ],
+        [
+          "simplebuilding:purpur_block_octet"
+        ],
+        [
+          "simplebuilding:purpur_block_octet"
+        ],
+        [
+          "simplebuilding:purpur_block_octet"
+        ],
+        [
+          "simplebuilding:purpur_block_octet"
+        ],
+        [
+          "simplebuilding:purpur_block_octet"
+        ],
+        [
+          "simplebuilding:purpur_block_octet"
+        ],
+        [
+          "simplebuilding:purpur_block_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:purpur_block_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:purpur_block_octet_from_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:purpur_block_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/purpur_block_octet_from_purpur_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:purpur_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:purpur_chess_bishop_flat_from_purpur_octet_stonecutting",
@@ -85413,6 +91133,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:quartz_block_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:quartz_block",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/quartz_block_from_octets.json",
+      "ingredients": [
+        "simplebuilding:quartz_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:quartz_block_octet"
+        ],
+        [
+          "simplebuilding:quartz_block_octet"
+        ],
+        [
+          "simplebuilding:quartz_block_octet"
+        ],
+        [
+          "simplebuilding:quartz_block_octet"
+        ],
+        [
+          "simplebuilding:quartz_block_octet"
+        ],
+        [
+          "simplebuilding:quartz_block_octet"
+        ],
+        [
+          "simplebuilding:quartz_block_octet"
+        ],
+        [
+          "simplebuilding:quartz_block_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:quartz_block_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:quartz_block_octet_from_quartz_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:quartz_block_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/quartz_block_octet_from_quartz_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:quartz_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:quartz_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:quartz_chess_bishop_flat_from_quartz_octet_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -85970,6 +91773,89 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:ender_pearl",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:red_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:red_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/red_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:red_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:red_concrete_octet"
+        ],
+        [
+          "simplebuilding:red_concrete_octet"
+        ],
+        [
+          "simplebuilding:red_concrete_octet"
+        ],
+        [
+          "simplebuilding:red_concrete_octet"
+        ],
+        [
+          "simplebuilding:red_concrete_octet"
+        ],
+        [
+          "simplebuilding:red_concrete_octet"
+        ],
+        [
+          "simplebuilding:red_concrete_octet"
+        ],
+        [
+          "simplebuilding:red_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:red_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:red_concrete_octet_from_red_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:red_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/red_concrete_octet_from_red_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:red_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:red_concrete",
             "count": 1
           }
         ]
@@ -86877,6 +92763,93 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:red_nether_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:red_nether_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/red_nether_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:red_nether_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:red_nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:red_nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:red_nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:red_nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:red_nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:red_nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:red_nether_bricks_octet"
+        ],
+        [
+          "simplebuilding:red_nether_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:red_nether_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:red_nether_bricks_octet_from_red_nether_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:red_nether_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/red_nether_bricks_octet_from_red_nether_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:red_nether_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_nether_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:nether_wart",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherrack",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:red_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -86935,6 +92908,176 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:red_sandstone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:red_sandstone",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/red_sandstone_from_octets.json",
+      "ingredients": [
+        "simplebuilding:red_sandstone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:red_sandstone_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:red_sandstone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:red_sandstone_octet_from_red_sandstone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:red_sandstone_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/red_sandstone_octet_from_red_sandstone_stonecutting.json",
+      "ingredients": [
+        "minecraft:red_sandstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_sandstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:red_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:red_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/red_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:red_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:red_wool_octet"
+        ],
+        [
+          "simplebuilding:red_wool_octet"
+        ],
+        [
+          "simplebuilding:red_wool_octet"
+        ],
+        [
+          "simplebuilding:red_wool_octet"
+        ],
+        [
+          "simplebuilding:red_wool_octet"
+        ],
+        [
+          "simplebuilding:red_wool_octet"
+        ],
+        [
+          "simplebuilding:red_wool_octet"
+        ],
+        [
+          "simplebuilding:red_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:red_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:red_wool_octet_from_red_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:red_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/red_wool_octet_from_red_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:red_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:red_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:beetroot",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_backpack",
@@ -89033,6 +95176,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:resin_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:resin_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/resin_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:resin_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:resin_bricks_octet"
+        ],
+        [
+          "simplebuilding:resin_bricks_octet"
+        ],
+        [
+          "simplebuilding:resin_bricks_octet"
+        ],
+        [
+          "simplebuilding:resin_bricks_octet"
+        ],
+        [
+          "simplebuilding:resin_bricks_octet"
+        ],
+        [
+          "simplebuilding:resin_bricks_octet"
+        ],
+        [
+          "simplebuilding:resin_bricks_octet"
+        ],
+        [
+          "simplebuilding:resin_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:resin_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:resin_bricks_octet_from_resin_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:resin_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/resin_bricks_octet_from_resin_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:resin_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:resin_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:resin_clump",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:resin_chess_bishop_flat_from_resin_octet_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -89855,6 +96081,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:sandstone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:sandstone",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/sandstone_from_octets.json",
+      "ingredients": [
+        "simplebuilding:sandstone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:sandstone_octet"
+        ],
+        [
+          "simplebuilding:sandstone_octet"
+        ],
+        [
+          "simplebuilding:sandstone_octet"
+        ],
+        [
+          "simplebuilding:sandstone_octet"
+        ],
+        [
+          "simplebuilding:sandstone_octet"
+        ],
+        [
+          "simplebuilding:sandstone_octet"
+        ],
+        [
+          "simplebuilding:sandstone_octet"
+        ],
+        [
+          "simplebuilding:sandstone_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:sandstone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:sandstone_octet_from_sandstone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:sandstone_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/sandstone_octet_from_sandstone_stonecutting.json",
+      "ingredients": [
+        "minecraft:sandstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:sandstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:scarlet_froglight",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -89980,6 +96289,255 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:smooth_quartz_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:smooth_quartz",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/smooth_quartz_from_octets.json",
+      "ingredients": [
+        "simplebuilding:smooth_quartz_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:smooth_quartz_octet"
+        ],
+        [
+          "simplebuilding:smooth_quartz_octet"
+        ],
+        [
+          "simplebuilding:smooth_quartz_octet"
+        ],
+        [
+          "simplebuilding:smooth_quartz_octet"
+        ],
+        [
+          "simplebuilding:smooth_quartz_octet"
+        ],
+        [
+          "simplebuilding:smooth_quartz_octet"
+        ],
+        [
+          "simplebuilding:smooth_quartz_octet"
+        ],
+        [
+          "simplebuilding:smooth_quartz_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:smooth_quartz_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:smooth_quartz_octet_from_smooth_quartz_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:smooth_quartz_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/smooth_quartz_octet_from_smooth_quartz_stonecutting.json",
+      "ingredients": [
+        "minecraft:smooth_quartz"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:smooth_quartz"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:smooth_red_sandstone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:smooth_red_sandstone",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/smooth_red_sandstone_from_octets.json",
+      "ingredients": [
+        "simplebuilding:smooth_red_sandstone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:smooth_red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_red_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_red_sandstone_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:smooth_red_sandstone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:smooth_red_sandstone_octet_from_smooth_red_sandstone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:smooth_red_sandstone_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/smooth_red_sandstone_octet_from_smooth_red_sandstone_stonecutting.json",
+      "ingredients": [
+        "minecraft:smooth_red_sandstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:smooth_red_sandstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:smooth_sandstone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:smooth_sandstone",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/smooth_sandstone_from_octets.json",
+      "ingredients": [
+        "simplebuilding:smooth_sandstone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:smooth_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_sandstone_octet"
+        ],
+        [
+          "simplebuilding:smooth_sandstone_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:smooth_sandstone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:smooth_sandstone_octet_from_smooth_sandstone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:smooth_sandstone_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/smooth_sandstone_octet_from_smooth_sandstone_stonecutting.json",
+      "ingredients": [
+        "minecraft:smooth_sandstone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:smooth_sandstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 4
           }
         ]
       }
@@ -90443,6 +97001,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:stone_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:stone_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stone_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:stone_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:stone_bricks_octet"
+        ],
+        [
+          "simplebuilding:stone_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:stone_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stone_bricks_octet_from_stone_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:stone_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stone_bricks_octet_from_stone_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:stone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stone_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:stone_chisel",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -90492,6 +97133,89 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stone_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:stone",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stone_from_octets.json",
+      "ingredients": [
+        "simplebuilding:stone_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:stone_octet"
+        ],
+        [
+          "simplebuilding:stone_octet"
+        ],
+        [
+          "simplebuilding:stone_octet"
+        ],
+        [
+          "simplebuilding:stone_octet"
+        ],
+        [
+          "simplebuilding:stone_octet"
+        ],
+        [
+          "simplebuilding:stone_octet"
+        ],
+        [
+          "simplebuilding:stone_octet"
+        ],
+        [
+          "simplebuilding:stone_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:stone_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stone_octet_from_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:stone_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stone_octet_from_stone_stonecutting.json",
+      "ingredients": [
+        "minecraft:stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 1
           }
         ]
       }
@@ -91080,6 +97804,172 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:sulfur_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:sulfur_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/sulfur_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:sulfur_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:sulfur_bricks_octet"
+        ],
+        [
+          "simplebuilding:sulfur_bricks_octet"
+        ],
+        [
+          "simplebuilding:sulfur_bricks_octet"
+        ],
+        [
+          "simplebuilding:sulfur_bricks_octet"
+        ],
+        [
+          "simplebuilding:sulfur_bricks_octet"
+        ],
+        [
+          "simplebuilding:sulfur_bricks_octet"
+        ],
+        [
+          "simplebuilding:sulfur_bricks_octet"
+        ],
+        [
+          "simplebuilding:sulfur_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:sulfur_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:sulfur_bricks_octet_from_sulfur_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:sulfur_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/sulfur_bricks_octet_from_sulfur_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:sulfur_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:sulfur_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:sulfur_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:sulfur",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/sulfur_from_octets.json",
+      "ingredients": [
+        "simplebuilding:sulfur_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:sulfur_octet"
+        ],
+        [
+          "simplebuilding:sulfur_octet"
+        ],
+        [
+          "simplebuilding:sulfur_octet"
+        ],
+        [
+          "simplebuilding:sulfur_octet"
+        ],
+        [
+          "simplebuilding:sulfur_octet"
+        ],
+        [
+          "simplebuilding:sulfur_octet"
+        ],
+        [
+          "simplebuilding:sulfur_octet"
+        ],
+        [
+          "simplebuilding:sulfur_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:sulfur_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:sulfur_octet_from_sulfur_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:sulfur_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/sulfur_octet_from_sulfur_stonecutting.json",
+      "ingredients": [
+        "minecraft:sulfur"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:sulfur"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:suspended_gravel",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -91257,6 +98147,172 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:iron_ingot",
             "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:tuff_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:tuff_bricks",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/tuff_bricks_from_octets.json",
+      "ingredients": [
+        "simplebuilding:tuff_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:tuff_bricks_octet"
+        ],
+        [
+          "simplebuilding:tuff_bricks_octet"
+        ],
+        [
+          "simplebuilding:tuff_bricks_octet"
+        ],
+        [
+          "simplebuilding:tuff_bricks_octet"
+        ],
+        [
+          "simplebuilding:tuff_bricks_octet"
+        ],
+        [
+          "simplebuilding:tuff_bricks_octet"
+        ],
+        [
+          "simplebuilding:tuff_bricks_octet"
+        ],
+        [
+          "simplebuilding:tuff_bricks_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:tuff_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:tuff_bricks_octet_from_tuff_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:tuff_bricks_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/tuff_bricks_octet_from_tuff_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:tuff_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:tuff_bricks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:tuff",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:tuff_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:tuff",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/tuff_from_octets.json",
+      "ingredients": [
+        "simplebuilding:tuff_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:tuff_octet"
+        ],
+        [
+          "simplebuilding:tuff_octet"
+        ],
+        [
+          "simplebuilding:tuff_octet"
+        ],
+        [
+          "simplebuilding:tuff_octet"
+        ],
+        [
+          "simplebuilding:tuff_octet"
+        ],
+        [
+          "simplebuilding:tuff_octet"
+        ],
+        [
+          "simplebuilding:tuff_octet"
+        ],
+        [
+          "simplebuilding:tuff_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:tuff_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:tuff_octet_from_tuff_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:tuff_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/tuff_octet_from_tuff_stonecutting.json",
+      "ingredients": [
+        "minecraft:tuff"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:tuff"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:tuff",
+            "count": 1
           }
         ]
       }
@@ -93696,6 +100752,93 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:waxed_cut_copper_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:waxed_cut_copper",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_cut_copper_from_octets.json",
+      "ingredients": [
+        "simplebuilding:waxed_cut_copper_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:waxed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_cut_copper_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:waxed_cut_copper_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_cut_copper_octet_from_waxed_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_cut_copper_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_cut_copper_octet_from_waxed_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_cut_copper"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:waxed_exposed_copper_pressure_plate_from_honeycomb",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -93731,6 +100874,93 @@ window.WIKI_DATA = {
           },
           {
             "id": "simplebuilding:exposed_copper_pressure_plate",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_exposed_cut_copper_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:waxed_exposed_cut_copper",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_exposed_cut_copper_from_octets.json",
+      "ingredients": [
+        "simplebuilding:waxed_exposed_cut_copper_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:waxed_exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_exposed_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_exposed_cut_copper_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:waxed_exposed_cut_copper_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_exposed_cut_copper_octet_from_waxed_exposed_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_exposed_cut_copper_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_exposed_cut_copper_octet_from_waxed_exposed_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_exposed_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_exposed_cut_copper"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:exposed_copper",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
             "count": 1
           }
         ]
@@ -93866,6 +101096,93 @@ window.WIKI_DATA = {
           },
           {
             "id": "simplebuilding:oxidized_copper_pressure_plate",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_cut_copper_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:waxed_oxidized_cut_copper",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_oxidized_cut_copper_from_octets.json",
+      "ingredients": [
+        "simplebuilding:waxed_oxidized_cut_copper_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:waxed_oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_oxidized_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_oxidized_cut_copper_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:waxed_oxidized_cut_copper_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_cut_copper_octet_from_waxed_oxidized_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_oxidized_cut_copper_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_oxidized_cut_copper_octet_from_waxed_oxidized_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_oxidized_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_oxidized_cut_copper"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oxidized_copper",
             "count": 1
           }
         ]
@@ -94101,6 +101418,93 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:waxed_weathered_cut_copper_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:waxed_weathered_cut_copper",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_weathered_cut_copper_from_octets.json",
+      "ingredients": [
+        "simplebuilding:waxed_weathered_cut_copper_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:waxed_weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:waxed_weathered_cut_copper_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:waxed_weathered_cut_copper_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_cut_copper_octet_from_waxed_weathered_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:waxed_weathered_cut_copper_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/waxed_weathered_cut_copper_octet_from_waxed_weathered_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:waxed_weathered_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:waxed_weathered_cut_copper"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:waxed_weathered_trapped_copper_chest",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -94195,6 +101599,89 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:weathered_cut_copper_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:weathered_cut_copper",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/weathered_cut_copper_from_octets.json",
+      "ingredients": [
+        "simplebuilding:weathered_cut_copper_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:weathered_cut_copper_octet"
+        ],
+        [
+          "simplebuilding:weathered_cut_copper_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:weathered_cut_copper_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:weathered_cut_copper_octet_from_weathered_cut_copper_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:weathered_cut_copper_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/weathered_cut_copper_octet_from_weathered_cut_copper_stonecutting.json",
+      "ingredients": [
+        "minecraft:weathered_cut_copper"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:weathered_cut_copper"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:weathered_copper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:weathered_trapped_copper_chest",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -94233,6 +101720,89 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 0.188
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:white_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:white_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/white_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:white_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:white_concrete_octet"
+        ],
+        [
+          "simplebuilding:white_concrete_octet"
+        ],
+        [
+          "simplebuilding:white_concrete_octet"
+        ],
+        [
+          "simplebuilding:white_concrete_octet"
+        ],
+        [
+          "simplebuilding:white_concrete_octet"
+        ],
+        [
+          "simplebuilding:white_concrete_octet"
+        ],
+        [
+          "simplebuilding:white_concrete_octet"
+        ],
+        [
+          "simplebuilding:white_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:white_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:white_concrete_octet_from_white_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:white_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/white_concrete_octet_from_white_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:white_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:white_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:white_concrete",
+            "count": 1
           }
         ]
       }
@@ -94480,6 +102050,89 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:white_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:white_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/white_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:white_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:white_wool_octet"
+        ],
+        [
+          "simplebuilding:white_wool_octet"
+        ],
+        [
+          "simplebuilding:white_wool_octet"
+        ],
+        [
+          "simplebuilding:white_wool_octet"
+        ],
+        [
+          "simplebuilding:white_wool_octet"
+        ],
+        [
+          "simplebuilding:white_wool_octet"
+        ],
+        [
+          "simplebuilding:white_wool_octet"
+        ],
+        [
+          "simplebuilding:white_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:white_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:white_wool_octet_from_white_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:white_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/white_wool_octet_from_white_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:white_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:white_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:yarn_ball_from_wool",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -94510,6 +102163,89 @@ window.WIKI_DATA = {
         ],
         "tagExamples": [
           "#minecraft:wool"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:yellow_concrete_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:yellow_concrete",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/yellow_concrete_from_octets.json",
+      "ingredients": [
+        "simplebuilding:yellow_concrete_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:yellow_concrete_octet"
+        ],
+        [
+          "simplebuilding:yellow_concrete_octet"
+        ],
+        [
+          "simplebuilding:yellow_concrete_octet"
+        ],
+        [
+          "simplebuilding:yellow_concrete_octet"
+        ],
+        [
+          "simplebuilding:yellow_concrete_octet"
+        ],
+        [
+          "simplebuilding:yellow_concrete_octet"
+        ],
+        [
+          "simplebuilding:yellow_concrete_octet"
+        ],
+        [
+          "simplebuilding:yellow_concrete_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:yellow_concrete_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:yellow_concrete_octet_from_yellow_concrete_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:yellow_concrete_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/yellow_concrete_octet_from_yellow_concrete_stonecutting.json",
+      "ingredients": [
+        "minecraft:yellow_concrete"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:yellow_concrete"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:yellow_concrete",
+            "count": 1
+          }
         ]
       }
     },
@@ -94754,6 +102490,93 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:yellow_wool_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:yellow_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/yellow_wool_from_octets.json",
+      "ingredients": [
+        "simplebuilding:yellow_wool_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:yellow_wool_octet"
+        ],
+        [
+          "simplebuilding:yellow_wool_octet"
+        ],
+        [
+          "simplebuilding:yellow_wool_octet"
+        ],
+        [
+          "simplebuilding:yellow_wool_octet"
+        ],
+        [
+          "simplebuilding:yellow_wool_octet"
+        ],
+        [
+          "simplebuilding:yellow_wool_octet"
+        ],
+        [
+          "simplebuilding:yellow_wool_octet"
+        ],
+        [
+          "simplebuilding:yellow_wool_octet"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:yellow_wool_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:yellow_wool_octet_from_yellow_wool_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:yellow_wool_octet",
+        "count": 8
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/yellow_wool_octet_from_yellow_wool_stonecutting.json",
+      "ingredients": [
+        "minecraft:yellow_wool"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:yellow_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:dandelion",
+            "count": 1
+          }
+        ]
+      }
     }
   ],
   "recipesOtherLines": [
@@ -138542,7 +146365,7 @@ window.WIKI_DATA = {
   "counts": {
     "items": 619,
     "blocks": 362,
-    "recipes": 1019,
+    "recipes": 1201,
     "lootTables": 343,
     "trades": 20,
     "enchantments": 19,
