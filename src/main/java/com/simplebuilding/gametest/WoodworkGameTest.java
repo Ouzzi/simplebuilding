@@ -29,6 +29,11 @@ public final class WoodworkGameTest {
         WoodworkTests.cratesStoreFoodForHoppersAndComparators(helper);
     }
 
+    @GameTest(maxTicks = WoodworkTests.CAULDRON_MAX_TICKS)
+    public void cratesTurnLikeBarrelsAndKeepTheirFood(GameTestHelper helper) {
+        WoodworkTests.cratesTurnLikeBarrelsAndKeepTheirFood(helper);
+    }
+
     @GameTest
     public void chiselCarvesSherdMotifsAndHollowsLogs(GameTestHelper helper) {
         WoodworkTests.chiselCarvesSherdMotifsAndHollowsLogs(helper);

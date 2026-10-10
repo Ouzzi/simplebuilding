@@ -48,6 +48,23 @@ POT_KEY = [(71, 37, 29), (82, 45, 37), (94, 55, 47), (105, 59, 49), (117, 66, 54
            (159, 101, 71), (171, 113, 75), (185, 128, 83)]
 MOTIF_SHADES = (0.42, 0.52, 0.62)
 FACING_Y = {"north": 0, "east": 90, "south": 180, "west": 270}
+# Crate opening (model: open top) per facing, the barrel's blockstate rotations.
+CRATE_FACING = {"up": {}, "down": {"x": 180}, "north": {"x": 90}, "east": {"x": 90, "y": 90},
+                "south": {"x": 90, "y": 180}, "west": {"x": 90, "y": 270}}
+
+
+def crate_elements() -> list:
+    """A real wooden crate, open at the top: four corner posts, three slats per side and three floor boards, with
+    2 px gaps between the side slats and 1 px gaps between the floor boards (see-through, food shows between)."""
+    def box(f, t):
+        return {"from": f, "to": t, "faces": {d: {"texture": "#planks"} for d in
+                                              ("north", "east", "south", "west", "up", "down")}}
+    out = [box([x, 0, z], [x + 2, 16, z + 2]) for x in (0, 14) for z in (0, 14)]
+    for y0, y1 in ((0, 4), (6, 10), (12, 16)):
+        out += [box([2, y0, 0], [14, y1, 2]), box([2, y0, 14], [14, y1, 16]),
+                box([0, y0, 2], [2, y1, 14]), box([14, y0, 2], [16, y1, 14])]
+    out += [box([2, 0, z0], [14, 2, z1]) for z0, z1 in ((2, 5), (6, 10), (11, 14))]
+    return out
 
 files: dict[Path, bytes] = {}
 
@@ -75,6 +92,8 @@ def block_item(name: str, model: str | None = None) -> None:
 
 
 def templates() -> None:
+    put_json(f"{NS}/models/block/template_crate.json", {
+        "parent": "minecraft:block/block", "textures": {"particle": "#planks"}, "elements": crate_elements()})
     cube = {"down": "#end", "up": "#end", "north": "#side", "south": "#side", "west": "#side", "east": "#side"}
     faces = {d: {"texture": t, "cullface": d} for d, t in cube.items()}
     put_json(f"{NS}/models/block/template_carved_log.json", {
@@ -192,11 +211,12 @@ def wood_assets(wood: str, log: str) -> None:
             variants[f"content={content},level={level}"] = {"model": sb(f"block/{model}")}
     put_json(f"{NS}/blockstates/{name}.json", {"variants": variants})
     block_item(name)
-    # crate: the composter's open box in planks
+    # crate: an open box of plank slats with gaps (template_crate), the opening turned to facing like a barrel
     name = f"{wood}_crate"
-    put_json(f"{NS}/models/block/{name}.json", {"parent": "minecraft:block/composter", "textures": {
-        k: tex["planks"] for k in ("particle", "top", "bottom", "side", "inside")}})
-    put_json(f"{NS}/blockstates/{name}.json", {"variants": {"": {"model": sb(f"block/{name}")}}})
+    put_json(f"{NS}/models/block/{name}.json", {"parent": sb("block/template_crate"), "textures": {
+        "particle": tex["planks"], "planks": tex["planks"]}})
+    put_json(f"{NS}/blockstates/{name}.json", {"variants": {
+        f"facing={facing}": ({"model": sb(f"block/{name}")} | rot) for facing, rot in CRATE_FACING.items()}})
     block_item(name)
     # carved wood: one model per motif, turned by facing
     name = f"carved_{log}"

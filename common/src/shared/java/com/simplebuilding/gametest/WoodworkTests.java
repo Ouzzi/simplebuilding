@@ -3,6 +3,7 @@ package com.simplebuilding.gametest;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.version.McVersion;
 import com.simplebuilding.woodwork.CarvedLogBlock;
+import com.simplebuilding.woodwork.CrateBlock;
 import com.simplebuilding.woodwork.CrateBlockEntity;
 import com.simplebuilding.woodwork.HollowLogBlock;
 import com.simplebuilding.woodwork.HollowLogCrawl;
@@ -238,6 +239,76 @@ public final class WoodworkTests {
             }
             check(beef == 3, fails, "breaking drops the contents (" + beef + ")");
             check(crateItem, fails, "breaking drops the crate");
+            finish(helper, fails);
+        });
+    }
+
+    /**
+     * Queue N31: a crate turns its opening to the player like a barrel (also sideways and upside down), keeps its
+     * food when turned, has an open collision shape on the opening side, and hoppers fill it from above and empty it
+     * from below in every orientation.
+     */
+    public static void cratesTurnLikeBarrelsAndKeepTheirFood(GameTestHelper helper) {
+        if (!McVersion.WOODWORK) {
+            helper.succeed();
+            return;
+        }
+        List<String> fails = new ArrayList<>();
+        Block crateBlock = oak().crate();
+        ServerPlayer player = player(helper, GameType.SURVIVAL);
+        BlockPos at = new BlockPos(1, 1, 1);
+        float[][] looks = {{0F, 90F}, {0F, -90F}, {0F, 0F}, {90F, 0F}, {180F, 0F}, {-90F, 0F}};
+        Direction[] expected = {Direction.UP, Direction.DOWN, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
+        for (int i = 0; i < looks.length; i++) {
+            player.setYRot(looks[i][0]);
+            player.setXRot(looks[i][1]);
+            var context = new net.minecraft.world.item.context.BlockPlaceContext(player, InteractionHand.MAIN_HAND,
+                    new ItemStack(crateBlock), hit(helper, at, Direction.UP));
+            BlockState placed = crateBlock.getStateForPlacement(context);
+            check(placed != null && placed.getValue(CrateBlock.FACING) == expected[i], fails,
+                    "looking yaw " + looks[i][0] + " pitch " + looks[i][1] + " opens " + (placed == null ? null : placed.getValue(CrateBlock.FACING)) + ", expected " + expected[i]);
+        }
+        // Collision: open on the opening side, closed opposite.
+        for (Direction facing : Direction.values()) {
+            var shape = crateBlock.defaultBlockState().setValue(CrateBlock.FACING, facing).getShape(helper.getLevel(), BlockPos.ZERO);
+            Vec3 open = new Vec3(0.5 + facing.getStepX() * 0.45, 0.5 + facing.getStepY() * 0.45, 0.5 + facing.getStepZ() * 0.45);
+            Vec3 closed = new Vec3(0.5 - facing.getStepX() * 0.45, 0.5 - facing.getStepY() * 0.45, 0.5 - facing.getStepZ() * 0.45);
+            boolean openHit = shape.toAabbs().stream().anyMatch(box -> box.contains(open));
+            boolean closedHit = shape.toAabbs().stream().anyMatch(box -> box.contains(closed));
+            check(!openHit && closedHit, fails, facing + ": the shape is open towards the opening only");
+        }
+        // Turned in place (rotation, wrench), the food stays.
+        BlockPos turn = new BlockPos(1, 5, 6);
+        helper.setBlock(turn, crateBlock.defaultBlockState().setValue(CrateBlock.FACING, Direction.NORTH));
+        ((CrateBlockEntity) helper.getBlockEntity(turn, CrateBlockEntity.class)).insert(new ItemStack(Items.BREAD, 12));
+        BlockState turned = helper.getBlockState(turn).rotate(net.minecraft.world.level.block.Rotation.CLOCKWISE_90);
+        check(turned.getValue(CrateBlock.FACING) == Direction.EAST, fails, "turning north clockwise opens east");
+        helper.setBlock(turn, turned.setValue(CrateBlock.FACING, Direction.DOWN));
+        helper.setBlock(turn, helper.getBlockState(turn).setValue(CrateBlock.FACING, Direction.EAST));
+        CrateBlockEntity kept = (CrateBlockEntity) helper.getBlockEntity(turn, CrateBlockEntity.class);
+        check(kept.countItem(Items.BREAD) == 12, fails, "the bread stays when the crate is turned (" + kept.countItem(Items.BREAD) + ")");
+        useBlock(helper, player, new ItemStack(Items.APPLE, 5), turn);
+        check(kept.countItem(Items.APPLE) == 5, fails, "a sideways crate takes food by hand");
+        // Hoppers: one above fills, one below empties, in all six orientations.
+        Direction[] all = Direction.values();
+        for (int i = 0; i < all.length; i++) {
+            BlockPos crate = new BlockPos(1 + i, 2, 3);
+            helper.setBlock(crate.below(), Blocks.HOPPER);
+            helper.setBlock(crate, crateBlock.defaultBlockState().setValue(CrateBlock.FACING, all[i]));
+            helper.setBlock(crate.above(), Blocks.HOPPER);
+            ((net.minecraft.world.Container) helper.getBlockEntity(crate.above(), net.minecraft.world.level.block.entity.HopperBlockEntity.class))
+                    .setItem(0, new ItemStack(Items.CARROT, 3));
+        }
+        if (!fails.isEmpty()) {
+            finish(helper, fails);
+            return;
+        }
+        helper.runAfterDelay(80, () -> {
+            for (int i = 0; i < all.length; i++) {
+                BlockPos crate = new BlockPos(1 + i, 2, 3);
+                var below = (net.minecraft.world.Container) helper.getBlockEntity(crate.below(), net.minecraft.world.level.block.entity.HopperBlockEntity.class);
+                check(below.countItem(Items.CARROT) == 3, fails, all[i] + ": the carrots went through the crate (" + below.countItem(Items.CARROT) + ")");
+            }
             finish(helper, fails);
         });
     }
