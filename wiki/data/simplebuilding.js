@@ -107796,6 +107796,10 @@ window.WIKI_DATA = {
         {
           "id": "simplebuilding:azure_froglight",
           "required": true
+        },
+        {
+          "id": "simplebuilding:sculk_jaw",
+          "required": true
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/tags/item/craftable.json"
