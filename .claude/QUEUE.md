@@ -663,3 +663,9 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Halbe Lava-/Seelenlava-Enderit-Eimer mit derselben Maske wie der halbe Wassereimer (Enderit-Rand oben, zwei Randpixel frei), Glanz in Inhaltsfarbe bleibt. Milch: kein Mod-Eimer hält Milch (Entscheidung PLAN-TEX7/N12), daher keine Milch-Textur. (claude-q-texfix31)
 - [x] Farbkasten nochmals: Vorschläge A/B/C (`paint_box_2026_10_09.py --proposals`), A eingebaut (offene Dose, Deckel hinten, 16 Farbpunkte einzeln zwischen Holzstegen). (claude-q-texfix31)
 - [ ] Besitzer-Entscheidung: Farbkasten A behalten oder B/C (CHOSEN im Generator umstellen); Milch im Enderit-Eimer gewünscht? (wäre neues Feature: Melken, Trinken, halb/voll).
+
+## Nachtrag 30 (2026-10-10, Besitzer)
+- [ ] Farbkasten (paint_box, alle Stufen) in denselben Kreativ-Tab wie Bündel und Rucksäcke.
+- [ ] Inventar-UI (simplecontainers/Mod-UIs, heller Inventar-Kasten) ist zu strahlend weiß: Stil behalten, aber Farben aus Vanilla nehmen (Vanilla-GUI-Grau/Schatten/Licht).
+- [ ] Astral-Verzauberungstisch: Herstellung (Hammer-Umwandlung) in JEI anzeigen.
+- [ ] Verstärkter Tiegel: auf 12 Slots erhöhen.
