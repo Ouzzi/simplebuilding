@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.RecipeBookMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.item.crafting.display.SmithingRecipeDisplay;
 
 /**
@@ -67,9 +68,16 @@ public class ThreeSlotRecipeBookComponent<T extends RecipeBookMenu> extends Reci
         }
         GhostSlotsInvoker ghosts = (GhostSlotsInvoker) ghostSlots;
         List<Slot> slots = this.inputs.get();
-        ghosts.simplebuilding$setResult(this.result.get(), context, display.result());
-        ghosts.simplebuilding$setInput(slots.get(0), context, display.template());
-        ghosts.simplebuilding$setInput(slots.get(1), context, display.base());
-        ghosts.simplebuilding$setInput(slots.get(2), context, display.addition());
+        List<SlotDisplay> inputs = List.of(display.template(), display.base(), display.addition());
+        // Teil-Rezepte (Befiederungstisch N16) belegen nur einen Slot: leere Eingaben und das Ergebnis bekommen keinen Geist.
+        boolean partOnly = inputs.contains(SlotDisplay.Empty.INSTANCE);
+        if (!partOnly) {
+            ghosts.simplebuilding$setResult(this.result.get(), context, display.result());
+        }
+        for (int i = 0; i < 3; i++) {
+            if (inputs.get(i) != SlotDisplay.Empty.INSTANCE) {
+                ghosts.simplebuilding$setInput(slots.get(i), context, inputs.get(i));
+            }
+        }
     }
 }

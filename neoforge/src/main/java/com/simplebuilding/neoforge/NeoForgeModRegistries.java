@@ -226,9 +226,20 @@ public final class NeoForgeModRegistries {
             com.simplebuilding.version.McVersion.FLETCHING
                     ? RECIPE_TYPES.register(com.simplebuilding.fletching.FletchingRecipes.ID, com.simplebuilding.fletching.FletchingRecipes::newType)
                     : null;
-    public static final Supplier<net.minecraft.world.item.crafting.RecipeBookCategory> FLETCHING_CATEGORY =
+    public static final Supplier<net.minecraft.world.item.crafting.RecipeBookCategory> FLETCHING_TIP_CATEGORY =
             com.simplebuilding.version.McVersion.FLETCHING
-                    ? RECIPE_BOOK_CATEGORIES.register(com.simplebuilding.fletching.FletchingRecipes.ID, net.minecraft.world.item.crafting.RecipeBookCategory::new)
+                    ? RECIPE_BOOK_CATEGORIES.register(com.simplebuilding.fletching.FletchingRecipes.categoryId(com.simplebuilding.fletching.FletchingRecipe.Kind.TIP),
+                            net.minecraft.world.item.crafting.RecipeBookCategory::new)
+                    : null;
+    public static final Supplier<net.minecraft.world.item.crafting.RecipeBookCategory> FLETCHING_SHAFT_CATEGORY =
+            com.simplebuilding.version.McVersion.FLETCHING
+                    ? RECIPE_BOOK_CATEGORIES.register(com.simplebuilding.fletching.FletchingRecipes.categoryId(com.simplebuilding.fletching.FletchingRecipe.Kind.SHAFT),
+                            net.minecraft.world.item.crafting.RecipeBookCategory::new)
+                    : null;
+    public static final Supplier<net.minecraft.world.item.crafting.RecipeBookCategory> FLETCHING_FLETCHING_PART_CATEGORY =
+            com.simplebuilding.version.McVersion.FLETCHING
+                    ? RECIPE_BOOK_CATEGORIES.register(com.simplebuilding.fletching.FletchingRecipes.categoryId(com.simplebuilding.fletching.FletchingRecipe.Kind.FLETCHING),
+                            net.minecraft.world.item.crafting.RecipeBookCategory::new)
                     : null;
 
     public static final Supplier<RecipeSerializer<BackpackUpgradeRecipe>> BACKPACK_UPGRADE_SERIALIZER =
@@ -335,7 +346,9 @@ public final class NeoForgeModRegistries {
         if (STORAGE_CRAFTING_TABLE_BE != null) ModBlockEntities.STORAGE_CRAFTING_TABLE_BE = STORAGE_CRAFTING_TABLE_BE.get();
         if (FLETCHING_TYPE != null) {
             com.simplebuilding.fletching.FletchingRecipes.TYPE = FLETCHING_TYPE.get();
-            com.simplebuilding.fletching.FletchingRecipes.CATEGORY = FLETCHING_CATEGORY.get();
+            com.simplebuilding.fletching.FletchingRecipes.TIP_CATEGORY = FLETCHING_TIP_CATEGORY.get();
+            com.simplebuilding.fletching.FletchingRecipes.SHAFT_CATEGORY = FLETCHING_SHAFT_CATEGORY.get();
+            com.simplebuilding.fletching.FletchingRecipes.FLETCHING_CATEGORY = FLETCHING_FLETCHING_PART_CATEGORY.get();
         }
         ModBlockEntities.TIERED_CHEST_BE = TIERED_CHEST_BE.get();
         if (TRAPPED_COPPER_CHEST_BE != null) ModBlockEntities.TRAPPED_COPPER_CHEST_BE = TRAPPED_COPPER_CHEST_BE.get();

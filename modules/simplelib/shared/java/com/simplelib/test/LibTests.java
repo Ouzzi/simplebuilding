@@ -64,6 +64,7 @@ public final class LibTests {
         ALL.put("loose_barrel_menu_keeps_the_raised_limit", LibTests::looseBarrelMenu);
         ALL.put("hoppers_fill_raised_slots", LibTests::hoppersFillRaisedSlots);
         ALL.put("reinforced_crucible_loads_old_nine_slots", LibTests::reinforcedCrucibleLoadsOldNineSlots);
+        ALL.put("enderite_barrel_box_below_the_crucible", LibTests::enderiteBarrelBelow);
     }
 
     // ------------------------------------------------------------ helpers
@@ -139,6 +140,41 @@ public final class LibTests {
             check(h, spared.getHealth() == full, "crucibleBurnDamage 0 still burns");
         } finally {
             LibConfig.crucibleBurnDamage = LibConfig.BURN_DAMAGE_DEFAULT;
+        }
+        h.succeed();
+    }
+
+    /**
+     * N14 (owner): from enderite on the barrel box sits under the crucible box (window not wider than without a barrel),
+     * below it the inventory; lower tiers keep the barrel beside the crucible. Purely the layout numbers.
+     */
+    private static void enderiteBarrelBelow(GameTestHelper h) {
+        for (CrucibleTier tier : CrucibleTier.values()) {
+            com.simplelib.crucible.CrucibleMenu.Layout compact = com.simplelib.crucible.CrucibleMenu.layout(tier, false);
+            com.simplelib.crucible.CrucibleMenu.Layout wide = com.simplelib.crucible.CrucibleMenu.layout(tier, true);
+            boolean below = com.simplelib.crucible.CrucibleMenu.barrelBelow(tier);
+            check(h, below == (tier == CrucibleTier.ENDERITE), tier + ": barrel below only from enderite on");
+            int crucibleBottom = wide.y() + wide.sectionHeight();
+            int barrelBottom = wide.barrelBoxTop() + wide.barrelBoxHeight();
+            if (below) {
+                check(h, wide.width() == compact.width(), tier + ": barrel makes the window wider");
+                check(h, wide.barrelBoxTop() >= crucibleBottom, tier + ": barrel box overlaps the crucible box");
+                check(h, wide.inventoryBoxTop() >= barrelBottom, tier + ": inventory box overlaps the barrel box");
+                check(h, wide.barrelBox() == wide.x() && wide.barrelBoxWidth() == wide.crucibleWidth(), tier + ": barrel box not under the crucible box");
+            } else {
+                check(h, wide.barrelBox() >= wide.x() + wide.crucibleWidth(), tier + ": barrel box not beside the crucible box");
+                check(h, wide.inventoryBoxTop() >= barrelBottom, tier + ": inventory box overlaps the barrel box");
+            }
+            check(h, wide.y() + wide.height() <= com.simplelib.crucible.CrucibleMenu.imageHeight(tier)
+                    && compact.y() + compact.height() <= com.simplelib.crucible.CrucibleMenu.imageHeight(tier), tier + ": panel taller than the image");
+            for (int i = 0; i < tier.slots(); i++) {
+                int bx = wide.barrelX(tier, i), by = wide.barrelY(tier, i);
+                check(h, bx > wide.barrelBox() && bx + 16 < wide.barrelBox() + wide.barrelBoxWidth()
+                        && by > wide.barrelBoxTop() && by + 16 < barrelBottom, tier + ": barrel field " + i + " outside its box");
+                check(h, wide.slotY(tier, i) + 16 < crucibleBottom, tier + ": crucible field " + i + " outside its box");
+                if (below) check(h, bx == wide.slotX(tier, i), tier + ": barrel field " + i + " not under its crucible field");
+            }
+            check(h, wide.inventoryTop() + 58 + 16 < wide.y() + wide.height(), tier + ": hotbar outside the panel");
         }
         h.succeed();
     }

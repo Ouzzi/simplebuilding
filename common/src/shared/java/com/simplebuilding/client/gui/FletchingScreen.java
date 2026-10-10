@@ -3,7 +3,6 @@ package com.simplebuilding.client.gui;
 import com.simplebuilding.client.gui.recipebook.ThreeSlotRecipeBookComponent;
 import com.simplebuilding.fletching.FletchingMenu;
 import com.simplebuilding.fletching.FletchingRecipes;
-import com.simplebuilding.items.ModItems;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -21,7 +20,7 @@ import net.minecraft.world.item.Items;
  * Bildschirm des Befiederungstischs wie die Werkbank ({@code CraftingScreen}): Vanilla-Hintergrund der Werkbank ohne die
  * sechs Felder, die der Pfeil nicht braucht; Spitze, Schaft und Befiederung in einer Reihe, das Ergebnis rechts. Das
  * Rezeptbuch-Symbol sitzt wie am Schmiedetisch ueber dem dritten Teil (x 42, y 27 zwischen Titel und Teile-Reihe) und
- * oeffnet links Vanillas Rezeptbuch mit allen Pfeilen; ein Klick legt die Teile ein.
+ * oeffnet links Vanillas Rezeptbuch mit drei Reitern (Spitze, Schaft, Befiederung); ein Klick legt das Teil ein.
  */
 public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
     private static final Identifier CRAFTING_TABLE_LOCATION = Identifier.withDefaultNamespace("textures/gui/container/crafting_table.png");
@@ -33,8 +32,11 @@ public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
     }
 
     private static RecipeBookComponent<FletchingMenu> component(FletchingMenu menu) {
-        ItemStack icon = ModItems.CRAFTED_ARROW != null ? new ItemStack(ModItems.CRAFTED_ARROW) : new ItemStack(Items.ARROW);
-        List<RecipeBookComponent.TabInfo> tabs = List.of(new RecipeBookComponent.TabInfo(icon, Optional.empty(), FletchingRecipes.CATEGORY));
+        // N16 (Besitzer): drei Kategorien - Spitze, Stab, Feder; je Reiter nur die Teile zum Zusammenstellen.
+        List<RecipeBookComponent.TabInfo> tabs = List.of(
+                new RecipeBookComponent.TabInfo(new ItemStack(Items.FLINT), Optional.empty(), FletchingRecipes.TIP_CATEGORY),
+                new RecipeBookComponent.TabInfo(new ItemStack(Items.STICK), Optional.empty(), FletchingRecipes.SHAFT_CATEGORY),
+                new RecipeBookComponent.TabInfo(new ItemStack(Items.FEATHER), Optional.empty(), FletchingRecipes.FLETCHING_CATEGORY));
         return new ThreeSlotRecipeBookComponent<>(menu, tabs,
                 () -> List.of(menu.getSlot(FletchingMenu.TIP_SLOT), menu.getSlot(FletchingMenu.SHAFT_SLOT), menu.getSlot(FletchingMenu.FLETCHING_SLOT)),
                 () -> menu.getSlot(FletchingMenu.RESULT_SLOT));
