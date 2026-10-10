@@ -36,6 +36,7 @@ public final class SimpleLibFabric implements ModInitializer {
                 LibRegistry.tabStacks().forEach(s -> entries.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
             });
         }
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simplelib.api.InWorldStrikes::tick);
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTING.register(server ->
                 com.simplelib.village.VillageKitchen.inject(server.registryAccess()));
     }

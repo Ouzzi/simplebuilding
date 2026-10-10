@@ -770,6 +770,8 @@ public final class SledgehammerUpgrades {
 
         // Erst merken, dann bezahlen: der Schlag ist gefallen, auch wenn der Hammer dabei zerbricht.
         SledgehammerProgress.record(level, job.pos, job.upgrade.from(), hitNumber);
+        // Growing preview of the upgraded block (shared in-world system, owner 2026-10-10): each blow reveals more of it.
+        InWorldStrikes.preview(level, job.pos, previewOf(state, job.upgrade.to()), hitNumber, blows(job.upgrade));
 
         McVersion.swing(player, InteractionHand.MAIN_HAND, true);
         hammer.hurtAndBreak(damagePerHit(job.upgrade), player, EquipmentSlot.MAINHAND);
@@ -782,7 +784,20 @@ public final class SledgehammerUpgrades {
         }
     }
 
+    /** The upgraded block as the preview shows it: the target's default state with the old state's matching properties. */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private static BlockState previewOf(BlockState from, Block to) {
+        BlockState next = to.defaultBlockState();
+        for (net.minecraft.world.level.block.state.properties.Property property : from.getProperties()) {
+            if (next.hasProperty(property)) {
+                next = next.setValue(property, from.getValue(property));
+            }
+        }
+        return next;
+    }
+
     private static void finishEffects(ServerLevel level, Job job, BlockState oldState) {
+        InWorldStrikes.preview(level, job.pos, oldState, 1, 1); // done = total: the preview goes away
         level.playSound(null, job.pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
         level.playSound(null, job.pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 0.7F, 1.25F);
         Vec3 at = impactPoint(job);

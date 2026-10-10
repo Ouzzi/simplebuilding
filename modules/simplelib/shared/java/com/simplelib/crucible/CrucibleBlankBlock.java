@@ -74,7 +74,7 @@ public class CrucibleBlankBlock extends Block {
      */
     /** Crack stage 0..9 after {@code done} of {@code total} strikes (shared with the upgrades, owner 2026-10-06). */
     public static int crackStage(int done, int total) {
-        return Math.max(0, Math.min(9, done * 10 / Math.max(1, total) - 1));
+        return com.simplelib.api.InWorldStrikes.crackStage(done, Math.max(1, total));
     }
 
     public static boolean strike(Level level, BlockPos pos, Player player, ItemStack tool, int toolDamage) {
@@ -86,16 +86,14 @@ public class CrucibleBlankBlock extends Block {
         Direction facing = player.getDirection().getOpposite();
         if (state.getBlock() instanceof CrucibleBlankBlock) facing = state.getValue(FACING);
         int next = done + 1;
+        // Shared feedback of every in-world conversion; the blank's own stage models are the intermediate models.
+        com.simplelib.api.InWorldStrikes.feedback(server, pos, Blocks.IRON_BLOCK.defaultBlockState(),
+                next >= STRIKES ? SoundEvents.ANVIL_USE : SoundEvents.ANVIL_PLACE, 0.6F, next, STRIKES);
         if (next >= STRIKES) {
             server.setBlock(pos, LibBlocks.IRON_CRUCIBLE.defaultBlockState().setValue(CrucibleBlock.FACING, facing), Block.UPDATE_ALL);
-            server.playSound(null, pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 0.8F, 1.2F);
         } else {
             server.setBlock(pos, LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(STAGE, next).setValue(FACING, facing), Block.UPDATE_ALL);
-            server.playSound(null, pos, SoundEvents.ANVIL_PLACE, SoundSource.BLOCKS, 0.5F, 1.4F + 0.1F * next);
         }
-        server.destroyBlockProgress(CrucibleBarrelBlock.crackId(pos), pos, next >= STRIKES ? -1 : crackStage(next, STRIKES));
-        server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.IRON_BLOCK.defaultBlockState()),
-                pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 8, 0.25, 0.1, 0.25, 0.05);
         if (!player.getAbilities().instabuild) {
             material.shrink(1);
             tool.hurtAndBreak(toolDamage, player, EquipmentSlot.MAINHAND);
