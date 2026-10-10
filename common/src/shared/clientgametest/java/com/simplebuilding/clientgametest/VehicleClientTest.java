@@ -86,7 +86,6 @@ public final class VehicleClientTest {
         script.awaitPackets();
         script.idle("let the frames render", 20);
         script.shot("vehicles-item-frames");
-        script.command("clear @a");
         script.command("kill @e[type=!minecraft:player]", true);
         script.command("fill 3 0 " + Z + " 17 0 " + Z + " minecraft:air", true);
         script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
