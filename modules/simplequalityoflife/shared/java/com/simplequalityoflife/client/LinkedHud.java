@@ -32,7 +32,7 @@ public final class LinkedHud {
 
     public static void render(GuiGraphicsExtractor graphics) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (!active() || minecraft.options.hideGui || minecraft.gui.screen() != null) return;
+        if (!active() || minecraft.gui.screen() != null) return;
         UiBoxes.box(graphics, 4, 4, 28, 30, PALETTE);
         UiBoxes.slot(graphics, 9, 9, PALETTE);
         graphics.item(icon, 10, 10);

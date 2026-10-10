@@ -75,7 +75,7 @@ public final class LinkedPanel {
         SimpleContainer mirror = new SimpleContainer(payload.size());
         for (int i = 0; i < payload.size(); i++) ((LinkedMenu) menu).qol$addSlot(new LinkedSlot(mirror, i, null));
         ((LinkedMenu) menu).qol$panel(new LinkedPanel(payload.title(), payload.size()));
-        if (minecraft.gui.screen() instanceof AbstractContainerScreen<?> screen && screen.getMenu() == menu && screen instanceof LinkedScreen linked) linked.qol$layout();
+        if (minecraft.gui.screen() instanceof AbstractContainerScreen<?> screen && screen.getMenu() == menu && screen instanceof LinkedScreen linkedScreen) linkedScreen.qol$layout();
     }
 
     private int height() {
