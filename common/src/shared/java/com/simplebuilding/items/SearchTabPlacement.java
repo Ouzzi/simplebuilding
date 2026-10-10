@@ -96,6 +96,31 @@ public final class SearchTabPlacement {
         }
     }
 
+    /** Material-Achtel (N19/N15), die schon in den Ketten der End-Paletten und des Glattquarz stehen (sonst brechen deren Reihenfolgen). */
+    private static final java.util.Set<String> IN_CHAINS = java.util.Set.of("purpur_block_octet", "smooth_quartz_octet",
+            "astralit_bricks_octet", "polished_astralit_block_octet", "nihilith_bricks_octet", "polished_nihilith_block_octet",
+            "ender_quartz_block_octet", "ender_quartz_bricks_octet", "polished_ender_quartz_block_octet");
+
+    /** Das Material-Achtel in einer Kette; leer, wo es die Achtel nicht gibt (nur 26.3). */
+    private static ItemLike[] octet(String key) {
+        if (!com.simplebuilding.version.McVersion.CHESS) {
+            return new ItemLike[0];
+        }
+        return new ItemLike[]{net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplebuilding", key + "_octet"))};
+    }
+
+    private static ItemLike[] chain(Object... parts) {
+        List<ItemLike> out = new ArrayList<>();
+        for (Object part : parts) {
+            if (part instanceof ItemLike[] array) {
+                out.addAll(Arrays.asList(array));
+            } else {
+                out.add((ItemLike) part);
+            }
+        }
+        return out.toArray(new ItemLike[0]);
+    }
+
     /** Alle Einfuegungen, je Vanilla-Tab in der Reihenfolge, in der sie ausgefuehrt werden. */
     public static List<Placement> placements() {
         List<Placement> out = new ArrayList<>();
@@ -130,29 +155,29 @@ public final class SearchTabPlacement {
 
         // --- Bausteine: End-Paletten hinter Purpur, Enderquarz und Schachbretter hinter Glattquarz,
         // Platten und Speicherbloecke in Erz-Reihenfolge bei Vanillas Platten und Bloecken.
-        out.add(Placement.after(BUILDING_BLOCKS, Items.PURPUR_SLAB,
-                ModItems.POLISHED_END_STONE, ModItems.ASTRAL_END_STONE,
+        out.add(Placement.after(BUILDING_BLOCKS, Items.PURPUR_SLAB, chain(
+                octet("purpur_block"), ModItems.POLISHED_END_STONE, ModItems.ASTRAL_END_STONE,
                 ModItems.ASTRALIT_BLOCK, ModItems.VEINED_ASTRALIT, ModItems.CRYSTALLINE_ASTRALIT, ModItems.LAYERED_ASTRALIT,
                 ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
-                ModItems.ASTRALIT_BRICK_SLAB, ModItems.ASTRALIT_BRICK_WALL, ModItems.POLISHED_ASTRALIT,
-                ModItems.POLISHED_ASTRALIT_STAIRS, ModItems.POLISHED_ASTRALIT_SLAB, ModItems.POLISHED_ASTRALIT_WALL,
+                ModItems.ASTRALIT_BRICK_SLAB, octet("astralit_bricks"), ModItems.ASTRALIT_BRICK_WALL, ModItems.POLISHED_ASTRALIT,
+                ModItems.POLISHED_ASTRALIT_STAIRS, ModItems.POLISHED_ASTRALIT_SLAB, octet("polished_astralit_block"), ModItems.POLISHED_ASTRALIT_WALL,
                 ModItems.ASTRALIT_PILLAR, ModItems.CHISELED_ASTRALIT_BRICKS, ModItems.ASTRAL_PURPUR_BLOCK,
                 ModItems.NIHIL_END_STONE,
                 ModItems.NIHILITH_BLOCK, ModItems.VEINED_NIHILITH, ModItems.CRYSTALLINE_NIHILITH, ModItems.FROSTED_NIHILITH,
                 ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
-                ModItems.NIHILITH_BRICK_SLAB, ModItems.NIHILITH_BRICK_WALL, ModItems.POLISHED_NIHILITH,
-                ModItems.POLISHED_NIHILITH_STAIRS, ModItems.POLISHED_NIHILITH_SLAB, ModItems.POLISHED_NIHILITH_WALL,
-                ModItems.NIHILITH_PILLAR, ModItems.CHISELED_NIHILITH_BRICKS, ModItems.NIHIL_PURPUR_BLOCK));
-        out.add(Placement.after(BUILDING_BLOCKS, Items.SMOOTH_QUARTZ_SLAB,
-                ModItems.ENDER_QUARTZ_BLOCK, ModItems.ENDER_QUARTZ_STAIRS, ModItems.ENDER_QUARTZ_SLAB,
-                ModItems.ENDER_QUARTZ_BRICKS, ModItems.ENDER_QUARTZ_BRICK_STAIRS, ModItems.ENDER_QUARTZ_BRICK_SLAB,
+                ModItems.NIHILITH_BRICK_SLAB, octet("nihilith_bricks"), ModItems.NIHILITH_BRICK_WALL, ModItems.POLISHED_NIHILITH,
+                ModItems.POLISHED_NIHILITH_STAIRS, ModItems.POLISHED_NIHILITH_SLAB, octet("polished_nihilith_block"), ModItems.POLISHED_NIHILITH_WALL,
+                ModItems.NIHILITH_PILLAR, ModItems.CHISELED_NIHILITH_BRICKS, ModItems.NIHIL_PURPUR_BLOCK)));
+        out.add(Placement.after(BUILDING_BLOCKS, Items.SMOOTH_QUARTZ_SLAB, chain(octet("smooth_quartz"),
+                ModItems.ENDER_QUARTZ_BLOCK, ModItems.ENDER_QUARTZ_STAIRS, ModItems.ENDER_QUARTZ_SLAB, octet("ender_quartz_block"),
+                ModItems.ENDER_QUARTZ_BRICKS, ModItems.ENDER_QUARTZ_BRICK_STAIRS, ModItems.ENDER_QUARTZ_BRICK_SLAB, octet("ender_quartz_bricks"),
                 ModItems.ENDER_QUARTZ_BRICK_WALL, ModItems.POLISHED_ENDER_QUARTZ, ModItems.POLISHED_ENDER_QUARTZ_STAIRS,
-                ModItems.POLISHED_ENDER_QUARTZ_SLAB, ModItems.POLISHED_ENDER_QUARTZ_WALL, ModItems.ENDER_QUARTZ_PILLAR,
+                ModItems.POLISHED_ENDER_QUARTZ_SLAB, octet("polished_ender_quartz_block"), ModItems.POLISHED_ENDER_QUARTZ_WALL, ModItems.ENDER_QUARTZ_PILLAR,
                 ModItems.CHISELED_ENDER_QUARTZ_BRICKS,
                 ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
                 ModItems.RESIN_QUARTZ_CHECKER, ModItems.NETHER_BRICK_QUARTZ_CHECKER, ModItems.RED_NETHER_BRICK_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
                 ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
-                ModItems.POLISHED_ENDER_QUARTZ_CHECKER));
+                ModItems.POLISHED_ENDER_QUARTZ_CHECKER)));
         if (com.simplebuilding.version.McVersion.CHESS) {
             // Schach: je Farbe Achtel, Treppe/Stufe des Schachbretts, Figuren - hinter den Schachbrettern.
             List<ItemLike> chess = new ArrayList<>();
@@ -168,6 +193,9 @@ public final class SearchTabPlacement {
             }
             // Material-Achtel (N19/N15) je hinter der Vanilla-Stufe ihres Blocks (Mod-Bloecke hinter der eigenen Stufe; Wolle/Beton im Tab Farbbloecke).
             for (net.minecraft.world.level.block.Block cell : com.simplebuilding.blocks.ModBlocks.MATERIAL_OCTETS) {
+                if (IN_CHAINS.contains(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell).getPath())) {
+                    continue;
+                }
                 net.minecraft.world.level.block.Block full = ((com.simplebuilding.blocks.custom.MaterialOctetBlock) cell).source();
                 net.minecraft.world.level.block.Block stairs = com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(full, false, true).orElse(null);
                 net.minecraft.world.level.block.Block slab = stairs == null ? null
