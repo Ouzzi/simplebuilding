@@ -110,7 +110,9 @@ public final class ClientTests {
                 // Queue N15 (26.3): every chess piece stands on its quarter; boards and gallery in three pictures.
                 new Entry("chess-pieces", ChessClientTest::inWorld),
                 // Holzwerk (2026-10-09, 26.3): motif sprites baked, one overview and one close-up; clears its blocks.
-                new Entry("woodwork", WoodworkClientTest::inWorld));
+                new Entry("woodwork", WoodworkClientTest::inWorld),
+                // Fahrzeug-Stufen (Queue N19/N23, 26.3): carts and chest boats in the world, item sprites in the hotbar.
+                new Entry("vehicles", VehicleClientTest::inWorld));
     }
 
     /**
