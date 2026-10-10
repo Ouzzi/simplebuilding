@@ -115752,6 +115752,37 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "id": "sledgehammer_upgrade/minecraft:enchanting_table",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "minecraft:enchanting_table",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:netherite_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:astral_enchanting_table",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 400,
+          "hits": 20,
+          "damagePerHit": 10,
+          "damage": 200
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
         "id": "sledgehammer_upgrade/simplebuilding:netherite_blast_furnace",
         "kind": "sledgehammer_upgrade",
         "inputs": [
@@ -139576,7 +139607,7 @@ window.WIKI_DATA = {
     "enchantments": 19,
     "tags": 50,
     "config": 222,
-    "inWorld": 492,
+    "inWorld": 493,
     "advancements": 127,
     "features": 50,
     "undocumented": 0,
