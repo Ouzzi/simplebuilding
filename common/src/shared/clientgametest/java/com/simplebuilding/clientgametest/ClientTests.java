@@ -110,7 +110,9 @@ public final class ClientTests {
                 // Queue N15 (26.3): every chess piece stands on its quarter; boards and gallery in three pictures.
                 new Entry("chess-pieces", ChessClientTest::inWorld),
                 // Holzwerk (2026-10-09, 26.3): motif sprites baked, one overview and one close-up; clears its blocks.
-                new Entry("woodwork", WoodworkClientTest::inWorld));
+                new Entry("woodwork", WoodworkClientTest::inWorld),
+                // Queue N31 (26.3): the Astral Enchanter's sliders follow a real mouse drag; clears its table and shelves.
+                new Entry("astral-enchanter", AstralEnchanterClientTest::inWorld));
     }
 
     /**

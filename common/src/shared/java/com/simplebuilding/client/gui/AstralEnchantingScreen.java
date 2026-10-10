@@ -57,6 +57,11 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         return TRACK_X + (max <= 0 ? 0 : Math.round(level * (TRACK_W - 1) / (float) max));
     }
 
+    /** GUI position (screen coordinates) of level {@code level} on the slider of {@code row} - for the client test. */
+    public int[] sliderPoint(int row, int level) {
+        return new int[] {this.leftPos + levelX(level, this.menu.maxLevel(row)), this.topPos + trackY(row) + TRACK_H / 2};
+    }
+
     private int rowAt(double mx, double my) {
         double x = mx - this.leftPos, y = my - this.topPos;
         if (x < PANEL_X || x >= PANEL_X + PANEL_W) return -1;
