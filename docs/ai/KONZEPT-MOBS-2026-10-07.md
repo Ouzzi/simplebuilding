@@ -30,6 +30,39 @@ Stil: vanilla-nah, 64×64-Textur, Modell aus wenigen Quadern wie Vanilla-Mobs.
 4. **Der Uralte Golem (Oberwelt, Trial-Chamber-Tiefe):** aktiviert durch alle Trial Keys. Wechselt die Elementform (Kupfer: Blitz, Eisen: Panzer, Gold: Tempo, Diamant: Spiegelung von Schaden). Drop: Golem-Kern für eigene Golems.
 5. **Leere-Wyrm (Außenenden):** Schlange aus Endstein-Segmenten, gräbt sich durch Inseln. Jedes Segment hat eigene Lebenspunkte; der Kopf ist nur nach Abtrennen des Hinterteils verwundbar.
 
+## Mob 4 – Shellker (End, Gateway-Wächter) – Konzept N32, 2026-10-10
+Queue N23/N24 (Wortlaut dort). Vorschau: `/root/previews/concepts/shellker.png`, `shellker_helm.png`.
+
+- **Wesen:** Shulker-Variante mit harter Schale, 1×1×1. Öffnet zum Schießen alle Seiten, wird dabei **nicht** größer (schießt aus einem 1×1-Loch, Öffnung nur ein Spalt/ein Auge). Kein Teleport; nur per (Klebe-)Kolben verschiebbar (Kolben-Schub = bewusster Weg am Wächter vorbei).
+- **Schaden:** geschlossen unverwundbar (wie Gürteltier, Hit-Sound „Stein“); offen normal. Leben = 4× Shulker (120 statt 30).
+- **Gateway:** je End-Gateway genau 4 Stück, auf den 4 Bedrock-Nachbarfeldern der Öffnung (Portalhöhe; genaue Positionen bei Umsetzung gegen Vanilla-Struktur prüfen). Durch die Tarnung (Textur wie Grundgestein) fallen sie dort nicht auf; Zugang erst nach Besiegen oder Wegschieben. Fake-Gateways (End-Struktur) bekommen keine.
+- **Projektil:** wie Shulker-Kugel, 1,5× schneller, Effekt **Schwerkraft (High Gravity)** statt Schweben: alle Aufwärtskräfte (Sprung, Levitation, Elytra-Auftrieb) auf 10 %, Elytra gleitet 10× schlechter. Dauer wie Schweben (10 s), Stufe ohne Staffelung. Als Trank: Brauzutat **Shellker-Schale** (Seltsamer Trank → Trank der Schwerkraft 3:00 / verlängert 8:00; Wurf-/Verweiltrank wie Vanilla).
+- **Vermehrung:** wie Shulker (Shulker-Kugel trifft Shulker → Klon; hier trifft die Shellker-Kugel einen Shellker).
+- **Erschaffen:** Shulker + Shellker-Schale, Rechtsklick „anziehen“ → Shulker wird Shellker (Schale verbraucht). Drop Ø 2,5 Schalen (Looting +0,5/Stufe). Farmen nur über Umwandlung von Shulkern, nie natürlich außerhalb der Gateways.
+- **Textur:** Schale wie Grundgestein (dunkle Grautöne, Rauschen, Risse), Auge/Spalt nur beim Öffnen heller Violett-Lichtpunkt (Tarnung bleibt bis zum ersten Schuss). Vorschau zeigt geschlossen/offen.
+- **Helm („Shellker-Helm“, NEU, kein Ersatz des Schildkrötenhelms):** 5 Schalen in Helmform. Rüstung 3, Zähigkeit 1, Rückstoßresistenz 10 %, Haltbarkeit ≈ Eisen. Träger ist immun gegen den Schwerkraft-Effekt (nur gegen den Effekt, nicht gegen Schüsse) und erleidet 20 % weniger Fallschaden. Schmiedevorlagen/Besatz wie bei Vanilla-Helmen, Textur bedrockgrau mit violettem Visier-Spalt.
+- **Modul:** Simple Mobs (siehe Nächste Schritte); Helm/Trank im selben Modul, Trank-Zutat nur bedingt in SimpleBuilding-Tiegel eintragen (Modul-Unabhängigkeit).
+
+**Offene Besitzer-Fragen (Empfehlung zuerst):**
+1. Helm-Werte wie oben (Empfehlung) oder reiner Effekt-Helm (Schwerkraft-Immunität + Optik, keine Rüstung)?
+2. Dauer Schwerkraft 10 s ok? (Empfehlung ja; Trank 3:00.)
+3. Gateway-Wächter nur im Haupt-Gateway-Ring oder auch auf den Außeninseln-Gateways? (Empfehlung: alle echten Gateways.)
+4. Kolben-Verschieben: auch Beobachter/Redstone-Schub als „bewegt“? (Empfehlung: nur Kolben.)
+
+## Mob 5 – Seelenfeuer-Lohe (Soulfire Blaze) – Konzept N32, 2026-10-10
+Queue N24 nennt nur den Namen; alles Folgende ist **Vorschlag**. Vorschau: `/root/previews/concepts/soulfire_blaze.png`.
+
+- **Wesen:** blaue Blaze-Variante, gleiche Größe/Flugverhalten, Stäbe und Kern in Seelenfeuer-Blau/Petrol, Kern hell-cyan. Feuerimmun.
+- **Spawn:** Seelensand-Täler (selten, Rudel 1–2, über Seelensand/Seelenboden) und Seelenfeuer-Variante des Festungs-Spawners (Chance 25 %, Config). Kein Spawn in Basaltdeltas.
+- **Angriff:** feuert Drei-Kugel-Salven aus Seelenfeuer: setzt Ziel in Seelenbrand (Vanilla-Seelenfeuer, Feuerresistenz hilft). Verletzlich gegen Schneebälle (wie Blaze).
+- **Drop:** Seelenfeuer-Rute (0–1, Looting). Verwendung (Vorschlag): Brennstoff/Hitzequelle „hoch“ ohne Rauch im Tiegel (Queue: Hitzequelle statt Brennstoff), Brauzutat für Trank der Seelenfeuer-Resistenz, Zutat für Seelenlava-Bezüge (Seelenlava-Eimer = extrem, bleibt vom Mob unabhängig).
+- **Modul:** Simple Mobs (Soulfire-Texturen in SimpleBuilding-Stilreferenz; Tiegel-Anbindung nur bedingt).
+
+**Offene Besitzer-Fragen (Empfehlung zuerst):**
+1. Spawn nur Seelensand-Täler (Empfehlung) oder auch Festungen?
+2. Rute als Tiegel-Hitzequelle „hoch“ (Empfehlung) oder ein eigener Wert?
+3. Soll sie Wasser meiden/Schaden nehmen wie Blaze? (Empfehlung: ja, Wassereimer/Schneeball.)
+
 ## Nächste Schritte
 - Besitzer wählt Name, Variante und Golems/Bosse.
 - Danach Textur- und Modell-Vorschau (Bild, mehrere Posen, vanilla-nah) für Mob 1 und die gewählten Golems/Bosse.
