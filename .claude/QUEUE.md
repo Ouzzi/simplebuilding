@@ -672,7 +672,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 31 (2026-10-10, Besitzer)
 - [ ] Jukebox-Verstärker funktioniert nicht wie gewünscht: soll als Repeater fungieren (wie Lautsprecher per Funk weitergeben); aus den Verstärkern kommen keine Musiknoten-Partikel.
-- [ ] Aufgeschnittene Wassermelone (Melonen-Achtel): 1 px schwarzer Rand zwischen Schale und Fruchtfleisch.
+- [x] Aufgeschnittene Wassermelone (Melonen-Achtel): 1 px schwarzer Rand zwischen Schale und Fruchtfleisch. (claude-q-misc31: dunkle Kante (28,38,14) rund um melon_flesh)
 - [ ] Astral-Verzauberungstisch → Name „Astral Enchanter“ (DE „Astral-Verzauberer“): Regler lassen sich nicht ziehen; UI wirkt gequetscht → höher; Verzauberungs-Zeichen (Glyphen wie Vanilla-Tisch) zu den Verzauberungen; Regler-Stufen dezent markieren; Besitzer-Frage: was machen Plus/Minus unter Lapis/Lohenstaub? Lohen-Regale ca. doppelter Wert, d. h. dieselbe Anzahl Lohen-Regale wie normale Max-Anzahl bringt den Astral Enchanter auf Maximum.
 - [ ] Kisten (Crates): Item-Anzeige flackert (Z-Fighting um die y-Achse) und wirkt in Winkeln verbuggt; Kiste seitlich hinlegbar (Öffnung zur Seite, Items liegen auf der inneren Seitenwand); Kiste durchsichtig wie aus Holzlatten mit Lücken (echte Holzkiste).
 - [ ] Sand- und Kies-Stufen: Schwerkraft prüfen; zwei Stufen ergeben wieder einen vollen Block; Erde-Stufen ebenfalls kombinierbar.
@@ -680,4 +680,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Farbkasten (paint_box, alle Stufen) in denselben Kreativ-Tab wie Bündel und Rucksäcke.
 - [x] Inventar-UI (simplecontainers/Mod-UIs, heller Inventar-Kasten) ist zu strahlend weiß: Stil behalten, aber Farben aus Vanilla nehmen (Vanilla-GUI-Grau/Schatten/Licht).
 - [x] Astral-Verzauberungstisch: Herstellung (Hammer-Umwandlung) in JEI anzeigen.
-- [x] Verstärkter Tiegel: auf 12 Slots erhöhen. (claude-q-n30: alle vier Punkte; 3x4-Raster, Inventar-Kasten #C6C6C6/#8B8B8B, Astral-Tisch in der In-World-Kategorie)
+- [x] Verstärkter Tiegel: auf 12 Slots erhöhen. (claude-q-n30: alle vier Punkte; 3x4-Raster, Inventar-Kasten #C6C6C6/#8B8B8B, Astral-Tisch in der In-World-Kategorie),
+- [x] Sand- und Kies-Stufen: Schwerkraft prüfen; zwei Stufen ergeben wieder einen vollen Block; Erde-Stufen ebenfalls kombinierbar. (claude-q-misc31: zwei Stufen → voller Vanilla-Block beim Setzen und Landen, MergingSlabBlock)
+- [x] Umbenennen: Auto Smither → „Smither“; Autonomous Crafter → „Auto Crafter“ (Vanilla heißt „Crafter“). (claude-q-misc31: nur Anzeigenamen; DE „Schmied“ / „Auto-Crafter“, IDs bleiben)

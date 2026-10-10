@@ -27,6 +27,9 @@ WOODS = ['oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', '
 # melon flesh: the reds of the vanilla melon slice, seeds in its darkest red-brown
 FLESH = {'r': (191, 49, 35), 'l': (193, 60, 45), 'h': (202, 113, 93), 'd': (175, 22, 11), 's': (89, 24, 15),
          'k': (122, 24, 14)}
+# N31: 1 px very dark line between rind and flesh. With uvlock the texture border is exactly where a cut face meets
+# the block's outer (rind) faces, so the line goes round the texture's edge.
+FLESH_EDGE = (28, 38, 14)
 FLESH_MAP = [
     'rrlrrdrrlrrrdrlr',
     'rlrrrrrsrrlrrrrr',
@@ -61,7 +64,7 @@ def flesh():
     img = Image.new('RGB', (16, 16))
     for y, row in enumerate(FLESH_MAP):
         for x, c in enumerate(row):
-            img.putpixel((x, y), FLESH[c])
+            img.putpixel((x, y), FLESH_EDGE if x in (0, 15) or y in (0, 15) else FLESH[c])
     return img
 
 

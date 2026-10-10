@@ -602,12 +602,12 @@ public class ModBlocks {
 
     // --- Naturvarianten (N24/N25, 2026-10-09, nur Hauptlinie): Stufen aus Erde/Gras/Sand/Kies, gemeisseltes Pack-/Blaueis,
     // rissiges Eis, Nautilusschalen-Block, Froschlichter in weiteren Farben. Modelle zeigen auf Vanilla-Texturen, wo es passt.
-    public static final Block DIRT_SLAB = McVersion.NATURE_VARIANTS ? registerBlock("dirt_slab", Blocks.DIRT, SlabBlock::new) : null;
+    public static final Block DIRT_SLAB = McVersion.NATURE_VARIANTS ? registerBlock("dirt_slab", Blocks.DIRT, s -> new MergingSlabBlock(s, Blocks.DIRT)) : null;
     /** Biomgefaerbt wie der Grasblock; ohne Behutsamkeit droppt sie die Erd-Stufe. Breitet sich nicht aus und stirbt nicht ab. */
-    public static final Block GRASS_SLAB = McVersion.NATURE_VARIANTS ? registerBlock("grass_slab", Blocks.GRASS_BLOCK, SlabBlock::new) : null;
-    /** Fallen wie Sand und Kies ({@link FallingSlabBlock}). */
-    public static final Block SAND_SLAB = McVersion.NATURE_VARIANTS ? registerBlock("sand_slab", Blocks.SAND, FallingSlabBlock::new) : null;
-    public static final Block GRAVEL_SLAB = McVersion.NATURE_VARIANTS ? registerBlock("gravel_slab", Blocks.GRAVEL, FallingSlabBlock::new) : null;
+    public static final Block GRASS_SLAB = McVersion.NATURE_VARIANTS ? registerBlock("grass_slab", Blocks.GRASS_BLOCK, s -> new MergingSlabBlock(s, Blocks.GRASS_BLOCK)) : null;
+    /** Fallen wie Sand und Kies ({@link FallingSlabBlock}). Zwei Stufen ergeben je den vollen Vanilla-Block ({@link MergingSlabBlock}). */
+    public static final Block SAND_SLAB = McVersion.NATURE_VARIANTS ? registerBlock("sand_slab", Blocks.SAND, s -> new FallingSlabBlock(s, Blocks.SAND)) : null;
+    public static final Block GRAVEL_SLAB = McVersion.NATURE_VARIANTS ? registerBlock("gravel_slab", Blocks.GRAVEL, s -> new FallingSlabBlock(s, Blocks.GRAVEL)) : null;
     public static final Block CHISELED_PACKED_ICE = McVersion.NATURE_VARIANTS ? registerBlock("chiseled_packed_ice", Blocks.PACKED_ICE, Block::new) : null;
     public static final Block CHISELED_BLUE_ICE = McVersion.NATURE_VARIANTS ? registerBlock("chiseled_blue_ice", Blocks.BLUE_ICE, Block::new) : null;
     /** Reisst unter Lebewesen in vier Stufen und wird dann zu Wasser ({@link CrackedIceBlock}). */

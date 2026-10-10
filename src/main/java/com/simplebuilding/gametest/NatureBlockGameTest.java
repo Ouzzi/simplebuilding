@@ -24,6 +24,11 @@ public final class NatureBlockGameTest {
         NatureBlockTests.sandAndGravelSlabsFallAndMerge(helper);
     }
 
+    @GameTest
+    public void naturalSlabsPlaceIntoTheFullBlock(GameTestHelper helper) {
+        NatureBlockTests.naturalSlabsPlaceIntoTheFullBlock(helper);
+    }
+
     @GameTest(maxTicks = NatureBlockTests.CRACKED_ICE_MAX_TICKS)
     public void crackedIceMeltsUnderAnEntityAfterSomeSeconds(GameTestHelper helper) {
         NatureBlockTests.crackedIceMeltsUnderAnEntityAfterSomeSeconds(helper);

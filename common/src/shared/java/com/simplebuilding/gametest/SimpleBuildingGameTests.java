@@ -297,6 +297,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("nature_block_game_test_sand_and_gravel_slabs_fall_and_merge", NatureBlockTests::sandAndGravelSlabsFallAndMerge)
                     .maxTicks(NatureBlockTests.FALLING_SLAB_MAX_TICKS).build(),
+            GameTestSpec.named("nature_block_game_test_natural_slabs_place_into_the_full_block", NatureBlockTests::naturalSlabsPlaceIntoTheFullBlock)
+                    .build(),
             GameTestSpec.named("nature_block_game_test_cracked_ice_melts_under_an_entity_after_some_seconds", NatureBlockTests::crackedIceMeltsUnderAnEntityAfterSomeSeconds)
                     .maxTicks(NatureBlockTests.CRACKED_ICE_MAX_TICKS).build(),
             GameTestSpec.named("woodwork_game_test_hollow_logs_let_small_mobs_and_crawlers_through", WoodworkTests::hollowLogsLetSmallMobsAndCrawlersThrough)

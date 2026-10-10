@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Fallable;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,17 +27,17 @@ import net.minecraft.world.phys.AABB;
  *
  * <ul>
  *   <li>Ist unter ihr frei ({@link FallingBlock#isFree}), faellt sie als Entity - eine obere Stufe faellt als untere,
- *       eine doppelte bleibt doppelt (Wasser bleibt wie bei Vanilla zurueck).</li>
- *   <li>Landet eine untere Stufe auf einer unteren Stufe derselben Art, werden beide zur Doppelstufe
- *       ({@link #canBeReplaced}).</li>
+ *       eine doppelte wird zum vollen Block (Wasser bleibt wie bei Vanilla zurueck).</li>
+ *   <li>Landet eine untere Stufe auf einer unteren Stufe derselben Art, werden beide zum vollen Sand-/Kiesblock
+ *       ({@link #canBeReplaced}, Besitzer N31); ebenso beim Setzen der zweiten Stufe ({@link MergingSlabBlock}).</li>
  * </ul>
  */
-public class FallingSlabBlock extends SlabBlock implements Fallable {
+public class FallingSlabBlock extends MergingSlabBlock implements Fallable {
     /** Wie Vanilla: zwei Ticks Vorlauf, damit eine frisch gesetzte Stufe nicht sofort faellt. */
     private static final int DELAY_AFTER_PLACE = 2;
 
-    public FallingSlabBlock(Properties settings) {
-        super(settings);
+    public FallingSlabBlock(Properties settings, Block fullBlock) {
+        super(settings, fullBlock);
     }
 
     @Override
@@ -54,6 +55,11 @@ public class FallingSlabBlock extends SlabBlock implements Fallable {
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (state.getValue(TYPE) == SlabType.DOUBLE) {
+            // Doppelstufe (alte Welt, /setblock): wird zum vollen Block, der dann selbst faellt.
+            level.setBlockAndUpdate(pos, fullState());
+            return;
+        }
         if (FallingBlock.isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinY()) {
             BlockState falling = state.getValue(TYPE) == SlabType.TOP ? state.setValue(TYPE, SlabType.BOTTOM) : state;
             FallingBlockEntity.fall(level, pos, falling);
@@ -64,7 +70,7 @@ public class FallingSlabBlock extends SlabBlock implements Fallable {
      * Landende untere Stufe derselben Art (FallingBlockEntity fragt mit leerer Hand und {@link DirectionalPlaceContext},
      * ob sie die Zelle uebernehmen darf): die Entity steht dann auf halber Hoehe in der Zelle dieser unteren Stufe. Statt
      * sie zu einem Item zerfallen zu lassen (das Setzen des gleichen Zustands schlaegt fehl), wird die liegende Stufe hier
-     * zur Doppelstufe und die Entity verschwindet ohne Drop. Nur der Server, nur diese eine Lage.
+     * zum vollen Block und die Entity verschwindet ohne Drop. Nur der Server, nur diese eine Lage.
      */
     @Override
     protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
@@ -74,7 +80,7 @@ public class FallingSlabBlock extends SlabBlock implements Fallable {
             for (FallingBlockEntity entity : context.getLevel().getEntitiesOfClass(FallingBlockEntity.class, new AABB(pos),
                     e -> e.isAlive() && e.getBlockState().is(this) && e.getBlockState().getValue(TYPE) == SlabType.BOTTOM)) {
                 entity.dropItem = false;
-                context.getLevel().setBlockAndUpdate(pos, state.setValue(TYPE, SlabType.DOUBLE).setValue(WATERLOGGED, false));
+                context.getLevel().setBlockAndUpdate(pos, fullState());
                 return false;
             }
         }

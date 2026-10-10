@@ -1960,8 +1960,9 @@ window.WIKI_DATA = {
         "summary": "Slabs of dirt, grass, sand and gravel, chiseled packed and blue ice, cracked ice, a nautilus shell block and froglights in three more colors.",
         "details": [
           "Dirt, Grass, Sand and Gravel Slabs: three of the full block in a row make six slabs, like every vanilla slab. There is no stonecutter recipe, because the stonecutter only cuts stone. A shovel mines them fastest.",
-          "The Grass Slab is tinted by the biome like the grass block. Without Silk Touch it drops a Dirt Slab (a double slab drops two). It neither spreads nor turns into dirt.",
-          "Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into a double slab instead of breaking. The Gravel Slab never drops flint.",
+          "The Grass Slab is tinted by the biome like the grass block. Without Silk Touch it drops a Dirt Slab. It neither spreads nor turns into dirt.",
+          "Two slabs of the same kind make the full vanilla block again: placing a second Dirt, Grass, Sand or Gravel Slab onto one gives dirt, a grass block, sand or gravel instead of a double slab.",
+          "Sand and Gravel Slabs fall like sand. A top slab falls as a bottom slab; a bottom slab landing on a bottom slab of the same kind joins it into the full block instead of breaking. The Gravel Slab never drops flint.",
           "Cracked Ice (stonecutter: one ice makes one): a living entity standing on it cracks it one stage per second, four stages that look like vanilla frosted ice; after the last stage it turns into water (in the Nether it evaporates). With nobody on it the cracks stay. Otherwise it behaves like ice and drops only with Silk Touch.",
           "Chiseled Packed Ice and Chiseled Blue Ice come from the stonecutter (one packed or blue ice makes one), are as slippery as their base block and drop only with Silk Touch.",
           "Block of Nautilus Shell: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
@@ -1974,8 +1975,9 @@ window.WIKI_DATA = {
         "summary": "Stufen aus Erde, Gras, Sand und Kies, gemeißeltes Pack- und Blaueis, rissiges Eis, ein Nautilusschalenblock und Froschlichter in drei weiteren Farben.",
         "details": [
           "Erd-, Gras-, Sand- und Kiesstufe: drei Vollblöcke nebeneinander ergeben sechs Stufen, wie bei jeder Vanilla-Stufe. Ein Steinmetz-Rezept gibt es nicht, weil der Steinmetz nur Stein schneidet. Am schnellsten baut man sie mit der Schaufel ab.",
-          "Die Grasstufe ist wie der Grasblock nach Biom gefärbt. Ohne Behutsamkeit droppt sie eine Erdstufe (die Doppelstufe zwei). Sie breitet sich nicht aus und wird nicht zu Erde.",
-          "Sand- und Kiesstufe fallen wie Sand. Eine obere Stufe fällt als untere; eine untere Stufe, die auf einer unteren Stufe derselben Art landet, wird mit ihr zur Doppelstufe, statt zu zerfallen. Die Kiesstufe droppt nie Feuerstein.",
+          "Die Grasstufe ist wie der Grasblock nach Biom gefärbt. Ohne Behutsamkeit droppt sie eine Erdstufe. Sie breitet sich nicht aus und wird nicht zu Erde.",
+          "Zwei Stufen derselben Art ergeben wieder den vollen Vanilla-Block: Wer eine zweite Erd-, Gras-, Sand- oder Kiesstufe daraufsetzt, bekommt Erde, einen Grasblock, Sand oder Kies statt einer Doppelstufe.",
+          "Sand- und Kiesstufe fallen wie Sand. Eine obere Stufe fällt als untere; eine untere Stufe, die auf einer unteren Stufe derselben Art landet, wird mit ihr zum vollen Block, statt zu zerfallen. Die Kiesstufe droppt nie Feuerstein.",
           "Rissiges Eis (Steinmetz: ein Eis ergibt eins): steht ein Lebewesen darauf, reißt es jede Sekunde eine Stufe weiter, vier Stufen im Aussehen von Vanillas brüchigem Eis; nach der letzten wird es zu Wasser (im Nether verdampft es). Steht niemand darauf, bleiben die Risse. Sonst verhält es sich wie Eis und droppt nur mit Behutsamkeit.",
           "Gemeißeltes Packeis und gemeißeltes Blaueis entstehen am Steinmetz (ein Pack- bzw. Blaueis ergibt eins), sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
           "Nautilusschalenblock: vier Nautilusschalen im Quadrat; er lässt sich wieder in vier Schalen zerlegen. Er wird wie der Knochenblock entlang einer Achse gesetzt.",
@@ -5383,8 +5385,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:auto_smither",
       "name": {
-        "en_us": "Auto Smither",
-        "de_de": "Auto-Schmied"
+        "en_us": "Smither",
+        "de_de": "Schmied"
       },
       "texture": "assets/textures/block/auto_smither_front.png",
       "craftedBy": [
@@ -5395,7 +5397,7 @@ window.WIKI_DATA = {
       "icon": "assets/textures/render/auto_smither.png",
       "note": {
         "en": {
-          "summary": "The Auto Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
+          "summary": "The Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
           "details": [
             "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. Results go into a container in front, with any remainder kept in the output slot. Without a matching recipe or enough output space it only clicks and consumes nothing.",
             "Hoppers and droppers fill the three input slots from any side, using the smithing table's item checks. Only finished results can be pulled out. Players can take results but cannot place anything in the output slot.",
@@ -5404,7 +5406,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Auto-Schmied schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Material. Fertige Ergebnisse gehen in einen Behälter vor ihm oder bleiben im Ausgabeslot.",
+          "summary": "Der Schmied schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Material. Fertige Ergebnisse gehen in einen Behälter vor ihm oder bleiben im Ausgabeslot.",
           "details": [
             "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Ergebnisse gehen in einen Behälter vor ihm, der Rest bleibt im Ausgabeslot. Ohne passendes Rezept oder genügend Ausgabeplatz klickt er nur und verbraucht nichts.",
             "Trichter und Spender befüllen die drei Eingabeslots von jeder Seite mit denselben Item-Prüfungen wie am Schmiedetisch. Nur fertige Ergebnisse lassen sich herausziehen. Spieler können Ergebnisse entnehmen, aber nichts in den Ausgabeslot legen.",
@@ -5425,8 +5427,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:autonomous_crafter",
       "name": {
-        "en_us": "Autonomous Crafter",
-        "de_de": "Autonomer Crafter"
+        "en_us": "Auto Crafter",
+        "de_de": "Auto-Crafter"
       },
       "texture": "assets/textures/block/autonomous_crafter_side.png",
       "craftedBy": [
@@ -5437,7 +5439,7 @@ window.WIKI_DATA = {
       "icon": "assets/textures/render/autonomous_crafter.png",
       "note": {
         "en": {
-          "summary": "The Autonomous Crafter is a Crafter that crafts its grid by itself every 4 ticks as long as a hopper stands below it. A redstone signal stops it; results go into that hopper.",
+          "summary": "The Auto Crafter is a Crafter that crafts its grid by itself every 4 ticks as long as a hopper stands below it. A redstone signal stops it; results go into that hopper.",
           "details": [
             "It crafts only with a hopper (vanilla or mod hopper) directly below and no redstone signal reaching it. Result and recipe remainders go into that hopper; if the result does not fit completely, nothing is crafted. Remainders that do not fit drop on top of the crafter.",
             "The 3x3 grid works like the Crafter's: clicking an empty slot with an empty cursor switches it off, clicking it again switches it on. Hoppers and droppers fill it from the top and the sides; nothing can be pulled out, and the hopper below cannot suck up the ingredients.",
@@ -5447,7 +5449,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Autonome Crafter ist ein Crafter, der sein Raster alle 4 Ticks selbst craftet, solange ein Trichter unter ihm steht. Ein Redstone-Signal hält ihn an; Ergebnisse gehen in diesen Trichter.",
+          "summary": "Der Auto-Crafter ist ein Crafter, der sein Raster alle 4 Ticks selbst craftet, solange ein Trichter unter ihm steht. Ein Redstone-Signal hält ihn an; Ergebnisse gehen in diesen Trichter.",
           "details": [
             "Er craftet nur mit einem Trichter (Vanilla- oder Mod-Trichter) direkt darunter und ohne Redstone-Signal. Ergebnis und Rezept-Reste gehen in diesen Trichter; passt das Ergebnis nicht ganz hinein, wird nichts gecraftet. Reste, die nicht passen, fallen oben auf den Crafter.",
             "Das 3x3-Raster funktioniert wie beim Crafter: Klick mit leerem Mauszeiger auf einen leeren Platz schaltet ihn ab, ein weiterer Klick wieder an. Trichter und Spender füllen von oben und den Seiten; herausziehen lässt sich nichts, auch der Trichter darunter saugt die Zutaten nicht ab.",
@@ -11079,7 +11081,27 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/dirt_slab.png",
-      "hasCustomBehaviour": false
+      "note": {
+        "en": {
+          "summary": "A slab of dirt; two of them make a dirt block again.",
+          "details": [
+            "Placing a second Dirt Slab onto a bottom or top one gives a full dirt block instead of a double slab.",
+            "Crafting: three dirt in a row make six slabs."
+          ]
+        },
+        "de": {
+          "summary": "Eine Stufe aus Erde; zwei ergeben wieder einen Erdblock.",
+          "details": [
+            "Setzt man eine zweite Erdstufe auf eine untere oder obere, entsteht ein voller Erdblock statt einer Doppelstufe.",
+            "Herstellung: drei Erde nebeneinander ergeben sechs Stufen."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:echo_sounder",
@@ -15522,7 +15544,27 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/grass_slab.png",
-      "hasCustomBehaviour": false
+      "note": {
+        "en": {
+          "summary": "A biome-tinted grass slab; two of them make a grass block again.",
+          "details": [
+            "Placing a second Grass Slab onto one gives a full grass block instead of a double slab.",
+            "Without Silk Touch it drops a Dirt Slab; it neither spreads nor turns into dirt."
+          ]
+        },
+        "de": {
+          "summary": "Eine nach Biom gefärbte Grasstufe; zwei ergeben wieder einen Grasblock.",
+          "details": [
+            "Setzt man eine zweite Grasstufe darauf, entsteht ein voller Grasblock statt einer Doppelstufe.",
+            "Ohne Behutsamkeit droppt sie eine Erdstufe; sie breitet sich nicht aus und wird nicht zu Erde."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:gravel_slab",
@@ -15537,7 +15579,28 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/gravel_slab.png",
-      "hasCustomBehaviour": false
+      "note": {
+        "en": {
+          "summary": "A gravel slab that falls like gravel; two of them make a gravel block again.",
+          "details": [
+            "With nothing below it falls; a top slab falls as a bottom slab.",
+            "A bottom slab landing on a bottom Gravel Slab, or a second slab placed onto one, makes a full gravel block. It never drops flint."
+          ]
+        },
+        "de": {
+          "summary": "Eine Kiesstufe, die wie Kies fällt; zwei ergeben wieder einen Kiesblock.",
+          "details": [
+            "Ist unter ihr frei, fällt sie; eine obere Stufe fällt als untere.",
+            "Landet eine untere Stufe auf einer unteren Kiesstufe oder setzt man eine zweite darauf, entsteht ein voller Kiesblock. Sie droppt nie Feuerstein."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/FallingSlabBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:gray_hammock",
@@ -32521,7 +32584,28 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/sand_slab.png",
-      "hasCustomBehaviour": false
+      "note": {
+        "en": {
+          "summary": "A sand slab that falls like sand; two of them make a sand block again.",
+          "details": [
+            "With nothing below it falls; a top slab falls as a bottom slab.",
+            "A bottom slab landing on a bottom Sand Slab, or a second slab placed onto one, makes a full sand block."
+          ]
+        },
+        "de": {
+          "summary": "Eine Sandstufe, die wie Sand fällt; zwei ergeben wieder einen Sandblock.",
+          "details": [
+            "Ist unter ihr frei, fällt sie; eine obere Stufe fällt als untere.",
+            "Landet eine untere Stufe auf einer unteren Sandstufe oder setzt man eine zweite darauf, entsteht ein voller Sandblock."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/FallingSlabBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:scarlet_froglight",
@@ -33337,7 +33421,7 @@ window.WIKI_DATA = {
           "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top.",
           "details": [
             "It works like the crafting table, recipe book and shift clicks included. The grid belongs to the table, not to the player: two players at one table see and use the same grid.",
-            "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Autonomous Crafter.",
+            "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Auto Crafter.",
             "Recipe (shapeless): Crafting Table + Chest."
           ]
         },
@@ -33345,7 +33429,7 @@ window.WIKI_DATA = {
           "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches.",
           "details": [
             "Sie funktioniert wie die Werkbank, mit Rezeptbuch und Umschalt-Klick. Das Raster gehört zum Tisch, nicht zum Spieler: Zwei Spieler an einem Tisch sehen und nutzen dasselbe Raster.",
-            "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Autonomen Crafter.",
+            "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Auto-Crafter.",
             "Rezept (formlos): Werkbank + Truhe."
           ]
         },
@@ -35571,8 +35655,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:auto_smither",
       "name": {
-        "en_us": "Auto Smither",
-        "de_de": "Auto-Schmied"
+        "en_us": "Smither",
+        "de_de": "Schmied"
       },
       "texture": "assets/textures/block/auto_smither_front.png",
       "craftedBy": [
@@ -35587,7 +35671,7 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "The Auto Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
+          "summary": "The Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
           "details": [
             "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. Results go into a container in front, with any remainder kept in the output slot. Without a matching recipe or enough output space it only clicks and consumes nothing.",
             "Hoppers and droppers fill the three input slots from any side, using the smithing table's item checks. Only finished results can be pulled out. Players can take results but cannot place anything in the output slot.",
@@ -35596,7 +35680,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Auto-Schmied schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Material. Fertige Ergebnisse gehen in einen Behälter vor ihm oder bleiben im Ausgabeslot.",
+          "summary": "Der Schmied schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Material. Fertige Ergebnisse gehen in einen Behälter vor ihm oder bleiben im Ausgabeslot.",
           "details": [
             "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Ergebnisse gehen in einen Behälter vor ihm, der Rest bleibt im Ausgabeslot. Ohne passendes Rezept oder genügend Ausgabeplatz klickt er nur und verbraucht nichts.",
             "Trichter und Spender befüllen die drei Eingabeslots von jeder Seite mit denselben Item-Prüfungen wie am Schmiedetisch. Nur fertige Ergebnisse lassen sich herausziehen. Spieler können Ergebnisse entnehmen, aber nichts in den Ausgabeslot legen.",
@@ -35617,8 +35701,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:autonomous_crafter",
       "name": {
-        "en_us": "Autonomous Crafter",
-        "de_de": "Autonomer Crafter"
+        "en_us": "Auto Crafter",
+        "de_de": "Auto-Crafter"
       },
       "texture": "assets/textures/block/autonomous_crafter_side.png",
       "craftedBy": [
@@ -35633,7 +35717,7 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "The Autonomous Crafter is a Crafter that crafts its grid by itself every 4 ticks as long as a hopper stands below it. A redstone signal stops it; results go into that hopper.",
+          "summary": "The Auto Crafter is a Crafter that crafts its grid by itself every 4 ticks as long as a hopper stands below it. A redstone signal stops it; results go into that hopper.",
           "details": [
             "It crafts only with a hopper (vanilla or mod hopper) directly below and no redstone signal reaching it. Result and recipe remainders go into that hopper; if the result does not fit completely, nothing is crafted. Remainders that do not fit drop on top of the crafter.",
             "The 3x3 grid works like the Crafter's: clicking an empty slot with an empty cursor switches it off, clicking it again switches it on. Hoppers and droppers fill it from the top and the sides; nothing can be pulled out, and the hopper below cannot suck up the ingredients.",
@@ -35643,7 +35727,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Autonome Crafter ist ein Crafter, der sein Raster alle 4 Ticks selbst craftet, solange ein Trichter unter ihm steht. Ein Redstone-Signal hält ihn an; Ergebnisse gehen in diesen Trichter.",
+          "summary": "Der Auto-Crafter ist ein Crafter, der sein Raster alle 4 Ticks selbst craftet, solange ein Trichter unter ihm steht. Ein Redstone-Signal hält ihn an; Ergebnisse gehen in diesen Trichter.",
           "details": [
             "Er craftet nur mit einem Trichter (Vanilla- oder Mod-Trichter) direkt darunter und ohne Redstone-Signal. Ergebnis und Rezept-Reste gehen in diesen Trichter; passt das Ergebnis nicht ganz hinein, wird nichts gecraftet. Reste, die nicht passen, fallen oben auf den Crafter.",
             "Das 3x3-Raster funktioniert wie beim Crafter: Klick mit leerem Mauszeiger auf einen leeren Platz schaltet ihn ab, ein weiterer Klick wieder an. Trichter und Spender füllen von oben und den Seiten; herausziehen lässt sich nichts, auch der Trichter darunter saugt die Zutaten nicht ab.",
@@ -38739,7 +38823,27 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:dirt_slab"
       ],
-      "hasCustomBehaviour": false
+      "note": {
+        "en": {
+          "summary": "A slab of dirt; two of them make a dirt block again.",
+          "details": [
+            "Placing a second Dirt Slab onto a bottom or top one gives a full dirt block instead of a double slab.",
+            "Crafting: three dirt in a row make six slabs."
+          ]
+        },
+        "de": {
+          "summary": "Eine Stufe aus Erde; zwei ergeben wieder einen Erdblock.",
+          "details": [
+            "Setzt man eine zweite Erdstufe auf eine untere oder obere, entsteht ein voller Erdblock statt einer Doppelstufe.",
+            "Herstellung: drei Erde nebeneinander ergeben sechs Stufen."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:drowned_head",
@@ -40937,7 +41041,27 @@ window.WIKI_DATA = {
         "simplebuilding:dirt_slab",
         "simplebuilding:grass_slab"
       ],
-      "hasCustomBehaviour": false
+      "note": {
+        "en": {
+          "summary": "A biome-tinted grass slab; two of them make a grass block again.",
+          "details": [
+            "Placing a second Grass Slab onto one gives a full grass block instead of a double slab.",
+            "Without Silk Touch it drops a Dirt Slab; it neither spreads nor turns into dirt."
+          ]
+        },
+        "de": {
+          "summary": "Eine nach Biom gefärbte Grasstufe; zwei ergeben wieder einen Grasblock.",
+          "details": [
+            "Setzt man eine zweite Grasstufe darauf, entsteht ein voller Grasblock statt einer Doppelstufe.",
+            "Ohne Behutsamkeit droppt sie eine Erdstufe; sie breitet sich nicht aus und wird nicht zu Erde."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:gravel_slab",
@@ -40956,7 +41080,28 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:gravel_slab"
       ],
-      "hasCustomBehaviour": false
+      "note": {
+        "en": {
+          "summary": "A gravel slab that falls like gravel; two of them make a gravel block again.",
+          "details": [
+            "With nothing below it falls; a top slab falls as a bottom slab.",
+            "A bottom slab landing on a bottom Gravel Slab, or a second slab placed onto one, makes a full gravel block. It never drops flint."
+          ]
+        },
+        "de": {
+          "summary": "Eine Kiesstufe, die wie Kies fällt; zwei ergeben wieder einen Kiesblock.",
+          "details": [
+            "Ist unter ihr frei, fällt sie; eine obere Stufe fällt als untere.",
+            "Landet eine untere Stufe auf einer unteren Kiesstufe oder setzt man eine zweite darauf, entsteht ein voller Kiesblock. Sie droppt nie Feuerstein."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/FallingSlabBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:gray_hammock",
@@ -49402,7 +49547,28 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:sand_slab"
       ],
-      "hasCustomBehaviour": false
+      "note": {
+        "en": {
+          "summary": "A sand slab that falls like sand; two of them make a sand block again.",
+          "details": [
+            "With nothing below it falls; a top slab falls as a bottom slab.",
+            "A bottom slab landing on a bottom Sand Slab, or a second slab placed onto one, makes a full sand block."
+          ]
+        },
+        "de": {
+          "summary": "Eine Sandstufe, die wie Sand fällt; zwei ergeben wieder einen Sandblock.",
+          "details": [
+            "Ist unter ihr frei, fällt sie; eine obere Stufe fällt als untere.",
+            "Landet eine untere Stufe auf einer unteren Sandstufe oder setzt man eine zweite darauf, entsteht ein voller Sandblock."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MergingSlabBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/FallingSlabBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:scarlet_froglight",
@@ -50149,7 +50315,7 @@ window.WIKI_DATA = {
           "summary": "The Storage Crafting Table is a crafting table that keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top.",
           "details": [
             "It works like the crafting table, recipe book and shift clicks included. The grid belongs to the table, not to the player: two players at one table see and use the same grid.",
-            "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Autonomous Crafter.",
+            "Breaking it drops the table and everything in its grid. Hoppers neither fill nor empty it; for automatic crafting there is the Auto Crafter.",
             "Recipe (shapeless): Crafting Table + Chest."
           ]
         },
@@ -50157,7 +50323,7 @@ window.WIKI_DATA = {
           "summary": "Die Werkbank mit Lager ist eine Werkbank, die ihr 3x3-Raster behält: Beim Schließen bleiben die Items liegen, und sie liegen flach auf der Oberseite des Tisches.",
           "details": [
             "Sie funktioniert wie die Werkbank, mit Rezeptbuch und Umschalt-Klick. Das Raster gehört zum Tisch, nicht zum Spieler: Zwei Spieler an einem Tisch sehen und nutzen dasselbe Raster.",
-            "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Autonomen Crafter.",
+            "Abgebaut lässt sie sich selbst und alles aus dem Raster fallen. Trichter füllen und leeren sie nicht; zum automatischen Craften gibt es den Auto-Crafter.",
             "Rezept (formlos): Werkbank + Truhe."
           ]
         },
@@ -110396,8 +110562,8 @@ window.WIKI_DATA = {
       "categoryDe": "Server & Modpack-Tuning",
       "group": "Machine Speeds",
       "groupDe": "Maschinentempo",
-      "label": "Auto Smither Delay",
-      "labelDe": "Auto-Schmied: Verzögerung",
+      "label": "Smither Delay",
+      "labelDe": "Schmied: Verzögerung",
       "tooltip": "Delay after a redstone edge: 4–100 ticks.\nServer-side, MC 26.3. Default: 4. Applies to\nnew pulses; existing scheduled work keeps\nits delay. No restart required.",
       "tooltipDe": "Verzögerung nach Redstone-Flanke: 4–100 Ticks.\nServerseitig, MC 26.3. Standard: 4. Wirkt für\nneue Impulse; bereits geplante Arbeit behält\nihre Frist. Kein Neustart erforderlich."
     },
