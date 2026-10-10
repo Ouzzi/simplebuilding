@@ -75,7 +75,7 @@ public final class PotionPadRules {
      * The per-effect table (effect id -> rule). Amplifier caps are the highest vanilla brew of that effect
      * (Strong Swiftness II, Strong Turtle Master: Slowness VI and Resistance IV, ...).
      */
-    public static final Map<String, Rule> TABLE = Map.ofEntries(
+    public static final Map<String, Rule> TABLE = withModEffects(Map.ofEntries(
             // Instant effects: once per full charge, two times the plain cooldown, one minute lockout per player.
             Map.entry("minecraft:instant_health", new Rule(1, 0, 1.0, 2.0, 1200)),
             Map.entry("minecraft:instant_damage", new Rule(1, 0, 1.0, 2.0, 1200)),
@@ -94,7 +94,17 @@ public final class PotionPadRules {
             // Harmless comfort: half the cooldown, so standing on it again keeps it up.
             Map.entry("minecraft:night_vision", new Rule(0, 0, 1.0, 0.5, 0)),
             // An owner's elevator, not a flight: 10 s like a shulker bullet.
-            Map.entry("minecraft:levitation", new Rule(0, 10, 1.0, 1.0, 0)));
+            Map.entry("minecraft:levitation", new Rule(0, 10, 1.0, 1.0, 0))));
+
+    /** Mod effects with brews above level I (26.3 brewing wave: Shivering II from the snowball recipe). */
+    private static Map<String, Rule> withModEffects(Map<String, Rule> vanilla) {
+        if (!com.simplebuilding.version.McVersion.BREWING_EFFECTS) {
+            return vanilla;
+        }
+        Map<String, Rule> table = new HashMap<>(vanilla);
+        table.put(Simplebuilding.MOD_ID + ":shivering", new Rule(1, 0, 1.0, 1.0, 0));
+        return Map.copyOf(table);
+    }
 
     /** Replacement rules set at runtime (balancing server); consulted before {@link #TABLE}. */
     private static volatile Map<String, Rule> overrides = Map.of();
