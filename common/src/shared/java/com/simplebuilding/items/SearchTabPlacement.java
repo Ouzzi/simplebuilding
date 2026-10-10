@@ -165,6 +165,16 @@ public final class SearchTabPlacement {
                 Item slab = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(wood + "_slab"));
                 out.add(Placement.after(BUILDING_BLOCKS, slab, octet));
             }
+            // Material-Achtel (N19/N15) je hinter der Vanilla-Stufe ihres Blocks (Mod-Bloecke liegen nur im SimpleBlocks-Tab).
+            for (net.minecraft.world.level.block.Block cell : com.simplebuilding.blocks.ModBlocks.MATERIAL_OCTETS) {
+                net.minecraft.world.level.block.Block full = ((com.simplebuilding.blocks.custom.MaterialOctetBlock) cell).source();
+                net.minecraft.world.level.block.Block stairs = com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(full, false, true).orElse(null);
+                net.minecraft.world.level.block.Block slab = stairs == null ? null
+                        : com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(stairs, false, false).orElse(null);
+                if (slab != null && net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(slab).getNamespace().equals("minecraft")) {
+                    out.add(Placement.after(BUILDING_BLOCKS, slab.asItem(), net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell))));
+                }
+            }
         }
         if (com.simplebuilding.version.McVersion.WOODWORK) {
             // Holzwerk: die Familie einer Holzart hinter deren entrindetem Stamm.

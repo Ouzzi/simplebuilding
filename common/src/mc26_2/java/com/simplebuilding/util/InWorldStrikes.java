@@ -274,6 +274,10 @@ public final class InWorldStrikes {
                 0.8F + 0.5F * Math.min(done, total) / Math.max(1, total));
     }
 
+    /** Aufwachsende Vorschau gibt es nur auf 26.3 (SimpleLib); hier nur die Risse. */
+    public static void preview(ServerLevel level, BlockPos pos, BlockState target, int done, int total) {
+    }
+
     /** Nur die Risse zu Schlag {@code done} von {@code total} (beim letzten Schlag weg). */
     public static void crack(ServerLevel level, BlockPos pos, int done, int total) {
         level.destroyBlockProgress(crackId(pos), pos, done >= total ? -1 : crackStage(done, total));

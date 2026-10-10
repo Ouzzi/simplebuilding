@@ -492,6 +492,42 @@ public class ModBlocks {
     public static final Block MELON_OCTET = McVersion.CHESS ? registerBlock("melon_octet", Blocks.MELON,
             s -> new MaterialOctetBlock(Blocks.MELON, () -> net.minecraft.world.item.Items.MELON_SLICE, octetProperties(s))) : null;
 
+    /**
+     * Achtelzellen aller uebrigen Bloecke mit Stufe und Treppe (Queue N19/N15, Liste {@link OctetMaterials}, vom
+     * Generator tools/textures/octets_2026_10_09.py): {@code <key>_octet} mit den Eigenschaften des Blocks, in
+     * Kreativtab-Reihenfolge.
+     */
+    private static final java.util.Map<Block, String> OCTET_GROUPS = new java.util.HashMap<>();
+    public static final List<Block> MATERIAL_OCTETS = McVersion.CHESS ? materialOctets() : List.of();
+
+    private static List<Block> materialOctets() {
+        List<Block> out = new java.util.ArrayList<>();
+        for (OctetMaterials.Material material : OctetMaterials.ALL) {
+            Block source = BuiltInRegistries.BLOCK.getOptional(Identifier.fromNamespaceAndPath(material.namespace(), material.base())).orElse(null);
+            if (source == null) {
+                continue;
+            }
+            String name = material.key() + "_octet";
+            Identifier itemId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
+            Block cell = registerBlock(name, source, s -> new MaterialOctetBlock(source,
+                    () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s)));
+            OCTET_GROUPS.put(cell, material.group());
+            out.add(cell);
+        }
+        return List.copyOf(out);
+    }
+
+    /** Die Material-Achtel (N19/N15) einer Gruppe von {@link OctetMaterials#GROUPS}, in Listenreihenfolge. */
+    public static List<Block> materialOctets(String group) {
+        List<Block> out = new java.util.ArrayList<>();
+        for (Block cell : MATERIAL_OCTETS) {
+            if (group.equals(OCTET_GROUPS.get(cell))) {
+                out.add(cell);
+            }
+        }
+        return out;
+    }
+
     private static List<Block> woodOctets() {
         List<Block> out = new java.util.ArrayList<>();
         for (String wood : OCTET_WOODS) {
@@ -516,6 +552,12 @@ public class ModBlocks {
         for (Block cell : WOOD_OCTETS) {
             if (((MaterialOctetBlock) cell).source().defaultBlockState().ignitedByLava()) {
                 ((com.simplebuilding.mixin.FireBlockFlammables) Blocks.FIRE).simplebuilding$setFlammable(cell, 5, 20);
+            }
+        }
+        // Wolle brennt wie die Wolle (Feuer-Tabelle von Vanilla: 30/60).
+        for (Block cell : MATERIAL_OCTETS) {
+            if ("wool".equals(OCTET_GROUPS.get(cell))) {
+                ((com.simplebuilding.mixin.FireBlockFlammables) Blocks.FIRE).simplebuilding$setFlammable(cell, 30, 60);
             }
         }
     }

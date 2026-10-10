@@ -1,6 +1,7 @@
 package com.simplelib.crucible;
 
 import com.simplelib.api.SimpleLibApi;
+import com.simplelib.api.InWorldStrikes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -169,17 +170,15 @@ public class CrucibleBarrelBlock extends Block implements EntityBlock {
         if (CrucibleBlockEntity.attachedBarrelPos(level, cruciblePos) != null) return false; // one barrel per crucible (owner 60)
         if (!(level instanceof ServerLevel server) || !(level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity be)) return true;
         int done = be.addAttachStrike();
-        server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5,
-                6, 0.25, 0.1, 0.25, 0.05);
+        BlockState attached = state.setValue(FACING, side).setValue(ATTACHED, true);
+        // The shared feedback of every in-world conversion (cracks, particles, rising hit sound) plus the growing target preview.
+        InWorldStrikes.feedback(server, pos, state, SoundEvents.COPPER_HIT, 0.8F, done, ATTACH_STRIKES);
+        InWorldStrikes.preview(server, pos, attached, done, ATTACH_STRIKES);
         if (done >= ATTACH_STRIKES) {
-            server.destroyBlockProgress(crackId(pos), pos, -1);
-            server.setBlock(pos, state.setValue(FACING, side).setValue(ATTACHED, true), Block.UPDATE_ALL);
+            server.setBlock(pos, attached, Block.UPDATE_ALL);
             be.onAttached();
             server.playSound(null, pos, SoundEvents.COPPER_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
             if (server.getBlockEntity(cruciblePos) instanceof CrucibleBlockEntity crucible) crucible.markHeatDirty();
-        } else {
-            server.destroyBlockProgress(crackId(pos), pos, crackStage(done));
-            server.playSound(null, pos, SoundEvents.COPPER_HIT, SoundSource.BLOCKS, 0.8F, 1.0F + 0.05F * done);
         }
         if (!player.getAbilities().instabuild) tool.hurtAndBreak(toolDamage, player, EquipmentSlot.MAINHAND);
         player.getCooldowns().addCooldown(tool, CrucibleBlankBlock.STRIKE_COOLDOWN);
@@ -188,12 +187,12 @@ public class CrucibleBarrelBlock extends Block implements EntityBlock {
 
     /** Breaking-crack stage (0..9) shown after {@code done} of the six strikes. */
     public static int crackStage(int done) {
-        return Math.max(0, Math.min(9, done * 10 / ATTACH_STRIKES - 1));
+        return com.simplelib.api.InWorldStrikes.crackStage(done, ATTACH_STRIKES);
     }
 
     /** Breaker id of the cracks: negative, so it never matches a player that would then not see them. */
     public static int crackId(BlockPos pos) {
-        return Integer.MIN_VALUE + (int) (pos.asLong() & 0xFFFFFF);
+        return com.simplelib.api.InWorldStrikes.crackId(pos);
     }
 
     /** Whether the axe way may attach (principle 5a). */

@@ -8,6 +8,14 @@ Material-Achtel (Queue Nachtrag 24, docs/ai/PLAN-Q-HAMMER-OCTETS-2026-10-09.md).
   models/item/octet/<wood>_octet.json + items/<wood>_octet.json   the octet item (the chess octet item shape)
   textures/block/melon_flesh.png         own 16x16 pixel art: the cut melon (flesh with seeds)
 
+N19/N15 (claude-q-octets2): one octet cell + item for every block that has stairs and slabs (vanilla + this mod,
+without planks (the 13 woods above) and the chess checkers). The list lives in tools/textures/octet_materials.json
+(made by --scan from the 26.3 client jar, the extracted German lang file and src/main/generated) and produces:
+
+  models/block/octet/<base>.json, blockstates/<base>_octet.json, models/item/octet/<base>_octet.json, items/<base>_octet.json
+  common/.../blocks/OctetMaterials.java      the list the game registers the cells from
+  lang en_us/de_de                            names of all cells and items (generated block after melon_octet)
+
 --check compares instead of writing. --preview DIR renders octet examples (needs the vanilla textures in --vanilla DIR,
 an extracted assets/ tree; nothing of it is checked in). Needs Pillow.
 """
@@ -15,11 +23,18 @@ import io
 import json
 import os
 import sys
+import zipfile
 
 from PIL import Image, ImageDraw, ImageFont
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ASSETS = os.path.join(REPO, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding')
+MATERIALS_JSON = os.path.join(REPO, 'tools', 'textures', 'octet_materials.json')
+JAVA_LIST = os.path.join(REPO, 'common', 'src', 'shared', 'java', 'com', 'simplebuilding', 'blocks', 'OctetMaterials.java')
+LANG_DIR = os.path.join(REPO, 'src', 'main', 'resources', 'assets', 'simplebuilding', 'lang')
+MOD_GENERATED = os.path.join(REPO, 'src', 'main', 'generated', 'assets', 'simplebuilding')
+CLIENT_JAR = '/root/vanilla263/client.jar'
+DE_LANG = '/root/.gradle/caches/neoformruntime/assets/objects/76/766975253e4de94ffc2e7e6d3b10b209da2f52c4'
 # Order = ModBlocks.OCTET_WOODS
 WOODS = ['oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry', 'pale_oak', 'poplar',
          'bamboo', 'crimson', 'warped']
@@ -99,6 +114,181 @@ def multipart(model):
     return {'multipart': parts}
 
 
+# --- materials (N19/N15) ---
+GROUPS = [  # (group, label) in creative-tab order
+    ('stone', 'Stone'), ('sandstone', 'Sandstone'), ('bricks', 'Bricks'), ('deepslate', 'Deepslate and blackstone'),
+    ('tuff', 'Tuff'), ('prismarine', 'Prismarine'), ('quartz', 'Quartz and purpur'), ('copper', 'Copper'),
+    ('wool', 'Wool'), ('concrete', 'Concrete'), ('mod', 'SimpleBuilding'), ('other', 'Other')]
+DYES = ['white', 'light_gray', 'gray', 'black', 'brown', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'light_blue',
+        'blue', 'purple', 'magenta', 'pink']
+# ids of the chess octets (ChessColor); a material with the same name gets '_block' in its id and name
+CHESS_IDS = {'quartz', 'purpur', 'lapis', 'blackstone', 'resin', 'nether_brick', 'red_nether_brick', 'nihilith', 'astralit',
+             'ender_quartz', 'polished_astralit', 'polished_nihilith', 'polished_ender_quartz'}
+COPPER_ORDER = ['cut_copper', 'exposed_cut_copper', 'weathered_cut_copper', 'oxidized_cut_copper']
+
+
+def group_of(ns, base):
+    if ns != 'minecraft':
+        return 'mod'
+    if 'copper' in base:
+        return 'copper'
+    if base.endswith('_wool'):
+        return 'wool'
+    if base.endswith('_concrete'):
+        return 'concrete'
+    if 'sandstone' in base:
+        return 'sandstone'
+    if 'prismarine' in base:
+        return 'prismarine'
+    if 'tuff' in base:
+        return 'tuff'
+    if 'deepslate' in base or 'blackstone' in base:
+        return 'deepslate'
+    if 'quartz' in base or 'purpur' in base:
+        return 'quartz'
+    if 'brick' in base or base == 'bamboo_mosaic':
+        return 'bricks'
+    if base in ('stone', 'cobblestone', 'mossy_cobblestone') or any(k in base for k in ('granite', 'diorite', 'andesite')):
+        return 'stone'
+    return 'other'
+
+
+def sort_key(m):
+    b = m['base']
+    gi = [g for g, _ in GROUPS].index(m['group'])
+    if m['group'] == 'copper':
+        plain = b.replace('waxed_', '')
+        return (gi, b.startswith('waxed_'), COPPER_ORDER.index(plain) if plain in COPPER_ORDER else 9, b)
+    if m['group'] in ('wool', 'concrete'):
+        return (gi, False, DYES.index(b.rsplit('_', 1)[0]), b)
+    return (gi, False, 0, b)
+
+
+def forward_stairs(base, has):
+    """Mirror of SledgehammerItem.reshapeTarget(block, false, true): the stairs of a full block, or None."""
+    cands = [base + '_stairs']
+    if base.endswith('_planks'):
+        cands.append(base[:-7] + '_stairs')
+    if base.endswith('_block'):
+        cands.append(base[:-6] + '_stairs')
+    if base.endswith('s'):
+        cands.append(base[:-1] + '_stairs')
+    for c in cands:
+        if has(c):
+            return c
+    return None
+
+
+def scan():
+    z = zipfile.ZipFile(CLIENT_JAR)
+    names = z.namelist()
+    van = {n[len('assets/minecraft/blockstates/'):-5] for n in names
+           if n.startswith('assets/minecraft/blockstates/') and n.endswith('.json')}
+    mod_dir = os.path.join(MOD_GENERATED, 'blockstates')
+    mod = {n[:-5] for n in os.listdir(mod_dir) if n.endswith('.json')}
+    en_van = json.loads(z.read('assets/minecraft/lang/en_us.json'))
+    de_van = json.load(open(DE_LANG, encoding='utf-8'))
+    en_mod = json.load(open(os.path.join(LANG_DIR, 'en_us.json'), encoding='utf-8'))
+    de_mod = json.load(open(os.path.join(LANG_DIR, 'de_de.json'), encoding='utf-8'))
+    out = []
+    for ns, have in (('minecraft', van), ('simplebuilding', mod)):
+        for base in sorted(have):
+            if base.endswith('_planks') or base in ('bamboo', 'bamboo_block') or 'checker' in base or base.endswith(('_stairs', '_slab', '_wall')):
+                continue
+            stairs = forward_stairs(base, lambda n: n in have)
+            if not stairs or stairs.replace('_stairs', '') + '_slab' not in have:
+                continue
+            if ns == 'minecraft':
+                state = json.loads(z.read(f'assets/minecraft/blockstates/{stairs}.json'))
+                ref = next(iter(state['variants'].values()))
+                ref = (ref[0] if isinstance(ref, list) else ref)['model'].split(':')[-1]
+                model = json.loads(z.read(f'assets/minecraft/models/{ref}.json'))
+                en = en_van.get(f'block.minecraft.{base}')
+                de = de_van.get(f'block.minecraft.{base}')
+            else:
+                model = json.load(open(os.path.join(MOD_GENERATED, 'models', 'block', stairs + '.json')))
+                en = en_mod.get(f'block.simplebuilding.{base}')
+                de = de_mod.get(f'block.simplebuilding.{base}')
+            t = model.get('textures', {})
+            if not (en and de and {'bottom', 'side', 'top'} <= set(t)):
+                print('SKIP (no textures/name): ' + base, file=sys.stderr)
+                continue
+            if t['bottom'] == t['side'] == t['top']:
+                tex = {'all': t['side']}
+            else:
+                tex = {'up': t['top'], 'down': t['bottom'], 'side': t['side']}
+            key = base + '_block' if base in CHESS_IDS else base
+            out.append({'ns': ns, 'base': base, 'key': key, 'group': group_of(ns, base), 'tex': tex, 'en': en, 'de': de})
+    out.sort(key=sort_key)
+    with open(MATERIALS_JSON, 'w', encoding='utf-8') as f:
+        f.write(json.dumps(out, indent=1, ensure_ascii=False) + '\n')
+    print(f'scanned {len(out)} materials')
+
+
+def materials():
+    with open(MATERIALS_JSON, encoding='utf-8') as f:
+        return json.load(f)
+
+
+def sided_corner():
+    face = lambda t, **kw: dict({'texture': t}, **kw)
+    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#side'},
+            'elements': [{'from': [0, 0, 0], 'to': [8, 8, 8], 'faces': {
+                'north': face('#side', cullface='north'), 'south': face('#side'), 'east': face('#side'),
+                'west': face('#side', cullface='west'), 'up': face('#up'), 'down': face('#down', cullface='down')}}]}
+
+
+def java_list(mats):
+    rows = ',\n'.join(f'            new Material("{m["ns"]}", "{m["base"]}", "{m["key"]}", "{m["group"]}")' for m in mats)
+    groups = ', '.join(f'"{g}"' for g, _ in GROUPS)
+    return f"""package com.simplebuilding.blocks;
+
+import java.util.List;
+
+/**
+ * GENERATED by tools/textures/octets_2026_10_09.py from tools/textures/octet_materials.json - do not edit by hand.
+ * Every block with stairs and slabs (vanilla and this mod, without planks and chess checkers) gets an octet cell
+ * {{@code <key>_octet}} (Queue N19/N15); {{@link ModBlocks#MATERIAL_OCTETS}} registers them, in creative-tab order.
+ */
+public final class OctetMaterials {{
+    public record Material(String namespace, String base, String key, String group) {{
+    }}
+
+    /** Creative-tab groups in display order. */
+    public static final List<String> GROUPS = List.of({groups});
+
+    public static final List<Material> ALL = List.of(
+{rows});
+
+    private OctetMaterials() {{
+    }}
+}}
+"""
+
+
+def merged_lang(lang, mats):
+    path = os.path.join(LANG_DIR, lang + '.json')
+    with open(path, encoding='utf-8') as f:
+        data = json.load(f)
+    own = set()
+    for m in mats:
+        own.update((f'item.simplebuilding.{m["key"]}_octet', f'block.simplebuilding.{m["key"]}_octet'))
+    out = {}
+    for k, v in data.items():
+        if k in own:
+            continue
+        out[k] = v
+        if k == 'block.simplebuilding.melon_octet':
+            for m in mats:
+                name = m['en' if lang == 'en_us' else 'de']
+                if m['key'] != m['base']:
+                    name += ' Block' if lang == 'en_us' else '-Block'
+                suffix = ('{} Octet', '{} Octet Cell') if lang == 'en_us' else ('{}-Achtelblock', '{}-Achtelzelle')
+                out[f'item.simplebuilding.{m["key"]}_octet'] = suffix[0].format(name)
+                out[f'block.simplebuilding.{m["key"]}_octet'] = suffix[1].format(name)
+    return path, (json.dumps(out, indent=2, ensure_ascii=False) + '\n').encode('utf-8')
+
+
 def outputs():
     files = {}
     a = lambda rel, data: files.__setitem__(os.path.join(ASSETS, *rel.split('/')), data)
@@ -121,6 +311,29 @@ def outputs():
             'south': {'texture': '#cut'}, 'east': {'texture': '#cut'}, 'up': {'texture': '#cut'}}}]}))
     a('blockstates/melon_octet.json', js(multipart('simplebuilding:block/octet/melon_corner')))
     a('textures/block/melon_flesh.png', png_bytes(flesh()))
+    mats = materials()
+    a('models/block/octet/_corner_sided.json', js(sided_corner()))
+    a('models/item/octet/_sided.json', js({
+        'parent': 'simplebuilding:item/chess/octet', 'textures': {'particle': '#side'},
+        'elements': [{'from': [4, 4, 4], 'to': [12, 12, 12], 'faces': {
+            'north': {'texture': '#side'}, 'south': {'texture': '#side'}, 'east': {'texture': '#side'},
+            'west': {'texture': '#side'}, 'up': {'texture': '#up'}, 'down': {'texture': '#down'}}}]}))
+    for m in mats:
+        b = m['key']
+        if 'all' in m['tex']:
+            blk = {'parent': 'simplebuilding:block/chess/octet_corner', 'textures': {'all': m['tex']['all']}}
+            itm = {'parent': 'simplebuilding:item/chess/octet', 'textures': {'all': m['tex']['all']}}
+        else:
+            blk = {'parent': 'simplebuilding:block/octet/_corner_sided', 'textures': m['tex']}
+            itm = {'parent': 'simplebuilding:item/octet/_sided', 'textures': m['tex']}
+        a(f'models/block/octet/{b}.json', js(blk))
+        a(f'blockstates/{b}_octet.json', js(multipart(f'simplebuilding:block/octet/{b}')))
+        a(f'models/item/octet/{b}_octet.json', js(itm))
+        a(f'items/{b}_octet.json', js({'model': {'type': 'minecraft:model', 'model': f'simplebuilding:item/octet/{b}_octet'}}))
+    files[JAVA_LIST] = java_list(mats).encode('utf-8')
+    for lang in ('en_us', 'de_de'):
+        path, data = merged_lang(lang, mats)
+        files[path] = data
     return files
 
 
@@ -206,6 +419,9 @@ def preview(files, vanilla, out_dir):
 
 
 def main():
+    if '--scan' in sys.argv:
+        scan()
+        return
     check = '--check' in sys.argv
     files = outputs()
     bad = []

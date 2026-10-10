@@ -1,0 +1,6 @@
+{
+  "parent": "simplebuilding:item/chess/octet",
+  "textures": {
+    "all": "simplebuilding:block/ender_quartz_bricks"
+  }
+}
