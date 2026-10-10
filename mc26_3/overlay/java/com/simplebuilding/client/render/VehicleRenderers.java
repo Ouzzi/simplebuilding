@@ -182,16 +182,16 @@ public final class VehicleRenderers {
             // 12 px wide and high at the stern, x -14..-2, bottom at y 3 (raft: -2.1), y pointing down.
             pose.pushPose();
             pose.translate(0.0F, 0.375F, 0.0F);
-            pose.mulPose(Axis.YP.rotationDegrees(180.0F - state.yRot));
+            pose.rotateDegrees(Axis.YP, 180.0F - state.yRot);
             float hurt = state.hurtTime;
             if (hurt > 0.0F) {
-                pose.mulPose(Axis.XP.rotationDegrees(Mth.sin(hurt) * hurt * state.damageTime / 10.0F * state.hurtDir));
+                pose.rotateDegrees(Axis.XP, Mth.sin(hurt) * hurt * state.damageTime / 10.0F * state.hurtDir);
             }
             if (!state.isUnderWater && !Mth.equal(state.bubbleAngle, 0.0F)) {
-                pose.mulPose(new Quaternionf().setAngleAxis(state.bubbleAngle * (float) (Math.PI / 180.0), 1.0F, 0.0F, 1.0F));
+                pose.rotate(new Quaternionf().setAngleAxis(state.bubbleAngle * (float) (Math.PI / 180.0), 1.0F, 0.0F, 1.0F));
             }
             pose.scale(-1.0F, -1.0F, 1.0F);
-            pose.mulPose(Axis.YP.rotationDegrees(90.0F));
+            pose.rotateDegrees(Axis.YP, 90.0F);
             pose.translate(-8.0F / 16.0F, (BoatWoods.isRaft(own.wood) ? -2.1F : 3.0F) / 16.0F, 0.0F);
             pose.scale(-1.0F, -1.0F, 1.0F);
             float size = 12.0F / 14.0F;

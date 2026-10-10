@@ -84,6 +84,6 @@ public class TieredChestBoatItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
         lines.accept(Component.translatable("tooltip.simplebuilding.tiered_chest_boat.wood",
-                BoatWoods.chestBoat(BoatWoods.of(stack)).getName()).withStyle(ChatFormatting.GRAY));
+                BoatWoods.chestBoat(BoatWoods.of(stack)).getDefaultInstance().getHoverName()).withStyle(ChatFormatting.GRAY));
     }
 }
