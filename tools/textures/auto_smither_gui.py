@@ -1,4 +1,4 @@
-﻿"""Crafter-style Auto Smither background from the installed 26.3 client jar.
+﻿"""Crafter-style Smither background from the installed 26.3 client jar.
 
 --check verifies pixels and all 40 menu slot coordinates without starting a client.
 --preview writes a labeled 16x nearest-neighbor before/after layout montage.
@@ -61,9 +61,9 @@ def main():
                     panel.alpha_composite(asset('gui/sprites/container/slot/' + icon + '.png'), (x, y))
                 draw = ImageDraw.Draw(panel)
                 if title_pos is None:
-                    width = draw.textlength('Auto Smither', font_size=9)
+                    width = draw.textlength('Smither', font_size=9)
                     title_pos = ((176 - width) / 2, 6)
-                draw.text(title_pos, 'Auto Smither', fill='#404040', font_size=9)
+                draw.text(title_pos, 'Smither', fill='#404040', font_size=9)
                 draw.text((8, 72), 'Inventory', fill='#404040', font_size=9)
             preview = Image.new('RGB', (176 * 32 + 48, 166 * 16 + 72), '#20242b')
             draw = ImageDraw.Draw(preview)
@@ -73,7 +73,7 @@ def main():
                 preview.paste(panel.resize((176 * 16, 166 * 16), Image.Resampling.NEAREST), (x, 56))
             args.preview.parent.mkdir(parents=True, exist_ok=True)
             preview.save(args.preview)
-    print('Auto Smither GUI: Crafter pixels and 40 menu slot fields OK')
+    print('Smither GUI: Crafter pixels and 40 menu slot fields OK')
 
 
 if __name__ == '__main__':

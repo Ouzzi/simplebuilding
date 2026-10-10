@@ -10,6 +10,13 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -134,13 +141,43 @@ public final class NatureBlockTests {
         helper.succeedWhen(() -> {
             expectSlab(helper, new BlockPos(1, 2, 1), ModBlocks.SAND_SLAB, SlabType.BOTTOM);
             expectSlab(helper, new BlockPos(3, 2, 1), ModBlocks.GRAVEL_SLAB, SlabType.BOTTOM);
-            expectSlab(helper, new BlockPos(5, 2, 1), ModBlocks.SAND_SLAB, SlabType.DOUBLE);
+            helper.assertTrue(helper.getBlockState(new BlockPos(5, 2, 1)).is(Blocks.SAND),
+                    "two sand slabs did not land as a full sand block: " + helper.getBlockState(new BlockPos(5, 2, 1)));
             expectSlab(helper, new BlockPos(6, 5, 1), ModBlocks.DIRT_SLAB, SlabType.BOTTOM);
             helper.assertTrue(helper.getBlockState(new BlockPos(1, 5, 1)).isAir() && helper.getBlockState(new BlockPos(5, 6, 1)).isAir(),
                     "a falling slab left its old place filled");
             helper.assertTrue(helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds()).isEmpty(),
                     "a landing slab broke into an item");
         });
+    }
+
+    /**
+     * Besitzer N31: wer eine zweite Stufe derselben Art auf eine untere Erd-, Gras-, Sand- oder Kies-Stufe setzt, bekommt
+     * den vollen Vanilla-Block (Erde, Grasblock, Sand, Kies) statt einer Doppelstufe; das Item wird verbraucht.
+     */
+    public static void naturalSlabsPlaceIntoTheFullBlock(GameTestHelper helper) {
+        if (!McVersion.NATURE_VARIANTS) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        Block[][] pairs = {{ModBlocks.DIRT_SLAB, Blocks.DIRT}, {ModBlocks.GRASS_SLAB, Blocks.GRASS_BLOCK},
+                {ModBlocks.SAND_SLAB, Blocks.SAND}, {ModBlocks.GRAVEL_SLAB, Blocks.GRAVEL}};
+        for (int i = 0; i < pairs.length; i++) {
+            BlockPos pos = new BlockPos(1 + 2 * i, 2, 1);
+            helper.setBlock(pos.below(), Blocks.STONE);
+            helper.setBlock(pos, pairs[i][0].defaultBlockState());
+            ItemStack stack = new ItemStack(pairs[i][0].asItem(), 2);
+            player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+            BlockPos abs = helper.absolutePos(pos);
+            stack.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND,
+                    new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false)));
+            helper.assertTrue(helper.getBlockState(pos).is(pairs[i][1]), "two " + pairs[i][0] + " gave "
+                    + helper.getBlockState(pos) + " instead of " + pairs[i][1]);
+            helper.assertValueEqual(stack.getCount(), 1, "slabs left after placing the second " + pairs[i][0]);
+        }
+        helper.succeed();
     }
 
     /**
