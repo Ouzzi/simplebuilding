@@ -671,8 +671,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Guide-Titel DE „Astral-Verzauberer“ (statt „Astraler Verzauberer“), Text kürzen damit es passt.
 - [x] Kreativ-Bauzauberstab ohne Material: bleibt; im Survival nicht herstellbar (kein Rezept).
 - [ ] QoL-Aufteilung in Sub-Mods (Container/GUI → „Simple QoG“ o. ä., Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor); jeder Name beginnt mit „Simple“. Name für simplecontainers: Besitzer schlägt „Simple QoG“ (Quality of GUI) vor.
-- [ ] Simple Maps als Sub-Mod in SimpleBuilding bündeln (Schalter „Simple Maps aktivieren“).
-- [ ] Simple Maps Feature 3: Struktur-Markierungen (nur entdeckte Strukturen), im Karten-GUI über die linken Lesezeichen abschaltbar.
+- [x] (claude-q-maps2) Simple Maps als Sub-Mod in SimpleBuilding bündeln (Schalter „Simple Maps aktivieren“; Config-Tab „Simple Mods“, Neustart nötig).
+- [x] (claude-q-maps2) Simple Maps Feature 3: Struktur-Markierungen (nur entdeckte Strukturen), im Karten-GUI über die linken Lesezeichen abschaltbar.
 - [ ] Simple Trims als Sub-Mod starten (Plan N18).
 - [ ] Shellker: Konzept + Vorschau; Schale ergibt eine NEUE Helm-Variante (kein Ersatz des Schildkrötenhelms).
 - [ ] Seelenfeuer-Lohe: Konzept + Vorschau.
