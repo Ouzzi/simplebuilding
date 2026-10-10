@@ -28,9 +28,10 @@ import net.minecraft.world.level.block.state.BlockState;
  * table and shelf). A Vanilla bookshelf (anything in {@code minecraft:enchantment_power_provider}) is worth
  * {@value #NORMAL_SHELF} point, a blazewood bookshelf {@value #BLAZE_SHELF}; the best {@value #MAX_SHELVES} shelves count.
  * Up to {@value #MAX_SHELVES} points the tier is {@code 2 x points} like Vanilla (15 bookshelves = 30); the points above
- * that (only blazewood shelves give them) climb evenly on to {@value #TIER_MAX} at {@value #MAX_POINTS} points - so the
- * same 15 shelves, all blazewood, reach the maximum (owner N31). The 5x5 floor of blazing obsidian under the table adds
- * {@value #FLOOR_BONUS} once the shelves stand at 30 (a short cut: 15 bookshelves on the floor = 40).
+ * that (only blazewood shelves give them) climb evenly on to {@value #TIER_SHELVES_MAX} at {@value #MAX_POINTS} points - so the
+ * same 15 shelves, all blazewood, reach {@value #TIER_SHELVES_MAX}. The 5x5 floor of blazing obsidian under the table adds
+ * {@value #FLOOR_BONUS} once the shelves stand at 30 (15 bookshelves on the floor = 40). So 30-40 needs blazewood
+ * shelves OR the floor, and {@value #TIER_MAX} needs both (owner N32, 2026-10-10).
  *
  * <p><b>Budget.</b> The tier is the budget in points ({@value #MIN_BUDGET} without any shelf: one level of a common
  * enchantment); at {@value #TIER_MAX} every slider is free up to its maximum. Each slider level costs points by the
@@ -49,7 +50,9 @@ public final class AstralEnchanting {
     public static final int MAX_POINTS = 30;
     /** Tier of 15 bookshelves (Vanilla's maximum). */
     public static final int TIER_SHELVES = 30;
-    /** The highest tier: every slider free. 15 blazewood shelves, or 23 points on the floor. */
+    /** Highest tier without the floor: 15 blazewood shelves. */
+    public static final int TIER_SHELVES_MAX = 40;
+    /** The highest tier: every slider free. Needs 15 blazewood shelves AND the floor. */
     public static final int TIER_MAX = 50;
     /** What the blazing obsidian floor adds once the shelves give {@value #TIER_SHELVES}. */
     public static final int FLOOR_BONUS = 10;
@@ -85,15 +88,32 @@ public final class AstralEnchanting {
     }
 
     /**
-     * The tier: {@code 2 x points} up to 15 points (30), then evenly on to {@value #TIER_MAX} at {@value #MAX_POINTS}
-     * points; the floor adds {@value #FLOOR_BONUS} from 15 points on. At most {@value #TIER_MAX}.
+     * The tier from the shelf points and the floor (rule 2026-10-10, N32): up to 15 points {@code 2 x points} (15
+     * bookshelves = 30, like Vanilla); the 15 points above that (only blazewood shelves give them) climb evenly on to
+     * {@value #TIER_SHELVES_MAX} at {@value #MAX_POINTS} points; the floor adds {@value #FLOOR_BONUS} once the shelves
+     * give 30. {@value #TIER_MAX} therefore needs both: all 15 shelves blazewood and the floor.
      */
     public static int tier(int points, boolean floor) {
         int p = Math.clamp(points, 0, MAX_POINTS);
         int tier = p <= MAX_SHELVES ? 2 * p
-                : TIER_SHELVES + Math.round((p - MAX_SHELVES) * (float) (TIER_MAX - TIER_SHELVES) / (MAX_POINTS - MAX_SHELVES));
+                : TIER_SHELVES + Math.round((p - MAX_SHELVES) * (float) (TIER_SHELVES_MAX - TIER_SHELVES) / (MAX_POINTS - MAX_SHELVES));
         if (floor && p >= MAX_SHELVES) tier += FLOOR_BONUS;
         return Math.min(TIER_MAX, tier);
+    }
+
+    /** What the next tier steps need (tooltip hint), see {@link #nextStep}. */
+    public static final int STEP_BOOKSHELVES = 0;
+    public static final int STEP_SHELF_OR_FLOOR = 1;
+    public static final int STEP_FLOOR = 2;
+    public static final int STEP_BLAZE_SHELVES = 3;
+    public static final int STEP_MAX = 4;
+
+    /** The condition that is missing for the next stage: more bookshelves, blazewood shelves or floor, or the floor, or blazewood shelves, or nothing. */
+    public static int nextStep(int points, boolean floor) {
+        int p = Math.clamp(points, 0, MAX_POINTS);
+        if (p < MAX_SHELVES) return STEP_BOOKSHELVES;
+        if (p >= MAX_POINTS) return floor ? STEP_MAX : STEP_FLOOR;
+        return floor ? STEP_BLAZE_SHELVES : STEP_SHELF_OR_FLOOR;
     }
 
     /** Points to spend at this tier; {@link #UNLIMITED} at {@value #TIER_MAX}. */

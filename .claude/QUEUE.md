@@ -691,3 +691,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 - [ ] Astral Enchanter Stufenregel (Besitzer 10.10.): 0–30 normale Regale; 30–40 mit Lohen-Regalen ODER Lohen-Obsidian-Boden; 50 nur mit beidem; je Stufe mehr Punkte verteilbar; Konzept erweitern (claude-q-astral3).
 - [x] Alte Verschleiß-Optionen der Brecher-Kolben nicht migrieren (Besitzer: ok).
+
+## Nachtrag 32 (2026-10-10, Besitzer)
+- [x] (claude-q-astral3) Astral Enchanter Stufenregel: 0-30 normale Bücherregale (15 = 30); 30-40 mit Lohen-Regalen ODER Lohen-Obsidian-Boden; 50 nur mit beidem; mehr Regler-Punkte je Stufe.
+  Erledigt auf claude-q-astral3: Formel im Konzept (Abschnitt „Stufenregel 10.10.“), `AstralEnchanting.tier/nextStep`, Tooltip über der Stärke zeigt Regal-Punkte, Boden und was für die nächste Stufe fehlt, Lang EN/DE, Handbuch, Wiki, Tests für alle Kombinationen.

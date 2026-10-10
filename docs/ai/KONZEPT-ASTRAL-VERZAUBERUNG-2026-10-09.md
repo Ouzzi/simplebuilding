@@ -76,3 +76,40 @@ festgelegt, Besitzer kann jederzeit ändern.
   Level-Kosten, „-“ ohne Wahl. Jetzt zeigt er ein verzaubertes Buch und die Kosten; Tooltip wie bisher.
 - Ziehen: Client-Test `astral-enchanter` (AstralEnchanterClientTest) drückt, zieht und lässt los über den echten
   Fensterpfad (MouseHandler) und prüft Client- und Server-Wert des Reglers.
+
+## Stufenregel 10.10. (Nachtrag 32, Branch claude-q-astral3) - ersetzt die Stärke aus Nachtrag 31
+Besitzer: 0-30 mit normalen Bücherregalen (15 = 30); 30-40 mit Lohen-Regalen ODER dem Lohen-Obsidian-Boden; 50 nur mit
+beidem. Je höher die Stufe, desto mehr Regler-Punkte.
+
+**Formel.** Regal-Punkte `p` = Summe der besten 15 Regale (Bücherregal 1, Lohen-Regal 2), also 0..30.
+- Regale allein: `p <= 15` → `2 x p` (15 Bücherregale = 30, wie Vanilla); darüber `30 + gerundet((p - 15) x 2/3)`,
+  bei `p = 30` (15 Lohen-Regale) also **40**.
+- Boden (5x5 Lohen-Obsidian direkt unter dem Tisch, vollständig): **+10, sobald die Regale 30 ergeben** (`p >= 15`).
+- Stufe = Regale + Boden, höchstens 50. **50 genau bei `p = 30` und Boden** (15 Lohen-Regale UND Boden).
+- Wie gemischte Regale zählen: jedes Lohen-Regal statt eines Bücherregals bringt einen Punkt mehr, über 15 Punkte
+  hinaus etwa 2/3 Stufe (z. B. 5 Lohen + 10 Bücher = 20 Punkte = 33; 8 Lohen + 7 Bücher = 23 Punkte = 35).
+  Mehr als 15 Regale zählen nicht (die besten 15), Luftspalt-Regel wie Vanilla.
+
+| Aufbau | Stufe |
+|---|---|
+| keine Regale | 0 (Budget 3) |
+| 5 Bücherregale | 10 |
+| 10 Bücherregale | 20 |
+| 15 Bücherregale | 30 |
+| 15 Bücherregale + Boden | 40 |
+| 5 Lohen + 10 Bücher | 33 |
+| 8 Lohen + 7 Bücher + Boden | 45 |
+| 15 Lohen-Regale | 40 |
+| 15 Lohen-Regale + Boden | 50 |
+
+**Budget / Kosten je Stufe (Regler-Punkte).** Budget = Stufe, mindestens 3, bei 50 unbegrenzt (alle Regler bis Maximum):
+0 → 3, 10 → 10, 20 → 20, 30 → 30, 40 → 40, 50 → ∞. Punkte je Reglerstufe nach Seltenheit unverändert (3 / 6 / 10).
+Level-Verbrauch: 1 je angefangene 10 ausgegebene Punkte (30 → 3, 40 → 4), bei Stufe 50 immer 5; Lapis = Level,
+Lohenstaub doppelt. Spieler braucht so viele Level wie Punkte (höchstens 30). Fair: 40 ist wirklich ein Ziel mit Aufwand
+(15 Lohen-Regale ODER der Boden), 50 verlangt beides; Bücherregale allein bleiben bei Vanilla-30.
+
+**Hinweis im Tooltip** (Mauszeiger über der Stärke): Stufen-Erklärung, „Regale x/30 Punkte, Boden ja/nein“ und eine
+Zeile, was für die nächste Stufe fehlt: mehr Bücherregale (`p < 15`), Lohen-Regale ODER Boden (`15 <= p < 30`, kein
+Boden), Boden (`p = 30`), Lohen-Regale statt Bücherregale (Boden vorhanden, `p < 30`), oder „Maximum“.
+Code: `AstralEnchanting.tier/nextStep`, Menü-DataSlot `setup`. Entschieden (Claude): Boden bleibt +10 erst ab 15 Punkten;
+Zwischenwerte gerundet (nicht jede Zusatzpunkt-Stufe steigt um 1).

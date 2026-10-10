@@ -61,6 +61,8 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
     private final ContainerLevelAccess access;
     private final Player player;
     private final DataSlot tier = DataSlot.standalone();
+    /** Shelf points * 2 + 1 with the floor (for the tooltip: what the next stage lacks). */
+    private final DataSlot setup = DataSlot.standalone();
     /** Per row: enchantment id (holder id map, -1 none), max level, chosen level, points per level. */
     private final int[] enchant = {-1, -1, -1};
     private final int[] maxLevel = new int[3];
@@ -109,6 +111,7 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
         });
         this.addStandardInventorySlots(inventory, 8, INVENTORY_Y);
         this.addDataSlot(this.tier);
+        this.addDataSlot(this.setup);
         for (int[] array : new int[][] {this.enchant, this.maxLevel, this.chosen, this.cost}) {
             for (int i = 0; i < 3; i++) this.addDataSlot(DataSlot.shared(array, i));
         }
@@ -120,7 +123,7 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
     /** Server: reads the table's tier and draws the three enchantments for the item from the player's seed. */
     private void refresh() {
         this.access.execute((level, pos) -> {
-            this.tier.set(AstralEnchanting.tierAt(level, pos));
+            this.tier.set(readTier(level, pos));
             ItemStack stack = this.itemSlot.getItem(0);
             List<Holder<Enchantment>> choices = AstralEnchanting.choices(level.registryAccess(), stack, this.player.getEnchantmentSeed());
             IdMap<Holder<Enchantment>> ids = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).asHolderIdMap();
@@ -139,6 +142,28 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
     public void slotsChanged(Container container) {
         super.slotsChanged(container);
         if (container == this.itemSlot) refresh();
+    }
+
+    private int readTier(net.minecraft.world.level.Level level, net.minecraft.core.BlockPos pos) {
+        int points = AstralEnchanting.shelfPoints(level, pos);
+        boolean floor = AstralEnchanting.hasFloor(level, pos);
+        this.setup.set(points * 2 + (floor ? 1 : 0));
+        int tier = AstralEnchanting.tier(points, floor);
+        this.tier.set(tier);
+        return tier;
+    }
+
+    public int shelfPoints() {
+        return this.setup.get() >> 1;
+    }
+
+    public boolean hasFloor() {
+        return (this.setup.get() & 1) != 0;
+    }
+
+    /** {@link AstralEnchanting#nextStep} for this table. */
+    public int nextStep() {
+        return AstralEnchanting.nextStep(shelfPoints(), hasFloor());
     }
 
     public int tier() {
@@ -230,8 +255,7 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
     private boolean enchant(Player player) {
         if (!canEnchant(player)) return false;
         return this.access.evaluate((level, pos) -> {
-            int tier = AstralEnchanting.tierAt(level, pos);
-            this.tier.set(tier);
+            int tier = readTier(level, pos);
             int spent = spent();
             if (spent > AstralEnchanting.budget(tier) || !canEnchant(player)) return false;
             int levels = AstralEnchanting.levelCost(spent, tier);
