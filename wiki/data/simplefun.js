@@ -54,7 +54,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "summary": "Ziegel, Netherziegel und Harzziegel werfen. Serversperre 10 Ticks, Lebensdauer 200 Ticks, Schaden 0–4. Glasbrechen standardmäßig aus.",
         "details": [
           "Ziegel, Netherziegel und Harzziegel werfen. Serversperre 10 Ticks, Lebensdauer 200 Ticks, Schaden 0–4. Glasbrechen standardmäßig aus.",
-          "Glaszerst?rung nur im privaten Einzelspieler; veröffentlichte LAN-Welten und dedizierte Server verweigern sie auch bei aktiviertem Schalter."
+          "Glaszerstörung nur im privaten Einzelspieler; veröffentlichte LAN-Welten und dedizierte Server verweigern sie auch bei aktiviertem Schalter."
         ]
       },
       "sources": [

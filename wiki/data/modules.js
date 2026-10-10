@@ -66,7 +66,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "59bdf64a0ffe"
+    "dataHash": "6816620f3847"
   },
   {
     "id": "simpleriding",
@@ -86,7 +86,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "814349a1b94c"
+    "dataHash": "34ee2d8f086d"
   },
   {
     "id": "simplemodels",
@@ -125,7 +125,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "6e216355cabe"
+    "dataHash": "d6b752e0f54c"
   },
   {
     "id": "simplevisuals",
@@ -232,7 +232,7 @@ window.WIKI_MODULES = [
       "griefdefender",
       "claimchunk"
     ],
-    "dataHash": "336c09c2aa9f"
+    "dataHash": "f690c64083e7"
   },
   {
     "id": "simplesandwiches",

@@ -1561,6 +1561,28 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
       ]
     },
     {
+      "id": "simpleriding:enchanted_book_leaping",
+      "name": {
+        "en_us": "Enchanted Book (Leaping)",
+        "de_de": "Verzaubertes Buch (Sprungkraft)"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleriding/item/enchanted_book_leaping.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleriding:enchanted_book_tailwind",
+      "name": {
+        "en_us": "Enchanted Book (Tailwind)",
+        "de_de": "Verzaubertes Buch (Rückenwind)"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleriding/item/enchanted_book_tailwind.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simpleriding:enderite_horseshoe",
       "name": {
         "en_us": "Enderite Horseshoe",
@@ -1723,7 +1745,10 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simpleriding:enchanted_book_leaping",
+    "simpleriding:enchanted_book_tailwind"
+  ],
   "incompleteProse": {},
   "counts": {
     "features": 34,
@@ -1732,13 +1757,13 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
     "tags": 7,
     "advancements": 1,
     "enchantments": 2,
-    "items": 8,
+    "items": 10,
     "blocks": 0,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 2,
     "inWorld": 0,
     "incompleteProse": 0
   }

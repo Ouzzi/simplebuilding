@@ -129346,7 +129346,7 @@ window.WIKI_DATA = {
       "label": "Echo Sounder Attempt Lock (Ticks)",
       "labelDe": "Echolot-Sperre nach Versuch (Ticks)",
       "tooltip": "Longest lock of the Echo Sounder after an\nattempt that does not jump (released early,\nmissing lodestone) and after linking, in\nticks (20 = 1 s): 1 s right next to the\nlodestone, the full time from 1000 blocks\naway or in another dimension. Shown as the\nitem cooldown. 0 = no lock. Default: 100 (5\ns). Range: 0–12000.",
-      "tooltipDe": "Längste Sperre des Echolots nach einem\nVersuch ohne Sprung (zu früh losgelassen,\nLeitstein fehlt) und nach dem Verknuepfen, in\nTicks (20 = 1 s): 1 s direkt am Leitstein,\ndie volle Zeit ab 1000 Blöcken Entfernung\noder in einer anderen Dimension. Angezeigt\nals Abklingzeit des Items. 0 = keine Sperre.\nStandard: 100 (5 s). Bereich: 0–12000,"
+      "tooltipDe": "Längste Sperre des Echolots nach einem\nVersuch ohne Sprung (zu früh losgelassen,\nLeitstein fehlt) und nach dem Verknüpfen, in\nTicks (20 = 1 s): 1 s direkt am Leitstein,\ndie volle Zeit ab 1000 Blöcken Entfernung\noder in einer anderen Dimension. Angezeigt\nals Abklingzeit des Items. 0 = keine Sperre.\nStandard: 100 (5 s). Bereich: 0–12000,"
     },
     {
       "range": null,
@@ -130007,7 +130007,7 @@ window.WIKI_DATA = {
       "label": "Starter Guide (Older Versions)",
       "labelDe": "Starter-Handbuch (alte Versionen)",
       "tooltip": "Ignored on 26.3: guides must be crafted.\nDefault: off.",
-      "tooltipDe": "Auf 26.3 ohne Wirkung: Handbuecher muessen\nhergestellt werden. Standard: aus."
+      "tooltipDe": "Auf 26.3 ohne Wirkung: Handbücher müssen\nhergestellt werden. Standard: aus."
     },
     {
       "range": null,
@@ -130274,9 +130274,9 @@ window.WIKI_DATA = {
       "group": "Features: On/Off",
       "groupDe": "Funktionen: an/aus",
       "label": "End Signal Channels",
-      "labelDe": "End-Signalkanaele",
+      "labelDe": "End-Signalkanäle",
       "tooltip": "Enable isolated End channels. Recipes update\non datapack reload. Default: true.",
-      "tooltipDe": "End-Signalkanaele aktivieren. Rezepte nach\nDatenpaket-Neuladen. Standard: true."
+      "tooltipDe": "End-Signalkanäle aktivieren. Rezepte nach\nDatenpaket-Neuladen. Standard: true."
     },
     {
       "range": null,
@@ -130296,7 +130296,7 @@ window.WIKI_DATA = {
       "label": "End Pistons",
       "labelDe": "End-Kolben",
       "tooltip": "Astral and Nihil pistons move blocks.\nRecipes update on datapack reload.\nDefault: true.",
-      "tooltipDe": "Astral- und Nihil-Kolben bewegen Bloecke.\nRezepte nach Datenpaket-Neuladen.\nStandard: true."
+      "tooltipDe": "Astral- und Nihil-Kolben bewegen Blöcke.\nRezepte nach Datenpaket-Neuladen.\nStandard: true."
     },
     {
       "range": null,
@@ -130336,7 +130336,7 @@ window.WIKI_DATA = {
       "label": "Astral Vault",
       "labelDe": "Astralgewölbe",
       "tooltip": "Enable Astral Vault use. Disabling preserves\ncontents. Recipes update on datapack reload.\nDefault: true.",
-      "tooltipDe": "Astralgewoelbe aktivieren. Abschalten bewahrt\nden Inhalt. Rezepte nach Datenpaket-Neuladen.\nStandard: true."
+      "tooltipDe": "Astralgewölbe aktivieren. Abschalten bewahrt\nden Inhalt. Rezepte nach Datenpaket-Neuladen.\nStandard: true."
     },
     {
       "range": null,
@@ -130356,7 +130356,7 @@ window.WIKI_DATA = {
       "label": "Nihil Vault",
       "labelDe": "Nihil-Gewölbe",
       "tooltip": "Enable Nihil Vault use. Disabling preserves\ncontents. Recipes update on datapack reload.\nDefault: true.",
-      "tooltipDe": "Nihil-Gewoelbe aktivieren. Abschalten bewahrt\nden Inhalt. Rezepte nach Datenpaket-Neuladen.\nStandard: true."
+      "tooltipDe": "Nihil-Gewölbe aktivieren. Abschalten bewahrt\nden Inhalt. Rezepte nach Datenpaket-Neuladen.\nStandard: true."
     },
     {
       "range": null,
@@ -131882,7 +131882,7 @@ window.WIKI_DATA = {
       "label": "End Piston Cooldown (4–100)",
       "labelDe": "End-Kolben-Abklingzeit (4–100)",
       "tooltip": "Ticks a piston waits after firing,\nlimited to 4-100. Default: 8.",
-      "tooltipDe": "Ticks Wartezeit nach dem Ausloesen,\nbegrenzt auf 4-100. Standard: 8."
+      "tooltipDe": "Ticks Wartezeit nach dem Auslösen,\nbegrenzt auf 4-100. Standard: 8."
     },
     {
       "range": [
@@ -152065,7 +152065,7 @@ window.WIKI_DATA = {
       },
       "description": {
         "en_us": "Craft a vault: 27 shared slots and 27 extra personal slots.",
-        "de_de": "Stelle ein Gewölbe her: 27 geteilte und 27 zusaetzliche persoenliche Plaetze."
+        "de_de": "Stelle ein Gewölbe her: 27 geteilte und 27 zusätzliche persönliche Plätze."
       },
       "criteria": [
         {
@@ -152530,7 +152530,7 @@ window.WIKI_DATA = {
       },
       "description": {
         "en_us": "Craft Astral Redstone and Nihil Redstone; build separate switch-to-lamp channels.",
-        "de_de": "Stelle Astral-Redstone und Nihil-Redstone her; baue getrennte Schalter-Lampen-Kanaele."
+        "de_de": "Stelle Astral-Redstone und Nihil-Redstone her; baue getrennte Schalter-Lampen-Kanäle."
       },
       "criteria": [
         {
@@ -154101,7 +154101,7 @@ window.WIKI_DATA = {
       },
       "description": {
         "en_us": "Craft a vault whose 54 slots every player in the world shares.",
-        "de_de": "Stelle ein Gewölbe her, dessen 54 Plaetze alle Spieler der Welt teilen."
+        "de_de": "Stelle ein Gewölbe her, dessen 54 Plätze alle Spieler der Welt teilen."
       },
       "criteria": [
         {
@@ -154450,7 +154450,7 @@ window.WIKI_DATA = {
       "frame": "goal",
       "hidden": false,
       "title": {
-        "en_us": "Frequent Traveller",
+        "en_us": "Frequent Traveler",
         "de_de": "Vielreisender"
       },
       "description": {
@@ -156721,7 +156721,7 @@ window.WIKI_DATA = {
           },
           "description": {
             "en_us": "A compass, lightning rods, a lead, gold nuggets and a gold core make an Octant.",
-            "de_de": "Kompass, Blitzableiter, Leine, Goldnuggets und ein Goldkern ergeben einen Oktanten."
+            "de_de": "Kompass, Blitzableiter, Leine, Goldklumpen und ein Goldkern ergeben einen Oktanten."
           },
           "dependencies": [
             "building.toolkit"
@@ -157602,7 +157602,7 @@ window.WIKI_DATA = {
             "id": "simplebuilding:pads/frequent_traveller"
           },
           "title": {
-            "en_us": "Frequent Traveller",
+            "en_us": "Frequent Traveler",
             "de_de": "Vielreisender"
           },
           "description": {

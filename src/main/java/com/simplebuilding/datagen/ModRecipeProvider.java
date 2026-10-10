@@ -1184,12 +1184,16 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 }
 
                 // --- POLISHED END STONE ---
+                // 2x2 End Stone is vanilla's end_stone_bricks, so the crafting uses those bricks and
+                // End Stone gets a stonecutter cut instead (audit D-01).
                 shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_END_STONE, 4)
                         .pattern("SS")
                         .pattern("SS")
-                        .define('S', Items.END_STONE)
-                        .unlockedBy(getHasName(Items.END_STONE), has(Items.END_STONE))
+                        .define('S', Items.END_STONE_BRICKS)
+                        .unlockedBy(getHasName(Items.END_STONE_BRICKS), has(Items.END_STONE_BRICKS))
                         .save(output);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_END_STONE, Items.END_STONE);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_END_STONE, Items.END_STONE_BRICKS);
 
                 // --- CHECKER BLOCKS ---
                 createCheckerRecipe(output, ModBlocks.PURPUR_QUARTZ_CHECKER, Items.PURPUR_BLOCK);
