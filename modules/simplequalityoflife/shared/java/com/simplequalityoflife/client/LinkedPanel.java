@@ -14,13 +14,16 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * Client side of the linked GUIs: the marked container's slots appended to the open menu and drawn as
  * a chest panel. The second GUI stays where Vanilla centers it (many screens draw their background from
- * the screen size, so moving it would tear them apart); the panel goes above it, or beside it when more
- * rows fit there, and scrolls with the mouse wheel when not every row fits (small windows, big GUI scale).
+ * the screen size, so moving it would tear them apart). In the inventory screen the panel goes above it, or
+ * beside it when more rows fit there. In any other GUI it takes the place of the player's inventory below the
+ * GUI (the inventory slots are moved out of sight). It scrolls with the mouse wheel when not every row fits.
  */
 public final class LinkedPanel {
     public static final int WIDTH = 176;
@@ -37,6 +40,10 @@ public final class LinkedPanel {
     private int relY;
     private int visible;
     private int scroll;
+    /** Replace mode: the inventory area's top (relative to the GUI) and the panel's minimum height; else 0. */
+    private int coverTop = Integer.MIN_VALUE;
+    private int minHeight;
+    private boolean replace;
 
     private LinkedPanel(Component title, int size) {
         this.title = title;
@@ -49,9 +56,22 @@ public final class LinkedPanel {
     public static void receive(LinkedOpenPayload payload) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null) return;
-        AbstractContainerMenu menu = minecraft.player.containerMenu;
-        if (menu == minecraft.player.inventoryMenu || menu.containerId != payload.containerId() || payload.size() <= 0
-                || payload.size() > LinkedContainers.MAX_SLOTS || LinkedContainers.hasLinked(menu)) return;
+        AbstractContainerMenu own = minecraft.player.inventoryMenu;
+        AbstractContainerMenu menu = payload.containerId() == own.containerId ? own : minecraft.player.containerMenu;
+        if (menu.containerId != payload.containerId()) return;
+        LinkedHud.set(payload.size() > 0 ? payload.icon() : ItemStack.EMPTY);
+        boolean linked = LinkedContainers.hasLinked(menu);
+        if (linked && menu != own) return;
+        if (linked) {
+            int first = 0;
+            while (!(menu.slots.get(first) instanceof LinkedSlot)) first++;
+            ((LinkedMenu) menu).qol$truncate(first);
+            ((LinkedMenu) menu).qol$panel(null);
+        }
+        if (payload.size() <= 0 || payload.size() > LinkedContainers.MAX_SLOTS) {
+            if (linked && minecraft.gui.screen() instanceof AbstractContainerScreen<?> screen && screen.getMenu() == menu && screen instanceof LinkedScreen l) l.qol$layout();
+            return;
+        }
         SimpleContainer mirror = new SimpleContainer(payload.size());
         for (int i = 0; i < payload.size(); i++) ((LinkedMenu) menu).qol$addSlot(new LinkedSlot(mirror, i, null));
         ((LinkedMenu) menu).qol$panel(new LinkedPanel(payload.title(), payload.size()));
@@ -59,11 +79,23 @@ public final class LinkedPanel {
     }
 
     private int height() {
-        return HEADER + this.visible * 18 + FOOTER;
+        return Math.max(this.minHeight, HEADER + this.visible * 18 + FOOTER);
+    }
+
+    /** Whether this panel stands in for the inventory (so the screen hides the inventory label). */
+    public boolean replacesInventory() {
+        return this.replace;
     }
 
     /** Places the panel relative to the second GUI ({@code leftPos/topPos} space) and positions the slots. */
     public void layout(AbstractContainerMenu menu, int leftPos, int topPos, int imageWidth, int imageHeight, int width, int height) {
+        this.replace = false;
+        this.minHeight = 0;
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.player != null && menu != minecraft.player.inventoryMenu && this.layoutReplace(menu, topPos, imageWidth, imageHeight, height)) {
+            this.place(menu);
+            return;
+        }
         int above = Math.min(this.rows, (topPos - GAP - HEADER - FOOTER - 2) / 18);
         int side = Math.min(this.rows, (height - 4 - HEADER - FOOTER) / 18);
         boolean right = width - (leftPos + imageWidth) - GAP - 2 >= WIDTH;
@@ -80,6 +112,24 @@ public final class LinkedPanel {
         }
         this.scroll = Math.max(0, Math.min(this.scroll, this.rows - this.visible));
         this.place(menu);
+    }
+
+    /** Replace mode: the panel covers the inventory area of the GUI and hides the inventory slots. */
+    private boolean layoutReplace(AbstractContainerMenu menu, int topPos, int imageWidth, int imageHeight, int height) {
+        if (this.coverTop == Integer.MIN_VALUE) {
+            int top = Integer.MAX_VALUE;
+            for (Slot slot : menu.slots) if (!(slot instanceof LinkedSlot) && slot.container instanceof Inventory) top = Math.min(top, slot.y);
+            if (top == Integer.MAX_VALUE) return false;
+            this.coverTop = top - 14;
+            for (Slot slot : menu.slots) if (!(slot instanceof LinkedSlot) && slot.container instanceof Inventory) ((SlotPositionAccessor) slot).qol$setY(-10000);
+        }
+        this.replace = true;
+        this.relX = (imageWidth - WIDTH) / 2;
+        this.relY = this.coverTop;
+        this.visible = Math.max(1, Math.min(this.rows, (height - 2 - (topPos + this.relY) - HEADER - FOOTER) / 18));
+        this.minHeight = imageHeight - this.relY;
+        this.scroll = Math.max(0, Math.min(this.scroll, this.rows - this.visible));
+        return true;
     }
 
     private void place(AbstractContainerMenu menu) {

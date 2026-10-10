@@ -3,12 +3,15 @@ package com.simplequalityoflife.mixin;
 import com.simplequalityoflife.container.LinkedContainers;
 import com.simplequalityoflife.container.LinkedMenu;
 import com.simplequalityoflife.container.PortableContainers;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.RemoteSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -23,12 +26,23 @@ public abstract class ContainerMenuLinkedMixin implements LinkedMenu {
 
     @Shadow protected abstract boolean moveItemStackTo(ItemStack stack, int start, int end, boolean backwards);
 
+    @Shadow @Final private NonNullList<ItemStack> lastSlots;
+    @Shadow @Final private NonNullList<RemoteSlot> remoteSlots;
+    @Shadow @Final public NonNullList<Slot> slots;
+
     @Unique private LinkedContainers.@Nullable Session qol$session;
     @Unique private @Nullable Object qol$panel;
 
     @Override
     public void qol$addSlot(Slot slot) {
         this.addSlot(slot);
+    }
+
+    @Override
+    public void qol$truncate(int from) {
+        if (from < this.slots.size()) this.slots.subList(from, this.slots.size()).clear();
+        if (from < this.lastSlots.size()) this.lastSlots.subList(from, this.lastSlots.size()).clear();
+        if (from < this.remoteSlots.size()) this.remoteSlots.subList(from, this.remoteSlots.size()).clear();
     }
 
     @Override

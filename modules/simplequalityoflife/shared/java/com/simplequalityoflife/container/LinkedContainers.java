@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -45,7 +46,11 @@ import org.jetbrains.annotations.Nullable;
 public final class LinkedContainers {
     /** Most slots a marked container may show (a double chest of the widest mod chests: 12 rows of 9). */
     public static final int MAX_SLOTS = 108;
+    /** InventoryMenu slot indices of the main inventory plus hotbar: [9, 45). */
+    private static final int INV_START = 9, INV_END = 45;
     private static final Map<Player, Mark> MARKS = new WeakHashMap<>();
+    /** The mark the inventory menu already tried to show (a failed attempt is not repeated every tick). */
+    private static final Map<Player, Mark> TRIED = new WeakHashMap<>();
     /** Sends the payload when the client can receive it; set per loader. Without it nothing is appended. */
     public static BiPredicate<ServerPlayer, LinkedOpenPayload> openSync = (player, payload) -> false;
 
@@ -88,6 +93,7 @@ public final class LinkedContainers {
 
     public static void clear(Player player) {
         MARKS.remove(player);
+        if (player instanceof ServerPlayer serverPlayer) syncInventory(serverPlayer);
     }
 
     // --- marking ---
@@ -102,6 +108,7 @@ public final class LinkedContainers {
         Mark current = MARKS.get(player);
         if (current != null && current.dimension().equals(level.dimension()) && backingPositions(level, current.pos()).contains(pos)) {
             MARKS.remove(player);
+            syncInventory((ServerPlayer) player);
             feedback(level, pos, false);
             return InteractionResult.SUCCESS;
         }
@@ -109,6 +116,7 @@ public final class LinkedContainers {
         Container container = container(level, pos);
         if (container == null || container.getContainerSize() <= 0 || container.getContainerSize() > MAX_SLOTS) return InteractionResult.PASS;
         MARKS.put(player, new Mark(level.dimension(), pos.immutable()));
+        syncInventory((ServerPlayer) player);
         feedback(level, pos, true);
         return InteractionResult.SUCCESS;
     }
@@ -173,7 +181,8 @@ public final class LinkedContainers {
             mark = null;
         }
         Session session = ((LinkedMenu) player.containerMenu).qol$session();
-        if (session != null && !session.valid()) player.closeContainer();
+        if (session != null && !session.valid() && player.containerMenu != player.inventoryMenu) player.closeContainer();
+        syncInventory(player);
         if (mark != null && player.tickCount % 10 == 0) handParticle(player);
     }
 
@@ -198,21 +207,51 @@ public final class LinkedContainers {
             MARKS.remove(player);
             return;
         }
+        attach(player, menu, mark);
+    }
+
+    /**
+     * Keeps the player's own inventory menu in line with the mark: slots appended while a valid mark exists (so the
+     * inventory screen shows the marked container next to it), removed again when it ends. Sends the payload first.
+     */
+    public static void syncInventory(ServerPlayer player) {
+        AbstractContainerMenu menu = player.inventoryMenu;
+        Mark mark = MARKS.get(player);
+        Session current = ((LinkedMenu) menu).qol$session();
+        if (current != null && current.mark == mark) return;
+        if (mark == null) TRIED.remove(player);
+        else if (current == null && TRIED.get(player) == mark) return;
+        if (current != null) {
+            ((LinkedMenu) menu).qol$truncate(current.start);
+            ((LinkedMenu) menu).qol$session(null);
+        }
+        boolean attached = false;
+        if (mark != null) {
+            TRIED.put(player, mark);
+            attached = attach(player, menu, mark);
+        }
+        if (!attached && current != null) openSync.test(player, new LinkedOpenPayload(menu.containerId, 0, Component.empty(), ItemStack.EMPTY));
+        if (attached || current != null) menu.sendAllDataToRemote();
+    }
+
+    private static boolean attach(ServerPlayer player, AbstractContainerMenu menu, Mark mark) {
         Level level = player.level();
         Container container = container(level, mark.pos());
-        if (container == null) return;
+        if (container == null) return false;
         int size = container.getContainerSize();
-        if (size <= 0 || size > MAX_SLOTS) return;
+        if (size <= 0 || size > MAX_SLOTS) return false;
         List<BlockEntity> backing = backing(level, mark.pos());
         for (Slot slot : menu.slots) {
-            if (shows(slot.container, container, backing)) return;
+            if (shows(slot.container, container, backing)) return false;
         }
-        if (!InteractionGuard.permission.test(player, mark.pos())) return;
+        if (!InteractionGuard.permission.test(player, mark.pos())) return false;
         Component title = level.getBlockEntity(mark.pos()) instanceof BaseContainerBlockEntity be ? be.getDisplayName() : Component.empty();
-        if (!openSync.test(player, new LinkedOpenPayload(menu.containerId, size, title))) return;
+        ItemStack icon = new ItemStack(level.getBlockState(mark.pos()).getBlock());
+        if (!openSync.test(player, new LinkedOpenPayload(menu.containerId, size, title, icon))) return false;
         Session session = new Session(player, mark, container, backing, menu.slots.size(), size);
         for (int i = 0; i < size; i++) ((LinkedMenu) menu).qol$addSlot(new LinkedSlot(container, i, session));
         ((LinkedMenu) menu).qol$session(session);
+        return true;
     }
 
     /** Whether a slot of the second menu already shows the marked container (it is the marked chest itself). */
@@ -235,6 +274,7 @@ public final class LinkedContainers {
     public static boolean interceptClick(AbstractContainerMenu menu, int slotIndex, ContainerInput input, Player player) {
         if (!hasLinked(menu)) return false;
         Session session = ((LinkedMenu) menu).qol$session();
+        boolean inventoryMenu = menu instanceof InventoryMenu;
         boolean linkedSlot = slotIndex >= 0 && slotIndex < menu.slots.size() && menu.slots.get(slotIndex) instanceof LinkedSlot;
         if (session != null && !session.valid() && linkedSlot) return true;
         if (input != ContainerInput.QUICK_MOVE || slotIndex < 0 || slotIndex >= menu.slots.size()) return false;
@@ -243,13 +283,32 @@ public final class LinkedContainers {
         if (linkedSlot) {
             ItemStack stack = source.getItem();
             if (stack.isEmpty()) return true;
-            moveInto(stack, ownSlots(menu));
-            if (!stack.isEmpty()) moveInto(stack, playerSlotsReversed(menu));
+            if (!inventoryMenu) moveInto(stack, ownSlots(menu));
+            if (!stack.isEmpty()) moveInto(stack, inventoryMenu ? mainSlotsReversed(menu) : playerSlotsReversed(menu));
+            if (stack.isEmpty()) source.setByPlayer(ItemStack.EMPTY);
+            else source.setChanged();
+            return true;
+        }
+        if (inventoryMenu) {
+            // The inventory screen: main/hotbar slots fill the marked container; armor, crafting and the rest stay vanilla.
+            if (source.index < INV_START || source.index >= INV_END || !source.hasItem()) return false;
+            ItemStack stack = source.getItem();
+            if (!moveInto(stack, linkedSlots(menu))) return false;
             if (stack.isEmpty()) source.setByPlayer(ItemStack.EMPTY);
             else source.setChanged();
             return true;
         }
         boolean fromPlayer = source.container instanceof Inventory;
+        if (!fromPlayer && source.hasItem() && source.mayPlace(source.getItem())) {
+            // The marked box is shown where the inventory was: a plain storage slot of the second GUI goes there first.
+            ItemStack stack = source.getItem();
+            moveInto(stack, linkedSlots(menu));
+            if (stack.isEmpty()) {
+                source.setByPlayer(ItemStack.EMPTY);
+                return true;
+            }
+            source.setChanged();
+        }
         List<ItemStack> before = fromPlayer ? snapshot(menu) : null;
         LinkedSlot.SUPPRESSED.set(true);
         try {
@@ -317,6 +376,13 @@ public final class LinkedContainers {
             Slot slot = menu.slots.get(i);
             if (!(slot instanceof LinkedSlot) && slot.container instanceof Inventory && slot.isActive()) out.add(slot);
         }
+        return out;
+    }
+
+    /** Main inventory and hotbar of the player's own menu, last slot first. */
+    private static List<Slot> mainSlotsReversed(AbstractContainerMenu menu) {
+        List<Slot> out = new ArrayList<>();
+        for (int i = INV_END - 1; i >= INV_START; i--) out.add(menu.slots.get(i));
         return out;
     }
 

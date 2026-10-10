@@ -33,7 +33,7 @@ public final class QolTests {
   ALL.put("vault",QolTests::vault);ALL.put("vegetation",QolTests::vegetation);ALL.put("cross_mod",QolTests::crossMod);
   ALL.put("real_movement_packets",QolTests::realMovementPackets);ALL.put("vault_persistence",QolTests::vaultPersistence);
   ALL.put("gold_trim",QolTests::goldTrim);ALL.put("anvil_repair_cost",QolTests::anvilRepairCost);ALL.put("thrift",QolTests::thrift);ALL.put("feature_switches",QolTests::featureSwitches);ALL.put("sharpness_action",QolTests::sharpnessAction);
-  ALL.put("linked_mark",ContainerTests::linkedMark);ALL.put("linked_range",ContainerTests::linkedRange);ALL.put("linked_transfer",ContainerTests::linkedTransfer);ALL.put("portable_shulker",ContainerTests::portableShulker);ALL.put("portable_ender_chest",ContainerTests::portableEnderChest);
+  ALL.put("linked_mark",ContainerTests::linkedMark);ALL.put("linked_range",ContainerTests::linkedRange);ALL.put("linked_transfer",ContainerTests::linkedTransfer);ALL.put("linked_inventory",ContainerTests::linkedInventory);ALL.put("portable_shulker",ContainerTests::portableShulker);ALL.put("portable_ender_chest",ContainerTests::portableEnderChest);
  }
  public static Identifier id(String s){return Identifier.fromNamespaceAndPath("simplequalityoflife",s);}
  /** Principle 8 (standalone): a content mod is loaded when it owns registry ids; loader-neutral for shared tests. */
