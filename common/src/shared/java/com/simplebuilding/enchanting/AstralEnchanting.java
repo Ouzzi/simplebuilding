@@ -21,34 +21,38 @@ import net.minecraft.world.level.block.EnchantingTableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * The rules of the Astral Enchanting Table (owner 2026-10-09, queue N27, docs/ai/KONZEPT-ASTRAL-VERZAUBERUNG-2026-10-09.md).
+ * The rules of the Astral Enchanter (owner 2026-10-09, queue N27; strength reworked N31 2026-10-10,
+ * docs/ai/KONZEPT-ASTRAL-VERZAUBERUNG-2026-10-09.md).
  *
  * <p><b>Strength.</b> Shelves stand where Vanilla's do ({@link EnchantingTableBlock#BOOKSHELF_OFFSETS}, air gap between
  * table and shelf). A Vanilla bookshelf (anything in {@code minecraft:enchantment_power_provider}) is worth
  * {@value #NORMAL_SHELF} point, a blazewood bookshelf {@value #BLAZE_SHELF}; the best {@value #MAX_SHELVES} shelves count.
- * The tier is {@code min(30, 2 x points)} like Vanilla (15 bookshelves = 30). With the 5x5 floor of blazing obsidian
- * under the table it rises to {@value #TIER_FLOOR_MID} from {@value #FLOOR_MID_POINTS} points and to
- * {@value #TIER_FLOOR_MAX} from {@value #FLOOR_MAX_POINTS} (all 15 shelves blazewood).
+ * Up to {@value #MAX_SHELVES} points the tier is {@code 2 x points} like Vanilla (15 bookshelves = 30); the points above
+ * that (only blazewood shelves give them) climb evenly on to {@value #TIER_MAX} at {@value #MAX_POINTS} points - so the
+ * same 15 shelves, all blazewood, reach the maximum (owner N31). The 5x5 floor of blazing obsidian under the table adds
+ * {@value #FLOOR_BONUS} once the shelves stand at 30 (a short cut: 15 bookshelves on the floor = 40).
  *
  * <p><b>Budget.</b> The tier is the budget in points ({@value #MIN_BUDGET} without any shelf: one level of a common
- * enchantment); at {@value #TIER_FLOOR_MAX} every slider is free up to its maximum. Each slider level costs points by the
+ * enchantment); at {@value #TIER_MAX} every slider is free up to its maximum. Each slider level costs points by the
  * enchantment's rarity (Vanilla weight): common/uncommon {@value #COMMON_COST}, rare {@value #RARE_COST}, very rare
  * {@value #VERY_RARE_COST}.
  *
- * <p><b>Price.</b> Levels used up: 1-3 by the share of 30 points spent (like Vanilla's 1-3), {@value #FLOOR_MID_LEVELS}
- * at tier 40 and {@value #FLOOR_MAX_LEVELS} at tier 50. Lapis = levels used up, blaze powder twice that. The player needs
- * at least as many levels as points spent (at most 30, at least the levels used up) - Vanilla asks for the slot's level.
+ * <p><b>Price.</b> Levels used up: 1 per started {@value #POINTS_PER_LEVEL} points spent (1-3 up to 30 like Vanilla's
+ * 1-3, up to {@value #MAX_LEVEL_COST} above), always {@value #MAX_LEVEL_COST} at tier {@value #TIER_MAX}. Lapis = levels
+ * used up, blaze powder twice that. The player needs at least as many levels as points spent (at most 30, at least the
+ * levels used up) - Vanilla asks for the slot's level.
  */
 public final class AstralEnchanting {
     public static final int MAX_SHELVES = 15;
     public static final int NORMAL_SHELF = 1;
     public static final int BLAZE_SHELF = 2;
     public static final int MAX_POINTS = 30;
-    public static final int TIER_SHELVES_MAX = 30;
-    public static final int TIER_FLOOR_MID = 40;
-    public static final int TIER_FLOOR_MAX = 50;
-    public static final int FLOOR_MID_POINTS = 20;
-    public static final int FLOOR_MAX_POINTS = 30;
+    /** Tier of 15 bookshelves (Vanilla's maximum). */
+    public static final int TIER_SHELVES = 30;
+    /** The highest tier: every slider free. 15 blazewood shelves, or 23 points on the floor. */
+    public static final int TIER_MAX = 50;
+    /** What the blazing obsidian floor adds once the shelves give {@value #TIER_SHELVES}. */
+    public static final int FLOOR_BONUS = 10;
     /** Floor: 5x5 blazing obsidian right under the table (radius 2). */
     public static final int FLOOR_RADIUS = 2;
     public static final int MIN_BUDGET = 3;
@@ -57,9 +61,9 @@ public final class AstralEnchanting {
     public static final int COMMON_COST = 3;
     public static final int RARE_COST = 6;
     public static final int VERY_RARE_COST = 10;
-    public static final int FLOOR_MID_LEVELS = 4;
-    public static final int FLOOR_MAX_LEVELS = 5;
-    /** Points per used-up level below tier 40 (30 points = 3 levels). */
+    /** Levels used up at most (and always at tier {@value #TIER_MAX}). */
+    public static final int MAX_LEVEL_COST = 5;
+    /** Points per used-up level (30 points = 3 levels). */
     public static final int POINTS_PER_LEVEL = 10;
     public static final int MAX_REQUIRED_LEVEL = 30;
     public static final int BLAZE_PER_LAPIS = 2;
@@ -80,16 +84,21 @@ public final class AstralEnchanting {
         return Math.min(MAX_POINTS, sum);
     }
 
-    /** The tier: {@code min(30, 2 x points)}, with the floor 40 from 20 points and 50 from 30 points. */
+    /**
+     * The tier: {@code 2 x points} up to 15 points (30), then evenly on to {@value #TIER_MAX} at {@value #MAX_POINTS}
+     * points; the floor adds {@value #FLOOR_BONUS} from 15 points on. At most {@value #TIER_MAX}.
+     */
     public static int tier(int points, boolean floor) {
-        if (floor && points >= FLOOR_MAX_POINTS) return TIER_FLOOR_MAX;
-        if (floor && points >= FLOOR_MID_POINTS) return TIER_FLOOR_MID;
-        return Math.min(TIER_SHELVES_MAX, 2 * Math.max(0, points));
+        int p = Math.clamp(points, 0, MAX_POINTS);
+        int tier = p <= MAX_SHELVES ? 2 * p
+                : TIER_SHELVES + Math.round((p - MAX_SHELVES) * (float) (TIER_MAX - TIER_SHELVES) / (MAX_POINTS - MAX_SHELVES));
+        if (floor && p >= MAX_SHELVES) tier += FLOOR_BONUS;
+        return Math.min(TIER_MAX, tier);
     }
 
-    /** Points to spend at this tier; {@link #UNLIMITED} at tier 50. */
+    /** Points to spend at this tier; {@link #UNLIMITED} at {@value #TIER_MAX}. */
     public static int budget(int tier) {
-        if (tier >= TIER_FLOOR_MAX) return UNLIMITED;
+        if (tier >= TIER_MAX) return UNLIMITED;
         return Math.max(MIN_BUDGET, tier);
     }
 
@@ -120,12 +129,11 @@ public final class AstralEnchanting {
         return Math.min(maxLevel, left / pointsPerLevel[row]);
     }
 
-    /** Levels used up: 0 without a choice, 1-3 by the share of 30 points below tier 40, 4 at tier 40, 5 at tier 50. */
+    /** Levels used up: 0 without a choice, 1 per started 10 points (at most 5), always 5 at tier {@value #TIER_MAX}. */
     public static int levelCost(int spent, int tier) {
         if (spent <= 0) return 0;
-        if (tier >= TIER_FLOOR_MAX) return FLOOR_MAX_LEVELS;
-        if (tier >= TIER_FLOOR_MID) return FLOOR_MID_LEVELS;
-        return Math.clamp((spent + POINTS_PER_LEVEL - 1) / POINTS_PER_LEVEL, 1, 3);
+        if (tier >= TIER_MAX) return MAX_LEVEL_COST;
+        return Math.clamp((spent + POINTS_PER_LEVEL - 1) / POINTS_PER_LEVEL, 1, MAX_LEVEL_COST);
     }
 
     /** Levels the player must have: the points spent (at most 30), never fewer than the levels used up. */

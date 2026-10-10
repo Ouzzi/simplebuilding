@@ -47,18 +47,26 @@ public final class AstralEnchantingTests {
     // ------------------------------------------------------------------ pure rules
 
     /**
-     * The numbers of the concept: tier min(30, 2 x points), floor 40 from 20 and 50 from 30 points; budget 3 without
-     * shelves, unlimited at 50; 3/6/10 points per level by rarity; 1-3 levels by tens of points, 4 at 40, 5 at 50;
+     * The numbers of the concept: tier 2 x points up to 30 (15 bookshelves), then on to 50 at 30 points (15 blazewood
+     * shelves, owner N31), the floor +10 from 15 points; budget 3 without shelves, unlimited at 50; 3/6/10 points per
+     * level by rarity; 1 level per started 10 points (at most 5), always 5 at 50;
      * lapis = levels, blaze powder twice that; the player needs the points spent in levels (at most 30).
      */
     public static void budgetAndCostRules(GameTestHelper helper) {
         if (!McVersion.ASTRAL_ENCHANTING) { helper.succeed(); return; }
         eq(helper, AstralEnchanting.tier(0, false), 0, "tier without shelves");
         eq(helper, AstralEnchanting.tier(15, false), 30, "tier of 15 bookshelves");
-        eq(helper, AstralEnchanting.tier(30, false), 30, "tier of 15 blazewood shelves without floor");
-        eq(helper, AstralEnchanting.tier(19, true), 30, "tier of 19 points on the floor (below 40 the floor adds nothing)");
-        eq(helper, AstralEnchanting.tier(20, true), 40, "tier of 20 points on the floor");
-        eq(helper, AstralEnchanting.tier(30, true), 50, "tier of 30 points on the floor");
+        eq(helper, AstralEnchanting.tier(30, false), 50, "tier of 15 blazewood shelves without floor (owner N31: maximum)");
+        eq(helper, AstralEnchanting.tier(20, false), 37, "tier of 10 bookshelves + 5 blazewood shelves");
+        eq(helper, AstralEnchanting.tier(16, false), 31, "one blazewood shelf more than 15 bookshelves");
+        eq(helper, AstralEnchanting.tier(14, true), 28, "tier of 14 points on the floor (below 15 the floor adds nothing)");
+        eq(helper, AstralEnchanting.tier(15, true), 40, "tier of 15 bookshelves on the floor");
+        eq(helper, AstralEnchanting.tier(23, true), 50, "tier of 23 points on the floor");
+        eq(helper, AstralEnchanting.tier(30, true), 50, "tier of 30 points on the floor (capped)");
+        for (int points = 0; points < AstralEnchanting.MAX_POINTS; points++) {
+            helper.assertTrue(AstralEnchanting.tier(points + 1, false) > AstralEnchanting.tier(points, false),
+                    "every further shelf point raises the tier, at " + points);
+        }
         int[] fifteenBlaze = new int[32];
         java.util.Arrays.fill(fifteenBlaze, 0, 15, AstralEnchanting.BLAZE_SHELF);
         eq(helper, AstralEnchanting.shelfPoints(fifteenBlaze), 30, "points of 15 blazewood shelves");
@@ -79,7 +87,9 @@ public final class AstralEnchantingTests {
         eq(helper, AstralEnchanting.levelCost(3, 0), 1, "one common level without shelves");
         eq(helper, AstralEnchanting.levelCost(15, 30), 2, "15 points");
         eq(helper, AstralEnchanting.levelCost(30, 30), 3, "30 points");
-        eq(helper, AstralEnchanting.levelCost(9, 40), 4, "tier 40");
+        eq(helper, AstralEnchanting.levelCost(9, 40), 1, "9 points at tier 40");
+        eq(helper, AstralEnchanting.levelCost(40, 40), 4, "40 points at tier 40");
+        eq(helper, AstralEnchanting.levelCost(3, 50), 5, "tier 50 always 5");
         eq(helper, AstralEnchanting.levelCost(90, 50), 5, "tier 50");
         eq(helper, AstralEnchanting.requiredLevel(15, 30), 15, "needs the points in levels");
         eq(helper, AstralEnchanting.requiredLevel(90, 50), 30, "needs at most 30");
@@ -121,7 +131,7 @@ public final class AstralEnchantingTests {
 
     /**
      * Shelves count like Vanilla's (blocked gap = no shelf), blazewood shelves twice; the 5x5 blazing obsidian floor
-     * lifts the tier to 40 and 50, and only a complete floor counts.
+     * adds 10 from 15 points on, and only a complete floor counts.
      */
     public static void shelvesAndFloorSetTheTier(GameTestHelper helper) {
         if (!McVersion.ASTRAL_ENCHANTING) { helper.succeed(); return; }
@@ -141,13 +151,18 @@ public final class AstralEnchantingTests {
         eq(helper, AstralEnchanting.shelfValue(helper.getLevel(), helper.absolutePos(TABLE), first), 0, "value of a shelf behind stone");
         helper.setBlock(TABLE.offset(first.getX() / 2, first.getY(), first.getZ() / 2), Blocks.AIR);
         shelves(helper, 10, 10);
-        eq(helper, tier(helper), 30, "tier of 10 blazewood shelves without floor");
-        floor(helper, ModBlocks.BLAZING_OBSIDIAN);
-        eq(helper, tier(helper), 40, "tier of 10 blazewood shelves (20 points) on the floor");
+        eq(helper, tier(helper), 37, "tier of 10 blazewood shelves (20 points) without floor");
+        shelves(helper, 15, 5);
+        eq(helper, tier(helper), 37, "tier of 5 blazewood + 10 bookshelves");
         shelves(helper, 15, 15);
-        eq(helper, tier(helper), 50, "tier of 15 blazewood shelves on the floor");
+        eq(helper, tier(helper), 50, "tier of 15 blazewood shelves without floor (owner N31)");
+        shelves(helper, 15, 0);
+        floor(helper, ModBlocks.BLAZING_OBSIDIAN);
+        eq(helper, tier(helper), 40, "tier of 15 bookshelves on the floor");
+        shelves(helper, 15, 8);
+        eq(helper, tier(helper), 50, "tier of 8 blazewood + 7 bookshelves (23 points) on the floor");
         helper.setBlock(TABLE.offset(2, -1, 2), Blocks.OBSIDIAN);
-        eq(helper, tier(helper), 30, "tier with one floor block missing");
+        eq(helper, tier(helper), 41, "tier of 23 points with one floor block missing");
         helper.succeed();
     }
 

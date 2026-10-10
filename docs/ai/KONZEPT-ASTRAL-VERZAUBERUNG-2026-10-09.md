@@ -59,3 +59,20 @@ festgelegt, Besitzer kann jederzeit ändern.
   - Lohenholz nur für Karmesin und Wirr; Mod-Nether-Hölzer sind (noch) nicht automatisch abgedeckt.
 - Prüfung: `AstralEnchantingTests` (Regeln, Regal-/Boden-Erkennung, Hammer-Herstellung, Abbau-Drop, Lager bleibt,
   Verzaubern verbraucht richtig, Rezepte), Stil-Test, Client-Screenshot `modui-astral-enchanting`.
+
+## Nachtrag 31 (Branch claude-q-astral2, 2026-10-10)
+- Name: **Astral Enchanter** / DE **Astral-Verzauberer** (IDs `astral_enchanting_table` usw. bleiben).
+- Stärke neu (Besitzer: dieselbe Anzahl Lohen-Regale wie die normale Höchstzahl bringt das Maximum):
+  bis 15 Punkte `2 x Punkte` (15 Bücherregale = 30), darüber gleichmäßig weiter bis **50 bei 30 Punkten**
+  (15 Lohen-Regale, ohne Boden). Jeder weitere Punkt hebt die Stufe (16 → 31, 20 → 37, 23 → 41).
+  Entschieden (Claude): der Lohen-Obsidian-Boden bleibt als Abkürzung, **+10 ab 15 Punkten** (15 Bücherregale auf dem
+  Boden = 40; 23 Punkte auf dem Boden = 50). Vorher brauchte 40/50 zwingend den Boden.
+- Verbrauch: 1 Level je angefangene 10 Punkte (bis 30 Punkte wie bisher 1–3, darüber bis 5), bei Stufe 50 immer 5
+  (vorher bei 40 immer 4).
+- UI: Bildschirm 36 px höher (Inventar auf y 120), Zeilen 28 px: Name + Stufe, darunter der Name in den
+  Verzauberungs-Glyphen (Vanilla-Schrift `minecraft:alt`), darunter der Regler mit Lücken zwischen den Stufen und
+  einem kleinen Strich je Stufe (gewählte Stufe gold).
+- Der „Plus/Minus“-Knopf unter Lapis/Lohenstaub war der Verzaubern-Knopf: ein Stern (sah aus wie „+“) und die
+  Level-Kosten, „-“ ohne Wahl. Jetzt zeigt er ein verzaubertes Buch und die Kosten; Tooltip wie bisher.
+- Ziehen: Client-Test `astral-enchanter` (AstralEnchanterClientTest) drückt, zieht und lässt los über den echten
+  Fensterpfad (MouseHandler) und prüft Client- und Server-Wert des Reglers.
