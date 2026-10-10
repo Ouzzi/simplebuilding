@@ -2,107 +2,322 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
 <title>Simplemods Zentrale</title>
 <style>
-:root{--bg:#f4f1ea;--fg:#2b2620;--mut:#6d6458;--card:#fffdf8;--line:#d9d1c3;--ok:#2f7d3a;--bad:#b3362b;--run:#a86b00;--acc:#3b5b8c}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#1d1b18;--fg:#ece6dc;--mut:#a69d90;--card:#262320;--line:#3a352f;--ok:#6cc27a;--bad:#ff7a6b;--run:#e0a640;--acc:#8fb0e8}}
-:root[data-theme=dark]{--bg:#1d1b18;--fg:#ece6dc;--mut:#a69d90;--card:#262320;--line:#3a352f;--ok:#6cc27a;--bad:#ff7a6b;--run:#e0a640;--acc:#8fb0e8}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif}
-header{padding:16px;border-bottom:1px solid var(--line);display:flex;gap:16px;flex-wrap:wrap;align-items:baseline}
-h1{font-size:20px;margin:0}nav a{margin-right:14px;color:var(--acc);text-decoration:none;font-weight:600}nav a.on{text-decoration:underline}
-main{max-width:1100px;margin:0 auto;padding:16px}section{display:none}section.on{display:block}
-.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:0 0 12px}
-.card h3{margin:0 0 6px;font-size:15px}pre{white-space:pre-wrap;word-break:break-word;margin:0;font:12.5px/1.45 ui-monospace,Consolas,monospace;color:var(--mut)}
-.ok{color:var(--ok)}.bad{color:var(--bad)}.run{color:var(--run)}.mut{color:var(--mut)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
-button,a.btn{background:var(--acc);color:#fff;border:0;border-radius:6px;padding:9px 14px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;margin:4px 6px 4px 0}
-code{font:13px ui-monospace,Consolas,monospace;background:var(--bg);padding:1px 4px;border-radius:4px}
-table{border-collapse:collapse;width:100%;font-size:13.5px}th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--mut);font-weight:600}
-td.num{font-variant-numeric:tabular-nums;text-align:right}.md h2,.md h3{font-size:15px;margin:14px 0 6px}.md p{margin:4px 0}
+:root{--bg:#f4f1ea;--fg:#2b2620;--mut:#6d6458;--card:#fffdf8;--sunk:#ebe6dc;--line:#d9d1c3;
+ --ok:#2f7d3a;--ok-bg:#e3f1e3;--bad:#b3362b;--bad-bg:#f8e1dd;--run:#9a6200;--run-bg:#f6ead0;--acc:#3b5b8c;--acc-bg:#e2e9f4;--onacc:#fff;
+ --r:10px;--gap:12px;--mono:ui-monospace,SFMono-Regular,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#1a1816;--fg:#ece6dc;--mut:#a69d90;--card:#24211e;--sunk:#1f1c19;--line:#3a352f;
+ --ok:#6cc27a;--ok-bg:#1f3322;--bad:#ff7a6b;--bad-bg:#3d201c;--run:#e0a640;--run-bg:#3a2d14;--acc:#8fb0e8;--acc-bg:#25324a;--onacc:#10151f}}
+:root[data-theme=dark]{--bg:#1a1816;--fg:#ece6dc;--mut:#a69d90;--card:#24211e;--sunk:#1f1c19;--line:#3a352f;
+ --ok:#6cc27a;--ok-bg:#1f3322;--bad:#ff7a6b;--bad-bg:#3d201c;--run:#e0a640;--run-bg:#3a2d14;--acc:#8fb0e8;--acc-bg:#25324a;--onacc:#10151f}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--acc)}
+/* header + tabs */
+header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.top{max-width:1100px;margin:0 auto;padding:10px 16px 0;display:flex;align-items:center;gap:10px}
+h1{font-size:18px;margin:0;white-space:nowrap;font-weight:700;letter-spacing:-.01em}
+.stamp{margin-left:auto;font-size:12.5px;color:var(--mut);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.stamp.err{color:var(--bad)}
+.iconbtn{background:none;border:1px solid var(--line);color:var(--fg);border-radius:8px;min-width:36px;height:36px;cursor:pointer;font-size:15px}
+nav{max-width:1100px;margin:0 auto;padding:6px 12px 0;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:none;display:flex;align-items:center;gap:6px;padding:9px 12px 10px;color:var(--mut);text-decoration:none;font-weight:600;font-size:14px;border-bottom:2px solid transparent;white-space:nowrap}
+nav a:hover{color:var(--fg)}
+nav a.on{color:var(--fg);border-bottom-color:var(--acc)}
+.badge{font-size:11px;line-height:1;padding:3px 6px;border-radius:99px;background:var(--sunk);color:var(--mut);font-weight:700}
+.badge.bad{background:var(--bad);color:#fff}.badge.run{background:var(--run);color:#fff}
+.badge:empty{display:none}
+/* layout */
+main{max-width:1100px;margin:0 auto;padding:16px 16px 48px}
+section{display:none}section.on{display:block}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:24px 0 8px;font-weight:700}
+section>h2:first-child{margin-top:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin:0 0 var(--gap)}
+.card h3{margin:0 0 8px;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--gap)}
+.grid>.card{margin:0}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.run{color:var(--run)}
+.small{font-size:13px}
+pre{white-space:pre-wrap;word-break:break-word;margin:0;font:12.5px/1.5 var(--mono);color:var(--mut)}
+pre.bad{color:var(--bad)}
+code,.mono{font-family:var(--mono);font-size:12.5px}
+code{background:var(--sunk);padding:1px 5px;border-radius:4px}
+/* tiles */
+.card.tile{color:var(--fg)}.tile{display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile .lbl{font-size:12px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.tile .big{font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px;min-width:0}
+.tile .big>span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tile .sub{font-size:13px;color:var(--mut);overflow-wrap:anywhere}
+.tile .clamp{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.tile.bad{border-color:var(--bad);background:var(--bad-bg)}.tile.run{border-color:var(--run)}
+.dot{flex:none;width:11px;height:11px;border-radius:50%;background:var(--mut);display:inline-block}
+.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}.dot.run{background:var(--run);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.dot.run{animation:none}}
+.bar{height:6px;border-radius:99px;background:var(--sunk);overflow:hidden;margin-top:4px}
+.bar>i{display:block;height:100%;background:var(--run);border-radius:99px}
+.bar.ok>i{background:var(--ok)}
+/* chips + buttons */
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--sunk);color:var(--mut);white-space:nowrap}
+.chip.ok{background:var(--ok-bg);color:var(--ok)}.chip.bad{background:var(--bad-bg);color:var(--bad)}.chip.run{background:var(--run-bg);color:var(--run)}.chip.acc{background:var(--acc-bg);color:var(--acc)}
+button,a.btn{font:inherit;font-weight:600;font-size:14px;background:var(--acc);color:var(--onacc);border:0;border-radius:8px;padding:10px 16px;min-height:42px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-align:center}
+button.ghost,a.btn.ghost{background:var(--acc-bg);color:var(--acc)}
+button.danger{background:var(--bad-bg);color:var(--bad)}
+button.sm,a.btn.sm{min-height:34px;padding:6px 12px;font-size:13px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.start{border-color:var(--acc);background:linear-gradient(0deg,var(--card),var(--acc-bg))}
+.start .btns a{flex:1 1 200px}
+/* gate cards */
+details.gate{color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:0 0 10px;overflow:hidden}
+details.gate.bad{border-left:4px solid var(--bad)}details.gate.ok{border-left:4px solid var(--ok)}details.gate.run{border-left:4px solid var(--run)}
+details>summary{list-style:none;cursor:pointer}
+details>summary::-webkit-details-marker{display:none}
+.gate>summary{padding:12px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.gate>summary .bar{order:2}.gate>summary::after{order:1;content:"▸";margin-left:auto;color:var(--mut);transition:transform .15s}
+.gate[open]>summary::after{transform:rotate(90deg)}
+.gate .ref{font-family:var(--mono);font-weight:700}
+.gate .body{padding:0 16px 14px;border-top:1px solid var(--line)}
+.steps{list-style:none;margin:10px 0;padding:0;display:grid;gap:6px}
+.steps li{display:flex;gap:10px;align-items:baseline;font-size:13.5px}
+.steps .name{flex:none;width:96px;color:var(--mut);font-weight:600}
+.steps .val{min-width:0;overflow-wrap:anywhere}
+.fails{margin:8px 0;padding:10px 12px;border-radius:8px;background:var(--bad-bg)}
+.fails h4{margin:0 0 6px;font-size:13px;color:var(--bad)}
+.fails ul{margin:0 0 6px;padding-left:18px;font:12.5px/1.5 var(--mono);overflow-wrap:anywhere}
+details.raw{margin-top:8px}
+details.raw>summary{font-size:13px;color:var(--acc);font-weight:600;padding:4px 0}
+details.raw pre{background:var(--sunk);padding:10px;border-radius:8px;margin-top:6px;max-height:420px;overflow:auto}
+/* lists + tables */
+.list{list-style:none;margin:0;padding:0}
+.list li{padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:10px;font-size:13.5px;min-width:0;align-items:baseline}
+.list li:last-child{border-bottom:0}
+.list li>span:last-child{min-width:0;overflow-wrap:anywhere}
+.list .hash{color:var(--acc);flex:none}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+tr.bad{color:var(--fg)}tr.bad td{background:var(--bad-bg)}
+td.num,th.num{font-variant-numeric:tabular-nums;text-align:right}
+td.mono{overflow-wrap:anywhere}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-bottom:10px}
+.toolbar label{font-size:14px;display:flex;gap:6px;align-items:center}
+.md h3{font-size:15px;margin:16px 0 6px}.md p{margin:4px 0}.md ul{margin:4px 0;padding-left:20px}
+.empty{color:var(--mut);font-size:14px;margin:4px 0}
+.alert{border-color:var(--bad);background:var(--bad-bg)}
+.alert h3{color:var(--bad)}
+.alert ul{margin:0;padding-left:18px}.alert li{margin:3px 0}
+/* ki queue entries */
+.entry{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:0 0 8px;background:var(--card)}
+.entry .t{font-weight:600;overflow-wrap:anywhere}
+.entry .meta{font-size:12.5px;color:var(--mut);display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin:4px 0 6px}
+.entry .c{font-size:14px;margin:4px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+@media (max-width:600px){
+ main{padding:12px 12px 40px}.top{padding:8px 12px 0;gap:8px}nav{padding:2px 4px 0}nav a{padding:9px 10px 10px}
+ h1{font-size:16px}.stamp .txt{display:none}.stamp.err .txt{display:inline}
+ .grid{grid-template-columns:1fr 1fr;gap:10px}.grid.one{grid-template-columns:1fr}
+ .tile .big{font-size:15px}.card{padding:12px}
+ .steps .name{width:76px}
+ .start .btns a{flex:1 1 100%}
+}
+@media (max-width:360px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header><h1>Simplemods Zentrale</h1>
-<nav><a href="#status" data-t="status">Status</a><a href="#start" data-t="start">Laptop-Start</a><a href="#tests" data-t="tests">Tests</a><a href="#roadmap" data-t="roadmap">Roadmap</a><a href="#links" data-t="links">Links</a><a href="#dev" data-t="dev">Wiki (dev)</a><a href="#kiqueue" data-t="kiqueue">KI-Queue</a></nav>
-<span class="mut" id="stamp"></span></header>
+<header>
+ <div class="top"><h1>Simplemods Zentrale</h1>
+  <span class="stamp" id="stamp"><span class="dot" id="livedot"></span><span class="txt" id="stamptxt">lädt …</span></span>
+  <button class="iconbtn" id="reload" title="Jetzt aktualisieren" aria-label="Jetzt aktualisieren">↻</button>
+  <button class="iconbtn" id="theme" title="Farbschema" aria-label="Farbschema wechseln">◐</button></div>
+ <nav>
+  <a href="#status" data-t="status">Status <span class="badge" id="b-status"></span></a>
+  <a href="#start" data-t="start">Laptop-Start</a>
+  <a href="#tests" data-t="tests">Tests <span class="badge" id="b-tests"></span></a>
+  <a href="#roadmap" data-t="roadmap">Roadmap <span class="badge" id="b-roadmap"></span></a>
+  <a href="#links" data-t="links">Links</a>
+  <a href="#dev" data-t="dev">Wiki (dev)</a>
+  <a href="#kiqueue" data-t="kiqueue">KI-Queue <span class="badge" id="b-kiqueue"></span></a>
+ </nav>
+</header>
 <main>
 <section id="status">
-  <div class="grid"><div class="card"><h3>master (GitHub, öffentlich)</h3><pre id="master">…</pre></div>
-  <div class="card"><h3>claude-wave1 (Arbeitsstand)</h3><pre id="wave">…</pre></div></div>
-  <div class="card"><h3>Warteschlange Testrechner</h3><pre id="queue">…</pre></div>
+  <h2>Überblick</h2>
+  <div class="grid" id="overview"></div>
+  <div id="problems"></div>
+  <div class="card start" style="margin-top:var(--gap)"><h3>Laptop-Start</h3>
+   <div class="btns">
+    <a class="btn" href="simplemods://start?ref=wave">▶ Neuester Arbeitsstand starten</a>
+    <a class="btn ghost" href="simplemods://start?ref=master">▶ master (geprüft) starten</a>
+    <a class="btn ghost" href="simplemods://fetch?ref=wave">⤓ Nur holen</a>
+   </div></div>
   <h2>Gates</h2><div id="gates"></div>
+  <h2>Warteschlange Testrechner</h2><div class="card"><ul class="list" id="queue"></ul></div>
+  <h2>Hilfs-Jobs (opencode / Copilot)</h2><div id="jobs"></div>
   <h2>Nachtlauf</h2><div class="card"><pre id="night">…</pre></div>
-  <h2>Hilfs-Jobs (opencode / Copilot)</h2><div class="grid" id="jobs"></div>
-  <h2>Letzte Commits (Arbeitsstand)</h2><div class="card"><pre id="wavelog">…</pre></div>
+  <h2>Letzte Commits (Arbeitsstand)</h2><div class="card"><ul class="list" id="wavelog"></ul></div>
 </section>
 <section id="tests">
-  <div class="card"><h3>Testzentralen: letzte Ergebnisse je Ziel</h3><p class="mut">Aus dem neuesten Gate und dem letzten Nachtlauf. Rot = Handlungsbedarf, Grau = ohne Ergebnis.</p>
-  <div style="overflow-x:auto"><table id="testtab"></table></div></div>
-  <div class="card"><h3>Gate-Logs</h3><div id="logs"></div></div>
+  <div class="card"><h3>Testzentralen: letzte Ergebnisse je Ziel</h3>
+  <p class="mut small">Aus dem neuesten Gate und dem letzten Nachtlauf. Rot steht oben.</p>
+  <div class="toolbar"><label><input type="checkbox" id="onlyred"> nur Rot</label><span class="small mut" id="testsum"></span></div>
+  <div class="scroll"><table id="testtab"></table></div></div>
+  <div class="card"><h3>Gate-Logs</h3><div class="btns" id="logs"></div></div>
 </section>
 <section id="roadmap">
-  <div class="card"><h3>Offene Queue-Punkte je Nachtrag</h3><div style="overflow-x:auto"><table id="queueopen"></table></div></div>
+  <div class="card"><h3>Offene Queue-Punkte je Nachtrag</h3><div class="scroll"><table id="queueopen"></table></div></div>
   <div class="card"><h3 id="rmfile">Roadmap</h3><div id="rm" class="md"></div></div>
 </section>
 <section id="start">
-  <div class="card"><h3>Dev-Instanz auf diesem Laptop starten</h3>
+  <div class="card start"><h3>Dev-Instanz auf diesem Laptop starten</h3>
   <p>Nur wenn der Laptop-Starter eingerichtet ist (<code>simplemods://</code>). Er holt den gewählten Stand und startet den Integration-Client (Fabric 26.3, alle Module).</p>
-  <a class="btn" href="simplemods://start?ref=wave">Neuester Arbeitsstand starten</a>
-  <a class="btn" href="simplemods://start?ref=master">master (geprüft) starten</a>
-  <a class="btn" href="simplemods://fetch?ref=wave">Nur holen</a>
-  <p class="mut">Ohne Starter passiert nichts. Einrichtung: siehe <code>tools/laptop-starter</code> bzw. Claude fragen.</p></div>
+  <div class="btns">
+   <a class="btn" href="simplemods://start?ref=wave">▶ Neuester Arbeitsstand starten</a>
+   <a class="btn ghost" href="simplemods://start?ref=master">▶ master (geprüft) starten</a>
+   <a class="btn ghost" href="simplemods://fetch?ref=wave">⤓ Nur holen</a>
+  </div>
+  <p class="mut small">Ohne Starter passiert nichts. Einrichtung: siehe <code>tools/laptop-starter</code> bzw. Claude fragen.</p></div>
 </section>
 <section id="links">
-  <div class="card"><h3>Wiki</h3><a class="btn" href="https://simplemods-wiki.azarfane.com">Wiki (master)</a><a class="btn" href="https://simplemods-wiki-dev.azarfane.com">Wiki-dev (Arbeitsstand)</a></div>
-  <div class="card"><h3>Repo</h3><a class="btn" href="https://github.com/Ouzzi/simplebuilding">GitHub</a></div>
+  <div class="card"><h3>Wiki</h3><div class="btns"><a class="btn" href="https://simplemods-wiki.azarfane.com">Wiki (master)</a><a class="btn ghost" href="https://simplemods-wiki-dev.azarfane.com">Wiki-dev (Arbeitsstand)</a></div></div>
+  <div class="card"><h3>Repo</h3><div class="btns"><a class="btn ghost" href="https://github.com/Ouzzi/simplebuilding">GitHub</a></div></div>
 </section>
 <section id="dev">
-  <div class="card"><h3>Wiki (dev)</h3><a class="btn" href="/wiki/" target="_blank" rel="noopener">Wiki (dev) öffnen</a></div>
+  <div class="card"><h3>Wiki (dev)</h3><p class="mut small">Spiegel des Arbeitsstands mit Auswahlkästchen: Texturen und Items lassen sich direkt in die KI-Queue legen.</p>
+  <div class="btns"><a class="btn" href="/wiki/" target="_blank" rel="noopener">Wiki (dev) öffnen ↗</a></div></div>
 </section>
 <section id="kiqueue">
   <div class="card"><h3>KI-Queue</h3>
-    <p class="mut">Wünsche aus dem Wiki-Spiegel (Reiter „Wiki (dev)“). Ein Start gibt alle offenen Einträge auf einmal an Claude: Texturen macht Claude, Code verteilt Claude an Helfer-Jobs.</p>
-    <div id="queue-actions">
-      <button class="btn" onclick="devQueue.start('textures')">Texturen starten</button>
-      <button class="btn" onclick="devQueue.start('code')">Code starten</button>
-      <button class="btn" onclick="devQueue.start('all')">Alles starten</button>
-    </div>
-    <div id="queue-tx"></div>
-    <div id="queue-code"></div>
-    <h3>Läufe</h3>
-    <div id="queue-runs"></div>
-  </div>
+    <p class="mut small">Wünsche aus dem Wiki-Spiegel (Reiter „Wiki (dev)“). Ein Start gibt alle offenen Einträge auf einmal an Claude: Texturen macht Claude, Code verteilt Claude an Helfer-Jobs.</p>
+    <div class="btns" id="queue-actions">
+      <button onclick="devQueue.start('textures')">Texturen starten</button>
+      <button onclick="devQueue.start('code')">Code starten</button>
+      <button class="ghost" onclick="devQueue.start('all')">Alles starten</button>
+    </div></div>
+  <div id="queue-tx"></div>
+  <div id="queue-code"></div>
+  <h2>Läufe</h2>
+  <div class="card"><div id="queue-runs"></div></div>
 </section>
 </main>
 <script>
 const $=id=>document.getElementById(id);
-function tab(){const t=(location.hash||'#status').slice(1);document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===t));document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.t===t));}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+/* tabs */
+function tab(){const t=(location.hash||'#status').slice(1);const id=document.querySelector('section#'+CSS.escape(t))?t:'status';
+ document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===id));
+ document.querySelectorAll('nav a').forEach(a=>{const on=a.dataset.t===id;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});navScroll();}
+function navScroll(){const a=document.querySelector('nav a.on'),n=a&&a.parentNode;if(!n)return;if(a.offsetLeft<n.scrollLeft||a.offsetLeft+a.offsetWidth>n.scrollLeft+n.clientWidth)n.scrollLeft=a.offsetLeft-12;}
 addEventListener('hashchange',tab);tab();
-const cls=s=>/VERDICT: GREEN|alles gruen/.test(s)&&!/RED|NICHT gruen/.test(s)?'ok':/RED|NICHT gruen|NOT PUSHED|FEHLER/.test(s)?'bad':/DONE/.test(s)?'mut':'run';
-function md(s){const out=[];let tbl=null;for(const raw of s.split('\n')){const l=raw.trimEnd();
- if(/^\|/.test(l)){if(/^\|[-| :]+\|$/.test(l))continue;const c=l.slice(1,-1).split('|').map(x=>esc(x.trim()));if(!tbl){const rows=tbl=[];out.push(()=>'<div style="overflow-x:auto"><table>'+rows.map((r,i)=>'<tr>'+r.map(x=>i?`<td>${x}</td>`:`<th>${x}</th>`).join('')+'</tr>').join('')+'</table></div>');}tbl.push(c);continue;}
- tbl=null;if(/^#{1,3} /.test(l))out.push('<h3>'+esc(l.replace(/^#+ /,''))+'</h3>');else if(l)out.push('<p>'+esc(l)+'</p>');}
+/* theme: auto -> light -> dark (remembered per browser) */
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch(e){}}};
+function applyTheme(t){const r=document.documentElement;if(t)r.dataset.theme=t;else delete r.dataset.theme;$('theme').textContent=t==='light'?'☀':t==='dark'?'☾':'◐';$('theme').title='Farbschema: '+(t==='light'?'hell':t==='dark'?'dunkel':'automatisch');}
+applyTheme(store.get('zentrale-theme'));
+$('theme').onclick=()=>{const c=store.get('zentrale-theme');const n=!c?'light':c==='light'?'dark':'';store.set('zentrale-theme',n);applyTheme(n);};
+/* helpers */
+const cls=s=>/VERDICT: GREEN|alles gruen/.test(s)&&!/RED|NICHT gruen/.test(s)?'ok':/RED|NICHT gruen|NOT GREEN|NOT PUSHED|FEHLER/.test(s)?'bad':/DONE/.test(s)?'mut':'run';
+function ago(iso){const t=Date.parse(iso);if(!t)return '';const m=Math.round((Date.now()-t)/60000);if(m<1)return 'gerade eben';if(m<60)return 'vor '+m+' min';const h=Math.round(m/60);if(h<48)return 'vor '+h+' h';return 'vor '+Math.round(h/24)+' Tagen';}
+function dur(a,b){const d=(Date.parse(b)||Date.now())-Date.parse(a);if(!(d>=0))return '';const m=Math.round(d/60000);return m<60?m+' min':Math.floor(m/60)+' h '+(m%60)+' min';}
+/* "<hash> <subject> [<ISO date>]" */
+function commit(s){if(!s)return null;const p=String(s).trim().split(' ');const iso=/^\d{4}-\d\d-\d\dT/.test(p[p.length-1])?p.pop():'';return {hash:p.shift(),subject:p.join(' '),iso};}
+function md(s){const out=[];let tbl=null,ul=null;for(const raw of s.split('\n')){const l=raw.trimEnd();
+ if(/^\|/.test(l)){ul=null;if(/^\|[-| :]+\|$/.test(l))continue;const c=l.slice(1,-1).split('|').map(x=>esc(x.trim()));if(!tbl){const rows=tbl=[];out.push(()=>'<div class="scroll"><table>'+rows.map((r,i)=>'<tr>'+r.map(x=>i?`<td>${x}</td>`:`<th>${x}</th>`).join('')+'</tr>').join('')+'</table></div>');}tbl.push(c);continue;}
+ tbl=null;
+ if(/^\s*[-*] /.test(l)){if(!ul){const items=ul=[];out.push(()=>'<ul>'+items.map(x=>'<li>'+x+'</li>').join('')+'</ul>');}ul.push(esc(l.replace(/^\s*[-*] /,'')));continue;}
+ ul=null;if(/^#{1,4} /.test(l))out.push('<h3>'+esc(l.replace(/^#+ /,''))+'</h3>');else if(l)out.push('<p>'+esc(l)+'</p>');}
  return out.map(x=>typeof x==='function'?x():x).join('');}
-function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
-async function load(){
-  try{const r=await fetch('status.json?'+Date.now());const d=await r.json();
-    $('master').textContent=d.master||'–';$('wave').textContent=d.wave||'–';
-    $('queue').textContent=(d.queue||[]).join('\n')||'leer';
-    $('gates').innerHTML=(d.gates||[]).map(g=>{const done=/DONE/.test(g.text);const c=done?cls(g.text):'run';return `<div class="card"><h3 class="${c}">${esc(g.ref)} – ${done?(c==='ok'?'GRÜN':'ROT'):'läuft'}</h3><pre>${esc(g.text)}</pre></div>`}).join('')||'<p class="mut">keine</p>';
-    $('night').textContent=d.nightly||'–';
-    $('jobs').innerHTML=(d.jobs||[]).map(j=>`<div class="card"><h3>${esc(j.job)}</h3><pre>${esc(j.tail)}</pre></div>`).join('');
-    $('wavelog').textContent=(d.waveLog||[]).join('\n');
-    $('testtab').innerHTML='<tr><th>Quelle</th><th>Ziel</th><th>Ergebnis</th></tr>'+(d.tests||[]).map(x=>`<tr><td>${esc(x.source)}</td><td>${esc(x.target)}</td><td class="${cls(x.result)}">${esc(x.result)}</td></tr>`).join('');
-    $('logs').innerHTML=(d.logs||[]).map(r=>`<a class="btn" href="logs/${esc(r)}.log" target="_blank" rel="noopener">${esc(r)}</a>`).join('')||'<span class="mut">keine</span>';
-    $('queueopen').innerHTML='<tr><th>Nachtrag</th><th class="num">offen</th><th class="num">erledigt</th></tr>'+(d.queueOpen||[]).map(q=>`<tr><td>${esc(q.title)}</td><td class="num">${q.open}</td><td class="num">${q.done}</td></tr>`).join('');
-    $('rmfile').textContent='Roadmap ('+(d.roadmapFile||'–')+')';$('rm').innerHTML=md(d.roadmap||'');
-    $('stamp').textContent='aktualisiert '+new Date().toLocaleTimeString('de-DE');
-  }catch(e){$('stamp').textContent='Status nicht erreichbar';}
+/* gate chain text (start / gate: / check: / tests [..]: / ROT .. / standalone: / push / DONE) -> structure */
+const STAGES=5;
+function parseGate(g){const text=g.text||'';const done=/^DONE/m.test(text);
+ const start=(/^start (\S+)/m.exec(text)||[])[1]||'';const end=(/^DONE (\S+)/m.exec(text)||[])[1]||'';
+ const steps=[],fails={},other=[];
+ for(const l of text.split('\n')){let m;
+  if(m=/^\s*ROT (\S+) (.+)$/.exec(l)){(fails[m[1]]=fails[m[1]]||[]).push(m[2]);continue;}
+  if(m=/^(gate|check|tests(?: \[([^\]]*)\])?|standalone):\s*(.*)$/.exec(l)){const k=m[1].split(' ')[0],targets=m[2]||'';
+   const name={gate:'Gate',check:'Check',standalone:'Standalone'}[k]||(/module-|integration/.test(targets)?'Module':'Loader');
+   steps.push({name,val:m[3],c:/^\s*OK\b/.test(m[3])?'ok':cls(m[3])});continue;}
+  if(m=/^tests \[([^\]]*)$/.exec(l)){steps.push({name:/module-|integration/.test(m[1])?'Module':'Loader',val:'',c:'cut'});continue;} // chain lines are cut at 200 chars
+  if(/^(start|DONE)\b/.test(l)||!l.trim())continue;other.push(l.trim());}
+ const nfail=Object.values(fails).reduce((a,x)=>a+x.length,0);
+ steps.forEach(s=>{if(s.c==='cut'){s.c=nfail?'bad':done?'mut':'run';s.val=nfail?nfail+' rot (siehe unten)':done?'Ergebnis im Log':'läuft';}});
+ return {ref:g.ref,text,done,start,end,steps,fails,nfail,other,verdict:done?cls(text):'run',pct:done?100:Math.min(95,Math.round(steps.length/STAGES*100))};}
+const vword=v=>v==='ok'?'GRÜN':v==='bad'?'ROT':v==='run'?'läuft':'fertig';
+function gateCard(p,open){const fl=Object.entries(p.fails);
+ return `<details class="gate ${p.verdict}"${open?' open':''}><summary><span class="dot ${p.verdict}"></span><span class="ref">${esc(p.ref)}</span><span class="chip ${p.verdict}">${vword(p.verdict)}</span>`+
+  (p.nfail?`<span class="chip bad">${p.nfail} rot</span>`:'')+
+  `<span class="small mut">${p.done?esc(ago(p.end))+' · '+esc(dur(p.start,p.end)):'seit '+esc(dur(p.start))+' · Schritt '+p.steps.length+'/'+STAGES}</span>`+
+  (p.done?'':`<div class="bar" style="flex-basis:100%"><i style="width:${p.pct}%"></i></div>`)+`</summary><div class="body">`+
+  (p.steps.length?'<ul class="steps">'+p.steps.map(s=>`<li><span class="name">${esc(s.name)}</span><span class="val"><span class="chip ${s.c}">${s.c==='ok'?'✓':s.c==='bad'?'✕':'…'}</span> ${esc(s.val)}</span></li>`).join('')+'</ul>':'')+
+  (fl.length?'<div class="fails"><h4>Rote Tests ('+p.nfail+')</h4>'+fl.map(([t,a])=>`<div class="small"><b>${esc(t)}</b> · ${a.length}</div><ul>${a.slice(0,10).map(x=>'<li>'+esc(x)+'</li>').join('')}${a.length>10?'<li>… '+(a.length-10)+' weitere (Rohtext)</li>':''}</ul>`).join('')+'</div>':'')+
+  (p.other.length?'<div class="small mut">'+p.other.map(esc).join(' · ')+'</div>':'')+
+  `<details class="raw"><summary>Rohtext anzeigen</summary><pre>${esc(p.text)}</pre></details>`+
+  (state.logs.includes(p.ref)?`<p class="small" style="margin:8px 0 0"><a href="logs/${esc(p.ref)}.log" target="_blank" rel="noopener">Volles Log ↗</a></p>`:'')+
+  '</div></details>';}
+function tile(label,big,sub,c,dot){return `<div class="card tile ${c||''}"><span class="lbl">${esc(label)}</span><span class="big">${dot?`<span class="dot ${dot}"></span>`:''}<span>${big}</span></span><span class="sub">${sub}</span></div>`;}
+const state={logs:[],data:null,openGates:null};
+function render(d){
+ state.logs=d.logs||[];
+ const gates=(d.gates||[]).map(parseGate).sort((a,b)=>(Date.parse(b.start)||0)-(Date.parse(a.start)||0));
+ const newest=gates[0],running=gates.filter(g=>!g.done),lastDone=gates.find(g=>g.done);
+ const m=commit(d.master),w=commit(d.wave),q=d.queue||[];
+ /* overview */
+ const sub=c=>c?`<span class="clamp">${esc(c.subject)}</span>${c.iso?esc(ago(c.iso)):''}`:'';
+ let gt;
+ if(running.length){const g=running[0];gt=tile('Gate läuft',esc(g.ref),`Schritt ${g.steps.length}/${STAGES} · seit ${esc(dur(g.start))}${g.nfail?' · <b class="bad">'+g.nfail+' rot</b>':''}<div class="bar"><i style="width:${g.pct}%"></i></div>`,'run','run');}
+ else if(lastDone)gt=tile('Letztes Gate',esc(lastDone.ref)+' · '+vword(lastDone.verdict),(lastDone.nfail?lastDone.nfail+' rote Tests · ':'')+esc(ago(lastDone.end)),lastDone.verdict==='bad'?'bad':'',lastDone.verdict);
+ else gt=tile('Gate','–','keine Läufe');
+ $('overview').innerHTML=tile('master (GitHub)',m?esc(m.hash):'–',sub(m),'','ok')+tile('Arbeitsstand (wave1)',w?esc(w.hash):'–',sub(w),'','')+gt+
+  tile('Warteschlange',q.length?q.length+(q.length===1?' Lauf':' Läufe'):'leer',q.length?'<span class="clamp mono">'+esc(q[0])+'</span>':'nichts wartet','',q.length?'run':'');
+ /* problems */
+ const redTests=(d.tests||[]).filter(x=>cls(x.result||'')==='bad');
+ const badJobs=(d.jobs||[]).filter(j=>/JOBRC=[1-9]|FEHLER|error:|NICHT gruen/.test(j.tail||''));
+ const probs=[];
+ if(lastDone&&lastDone.verdict==='bad'){const t=Object.entries(lastDone.fails).map(([k,a])=>`${esc(k)} (${a.length})`).join(', ');probs.push(`<li><b>Gate ${esc(lastDone.ref)} ROT</b>${t?': '+t:''} · <a href="#status" data-open="${esc(lastDone.ref)}">Details</a></li>`);}
+ if(redTests.length)probs.push(`<li><b>${redTests.length} Testziele rot</b>: ${redTests.slice(0,5).map(x=>esc(x.target)).join(', ')}${redTests.length>5?' …':''} · <a href="#tests">Tests</a></li>`);
+ badJobs.forEach(j=>probs.push(`<li><b>Job ${esc(j.job)}</b> meldet einen Fehler</li>`));
+ $('problems').innerHTML=probs.length?`<div class="card alert" style="margin-top:var(--gap)"><h3>Handlungsbedarf</h3><ul>${probs.join('')}</ul></div>`:'';
+ /* gates: running, red, rest; open state survives the 30 s refresh */
+ const was=state.openGates;const rank=g=>g.verdict==='run'?0:g.verdict==='bad'?1:2;
+ $('gates').innerHTML=gates.slice().sort((a,b)=>rank(a)-rank(b)).map(g=>gateCard(g,was?was.has(g.ref):(g===newest||!g.done))).join('')||'<p class="empty">keine</p>';
+ $('queue').innerHTML=q.length?q.map((x,i)=>`<li><span class="chip ${i?'':'run'}">${i?'#'+(i+1):'läuft'}</span><span class="mono">${esc(x)}</span></li>`).join(''):'<li class="mut">leer</li>';
+ $('night').textContent=d.nightly||'–';$('night').className=cls(d.nightly||'')==='bad'?'bad':'';
+ $('jobs').innerHTML=(d.jobs||[]).length?'<div class="grid one" style="grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))">'+(d.jobs||[]).map(j=>{const bad=badJobs.includes(j),ok=/JOBRC=0\s*$/.test(j.tail||'');
+   return `<div class="card"><h3 style="display:flex;gap:8px;align-items:center"><span class="dot ${bad?'bad':ok?'ok':'run'}"></span><span class="mono" style="font-size:13.5px;overflow-wrap:anywhere">${esc(j.job)}</span></h3><pre>${esc(j.tail)}</pre></div>`;}).join('')+'</div>':'<p class="empty">keine</p>';
+ $('wavelog').innerHTML=(d.waveLog||[]).map(l=>{const c=commit(l);return `<li><span class="mono hash">${esc(c.hash)}</span><span>${esc(c.subject)}</span></li>`;}).join('')||'<li class="mut">–</li>';
+ /* tests: red first */
+ const ord={bad:0,run:1,mut:2,ok:3};const tests=(d.tests||[]).map(x=>{const c=cls(x.result||'');return {...x,c:c==='ok'||c==='bad'?c:'mut'};}).sort((a,b)=>ord[a.c]-ord[b.c]);
+ const only=$('onlyred').checked;
+ $('testtab').innerHTML='<tr><th>Ergebnis</th><th>Ziel</th><th>Quelle</th></tr>'+tests.filter(x=>!only||x.c==='bad').map(x=>`<tr class="${x.c==='bad'?'bad':''}"><td><span class="chip ${x.c}">${x.c==='ok'?'grün':x.c==='bad'?'rot':x.c==='run'?'läuft':'–'}</span> <span class="small">${esc(x.result)}</span></td><td class="mono">${esc(x.target)}</td><td class="small mut">${esc(x.source)}</td></tr>`).join('');
+ $('testsum').textContent=tests.length?`${tests.filter(x=>x.c==='ok').length} grün · ${redTests.length} rot · ${tests.length} gesamt`:'keine Ergebnisse';
+ $('logs').innerHTML=state.logs.map(r=>`<a class="btn ghost sm mono" href="logs/${esc(r)}.log" target="_blank" rel="noopener">${esc(r)}</a>`).join('')||'<span class="empty">keine</span>';
+ /* roadmap */
+ const qo=d.queueOpen||[];
+ $('queueopen').innerHTML='<tr><th>Nachtrag</th><th class="num">offen</th><th class="num">erledigt</th><th style="width:28%">Fortschritt</th></tr>'+qo.map(x=>{const t=(+x.open||0)+(+x.done||0),p=t?Math.round(x.done/t*100):0;
+   return `<tr><td>${esc(x.title)}</td><td class="num ${x.open?'run':''}">${esc(x.open)}</td><td class="num">${esc(x.done)}</td><td><div class="bar ok"><i style="width:${p}%"></i></div></td></tr>`;}).join('');
+ $('rmfile').textContent='Roadmap ('+(d.roadmapFile||'–')+')';$('rm').innerHTML=md(d.roadmap||'');
+ /* tab badges */
+ const red=lastDone&&lastDone.verdict==='bad';const sb=$('b-status');sb.className='badge '+(running.length?'run':red?'bad':'');sb.textContent=running.length?'läuft':red?'rot':'';
+ const tb=$('b-tests');tb.className='badge '+(redTests.length?'bad':'');tb.textContent=redTests.length||'';
+ $('b-roadmap').textContent=qo.reduce((a,x)=>a+(+x.open||0),0)||'';navScroll();
 }
+async function load(){
+  if(document.querySelector('#gates details.gate'))state.openGates=new Set([...document.querySelectorAll('#gates details.gate[open] .ref')].map(x=>x.textContent));
+  try{const r=await fetch('status.json?'+Date.now());if(!r.ok)throw 0;const d=await r.json();state.data=d;render(d);
+    $('stamp').classList.remove('err');$('livedot').className='dot ok';$('stamptxt').textContent='aktualisiert '+new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
+  }catch(e){$('stamp').classList.add('err');$('livedot').className='dot bad';$('stamptxt').textContent='Status nicht erreichbar';}
+}
+$('onlyred').onchange=()=>state.data&&render(state.data);
+$('reload').onclick=()=>{load();devQueueLoad();};
+document.addEventListener('click',e=>{const a=e.target.closest('[data-open]');if(!a)return;e.preventDefault();
+ const d=[...document.querySelectorAll('#gates details.gate')].find(x=>x.querySelector('.ref').textContent===a.dataset.open);if(d){d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'});}});
 load();setInterval(load,30000);
 /* KI-Queue: entries from the wiki mirror, runs started from here (API /api/, behind the Zentrale login) */
 const devQueue={
+  items:{},
   async get(p){try{const r=await fetch('/api/'+p);return r.ok?r.json():[];}catch(e){return [];}},
   async call(method,p,body){const r=await fetch('/api/'+p,{method,headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});
     if(!r.ok){const j=await r.json().catch(()=>({}));alert('Fehler: '+(j.error||r.status));}return r;},
@@ -110,22 +325,25 @@ const devQueue={
     if(!open){alert('Nichts Offenes in dieser Kategorie.');return;}
     if(!confirm(open+' Einträge an Claude geben?'))return;await this.call('POST','run',{category:cat});devQueueLoad();},
   async del(id){if(!confirm('Eintrag löschen?'))return;await this.call('DELETE','queue/'+id);devQueueLoad();},
-  async edit(id,old){const c=prompt('Kommentar',old||'');if(c===null)return;await this.call('PATCH','queue/'+id,{comment:c});devQueueLoad();}
+  async edit(id,old){if(old===undefined)old=(this.items[id]||{}).comment;const c=prompt('Kommentar',old||'');if(c===null)return;await this.call('PATCH','queue/'+id,{comment:c});devQueueLoad();}
 };
+const qstate=s=>s==='open'?'run':s==='started'?'acc':s==='done'?'ok':'';
 function devList(title,arr){
-  if(!arr.length)return '<h3>'+title+'</h3><p class="mut">leer</p>';
-  return '<h3>'+title+' ('+arr.length+')</h3><div style="overflow-x:auto"><table><tr><th>Ziele</th><th>Kommentar</th><th>von</th><th>Zeit</th><th>Status</th><th>Lauf / Ergebnis</th><th></th></tr>'+
-    arr.map(it=>{const t=it.targets.map(x=>esc(x.label||x.id)).join(', ');const id=esc(it.id);
-      return `<tr><td>${t}</td><td>${esc(it.comment)||'<span class="mut">–</span>'}</td><td>${esc(it.by)}</td><td>${esc(new Date(it.createdAt).toLocaleString('de-DE'))}</td><td>${esc(it.status)}</td><td>${esc(it.run||'')} ${esc(it.result||'')}</td>`+
-        `<td><button onclick="devQueue.edit('${id}',${esc(JSON.stringify(it.comment||'')).replace(/"/g,'&quot;')})">Kommentar</button> <button onclick="devQueue.del('${id}')">Löschen</button></td></tr>`;}).join('')+'</table></div>';
+  if(!arr.length)return '<h2>'+title+'</h2><p class="empty">leer</p>';
+  return '<h2>'+title+' ('+arr.length+')</h2>'+arr.map(it=>{devQueue.items[it.id]=it;const t=(it.targets||[]).map(x=>esc(x.label||x.id)).join(', '),id=esc(it.id);
+   return `<div class="entry"><div class="t">${t||'<span class="mut">–</span>'}</div><div class="meta"><span class="chip ${qstate(it.status)}">${esc(it.status)}</span><span>${esc(it.by)}</span><span>${esc(new Date(it.createdAt).toLocaleString('de-DE',{dateStyle:'short',timeStyle:'short'}))}</span>${it.run?'<span class="mono">'+esc(it.run)+'</span>':''}</div>`+
+    (it.comment?`<div class="c">${esc(it.comment)}</div>`:'')+(it.result?`<div class="c small mut">${esc(it.result)}</div>`:'')+
+    `<div class="btns" style="margin-top:6px"><button class="ghost sm" data-qedit="${id}">Kommentar</button><button class="danger sm" data-qdel="${id}">Löschen</button></div></div>`;}).join('');
 }
+document.addEventListener('click',e=>{const b=e.target.closest('[data-qedit],[data-qdel]');if(!b)return;if(b.dataset.qedit)devQueue.edit(b.dataset.qedit);else devQueue.del(b.dataset.qdel);});
 async function devQueueLoad(){
   const [q,r]=await Promise.all([devQueue.get('queue'),devQueue.get('runs')]);
-  const live=q.filter(x=>x.status!=='done'&&x.status!=='dropped');
+  const live=q.filter(x=>x.status!=='done'&&x.status!=='dropped');devQueue.items={};
   $('queue-tx').innerHTML=devList('Texturen',live.filter(x=>x.category==='textures'));
   $('queue-code').innerHTML=devList('Code (Rezepte, Anmerkungen)',live.filter(x=>x.category==='code'));
-  $('queue-runs').innerHTML=r.length?'<div style="overflow-x:auto"><table><tr><th>Lauf</th><th>Kategorie</th><th>Einträge</th><th>Zustand</th><th>Notiz</th></tr>'+
-    r.map(x=>`<tr><td>${esc(x.id)}</td><td>${esc(x.category)}</td><td class="num">${x.entries.length}</td><td>${esc(x.state)}</td><td>${esc(x.note||'')}</td></tr>`).join('')+'</table></div>':'<p class="mut">keine</p>';
+  $('queue-runs').innerHTML=r.length?'<div class="scroll"><table><tr><th>Lauf</th><th>Kategorie</th><th class="num">Einträge</th><th>Zustand</th><th>Notiz</th></tr>'+
+    r.map(x=>`<tr><td class="mono">${esc(x.id)}</td><td>${esc(x.category)}</td><td class="num">${(x.entries||[]).length}</td><td><span class="chip ${/fail|err/.test(x.state)?'bad':/done|ok/.test(x.state)?'ok':'run'}">${esc(x.state)}</span></td><td class="small">${esc(x.note||'')}</td></tr>`).join('')+'</table></div>':'<p class="empty">keine</p>';
+  const n=live.filter(x=>x.status==='open').length,kb=$('b-kiqueue');kb.textContent=n||'';kb.className='badge '+(n?'run':'');navScroll();
 }
 devQueueLoad();setInterval(devQueueLoad,30000);
 </script>
