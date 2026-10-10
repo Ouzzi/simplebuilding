@@ -39,6 +39,12 @@ public final class SimpleLibNeoForge {
             if (key.equals(Registries.MENU)) LibMenus.register();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) LibRegistry.tab();
         });
+        bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent event) -> {
+            if (!com.simplelib.registry.LibRegistry.wantsStacks(event.getTabKey(),
+                    com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), "simplelib"))) return;
+            com.simplelib.registry.LibRegistry.tabStacks().forEach(s -> event.accept(s,
+                    net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        });
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.server.ServerAboutToStartEvent event) ->
                 com.simplelib.village.VillageKitchen.inject(event.getServer().registryAccess()));
         if (dist == Dist.CLIENT) SimpleLibNeoForgeClient.init(bus);

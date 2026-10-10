@@ -32,5 +32,15 @@ public final class LibRegistry {
         return out;
     }
 
+    /** SimpleBuilding's own functional tab: the crucibles etc. also belong there when that mod is installed. */
+    public static final net.minecraft.resources.Identifier SB_FUNCTIONAL_TAB =
+            net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "functional");
+
+    /** Whether {@code tab} should receive {@link #tabStacks()}: Vanilla functional blocks (if allowed) or SimpleBuilding's. */
+    public static boolean wantsStacks(net.minecraft.resources.ResourceKey<CreativeModeTab> tab, boolean vanillaAllowed) {
+        if (tab.identifier().equals(SB_FUNCTIONAL_TAB)) return true;
+        return vanillaAllowed && tab.equals(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS);
+    }
+
     private LibRegistry() {}
 }

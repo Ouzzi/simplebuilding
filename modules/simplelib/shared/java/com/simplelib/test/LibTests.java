@@ -35,6 +35,7 @@ public final class LibTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
 
     static {
+        ALL.put("creative_tab_routing", LibTests::creativeTabRouting);
         ALL.put("config_bounds", LibTests::configBounds);
         ALL.put("tier_layout", LibTests::tierLayout);
         ALL.put("heat_sources", LibTests::heatSources);
@@ -97,6 +98,19 @@ public final class LibTests {
     }
 
     // ------------------------------------------------------------ tests
+
+    private static void creativeTabRouting(GameTestHelper h) {
+        var vanilla = net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS;
+        var sb = net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.CREATIVE_MODE_TAB,
+                com.simplelib.registry.LibRegistry.SB_FUNCTIONAL_TAB);
+        var other = net.minecraft.world.item.CreativeModeTabs.COMBAT;
+        h.assertTrue(com.simplelib.registry.LibRegistry.wantsStacks(vanilla, true), "Vanilla functional tab gets no crucibles");
+        h.assertTrue(!com.simplelib.registry.LibRegistry.wantsStacks(vanilla, false), "Vanilla tab filled although switched off");
+        h.assertTrue(com.simplelib.registry.LibRegistry.wantsStacks(sb, false), "SimpleBuilding's tab skipped");
+        h.assertTrue(!com.simplelib.registry.LibRegistry.wantsStacks(other, true), "an unrelated tab gets crucibles");
+        h.assertTrue(!com.simplelib.registry.LibRegistry.tabStacks().isEmpty(), "nothing to route");
+        h.succeed();
+    }
 
     private static void configBounds(GameTestHelper h) {
         JsonObject json = new JsonObject();
