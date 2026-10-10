@@ -1,0 +1,31 @@
+# Audit SB-Gameplay (2026-10-11, Branch claude-audit-sb, Basis claude-wave1 42259fe62)
+
+Bereich: SimpleBuilding-Kern (Werkzeuge, Maschinen, Lager, Platzierbares, Achtel, Astral-Enchanter, Fahrzeuge, Pads/Gadgets,
+Verzauberungen), Code `common/src/shared/java/com/simplebuilding/**`, Daten `src/main`, `mc26_3/{generated,overlay}`.
+Kein Produktivcode geaendert. Skripte der Pruefungen: Python gegen `git ls-files` (Stand-Einordnung unten).
+
+## Funde
+
+| ID | Prio | Fund | Beleg | Vorschlag |
+|---|---|---|---|---|
+| SBG-01 | P3 | Britisches Englisch "armour" in zwei Testzentralen-Texten (Regel: amerikanisches Englisch) | `simplebuilding.testcentre.states.armour.worn` = "Worn armour", `...armour.new` = "New armour" in `src/main/resources/assets/simplebuilding/lang/en_us.json` (und Overlay) | "armor" schreiben (Schluessel duerfen bleiben) |
+| SBG-02 | P3 | Neun deutsche Texte mit ASCII-Umschrift (ae/oe/ue) statt Umlauten, im Rest der Datei stehen echte Umlaute | `jei.simplebuilding.info.end_pistons` (Loest), `...info.astral_vault` (persoenliche Plaetze), `...info.nihil_vault` (Plaetze fuer, Gewoelbe), `text.autoconfig.simplebuilding.option.giveGuideBookOnFirstJoin.@Tooltip` (Handbuecher muessen), `...server.features.astralVault.@Tooltip` + `...nihilVault.@Tooltip` (Gewoelbe), `book.simplebuilding.storage.10.text`, `advancements.simplebuilding.astral_vault.description` (zusaetzliche persoenliche Plaetze), `...nihil_vault.description` (Plaetze) in `de_de.json` (Befehl: Regex ueber `de_de.json`) | Umlaute/ss einsetzen (Quelle: Lang-Generatoren/Handtexte mitziehen, falls die Texte erzeugt werden) |
+| SBG-03 | P4 | `WandUndo.RECORDS` haelt je Spieler einen Record mit `ServerPlayer`, `ServerLevel`, bis zu 65 536 Stellen samt Zustaenden und Blockdaten; bereinigt wird nur beim naechsten `begin()` irgendeines Spielers (`removeIf(isRemoved)`). Kein Aufraeumen bei Abmeldung/Serverstopp | `util/WandUndo.java:62-64,107-108`; Aufrufer nur `BuildingWandItem` und `BlueprintBuilder` (kein Lifecycle-Hook) | Bei `ServerPlayer`-Disconnect und `SERVER_STOPPED` `RECORDS.clear()`/entfernen (Einzelspieler: Welt A bleibt sonst bis zum naechsten Wandbau im Speicher) |
+| SBG-04 | P4 | `handleBuildingWandConfigure` schreibt `selectedRadius`/`axisMode` ungeprueft ins Item (Oktant-Handler daneben prueft Ecken, Form, Ausrichtung). Verbraucher klemmen nach oben/Math.max, ein manipulierter Client kann aber Unsinnswerte (negativ, `Integer.MAX_VALUE`, axisMode 99) speichern; Anzeige/Tooltips lesen sie roh | `networking/ModMessageHandlers.java:229-236` vs. Klemmung `BuildingWandItem.java:207-211,707-709`; Screen liest `SettingsRadius` roh (`client/gui/BuildingWandScreen.java:57-67`) | Beim Annehmen auf 0..maxRadius der Stufe und axisMode 0..3 klemmen (wie `octantCornerInRange`) |
+| SBG-05 | P4 | Sechs tote Lang-Schluessel zu nicht registrierten Items (`guide_book_vanilla_*` ausser `_start`, nur noch in `LegacyItemIds` als Umbenennungs-Quelle) tauchen in der Wiki-Erzeugung als NOTE auf | `python3.12 wiki/generate.py --all --check` meldet "has a language key but is not registered" fuer `guide_book_vanilla_farming/gear/nether/ocean/overworld/redstone`; `home_teleporter` ist dagegen gewollt (Lore, `tweaks/spawn/SpawnSetup.java:57`) | Schluessel loeschen oder in der Wiki-Pruefung als Alias ausnehmen |
+| SBG-06 | P4 | `PlacedBundles.scroll` hat weder Ratenbegrenzung noch Claim-Pruefung (`WorldPermissions.mayChange`), spielt aber je Paket einen Klang fuer alle in Hoerweite | `util/PlacedBundles.java:187-197`; vergleiche `handlePlacedBlueprintEdit` (prueft Reichweite + `mayChange`) | Wie beim Signier-Budget eine kleine Ratenbegrenzung je Spieler; `mayChange` erwaegen (nur wenn Claim-Schutz Anzeige-Wechsel einschliessen soll: Entscheidung Besitzer) |
+
+## Geprueft ohne Befund (Belege)
+- Lang EN/DE: 3884 Schluessel je Sprache, keine Luecke in beiden Richtungen, Platzhalter (`%s/%d`) identisch, alle `translate`-Schluessel in Daten vorhanden, alle Verzauberungen und Jukebox-Songs benannt, alle Konfigurationsoptionen (252) mit Namen, Blatt-Optionen mit Tooltip.
+- Modell-/Textur-Referenzen: Union aus `src/main` + `mc26_3` + Module, alle `simplebuilding:`-Modell/Textur-Verweise in Item-Definitionen, Blockstates und Modellen loesen auf (ohne `trim_overlay`, das gehoert Simple Trims) - 0 Fehlverweise.
+- Rezepte/Loot: keine Rezeptzutat/-ergebnis mit unbekanntem `simplebuilding:`-Item (Rest sind Registry-IDs: Typen, Traenke); Bloecke ohne Loot-Tabelle sind absichtlich `noLootTable()` (Achtel, Piston-Koepfe, Wandkoepfe, platzierte Gegenstaende); Items ohne Rezept sind Eimer-Zustaende, Platzier-Zwischenitems, Legacy-Spachtel (`LegacySpatulaMigration`), B-Seiten (`DiscFlips`) und Creative-Items.
+- Sounds: `sounds.json` (SB + Overlay) verweist nur auf vorhandene `.ogg`; Registrierung `ModSounds` passt.
+- Netzwerk: Paket-Handler pruefen Slot, Reichweite, Laenge, Budget (Blaupause, Oktant, Bruecke, Rucksack, Meisterbauer); keine rohen Maus-/Tastaturzahlen (`button == 0`, GLFW) im Kern; Stapelgrenze 99 wird in Truhen, Kisten, Bootswagen, Rucksack beachtet (`codecSafeCopy`, `ExtraCount`).
+- Menues: alle `stillValid` echt (kein `return true` ausser Rucksack-Container, dessen Menue `WornBackpackContainer.stillValid` nutzt).
+- Gametests: 1151 Testmethoden in `*Tests`, 1120 Katalog-Eintraege, 1122 `@GameTest`-Wrapper (Fabric); die 32 nicht gelisteten Methoden sind Hilfen oder intern aufgerufen (einzeln nachgeprueft). Texturen `--check` und Wiki `--check` aktuell.
+- Per Quellcode nicht belegbar / zu pruefen (Client): Optik, Rendering (Hammock, Schachfiguren), Forge-Laufzeit; waren nicht Teil dieses Laufs.
+
+## Nicht getestet / offen
+- Voller Fabric-26.3-Kernlauf (`--targets fabric-263 --filter 'simplebuilding:*'`) wurde auf sb-test eingereiht (stand hinter Gate und weiteren Auditlaeufen in der Job-Sperre); Ergebnis lag bei Abgabe nicht vor. Log: `/root/wt/claude-audit-sb/.audit-run1.log` (nicht committet). Rote Tests daraus sind hier nicht eingetragen.
+- Kein Client-Lauf, kein Forge/NeoForge-Lauf, keine Sichtpruefung (Optik/Texturen nur per Referenz- und Generator-Check).
+- Funde sind ausschliesslich aus Datenpruefungen und gezieltem Lesen (Netzwerk-Handler, Menues, Lager-Speichern, Berechtigungen, statische Zustaende) entstanden; keine P1/P2-Funde belegbar.
