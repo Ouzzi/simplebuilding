@@ -1,0 +1,13 @@
+{
+  "features": [],
+  "notes": {
+    "simplemobs:deceiver_cloth": {
+      "en": {"summary": "Shimmering cloth dropped by the Deceiver. Material for the cloak of deception and invisibility without particles (planned)."},
+      "de": {"summary": "Schimmernder Stoff, den der Deceiver fallen lässt. Material für den Tarnumhang und Unsichtbarkeit ohne Partikel (geplant)."}
+    },
+    "simplemobs:deceiver_spawn_egg": {
+      "en": {"summary": "Spawns a Deceiver. Creative only."},
+      "de": {"summary": "Beschwört einen Deceiver. Nur im Kreativmodus."}
+    }
+  }
+}

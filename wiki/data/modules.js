@@ -322,6 +322,21 @@ window.WIKI_MODULES = [
     "dataHash": "42845eb634f7"
   },
   {
+    "id": "simplemobs",
+    "displayName": "Simple Mobs",
+    "description": "Simple Mobs module.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "9fd4153841ea"
+  },
+  {
     "id": "simpleweather",
     "displayName": "Simple Weather",
     "description": "Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",

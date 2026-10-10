@@ -1388,6 +1388,83 @@
       }
     },
     {
+      "id": "simplemobs",
+      "name": "Simple Mobs",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Mobs",
+      "description": "Simple Mobs module.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [],
+      "optional": [],
+      "checks": [
+        "modules/simplemobs/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplemobs",
+        "catalogues": [
+          "modules/simplemobs/fabric/src/main/java/com/simplebuilding/modules/simplemobs/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplemobs"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplemobsGameTest",
+            "report": "integration/build/simplemobs-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplemobs:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplemobs/neoforge/build/module-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplemobsStandaloneGameTest",
+              "report": "integration/build/standalone/simplemobs-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplemobs:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplemobs/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplemobs.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplemobs/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplemobs",
+        "shared": "modules/simplemobs/shared",
+        "fabric": "modules/simplemobs/fabric",
+        "neoforge": "modules/simplemobs/neoforge",
+        "forge": "modules/simplemobs/forge",
+        "generated": "modules/simplemobs/generated/resources",
+        "lang": "modules/simplemobs/shared/resources/assets/simplemobs/lang",
+        "wikiManual": "modules/simplemobs/wiki/manual.json",
+        "balanceDir": "balance/simplemobs"
+      },
+      "projects": {
+        "fabric": ":modules:simplemobs:fabric",
+        "neoforge": ":modules:simplemobs:neoforge",
+        "forge": ":modules:simplemobs:forge"
+      }
+    },
+    {
       "id": "simpleweather",
       "name": "Simple Weather",
       "version": "0.1.0",

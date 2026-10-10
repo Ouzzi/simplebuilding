@@ -270,6 +270,11 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
             List<Component> lines = new ArrayList<>();
             lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.tier", this.menu.tier()));
             lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.tier_hint").withStyle(ChatFormatting.GRAY));
+            lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.setup", this.menu.shelfPoints(),
+                    AstralEnchanting.MAX_POINTS, Component.translatable("container.simplebuilding.astral_enchanting_table."
+                            + (this.menu.hasFloor() ? "floor_yes" : "floor_no"))).withStyle(ChatFormatting.DARK_GRAY));
+            lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.next." + this.menu.nextStep())
+                    .withStyle(this.menu.nextStep() == AstralEnchanting.STEP_MAX ? ChatFormatting.GOLD : ChatFormatting.YELLOW));
             g.setTooltipForNextFrame(this.font, lines, java.util.Optional.empty(), mouseX, mouseY);
             return;
         }

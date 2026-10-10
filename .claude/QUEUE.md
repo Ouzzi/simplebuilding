@@ -507,7 +507,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] (claude-q-brew) Neue Effekte (zuerst als Tränke): Zittern I/II, Trugbild, Umgekehrtes Trugbild, Verblasst (Graustufen inkl. Inventare, ohne Esc-Menü),
 - [x] (claude-q-maps) Simple Maps: Rezept A + seltene Fundorte (auch Nether-/End-Karte) – in PLAN-N18 festgehalten
 - [x] Neue Effekte (zuerst als Tränke): Zittern I/II, Trugbild, Umgekehrtes Trugbild, Verblasst (Graustufen inkl. Inventare, ohne Esc-Menü) (claude-q-brew)
-- [ ] Mob Deceiver: Endgame-Gegner, Name, Tarnumhang, Spawns, Eskalation, Top-Animationen (Kupfergolem-Vorbild) – Konzept freigegeben, Umsetzung offen
+- [x] Mob Deceiver, Stufe 1 (claude-q-deceiver): Modul `simplemobs`, Entity auf 3 Loadern, Modell/Renderer/6 Animationen, Textur, Wellen/Eskalation/Teleport/Mirage-Puls, Spawns, Loot (Täuscherstoff), Spawn-Ei
+- [ ] Deceiver Stufe 2: Verwandlung in beliebige Mobs (Renderer-Delegation), Tarnumhang (Drop), Schattenlos-Fakes, Config (Wellen-Obergrenze), Spiegelbild, falsche Truhe, Wiki-Seite/Testzentrale, Client-Abnahme
 - [ ] Später: Furcht-Mob (extrem stark, verursacht Zittern) – Konzept folgt
 
 ## Nachtrag 21 (2026-10-07, Besitzer)
@@ -679,7 +680,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Simple Trims als Sub-Mod starten (Plan N18). (claude-q-trims: Stufe 1; Rest Stufen 2–4 siehe Plan)
 - [ ] Shellker: Konzept + Vorschau; Schale ergibt eine NEUE Helm-Variante (kein Ersatz des Schildkrötenhelms).
 - [ ] Seelenfeuer-Lohe: Konzept + Vorschau.
-- [ ] Deceiver umsetzen (Konzept freigegeben).
+- [x] Deceiver umsetzen (Konzept freigegeben) – Stufe 1 fertig (claude-q-deceiver), Rest siehe Nachtrag 20.
 - [ ] Furcht-Mob und niedlicher End-Mob: später.
 - [ ] Stärkerer Wither + Biom-Pinsel: Konzept. (Konzept: docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md)
 - [ ] Simple Respawn: noch nicht.
@@ -691,3 +692,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 - [ ] Astral Enchanter Stufenregel (Besitzer 10.10.): 0–30 normale Regale; 30–40 mit Lohen-Regalen ODER Lohen-Obsidian-Boden; 50 nur mit beidem; je Stufe mehr Punkte verteilbar; Konzept erweitern (claude-q-astral3).
 - [x] Alte Verschleiß-Optionen der Brecher-Kolben nicht migrieren (Besitzer: ok).
+
+## Nachtrag 32 (2026-10-10, Besitzer)
+- [x] (claude-q-astral3) Astral Enchanter Stufenregel: 0-30 normale Bücherregale (15 = 30); 30-40 mit Lohen-Regalen ODER Lohen-Obsidian-Boden; 50 nur mit beidem; mehr Regler-Punkte je Stufe.
+  Erledigt auf claude-q-astral3: Formel im Konzept (Abschnitt „Stufenregel 10.10.“), `AstralEnchanting.tier/nextStep`, Tooltip über der Stärke zeigt Regal-Punkte, Boden und was für die nächste Stufe fehlt, Lang EN/DE, Handbuch, Wiki, Tests für alle Kombinationen.

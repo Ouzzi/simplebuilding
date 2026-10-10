@@ -129,6 +129,7 @@ Kompatibilität alter Welten (ID-Zuordnung), Claim-System in Stufen (standardmä
 | Mod | Stand | Inhalt | Quelle |
 |---|---|---|---|
 | Simple Maps (`simplemaps`, Sub-Mod SB) | in Arbeit (`claude-q-maps`) | Wegfinder-Karte (unendlich, Spieler mittig), GUI mit Lesezeichen, Wegpunkte, Locator-Bar, Karte je Dimension, Fundorte | `docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md` |
+| Simple Mobs (`simplemobs`, Sub-Mod SB, optional) | Stufe 1 (`claude-q-deceiver`) | Mob Deceiver (Endgame, Wellen aus Fake-/Echt-Mobs, Mirage-Puls über SB-Effekte, falls SB geladen), Täuscherstoff, Spawn-Ei; spielbar auch ohne SB | `docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md` |
 | Simple Trims (Sub-Mod SB) | geplant, Frage F1 offen | alle Schmiedevorlagen inkl. Platzieren; Axt ohne SB, Hammer mit SB | PLAN-N18 |
 | Simple Respawn (`simplerespawn`) | wartet auf Besitzer-Konzept | Niedergeschlagen statt Tod im Mehrspieler, Wiederbeleben, danach 3 Herzen/0 Hunger | `docs/ai/KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md` |
 | QoL-Aufteilung | Besitzer entscheidet | Sub-Mods für Container (fertig), Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor (→ Simple Loot); Schärfe/Gras → Simple Combat; Kreaturen-Logik nach simplelib | QUEUE N14 |
