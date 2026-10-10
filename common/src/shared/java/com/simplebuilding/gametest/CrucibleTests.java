@@ -62,7 +62,7 @@ public final class CrucibleTests {
         int smokingTicks = helper.getLevel().recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMOKING,
                 new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.BEEF)), helper.getLevel()).orElseThrow().value().cookingTime();
         Block[] blocks = {lib("iron_crucible"), lib("reinforced_crucible"), lib("netherite_crucible"), CrucibleCompat.enderiteCrucible()};
-        int[] sizes = {6, 9, 18, 27};
+        int[] sizes = {6, 12, 18, 27}; // reinforced 12 since N30
         for (int i = 0; i < blocks.length; i++) {
             BlockPos pos = new BlockPos(i + 1, 2, 2);
             helper.setBlock(pos.below(), Blocks.CAMPFIRE);
