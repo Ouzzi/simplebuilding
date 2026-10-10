@@ -428,8 +428,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 12 (2026-10-06, Besitzer, Referenzbilder in minecraft-mods/previews/refs-n12)
 - [x] Keramik-Lavaeimer fehlt (claude-crucible5) (Audit 09.10.: claude-crucible5 041b4bec6)
 - [x] Verstärker (Amplifier) funktionieren nicht (claude-hammer12) (Audit 09.10.: claude-hammer12 a6ae00f92)
-- [ ] Kern-Item-Animation ruhiger: nur etwa alle 10 s einmal (claude-tex8)
-- [ ] Verstärkter Kessel: Item-Textur verbessern (claude-tex8)
+- [x] Kern-Item-Animation ruhiger: nur etwa alle 10 s einmal (claude-tex8) (claude-q-texrest: Glanz einmal je 200 Ticks, .mcmeta hält Bild 0)
+- [x] Verstärkter Kessel: Item-Textur verbessern (claude-tex8) (claude-q-texrest: Diamantplatten wie die Blockseite, Nieten am Rand; Besitzer-Abnahme offen)
 - [x] Kessel doppelt so teuer (z. B. 2 rissige Diamanten statt 1 usw.) (claude-hammer12) (Audit 09.10.: claude-hammer12 df97edc09)
 - [x] Alle In-World-Umwandlungen schrittweise: Ergebnis-Items erscheinen nacheinander je Schlag (pro Schlag ein Item) (claude-hammer12) (Audit 09.10.: claude-hammer12 9c49fc10f)
 - [x] Tiegel-Fortschrittsbalken dezent: untere 2 Pixelreihen des Slots als Fortschritt (Vorschlag) (claude-crucible5) (Audit 09.10.: claude-crucible5 041b4bec6, N12b 3f79a6241 (Ofen-artige Füllung))
@@ -439,7 +439,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] TODO neue Mod „simplecontainers“: clientseitig, verschönert alle GUI-Container im Stil Bild 3/4, mit Parität für Mod-UIs (Audit 09.10.: 717b55ea1 ff.; braucht simplelib, also nicht rein clientseitig)
 - [x] Angedocktes Fass in jeder Dimension 1 px kleiner, näher an den Tiegel (claude-crucible5) (Audit 09.10.: claude-crucible5 041b4bec6)
 - [x] Speer glimmert immer noch nicht, mit anderen Enderit-Werkzeugen/Barren vergleichen (claude-tex8) (Audit 09.10.: a94ee72d8 sichtbarer Glanz; Glimmerpunkte-Wunsch siehe N21)
-- [ ] Platzierter Knochen 3D: wie Knochen, oben/unten symmetrisch (claude-tex8)
+- [x] Platzierter Knochen 3D: wie Knochen, oben/unten symmetrisch (claude-tex8) (claude-q-texrest: beide Gelenke gleich, 14 px; Client-Sicht offen)
 - [ ] Rest Nachtrag 11: Gameplay-Punkte (claude-agy-tweaks11, Antigravity-Test), In-World-Konsistenz (claude-hammer12), Stil-Audit (wartet auf codex login) (teilweise: Gameplay claude-oc-tweaks11 P1–P8 und claude-hammer12 gemergt; Stil-Audit fehlt)
 
 ## Nachtrag 14 (2026-10-06, Besitzer) – nur starten, wenn kaum Claude-Tokens nötig (Helfer-CLI opencode/agy/codex); sonst hier liegen lassen
@@ -479,7 +479,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **Baulicht:** Motiv nicht mittig → zentrieren.
 - [x] **Neu: Trapped Copper Chest** (Redstone-Signal wie Vanilla-Trapped-Chest, Kupfer-Stil, Oxidation wie Kupfertruhe falls vorhanden). (claude-q-storage: 8 Blöcke, Oxidation/Wachs/Axt, Fallen-Overlay je Stufe; nur 26.3)
 - [x] **Nihil-Gewölbe:** Doppeltruhen-Größe wie das Astral-Gewölbe. (claude-q-storage: 54 Plätze, sechs Reihen)
-- [ ] **Netherit-Shulker:** dunkle Highlights statt heller (Netherit-Farben); dasselbe für alle anderen Netherit-Maschinen/-Blöcke.
+- [x] (claude-q-texrest: Shulkerkisten, Truhen, Fässer, Öfen/Räucher-/Schmelzöfen, Kolben, Trichter; Goldnieten bleiben) **Netherit-Shulker:** dunkle Highlights statt heller (Netherit-Farben); dasselbe für alle anderen Netherit-Maschinen/-Blöcke.
 - [x] (claude-q-place: Woll-Streifen vom Anker zur Hand, löst sich > 10 Blöcke; Client-Abnahme offen) **Hängematte wie Leine:** erster Befestigungsklick hängt die Hängematte wie eine Leine (mit Hängematten-Textur) an; Modell sichtbar wie Leine/Lichterketten-Mods während des Ziehens; entfernt man sich z. B. > 10 Blöcke, löst sich die Verbindung von der ersten Seite wieder.
 - [x] (claude-q-place: Zustand up, Säule bis Blockoberkante) **Senkrecht platzierte Knochen/Stöcke/Ruten** (Diamant-, Lohen-, Böen-Rute …) verbinden sich nicht: übereinander platzierte sollen nahtlos verbunden sein (lang genug, keine Lücke).
 
@@ -497,7 +497,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Config je Super-/Sub-Mod: Items in Kreativ-Tabs an/aus (simplelib)
 - [ ] Guides: farbigen Strich an freigeschalteten Lesezeichen entfernen
 - [ ] Dev-Kreativtabs immer ans Ende der Reihenfolge
-- [ ] Sandwiches appetitlicher (Vorschau-Varianten)
+- [x] Sandwiches appetitlicher (Vorschau-Varianten) (claude-q-texrest: A/B/C, A eingebaut; Besitzer-Abnahme offen)
 - [x] 0,125er-Blöcke: maximale Stapelgröße 128 (claude-q-storage: 99 = Engine-Grenze, 128 nicht speicherbar; Schach-Achtel, Material-Achtel aus claude-q-hammer nachziehen)
 - Grundsatz festgehalten: Konsistenz zwischen allen Simple-Mods, Gemeinsames in simplelib, UI-Bausteine (inkl. Kontextmenü) dokumentieren (docs/ai/UI-BAUSTEINE.md anlegen)
 
@@ -517,7 +517,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] **Enderit-Eimer:** (→ `claude-q-ebucket`, Seelenlava ebenfalls 2 Eimer laut N28/Auftrag) Kapazität genau 2 Eimer. Rechtsklick nur aufnehmen; wenn voll, Rechtsklick platziert wieder. Schleich-Rechtsklick platziert einen halben Eimer (nicht einen vollen). Seelenlava nur einfach aufnehmbar (begrenzt, hebt sich ab). Eigene Texturen für die Zwischenstufen (halbvoll je Flüssigkeit).
 - [ ] **Enderit-Speer:** statt des Eimer-Glanzes die hellen Glimmerpunkte auf der Enderit-Textur wie Schwert und die übrigen Enderit-Werkzeuge.
 - [x] **Puppen/Ständer:** (claude-q-stands; Inventar docs/ai/PLAN-PUPPE-INTERAKTIONEN.md + PLAN-STAENDER-2026-10-09.md, Dreizack/Windladung/Streitkolben/Namensschild ergänzt) mehrere Interaktionen Spieler ↔ Trainingspuppe/Ständer sind unsauber oder funktionieren nicht (z. B. Speer) – inventarisieren, reproduzieren (GameTests), beheben.
-- [ ] **XP-Orbs:** bei Nutzung ähnliche Animation wie die Kerne (gleiches Prinzip, eigene Bewegung).
+- [x] (claude-q-texrest: Weisheitskugel, eigene Handbewegung ORB statt Bogen-Haltung; Client-Sicht offen) **XP-Orbs:** bei Nutzung ähnliche Animation wie die Kerne (gleiches Prinzip, eigene Bewegung).
 - [ ] **Prinzip Entdeckbarkeit:** Jedes herstellbare oder umwandelbare Item soll in erster Linie intuitiv sein und zusätzlich im Spiel gehintet werden (z. B. Tiegel in Dörfern mit erloschenem Lagerfeuer zeigt die Nutzung). Crafting/Umwandlungen bisher nirgends gehintet → Konzept erarbeiten (Ideen: Bücher in Struktur-Truhen, Bilderrahmen/Gemälde mit Rezept, Dorfbewohner-Werkstätten als Vorführung, Fortschritts-Hinweise, Guide-Seiten). Erst Konzept vorlegen.
 
 ## Nachtrag 22 (2026-10-07, Besitzer)
