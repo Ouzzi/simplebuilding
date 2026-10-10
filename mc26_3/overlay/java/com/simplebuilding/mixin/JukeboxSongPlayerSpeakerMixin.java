@@ -23,7 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * Umkreis von 64 Bloecken. Spielt er verstaerkt oder mit einer Kette ({@link SpeakerBoost}), bekommen auch die Spieler
  * in Hoerweite irgendeines Abspielpunkts den Start; den Stopp bekommen alle bis zur groessten Reichweite, die die Config
  * zulaesst ({@link SpeakerBoost#jukeboxStopRange}; ein inzwischen abgebauter Lautsprecher darf kein Stueck weiterlaufen
- * lassen). Je Start bzw. Stopp ein Paket je Spieler.
+ * lassen). Je Start bzw. Stopp ein Paket je Spieler. Seit 2026-10-10 zeigt jeder Musik-Verstärker der Kette im Takt
+ * der Plattenspieler-Noten ebenfalls eine Musiknote ({@link SpeakerBoost#spawnRelayParticles}).
  */
 @Mixin(JukeboxSongPlayer.class)
 public abstract class JukeboxSongPlayerSpeakerMixin {
@@ -51,6 +52,14 @@ public abstract class JukeboxSongPlayerSpeakerMixin {
         if (level instanceof ServerLevel server) {
             SpeakerBoost.sendBeyondVanilla(server, blockPos, new ClientboundLevelEventPacket(LevelEvent.SOUND_STOP_JUKEBOX_SONG, blockPos, 0, false),
                     SpeakerBoost.jukeboxStopRange());
+        }
+    }
+
+    @Inject(method = "tick", at = @At(value = "INVOKE", shift = At.Shift.AFTER,
+            target = "Lnet/minecraft/world/item/JukeboxSongPlayer;spawnMusicParticles(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)V"))
+    private void simplebuilding$relayNotes(LevelAccessor level, BlockState state, CallbackInfo ci) {
+        if (level instanceof ServerLevel server) {
+            SpeakerBoost.spawnRelayParticles(server, blockPos);
         }
     }
 }

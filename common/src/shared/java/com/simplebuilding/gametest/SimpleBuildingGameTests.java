@@ -1191,6 +1191,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("music_disc_game_test_amplified_jukebox_reaches_farther_through_the_real_use_path", MusicDiscTests::amplifiedJukeboxReachesFartherThroughTheRealUsePath).build(),
             GameTestSpec.named("music_disc_game_test_amplified_note_block_is_louder_through_the_real_use_path", MusicDiscTests::amplifiedNoteBlockIsLouderThroughTheRealUsePath).build(),
             GameTestSpec.named("music_disc_game_test_chained_sound_reaches_each_player_once_and_stop_reaches_all", MusicDiscTests::chainedSoundReachesEachPlayerOnceAndStopReachesAll).build(),
+            GameTestSpec.named("music_disc_game_test_jukebox_amplifiers_relay_by_radio", MusicDiscTests::jukeboxAmplifiersRelayByRadio).build(),
+            GameTestSpec.named("music_disc_game_test_relaying_amplifiers_show_notes_and_stop_with_the_jukebox", MusicDiscTests::relayingAmplifiersShowNotesAndStopWithTheJukebox).maxTicks(200).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_creative_has_no_wear", SledgehammerTests::hammerChipsCreativeHasNoWear).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_ice_yields_four", SledgehammerTests::hammerChipsIceYieldsFour).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_mixed_pile_preserves_other_parts", SledgehammerTests::hammerChipsMixedPilePreservesOtherParts).build(),

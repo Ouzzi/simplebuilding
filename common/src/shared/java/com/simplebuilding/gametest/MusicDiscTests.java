@@ -363,9 +363,11 @@ public final class MusicDiscTests {
         helper.setBlock(new BlockPos(7, 2, 1), ModBlocks.NOTE_AMPLIFIER);
         helper.setBlock(new BlockPos(8, 2, 1), ModBlocks.JUKEBOX_AMPLIFIER);
         BlockPos j = helper.absolutePos(jukebox);
-        List<BlockPos> chain = SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX);
-        helper.assertValueEqual(chain.size(), 6, "chain over five speakers and the branch: " + chain);
-        helper.assertTrue(!chain.contains(helper.absolutePos(new BlockPos(8, 2, 1))), "the chain crossed a nihilit speaker");
+        // Musik-Verstärker funken seit 2026-10-10 (16 Bloecke): auch der hinter dem Noten-Verstärker gehoert dazu.
+        List<BlockPos> chain = own(helper, SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX));
+        helper.assertValueEqual(chain.size(), 7, "radio chain over five speakers, the branch and the one behind: " + chain);
+        helper.assertTrue(chain.contains(helper.absolutePos(new BlockPos(8, 2, 1))), "a nihilit speaker blocked the radio");
+        helper.assertTrue(!chain.contains(helper.absolutePos(new BlockPos(7, 2, 1))), "a note amplifier joined a jukebox chain");
         helper.assertTrue(SpeakerBoost.chain(level, j, SpeakerBoost.Source.NOTE_BLOCK).isEmpty(), "astralit speakers chain a note block");
         // Die Verstaerkung an der Quelle bleibt: ein Nachbar = +50 %.
         helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 1.5F, "boost at the source");
@@ -391,9 +393,128 @@ public final class MusicDiscTests {
         List<BlockPos> cached = SpeakerBoost.cachedChain(level, j, SpeakerBoost.Source.JUKEBOX);
         helper.assertTrue(cached == SpeakerBoost.cachedChain(level, j, SpeakerBoost.Source.JUKEBOX), "the chain was not cached");
         helper.setBlock(new BlockPos(6, 2, 1), Blocks.AIR);
-        List<BlockPos> after = SpeakerBoost.cachedChain(level, j, SpeakerBoost.Source.JUKEBOX);
-        helper.assertValueEqual(after.size(), 5, "removing a speaker did not invalidate the cached chain: " + after);
+        List<BlockPos> after = own(helper, SpeakerBoost.cachedChain(level, j, SpeakerBoost.Source.JUKEBOX));
+        helper.assertValueEqual(after.size(), 6, "removing a speaker did not invalidate the cached chain: " + after);
         helper.succeed();
+    }
+
+    /** Nur die Kettenglieder im eigenen Testraum (Musik-Verstärker funken auch in Nachbarraeume anderer Tests). */
+    private static List<BlockPos> own(GameTestHelper helper, List<BlockPos> chain) {
+        BlockPos a = helper.absolutePos(BlockPos.ZERO);
+        BlockPos b = helper.absolutePos(new BlockPos(9, 0, 9));
+        int minX = Math.min(a.getX(), b.getX()), maxX = Math.max(a.getX(), b.getX());
+        int minZ = Math.min(a.getZ(), b.getZ()), maxZ = Math.max(a.getZ(), b.getZ());
+        return chain.stream().filter(pos -> pos.getX() >= minX && pos.getX() <= maxX && pos.getZ() >= minZ && pos.getZ() <= maxZ).toList();
+    }
+
+    /**
+     * Funk-Kette (Besitzer 2026-10-10, Queue N31): der Plattenspieler gibt die Musik an Musik-Verstärker in hoechstens
+     * 16 Bloecken weiter, jeder gespeiste Verstärker wieder an die naechsten. Ausserhalb der Reichweite kein Glied;
+     * faellt ein Zwischenglied weg, reisst die Kette dahinter ab. Noten-Verstärker bleiben Nachbar-Ketten.
+     */
+    public static void jukeboxAmplifiersRelayByRadio(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        ServerLevel level = helper.getLevel();
+        // Hoch ueber dem Testraum: Verstärker anderer Tests (bodennah) liegen dann ausser Funkweite.
+        BlockPos jukebox = new BlockPos(0, 25, 0);
+        BlockPos a = new BlockPos(7, 25, 7);  // 9,9 vom Plattenspieler
+        BlockPos b = new BlockPos(7, 38, 7);  // 16,3 vom Plattenspieler, 13 von a
+        BlockPos c = new BlockPos(0, 44, 0);  // 19 vom Plattenspieler, 21,4 von a, 11,6 von b
+        helper.setBlock(jukebox, Blocks.JUKEBOX);
+        helper.setBlock(a, ModBlocks.JUKEBOX_AMPLIFIER);
+        helper.setBlock(c, ModBlocks.JUKEBOX_AMPLIFIER);
+        BlockPos j = helper.absolutePos(jukebox);
+        BlockPos absA = helper.absolutePos(a);
+        BlockPos absB = helper.absolutePos(b);
+        BlockPos absC = helper.absolutePos(c);
+        helper.assertTrue(own(helper, SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX)).equals(List.of(absA)),
+                "only a is in radio range: " + SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX));
+        helper.assertTrue(SpeakerBoost.adjacentSpeakers(level, j, SpeakerBoost.Source.JUKEBOX) == 0
+                && SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX) == 1.0F, "a distant amplifier boosted the source");
+
+        helper.setBlock(b, ModBlocks.JUKEBOX_AMPLIFIER);
+        helper.assertTrue(own(helper, SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX)).equals(List.of(absA, absB, absC)),
+                "relay a -> b -> c: " + SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX));
+        // Grenze: genau 16 Bloecke zaehlen, 17 nicht.
+        List<BlockPos> radio = SpeakerBoost.inRelayRange(level, j, SpeakerBoost.Source.JUKEBOX);
+        helper.assertTrue(radio.contains(absA) && !radio.contains(absB) && !radio.contains(absC), "radio range of the jukebox: " + radio);
+        helper.setBlock(new BlockPos(0, 41, 0), ModBlocks.JUKEBOX_AMPLIFIER);
+        helper.setBlock(new BlockPos(4, 42, 0), ModBlocks.NOTE_AMPLIFIER);
+        radio = SpeakerBoost.inRelayRange(level, j, SpeakerBoost.Source.JUKEBOX);
+        helper.assertTrue(radio.contains(helper.absolutePos(new BlockPos(0, 41, 0))), "an amplifier exactly 16 blocks away is out of range");
+        helper.assertTrue(radio.stream().noneMatch(pos -> pos.distSqr(j) > 256.0), "an amplifier beyond 16 blocks is in range: " + radio);
+        helper.assertTrue(!radio.contains(helper.absolutePos(new BlockPos(4, 42, 0))), "a note amplifier is in the jukebox radio");
+        helper.setBlock(new BlockPos(0, 41, 0), Blocks.AIR);
+
+        // Zwischenglied weg: b und c haengen nur ueber a am Plattenspieler.
+        helper.setBlock(a, Blocks.AIR);
+        helper.assertTrue(own(helper, SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX)).isEmpty(),
+                "the chain did not break without a: " + SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX));
+
+        // Noten-Verstärker funken nicht: zwei Bloecke Luecke unterbrechen weiterhin.
+        BlockPos note = new BlockPos(3, 25, 3);
+        helper.setBlock(note, Blocks.NOTE_BLOCK);
+        helper.setBlock(note.east(2), ModBlocks.NOTE_AMPLIFIER);
+        helper.assertTrue(SpeakerBoost.chain(level, helper.absolutePos(note), SpeakerBoost.Source.NOTE_BLOCK).isEmpty(), "note amplifiers went wireless");
+
+        // Stopp-Reichweite deckt die laengste Funk-Kette.
+        helper.assertTrue(SpeakerBoost.jukeboxStopRange() >= SpeakerBoost.jukeboxEventRange(SpeakerBoost.maxMultiplier())
+                + ServerTuning.maxSpeakerChain() * (double) SpeakerBoost.RELAY_RANGE, "stop range shorter than the longest radio chain");
+        helper.succeed();
+    }
+
+    /**
+     * Ueber den echten Weg (Platte einlegen): jeder Verstärker der Funk-Kette zeigt im Takt des Plattenspielers eine
+     * Musiknote an seiner Position, ein Spieler am Kettenende 90 Bloecke vom Plattenspieler bekommt den Start; nach dem
+     * Herausnehmen kommen keine Noten mehr und der Stopp erreicht ihn.
+     */
+    public static void relayingAmplifiersShowNotesAndStopWithTheJukebox(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        // Hoch ueber dem Testraum: spielende Plattenspieler anderer Tests funken diese Verstärker dann nicht an.
+        BlockPos jukebox = new BlockPos(1, 27, 1);
+        BlockPos a = new BlockPos(6, 27, 6);
+        BlockPos b = new BlockPos(6, 42, 6);
+        helper.setBlock(jukebox, Blocks.JUKEBOX);
+        helper.setBlock(a, ModBlocks.JUKEBOX_AMPLIFIER);
+        helper.setBlock(b, ModBlocks.JUKEBOX_AMPLIFIER);
+        List<net.minecraft.network.protocol.Packet<?>> sink = new ArrayList<>();
+        List<net.minecraft.network.protocol.Packet<?>> farSink = new ArrayList<>();
+        ServerPlayer player = capturingPlayer(helper, sink);
+        ServerPlayer far = capturingPlayer(helper, farSink);
+        BlockPos j = helper.absolutePos(jukebox);
+        BlockPos absB = helper.absolutePos(b);
+        // 90 Bloecke vom Plattenspieler, aber nur 60 ueber dem letzten Verstärker: Hoerweite 64 ab jedem Funk-Punkt.
+        far.snapTo(absB.getX() + 0.5, absB.getY() + 60.0, absB.getZ() + 0.5, 0.0F, 0.0F);
+        helper.assertTrue(far.position().distanceTo(Vec3.atCenterOf(j)) > 64.0, "far player inside vanilla range");
+        click(helper, player, jukebox, new ItemStack(Items.MUSIC_DISC_CAT));
+        helper.runAfterDelay(25, () -> {
+            boolean started = captured(farSink, ClientboundLevelEventPacket.class).stream()
+                    .anyMatch(e -> e.getType() == LevelEvent.SOUND_PLAY_JUKEBOX_SONG && e.getPos().equals(j));
+            helper.assertTrue(started, "the start did not reach the player at the chain end");
+            List<Vec3> notes = captured(sink, net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket.class).stream()
+                    .filter(ParticlePackets::isNote).map(ParticlePackets::position).toList();
+            for (BlockPos amp : List.of(jukebox, a, b)) {
+                Vec3 expected = Vec3.atBottomCenterOf(helper.absolutePos(amp)).add(0.0, 1.2F, 0.0);
+                helper.assertTrue(notes.stream().anyMatch(n -> n.distanceToSqr(expected) < 1.0E-4),
+                        "no music note above " + amp + " (got " + notes + ")");
+            }
+            click(helper, player, jukebox, ItemStack.EMPTY);
+            synchronized (sink) {
+                sink.clear();
+            }
+            helper.runAfterDelay(2, () -> {
+                boolean stopped = captured(farSink, ClientboundLevelEventPacket.class).stream()
+                        .anyMatch(e -> e.getType() == LevelEvent.SOUND_STOP_JUKEBOX_SONG && e.getPos().equals(j));
+                helper.assertTrue(stopped, "the stop did not reach the player at the chain end");
+                helper.runAfterDelay(25, () -> {
+                    Vec3 aboveB = Vec3.atBottomCenterOf(absB).add(0.0, 1.2F, 0.0);
+                    boolean stillNotes = captured(sink, net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket.class).stream()
+                            .filter(ParticlePackets::isNote).anyMatch(p -> ParticlePackets.position(p).distanceToSqr(aboveB) < 1.0E-4);
+                    helper.assertTrue(!stillNotes, "an amplifier kept showing notes after the stop");
+                    helper.succeed();
+                });
+            });
+        });
     }
 
     /** Notenblock-Kette: jeder Spieler hoert genau einmal, vom naechsten Punkt; der Plattenspieler-Stopp erreicht alle. */

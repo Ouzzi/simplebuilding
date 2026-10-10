@@ -37,7 +37,8 @@ import org.jetbrains.annotations.Nullable;
  * Minecraft nicht den Pegel, sondern die Reichweite der linearen Abschwaechung (16 Bloecke je Lautstaerke-Einheit).
  *
  * <p><b>Kette (2026-10-04):</b> ein Lautsprecher an der Quelle oder an einem schon gespeisten Lautsprecher derselben
- * Art gibt den Ton weiter (Breitensuche ueber die sechs Nachbarn, nur geladene Chunks, hoechstens
+ * Art gibt den Ton weiter (Breitensuche ueber die sechs Nachbarn; Musik-Verstärker seit 2026-10-10 per Funk ueber
+ * {@link #RELAY_RANGE} Bloecke, mit Musiknoten an jedem Verstärker; nur geladene Chunks, hoechstens
  * {@code server.speakers.maxChain} Lautsprecher, Standard 16, hart 64). Jeder Kettenlautsprecher ist ein weiterer
  * Abspielpunkt derselben Wiedergabe mit der Lautstaerke der Quelle - nicht lauter, unverzoegert. Jeder Spieler hoert
  * die Quelle genau einmal, am naechsten Abspielpunkt ({@link #nearest}): der Notenblock schickt je Spieler ein
@@ -66,6 +67,11 @@ public final class SpeakerBoost {
     public static final long CACHE_TICKS = 100;
     /** Hoechstens so viele Ketten im Speicher (danach wird er geleert). */
     public static final int CACHE_SIZE = 256;
+    /**
+     * Funk-Reichweite der Musik-Verstärker (Besitzer 2026-10-10): ein Plattenspieler bzw. ein schon gespeister Verstärker
+     * gibt die Musik an jeden Musik-Verstärker in hoechstens so vielen Bloecken weiter (eine Chunk-Breite).
+     */
+    public static final int RELAY_RANGE = 16;
 
     private static final AtomicLong GENERATION = new AtomicLong();
     private static final Map<ChainKey, CachedChain> CACHE = new LinkedHashMap<>();
@@ -135,12 +141,12 @@ public final class SpeakerBoost {
     }
 
     /**
-     * Bis hierhin muss ein Plattenspieler-Stopp reichen: die groesste Hoerweite plus die laengste Kette (eine Kette aus
-     * Nachbarn reicht hoechstens so viele Bloecke weit wie sie Lautsprecher hat). Auch ein inzwischen abgebauter
+     * Bis hierhin muss ein Plattenspieler-Stopp reichen: die groesste Hoerweite plus die laengste Kette (jeder Funk-Sprung
+     * reicht hoechstens {@link #RELAY_RANGE} Bloecke). Auch ein inzwischen abgebauter
      * Lautsprecher laesst so kein Stueck weiterlaufen.
      */
     public static double jukeboxStopRange() {
-        return jukeboxEventRange(maxMultiplier()) + (com.simplebuilding.version.McVersion.MUSIC_DISCS ? ServerTuning.maxSpeakerChain() : 0);
+        return jukeboxEventRange(maxMultiplier()) + (com.simplebuilding.version.McVersion.MUSIC_DISCS ? (double) ServerTuning.maxSpeakerChain() * RELAY_RANGE : 0);
     }
 
     // =====================================================================================
@@ -148,8 +154,8 @@ public final class SpeakerBoost {
     // =====================================================================================
 
     /**
-     * Die Kette der Quelle bei {@code source}: alle Lautsprecher der Art {@code kind}, die ueber direkte Nachbarschaft
-     * mit der Quelle verbunden sind (Breitensuche, naechste zuerst), hoechstens {@code server.speakers.maxChain}, nur in
+     * Die Kette der Quelle bei {@code source}: alle Lautsprecher der Art {@code kind}, die mit der Quelle verbunden sind -
+     * Noten-Verstärker ueber direkte Nachbarschaft, Musik-Verstärker per Funk ({@link #inRelayRange}, seit 2026-10-10) (Breitensuche, naechste zuerst), hoechstens {@code server.speakers.maxChain}, nur in
      * geladenen Chunks. Leer ohne das Feature oder mit {@code maxChain} 0.
      */
     public static List<BlockPos> chain(LevelReader level, BlockPos source, Source kind) {
@@ -164,8 +170,7 @@ public final class SpeakerBoost {
         queue.add(source.immutable());
         while (!queue.isEmpty() && out.size() < max) {
             BlockPos at = queue.poll();
-            for (Direction direction : Direction.values()) {
-                BlockPos next = at.relative(direction);
+            for (BlockPos next : kind == Source.JUKEBOX ? inRelayRange(level, at, kind) : adjacent(at)) {
                 if (out.size() >= max || !seen.add(next) || !level.hasChunkAt(next) || !isSpeaker(level, next, kind)) {
                     continue;
                 }
@@ -174,6 +179,58 @@ public final class SpeakerBoost {
             }
         }
         return out;
+    }
+
+    private static List<BlockPos> adjacent(BlockPos at) {
+        List<BlockPos> out = new ArrayList<>(6);
+        for (Direction direction : Direction.values()) {
+            out.add(at.relative(direction));
+        }
+        return out;
+    }
+
+    /**
+     * Musik-Verstärker "per Funk" (Besitzer 2026-10-10): alle Musik-Verstärker hoechstens {@link #RELAY_RANGE} Bloecke
+     * (Blockmitte zu Blockmitte) um {@code center}, naechste zuerst, nur in geladenen Chunks. Durchsucht werden nur
+     * Chunk-Abschnitte, deren Palette einen Verstärker dieser Art enthalten kann ({@code maybeHas}) - billig genug fuer
+     * den Client, der die Kette alle 10 Ticks neu ermittelt.
+     */
+    public static List<BlockPos> inRelayRange(LevelReader level, BlockPos center, Source kind) {
+        List<BlockPos> found = new ArrayList<>();
+        int r = RELAY_RANGE;
+        int minY = Math.max(center.getY() - r, level.getMinY());
+        int maxY = Math.min(center.getY() + r, level.getMaxY());
+        if (minY > maxY) {
+            return found;
+        }
+        java.util.function.Predicate<net.minecraft.world.level.block.state.BlockState> matches =
+                state -> state.getBlock() instanceof SpeakerBlock speaker && speaker.source() == kind;
+        for (int cx = (center.getX() - r) >> 4; cx <= (center.getX() + r) >> 4; cx++) {
+            for (int cz = (center.getZ() - r) >> 4; cz <= (center.getZ() + r) >> 4; cz++) {
+                if (!level.hasChunk(cx, cz)) {
+                    continue;
+                }
+                net.minecraft.world.level.chunk.ChunkAccess chunk = level.getChunk(cx, cz);
+                for (int sy = minY >> 4; sy <= maxY >> 4; sy++) {
+                    net.minecraft.world.level.chunk.LevelChunkSection section = chunk.getSection(chunk.getSectionIndexFromSectionY(sy));
+                    if (section.hasOnlyAir() || !section.maybeHas(matches)) {
+                        continue;
+                    }
+                    for (int y = Math.max(minY, sy << 4); y <= Math.min(maxY, (sy << 4) + 15); y++) {
+                        for (int x = Math.max(center.getX() - r, cx << 4); x <= Math.min(center.getX() + r, (cx << 4) + 15); x++) {
+                            for (int z = Math.max(center.getZ() - r, cz << 4); z <= Math.min(center.getZ() + r, (cz << 4) + 15); z++) {
+                                BlockPos pos = new BlockPos(x, y, z);
+                                if (!pos.equals(center) && pos.distSqr(center) <= (double) r * r && matches.test(section.getBlockState(x & 15, y & 15, z & 15))) {
+                                    found.add(pos);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        found.sort(java.util.Comparator.comparingDouble(pos -> pos.distSqr(center)));
+        return found;
     }
 
     /** Wie {@link #chain}, auf dem Server zwischengespeichert (ungueltig bei Lautsprecher-Aenderung, spaetestens nach 100 Ticks). */
@@ -290,8 +347,7 @@ public final class SpeakerBoost {
     public static List<ServerPlayer> sendBeyondVanilla(ServerLevel level, BlockPos pos, List<BlockPos> chain, Packet<?> packet, double range) {
         List<ServerPlayer> sent = new ArrayList<>();
         List<Vec3> points = points(pos, chain);
-        double reachFromSource = range + chain.size();
-        if (reachFromSource <= VANILLA_EVENT_RANGE) {
+        if (chain.isEmpty() && range <= VANILLA_EVENT_RANGE) {
             return sent;
         }
         Vec3 source = points.get(0);
@@ -310,5 +366,20 @@ public final class SpeakerBoost {
     /** Wie oben ohne Kette (nur die Quelle). */
     public static int sendBeyondVanilla(ServerLevel level, BlockPos pos, Packet<?> packet, double range) {
         return sendBeyondVanilla(level, pos, List.of(), packet, range).size();
+    }
+
+    /**
+     * Musiknoten an jedem spielenden Musik-Verstärker (Besitzer 2026-10-10): dieselbe Note wie Vanillas Plattenspieler
+     * ({@code JukeboxSongPlayer#spawnMusicParticles}: 1,2 ueber der Blockunterseite, zufaellige Farbe), je Verstärker der
+     * Kette, im selben Takt (alle 20 Ticks). Liefert die Zahl der Verstärker.
+     */
+    public static int spawnRelayParticles(ServerLevel level, BlockPos source) {
+        List<BlockPos> chain = cachedChain(level, source, Source.JUKEBOX);
+        for (BlockPos pos : chain) {
+            Vec3 at = Vec3.atBottomCenterOf(pos).add(0.0, 1.2F, 0.0);
+            float color = level.getRandom().nextInt(4) / 24.0F;
+            level.sendParticles(net.minecraft.core.particles.ParticleTypes.NOTE, at.x, at.y, at.z, 0, color, 0.0, 0.0, 1.0);
+        }
+        return chain.size();
     }
 }
