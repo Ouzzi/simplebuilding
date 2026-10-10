@@ -15,12 +15,11 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
                 var level = (ServerLevel) p.level();
-                var at = p.blockPosition().offset(0, 0, 2);
-                level.setBlockAndUpdate(at.below(), net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+                var at = p.blockPosition().offset(0, 0, 3);
+                level.setBlockAndUpdate(at, net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
                 var d = MobsRegistry.DECEIVER.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
                 if (d == null) throw new AssertionError("Deceiver did not spawn");
-                d.snapTo(at.getX() + 0.5, at.getY(), at.getZ() + 0.5, 0f, 0f);
-                p.setXRot(22f);
+                d.snapTo(at.getX() + 0.5, at.getY() + 1, at.getZ() + 0.5, 0f, 0f);
                 d.setNoAi(true);
                 level.addFreshEntity(d);
             });
