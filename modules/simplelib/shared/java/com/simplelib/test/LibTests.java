@@ -472,6 +472,11 @@ public final class LibTests {
         for (int i = 0; i < com.simplelib.crucible.CrucibleBarrelBlock.ATTACH_STRIKES; i++) {
             check(h, com.simplelib.crucible.CrucibleBarrelBlock.attachStrike(h.getLevel(), barrelAbs, player, axe, 1), "attach strike " + (i + 1));
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
+            // Owner 2026-10-10: every strike visibly grows the target (shared preview); the last one removes it.
+            int previews = h.getLevel().getEntities(net.minecraft.world.level.entity.EntityTypeTest.forClass(net.minecraft.world.entity.Display.BlockDisplay.class),
+                    new net.minecraft.world.phys.AABB(barrelAbs).inflate(1), d -> d.entityTags().contains(com.simplelib.api.InWorldStrikes.PENDING_TAG)).size();
+            boolean last = i == com.simplelib.crucible.CrucibleBarrelBlock.ATTACH_STRIKES - 1;
+            check(h, previews == (last ? 0 : 1), "growing preview after strike " + (i + 1) + ": " + previews);
         }
         var state = h.getLevel().getBlockState(barrelAbs);
         check(h, state.getValue(com.simplelib.crucible.CrucibleBarrelBlock.ATTACHED)
