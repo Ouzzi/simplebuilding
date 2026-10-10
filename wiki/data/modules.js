@@ -104,7 +104,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "076d6b404111"
+    "dataHash": "076a664a480e"
   },
   {
     "id": "simplefun",
