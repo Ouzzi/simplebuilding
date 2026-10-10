@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "netherite_chest_boat",
+  "ingredients": [
+    "simplebuilding:netherite_chest",
+    "minecraft:birch_boat"
+  ],
+  "result": {
+    "components": {
+      "simplebuilding:boat_wood": "birch"
+    },
+    "id": "simplebuilding:netherite_chest_boat"
+  }
+}

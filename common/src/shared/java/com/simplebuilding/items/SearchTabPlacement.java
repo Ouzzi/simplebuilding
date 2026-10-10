@@ -115,6 +115,17 @@ public final class SearchTabPlacement {
             out.add(Placement.after(REDSTONE_BLOCKS, Items.POWERED_RAIL, ModItems.ASTRAL_RAIL, ModItems.NIHIL_RAIL));
             out.add(Placement.after(TOOLS_AND_UTILITIES, Items.POWERED_RAIL, ModItems.ASTRAL_RAIL, ModItems.NIHIL_RAIL).asSecondary());
         }
+        if (com.simplebuilding.version.McVersion.TIERED_VEHICLES) {
+            // Fahrzeug-Stufen (Queue N19/N23) je hinter ihrem Vanilla-Fahrzeug im Werkzeug-Tab.
+            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.CHEST_MINECART, ModItems.REINFORCED_CHEST_MINECART,
+                    ModItems.NETHERITE_CHEST_MINECART, ModItems.ENDERITE_CHEST_MINECART));
+            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.FURNACE_MINECART, ModItems.REINFORCED_FURNACE_MINECART,
+                    ModItems.NETHERITE_FURNACE_MINECART, ModItems.ENDERITE_FURNACE_MINECART));
+            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.HOPPER_MINECART, ModItems.REINFORCED_HOPPER_MINECART,
+                    ModItems.NETHERITE_HOPPER_MINECART, ModItems.ENDERITE_HOPPER_MINECART));
+            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.BAMBOO_CHEST_RAFT, ModItems.REINFORCED_CHEST_BOAT,
+                    ModItems.NETHERITE_CHEST_BOAT, ModItems.ENDERITE_CHEST_BOAT));
+        }
 
         // --- Bausteine: End-Paletten hinter Purpur, Enderquarz und Schachbretter hinter Glattquarz,
         // Platten und Speicherbloecke in Erz-Reihenfolge bei Vanillas Platten und Bloecken.

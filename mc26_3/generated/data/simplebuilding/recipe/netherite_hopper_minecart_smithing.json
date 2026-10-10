@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simplebuilding:reinforced_hopper_minecart",
+  "result": {
+    "id": "simplebuilding:netherite_hopper_minecart"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

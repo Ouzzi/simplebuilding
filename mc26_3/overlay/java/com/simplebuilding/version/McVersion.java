@@ -142,6 +142,8 @@ public final class McVersion {
     public static final boolean CHESS = true;
     /** Holzwerk: ausgehoehlte Staemme, Holzplatten, Holzkessel, Kisten, Toepferscherben-Schnitzholz (docs/ai/PLAN-HOLZWERK-2026-10-09.md). */
     public static final boolean WOODWORK = true;
+    /** Stufen fuer Kistenboote, Kisten-, Ofen- und Trichterloren (Queue N19/N23, docs/ai/PLAN-FAHRZEUG-STUFEN-2026-10-10.md). */
+    public static final boolean TIERED_VEHICLES = true;
 
     private McVersion() {
     }

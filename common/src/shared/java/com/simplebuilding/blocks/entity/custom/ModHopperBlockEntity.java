@@ -42,7 +42,7 @@ import java.util.function.BooleanSupplier;
  * ghost items any more (until 2026-10-09). Automation only tops up slots that hold a matching item, and one item always
  * stays behind: this hopper pushes, and others pull, only the second and every further one.
  */
-public class ModHopperBlockEntity extends RandomizableContainerBlockEntity implements Hopper, WorldlyContainer {
+public class ModHopperBlockEntity extends RandomizableContainerBlockEntity implements Hopper, WorldlyContainer, com.simplebuilding.util.FilterHopper {
 
     private static final int[] SLOTS = {0, 1, 2, 3, 4};
 

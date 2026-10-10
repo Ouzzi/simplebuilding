@@ -31,4 +31,24 @@ public final class HopperMenus {
             }
         });
     }
+
+    /** A hopper menu for another hopper (a tiered hopper cart, Queue N23); {@code pos} goes along as opening data. */
+    public static void openMenu(ServerPlayer player, net.minecraft.world.MenuProvider provider, BlockPos pos) {
+        player.openMenu(new ExtendedMenuProvider<BlockPos>() {
+            @Override
+            public Component getDisplayName() {
+                return provider.getDisplayName();
+            }
+
+            @Override
+            public AbstractContainerMenu createMenu(int syncId, Inventory playerInventory, Player menuPlayer) {
+                return provider.createMenu(syncId, playerInventory, menuPlayer);
+            }
+
+            @Override
+            public BlockPos getScreenOpeningData(ServerPlayer serverPlayer) {
+                return pos;
+            }
+        });
+    }
 }

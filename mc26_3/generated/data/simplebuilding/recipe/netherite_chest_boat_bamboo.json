@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "netherite_chest_boat",
+  "ingredients": [
+    "simplebuilding:netherite_chest",
+    "minecraft:bamboo_raft"
+  ],
+  "result": {
+    "components": {
+      "simplebuilding:boat_wood": "bamboo"
+    },
+    "id": "simplebuilding:netherite_chest_boat"
+  }
+}

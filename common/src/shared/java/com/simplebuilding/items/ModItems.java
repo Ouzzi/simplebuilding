@@ -413,6 +413,32 @@ public class ModItems {
             ? registerItem("small_armor_stand", s -> new com.simplebuilding.dummy.StrawArmorStandItem(s.stacksTo(16),
                     () -> com.simplebuilding.entity.ModEntities.SMALL_ARMOR_STAND, "tooltip.simplebuilding.small_armor_stand")) : null;
 
+    // Fahrzeug-Stufen (Queue N19/N23, 26.3): Kisten-, Ofen-, Trichterloren und Kistenboote (Holzart als Komponente).
+    public static final Item REINFORCED_CHEST_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+            ? registerItem("reinforced_chest_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1), () -> com.simplebuilding.entity.ModEntities.REINFORCED_CHEST_MINECART)) : null;
+    public static final Item NETHERITE_CHEST_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+            ? registerItem("netherite_chest_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), () -> com.simplebuilding.entity.ModEntities.NETHERITE_CHEST_MINECART)) : null;
+    public static final Item ENDERITE_CHEST_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+            ? registerItem("enderite_chest_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_CHEST_MINECART)) : null;
+    public static final Item REINFORCED_FURNACE_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+            ? registerItem("reinforced_furnace_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1), () -> com.simplebuilding.entity.ModEntities.REINFORCED_FURNACE_MINECART)) : null;
+    public static final Item NETHERITE_FURNACE_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+            ? registerItem("netherite_furnace_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), () -> com.simplebuilding.entity.ModEntities.NETHERITE_FURNACE_MINECART)) : null;
+    public static final Item ENDERITE_FURNACE_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+            ? registerItem("enderite_furnace_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_FURNACE_MINECART)) : null;
+    public static final Item REINFORCED_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+            ? registerItem("reinforced_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1), () -> com.simplebuilding.entity.ModEntities.REINFORCED_HOPPER_MINECART)) : null;
+    public static final Item NETHERITE_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+            ? registerItem("netherite_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), () -> com.simplebuilding.entity.ModEntities.NETHERITE_HOPPER_MINECART)) : null;
+    public static final Item ENDERITE_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+            ? registerItem("enderite_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_HOPPER_MINECART)) : null;
+    public static final Item REINFORCED_CHEST_BOAT = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+            ? registerItem("reinforced_chest_boat", s -> new com.simplebuilding.entity.vehicle.TieredChestBoatItem(s.stacksTo(1), () -> com.simplebuilding.entity.ModEntities.REINFORCED_CHEST_BOAT)) : null;
+    public static final Item NETHERITE_CHEST_BOAT = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+            ? registerItem("netherite_chest_boat", s -> new com.simplebuilding.entity.vehicle.TieredChestBoatItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), () -> com.simplebuilding.entity.ModEntities.NETHERITE_CHEST_BOAT)) : null;
+    public static final Item ENDERITE_CHEST_BOAT = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+            ? registerItem("enderite_chest_boat", s -> new com.simplebuilding.entity.vehicle.TieredChestBoatItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_CHEST_BOAT)) : null;
+
     public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
 
     public static final Item CRACKED_DIAMOND_BLOCK = registerItem("cracked_diamond_block", settings -> new BlockItem(ModBlocks.CRACKED_DIAMOND_BLOCK, settings)); // todo: wie diamond_block nur härter

@@ -1,0 +1,90 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "simplebuilding:boat_wood",
+    "cases": [
+      {
+        "when": "oak",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/netherite_chest_boat_oak"
+        }
+      },
+      {
+        "when": "spruce",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/netherite_chest_boat_spruce"
+        }
+      },
+      {
+        "when": "birch",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/netherite_chest_boat_birch"
+        }
+      },
+      {
+        "when": "jungle",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/netherite_chest_boat_jungle"
+        }
+      },
+      {
+        "when": "acacia",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/netherite_chest_boat_acacia"
+        }
+      },
+      {
+        "when": "cherry",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/netherite_chest_boat_cherry"
+        }
+      },
+      {
+        "when": "dark_oak",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/netherite_chest_boat_dark_oak"
+        }
+      },
+      {
+        "when": "pale_oak",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/netherite_chest_boat_pale_oak"
+        }
+      },
+      {
+        "when": "mangrove",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/netherite_chest_boat_mangrove"
+        }
+      },
+      {
+        "when": "poplar",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/netherite_chest_boat_poplar"
+        }
+      },
+      {
+        "when": "bamboo",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/netherite_chest_boat_bamboo"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "simplebuilding:item/netherite_chest_boat_oak"
+    }
+  }
+}

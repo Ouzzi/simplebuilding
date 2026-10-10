@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_netherite_chest": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:netherite_chest"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:netherite_chest_boat_acacia"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_netherite_chest"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:netherite_chest_boat_acacia"
+    ]
+  }
+}

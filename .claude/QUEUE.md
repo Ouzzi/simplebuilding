@@ -502,7 +502,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - Grundsatz festgehalten: Konsistenz zwischen allen Simple-Mods, Gemeinsames in simplelib, UI-Bausteine (inkl. Kontextmenü) dokumentieren (docs/ai/UI-BAUSTEINE.md anlegen)
 
 ## Nachtrag 19 (2026-10-07, Besitzer)
-- [ ] **Stufen für Kistenboote, Kistenloren (Chest Boat / Chest Minecart) und Ofenloren (Furnace Minecart)** – analog zu den Truhen-/Ofen-Stufen (Verstärkt/Netherit/Enderit): mehr Slots bzw. Ofenlore mit stärkerem Antrieb/Brenndauer; Rezepte per Schmiedetisch wie die übrigen Stufen, Kreativtab, JEI, Wiki.
+- [x] (claude-q-vehicles; offen: Merge, Client-/Besitzer-Abnahme) **Stufen für Kistenboote, Kistenloren (Chest Boat / Chest Minecart) und Ofenloren (Furnace Minecart)** – analog zu den Truhen-/Ofen-Stufen (Verstärkt/Netherit/Enderit): mehr Slots bzw. Ofenlore mit stärkerem Antrieb/Brenndauer; Rezepte per Schmiedetisch wie die übrigen Stufen, Kreativtab, JEI, Wiki.
 - [ ] **0,125er-Block (Achtel) für jeden Block, der Stufen und Treppen hat** (Vanilla + Mod), ohne Schachfiguren. Generator-basiert (Datagen), Stapelgröße 128 (siehe N18), Kreativtab-Einordnung neben Stufe/Treppe.
 
 ## Nachtrag 20 (2026-10-07, Besitzer) – Konzept: docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md
@@ -543,7 +543,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **Simple Models überarbeiten:** Modul insgesamt verbessern (Audit + Vorschläge zuerst). Models-Button im Stil der Guide-Lesezeichen, immer an der Inventar-UI über den Rüstungsslots angehängt, Icon statt Text (Rüstungsständer oder Namensschild, ggf. Besseres).
 - [x] **Resonanz-Statusfeld:** rechts neben das Buch-Icon verlagern; statt Vorlage ein Herz-Symbol in Steinfarben, Resonanzwert grau daneben, schmalerer Rahmen → kompakter, vanilla-näher. (Audit 09.10.: 916e4d203, claude-brush2 29771970c; Feinschliff N29 offen)
 - [x] (claude-q-hopper) **Truhen:** Fallen-Truhen ohne „Trapped“ im GUI-Titel; generell keine Stapelgröße o. ä. in Truhen-/Container-GUIs; Mod-Fallen-Truhen-Texturen viel zu auffällig → dezenter wie Vanilla (Vorschau).
-- [x] (claude-q-hopper; Lore-Trichter offen) **Trichter:** im GUI statt Text „Filter“: Lücke ca. 1 Slot breiter zwischen den 5 Trichterslots, darin Filter-Icon + Doppelpunkt; Gesamtblock mittig (nach links verschieben). Fehlende Lore-Trichter der Mod-Trichter ergänzen. Rezept verstärkter Trichter: Trichter + gesprungener Diamant + Namensschild.
+- [x] (claude-q-hopper; Lore-Trichter: claude-q-vehicles) **Trichter:** im GUI statt Text „Filter“: Lücke ca. 1 Slot breiter zwischen den 5 Trichterslots, darin Filter-Icon + Doppelpunkt; Gesamtblock mittig (nach links verschieben). Fehlende Lore-Trichter der Mod-Trichter ergänzen. Rezept verstärkter Trichter: Trichter + gesprungener Diamant + Namensschild.
 
 ## Nachtrag 24 (2026-10-08 abends, Besitzer)
 - [x] (claude-q-brew; dazu Übelkeits-Trank: Seltsamer Trank + Roter Pilz) Dunkelheits-Trank aus neuem Warden-Drop (Warden-Item als Brauzutat).

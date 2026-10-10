@@ -318,6 +318,20 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("woodwork_game_test_woodwork_recipes_exist_for_every_wood", WoodworkTests::woodworkRecipesExistForEveryWood)
                     .build(),
+            GameTestSpec.named("vehicle_game_test_chest_vehicles_hold_the_tier_slots_and_keep_oversized_stacks", VehicleTests::chestVehiclesHoldTheTierSlotsAndKeepOversizedStacks)
+                    .build(),
+            GameTestSpec.named("vehicle_game_test_furnace_carts_burn_longer_and_run_faster", VehicleTests::furnaceCartsBurnLongerAndRunFaster)
+                    .build(),
+            GameTestSpec.named("vehicle_game_test_enderite_furnace_cart_outruns_vanilla", VehicleTests::enderiteFurnaceCartOutrunsVanilla).maxTicks(VehicleTests.MOVE_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("vehicle_game_test_hopper_carts_take_in_at_the_hopper_speed", VehicleTests::hopperCartsTakeInAtTheHopperSpeed)
+                    .build(),
+            GameTestSpec.named("vehicle_game_test_hopper_cart_filters_like_the_hopper_block", VehicleTests::hopperCartFiltersLikeTheHopperBlock)
+                    .build(),
+            GameTestSpec.named("vehicle_game_test_broken_vehicles_drop_their_tier_item_and_contents", VehicleTests::brokenVehiclesDropTheirTierItemAndContents)
+                    .build(),
+            GameTestSpec.named("vehicle_game_test_vehicle_recipes_craft_and_upgrade", VehicleTests::vehicleRecipesCraftAndUpgrade)
+                    .build(),
             GameTestSpec.named("chisel_game_test_conversion_tables_are_pinned_entry_by_entry", ChiselTests::conversionTablesArePinnedEntryByEntry)
                     .build(),
             GameTestSpec.named("chisel_game_test_enderite_tier_walks_the_end_stone_palettes", ChiselTests::enderiteTierWalksTheEndStonePalettes)

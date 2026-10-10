@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "reinforced_chest_boat",
+  "ingredients": [
+    "simplebuilding:reinforced_chest",
+    "minecraft:bamboo_raft"
+  ],
+  "result": {
+    "components": {
+      "simplebuilding:boat_wood": "bamboo"
+    },
+    "id": "simplebuilding:reinforced_chest_boat"
+  }
+}
