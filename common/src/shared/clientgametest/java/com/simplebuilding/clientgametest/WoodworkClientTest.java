@@ -2,6 +2,7 @@ package com.simplebuilding.clientgametest;
 
 import com.simplebuilding.version.McVersion;
 import com.simplebuilding.woodwork.CarvedLogBlock;
+import com.simplebuilding.woodwork.CrateBlock;
 import com.simplebuilding.woodwork.CrateBlockEntity;
 import com.simplebuilding.woodwork.SherdMotif;
 import com.simplebuilding.woodwork.WoodBlocks;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public final class WoodworkClientTest {
     private static final int Z = 19;
+    private static final int CRATE_Z = 16;
 
     private WoodworkClientTest() {
     }
@@ -108,6 +110,53 @@ public final class WoodworkClientTest {
         script.shot("woodwork-closeup");
         script.command("fill 4 0 " + Z + " 16 2 " + Z + " minecraft:air", true);
         script.command("kill @e[type=!minecraft:player]", true);
+        // Queue N31: crates in every orientation (opening to the camera = north), slats of all twelve woods; three
+        // blocks in front of the wall so the camera can also look from behind.
+        onServer(script, "place the crates", server -> {
+            ServerLevel level = server.overworld();
+            Direction[] facings = {Direction.UP, Direction.NORTH, Direction.EAST, Direction.WEST, Direction.DOWN, Direction.SOUTH, Direction.UP, Direction.UP};
+            WoodKind[] woods = WoodKind.values();
+            for (int i = 0; i < facings.length; i++) {
+                level.setBlock(new BlockPos(5 + i, 0, CRATE_Z), WoodBlocks.family(woods[i % woods.length]).crate().defaultBlockState().setValue(CrateBlock.FACING, facings[i]), 3);
+            }
+            for (int i = 0; i < woods.length - facings.length; i++) {
+                level.setBlock(new BlockPos(5 + i, 1, CRATE_Z), WoodBlocks.family(woods[facings.length + i]).crate().defaultBlockState(), 3);
+            }
+            fillAt(level, 5, CRATE_Z, List.of(new ItemStack(Items.APPLE, 64), new ItemStack(Items.APPLE, 64), new ItemStack(Items.APPLE, 40)));
+            fillAt(level, 6, CRATE_Z, List.of(new ItemStack(Items.CARROT, 64), new ItemStack(Items.CARROT, 20)));
+            fillAt(level, 7, CRATE_Z, List.of(new ItemStack(Items.BREAD, 64), new ItemStack(Items.BREAD, 30)));
+            fillAt(level, 8, CRATE_Z, List.of(new ItemStack(Items.POTATO, 64), new ItemStack(Items.POTATO, 64), new ItemStack(Items.BAKED_POTATO, 64)));
+            fillAt(level, 9, CRATE_Z, List.of(new ItemStack(Items.BEETROOT, 10)));
+            fillAt(level, 10, CRATE_Z, List.of(new ItemStack(Items.APPLE, 5)));
+            fillAt(level, 11, CRATE_Z, List.of(new ItemStack(Items.COOKIE, 1)));
+            List<ItemStack> full = new ArrayList<>();
+            for (int i = 0; i < CrateBlockEntity.SLOTS; i++) {
+                full.add(new ItemStack(Items.GOLDEN_CARROT, 64));
+            }
+            fillAt(level, 12, CRATE_Z, full);
+        });
+        script.awaitPackets();
+        script.await("the client has the crate contents", 100,
+                client -> client.level.getBlockEntity(new BlockPos(12, 0, CRATE_Z)) instanceof CrateBlockEntity crate && !crate.isEmpty());
+        String[][] views = {
+                {"crates-front", "8.5 0.4 13.3 0.0 25.0"},
+                {"crates-above", "8.5 1.0 13.0 0.0 50.0"},
+                {"crates-top-close", "12.0 0.6 15.0 0.0 45.0"},
+                {"crates-apples-close", "5.5 0.6 15.0 0.0 45.0"},
+                {"crates-side-close", "6.5 0.0 14.6 0.0 20.0"},
+                {"crates-left", "3.6 0.6 13.6 -45.0 25.0"},
+                {"crates-right", "13.4 0.6 13.6 45.0 25.0"},
+                {"crates-back", "8.5 0.6 18.4 180.0 30.0"},
+                {"crates-low", "8.5 0.0 13.0 0.0 15.0"},
+        };
+        for (String[] view : views) {
+            script.command("tp @a " + view[1]);
+            script.awaitPackets();
+            script.idle("let " + view[0] + " settle", 15);
+            script.shot(view[0]);
+        }
+        script.command("fill 4 0 " + CRATE_Z + " 16 2 " + CRATE_Z + " minecraft:air", true);
+        script.command("kill @e[type=!minecraft:player]", true);
         script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
         script.awaitPackets();
     }
@@ -121,7 +170,11 @@ public final class WoodworkClientTest {
     }
 
     private static void fill(ServerLevel level, int x, List<ItemStack> stacks) {
-        if (level.getBlockEntity(new BlockPos(x, 0, Z)) instanceof CrateBlockEntity crate) {
+        fillAt(level, x, Z, stacks);
+    }
+
+    private static void fillAt(ServerLevel level, int x, int z, List<ItemStack> stacks) {
+        if (level.getBlockEntity(new BlockPos(x, 0, z)) instanceof CrateBlockEntity crate) {
             stacks.forEach(stack -> crate.insert(stack.copy()));
         }
     }

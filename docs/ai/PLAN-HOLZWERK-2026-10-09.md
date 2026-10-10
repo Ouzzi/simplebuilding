@@ -38,3 +38,17 @@ Rezepte), Lang EN/DE, Wiki, Testzentrale-Station `woodwork`, `WoodworkTests`.
 ## Verifikation
 Compile 3 Loader (+26.2), `simplebuilding:woodwork*` auf fabric/neoforge/forge-263, Datagen, Wiki-Check,
 Client-Screenshot nach `/root/previews/wood/`.
+
+## Nachtrag Queue N31 Punkt 4 (Branch `claude-q-crates2`): Kisten überarbeitet
+
+- **Ausrichtung:** `CrateBlock.FACING` (6 Richtungen, Standard `up` = alte Welten unverändert), Platzierung wie das
+  Fass (Öffnung zum Spieler), `rotate`/`mirror`. Kollisionsform je Richtung: volle Box minus Innenraum
+  (`CrateBlock.interior`), offen zur Öffnung. Inhalt bleibt beim Drehen (gleicher Block, Block-Entity bleibt).
+- **Modell:** `template_crate` aus dem Generator: 4 Eckpfosten, je Seite 3 Latten (2 px Lücken), 3 Bodenbretter
+  (1 px Lücken), alle Flächen mit den Brettern der Holzart; Blockstate-Drehungen wie das Fass. Die Lücken sind echte
+  Geometrie statt Alpha-Cutout – gleich durchsichtig, braucht keine eigenen PNGs und keinen Render-Layer.
+- **Renderer:** jedes Item in eigener 4-px-Zelle (Größe 0,24 → 3,8 px, berührt weder Wand noch Nachbar), nur
+  Vierteldrehungen, zwei Lagen genau 1 px auseinander, oberste Lage nie unter 1,5 px über dem Boden → kein
+  Z-Fighting/Flackern. Das Essen liegt immer auf der untersten Innenseite: Boden (oben offen), untere Seitenwand
+  (seitlich), Erdboden unter der Kiste (Öffnung nach unten).
+- **Trichter:** Vanilla-`Container` – oben füllt, unten leert in jeder Ausrichtung (Test).
