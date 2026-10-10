@@ -27,6 +27,7 @@ public abstract class ContainerScreenLinkedMixin extends Screen implements Linke
     @Shadow @Final protected int imageWidth;
     @Shadow @Final protected int imageHeight;
     @Shadow @Final protected AbstractContainerMenu menu;
+    @Shadow protected int inventoryLabelY;
 
     @Shadow protected abstract boolean hasClickedOutside(double x, double y, int left, int top);
 
@@ -42,7 +43,9 @@ public abstract class ContainerScreenLinkedMixin extends Screen implements Linke
     @Override
     public void qol$layout() {
         LinkedPanel panel = this.qol$panel();
-        if (panel != null) panel.layout(this.menu, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, this.width, this.height);
+        if (panel == null) return;
+        panel.layout(this.menu, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, this.width, this.height);
+        if (panel.replacesInventory()) this.inventoryLabelY = -1000;
     }
 
     @Inject(method = "init()V", at = @At("TAIL"))

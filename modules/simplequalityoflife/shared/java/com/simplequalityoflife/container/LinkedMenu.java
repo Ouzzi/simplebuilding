@@ -12,6 +12,9 @@ public interface LinkedMenu {
     /** Vanilla {@code moveItemStackTo} of this menu. */
     boolean qol$move(ItemStack stack, int start, int end, boolean backwards);
 
+    /** Drops every slot from {@code from} on (slots, last and remote copies). */
+    void qol$truncate(int from);
+
     /** Server: the linked container session of this menu, or null. */
     @Nullable LinkedContainers.Session qol$session();
 

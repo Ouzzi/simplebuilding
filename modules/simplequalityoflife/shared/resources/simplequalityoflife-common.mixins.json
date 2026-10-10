@@ -33,6 +33,7 @@
     "client.ClientWeatherMixin",
     "client.VisualRainMixin",
     "client.ContainerScreenLinkedMixin",
+    "client.HudLinkedMixin",
     "client.SlotPositionAccessor"
   ],
   "injectors": {

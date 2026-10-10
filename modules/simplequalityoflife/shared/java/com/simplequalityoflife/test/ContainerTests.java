@@ -1,5 +1,6 @@
 package com.simplequalityoflife.test;
 
+import java.util.ArrayList;
 import com.simplequalityoflife.Simplequalityoflife;
 import com.simplequalityoflife.config.SimplequalityoflifeConfig;
 import com.simplequalityoflife.container.LinkedContainers;
@@ -177,17 +178,18 @@ public final class ContainerTests {
             // Marked -> second container first.
             menu.clicked(start, 0, ContainerInput.QUICK_MOVE, p);
             h.assertTrue(count(other, Items.DIAMOND) == 10 && count(marked, Items.DIAMOND) == 0, "Shift-click moves marked -> second chest");
-            // Second container -> player inventory, never into the marked box.
+            // Second container -> the marked box first (it is shown where the inventory is), then the inventory.
             int diamondSlot = -1;
             for (int i = 0; i < 27; i++) if (menu.slots.get(i).getItem().is(Items.DIAMOND)) diamondSlot = i;
             menu.clicked(diamondSlot, 0, ContainerInput.QUICK_MOVE, p);
-            h.assertTrue(count(p.getInventory(), Items.DIAMOND) == 10 && count(marked, Items.DIAMOND) == 0 && count(other, Items.DIAMOND) == 0, "Second chest -> inventory only");
+            h.assertTrue(count(marked, Items.DIAMOND) == 10 && count(p.getInventory(), Items.DIAMOND) == 0 && count(other, Items.DIAMOND) == 0, "Second chest -> marked box first");
             // Inventory -> second chest; when it is full, into the marked box.
+            p.getInventory().add(new ItemStack(Items.DIAMOND, 10));
             for (int i = 0; i < 27; i++) other.setItem(i, new ItemStack(Items.STONE, 64));
             int inv = -1;
             for (int i = 27; i < 63; i++) if (menu.slots.get(i).getItem().is(Items.DIAMOND)) inv = i;
             menu.clicked(inv, 0, ContainerInput.QUICK_MOVE, p);
-            h.assertTrue(count(marked, Items.DIAMOND) == 10 && count(p.getInventory(), Items.DIAMOND) == 0, "Full second chest: inventory -> marked box");
+            h.assertTrue(count(marked, Items.DIAMOND) == 20 && count(p.getInventory(), Items.DIAMOND) == 0, "Full second chest: inventory -> marked box");
             h.assertTrue(count(other, Items.STONE) == 27 * 64, "Nothing lost in the full chest");
             // Break the marked box: its block entity keeps the items for the dropped box, the panel hands out nothing.
             h.setBlock(markedPos, Blocks.AIR);
@@ -209,6 +211,42 @@ public final class ContainerTests {
             p.openMenu((MenuProvider) other);
             h.assertTrue(firstLinked(p.containerMenu) == -1, "No channel, no extra slots");
             p.closeContainer();
+            LinkedContainers.clear(p);
+        });
+        h.succeed();
+    }
+
+    /** The inventory menu carries the marked slots while the mark lasts (HUD payload with the block's item), and loses them again. */
+    public static void linkedInventory(GameTestHelper h) {
+        configured(() -> {
+            var boxPos = new BlockPos(1, 2, 1);
+            h.setBlock(boxPos, Blocks.SHULKER_BOX);
+            var box = (Container) h.getLevel().getBlockEntity(h.absolutePos(boxPos));
+            box.setItem(0, new ItemStack(Items.DIAMOND, 5));
+            var sent = new ArrayList<com.simplequalityoflife.network.LinkedOpenPayload>();
+            LinkedContainers.openSync = (player, payload) -> sent.add(payload);
+            var p = player(h, new BlockPos(2, 2, 3));
+            var menu = p.inventoryMenu;
+            int base = menu.slots.size();
+            p.setShiftKeyDown(true);
+            LinkedContainers.onRightClickBlock(p, InteractionHand.MAIN_HAND, h.absolutePos(boxPos));
+            p.setShiftKeyDown(false);
+            h.assertTrue(menu.slots.size() == base + 27 && firstLinked(menu) == base, "Mark appends its slots to the inventory menu: " + menu.slots.size());
+            h.assertTrue(!sent.isEmpty() && sent.get(sent.size() - 1).containerId() == menu.containerId
+                    && sent.get(sent.size() - 1).size() == 27 && sent.get(sent.size() - 1).icon().is(Items.SHULKER_BOX), "Payload carries size and the block's item");
+            // Inventory screen: main/hotbar slots fill the marked box, the box's slots empty into the inventory.
+            p.getInventory().add(new ItemStack(Items.DIAMOND, 3));
+            int diamonds = -1;
+            for (int i = 9; i < 45; i++) if (menu.slots.get(i).getItem().is(Items.DIAMOND)) diamonds = i;
+            menu.clicked(diamonds, 0, ContainerInput.QUICK_MOVE, p);
+            h.assertTrue(count(box, Items.DIAMOND) == 8 && count(p.getInventory(), Items.DIAMOND) == 0, "Inventory shift-click fills the marked box");
+            menu.clicked(base, 0, ContainerInput.QUICK_MOVE, p);
+            h.assertTrue(count(box, Items.DIAMOND) == 0 && count(p.getInventory(), Items.DIAMOND) == 8, "Marked slot shift-click -> inventory");
+            // Unmark: slots gone, payload with size 0.
+            p.setShiftKeyDown(true);
+            LinkedContainers.onRightClickBlock(p, InteractionHand.MAIN_HAND, h.absolutePos(boxPos));
+            p.setShiftKeyDown(false);
+            h.assertTrue(menu.slots.size() == base && sent.get(sent.size() - 1).size() == 0, "Unmark removes the slots again");
             LinkedContainers.clear(p);
         });
         h.succeed();

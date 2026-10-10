@@ -32,6 +32,7 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void linkedMark(GameTestHelper h){com.simplequalityoflife.test.ContainerTests.linkedMark(h);}
  @GameTest(maxTicks=100) public void linkedRange(GameTestHelper h){com.simplequalityoflife.test.ContainerTests.linkedRange(h);}
  @GameTest(maxTicks=100) public void linkedTransfer(GameTestHelper h){com.simplequalityoflife.test.ContainerTests.linkedTransfer(h);}
+ @GameTest(maxTicks=100) public void linkedInventory(GameTestHelper h){com.simplequalityoflife.test.ContainerTests.linkedInventory(h);}
  @GameTest(maxTicks=100) public void portableShulker(GameTestHelper h){com.simplequalityoflife.test.ContainerTests.portableShulker(h);}
  @GameTest(maxTicks=100) public void portableEnderChest(GameTestHelper h){com.simplequalityoflife.test.ContainerTests.portableEnderChest(h);}
 }
