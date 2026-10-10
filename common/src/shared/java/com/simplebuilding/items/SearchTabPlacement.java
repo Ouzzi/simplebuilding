@@ -262,7 +262,7 @@ public final class SearchTabPlacement {
             out.add(Placement.after(NATURAL_BLOCKS, Items.PACKED_ICE, ModItems.CHISELED_PACKED_ICE));
             out.add(Placement.after(NATURAL_BLOCKS, Items.BLUE_ICE, ModItems.CHISELED_BLUE_ICE));
             out.add(Placement.after(NATURAL_BLOCKS, Items.BONE_BLOCK, ModItems.NAUTILUS_SHELL_BLOCK));
-            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SCULK_SHRIEKER, ModItems.SCULK_JAW));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.SCULK_SHRIEKER, ModItems.SCULK_JAW));
             out.add(Placement.after(NATURAL_BLOCKS, Items.PEARLESCENT_FROGLIGHT,
                     ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT));
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.PEARLESCENT_FROGLIGHT,
