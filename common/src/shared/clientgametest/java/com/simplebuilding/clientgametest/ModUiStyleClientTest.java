@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 /**
- * The mod screens in the container style (26.3, {@code ModScreenStyle}; simplecontainers plan W1 G4): each screen
+ * The mod screens in the container style (26.3, {@code ModScreenStyle}; simpleinterfaces plan W1 G4): each screen
  * is opened on the client with a client-side menu, rendered for a few frames and photographed for the comparison
  * with the previews {@code g4-*.png}. On 26.2 the same screens show their old look (the twin draws nothing).
  *

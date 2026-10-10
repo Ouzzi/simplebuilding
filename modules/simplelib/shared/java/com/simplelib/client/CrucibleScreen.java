@@ -33,7 +33,7 @@ import net.minecraft.world.item.ItemStack;
  * mark repeats cooking/blocked/cold for colour-blind players.
  * The image is the larger of both layouts; the current panel is drawn centred inside it.
  * The drawing blocks (box, slot, palette, progress fill, flames) live in {@code com.simplelib.api.client.ui} and are
- * shared with simplecontainers and other mod screens.
+ * shared with simpleinterfaces and other mod screens.
  */
 public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
     /** How a crucible slot shows its progress (owner N12b, preview crucible-n12b-fortschritt.png). */

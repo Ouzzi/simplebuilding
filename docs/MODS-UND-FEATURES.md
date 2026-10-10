@@ -15,7 +15,7 @@ Befehle). In ihrer Config steht je Sub-Mod oben „Simple XY aktivieren“. Geme
 
 ```
 SimpleBuilding (Super-Mod, geplant)          Simple Quality of Life (Super-Mod, geplant)
- ├─ simplelib (gebündelt)                      ├─ simplecontainers (Sub-Mod, vorhanden)
+ ├─ simplelib (gebündelt)                      ├─ simpleinterfaces (Sub-Mod, vorhanden)
  ├─ Simple Trims (geplant)                     ├─ Simple Loot (geplant: Tresor-Abklingzeit)
  └─ Simple Maps (in Arbeit)                    └─ weitere Teile nach Besitzer-Entscheidung
                                               Simple Combat (geplant: Schärfe schneidet Gras)
@@ -28,7 +28,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 |---|---|---|---|
 | SimpleBuilding (`simplebuilding`) | Cloth Config | JEI, REI, ModMenu, Jade, AppleSkin, Mouse Tweaks, Trinkets, Curios | simplelib |
 | SimpleLib (`simplelib`) | – | – | – |
-| Simple Containers (`simplecontainers`) | Cloth Config, simplelib | SimpleBuilding, ModMenu | simplelib |
+| Simple Interfaces (`simpleinterfaces`) | Cloth Config, simplelib | SimpleBuilding, ModMenu | simplelib |
 | Simple Quality of Life (`simplequalityoflife`) | Cloth Config | SimpleBuilding, ModMenu | simplelib |
 | Simple Riding (`simpleriding`) | Cloth Config | SimpleBuilding (Enderit-Hufeisen), ModMenu | simplelib |
 | Simple Sandwiches (`simplesandwiches`) | – | SimpleBuilding | simplelib |
@@ -75,7 +75,7 @@ Schmelztiegel (Eisen/Verstärkt/Netherit, beheizt vom Block darunter, Axt-Weg oh
 Tiegel, warmes Essen, verstärkter Kessel (erbt Vanilla-Kessel inkl. Milch), Dorf-Feldküchen, Stapelgrößen-Regel
 (`StackLimits`), UI-Bausteine des Simple-Stils (Kästen, Slots, Symbole, Flammen, Filter-Knopf).
 
-### Simple Containers (Sub-Mod von QoL, clientseitige Optik)
+### Simple Interfaces (früher Simple Containers, Sub-Mod von QoL, clientseitige Optik)
 Simple-Stil für Truhen, Fässer, Shulker, Trichter, Werfer/Spender, Crafter, Reittier-Inventare, Arbeitsblöcke
 (Werkbank, Öfen, Braustand, Leuchtfeuer, Zaubertisch), Amboss/Schleifstein/Steinsäge/Webstuhl/Kartentisch/
 Schmiedetisch, Handel, Spieler-Inventar; Mod-Bildschirme im gleichen Stil; Vergleichsschalter Simple/Vanilla.

@@ -30,7 +30,7 @@ public record UiPalette(int fill, int light, int shade, int slot, int slotTop, i
     /**
      * A palette from one fill colour with the crucible's ratios - light inner line ~1.27 x fill (mixed towards white
      * for very dark or very light fills), shade 0.82, slot 0.78, slot top line 0.64 - and a label readable on it.
-     * Same rule as {@code derive} in {@code tools/ui/simplecontainers_preview.py}; keep both in step.
+     * Same rule as {@code derive} in {@code tools/ui/simpleinterfaces_preview.py}; keep both in step.
      */
     public static UiPalette derived(int fill) {
         double l = luminance(fill);

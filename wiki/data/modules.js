@@ -266,8 +266,8 @@ window.WIKI_MODULES = [
     "dataHash": "667cfaf88e27"
   },
   {
-    "id": "simplecontainers",
-    "displayName": "Simple Containers",
+    "id": "simpleinterfaces",
+    "displayName": "Simple Interfaces",
     "description": "Client-only restyle of the Vanilla container screens in the Simple style: a coloured box per block and a light inventory box, drawn in code.",
     "version": "0.1.0",
     "minecraft": "26.3",
@@ -284,7 +284,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "b57586f123d8"
+    "dataHash": "5b9a99b1a260"
   },
   {
     "id": "simplemaps",

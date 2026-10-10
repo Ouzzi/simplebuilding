@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * The hoof panel left of the horse inventory in the container style (SimpleLib's style blocks, IRON palette;
- * simplecontainers preview W0-B decision 9): a tab whose right end lies under the horse window's left frame, so the
+ * simpleinterfaces preview W0-B decision 9): a tab whose right end lies under the horse window's left frame, so the
  * slot (x -20) and two frames fit into the 20 px. Drawn right after the dimmed world and before the horse window
  * (Vanilla PNG or a styled box), which then covers that end. Empty hoof slots keep their own horseshoe icon
  * ({@code HorseshoeSlot#getNoItemIcon}, drawn by Vanilla over the slot).

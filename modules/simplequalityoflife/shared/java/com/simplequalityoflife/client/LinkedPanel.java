@@ -30,7 +30,7 @@ public final class LinkedPanel {
     private static final int HEADER = 17;
     private static final int FOOTER = 7;
     private static final int GAP = 2;
-    /** Oak chest colours (simplecontainers palette table "chest_oak"). */
+    /** Oak chest colours (simpleinterfaces palette table "chest_oak"). */
     private static final UiPalette PALETTE = UiPalette.derived(0xFFCE9148);
 
     private final Component title;

@@ -4,7 +4,7 @@ import java.util.ServiceLoader;
 
 /**
  * Screen restyling hints other mods publish through the framework
- * ({@code com.simplebuilding.framework.api.ContainerStyleHints}, e.g. simplecontainers): while a container screen is
+ * ({@code com.simplebuilding.framework.api.ContainerStyleHints}, e.g. simpleinterfaces): while a container screen is
  * drawn in such a style, SimpleBuilding leaves out decorations made for the Vanilla look (astral vault tint). The 26.3
  * overlay supplies the bridge (like {@link ModuleTransformHints}); lines without the framework never restyle.
  */

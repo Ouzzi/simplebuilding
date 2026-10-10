@@ -5,7 +5,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 /**
  * Engraved symbols of the N12 container style instead of text (owner image 3; README of the W0-B previews, point 5):
  * a stroke in the slot colour with a 1 px light edge under it, sunk like the slots. Progress fills the symbol white
- * (image 4) from the left or from the top. Pixel art and numbers exactly as {@code tools/ui/simplecontainers_preview.py}
+ * (image 4) from the left or from the top. Pixel art and numbers exactly as {@code tools/ui/simpleinterfaces_preview.py}
  * (ARROW, HEAT, SMOKE, ARROW_DOWN, CHECK, CROSS, PYRAMID, STAR); keep both in step. Client only.
  */
 public final class UiSymbols {

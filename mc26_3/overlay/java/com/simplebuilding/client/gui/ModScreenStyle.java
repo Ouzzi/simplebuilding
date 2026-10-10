@@ -34,9 +34,9 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.Block;
 
 /**
- * 26.3: the mod screens in the container style (owner images 3/4; previews {@code g4-*.png} of the simplecontainers
+ * 26.3: the mod screens in the container style (owner images 3/4; previews {@code g4-*.png} of the simpleinterfaces
  * plan, group G4) drawn with SimpleLib's style blocks ({@code com.simplelib.api.client.ui}, principle 6a) - without
- * simplecontainers. Only the picture changes: menus, slots and the hopper filter behave as before. The 26.2 twin in
+ * simpleinterfaces. Only the picture changes: menus, slots and the hopper filter behave as before. The 26.2 twin in
  * common/src/mc26_2/java answers {@code false} everywhere, the screens then draw their old look.
  */
 public final class ModScreenStyle {

@@ -1139,12 +1139,12 @@
       }
     },
     {
-      "id": "simplecontainers",
-      "name": "Simple Containers",
+      "id": "simpleinterfaces",
+      "name": "Simple Interfaces",
       "version": "0.1.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
-      "displayName": "Simple Containers",
+      "displayName": "Simple Interfaces",
       "description": "Client-only restyle of the Vanilla container screens in the Simple style: a coloured box per block and a light inventory box, drawn in code.",
       "loaders": [
         "fabric",
@@ -1160,27 +1160,27 @@
         "modmenu"
       ],
       "checks": [
-        "modules/simplecontainers/tools/check_data.py"
+        "modules/simpleinterfaces/tools/check_data.py"
       ],
       "tests": {
-        "namespace": "simplecontainers",
+        "namespace": "simpleinterfaces",
         "catalogues": [
-          "modules/simplecontainers/fabric/src/main/java/com/simplebuilding/modules/simplecontainers/ModuleGameTest.java"
+          "modules/simpleinterfaces/fabric/src/main/java/com/simplebuilding/modules/simpleinterfaces/ModuleGameTest.java"
         ],
         "requires": [
-          "simplecontainers"
+          "simpleinterfaces"
         ],
         "devMods": [
           "cloth_config"
         ],
         "loaders": {
           "fabric": {
-            "task": ":integration:runSimplecontainersGameTest",
-            "report": "integration/build/simplecontainers-junit.xml"
+            "task": ":integration:runSimpleinterfacesGameTest",
+            "report": "integration/build/simpleinterfaces-junit.xml"
           },
           "neoforge": {
-            "task": ":modules:simplecontainers:neoforge:runModuleIntegrationGameTest",
-            "report": "modules/simplecontainers/neoforge/build/module-junit.xml"
+            "task": ":modules:simpleinterfaces:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simpleinterfaces/neoforge/build/module-junit.xml"
           }
         },
         "standalone": {
@@ -1190,39 +1190,39 @@
           ],
           "loaders": {
             "fabric": {
-              "task": ":integration:runSimplecontainersStandaloneGameTest",
-              "report": "integration/build/standalone/simplecontainers-junit.xml"
+              "task": ":integration:runSimpleinterfacesStandaloneGameTest",
+              "report": "integration/build/standalone/simpleinterfaces-junit.xml"
             },
             "neoforge": {
-              "task": ":modules:simplecontainers:neoforge:runModuleStandaloneGameTest",
-              "report": "modules/simplecontainers/neoforge/build/standalone-junit.xml"
+              "task": ":modules:simpleinterfaces:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simpleinterfaces/neoforge/build/standalone-junit.xml"
             }
           }
         },
         "client": {
           "entrypoints": [
-            "com.simplebuilding.modules.simplecontainers.ModuleClientSmoke"
+            "com.simplebuilding.modules.simpleinterfaces.ModuleClientSmoke"
           ],
-          "sources": "modules/simplecontainers/clienttest/java",
+          "sources": "modules/simpleinterfaces/clienttest/java",
           "screenshots": "integration/run-fabric-263/screenshots",
           "task": ":integration:runClientGameTest"
         }
       },
       "paths": {
-        "root": "modules/simplecontainers",
-        "shared": "modules/simplecontainers/shared",
-        "fabric": "modules/simplecontainers/fabric",
-        "neoforge": "modules/simplecontainers/neoforge",
-        "forge": "modules/simplecontainers/forge",
-        "generated": "modules/simplecontainers/generated/resources",
-        "lang": "modules/simplecontainers/shared/resources/assets/simplecontainers/lang",
-        "wikiManual": "modules/simplecontainers/wiki/manual.json",
-        "balanceDir": "balance/simplecontainers"
+        "root": "modules/simpleinterfaces",
+        "shared": "modules/simpleinterfaces/shared",
+        "fabric": "modules/simpleinterfaces/fabric",
+        "neoforge": "modules/simpleinterfaces/neoforge",
+        "forge": "modules/simpleinterfaces/forge",
+        "generated": "modules/simpleinterfaces/generated/resources",
+        "lang": "modules/simpleinterfaces/shared/resources/assets/simpleinterfaces/lang",
+        "wikiManual": "modules/simpleinterfaces/wiki/manual.json",
+        "balanceDir": "balance/simpleinterfaces"
       },
       "projects": {
-        "fabric": ":modules:simplecontainers:fabric",
-        "neoforge": ":modules:simplecontainers:neoforge",
-        "forge": ":modules:simplecontainers:forge"
+        "fabric": ":modules:simpleinterfaces:fabric",
+        "neoforge": ":modules:simpleinterfaces:neoforge",
+        "forge": ":modules:simpleinterfaces:forge"
       }
     },
     {

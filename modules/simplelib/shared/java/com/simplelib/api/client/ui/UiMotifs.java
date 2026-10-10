@@ -7,7 +7,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 /**
  * Faint marks inside a box (owner image 4; W0-B README point 6): dark = 0.90 x fill, light = halfway to the light
  * colour, scattered by a fixed hash, never over the box's elements. Exactly {@code motif()} of
- * {@code tools/ui/simplecontainers_preview.py} (shapes, count, placement, seed); keep both in step. Client only.
+ * {@code tools/ui/simpleinterfaces_preview.py} (shapes, count, placement, seed); keep both in step. Client only.
  */
 public final class UiMotifs {
     /** Motif kinds of the preview's palette table. */

@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 /**
  * Since 0.1.4. Optional screen restyling hints: a module that draws a container screen's background in its own style
- * (simplecontainers) publishes which screens it restyles right now, so other mods skip decorations painted for the
+ * (simpleinterfaces) publishes which screens it restyles right now, so other mods skip decorations painted for the
  * Vanilla look (SimpleBuilding's astral vault tint) instead of painting over the style. Purely cosmetic.
  *
  * <p><b>Loader- and version-neutral, server-safe:</b> no Minecraft classes; {@code screen} is the open container

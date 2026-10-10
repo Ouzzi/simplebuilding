@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleinterfaces",
+  "version": "${version}",
+  "name": "Simple Interfaces",
+  "description": "Client-only restyle of the Vanilla container screens: a coloured box per block and a light inventory box, drawn in code.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleinterfaces.ModuleGameTest"
+    ],
+    "modmenu": [
+      "com.simplebuilding.modules.simpleinterfaces.ContainersModMenu"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simpleinterfaces.ContainersFabricClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "cloth-config": "*",
+    "simplelib": "*"
+  },
+  "mixins": [
+    "simpleinterfaces.mixins.json"
+  ],
+  "suggests": {
+    "simplebuilding": "*",
+    "modmenu": "*"
+  }
+}

@@ -6,7 +6,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 
 /**
- * Where the boxes of the container style (owner images 3/4, simplecontainers preview W0-B, group G4) go on the mod
+ * Where the boxes of the container style (owner images 3/4, simpleinterfaces preview W0-B, group G4) go on the mod
  * screens - pure numbers without client classes, so the GameTests check them on a server. Drawn on 26.3 by
  * {@code ModScreenStyle} with SimpleLib's style blocks; 26.2 keeps the old look and never asks.
  *

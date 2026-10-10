@@ -33,7 +33,7 @@ public abstract class AstralVaultScreenMixin extends AbstractContainerScreen<Che
     private void simplebuilding$tintAstralRows(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
         if (!(this.title.getContents() instanceof TranslatableContents key) || !SIMPLEBUILDING$VAULT_TITLE.equals(key.getKey())
                 || this.menu.getRowCount() != 6 || ModuleScreenStyles.isRestyled(this)) {
-            return; // restyled (simplecontainers): the style draws the astral rows itself
+            return; // restyled (simpleinterfaces): the style draws the astral rows itself
         }
         for (int i = SIMPLEBUILDING$ENDER_SLOTS; i < 6 * 9 && i < this.menu.slots.size(); i++) {
             Slot slot = this.menu.slots.get(i);

@@ -25,7 +25,7 @@ import net.minecraft.world.level.GameType;
 
 /**
  * The boxes of the mod screens in the container style ({@link ModScreenLayout}, drawn on 26.3 by
- * {@code ModScreenStyle}; simplecontainers plan W1 G4): every slot sits inside the fill area of its box - never on a
+ * {@code ModScreenStyle}; simpleinterfaces plan W1 G4): every slot sits inside the fill area of its box - never on a
  * frame, never in the divider - for every tier and size, so a menu that moves its slots or a tier with more rows
  * shows up here before it shows up as a slot on a frame. Loader-neutral; pure numbers, no client classes.
  */
