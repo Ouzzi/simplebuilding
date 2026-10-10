@@ -49,7 +49,7 @@ public final class EndStructureTests {
 
     public static void templatesLoad(GameTestHelper helper) {
         if (!active(helper)) return;
-        var manager = helper.getLevel().getServer().getStructureManager();
+        var manager = helper.getLevel().getStructureManager();
         for (String t : TEMPLATES) {
             var template = manager.get(id("end/" + t));
             helper.assertTrue(template.isPresent(), "template missing: " + t);
