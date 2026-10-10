@@ -385,7 +385,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Vorschlaghammer + Besatz-Interaktion: Rechtsklick wie alle In-World-Umwandlungen; alle In-World-Umwandlungen auf Konsistenz prüfen. (Audit 09.10.: claude-hammer12 5db8a809a; Inventur docs/ai/INWORLD-UMWANDLUNGEN-2026-10-06.md),
 - [x] Seelenbrand: Dauer verdoppeln; sichtbarer Statuseffekt (leichter Blau-/Dunkelfilter); auf Kaltem (Eis, Schnee, Wasser …) Schaden im halben Intervall. – 120 s, Filter `SoulBurnOverlay`, kalter Grund = Wurf alle 1,5 s (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
 - [x] Magnet: höhere Reichweite. – Basis 4, +2 je Reichweite, Deckel 9, platziert 8 (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
-- [ ] Vorschlaghammer + Besatz-Interaktion: Rechtsklick wie alle In-World-Umwandlungen; alle In-World-Umwandlungen auf Konsistenz prüfen.
 - [x] Crucible-UI scannen und verbessern: v2 zentriert, Hitze/Feuer eingelassen + Tooltip, Fass-Platzhalter; Vorschau `previews/crucible-ui-v2-vorschau.png` (Branch `claude-crucible4`, Plan `docs/ai/PLAN-CRUCIBLE-N11-2026-10-06.md`; Client-Abnahme offen).
 - [x] Crucible↔Kupfer-Fass-Verbindung (Risse je Schlag, Flansch+Rinne, 9 Felder/Rest droppt, Tiegel-UI, Abbau beider Seiten) (Branch `claude-crucible4`, Plan `docs/ai/PLAN-CRUCIBLE-N11-2026-10-06.md`; Client-Abnahme offen): Zerstörungs-Indikatoren beim Anbringen, neues verbundenes Modell, verbundenes Fass nur 9 Felder und öffnet die Crucible-UI; Abbau Fass → Inhalt droppt, Fass wird normal (analog Crucible).
 - [x] (claude-q-small: Tiegel/Fässer/Kessel zusätzlich in Vanilla-Funktionsblöcke (Schalter simplelib) und simplebuilding:functional; Test creative_tab_routing) simplelib-Elemente (Kessel usw.) immer in die Kreativtabs der jeweiligen Mods verteilen.
@@ -415,12 +414,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Trank-Pad etwas buffen. (Audit 09.10.: af35d7f6c (N11 P5))
 - [x] Kreativ-Abstandshalter nur wo nötig, Lücken größtenteils schließen. (Audit 09.10.: 45f36c970 (N11 P8), ersetzt durch N22 ff143698a)
 - [x] Crucible betretbar; ab hoher Hitze Schaden wie Magma. (Audit 09.10.: 5dea165f4 (N11 P6)),
-- [ ] TODO mit Rückfrage später: Blaupause überarbeiten.
 - [x] Resonanzstab: bei Nutzung weiter nach vorne neigen (Laser aus der Spitze), Laser amethystfarben. – Neigung −60°, Punkt #B38EF3, alte Datei mit Rot wechselt (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
 - [x] Kern-Items: Schimmer-Animation. → `claude-tex7`.
 - [x] Elytra-Pad drei Stufen: 5 / 32 (Netherit) / 128 (Enderit, Höhe ggf. 1,5×128). – 5×5×5 / 32×32×32 / 128×128×192, alte Pads migrieren (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
 - [x] Trank-Pad etwas buffen. – Wirkdauer 45/90/180 s (statt 30/60/120), Abklingfaktor 1,5 (statt 2) (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
-- [ ] Kreativ-Abstandshalter nur wo nötig, Lücken größtenteils schließen.
 - [x] Crucible betretbar; ab hoher Hitze Schaden wie Magma. – Kollision bis 9/16, Brand ab HIGH, Option `crucibleBurnDamage` (1, 0 = aus) (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
 - [x] Kern-Animationen mit Seltenheit (drehen, Bumerang, hochsteigen …; je cooler desto seltener), eigene längere Animation bei Erz-Umwandlung. → `claude-tex7` (`CoreHandMotion`, Erste Person, Config `tools.enableCoreAnimations`); Client-Sicht offen.
 - [ ] Rückfrage beantwortet: Elytra mit Reparatur im Schmiedetisch – Vanilla-Schmiederezepte prüfen nur Items, keine Verzauberungen; möglich nur mit eigener Rezept-Zutat je Loader (offen: soll das gebaut werden?).
@@ -552,8 +549,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Shellker-Textur wie Grundgestein (Bedrock-Tarnung).
 - [ ] Sculk-Kiefer (Falle): lautlos, verhält sich wie Spinnennetz, greift mit Fangzähnen an.
 - [x] Froschlichter in zusätzlichen Farben. (claude-q-blocks: Scharlach/Aqua/Azur, Froschlicht + Farbstoff)
-- [ ] Ziegenhorn platzierbar; Fackeln oder stabartige Items hineinstecken.
-- [ ] Froschlichter in zusätzlichen Farben.
 - [x] Ziegenhorn platzierbar; Fackeln oder stabartige Items hineinstecken. (claude-q-place: Boden/Wand, Fackeln + Stäbe, Licht)
 - [ ] Schildkröten-Helm-Äquivalent aus Shellker-Schale.
 - [x] Trainingspuppe mit Spielernamen umbenennen → Skin wechselt. (claude-q-stands; Client-Sicht mit echtem Profil offen)
@@ -562,13 +557,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Rüstungsständer per Redstone wie Item-Displays (Schleich-Rechtsklick?): tauscht die ganze Rüstung mit den Rüstungsslots des Spielers. (claude-q-stands: Schleich-Rechtsklick leere Hand oder Rechtsklick auf bestromten Ständer)
 - [x] Rüstungsständer sollen Arme haben. (claude-q-stands, Config server.features.armorStandArms)
 - [x] Weitere Rüstungsständer: mittel (Pferderüstung, oder zwei Rüstungsteile oben/unten), klein (nur ein Teil, z. B. Stiefel oder Nautilus-Rüstung). (claude-q-stands: mittel = Hose+Stiefel, klein = Stiefel; Pferde-/Nautilus-Rüstung offen)
-- [ ] Trainingspuppe mit Spielernamen umbenennen → Skin wechselt.
 - [x] Glitzernde Melone essbar; Melone auch als 0,125er-Block (platzierte Melonenscheibe = 0,125er-Block). (claude-q-hammer)
-- [ ] Farbpinsel? (Idee, offen).
-- [ ] Rüstungsständer per Redstone wie Item-Displays (Schleich-Rechtsklick?): tauscht die ganze Rüstung mit den Rüstungsslots des Spielers.
-- [ ] Rüstungsständer sollen Arme haben.
-- [ ] Weitere Rüstungsständer: mittel (Pferderüstung, oder zwei Rüstungsteile oben/unten), klein (nur ein Teil, z. B. Stiefel oder Nautilus-Rüstung).
-- [ ] Speer im Spender: bei Aktivierung wie Stachelfalle.
 - [x] Speer im Spender: bei Aktivierung wie Stachelfalle. (claude-q-place: Schaden 2 Blöcke, Haltbarkeit; ohne Stoß-Animation)
 - [ ] Simple Respawn (neues Modul?): beim Tod niedergeschlagen, Mitspieler kann wiederbeleben; danach 3 Herzen und 0 Hunger.
 - [x] Barren als 3D-Modell platzierbar. (claude-q-place: 5 Barren 3D, nur Barren = Stapel bis 4)
@@ -576,10 +565,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Übelkeits-Trank.
 - [x] Holz auch als 0,125er-Blöcke (falls noch nicht). (claude-q-hammer)
 - [ ] Mob „Seelenfeuer-Lohe“ (Soulfire Blaze).
-- [ ] Trims bis zu 4 platzierbar; alle anderen so platzierbaren Items ebenfalls bis 4 Stück („Plex“).
 - [x] Hammer: Normal-Rechtsklick-Halten (Block → Treppe → Stufe) deaktivieren; nur Schleich-Rechtsklick-Halten transformiert (Teile werden abgebaut). Erreicht die Form eine nicht unterstützte Gestalt (z. B. oben und unten je ein Achtel entfernt), wird sie in 0,125er-Blöcke zerlegt. Hammer wackelt (Hinweis „transformierbar“) nur, wenn transformiert werden kann – also nur beim Schleichen. (claude-q-hammer)
 - [x] Trims bis zu 4 platzierbar; alle anderen so platzierbaren Items ebenfalls bis 4 Stück („Plex“). (claude-q-place: Vorlagen ins Häufchen; Funktions-Items bleiben einzeln)
-- [ ] Hammer: Normal-Rechtsklick-Halten (Block → Treppe → Stufe) deaktivieren; nur Schleich-Rechtsklick-Halten transformiert (Teile werden abgebaut). Erreicht die Form eine nicht unterstützte Gestalt (z. B. oben und unten je ein Achtel entfernt), wird sie in 0,125er-Blöcke zerlegt. Hammer wackelt (Hinweis „transformierbar“) nur, wenn transformiert werden kann – also nur beim Schleichen.
 - Konzept Farbpinsel/Respawn: docs/ai/KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md. Farbpinsel in Arbeit (v3: Goldpinsel, Farbkasten mit Stufen).
 
 **Besitzer-Antworten 09.10. (auf Respawn-Fragen bezogen):** 1 ja (Einzelspieler = normaler Tod), 2 Timer: Besitzer hat eigenes älteres Revive-Konzept, sucht Daten raus → Respawn-Modul WARTET darauf, 3 ja (Mobs ignorieren Niedergeschlagene), 4 nein (keine Item-Wiederbelebung vorerst). Farbpinsel-Fragen unbeantwortet → Besitzer: KEINE Holz-Beize, Kreativ unbegrenzt, Pinselstrich-Partikel/Klang ja.
@@ -639,14 +626,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Tiegel-Flammen Form „Mittel“ (in Arbeit, claude-soullava). (Audit 09.10.: claude-soullava 5037a180a)
 
 ## Nachtrag 29 (2026-10-09 nachmittags, Besitzer; Referenzbilder Ständer: /root/previews/refs-stands/ 2–4)
-- [ ] Kreativ-Blaupause und Kreativ-Bauzauberstab: unbegrenzte Reichweite; Kreativ-Blaupause nach dem Signieren nicht mehr bearbeitbar.
-- [ ] Blaupausen-UI: im Hilfe-Bereich Reiter „Blocks“/„Guide“ als Icons, „Text kopieren“ ebenfalls als Icon.
 - [x] Enderit-Eimer voll: bis zum Rand gefüllt, KEINE Tropfen; wie beim Axolotl-Eimer. Halber Lava-/Seelenlava-Eimer nach derselben Regel wie der halbe Wassereimer. (claude-q-texfix29)
 - [x] Stein-Herz wieder 1 px schmaler (9×9); bei maximaler Resonanz ein Diamant-Herz. (claude-q-texfix29),
 - [x] Kreativ-Blaupause und Kreativ-Bauzauberstab: unbegrenzte Reichweite; Kreativ-Blaupause nach dem Signieren nicht mehr bearbeitbar. (claude-q-creative)
 - [x] Blaupausen-UI: im Hilfe-Bereich Reiter „Blocks“/„Guide“ als Icons, „Text kopieren“ ebenfalls als Icon. (claude-q-creative)
-- [ ] Enderit-Eimer voll: bis zum Rand gefüllt, KEINE Tropfen; wie beim Axolotl-Eimer. Halber Lava-/Seelenlava-Eimer nach derselben Regel wie der halbe Wassereimer.
-- [ ] Stein-Herz wieder 1 px schmaler (9×9); bei maximaler Resonanz ein Diamant-Herz.
 - [x] (claude-q-stands2) Rüstungsständer: mittleren Ständer entfernen; nur noch der kleine Ständer (Pfosten mit Querholz auf Steinplatte, wie Referenz) für genau ein Item: ein Rüstungsteil oder eine Tier-Rüstung (Pferd/Wolf/Nautilus, Referenz Pferderüstung auf Pfosten).
 - [x] Tiegel-Flamme „Mittel“ (bestätigt).
 - [x] Farbkasten-Textur überarbeiten: jede Farbe der Palette als ein Pixel in der Kasten-Textur. (claude-q-texfix29; statisch: 16 Farbpixel, keine Inhalts-Property)
@@ -665,23 +648,16 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Besitzer-Entscheidung: Farbkasten A behalten oder B/C (CHOSEN im Generator umstellen); Milch im Enderit-Eimer gewünscht? (wäre neues Feature: Melken, Trinken, halb/voll).
 
 ## Nachtrag 30 (2026-10-10, Besitzer)
-- [ ] Farbkasten (paint_box, alle Stufen) in denselben Kreativ-Tab wie Bündel und Rucksäcke.
-- [ ] Inventar-UI (simplecontainers/Mod-UIs, heller Inventar-Kasten) ist zu strahlend weiß: Stil behalten, aber Farben aus Vanilla nehmen (Vanilla-GUI-Grau/Schatten/Licht).
-- [ ] Astral-Verzauberungstisch: Herstellung (Hammer-Umwandlung) in JEI anzeigen.
-- [ ] Verstärkter Tiegel: auf 12 Slots erhöhen.
 
 ## Nachtrag 31 (2026-10-10, Besitzer)
 - [ ] Jukebox-Verstärker funktioniert nicht wie gewünscht: soll als Repeater fungieren (wie Lautsprecher per Funk weitergeben); aus den Verstärkern kommen keine Musiknoten-Partikel.
 - [x] Aufgeschnittene Wassermelone (Melonen-Achtel): 1 px schwarzer Rand zwischen Schale und Fruchtfleisch. (claude-q-misc31: dunkle Kante (28,38,14) rund um melon_flesh),
 - [x] (claude-q-amp) Jukebox-Verstärker funktioniert nicht wie gewünscht: soll als Repeater fungieren (wie Lautsprecher per Funk weitergeben); aus den Verstärkern kommen keine Musiknoten-Partikel.
-- [ ] Aufgeschnittene Wassermelone (Melonen-Achtel): 1 px schwarzer Rand zwischen Schale und Fruchtfleisch.
 - [ ] Astral-Verzauberungstisch → Name „Astral Enchanter“ (DE „Astral-Verzauberer“): Regler lassen sich nicht ziehen; UI wirkt gequetscht → höher; Verzauberungs-Zeichen (Glyphen wie Vanilla-Tisch) zu den Verzauberungen; Regler-Stufen dezent markieren; Besitzer-Frage: was machen Plus/Minus unter Lapis/Lohenstaub? Lohen-Regale ca. doppelter Wert, d. h. dieselbe Anzahl Lohen-Regale wie normale Max-Anzahl bringt den Astral Enchanter auf Maximum.
 - [x] (claude-q-crates2) Kisten (Crates): Item-Anzeige flackert (Z-Fighting um die y-Achse) und wirkt in Winkeln verbuggt; Kiste seitlich hinlegbar (Öffnung zur Seite, Items liegen auf der inneren Seitenwand); Kiste durchsichtig wie aus Holzlatten mit Lücken (echte Holzkiste).,
 - [x] (→ `claude-q-astral2`) Astral-Verzauberungstisch → Name „Astral Enchanter“ (DE „Astral-Verzauberer“): Regler lassen sich nicht ziehen; UI wirkt gequetscht → höher; Verzauberungs-Zeichen (Glyphen wie Vanilla-Tisch) zu den Verzauberungen; Regler-Stufen dezent markieren; Besitzer-Frage: was machen Plus/Minus unter Lapis/Lohenstaub? Lohen-Regale ca. doppelter Wert, d. h. dieselbe Anzahl Lohen-Regale wie normale Max-Anzahl bringt den Astral Enchanter auf Maximum.
   Erledigt auf claude-q-astral2: Name in Lang/Wiki/Handbuch/Testzentrale (IDs bleiben). Ziehen ging nicht, weil der Bildschirm die linke Taste als 0 erwartete – 26.3 zählt Maustasten wie SDL (links = 1); jetzt `InputConstants.MOUSE_BUTTON_LEFT`, abgesichert mit Client-Test `astral-enchanter` (echtes Drücken/Ziehen/Loslassen). UI 36 px höher, Glyphen (Vanilla-Schrift `alt`) unter jedem Namen, Lücken + Striche je Reglerstufe. „Plus/Minus“ war der Verzaubern-Knopf (Stern ≈ „+“, „-“ = nichts gewählt) → jetzt verzaubertes Buch + Level-Kosten. Stärke: 15 Lohen-Regale = 50 ohne Boden, Boden +10 ab 15 Punkten (Konzept-Nachtrag 31).
 - [ ] Kisten (Crates): Item-Anzeige flackert (Z-Fighting um die y-Achse) und wirkt in Winkeln verbuggt; Kiste seitlich hinlegbar (Öffnung zur Seite, Items liegen auf der inneren Seitenwand); Kiste durchsichtig wie aus Holzlatten mit Lücken (echte Holzkiste).
-- [ ] Sand- und Kies-Stufen: Schwerkraft prüfen; zwei Stufen ergeben wieder einen vollen Block; Erde-Stufen ebenfalls kombinierbar.
-- [ ] Umbenennen: Auto Smither → „Smither“; Autonomous Crafter → „Auto Crafter“ (Vanilla heißt „Crafter“).,
 - [x] Farbkasten (paint_box, alle Stufen) in denselben Kreativ-Tab wie Bündel und Rucksäcke.
 - [x] Inventar-UI (simplecontainers/Mod-UIs, heller Inventar-Kasten) ist zu strahlend weiß: Stil behalten, aber Farben aus Vanilla nehmen (Vanilla-GUI-Grau/Schatten/Licht).
 - [x] Astral-Verzauberungstisch: Herstellung (Hammer-Umwandlung) in JEI anzeigen.
