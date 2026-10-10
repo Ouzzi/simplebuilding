@@ -592,7 +592,8 @@ public final class GuideBookTests {
 
         static List<String> cutWords(String text, boolean bold) {
             List<String> out = new ArrayList<>();
-            for (String word : text.split("[ \n]")) {
+            // Titles: the book breaks after hyphens ("Hammer-" / "Aufwertung", GuideBookScreen.Header).
+            for (String word : (bold ? text.replace("-", "- ") : text).split("[ \n]")) {
                 if (!word.matches(".*([a-z][A-Z]|[a-z]\\.[a-z]).*") && !word.startsWith("/") && wordWidth(word, bold) > WIDTH) {
                     out.add(word);
                 }

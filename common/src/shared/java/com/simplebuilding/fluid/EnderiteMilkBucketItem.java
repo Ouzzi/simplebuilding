@@ -11,7 +11,6 @@ import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import org.jspecify.annotations.Nullable;
@@ -60,8 +59,16 @@ public class EnderiteMilkBucketItem extends Item {
         Item next = milked(stack);
         if (next == null || !milkable(target)) return InteractionResult.PASS;
         player.playSound(target instanceof Goat ? SoundEvents.GOAT_MILK : SoundEvents.COW_MILK, 1.0F, 1.0F);
-        if (!player.level().isClientSide()) {
-            player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, stack.transmuteCopy(next, 1)));
+        if (!player.level().isClientSide() && !player.hasInfiniteMaterials()) {
+            // Player#interactOn clears the hand when the stack it held ends up empty, so a single bucket is replaced
+            // without being shrunk first (ItemUtils.createFilledResult would shrink it).
+            ItemStack filled = stack.transmuteCopy(next, 1);
+            if (stack.getCount() == 1) {
+                player.setItemInHand(hand, filled);
+            } else {
+                stack.shrink(1);
+                if (!player.getInventory().add(filled)) player.drop(filled, false);
+            }
         }
         return InteractionResult.SUCCESS;
     }
