@@ -116,10 +116,10 @@ public final class MobsTests {
             int n = deceiver.summonNow(level, player, false);
             check(n > 0 && n <= DeceiverLogic.HARD_CAP, "wave summoned within the cap: " + n);
             long fakes = level.getEntitiesOfClass(net.minecraft.world.entity.Mob.class, probe.getBoundingBox().inflate(40)).stream()
-                    .filter(m -> m.getTags().contains(DeceiverEntity.TAG_FAKE)).count();
+                    .filter(m -> m.entityTags().contains(DeceiverEntity.TAG_FAKE)).count();
             check(fakes <= n, "fakes are summons");
             for (var m : level.getEntitiesOfClass(net.minecraft.world.entity.Mob.class, probe.getBoundingBox().inflate(40))) {
-                if (m.getTags().contains(DeceiverEntity.TAG_FAKE)) {
+                if (m.entityTags().contains(DeceiverEntity.TAG_FAKE)) {
                     check(m.getHealth() <= 1.0f, "a fake dies to the first hit");
                     check(m.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE) == null
                             || m.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE) == 0.0, "a fake deals no damage");

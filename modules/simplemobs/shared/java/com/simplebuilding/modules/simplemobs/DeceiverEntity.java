@@ -328,7 +328,7 @@ public class DeceiverEntity extends PathfinderMob {
             Entity e = level.getEntity(summons.get(i));
             boolean expired = now - summonBorn.get(i) > DeceiverLogic.FAKE_LIFETIME_TICKS;
             if (e == null || !e.isAlive() || expired) {
-                if (e != null && e.isAlive() && e.getTags().contains(TAG_FAKE)) e.discard();
+                if (e != null && e.isAlive() && e.entityTags().contains(TAG_FAKE)) e.discard();
                 summons.remove(i);
                 summonBorn.remove(i);
             }
@@ -422,7 +422,7 @@ public class DeceiverEntity extends PathfinderMob {
         if (this.level() instanceof ServerLevel level) {
             for (UUID id : summons) {
                 Entity e = level.getEntity(id);
-                if (e != null && e.getTags().contains(TAG_FAKE)) e.discard();
+                if (e != null && e.entityTags().contains(TAG_FAKE)) e.discard();
             }
             summons.clear();
             summonBorn.clear();
