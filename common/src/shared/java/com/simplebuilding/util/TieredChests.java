@@ -151,11 +151,14 @@ public final class TieredChests {
 
     /**
      * Das Lager mit Stufen-Stapelgrenze hinter {@code container}: eine Mod-Truhe (auch als erste
-     * Haelfte einer Doppeltruhe) oder eine gestufte Shulkerkiste, sonst null.
+     * Haelfte einer Doppeltruhe), eine gestufte Shulkerkiste oder ein gestuftes Kisten-Fahrzeug, sonst null.
      */
     public static @Nullable Container oversizedStorage(@Nullable Container container) {
         if (container instanceof com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity box) {
             return box;
+        }
+        if (container instanceof com.simplebuilding.entity.vehicle.TieredStorageVehicle) {
+            return container; // gestufte Kistenlore / Kistenboot (Queue N19)
         }
         return chestBehind(container);
     }

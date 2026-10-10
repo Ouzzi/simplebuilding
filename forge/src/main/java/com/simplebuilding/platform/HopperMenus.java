@@ -27,4 +27,9 @@ public final class HopperMenus {
             }
         }, (FriendlyByteBuf buffer) -> buffer.writeBlockPos(blockEntity.getBlockPos()));
     }
+
+    /** A hopper menu for another hopper (a tiered hopper cart, Queue N23); {@code pos} goes along as opening data. */
+    public static void openMenu(ServerPlayer player, MenuProvider provider, net.minecraft.core.BlockPos pos) {
+        ((IForgeServerPlayer) player).openMenu(provider, (FriendlyByteBuf buffer) -> buffer.writeBlockPos(pos));
+    }
 }

@@ -31,13 +31,46 @@ public class NetheriteHopperScreenHandler extends ModHopperScreenHandler {
     }
 
     // 3. Interner Constructor
-    protected NetheriteHopperScreenHandler(int syncId, Inventory playerInventory, Container inventory, ModHopperBlockEntity blockEntity, ContainerData propertyDelegate, BlockPos pos) {
+    protected NetheriteHopperScreenHandler(int syncId, Inventory playerInventory, Container inventory, com.simplebuilding.util.FilterHopper blockEntity, ContainerData propertyDelegate, BlockPos pos) {
         super(syncId, playerInventory, inventory, blockEntity);
         this.propertyDelegate = propertyDelegate;
         this.world = playerInventory.player.level();
         this.pos = pos;
 
         this.addDataSlots(propertyDelegate);
+    }
+
+    /** Server: a tiered hopper cart (Queue N23) - no block position, the cart itself is the hopper. */
+    public static NetheriteHopperScreenHandler forCart(int syncId, Inventory playerInventory,
+                                                       com.simplebuilding.entity.vehicle.TieredHopperMinecart cart) {
+        return new NetheriteHopperScreenHandler(syncId, playerInventory, cart, cart, cart.getPropertyDelegate(), null);
+    }
+
+    @Override
+    public com.simplebuilding.util.FilterHopper filterHopper() {
+        ModHopperBlockEntity block = getBlockEntity();
+        return block != null ? block : super.filterHopper();
+    }
+
+    /**
+     * Client: the tier of the hopper cart this menu was opened for (the opening data is the cart's block position,
+     * where no hopper block stands), or null for a hopper block.
+     */
+    public com.simplebuilding.blocks.custom.ChestTier cartTier() {
+        if (this.world == null || this.pos == null || getBlockEntity() != null) {
+            return null;
+        }
+        com.simplebuilding.entity.vehicle.TieredHopperMinecart nearest = null;
+        double best = Double.MAX_VALUE;
+        for (com.simplebuilding.entity.vehicle.TieredHopperMinecart cart : this.world.getEntitiesOfClass(
+                com.simplebuilding.entity.vehicle.TieredHopperMinecart.class, new net.minecraft.world.phys.AABB(this.pos).inflate(2.0))) {
+            double distance = cart.distanceToSqr(net.minecraft.world.phys.Vec3.atCenterOf(this.pos));
+            if (distance < best) {
+                best = distance;
+                nearest = cart;
+            }
+        }
+        return nearest == null ? null : nearest.tier();
     }
 
     @Override

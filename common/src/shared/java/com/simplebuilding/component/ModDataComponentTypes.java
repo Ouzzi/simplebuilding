@@ -35,6 +35,13 @@ public class ModDataComponentTypes {
     public static final DataComponentType<Integer> CERAMIC_USES = com.simplebuilding.version.McVersion.CRUCIBLE ? register("ceramic_uses", builder -> builder
             .persistent(Codec.intRange(0, 31)).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT)) : null;
 
+    /**
+     * Holzart eines gestuften Kistenboots (Queue N19, 26.3): "oak", "spruce", ... "bamboo" (Floss). Siehe
+     * {@code entity.vehicle.BoatWoods}; unbekannte Werte zeigt das Boot als Eiche.
+     */
+    public static final DataComponentType<String> BOAT_WOOD = com.simplebuilding.version.McVersion.TIERED_VEHICLES ? register("boat_wood", builder -> builder
+            .persistent(Codec.STRING).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.STRING_UTF8)) : null;
+
     // NEU: Visueller Glow (RGB Effekt)
     public static final DataComponentType<Boolean> VISUAL_GLOW = register("visual_glow", builder -> builder.persistent(Codec.BOOL));
 

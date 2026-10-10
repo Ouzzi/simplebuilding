@@ -507,6 +507,16 @@ public final class ModItemGroupsContent {
             rows.add(CreativeTabLayout.Row.of("training_dummy", ModItems.STRAW_ARMOR_STAND, ModItems.TRAINING_DUMMY,
                     ModItems.SMALL_ARMOR_STAND));
         }
+        if (com.simplebuilding.version.McVersion.TIERED_VEHICLES) {
+            // Fahrzeug-Stufen (Queue N19/N23): Kistenloren und Kistenboote (Eiche; die Holzart traegt das Item), dann
+            // Ofen- und Trichterloren - je Verstaerkt, Netherit, Enderit.
+            rows.add(CreativeTabLayout.Row.of("chest_vehicles", ModItems.REINFORCED_CHEST_MINECART, ModItems.NETHERITE_CHEST_MINECART,
+                    ModItems.ENDERITE_CHEST_MINECART, CreativeTabLayout.GAP, ModItems.REINFORCED_CHEST_BOAT, ModItems.NETHERITE_CHEST_BOAT,
+                    ModItems.ENDERITE_CHEST_BOAT));
+            rows.add(CreativeTabLayout.Row.of("rail_vehicles", ModItems.REINFORCED_FURNACE_MINECART, ModItems.NETHERITE_FURNACE_MINECART,
+                    ModItems.ENDERITE_FURNACE_MINECART, CreativeTabLayout.GAP, ModItems.REINFORCED_HOPPER_MINECART,
+                    ModItems.NETHERITE_HOPPER_MINECART, ModItems.ENDERITE_HOPPER_MINECART));
+        }
         if (com.simplebuilding.version.McVersion.HAMMOCK) {
             // Haengematten (2026-10-02): 16 Farben in Vanillas Bett-Reihenfolge, laufen in die naechste Zeile weiter.
             rows.add(CreativeTabLayout.Row.of("hammocks", ModItems.HAMMOCKS.toArray(net.minecraft.world.level.ItemLike[]::new)));

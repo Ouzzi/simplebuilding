@@ -123,6 +123,8 @@ public final class McVersion {
     public static final boolean CHESS = false;
     /** Holzwerk: nur Hauptlinie 26.3. */
     public static final boolean WOODWORK = false;
+    /** Fahrzeug-Stufen: nur Hauptlinie 26.3. */
+    public static final boolean TIERED_VEHICLES = false;
 
     private McVersion() {
     }

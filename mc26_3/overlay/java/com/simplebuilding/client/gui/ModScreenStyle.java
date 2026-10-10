@@ -76,9 +76,12 @@ public final class ModScreenStyle {
         };
     }
 
-    /** The hopper's tier from its block (Netherite when unknown). */
+    /** The hopper's tier from its block or hopper cart (Netherite when unknown). */
     static ChestTier hopperTier(NetheriteHopperScreenHandler menu) {
         ModHopperBlockEntity be = menu.getBlockEntity();
+        if (be == null && menu.cartTier() != null) {
+            return menu.cartTier(); // tiered hopper cart (Queue N23)
+        }
         Block block = be == null ? null : be.getBlockState().getBlock();
         if (block == ModBlocks.REINFORCED_HOPPER) return ChestTier.REINFORCED;
         if (block == ModBlocks.ENDERITE_HOPPER) return ChestTier.ENDERITE;
