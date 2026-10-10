@@ -20,6 +20,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 var d = MobsRegistry.DECEIVER.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
                 if (d == null) throw new AssertionError("Deceiver did not spawn");
                 d.snapTo(at.getX() + 0.5, at.getY() + 1, at.getZ() + 0.5, 180f, 0f);
+                d.setYBodyRot(180f);
+                d.setYHeadRot(180f);
                 d.setNoAi(true);
                 level.addFreshEntity(d);
             });
