@@ -120,7 +120,7 @@ public final class AstralEnchanterClientTest {
         int[] knob = screen.sliderPoint(0, 0);
         return "Cursor in the window " + c.mouseHandler.xpos() + "," + c.mouseHandler.ypos() + " (aimed " + aimed[0] + ","
                 + aimed[1] + "), in the GUI " + guiX + "," + guiY + "; the knob is at " + knob[0] + "," + knob[1]
-                + "; window active " + c.isWindowActive() + ", mouse grabbed " + c.mouseHandler.isMouseGrabbed() + ".";
+                + "; trace" + screen.trace + "; window active " + c.isWindowActive() + ", mouse grabbed " + c.mouseHandler.isMouseGrabbed() + ".";
     }
 
     /** Inverse of MouseHandler's scaling: guiX = xpos * guiScaledWidth / screenWidth. */

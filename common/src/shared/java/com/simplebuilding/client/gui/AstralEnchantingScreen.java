@@ -84,6 +84,9 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         return this.dragRow;
     }
 
+    /** TEMP debug: what input reached the screen. */
+    public final StringBuilder trace = new StringBuilder();
+
     private int rowAt(double mx, double my) {
         double x = mx - this.leftPos, y = my - this.topPos;
         if (x < PANEL_X || x >= PANEL_X + PANEL_W) return -1;
@@ -123,6 +126,8 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        this.trace.append(" click(").append(event.button()).append(' ').append(event.x()).append(',').append(event.y())
+                .append(" row ").append(rowAt(event.x(), event.y())).append(" left ").append(this.leftPos).append(" top ").append(this.topPos).append(')');
         if (event.button() == 0) {
             int row = rowAt(event.x(), event.y());
             if (row >= 0) {
@@ -141,6 +146,7 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
 
     @Override
     public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
+        this.trace.append(" drag(").append(event.x()).append(')');
         if (this.dragRow >= 0) {
             setLevel(this.dragRow, levelAt(this.dragRow, event.x()));
             return true;
@@ -150,6 +156,7 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
 
     @Override
     public boolean mouseReleased(MouseButtonEvent event) {
+        this.trace.append(" release");
         if (this.dragRow >= 0) {
             this.dragRow = -1;
             return true;
