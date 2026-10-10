@@ -15,16 +15,17 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
                 var level = (ServerLevel) p.level();
-                var at = p.blockPosition().offset(0, 0, 3);
+                var at = p.blockPosition().offset(0, 0, 2);
                 level.setBlockAndUpdate(at.below(), net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
                 var d = MobsRegistry.DECEIVER.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
                 if (d == null) throw new AssertionError("Deceiver did not spawn");
-                d.snapTo(at.getX() + 0.5, at.getY(), at.getZ() + 0.5, 180f, 0f);
+                d.snapTo(at.getX() + 0.5, at.getY(), at.getZ() + 0.5, 0f, 0f);
+                p.setXRot(22f);
                 d.setNoAi(true);
                 level.addFreshEntity(d);
             });
             context.waitTicks(30);
-            context.takeScreenshot("deceiver-idle");
+            context.takeScreenshot("simplemobs-deceiver-idle");
             for (var pose : new Object[][] {{"summon", DeceiverEntity.ACT_SUMMON, 22}, {"teleport", DeceiverEntity.ACT_TELEPORT, 8},
                     {"drink", DeceiverEntity.ACT_DRINK, 16}, {"unmask", DeceiverEntity.ACT_UNMASK, 4}}) {
                 world.getServer().runOnServer(server -> {
@@ -32,7 +33,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                     d.playAction((Integer) pose[1], 200);
                 });
                 context.waitTicks((Integer) pose[2]);
-                context.takeScreenshot("deceiver-" + pose[0]);
+                context.takeScreenshot("simplemobs-deceiver-" + pose[0]);
             }
             world.getServer().runOnServer(server -> {
                 var d = server.getLevel(net.minecraft.world.level.Level.OVERWORLD).getEntities(MobsRegistry.DECEIVER, e -> true).getFirst();
@@ -40,7 +41,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 d.setArmored(true);
             });
             context.waitTicks(20);
-            context.takeScreenshot("deceiver-armored");
+            context.takeScreenshot("simplemobs-deceiver-armored");
         }
     }
 }
