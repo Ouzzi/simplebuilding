@@ -772,6 +772,11 @@ public final class FeatureStations {
         woods.add(new ItemStack(Items.GLISTERING_MELON_SLICE, 4));
         woods.add(new ItemStack(Items.OAK_PLANKS, 8));
         c.contents(7, 0, 6, woods);
+        // Material-Achtel (N19/N15): eine Zelle je Material, 13 pro Reihe hinter den Holzzellen.
+        for (int i = 0; i < ModBlocks.MATERIAL_OCTETS.size(); i++) {
+            c.place(11 + i % 13, 0, 9 + i / 13, com.simplebuilding.blocks.custom.OctetCellBlock.withMask(
+                    ModBlocks.MATERIAL_OCTETS.get(i).defaultBlockState(), OCTET_MASKS[i % OCTET_MASKS.length]));
+        }
         // Material-Achtel (N19/N15): alle Achtel von Stein bis Beton, 27 je Kiste.
         List<Item> materials = com.simplebuilding.items.ModItems.MATERIAL_OCTETS;
         for (int chestIndex = 0; chestIndex * 27 < materials.size(); chestIndex++) {
