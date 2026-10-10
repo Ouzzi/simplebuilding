@@ -26,14 +26,14 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             context.waitTicks(30);
             context.takeScreenshot("simplemobs-deceiver-idle");
-            for (var pose : new Object[][] {{"summon", DeceiverEntity.ACT_SUMMON, 22}, {"teleport", DeceiverEntity.ACT_TELEPORT, 8},
-                    {"drink", DeceiverEntity.ACT_DRINK, 16}, {"unmask", DeceiverEntity.ACT_UNMASK, 4}}) {
+            for (var pose : new Object[][] {{"simplemobs-deceiver-summon", DeceiverEntity.ACT_SUMMON, 22}, {"simplemobs-deceiver-teleport", DeceiverEntity.ACT_TELEPORT, 8},
+                    {"simplemobs-deceiver-drink", DeceiverEntity.ACT_DRINK, 16}, {"simplemobs-deceiver-unmask", DeceiverEntity.ACT_UNMASK, 4}}) {
                 world.getServer().runOnServer(server -> {
                     var d = server.getLevel(net.minecraft.world.level.Level.OVERWORLD).getEntities(MobsRegistry.DECEIVER, e -> true).getFirst();
                     d.playAction((Integer) pose[1], 200);
                 });
                 context.waitTicks((Integer) pose[2]);
-                context.takeScreenshot("simplemobs-deceiver-" + pose[0]);
+                context.takeScreenshot((String) pose[0]);
             }
             world.getServer().runOnServer(server -> {
                 var d = server.getLevel(net.minecraft.world.level.Level.OVERWORLD).getEntities(MobsRegistry.DECEIVER, e -> true).getFirst();
