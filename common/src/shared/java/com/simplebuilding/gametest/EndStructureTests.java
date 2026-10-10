@@ -49,7 +49,14 @@ public final class EndStructureTests {
 
     public static void templatesLoad(GameTestHelper helper) {
         if (!active(helper)) return;
-        var manager = helper.getLevel().getStructureTemplateManager();
+        // 26.3 renamed ServerLevel#getStructureManager() to getStructureTemplateManager(); this test only runs on 26.3.
+        net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager manager;
+        try {
+            manager = (net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager)
+                    helper.getLevel().getClass().getMethod("getStructureTemplateManager").invoke(helper.getLevel());
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("no structure template manager", e);
+        }
         for (String t : TEMPLATES) {
             var template = manager.get(id("end/" + t));
             helper.assertTrue(template.isPresent(), "template missing: " + t);
