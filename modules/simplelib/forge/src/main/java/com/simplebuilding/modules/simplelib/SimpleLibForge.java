@@ -37,6 +37,12 @@ public final class SimpleLibForge {
             if (key.equals(Registries.MENU)) LibMenus.register();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) LibRegistry.tab();
         });
+        net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
+            if (!LibRegistry.wantsStacks(event.getTabKey(),
+                    com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), "simplelib"))) return;
+            LibRegistry.tabStacks().forEach(s -> event.getEntries().put(s,
+                    net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        });
         net.minecraftforge.event.server.ServerAboutToStartEvent.BUS.addListener(event ->
                 com.simplelib.village.VillageKitchen.inject(event.getServer().registryAccess()));
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) {

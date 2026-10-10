@@ -28,6 +28,14 @@ public final class SimpleLibFabric implements ModInitializer {
         });
         LibMenus.register();
         LibRegistry.tab();
+        // Crucibles and barrels also go into Vanilla's functional tab (per-mod switch) and SimpleBuilding's own.
+        for (var tab : java.util.List.of(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS,
+                net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.CREATIVE_MODE_TAB, LibRegistry.SB_FUNCTIONAL_TAB))) {
+            net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(tab).register(entries -> {
+                if (!LibRegistry.wantsStacks(tab, com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), "simplelib"))) return;
+                LibRegistry.tabStacks().forEach(s -> entries.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            });
+        }
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTING.register(server ->
                 com.simplelib.village.VillageKitchen.inject(server.registryAccess()));
     }
