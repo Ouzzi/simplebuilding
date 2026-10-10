@@ -29,7 +29,7 @@ public final class QolTests {
   ALL.put("crawl",QolTests::crawl);ALL.put("climb_packets",QolTests::climbPackets);ALL.put("climb_mechanics",QolTests::climbMechanics);
   ALL.put("powder_snow",QolTests::powderSnow);ALL.put("farmland",QolTests::farmland);ALL.put("hoe_harvest",QolTests::hoeHarvest);
   ALL.put("furnace_lava",QolTests::furnaceLava);ALL.put("permissions_spam",QolTests::permissionsSpam);ALL.put("durability",QolTests::durability);
-  ALL.put("submod_switch",QolTests::subModSwitch);ALL.put("muting",QolTests::muting);ALL.put("baby",QolTests::baby);ALL.put("piglins",QolTests::piglins);
+  ALL.put("sub_mod_switch",QolTests::subModSwitch);ALL.put("muting",QolTests::muting);ALL.put("baby",QolTests::baby);ALL.put("piglins",QolTests::piglins);
   ALL.put("vault",QolTests::vault);ALL.put("vegetation",QolTests::vegetation);ALL.put("cross_mod",QolTests::crossMod);
   ALL.put("real_movement_packets",QolTests::realMovementPackets);ALL.put("vault_persistence",QolTests::vaultPersistence);
   ALL.put("gold_trim",QolTests::goldTrim);ALL.put("anvil_repair_cost",QolTests::anvilRepairCost);ALL.put("thrift",QolTests::thrift);ALL.put("feature_switches",QolTests::featureSwitches);ALL.put("sharpness_action",QolTests::sharpnessAction);
