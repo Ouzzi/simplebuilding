@@ -17,7 +17,10 @@ import net.minecraft.world.inventory.ContainerInput;
  * slider's left end, drag to its right end, drag back, release. After each move the slider - on the client and on the
  * integrated server - must stand where the cursor is.
  *
- * <p><b>What breaks this case:</b> the press not starting a drag, the movement never reaching
+ * <p>Found with it (2026-10-10): the screen compared the button with a literal 0, but 26.3 numbers mouse buttons like
+ * SDL (left = 1), so no real left click ever reached a slider.
+ *
+ * <p><b>What breaks this case:</b> the press not starting a drag (a hard-coded button number), the movement never reaching
  * {@code mouseDragged}, the drag row not surviving from press to move, or the server not taking the slider clicks.
  */
 public final class AstralEnchanterClientTest {
@@ -120,7 +123,7 @@ public final class AstralEnchanterClientTest {
         int[] knob = screen.sliderPoint(0, 0);
         return "Cursor in the window " + c.mouseHandler.xpos() + "," + c.mouseHandler.ypos() + " (aimed " + aimed[0] + ","
                 + aimed[1] + "), in the GUI " + guiX + "," + guiY + "; the knob is at " + knob[0] + "," + knob[1]
-                + "; trace" + screen.trace + "; window active " + c.isWindowActive() + ", mouse grabbed " + c.mouseHandler.isMouseGrabbed() + ".";
+                + "; window active " + c.isWindowActive() + ", mouse grabbed " + c.mouseHandler.isMouseGrabbed() + ".";
     }
 
     /** Inverse of MouseHandler's scaling: guiX = xpos * guiScaledWidth / screenWidth. */

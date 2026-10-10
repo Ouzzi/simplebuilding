@@ -4,6 +4,7 @@ import com.simplebuilding.enchanting.AstralEnchanting;
 import com.simplebuilding.screen.AstralEnchantingMenu;
 import java.util.ArrayList;
 import java.util.List;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -84,9 +85,6 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         return this.dragRow;
     }
 
-    /** TEMP debug: what input reached the screen. */
-    public final StringBuilder trace = new StringBuilder();
-
     private int rowAt(double mx, double my) {
         double x = mx - this.leftPos, y = my - this.topPos;
         if (x < PANEL_X || x >= PANEL_X + PANEL_W) return -1;
@@ -126,9 +124,9 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        this.trace.append(" click(").append(event.button()).append(' ').append(event.x()).append(',').append(event.y())
-                .append(" row ").append(rowAt(event.x(), event.y())).append(" left ").append(this.leftPos).append(" top ").append(this.topPos).append(')');
-        if (event.button() == 0) {
+        // Not a literal 0: 26.3 numbers the mouse buttons like SDL (left = 1), older lines like GLFW (left = 0). The
+        // hard-coded 0 made every real left click miss the sliders (owner N31) while scrolling still worked.
+        if (event.button() == InputConstants.MOUSE_BUTTON_LEFT) {
             int row = rowAt(event.x(), event.y());
             if (row >= 0) {
                 this.dragRow = row;
@@ -146,7 +144,6 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
 
     @Override
     public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
-        this.trace.append(" drag(").append(event.x()).append(')');
         if (this.dragRow >= 0) {
             setLevel(this.dragRow, levelAt(this.dragRow, event.x()));
             return true;
@@ -156,7 +153,6 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
 
     @Override
     public boolean mouseReleased(MouseButtonEvent event) {
-        this.trace.append(" release");
         if (this.dragRow >= 0) {
             this.dragRow = -1;
             return true;
