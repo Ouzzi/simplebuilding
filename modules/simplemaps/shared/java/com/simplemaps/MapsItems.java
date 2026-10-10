@@ -30,11 +30,12 @@ public final class MapsItems {
     }
 
     public static List<ItemStack> tabStacks() {
+        if (!MapsConfig.enabled) return List.of();
         return List.of(new ItemStack(WAYFINDER_MAP), new ItemStack(NETHER_WAYFINDER_MAP), new ItemStack(END_WAYFINDER_MAP));
     }
 
     public static boolean isWayfinder(ItemStack stack) {
-        return stack.getItem() instanceof WayfinderMapItem;
+        return MapsConfig.enabled && stack.getItem() instanceof WayfinderMapItem;
     }
 
     private static Item register(String name, Function<Item.Properties, Item> factory) {

@@ -673,7 +673,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Kreativ-Bauzauberstab ohne Material: bleibt; im Survival nicht herstellbar (kein Rezept).
 - [ ] QoL-Aufteilung in Sub-Mods (Container/GUI → „Simple QoG“ o. ä., Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor); jeder Name beginnt mit „Simple“. Name für simplecontainers: „Simple Interfaces“ (Besitzer 10.10.). (claude-q-qolsplit: Umbenennung simpleinterfaces + Migration, Simple Weather als 1. Sub-Mod mit Schalter „Simple Weather aktivieren“; Namen Movement/Farming/Tools/Creatures/Loot im Plan; restliche Sub-Mods offen)
 - [ ] Simple Maps als Sub-Mod in SimpleBuilding bündeln (Schalter „Simple Maps aktivieren“).
-- [ ] Simple Maps Feature 3: Struktur-Markierungen (nur entdeckte Strukturen), im Karten-GUI über die linken Lesezeichen abschaltbar.
+- [ ] Simple Maps Feature 3: Struktur-Markierungen (nur entdeckte Strukturen), im Karten-GUI über die linken Lesezeichen abschaltbar.,
+- [ ] QoL-Aufteilung in Sub-Mods (Container/GUI → „Simple QoG“ o. ä., Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor); jeder Name beginnt mit „Simple“. Name für simplecontainers: Besitzer schlägt „Simple QoG“ (Quality of GUI) vor.
+- [x] (claude-q-maps2) Simple Maps als Sub-Mod in SimpleBuilding bündeln (Schalter „Simple Maps aktivieren“; Config-Tab „Simple Mods“, Neustart nötig).
+- [x] (claude-q-maps2) Simple Maps Feature 3: Struktur-Markierungen (nur entdeckte Strukturen), im Karten-GUI über die linken Lesezeichen abschaltbar.
 - [ ] Simple Trims als Sub-Mod starten (Plan N18).
 - [ ] Shellker: Konzept + Vorschau; Schale ergibt eine NEUE Helm-Variante (kein Ersatz des Schildkrötenhelms). (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md)
 - [ ] Seelenfeuer-Lohe: Konzept + Vorschau. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md),

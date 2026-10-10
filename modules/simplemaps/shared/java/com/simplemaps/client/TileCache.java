@@ -44,6 +44,8 @@ public final class TileCache {
     private final LinkedHashMap<Key, Entry> entries = new LinkedHashMap<>(256, 0.75f, true);
     private final Set<Key> pending = new LinkedHashSet<>();
     private final Map<Integer, String> dimensions = new HashMap<>();
+    /** Discovered structures per map; kept across dimension changes (the server only resends them when they change). */
+    private final Map<Integer, java.util.List<WayfinderData.Mark>> marks = new HashMap<>();
     private long ticks;
 
     public void tick() {
@@ -99,6 +101,11 @@ public final class TileCache {
 
     public void receive(MapStatePayload p) {
         dimensions.put(p.mapId(), p.dimension());
+        if (p.sendMarks()) marks.put(p.mapId(), p.marks());
+    }
+
+    public java.util.List<WayfinderData.Mark> marks(int mapId) {
+        return marks.getOrDefault(mapId, java.util.List.of());
     }
 
     /** The dimension the map is bound to ("" = unbound), or null while unknown. */

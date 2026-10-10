@@ -55,6 +55,25 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             context.waitTicks(2);
             context.takeScreenshot("simplemaps-pick-slot");
+            // Feature 3: discovered structures (fake marks through the client path), then switched off by the bookmark.
+            context.runOnClient(c -> {
+                int x = c.player.getBlockX(), z = c.player.getBlockZ(), id = c.player.getMainHandItem().get(MapsComponents.MAP_ID).id();
+                com.simplemaps.client.MapsClient.receive(new com.simplemaps.net.MapStatePayload(id, "minecraft:overworld", 1, true, java.util.List.of(
+                        new com.simplemaps.WayfinderData.Mark("minecraft:village_plains", x + 45, z + 30),
+                        new com.simplemaps.WayfinderData.Mark("minecraft:ancient_city", x - 60, z - 35),
+                        new com.simplemaps.WayfinderData.Mark("minecraft:mineshaft", x + 10, z - 50))));
+            });
+            screen(context, "simplemaps-structures", true, true, false, 0);
+            context.runOnClient(c -> {
+                WayfinderScreen s = (WayfinderScreen) c.gui.screen();
+                s.mouseClicked(new MouseButtonEvent(s.leftTabCenterX(), s.leftTabCenterY(4), new MouseButtonInfo(0, 0)), false);
+            });
+            context.waitTicks(3);
+            context.takeScreenshot("simplemaps-structures-off");
+            context.runOnClient(c -> {
+                WayfinderScreen s = (WayfinderScreen) c.gui.screen();
+                s.mouseClicked(new MouseButtonEvent(s.leftTabCenterX(), s.leftTabCenterY(4), new MouseButtonInfo(0, 0)), false);
+            });
             screen(context, "simplemaps-contour", true, false, true, 0);
             screen(context, "simplemaps-zoom", false, true, false, 2);
             context.runOnClient(c -> c.gui.setScreen(null));

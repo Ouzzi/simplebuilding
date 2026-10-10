@@ -28,10 +28,13 @@ public final class MapsNetwork {
     public static final int MAX_COORD = 30_000_000;
     public static final double FRAME_REACH_SQR = 8.0 * 8.0;
     private static final Map<UUID, Integer> LAST_REQUEST = new HashMap<>();
+    /** Per player (a new join is a new object) and map: the structure-marks version the client already has. */
+    private static final Map<ServerPlayer, Map<Integer, Integer>> SENT_MARKS = new java.util.WeakHashMap<>();
 
     private MapsNetwork() {}
 
     public static void handleTiles(TileRequestPayload payload, ServerPlayer player) {
+        if (!com.simplemaps.MapsConfig.enabled) return;
         MinecraftServer server = player.level().getServer();
         int now = server.getTickCount();
         Integer last = LAST_REQUEST.get(player.getUUID());
@@ -44,8 +47,12 @@ public final class MapsNetwork {
             if (!WayfinderIds.exists(server, e.mapId())) continue;
             WayfinderData data = WayfinderData.get(server, e.mapId());
             if (maps.add(e.mapId())) {
+                Map<Integer, Integer> seen = SENT_MARKS.computeIfAbsent(player, p -> new HashMap<>());
+                boolean marksChanged = !Integer.valueOf(data.marksVersion()).equals(seen.get(e.mapId()));
+                if (marksChanged) seen.put(e.mapId(), data.marksVersion());
                 SimpleMaps.toClient.accept(player, new MapStatePayload(e.mapId(),
-                        data.dimension().map(k -> k.identifier().toString()).orElse(""), data.tileCount()));
+                        data.dimension().map(k -> k.identifier().toString()).orElse(""), data.tileCount(),
+                        marksChanged, marksChanged ? data.marks() : java.util.List.of()));
             }
             if (budget <= 0) continue;
             int zoom = WayfinderData.validZoom(e.zoom());

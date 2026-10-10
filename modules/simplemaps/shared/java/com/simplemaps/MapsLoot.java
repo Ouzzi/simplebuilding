@@ -28,7 +28,7 @@ public final class MapsLoot {
 
     public static void apply(ResourceKey<LootTable> key, Consumer<LootPool.Builder> add, HolderGetter.Provider registries) {
         int[] entry = TABLES.get(key.identifier().toString());
-        if (entry == null) return;
+        if (entry == null || !MapsConfig.enabled) return;
         Item item = switch (entry[0]) {
             case 1 -> MapsItems.NETHER_WAYFINDER_MAP;
             case 2 -> MapsItems.END_WAYFINDER_MAP;

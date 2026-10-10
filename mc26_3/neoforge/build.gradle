@@ -216,6 +216,12 @@ evaluationDependsOn(':modules:simplelib:neoforge')
 dependencies { implementation project(':modules:simplelib:neoforge') }
 neoForge.mods { simplelib { sourceSet project(':modules:simplelib:neoforge').sourceSets.main } }
 neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simplelib) }
+// Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept); switch "Enable Simple Maps" in the config.
+dependencies { jarJar project(':modules:simplemaps:neoforge') }
+evaluationDependsOn(':modules:simplemaps:neoforge')
+dependencies { implementation project(':modules:simplemaps:neoforge') }
+neoForge.mods { simplemaps { sourceSet project(':modules:simplemaps:neoforge').sourceSets.main } }
+neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simplemaps) }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }
 
