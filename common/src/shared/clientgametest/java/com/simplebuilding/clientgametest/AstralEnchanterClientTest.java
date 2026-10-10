@@ -65,6 +65,13 @@ public final class AstralEnchanterClientTest {
         script.idle("let the cursor arrive", 2);
         script.harness("press the left button", h -> h.holdMouse(InputConstants.MOUSE_BUTTON_LEFT));
         script.idle("let the press reach the screen", 2);
+        script.act("the press started a drag on the first slider", c -> {
+            AstralEnchantingScreen screen = (AstralEnchantingScreen) c.gui.screen();
+            if (screen.draggingRow() != 0) {
+                throw new AssertionError("The press on the first slider started no drag (row " + screen.draggingRow() + "). "
+                        + diagnosis(c, points[0]));
+            }
+        });
         script.harness("drag to the slider's right end", h -> h.setCursorPos(points[1][0], points[1][1]));
         script.idle("let the drag reach the screen and the server", 6);
         script.act("the slider followed the drag to the right", c -> expectLevel(c, expected[0], "after dragging right"));
@@ -101,8 +108,19 @@ public final class AstralEnchanterClientTest {
         }
         if (client != level || server != level) {
             throw new AssertionError("The first slider stands at " + client + " (client) / " + server + " (server) " + when
-                    + ", expected " + level + " (max " + menu(c).maxLevel(0) + ", affordable " + menu(c).affordable(0) + ").");
+                    + ", expected " + level + " (max " + menu(c).maxLevel(0) + ", affordable " + menu(c).affordable(0) + ", drag row "
+                    + ((AstralEnchantingScreen) c.gui.screen()).draggingRow() + ").");
         }
+    }
+
+    private static String diagnosis(Minecraft c, double[] aimed) {
+        AstralEnchantingScreen screen = (AstralEnchantingScreen) c.gui.screen();
+        double guiX = c.mouseHandler.xpos() * c.getWindow().getGuiScaledWidth() / c.getWindow().getScreenWidth();
+        double guiY = c.mouseHandler.ypos() * c.getWindow().getGuiScaledHeight() / c.getWindow().getScreenHeight();
+        int[] knob = screen.sliderPoint(0, 0);
+        return "Cursor in the window " + c.mouseHandler.xpos() + "," + c.mouseHandler.ypos() + " (aimed " + aimed[0] + ","
+                + aimed[1] + "), in the GUI " + guiX + "," + guiY + "; the knob is at " + knob[0] + "," + knob[1]
+                + "; window active " + c.isWindowActive() + ", mouse grabbed " + c.mouseHandler.isMouseGrabbed() + ".";
     }
 
     /** Inverse of MouseHandler's scaling: guiX = xpos * guiScaledWidth / screenWidth. */

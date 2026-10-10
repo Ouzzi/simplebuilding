@@ -79,6 +79,11 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         return new int[] {this.leftPos + levelX(level, this.menu.maxLevel(row)), this.topPos + trackY(row) + TRACK_H / 2};
     }
 
+    /** The slider row a held mouse button is dragging, or -1 - for the client test. */
+    public int draggingRow() {
+        return this.dragRow;
+    }
+
     private int rowAt(double mx, double my) {
         double x = mx - this.leftPos, y = my - this.topPos;
         if (x < PANEL_X || x >= PANEL_X + PANEL_W) return -1;
