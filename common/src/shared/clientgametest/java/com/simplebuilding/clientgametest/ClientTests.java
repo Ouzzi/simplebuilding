@@ -116,7 +116,9 @@ public final class ClientTests {
                 // Queue N31 (26.3): the Astral Enchanter's sliders follow a real mouse drag; clears its table and shelves.
                 new Entry("astral-enchanter", AstralEnchanterClientTest::inWorld),
                 // Fahrzeug-Stufen (Queue N19/N23, 26.3): carts and chest boats in the world, item sprites in the hotbar.
-                new Entry("vehicles", VehicleClientTest::inWorld));
+                new Entry("vehicles", VehicleClientTest::inWorld),
+                // Queue N23 (26.3): the End structures, one picture per variant; clears them again.
+                new Entry("end-structures", EndStructureClientTest::inWorld));
     }
 
     /**

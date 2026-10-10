@@ -137,7 +137,8 @@
       "com.simplebuilding.gametest.PressurePlateGameTest",
       "com.simplebuilding.gametest.GuideBookGameTest",
       "com.simplebuilding.gametest.ImmersionGameTest",
-      "com.simplebuilding.gametest.EndSystemsGameTest"
+      "com.simplebuilding.gametest.EndSystemsGameTest",
+      "com.simplebuilding.gametest.EndStructureGameTest"
     ]
   },
   "mixins": [

@@ -101755,6 +101755,34 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/yellow_hammock.json"
     },
     {
+      "id": "simplebuilding:chests/end_wreck",
+      "kind": "chests",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "min": 1,
+            "max": 2
+          },
+          "items": [
+            "minecraft:iron_nugget",
+            "minecraft:purpur_block",
+            "minecraft:chorus_fruit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/chests/end_wreck.json"
+    },
+    {
       "id": "simplebuilding:inject/charged_creeper/root",
       "kind": "inject",
       "type": "minecraft:entity",
@@ -108764,6 +108792,29 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/xp_repair_incompatible.json"
+    },
+    {
+      "id": "simplebuilding:worldgen/biome/has_structure/end_outer_islands",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:end_highlands",
+          "required": true
+        },
+        {
+          "id": "minecraft:end_midlands",
+          "required": true
+        },
+        {
+          "id": "minecraft:small_end_islands",
+          "required": true
+        },
+        {
+          "id": "minecraft:end_barrens",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/tags/worldgen/biome/has_structure/end_outer_islands.json"
     },
     {
       "id": "simplebuilding:block/building_wand_blacklist",
@@ -138492,10 +138543,10 @@ window.WIKI_DATA = {
     "items": 619,
     "blocks": 362,
     "recipes": 1019,
-    "lootTables": 342,
+    "lootTables": 343,
     "trades": 20,
     "enchantments": 19,
-    "tags": 50,
+    "tags": 51,
     "config": 222,
     "inWorld": 493,
     "advancements": 127,

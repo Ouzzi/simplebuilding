@@ -1,0 +1,19 @@
+{
+  "structures": [
+    {
+      "structure": "simplebuilding:end_path",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 16,
+    "separation": 7,
+    "salt": 71830414,
+    "frequency": 0.8,
+    "exclusion_zone": {
+      "other_set": "minecraft:end_cities",
+      "chunk_count": 2
+    }
+  }
+}
