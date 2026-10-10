@@ -183,6 +183,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     shapeless(RecipeCategory.MISC, Items.NAUTILUS_SHELL, 4).requires(ModItems.NAUTILUS_SHELL_BLOCK)
                             .unlockedBy(getHasName(ModItems.NAUTILUS_SHELL_BLOCK), has(ModItems.NAUTILUS_SHELL_BLOCK))
                             .save(output, "nautilus_shell_from_nautilus_shell_block");
+                    // Sculk-Kiefer: Fangzaehne (Knochen), Echo-Splitter und Sculk - der Splitter gibt es nur in Ancient Cities.
+                    shaped(RecipeCategory.REDSTONE, ModItems.SCULK_JAW).pattern("BEB").pattern("SSS")
+                            .define('B', Items.BONE).define('E', Items.ECHO_SHARD).define('S', Items.SCULK)
+                            .unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD)).save(output);
                     Item[][] froglights = {
                             {ModItems.SCARLET_FROGLIGHT, Items.DYE.pick(net.minecraft.world.item.DyeColor.RED)},
                             {ModItems.AQUA_FROGLIGHT, Items.DYE.pick(net.minecraft.world.item.DyeColor.CYAN)},

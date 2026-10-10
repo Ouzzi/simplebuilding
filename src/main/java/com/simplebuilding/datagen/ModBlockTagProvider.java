@@ -70,6 +70,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 builder(BlockTags.ICE).add(key(ice));
             }
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.NAUTILUS_SHELL_BLOCK));
+            builder(BlockTags.MINEABLE_WITH_HOE).add(key(ModBlocks.SCULK_JAW));
         }
         if (com.simplebuilding.version.McVersion.END_RAILS) {
             // Astral-/Nihil-Schienen: Minecarts fahren nur auf minecraft:rails; abbauen wie die Vanilla-Schienen.

@@ -304,6 +304,7 @@ public class ModItems {
     public static final Item CRACKED_ICE = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("cracked_ice", s -> new BlockItem(ModBlocks.CRACKED_ICE, s)) : null;
     public static final Item CHISELED_PACKED_ICE = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("chiseled_packed_ice", s -> new BlockItem(ModBlocks.CHISELED_PACKED_ICE, s)) : null;
     public static final Item CHISELED_BLUE_ICE = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("chiseled_blue_ice", s -> new BlockItem(ModBlocks.CHISELED_BLUE_ICE, s)) : null;
+    public static final Item SCULK_JAW = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("sculk_jaw", s -> new BlockItem(ModBlocks.SCULK_JAW, s)) : null;
     public static final Item NAUTILUS_SHELL_BLOCK = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("nautilus_shell_block", s -> new BlockItem(ModBlocks.NAUTILUS_SHELL_BLOCK, s)) : null;
     public static final Item SCARLET_FROGLIGHT = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("scarlet_froglight", s -> new BlockItem(ModBlocks.SCARLET_FROGLIGHT, s)) : null;
     public static final Item AQUA_FROGLIGHT = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("aqua_froglight", s -> new BlockItem(ModBlocks.AQUA_FROGLIGHT, s)) : null;

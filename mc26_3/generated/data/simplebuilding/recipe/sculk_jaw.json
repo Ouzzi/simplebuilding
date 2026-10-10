@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "B": "minecraft:bone",
+    "E": "minecraft:echo_shard",
+    "S": "minecraft:sculk"
+  },
+  "pattern": [
+    "BEB",
+    "SSS"
+  ],
+  "result": {
+    "id": "simplebuilding:sculk_jaw"
+  }
+}

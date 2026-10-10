@@ -217,7 +217,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             for (Block ice : List.of(ModBlocks.CRACKED_ICE, ModBlocks.CHISELED_PACKED_ICE, ModBlocks.CHISELED_BLUE_ICE)) {
                 dropWhenSilkTouch(ice);
             }
-            for (Block block : List.of(ModBlocks.NAUTILUS_SHELL_BLOCK, ModBlocks.SCARLET_FROGLIGHT, ModBlocks.AQUA_FROGLIGHT, ModBlocks.AZURE_FROGLIGHT)) {
+            for (Block block : List.of(ModBlocks.NAUTILUS_SHELL_BLOCK, ModBlocks.SCULK_JAW, ModBlocks.SCARLET_FROGLIGHT, ModBlocks.AQUA_FROGLIGHT, ModBlocks.AZURE_FROGLIGHT)) {
                 dropSelf(block);
             }
         }

@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 675,
+      "count": 676,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -33378,6 +33378,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:sculk_jaw",
+      "name": {
+        "en_us": "Sculk Jaw",
+        "de_de": "Sculk-Kiefer"
+      },
+      "texture": "assets/textures/block/sculk_jaw.png",
+      "craftedBy": [
+        "simplebuilding:sculk_jaw"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/sculk_jaw.png",
+      "note": {
+        "en": {
+          "summary": "A silent trap that slows like a cobweb and bites with sculk fangs.",
+          "details": [
+            "Anything that wades into it is slowed like in a cobweb. The open jaw snaps shut and bites for 3 damage (1.5 hearts), then reopens after 20 ticks and bites again while someone is still inside. Wardens and spectators are ignored.",
+            "It makes no sound at all: placing, biting, opening and breaking are silent. Mine it with a hoe; it drops itself.",
+            "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare."
+          ]
+        },
+        "de": {
+          "summary": "Eine lautlose Falle, die wie ein Spinnennetz bremst und mit Sculk-Fangzähnen zubeißt.",
+          "details": [
+            "Wer hineingerät, wird wie im Spinnennetz verlangsamt. Die offene Kiefer schnappt zu und beißt für 3 Schaden (1,5 Herzen), öffnet sich nach 20 Ticks wieder und beißt erneut, solange noch jemand drinsteht. Wardens und Zuschauer ignoriert sie.",
+            "Sie macht überhaupt kein Geräusch: Platzieren, Zubeißen, Öffnen und Abbauen sind lautlos. Mit der Hacke abbauen; sie droppt sich selbst.",
+            "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SculkJawBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:silent_dandelion",
       "name": {
         "en_us": "Silent Dandelion",
@@ -50421,6 +50459,48 @@ window.WIKI_DATA = {
         "simplebuilding:scarlet_froglight"
       ],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:sculk_jaw",
+      "name": {
+        "en_us": "Sculk Jaw",
+        "de_de": "Sculk-Kiefer"
+      },
+      "texture": "assets/textures/block/sculk_jaw.png",
+      "craftedBy": [
+        "simplebuilding:sculk_jaw"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/sculk_jaw.png",
+      "lootTable": "simplebuilding:blocks/sculk_jaw",
+      "drops": [
+        "simplebuilding:sculk_jaw"
+      ],
+      "note": {
+        "en": {
+          "summary": "A silent trap that slows like a cobweb and bites with sculk fangs.",
+          "details": [
+            "Anything that wades into it is slowed like in a cobweb. The open jaw snaps shut and bites for 3 damage (1.5 hearts), then reopens after 20 ticks and bites again while someone is still inside. Wardens and spectators are ignored.",
+            "It makes no sound at all: placing, biting, opening and breaking are silent. Mine it with a hoe; it drops itself.",
+            "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare."
+          ]
+        },
+        "de": {
+          "summary": "Eine lautlose Falle, die wie ein Spinnennetz bremst und mit Sculk-Fangzähnen zubeißt.",
+          "details": [
+            "Wer hineingerät, wird wie im Spinnennetz verlangsamt. Die offene Kiefer schnappt zu und beißt für 3 Schaden (1,5 Herzen), öffnet sich nach 20 Ticks wieder und beißt erneut, solange noch jemand drinsteht. Wardens und Zuschauer ignoriert sie.",
+            "Sie macht überhaupt kein Geräusch: Platzieren, Zubeißen, Öffnen und Abbauen sind lautlos. Mit der Hacke abbauen; sie droppt sich selbst.",
+            "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SculkJawBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:shulker_head",
@@ -89979,6 +90059,57 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:sculk_jaw",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:sculk_jaw",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/sculk_jaw.json",
+      "ingredients": [
+        "minecraft:bone",
+        "minecraft:echo_shard",
+        "minecraft:sculk"
+      ],
+      "pattern": [
+        "BEB",
+        "SSS"
+      ],
+      "key": {
+        "B": [
+          "minecraft:bone"
+        ],
+        "E": [
+          "minecraft:echo_shard"
+        ],
+        "S": [
+          "minecraft:sculk"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sculk",
+            "count": 3
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 2
+          },
+          {
+            "id": "minecraft:echo_shard",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:silent_dandelion",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -101050,6 +101181,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/scarlet_froglight.json"
+    },
+    {
+      "id": "simplebuilding:blocks/sculk_jaw",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:sculk_jaw"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/sculk_jaw.json"
     },
     {
       "id": "simplebuilding:blocks/shulker_head",
@@ -138622,10 +138769,10 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 619,
-    "blocks": 362,
-    "recipes": 1019,
-    "lootTables": 343,
+    "items": 620,
+    "blocks": 363,
+    "recipes": 1020,
+    "lootTables": 344,
     "trades": 20,
     "enchantments": 19,
     "tags": 51,
