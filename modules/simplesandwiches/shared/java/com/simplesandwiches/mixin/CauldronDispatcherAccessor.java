@@ -10,4 +10,8 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface CauldronDispatcherAccessor {
     @Invoker("put")
     void simplesandwiches$put(Item item, CauldronInteraction interaction);
+
+    /** Same for a tag: other mods' milk containers. */
+    @Invoker("put")
+    void simplesandwiches$put(net.minecraft.tags.TagKey<Item> tag, CauldronInteraction interaction);
 }

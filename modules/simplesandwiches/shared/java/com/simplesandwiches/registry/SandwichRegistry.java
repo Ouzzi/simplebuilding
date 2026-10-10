@@ -65,8 +65,8 @@ public final class SandwichRegistry {
 
     public static void setup() {
         ((CauldronDispatcherAccessor) (Object) CauldronInteractions.EMPTY).simplesandwiches$put(Items.MILK_BUCKET, MilkCauldronBlock::fillWithMilk);
-        // Other mods' milk containers (item tag): public put(TagKey) of the dispatcher.
-        CauldronInteractions.EMPTY.put(MilkCauldronBlock.MILK_BUCKETS, MilkCauldronBlock::fillWithMilk);
+        // Other mods' milk containers (item tag): tag entry of the dispatcher.
+        ((CauldronDispatcherAccessor) (Object) CauldronInteractions.EMPTY).simplesandwiches$put(MilkCauldronBlock.MILK_BUCKETS, MilkCauldronBlock::fillWithMilk);
         TransformHints.register(HINT_ID, query -> query.mainHand() && query.level() instanceof Level level
                 && query.player() instanceof Player player && query.hit() instanceof BlockHitResult hit
                 && level.getBlockEntity(hit.getBlockPos()) instanceof CuttingBoardBlockEntity board

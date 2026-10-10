@@ -726,9 +726,9 @@ public final class CrucibleTests {
         net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(GameType.SURVIVAL);
         Vec3 at = helper.absoluteVec(new Vec3(1.5, 2.0, 1.5));
         player.snapTo(at.x, at.y, at.z, 0.0F, 90.0F);
-        net.minecraft.world.entity.animal.cow.Cow cow = helper.spawn(net.minecraft.world.entity.EntityType.COW, new BlockPos(2, 1, 2));
-        net.minecraft.world.entity.animal.goat.Goat goat = helper.spawn(net.minecraft.world.entity.EntityType.GOAT, new BlockPos(3, 1, 2));
-        net.minecraft.world.entity.animal.cow.Cow calf = helper.spawn(net.minecraft.world.entity.EntityType.COW, new BlockPos(4, 1, 2));
+        net.minecraft.world.entity.animal.cow.Cow cow = helper.spawn(net.minecraft.world.entity.EntityTypes.COW, new BlockPos(2, 1, 2));
+        net.minecraft.world.entity.animal.goat.Goat goat = helper.spawn(net.minecraft.world.entity.EntityTypes.GOAT, new BlockPos(3, 1, 2));
+        net.minecraft.world.entity.animal.cow.Cow calf = helper.spawn(net.minecraft.world.entity.EntityTypes.COW, new BlockPos(4, 1, 2));
         calf.setBaby(true);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModFluids.ENDERITE_BUCKET));
         player.interactOn(calf, InteractionHand.MAIN_HAND, Vec3.ZERO);
