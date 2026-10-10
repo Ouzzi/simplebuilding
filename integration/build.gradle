@@ -136,7 +136,7 @@ standaloneSuites.each { entry ->
     }
     tasks.named(taskName) {
         dependsOn prepareStandalone
-        doFirst { rootProject.file(spec.report).parentFile.mkdirs() }
+        doFirst { rootProject.file(spec.report).parentFile.mkdirs(); project.delete(file("${runDirName}/world")) }
     }
 }
 // Compile smoke sources directly; module implementation classes remain in runtime jars.
@@ -190,6 +190,10 @@ def sharedRuns = ['runIntegrationGameTest'] + moduleSuites.collect { it.tests.lo
 sharedRuns.eachWithIndex { name, index ->
     if (index) tasks.named(name) { mustRunAfter sharedRuns.take(index).collect { tasks.named(it) } }
 }
+// Every server suite starts from a fresh world. The shared run dir otherwise keeps one world across all
+// runs, and world-saved state leaks between runs (the Simple Dimensions portal ledger filled its 1024 cap
+// and every later portal activation failed).
+(sharedRuns - ['runClientGameTest']).each { name -> tasks.named(name) { doFirst { project.delete(file('run-fabric-263/world')) } } }
 // Keep the existing cross-project order to limit concurrent servers. Module worlds are isolated.
 def neoRuns = registry.modules.findAll { it.tests?.loaders?.neoforge }.collect { it.tests.loaders.neoforge.task }
 gradle.projectsEvaluated {

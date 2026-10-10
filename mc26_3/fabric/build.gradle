@@ -79,6 +79,8 @@ loom {
 		}
 	}
 }
+// Fresh world per run: world-saved state (e.g. capped ledgers) must not leak from earlier runs.
+tasks.matching { it.name == 'runGametest' }.configureEach { doFirst { project.delete(file('build/gametest/world')) } }
 
 repositories {
 	maven { url = "https://maven.shedaniel.me/" }
