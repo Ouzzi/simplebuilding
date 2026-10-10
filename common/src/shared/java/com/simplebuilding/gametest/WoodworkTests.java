@@ -261,6 +261,7 @@ public final class WoodworkTests {
         Direction[] expected = {Direction.UP, Direction.DOWN, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
         for (int i = 0; i < looks.length; i++) {
             player.setYRot(looks[i][0]);
+            player.setYHeadRot(looks[i][0]);
             player.setXRot(looks[i][1]);
             var context = new net.minecraft.world.item.context.BlockPlaceContext(player, InteractionHand.MAIN_HAND,
                     new ItemStack(crateBlock), hit(helper, at, Direction.UP));
