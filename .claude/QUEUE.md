@@ -547,7 +547,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Schnelleres Redstone (Astralit).
 - [ ] Schnellere Elytra (Astralit).
 - [ ] Shellker-Textur wie Grundgestein (Bedrock-Tarnung).
-- [ ] Sculk-Kiefer (Falle): lautlos, verhält sich wie Spinnennetz, greift mit Fangzähnen an.
+- [x] Sculk-Kiefer (Falle): lautlos, verhält sich wie Spinnennetz, greift mit Fangzähnen an. (claude-q-traps: Bau-Rezept Knochen+Echo-Splitter+Sculk, kein Beute-Eintrag)
 - [x] Froschlichter in zusätzlichen Farben. (claude-q-blocks: Scharlach/Aqua/Azur, Froschlicht + Farbstoff)
 - [x] Ziegenhorn platzierbar; Fackeln oder stabartige Items hineinstecken. (claude-q-place: Boden/Wand, Fackeln + Stäbe, Licht)
 - [ ] Schildkröten-Helm-Äquivalent aus Shellker-Schale.
@@ -561,7 +561,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Speer im Spender: bei Aktivierung wie Stachelfalle. (claude-q-place: Schaden 2 Blöcke, Haltbarkeit; ohne Stoß-Animation)
 - [ ] Simple Respawn (neues Modul?): beim Tod niedergeschlagen, Mitspieler kann wiederbeleben; danach 3 Herzen und 0 Hunger.
 - [x] Barren als 3D-Modell platzierbar. (claude-q-place: 5 Barren 3D, nur Barren = Stapel bis 4)
-- [ ] Schwefelwürfel (Sulfur Cubes) befüllbar mit allen Ofen-Varianten, Tischen usw. (Easter Egg); dann schwer wie Eisen (schwer zu verschieben).
+- [x] Schwefelwürfel (Sulfur Cubes) befüllbar mit allen Ofen-Varianten, Tischen usw. (Easter Egg); dann schwer wie Eisen (schwer zu verschieben). (claude-q-traps: Mob existiert in 26.3; Tag sulfur_cube_archetype/high_resistance = Seelensand-Archetyp)
 - [x] Übelkeits-Trank. (claude-q-brew)
 - [x] Holz auch als 0,125er-Blöcke (falls noch nicht). (claude-q-hammer)
 - [ ] Mob „Seelenfeuer-Lohe“ (Soulfire Blaze).

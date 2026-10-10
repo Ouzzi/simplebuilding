@@ -3137,7 +3137,8 @@ public final class DataIntegrityTests {
                     CreativeTabLayout.Row.of("nature_ice_and_shells",
                             ModItems.CRACKED_ICE, ModItems.CHISELED_PACKED_ICE, ModItems.CHISELED_BLUE_ICE, ModItems.NAUTILUS_SHELL_BLOCK),
                     CreativeTabLayout.Row.of("froglights",
-                            ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT)));
+                            ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT),
+                    CreativeTabLayout.Row.of("traps", ModItems.SCULK_JAW)));
         }
         if (McVersion.WOODWORK) {
             // Holzwerk (2026-10-09) am Ende: je Holzart Roehren, Platten, Kessel, Kiste, Schnitzholz.

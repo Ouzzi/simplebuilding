@@ -620,6 +620,12 @@ public class ModBlocks {
     public static final Block AQUA_FROGLIGHT = McVersion.NATURE_VARIANTS ? froglight("aqua_froglight", MapColor.COLOR_CYAN) : null;
     public static final Block AZURE_FROGLIGHT = McVersion.NATURE_VARIANTS ? froglight("azure_froglight", MapColor.COLOR_BLUE) : null;
 
+    /** Lautlose Falle: bremst wie ein Spinnennetz und beisst zu ({@link com.simplebuilding.blocks.custom.SculkJawBlock}). */
+    public static final Block SCULK_JAW = McVersion.NATURE_VARIANTS ? registerBlock("sculk_jaw", Blocks.SCULK,
+            s -> new com.simplebuilding.blocks.custom.SculkJawBlock(s.noCollision().noOcclusion().strength(1.0F)
+                    .sound(net.minecraft.world.level.block.SoundType.EMPTY)
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY))) : null;
+
     private static Block froglight(String name, MapColor color) {
         return registerBlock(name, Blocks.OCHRE_FROGLIGHT, s -> new RotatedPillarBlock(s.mapColor(color)));
     }

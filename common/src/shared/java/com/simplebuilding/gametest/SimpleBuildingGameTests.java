@@ -306,6 +306,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("nature_block_game_test_cracked_ice_melts_under_an_entity_after_some_seconds", NatureBlockTests::crackedIceMeltsUnderAnEntityAfterSomeSeconds)
                     .maxTicks(NatureBlockTests.CRACKED_ICE_MAX_TICKS).build(),
+            GameTestSpec.named("trap_game_test_sculk_jaw_bites_and_reopens_silently", TrapTests::sculkJawBitesAndReopensSilently)
+                    .maxTicks(TrapTests.JAW_MAX_TICKS).build(),
+            GameTestSpec.named("trap_game_test_workstations_are_heavy_sulfur_cube_food", TrapTests::workstationsAreHeavySulfurCubeFood)
+                    .build(),
             GameTestSpec.named("woodwork_game_test_hollow_logs_let_small_mobs_and_crawlers_through", WoodworkTests::hollowLogsLetSmallMobsAndCrawlersThrough)
                     .build(),
             GameTestSpec.named("woodwork_game_test_sheets_connect_and_let_light_through", WoodworkTests::sheetsConnectAndLetLightThrough)
