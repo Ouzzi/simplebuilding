@@ -196,3 +196,22 @@ liest sie (Standardordner jetzt `music`, `--source` für einen anderen).
 - Unverändert (intern bzw. Datenformat): Config-Abschnitt `server.speakers.*` (bestehende Server-Configs bleiben
   gültig), Klassen `SpeakerBlock`/`SpeakerBoost`, Mixin-Namen. Im Deutschen heißt es in der Config bewusst
   „Musik- und Noten-Verstärker“, weil „Verstärker“ allein der Redstone-Verstärker ist.
+
+## Nachtrag 31 (Besitzer 2026-10-10): Musik-Verstärker als Funk-Repeater
+Besitzer: „soll als Repeater fungieren (wie Lautsprecher per Funk weitergeben); aus den Verstärkern kommen keine
+Musiknoten-Partikel.“ Branch `claude-q-amp`.
+
+- Ist: Kette nur über direkte Nachbarn (BFS über 6 Seiten), Verstärker zeigten keine Partikel.
+- **Funk:** Musik-Verstärker (nur diese Sorte) hängen ohne Berührung an der Kette: ein spielender Plattenspieler oder
+  ein schon gespeister Verstärker erreicht jeden Musik-Verstärker in höchstens `SpeakerBoost.RELAY_RANGE` = 16 Blöcken
+  (Blockmitte zu Blockmitte, egal was dazwischen liegt), BFS nächste zuerst, Obergrenze weiter `server.speakers.maxChain`.
+  Entscheidung (autonom): 16 Blöcke fest, keine neue Config. Suche je Sprung nur in Chunk-Abschnitten, deren Palette
+  einen Musik-Verstärker enthalten kann (`maybeHas`) – billig genug für den Client (Kette alle 10 Ticks neu).
+- Wiedergabe unverändert: jeder Verstärker ist Abspielpunkt; jeder Spieler hört das Stück einmal am nächsten Punkt
+  (kein Echo), also hörbar an jedem Verstärker. Start an alle in Hörweite irgendeines Punkts.
+- Stopp-Reichweite: Hörweite + `maxChain × 16` (vorher + `maxChain`).
+- **Partikel:** `JukeboxSongPlayerSpeakerMixin` hängt sich hinter Vanillas `spawnMusicParticles` (alle 20 Ticks) und
+  schickt dieselbe Note über jedem Verstärker der Kette (`SpeakerBoost.spawnRelayParticles`). Stopp: keine Noten mehr.
+- Noten-Verstärker bleiben Nachbar-Ketten; direkte Verstärkung (+50 %) bleibt nur für angrenzende.
+- Tests: `jukeboxAmplifiersRelayByRadioInAChain`, `relayingAmplifiersShowNotesAndStopWithTheJukebox`, angepasst
+  `speakerChainsFollowTheirKindUpToTheLimit`; Client-Bild `amplifier-relay-notes` (`MusicAmplifierClientTest`).

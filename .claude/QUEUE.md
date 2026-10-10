@@ -671,7 +671,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Verstärkter Tiegel: auf 12 Slots erhöhen.
 
 ## Nachtrag 31 (2026-10-10, Besitzer)
-- [ ] Jukebox-Verstärker funktioniert nicht wie gewünscht: soll als Repeater fungieren (wie Lautsprecher per Funk weitergeben); aus den Verstärkern kommen keine Musiknoten-Partikel.
+- [x] (claude-q-amp) Jukebox-Verstärker funktioniert nicht wie gewünscht: soll als Repeater fungieren (wie Lautsprecher per Funk weitergeben); aus den Verstärkern kommen keine Musiknoten-Partikel.
 - [ ] Aufgeschnittene Wassermelone (Melonen-Achtel): 1 px schwarzer Rand zwischen Schale und Fruchtfleisch.
 - [ ] Astral-Verzauberungstisch → Name „Astral Enchanter“ (DE „Astral-Verzauberer“): Regler lassen sich nicht ziehen; UI wirkt gequetscht → höher; Verzauberungs-Zeichen (Glyphen wie Vanilla-Tisch) zu den Verzauberungen; Regler-Stufen dezent markieren; Besitzer-Frage: was machen Plus/Minus unter Lapis/Lohenstaub? Lohen-Regale ca. doppelter Wert, d. h. dieselbe Anzahl Lohen-Regale wie normale Max-Anzahl bringt den Astral Enchanter auf Maximum.
 - [ ] Kisten (Crates): Item-Anzeige flackert (Z-Fighting um die y-Achse) und wirkt in Winkeln verbuggt; Kiste seitlich hinlegbar (Öffnung zur Seite, Items liegen auf der inneren Seitenwand); Kiste durchsichtig wie aus Holzlatten mit Lücken (echte Holzkiste).
