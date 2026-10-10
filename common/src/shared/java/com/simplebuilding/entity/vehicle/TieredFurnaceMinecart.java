@@ -76,6 +76,11 @@ public class TieredFurnaceMinecart extends AbstractMinecart {
         }
     }
 
+    /** The top speed now (blocks per tick), for tests and tools. */
+    public double topSpeed(ServerLevel level) {
+        return getMaxSpeed(level);
+    }
+
     @Override
     protected double getMaxSpeed(ServerLevel level) {
         return this.isInWater() ? super.getMaxSpeed(level) * 0.75 : super.getMaxSpeed(level) * VehicleTiers.furnaceSpeed(this.tier);

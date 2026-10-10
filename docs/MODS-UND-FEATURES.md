@@ -52,6 +52,8 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   Resonanzstab (Laser, Scannen), Echolot, Geschwindigkeitsmesser.
 - **Lager:** Rucksäcke (4 Stufen), Truhen- und Fallen-Truhen-Stufen (Kupfer→Enderit), Shulkerkisten-Stufen,
   Bündel-Stufen und Köcher, abgestellte Bündel, Astral-/Nihil-Gewölbe, Mod-Trichter mit Filter-Prinzip.
+- **Fahrzeuge (26.3):** Güter-, Antriebs- und Trichterloren sowie Truhenboote (jede Holzart) in den Stufen
+  Verstärkt/Netherit/Enderit – Plätze wie die Truhe, Brenndauer/Tempo wie Ofen/Trichter der Stufe, Filter-Prinzip.
 - **Maschinen:** schnellere Öfen (3 Stufen je Ofenart), Auto-Schmied, Autonomer Crafter, Befiederungs- und
   Schmiedetisch mit Rezeptbuch, stärkere Kolben, Astral-/Nihil-Kolben.
 - **Schmelztiegel-Teil** (auf simplelib): Enderit-Tiegel/-Fass, Seelen-Lava (Fluid, Weltgenerierung, Seelenbrand),

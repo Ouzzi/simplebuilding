@@ -19,6 +19,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LadderBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 
 /**
@@ -832,6 +833,83 @@ public final class FeatureStations {
                 TcText.t("woodwork.carve.sub", "sherd in off hand,"), TcText.t("woodwork.carve.sub2", "chisel a stripped log"));
         c.backWall(0, chestX + 1, wallZ, 5);
         return c;
+    }
+
+    /**
+     * Fahrzeug-Station (Queue N19/N23, McVersion.TIERED_VEHICLES): eine gerade Strecke mit Stopp-Steinen zum Ausprobieren
+     * der Ofenloren, eine kurze Strecke unter einer vollen Truhe fuer die Trichterloren (sie saugen dort an), ein
+     * Wasserbecken fuer die Kistenboote, davor eine Enderittruhe mit allen Fahrzeugen (Kistenboote in jeder Holzart),
+     * Kohle und Schienen; an der Wand ein Rahmen je Fahrzeug.
+     */
+    public static TcCanvas vehicles(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        if (!com.simplebuilding.version.McVersion.TIERED_VEHICLES) {
+            return c;
+        }
+        int wallZ = 9;
+        BlockState rail = Blocks.RAIL.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.RailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+        // Teststrecke Ofenloren: x 0..24 bei z 1, Stein an beiden Enden.
+        c.fill(0, -1, 1, 24, -1, 1, Blocks.STONE.defaultBlockState());
+        c.place(0, 0, 1, Blocks.STONE);
+        c.place(24, 0, 1, Blocks.STONE);
+        for (int x = 1; x <= 23; x++) c.place(x, 0, 1, rail);
+        // Trichterloren: Strecke x 1..7 bei z 3, ueber der Mitte (x 4) eine volle Truhe.
+        c.fill(0, -1, 3, 8, -1, 3, Blocks.STONE.defaultBlockState());
+        c.place(0, 0, 3, Blocks.STONE);
+        c.place(8, 0, 3, Blocks.STONE);
+        for (int x = 1; x <= 7; x++) c.place(x, 0, 3, rail);
+        c.place(4, 1, 3, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+        c.contents(4, 1, 3, List.of(new ItemStack(Items.COBBLESTONE, 64), new ItemStack(Items.COBBLESTONE, 64),
+                new ItemStack(Items.IRON_INGOT, 64), new ItemStack(Items.REDSTONE, 64)));
+        // Wasserbecken fuer die Kistenboote: x 11..19, z 3..6.
+        c.fill(10, -1, 2, 20, -1, 7, Blocks.STONE.defaultBlockState());
+        c.fill(10, 0, 2, 20, 0, 2, Blocks.STONE.defaultBlockState());
+        c.fill(10, 0, 7, 20, 0, 7, Blocks.STONE.defaultBlockState());
+        c.fill(10, 0, 3, 10, 0, 6, Blocks.STONE.defaultBlockState());
+        c.fill(20, 0, 3, 20, 0, 6, Blocks.STONE.defaultBlockState());
+        c.fill(11, 0, 3, 19, 0, 6, Blocks.WATER.defaultBlockState());
+        // Vorratstruhe (54 Plaetze): alle Fahrzeuge, die Kistenboote in jeder Holzart, Kohle, Schienen.
+        c.place(22, 0, 5, TestCentreSections.facing(ModBlocks.ENDERITE_CHEST.defaultBlockState(), Direction.NORTH));
+        List<ItemStack> supply = new ArrayList<>();
+        for (Item item : vehicleItems()) {
+            if (!(item instanceof com.simplebuilding.entity.vehicle.TieredChestBoatItem)) supply.add(new ItemStack(item));
+        }
+        for (Item boat : List.of(ModItems.REINFORCED_CHEST_BOAT, ModItems.NETHERITE_CHEST_BOAT, ModItems.ENDERITE_CHEST_BOAT)) {
+            for (String wood : com.simplebuilding.entity.vehicle.BoatWoods.ALL) {
+                supply.add(com.simplebuilding.entity.vehicle.BoatWoods.stack(boat, wood));
+            }
+        }
+        supply.add(new ItemStack(Items.COAL, 64));
+        supply.add(new ItemStack(Items.RAIL, 64));
+        c.contents(22, 0, 5, supply);
+        c.title(0, 4, wallZ, TcText.t("section.vehicles", "Vehicles"),
+                TcText.t("section.vehicles.sub", "tiered chest, furnace and hopper carts, chest boats"));
+        int x = 1;
+        for (Item item : vehicleItems()) {
+            c.wallFrame(x, 1, wallZ, new ItemStack(item));
+            x += item == ModItems.ENDERITE_CHEST_MINECART || item == ModItems.ENDERITE_FURNACE_MINECART
+                    || item == ModItems.ENDERITE_HOPPER_MINECART ? 2 : 1;
+        }
+        c.wallSign(17, 2, wallZ, TcText.bold(TcText.t("vehicles.furnace", "Furnace carts")),
+                TcText.t("vehicles.furnace.sub", "coal lasts 2x/4x/8x,"), TcText.t("vehicles.furnace.sub2", "faster per tier"));
+        c.wallSign(19, 2, wallZ, TcText.bold(TcText.t("vehicles.hopper", "Hopper carts")),
+                TcText.t("vehicles.hopper.sub", "2/4/8 items a tick,"), TcText.t("vehicles.hopper.sub2", "filter like the hopper"));
+        c.wallSign(21, 2, wallZ, TcText.bold(TcText.t("vehicles.chest", "Chest carts, boats")),
+                TcText.t("vehicles.chest.sub", "slots like the chest"), TcText.t("vehicles.chest.sub2", "36 / 45 / 54"));
+        c.backWall(0, 24, wallZ, 5);
+        return c;
+    }
+
+    /** Die zwoelf Fahrzeug-Items in Tab-Reihenfolge (leer auf Linien ohne Fahrzeug-Stufen). */
+    public static List<Item> vehicleItems() {
+        if (!com.simplebuilding.version.McVersion.TIERED_VEHICLES) {
+            return List.of();
+        }
+        return List.of(ModItems.REINFORCED_CHEST_MINECART, ModItems.NETHERITE_CHEST_MINECART, ModItems.ENDERITE_CHEST_MINECART,
+                ModItems.REINFORCED_FURNACE_MINECART, ModItems.NETHERITE_FURNACE_MINECART, ModItems.ENDERITE_FURNACE_MINECART,
+                ModItems.REINFORCED_HOPPER_MINECART, ModItems.NETHERITE_HOPPER_MINECART, ModItems.ENDERITE_HOPPER_MINECART,
+                ModItems.REINFORCED_CHEST_BOAT, ModItems.NETHERITE_CHEST_BOAT, ModItems.ENDERITE_CHEST_BOAT);
     }
 
     /** Brett aus 4 x 4 Schachbrettern ab {@code x0} (z 1-4) mit der Grundstellung: Weiss im Sueden, Schwarz im Norden. */
