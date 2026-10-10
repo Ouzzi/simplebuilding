@@ -111,6 +111,11 @@ public class DeceiverEntity extends PathfinderMob {
     public boolean isArmored() { return this.entityData.get(DATA_ARMORED); }
     public boolean isHostileMode() { return this.entityData.get(DATA_HOSTILE); }
 
+    /** Plays one of the ACT_ animations (also used by the client screenshot test). */
+    public void playAction(int action, int ticks) { setAction(action, ticks); }
+
+    public void setArmored(boolean armored) { this.entityData.set(DATA_ARMORED, armored); }
+
     private void setAction(int action, int ticks) {
         this.entityData.set(DATA_ACTION, action);
         this.actionTicks = ticks;
