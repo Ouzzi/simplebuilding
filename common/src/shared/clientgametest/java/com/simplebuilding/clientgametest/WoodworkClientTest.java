@@ -140,7 +140,10 @@ public final class WoodworkClientTest {
                 client -> client.level.getBlockEntity(new BlockPos(12, 0, CRATE_Z)) instanceof CrateBlockEntity crate && !crate.isEmpty());
         String[][] views = {
                 {"crates-front", "8.5 0.4 13.3 0.0 25.0"},
-                {"crates-above", "8.5 2.4 14.6 0.0 65.0"},
+                {"crates-above", "8.5 1.0 13.0 0.0 50.0"},
+                {"crates-top-close", "12.0 0.6 15.0 0.0 45.0"},
+                {"crates-apples-close", "5.5 0.6 15.0 0.0 45.0"},
+                {"crates-side-close", "6.5 0.0 14.6 0.0 20.0"},
                 {"crates-left", "3.6 0.6 13.6 -45.0 25.0"},
                 {"crates-right", "13.4 0.6 13.6 45.0 25.0"},
                 {"crates-back", "8.5 0.6 18.4 180.0 30.0"},
