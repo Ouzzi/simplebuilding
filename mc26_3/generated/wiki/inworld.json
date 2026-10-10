@@ -9390,6 +9390,17 @@
       },
       {
         "damagePerHit": 10,
+        "durationTicks": 400,
+        "from": "minecraft:enchanting_table",
+        "hits": 20,
+        "minimumHammer": "simplebuilding:netherite_sledgehammer",
+        "nugget": "simplebuilding:enderite_nugget",
+        "nuggetCount": 1,
+        "to": "simplebuilding:astral_enchanting_table",
+        "totalDamage": 200
+      },
+      {
+        "damagePerHit": 10,
         "durationTicks": 100,
         "from": "simplebuilding:netherite_blast_furnace",
         "hits": 5,
