@@ -569,7 +569,7 @@ public final class WayfinderScreen extends Screen {
         }
         int r = tabAt(mx, my, false);
         if (picking) {
-            if (button == 0 && r >= 1) {
+            if (button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT && r >= 1) {
                 int slot = r - 1;
                 if (waypoints().get(slot).isEmpty() || confirmSlot == slot) {
                     Waypoint old = waypoints().get(slot).orElse(null);
@@ -594,7 +594,7 @@ public final class WayfinderScreen extends Screen {
                     if (snap) snapOrigin();
                 }
                 case 1 -> grid = !grid;
-                case 2 -> zoomBy(button == 1 ? -1 : 1, mapX + MAP_W / 2.0, mapY + MAP_H / 2.0);
+                case 2 -> zoomBy(button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT ? -1 : 1, mapX + MAP_W / 2.0, mapY + MAP_H / 2.0);
                 default -> contour = !contour;
             }
             return true;
@@ -605,7 +605,7 @@ public final class WayfinderScreen extends Screen {
         }
         if (r > 0) {
             Optional<Waypoint> w = waypoints().get(r - 1);
-            if (button == 1 && !frameMode() && w.isPresent()) {
+            if (button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT && !frameMode() && w.isPresent()) {
                 int slot = r - 1;
                 menu.open((int) mx, (int) my)
                         .add(Component.translatable("screen.simplemaps.menu.configure"), true, () -> openDialog(slot))
@@ -616,7 +616,7 @@ public final class WayfinderScreen extends Screen {
             return true;
         }
         if (overMap(mx, my)) {
-            if (button == 1) {
+            if (button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT) {
                 int bx = blockX(mx), bz = blockZ(my);
                 menu.open((int) mx, (int) my)
                         .add(Component.translatable("screen.simplemaps.menu.create"), !frameMode() && mapId() >= 0, () -> {

@@ -687,8 +687,8 @@ public final class FeatureStations {
                 new ItemStack(ModItems.WARPED_BLAZEWOOD_PLANKS, 8), new ItemStack(ModItems.BLAZE_BOOK, 6),
                 new ItemStack(ModItems.ASTRAL_ENCHANTING_TABLE), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.BOOK, 4),
                 new ItemStack(Items.EXPERIENCE_BOTTLE, 64)));
-        c.title(0, 3, wallZ, TcText.t("section.astral", "Astral Enchanting"),
-                TcText.t("machines.astral_enchanting", "sliders; blazewood shelves + floor = 50"));
+        c.title(0, 3, wallZ, TcText.t("section.astral", "Astral Enchanter"),
+                TcText.t("machines.astral_enchanting", "sliders; 15 blazewood shelves = 50"));
         c.wallSign(8, 2, wallZ, TcText.bold(TcText.t("astral.hammer", "Hammer it")),
                 TcText.t("astral.hammer.sub", "netherite hammer,"), TcText.t("astral.hammer.sub2", "enderite nugget, 20x"));
         c.backWall(0, 10, wallZ, 5);

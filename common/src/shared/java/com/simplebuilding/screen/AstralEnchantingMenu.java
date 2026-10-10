@@ -28,7 +28,7 @@ import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Menu of the Astral Enchanting Table (owner 2026-10-09, queue N27). Built like Vanilla's enchanting menu: the item slot
+ * Menu of the Astral Enchanter (owner 2026-10-09, queue N27). Built like Vanilla's enchanting menu: the item slot
  * belongs to the menu (it goes back to the player on close), lapis and blaze powder are the table's own slots
  * ({@link AstralEnchantingTableBlockEntity}, they stay in the block). Instead of three fixed offers there are three
  * random enchantments that fit the item, each with a slider 0..max; the sliders share the table's budget
@@ -44,7 +44,9 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
     public static final int LEVELS_PER_ROW = 16;
     public static final int BUTTON_ENCHANT = 100;
     /** Slot positions (also read by the screen and ModScreenStyle). */
-    public static final int ITEM_X = 17, ITEM_Y = 17, LAPIS_X = 8, BLAZE_X = 26, STOCK_Y = 38;
+    public static final int ITEM_X = 17, ITEM_Y = 20, LAPIS_X = 8, BLAZE_X = 26, STOCK_Y = 44;
+    /** Owner N31: a taller, airier screen - the player inventory 36 px lower than Vanilla's 84. */
+    public static final int INVENTORY_Y = 120, IMAGE_HEIGHT = INVENTORY_Y + 82;
     private static final Identifier EMPTY_LAPIS = Identifier.withDefaultNamespace("container/slot/lapis_lazuli");
     private static final Identifier EMPTY_BLAZE = Identifier.withDefaultNamespace("container/slot/brewing_fuel");
 
@@ -105,7 +107,7 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
                 return EMPTY_BLAZE;
             }
         });
-        this.addStandardInventorySlots(inventory, 8, 84);
+        this.addStandardInventorySlots(inventory, 8, INVENTORY_Y);
         this.addDataSlot(this.tier);
         for (int[] array : new int[][] {this.enchant, this.maxLevel, this.chosen, this.cost}) {
             for (int i = 0; i < 3; i++) this.addDataSlot(DataSlot.shared(array, i));

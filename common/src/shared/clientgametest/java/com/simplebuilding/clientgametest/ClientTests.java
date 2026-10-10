@@ -112,7 +112,9 @@ public final class ClientTests {
                 // Holzwerk (2026-10-09, 26.3): motif sprites baked, one overview and one close-up; clears its blocks.
                 new Entry("woodwork", WoodworkClientTest::inWorld),
                 // Queue N31 (26.3): jukebox amplifiers relay by radio and show music notes; clears its blocks.
-                new Entry("amplifier-relay", MusicAmplifierClientTest::inWorld));
+                new Entry("amplifier-relay", MusicAmplifierClientTest::inWorld),
+                // Queue N31 (26.3): the Astral Enchanter's sliders follow a real mouse drag; clears its table and shelves.
+                new Entry("astral-enchanter", AstralEnchanterClientTest::inWorld));
     }
 
     /**

@@ -76,7 +76,7 @@ public final class ModScreenStyleTests {
         if (McVersion.ASTRAL_ENCHANTING) {
             // Astral Enchanting Table (N27): slots, slider panel and enchant button inside the violet box.
             com.simplebuilding.screen.AstralEnchantingMenu astral = new com.simplebuilding.screen.AstralEnchantingMenu(0, inv);
-            twoBoxes(astral, 176, 166, "astral enchanting table", problems);
+            twoBoxes(astral, 176, com.simplebuilding.screen.AstralEnchantingMenu.IMAGE_HEIGHT, "astral enchanting table", problems);
             Box box = ModScreenLayout.container(176, ModScreenLayout.inventoryOrigin(astral)[1]);
             if (!box.holds(com.simplebuilding.client.gui.AstralEnchantingScreen.PANEL_X - 1, com.simplebuilding.client.gui.AstralEnchantingScreen.PANEL_Y - 1,
                     com.simplebuilding.client.gui.AstralEnchantingScreen.PANEL_W + 2, com.simplebuilding.client.gui.AstralEnchantingScreen.PANEL_H + 2)) {
