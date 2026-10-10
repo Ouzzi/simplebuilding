@@ -67,7 +67,8 @@ public class CrucibleRenderer implements BlockEntityRenderer<CrucibleBlockEntity
             int cell = (tier.row(i) * 3 + tier.column(i)) % 9;
             float cx = -0.22F + (cell % 3) * 0.22F;
             float cz = -0.22F + (cell / 3) * 0.22F;
-            float layer = tier.grid(i) * LAYER;
+            // A fourth row (reinforced, 3x4 since N30) lies one layer up, like a further grid.
+            float layer = (tier.grid(i) + tier.row(i) / 3) * LAYER;
             for (int c = 0; c < copies; c++) {
                 ItemStackRenderState render = new ItemStackRenderState();
                 resolver.updateForTopItem(render, stack, ItemDisplayContext.FIXED, crucible.getLevel(), null, seed + i);

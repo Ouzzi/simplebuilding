@@ -227,7 +227,7 @@ public final class SimpleLibApi {
         return com.simplelib.crucible.CrucibleBlankBlock.WALLS;
     }
 
-    /** Slots of an attached barrel that the crucible uses and shows, per crucible tier: "6/9/18/27" (JEI, wiki). */
+    /** Slots of an attached barrel that the crucible uses and shows, per crucible tier: "6/12/18/27" (JEI, wiki). */
     public static String attachedBarrelSlots() {
         StringBuilder out = new StringBuilder();
         for (com.simplelib.crucible.CrucibleTier tier : com.simplelib.crucible.CrucibleTier.values()) {

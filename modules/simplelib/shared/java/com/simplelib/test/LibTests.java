@@ -63,6 +63,7 @@ public final class LibTests {
         ALL.put("crucible_burn_damage_follows_config", LibTests::crucibleBurnDamageFollowsConfig);
         ALL.put("loose_barrel_menu_keeps_the_raised_limit", LibTests::looseBarrelMenu);
         ALL.put("hoppers_fill_raised_slots", LibTests::hoppersFillRaisedSlots);
+        ALL.put("reinforced_crucible_loads_old_nine_slots", LibTests::reinforcedCrucibleLoadsOldNineSlots);
     }
 
     // ------------------------------------------------------------ helpers
@@ -143,11 +144,44 @@ public final class LibTests {
     }
 
     private static void tierLayout(GameTestHelper h) {
-        check(h, CrucibleTier.IRON.slots() == 6 && CrucibleTier.REINFORCED.slots() == 9
-                && CrucibleTier.NETHERITE.slots() == 18 && CrucibleTier.ENDERITE.slots() == 27, "slot counts (owner F4)");
+        check(h, CrucibleTier.IRON.slots() == 6 && CrucibleTier.REINFORCED.slots() == 12
+                && CrucibleTier.NETHERITE.slots() == 18 && CrucibleTier.ENDERITE.slots() == 27, "slot counts (owner F4, reinforced 12 since N30)");
+        check(h, CrucibleTier.REINFORCED.below(6) == 9 && CrucibleTier.REINFORCED.below(9) == -1, "reinforced fourth row below");
         check(h, CrucibleTier.IRON.below(0) == 3 && CrucibleTier.IRON.below(3) == -1, "iron below");
         check(h, CrucibleTier.NETHERITE.below(6) == -1 && CrucibleTier.NETHERITE.below(9) == 12, "second grid below");
         check(h, CrucibleTier.ENDERITE.stackMultiplier() == 2 && CrucibleTier.NETHERITE.stackMultiplier() == 1, "stack multiplier");
+        h.succeed();
+    }
+
+    /**
+     * N30: the reinforced crucible grew from 9 (3x3) to 12 slots (3x4). A crucible saved with 9 slots (its arrays 9
+     * long) loads with every stack, reservation and progress in the same place; the fourth row starts empty.
+     */
+    private static void reinforcedCrucibleLoadsOldNineSlots(GameTestHelper h) {
+        BlockPos rel = new BlockPos(1, 2, 1);
+        CrucibleBlockEntity old = crucible(h, rel, Blocks.STONE.defaultBlockState(), LibBlocks.REINFORCED_CRUCIBLE);
+        check(h, old.getContainerSize() == 12, "reinforced crucible has 12 slots, has " + old.getContainerSize());
+        for (int i = 0; i < 9; i++) old.setItem(i, new ItemStack(Items.COBBLESTONE, i + 1));
+        net.minecraft.nbt.CompoundTag tag = old.saveCustomOnly(h.getLevel().registryAccess());
+        // The old save: arrays of 9 (Progress, Targets, Results), one reservation 2 -> 5.
+        int[] targets = new int[9];
+        java.util.Arrays.fill(targets, -1);
+        targets[2] = 5;
+        tag.putIntArray("Progress", new int[] {0, 0, 7, 0, 0, 0, 0, 0, 0});
+        tag.putIntArray("Targets", targets);
+        tag.putIntArray("Results", new int[9]);
+        BlockPos rel2 = new BlockPos(3, 2, 1);
+        CrucibleBlockEntity loaded = crucible(h, rel2, Blocks.STONE.defaultBlockState(), LibBlocks.REINFORCED_CRUCIBLE);
+        loaded.loadCustomOnly(net.minecraft.world.level.storage.TagValueInput.create(
+                net.minecraft.util.ProblemReporter.DISCARDING, h.getLevel().registryAccess(), tag));
+        for (int i = 0; i < 9; i++) {
+            check(h, loaded.getItem(i).is(Items.COBBLESTONE) && loaded.getItem(i).getCount() == i + 1,
+                    "old slot " + i + " kept its stack: " + debug(loaded));
+        }
+        for (int i = 9; i < 12; i++) check(h, loaded.getItem(i).isEmpty(), "new fourth row starts empty: " + debug(loaded));
+        check(h, loaded.target(2) == 5 && loaded.target(9) == -1, "reservation kept, new slots free: " + debug(loaded));
+        old.clearContent();
+        loaded.clearContent();
         h.succeed();
     }
 

@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class CrucibleMenu extends AbstractContainerMenu {
     // Layout v3 (owner feedback 2026-10-06): the crucible slots form one contiguous chest-like grid (3 columns per
-    // grid, 18 px pitch); the 9 fields of an attached barrel sit beside it with a gap and only take room while a barrel
+    // grid, 18 px pitch); the fields of an attached barrel (as many as the crucible has) sit beside it with a gap and only take room while a barrel
     // is attached - before that everything is compact and centred. Slots cannot move, so the menu holds both layouts
     // (crucible and inventory slots twice, only the current one active); the screen reserves the larger box and draws
     // the current panel in it.

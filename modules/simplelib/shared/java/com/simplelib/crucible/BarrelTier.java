@@ -4,7 +4,7 @@ package com.simplelib.crucible;
  * Copper barrel tiers (owner wish round 2, answers 58/59; netherite owner addition 11): on its own a
  * barrel has the size of the matching chest tier (copper 27, reinforced 36, netherite 45, enderite 54
  * with SimpleBuilding), attached to a crucible it offers as many slots as the crucible has (owner N12c: iron 6,
- * reinforced 9, netherite 18, enderite 27); the slots beyond stay stored but hidden. Enderite holds double stacks like
+ * reinforced 12 (N30), netherite 18, enderite 27); the slots beyond stay stored but hidden. Enderite holds double stacks like
  * the Enderite crucible.
  */
 public enum BarrelTier {

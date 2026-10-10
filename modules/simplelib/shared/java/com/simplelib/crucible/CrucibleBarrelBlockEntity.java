@@ -18,7 +18,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 
 /**
  * Contents of a copper barrel; on its own it opens as a chest of its tier's size (owner 58). Attached
- * to a crucible it offers only as many slots as the crucible has (owner N12c: 6/9/18/27). The slots beyond are
+ * to a crucible it offers only as many slots as the crucible has (owner N12c: 6/9/18/27, reinforced 12 since N30). The slots beyond are
  * kept, not dropped: nothing reaches them while attached (hoppers, the crucible and its menu only see the first
  * ones), they come back when the barrel is detached, and they drop when it is broken. Detaching keeps the contents
  * within the normal stack limits.
