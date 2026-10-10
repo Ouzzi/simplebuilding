@@ -143,3 +143,18 @@ Verschieben/Zoomen schreibt den Ausschnitt zurück (Wegpunkte dort nur lesbar).
 Registrierung/Rezepte/Tags, Aufdecken + Speichern, Kachel-Codec, Kartentisch (Kopie/Erweitern/Kombinieren +
 Verbrauch + Config-Schalter), Wegpunkt-Validierung, Dimensionsbindung, Config-Grenzen, Loot. Client-Smoke mit
 Screenshots der UI. Forge 26.3: kompilieren im selben Zug (Testziel wie bei Sandwiches/Containers noch ohne).
+
+## Simple Trims: Umsetzungsabschnitt (2026-10-10, claude-q-trims)
+
+Besitzer: F1 mit „ja, starten“ beantwortet; IDs wechseln auf `simpletrims:*` mit Migration (siehe Antworten oben).
+
+**Ist-Zustand (SB 26.3).** Drei Vorlagen (`glowing_`/`emitting_`/`pulsating_trim_template`, `ModItems`), ihre Wirkung (`TrimUpgrades`, `GlowingTrimUtils`, Komponenten `glow_level`/`pulsating`/Emission in `ModDataComponentTypes`, `DynamicLightHandler`, `TrimPulseTextures`, Mixin am Schmiedetisch), Platzierbarkeit (`PlacedTemplates`, `PlacedPlate`, Block `PLACED_SMITHING_TEMPLATE`), Hammer-Rezept (`SledgehammerCrafting`, `SledgehammerEntityInteraction`), Besatz-Effekte (`TrimEffectUtil`, `TrimAttributeHandler`, `TrimBonusCatalog`, `TrimMultiplierLogic`, `TrimStatsLayout`/Panel/Referenzbildschirm, Netzwerk `TrimDataPayload`/`TrimBenefitPayload`), AutoSmither, JEI/REI-Anzeigen, Guide `guide_book_trims`, Tests (`PlacedTemplateTests`, `PulsatingTrimTests`, `DynamicLightTests`, `DataIntegrityTests`, `InWorldExportTests`). Rund 25 SB-Dateien greifen auf `PlacedTemplates` zu, 16 auf `GlowingTrimUtils`.
+
+**Kopplungsregel.** Module kennen sich nur über öffentliche IDs/Tags (wie `simplesandwiches` ↔ SB). SB darf Trims also nicht per Klasse importieren; was wandert, wandert komplett samt Komponenten, Tests und Daten. Daraus folgen die Stufen:
+
+- **Stufe 1 (erledigt, claude-q-trims):** Modul `modules/simpletrims` als Gerüst auf Fabric/NeoForge/Forge (Standalone- und Integrations-Targets, `check_data.py`, `modules.json`, `enabled-mods.json`), Config-Schalter „Enable Simple Trims“ / „Simple Trims aktivieren“, Werkzeugregel `TemplateTools` (ohne SB jede Axt, mit SB Tag `simplebuilding:sledgehammer_tools`), Tests `config_defaults`, `template_tool_*`, `ids`. In SB ändert sich nichts.
+- **Stufe 2:** Komponenten + Wirkung (`glow_level`, `pulsating`, Emission, Schmiedetisch-Mixin, `TrimUpgrades`, Dynamic Light, Pulsier-Render) ins Modul; die drei Vorlagen als `simpletrims:*` (Item, Modell, Textur, Rezept, Lang, Tags, Advancement). Migration alter Welten: `LegacyItemIds` um Namespace-Wechsel für Items und Komponenten-IDs erweitern, Test mit altem Stack.
+- **Stufe 3:** Platzierbarkeit (`PlacedTemplates`/`PlacedPlate`, Block, BE, Renderer) und Werkzeug-Interaktion ins Modul (Axt ohne SB, SB-Hammer über Tag); SB-Hammerrezept wird zum Tag-Eintrag.
+- **Stufe 4:** Besatz-Effekte, Stats-Panel, Referenzbildschirm, Netzwerk, AutoSmither-Anbindung, JEI/REI, Guide; SB bündelt Simple Trims (Fabric `include`, NeoForge `jarJar`, Forge Bundle) mit Schalter „Simple Trims aktivieren“; SB-Tests `trim*`/`data_integrity*` ziehen auf `simpletrims:`-Namespace um.
+
+**Was in SB bleibt:** Hammer, Rüstungs-/Material-Katalog (Enderit, Nihilith, Astralit), Gesamt-Guide-Einstieg, Schalter. **Risiken:** Welt-Migration (Items und Komponenten), 1.21.11-Port nur im Port-Run, Datagen-Provider zerlegen.

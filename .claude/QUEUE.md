@@ -485,7 +485,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **Neue Mobs:** 1. niedlicher End-Mob, der im End liegt (eigener Mob, Textur ähnlich Endstein zur Tarnung), spawnt sehr selten in kleinen Rudeln von 3–5. (Weitere Mobs folgen.)
 
 ## Nachtrag 18 (2026-10-07, Besitzer) – Plan: docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md
-- [ ] Simple Trims als Sub-Mod von SB (Vorlagen, platzierbar, Axt ohne SB / Hammer mit SB) – Frage F1
+- [ ] Simple Trims als Sub-Mod von SB (Vorlagen, platzierbar, Axt ohne SB / Hammer mit SB) – Frage F1 (claude-q-trims: Stufe 1 Modulgerüst + Werkzeugregel + Config fertig; Stufen 2-4 offen, siehe Plan „Umsetzungsabschnitt“)
 - [x] Simple Maps als Sub-Mod von SB: Wegfinder-Karte (unendlich, Spieler mittig, erweitern/kopieren/kombinieren, GUI mit Lesezeichen, Wegpunkte 1–8, Kontextmenü, Snap/Raster, Locator-Bar) – Fragebogen F2–F10, Feature-Vorschläge 1–8 (claude-q-maps (Modul simplemaps; Sub-Mod-Bündelung offen))
 - [x] (schon erledigt durch claude-q-blocks/CreativeTabSettings, in wave1) Config je Super-/Sub-Mod: Items in Kreativ-Tabs an/aus (simplelib) (teilweise: SB-Schalter addItemsToVanillaTabs ff143698a; simplelib-Gerüst je Mod fehlt)
 - [x] Guides: farbigen Strich an freigeschalteten Lesezeichen entfernen (Audit 09.10.: 33b051693)
@@ -673,7 +673,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] QoL-Aufteilung in Sub-Mods (Container/GUI → „Simple QoG“ o. ä., Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor); jeder Name beginnt mit „Simple“. Name für simplecontainers: Besitzer schlägt „Simple QoG“ (Quality of GUI) vor.
 - [ ] Simple Maps als Sub-Mod in SimpleBuilding bündeln (Schalter „Simple Maps aktivieren“).
 - [ ] Simple Maps Feature 3: Struktur-Markierungen (nur entdeckte Strukturen), im Karten-GUI über die linken Lesezeichen abschaltbar.
-- [ ] Simple Trims als Sub-Mod starten (Plan N18).
+- [x] Simple Trims als Sub-Mod starten (Plan N18). (claude-q-trims: Stufe 1; Rest Stufen 2–4 siehe Plan)
 - [ ] Shellker: Konzept + Vorschau; Schale ergibt eine NEUE Helm-Variante (kein Ersatz des Schildkrötenhelms).
 - [ ] Seelenfeuer-Lohe: Konzept + Vorschau.
 - [ ] Deceiver umsetzen (Konzept freigegeben).

@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpletrims"
+version="${version}"
+displayName="Simple Trims"
+description="Armor trim templates and trim upgrades. Works on its own with the axe; SimpleBuilding adds the sledgehammer."
+[[dependencies.simpletrims]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[dependencies.simpletrims]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

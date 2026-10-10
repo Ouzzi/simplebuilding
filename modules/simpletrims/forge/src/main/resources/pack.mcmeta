@@ -1,0 +1,10 @@
+{
+  "pack": {
+    "description": "Simple Trims resources",
+    "min_format": 88,
+    "max_format": [
+      107,
+      1
+    ]
+  }
+}
