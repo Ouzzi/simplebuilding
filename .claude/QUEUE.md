@@ -500,7 +500,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 19 (2026-10-07, Besitzer)
 - [x] (claude-q-vehicles; offen: Merge, Client-/Besitzer-Abnahme) **Stufen für Kistenboote, Kistenloren (Chest Boat / Chest Minecart) und Ofenloren (Furnace Minecart)** – analog zu den Truhen-/Ofen-Stufen (Verstärkt/Netherit/Enderit): mehr Slots bzw. Ofenlore mit stärkerem Antrieb/Brenndauer; Rezepte per Schmiedetisch wie die übrigen Stufen, Kreativtab, JEI, Wiki.
-- [ ] **0,125er-Block (Achtel) für jeden Block, der Stufen und Treppen hat** (Vanilla + Mod), ohne Schachfiguren. Generator-basiert (Datagen), Stapelgröße 128 (siehe N18), Kreativtab-Einordnung neben Stufe/Treppe.
+- [x] **0,125er-Block (Achtel) für jeden Block, der Stufen und Treppen hat** (Vanilla + Mod), ohne Schachfiguren. Generator-basiert (Datagen), Stapelgröße 99 (Engine-Grenze, siehe N18), Kreativtab-Einordnung neben Stufe/Treppe. (claude-q-octets2: 91 Materialien aus tools/textures/octet_materials.json via octets_2026_10_09.py --scan; Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton, SimpleBuilding-Paletten; Vanilla-Tab neben der Stufe, SimpleBlocks-Tab je Gruppe eine Zeile)
 
 ## Nachtrag 20 (2026-10-07, Besitzer) – Konzept: docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md
 - [x] Simple Maps: Rezept A + seltene Fundorte (auch Nether-/End-Karte) – in PLAN-N18 festgehalten (claude-q-maps)

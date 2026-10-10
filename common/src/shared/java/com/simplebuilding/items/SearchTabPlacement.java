@@ -41,6 +41,7 @@ public final class SearchTabPlacement {
     public static final ResourceKey<CreativeModeTab> BUILDING_BLOCKS = vanilla("building_blocks");
     public static final ResourceKey<CreativeModeTab> NATURAL_BLOCKS = vanilla("natural_blocks");
     public static final ResourceKey<CreativeModeTab> FUNCTIONAL_BLOCKS = vanilla("functional_blocks");
+    private static final ResourceKey<CreativeModeTab> COLORED_BLOCKS = vanilla("colored_blocks");
     public static final ResourceKey<CreativeModeTab> REDSTONE_BLOCKS = vanilla("redstone_blocks");
     public static final ResourceKey<CreativeModeTab> TOOLS_AND_UTILITIES = vanilla("tools_and_utilities");
     public static final ResourceKey<CreativeModeTab> COMBAT = vanilla("combat");
@@ -165,14 +166,17 @@ public final class SearchTabPlacement {
                 Item slab = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(wood + "_slab"));
                 out.add(Placement.after(BUILDING_BLOCKS, slab, octet));
             }
-            // Material-Achtel (N19/N15) je hinter der Vanilla-Stufe ihres Blocks (Mod-Bloecke liegen nur im SimpleBlocks-Tab).
+            // Material-Achtel (N19/N15) je hinter der Vanilla-Stufe ihres Blocks (Mod-Bloecke hinter der eigenen Stufe; Wolle/Beton im Tab Farbbloecke).
             for (net.minecraft.world.level.block.Block cell : com.simplebuilding.blocks.ModBlocks.MATERIAL_OCTETS) {
                 net.minecraft.world.level.block.Block full = ((com.simplebuilding.blocks.custom.MaterialOctetBlock) cell).source();
                 net.minecraft.world.level.block.Block stairs = com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(full, false, true).orElse(null);
                 net.minecraft.world.level.block.Block slab = stairs == null ? null
                         : com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(stairs, false, false).orElse(null);
-                if (slab != null && net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(slab).getNamespace().equals("minecraft")) {
-                    out.add(Placement.after(BUILDING_BLOCKS, slab.asItem(), net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell))));
+                if (slab != null) {
+                    // Wolle und Beton stehen bei Vanilla im Tab "Farbbloecke", alles andere in den Bausteinen.
+                    String sourcePath = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(full).getPath();
+                    boolean colored = sourcePath.endsWith("_wool") || sourcePath.endsWith("_concrete");
+                    out.add(Placement.after(colored ? COLORED_BLOCKS : BUILDING_BLOCKS, slab.asItem(), net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell))));
                 }
             }
         }

@@ -32,6 +32,8 @@ ASSETS = os.path.join(REPO, 'mc26_3', 'overlay', 'resources', 'assets', 'simpleb
 MATERIALS_JSON = os.path.join(REPO, 'tools', 'textures', 'octet_materials.json')
 JAVA_LIST = os.path.join(REPO, 'common', 'src', 'shared', 'java', 'com', 'simplebuilding', 'blocks', 'OctetMaterials.java')
 LANG_DIR = os.path.join(REPO, 'src', 'main', 'resources', 'assets', 'simplebuilding', 'lang')
+# the 26.3 overlay carries a second copy of the lang files (kept in sync, like tools/chess_lang_2026_10_06.py)
+LANG_DIRS = [LANG_DIR, os.path.join(ASSETS, 'lang')]
 MOD_GENERATED = os.path.join(REPO, 'src', 'main', 'generated', 'assets', 'simplebuilding')
 CLIENT_JAR = '/root/vanilla263/client.jar'
 DE_LANG = '/root/.gradle/caches/neoformruntime/assets/objects/76/766975253e4de94ffc2e7e6d3b10b209da2f52c4'
@@ -266,8 +268,8 @@ public final class OctetMaterials {{
 """
 
 
-def merged_lang(lang, mats):
-    path = os.path.join(LANG_DIR, lang + '.json')
+def merged_lang(lang_dir, lang, mats):
+    path = os.path.join(lang_dir, lang + '.json')
     with open(path, encoding='utf-8') as f:
         data = json.load(f)
     own = set()
@@ -314,7 +316,8 @@ def outputs():
     mats = materials()
     a('models/block/octet/_corner_sided.json', js(sided_corner()))
     a('models/item/octet/_sided.json', js({
-        'parent': 'simplebuilding:item/chess/octet', 'textures': {'particle': '#side'},
+        'parent': 'minecraft:block/block', 'textures': {'particle': '#side'},
+        'display': {'gui': {'rotation': [30, 225, 0], 'translation': [0, 0, 0], 'scale': [1.0, 1.0, 1.0]}},
         'elements': [{'from': [4, 4, 4], 'to': [12, 12, 12], 'faces': {
             'north': {'texture': '#side'}, 'south': {'texture': '#side'}, 'east': {'texture': '#side'},
             'west': {'texture': '#side'}, 'up': {'texture': '#up'}, 'down': {'texture': '#down'}}}]}))
@@ -331,9 +334,10 @@ def outputs():
         a(f'models/item/octet/{b}_octet.json', js(itm))
         a(f'items/{b}_octet.json', js({'model': {'type': 'minecraft:model', 'model': f'simplebuilding:item/octet/{b}_octet'}}))
     files[JAVA_LIST] = java_list(mats).encode('utf-8')
-    for lang in ('en_us', 'de_de'):
-        path, data = merged_lang(lang, mats)
-        files[path] = data
+    for lang_dir in LANG_DIRS:
+        for lang in ('en_us', 'de_de'):
+            path, data = merged_lang(lang_dir, lang, mats)
+            files[path] = data
     return files
 
 

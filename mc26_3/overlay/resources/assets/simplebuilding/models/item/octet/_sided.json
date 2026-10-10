@@ -1,7 +1,26 @@
 {
-  "parent": "simplebuilding:item/chess/octet",
+  "parent": "minecraft:block/block",
   "textures": {
     "particle": "#side"
+  },
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
   },
   "elements": [
     {
