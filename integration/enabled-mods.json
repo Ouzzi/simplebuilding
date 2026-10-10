@@ -15,7 +15,8 @@
     "simplesandwiches",
     "simplelib",
     "simplecontainers",
-    "simplemaps"
+    "simplemaps",
+    "simplemobs"
   ],
   "devMods": [
     "jei",

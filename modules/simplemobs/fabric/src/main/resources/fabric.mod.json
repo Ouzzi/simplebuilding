@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "simplemobs",
+  "version": "${version}",
+  "name": "Simple Mobs",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplemobs.FabricExample"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplemobs.FabricClientExample"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplemobs.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25"
+  }
+}
