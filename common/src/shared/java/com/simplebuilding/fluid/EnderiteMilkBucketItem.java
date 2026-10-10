@@ -67,7 +67,7 @@ public class EnderiteMilkBucketItem extends Item {
                 player.setItemInHand(hand, filled);
             } else {
                 stack.shrink(1);
-                if (!player.getInventory().add(filled)) player.drop(filled, false);
+                if (!player.getInventory().add(filled) && player.level() instanceof net.minecraft.server.level.ServerLevel server) player.spawnAtLocation(server, filled);
             }
         }
         return InteractionResult.SUCCESS;
