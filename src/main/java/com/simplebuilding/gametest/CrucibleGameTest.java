@@ -122,6 +122,11 @@ public final class CrucibleGameTest {
     }
 
     @GameTest
+    public void enderiteBucketTakesMilkAndDrinksOneFilling(GameTestHelper helper) {
+        CrucibleTests.enderiteBucketTakesMilkAndDrinksOneFilling(helper);
+    }
+
+    @GameTest
     public void enderiteBucketHoldsTwoBucketsOfOneFluid(GameTestHelper helper) {
         CrucibleTests.enderiteBucketHoldsTwoBucketsOfOneFluid(helper);
     }

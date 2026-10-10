@@ -58,6 +58,8 @@ public final class ModFluids {
      * and tags stay per item like everywhere in Vanilla.
      */
     public static Item FULL_ENDERITE_WATER_BUCKET, FULL_ENDERITE_LAVA_BUCKET, FULL_ENDERITE_SOUL_LAVA_BUCKET;
+    /** Queue N32: milk in the Enderite bucket, half (1/2) and full (2/2); see {@link EnderiteMilkBucketItem}. */
+    public static Item ENDERITE_MILK_BUCKET, FULL_ENDERITE_MILK_BUCKET;
     /** Ceramic bucket: 3 clay -> raw, fired in a furnace or crucible; water and lava, 4 pours. */
     public static Item RAW_CERAMIC_BUCKET, CERAMIC_BUCKET, CERAMIC_WATER_BUCKET, CERAMIC_LAVA_BUCKET;
     /** One item per wear stage (intact, chipped, cracked, brittle) and filling; index = stage. */
@@ -106,6 +108,13 @@ public final class ModFluids {
                 McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_LAVA_BUCKET), lava)));
         FULL_ENDERITE_SOUL_LAVA_BUCKET = item("enderite_soul_lava_bucket_full", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, SOUL_LAVA,
                 McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_SOUL_LAVA_BUCKET), SoulLava.fuelTicks())));
+        // Milk (N32): drinking or crafting with it leaves the next smaller bucket (usingConvertsTo as Vanilla's milk bucket).
+        ENDERITE_MILK_BUCKET = item("enderite_milk_bucket", p -> new EnderiteMilkBucketItem(false, p.stacksTo(1).fireResistant().rarity(Rarity.EPIC)
+                .craftRemainder(ENDERITE_BUCKET).component(net.minecraft.core.component.DataComponents.CONSUMABLE,
+                        net.minecraft.world.item.component.Consumables.MILK_BUCKET).usingConvertsTo(ENDERITE_BUCKET)));
+        FULL_ENDERITE_MILK_BUCKET = item("enderite_milk_bucket_full", p -> new EnderiteMilkBucketItem(true, p.stacksTo(1).fireResistant().rarity(Rarity.EPIC)
+                .craftRemainder(ENDERITE_MILK_BUCKET).component(net.minecraft.core.component.DataComponents.CONSUMABLE,
+                        net.minecraft.world.item.component.Consumables.MILK_BUCKET).usingConvertsTo(ENDERITE_MILK_BUCKET)));
         // No crafting remainder on the ceramic water bucket: a fresh bucket back would repair it for free.
         RAW_CERAMIC_BUCKET = item("raw_ceramic_bucket", p -> new Item(p.stacksTo(16)));
         // Wear stages as items (like the copper bucket's oxidation, but visible in the name), no durability.
@@ -128,17 +137,17 @@ public final class ModFluids {
     public static java.util.List<Item> buckets() {
         if (SOUL_LAVA_BUCKET == null) return java.util.List.of();
         return java.util.List.of(COPPER_BUCKET, COPPER_WATER_BUCKET, COPPER_LAVA_BUCKET, SOUL_LAVA_BUCKET,
-                ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET,
+                ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET, ENDERITE_MILK_BUCKET,
                 RAW_CERAMIC_BUCKET, CERAMIC_EMPTY[0], CERAMIC_WATER[0], CERAMIC_LAVA[0],
                 CERAMIC_EMPTY[1], CERAMIC_WATER[1], CERAMIC_LAVA[1], CERAMIC_EMPTY[2], CERAMIC_WATER[2], CERAMIC_LAVA[2],
                 CERAMIC_EMPTY[3], CERAMIC_WATER[3], CERAMIC_LAVA[3],
-                FULL_ENDERITE_WATER_BUCKET, FULL_ENDERITE_LAVA_BUCKET, FULL_ENDERITE_SOUL_LAVA_BUCKET);
+                FULL_ENDERITE_WATER_BUCKET, FULL_ENDERITE_LAVA_BUCKET, FULL_ENDERITE_SOUL_LAVA_BUCKET, FULL_ENDERITE_MILK_BUCKET);
     }
 
     /** The full Enderite buckets (two buckets each): only reached by scooping twice, so not in the creative tab. */
     public static java.util.List<Item> fullEnderiteBuckets() {
         if (FULL_ENDERITE_WATER_BUCKET == null) return java.util.List.of();
-        return java.util.List.of(FULL_ENDERITE_WATER_BUCKET, FULL_ENDERITE_LAVA_BUCKET, FULL_ENDERITE_SOUL_LAVA_BUCKET);
+        return java.util.List.of(FULL_ENDERITE_WATER_BUCKET, FULL_ENDERITE_LAVA_BUCKET, FULL_ENDERITE_SOUL_LAVA_BUCKET, FULL_ENDERITE_MILK_BUCKET);
     }
 
     /** Half Enderite bucket (one bucket) -> the full one of the same fluid; null for anything else. */

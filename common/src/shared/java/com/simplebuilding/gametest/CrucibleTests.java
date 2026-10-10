@@ -6,6 +6,7 @@ import com.google.gson.JsonParser;
 import com.simplebuilding.crucible.CrucibleCompat;
 import com.simplebuilding.effect.ModEffects;
 import com.simplebuilding.effect.SoulBurnEffect;
+import com.simplebuilding.fluid.EnderiteMilkBucketItem;
 import com.simplebuilding.fluid.ModBucketItem;
 import com.simplebuilding.fluid.ModFluids;
 import com.simplebuilding.fluid.SoulLava;
@@ -711,6 +712,45 @@ public final class CrucibleTests {
             player.setItemInHand(InteractionHand.MAIN_HAND, success.heldItemTransformedTo());
         }
         return player.getItemInHand(InteractionHand.MAIN_HAND);
+    }
+
+    /**
+     * Queue N32: milking a cow and a goat with the Enderite bucket gives the half milk bucket, milking again the full
+     * one (no third), a baby gives nothing. Drinking uses one filling and clears all effects; the crafting remainder of
+     * a full one is the half one, of a half one the empty bucket (that is what the milk cauldron reads).
+     */
+    public static void enderiteBucketTakesMilkAndDrinksOneFilling(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        floor(helper);
+        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        Vec3 at = helper.absoluteVec(new Vec3(1.5, 2.0, 1.5));
+        player.snapTo(at.x, at.y, at.z, 0.0F, 90.0F);
+        net.minecraft.world.entity.animal.cow.Cow cow = helper.spawn(net.minecraft.world.entity.EntityType.COW, new BlockPos(2, 1, 2));
+        net.minecraft.world.entity.animal.goat.Goat goat = helper.spawn(net.minecraft.world.entity.EntityType.GOAT, new BlockPos(3, 1, 2));
+        net.minecraft.world.entity.animal.cow.Cow calf = helper.spawn(net.minecraft.world.entity.EntityType.COW, new BlockPos(4, 1, 2));
+        calf.setBaby(true);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModFluids.ENDERITE_BUCKET));
+        player.interactOn(calf, InteractionHand.MAIN_HAND, Vec3.ZERO);
+        helper.assertTrue(player.getMainHandItem().is(ModFluids.ENDERITE_BUCKET), "a calf gives no milk");
+        player.interactOn(cow, InteractionHand.MAIN_HAND, Vec3.ZERO);
+        helper.assertTrue(player.getMainHandItem().is(ModFluids.ENDERITE_MILK_BUCKET), "milking a cow: half milk bucket, got " + player.getMainHandItem());
+        player.interactOn(goat, InteractionHand.MAIN_HAND, Vec3.ZERO);
+        helper.assertTrue(player.getMainHandItem().is(ModFluids.FULL_ENDERITE_MILK_BUCKET), "milking a goat: full milk bucket, got " + player.getMainHandItem());
+        player.interactOn(cow, InteractionHand.MAIN_HAND, Vec3.ZERO);
+        helper.assertTrue(player.getMainHandItem().is(ModFluids.FULL_ENDERITE_MILK_BUCKET), "a full one takes no more");
+        helper.assertTrue(((EnderiteMilkBucketItem) ModFluids.FULL_ENDERITE_MILK_BUCKET).amount() == 2
+                && ((EnderiteMilkBucketItem) ModFluids.ENDERITE_MILK_BUCKET).amount() == 1, "fill amounts 2/2 and 1/2");
+        player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.SPEED, 600));
+        ItemStack drunk = player.getMainHandItem().finishUsingItem(level, player);
+        helper.assertTrue(drunk.is(ModFluids.ENDERITE_MILK_BUCKET) && player.getActiveEffects().isEmpty(),
+                "drinking a full one: half left, effects cleared, got " + drunk);
+        drunk = drunk.finishUsingItem(level, player);
+        helper.assertTrue(drunk.is(ModFluids.ENDERITE_BUCKET), "drinking the half one leaves the empty bucket, got " + drunk);
+        helper.assertTrue(ModFluids.FULL_ENDERITE_MILK_BUCKET.getCraftingRemainder().item().value() == ModFluids.ENDERITE_MILK_BUCKET
+                && ModFluids.ENDERITE_MILK_BUCKET.getCraftingRemainder().item().value() == ModFluids.ENDERITE_BUCKET,
+                "milk bucket crafting remainders (milk cauldron contract)");
+        helper.succeed();
     }
 
     /**

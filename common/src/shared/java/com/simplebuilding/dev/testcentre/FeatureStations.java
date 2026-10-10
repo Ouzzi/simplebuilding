@@ -638,6 +638,7 @@ public final class FeatureStations {
         chest.add(new ItemStack(ModItems.ENDERITE_NUGGET, 4));
         for (Item bucket : com.simplebuilding.fluid.ModFluids.buckets()) { // 6 + 21 Eimer = 27, eine Truhe voll
             if (com.simplebuilding.fluid.ModFluids.fullEnderiteBuckets().contains(bucket)) continue; // volle: zweimal schoepfen
+            if (bucket == com.simplebuilding.fluid.ModFluids.ENDERITE_MILK_BUCKET) continue; // halber Milcheimer: im Fass (Chest voll)
             chest.add(new ItemStack(bucket));
         }
         c.contents(1, 0, 1, chest);
@@ -645,6 +646,7 @@ public final class FeatureStations {
         c.place(3, 0, 1, Blocks.BARREL);
         List<ItemStack> full = new ArrayList<>();
         for (Item bucket : com.simplebuilding.fluid.ModFluids.fullEnderiteBuckets()) full.add(new ItemStack(bucket));
+        full.add(new ItemStack(com.simplebuilding.fluid.ModFluids.ENDERITE_MILK_BUCKET));
         c.contents(3, 0, 1, full);
         c.title(0, 3, wallZ, TcText.t("section.crucible", "Crucibles"), TcText.t("section.crucible.sub", "soul lava, buckets, hammer"));
         c.wallSign(2, 2, wallZ, TcText.bold(TcText.t("crucible.extreme", "Extreme heat")),

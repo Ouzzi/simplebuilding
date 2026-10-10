@@ -179,10 +179,11 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
         Content content = state.getValue(CONTENT);
-        if (stack.is(Items.BUCKET) && (content == Content.MILK || content == Content.SPOILED)) {
+        ItemStack filled = content == Content.MILK ? filledContainer(stack) : ItemStack.EMPTY;
+        if ((stack.is(Items.BUCKET) && (content == Content.MILK || content == Content.SPOILED)) || !filled.isEmpty()) {
             if (!level.isClientSide()) {
                 // Spoiled milk is only poured out: the bucket stays empty.
-                if (content == Content.MILK) player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.MILK_BUCKET)));
+                if (content == Content.MILK) player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, filled));
                 level.setBlockAndUpdate(pos, emptied(state));
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
@@ -219,10 +220,32 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
         return InteractionResult.SUCCESS;
     }
 
+    /** Item tag of the milk containers (Vanilla's milk bucket; other mods add theirs): pouring leaves the crafting remainder. */
+    public static final net.minecraft.tags.TagKey<net.minecraft.world.item.Item> MILK_BUCKETS = net.minecraft.tags.TagKey.create(
+            net.minecraft.core.registries.Registries.ITEM, Identifier.fromNamespaceAndPath("simplesandwiches", "milk_buckets"));
+
+    /** What stays in the hand after pouring a milk container: its crafting remainder, the plain bucket otherwise. */
+    @SuppressWarnings("deprecation")
+    private static ItemStack emptiedContainer(ItemStack stack) {
+        var remainder = stack.getItem().getCraftingRemainder();
+        return remainder == null ? new ItemStack(Items.BUCKET) : remainder.create();
+    }
+
+    /** The milk container {@code held} turns into when it takes milk: the tagged item whose remainder is {@code held}'s item. */
+    private static ItemStack filledContainer(ItemStack held) {
+        if (held.is(Items.BUCKET)) return new ItemStack(Items.MILK_BUCKET);
+        for (var holder : BuiltInRegistries.ITEM.getTagOrEmpty(MILK_BUCKETS)) {
+            @SuppressWarnings("deprecation")
+            var remainder = holder.value().getCraftingRemainder();
+            if (remainder != null && remainder.item().value() == held.getItem()) return held.transmuteCopy(holder.value(), 1);
+        }
+        return ItemStack.EMPTY;
+    }
+
     /** Empty cauldron + milk bucket (registered on {@code CauldronInteractions.EMPTY}). */
     public static InteractionResult fillWithMilk(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack stack) {
         if (!level.isClientSide()) {
-            player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.BUCKET)));
+            player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, emptiedContainer(stack)));
             start(level, pos, Content.MILK);
             level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
             level.gameEvent(null, GameEvent.FLUID_PLACE, pos);

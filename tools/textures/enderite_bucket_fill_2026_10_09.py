@@ -6,7 +6,7 @@ Half (owner 2026-10-09 evening: "wie vorher", then "alle halben Eimer wie der ha
 bucket of claude-q-ebucket (8c595c074), and every other half bucket with exactly its mask: the inner top rim row
 and the two rim corners of row 3 stay Enderite rim (the same purples for every fluid), the two topmost outer liquid
 pixels (4, 3) and (11, 3) show the bucket, the liquid fills rows 3..5 in the fluid's own tones. HALF holds that
-table. (No mod bucket holds milk - PLAN-TEX7 / N12 decision - so there is no milk bucket to draw.)
+table. Milk (queue N32, the Enderite bucket takes milk now) uses the water masks in milk whites with a creamy shine.
 
 Every other pixel comes from the empty Enderite bucket of the same frame (enderite_bucket.png, 20 frames, a shine
 sweeping over frames 1..8), so the filled buckets keep its animation; the .mcmeta is the empty bucket's. On the
@@ -57,13 +57,16 @@ HALF = {
 }
 RIM = {'R': (85, 48, 153), 'r': (115, 74, 191)}
 TONES['water']['e'] = (46, 88, 211)
+# Milk (queue N32): the water masks in Vanilla's milk whites, same rule for half and full.
+TONES['milk'] = {'d': (196, 199, 208), 'm': (222, 224, 230), 'l': (238, 240, 244), 'h': (255, 255, 255), 'e': (209, 212, 220)}
+PATTERN['milk'], HALF['milk'] = PATTERN['water'], HALF['water']
 PATTERN['soul_lava'], HALF['soul_lava'] = PATTERN['lava'], HALF['lava']
 TONES['soul_lava'] = {k: SOUL_FOR_LAVA[v] for k, v in TONES['lava'].items()}
 for tones in TONES.values():
     tones.update(RIM)
 # Shine colour per content (peak of the sweep; the empty bucket's shine is near white).
-GLINT = {'water': (150, 190, 255), 'lava': (255, 222, 110), 'soul_lava': (140, 238, 255)}
-FLUIDS = ('water', 'lava', 'soul_lava')
+GLINT = {'water': (150, 190, 255), 'lava': (255, 222, 110), 'soul_lava': (140, 238, 255), 'milk': (255, 244, 205)}
+FLUIDS = ('water', 'lava', 'soul_lava', 'milk')
 
 
 def frames(image: Image.Image) -> list[Image.Image]:
@@ -148,7 +151,7 @@ def preview(built, target: Path) -> Path:
     # Animation of all six filled buckets (shimmer), 4x.
     gif = []
     for i in range(len(frames(Image.open(ITEM / "enderite_bucket.png")))):
-        canvas = Image.new('RGBA', (6 * 72, 72), bg)
+        canvas = Image.new('RGBA', (len(built) * 72, 72), bg)
         for k, (name, (img, _)) in enumerate(built.items()):
             canvas.alpha_composite(frames(img)[i].resize((64, 64), Image.NEAREST), (4 + k * 72, 4))
         gif.append(canvas.convert('RGB'))

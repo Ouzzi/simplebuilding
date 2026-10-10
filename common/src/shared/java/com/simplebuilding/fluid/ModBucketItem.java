@@ -38,7 +38,7 @@ import org.jspecify.annotations.Nullable;
  *   <li><b>Copper</b>: water and lava, never soul lava. Pouring oxidizes it one stage (0-3, looks only) unless
  *       waxed; poured water never makes a source (one flowing block that runs off); pouring lava breaks it.
  *       Main hand bucket + axe in the off hand scrapes one stage (or the wax) off, + honeycomb waxes it.</li>
- *   <li><b>Enderite</b>: water, lava and soul lava, never breaks. Owner N21/N28: it holds two buckets of one fluid
+ *   <li><b>Enderite</b>: water, lava and soul lava (milk: {@link EnderiteMilkBucketItem}), never breaks. Owner N21/N28: it holds two buckets of one fluid
  *       (half and full items, {@link ModFluids#fullEnderite}). Use only scoops while it has room (empty and half);
  *       a full one pours one bucket on use; sneak + use pours one bucket from a half or full one.</li>
  *   <li><b>Iron</b> (only the soul lava bucket here - Vanilla's bucket scoops soul lava itself): breaks when
@@ -244,6 +244,13 @@ public class ModBucketItem extends BucketItem {
             return InteractionResult.SUCCESS.heldItemTransformedTo(after);
         }
         return result;
+    }
+
+    /** Queue N32: the empty Enderite bucket milks cows, goats and mooshrooms (half milk bucket; see {@link EnderiteMilkBucketItem}). */
+    @Override
+    public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
+        if (kind == Kind.ENDERITE && getContent() == Fluids.EMPTY) return EnderiteMilkBucketItem.milk(stack, player, target, hand);
+        return super.interactLivingEntity(stack, player, target, hand);
     }
 
     /** Copper bucket in the main hand: axe in the off hand scrapes, honeycomb waxes (null: neither). */

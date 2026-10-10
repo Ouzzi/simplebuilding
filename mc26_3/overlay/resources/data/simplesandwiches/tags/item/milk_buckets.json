@@ -1,0 +1,7 @@
+{
+  "values": [
+    "minecraft:milk_bucket",
+    {"id": "simplebuilding:enderite_milk_bucket", "required": false},
+    {"id": "simplebuilding:enderite_milk_bucket_full", "required": false}
+  ]
+}

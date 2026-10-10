@@ -721,6 +721,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_vanilla_cauldron_takes_copper_and_enderite_buckets", CrucibleTests::vanillaCauldronTakesCopperAndEnderiteBuckets)
                     .build(),
+            GameTestSpec.named("crucible_game_test_enderite_bucket_takes_milk_and_drinks_one_filling", CrucibleTests::enderiteBucketTakesMilkAndDrinksOneFilling).build(),
             GameTestSpec.named("crucible_game_test_enderite_bucket_holds_two_buckets_of_one_fluid", CrucibleTests::enderiteBucketHoldsTwoBucketsOfOneFluid)
                     .build(),
             GameTestSpec.named("crucible_game_test_enderite_bucket_two_buckets_in_cauldrons_and_dispensers", CrucibleTests::enderiteBucketTwoBucketsInCauldronsAndDispensers)
