@@ -220,6 +220,19 @@ public class ModItems {
         return java.util.List.copyOf(out);
     }
 
+    /** Material-Achtel (Queue N19/N15): je Block mit Stufe und Treppe ein Item, Reihenfolge wie {@link ModBlocks#MATERIAL_OCTETS}. */
+    public static final java.util.List<Item> MATERIAL_OCTETS = registerMaterialOctets();
+
+    private static java.util.List<Item> registerMaterialOctets() {
+        java.util.List<Item> out = new java.util.ArrayList<>();
+        for (net.minecraft.world.level.block.Block cell : ModBlocks.MATERIAL_OCTETS) {
+            String name = BuiltInRegistries.BLOCK.getKey(cell).getPath();
+            out.add(registerItem(name, s -> new com.simplebuilding.items.custom.MaterialOctetItem(() -> cell,
+                    s.stacksTo(com.simplebuilding.items.custom.CheckerOctetItem.MAX_STACK))));
+        }
+        return java.util.List.copyOf(out);
+    }
+
     // Astralit-/Nihilith-Bausatz (siehe ModBlocks)
     public static final Item ASTRALIT_BRICKS = registerItem("astralit_bricks", s -> new BlockItem(ModBlocks.ASTRALIT_BRICKS, s));
     public static final Item ASTRALIT_BRICK_STAIRS = registerItem("astralit_brick_stairs", s -> new BlockItem(ModBlocks.ASTRALIT_BRICK_STAIRS, s));

@@ -25,6 +25,23 @@ public final class MaterialOctets {
     private MaterialOctets() {
     }
 
+    private static java.util.Map<Block, Block> cells;
+
+    /** Voller Block -> Achtelzelle fuer Holz und alle Material-Achtel (N19/N15), beim ersten Gebrauch gebaut. */
+    private static java.util.Map<Block, Block> cells() {
+        if (cells == null) {
+            java.util.Map<Block, Block> map = new java.util.HashMap<>();
+            for (Block cell : ModBlocks.WOOD_OCTETS) {
+                map.put(((MaterialOctetBlock) cell).source(), cell);
+            }
+            for (Block cell : ModBlocks.MATERIAL_OCTETS) {
+                map.put(((MaterialOctetBlock) cell).source(), cell);
+            }
+            cells = map;
+        }
+        return cells;
+    }
+
     /** Die Achtelzelle des Materials, dessen voller Block {@code full} ist; null ohne Achtel. */
     public static @Nullable Block cellFor(@Nullable Block full) {
         if (full == null) {
@@ -33,12 +50,7 @@ public final class MaterialOctets {
         if (full == Blocks.MELON) {
             return ModBlocks.MELON_OCTET;
         }
-        for (Block cell : ModBlocks.WOOD_OCTETS) {
-            if (((MaterialOctetBlock) cell).source() == full) {
-                return cell;
-            }
-        }
-        return null;
+        return cells().get(full);
     }
 
     /**

@@ -146,10 +146,14 @@ public final class SledgehammerOctetTests {
         // waterlogging carries over into the cell
         BlockState wet = carve(hammer, player, stack, stairs.setValue(StairBlock.WATERLOGGED, true), pos, 0, 0, 0);
         helper.assertTrue(wet.getValue(OctetCellBlock.WATERLOGGED), "the octet cell lost the water of the stairs");
-        // stone has no octets: the unsupported carve is refused (no charge, no tilt)
+        // stone has octets since N19/N15 (every block with stairs and slabs); a block without stairs (smooth stone) still has none
         BlockState stoneStairs = carve(hammer, player, stack, Blocks.STONE.defaultBlockState(), pos, 1, 1, 1);
         helper.assertTrue(stoneStairs != null && stoneStairs.is(Blocks.STONE_STAIRS), "stone did not carve into stairs");
-        helper.assertTrue(carve(hammer, player, stack, stoneStairs, pos, 0, 0, 0) == null, "stone fell apart without octets");
+        BlockState stoneCut = carve(hammer, player, stack, stoneStairs, pos, 0, 0, 0);
+        helper.assertTrue(stoneCut != null && stoneCut.is(MaterialOctets.cellFor(Blocks.STONE)) && OctetCellBlock.count(stoneCut) == 6,
+                "stone stairs missing two octets did not fall apart into six stone octets: " + stoneCut);
+        helper.assertTrue(carve(hammer, player, stack, Blocks.SMOOTH_STONE.defaultBlockState(), pos, 1, 1, 1) == null,
+                "smooth stone (no stairs, no octets) was carved");
         // melon block: no stairs, straight into a melon cell
         BlockState melon = carve(hammer, player, stack, Blocks.MELON.defaultBlockState(), pos, 1, 1, 1);
         helper.assertTrue(melon != null && melon.is(ModBlocks.MELON_OCTET) && OctetCellBlock.count(melon) == 7,
@@ -159,7 +163,9 @@ public final class SledgehammerOctetTests {
                 ((MaterialOctetBlock) oakCell).piece(), "removed piece of oak planks");
         helper.assertValueEqual(HammerCorners.removedPiece(stairs), ((MaterialOctetBlock) oakCell).piece(), "removed piece of oak stairs");
         helper.assertValueEqual(HammerCorners.removedPiece(Blocks.MELON.defaultBlockState()), Items.MELON_SLICE, "removed piece of melon");
-        helper.assertTrue(HammerCorners.removedPiece(Blocks.STONE.defaultBlockState()) == null, "stone dropped a piece");
+        helper.assertValueEqual(HammerCorners.removedPiece(Blocks.STONE.defaultBlockState()),
+                ((MaterialOctetBlock) MaterialOctets.cellFor(Blocks.STONE)).piece(), "removed piece of stone");
+        helper.assertTrue(HammerCorners.removedPiece(Blocks.SMOOTH_STONE.defaultBlockState()) == null, "smooth stone dropped a piece");
         player.setShiftKeyDown(false);
         helper.succeed();
     }
@@ -274,6 +280,53 @@ public final class SledgehammerOctetTests {
             entity.discard();
         }
         helper.assertValueEqual(dropped, 1, "the melon octet drops its slice");
+        helper.succeed();
+    }
+
+    /**
+     * N19/N15: every full block that has stairs and slabs (vanilla and this mod; planks have their wood octets, the
+     * chess checkers their chess ones) has a material octet cell and item (stack 99) that the hammer finds from the
+     * block, its stairs and its slab; the stonecutter makes 8 from the block and 8 craft back; a stone octet places.
+     */
+    public static void materialOctetsCoverEveryStairBlock(GameTestHelper helper) {
+        if (!McVersion.CHESS) { helper.succeed(); return; }
+        java.util.List<String> problems = new java.util.ArrayList<>();
+        var blocks = net.minecraft.core.registries.BuiltInRegistries.BLOCK;
+        int covered = 0;
+        for (Block stairs : blocks) {
+            var id = blocks.getKey(stairs);
+            if (!(stairs instanceof StairBlock) || !(id.getNamespace().equals("minecraft") || id.getNamespace().equals("simplebuilding"))
+                    || id.getPath().contains("checker")) continue;
+            Block full = SledgehammerItem.reshapeTarget(stairs, true, false).orElse(null);
+            if (full == null || !full.defaultBlockState().isCollisionShapeFullBlock(helper.getLevel(), BlockPos.ZERO)
+                    || SledgehammerItem.reshapeTarget(stairs, false, false).isEmpty()
+                    || blocks.getKey(full).getPath().endsWith("_planks") || blocks.getKey(full).getPath().equals("bamboo_block")) continue;
+            Block cell = MaterialOctets.cellFor(full);
+            if (cell == null) { problems.add("no octet for " + blocks.getKey(full)); continue; }
+            covered++;
+            if (HammerCorners.removedPiece(stairs.defaultBlockState()) != ((MaterialOctetBlock) cell).piece()) problems.add("hammer piece of " + id);
+            var octetId = blocks.getKey(cell);
+            Item item = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(octetId);
+            if (!(item instanceof MaterialOctetItem octet) || octet.cell() != cell) problems.add("item of " + octetId);
+            else if (new ItemStack(item).getMaxStackSize() != 99) problems.add("stack size of " + octetId);
+            var recipes = helper.getLevel().getServer().getRecipeManager();
+            String base = blocks.getKey(full).getPath();
+            if (recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", base + "_from_octets"))).isEmpty())
+                problems.add("no recipe back to " + base);
+        }
+        helper.assertTrue(covered >= 60, "only " + covered + " materials with octets");
+        helper.assertTrue(problems.isEmpty(), "material octets: " + problems);
+        Block stoneCell = MaterialOctets.cellFor(Blocks.STONE);
+        Item stoneOctet = ((MaterialOctetBlock) stoneCell).piece();
+        helper.assertTrue(stoneCell.defaultBlockState().is(stoneCell) && MaterialOctets.cellFor(Blocks.STONE_BRICKS) != stoneCell, "stone and stone bricks share a cell");
+        BlockPos floor = helper.absolutePos(CELL);
+        helper.setBlock(CELL, Blocks.DIRT);
+        ServerPlayer player = awayPlayer(helper);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(stoneOctet, 2));
+        BlockHitResult top = new BlockHitResult(new Vec3(floor.getX() + 0.25, floor.getY() + 1.0, floor.getZ() + 0.25), Direction.UP, floor, false);
+        helper.assertValueEqual(stoneOctet.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, top)), InteractionResult.SUCCESS, "placing a stone octet");
+        helper.assertTrue(helper.getLevel().getBlockState(floor.above()).is(stoneCell), "stone octet did not become a stone cell");
         helper.succeed();
     }
 }

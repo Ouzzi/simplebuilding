@@ -530,6 +530,8 @@ public class SledgehammerItem extends Item {
                 Optional<Block> fullBlockTarget = reshapeLookup(namespace, baseName);
                 if (fullBlockTarget.isEmpty()) fullBlockTarget = reshapeLookup(namespace, baseName + "s");
                 if (fullBlockTarget.isEmpty()) fullBlockTarget = reshapeLookup(namespace, baseName + "_planks");
+                // quartz_stairs -> quartz_block, purpur_stairs -> purpur_block (Gegenstueck zur Vorwaertsregel "_block")
+                if (fullBlockTarget.isEmpty()) fullBlockTarget = reshapeLookup(namespace, baseName + "_block");
                 return fullBlockTarget;
             }
             return Optional.empty();

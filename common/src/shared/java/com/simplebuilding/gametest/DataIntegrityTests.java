@@ -207,6 +207,9 @@ public final class DataIntegrityTests {
         for (String wood : ModBlocks.OCTET_WOODS) {
             out.add(wood + "_octet");
         }
+        for (com.simplebuilding.blocks.OctetMaterials.Material material : com.simplebuilding.blocks.OctetMaterials.ALL) {
+            out.add(material.key() + "_octet");
+        }
         return Set.copyOf(out);
     }
 
@@ -1651,6 +1654,7 @@ public final class DataIntegrityTests {
         items.addAll(com.simplebuilding.chess.ChessItems.shapes());
         // Holz-Achtel (Queue Nachtrag 24), in einer Schleife registriert.
         items.addAll(ModItems.WOOD_OCTETS);
+        items.addAll(ModItems.MATERIAL_OCTETS);
         // Holzwerk (McVersion.WOODWORK): je Holzart in einer Schleife registriert (WoodBlocks).
         items.addAll(com.simplebuilding.woodwork.WoodBlocks.items());
         // Ende der versteckten Easter-Kette (com.simplebuilding.tweaks.easter), eigene Registrierung.
@@ -1693,6 +1697,7 @@ public final class DataIntegrityTests {
         }
         // Holz-Achtel (Queue Nachtrag 24), in einer Schleife registriert.
         blocks.addAll(ModBlocks.WOOD_OCTETS);
+        blocks.addAll(ModBlocks.MATERIAL_OCTETS);
         // Holzwerk: je Holzart in einer Schleife registriert (ModBlocks.WOOD_FAMILIES).
         blocks.addAll(com.simplebuilding.woodwork.WoodBlocks.blocks());
         return blocks;
@@ -3128,6 +3133,7 @@ public final class DataIntegrityTests {
             expected.addAll(10, chess);
             expected.add(10 + chess.size(), CreativeTabLayout.Row.of("wood_octets",
                     ModItems.WOOD_OCTETS.toArray(new net.minecraft.world.level.ItemLike[0])));
+            expected.addAll(10 + chess.size() + 1, com.simplebuilding.items.ModItemGroupsContent.materialOctetRows());
         }
         if (McVersion.NATURE_VARIANTS) {
             // Naturvarianten (N24/N25) vor den Schwerkraftbloecken: vier Stufen; Eis und Nautilus; drei Froschlichter.

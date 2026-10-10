@@ -1,0 +1,6 @@
+{
+  "parent": "simplebuilding:block/chess/octet_corner",
+  "textures": {
+    "all": "minecraft:block/tuff"
+  }
+}
