@@ -21,7 +21,8 @@ RAMPS = {
     "netherite": [(30, 24, 26), (44, 37, 39), (60, 52, 54), (77, 69, 71), (96, 88, 90), (118, 110, 112)],
     "enderite": [(24, 14, 40), (38, 22, 64), (54, 32, 92), (74, 44, 128), (98, 62, 168), (128, 88, 210)],
 }
-BRACKET = {"reinforced": (196, 196, 200), "netherite": (132, 124, 126), "enderite": (150, 110, 228)}
+# Owner N16 (2026-10-07): the netherite brackets are dark highlights (Vanilla netherite ingot tone), not light ones.
+BRACKET = {"reinforced": (196, 196, 200), "netherite": (39, 28, 29), "enderite": (150, 110, 228)}
 ACCENT = {"reinforced": [(40, 160, 160), (90, 220, 210)], "netherite": [(150, 96, 30), (230, 170, 60)],
           "enderite": [(200, 90, 210), (250, 180, 255)]}
 SPARK = (240, 168, 255)

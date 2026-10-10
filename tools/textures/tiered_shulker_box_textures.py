@@ -30,9 +30,10 @@ PLATING = {
     # Reinforced: steel with diamond studs, like the Reinforced Chest.
     "reinforced": {"o": (40, 40, 47), "a": (62, 62, 70), "b": (78, 78, 87), "c": (99, 99, 106), "d": (122, 122, 129),
                    "e": (156, 156, 163), "f": (196, 196, 202), "x": (39, 177, 163), "y": (95, 224, 208), "z": (196, 250, 240)},
-    # Netherite: dark netherite plates with gold rivets, like the Netherite Chest.
+    # Netherite: dark netherite plates with gold rivets, like the Netherite Chest. Owner N16 (2026-10-07): dark
+    # instead of light highlights - the corner brackets ("f") in Vanilla's darkest netherite ingot tone.
     "netherite": {"o": (17, 12, 13), "a": (36, 29, 30), "b": (51, 43, 44), "c": (66, 58, 59), "d": (86, 79, 81),
-                  "e": (113, 107, 109), "f": (140, 134, 137), "x": (122, 79, 24), "y": (196, 140, 44), "z": (243, 213, 122)},
+                  "e": (113, 107, 109), "f": (39, 28, 29), "x": (122, 79, 24), "y": (196, 140, 44), "z": (243, 213, 122)},
     # Enderite: night-violet plates with a glowing violet rim, like the Enderite Chest.
     "enderite": {"o": (11, 6, 19), "a": (24, 15, 38), "b": (36, 24, 56), "c": (50, 35, 78), "d": (66, 44, 108),
                  "e": (88, 58, 146), "f": (112, 80, 180), "x": (100, 64, 176), "y": (138, 104, 214), "z": (196, 170, 248)},

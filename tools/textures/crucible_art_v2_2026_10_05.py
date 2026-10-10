@@ -203,9 +203,10 @@ def chest_style(tier):
                 'frame': [(36, 36, 40), (52, 52, 56), (70, 70, 74)], 'stud': (196, 196, 200),
                 'lock': [DIAMOND[0], (40, 160, 160), (90, 220, 210)], 'spark': None}
     if tier == 'netherite':
-        # SB netherite chest: netherite grey-brown plates, near-black seams, light studs, gold lock.
+        # SB netherite chest: netherite grey-brown plates, near-black seams, gold lock; studs dark like the chest's
+        # brackets (owner N16 2026-10-07: dark instead of light highlights).
         return {'panel': [(60, 52, 54), (77, 69, 71), (96, 88, 90), (118, 110, 112), (132, 124, 126)],
-                'frame': [(30, 24, 26), (44, 37, 39), (60, 52, 54)], 'stud': (170, 160, 162),
+                'frame': [(30, 24, 26), (44, 37, 39), (60, 52, 54)], 'stud': (39, 28, 29),
                 'lock': [(150, 96, 30), (230, 170, 60), (250, 215, 120)], 'spark': None}
     return {'panel': [(38, 22, 64), (54, 32, 92), (74, 44, 128), (98, 62, 168), (128, 88, 210)],
             'frame': [(24, 14, 40), (38, 22, 64), (54, 32, 92)], 'stud': (150, 110, 228),
