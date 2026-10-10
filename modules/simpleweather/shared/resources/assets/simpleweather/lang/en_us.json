@@ -1,0 +1,8 @@
+{
+  "simpleweather.title": "Simple Weather",
+  "simpleweather.tab.general": "General",
+  "simpleweather.option.disableWeather": "Disable Weather (Server)",
+  "simpleweather.option.disableWeather.tooltip": "Stops rain and thunder from occurring and\nclears active weather. Server-side. Default:\nfalse.",
+  "simpleweather.option.clientRainParticleDensity": "Rain Disturbance (Client)",
+  "simpleweather.option.clientRainParticleDensity.tooltip": "Reduces rain particles and sounds. 100 = All\nparticles/sounds 0 = No particles/sounds\n(Silent). Default: 20. Allowed range: 0–100."
+}

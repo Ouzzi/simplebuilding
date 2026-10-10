@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.modules.simpleweather.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ServerWeatherMixin"
+  ],
+  "client": [
+    "client.ClientWeatherMixin",
+    "client.VisualRainMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

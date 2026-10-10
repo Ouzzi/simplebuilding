@@ -1,0 +1,8 @@
+{
+  "simpleweather.title": "Simple Weather",
+  "simpleweather.tab.general": "Allgemein",
+  "simpleweather.option.disableWeather": "Wetter deaktivieren (Server)",
+  "simpleweather.option.disableWeather.tooltip": "Verhindert Regen und Gewitter und beendet\naktives Wetter. Serverseitig. Standard:\nfalse.",
+  "simpleweather.option.clientRainParticleDensity": "Regen-Störung (Client)",
+  "simpleweather.option.clientRainParticleDensity.tooltip": "Reduziert Regen-Partikel und -Geräusche. 100\n= Alle Partikel/Geräusche 0 = Keine\nPartikel/Geräusche (still). Standard: 20.\nErlaubter Bereich: 0–100."
+}

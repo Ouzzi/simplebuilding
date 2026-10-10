@@ -1,0 +1,8 @@
+plugins {
+    id 'java-library'
+    id 'net.minecraftforge.gradle' version '7.0.36'
+}
+ext.forgeMixinConfigs = ['simpleweather.mixins.json']
+apply from: rootProject.file('gradle/module-forge.gradle')
+ext.forgeNativeConfig = [id: 'simpleweather', modId: 'simpleweather', root: 'modules/simpleweather/shared/java', screens: ['com/simplebuilding/modules/simpleweather/WeatherScreen.java'], factory: 'com.simplebuilding.modules.simpleweather.WeatherScreen.create(parent)']
+apply from: rootProject.file('gradle/forge-native-config.gradle')

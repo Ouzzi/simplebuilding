@@ -14,11 +14,11 @@ eine Super-Mod *requires* und bündelt ihre Sub-Mods und enthält nur Übergreif
 Befehle). In ihrer Config steht je Sub-Mod oben „Simple XY aktivieren“. Gemeinsames gehört in **simplelib**.
 
 ```
-SimpleBuilding (Super-Mod, geplant)          Simple Quality of Life (Super-Mod, geplant)
- ├─ simplelib (gebündelt)                      ├─ simpleinterfaces (Sub-Mod, vorhanden)
- ├─ Simple Trims (geplant)                     ├─ Simple Loot (geplant: Tresor-Abklingzeit)
- └─ Simple Maps (in Arbeit)                    └─ weitere Teile nach Besitzer-Entscheidung
-                                              Simple Combat (geplant: Schärfe schneidet Gras)
+SimpleBuilding (Super-Mod, geplant)          Simple Quality of Life (Super-Mod, im Umbau)
+ ├─ simplelib (gebündelt)                      ├─ simpleweather (Sub-Mod, gebündelt)
+ ├─ Simple Trims (geplant)                     ├─ simpleinterfaces (Sub-Mod, vorhanden)
+ └─ Simple Maps (in Arbeit)                    └─ geplant: Movement, Farming, Tools, Creatures, Vaults
+                                                 (docs/ai/PLAN-QOL-AUFTEILUNG-2026-10-10.md)
 Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwiches, Tweaks (braucht SB)
 ```
 
@@ -29,7 +29,8 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 | SimpleBuilding (`simplebuilding`) | Cloth Config | JEI, REI, ModMenu, Jade, AppleSkin, Mouse Tweaks, Trinkets, Curios | simplelib |
 | SimpleLib (`simplelib`) | – | – | – |
 | Simple Interfaces (`simpleinterfaces`) | Cloth Config, simplelib | SimpleBuilding, ModMenu | simplelib |
-| Simple Quality of Life (`simplequalityoflife`) | Cloth Config | SimpleBuilding, ModMenu | simplelib |
+| Simple Quality of Life (`simplequalityoflife`) | Cloth Config, Simple Weather | SimpleBuilding, ModMenu | simplelib, simpleweather |
+| Simple Weather (`simpleweather`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
 | Simple Riding (`simpleriding`) | Cloth Config | SimpleBuilding (Enderit-Hufeisen), ModMenu | simplelib |
 | Simple Sandwiches (`simplesandwiches`) | – | SimpleBuilding | simplelib |
 | Simple Money (`simplemoney`) | Cloth Config | alle Simple-Mods (Preislisten), JEI, ModMenu | – |
@@ -80,10 +81,14 @@ Simple-Stil für Truhen, Fässer, Shulker, Trichter, Werfer/Spender, Crafter, Re
 (Werkbank, Öfen, Braustand, Leuchtfeuer, Zaubertisch), Amboss/Schleifstein/Steinsäge/Webstuhl/Kartentisch/
 Schmiedetisch, Handel, Spieler-Inventar; Mod-Bildschirme im gleichen Stil; Vergleichsschalter Simple/Vanilla.
 
+### Simple Weather (Sub-Mod von QoL)
+Wetter abschalten (Server), Regendichte (Client); eigene Config `config/simpleweather.json`, alte QoL-Werte werden
+einmalig übernommen; in QoL mit „Simple Weather aktivieren“ abschaltbar.
+
 ### Simple Quality of Life
 Kriechen, Autowalk, schnelles Leiterklettern/-rutschen, Eisläufer auf Pulverschnee, Federfall schützt Acker, Ernten
 mit Hacke, Ofen mit Lava füllen, Schärfe schneidet Pflanzen, Haltbarkeitsbonus, Kreaturen stummschalten, dauerhafte
-Jungtiere, Piglins ignorieren Gold, Wettersteuerung, Tresor-Abklingzeit, Sparsamkeit-Verzauberung, Reparatur hält
+Jungtiere, Piglins ignorieren Gold, Wettersteuerung (jetzt Sub-Mod Simple Weather), Tresor-Abklingzeit, Sparsamkeit-Verzauberung, Reparatur hält
 Ambosskosten, verknüpfte Behälter (Vormerken), Shulkerkisten/Endertruhen aus dem Inventar öffnen.
 
 ### Simple Riding

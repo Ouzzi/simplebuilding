@@ -20,7 +20,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
     public static final double DEFAULT_DURABILITY_THRESHOLD = 0.8;
     public static final double DEFAULT_DURABILITY_BONUS_MULTIPLIER = 1.0;
     public static final int DEFAULT_VAULT_COOLDOWN_DAYS = 100;
-    public static final int DEFAULT_RAIN_PARTICLE_DENSITY = 20;
     public static final int DEFAULT_LINKED_RANGE = 64;
     public static final int MIN_LINKED_RANGE = 8;
     public static final int MAX_LINKED_RANGE = 128;
@@ -34,7 +33,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
         qOL.fullDurabilityThreshold = bounded(qOL.fullDurabilityThreshold, 0.8, 1, 0.8);
         qOL.fullDurabilityBonusMultiplier = bounded(qOL.fullDurabilityBonusMultiplier, 1, MAX_BONUS, DEFAULT_DURABILITY_BONUS_MULTIPLIER);
         qOL.vaultCooldownDays = Math.clamp(qOL.vaultCooldownDays, 1, 36500);
-        qOL.clientRainParticleDensity = Math.clamp(qOL.clientRainParticleDensity, 0, 100);
         qOL.linkedContainerRange = Math.clamp(qOL.linkedContainerRange, MIN_LINKED_RANGE, MAX_LINKED_RANGE);
         if (qOL.ladderSlideActivation == null) qOL.ladderSlideActivation = SlideActivationMode.CAMERA;
     }
@@ -52,6 +50,10 @@ public class SimplequalityoflifeConfig implements ConfigData {
     public enum SlideActivationMode {
         CAMERA, ALWAYS
     }
+
+    // --- Sub-Mods (Super-Mod, docs/ai/KONZEPT-SUPERMOD-SUBMOD-2026-10-06.md): one switch per bundled sub-mod ---
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleWeather = true;
 
     // Option außerhalb der QOL-Kategorie (Global)
     @ConfigEntry.Gui.Tooltip
@@ -133,12 +135,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
         @ConfigEntry.Gui.Tooltip
         public boolean piglinsIgnoreGoldTools = true;
 
-        // --- Weather ---
-        @ConfigEntry.Gui.Tooltip
-        public boolean disableWeather = false;
-
-        @ConfigEntry.Gui.Tooltip
-        public int clientRainParticleDensity = DEFAULT_RAIN_PARTICLE_DENSITY;
 
         // --- Containers (2026-10-04) ---
         @ConfigEntry.Gui.Tooltip

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleweather",
+  "version": "${version}",
+  "name": "Simple Weather",
+  "description": "Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleweather.WeatherFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleweather.ModuleGameTest"
+    ],
+    "modmenu": [
+      "com.simplebuilding.modules.simpleweather.WeatherModMenu"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "cloth-config": "*"
+  },
+  "mixins": [
+    "simpleweather.mixins.json"
+  ],
+  "suggests": {
+    "simplequalityoflife": "*",
+    "modmenu": "*"
+  }
+}

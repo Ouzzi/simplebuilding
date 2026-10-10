@@ -5,6 +5,11 @@ Auftrag Besitzer 10.10. (Queue Nachtrag 14 / N32). Grundlagen: `docs/ai/KONZEPT-
 
 ## Entscheidungen (selbst getroffen, Besitzer kann umbenennen)
 
+ROADMAP-2026-10-09 nennt außerdem „Simple Combat (Schärfe schneidet Gras)“ und „Kreaturen-Logik in simplelib“:
+Schärfe/Gras bleibt hier in Farming (Ernte-/Pflanzenthema, kein Kampf); wünscht der Besitzer Simple Combat, wandert
+nur `SharpnessGrassCutMixin`+`GrassOutlineMixin` um. Kreaturen-Code, den mehrere Mods brauchen, geht nach simplelib,
+der Rest in Simple Creatures.
+
 | Sub-Mod | Mod-ID | Inhalt (EN-Kurzname) |
 |---|---|---|
 | Simple Interfaces | `simpleinterfaces` | bisher `simplecontainers` (GUI-Stil) + Container-Verknüpfung + Easy Shulkers/Ender Chests aus QoL |
@@ -13,7 +18,7 @@ Auftrag Besitzer 10.10. (Queue Nachtrag 14 / N32). Grundlagen: `docs/ai/KONZEPT-
 | Simple Tools | `simpletools` | Haltbarkeitsbonus, Sparsamkeit (Thrift), Amboss-Kosten, Ofen-Lava-Füllung |
 | Simple Creatures | `simplecreatures` | Stummschalten, Namensschild-Suffixe (stumm/Baby), Piglins ignorieren Gold |
 | Simple Weather | `simpleweather` | Wetter aus (Server), Regendichte (Client) |
-| Simple Vaults | `simplevaults` | Tresor-Abklingzeit (Tage) |
+| Simple Loot | `simpleloot` | Tresor-Abklingzeit (Tage); Name aus ROADMAP-2026-10-09 („Simple Loot (Tresor)“), Platz für weitere Loot-Themen |
 
 Simple QoL (`simplequalityoflife`) bleibt Super-Mod: Guide-Buch, FTB-Startquest, `/qol`-Befehle (soweit noch
 nicht verteilt), gemeinsame Config-Oberfläche mit je Sub-Mod oberstem Punkt „Enable Simple XY“ /
@@ -39,7 +44,7 @@ nicht verteilt), gemeinsame Config-Oberfläche mit je Sub-Mod oberstem Punkt „
 | `piglinsIgnoreGoldTrims`, `piglinsIgnoreGoldTools` | `PiglinGoldMixin` | Creatures |
 | `disableWeather` | `ServerWeatherMixin` | Weather |
 | `clientRainParticleDensity` | `client/ClientWeatherMixin`, `client/VisualRainMixin` | Weather |
-| `enableVaultCooldown`, `vaultCooldownDays` | `Vault*Mixin`, `Vault*Accessor`, `util/IVaultCooldown`, Befehl `vaultCooldown` | Vaults |
+| `enableVaultCooldown`, `vaultCooldownDays` | `Vault*Mixin`, `Vault*Accessor`, `util/IVaultCooldown`, Befehl `vaultCooldown` | Loot |
 | `enableLinkedContainers`, `linkedContainerRange` | `container/Linked*`, `client/Linked*`, `LinkedOpenPayload`, `*LinkedMixin`, `SlotPositionAccessor` | Interfaces |
 | `enableEasyShulkers`, `enableEasyEnderChests` | `container/Portable*`, `ItemUsePortableMixin` | Interfaces |
 | Guide-Buch, FTB-Quest, Befehlswurzel, Config-Screen, `ConfigSyncPayload`, `InteractionGuard` | `guide/`, `command/`, `client/QolConfigScreen`, `network/ConfigSyncPayload`, `event/InteractionGuard` | bleibt Super-Mod (InteractionGuard wandert als Kopie mit, wo gebraucht – kein Klassenimport über Modulgrenzen) |
@@ -77,8 +82,8 @@ nicht verteilt), gemeinsame Config-Oberfläche mit je Sub-Mod oberstem Punkt „
 3. **Simple Weather** herauslösen (am wenigsten gekoppelt: 3 Mixins, 2 Optionen, 1 Test, keine
    Netzwerkpakete, keine Befehle) + `framework SubMods` + Super-Mod-Schalter „Simple Weather aktivieren“
    + Bündeln in QoL. ✔ (`claude-q-qolsplit`)
-4. **Simple Vaults**: `Vault*Mixin`/Accessoren/`IVaultCooldown`, Befehl `vaultCooldown` in eigene
-   `/simplevaults`-Wurzel (QoL-Befehl bleibt als Alias, solange QoL ihn kennt – ohne Import: Alias weg),
+4. **Simple Loot**: `Vault*Mixin`/Accessoren/`IVaultCooldown`, Befehl `vaultCooldown` in eigene
+   `/simpleloot`-Wurzel (QoL-Befehl bleibt als Alias, solange QoL ihn kennt – ohne Import: Alias weg),
    Test `vault*` umziehen.
 5. **Simple Creatures**: Mute/Baby/Piglin-Mixins, Listen-Normalisierung, Tests muting/baby/piglins.
 6. **Simple Farming**: Farmland/Gras/Hacke; bündelt framework (`TransformHints`); `InteractionGuard`-Kopie.

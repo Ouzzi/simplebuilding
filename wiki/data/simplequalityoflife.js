@@ -190,15 +190,15 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     {
       "id": "weather",
       "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/ServerWeatherMixin.java"
+        "modules/simpleweather/shared/java/com/simplebuilding/modules/simpleweather/mixin/ServerWeatherMixin.java"
       ],
       "en": {
-        "title": "Weather controls",
-        "summary": "qOL.disableWeather (default false) clears rain and thunder and skips weather progression. qOL.clientRainParticleDensity is a local visual preference, default 20, bounded 0–100; it never changes server weather."
+        "title": "Weather controls (Simple Weather)",
+        "summary": "Moved into the bundled sub-mod Simple Weather (simpleweather): disableWeather (default false) clears rain and thunder; clientRainParticleDensity (default 20, 0–100) is a local visual preference. Old settings are taken over once; \"Enable Simple Weather\" switches it off."
       },
       "de": {
-        "title": "Wettersteuerung",
-        "summary": "qOL.disableWeather (Standard false) loescht Regen und Gewitter und stoppt Wetterfortschritt. qOL.clientRainParticleDensity ist eine lokale Darstellungseinstellung, Standard 20, Grenze 0–100; Serverwetter bleibt davon unabhaengig."
+        "title": "Wettersteuerung (Simple Weather)",
+        "summary": "In die gebuendelte Sub-Mod Simple Weather (simpleweather) umgezogen: disableWeather (Standard false) loescht Regen und Gewitter; clientRainParticleDensity (Standard 20, 0–100) ist eine lokale Darstellungseinstellung. Alte Einstellungen werden einmalig uebernommen; \"Simple Weather aktivieren\" schaltet sie ab."
       }
     },
     {
@@ -213,6 +213,20 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       "de": {
         "title": "Tresor-Abklingzeit",
         "summary": "Ein Spieler darf nach qOL.vaultCooldownDays erneut plundern, Standard 100 Minecraft-Tage, Grenze 1–36500. Die originale SimpleBuildingLootTimes-UUID-Zeitkarte bleibt. Fehlende Zeitstempel bereits belohnter Spieler beginnen eine Pause statt Gratisbeute; rueckwaerts laufende Zeit entsperrt nichts."
+      }
+    },
+    {
+      "id": "config_enableSimpleWeather",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "enableSimpleWeather",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Weather. Default: true."
+      },
+      "de": {
+        "title": "enableSimpleWeather",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Weather. Standard: true."
       }
     },
     {
@@ -497,34 +511,6 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       }
     },
     {
-      "id": "config_qOL_disableWeather",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.disableWeather",
-        "summary": "Server setting (rain density is a local visual preference). Default: false."
-      },
-      "de": {
-        "title": "qOL.disableWeather",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: false."
-      }
-    },
-    {
-      "id": "config_qOL_clientRainParticleDensity",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.clientRainParticleDensity",
-        "summary": "Server setting (rain density is a local visual preference). Default: 20."
-      },
-      "de": {
-        "title": "qOL.clientRainParticleDensity",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 20."
-      }
-    },
-    {
       "id": "config_qOL_enableLinkedContainers",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
@@ -799,10 +785,10 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
           "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 40 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
+          "summary": "Guide to this mod: 41 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 40 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
+          "summary": "Handbuch zu dieser Mod: 41 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
         }
       },
       "texture": "assets/textures/simplequalityoflife/item/guide_book.png",
@@ -827,7 +813,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 48,
+    "features": 47,
     "recipes": 1,
     "lootTables": 0,
     "tags": 0,

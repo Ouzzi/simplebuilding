@@ -15,7 +15,6 @@
     "PassiveEntityMixin",
     "PiglinGoldMixin",
     "PowderSnowWalkMixin",
-    "ServerWeatherMixin",
     "SharpnessGrassCutMixin",
     "VaultBlockEntityMixin",
     "VaultBlockEntityServerMixin",
@@ -30,8 +29,6 @@
     "ItemUsePortableMixin"
   ],
   "client": [
-    "client.ClientWeatherMixin",
-    "client.VisualRainMixin",
     "client.ContainerScreenLinkedMixin",
     "client.HudLinkedMixin",
     "client.SlotPositionAccessor"

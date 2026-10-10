@@ -172,7 +172,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplequalityoflife",
     "displayName": "Simple Quality of Life",
-    "description": "Server-controlled movement, farming, mob, weather, and vault utilities.",
+    "description": "Server-controlled movement, farming, mob, weather, and vault utilities. Super-mod: bundles Simple Weather.",
     "version": "1.0.6",
     "minecraft": "26.3",
     "loaders": [
@@ -181,13 +181,14 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "cloth_config"
+      "cloth_config",
+      "simpleweather"
     ],
     "optional": [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "7032d1e4df6f"
+    "dataHash": "04d156b0dc40"
   },
   {
     "id": "simpletweaks",
@@ -319,5 +320,25 @@ window.WIKI_MODULES = [
       "simplebuilding"
     ],
     "dataHash": "42845eb634f7"
+  },
+  {
+    "id": "simpleweather",
+    "displayName": "Simple Weather",
+    "description": "Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplequalityoflife",
+      "modmenu"
+    ],
+    "dataHash": "499e87886520"
   }
 ];

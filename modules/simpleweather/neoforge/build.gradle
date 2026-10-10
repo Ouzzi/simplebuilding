@@ -1,0 +1,16 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.147'
+}
+apply from: rootProject.file('gradle/module-neoforge.gradle')
+// framework (SubMods switch of the Simple QoL super-mod) nested per principle 3.
+dependencies { jarJar project(':framework') }
+
+neoForge.runs {
+    moduleIntegrationGameTest {
+        type = 'gameTestServer'
+        programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simpleweather:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
+    }
+}
+repositories { maven { url = "https://maven.shedaniel.me/" } }
+dependencies { implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.mc263_cloth_version}" }

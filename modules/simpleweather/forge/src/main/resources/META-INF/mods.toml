@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[66,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpleweather"
+version="${version}"
+displayName="Simple Weather"
+description="Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone."
+[[dependencies.simpleweather]]
+modId="forge"
+mandatory=true
+versionRange="[66,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simpleweather]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simpleweather]]
+modId="simplequalityoflife"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simpleweather]]
+modId="modmenu"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"

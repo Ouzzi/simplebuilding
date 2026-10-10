@@ -5,6 +5,10 @@ plugins {
 ext.moduleVersion = '1.0.6'
 apply from: rootProject.file('gradle/module-neoforge.gradle')
 dependencies { jarJar project(':framework') }
+// Super-mod (docs/ai/KONZEPT-SUPERMOD-SUBMOD-2026-10-06.md): requires and nests its sub-mods; no class imports.
+evaluationDependsOn(':modules:simpleweather:neoforge')
+dependencies { jarJar project(':modules:simpleweather:neoforge'); runtimeOnly project(':modules:simpleweather:neoforge') }
+neoForge { mods { simpleweather { sourceSet project(':modules:simpleweather:neoforge').sourceSets.main } } }
 // SimpleLib (style blocks for the linked panel) nested per principle 6a; compiled against.
 evaluationDependsOn(':modules:simplelib:neoforge')
 dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }
@@ -22,4 +26,4 @@ dependencies { implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootPr
 dependencies { implementation project(':common') }
 evaluationDependsOn(':mc26_3:neoforge')
 neoForge { mods { simplebuilding { sourceSet project(':mc26_3:neoforge').sourceSets.main } } }
-neoForge.runs.moduleIntegrationGameTest.loadedMods=[neoForge.mods.simplequalityoflife,neoForge.mods.simplebuilding]
+neoForge.runs.moduleIntegrationGameTest.loadedMods=[neoForge.mods.simplequalityoflife,neoForge.mods.simplebuilding,neoForge.mods.simpleweather]

@@ -10,7 +10,7 @@ public final class QolConfigScreen {
   var c=new com.google.gson.Gson().fromJson(new com.google.gson.Gson().toJson(Simplequalityoflife.getLocalConfig()),SimplequalityoflifeConfig.class);
   var defaults=new SimplequalityoflifeConfig();
   add(b,c,defaults,"");add(b,c.qOL,defaults.qOL,"qOL.");
-  b.setSavingRunnable(()->{c.normalize();me.shedaniel.autoconfig.AutoConfig.getConfigHolder(SimplequalityoflifeConfig.class).setConfig(c);me.shedaniel.autoconfig.AutoConfig.getConfigHolder(SimplequalityoflifeConfig.class).save();});return b.build();
+  b.setSavingRunnable(()->{c.normalize();me.shedaniel.autoconfig.AutoConfig.getConfigHolder(SimplequalityoflifeConfig.class).setConfig(c);me.shedaniel.autoconfig.AutoConfig.getConfigHolder(SimplequalityoflifeConfig.class).save();Simplequalityoflife.subMods(c);});return b.build();
  }
  private static void add(ConfigBuilder b,Object c,Object defaults,String prefix){
   for(var f:c.getClass().getFields()){
@@ -29,5 +29,5 @@ public final class QolConfigScreen {
  }
  private static double min(String key){return switch(key){case "ladderClimbingSpeed"->0.2;case "ladderSlideSpeed"->0.15;case "fullDurabilityThreshold"->0.8;case "fullDurabilityBonusMultiplier","vaultCooldownDays"->1;case "linkedContainerRange"->SimplequalityoflifeConfig.MIN_LINKED_RANGE;default->0;};}
  private static double max(String key){return switch(key){case "ladderClimbingSpeed"->0.4;case "ladderSlideSpeed"->0.8;case "fullDurabilityThreshold"->1;case "fullDurabilityBonusMultiplier"->1.5;case "vaultCooldownDays"->36500;case "linkedContainerRange"->SimplequalityoflifeConfig.MAX_LINKED_RANGE;default->100;};}
- public static String tab(String key){return key.contains("Linked")||key.contains("linked")||key.contains("Easy")?"containers":key.contains("ladder")||key.contains("Ladder")||key.contains("Autowalk")||key.contains("Crawl")?"movement":key.contains("Suffix")||key.contains("muted")||key.contains("piglin")?"mobs":key.contains("Weather")||key.contains("Rain")?"weather":(key.contains("vault")||key.contains("Vault"))?"vaults":"interaction";}
+ public static String tab(String key){return key.startsWith("enableSimple")?"submods":key.contains("Linked")||key.contains("linked")||key.contains("Easy")?"containers":key.contains("ladder")||key.contains("Ladder")||key.contains("Autowalk")||key.contains("Crawl")?"movement":key.contains("Suffix")||key.contains("muted")||key.contains("piglin")?"mobs":(key.contains("vault")||key.contains("Vault"))?"vaults":"interaction";}
 }

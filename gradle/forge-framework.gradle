@@ -10,10 +10,15 @@ if (bundleLib) evaluationDependsOn(':modules:simplelib:forge')
 def libJar = bundleLib ? libProject.tasks.named('jar') : null
 // Compile against the finished jar (the Forge project shares one output dir for classes and resources).
 if (bundleLib) dependencies { compileOnly files(libJar) }
+// Optional: nest sub-mods of a super-mod (docs/ai/KONZEPT-SUPERMOD-SUBMOD-2026-10-06.md), e.g.
+// ext.forgeBundleModules = [':modules:simpleweather:forge'] - same Jar-in-Jar metadata, one version-selected copy.
+def subProjects = (project.findProperty('forgeBundleModules') ?: []).collect { path -> evaluationDependsOn(path); rootProject.project(path) }
+def subJars = subProjects.collect { it.tasks.named('jar') }
 def metadata = layout.buildDirectory.dir('forgeFrameworkMetadata')
 tasks.register('prepareForgeFramework') {
     dependsOn apiJar
     if (bundleLib) dependsOn libJar
+    subJars.each { dependsOn it; inputs.file(it.flatMap { j -> j.archiveFile }) }
     inputs.property('frameworkVersion', apiProject.version.toString())
     inputs.file(apiJar.flatMap { it.archiveFile })
     if (bundleLib) inputs.file(libJar.flatMap { it.archiveFile })
@@ -33,6 +38,13 @@ tasks.register('prepareForgeFramework') {
                      version: [range: "[${libProject.version},)", artifactVersion: libProject.version.toString()],
                      path: "META-INF/jarjar/${libName}"]
             copy { from(libJar.flatMap { it.archiveFile }); into target.parentFile }
+        }
+        subProjects.eachWithIndex { sub, i ->
+            def subName = subJars[i].get().archiveFileName.get()
+            jars << [identifier: [group: sub.group.toString(), artifact: sub.parent.name],
+                     version: [range: "[${sub.version},)", artifactVersion: sub.version.toString()],
+                     path: "META-INF/jarjar/${subName}"]
+            copy { from(subJars[i].flatMap { it.archiveFile }); into target.parentFile }
         }
         target.text = groovy.json.JsonOutput.toJson([jars: jars])
         copy { from(apiJar.flatMap { it.archiveFile }); into target.parentFile }

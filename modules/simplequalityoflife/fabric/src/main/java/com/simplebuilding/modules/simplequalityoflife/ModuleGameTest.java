@@ -18,7 +18,6 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void muting(GameTestHelper h){com.simplequalityoflife.test.QolTests.muting(h);}
  @GameTest(maxTicks=100) public void baby(GameTestHelper h){com.simplequalityoflife.test.QolTests.baby(h);}
  @GameTest(maxTicks=100) public void piglins(GameTestHelper h){com.simplequalityoflife.test.QolTests.piglins(h);}
- @GameTest(maxTicks=100) public void weather(GameTestHelper h){com.simplequalityoflife.test.QolTests.weather(h);}
  @GameTest(maxTicks=100) public void vault(GameTestHelper h){com.simplequalityoflife.test.QolTests.vault(h);}
  @GameTest(maxTicks=100) public void vegetation(GameTestHelper h){com.simplequalityoflife.test.QolTests.vegetation(h);}
  @GameTest(maxTicks=100) public void crossMod(GameTestHelper h){com.simplequalityoflife.test.QolTests.crossMod(h);}
@@ -35,4 +34,5 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void linkedInventory(GameTestHelper h){com.simplequalityoflife.test.ContainerTests.linkedInventory(h);}
  @GameTest(maxTicks=100) public void portableShulker(GameTestHelper h){com.simplequalityoflife.test.ContainerTests.portableShulker(h);}
  @GameTest(maxTicks=100) public void portableEnderChest(GameTestHelper h){com.simplequalityoflife.test.ContainerTests.portableEnderChest(h);}
+ @GameTest public void subModSwitch(GameTestHelper h){com.simplequalityoflife.test.QolTests.subModSwitch(h);}
 }

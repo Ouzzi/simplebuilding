@@ -31,3 +31,10 @@ mandatory=false
 versionRange="[0,)"
 ordering="NONE"
 side="CLIENT"
+
+[[dependencies.simplequalityoflife]]
+modId="simpleweather"
+mandatory=true
+versionRange="[0,)"
+ordering="AFTER"
+side="BOTH"

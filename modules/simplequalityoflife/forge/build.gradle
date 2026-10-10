@@ -4,6 +4,8 @@ ext.forgeExcludedSources = []
 ext.forgeMixinConfigs = ['simplequalityoflife-common.mixins.json', 'simplequalityoflife.forge.mixins.json']
 // SimpleLib (style blocks for the linked panel) nested next to framework (principle 6a).
 ext.forgeBundleSimplelib = true
+// Super-mod: nests its sub-mods next to framework/SimpleLib.
+ext.forgeBundleModules = [':modules:simpleweather:forge']
 apply from: rootProject.file('gradle/module-forge.gradle')
 
 // Generate from canonical sources: only platform configuration calls/GUI markers differ.

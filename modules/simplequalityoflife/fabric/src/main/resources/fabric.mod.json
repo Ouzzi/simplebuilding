@@ -19,6 +19,7 @@
     ]
   },
   "depends": {
+    "simpleweather": "*",
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",
     "java": ">=25",

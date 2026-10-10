@@ -16,7 +16,8 @@
     "simplelib",
     "simpleinterfaces",
     "simplemaps",
-    "simpletrims"
+    "simpletrims",
+    "simpleweather"
   ],
   "devMods": [
     "jei",
