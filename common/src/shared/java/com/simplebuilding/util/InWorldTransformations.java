@@ -80,6 +80,9 @@ public final class InWorldTransformations {
         sources.add(BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace("copper_chest")));
         // Ebenso die ungefaerbte Vanilla-Shulkerkiste fuer alle 17 (jede Farbe wird zur Verstaerkten Shulkerkiste).
         sources.add(BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace("shulker_box")));
+        // Der Vanilla-Verzauberungstisch wird mit Enderit-Nugget zum Astral-Verzauberungstisch (N27, in JEI seit N30);
+        // ohne Astral-Verzauberung liefert upgradeOf null und der Schritt faellt weg.
+        sources.add(net.minecraft.world.level.block.Blocks.ENCHANTING_TABLE);
         sources.addAll(modBlocks());
         for (Block block : sources) {
             SledgehammerUpgrades.Upgrade upgrade = SledgehammerUpgrades.upgradeOf(block);
