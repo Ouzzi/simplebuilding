@@ -473,7 +473,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] **Enderit-Tiegel:** Hinweis „2× Stacks“ entfernen (selbst entdeckbar). (Audit 09.10.: 3c119ed23)
 - [x] **Fletching Table – Rezeptbuch-GUI neu:** 3 Kategorien (1. Spitze, 2. Stab, 3. Feder); je Kategorie nur die Wahlmöglichkeiten zum Zusammenstellen des Pfeils; je Material sehr kurzer Tooltip mit den Vorteilen. (teilweise: Befiederung einzeilig wie die Werkbank bed08725f; Rezeptbuch mit 3 Kategorien und Material-Tooltips fehlt) (claude-q-uirest: drei Reiter Spitze/Stab/Feder, je Teil ein Eintrag, Klick legt nur dieses Teil in seinen Slot; Kurz-Tooltip = Wirkung des Teils)
 - [ ] **UI-Konzepte:** für jede Mod-UI ein Konzept ausarbeiten (Vorschaubilder), Aussehen streng wie Referenzbilder (refs-n12 Bild 3/4, Rahmenmaße aus PLAN-CRUCIBLE-N12B). (teilweise: Container-/Mod-UIs über simplecontainers (PLAN-SIMPLECONTAINERS-2026-10-08.md, Vorschauen); Einzelkonzepte übriger UIs fehlen)
-- [ ] **Baulicht:** Motiv nicht mittig → zentrieren.
+- [x] (claude-q-astralit: Rahmen auf allen vier Seiten gleich, Leuchtfläche exakt symmetrisch) **Baulicht:** Motiv nicht mittig → zentrieren.
 - [x] **Neu: Trapped Copper Chest** (Redstone-Signal wie Vanilla-Trapped-Chest, Kupfer-Stil, Oxidation wie Kupfertruhe falls vorhanden). (claude-q-storage: 8 Blöcke, Oxidation/Wachs/Axt, Fallen-Overlay je Stufe; nur 26.3)
 - [x] **Nihil-Gewölbe:** Doppeltruhen-Größe wie das Astral-Gewölbe. (claude-q-storage: 54 Plätze, sechs Reihen)
 - [x] (claude-q-texrest: Shulkerkisten, Truhen, Fässer, Öfen/Räucher-/Schmelzöfen, Kolben, Trichter; Goldnieten bleiben) **Netherit-Shulker:** dunkle Highlights statt heller (Netherit-Farben); dasselbe für alle anderen Netherit-Maschinen/-Blöcke.
@@ -512,7 +512,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 21 (2026-10-07, Besitzer)
 - [x] **Enderit-Eimer:** (→ `claude-q-ebucket`, Seelenlava ebenfalls 2 Eimer laut N28/Auftrag) Kapazität genau 2 Eimer. Rechtsklick nur aufnehmen; wenn voll, Rechtsklick platziert wieder. Schleich-Rechtsklick platziert einen halben Eimer (nicht einen vollen). Seelenlava nur einfach aufnehmbar (begrenzt, hebt sich ab). Eigene Texturen für die Zwischenstufen (halbvoll je Flüssigkeit).
-- [ ] **Enderit-Speer:** statt des Eimer-Glanzes die hellen Glimmerpunkte auf der Enderit-Textur wie Schwert und die übrigen Enderit-Werkzeuge.
+- [x] (claude-q-astralit: Animation entfernt, statische Glimmerpunkte Icon + Handmodell) **Enderit-Speer:** statt des Eimer-Glanzes die hellen Glimmerpunkte auf der Enderit-Textur wie Schwert und die übrigen Enderit-Werkzeuge.
 - [x] **Puppen/Ständer:** (claude-q-stands; Inventar docs/ai/PLAN-PUPPE-INTERAKTIONEN.md + PLAN-STAENDER-2026-10-09.md, Dreizack/Windladung/Streitkolben/Namensschild ergänzt) mehrere Interaktionen Spieler ↔ Trainingspuppe/Ständer sind unsauber oder funktionieren nicht (z. B. Speer) – inventarisieren, reproduzieren (GameTests), beheben.
 - [x] (claude-q-texrest: Weisheitskugel, eigene Handbewegung ORB statt Bogen-Haltung; Client-Sicht offen) **XP-Orbs:** bei Nutzung ähnliche Animation wie die Kerne (gleiches Prinzip, eigene Bewegung).
 - [ ] **Prinzip Entdeckbarkeit:** Jedes herstellbare oder umwandelbare Item soll in erster Linie intuitiv sein und zusätzlich im Spiel gehintet werden (z. B. Tiegel in Dörfern mit erloschenem Lagerfeuer zeigt die Nutzung). Crafting/Umwandlungen bisher nirgends gehintet → Konzept erarbeiten (Ideen: Bücher in Struktur-Truhen, Bilderrahmen/Gemälde mit Rezept, Dorfbewohner-Werkstätten als Vorführung, Fortschritts-Hinweise, Guide-Seiten). Erst Konzept vorlegen.
@@ -544,8 +544,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 24 (2026-10-08 abends, Besitzer)
 - [x] (claude-q-brew; dazu Übelkeits-Trank: Seltsamer Trank + Roter Pilz) Dunkelheits-Trank aus neuem Warden-Drop (Warden-Item als Brauzutat).
-- [ ] Schnelleres Redstone (Astralit).
-- [ ] Schnellere Elytra (Astralit).
+- [x] (claude-q-astralit: Astral-Signale 1 Tick statt 2 pro Block) Schnelleres Redstone (Astralit).
+- [x] (claude-q-astralit: Astralit-Trim-Teile schieben Gleitflug 0,012/Teil in Blickrichtung, Tempo-Cap 1,8) Schnellere Elytra (Astralit).
 - [ ] Shellker-Textur wie Grundgestein (Bedrock-Tarnung).
 - [ ] Sculk-Kiefer (Falle): lautlos, verhält sich wie Spinnennetz, greift mit Fangzähnen an.
 - [x] Froschlichter in zusätzlichen Farben. (claude-q-blocks: Scharlach/Aqua/Azur, Froschlicht + Farbstoff)

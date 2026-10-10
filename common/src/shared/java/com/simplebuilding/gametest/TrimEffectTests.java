@@ -736,6 +736,38 @@ public final class TrimEffectTests {
     // MOVEMENT
     // =====================================================================================
 
+    /** N24: gliding in Astralit trims pushes along the look direction (0.012 per piece), not when walking, not above the speed cap. */
+    public static void astralitSpeedsUpTheGlide(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        Holder<TrimMaterial> astralit = material(helper, ModTrimMaterials.ASTRALIT);
+        Holder<TrimPattern> blank = pattern(helper, inertPattern());
+        pinProgressMultiplier(helper, player, 1.0);
+        wear(player, astralit, blank, 1);
+        player.setItemSlot(EquipmentSlot.CHEST, trimmed(Items.ELYTRA, new ArmorTrim(astralit, blank)));
+        player.setOnGround(false);
+
+        player.setDeltaMovement(0.0, 0.0, 0.0);
+        TrimEffectUtil.handleAstralitGlide(player);
+        assertClose(helper, player.getDeltaMovement().length(), 0.0, "not gliding, yet the trim pushed the player");
+
+        player.startFallFlying();
+        helper.assertTrue(player.isFallFlying(), "mock player did not start gliding");
+        player.setDeltaMovement(0.0, 0.0, 0.0);
+        TrimEffectUtil.handleAstralitGlide(player);
+        assertClose(helper, player.getDeltaMovement().length(), 0.024, "two astralit pieces did not push a gliding player by 0.012 each");
+
+        player.setDeltaMovement(0.0, 0.0, 2.0);
+        TrimEffectUtil.handleAstralitGlide(player);
+        assertClose(helper, player.getDeltaMovement().length(), 2.0, "the glide push ignored its speed cap");
+
+        wear(player, astralit, blank, 0);
+        player.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.ELYTRA));
+        player.setDeltaMovement(0.0, 0.0, 0.0);
+        TrimEffectUtil.handleAstralitGlide(player);
+        assertClose(helper, player.getDeltaMovement().length(), 0.0, "an untrimmed elytra got the astralit push");
+        helper.succeed();
+    }
+
     /**
      * Nihilith pulls a sneaking, airborne player down. It is the one benefit in the mod that is
      * <em>not</em> scaled by the progress multiplier - a flat 0.08 per piece - so a change that

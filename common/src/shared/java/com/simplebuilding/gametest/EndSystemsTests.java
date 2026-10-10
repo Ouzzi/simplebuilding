@@ -143,6 +143,24 @@ public final class EndSystemsTests {
         helper.succeed();
     }
 
+    /** N24: Astral powder carries a signal one hop per tick, Nihil powder one hop per two ticks. */
+    public static void astralSignalTravelsFasterThanNihil(GameTestHelper helper) {
+        if (!active(helper)) return;
+        for (int x = 0; x <= 9; x++) for (int z = 0; z <= 4; z += 2) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
+        // far end first, so each hop needs its own scheduled tick instead of one in-order sweep
+        for (int x = 8; x >= 1; x--) {
+            helper.setBlock(new BlockPos(x, 1, 0), ModBlocks.ASTRAL_REDSTONE);
+            helper.setBlock(new BlockPos(x, 1, 2), ModBlocks.NIHIL_REDSTONE);
+        }
+        helper.setBlock(new BlockPos(0, 1, 0), ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(new BlockPos(0, 1, 2), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.runAfterDelay(12, () -> {
+            helper.assertTrue(helper.getBlockState(new BlockPos(8, 1, 0)).getValue(EndSignalBlock.POWER) > 0, "astral signal not at the end after 12 ticks");
+            helper.assertTrue(helper.getBlockState(new BlockPos(8, 1, 2)).getValue(EndSignalBlock.POWER) == 0, "nihil signal as fast as astral");
+            helper.succeed();
+        });
+    }
+
     public static void channelsStayIsolatedAndStopAtFifteen(GameTestHelper helper) {
         if (!active(helper)) return;
         // Fold the 16-segment path into the loader's 8x8 room, with one-block gaps.

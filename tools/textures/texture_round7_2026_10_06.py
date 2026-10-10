@@ -164,11 +164,10 @@ def construction_light(variant):
         for x in range(16):
             edge = min(x, y, 15 - x, 15 - y)
             if edge == 0:
+                # N16: frame identical on all four sides, so the glow reads centered (no top-left bevel)
                 c = LIGHT[1] if (x in (0, 15)) != (y in (0, 15)) else LIGHT[0]
-                if x == 0 or y == 0:
-                    c = LIGHT[2] if 0 < x < 15 and 0 < y < 15 else c
             elif edge == 1:
-                c = LIGHT[5] if x == 1 or y == 1 else LIGHT[3]
+                c = LIGHT[4]
             else:
                 d = ((x - 7.5) ** 2 + (y - 7.5) ** 2) ** .5
                 c = LIGHT[7] if d < 2.3 else LIGHT[6] if d < 3.8 else LIGHT[5] if d < 5.2 else LIGHT[4]
@@ -437,13 +436,11 @@ SPEAR_HEAD = [(46, 32, 52), (71, 47, 81), (74, 49, 85), (95, 66, 106), (102, 76,
 
 
 def spear_in_hand_strip():
-    base = p.load(HERE / 'hand/r7/enderite_spear_in_hand.png')
-    a = np.array(base)
-    head = set(SPEAR_HEAD)
-    mask = np.array([[a[y, x, 3] > 0 and tuple(int(v) for v in a[y, x, :3]) in head for x in range(base.width)]
-                     for y in range(base.height)])
-    return shimmer.shimmer_strip(base, SPEAR_HEAD, mask, frames=CORE_FRAMES, sweep=10, peak=(236, 214, 250),
-                                 steps=(3, 2), width=1.5)
+    """N21: static (no sweep); a few pale glimmer points on the head like the icon and the other Enderite tools."""
+    img = p.load(HERE / 'hand/r7/enderite_spear_in_hand.png').convert('RGBA')
+    for xy in ((1, 1), (4, 3), (6, 4), (3, 2)):
+        img.putpixel(xy, SPEAR_HEAD[-1] + (255,))
+    return img
 
 
 # ------------------------------------------------------------------------------------------------ outputs
