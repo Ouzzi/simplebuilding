@@ -16,8 +16,8 @@ public final class EndStructureClientTest {
         }
         TestScene.build(script, "minecraft:stone", "creative");
         for (String name : SHOTS) {
-            script.command("place template simplebuilding:end/" + name + " 2 0 10");
-            script.command("tp @a 7.5 11.0 19.5 180.0 50.0");
+            script.command("place template simplebuilding:end/" + name + " 2 0 13");
+            script.command("tp @a 7.5 6.0 10.0 0.0 38.0");
             script.awaitPackets();
             script.awaitChunks();
             script.idle("let " + name + " render", 40);
