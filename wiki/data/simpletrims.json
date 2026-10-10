@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simpletrims",
+    "name": "Simple Trims",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ]
+  },
+  "features": [
+    {
+      "id": "trims_module",
+      "sources": [
+        "modules/simpletrims/shared/java/com/simpletrims/TemplateTools.java",
+        "modules/simpletrims/shared/java/com/simpletrims/config/TrimsConfig.java"
+      ],
+      "en": {
+        "title": "Simple Trims",
+        "summary": "Sub-mod for armor trim templates and trim upgrades. Stage 1: module frame, config switch and the tool rule (axe on its own, sledgehammer with SimpleBuilding)."
+      },
+      "de": {
+        "title": "Simple Trims",
+        "summary": "Sub-Mod für Rüstungsbesatz-Vorlagen und Besatz-Aufwertungen. Stufe 1: Modulgerüst, Config-Schalter und Werkzeugregel (allein die Axt, mit SimpleBuilding der Vorschlaghammer)."
+      }
+    }
+  ],
+  "recipes": [],
+  "lootTables": [],
+  "tags": [],
+  "advancements": [],
+  "enchantments": [],
+  "items": [],
+  "blocks": [],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 1,
+    "recipes": 0,
+    "lootTables": 0,
+    "tags": 0,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 0,
+    "blocks": 0,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "features": [
+    {
+      "id": "trims_module",
+      "sources": [
+        "modules/simpletrims/shared/java/com/simpletrims/TemplateTools.java",
+        "modules/simpletrims/shared/java/com/simpletrims/config/TrimsConfig.java"
+      ],
+      "en": {
+        "title": "Simple Trims",
+        "summary": "Sub-mod for armor trim templates and trim upgrades. Stage 1: module frame, config switch and the tool rule (axe on its own, sledgehammer with SimpleBuilding)."
+      },
+      "de": {
+        "title": "Simple Trims",
+        "summary": "Sub-Mod für Rüstungsbesatz-Vorlagen und Besatz-Aufwertungen. Stufe 1: Modulgerüst, Config-Schalter und Werkzeugregel (allein die Axt, mit SimpleBuilding der Vorschlaghammer)."
+      }
+    }
+  ],
+  "notes": {}
+}

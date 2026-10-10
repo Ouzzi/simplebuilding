@@ -302,5 +302,22 @@ window.WIKI_MODULES = [
     ],
     "optional": [],
     "dataHash": "ecf4dbe3659f"
+  },
+  {
+    "id": "simpletrims",
+    "displayName": "Simple Trims",
+    "description": "Armor trim templates and trim upgrades (stage 1: module frame; content moves in from SimpleBuilding). Axe on its own, sledgehammer with SimpleBuilding.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding"
+    ],
+    "dataHash": "42845eb634f7"
   }
 ];

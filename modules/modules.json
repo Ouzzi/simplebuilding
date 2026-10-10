@@ -1303,6 +1303,85 @@
         "neoforge": ":modules:simplemaps:neoforge",
         "forge": ":modules:simplemaps:forge"
       }
+    },
+    {
+      "id": "simpletrims",
+      "name": "Simple Trims",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Trims",
+      "description": "Armor trim templates and trim upgrades (stage 1: module frame; content moves in from SimpleBuilding). Axe on its own, sledgehammer with SimpleBuilding.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [],
+      "optional": [
+        "simplebuilding"
+      ],
+      "checks": [
+        "modules/simpletrims/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpletrims",
+        "catalogues": [
+          "modules/simpletrims/fabric/src/main/java/com/simplebuilding/modules/simpletrims/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpletrims"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpletrimsGameTest",
+            "report": "integration/build/simpletrims-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simpletrims:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simpletrims/neoforge/build/module-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpletrimsStandaloneGameTest",
+              "report": "integration/build/standalone/simpletrims-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simpletrims:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simpletrims/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simpletrims.ModuleClientSmoke"
+          ],
+          "sources": "modules/simpletrims/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simpletrims",
+        "shared": "modules/simpletrims/shared",
+        "fabric": "modules/simpletrims/fabric",
+        "neoforge": "modules/simpletrims/neoforge",
+        "forge": "modules/simpletrims/forge",
+        "generated": "modules/simpletrims/generated/resources",
+        "lang": "modules/simpletrims/shared/resources/assets/simpletrims/lang",
+        "wikiManual": "modules/simpletrims/wiki/manual.json",
+        "balanceDir": "balance/simpletrims"
+      },
+      "projects": {
+        "fabric": ":modules:simpletrims:fabric",
+        "neoforge": ":modules:simpletrims:neoforge",
+        "forge": ":modules:simpletrims:forge"
+      }
     }
   ]
 }
