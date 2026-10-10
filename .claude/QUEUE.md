@@ -665,7 +665,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Besitzer-Entscheidung: Farbkasten A behalten oder B/C (CHOSEN im Generator umstellen); Milch im Enderit-Eimer gewünscht? (wäre neues Feature: Melken, Trinken, halb/voll).
 
 ## Nachtrag 30 (2026-10-10, Besitzer)
-- [ ] Farbkasten (paint_box, alle Stufen) in denselben Kreativ-Tab wie Bündel und Rucksäcke.
-- [ ] Inventar-UI (simplecontainers/Mod-UIs, heller Inventar-Kasten) ist zu strahlend weiß: Stil behalten, aber Farben aus Vanilla nehmen (Vanilla-GUI-Grau/Schatten/Licht).
-- [ ] Astral-Verzauberungstisch: Herstellung (Hammer-Umwandlung) in JEI anzeigen.
-- [ ] Verstärkter Tiegel: auf 12 Slots erhöhen.
+- [x] Farbkasten (paint_box, alle Stufen) in denselben Kreativ-Tab wie Bündel und Rucksäcke.
+- [x] Inventar-UI (simplecontainers/Mod-UIs, heller Inventar-Kasten) ist zu strahlend weiß: Stil behalten, aber Farben aus Vanilla nehmen (Vanilla-GUI-Grau/Schatten/Licht).
+- [x] Astral-Verzauberungstisch: Herstellung (Hammer-Umwandlung) in JEI anzeigen.
+- [x] Verstärkter Tiegel: auf 12 Slots erhöhen. (claude-q-n30: alle vier Punkte; 3x4-Raster, Inventar-Kasten #C6C6C6/#8B8B8B, Astral-Tisch in der In-World-Kategorie)
