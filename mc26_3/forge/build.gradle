@@ -164,8 +164,8 @@ tasks.named('check') { dependsOn 'checkForgeOverlay' }
 
 // SimpleLib nested next to framework (principle 6a).
 ext.forgeBundleSimplelib = true
-// SimpleLib nested next to framework (principle 6a).
-ext.forgeBundleSimplelib = true
+// Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept).
+ext.forgeBundleModules = ['simplemaps']
 apply from: rootProject.file('gradle/forge-framework.gradle')
 sourceSets.main.java.srcDir rootProject.file('mc26_3/framework/java')
 sourceSets.main.resources.srcDir rootProject.file('mc26_3/framework/resources')

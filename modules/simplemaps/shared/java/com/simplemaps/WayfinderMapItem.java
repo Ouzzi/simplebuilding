@@ -69,10 +69,13 @@ public class WayfinderMapItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity owner, @Nullable EquipmentSlot slot) {
+        if (!MapsConfig.enabled) return;
         applyPending(stack, level);
         if (slot == null || slot.getType() != EquipmentSlot.Type.HAND || !(owner instanceof Player)) return;
         WayfinderData data = dataFor(stack, level);
-        if (data != null) Reveal.step(level, owner, data, MapsConfig.revealRadius);
+        if (data == null) return;
+        Reveal.step(level, owner, data, MapsConfig.revealRadius);
+        StructureMarks.step(level, owner, data);
     }
 
     @Override
@@ -100,6 +103,7 @@ public class WayfinderMapItem extends Item {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        if (!MapsConfig.enabled) return InteractionResult.PASS;
         if (level.isClientSide()) SimpleMaps.openHand.accept(hand);
         return InteractionResult.SUCCESS;
     }

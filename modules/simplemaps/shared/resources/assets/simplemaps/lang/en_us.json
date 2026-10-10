@@ -15,6 +15,7 @@
   "screen.simplemaps.tab.grid": "Grid",
   "screen.simplemaps.tab.zoom": "Zoom (left click: in, right click: out)",
   "screen.simplemaps.tab.contour": "Height lines",
+  "screen.simplemaps.tab.structures": "Discovered structures",
   "screen.simplemaps.tab.player": "Center on player",
   "screen.simplemaps.waypoint": "Waypoint %s",
   "screen.simplemaps.waypoint.empty": "Waypoint %s (free)",

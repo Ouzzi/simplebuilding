@@ -39,7 +39,8 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * The wayfinder map screen (N18 plan, part B): a 4:3 map area whose 16 px grid always fits (12 x 9 cells), drag to
- * pan, wheel or +/- to zoom (1, 4, 8, 16, 64 blocks per pixel). Left bookmarks: snap, grid, zoom, height lines.
+ * pan, wheel or +/- to zoom (1, 4, 8, 16, 64 blocks per pixel). Left bookmarks: snap, grid, zoom, height lines,
+ * discovered structures (Feature 3).
  * Right bookmarks: player and waypoints 1-8 (click centres). Right-click on the map: "create waypoint" → every
  * bookmark except the eight waypoints is greyed out; a free one is taken at once, an occupied one turns red first
  * and is replaced by a second click. Right-click on a waypoint bookmark: configure (name, colour or mob head),
@@ -50,14 +51,14 @@ public final class WayfinderScreen extends Screen {
     public static final int FRAME = 8, TITLE_H = 12, FOOTER_H = 12;
     public static final int PANEL_W = MAP_W + 2 * FRAME, PANEL_H = TITLE_H + MAP_H + FOOTER_H + 2 * FRAME;
     public static final int TAB_W = 24, TAB_H = 16, TAB_OUT = 20;
-    public static final int LEFT_TABS = 4, RIGHT_TABS = 1 + Waypoint.SLOTS;
+    public static final int LEFT_TABS = 5, RIGHT_TABS = 1 + Waypoint.SLOTS;
     /** Parchment brown box (the map's colour); derived like every other N12 box. */
     public static final UiPalette PALETTE = UiPalette.derived(0xFFB08A57);
     private static final Identifier PLAYER = Identifier.withDefaultNamespace("player");
     private static final Identifier DEATH = Identifier.withDefaultNamespace("red_x");
 
     // Remembered for the session, like the recipe book's state.
-    private static boolean snap = true, grid = true, contour;
+    private static boolean snap = true, grid = true, contour, structures = true;
     private static int zoomIndex;
 
     private final InteractionHand hand;
@@ -133,6 +134,15 @@ public final class WayfinderScreen extends Screen {
 
     public int mapCenterY() {
         return mapY + MAP_H / 2;
+    }
+
+    /** Client smoke: screen position of a left bookmark's centre. */
+    public int leftTabCenterX() {
+        return left - TAB_OUT + TAB_W / 2;
+    }
+
+    public int leftTabCenterY(int i) {
+        return leftTabY(i) + TAB_H / 2;
     }
 
     public static int zoom() {
@@ -271,6 +281,7 @@ public final class WayfinderScreen extends Screen {
         if (mapId >= 0) {
             drawTiles(g, mapId);
             if (grid) drawGrid(g);
+            if (structures) drawStructures(g, mapId);
             drawMarks(g, waypoints);
         }
         g.disableScissor();
@@ -286,7 +297,10 @@ public final class WayfinderScreen extends Screen {
         if (dialog) drawDialog(g);
         super.extractRenderState(g, mouseX, mouseY, a);
         menu.render(g, font, mouseX, mouseY);
-        if (!dialog && !menu.isOpen()) tabTooltips(g, mouseX, mouseY, waypoints);
+        if (!dialog && !menu.isOpen()) {
+            tabTooltips(g, mouseX, mouseY, waypoints);
+            structureTooltip(g, mouseX, mouseY, mapId);
+        }
     }
 
     private Component status(int mapId) {
@@ -353,6 +367,39 @@ public final class WayfinderScreen extends Screen {
         }
     }
 
+    /** Feature 3: the structures the holder has seen or entered, as small diamonds in a colour derived from the id. */
+    private void drawStructures(GuiGraphicsExtractor g, int mapId) {
+        for (WayfinderData.Mark m : MapsClient.CACHE.marks(mapId)) {
+            int x = screenX(m.x()), y = screenY(m.z());
+            if (x < mapX - 4 || x > mapX + MAP_W + 4 || y < mapY - 4 || y > mapY + MAP_H + 4) continue;
+            int color = 0xFF000000 | Mth.hsvToRgb((m.id().hashCode() & 0xFFFF) / 65536.0F, 0.6F, 0.95F);
+            for (int r = 0; r <= 4; r++) g.fill(x - (4 - r), y - r, x + (4 - r) + 1, y - r + 1, r == 4 ? UiBoxes.RIM : color);
+            for (int r = 1; r <= 4; r++) g.fill(x - (4 - r), y + r, x + (4 - r) + 1, y + r + 1, r == 4 ? UiBoxes.RIM : color);
+        }
+    }
+
+    private void structureTooltip(GuiGraphicsExtractor g, int mouseX, int mouseY, int mapId) {
+        if (!structures || mapId < 0 || !overMap(mouseX, mouseY)) return;
+        for (WayfinderData.Mark m : MapsClient.CACHE.marks(mapId)) {
+            if (Math.abs(screenX(m.x()) - mouseX) <= 4 && Math.abs(screenY(m.z()) - mouseY) <= 4) {
+                g.setTooltipForNextFrame(font, Component.literal(structureName(m.id()) + " (" + m.x() + ", " + m.z() + ")"), mouseX, mouseY);
+                return;
+            }
+        }
+    }
+
+    /** "minecraft:ancient_city" → "Ancient City" (structures have no Vanilla names). */
+    static String structureName(String id) {
+        String path = id.substring(id.indexOf(':') + 1).replace('/', ' ').replace('_', ' ');
+        StringBuilder out = new StringBuilder();
+        for (String word : path.split(" ")) {
+            if (word.isEmpty()) continue;
+            if (out.length() > 0) out.append(' ');
+            out.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1));
+        }
+        return out.toString();
+    }
+
     private void drawFooter(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         int y = mapY + MAP_H + 3;
         g.text(font, Component.translatable("screen.simplemaps.zoom", zoom()), mapX, y, PALETTE.label(), false);
@@ -363,7 +410,7 @@ public final class WayfinderScreen extends Screen {
     }
 
     private void drawTabs(GuiGraphicsExtractor g, int mouseX, int mouseY, Waypoints waypoints, boolean dialog) {
-        boolean[] states = {snap, grid, false, contour};
+        boolean[] states = {snap, grid, false, contour, structures};
         for (int i = 0; i < LEFT_TABS; i++) {
             int x = left - TAB_OUT, y = leftTabY(i);
             boolean hover = !dialog && tabAt(mouseX, mouseY, true) == i;
@@ -418,6 +465,13 @@ public final class WayfinderScreen extends Screen {
                 g.text(font, label, 0, 0, c, false);
                 g.pose().popMatrix();
             }
+            case 4 -> {
+                g.fill(x + 4, y, x + 6, y + 1, c);
+                g.fill(x + 2, y + 1, x + 8, y + 3, c);
+                g.fill(x, y + 3, x + 10, y + 5, c);
+                g.fill(x + 1, y + 5, x + 9, y + 9, c);
+                g.fill(x + 4, y + 6, x + 6, y + 9, PALETTE.fill());
+            }
             default -> {
                 g.fill(x, y + 2, x + 10, y + 3, c);
                 g.fill(x + 1, y + 5, x + 9, y + 6, c);
@@ -428,7 +482,7 @@ public final class WayfinderScreen extends Screen {
 
     private void tabTooltips(GuiGraphicsExtractor g, int mouseX, int mouseY, Waypoints waypoints) {
         int l = tabAt(mouseX, mouseY, true), r = tabAt(mouseX, mouseY, false);
-        String[] keys = {"snap", "grid", "zoom", "contour"};
+        String[] keys = {"snap", "grid", "zoom", "contour", "structures"};
         if (l >= 0) g.setTooltipForNextFrame(font, Component.translatable("screen.simplemaps.tab." + keys[l]), mouseX, mouseY);
         if (r == 0) g.setTooltipForNextFrame(font, Component.translatable("screen.simplemaps.tab.player"), mouseX, mouseY);
         if (r > 0) {
@@ -595,7 +649,8 @@ public final class WayfinderScreen extends Screen {
                 }
                 case 1 -> grid = !grid;
                 case 2 -> zoomBy(button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT ? -1 : 1, mapX + MAP_W / 2.0, mapY + MAP_H / 2.0);
-                default -> contour = !contour;
+                case 3 -> contour = !contour;
+                default -> structures = !structures;
             }
             return true;
         }

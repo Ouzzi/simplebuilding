@@ -67,6 +67,8 @@ public final class MapsTests {
         ALL.put("waypoint_edit", MapsTests::waypointEdit);
         ALL.put("frame_view", MapsTests::frameView);
         ALL.put("loot", MapsTests::loot);
+        ALL.put("structure_marks", MapsTests::structureMarks);
+        ALL.put("host_switch", MapsTests::hostSwitch);
     }
 
     private MapsTests() {}
@@ -312,6 +314,57 @@ public final class MapsTests {
         h.assertTrue(MapsLoot.TABLES.get("minecraft:chests/village/village_cartographer")[1] * 20
                 == MapsLoot.TABLES.get("minecraft:chests/village/village_cartographer")[1] + MapsLoot.TABLES.get("minecraft:chests/village/village_cartographer")[2],
                 "cartographer 5 %");
+        h.succeed();
+    }
+
+    /** Feature 3: discovered structures are stored once, saved, merged and sent; nothing is found where none stands. */
+    private static void structureMarks(GameTestHelper h) {
+        WayfinderData data = new WayfinderData();
+        int v0 = data.marksVersion();
+        h.assertTrue(data.addMark("minecraft:village_plains", 100, 200) && data.marksVersion() != v0, "new mark");
+        h.assertTrue(!data.addMark("minecraft:village_plains", 120, 190), "same structure nearby is one mark");
+        h.assertTrue(data.addMark("minecraft:village_plains", 900, 200) && data.addMark("minecraft:ancient_city", 100, 200), "far or other id is new");
+        Tag tag = WayfinderData.CODEC.encodeStart(NbtOps.INSTANCE, data).getOrThrow();
+        WayfinderData back = WayfinderData.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, tag)).getOrThrow();
+        h.assertTrue(back.marks().equals(data.marks()) && back.marks().size() == 3, "codec round trip");
+        WayfinderData other = new WayfinderData();
+        other.addMark("minecraft:stronghold", -50, -50);
+        data.mergeFrom(other);
+        h.assertTrue(data.marks().size() == 4, "combining keeps both maps' structures");
+        var payload = new com.simplemaps.net.MapStatePayload(7, "minecraft:overworld", 3, true, data.marks());
+        var buf = new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+        com.simplemaps.net.MapStatePayload.CODEC.encode(buf, payload);
+        h.assertTrue(com.simplemaps.net.MapStatePayload.CODEC.decode(buf).equals(payload), "network round trip");
+        h.assertTrue(!com.simplemaps.StructureMarks.scanAt(h.getLevel(), h.absolutePos(new BlockPos(1, 1, 1)), new WayfinderData()),
+                "no structure here, no mark");
+        WayfinderData full = new WayfinderData();
+        for (int i = 0; i < WayfinderData.Mark.MAX_PER_MAP + 5; i++) full.addMark("minecraft:mineshaft", i * 1000, 0);
+        h.assertTrue(full.marks().size() == WayfinderData.Mark.MAX_PER_MAP, "mark limit");
+        h.succeed();
+    }
+
+    /** Bundled in SimpleBuilding the host config can switch the module off; everything then goes inert. */
+    private static void hostSwitch(GameTestHelper h) {
+        boolean before = MapsConfig.enabled;
+        try {
+            java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("simplemaps-host");
+            h.assertTrue(MapsConfig.hostAllows(dir), "no host file: on");
+            java.nio.file.Files.writeString(dir.resolve(MapsConfig.HOST_FILE), "{\"enableSimpleMaps\": false}");
+            h.assertTrue(!MapsConfig.hostAllows(dir), "host says off");
+            java.nio.file.Files.writeString(dir.resolve(MapsConfig.HOST_FILE), "{\"enableSimpleMaps\": true}");
+            h.assertTrue(MapsConfig.hostAllows(dir), "host says on");
+            java.nio.file.Files.writeString(dir.resolve(MapsConfig.HOST_FILE), "not json");
+            h.assertTrue(MapsConfig.hostAllows(dir), "unreadable host file: on");
+            ItemStack stack = new ItemStack(MapsItems.WAYFINDER_MAP);
+            MapsConfig.enabled = false;
+            h.assertTrue(!MapsItems.isWayfinder(stack) && MapsItems.tabStacks().isEmpty(), "disabled: not offered, not a wayfinder");
+            MapsConfig.enabled = true;
+            h.assertTrue(MapsItems.isWayfinder(stack) && MapsItems.tabStacks().size() == 3, "enabled again");
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException(e);
+        } finally {
+            MapsConfig.enabled = before;
+        }
         h.succeed();
     }
 }

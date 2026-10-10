@@ -10,13 +10,20 @@ if (bundleLib) evaluationDependsOn(':modules:simplelib:forge')
 def libJar = bundleLib ? libProject.tasks.named('jar') : null
 // Compile against the finished jar (the Forge project shares one output dir for classes and resources).
 if (bundleLib) dependencies { compileOnly files(libJar) }
+// Optional: whole Sub-Mods nested the same way (Super-/Sub-Mod concept), e.g. ext.forgeBundleModules = ['simplemaps'].
+def bundleModules = (project.findProperty('forgeBundleModules') ?: []).collect { rootProject.project(":modules:${it}:forge") }
+bundleModules.each { evaluationDependsOn(it.path) }
+def moduleJars = bundleModules.collect { it.tasks.named('jar') }
+moduleJars.each { jar -> dependencies { compileOnly files(jar) } }
 def metadata = layout.buildDirectory.dir('forgeFrameworkMetadata')
 tasks.register('prepareForgeFramework') {
     dependsOn apiJar
     if (bundleLib) dependsOn libJar
+    moduleJars.each { dependsOn it }
     inputs.property('frameworkVersion', apiProject.version.toString())
     inputs.file(apiJar.flatMap { it.archiveFile })
     if (bundleLib) inputs.file(libJar.flatMap { it.archiveFile })
+    moduleJars.each { inputs.file(it.flatMap { j -> j.archiveFile }) }
     outputs.dir(metadata)
     doLast {
         def jarName = apiJar.get().archiveFileName.get()
@@ -33,6 +40,14 @@ tasks.register('prepareForgeFramework') {
                      version: [range: "[${libProject.version},)", artifactVersion: libProject.version.toString()],
                      path: "META-INF/jarjar/${libName}"]
             copy { from(libJar.flatMap { it.archiveFile }); into target.parentFile }
+        }
+        bundleModules.eachWithIndex { mod, i ->
+            def jar = moduleJars[i]
+            def name = jar.get().archiveFileName.get()
+            jars << [identifier: [group: mod.group.toString(), artifact: mod.parent.name],
+                     version: [range: "[${mod.version},)", artifactVersion: mod.version.toString()],
+                     path: "META-INF/jarjar/${name}"]
+            copy { from(jar.flatMap { it.archiveFile }); into target.parentFile }
         }
         target.text = groovy.json.JsonOutput.toJson([jars: jars])
         copy { from(apiJar.flatMap { it.archiveFile }); into target.parentFile }

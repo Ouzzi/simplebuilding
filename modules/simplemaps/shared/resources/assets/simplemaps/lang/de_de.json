@@ -15,6 +15,7 @@
   "screen.simplemaps.tab.grid": "Raster",
   "screen.simplemaps.tab.zoom": "Zoom (Linksklick: näher, Rechtsklick: weiter)",
   "screen.simplemaps.tab.contour": "Höhenlinien",
+  "screen.simplemaps.tab.structures": "Entdeckte Strukturen",
   "screen.simplemaps.tab.player": "Auf Spieler zentrieren",
   "screen.simplemaps.waypoint": "Wegpunkt %s",
   "screen.simplemaps.waypoint.empty": "Wegpunkt %s (frei)",

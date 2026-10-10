@@ -51,18 +51,33 @@ public final class WayfinderData extends SavedData {
         ).apply(i, TileEntry::new));
     }
 
+    /** A structure the holder has seen or entered (Feature 3): registry id and centre of its bounding box. */
+    public record Mark(String id, int x, int z) {
+        public static final int MAX_ID = 128, MAX_PER_MAP = 256;
+        public static final Codec<Mark> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.string(1, MAX_ID).fieldOf("id").forGetter(Mark::id),
+                Codec.INT.fieldOf("x").forGetter(Mark::x),
+                Codec.INT.fieldOf("z").forGetter(Mark::z)
+        ).apply(i, Mark::new));
+    }
+
     public static final Codec<WayfinderData> CODEC = RecordCodecBuilder.create(i -> i.group(
             Level.RESOURCE_KEY_CODEC.optionalFieldOf("dimension").forGetter(d -> d.dimension),
-            TileEntry.CODEC.listOf().fieldOf("tiles").forGetter(WayfinderData::entries)
+            TileEntry.CODEC.listOf().fieldOf("tiles").forGetter(WayfinderData::entries),
+            Mark.CODEC.listOf().optionalFieldOf("marks", List.of()).forGetter(d -> d.marks)
     ).apply(i, WayfinderData::new));
 
     private Optional<ResourceKey<Level>> dimension = Optional.empty();
     private final Map<Long, Tile> tiles = new HashMap<>();
+    private final List<Mark> marks = new ArrayList<>();
+    /** Changes whenever {@link #marks} change; not saved (only compared within one session). */
+    private int marksVersion = 1;
 
     public WayfinderData() {}
 
-    private WayfinderData(Optional<ResourceKey<Level>> dimension, List<TileEntry> entries) {
+    private WayfinderData(Optional<ResourceKey<Level>> dimension, List<TileEntry> entries, List<Mark> marks) {
         this.dimension = dimension;
+        this.marks.addAll(marks);
         for (TileEntry e : entries) {
             if (e.colors().length == AREA && e.heights().length == AREA) tiles.put(key(e.x(), e.z()), new Tile(e.colors(), e.heights()));
         }
@@ -109,6 +124,31 @@ public final class WayfinderData extends SavedData {
             dimension = Optional.of(level);
             setDirty();
         }
+    }
+
+    public List<Mark> marks() {
+        return java.util.Collections.unmodifiableList(marks);
+    }
+
+    public int marksVersion() {
+        return marksVersion;
+    }
+
+    /** Remembers a discovered structure once (same id within 64 blocks counts as the same one). Returns whether new. */
+    public boolean addMark(String id, int x, int z) {
+        if (marks.size() >= Mark.MAX_PER_MAP || id.isEmpty() || id.length() > Mark.MAX_ID) return false;
+        for (Mark m : marks) {
+            if (m.id().equals(id) && Math.abs(m.x() - x) <= 64 && Math.abs(m.z() - z) <= 64) return false;
+        }
+        marks.add(new Mark(id, x, z));
+        marksVersion++;
+        setDirty();
+        return true;
+    }
+
+    /** Owner F4: combining maps keeps the structures of both. */
+    public void mergeMarks(WayfinderData other) {
+        for (Mark m : other.marks) addMark(m.id(), m.x(), m.z());
     }
 
     public int tileCount() {
@@ -160,6 +200,7 @@ public final class WayfinderData extends SavedData {
     /** Owner F4: two wayfinder maps → union; this map's pixels stay, the other fills the unknown ones. */
     public int mergeFrom(WayfinderData other) {
         int changed = 0;
+        mergeMarks(other);
         for (Map.Entry<Long, Tile> e : other.tiles.entrySet()) {
             int bx = tileX(e.getKey()) * TILE, bz = tileZ(e.getKey()) * TILE;
             Tile t = e.getValue();

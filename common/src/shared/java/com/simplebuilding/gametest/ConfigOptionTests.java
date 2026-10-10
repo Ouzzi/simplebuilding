@@ -637,6 +637,7 @@ public final class ConfigOptionTests {
             "server.soulLava.springChance double=0.005",
             "server.soulLava.fortressChance double=0.1",
 
+            "root.enableSimpleMaps boolean=true",
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
             "root.airJumpCooldownTicks int=400",
@@ -1327,7 +1328,7 @@ public final class ConfigOptionTests {
 
     /** The tabs of the config screen, in the order Cloth shows them (first field of each wins). */
     private static final List<String> EXPECTED_TABS =
-            List.of("building", "equipment", "pistons", "tweaks", "world", "visuals", "advanced", "server");
+            List.of("modules", "building", "equipment", "pistons", "tweaks", "world", "visuals", "advanced", "server");
 
     /**
      * Fields that are persisted but deliberately not options: legacy keys read only for a

@@ -20,6 +20,13 @@ public final class MapsConfig {
     public static int revealRadius = REVEAL_RADIUS_DEFAULT;
     public static int maxTilesPerMap = MAX_TILES_DEFAULT;
     public static boolean allowCopy = true, allowExtend = true, allowCombine = true;
+    /**
+     * Whether the module is active. Standalone it always is; bundled in SimpleBuilding the host's config switch
+     * "Enable Simple Maps" ({@code enableSimpleMaps} in {@code simplebuilding.json}, read once at load, restart to
+     * change) can turn it off: the items stay registered (stable registries) but do nothing and are not offered.
+     */
+    public static boolean enabled = true;
+    public static final String HOST_FILE = "simplebuilding.json", HOST_KEY = "enableSimpleMaps";
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -36,6 +43,7 @@ public final class MapsConfig {
             json = new JsonObject();
         }
         apply(json);
+        enabled = hostAllows(dir);
         if (file != null) {
             try {
                 Files.createDirectories(dir);
@@ -43,6 +51,18 @@ public final class MapsConfig {
             } catch (Exception e) {
                 SimpleMaps.LOG.warn("Could not write {}: {}", FILE, e.toString());
             }
+        }
+    }
+
+    /** False only when a SimpleBuilding config next to ours explicitly says {@code enableSimpleMaps: false}. */
+    public static boolean hostAllows(Path dir) {
+        try {
+            Path host = dir == null ? null : dir.resolve(HOST_FILE);
+            if (host == null || !Files.isRegularFile(host)) return true;
+            JsonObject json = GSON.fromJson(Files.readString(host), JsonObject.class);
+            return json == null || !json.has(HOST_KEY) || !json.get(HOST_KEY).isJsonPrimitive() || json.get(HOST_KEY).getAsBoolean();
+        } catch (Exception e) {
+            return true;
         }
     }
 

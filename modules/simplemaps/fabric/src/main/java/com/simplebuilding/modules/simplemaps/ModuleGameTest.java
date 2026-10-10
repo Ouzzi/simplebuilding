@@ -70,4 +70,14 @@ public final class ModuleGameTest {
     public void loot(GameTestHelper h) {
         MapsTests.ALL.get("loot").accept(h);
     }
+
+    @GameTest
+    public void structureMarks(GameTestHelper h) {
+        MapsTests.ALL.get("structure_marks").accept(h);
+    }
+
+    @GameTest
+    public void hostSwitch(GameTestHelper h) {
+        MapsTests.ALL.get("host_switch").accept(h);
+    }
 }
