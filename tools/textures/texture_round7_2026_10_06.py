@@ -45,6 +45,8 @@ INSTALL = {'cracked_diamond_block': 'C', 'construction_light': 'C', 'straw_armor
            'ceramic': 'B'}
 LIGHT_FRAMES, LIGHT_FRAMETIME = 12, 4
 CORE_FRAMES, CORE_FRAMETIME = 20, 2
+# Owner N12 (2026-10-06): the core glint only about once every 10 s (frame 0 held, then the 38-tick pass)
+CORE_LOOP_TICKS = 200
 lum = p.crucibles.lum
 
 
@@ -622,7 +624,8 @@ def main():
         validate(path, img)
         meta = path.with_name(path.name + '.mcmeta')
         frametime = LIGHT_FRAMETIME if path.parent.name == 'block' else CORE_FRAMETIME
-        text = json.dumps(shimmer.mcmeta(frametime), indent=2) + '\n' if img.height > img.width else None
+        loop = CORE_LOOP_TICKS if path.name.endswith('_core.png') else None
+        text = json.dumps(shimmer.mcmeta(frametime, loop, img.height // img.width), indent=2) + '\n' if img.height > img.width else None
         if check:
             try:
                 with Image.open(path) as actual:
