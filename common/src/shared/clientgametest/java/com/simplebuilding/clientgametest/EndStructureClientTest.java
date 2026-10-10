@@ -16,12 +16,12 @@ public final class EndStructureClientTest {
         }
         TestScene.build(script, "minecraft:stone", "creative");
         for (String name : SHOTS) {
-            script.command("place template simplebuilding:end/" + name + " 0 0 8");
-            script.command("tp @a 5.5 3.0 -3.0 0.0 18.0");
+            script.command("place template simplebuilding:end/" + name + " 2 0 12");
+            script.command("tp @a 7.5 2.5 3.0 0.0 12.0");
             script.awaitPackets();
             script.idle("let " + name + " render", 40);
             script.shot("end-" + name);
-            script.command("fill -2 0 6 16 14 22 air");
+            script.command("fill -2 0 10 18 14 19 air");
             script.command("kill @e[type=minecraft:item_frame]", true);
             script.awaitPackets();
         }
