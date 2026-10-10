@@ -41,6 +41,18 @@ RODS = {
     'diamond_rod': 'simplebuilding:item/diamond_rod',
 }
 WIDE = 5          # a row with this many pixels across or more is a joint (4x4 box)
+# Owner N12 (2026-10-06): the placed bone is symmetric top/bottom like a bone - both joints are the item's upper
+# joint (the lower one mirrored), the shaft gets one more row, so it stays 14 px high.
+SYMMETRIC = {'bone'}
+
+
+def symmetric(rows):
+    runs = boxes(rows)
+    (_, _, _), (s0, s1, _), (t0, t1, _) = runs
+    joint = rows[t0:t1 + 1]
+    shaft = rows[s0:s1 + 1]
+    shaft = shaft + [shaft[len(shaft) // 2]] * (len(rows) - 2 * len(joint) - len(shaft))
+    return list(reversed(joint)) + shaft + joint
 
 
 def load_texture(jar, ref):
@@ -366,6 +378,8 @@ def main():
     for name, ref in RODS.items():
         item = load_texture(jar, ref)
         rows = strip(item)
+        if name in SYMMETRIC:
+            rows = symmetric(rows)
         runs = boxes(rows)
         tex = texture(rows, runs)
         mdl = model(name, runs, ref)
