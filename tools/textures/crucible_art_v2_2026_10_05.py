@@ -294,7 +294,11 @@ BARREL_TIERS = ('copper', 'reinforced', 'netherite', 'enderite')
 
 def reinforced_cauldron_item():
     """Vanilla's cauldron item sprite in the reinforced cauldron's tones with its turquoise band (owner image 17:
-    the block model has no GUI transform, so Vanilla uses a flat sprite; so do we)."""
+    the block model has no GUI transform, so Vanilla uses a flat sprite; so do we).
+
+    Owner N12 (2026-10-06, "Item-Textur verbessern"): the band is no longer one flat stripe but the block side's
+    diamond plates - lit from the left (spark on the left plate, the right end in the darker turquoise), a seam
+    between the plates, a shaded lower row - and two diamond studs sit on the rim like the corner studs on top."""
     a = np.array(p.vanilla('item/cauldron').convert('RGBA'))
     tones = [(26, 26, 30), (45, 45, 50), (52, 52, 56), (63, 62, 66), (73, 72, 72), (79, 79, 79), (89, 88, 88), (103, 97, 97)]
     ok = a[:, :, 3] > 0
@@ -302,13 +306,21 @@ def reinforced_cauldron_item():
     lo, hi = lu[ok].min(), lu[ok].max()
     idx = np.rint((lu - lo) / max(hi - lo, 1) * (len(tones) - 1)).clip(0, len(tones) - 1).astype(int)
     a[ok, :3] = np.array(tones)[idx[ok]]
-    # Turquoise band two rows above the body's lowest full row, inside the outline.
+    # the block side's band colours: h plate, i spark, k shaded plate, j lower row / seam
+    h, i, k, j = (94, 228, 214), (186, 250, 240), (44, 182, 190), (26, 120, 132)
     rows = [y for y in range(16) if ok[y].sum() >= 10]
     band = rows[-1] - 3
-    for y, color in ((band, (94, 228, 214)), (band + 1, (26, 120, 132))):
-        xs = [x for x in range(16) if ok[y, x]]
-        for x in xs[1:-1]:
+    upper = [i, h, h, j, h, i, h, k, k]
+    lower = [k, j, j, j, k, j, j, j, j]
+    for y, pattern in ((band, upper), (band + 1, lower)):
+        xs = [x for x in range(16) if ok[y, x]][1:-1]
+        for x, color in zip(xs, pattern[:len(xs)]):
             a[y, x, :3] = color
+    # two diamond studs on the rim (light left, shaded right), like the corner studs of the block top
+    rim = next(y for y in range(16) if ok[y].sum() >= 10)
+    for x, color in ((3, h), (11, k)):
+        if ok[rim + 1, x]:
+            a[rim + 1, x, :3] = color
     return Image.fromarray(a)
 
 
