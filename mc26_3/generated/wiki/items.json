@@ -1388,6 +1388,14 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:enderite_milk_bucket",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_milk_bucket_full",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:enderite_nautilus_armor",
       "maxStackSize": 1
     },
