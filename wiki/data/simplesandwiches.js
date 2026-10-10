@@ -1132,6 +1132,17 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
       "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/tags/item/knife_repair_materials.json"
     },
     {
+      "id": "simplesandwiches:item/milk_buckets",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:milk_bucket",
+          "required": true
+        }
+      ],
+      "source": "modules/simplesandwiches/shared/resources/data/simplesandwiches/tags/item/milk_buckets.json"
+    },
+    {
       "id": "simplesandwiches:item/sandwich_ingredients",
       "replace": false,
       "values": [
@@ -1756,7 +1767,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
     "features": 5,
     "recipes": 15,
     "lootTables": 16,
-    "tags": 4,
+    "tags": 5,
     "advancements": 0,
     "enchantments": 0,
     "items": 6,

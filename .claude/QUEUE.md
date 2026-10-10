@@ -666,9 +666,9 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Umbenennen: Auto Smither → „Smither“; Autonomous Crafter → „Auto Crafter“ (Vanilla heißt „Crafter“). (claude-q-misc31: nur Anzeigenamen; DE „Schmied“ / „Auto-Crafter“, IDs bleiben)
 
 ## Nachtrag 32 (2026-10-10, Besitzer-Entscheidungen)
-- [ ] Enderit-Eimer nimmt auch Milch auf (2 Füllungen wie die anderen; Trinken = 1 Füllung).
+- [x] Enderit-Eimer nimmt auch Milch auf (2 Füllungen wie die anderen; Trinken = 1 Füllung). (claude-q-milk: `enderite_milk_bucket` halb + `_full`, Melken Kuh/Ziege/Pilzkuh, Trinken wie Vanilla-Milch, Milchkessel über Item-Tag `simplesandwiches:milk_buckets` + Crafting-Rest, Texturen im Generator; Client-Abnahme offen)
 - [x] Seelenlava im Enderit-Eimer: 2 Füllungen bleibt.
-- [ ] Guide-Titel DE „Astral-Verzauberer“ (statt „Astraler Verzauberer“), Text kürzen damit es passt.
+- [x] Guide-Titel DE „Astral-Verzauberer“ (statt „Astraler Verzauberer“), Text kürzen damit es passt. (claude-q-milk)
 - [x] Kreativ-Bauzauberstab ohne Material: bleibt; im Survival nicht herstellbar (kein Rezept).
 - [ ] QoL-Aufteilung in Sub-Mods (Container/GUI → „Simple QoG“ o. ä., Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor); jeder Name beginnt mit „Simple“. Name für simplecontainers: Besitzer schlägt „Simple QoG“ (Quality of GUI) vor.
 - [ ] Simple Maps als Sub-Mod in SimpleBuilding bündeln (Schalter „Simple Maps aktivieren“).
