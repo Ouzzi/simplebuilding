@@ -302,5 +302,20 @@ window.WIKI_MODULES = [
     ],
     "optional": [],
     "dataHash": "ecf4dbe3659f"
+  },
+  {
+    "id": "simplemobs",
+    "displayName": "Simple Mobs",
+    "description": "Simple Mobs module.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "9fd4153841ea"
   }
 ];
