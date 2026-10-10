@@ -352,7 +352,7 @@ public final class LibTests {
         }
         check(h, h.getLevel().getBlockState(abs).is(LibBlocks.REINFORCED_CRUCIBLE), "upgraded to reinforced (owner 50: 2 diamonds, 10 strikes)");
         CrucibleBlockEntity fresh = (CrucibleBlockEntity) h.getLevel().getBlockEntity(abs);
-        check(h, fresh != null && fresh.getContainerSize() == 9 && fresh.getItem(4).is(Items.RAW_COPPER) && fresh.getItem(4).getCount() == 3,
+        check(h, fresh != null && fresh.getContainerSize() == 12 && fresh.getItem(4).is(Items.RAW_COPPER) && fresh.getItem(4).getCount() == 3,
                 "contents kept in the same slot");
         check(h, player.getOffhandItem().isEmpty(), "two diamonds used");
         h.succeed();
