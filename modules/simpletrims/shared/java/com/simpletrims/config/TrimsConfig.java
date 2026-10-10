@@ -41,7 +41,8 @@ public final class TrimsConfig {
 
     public static void apply(JsonObject json) {
         try {
-            enabled = json.has("enabled") ? json.get("enabled").getAsBoolean() : ENABLED_DEFAULT;
+            var v = json.get("enabled");
+            enabled = v != null && v.isJsonPrimitive() && v.getAsJsonPrimitive().isBoolean() ? v.getAsBoolean() : ENABLED_DEFAULT;
         } catch (Exception e) {
             enabled = ENABLED_DEFAULT;
         }
