@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 663,
+      "count": 675,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -12981,6 +12981,18 @@ window.WIKI_DATA = {
       "texture": "assets/textures/block/enderite_block.png",
       "craftedBy": [],
       "usedIn": [
+        "simplebuilding:enderite_chest_boat_acacia",
+        "simplebuilding:enderite_chest_boat_bamboo",
+        "simplebuilding:enderite_chest_boat_birch",
+        "simplebuilding:enderite_chest_boat_cherry",
+        "simplebuilding:enderite_chest_boat_dark_oak",
+        "simplebuilding:enderite_chest_boat_jungle",
+        "simplebuilding:enderite_chest_boat_mangrove",
+        "simplebuilding:enderite_chest_boat_oak",
+        "simplebuilding:enderite_chest_boat_pale_oak",
+        "simplebuilding:enderite_chest_boat_poplar",
+        "simplebuilding:enderite_chest_boat_spruce",
+        "simplebuilding:enderite_chest_minecart",
         "simplebuilding:enderite_trapped_chest"
       ],
       "trades": [],
@@ -13032,6 +13044,118 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:enderite_chest_boat",
+      "name": {
+        "en_us": "Enderite Chest Boat",
+        "de_de": "Enderit-Truhenboot"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:enderite_chest_boat_acacia",
+        "simplebuilding:enderite_chest_boat_bamboo",
+        "simplebuilding:enderite_chest_boat_birch",
+        "simplebuilding:enderite_chest_boat_cherry",
+        "simplebuilding:enderite_chest_boat_dark_oak",
+        "simplebuilding:enderite_chest_boat_jungle",
+        "simplebuilding:enderite_chest_boat_mangrove",
+        "simplebuilding:enderite_chest_boat_oak",
+        "simplebuilding:enderite_chest_boat_pale_oak",
+        "simplebuilding:enderite_chest_boat_poplar",
+        "simplebuilding:enderite_chest_boat_smithing",
+        "simplebuilding:enderite_chest_boat_spruce"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_chest_boat.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredChestBoat.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredChestBoatItem.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/BoatWoods.java",
+          "common/src/shared/java/com/simplebuilding/component/ModDataComponentTypes.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
+          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Chest boats of the chest tiers in every wood (bamboo: raft): Reinforced 36 slots, Netherite 45 with double stacks, Enderite 54 with fourfold stacks.",
+          "details": [
+            "Crafting: a boat (or bamboo raft) of any wood plus the Reinforced/Netherite/Enderite Chest (shapeless); the wood is kept on the item (component simplebuilding:boat_wood, shown in the tooltip). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot - the wood stays.",
+            "Opens the tier chest's menu (sneak + right-click, or the inventory key while riding).",
+            "Breaking it drops the boat of the same tier and wood (keeping an anvil name) and its contents.",
+            "Drawn as vanilla's boat of the wood carrying the tier chest."
+          ]
+        },
+        "de": {
+          "summary": "Truhenboote der Truhenstufen in jeder Holzart (Bambus: Floß): Verstärkt 36 Plätze, Netherit 45 mit doppelten Stapeln, Enderit 54 mit vierfachen Stapeln.",
+          "details": [
+            "Werkbank: ein Boot (oder Bambusfloß) beliebiger Holzart und die Verstärkte/Netherit-/Enderittruhe (formlos); die Holzart bleibt am Item (Komponente simplebuilding:boat_wood, im Tooltip). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren - die Holzart bleibt.",
+            "Öffnet das Menü der Stufen-Truhe (Schleichen + Rechtsklick oder Inventartaste beim Fahren).",
+            "Beim Zerstören fallen das Boot derselben Stufe und Holzart (ein Amboss-Name bleibt) und der Inhalt heraus.",
+            "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_chest_minecart",
+      "name": {
+        "en_us": "Enderite Chest Minecart",
+        "de_de": "Enderit-Güterlore"
+      },
+      "texture": "assets/textures/item/enderite_chest_minecart.png",
+      "craftedBy": [
+        "simplebuilding:enderite_chest_minecart",
+        "simplebuilding:enderite_chest_minecart_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_chest_minecart.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredChestMinecart.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/OversizedStacks.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
+          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Chest minecarts of the chest tiers: Reinforced 36 slots, Netherite 45 slots with double stacks, Enderite 54 slots with fourfold stacks - the same as the chest of the tier.",
+          "details": [
+            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Chest of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
+            "Opens the tier chest's menu; hoppers and hopper minecarts fill and empty it like vanilla's chest minecart, oversized slots up to the tier's limit.",
+            "Breaking it drops the cart item (keeping an anvil name) and its contents; stacks above 99 are saved like in the tier chest.",
+            "Drawn as vanilla's minecart carrying the tier chest."
+          ]
+        },
+        "de": {
+          "summary": "Güterloren der Truhenstufen: Verstärkt 36 Plätze, Netherit 45 Plätze mit doppelten Stapeln, Enderit 54 Plätze mit vierfachen Stapeln - wie die Truhe der Stufe.",
+          "details": [
+            "Werkbank: eine Lore und die Verstärkte/Netherit-/Enderittruhe derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
+            "Öffnet das Menü der Stufen-Truhe; Trichter und Trichterloren füllen und leeren sie wie Vanillas Güterlore, übergroße Plätze bis zur Grenze der Stufe.",
+            "Beim Zerstören fallen die Loren-Item (ein Amboss-Name bleibt) und der Inhalt heraus; Stapel über 99 werden wie in der Stufen-Truhe gespeichert.",
+            "Gezeigt als Vanilla-Lore mit der Stufen-Truhe."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:enderite_chestplate",
@@ -13317,7 +13441,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/enderite_furnace_side.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:enderite_furnace_minecart"
+      ],
       "trades": [],
       "icon": "assets/textures/render/enderite_furnace.png",
       "note": {
@@ -13389,6 +13515,55 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_furnace_minecart",
+      "name": {
+        "en_us": "Enderite Furnace Minecart",
+        "de_de": "Enderit-Antriebslore"
+      },
+      "texture": "assets/textures/item/enderite_furnace_minecart.png",
+      "craftedBy": [
+        "simplebuilding:enderite_furnace_minecart",
+        "simplebuilding:enderite_furnace_minecart_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_furnace_minecart.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredFurnaceMinecart.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
+          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Furnace minecarts of the furnace tiers: one fuel item burns as many times longer as the furnace of the tier cooks faster (2x/4x/8x of 3600 ticks), and the cart runs faster (5/8, 3/4 and the full top speed of a plain minecart; vanilla's furnace minecart 1/2).",
+          "details": [
+            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Furnace of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
+            "Fuel as in vanilla (item tag minecraft:furnace_minecart_fuel), right-click pushes the cart away from you; it holds up to 32000 ticks times the tier factor.",
+            "The tier factor follows the server setting of the furnace speed of that tier (server.machines).",
+            "Breaking it drops the cart item; it shows the tier furnace, lit while it has fuel."
+          ]
+        },
+        "de": {
+          "summary": "Antriebsloren der Ofenstufen: ein Brennstoff hält so viel länger, wie der Ofen der Stufe schneller kocht (2x/4x/8x von 3600 Ticks), und die Lore fährt schneller (5/8, 3/4 und die volle Höchstgeschwindigkeit einer normalen Lore; Vanillas Antriebslore 1/2).",
+          "details": [
+            "Werkbank: eine Lore und den Verstärkten/Netherit-/Enderitofen derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
+            "Brennstoff wie bei Vanilla (Item-Tag minecraft:furnace_minecart_fuel), Rechtsklick schiebt die Lore von dir weg; sie fasst bis zu 32000 Ticks mal Stufenfaktor.",
+            "Der Stufenfaktor folgt der Servereinstellung des Ofentempos dieser Stufe (server.machines).",
+            "Beim Zerstören fällt das Loren-Item heraus; sie zeigt den Stufen-Ofen, beleuchtet solange sie Brennstoff hat."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:enderite_helmet",
       "name": {
         "en_us": "Enderite Helmet",
@@ -13436,7 +13611,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/enderite_hopper.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:enderite_hopper_minecart"
+      ],
       "trades": [],
       "note": {
         "sources": [
@@ -13497,6 +13674,58 @@ window.WIKI_DATA = {
           "caveats": [
             "Er ist die oberste Stufe: Ein Vorschlaghammer mit Klumpen bewirkt an ihm nichts Besonderes, und ein Rechtsklick öffnet wie gewohnt das Menü.",
             "Noch kein Spieltest misst seine Geschwindigkeit."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:enderite_hopper_minecart",
+      "name": {
+        "en_us": "Enderite Hopper Minecart",
+        "de_de": "Enderit-Trichterlore"
+      },
+      "texture": "assets/textures/item/enderite_hopper_minecart.png",
+      "craftedBy": [
+        "simplebuilding:enderite_hopper_minecart",
+        "simplebuilding:enderite_hopper_minecart_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_hopper_minecart.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredHopperMinecart.java",
+          "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
+          "common/src/shared/java/com/simplebuilding/util/FilterHopper.java",
+          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
+          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Hopper minecarts of the mod hoppers: they take in up to 2/4/8 items per tick (vanilla's hopper minecart 1) - the same speed-up as the mod hopper over vanilla's hopper - and filter like the hopper block.",
+          "details": [
+            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Hopper of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
+            "Same menu as the mod hoppers with the filter key (off / exact / same kind). Filter principle: with a filter on, a slot only takes what matches the real item lying in it, and one item always stays - hoppers below pull only the second and every further one.",
+            "An activator rail switches it off, as in vanilla. Items per tick follow the server setting of the hopper speed of that tier (server.machines).",
+            "Breaking it drops the cart item and its contents; it shows the tier hopper."
+          ]
+        },
+        "de": {
+          "summary": "Trichterloren der Mod-Trichter: sie nehmen bis zu 2/4/8 Items je Tick auf (Vanillas Trichterlore 1) - derselbe Vorsprung wie Mod-Trichter gegenüber Vanillas Trichter - und filtern wie der Trichter-Block.",
+          "details": [
+            "Werkbank: eine Lore und den Verstärkten/Netherit-/Enderittrichter derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
+            "Dasselbe Menü wie die Mod-Trichter mit Filter-Taste (aus / exakt / gleiche Art). Filter-Prinzip: mit Filter nimmt ein Platz nur, was zum echten Item darin passt, und ein Item bleibt immer liegen - Trichter darunter ziehen erst das zweite und jedes weitere.",
+            "Eine Aktivierungsschiene schaltet sie ab, wie bei Vanilla. Items je Tick folgen der Servereinstellung des Trichtertempos dieser Stufe (server.machines).",
+            "Beim Zerstören fallen das Loren-Item und der Inhalt heraus; sie zeigt den Stufen-Trichter."
           ]
         }
       },
@@ -13566,11 +13795,15 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_boots_smithing",
         "simplebuilding:enderite_building_wand_smithing",
         "simplebuilding:enderite_bundle_smithing",
+        "simplebuilding:enderite_chest_boat_smithing",
+        "simplebuilding:enderite_chest_minecart_smithing",
         "simplebuilding:enderite_chestplate_smithing",
         "simplebuilding:enderite_chisel_smithing",
         "simplebuilding:enderite_core_smithing",
+        "simplebuilding:enderite_furnace_minecart_smithing",
         "simplebuilding:enderite_helmet_smithing",
         "simplebuilding:enderite_hoe_smithing",
+        "simplebuilding:enderite_hopper_minecart_smithing",
         "simplebuilding:enderite_horse_armor_smithing",
         "simplebuilding:enderite_leggings_smithing",
         "simplebuilding:enderite_nautilus_armor_smithing",
@@ -14565,13 +14798,17 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_boots_smithing",
         "simplebuilding:enderite_building_wand_smithing",
         "simplebuilding:enderite_bundle_smithing",
+        "simplebuilding:enderite_chest_boat_smithing",
+        "simplebuilding:enderite_chest_minecart_smithing",
         "simplebuilding:enderite_chestplate_smithing",
         "simplebuilding:enderite_chisel_smithing",
         "simplebuilding:enderite_chunk_loader_smithing",
         "simplebuilding:enderite_core_smithing",
         "simplebuilding:enderite_elytra_pad_smithing",
+        "simplebuilding:enderite_furnace_minecart_smithing",
         "simplebuilding:enderite_helmet_smithing",
         "simplebuilding:enderite_hoe_smithing",
+        "simplebuilding:enderite_hopper_minecart_smithing",
         "simplebuilding:enderite_horse_armor_smithing",
         "simplebuilding:enderite_launchpad_smithing",
         "simplebuilding:enderite_leggings_smithing",
@@ -21262,6 +21499,18 @@ window.WIKI_DATA = {
       "texture": "assets/textures/item/netherite_chest.png",
       "craftedBy": [],
       "usedIn": [
+        "simplebuilding:netherite_chest_boat_acacia",
+        "simplebuilding:netherite_chest_boat_bamboo",
+        "simplebuilding:netherite_chest_boat_birch",
+        "simplebuilding:netherite_chest_boat_cherry",
+        "simplebuilding:netherite_chest_boat_dark_oak",
+        "simplebuilding:netherite_chest_boat_jungle",
+        "simplebuilding:netherite_chest_boat_mangrove",
+        "simplebuilding:netherite_chest_boat_oak",
+        "simplebuilding:netherite_chest_boat_pale_oak",
+        "simplebuilding:netherite_chest_boat_poplar",
+        "simplebuilding:netherite_chest_boat_spruce",
+        "simplebuilding:netherite_chest_minecart",
         "simplebuilding:netherite_trapped_chest"
       ],
       "trades": [],
@@ -21315,6 +21564,122 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:netherite_chest_boat",
+      "name": {
+        "en_us": "Netherite Chest Boat",
+        "de_de": "Netherit-Truhenboot"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:netherite_chest_boat_acacia",
+        "simplebuilding:netherite_chest_boat_bamboo",
+        "simplebuilding:netherite_chest_boat_birch",
+        "simplebuilding:netherite_chest_boat_cherry",
+        "simplebuilding:netherite_chest_boat_dark_oak",
+        "simplebuilding:netherite_chest_boat_jungle",
+        "simplebuilding:netherite_chest_boat_mangrove",
+        "simplebuilding:netherite_chest_boat_oak",
+        "simplebuilding:netherite_chest_boat_pale_oak",
+        "simplebuilding:netherite_chest_boat_poplar",
+        "simplebuilding:netherite_chest_boat_smithing",
+        "simplebuilding:netherite_chest_boat_spruce"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_chest_boat_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/netherite_chest_boat.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredChestBoat.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredChestBoatItem.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/BoatWoods.java",
+          "common/src/shared/java/com/simplebuilding/component/ModDataComponentTypes.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
+          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Chest boats of the chest tiers in every wood (bamboo: raft): Reinforced 36 slots, Netherite 45 with double stacks, Enderite 54 with fourfold stacks.",
+          "details": [
+            "Crafting: a boat (or bamboo raft) of any wood plus the Reinforced/Netherite/Enderite Chest (shapeless); the wood is kept on the item (component simplebuilding:boat_wood, shown in the tooltip). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot - the wood stays.",
+            "Opens the tier chest's menu (sneak + right-click, or the inventory key while riding).",
+            "Breaking it drops the boat of the same tier and wood (keeping an anvil name) and its contents.",
+            "Drawn as vanilla's boat of the wood carrying the tier chest."
+          ]
+        },
+        "de": {
+          "summary": "Truhenboote der Truhenstufen in jeder Holzart (Bambus: Floß): Verstärkt 36 Plätze, Netherit 45 mit doppelten Stapeln, Enderit 54 mit vierfachen Stapeln.",
+          "details": [
+            "Werkbank: ein Boot (oder Bambusfloß) beliebiger Holzart und die Verstärkte/Netherit-/Enderittruhe (formlos); die Holzart bleibt am Item (Komponente simplebuilding:boat_wood, im Tooltip). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren - die Holzart bleibt.",
+            "Öffnet das Menü der Stufen-Truhe (Schleichen + Rechtsklick oder Inventartaste beim Fahren).",
+            "Beim Zerstören fallen das Boot derselben Stufe und Holzart (ein Amboss-Name bleibt) und der Inhalt heraus.",
+            "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:netherite_chest_minecart",
+      "name": {
+        "en_us": "Netherite Chest Minecart",
+        "de_de": "Netherit-Güterlore"
+      },
+      "texture": "assets/textures/item/netherite_chest_minecart.png",
+      "craftedBy": [
+        "simplebuilding:netherite_chest_minecart",
+        "simplebuilding:netherite_chest_minecart_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_chest_minecart_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/netherite_chest_minecart.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredChestMinecart.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/OversizedStacks.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
+          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Chest minecarts of the chest tiers: Reinforced 36 slots, Netherite 45 slots with double stacks, Enderite 54 slots with fourfold stacks - the same as the chest of the tier.",
+          "details": [
+            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Chest of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
+            "Opens the tier chest's menu; hoppers and hopper minecarts fill and empty it like vanilla's chest minecart, oversized slots up to the tier's limit.",
+            "Breaking it drops the cart item (keeping an anvil name) and its contents; stacks above 99 are saved like in the tier chest.",
+            "Drawn as vanilla's minecart carrying the tier chest."
+          ]
+        },
+        "de": {
+          "summary": "Güterloren der Truhenstufen: Verstärkt 36 Plätze, Netherit 45 Plätze mit doppelten Stapeln, Enderit 54 Plätze mit vierfachen Stapeln - wie die Truhe der Stufe.",
+          "details": [
+            "Werkbank: eine Lore und die Verstärkte/Netherit-/Enderittruhe derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
+            "Öffnet das Menü der Stufen-Truhe; Trichter und Trichterloren füllen und leeren sie wie Vanillas Güterlore, übergroße Plätze bis zur Grenze der Stufe.",
+            "Beim Zerstören fallen die Loren-Item (ein Amboss-Name bleibt) und der Inhalt heraus; Stapel über 99 werden wie in der Stufen-Truhe gespeichert.",
+            "Gezeigt als Vanilla-Lore mit der Stufen-Truhe."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:netherite_chisel",
@@ -21583,7 +21948,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/netherite_furnace_side.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:netherite_furnace_minecart"
+      ],
       "trades": [],
       "icon": "assets/textures/render/netherite_furnace.png",
       "note": {
@@ -21666,6 +22033,57 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:netherite_furnace_minecart",
+      "name": {
+        "en_us": "Netherite Furnace Minecart",
+        "de_de": "Netherit-Antriebslore"
+      },
+      "texture": "assets/textures/item/netherite_furnace_minecart.png",
+      "craftedBy": [
+        "simplebuilding:netherite_furnace_minecart",
+        "simplebuilding:netherite_furnace_minecart_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_furnace_minecart_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/netherite_furnace_minecart.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredFurnaceMinecart.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
+          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Furnace minecarts of the furnace tiers: one fuel item burns as many times longer as the furnace of the tier cooks faster (2x/4x/8x of 3600 ticks), and the cart runs faster (5/8, 3/4 and the full top speed of a plain minecart; vanilla's furnace minecart 1/2).",
+          "details": [
+            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Furnace of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
+            "Fuel as in vanilla (item tag minecraft:furnace_minecart_fuel), right-click pushes the cart away from you; it holds up to 32000 ticks times the tier factor.",
+            "The tier factor follows the server setting of the furnace speed of that tier (server.machines).",
+            "Breaking it drops the cart item; it shows the tier furnace, lit while it has fuel."
+          ]
+        },
+        "de": {
+          "summary": "Antriebsloren der Ofenstufen: ein Brennstoff hält so viel länger, wie der Ofen der Stufe schneller kocht (2x/4x/8x von 3600 Ticks), und die Lore fährt schneller (5/8, 3/4 und die volle Höchstgeschwindigkeit einer normalen Lore; Vanillas Antriebslore 1/2).",
+          "details": [
+            "Werkbank: eine Lore und den Verstärkten/Netherit-/Enderitofen derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
+            "Brennstoff wie bei Vanilla (Item-Tag minecraft:furnace_minecart_fuel), Rechtsklick schiebt die Lore von dir weg; sie fasst bis zu 32000 Ticks mal Stufenfaktor.",
+            "Der Stufenfaktor folgt der Servereinstellung des Ofentempos dieser Stufe (server.machines).",
+            "Beim Zerstören fällt das Loren-Item heraus; sie zeigt den Stufen-Ofen, beleuchtet solange sie Brennstoff hat."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:netherite_hopper",
       "name": {
         "en_us": "Netherite Hopper",
@@ -21673,7 +22091,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/netherite_hopper.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:netherite_hopper_minecart"
+      ],
       "trades": [],
       "note": {
         "en": {
@@ -21762,6 +22182,60 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:netherite_hopper_minecart",
+      "name": {
+        "en_us": "Netherite Hopper Minecart",
+        "de_de": "Netherit-Trichterlore"
+      },
+      "texture": "assets/textures/item/netherite_hopper_minecart.png",
+      "craftedBy": [
+        "simplebuilding:netherite_hopper_minecart",
+        "simplebuilding:netherite_hopper_minecart_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_hopper_minecart_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/netherite_hopper_minecart.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredHopperMinecart.java",
+          "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
+          "common/src/shared/java/com/simplebuilding/util/FilterHopper.java",
+          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
+          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Hopper minecarts of the mod hoppers: they take in up to 2/4/8 items per tick (vanilla's hopper minecart 1) - the same speed-up as the mod hopper over vanilla's hopper - and filter like the hopper block.",
+          "details": [
+            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Hopper of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
+            "Same menu as the mod hoppers with the filter key (off / exact / same kind). Filter principle: with a filter on, a slot only takes what matches the real item lying in it, and one item always stays - hoppers below pull only the second and every further one.",
+            "An activator rail switches it off, as in vanilla. Items per tick follow the server setting of the hopper speed of that tier (server.machines).",
+            "Breaking it drops the cart item and its contents; it shows the tier hopper."
+          ]
+        },
+        "de": {
+          "summary": "Trichterloren der Mod-Trichter: sie nehmen bis zu 2/4/8 Items je Tick auf (Vanillas Trichterlore 1) - derselbe Vorsprung wie Mod-Trichter gegenüber Vanillas Trichter - und filtern wie der Trichter-Block.",
+          "details": [
+            "Werkbank: eine Lore und den Verstärkten/Netherit-/Enderittrichter derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
+            "Dasselbe Menü wie die Mod-Trichter mit Filter-Taste (aus / exakt / gleiche Art). Filter-Prinzip: mit Filter nimmt ein Platz nur, was zum echten Item darin passt, und ein Item bleibt immer liegen - Trichter darunter ziehen erst das zweite und jedes weitere.",
+            "Eine Aktivierungsschiene schaltet sie ab, wie bei Vanilla. Items je Tick folgen der Servereinstellung des Trichtertempos dieser Stufe (server.machines).",
+            "Beim Zerstören fallen das Loren-Item und der Inhalt heraus; sie zeigt den Stufen-Trichter."
+          ]
+        }
       },
       "hasCustomBehaviour": true
     },
@@ -30714,6 +31188,18 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_chest"
       ],
       "usedIn": [
+        "simplebuilding:reinforced_chest_boat_acacia",
+        "simplebuilding:reinforced_chest_boat_bamboo",
+        "simplebuilding:reinforced_chest_boat_birch",
+        "simplebuilding:reinforced_chest_boat_cherry",
+        "simplebuilding:reinforced_chest_boat_dark_oak",
+        "simplebuilding:reinforced_chest_boat_jungle",
+        "simplebuilding:reinforced_chest_boat_mangrove",
+        "simplebuilding:reinforced_chest_boat_oak",
+        "simplebuilding:reinforced_chest_boat_pale_oak",
+        "simplebuilding:reinforced_chest_boat_poplar",
+        "simplebuilding:reinforced_chest_boat_spruce",
+        "simplebuilding:reinforced_chest_minecart",
         "simplebuilding:reinforced_trapped_chest"
       ],
       "trades": [],
@@ -30767,6 +31253,120 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:reinforced_chest_boat",
+      "name": {
+        "en_us": "Reinforced Chest Boat",
+        "de_de": "Verstärktes Truhenboot"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:reinforced_chest_boat_acacia",
+        "simplebuilding:reinforced_chest_boat_bamboo",
+        "simplebuilding:reinforced_chest_boat_birch",
+        "simplebuilding:reinforced_chest_boat_cherry",
+        "simplebuilding:reinforced_chest_boat_dark_oak",
+        "simplebuilding:reinforced_chest_boat_jungle",
+        "simplebuilding:reinforced_chest_boat_mangrove",
+        "simplebuilding:reinforced_chest_boat_oak",
+        "simplebuilding:reinforced_chest_boat_pale_oak",
+        "simplebuilding:reinforced_chest_boat_poplar",
+        "simplebuilding:reinforced_chest_boat_spruce"
+      ],
+      "usedIn": [
+        "simplebuilding:netherite_chest_boat_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/reinforced_chest_boat.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredChestBoat.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredChestBoatItem.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/BoatWoods.java",
+          "common/src/shared/java/com/simplebuilding/component/ModDataComponentTypes.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
+          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Chest boats of the chest tiers in every wood (bamboo: raft): Reinforced 36 slots, Netherite 45 with double stacks, Enderite 54 with fourfold stacks.",
+          "details": [
+            "Crafting: a boat (or bamboo raft) of any wood plus the Reinforced/Netherite/Enderite Chest (shapeless); the wood is kept on the item (component simplebuilding:boat_wood, shown in the tooltip). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot - the wood stays.",
+            "Opens the tier chest's menu (sneak + right-click, or the inventory key while riding).",
+            "Breaking it drops the boat of the same tier and wood (keeping an anvil name) and its contents.",
+            "Drawn as vanilla's boat of the wood carrying the tier chest."
+          ]
+        },
+        "de": {
+          "summary": "Truhenboote der Truhenstufen in jeder Holzart (Bambus: Floß): Verstärkt 36 Plätze, Netherit 45 mit doppelten Stapeln, Enderit 54 mit vierfachen Stapeln.",
+          "details": [
+            "Werkbank: ein Boot (oder Bambusfloß) beliebiger Holzart und die Verstärkte/Netherit-/Enderittruhe (formlos); die Holzart bleibt am Item (Komponente simplebuilding:boat_wood, im Tooltip). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren - die Holzart bleibt.",
+            "Öffnet das Menü der Stufen-Truhe (Schleichen + Rechtsklick oder Inventartaste beim Fahren).",
+            "Beim Zerstören fallen das Boot derselben Stufe und Holzart (ein Amboss-Name bleibt) und der Inhalt heraus.",
+            "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_minecart",
+      "name": {
+        "en_us": "Reinforced Chest Minecart",
+        "de_de": "Verstärkte Güterlore"
+      },
+      "texture": "assets/textures/item/reinforced_chest_minecart.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_chest_minecart"
+      ],
+      "usedIn": [
+        "simplebuilding:netherite_chest_minecart_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/reinforced_chest_minecart.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredChestMinecart.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/OversizedStacks.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
+          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Chest minecarts of the chest tiers: Reinforced 36 slots, Netherite 45 slots with double stacks, Enderite 54 slots with fourfold stacks - the same as the chest of the tier.",
+          "details": [
+            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Chest of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
+            "Opens the tier chest's menu; hoppers and hopper minecarts fill and empty it like vanilla's chest minecart, oversized slots up to the tier's limit.",
+            "Breaking it drops the cart item (keeping an anvil name) and its contents; stacks above 99 are saved like in the tier chest.",
+            "Drawn as vanilla's minecart carrying the tier chest."
+          ]
+        },
+        "de": {
+          "summary": "Güterloren der Truhenstufen: Verstärkt 36 Plätze, Netherit 45 Plätze mit doppelten Stapeln, Enderit 54 Plätze mit vierfachen Stapeln - wie die Truhe der Stufe.",
+          "details": [
+            "Werkbank: eine Lore und die Verstärkte/Netherit-/Enderittruhe derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
+            "Öffnet das Menü der Stufen-Truhe; Trichter und Trichterloren füllen und leeren sie wie Vanillas Güterlore, übergroße Plätze bis zur Grenze der Stufe.",
+            "Beim Zerstören fallen die Loren-Item (ein Amboss-Name bleibt) und der Inhalt heraus; Stapel über 99 werden wie in der Stufen-Truhe gespeichert.",
+            "Gezeigt als Vanilla-Lore mit der Stufen-Truhe."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:reinforced_furnace",
       "name": {
         "en_us": "Reinforced Furnace",
@@ -30776,7 +31376,9 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:reinforced_furnace"
       ],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:reinforced_furnace_minecart"
+      ],
       "trades": [],
       "icon": "assets/textures/render/reinforced_furnace.png",
       "note": {
@@ -30860,6 +31462,56 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:reinforced_furnace_minecart",
+      "name": {
+        "en_us": "Reinforced Furnace Minecart",
+        "de_de": "Verstärkte Antriebslore"
+      },
+      "texture": "assets/textures/item/reinforced_furnace_minecart.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_furnace_minecart"
+      ],
+      "usedIn": [
+        "simplebuilding:netherite_furnace_minecart_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/reinforced_furnace_minecart.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredFurnaceMinecart.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
+          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Furnace minecarts of the furnace tiers: one fuel item burns as many times longer as the furnace of the tier cooks faster (2x/4x/8x of 3600 ticks), and the cart runs faster (5/8, 3/4 and the full top speed of a plain minecart; vanilla's furnace minecart 1/2).",
+          "details": [
+            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Furnace of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
+            "Fuel as in vanilla (item tag minecraft:furnace_minecart_fuel), right-click pushes the cart away from you; it holds up to 32000 ticks times the tier factor.",
+            "The tier factor follows the server setting of the furnace speed of that tier (server.machines).",
+            "Breaking it drops the cart item; it shows the tier furnace, lit while it has fuel."
+          ]
+        },
+        "de": {
+          "summary": "Antriebsloren der Ofenstufen: ein Brennstoff hält so viel länger, wie der Ofen der Stufe schneller kocht (2x/4x/8x von 3600 Ticks), und die Lore fährt schneller (5/8, 3/4 und die volle Höchstgeschwindigkeit einer normalen Lore; Vanillas Antriebslore 1/2).",
+          "details": [
+            "Werkbank: eine Lore und den Verstärkten/Netherit-/Enderitofen derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
+            "Brennstoff wie bei Vanilla (Item-Tag minecraft:furnace_minecart_fuel), Rechtsklick schiebt die Lore von dir weg; sie fasst bis zu 32000 Ticks mal Stufenfaktor.",
+            "Der Stufenfaktor folgt der Servereinstellung des Ofentempos dieser Stufe (server.machines).",
+            "Beim Zerstören fällt das Loren-Item heraus; sie zeigt den Stufen-Ofen, beleuchtet solange sie Brennstoff hat."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:reinforced_hopper",
       "name": {
         "en_us": "Reinforced Hopper",
@@ -30869,7 +31521,9 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:reinforced_hopper_from_crafting"
       ],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:reinforced_hopper_minecart"
+      ],
       "trades": [],
       "note": {
         "en": {
@@ -30959,6 +31613,59 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:reinforced_hopper_minecart",
+      "name": {
+        "en_us": "Reinforced Hopper Minecart",
+        "de_de": "Verstärkte Trichterlore"
+      },
+      "texture": "assets/textures/item/reinforced_hopper_minecart.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_hopper_minecart"
+      ],
+      "usedIn": [
+        "simplebuilding:netherite_hopper_minecart_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/reinforced_hopper_minecart.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredHopperMinecart.java",
+          "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
+          "common/src/shared/java/com/simplebuilding/util/FilterHopper.java",
+          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
+          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
+        ],
+        "en": {
+          "summary": "Hopper minecarts of the mod hoppers: they take in up to 2/4/8 items per tick (vanilla's hopper minecart 1) - the same speed-up as the mod hopper over vanilla's hopper - and filter like the hopper block.",
+          "details": [
+            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Hopper of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
+            "Same menu as the mod hoppers with the filter key (off / exact / same kind). Filter principle: with a filter on, a slot only takes what matches the real item lying in it, and one item always stays - hoppers below pull only the second and every further one.",
+            "An activator rail switches it off, as in vanilla. Items per tick follow the server setting of the hopper speed of that tier (server.machines).",
+            "Breaking it drops the cart item and its contents; it shows the tier hopper."
+          ]
+        },
+        "de": {
+          "summary": "Trichterloren der Mod-Trichter: sie nehmen bis zu 2/4/8 Items je Tick auf (Vanillas Trichterlore 1) - derselbe Vorsprung wie Mod-Trichter gegenüber Vanillas Trichter - und filtern wie der Trichter-Block.",
+          "details": [
+            "Werkbank: eine Lore und den Verstärkten/Netherit-/Enderittrichter derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
+            "Dasselbe Menü wie die Mod-Trichter mit Filter-Taste (aus / exakt / gleiche Art). Filter-Prinzip: mit Filter nimmt ein Platz nur, was zum echten Item darin passt, und ein Item bleibt immer liegen - Trichter darunter ziehen erst das zweite und jedes weitere.",
+            "Eine Aktivierungsschiene schaltet sie ab, wie bei Vanilla. Items je Tick folgen der Servereinstellung des Trichtertempos dieser Stufe (server.machines).",
+            "Beim Zerstören fallen das Loren-Item und der Inhalt heraus; sie zeigt den Stufen-Trichter."
+          ]
+        }
       },
       "hasCustomBehaviour": true
     },
@@ -39644,6 +40351,18 @@ window.WIKI_DATA = {
       "texture": "assets/textures/block/enderite_block.png",
       "craftedBy": [],
       "usedIn": [
+        "simplebuilding:enderite_chest_boat_acacia",
+        "simplebuilding:enderite_chest_boat_bamboo",
+        "simplebuilding:enderite_chest_boat_birch",
+        "simplebuilding:enderite_chest_boat_cherry",
+        "simplebuilding:enderite_chest_boat_dark_oak",
+        "simplebuilding:enderite_chest_boat_jungle",
+        "simplebuilding:enderite_chest_boat_mangrove",
+        "simplebuilding:enderite_chest_boat_oak",
+        "simplebuilding:enderite_chest_boat_pale_oak",
+        "simplebuilding:enderite_chest_boat_poplar",
+        "simplebuilding:enderite_chest_boat_spruce",
+        "simplebuilding:enderite_chest_minecart",
         "simplebuilding:enderite_trapped_chest"
       ],
       "trades": [],
@@ -39903,7 +40622,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/enderite_furnace_side.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:enderite_furnace_minecart"
+      ],
       "trades": [],
       "icon": "assets/textures/render/enderite_furnace.png",
       "lootTable": "simplebuilding:blocks/enderite_furnace",
@@ -39993,7 +40714,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/enderite_hopper_outside.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:enderite_hopper_minecart"
+      ],
       "trades": [],
       "icon": "assets/textures/render/block/enderite_hopper.png",
       "lootTable": "simplebuilding:blocks/enderite_hopper",
@@ -44306,6 +45029,18 @@ window.WIKI_DATA = {
       "texture": "assets/textures/block/netherite_chest.png",
       "craftedBy": [],
       "usedIn": [
+        "simplebuilding:netherite_chest_boat_acacia",
+        "simplebuilding:netherite_chest_boat_bamboo",
+        "simplebuilding:netherite_chest_boat_birch",
+        "simplebuilding:netherite_chest_boat_cherry",
+        "simplebuilding:netherite_chest_boat_dark_oak",
+        "simplebuilding:netherite_chest_boat_jungle",
+        "simplebuilding:netherite_chest_boat_mangrove",
+        "simplebuilding:netherite_chest_boat_oak",
+        "simplebuilding:netherite_chest_boat_pale_oak",
+        "simplebuilding:netherite_chest_boat_poplar",
+        "simplebuilding:netherite_chest_boat_spruce",
+        "simplebuilding:netherite_chest_minecart",
         "simplebuilding:netherite_trapped_chest"
       ],
       "trades": [],
@@ -44554,7 +45289,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/netherite_furnace_side.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:netherite_furnace_minecart"
+      ],
       "trades": [],
       "icon": "assets/textures/render/netherite_furnace.png",
       "lootTable": "simplebuilding:blocks/netherite_furnace",
@@ -44655,7 +45392,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/netherite_hopper_outside.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:netherite_hopper_minecart"
+      ],
       "trades": [],
       "icon": "assets/textures/render/block/netherite_hopper.png",
       "lootTable": "simplebuilding:blocks/netherite_hopper",
@@ -48374,6 +49113,18 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_chest"
       ],
       "usedIn": [
+        "simplebuilding:reinforced_chest_boat_acacia",
+        "simplebuilding:reinforced_chest_boat_bamboo",
+        "simplebuilding:reinforced_chest_boat_birch",
+        "simplebuilding:reinforced_chest_boat_cherry",
+        "simplebuilding:reinforced_chest_boat_dark_oak",
+        "simplebuilding:reinforced_chest_boat_jungle",
+        "simplebuilding:reinforced_chest_boat_mangrove",
+        "simplebuilding:reinforced_chest_boat_oak",
+        "simplebuilding:reinforced_chest_boat_pale_oak",
+        "simplebuilding:reinforced_chest_boat_poplar",
+        "simplebuilding:reinforced_chest_boat_spruce",
+        "simplebuilding:reinforced_chest_minecart",
         "simplebuilding:reinforced_trapped_chest"
       ],
       "trades": [],
@@ -48563,7 +49314,9 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:reinforced_furnace"
       ],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:reinforced_furnace_minecart"
+      ],
       "trades": [],
       "icon": "assets/textures/render/reinforced_furnace.png",
       "lootTable": "simplebuilding:blocks/reinforced_furnace",
@@ -48667,7 +49420,9 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:reinforced_hopper_from_crafting"
       ],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:reinforced_hopper_minecart"
+      ],
       "trades": [],
       "icon": "assets/textures/render/block/reinforced_hopper.png",
       "lootTable": "simplebuilding:blocks/reinforced_hopper",
@@ -64479,6 +65234,609 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:enderite_chest_boat_acacia",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplebuilding:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "acacia"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_acacia.json",
+      "ingredients": [
+        "minecraft:acacia_boat",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:acacia_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_boat_bamboo",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplebuilding:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "bamboo"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_bamboo.json",
+      "ingredients": [
+        "minecraft:bamboo_raft",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:bamboo_raft"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 22.5
+          },
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_boat_birch",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplebuilding:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "birch"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_birch.json",
+      "ingredients": [
+        "minecraft:birch_boat",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:birch_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:birch_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_boat_cherry",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplebuilding:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "cherry"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_cherry.json",
+      "ingredients": [
+        "minecraft:cherry_boat",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:cherry_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cherry_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_boat_dark_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplebuilding:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "dark_oak"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_dark_oak.json",
+      "ingredients": [
+        "minecraft:dark_oak_boat",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:dark_oak_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_boat_jungle",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplebuilding:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "jungle"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_jungle.json",
+      "ingredients": [
+        "minecraft:jungle_boat",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:jungle_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:jungle_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_boat_mangrove",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplebuilding:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "mangrove"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_mangrove.json",
+      "ingredients": [
+        "minecraft:mangrove_boat",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:mangrove_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_boat_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplebuilding:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "oak"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_oak.json",
+      "ingredients": [
+        "minecraft:oak_boat",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:oak_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_boat_pale_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplebuilding:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "pale_oak"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_pale_oak.json",
+      "ingredients": [
+        "minecraft:pale_oak_boat",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:pale_oak_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_boat_poplar",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplebuilding:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "poplar"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_poplar.json",
+      "ingredients": [
+        "minecraft:poplar_boat",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:poplar_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_boat_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_chest_boat",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_chest_boat"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_chest_boat"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_boat_spruce",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "enderite_chest_boat",
+      "result": {
+        "id": "simplebuilding:enderite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "spruce"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_spruce.json",
+      "ingredients": [
+        "minecraft:spruce_boat",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:spruce_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:spruce_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_chest_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_chest_minecart_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_chest_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_minecart_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_chest_minecart"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_chest_minecart"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:enderite_chestplate_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -64796,6 +66154,96 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:enderite_furnace_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_furnace_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_furnace_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplebuilding:enderite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_furnace"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplebuilding:enderite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_furnace_minecart_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_furnace_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_furnace_minecart_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_furnace_minecart"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_furnace_minecart"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:enderite_helmet_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -64909,6 +66357,96 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_hopper_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_hopper_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_hopper_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplebuilding:enderite_hopper"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_hopper"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplebuilding:enderite_hopper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_hopper_minecart_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_hopper_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_hopper_minecart_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_hopper_minecart"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_hopper_minecart"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_hopper",
+            "count": 1
           }
         ]
       }
@@ -66245,7 +67783,7 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:fletching/amethyst_blaze_rod_feather",
+      "id": "simplebuilding:fletching/fletching/feather",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66253,14 +67791,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_blaze_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/fletching/feather.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_blaze_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/fletching/phantom_membrane",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66268,14 +67806,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_blaze_rod_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/fletching/phantom_membrane.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_breeze_rod_feather",
+      "id": "simplebuilding:fletching/shaft/blaze_rod",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66283,14 +67821,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_breeze_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/shaft/blaze_rod.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_breeze_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/shaft/breeze_rod",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66298,14 +67836,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_breeze_rod_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/shaft/breeze_rod.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_diamond_rod_feather",
+      "id": "simplebuilding:fletching/shaft/diamond_rod",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66313,14 +67851,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_diamond_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/shaft/diamond_rod.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_diamond_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/shaft/end_rod",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66328,14 +67866,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_diamond_rod_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/shaft/end_rod.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_end_rod_feather",
+      "id": "simplebuilding:fletching/shaft/stick",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66343,14 +67881,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_end_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/shaft/stick.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_end_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/tip/amethyst",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66358,14 +67896,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_end_rod_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/amethyst.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_stick_feather",
+      "id": "simplebuilding:fletching/tip/copper",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66373,14 +67911,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_stick_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/copper.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_stick_phantom_membrane",
+      "id": "simplebuilding:fletching/tip/diamond",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66388,14 +67926,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_stick_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/diamond.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/copper_blaze_rod_feather",
+      "id": "simplebuilding:fletching/tip/enderite",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66403,14 +67941,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_blaze_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/enderite.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/copper_blaze_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/tip/flint",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66418,14 +67956,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_blaze_rod_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/flint.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/copper_breeze_rod_feather",
+      "id": "simplebuilding:fletching/tip/gold",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66433,14 +67971,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_breeze_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/gold.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/copper_breeze_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/tip/iron",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66448,14 +67986,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_breeze_rod_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/iron.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/copper_diamond_rod_feather",
+      "id": "simplebuilding:fletching/tip/netherite",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66463,14 +68001,14 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_diamond_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/netherite.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/copper_diamond_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/tip/prismarine",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66478,1117 +68016,7 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/copper_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/copper_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/copper_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/copper_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_stick_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/prismarine.json",
       "ingredients": [],
       "lines": [
         "26.3"
@@ -73792,6 +74220,625 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:netherite_chest_boat_acacia",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplebuilding:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "acacia"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_acacia.json",
+      "ingredients": [
+        "minecraft:acacia_boat",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:acacia_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_boat_bamboo",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplebuilding:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "bamboo"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_bamboo.json",
+      "ingredients": [
+        "minecraft:bamboo_raft",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:bamboo_raft"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 22.5
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_boat_birch",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplebuilding:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "birch"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_birch.json",
+      "ingredients": [
+        "minecraft:birch_boat",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:birch_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:birch_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_boat_cherry",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplebuilding:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "cherry"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_cherry.json",
+      "ingredients": [
+        "minecraft:cherry_boat",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:cherry_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cherry_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_boat_dark_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplebuilding:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "dark_oak"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_dark_oak.json",
+      "ingredients": [
+        "minecraft:dark_oak_boat",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:dark_oak_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_boat_jungle",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplebuilding:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "jungle"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_jungle.json",
+      "ingredients": [
+        "minecraft:jungle_boat",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:jungle_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:jungle_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_boat_mangrove",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplebuilding:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "mangrove"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_mangrove.json",
+      "ingredients": [
+        "minecraft:mangrove_boat",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:mangrove_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_boat_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplebuilding:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "oak"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_oak.json",
+      "ingredients": [
+        "minecraft:oak_boat",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:oak_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_boat_pale_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplebuilding:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "pale_oak"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_pale_oak.json",
+      "ingredients": [
+        "minecraft:pale_oak_boat",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:pale_oak_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_boat_poplar",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplebuilding:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "poplar"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_poplar.json",
+      "ingredients": [
+        "minecraft:poplar_boat",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:poplar_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_boat_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_chest_boat",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:reinforced_chest_boat"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:reinforced_chest_boat"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_boat_spruce",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "netherite_chest_boat",
+      "result": {
+        "id": "simplebuilding:netherite_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "spruce"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_boat_spruce.json",
+      "ingredients": [
+        "minecraft:spruce_boat",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:spruce_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:spruce_log",
+            "count": 1.25
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_chest_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_chest_minecart_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_chest_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_chest_minecart_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:reinforced_chest_minecart"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:reinforced_chest_minecart"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:netherite_chisel_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -74062,6 +75109,202 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:netherite_ingot",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_furnace_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_furnace_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_furnace_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplebuilding:netherite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_furnace"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplebuilding:netherite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_furnace_minecart_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_furnace_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_furnace_minecart_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:reinforced_furnace_minecart"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:reinforced_furnace_minecart"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_hopper_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_hopper_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_hopper_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplebuilding:netherite_hopper"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_hopper"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplebuilding:netherite_hopper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_hopper_minecart_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_hopper_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_hopper_minecart_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:reinforced_hopper_minecart"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:reinforced_hopper_minecart"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 10
+          },
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 9
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.111
           }
         ]
       }
@@ -85925,6 +87168,599 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:reinforced_chest_boat_acacia",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplebuilding:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "acacia"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_acacia.json",
+      "ingredients": [
+        "minecraft:acacia_boat",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:acacia_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_boat_bamboo",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplebuilding:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "bamboo"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_bamboo.json",
+      "ingredients": [
+        "minecraft:bamboo_raft",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:bamboo_raft"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 22.5
+          },
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_boat_birch",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplebuilding:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "birch"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_birch.json",
+      "ingredients": [
+        "minecraft:birch_boat",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:birch_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:birch_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_boat_cherry",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplebuilding:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "cherry"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_cherry.json",
+      "ingredients": [
+        "minecraft:cherry_boat",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:cherry_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:cherry_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_boat_dark_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplebuilding:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "dark_oak"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_dark_oak.json",
+      "ingredients": [
+        "minecraft:dark_oak_boat",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:dark_oak_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_boat_jungle",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplebuilding:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "jungle"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_jungle.json",
+      "ingredients": [
+        "minecraft:jungle_boat",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:jungle_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:jungle_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_boat_mangrove",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplebuilding:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "mangrove"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_mangrove.json",
+      "ingredients": [
+        "minecraft:mangrove_boat",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:mangrove_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_boat_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplebuilding:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "oak"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_oak.json",
+      "ingredients": [
+        "minecraft:oak_boat",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:oak_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 3.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_boat_pale_oak",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplebuilding:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "pale_oak"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_pale_oak.json",
+      "ingredients": [
+        "minecraft:pale_oak_boat",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:pale_oak_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_boat_poplar",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplebuilding:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "poplar"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_poplar.json",
+      "ingredients": [
+        "minecraft:poplar_boat",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:poplar_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:poplar_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_boat_spruce",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "reinforced_chest_boat",
+      "result": {
+        "id": "simplebuilding:reinforced_chest_boat",
+        "count": 1,
+        "components": {
+          "simplebuilding:boat_wood": "spruce"
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_boat_spruce.json",
+      "ingredients": [
+        "minecraft:spruce_boat",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:spruce_boat"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:spruce_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_chest_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:reinforced_furnace",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -85966,6 +87802,49 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:cobblestone",
             "count": 24
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_furnace_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_furnace_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_furnace_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplebuilding:reinforced_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_furnace"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
           }
         ]
       }
@@ -86075,6 +87954,57 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:iron_ingot",
             "count": 5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.111
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_hopper_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_hopper_minecart",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_hopper_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplebuilding:reinforced_hopper"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_hopper"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 10
+          },
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 9
           },
           {
             "id": "minecraft:oak_log",
@@ -105731,6 +107661,14 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_chest_boat",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chest_minecart",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_chestplate",
           "required": true
         },
@@ -105763,6 +107701,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_furnace_minecart",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_helmet",
           "required": true
         },
@@ -105772,6 +107714,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_hopper",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_hopper_minecart",
           "required": true
         },
         {
@@ -105946,6 +107892,14 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_chest_boat",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chest_minecart",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_chestplate",
           "required": true
         },
@@ -105978,6 +107932,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_furnace_minecart",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_helmet",
           "required": true
         },
@@ -105987,6 +107945,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_hopper",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_hopper_minecart",
           "required": true
         },
         {
@@ -112676,6 +114638,37 @@ window.WIKI_DATA = {
         },
         "lines": [
           "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "sledgehammer_upgrade/minecraft:enchanting_table",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "minecraft:enchanting_table",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:netherite_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:astral_enchanting_table",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 400,
+          "hits": 20,
+          "damagePerHit": 10,
+          "damage": 200
+        },
+        "lines": [
           "26.3"
         ]
       },
@@ -136496,15 +138489,15 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 607,
+    "items": 619,
     "blocks": 362,
-    "recipes": 1043,
+    "recipes": 1019,
     "lootTables": 342,
     "trades": 20,
     "enchantments": 19,
     "tags": 50,
     "config": 222,
-    "inWorld": 492,
+    "inWorld": 493,
     "advancements": 127,
     "features": 50,
     "undocumented": 0,

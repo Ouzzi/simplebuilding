@@ -1102,6 +1102,14 @@
       "id": "simplebuilding:enderite_chest"
     },
     {
+      "id": "simplebuilding:enderite_chest_boat",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_chest_minecart",
+      "maxStackSize": 1
+    },
+    {
       "durability": 672,
       "enchantability": 18,
       "id": "simplebuilding:enderite_chestplate",
@@ -1138,6 +1146,10 @@
       "id": "simplebuilding:enderite_furnace"
     },
     {
+      "id": "simplebuilding:enderite_furnace_minecart",
+      "maxStackSize": 1
+    },
+    {
       "durability": 462,
       "enchantability": 18,
       "id": "simplebuilding:enderite_helmet",
@@ -1153,6 +1165,10 @@
     },
     {
       "id": "simplebuilding:enderite_hopper"
+    },
+    {
+      "id": "simplebuilding:enderite_hopper_minecart",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:enderite_horse_armor",
@@ -1757,6 +1773,14 @@
       "id": "simplebuilding:netherite_chest"
     },
     {
+      "id": "simplebuilding:netherite_chest_boat",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_chest_minecart",
+      "maxStackSize": 1
+    },
+    {
       "cooldownTicks": 5,
       "dedicatedSpatula": false,
       "durability": 512,
@@ -1784,7 +1808,15 @@
       "id": "simplebuilding:netherite_furnace"
     },
     {
+      "id": "simplebuilding:netherite_furnace_minecart",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:netherite_hopper"
+    },
+    {
+      "id": "simplebuilding:netherite_hopper_minecart",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:netherite_launchpad",
@@ -2544,6 +2576,14 @@
       "id": "simplebuilding:reinforced_chest"
     },
     {
+      "id": "simplebuilding:reinforced_chest_boat",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:reinforced_chest_minecart",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:reinforced_elytra_pad",
       "maxStackSize": 1
     },
@@ -2555,7 +2595,15 @@
       "id": "simplebuilding:reinforced_furnace"
     },
     {
+      "id": "simplebuilding:reinforced_furnace_minecart",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:reinforced_hopper"
+    },
+    {
+      "id": "simplebuilding:reinforced_hopper_minecart",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:reinforced_paint_box",

@@ -75,6 +75,14 @@ public class SimplebuildingClient implements ClientModInitializer {
             EntityRendererRegistry.register(ModEntities.TRAINING_DUMMY, com.simplebuilding.dummy.client.TrainingDummyRenderer.dummy());
             EntityRendererRegistry.register(ModEntities.SMALL_ARMOR_STAND, com.simplebuilding.dummy.client.SmallArmorStandRenderer::new);
         }
+        // Fahrzeug-Stufen (Queue N19/N23, 26.3; auf 26.2 ein leerer Stub).
+        com.simplebuilding.client.render.VehicleRenderers.register(new com.simplebuilding.client.render.VehicleRenderers.Registrar() {
+            @Override
+            public <T extends net.minecraft.world.entity.Entity> void register(net.minecraft.world.entity.EntityType<? extends T> type,
+                    net.minecraft.client.renderer.entity.EntityRendererProvider<T> provider) {
+                EntityRendererRegistry.register(type, provider);
+            }
+        });
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_TEMPLATE_BE, com.simplebuilding.client.render.PlacedTemplateRenderer::new);

@@ -1,6 +1,7 @@
 package com.simplebuilding.screen;
 
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
+import com.simplebuilding.util.FilterHopper;
 import com.simplebuilding.version.McVersion;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -22,7 +23,8 @@ public class ModHopperScreenHandler extends HopperMenu {
     public static final int FILTER_BUTTON_X = McVersion.CRUCIBLE ? FIRST_SLOT_X - 1 + 5 * 18 + 22 : 44 + 5 * 18 + 4;
     public static final int FILTER_BUTTON_Y = 19;
 
-    private final ModHopperBlockEntity blockEntity;
+    /** The hopper behind the menu: a mod hopper block or a tiered hopper cart (Queue N23); null on the client. */
+    private final @Nullable FilterHopper blockEntity;
 
     // Client
     public ModHopperScreenHandler(int syncId, Inventory playerInventory) {
@@ -30,7 +32,7 @@ public class ModHopperScreenHandler extends HopperMenu {
     }
 
     // Server
-    public ModHopperScreenHandler(int syncId, Inventory playerInventory, Container inventory, ModHopperBlockEntity blockEntity) {
+    public ModHopperScreenHandler(int syncId, Inventory playerInventory, Container inventory, @Nullable FilterHopper blockEntity) {
         super(syncId, playerInventory, inventory);
         this.blockEntity = blockEntity;
         // HopperMenu legt seine fuenf Slots als schlichte Vanilla-Slots an, deren mayPlace konstant true sagt - den
@@ -48,6 +50,11 @@ public class ModHopperScreenHandler extends HopperMenu {
     }
 
     public ModHopperBlockEntity getBlockEntity() {
+        return blockEntity instanceof ModHopperBlockEntity hopper ? hopper : null;
+    }
+
+    /** The hopper whose filter this menu shows: the block or a hopper cart (null on the client). */
+    public @Nullable FilterHopper filterHopper() {
         return blockEntity;
     }
 
@@ -61,9 +68,9 @@ public class ModHopperScreenHandler extends HopperMenu {
      */
     private static final class FilterSlot extends Slot {
 
-        private final @Nullable ModHopperBlockEntity hopper;
+        private final @Nullable FilterHopper hopper;
 
-        private FilterSlot(@Nullable ModHopperBlockEntity hopper, Container container, int slot, int x, int y) {
+        private FilterSlot(@Nullable FilterHopper hopper, Container container, int slot, int x, int y) {
             super(container, slot, x, y);
             this.hopper = hopper;
         }

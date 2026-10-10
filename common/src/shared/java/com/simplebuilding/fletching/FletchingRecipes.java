@@ -15,9 +15,25 @@ public final class FletchingRecipes {
     public static final String ID = "fletching";
 
     public static RecipeType<FletchingRecipe> TYPE;
-    public static RecipeBookCategory CATEGORY;
+    /** Rezeptbuch-Kategorien (N16): Spitze, Schaft, Befiederung, je ein Reiter; IDs {@link #categoryId}. */
+    public static RecipeBookCategory TIP_CATEGORY;
+    public static RecipeBookCategory SHAFT_CATEGORY;
+    public static RecipeBookCategory FLETCHING_CATEGORY;
 
     private FletchingRecipes() {
+    }
+
+    /** Registry-Pfad der Buch-Kategorie einer Teil-Art, z. B. {@code fletching_tip}. */
+    public static String categoryId(FletchingRecipe.Kind kind) {
+        return ID + "_" + kind.getSerializedName();
+    }
+
+    public static RecipeBookCategory category(FletchingRecipe.Kind kind) {
+        return switch (kind) {
+            case TIP -> TIP_CATEGORY;
+            case SHAFT -> SHAFT_CATEGORY;
+            case FLETCHING -> FLETCHING_CATEGORY;
+        };
     }
 
     /** Der Rezepttyp, wie ihn Vanilla-Typen bauen (toString = ID). */
@@ -45,8 +61,8 @@ public final class FletchingRecipes {
     }
 
     /**
-     * Schaltet dem Spieler alle Befiederungsrezepte frei (beim Oeffnen des Tisches): das Rezeptbuch zeigt wie das
-     * fruehere Material-Panel alle Kombinationen, nicht herstellbare rot hinterlegt. Bereits bekannte bleiben unveraendert.
+     * Schaltet dem Spieler alle Befiederungsrezepte frei (beim Oeffnen des Tisches): das Rezeptbuch zeigt je Kategorie
+     * alle Teile, fehlende rot hinterlegt. Bereits bekannte bleiben unveraendert.
      */
     public static void unlockAll(ServerPlayer player) {
         List<RecipeHolder<?>> missing = new ArrayList<>();

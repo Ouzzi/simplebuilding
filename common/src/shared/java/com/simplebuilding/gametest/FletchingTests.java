@@ -126,7 +126,7 @@ public final class FletchingTests {
         helper.getLevel().getServer().getRecipeManager().getRecipes().stream()
                 .filter(holder -> holder.value() instanceof FletchingRecipe)
                 .map(holder -> (FletchingRecipe) holder.value())
-                .forEach(recipe -> helper.assertTrue(recipe.shaft().input() != ModItems.NETHERITE_ROD && recipe.shaft().input() != ModItems.ENDERITE_ROD,
+                .forEach(recipe -> helper.assertTrue(recipe.input() != ModItems.NETHERITE_ROD && recipe.input() != ModItems.ENDERITE_ROD,
                         "a fletching recipe takes a netherite or enderite rod: " + recipe.idPath()));
         helper.succeed();
     }
@@ -192,15 +192,15 @@ public final class FletchingTests {
         helper.succeed();
     }
 
-    private static RecipeHolder<?> fletchingRecipe(GameTestHelper helper, ArrowParts.Parts parts) {
-        Identifier id = Identifier.fromNamespaceAndPath("simplebuilding", new FletchingRecipe(parts).idPath());
+    private static RecipeHolder<?> fletchingRecipe(GameTestHelper helper, FletchingRecipe.Kind kind, net.minecraft.util.StringRepresentable part) {
+        Identifier id = Identifier.fromNamespaceAndPath("simplebuilding", new FletchingRecipe(kind, part.getSerializedName()).idPath());
         return helper.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, id))
                 .orElseThrow(() -> helper.assertionException("the fletching recipe " + id + " is not loaded"));
     }
 
     /**
-     * Rezeptbuch wie an der Werkbank: ein Klick legt Spitze, Schaft und Befiederung aus dem Inventar ein, Shift so viele
-     * wie moeglich, fehlt ein Teil, werden die Felder geraeumt und das Geisterrezept gemeldet. Shift-Klick sortiert ein.
+     * Rezeptbuch (N16): ein Klick auf ein Teil legt es aus dem Inventar in seinen Slot, die anderen Slots bleiben; Shift so
+     * viele wie moeglich; fehlt das Teil, wird nur sein Slot geraeumt und das Geisterrezept gemeldet. Shift-Klick sortiert ein.
      */
     public static void recipeBookPlacesThePartsFromTheInventory(GameTestHelper helper) {
         if (!McVersion.FLETCHING) {
@@ -213,29 +213,37 @@ public final class FletchingTests {
         player.getInventory().setItem(1, new ItemStack(Items.STICK, 5));
         player.getInventory().setItem(2, new ItemStack(Items.PHANTOM_MEMBRANE, 3));
         FletchingMenu menu = new FletchingMenu(1, player.getInventory(), ContainerLevelAccess.NULL);
-        ArrowParts.Parts amethyst = parts(ArrowParts.Tip.AMETHYST, ArrowParts.Shaft.STICK, ArrowParts.Fletching.PHANTOM_MEMBRANE);
-        RecipeHolder<?> recipe = fletchingRecipe(helper, amethyst);
+        RecipeHolder<?> amethyst = fletchingRecipe(helper, FletchingRecipe.Kind.TIP, ArrowParts.Tip.AMETHYST);
+        RecipeHolder<?> stick = fletchingRecipe(helper, FletchingRecipe.Kind.SHAFT, ArrowParts.Shaft.STICK);
+        RecipeHolder<?> membrane = fletchingRecipe(helper, FletchingRecipe.Kind.FLETCHING, ArrowParts.Fletching.PHANTOM_MEMBRANE);
 
-        helper.assertValueEqual(menu.handlePlacement(false, false, recipe, helper.getLevel(), player.getInventory()),
-                RecipeBookMenu.PostPlaceAction.NOTHING, "placing a craftable arrow");
+        helper.assertValueEqual(menu.handlePlacement(false, false, amethyst, helper.getLevel(), player.getInventory()),
+                RecipeBookMenu.PostPlaceAction.NOTHING, "placing an amethyst tip");
         helper.assertValueEqual(menu.getSlot(FletchingMenu.TIP_SLOT).getItem().getCount(), 1, "one tip placed");
+        helper.assertTrue(menu.getSlot(FletchingMenu.SHAFT_SLOT).getItem().isEmpty(), "a tip entry leaves the shaft slot alone");
+        helper.assertTrue(menu.getSlot(FletchingMenu.RESULT_SLOT).getItem().isEmpty(), "no arrow with only a tip");
+        menu.handlePlacement(false, false, stick, helper.getLevel(), player.getInventory());
+        menu.handlePlacement(false, false, membrane, helper.getLevel(), player.getInventory());
+        helper.assertTrue(menu.getSlot(FletchingMenu.TIP_SLOT).getItem().is(Items.AMETHYST_SHARD), "the tip stayed while shaft and fletching were placed");
         helper.assertTrue(menu.getSlot(FletchingMenu.SHAFT_SLOT).getItem().is(Items.STICK), "the stick went into the shaft slot");
         helper.assertTrue(menu.getSlot(FletchingMenu.FLETCHING_SLOT).getItem().is(Items.PHANTOM_MEMBRANE), "the membrane went into the fletching slot");
         ItemStack result = menu.getSlot(FletchingMenu.RESULT_SLOT).getItem();
-        helper.assertValueEqual(ArrowParts.of(result), amethyst, "the result shows the placed arrow");
+        helper.assertValueEqual(ArrowParts.of(result), parts(ArrowParts.Tip.AMETHYST, ArrowParts.Shaft.STICK, ArrowParts.Fletching.PHANTOM_MEMBRANE),
+                "the result shows the assembled arrow");
         helper.assertValueEqual(player.getInventory().countItem(Items.AMETHYST_SHARD), 4, "the tip left the inventory");
 
-        menu.handlePlacement(true, false, recipe, helper.getLevel(), player.getInventory());
-        helper.assertValueEqual(menu.getSlot(FletchingMenu.FLETCHING_SLOT).getItem().getCount(), 3, "shift places as many as the scarcest part allows");
-        helper.assertValueEqual(menu.getSlot(FletchingMenu.TIP_SLOT).getItem().getCount(), 3, "shift places three tips");
+        menu.handlePlacement(true, false, amethyst, helper.getLevel(), player.getInventory());
+        helper.assertValueEqual(menu.getSlot(FletchingMenu.TIP_SLOT).getItem().getCount(), 5, "shift places every amethyst shard");
+        helper.assertValueEqual(menu.getSlot(FletchingMenu.FLETCHING_SLOT).getItem().getCount(), 1, "shift on a tip leaves the fletching");
 
-        RecipeHolder<?> diamond = fletchingRecipe(helper, parts(ArrowParts.Tip.DIAMOND, ArrowParts.Shaft.STICK, ArrowParts.Fletching.FEATHER));
+        RecipeHolder<?> diamond = fletchingRecipe(helper, FletchingRecipe.Kind.TIP, ArrowParts.Tip.DIAMOND);
         helper.assertValueEqual(menu.handlePlacement(false, false, diamond, helper.getLevel(), player.getInventory()),
                 RecipeBookMenu.PostPlaceAction.PLACE_GHOST_RECIPE, "without diamond pebbles the book shows the ghost recipe");
-        helper.assertTrue(menu.getSlot(FletchingMenu.TIP_SLOT).getItem().isEmpty(), "the grid was cleared for the ghost recipe");
+        helper.assertTrue(menu.getSlot(FletchingMenu.TIP_SLOT).getItem().isEmpty(), "the tip slot was cleared for the ghost recipe");
+        helper.assertTrue(menu.getSlot(FletchingMenu.SHAFT_SLOT).getItem().is(Items.STICK), "the shaft stayed for the ghost tip");
         helper.assertValueEqual(player.getInventory().countItem(Items.AMETHYST_SHARD), 5, "the amethyst went back, nothing was made");
-        helper.assertValueEqual(player.getInventory().countItem(Items.PHANTOM_MEMBRANE), 3, "the membranes went back");
 
+        menu.handlePlacement(false, false, stick, helper.getLevel(), player.getInventory());
         int inventorySlot = player.getInventory().findSlotMatchingItem(new ItemStack(Items.PHANTOM_MEMBRANE));
         int membraneSlot = inventorySlot < 9 ? 4 + 27 + inventorySlot : 4 + inventorySlot - 9;
         menu.quickMoveStack(player, membraneSlot);
@@ -243,22 +251,38 @@ public final class FletchingTests {
         helper.succeed();
     }
 
-    /** Fuer jede Teile-Kombination gibt es genau ein Rezept; das Rezeptbuch zeigt das Ergebnis des Tisches. */
+    /**
+     * N16: das Rezeptbuch hat drei Kategorien (Spitze, Schaft, Befiederung); je Teil genau ein Eintrag in der Kategorie
+     * seiner Art, der das Teil mit seiner Wirkung als Kurz-Tooltip zeigt. Keine ganzen Pfeile mehr im Buch.
+     */
     public static void everyCombinationHasItsRecipeBookEntry(GameTestHelper helper) {
         if (!McVersion.FLETCHING) {
             helper.succeed();
             return;
         }
+        helper.assertTrue(FletchingRecipes.TIP_CATEGORY != null && FletchingRecipes.SHAFT_CATEGORY != null && FletchingRecipes.FLETCHING_CATEGORY != null,
+                "the three book categories are registered");
+        helper.assertTrue(FletchingRecipes.TIP_CATEGORY != FletchingRecipes.SHAFT_CATEGORY && FletchingRecipes.SHAFT_CATEGORY != FletchingRecipes.FLETCHING_CATEGORY
+                && FletchingRecipes.TIP_CATEGORY != FletchingRecipes.FLETCHING_CATEGORY, "three distinct book categories");
         long loaded = helper.getLevel().getServer().getRecipeManager().getRecipes().stream()
                 .filter(holder -> holder.value().getType() == FletchingRecipes.TYPE).count();
-        helper.assertValueEqual((int) loaded, ArrowParts.allCombinations().size(), "fletching recipes loaded");
-        for (ArrowParts.Parts parts : ArrowParts.allCombinations()) {
-            FletchingRecipe recipe = (FletchingRecipe) fletchingRecipe(helper, parts).value();
-            ItemStack expected = FletchingMenu.resultFor(new ItemStack(parts.tip().input()), new ItemStack(parts.shaft().input()),
-                    new ItemStack(parts.fletching().input()));
-            helper.assertTrue(ItemStack.matches(recipe.result(), expected), "the book shows what the table makes for " + parts);
-            helper.assertTrue(recipe.recipeBookCategory() == FletchingRecipes.CATEGORY, "book category of " + parts);
-        }
+        int expected = ArrowParts.Tip.values().length + ArrowParts.Shaft.values().length + ArrowParts.Fletching.values().length;
+        helper.assertValueEqual((int) loaded, expected, "fletching recipes loaded (one per part)");
+        java.util.Map<FletchingRecipe.Kind, net.minecraft.util.StringRepresentable[]> kinds = java.util.Map.of(
+                FletchingRecipe.Kind.TIP, ArrowParts.Tip.values(),
+                FletchingRecipe.Kind.SHAFT, ArrowParts.Shaft.values(),
+                FletchingRecipe.Kind.FLETCHING, ArrowParts.Fletching.values());
+        kinds.forEach((kind, parts) -> {
+            for (net.minecraft.util.StringRepresentable part : parts) {
+                FletchingRecipe recipe = (FletchingRecipe) fletchingRecipe(helper, kind, part).value();
+                helper.assertTrue(recipe.recipeBookCategory() == FletchingRecipes.category(kind), "book category of " + recipe.idPath());
+                helper.assertValueEqual(FletchingMenu.partSlotFor(new ItemStack(recipe.input())), kind.slot(), "slot of " + recipe.idPath());
+                ItemStack shown = recipe.result();
+                helper.assertTrue(shown.is(recipe.input()), "the book shows the part itself for " + recipe.idPath());
+                net.minecraft.world.item.component.ItemLore lore = shown.get(net.minecraft.core.component.DataComponents.LORE);
+                helper.assertTrue(lore != null && lore.lines().size() == 1, "one short effect line for " + recipe.idPath());
+            }
+        });
         helper.succeed();
     }
 
@@ -279,7 +303,7 @@ public final class FletchingTests {
         for (RecipeHolder<?> holder : FletchingRecipes.all(player)) {
             helper.assertTrue(player.getRecipeBook().contains(holder.id()), "opening the table unlocked " + holder.id());
         }
-        helper.assertValueEqual(FletchingRecipes.all(player).size(), ArrowParts.allCombinations().size(), "recipes to unlock");
+        helper.assertValueEqual(FletchingRecipes.all(player).size(), FletchingRecipe.all().size(), "recipes to unlock");
         helper.succeed();
     }
 }

@@ -2,7 +2,6 @@ package com.simplebuilding.networking;
 
 import com.simplebuilding.version.McVersion;
 
-import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.BackpackItem;
 import com.simplebuilding.items.custom.BuildingWandItem;
@@ -53,9 +52,9 @@ public final class ModMessageHandlers {
     }
 
     public static void handleToggleHopperFilter(ToggleHopperFilterPayload payload, ServerPlayer player) {
-        if (player.containerMenu instanceof ModHopperScreenHandler screenHandler
-                && screenHandler.getBlockEntity() instanceof ModHopperBlockEntity blockEntity) {
-            blockEntity.toggleFilterMode();
+        // Block or tiered hopper cart (Queue N23): both are FilterHoppers.
+        if (player.containerMenu instanceof ModHopperScreenHandler screenHandler && screenHandler.filterHopper() != null) {
+            screenHandler.filterHopper().toggleFilterMode();
         }
     }
 

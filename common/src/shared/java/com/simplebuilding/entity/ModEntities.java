@@ -1,6 +1,7 @@
 package com.simplebuilding.entity;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.blocks.custom.ChestTier;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -45,7 +46,63 @@ public final class ModEntities {
     public static final EntityType<com.simplebuilding.dummy.SmallArmorStand> SMALL_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY
             ? registerPartialStand("small_armor_stand", 1.0F) : null;
 
+    // --- Fahrzeug-Stufen (Queue N19/N23, 26.3): Kisten-, Ofen-, Trichterloren und Kistenboote je Truhen-Stufe ---
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredChestMinecart> REINFORCED_CHEST_MINECART = vehicles()
+            ? registerCart("reinforced_chest_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredChestMinecart(t, l, ChestTier.REINFORCED)) : null;
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredChestMinecart> NETHERITE_CHEST_MINECART = vehicles()
+            ? registerCart("netherite_chest_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredChestMinecart(t, l, ChestTier.NETHERITE)) : null;
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredChestMinecart> ENDERITE_CHEST_MINECART = vehicles()
+            ? registerCart("enderite_chest_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredChestMinecart(t, l, ChestTier.ENDERITE)) : null;
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredFurnaceMinecart> REINFORCED_FURNACE_MINECART = vehicles()
+            ? registerCart("reinforced_furnace_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredFurnaceMinecart(t, l, ChestTier.REINFORCED)) : null;
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredFurnaceMinecart> NETHERITE_FURNACE_MINECART = vehicles()
+            ? registerCart("netherite_furnace_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredFurnaceMinecart(t, l, ChestTier.NETHERITE)) : null;
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredFurnaceMinecart> ENDERITE_FURNACE_MINECART = vehicles()
+            ? registerCart("enderite_furnace_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredFurnaceMinecart(t, l, ChestTier.ENDERITE)) : null;
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredHopperMinecart> REINFORCED_HOPPER_MINECART = vehicles()
+            ? registerCart("reinforced_hopper_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredHopperMinecart(t, l, ChestTier.REINFORCED)) : null;
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredHopperMinecart> NETHERITE_HOPPER_MINECART = vehicles()
+            ? registerCart("netherite_hopper_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredHopperMinecart(t, l, ChestTier.NETHERITE)) : null;
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredHopperMinecart> ENDERITE_HOPPER_MINECART = vehicles()
+            ? registerCart("enderite_hopper_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredHopperMinecart(t, l, ChestTier.ENDERITE)) : null;
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredChestBoat> REINFORCED_CHEST_BOAT = vehicles()
+            ? registerBoat("reinforced_chest_boat", (t, l) -> new com.simplebuilding.entity.vehicle.TieredChestBoat(t, l, ChestTier.REINFORCED)) : null;
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredChestBoat> NETHERITE_CHEST_BOAT = vehicles()
+            ? registerBoat("netherite_chest_boat", (t, l) -> new com.simplebuilding.entity.vehicle.TieredChestBoat(t, l, ChestTier.NETHERITE)) : null;
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredChestBoat> ENDERITE_CHEST_BOAT = vehicles()
+            ? registerBoat("enderite_chest_boat", (t, l) -> new com.simplebuilding.entity.vehicle.TieredChestBoat(t, l, ChestTier.ENDERITE)) : null;
+
     private ModEntities() {
+    }
+
+    private static boolean vehicles() {
+        return com.simplebuilding.version.McVersion.TIERED_VEHICLES;
+    }
+
+    /** Masse wie Vanillas Loren (0,98 x 0,7, Sitzhoehe, Sichtweite 8). */
+    private static <T extends net.minecraft.world.entity.vehicle.minecart.AbstractMinecart> EntityType<T> registerCart(String name,
+            EntityType.EntityFactory<T> factory) {
+        Identifier id = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
+        EntityType<T> type = EntityType.Builder.of(factory, MobCategory.MISC)
+                .noLootTable()
+                .sized(0.98F, 0.7F)
+                .passengerAttachments(0.1875F)
+                .clientTrackingRange(8)
+                .build(ResourceKey.create(Registries.ENTITY_TYPE, id));
+        return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
+    }
+
+    /** Masse wie Vanillas Kistenboote (1,375 x 0,5625, Sichtweite 10). */
+    private static EntityType<com.simplebuilding.entity.vehicle.TieredChestBoat> registerBoat(String name,
+            EntityType.EntityFactory<com.simplebuilding.entity.vehicle.TieredChestBoat> factory) {
+        Identifier id = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
+        EntityType<com.simplebuilding.entity.vehicle.TieredChestBoat> type = EntityType.Builder.of(factory, MobCategory.MISC)
+                .noLootTable()
+                .sized(1.375F, 0.5625F)
+                .eyeHeight(0.5625F)
+                .clientTrackingRange(10)
+                .build(ResourceKey.create(Registries.ENTITY_TYPE, id));
+        return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
     }
 
     private static EntityType<com.simplebuilding.dummy.TrainingDummy> registerDummy(String name) {

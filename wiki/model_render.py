@@ -469,6 +469,8 @@ class IconRenderer:
                 gui = gui or part_gui
                 continue
             model = self.resolve_model(payload) if payload else None
+            if model and model["flat"] and len(item_parts(definition.get("model"))) == 1:
+                return self.flat_layers(model)
             if not model or model["flat"] or not model["elements"]:
                 return None
             faces += self.model_faces(model, tints)
@@ -477,6 +479,26 @@ class IconRenderer:
         if not faces:
             return None
         return self.draw(faces, gui or DEFAULT_GUI, light)
+
+    def flat_layers(self, model):
+        """
+        A flat item whose own sprite is an overlay on a vanilla sprite (layer0 minecraft:, a later layer the mod's,
+        e.g. the tiered carts and chest boats): the layers stacked, as the game draws them. None for every other flat
+        item - those keep their own texture.
+        """
+        textures = model["textures"]
+        layers = [textures.get(f"layer{i}") for i in range(8)]
+        layers = [l for l in layers if isinstance(l, str)]
+        if len(layers) < 2 or not layers[0].startswith("minecraft:") or all(l.startswith("minecraft:") for l in layers[1:]):
+            return None
+        canvas = None
+        for ref in layers:
+            arr = self.assets.texture(ref)
+            if arr is None:
+                return None
+            image = Image.fromarray((arr * 255.0 + 0.5).astype(np.uint8), "RGBA")
+            canvas = image if canvas is None else Image.alpha_composite(canvas, image.resize(canvas.size, Image.NEAREST))
+        return canvas.resize((SIZE, SIZE), Image.NEAREST)
 
     def render_block_model(self, model_ref: str):
         self.context = model_ref

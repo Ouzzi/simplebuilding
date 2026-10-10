@@ -1321,7 +1321,7 @@ public final class TestCentreSections {
             "enchanted_books", "building_planning");
     /** Zeilen aus Maschinen &amp; Lager, die eigene Abschnitte zeigen. */
     static final Set<String> KNOWN_FUNCTIONAL_ROWS = Set.of("hoppers", "pistons", "furnaces", "smokers", "blast_furnaces",
-            "bundles_and_quivers", "backpacks");
+            "bundles_and_quivers", "backpacks", "chest_vehicles", "rail_vehicles");
 
     /**
      * Neue Tab-Zeilen erscheinen hier von selbst - als Rahmen an der Wand und, wenn es Bloecke sind,

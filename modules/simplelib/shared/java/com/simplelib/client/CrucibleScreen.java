@@ -92,7 +92,7 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         boolean attached = menu.barrelAttached();
         UiBoxes.box(g, px, py, l.crucibleWidth(), l.sectionHeight(), top);
         // N12c: the barrel gets its own box with the same frame as the others (owner: no thicker edges).
-        if (attached) UiBoxes.box(g, x0 + l.barrelBox(), py, CrucibleMenu.barrelBoxWidth(tier), l.sectionHeight(), BARREL);
+        if (attached) UiBoxes.box(g, x0 + l.barrelBox(), y0 + l.barrelBoxTop(), l.barrelBoxWidth(), l.barrelBoxHeight(), BARREL);
         UiBoxes.box(g, px, y0 + l.inventoryBoxTop(), l.width(), l.y() + l.height() - l.inventoryBoxTop(), INVENTORY);
         long now = Util.getMillis();
         CrucibleFlames.draw(g, px + FRAME, py + l.sectionHeight() - FRAME_BOTTOM, l.crucibleWidth() - 2 * FRAME, l.sectionHeight(),

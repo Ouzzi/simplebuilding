@@ -604,6 +604,7 @@ SKIPPED_SHOTS = {
     "26.2": {"mega-guide-locked", "mega-guide-unlocked",
              # McVersion.AUTO_SMITHER / FLETCHING are 26.3 features (ModUiStyleClientTest).
              "modui-auto-smither", "modui-fletching", "modui-autonomous-crafter", "modui-astral-enchanting",
+             "modui-fletching-book",
              # McVersion.CRUCIBLE: the Enderite buckets are 26.3 only (EnderiteBucketClientTest).
              "enderite-buckets-inventory",
              # McVersion.BREWING_EFFECTS / STORAGE_CRAFTING_TABLE are 26.3 features (BrewClientTest).

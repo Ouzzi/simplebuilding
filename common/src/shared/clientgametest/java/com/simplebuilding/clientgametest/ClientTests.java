@@ -114,7 +114,9 @@ public final class ClientTests {
                 // Queue N31 (26.3): jukebox amplifiers relay by radio and show music notes; clears its blocks.
                 new Entry("amplifier-relay", MusicAmplifierClientTest::inWorld),
                 // Queue N31 (26.3): the Astral Enchanter's sliders follow a real mouse drag; clears its table and shelves.
-                new Entry("astral-enchanter", AstralEnchanterClientTest::inWorld));
+                new Entry("astral-enchanter", AstralEnchanterClientTest::inWorld),
+                // Fahrzeug-Stufen (Queue N19/N23, 26.3): carts and chest boats in the world, item sprites in the hotbar.
+                new Entry("vehicles", VehicleClientTest::inWorld));
     }
 
     /**

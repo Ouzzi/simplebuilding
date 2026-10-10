@@ -59,6 +59,11 @@ public final class RecipelessJeiInfo {
         }
         // Astral-Verzauberungstisch (N27): seit N30 als Hammer-Umwandlung in der In-World-Kategorie
         // (InWorldTransformations#sledgehammerUpgrade), daher keine Info-Seite mehr.
+        // Pfeile: am Befiederungstisch aus Teilen (seit claude-q-uirest keine Rezepte mehr je Kombination) - die Infoseite
+        // ist ihr einziger JEI-Eintrag.
+        if (com.simplebuilding.version.McVersion.FLETCHING) {
+            map.put("crafted_arrow", List.of(ModItems.CRAFTED_ARROW));
+        }
         // Kreativ-Baustab und Kreativ-Blaupause (Queue N29): nur im Kreativ-Inventar.
         map.put("creative_tools", List.of(ModItems.CREATIVE_BUILDING_WAND, ModItems.CREATIVE_BLUEPRINT));
         if (com.simplebuilding.version.McVersion.WOODWORK) {
@@ -96,10 +101,6 @@ public final class RecipelessJeiInfo {
             List<ItemLike> chess = new java.util.ArrayList<>(com.simplebuilding.chess.ChessItems.octets());
             chess.addAll(com.simplebuilding.chess.ChessItems.pieces().values());
             map.put("chess", chess);
-        }
-        // Pfeile: seit 2026-10-02 mit Befiederungsrezepten (nur fuers Vanilla-Rezeptbuch), JEI zeigt sie nicht - Hinweis bleibt.
-        if (com.simplebuilding.version.McVersion.FLETCHING) {
-            map.put("crafted_arrow", List.of(ModItems.CRAFTED_ARROW));
         }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             map.put("end_signals", List.of(ModItems.NIHIL_REDSTONE, ModItems.ASTRAL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));

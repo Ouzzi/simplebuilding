@@ -121,11 +121,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .unlockedBy(getHasName(ModItems.OBSIDIAN_CHIP), has(ModItems.OBSIDIAN_CHIP)).save(output, "obsidian_from_obsidian_chips");
                 }
 
-                // Befiederungstisch (B14): ein Rezept je Teile-Kombination, nur fuer das Vanilla-Rezeptbuch des Tisches.
-                // Kein Freischalt-Advancement: das Oeffnen des Tisches schaltet alle frei (FletchingRecipes.unlockAll).
+                // Befiederungstisch (B14, N16): ein Rezept je Teil (Kategorien Spitze/Schaft/Befiederung), nur fuer das
+                // Vanilla-Rezeptbuch des Tisches. Kein Freischalt-Advancement: das Oeffnen schaltet alle frei (FletchingRecipes.unlockAll).
                 if (com.simplebuilding.version.McVersion.FLETCHING) {
-                    for (com.simplebuilding.fletching.ArrowParts.Parts parts : com.simplebuilding.fletching.ArrowParts.allCombinations()) {
-                        com.simplebuilding.fletching.FletchingRecipe recipe = new com.simplebuilding.fletching.FletchingRecipe(parts);
+                    for (com.simplebuilding.fletching.FletchingRecipe recipe : com.simplebuilding.fletching.FletchingRecipe.all()) {
                         output.accept(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, recipe.idPath())),
                                 recipe, null);
                     }
@@ -707,6 +706,42 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Netherit und Enderit am Schmiedetisch; smithing_transform behaelt alle Komponenten.
                 createSmithing(ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, RecipeCategory.TOOLS);
                 createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_BACKPACK);
+
+                // Fahrzeug-Stufen (Queue N19/N23): Werkbank Lore + Stufen-Truhe/-Ofen/-Trichter bzw. Boot der Holzart +
+                // Stufen-Truhe (Holzart im Ergebnis); Schmiedetisch Verstaerkt -> Netherit -> Enderit wie der Rucksack
+                // (smithing_transform behaelt die Holzart).
+                if (com.simplebuilding.version.McVersion.TIERED_VEHICLES) {
+                    com.simplebuilding.blocks.custom.ChestTier[] tiers = com.simplebuilding.blocks.custom.ChestTier.values();
+                    for (com.simplebuilding.blocks.custom.ChestTier tier : tiers) {
+                        Item[][] carts = {
+                                {com.simplebuilding.entity.vehicle.VehicleTiers.chest(tier).asItem(), com.simplebuilding.entity.vehicle.VehicleTiers.chestMinecart(tier)},
+                                {com.simplebuilding.entity.vehicle.VehicleTiers.furnace(tier).asItem(), com.simplebuilding.entity.vehicle.VehicleTiers.furnaceMinecart(tier)},
+                                {com.simplebuilding.entity.vehicle.VehicleTiers.hopper(tier).asItem(), com.simplebuilding.entity.vehicle.VehicleTiers.hopperMinecart(tier)}};
+                        for (Item[] cart : carts) {
+                            ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.TRANSPORTATION, cart[1])
+                                    .requires(cart[0]).requires(Items.MINECART)
+                                    .unlockedBy(getHasName(cart[0]), has(cart[0])).save(output);
+                        }
+                        Item chest = com.simplebuilding.entity.vehicle.VehicleTiers.chest(tier).asItem();
+                        Item boat = com.simplebuilding.entity.vehicle.VehicleTiers.chestBoat(tier);
+                        for (String wood : com.simplebuilding.entity.vehicle.BoatWoods.ALL) {
+                            Item plain = com.simplebuilding.entity.vehicle.BoatWoods.boat(wood);
+                            ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.TRANSPORTATION, new ItemStackTemplate(boat,
+                                            DataComponentPatch.builder().set(com.simplebuilding.component.ModDataComponentTypes.BOAT_WOOD, wood).build()))
+                                    .requires(chest).requires(plain).group(getItemName(boat))
+                                    .unlockedBy(getHasName(chest), has(chest))
+                                    .save(output, getItemName(boat) + "_" + wood);
+                        }
+                    }
+                    for (java.util.function.Function<com.simplebuilding.blocks.custom.ChestTier, Item> kind
+                            : java.util.List.<java.util.function.Function<com.simplebuilding.blocks.custom.ChestTier, Item>>of(
+                                    com.simplebuilding.entity.vehicle.VehicleTiers::chestMinecart, com.simplebuilding.entity.vehicle.VehicleTiers::furnaceMinecart,
+                                    com.simplebuilding.entity.vehicle.VehicleTiers::hopperMinecart, com.simplebuilding.entity.vehicle.VehicleTiers::chestBoat)) {
+                        createSmithing(kind.apply(tiers[0]), kind.apply(tiers[1]), RecipeCategory.TRANSPORTATION);
+                        createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, kind.apply(tiers[1]), ModItems.ENDERITE_INGOT,
+                                RecipeCategory.TRANSPORTATION, kind.apply(tiers[2]));
+                    }
+                }
 
 
                 // =================================================================

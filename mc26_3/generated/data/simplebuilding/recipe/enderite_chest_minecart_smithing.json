@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplebuilding:enderite_ingot",
+  "base": "simplebuilding:netherite_chest_minecart",
+  "result": {
+    "id": "simplebuilding:enderite_chest_minecart"
+  },
+  "template": "simplebuilding:enderite_upgrade_template"
+}

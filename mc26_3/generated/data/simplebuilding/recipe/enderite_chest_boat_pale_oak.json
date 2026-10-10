@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "enderite_chest_boat",
+  "ingredients": [
+    "simplebuilding:enderite_chest",
+    "minecraft:pale_oak_boat"
+  ],
+  "result": {
+    "components": {
+      "simplebuilding:boat_wood": "pale_oak"
+    },
+    "id": "simplebuilding:enderite_chest_boat"
+  }
+}

@@ -150,4 +150,9 @@ public final class ModuleGameTest {
     public void reinforcedCrucibleLoadsOldNineSlots(GameTestHelper h) {
         LibTests.ALL.get("reinforced_crucible_loads_old_nine_slots").accept(h);
     }
+
+    @GameTest
+    public void enderiteBarrelBoxBelowTheCrucible(GameTestHelper h) {
+        LibTests.ALL.get("enderite_barrel_box_below_the_crucible").accept(h);
+    }
 }
