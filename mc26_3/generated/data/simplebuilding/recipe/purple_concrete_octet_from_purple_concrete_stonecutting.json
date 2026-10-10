@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:purple_concrete",
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:purple_concrete_octet"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:cobblestone_octet",
+    "simplebuilding:cobblestone_octet",
+    "simplebuilding:cobblestone_octet",
+    "simplebuilding:cobblestone_octet",
+    "simplebuilding:cobblestone_octet",
+    "simplebuilding:cobblestone_octet",
+    "simplebuilding:cobblestone_octet",
+    "simplebuilding:cobblestone_octet"
+  ],
+  "result": {
+    "id": "minecraft:cobblestone"
+  }
+}

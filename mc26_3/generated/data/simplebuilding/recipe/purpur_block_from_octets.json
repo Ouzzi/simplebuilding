@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:purpur_block_octet",
+    "simplebuilding:purpur_block_octet",
+    "simplebuilding:purpur_block_octet",
+    "simplebuilding:purpur_block_octet",
+    "simplebuilding:purpur_block_octet",
+    "simplebuilding:purpur_block_octet",
+    "simplebuilding:purpur_block_octet",
+    "simplebuilding:purpur_block_octet"
+  ],
+  "result": {
+    "id": "minecraft:purpur_block"
+  }
+}

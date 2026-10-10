@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:orange_wool_octet",
+    "simplebuilding:orange_wool_octet",
+    "simplebuilding:orange_wool_octet",
+    "simplebuilding:orange_wool_octet",
+    "simplebuilding:orange_wool_octet",
+    "simplebuilding:orange_wool_octet",
+    "simplebuilding:orange_wool_octet",
+    "simplebuilding:orange_wool_octet"
+  ],
+  "result": {
+    "id": "minecraft:orange_wool"
+  }
+}

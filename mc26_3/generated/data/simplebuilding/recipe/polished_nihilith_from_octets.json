@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:polished_nihilith_block_octet",
+    "simplebuilding:polished_nihilith_block_octet",
+    "simplebuilding:polished_nihilith_block_octet",
+    "simplebuilding:polished_nihilith_block_octet",
+    "simplebuilding:polished_nihilith_block_octet",
+    "simplebuilding:polished_nihilith_block_octet",
+    "simplebuilding:polished_nihilith_block_octet",
+    "simplebuilding:polished_nihilith_block_octet"
+  ],
+  "result": {
+    "id": "simplebuilding:polished_nihilith"
+  }
+}

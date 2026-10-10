@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:purple_wool",
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:purple_wool_octet"
+  }
+}

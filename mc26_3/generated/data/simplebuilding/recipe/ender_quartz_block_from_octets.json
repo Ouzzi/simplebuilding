@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:ender_quartz_block_octet",
+    "simplebuilding:ender_quartz_block_octet",
+    "simplebuilding:ender_quartz_block_octet",
+    "simplebuilding:ender_quartz_block_octet",
+    "simplebuilding:ender_quartz_block_octet",
+    "simplebuilding:ender_quartz_block_octet",
+    "simplebuilding:ender_quartz_block_octet",
+    "simplebuilding:ender_quartz_block_octet"
+  ],
+  "result": {
+    "id": "simplebuilding:ender_quartz_block"
+  }
+}

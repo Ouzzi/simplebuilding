@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:waxed_oxidized_cut_copper_octet",
+    "simplebuilding:waxed_oxidized_cut_copper_octet",
+    "simplebuilding:waxed_oxidized_cut_copper_octet",
+    "simplebuilding:waxed_oxidized_cut_copper_octet",
+    "simplebuilding:waxed_oxidized_cut_copper_octet",
+    "simplebuilding:waxed_oxidized_cut_copper_octet",
+    "simplebuilding:waxed_oxidized_cut_copper_octet",
+    "simplebuilding:waxed_oxidized_cut_copper_octet"
+  ],
+  "result": {
+    "id": "minecraft:waxed_oxidized_cut_copper"
+  }
+}

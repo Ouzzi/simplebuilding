@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:purple_wool_octet",
+    "simplebuilding:purple_wool_octet",
+    "simplebuilding:purple_wool_octet",
+    "simplebuilding:purple_wool_octet",
+    "simplebuilding:purple_wool_octet",
+    "simplebuilding:purple_wool_octet",
+    "simplebuilding:purple_wool_octet",
+    "simplebuilding:purple_wool_octet"
+  ],
+  "result": {
+    "id": "minecraft:purple_wool"
+  }
+}

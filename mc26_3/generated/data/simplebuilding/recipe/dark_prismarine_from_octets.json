@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:dark_prismarine_octet",
+    "simplebuilding:dark_prismarine_octet",
+    "simplebuilding:dark_prismarine_octet",
+    "simplebuilding:dark_prismarine_octet",
+    "simplebuilding:dark_prismarine_octet",
+    "simplebuilding:dark_prismarine_octet",
+    "simplebuilding:dark_prismarine_octet",
+    "simplebuilding:dark_prismarine_octet"
+  ],
+  "result": {
+    "id": "minecraft:dark_prismarine"
+  }
+}

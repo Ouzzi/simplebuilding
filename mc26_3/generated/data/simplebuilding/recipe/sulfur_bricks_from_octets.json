@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:sulfur_bricks_octet",
+    "simplebuilding:sulfur_bricks_octet",
+    "simplebuilding:sulfur_bricks_octet",
+    "simplebuilding:sulfur_bricks_octet",
+    "simplebuilding:sulfur_bricks_octet",
+    "simplebuilding:sulfur_bricks_octet",
+    "simplebuilding:sulfur_bricks_octet",
+    "simplebuilding:sulfur_bricks_octet"
+  ],
+  "result": {
+    "id": "minecraft:sulfur_bricks"
+  }
+}

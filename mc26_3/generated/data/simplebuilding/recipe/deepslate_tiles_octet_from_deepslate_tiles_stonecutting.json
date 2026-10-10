@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:deepslate_tiles",
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:deepslate_tiles_octet"
+  }
+}

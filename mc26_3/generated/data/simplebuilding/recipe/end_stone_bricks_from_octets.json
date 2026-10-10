@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:end_stone_bricks_octet",
+    "simplebuilding:end_stone_bricks_octet",
+    "simplebuilding:end_stone_bricks_octet",
+    "simplebuilding:end_stone_bricks_octet",
+    "simplebuilding:end_stone_bricks_octet",
+    "simplebuilding:end_stone_bricks_octet",
+    "simplebuilding:end_stone_bricks_octet",
+    "simplebuilding:end_stone_bricks_octet"
+  ],
+  "result": {
+    "id": "minecraft:end_stone_bricks"
+  }
+}

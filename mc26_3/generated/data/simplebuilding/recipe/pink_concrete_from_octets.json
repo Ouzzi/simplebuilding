@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:pink_concrete_octet",
+    "simplebuilding:pink_concrete_octet",
+    "simplebuilding:pink_concrete_octet",
+    "simplebuilding:pink_concrete_octet",
+    "simplebuilding:pink_concrete_octet",
+    "simplebuilding:pink_concrete_octet",
+    "simplebuilding:pink_concrete_octet",
+    "simplebuilding:pink_concrete_octet"
+  ],
+  "result": {
+    "id": "minecraft:pink_concrete"
+  }
+}

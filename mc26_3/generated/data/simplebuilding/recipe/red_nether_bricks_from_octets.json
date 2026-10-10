@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:red_nether_bricks_octet",
+    "simplebuilding:red_nether_bricks_octet",
+    "simplebuilding:red_nether_bricks_octet",
+    "simplebuilding:red_nether_bricks_octet",
+    "simplebuilding:red_nether_bricks_octet",
+    "simplebuilding:red_nether_bricks_octet",
+    "simplebuilding:red_nether_bricks_octet",
+    "simplebuilding:red_nether_bricks_octet"
+  ],
+  "result": {
+    "id": "minecraft:red_nether_bricks"
+  }
+}

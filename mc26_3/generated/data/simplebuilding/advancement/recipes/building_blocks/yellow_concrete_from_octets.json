@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:yellow_concrete_from_octets"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_yellow_concrete_octet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:yellow_concrete_octet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_yellow_concrete_octet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:yellow_concrete_from_octets"
+    ]
+  }
+}

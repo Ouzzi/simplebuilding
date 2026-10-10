@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:light_gray_concrete",
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:light_gray_concrete_octet"
+  }
+}

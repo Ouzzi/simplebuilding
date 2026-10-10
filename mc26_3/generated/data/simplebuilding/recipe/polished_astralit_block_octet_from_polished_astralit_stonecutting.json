@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:polished_astralit",
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:polished_astralit_block_octet"
+  }
+}

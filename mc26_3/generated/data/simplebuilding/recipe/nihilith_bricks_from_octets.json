@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:nihilith_bricks_octet",
+    "simplebuilding:nihilith_bricks_octet",
+    "simplebuilding:nihilith_bricks_octet",
+    "simplebuilding:nihilith_bricks_octet",
+    "simplebuilding:nihilith_bricks_octet",
+    "simplebuilding:nihilith_bricks_octet",
+    "simplebuilding:nihilith_bricks_octet",
+    "simplebuilding:nihilith_bricks_octet"
+  ],
+  "result": {
+    "id": "simplebuilding:nihilith_bricks"
+  }
+}

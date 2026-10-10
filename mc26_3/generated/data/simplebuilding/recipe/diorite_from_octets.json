@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:diorite_octet",
+    "simplebuilding:diorite_octet",
+    "simplebuilding:diorite_octet",
+    "simplebuilding:diorite_octet",
+    "simplebuilding:diorite_octet",
+    "simplebuilding:diorite_octet",
+    "simplebuilding:diorite_octet",
+    "simplebuilding:diorite_octet"
+  ],
+  "result": {
+    "id": "minecraft:diorite"
+  }
+}

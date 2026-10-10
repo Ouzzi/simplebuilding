@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:exposed_cut_copper",
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:exposed_cut_copper_octet"
+  }
+}

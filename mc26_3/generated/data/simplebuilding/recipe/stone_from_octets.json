@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:stone_octet",
+    "simplebuilding:stone_octet",
+    "simplebuilding:stone_octet",
+    "simplebuilding:stone_octet",
+    "simplebuilding:stone_octet",
+    "simplebuilding:stone_octet",
+    "simplebuilding:stone_octet",
+    "simplebuilding:stone_octet"
+  ],
+  "result": {
+    "id": "minecraft:stone"
+  }
+}

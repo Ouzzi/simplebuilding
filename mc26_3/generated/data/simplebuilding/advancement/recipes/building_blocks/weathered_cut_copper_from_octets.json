@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:weathered_cut_copper_from_octets"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_weathered_cut_copper_octet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:weathered_cut_copper_octet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_weathered_cut_copper_octet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:weathered_cut_copper_from_octets"
+    ]
+  }
+}

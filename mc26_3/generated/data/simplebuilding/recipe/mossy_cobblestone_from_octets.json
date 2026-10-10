@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:mossy_cobblestone_octet",
+    "simplebuilding:mossy_cobblestone_octet",
+    "simplebuilding:mossy_cobblestone_octet",
+    "simplebuilding:mossy_cobblestone_octet",
+    "simplebuilding:mossy_cobblestone_octet",
+    "simplebuilding:mossy_cobblestone_octet",
+    "simplebuilding:mossy_cobblestone_octet",
+    "simplebuilding:mossy_cobblestone_octet"
+  ],
+  "result": {
+    "id": "minecraft:mossy_cobblestone"
+  }
+}

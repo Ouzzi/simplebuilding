@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:polished_cinnabar_octet",
+    "simplebuilding:polished_cinnabar_octet",
+    "simplebuilding:polished_cinnabar_octet",
+    "simplebuilding:polished_cinnabar_octet",
+    "simplebuilding:polished_cinnabar_octet",
+    "simplebuilding:polished_cinnabar_octet",
+    "simplebuilding:polished_cinnabar_octet",
+    "simplebuilding:polished_cinnabar_octet"
+  ],
+  "result": {
+    "id": "minecraft:polished_cinnabar"
+  }
+}

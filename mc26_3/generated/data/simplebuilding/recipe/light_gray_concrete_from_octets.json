@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:light_gray_concrete_octet",
+    "simplebuilding:light_gray_concrete_octet",
+    "simplebuilding:light_gray_concrete_octet",
+    "simplebuilding:light_gray_concrete_octet",
+    "simplebuilding:light_gray_concrete_octet",
+    "simplebuilding:light_gray_concrete_octet",
+    "simplebuilding:light_gray_concrete_octet",
+    "simplebuilding:light_gray_concrete_octet"
+  ],
+  "result": {
+    "id": "minecraft:light_gray_concrete"
+  }
+}

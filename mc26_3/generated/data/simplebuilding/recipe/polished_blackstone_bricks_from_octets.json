@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:polished_blackstone_bricks_octet",
+    "simplebuilding:polished_blackstone_bricks_octet",
+    "simplebuilding:polished_blackstone_bricks_octet",
+    "simplebuilding:polished_blackstone_bricks_octet",
+    "simplebuilding:polished_blackstone_bricks_octet",
+    "simplebuilding:polished_blackstone_bricks_octet",
+    "simplebuilding:polished_blackstone_bricks_octet",
+    "simplebuilding:polished_blackstone_bricks_octet"
+  ],
+  "result": {
+    "id": "minecraft:polished_blackstone_bricks"
+  }
+}

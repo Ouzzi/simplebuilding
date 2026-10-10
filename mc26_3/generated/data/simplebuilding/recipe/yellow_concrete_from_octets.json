@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:yellow_concrete_octet",
+    "simplebuilding:yellow_concrete_octet",
+    "simplebuilding:yellow_concrete_octet",
+    "simplebuilding:yellow_concrete_octet",
+    "simplebuilding:yellow_concrete_octet",
+    "simplebuilding:yellow_concrete_octet",
+    "simplebuilding:yellow_concrete_octet",
+    "simplebuilding:yellow_concrete_octet"
+  ],
+  "result": {
+    "id": "minecraft:yellow_concrete"
+  }
+}

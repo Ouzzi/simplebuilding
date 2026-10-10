@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:blackstone_block_octet",
+    "simplebuilding:blackstone_block_octet",
+    "simplebuilding:blackstone_block_octet",
+    "simplebuilding:blackstone_block_octet",
+    "simplebuilding:blackstone_block_octet",
+    "simplebuilding:blackstone_block_octet",
+    "simplebuilding:blackstone_block_octet",
+    "simplebuilding:blackstone_block_octet"
+  ],
+  "result": {
+    "id": "minecraft:blackstone"
+  }
+}

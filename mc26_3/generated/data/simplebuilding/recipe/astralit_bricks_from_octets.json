@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:astralit_bricks_octet",
+    "simplebuilding:astralit_bricks_octet",
+    "simplebuilding:astralit_bricks_octet",
+    "simplebuilding:astralit_bricks_octet",
+    "simplebuilding:astralit_bricks_octet",
+    "simplebuilding:astralit_bricks_octet",
+    "simplebuilding:astralit_bricks_octet",
+    "simplebuilding:astralit_bricks_octet"
+  ],
+  "result": {
+    "id": "simplebuilding:astralit_bricks"
+  }
+}

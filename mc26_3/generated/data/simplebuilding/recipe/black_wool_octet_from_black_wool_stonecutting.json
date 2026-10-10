@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:black_wool",
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:black_wool_octet"
+  }
+}

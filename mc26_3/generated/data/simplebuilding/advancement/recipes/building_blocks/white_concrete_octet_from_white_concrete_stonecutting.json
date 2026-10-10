@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:white_concrete_octet_from_white_concrete_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_white_concrete": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:white_concrete"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_white_concrete"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:white_concrete_octet_from_white_concrete_stonecutting"
+    ]
+  }
+}

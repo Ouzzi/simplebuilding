@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:blue_wool_octet",
+    "simplebuilding:blue_wool_octet",
+    "simplebuilding:blue_wool_octet",
+    "simplebuilding:blue_wool_octet",
+    "simplebuilding:blue_wool_octet",
+    "simplebuilding:blue_wool_octet",
+    "simplebuilding:blue_wool_octet",
+    "simplebuilding:blue_wool_octet"
+  ],
+  "result": {
+    "id": "minecraft:blue_wool"
+  }
+}

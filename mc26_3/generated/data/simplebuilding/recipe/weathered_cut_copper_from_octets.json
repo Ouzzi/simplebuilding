@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:weathered_cut_copper_octet",
+    "simplebuilding:weathered_cut_copper_octet",
+    "simplebuilding:weathered_cut_copper_octet",
+    "simplebuilding:weathered_cut_copper_octet",
+    "simplebuilding:weathered_cut_copper_octet",
+    "simplebuilding:weathered_cut_copper_octet",
+    "simplebuilding:weathered_cut_copper_octet",
+    "simplebuilding:weathered_cut_copper_octet"
+  ],
+  "result": {
+    "id": "minecraft:weathered_cut_copper"
+  }
+}
