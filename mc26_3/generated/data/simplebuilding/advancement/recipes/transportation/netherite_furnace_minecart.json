@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_netherite_furnace": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:netherite_furnace"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:netherite_furnace_minecart"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_netherite_furnace"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:netherite_furnace_minecart"
+    ]
+  }
+}

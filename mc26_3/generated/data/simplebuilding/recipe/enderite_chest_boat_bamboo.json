@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "enderite_chest_boat",
+  "ingredients": [
+    "simplebuilding:enderite_chest",
+    "minecraft:bamboo_raft"
+  ],
+  "result": {
+    "components": {
+      "simplebuilding:boat_wood": "bamboo"
+    },
+    "id": "simplebuilding:enderite_chest_boat"
+  }
+}

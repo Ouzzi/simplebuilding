@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "simplebuilding:enderite_furnace",
+    "minecraft:minecart"
+  ],
+  "result": {
+    "id": "simplebuilding:enderite_furnace_minecart"
+  }
+}
