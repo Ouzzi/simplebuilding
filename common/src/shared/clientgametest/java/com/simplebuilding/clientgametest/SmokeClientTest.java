@@ -1022,6 +1022,14 @@ public final class SmokeClientTest {
         script.idle("let the stone and the sledgehammer reach the client", 15);
         TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
 
+        // The hammer only reshapes while sneaking (claude-q-hammer); on 26.3 sneaking carves one eighth off the
+        // stone, which leaves stone stairs (inner corner). Older versions reshape without sneaking.
+        boolean sneakToReshape = com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS;
+        if (sneakToReshape) {
+            script.harness("hold the sneak key for the sledgehammer", harness -> harness.holdKey(SNEAK_KEY));
+            script.idle("let the sneak state reach the server", 10);
+        }
+
         Later<List<SoundRecorder.Heard>> transformed = new Later<>("the sounds heard while transforming");
         script.verify("start recording sounds for the sledgehammer", SoundRecorder::arm);
         script.harness("hold the right mouse button on the stone", harness -> harness.holdMouse(InputConstants.MOUSE_BUTTON_RIGHT));
@@ -1030,6 +1038,9 @@ public final class SmokeClientTest {
                 client -> "the stone never became stairs while the right button was held, so the "
                         + "sledgehammer's use never finished. " + TestScene.describeAim(client));
         script.harness("release the right mouse button", harness -> harness.releaseMouse(InputConstants.MOUSE_BUTTON_RIGHT));
+        if (sneakToReshape) {
+            script.harness("release the sneak key after the sledgehammer", harness -> harness.releaseKey(SNEAK_KEY));
+        }
         script.idle("let the sound packet catch up with the block update", 5);
         script.verify("stop recording sounds for the sledgehammer", () -> {
             transformed.set(SoundRecorder.heard());
