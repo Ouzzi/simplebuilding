@@ -6,8 +6,12 @@ package com.simplelib.api.client.ui;
  * on a dedicated server (tests, registries).
  */
 public record UiPalette(int fill, int light, int shade, int slot, int slotTop, int label) {
-    /** Light inventory box below every container box (image 3). */
-    public static final UiPalette INVENTORY = new UiPalette(0xFFE3E6E9, 0xFFF8F9FA, 0xFFC5CACE, 0xFFB4BABF, 0xFF979DA3, 0xFF404040);
+    /**
+     * Inventory box below every container box (image 3). Colours of Vanilla's container GUI (N30, read from
+     * {@code textures/gui/container/generic_54.png}): fill #C6C6C6, white only as the 1 px light edge, shade #555555,
+     * slot #8B8B8B with its #373737 top line, label #404040.
+     */
+    public static final UiPalette INVENTORY = new UiPalette(0xFFC6C6C6, 0xFFFFFFFF, 0xFF555555, 0xFF8B8B8B, 0xFF373737, 0xFF404040);
     /** Copper-brown box of a barrel attached to a crucible (N12c). */
     public static final UiPalette BARREL = new UiPalette(0xFFB9774F, 0xFFD08F68, 0xFF955839, 0xFF94573A, 0xFF74412B, 0xFF404040);
     /** Iron tier (crucible, horseshoe panel). */

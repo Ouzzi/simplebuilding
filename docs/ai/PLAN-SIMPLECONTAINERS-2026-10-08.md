@@ -141,7 +141,7 @@ Quelle: `tools/ui/simplecontainers_preview.py` (P / derive), Vorschauen + Entsch
 | `cartography` | Kartentisch | #6B5A45 | #918475 | #574938 | #534635 | #44392C | #F2EEE8 | paper |
 | `smithing` | Schmiedetisch | #4B1E19 | #795854 | #3D1814 | #3A1713 | #301310 | #F2EEE8 | metal |
 | `merchant` | Handel | #3F8A55 | #70A881 | #337145 | #316B42 | #285836 | #F2EEE8 | leather |
-| `player` | Inventar | #E3E6E9 | #F8F9FA | #C5CACE | #B4BABF | #979DA3 | #404040 | none |
+| `player` | Inventar (N30: Vanilla-GUI-Farben) | #C6C6C6 | #FFFFFF | #555555 | #8B8B8B | #373737 | #404040 | none |
 | `chest_reinforced` | Verstaerkt | #6F9095 | #9DBCC1 | #587378 | #55737A | #425C61 | #F0F6F6 | metal |
 | `chest_netherite` | Netherit | #5F524C | #867870 | #4A3F3A | #473C37 | #352C28 | #EFE4DA | nether |
 | `chest_enderite` | Enderit | #8E6CB0 | #B99AD6 | #735693 | #70538E | #594073 | #F7F0FF | ender |
