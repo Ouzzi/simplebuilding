@@ -213,5 +213,5 @@ Musiknoten-Partikel.“ Branch `claude-q-amp`.
 - **Partikel:** `JukeboxSongPlayerSpeakerMixin` hängt sich hinter Vanillas `spawnMusicParticles` (alle 20 Ticks) und
   schickt dieselbe Note über jedem Verstärker der Kette (`SpeakerBoost.spawnRelayParticles`). Stopp: keine Noten mehr.
 - Noten-Verstärker bleiben Nachbar-Ketten; direkte Verstärkung (+50 %) bleibt nur für angrenzende.
-- Tests: `jukeboxAmplifiersRelayByRadioInAChain`, `relayingAmplifiersShowNotesAndStopWithTheJukebox`, angepasst
+- Tests: `jukeboxAmplifiersRelayByRadio`, `relayingAmplifiersShowNotesAndStopWithTheJukebox`, angepasst
   `speakerChainsFollowTheirKindUpToTheLimit`; Client-Bild `amplifier-relay-notes` (`MusicAmplifierClientTest`).

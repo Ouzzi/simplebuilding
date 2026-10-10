@@ -37,8 +37,8 @@ public final class MusicDiscGameTest {
         MusicDiscTests.speakerChainsFollowTheirKindUpToTheLimit(helper);
     }
     @GameTest
-    public void jukeboxAmplifiersRelayByRadioInAChain(GameTestHelper helper) {
-        MusicDiscTests.jukeboxAmplifiersRelayByRadioInAChain(helper);
+    public void jukeboxAmplifiersRelayByRadio(GameTestHelper helper) {
+        MusicDiscTests.jukeboxAmplifiersRelayByRadio(helper);
     }
     @GameTest(maxTicks = 200)
     public void relayingAmplifiersShowNotesAndStopWithTheJukebox(GameTestHelper helper) {

@@ -400,10 +400,11 @@ public final class MusicDiscTests {
 
     /** Nur die Kettenglieder im eigenen Testraum (Musik-Verstärker funken auch in Nachbarraeume anderer Tests). */
     private static List<BlockPos> own(GameTestHelper helper, List<BlockPos> chain) {
-        return chain.stream().filter(pos -> {
-            BlockPos rel = helper.relativePos(pos);
-            return rel.getX() >= 0 && rel.getX() < 8 && rel.getZ() >= 0 && rel.getZ() < 8;
-        }).toList();
+        BlockPos a = helper.absolutePos(BlockPos.ZERO);
+        BlockPos b = helper.absolutePos(new BlockPos(7, 0, 7));
+        int minX = Math.min(a.getX(), b.getX()), maxX = Math.max(a.getX(), b.getX());
+        int minZ = Math.min(a.getZ(), b.getZ()), maxZ = Math.max(a.getZ(), b.getZ());
+        return chain.stream().filter(pos -> pos.getX() >= minX && pos.getX() <= maxX && pos.getZ() >= minZ && pos.getZ() <= maxZ).toList();
     }
 
     /**
@@ -411,7 +412,7 @@ public final class MusicDiscTests {
      * 16 Bloecken weiter, jeder gespeiste Verstärker wieder an die naechsten. Ausserhalb der Reichweite kein Glied;
      * faellt ein Zwischenglied weg, reisst die Kette dahinter ab. Noten-Verstärker bleiben Nachbar-Ketten.
      */
-    public static void jukeboxAmplifiersRelayByRadioInAChain(GameTestHelper helper) {
+    public static void jukeboxAmplifiersRelayByRadio(GameTestHelper helper) {
         if (!enabled(helper)) return;
         ServerLevel level = helper.getLevel();
         // Hoch ueber dem Testraum: Verstärker anderer Tests (bodennah) liegen dann ausser Funkweite.
@@ -469,9 +470,10 @@ public final class MusicDiscTests {
      */
     public static void relayingAmplifiersShowNotesAndStopWithTheJukebox(GameTestHelper helper) {
         if (!enabled(helper)) return;
-        BlockPos jukebox = new BlockPos(1, 2, 1);
-        BlockPos a = new BlockPos(6, 2, 6);
-        BlockPos b = new BlockPos(6, 17, 6);
+        // Hoch ueber dem Testraum: spielende Plattenspieler anderer Tests funken diese Verstärker dann nicht an.
+        BlockPos jukebox = new BlockPos(1, 27, 1);
+        BlockPos a = new BlockPos(6, 27, 6);
+        BlockPos b = new BlockPos(6, 42, 6);
         helper.setBlock(jukebox, Blocks.JUKEBOX);
         helper.setBlock(a, ModBlocks.JUKEBOX_AMPLIFIER);
         helper.setBlock(b, ModBlocks.JUKEBOX_AMPLIFIER);
