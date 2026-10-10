@@ -142,7 +142,7 @@ public final class BuildingCoreTests {
         int total = 0;
         for (int i = 0; i < motions.length; i++) {
             total += motions[i].weight;
-            if (i > 0 && motions[i] != com.simplebuilding.items.custom.CoreHandMotion.Motion.FORGE) {
+            if (i > 0 && motions[i].weight > 0) { // FORGE and the sage orb's ORB are never rolled
                 helper.assertTrue(motions[i].weight < motions[i - 1].weight, motions[i] + " is not rarer than " + motions[i - 1]);
             }
             helper.assertTrue(motions[i].ticks <= com.simplebuilding.items.custom.CoreHandMotion.Motion.FORGE.ticks, motions[i] + " outlasts the ore motion");

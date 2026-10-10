@@ -1,4 +1,4 @@
-"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4|--v5|--v6|--v7|--v8] [--shapes]
+"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4|--v5|--v6|--v7|--v8|--n18] [--shapes]
 
 v2 (2026-10-05): sandwich/bread, bread half, knife, board and cake slice come from the v2 section with
 variants A/B/C (STYLE picks the built-in one); --old=<copy of the previous textures> writes the comparison
@@ -1671,6 +1671,138 @@ def preview_v8(path):
     print('preview v8:', path)
 
 
+# --- N18 (owner 2026-10-07: "Sandwiches appetitlicher", preview with variants) ----------------------------
+# Plan C4 (docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md): richer ingredient colours, more contrast and gloss, a
+# fuller-looking filling. All three keep the v8 geometry (layer rows, bun heights, item model unchanged):
+#   A  juicy: every layer gets gloss specks (its lightest tone) and a darker contact shadow on its lower row,
+#      fillings bulge one pixel past the bun on both sides, the bun's baker's cuts drop their dark under-pixel
+#      (no more checker look) and the dome gets a larger gloss spot.         <- built in
+#   B  toasted: A, with a toastier crust (one tone darker) and a golden toasted crumb line.
+#   C  sesame + sauce: A, sesame seeds on the dome instead of the cuts, a creamy sauce line on the bottom slice.
+N18_STYLE = 'A'
+SESAME = 'fff3d0'
+SAUCE = ('fff6e0', 'f1e2b8')
+
+
+def filling_n18(key, p, variant=None):
+    variant = variant or N18_STYLE
+    im = filling_v5(key, p)
+    pal = LAYERS[key][0]
+    for y in range(16):                                                 # richer colours
+        for x in range(16):
+            c = im.getpixel((x, y))
+            if c[3]:
+                put(im, x, y, _vivid(c, 1.15, 1.03))
+    gloss = _vivid(hx(pal['5']), 1.2, 1.04)
+    for x in range(X0, X1 + 1):
+        rr = _layer_rows(x, p)
+        if (x * 3 + p * 5) % 5 == 1:
+            put(im, x, rr[0], gloss)                                    # gloss specks on the lit row
+        if len(rr) == 2:
+            put(im, x, rr[1], shade(im.getpixel((x, rr[1])), 0.82))    # contact shadow (2-row base layer)
+    # fuller filling: bulges past the bun on both ends (the v5 overhang only reached one side)
+    for end, inner in ((X0 - 1, X0), (X1 + 1, X1)):
+        y = _layer_rows(inner, p)[0]
+        if not im.getpixel((end, y))[3]:
+            put(im, end, y, shade(_vivid(hx(pal['3'])), 0.8))
+    return im
+
+
+def bun_top_n18(n, variant=None):
+    variant = variant or N18_STYLE
+    im = bun_top_v5(n)
+    cells = {(x, y) for y in range(16) for x in range(16) if im.getpixel((x, y))[3]}
+    lowest = {}
+    for (x, y) in cells:
+        lowest[x] = max(lowest.get(x, -1), y)
+    crust = BUN_WARM if variant != 'B' else ['2c1505', '3a1d08'] + BUN_WARM[1:-1]
+    if variant == 'B':                                                  # toastier: every crust tone one step down
+        for (x, y) in cells:
+            c = im.getpixel((x, y))[:3]
+            hexc = '%02x%02x%02x' % c
+            if hexc in BUN_WARM:
+                put(im, x, y, hx(crust[BUN_WARM.index(hexc)]))
+    for (x, y) in cells:
+        if any((x + dx, y + dy) not in cells for dx, dy in ((1, 0), (-1, 0), (0, -1))):
+            put(im, x, y, hx(BUN_WARM[0]))
+    xs = sorted(lowest)
+    for x in xs[1:-1]:                                                  # crumb line: golden, not a pale stripe
+        put(im, x, lowest[x], hx('e8b45a' if variant == 'B' else 'f6d48e'))
+    for x in (xs[0], xs[-1]):
+        put(im, x, lowest[x], hx(BUN_WARM[0]))
+    outline = hx(BUN_WARM[0])[:3]
+    inside = lambda q: q in cells and q[1] < lowest.get(q[0], 0) - 1 and im.getpixel(q)[:3] != outline
+    if variant == 'C':
+        for sx, dy in ((4, 2), (7, 1), (10, 2), (6, 3), (9, 4), (12, 3)):
+            col = [y for (x, y) in cells if x == sx]
+            if col and inside((sx, min(col) + dy)):
+                put(im, sx, min(col) + dy, hx(SESAME))
+    else:
+        for cx in (4, 7, 10):                                           # calm baker's cuts: light line only
+            col = [y for (x, y) in cells if x == cx]
+            if not col:
+                continue
+            y0 = min(col) + 3
+            for dx, dy in ((0, 0), (1, -1)):                            # short 2-px cuts, one tone
+                q = (cx + dx, y0 + dy)
+                if inside(q):
+                    put(im, *q, hx(CUT_LIGHT))
+    for x, dy in ((5, 1), (6, 1), (5, 2)):                              # larger gloss spot on the upper left
+        col = [y for (cx, y) in cells if cx == x]
+        if col and inside((x, min(col) + dy)) and not (variant == 'C' and im.getpixel((x, min(col) + dy))[:3] == hx(SESAME)[:3]):
+            put(im, x, min(col) + dy, hx('fff0c4'))
+    return im
+
+
+def bun_bottom_n18(buttered=False, variant=None):
+    variant = variant or N18_STYLE
+    im = bun_bottom_v8(buttered)
+    if variant == 'B':
+        for x in range(16):
+            b = _base(x)
+            if _span(x, 1) and not buttered:
+                put(im, x, b, hx('f0c26a'))
+    if variant == 'C' and not buttered:
+        for x in range(16):
+            if _span(x, 1):
+                put(im, x, _base(x), hx(SAUCE[0] if x % 3 else SAUCE[1]))
+    return im
+
+
+def sandwich_n18(keys, buttered=False, variant=None):
+    im = bun_bottom_n18(buttered, variant)
+    for i, k in enumerate(keys):
+        im.alpha_composite(filling_n18(k, i, variant))
+    im.alpha_composite(bun_top_n18(len(keys), variant))
+    return im
+
+
+def preview_n18(path):
+    s = 10
+    cell = 16 * s + 16
+    combos = [['beef_cooked'], ['pork_cooked', 'cheese'], ['salmon_cooked', 'kelp', 'cheese'],
+              ['chicken_cooked', 'cheese', 'beetroot', 'potato'], ['beef_cooked', 'cheese', 'carrot', 'kelp', 'golden']]
+    rows = [('vorher (v8)', [sandwich_v8([], True)] + [sandwich_v8(c) for c in combos])]
+    names = {'A': 'A saftig: Glanzpunkte, Kontaktschatten, Fuellung quillt beidseitig, ruhige Schnitte',
+             'B': 'B geroestet: wie A, Kruste dunkler, goldene Roestkante',
+             'C': 'C Sesam + Sosse: wie A, Sesam statt Schnitten, cremige Sossenlinie'}
+    for v in 'ABC':
+        rows.append((names[v] + (' * eingebaut' if v == N18_STYLE else ''),
+                     [sandwich_n18([], True, v)] + [sandwich_n18(c, False, v) for c in combos]))
+    sheet = Image.new('RGBA', (20 + 6 * cell, 30 + len(rows) * (cell + 40)), (139, 139, 139, 255))
+    dr = ImageDraw.Draw(sheet)
+    dr.text((10, 8), 'N18 Sandwiches appetitlicher - Butterbrot, 1-5 Zutaten; 10x, darunter 1x', fill=(0, 0, 0, 255))
+    for r, (title, ims) in enumerate(rows):
+        y = 30 + r * (cell + 40)
+        dr.text((10, y), title, fill=(0, 0, 0, 255))
+        for c, im in enumerate(ims):
+            x = 10 + c * cell
+            sheet.alpha_composite(im.resize((16 * s, 16 * s), Image.NEAREST), (x, y + 14))
+            sheet.alpha_composite(im, (x, y + 18 + 16 * s))
+    sheet.save(path)
+    print('preview n18:', path)
+
+
 # --- write -----------------------------------------------------------------------------------------
 def all_textures():
     files = {}
@@ -1681,13 +1813,13 @@ def all_textures():
     files[item('butter_slice')] = BUTTER_SLICE
     files[item('cake_slice')] = cake_slice()
     files[item('board/bread_half')] = bread_half()
-    files[item('sandwich/bottom')] = bun_bottom_v8(False)
-    files[item('sandwich/bottom_buttered')] = bun_bottom_v8(True)
+    files[item('sandwich/bottom')] = bun_bottom_n18(False)
+    files[item('sandwich/bottom_buttered')] = bun_bottom_n18(True)
     for n in range(6):
-        files[item(f'sandwich/top_{n}')] = bun_top_v8(n)
+        files[item(f'sandwich/top_{n}')] = bun_top_n18(n)
     for key in KEYS:
         for pos in range(5):
-            files[item(f'sandwich/layer_{pos}_{key}')] = filling_v5(key, pos)
+            files[item(f'sandwich/layer_{pos}_{key}')] = filling_n18(key, pos)
     for name, im in cheese_textures().items():
         files[block(name)] = im
     for wood in WOODS:
@@ -1762,6 +1894,8 @@ def main():
     old = next((a.split('=', 1)[1] for a in sys.argv if a.startswith('--old=')), None)
     if '--shapes' in sys.argv:
         preview_shapes(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'brot-formen-vorschau.png'))
+    if '--n18' in sys.argv:
+        preview_n18(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'sandwiches-n18-varianten.png'))
     if '--v8' in sys.argv:
         preview_v8(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'sandwiches-v8-vorschau.png'))
     if '--v7' in sys.argv:

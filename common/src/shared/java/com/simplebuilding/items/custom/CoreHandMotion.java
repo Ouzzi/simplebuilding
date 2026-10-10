@@ -10,12 +10,13 @@ import net.minecraft.world.entity.player.Player;
  * one motion - the cooler, the rarer - and the ore transmutation has its own, longer one. Pure state and math
  * without client classes; the client (use/useOn on the client side, {@code CoreMotionPayload} for the ore)
  * starts a motion here, {@code HeldItemRendererMixin} reads {@link #pose} every frame and moves the item.
- * Behind {@link McVersion#CORE_MOTIONS} (26.3) and the client config {@code tools.enableCoreAnimations}.
+ * Behind {@link McVersion#CORE_MOTIONS} (26.3) and the client config {@code tools.enableCoreAnimations}. The sage orb
+ * (Weisheitskugel, the XP orb item) uses the same machinery with its own motion {@link Motion#ORB} (owner N21).
  *
  * <p>Every pose starts and ends at rest (identity), so a motion never snaps; turns are whole revolutions.
  */
 public final class CoreHandMotion {
-    /** The motions; {@code weight} out of 100 for the roll (FORGE is never rolled), {@code ticks} = length. */
+    /** The motions; {@code weight} out of 100 for the roll (FORGE and ORB are never rolled), {@code ticks} = length. */
     public enum Motion {
         /** Two heartbeats: the core swells and shrinks. */
         PULSE(45, 14),
@@ -26,7 +27,9 @@ public final class CoreHandMotion {
         /** Thrown forward spinning flat on a curve and caught again. */
         BOOMERANG(10, 26),
         /** Ore transmutation: rises, spins faster and faster, slams down and springs back. */
-        FORGE(0, 40);
+        FORGE(0, 40),
+        /** Sage orb (N21): floats up out of the hand on a small loop, turns once flat and swells, settles back. */
+        ORB(0, 8);
 
         public final int weight;
         public final int ticks;
@@ -123,6 +126,14 @@ public final class CoreHandMotion {
                 p[RZ] = (float) (720 * smooth(t));
             }
             case FORGE -> forge(p, t);
+            case ORB -> {
+                double loop = 2 * Math.PI * t;
+                p[TX] = (float) (0.07 * Math.sin(loop));
+                p[TY] = (float) (0.2 * bell + 0.04 * (1 - Math.cos(loop)));
+                p[TZ] = (float) (-0.08 * bell);
+                p[RZ] = (float) (360 * smooth(t));
+                p[SCALE] = (float) (1 + 0.25 * bell * bell);
+            }
         }
         return p;
     }

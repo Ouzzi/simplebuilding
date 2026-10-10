@@ -89,7 +89,8 @@ public class HeldItemRendererMixin {
         }
         SimplebuildingConfig config = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
         // Baukern: gewuerfelte Bewegung beim Benutzen bzw. die lange Erz-Animation (CoreHandMotion, Nachtrag 11).
-        if (item.getItem() instanceof com.simplebuilding.items.custom.BuildingCoreItem) {
+        if (item.getItem() instanceof com.simplebuilding.items.custom.BuildingCoreItem
+                || item.getItem() instanceof com.simplebuilding.items.custom.SageOrbItem) { // N21: Weisheitskugel
             float[] pose = com.simplebuilding.items.custom.CoreHandMotion.currentPose(player.tickCount, tickProgress, hand);
             if (pose != null && config.tools.enableToolAnimations && config.tools.enableCoreAnimations) {
                 this.applyCorePose(matrices, pose, hand);

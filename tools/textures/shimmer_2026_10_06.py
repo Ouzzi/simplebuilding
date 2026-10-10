@@ -50,5 +50,11 @@ def shimmer_strip(base, ramp, mask, frames=20, sweep=8, peak=(255, 255, 255), st
     return strip
 
 
-def mcmeta(frametime):
-    return {'animation': {'frametime': frametime, 'interpolate': False}}
+def mcmeta(frametime, loop_ticks=None, frames=None):
+    """Plain loop; with ``loop_ticks`` frame 0 (the untouched texture) is held so one pass takes that long."""
+    if loop_ticks is None:
+        return {'animation': {'frametime': frametime, 'interpolate': False}}
+    hold = loop_ticks - frametime * (frames - 1)
+    assert hold >= frametime, (loop_ticks, frames)
+    return {'animation': {'frametime': frametime, 'interpolate': False,
+                          'frames': [{'index': 0, 'time': hold}] + list(range(1, frames))}}

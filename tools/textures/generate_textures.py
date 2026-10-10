@@ -1054,8 +1054,10 @@ MACHINE_TIERS = {
     "netherite": {
         "stone": _ramp(_MG, ["#110d0e", "#211a1b", "#2c2526", "#3a3233", "#463e40", "#4c4546", "#585254", "#6b6668",
                              "#7e7a7c"]),
-        "metal": _ramp(_MG, ["#141214", "#343134", "#3f3c3f", "#524e52", "#666266", "#716d71", "#858186", "#a29da4",
-                             "#c2bdc4"]),
+        # Besitzer N16 (2026-10-07): dunkle statt heller Highlights - Beschlaege und Metallteile in den
+        # dunklen Netherit-Toenen (Vanilla-Netheritbarren 17/39/49/60), heller als Schwarz, dunkler als das Mauerwerk
+        "metal": _ramp(_MG, ["#0c0a0b", "#141112", "#191516", "#1e191a", "#241c1d", "#271e1f", "#2c2223", "#31292a",
+                             "#382e2f"]),
         "wood": _ramp(_MW, ["#140c09", "#24160f", "#352216", "#422b1c", "#553824", "#603f29", "#6e4a30"]),
         "fire": None,
         # die Grautoene des Netheritblocks sind fast die des Vanilla-Trichters - der Netherit-Trichter
