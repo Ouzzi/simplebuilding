@@ -1,0 +1,50 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "simplebuilding:end/path_straight",
+        "processors": "minecraft:empty",
+        "projection": "terrain_matching"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "simplebuilding:end/path_bend",
+        "processors": "minecraft:empty",
+        "projection": "terrain_matching"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "simplebuilding:end/path_tee",
+        "processors": "minecraft:empty",
+        "projection": "terrain_matching"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "simplebuilding:end/path_cross",
+        "processors": "minecraft:empty",
+        "projection": "terrain_matching"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "simplebuilding:end/path_wave",
+        "processors": "minecraft:empty",
+        "projection": "terrain_matching"
+      }
+    }
+  ]
+}

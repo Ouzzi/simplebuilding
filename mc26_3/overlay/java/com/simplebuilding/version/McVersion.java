@@ -70,6 +70,8 @@ public final class McVersion {
     public static final boolean EXPENSIVE_TEMPLATES = true;
     /** Rare structure finds: better loot chests and tiered end city shulkers with their shells (2026-10-02). */
     public static final boolean RARE_STRUCTURE_FINDS = true;
+    /** End structures: well, fake gateway, shipwrecks, path as datapack jigsaw structures (Queue N23). */
+    public static final boolean END_STRUCTURES = true;
 
     /** Trank des listigen Shulkers: Effekt, Traenke, Brau-Rezepte (2026-10-02, 26.3 braut datengetrieben). */
     public static final boolean CRAFTY_SHULKER = true;
