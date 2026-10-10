@@ -15,7 +15,8 @@ import net.minecraft.world.level.Level;
 
 /**
  * Weisheitskugel (Besitzer 2026-10-01): seltener Drop des Weisheitserzes. Rechtsklick laedt
- * {@link #CHARGE_TICKS} Ticks (0,5 s) mit Bogen-Haltung und aufsteigenden Funken, dann gibt sie
+ * {@link #CHARGE_TICKS} Ticks (0,3 s) mit eigener Handbewegung wie die Baukerne (N21, {@code CoreHandMotion.Motion.ORB})
+ * und aufsteigenden Funken, dann gibt sie
  * {@link #MIN_XP}-{@link #MAX_XP} Erfahrungspunkte und ist verbraucht. Die Menge wuerfelt der Server.
  * Rueckmeldung nur ueber Klang und Partikel.
  */
@@ -32,6 +33,9 @@ public class SageOrbItem extends Item {
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         player.startUsingItem(hand);
+        if (level.isClientSide()) {
+            CoreHandMotion.start(player, hand, CoreHandMotion.Motion.ORB); // N21: moves in the hand like the cores
+        }
         return InteractionResult.CONSUME;
     }
 
@@ -42,7 +46,7 @@ public class SageOrbItem extends Item {
 
     @Override
     public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.BOW;
+        return ItemUseAnimation.NONE; // N21: the orb's own hand motion (CoreHandMotion.Motion.ORB) instead of the bow pose
     }
 
     @Override
