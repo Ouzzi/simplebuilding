@@ -15,6 +15,8 @@ public final class EndStructureClientTest {
             return;
         }
         TestScene.build(script, "minecraft:stone", "creative");
+        // Spectator: the camera hovers where it is put instead of falling back to the floor.
+        script.command("gamemode spectator @a");
         for (String name : SHOTS) {
             script.command("place template simplebuilding:end/" + name + " 2 0 13");
             script.command("tp @a 7.5 6.0 10.0 0.0 38.0");
@@ -26,5 +28,6 @@ public final class EndStructureClientTest {
             script.command("kill @e[type=minecraft:item_frame]", true);
             script.awaitPackets();
         }
+        script.command("gamemode creative @a");
     }
 }
