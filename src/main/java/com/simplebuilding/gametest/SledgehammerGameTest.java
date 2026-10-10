@@ -154,6 +154,10 @@ public final class SledgehammerGameTest {
         SledgehammerOctetTests.melonSlicePlacesAnOctetAndGlisteringMelonIsEdible(helper);
     }
     @GameTest
+    public void materialOctetsCoverEveryStairBlock(GameTestHelper helper) {
+        SledgehammerOctetTests.materialOctetsCoverEveryStairBlock(helper);
+    }
+    @GameTest
     public void sledgehammerTransformHintsCoverBothHandsWithoutSideEffects(GameTestHelper helper) {
         SledgehammerTests.sledgehammerTransformHintsCoverBothHandsWithoutSideEffects(helper);
     }
