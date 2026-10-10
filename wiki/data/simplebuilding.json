@@ -66076,7 +66076,7 @@
       }
     },
     {
-      "id": "simplebuilding:fletching/amethyst_blaze_rod_feather",
+      "id": "simplebuilding:fletching/fletching/feather",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66084,14 +66084,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_blaze_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/fletching/feather.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_blaze_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/fletching/phantom_membrane",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66099,14 +66099,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_blaze_rod_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/fletching/phantom_membrane.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_breeze_rod_feather",
+      "id": "simplebuilding:fletching/shaft/blaze_rod",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66114,14 +66114,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_breeze_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/shaft/blaze_rod.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_breeze_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/shaft/breeze_rod",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66129,14 +66129,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_breeze_rod_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/shaft/breeze_rod.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_diamond_rod_feather",
+      "id": "simplebuilding:fletching/shaft/diamond_rod",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66144,14 +66144,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_diamond_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/shaft/diamond_rod.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_diamond_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/shaft/end_rod",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66159,14 +66159,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_diamond_rod_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/shaft/end_rod.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_end_rod_feather",
+      "id": "simplebuilding:fletching/shaft/stick",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66174,14 +66174,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_end_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/shaft/stick.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_end_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/tip/amethyst",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66189,14 +66189,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_end_rod_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/amethyst.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_stick_feather",
+      "id": "simplebuilding:fletching/tip/copper",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66204,14 +66204,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_stick_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/copper.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_stick_phantom_membrane",
+      "id": "simplebuilding:fletching/tip/diamond",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66219,14 +66219,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_stick_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/diamond.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/copper_blaze_rod_feather",
+      "id": "simplebuilding:fletching/tip/enderite",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66234,14 +66234,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_blaze_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/enderite.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/copper_blaze_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/tip/flint",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66249,14 +66249,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_blaze_rod_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/flint.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/copper_breeze_rod_feather",
+      "id": "simplebuilding:fletching/tip/gold",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66264,14 +66264,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_breeze_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/gold.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/copper_breeze_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/tip/iron",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66279,14 +66279,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_breeze_rod_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/iron.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/copper_diamond_rod_feather",
+      "id": "simplebuilding:fletching/tip/netherite",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66294,14 +66294,14 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_diamond_rod_feather.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/netherite.json",
       "ingredients": [],
       "lines": [
         "26.3"
       ]
     },
     {
-      "id": "simplebuilding:fletching/copper_diamond_rod_phantom_membrane",
+      "id": "simplebuilding:fletching/tip/prismarine",
       "type": "simplebuilding:fletching",
       "category": null,
       "group": null,
@@ -66309,1117 +66309,7 @@
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/copper_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/copper_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/copper_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/copper_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_stick_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_blaze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_blaze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_blaze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_blaze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_breeze_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_breeze_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_breeze_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_breeze_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_diamond_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_diamond_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_diamond_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_diamond_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_end_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_end_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_end_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_stick_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_stick_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_stick_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_stick_phantom_membrane.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/tip/prismarine.json",
       "ingredients": [],
       "lines": [
         "26.3"
@@ -136329,7 +135219,7 @@
   "counts": {
     "items": 607,
     "blocks": 362,
-    "recipes": 1043,
+    "recipes": 969,
     "lootTables": 342,
     "trades": 20,
     "enchantments": 19,

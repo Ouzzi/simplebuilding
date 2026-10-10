@@ -145,4 +145,9 @@ public final class ModuleGameTest {
     public void hoppersFillRaisedSlots(GameTestHelper h) {
         LibTests.ALL.get("hoppers_fill_raised_slots").accept(h);
     }
+
+    @GameTest
+    public void enderiteBarrelBoxBelowTheCrucible(GameTestHelper h) {
+        LibTests.ALL.get("enderite_barrel_box_below_the_crucible").accept(h);
+    }
 }

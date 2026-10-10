@@ -27,9 +27,9 @@ import net.minecraft.world.level.block.Blocks;
  * links, Spitze oben rechts), rechts das Ergebnis mit {@link ArrowParts#ARROWS_PER_CRAFT} Pfeilen. Jeder Slot nimmt nur
  * seine Teile an; das Ergebnis rechnet allein der Server aus den Slots aus.
  *
- * <p>Rezeptbuch wie an der Werkbank ({@link RecipeBookMenu}): ein Klick auf einen Pfeil legt Spitze, Schaft und
- * Befiederung aus dem eigenen Inventar ein (Vanilla-Platzierung, nichts entsteht neu); fehlt ein Teil, zeigt der Client
- * das Geisterrezept. Die Rezepte ({@link FletchingRecipe}) dienen nur dem Buch; das Ergebnis rechnet der Server aus den Slots.
+ * <p>Rezeptbuch wie an der Werkbank ({@link RecipeBookMenu}): drei Reiter (Spitze, Schaft, Befiederung, N16), ein Klick
+ * auf ein Teil legt es aus dem eigenen Inventar in seinen Slot (Vanilla-Platzierung, nichts entsteht neu); fehlt es, zeigt
+ * der Client das Geisterrezept. Die Rezepte ({@link FletchingRecipe}) dienen nur dem Buch; das Ergebnis rechnet der Server aus den Slots.
  */
 public class FletchingMenu extends RecipeBookMenu {
     public static final int TIP_SLOT = 0;
@@ -128,15 +128,17 @@ public class FletchingMenu extends RecipeBookMenu {
         super.slotsChanged(container);
     }
 
-    /** Rezeptbuch (Vanilla {@code ServerPlaceRecipe}, 3x1-Gitter Spitze, Schaft, Befiederung): Shift = so viele wie moeglich. */
+    /** Rezeptbuch (Vanilla {@code ServerPlaceRecipe}, 1x1-Gitter = Slot des Teils): Shift = so viele wie moeglich. */
     @Override
     @SuppressWarnings("unchecked")
     public RecipeBookMenu.PostPlaceAction handlePlacement(boolean useMaxItems, boolean allowDroppingItemsToClear, RecipeHolder<?> recipe,
                                                          ServerLevel level, Inventory inventory) {
-        if (!(recipe.value() instanceof FletchingRecipe)) {
+        if (!(recipe.value() instanceof FletchingRecipe part)) {
             return RecipeBookMenu.PostPlaceAction.NOTHING;
         }
-        List<Slot> grid = List.of(this.slots.get(TIP_SLOT), this.slots.get(SHAFT_SLOT), this.slots.get(FLETCHING_SLOT));
+        // N16: ein Rezept ist ein Teil; nur sein Slot wird geraeumt und neu belegt, die anderen beiden bleiben.
+        int target = part.kind().slot();
+        List<Slot> grid = List.of(this.slots.get(target));
         this.placingRecipe = true;
         try {
             return ServerPlaceRecipe.placeRecipe(new ServerPlaceRecipe.CraftingMenuAccess<FletchingRecipe>() {
@@ -147,7 +149,7 @@ public class FletchingMenu extends RecipeBookMenu {
 
                 @Override
                 public void clearCraftingContent() {
-                    FletchingMenu.this.parts.clearContent();
+                    FletchingMenu.this.parts.setItem(target, ItemStack.EMPTY);
                 }
 
                 @Override
@@ -155,7 +157,7 @@ public class FletchingMenu extends RecipeBookMenu {
                     return holder.value().matches(new SmithingRecipeInput(FletchingMenu.this.parts.getItem(TIP_SLOT),
                             FletchingMenu.this.parts.getItem(SHAFT_SLOT), FletchingMenu.this.parts.getItem(FLETCHING_SLOT)), level);
                 }
-            }, 3, 1, grid, grid, inventory, (RecipeHolder<FletchingRecipe>) recipe, useMaxItems, allowDroppingItemsToClear);
+            }, 1, 1, grid, grid, inventory, (RecipeHolder<FletchingRecipe>) recipe, useMaxItems, allowDroppingItemsToClear);
         } finally {
             this.placingRecipe = false;
             this.slotsChanged(this.parts);

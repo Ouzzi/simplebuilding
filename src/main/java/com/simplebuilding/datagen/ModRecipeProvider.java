@@ -121,11 +121,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .unlockedBy(getHasName(ModItems.OBSIDIAN_CHIP), has(ModItems.OBSIDIAN_CHIP)).save(output, "obsidian_from_obsidian_chips");
                 }
 
-                // Befiederungstisch (B14): ein Rezept je Teile-Kombination, nur fuer das Vanilla-Rezeptbuch des Tisches.
-                // Kein Freischalt-Advancement: das Oeffnen des Tisches schaltet alle frei (FletchingRecipes.unlockAll).
+                // Befiederungstisch (B14, N16): ein Rezept je Teil (Kategorien Spitze/Schaft/Befiederung), nur fuer das
+                // Vanilla-Rezeptbuch des Tisches. Kein Freischalt-Advancement: das Oeffnen schaltet alle frei (FletchingRecipes.unlockAll).
                 if (com.simplebuilding.version.McVersion.FLETCHING) {
-                    for (com.simplebuilding.fletching.ArrowParts.Parts parts : com.simplebuilding.fletching.ArrowParts.allCombinations()) {
-                        com.simplebuilding.fletching.FletchingRecipe recipe = new com.simplebuilding.fletching.FletchingRecipe(parts);
+                    for (com.simplebuilding.fletching.FletchingRecipe recipe : com.simplebuilding.fletching.FletchingRecipe.all()) {
                         output.accept(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, recipe.idPath())),
                                 recipe, null);
                     }
