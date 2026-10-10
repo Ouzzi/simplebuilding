@@ -1,6 +1,7 @@
 {
   "simplemodels.browser.title": "Simple Models",
   "simplemodels.browser.models": "Modelle",
+  "simplemodels.browser.tab_hint": "Vom Server freigegebene Item-Modelle ansehen und zuweisen",
   "simplemodels.browser.policy": "Servereinstellungen",
   "simplemodels.browser.help": "Importhilfe",
   "simplemodels.browser.back": "Zurück",

@@ -1,7 +1,7 @@
 package com.simplebuilding.modules.simplemodels;
 import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
-import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AnvilScreen;
@@ -38,8 +38,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     private static Object catalogue() { return field(type("client.ModelBrowser"), "catalogue"); }
     private static List<?> definitions() { return (List<?>)call(catalogue(), "models"); }
     private static void click(Screen screen, String label) {
-        var button = screen.children().stream().filter(e -> e instanceof Button b && b.getMessage().getString().equals(label))
-                .map(e -> (Button)e).findFirst().orElseThrow(() -> new AssertionError("Missing button: " + label));
+        var button = screen.children().stream().filter(e -> e instanceof AbstractButton b && b.getMessage().getString().equals(label))
+                .map(e -> (AbstractButton)e).findFirst().orElseThrow(() -> new AssertionError("Missing button: " + label));
         if (!button.active) throw new AssertionError("Disabled button: " + label);
         button.onPress(null);
     }
@@ -57,7 +57,16 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             world.getConnection().waitForClientboundPackets();
             context.runOnClient(client -> {
                 if (client.player == null || definitions().size() != 1) throw new AssertionError("World joined and authoritative catalogue received");
-                client.setScreenAndShow(new InventoryScreen(client.player)); click(client.gui.screen(), "Models");
+                client.setScreenAndShow(new InventoryScreen(client.player));
+            });
+            context.waitTicks(3); context.takeScreenshot("simplemodels-inventory-tab");
+            context.runOnClient(client -> {
+                var tabs = client.gui.screen().children().stream().filter(e -> e instanceof com.simplebuilding.modules.simplemodels.client.ModelsTab).count();
+                if (tabs != 1) throw new AssertionError("Exactly one Models tab on the inventory, got " + tabs);
+                client.gui.screen().resize(client.gui.screen().width, client.gui.screen().height); // rebuild path: the tab must survive a window resize
+                if (client.gui.screen().children().stream().filter(e -> e instanceof com.simplebuilding.modules.simplemodels.client.ModelsTab).count() != 1)
+                    throw new AssertionError("Models tab survives resize exactly once");
+                click(client.gui.screen(), "Models");
             });
             context.waitTicks(3);
             context.runOnClient(client -> {

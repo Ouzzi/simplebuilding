@@ -60,9 +60,10 @@ public final class ModelBrowser extends Screen {
     @Override protected void init() {
         panelWidth = Math.min(420, width - 12); panelHeight = Math.min(300, height - 12);
         x = (width - panelWidth) / 2; y = (height - panelHeight) / 2;
-        button("models", x + 6, y + 20, 94, () -> { tab = "models"; rebuildWidgets(); });
-        button("policy", x + 102, y + 20, 94, () -> { tab = "policy"; rebuildWidgets(); });
-        button("help", x + 198, y + 20, 94, () -> { tab = "help"; rebuildWidgets(); });
+        // The current tab is greyed out, so it is clear where you are.
+        button("models", x + 6, y + 20, 94, () -> { tab = "models"; rebuildWidgets(); }).active = !tab.equals("models");
+        button("policy", x + 102, y + 20, 94, () -> { tab = "policy"; rebuildWidgets(); }).active = !tab.equals("policy");
+        button("help", x + 198, y + 20, 94, () -> { tab = "help"; rebuildWidgets(); }).active = !tab.equals("help");
         button("back", x + panelWidth - 76, y + panelHeight - 26, 70, this::onClose);
         if (tab.equals("help")) {
             button("folder", x + 6, y + panelHeight - 26, 124, () -> {
@@ -99,8 +100,8 @@ public final class ModelBrowser extends Screen {
                     .bounds(x + 28, y + 68 + row * 24, panelWidth - 34, 20).build());
             b.setTooltip(Tooltip.create(Component.literal(def.base_item() + " | " + def.id() + " | " + String.join(", ", def.tags()))));
         }
-        button("previous", x + 6, y + panelHeight - 78, 70, () -> { page--; rebuildWidgets(); });
-        button("next", x + 78, y + panelHeight - 78, 70, () -> { page++; rebuildWidgets(); });
+        button("previous", x + 6, y + panelHeight - 78, 70, () -> { page--; rebuildWidgets(); }).active = page > 0;
+        button("next", x + 78, y + panelHeight - 78, 70, () -> { page++; rebuildWidgets(); }).active = (page + 1) * rows() < list.size();
         button("refresh", x + 150, y + panelHeight - 78, 90, () -> { minecraft.reloadResourcePacks(); rebuildWidgets(); });
         var reload = button("reload", x + 242, y + panelHeight - 78, Math.max(70, panelWidth - 248), () -> {
             if (minecraft.getConnection() != null) minecraft.getConnection().sendCommand("simplemodels reload");
@@ -136,6 +137,8 @@ public final class ModelBrowser extends Screen {
                 g.item(preview(selected), x + 44, y + panelHeight - 52);
                 g.text(font, selected.id(), x + 70, y + panelHeight - 48, 0xFFFFFFFF, false);
             }
+            int pages = Math.max(1, (list.size() - 1) / rows() + 1);
+            if (pages > 1) g.text(font, (page + 1) + "/" + pages, x + panelWidth - 6 - font.width((page + 1) + "/" + pages), y + 5, 0xFFFFFFFF, false);
             if (list.isEmpty()) g.textWithWordWrap(font, Component.translatable("simplemodels.browser.empty"), x + 6, y + 72, panelWidth - 12, 0xFFE3E3E3, false);
         } else if (tab.equals("policy")) {
             int row = 0;
