@@ -70,7 +70,7 @@ def files():
     out[f"{a}/models/block/soul_lava.json"] = {"textures": {"particle": f"{NS}:block/soul_lava_still"}}
     out[f"{a}/blockstates/soul_lava.json"] = {"variants": {"": {"model": f"{NS}:block/soul_lava"}}}
     # Buckets.
-    for name in ("soul_lava_bucket", "enderite_bucket", "enderite_water_bucket", "enderite_lava_bucket", "enderite_soul_lava_bucket"):
+    for name in ("soul_lava_bucket", "enderite_bucket", "enderite_water_bucket", "enderite_lava_bucket", "enderite_soul_lava_bucket", "enderite_milk_bucket"):
         # Owner N21/N28: the filled Enderite items hold one bucket of two and show the half texture
         # (tools/textures/enderite_bucket_fill_2026_10_09.py); the _full items (two buckets) the full one.
         half = name.startswith("enderite_") and name != "enderite_bucket"

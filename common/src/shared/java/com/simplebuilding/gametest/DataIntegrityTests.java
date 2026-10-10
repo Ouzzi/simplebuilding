@@ -296,7 +296,7 @@ public final class DataIntegrityTests {
             "cracked_ceramic_bucket", "cracked_ceramic_water_bucket", "cracked_ceramic_lava_bucket",
             "brittle_ceramic_bucket", "brittle_ceramic_water_bucket", "brittle_ceramic_lava_bucket",
             // Volle Enderit-Eimer (Besitzer N21: fasst 2 Eimer): entstehen nur durch zweimal Schoepfen.
-            "enderite_water_bucket_full", "enderite_lava_bucket_full", "enderite_soul_lava_bucket_full");
+            "enderite_water_bucket_full", "enderite_lava_bucket_full", "enderite_soul_lava_bucket_full", "enderite_milk_bucket_full");
 
     /**
      * Registry ids that exist for the sake of worlds that were saved with an older version, spelled
@@ -2996,6 +2996,7 @@ public final class DataIntegrityTests {
                     com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, gap,
                     com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET,
                     com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET));
+            expected.add(CreativeTabLayout.Row.of("enderite_milk", com.simplebuilding.fluid.ModFluids.ENDERITE_MILK_BUCKET));
             expected.add(CreativeTabLayout.Row.of("ceramic_buckets",
                     com.simplebuilding.fluid.ModFluids.RAW_CERAMIC_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_BUCKET,
                     com.simplebuilding.fluid.ModFluids.CERAMIC_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_LAVA_BUCKET));

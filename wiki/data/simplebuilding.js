@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 767,
+      "count": 769,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -15440,6 +15440,36 @@ window.WIKI_DATA = {
       "properties": {
         "durability": 630,
         "enchantability": 18,
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_milk_bucket",
+      "name": {
+        "en_us": "Enderite Milk Bucket",
+        "de_de": "Enderit-Milcheimer"
+      },
+      "texture": "assets/textures/item/enderite_milk_bucket_half.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_milk_bucket_full",
+      "name": {
+        "en_us": "Enderite Milk Bucket (Full)",
+        "de_de": "Enderit-Milcheimer (voll)"
+      },
+      "texture": "assets/textures/item/enderite_milk_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
         "maxStackSize": 1
       },
       "hasCustomBehaviour": false
@@ -127031,6 +127061,14 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_milk_bucket",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_milk_bucket_full",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_nautilus_armor",
           "required": true
         },
@@ -127259,6 +127297,14 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_leggings",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_milk_bucket",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_milk_bucket_full",
           "required": true
         },
         {
@@ -157798,7 +157844,7 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 711,
+    "items": 713,
     "blocks": 454,
     "recipes": 1202,
     "lootTables": 344,

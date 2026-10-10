@@ -49,7 +49,8 @@ public final class RecipelessJeiInfo {
             map.put("copper_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET));
             map.put("enderite_crucible", List.of(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible(), com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel()));
             map.put("enderite_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_LAVA_BUCKET));
+                    com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_LAVA_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.ENDERITE_MILK_BUCKET, com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_MILK_BUCKET));
             map.put("ceramic_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.CERAMIC_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_LAVA_BUCKET));
             // N12b: worn stages only come from use.
             map.put("ceramic_bucket_worn", List.<ItemLike>copyOf(com.simplebuilding.fluid.ModFluids.wornCeramicBuckets()));

@@ -29,7 +29,9 @@
     "simplebuilding:enderite_lava_bucket": "Filled bucket; buy the empty one.",
     "simplebuilding:enderite_water_bucket_full": "Filled bucket (two buckets); buy the empty one.",
     "simplebuilding:enderite_lava_bucket_full": "Filled bucket (two buckets); buy the empty one.",
-    "simplebuilding:enderite_soul_lava_bucket_full": "Filled only by scooping soul lava twice; no trade."
+    "simplebuilding:enderite_soul_lava_bucket_full": "Filled only by scooping soul lava twice; no trade.",
+    "simplebuilding:enderite_milk_bucket": "Filled bucket (milked); buy the empty one.",
+    "simplebuilding:enderite_milk_bucket_full": "Filled bucket (two buckets); buy the empty one."
   },
   "prices": [
     {
