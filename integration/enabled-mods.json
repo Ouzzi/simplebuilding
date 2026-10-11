@@ -21,7 +21,8 @@
     "simpleweather",
     "simplequestionary",
     "simpleaesthetics",
-    "simpleloot"
+    "simpleloot",
+    "simplecreatures"
   ],
   "devMods": [
     "jei",

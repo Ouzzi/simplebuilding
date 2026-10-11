@@ -1,6 +1,6 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simplecreatures.mixin;
 
-import com.simplequalityoflife.Simplequalityoflife;
+import com.simplebuilding.modules.simplecreatures.SimpleCreatures;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -21,9 +21,10 @@ public abstract class EntityMuteMixin {
 
     @Inject(method = "isSilent", at = @At("HEAD"), cancellable = true)
     private void checkMuted(CallbackInfoReturnable<Boolean> cir) {
+        if (!SimpleCreatures.active()) return;
         // --- SCHRITT 1: Check per Entity-Typ (z.B. "minecraft:cow") ---
         // Das ist die "alte" Funktionalität, die du behalten wolltest.
-        List<String> mutedEntities = Simplequalityoflife.getConfig().qOL.mutedEntities;
+        List<String> mutedEntities = SimpleCreatures.config().mutedEntities;
 
         if (mutedEntities != null && !mutedEntities.isEmpty()) {
             // EntityType zu String ist relativ schnell (intern gecached)
@@ -41,7 +42,7 @@ public abstract class EntityMuteMixin {
         // Das spart uns das teure Laden der Suffix-Liste und String-Konvertierung.
         if (!this.hasCustomName()) return;
 
-        List<String> suffixes = Simplequalityoflife.getConfig().qOL.nametagMuteSuffixes;
+        List<String> suffixes = SimpleCreatures.config().nametagMuteSuffixes;
 
         // Performance: Wenn die Liste in der Config leer ist, sofort raus.
         if (suffixes == null || suffixes.isEmpty()) return;

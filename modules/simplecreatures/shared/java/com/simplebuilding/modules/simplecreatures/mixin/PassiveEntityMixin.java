@@ -1,6 +1,6 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simplecreatures.mixin;
 
-import com.simplequalityoflife.Simplequalityoflife;
+import com.simplebuilding.modules.simplecreatures.SimpleCreatures;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -26,6 +26,7 @@ public abstract class PassiveEntityMixin extends LivingEntity {
 
     @Inject(method = "aiStep", at = @At("HEAD"))
     private void onTickMovement(CallbackInfo ci) {
+        if (!SimpleCreatures.active()) return;
         if (this.level().isClientSide()) return;
 
         if (this.tickCount % 100 != 0) return;
@@ -35,7 +36,7 @@ public abstract class PassiveEntityMixin extends LivingEntity {
         if (customName == null) return;
 
         String name = customName.getString();
-        List<String> suffixes = Simplequalityoflife.getConfig().qOL.nametagBabySuffixes;
+        List<String> suffixes = SimpleCreatures.config().nametagBabySuffixes;
 
         // Prüfen, ob der Name mit einem der Suffixe endet
         for (String suffix : suffixes) {

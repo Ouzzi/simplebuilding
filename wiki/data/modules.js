@@ -195,13 +195,14 @@ window.WIKI_MODULES = [
       "cloth_config",
       "simpleweather",
       "simpleinterfaces",
-      "simpleloot"
+      "simpleloot",
+      "simplecreatures"
     ],
     "optional": [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "05a4ca2853f5"
+    "dataHash": "59635fa83247"
   },
   {
     "id": "simpletweaks",
@@ -368,6 +369,26 @@ window.WIKI_MODULES = [
       "modmenu"
     ],
     "dataHash": "499e87886520"
+  },
+  {
+    "id": "simplecreatures",
+    "displayName": "Simple Creatures",
+    "description": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplequalityoflife",
+      "modmenu"
+    ],
+    "dataHash": "c424ebe5c37c"
   },
   {
     "id": "simpleloot",

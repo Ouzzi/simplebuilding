@@ -15,15 +15,11 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void furnaceLava(GameTestHelper h){com.simplequalityoflife.test.QolTests.furnaceLava(h);}
  @GameTest(maxTicks=100) public void permissionsSpam(GameTestHelper h){com.simplequalityoflife.test.QolTests.permissionsSpam(h);}
  @GameTest(maxTicks=100) public void durability(GameTestHelper h){com.simplequalityoflife.test.QolTests.durability(h);}
- @GameTest(maxTicks=100) public void muting(GameTestHelper h){com.simplequalityoflife.test.QolTests.muting(h);}
- @GameTest(maxTicks=100) public void baby(GameTestHelper h){com.simplequalityoflife.test.QolTests.baby(h);}
- @GameTest(maxTicks=100) public void piglins(GameTestHelper h){com.simplequalityoflife.test.QolTests.piglins(h);}
  @GameTest(maxTicks=100) public void vegetation(GameTestHelper h){com.simplequalityoflife.test.QolTests.vegetation(h);}
  @GameTest(maxTicks=100) public void crossMod(GameTestHelper h){com.simplequalityoflife.test.QolTests.crossMod(h);}
  @GameTest(maxTicks=100) public void realMovementPackets(GameTestHelper h){com.simplequalityoflife.test.QolTests.realMovementPackets(h);}
  @GameTest(maxTicks=100) public void thrift(GameTestHelper h){com.simplequalityoflife.test.QolTests.thrift(h);}
  @GameTest(maxTicks=100) public void anvilRepairCost(GameTestHelper h){com.simplequalityoflife.test.QolTests.anvilRepairCost(h);}
- @GameTest(maxTicks=100) public void goldTrim(GameTestHelper h){com.simplequalityoflife.test.QolTests.goldTrim(h);}
  @GameTest(maxTicks=100) public void featureSwitches(GameTestHelper h){com.simplequalityoflife.test.QolTests.featureSwitches(h);}
  @GameTest(maxTicks=100) public void sharpnessAction(GameTestHelper h){com.simplequalityoflife.test.QolTests.sharpnessAction(h);}
  @GameTest(maxTicks=100) public void linkedMark(GameTestHelper h){com.simplequalityoflife.test.ContainerTests.linkedMark(h);}

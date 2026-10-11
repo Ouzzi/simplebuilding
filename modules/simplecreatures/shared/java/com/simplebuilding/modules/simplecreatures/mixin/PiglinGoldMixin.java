@@ -1,7 +1,6 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simplecreatures.mixin;
 
-import com.simplequalityoflife.Simplequalityoflife;
-import com.simplequalityoflife.config.SimplequalityoflifeConfig;
+import com.simplebuilding.modules.simplecreatures.SimpleCreatures;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,9 +22,10 @@ public class PiglinGoldMixin {
 
     @Inject(method = "isWearingSafeArmor", at = @At("HEAD"), cancellable = true)
     private static void onIsWearingPiglinSafeArmor(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
+        if (!SimpleCreatures.active()) return;
         if (!(entity instanceof Player player)) return;
 
-        SimplequalityoflifeConfig.QOL config = Simplequalityoflife.getConfig().qOL;
+        var config = SimpleCreatures.config();
 
         if (config.piglinsIgnoreGoldTrims) {
             for (EquipmentSlot slot : EquipmentSlot.values()) {

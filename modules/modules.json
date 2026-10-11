@@ -722,7 +722,8 @@
         "cloth_config",
         "simpleweather",
         "simpleinterfaces",
-        "simpleloot"
+        "simpleloot",
+        "simplecreatures"
       ],
       "optional": [
         "simplebuilding",
@@ -741,7 +742,8 @@
           "simplebuilding",
           "simpleweather",
           "simpleinterfaces",
-          "simpleloot"
+          "simpleloot",
+          "simplecreatures"
         ],
         "devMods": [
           "cloth_config"
@@ -771,7 +773,8 @@
           "requires": [
             "simpleweather",
             "simpleinterfaces",
-            "simpleloot"
+            "simpleloot",
+            "simplecreatures"
           ],
           "devMods": [
             "cloth_config"
@@ -1639,6 +1642,102 @@
         "fabric": ":modules:simpleweather:fabric",
         "neoforge": ":modules:simpleweather:neoforge",
         "forge": ":modules:simpleweather:forge"
+      },
+      "parent": "simplequalityoflife",
+      "bundle": "required"
+    },
+    {
+      "id": "simplecreatures",
+      "name": "Simple Creatures",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Creatures",
+      "description": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "cloth_config"
+      ],
+      "optional": [
+        "simplequalityoflife",
+        "modmenu"
+      ],
+      "checks": [
+        "modules/simplecreatures/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplecreatures",
+        "catalogues": [
+          "modules/simplecreatures/fabric/src/main/java/com/simplebuilding/modules/simplecreatures/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplecreatures"
+        ],
+        "devMods": [
+          "cloth_config"
+        ],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplecreaturesGameTest",
+            "report": "integration/build/simplecreatures-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplecreatures:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplecreatures/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplecreatures:forge:runGameTestServer",
+            "report": "modules/simplecreatures/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplecreaturesStandaloneGameTest",
+              "report": "integration/build/standalone/simplecreatures-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplecreatures:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplecreatures/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplecreatures.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplecreatures/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplecreatures",
+        "shared": "modules/simplecreatures/shared",
+        "fabric": "modules/simplecreatures/fabric",
+        "neoforge": "modules/simplecreatures/neoforge",
+        "forge": "modules/simplecreatures/forge",
+        "generated": "modules/simplecreatures/generated/resources",
+        "lang": "modules/simplecreatures/shared/resources/assets/simplecreatures/lang",
+        "wikiManual": "modules/simplecreatures/wiki/manual.json",
+        "balanceDir": "balance/simplecreatures"
+      },
+      "projects": {
+        "fabric": ":modules:simplecreatures:fabric",
+        "neoforge": ":modules:simplecreatures:neoforge",
+        "forge": ":modules:simplecreatures:forge"
       },
       "parent": "simplequalityoflife",
       "bundle": "required"

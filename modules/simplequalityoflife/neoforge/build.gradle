@@ -15,6 +15,9 @@ neoForge { mods { simpleinterfaces { sourceSet project(':modules:simpleinterface
 evaluationDependsOn(':modules:simpleloot:neoforge')
 dependencies { jarJar project(':modules:simpleloot:neoforge'); runtimeOnly project(':modules:simpleloot:neoforge') }
 neoForge { mods { simpleloot { sourceSet project(':modules:simpleloot:neoforge').sourceSets.main } } }
+evaluationDependsOn(':modules:simplecreatures:neoforge')
+dependencies { jarJar project(':modules:simplecreatures:neoforge'); runtimeOnly project(':modules:simplecreatures:neoforge') }
+neoForge { mods { simplecreatures { sourceSet project(':modules:simplecreatures:neoforge').sourceSets.main } } }
 // SimpleLib (style blocks for the linked panel) nested per principle 6a; compiled against.
 evaluationDependsOn(':modules:simplelib:neoforge')
 dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }
@@ -32,4 +35,4 @@ dependencies { implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootPr
 dependencies { implementation project(':common') }
 evaluationDependsOn(':mc26_3:neoforge')
 neoForge { mods { simplebuilding { sourceSet project(':mc26_3:neoforge').sourceSets.main } } }
-neoForge.runs.moduleIntegrationGameTest.loadedMods=[neoForge.mods.simplequalityoflife,neoForge.mods.simplebuilding,neoForge.mods.simpleweather,neoForge.mods.simpleinterfaces,neoForge.mods.simpleloot]
+neoForge.runs.moduleIntegrationGameTest.loadedMods=[neoForge.mods.simplequalityoflife,neoForge.mods.simplebuilding,neoForge.mods.simpleweather,neoForge.mods.simpleinterfaces,neoForge.mods.simpleloot,neoForge.mods.simplecreatures]

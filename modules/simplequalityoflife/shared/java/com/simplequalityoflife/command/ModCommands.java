@@ -57,12 +57,6 @@ public class ModCommands {
                                                 ctx.getSource().sendSuccess(() -> Component.translatable("command.simplequalityoflife.speed", val), true);
                                                 return 1;
                                             })))
-                            .then(suffixCommands("muteSuffixes",
-                                    () -> Simplequalityoflife.getConfig().qOL.nametagMuteSuffixes,
-                                    "mute suffix", "Mute Suffixes"))
-                            .then(suffixCommands("babySuffixes",
-                                    () -> Simplequalityoflife.getConfig().qOL.nametagBabySuffixes,
-                                    "baby suffix", "Baby Suffixes"))
                     )
             );
     }
@@ -78,54 +72,6 @@ public class ModCommands {
                             setter.accept(Simplequalityoflife.getConfig(), val);
                             saveConfig();
                             ctx.getSource().sendSuccess(() -> Component.translatable("command.simplequalityoflife.changed", name, val), true);
-                            return 1;
-                        }));
-    }
-
-    // Baut den list/add/remove/clear-Unterbaum für eine Suffix-Liste.
-    private static LiteralArgumentBuilder<CommandSourceStack> suffixCommands(String name,
-                                                                            Supplier<List<String>> listSupplier,
-                                                                            String labelSingular,
-                                                                            String labelPlural) {
-        return Commands.literal(name)
-                .then(Commands.literal("list")
-                        .executes(ctx -> {
-                            List<String> list = listSupplier.get();
-                            ctx.getSource().sendSuccess(() -> Component.translatable("command.simplequalityoflife.list", list).withStyle(ChatFormatting.YELLOW), false);
-                            return 1;
-                        }))
-                .then(Commands.literal("add")
-                        .then(Commands.argument("suffix", StringArgumentType.string())
-                                .executes(ctx -> {
-                                    String suffix = StringArgumentType.getString(ctx, "suffix");
-                                    List<String> list = listSupplier.get();
-                                    if (list.contains(suffix)) {
-                                        ctx.getSource().sendFailure(Component.translatable("command.simplequalityoflife.exists"));
-                                        return 0;
-                                    }
-                                    list.add(suffix);
-                                    saveConfig();
-                                    ctx.getSource().sendSuccess(() -> Component.translatable("command.simplequalityoflife.added", suffix).withStyle(ChatFormatting.GREEN), true);
-                                    return 1;
-                                })))
-                .then(Commands.literal("remove")
-                        .then(Commands.argument("suffix", StringArgumentType.string())
-                                .suggests((context, builder) -> SharedSuggestionProvider.suggest(listSupplier.get(), builder))
-                                .executes(ctx -> {
-                                    String suffix = StringArgumentType.getString(ctx, "suffix");
-                                    if (listSupplier.get().remove(suffix)) {
-                                        saveConfig();
-                                        ctx.getSource().sendSuccess(() -> Component.translatable("command.simplequalityoflife.removed", suffix).withStyle(ChatFormatting.GREEN), true);
-                                        return 1;
-                                    }
-                                    ctx.getSource().sendFailure(Component.translatable("command.simplequalityoflife.missing"));
-                                    return 0;
-                                })))
-                .then(Commands.literal("clear")
-                        .executes(ctx -> {
-                            listSupplier.get().clear();
-                            saveConfig();
-                            ctx.getSource().sendSuccess(() -> Component.translatable("command.simplequalityoflife.cleared").withStyle(ChatFormatting.RED), true);
                             return 1;
                         }));
     }

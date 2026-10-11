@@ -36,9 +36,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
     }
     public void normalize() {
         normalizeNumbers();
-        qOL.mutedEntities = boundedList(qOL.mutedEntities);
-        qOL.nametagMuteSuffixes = boundedList(qOL.nametagMuteSuffixes);
-        qOL.nametagBabySuffixes = boundedList(qOL.nametagBabySuffixes);
     }
     private static List<String> boundedList(List<String> values) {
         if (values == null) return new ArrayList<>();
@@ -57,6 +54,9 @@ public class SimplequalityoflifeConfig implements ConfigData {
     public boolean enableSimpleInterfaces = true;
 
     @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleCreatures = true;
+
+    @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleLoot = true;
 
     // Option außerhalb der QOL-Kategorie (Global)
@@ -73,16 +73,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
         // --- Movement & AutoWalk ---
         @ConfigEntry.Gui.Tooltip
         public boolean enableAutowalk = false;
-
-        // --- Sound & Visuals ---
-        @ConfigEntry.Gui.Tooltip
-        public List<String> mutedEntities = new ArrayList<>();
-
-        @ConfigEntry.Gui.Tooltip
-        public List<String> nametagMuteSuffixes = new ArrayList<>(Arrays.asList("_mute", "_shhh"));
-
-        @ConfigEntry.Gui.Tooltip
-        public List<String> nametagBabySuffixes = new ArrayList<>(Arrays.asList("_baby", "_small"));
 
         // --- Farming & World Interaction ---
         @ConfigEntry.Gui.Tooltip
@@ -125,13 +115,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
         /** Reparieren ohne neue Verzauberung erhoeht die Arbeitskosten am Amboss nicht (2026-10-02). */
         @ConfigEntry.Gui.Tooltip
         public boolean anvilRepairKeepsCost = true;
-
-        // --- Piglins ---
-        @ConfigEntry.Gui.Tooltip
-        public boolean piglinsIgnoreGoldTrims = true;
-
-        @ConfigEntry.Gui.Tooltip
-        public boolean piglinsIgnoreGoldTools = true;
 
 
         // --- Containers (2026-10-04) ---
