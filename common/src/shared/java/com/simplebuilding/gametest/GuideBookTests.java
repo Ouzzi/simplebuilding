@@ -227,8 +227,16 @@ public final class GuideBookTests {
             disabledChapters.addAll(List.of("book.simplebuilding.gadgets.13", "book.simplebuilding.gadgets.14"));
         }
         if (!com.simplebuilding.version.McVersion.CRUCIBLE) {
-            disabledChapters.addAll(List.of("book.simplebuilding.machines.9", "book.simplebuilding.machines.10"));
+            disabledChapters.addAll(List.of("book.simplebuilding.machines.9", "book.simplebuilding.machines.10", "book.simplebuilding.machines.12"));
         }
+        if (!com.simplebuilding.version.McVersion.AUTO_SMITHER) disabledChapters.add("book.simplebuilding.machines.13");
+        if (!com.simplebuilding.version.McVersion.WOODWORK) {
+            disabledChapters.addAll(List.of("book.simplebuilding.building.15", "book.simplebuilding.building.16", "book.simplebuilding.storage.11"));
+        }
+        if (!com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            disabledChapters.addAll(List.of("book.simplebuilding.building.17", "book.simplebuilding.gadgets.15"));
+        }
+        if (!com.simplebuilding.version.McVersion.FIRES) disabledChapters.add("book.simplebuilding.building.18");
         for (String chapter : disabledChapters) {
             helper.assertTrue(!used.contains(chapter + ".title") && !used.contains(chapter + ".text"),
                     "disabled chapter is still shown: " + chapter);
