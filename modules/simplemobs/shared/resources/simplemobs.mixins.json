@@ -7,6 +7,10 @@
     "EntitySilenceMixin",
     "SculkSensorBlockMixin"
   ],
+  "client": [
+    "DeceiverLookMixin",
+    "WalkAnimationAccessor"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
