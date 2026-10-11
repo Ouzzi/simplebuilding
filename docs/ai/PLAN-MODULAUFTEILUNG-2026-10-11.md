@@ -296,6 +296,20 @@ Schätzung in Agenten-Sitzungen (1 S ≈ ein Queue-Auftrag inkl. Tests).
 | 8 | `claude-split-s8-storage` | **Storage** (~93 Klassen, 36 Blöcke, 7 BE, 3 Menüs, 3 Pakete, 13 Mixins, Fahrzeuge, Lager-Verzauberungen, Enderit-Fass) | größter Umzug; `ModMessageHandlers` teilen; Trichter bleibt SB und kennt Stufen-Truhen nur über `Container`/Tag; Loader-Menü-Shims (`platform/*Menus`) je Loader; QoL/Interfaces-Layout-Aliase (`ContainerStyles.LAYOUT_ALIASES` nennt SB-Klassennamen als String) | 10 Storage-Testklassen + 2 Client-Tests, Interfaces-Tests, Sandwiches „aus Bündeln essen“, Standalone, Migrationswelt (gefüllte Container!) | 5 S |
 | 9 | `claude-split-s9-release` | Aufräumen: SB-Tabs/Suchtab/Guide/Testzentrale nur noch über IDs/Verträge, Wiki-Umzug, Versionen, Changelog, Brücken-Version 1.3.x-bridge | – | volles Gate + alle Standalone + alle Migrationstargets einmal | 2 S |
 
+**Status Stufe 1 (11.10., Branch `claude-split1`, drei Commits 1a/1b/1c statt drei Branches):**
+- 1a: SB bündelt zusätzlich Riding, Sandwiches, Tweaks, Money, Fun, Dimensions, Trims, Mobs (Maps/Questionary waren
+  schon drin): Fabric nur `include`, NeoForge nur `jarJar` (kein `evaluationDependsOn` – mehrere Sub-Mods werten
+  `:mc26_3:neoforge` für ihre Integrationsläufe aus, sonst Zyklus), Forge `forgeBundleModules`. SB-Dev-/Testläufe laden
+  die neuen Sub-Mods bewusst **nicht** (unverändertes SB-Testumfeld); das Zusammenspiel prüfen die Integrations-Targets
+  der Sub-Mods. Schalter `enableSimpleX` im Tab „Simple Mods“, `SimplebuildingConfig.applySubModSwitches` setzt
+  `framework SubMods` beim Laden der Live-Config (nicht in `validatePostLoad`, das auch Test-Kopien durchlaufen).
+  Jede Sub-Mod: `on()`-Helfer, aus = Tabs leer, keine Loot-/Trade-Injektion, zentrale Spielstellen inert, Registrierungen
+  unverändert; Gametest `sub_mod_switch` je Modul, SB `config_option_game_test_super_mod_switches_reach_the_bundled_sub_mods`.
+  `modules.json`: `parent`/`bundle`, `tools/multimod.py` prüft Liste im Elternteil + Gradle-Bündelung je Loader.
+- 1b: QoL `requires`+bündelt `simpleinterfaces`, Schalter `enableSimpleInterfaces`, `QolTests.subModSwitch` erweitert.
+- 1c: neues Modul `simpleaesthetics` 1.0.0 (keine Inhalte; `config/simpleaesthetics.json` mit drei Schaltern, ohne
+  eigenen Config-Bildschirm), `requires`+bündelt Visuals/Sounds/Models, Standalone-Target, Wiki-Kapitel, Money-Preisliste.
+
 Summe ≈ 32 Agenten-Sitzungen. Stufen 1a–2 sind unabhängig voneinander parallelisierbar (verschiedene Dateien bis auf
 `modules.json` – additiv). Ab Stufe 3 strikt nacheinander (gemeinsame Registrierungsdateien).
 
