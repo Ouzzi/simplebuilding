@@ -99,18 +99,23 @@ public final class EndStructureTests {
         BlockPos base = helper.absolutePos(new BlockPos(0, 1, 0));
         place(helper, "wreck_stern_elytra", base);
         int chests = 0;
-        for (BlockPos p : BlockPos.betweenClosed(base, base.offset(12, 12, 12))) {
+        for (BlockPos p : BlockPos.betweenClosed(base, base.offset(16, 14, 18))) {
             if (helper.getLevel().getBlockEntity(p) instanceof RandomizableContainer c && c.getLootTable() != null) {
                 helper.assertTrue(c.getLootTable().identifier().equals(id("chests/end_wreck")), "chest has wrong loot table");
                 chests++;
             }
         }
         helper.assertTrue(chests >= 1 && chests <= 2, "wreck must hold 1-2 loot chests, found " + chests);
+        // half buried: an end-stone mound fills the lower layers (the structure starts 4 blocks below the surface)
+        int mound = 0;
+        for (BlockPos p : BlockPos.betweenClosed(base, base.offset(16, 3, 18)))
+            if (helper.getLevel().getBlockState(p).is(Blocks.END_STONE)) mound++;
+        helper.assertTrue(mound > 150, "wreck is not buried in an end-stone mound, found " + mound);
         var frames = helper.getLevel().getEntitiesOfClass(ItemFrame.class, new AABB(base).inflate(14));
         helper.assertTrue(frames.size() == 1 && frames.get(0).getItem().is(Items.ELYTRA)
                 && frames.get(0).getItem().getDamageValue() == frames.get(0).getItem().getMaxDamage() - 1, "expected one frame with a broken elytra");
         frames.forEach(f -> f.discard());
-        BlockPos plain = base.offset(0, 0, 16);
+        BlockPos plain = base.offset(0, 0, 20);
         place(helper, "wreck_bow_none", plain);
         helper.assertTrue(helper.getLevel().getEntitiesOfClass(ItemFrame.class, new AABB(plain).inflate(14)).isEmpty(), "frame-less wreck spawned a frame");
         helper.succeed();
