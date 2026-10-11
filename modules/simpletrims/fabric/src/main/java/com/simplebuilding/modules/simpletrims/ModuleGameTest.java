@@ -22,6 +22,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void subModSwitch(GameTestHelper h) {
+        TrimsTests.ALL.get("sub_mod_switch").accept(h);
+    }
+
+    @GameTest
     public void ids(GameTestHelper h) {
         TrimsTests.ALL.get("ids").accept(h);
     }

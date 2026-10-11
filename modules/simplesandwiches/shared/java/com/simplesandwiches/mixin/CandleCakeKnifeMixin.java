@@ -21,6 +21,6 @@ public abstract class CandleCakeKnifeMixin {
     @Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
     private void simplesandwiches$knife(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                         InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir) {
-        if (stack.getItem() instanceof KnifeItem) cir.setReturnValue(KnifeItem.cutCake(state, level, pos, player, hand, stack));
+        if (com.simplesandwiches.Sandwiches.on() && stack.getItem() instanceof KnifeItem) cir.setReturnValue(KnifeItem.cutCake(state, level, pos, player, hand, stack));
     }
 }

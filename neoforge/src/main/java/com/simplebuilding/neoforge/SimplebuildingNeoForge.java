@@ -82,6 +82,7 @@ public final class SimplebuildingNeoForge {
     private void configure() {
         AutoConfig.register(SimplebuildingConfig.class, GsonConfigSerializer::new);
         Simplebuilding.setConfig(AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig());
+        SimplebuildingConfig.applySubModSwitches(Simplebuilding.getConfig());
     }
 
     private void registerContent() {

@@ -2902,7 +2902,11 @@ public final class DataIntegrityTests {
     }
 
     private static String names(List<ItemStack> stacks) {
-        return stacks.stream().map(stack -> BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath()).toList().toString();
+        // Foreign items (other mods, e.g. bundled sub-mods) with their namespace, so a stranger in a row is named.
+        return stacks.stream().map(stack -> {
+            var id = BuiltInRegistries.ITEM.getKey(stack.getItem());
+            return MOD_ID.equals(id.getNamespace()) ? id.getPath() : id.toString();
+        }).toList().toString();
     }
 
     // =================================================================================

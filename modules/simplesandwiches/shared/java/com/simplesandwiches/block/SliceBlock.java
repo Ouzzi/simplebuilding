@@ -119,6 +119,7 @@ public class SliceBlock extends Block {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
+        if (!com.simplesandwiches.Sandwiches.on()) return InteractionResult.PASS;
         if (stack.getItem() instanceof KnifeItem) {
             Cut cut = cutFor(state, hit.getDirection());
             if (cut == null) return InteractionResult.FAIL;

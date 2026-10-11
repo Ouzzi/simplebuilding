@@ -15,6 +15,7 @@ public final class RidingGameTest {
  @GameTest(maxTicks=100) public void armorDefense(GameTestHelper h){com.simpleriding.test.RidingTests.armorDefense(h);}
  @GameTest(maxTicks=100) public void trades(GameTestHelper h){com.simpleriding.test.RidingTests.trades(h);}
  @GameTest(maxTicks=100) public void lootAndToggle(GameTestHelper h){com.simpleriding.test.RidingTests.lootAndToggle(h);}
+ @GameTest(maxTicks=100) public void subModSwitch(GameTestHelper h){com.simpleriding.test.RidingTests.subModSwitch(h);}
  @GameTest(maxTicks=100) public void vanillaTabPlacement(GameTestHelper h){com.simpleriding.test.RidingTests.vanillaTabPlacement(h);}
  @GameTest(maxTicks=100) public void configAndLang(GameTestHelper h){com.simpleriding.test.RidingTests.configAndLang(h);}
  @GameTest(maxTicks=100) public void crossModStorageAndArmor(GameTestHelper h){com.simpleriding.test.RidingTests.crossModStorageAndArmor(h);} @GameTest(maxTicks=100) public void nautilusSpeedAndArmor(GameTestHelper h){com.simpleriding.test.RidingTests.nautilusSpeedAndArmor(h);}

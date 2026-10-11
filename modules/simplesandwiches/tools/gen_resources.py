@@ -77,6 +77,10 @@ def resources():
         files[f"assets/{NS}/{path}.json"] = value
 
     def data(path, value, namespace=NS):
+        if path.startswith("recipe/"):
+            # Super-mod switch "Enable Simple Sandwiches": recipes load only while it is on (condition per loader).
+            value = {"fabric:load_conditions": [{"condition": f"{NS}:enabled"}],
+                     "neoforge:conditions": [{"type": f"{NS}:enabled"}], **value}
         files[f"data/{namespace}/{path}.json"] = value
 
     def item(name, model):

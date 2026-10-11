@@ -21,7 +21,17 @@ window.WIKI_MODULES = [
       "appleskin",
       "mousetweaks",
       "trinkets_updated",
-      "curios"
+      "curios",
+      "simplemaps",
+      "simplequestionary",
+      "simpleriding",
+      "simplesandwiches",
+      "simpletweaks",
+      "simplemoney",
+      "simplefun",
+      "simpledimensions",
+      "simpletrims",
+      "simplemobs"
     ]
   },
   {

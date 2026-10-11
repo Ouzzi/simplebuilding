@@ -26,6 +26,13 @@ public class SandwichItem extends Item {
         super(properties);
     }
 
+    /** Super-mod switch "Enable Simple Sandwiches" off: sandwiches stay in the world but cannot be eaten. */
+    @Override
+    public net.minecraft.world.InteractionResult use(net.minecraft.world.level.Level level, net.minecraft.world.entity.player.Player player, net.minecraft.world.InteractionHand hand) {
+        if (!com.simplesandwiches.Sandwiches.on()) return net.minecraft.world.InteractionResult.PASS;
+        return super.use(level, player, hand);
+    }
+
     public static SandwichContents contents(ItemStack stack) {
         return stack.getOrDefault(ModComponents.SANDWICH_CONTENTS, SandwichContents.EMPTY);
     }

@@ -33,6 +33,8 @@ public final class SandwichesNeoForge {
                 ModBlockEntities.register(new BlockEntityType<>(CuttingBoardBlockEntity::new, Set.of(ModBlocks.boards()), false));
             }
             if (key.equals(Registries.CREATIVE_MODE_TAB)) SandwichRegistry.tab();
+            if (key.equals(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.CONDITION_CODECS))
+                event.register(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.CONDITION_CODECS, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplesandwiches", "enabled"), () -> SandwichesEnabledCondition.CODEC);
         });
         SandwichRegistry.setup();
         if (dist == Dist.CLIENT) SandwichesNeoForgeClient.init(bus);

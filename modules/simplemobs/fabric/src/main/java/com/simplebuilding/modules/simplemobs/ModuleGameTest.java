@@ -3,6 +3,7 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
     @GameTest public void registered(GameTestHelper helper) { MobsTests.ALL.get("registered").accept(helper); }
+    @GameTest public void subModSwitch(GameTestHelper helper) { MobsTests.ALL.get("sub_mod_switch").accept(helper); }
     @GameTest public void phases(GameTestHelper helper) { MobsTests.ALL.get("phases").accept(helper); }
     @GameTest public void waveSizes(GameTestHelper helper) { MobsTests.ALL.get("wave_sizes").accept(helper); }
     @GameTest public void waveKinds(GameTestHelper helper) { MobsTests.ALL.get("wave_kinds").accept(helper); }

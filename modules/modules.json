@@ -30,7 +30,17 @@
         "appleskin",
         "mousetweaks",
         "trinkets_updated",
-        "curios"
+        "curios",
+        "simplemaps",
+        "simplequestionary",
+        "simpleriding",
+        "simplesandwiches",
+        "simpletweaks",
+        "simplemoney",
+        "simplefun",
+        "simpledimensions",
+        "simpletrims",
+        "simplemobs"
       ],
       "paths": {
         "root": ".",
@@ -191,7 +201,9 @@
         "tables": "modules/simplemoney/shared/resources/data/simplemoney/money",
         "generator": "modules/simplemoney/tools/generate_links.py",
         "sellEnabled": false
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simpleriding",
@@ -290,7 +302,9 @@
       },
       "checks": [
         "modules/simpleriding/tools/check_data.py"
-      ]
+      ],
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simplemodels",
@@ -483,7 +497,9 @@
         "fabric": ":modules:simplefun:fabric",
         "neoforge": ":modules:simplefun:neoforge",
         "forge": ":modules:simplefun:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simplevisuals",
@@ -886,7 +902,9 @@
         "fabric": ":modules:simpletweaks:fabric",
         "neoforge": ":modules:simpletweaks:neoforge",
         "forge": ":modules:simpletweaks:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simpledimensions",
@@ -991,7 +1009,9 @@
         "forge": ":modules:simpledimensions:forge"
       },
       "namespace": "simpledimension",
-      "modId": "simpledimension"
+      "modId": "simpledimension",
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simplesandwiches",
@@ -1078,7 +1098,9 @@
         "fabric": ":modules:simplesandwiches:fabric",
         "neoforge": ":modules:simplesandwiches:neoforge",
         "forge": ":modules:simplesandwiches:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simplelib",
@@ -1331,7 +1353,9 @@
         "fabric": ":modules:simplemaps:fabric",
         "neoforge": ":modules:simplemaps:neoforge",
         "forge": ":modules:simplemaps:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simpletrims",
@@ -1418,7 +1442,9 @@
         "fabric": ":modules:simpletrims:fabric",
         "neoforge": ":modules:simpletrims:neoforge",
         "forge": ":modules:simpletrims:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simplemobs",
@@ -1503,7 +1529,9 @@
         "fabric": ":modules:simplemobs:fabric",
         "neoforge": ":modules:simplemobs:neoforge",
         "forge": ":modules:simplemobs:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simpleweather",
@@ -1597,7 +1625,9 @@
         "fabric": ":modules:simpleweather:fabric",
         "neoforge": ":modules:simpleweather:neoforge",
         "forge": ":modules:simpleweather:forge"
-      }
+      },
+      "parent": "simplequalityoflife",
+      "bundle": "required"
     },
     {
       "id": "simplequestionary",
@@ -1684,7 +1714,9 @@
         "fabric": ":modules:simplequestionary:fabric",
         "neoforge": ":modules:simplequestionary:neoforge",
         "forge": ":modules:simplequestionary:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     }
   ]
 }

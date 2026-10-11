@@ -16,7 +16,7 @@ public final class MobsServer {
     private MobsServer() {}
 
     public static void tick(MinecraftServer server) {
-        if (server.getTickCount() % ROLL_INTERVAL != 0) return;
+        if (!MobsRegistry.on() || server.getTickCount() % ROLL_INTERVAL != 0) return;
         ServerLevel level = server.getLevel(Level.OVERWORLD);
         if (level == null) return;
         for (ServerPlayer p : level.players()) {

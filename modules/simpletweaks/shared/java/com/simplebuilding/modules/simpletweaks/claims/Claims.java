@@ -51,24 +51,26 @@ public final class Claims {
             SERVERS.put(server,claims);
             if (claims.config.enabled()) com.simplebuilding.framework.api.Protection.register(server,"simpletweaks",new com.simplebuilding.framework.api.Protection.Check() {
                 @Override public boolean allows(com.simplebuilding.framework.api.Protection.Target target) {
-                    return (claims.config.opBypass() && target.administrator()) || claims.allowed(target.dimension(),target.actor(),new ChunkPos(target.x()>>4,target.z()>>4).pack());
+                    return !on() || (claims.config.opBypass() && target.administrator()) || claims.allowed(target.dimension(),target.actor(),new ChunkPos(target.x()>>4,target.z()>>4).pack());
                 }
                 @Override public boolean allowsAutomation(com.simplebuilding.framework.api.Protection.Target source, com.simplebuilding.framework.api.Protection.Target target) {
-                    return source.dimension().equals(target.dimension()) && claims.sameOwner(source.dimension(),ChunkPos.pack(source.x()>>4,source.z()>>4),ChunkPos.pack(target.x()>>4,target.z()>>4));
+                    return !on() || source.dimension().equals(target.dimension()) && claims.sameOwner(source.dimension(),ChunkPos.pack(source.x()>>4,source.z()>>4),ChunkPos.pack(target.x()>>4,target.z()>>4));
                 }
             });
         }
     }
+    /** Super-mod switch "Enable Simple Tweaks" (framework SubMods): off = claims stay registered but protect nothing. */
+    public static boolean on() { return com.simplebuilding.framework.api.SubMods.enabled("simpletweaks"); }
     public static void stop(MinecraftServer server) { install(server,null); settings=null; }
     public static Claims get(MinecraftServer server) { return SERVERS.get(server); }
-    public static boolean enabled(MinecraftServer server) { var c=get(server); return c!=null && c.config.enabled(); }
+    public static boolean enabled(MinecraftServer server) { var c=get(server); return on() && c!=null && c.config.enabled(); }
     public static boolean allow(ServerLevel level, UUID actor, BlockPos pos) {
         var c=get(level.getServer());
-        return c==null || !c.config.enabled() || c.allowed(level.dimension().identifier().toString(),actor,ChunkPos.pack(pos));
+        return c==null || !on() || !c.config.enabled() || c.allowed(level.dimension().identifier().toString(),actor,ChunkPos.pack(pos));
     }
     public static boolean allow(ServerPlayer player, ServerLevel level, BlockPos pos) {
         var c=get(level.getServer());
-        return c==null || !c.config.enabled() || (c.config.opBypass() && admin(player)) || allow(level,player.getUUID(),pos);
+        return c==null || !on() || !c.config.enabled() || (c.config.opBypass() && admin(player)) || allow(level,player.getUUID(),pos);
     }
     public static boolean allowEntity(ServerPlayer actor, net.minecraft.world.entity.Entity target) {
         if (!(target.level() instanceof ServerLevel level) || !enabled(level.getServer())) return true;
@@ -172,7 +174,7 @@ public final class Claims {
         try { store.replace(next); return true; }
         catch (Exception e) { failed=true; LOG.error("Claims are locked: atomic save failed; last saved data preserved.",e); return false; }
     }
-    public static boolean anyEnabled(){return SERVERS.values().stream().anyMatch(c->c.config.enabled());}
+    public static boolean anyEnabled(){return on() && SERVERS.values().stream().anyMatch(c->c.config.enabled());}
     public static boolean environment(ServerLevel level,BlockPos pos){return allow(level,null,pos);}
     /** Destruction can update another half even when only this cell is directly hit. */
     public static boolean environmentBlock(ServerLevel level,BlockPos pos){
@@ -187,7 +189,7 @@ public final class Claims {
         return positions;
     }
     public static boolean transfer(ServerLevel level,BlockPos source,BlockPos target){
-        var c=get(level.getServer());if(c==null||!c.config.enabled())return true;if(!c.ready())return false;
+        var c=get(level.getServer());if(c==null||!on()||!c.config.enabled())return true;if(!c.ready())return false;
         String dim=level.dimension().identifier().toString();
         var positions=new ArrayList<>(parts(level,source));positions.addAll(parts(level,target));
         for(var p:positions)if(!c.sameOwner(dim,ChunkPos.pack(source),ChunkPos.pack(p)))return false;

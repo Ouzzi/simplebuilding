@@ -16,6 +16,7 @@ public final class TemplateTools {
             TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("simplebuilding", "sledgehammer_tools"));
 
     public static boolean isTemplateTool(ItemStack stack, boolean simpleBuildingLoaded) {
+        if (!com.simpletrims.SimpleTrims.on()) return false;
         return simpleBuildingLoaded ? stack.is(SLEDGEHAMMERS) : stack.is(ItemTags.AXES);
     }
 

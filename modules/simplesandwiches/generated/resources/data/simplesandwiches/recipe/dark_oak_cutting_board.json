@@ -1,10 +1,20 @@
 {
   "category": "misc",
+  "fabric:load_conditions": [
+    {
+      "condition": "simplesandwiches:enabled"
+    }
+  ],
   "group": "simplesandwiches:cutting_board",
   "key": {
     "S": "minecraft:stick",
     "X": "minecraft:dark_oak_slab"
   },
+  "neoforge:conditions": [
+    {
+      "type": "simplesandwiches:enabled"
+    }
+  ],
   "pattern": [
     "SXX"
   ],

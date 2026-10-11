@@ -105,7 +105,7 @@ public final class Horseshoes {
 
  /** Steering input (client and server): more sideways/backward control, never more forward speed. */
  public static Vec3 handling(AbstractHorse horse,Vec3 input){
-  if(!canWear(horse))return input;
+  if(!Riding.on()||!canWear(horse))return input;
   double share=handlingShare(code(horse));
   if(share<=0||!Double.isFinite(input.x)||!Double.isFinite(input.z))return input;
   double sideways=(0.5+share)/0.5, backward=(0.25+share/2)/0.25;
@@ -129,7 +129,7 @@ public final class Horseshoes {
  /** Fall damage of a horse wearing all four shoes: slightly more, rounded so short falls stay equal. */
  public static int fallDamage(LivingEntity e,int damage){
   var c=Riding.CONFIG.horseshoes;
-  if(damage<=0||!c.enableHorseshoes||!canWear(e)||!fullSet(shoes(code(e))))return damage;
+  if(damage<=0||!Riding.on()||!c.enableHorseshoes||!canWear(e)||!fullSet(shoes(code(e))))return damage;
   return Math.max(damage,(int)Math.round(damage*(1+RidingConfig.bounded(c.fullSetFallDamageIncrease,0,RidingConfig.MAX_FALL_INCREASE))));
  }
 

@@ -239,6 +239,19 @@ dependencies {
     include project(':modules:simplequestionary:fabric')
     implementation project(':modules:simplequestionary:fabric')
 }
+// Optional Sub-Mods bundled for production (PLAN-MODULAUFTEILUNG stage 1a); switches "Enable Simple X" reach them via
+// framework SubMods. Only nested (no implementation): SB code never imports them, and SB's own dev/test runs stay as
+// before; each sub-mod's integration target loads it together with SimpleBuilding.
+dependencies {
+    include project(':modules:simpleriding:fabric')
+    include project(':modules:simplesandwiches:fabric')
+    include project(':modules:simpletweaks:fabric')
+    include project(':modules:simplemoney:fabric')
+    include project(':modules:simplefun:fabric')
+    include project(':modules:simpledimensions:fabric')
+    include project(':modules:simpletrims:fabric')
+    include project(':modules:simplemobs:fabric')
+}
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }
 

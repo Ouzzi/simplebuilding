@@ -15,6 +15,7 @@ public class BrickSnowballItem extends Item {
 
   @Override
   public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    if (!com.simplefun.SimplefunCommon.on()) return InteractionResult.PASS;
     // Dedicated item - not gated by the enableThrowableBricks flag.
     BrickProjectileEntity.throwFrom(level, player, player.getItemInHand(hand));
     return InteractionResult.SUCCESS;

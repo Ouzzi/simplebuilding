@@ -72,6 +72,7 @@ public class KnifeItem extends Item {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
+        if (!com.simplesandwiches.Sandwiches.on()) return InteractionResult.PASS;
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         if (level.getBlockState(pos).is(Blocks.MELON)) {
