@@ -73,9 +73,13 @@ public final class BoatDeckClientTest {
             }
             worstGap = Math.max(worstGap, Math.abs(client.player.getY() - deck.maxY));
             if (counted[0] < 12) {
-                TestLog.info(String.format(java.util.Locale.ROOT, "boat deck tick %d: y %.5f deck %.5f ground %s dy %.4f colliders %d",
+                ServerLevel server = client.getSingleplayerServer() == null ? null : client.getSingleplayerServer().overworld();
+                AABB serverDeck = server == null ? null : server.getEntitiesOfClass(TieredChestBoat.class,
+                        new AABB(BOAT_X - 3, -3, BOAT_Z - 3, BOAT_X + 3, 2, BOAT_Z + 3)).stream().findFirst().map(TieredChestBoat::getBoundingBox).orElse(null);
+                double serverY = server == null ? Double.NaN : server.players().stream().findFirst().map(p -> p.getY()).orElse(Double.NaN);
+                TestLog.info(String.format(java.util.Locale.ROOT, "boat deck tick %d: y %.5f deck %.5f ground %s dy %.4f | server deck %.5f player %.5f",
                         counted[0], client.player.getY(), deck.maxY, client.player.onGround(), client.player.getDeltaMovement().y,
-                        client.level.getEntityCollisions(client.player, client.player.getBoundingBox().expandTowards(0.0, -0.2, 0.0)).size()));
+                        serverDeck == null ? Double.NaN : serverDeck.maxY, serverY));
             }
             wet |= client.player.isInWater();
             airborne |= !client.player.onGround();
