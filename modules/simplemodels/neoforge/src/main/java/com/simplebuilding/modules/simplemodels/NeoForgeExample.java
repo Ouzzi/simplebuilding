@@ -6,7 +6,7 @@ public final class NeoForgeExample {
         ModuleNeoTests.register(bus);
   bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e)->{if(e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM))com.simplebuilding.modules.simplemodels.guide.ModelsGuide.register();});
   if(net.neoforged.fml.ModList.get().isLoaded("ftbquests"))com.simplebuilding.modules.simplemodels.guide.ModelsGuide.installQuests(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
-  bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e)->{if(e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES))e.accept(com.simplebuilding.modules.simplemodels.guide.ModelsGuide.book());});
+  bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e)->{if(!e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)||!com.simplebuilding.framework.api.SubMods.enabled("simplemodels"))return;var book=com.simplebuilding.modules.simplemodels.guide.ModelsGuide.book();var anchor=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.WRITABLE_BOOK);/* before the writable book: a tail append clashes with other mods' insertAfter at the tail */if(e.getParentEntries().contains(anchor))e.insertBefore(anchor,book,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);else e.accept(book);});
         Models.root = net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get().resolve("simplemodels");
         Models.send = player -> {
             if (player.connection != null && player.connection.hasChannel(CataloguePayload.ID))
