@@ -781,7 +781,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Questionary-Texte befüllen (Generator-Skelett + Wellen je Modul/Familie, Vanilla zuletzt; `tools/questionary/check_data.py --strict` wird dann rot geschaltet).
 
 ## Nachtrag 37 (2026-10-11, Besitzer, Screenshots im Vorschauordner n37/)
-- [ ] Sculk Jaw: weitere Beispiele zur Wahl – die aktuelle Form ist bisher die beste (Varianten nah daran).
+- [x] Sculk Jaw: weitere Beispiele zur Wahl – die aktuelle Form ist bisher die beste (Varianten nah daran). (claude-jaw3 E–I gezeigt; Besitzer: Form bleibt)
+- [x] Sculk Jaw (N37): als Sculk tarnen (Vanilla-Sculk-Textur per Referenz, dunkle Zähne), Zuschnappen/Öffnen als Bildfolge (motion 2→0), helle Kantenlinien beseitigt (Auto-UV statt Texturfelder, verdeckte Flächen weg, cullface). (claude-jaw4; Bilder n37/jaw-*.png)
 - [ ] Fragentisch: viel epischer, Block an Zaubertisch erinnernd; UI besonders schön, an das Guide-Buch erinnernd, im modernen UI-Stil der Mod.
 - [ ] Platzierte Bündel: Items 3D (1 px tief) rendern.
 - [ ] UI-Farbvarianten (z. B. braun): Hintergrund-Symbole der Slots nicht korrekt sichtbar (brown_ui_icons.png).

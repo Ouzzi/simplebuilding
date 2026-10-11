@@ -1,15 +1,22 @@
-"""Sculk-Kiefer (QUEUE N24, Branch claude-q-traps): eigene 16x16-Textur + Modelle (offen / zugeschnappt).
+"""Sculk-Kiefer (QUEUE N24/N34/N37): Modelle, Zahn-Textur, Blockstates.
 
-Texturaufbau (eine Datei, drei Felder): oben links Zahnfleisch (Sculk), oben rechts Zahn (Knochen),
-unten 16x8 das Maul-Innere (Boden). Die Modelle werden hier aus Quadern erzeugt:
-- offen: flacher Kiefer, kurze Zaehne in zwei versetzten Reihen an den Raendern;
-- zugeschnappt: die Zaehne wachsen als gebogene Klingen nach innen und greifen mittig ineinander.
+Besitzer N37: die Falle tarnt sich als Sculk. Alle Sculk-Flaechen zeigen die Vanilla-Textur ``minecraft:block/sculk``
+(per Referenz, nichts Vanilla eingecheckt) mit deren eigener Leuchtanimation - das ist zugleich das ruhige "Atmen" der
+Falle. Die Zaehne sind nur eine feine, dunkle Andeutung (eigene Textur ``sculk_jaw.png`` in der Sculk-Palette).
+
+Gegen die hellen Kantenlinien (N37, Bild im Spiel): keine Teilbereiche einer gemeinsamen Textur mehr (die Kanten zogen
+Nachbartexel aus dem Knochen-Feld), sondern Auto-UV aus der Lage wie bei Vanilla-Bloecken; verdeckte Flaechen
+(Unterseiten auf dem Sockel, die Naht zwischen beiden Lippen) fallen weg, Flaechen am Blockrand bekommen cullface.
+
+Bewegung (N37): vier Bilder offen -> 1/3 -> 2/3 -> zu, im Blockzustand ``motion`` (siehe SculkJawBlock).
+Form zu = N34: zwei Sculk-Lippen schliessen sich von den Raendern zur flachen Kuppel, Fangzaehne greifen ineinander.
 
   python3 tools/textures/sculk_jaw_2026_10_10.py          # schreibt Textur + Modelle + Vorschau
   python3 tools/textures/sculk_jaw_2026_10_10.py --check
 """
 import argparse
 import json
+import math
 import os
 import sys
 from pathlib import Path
@@ -18,7 +25,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 RES = ROOT / "mc26_3/overlay/resources/assets/simplebuilding"
-PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", os.path.expanduser("~/previews") + "/traps"))
+PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", os.path.expanduser("~/previews") + "/n37"))
 WIKI = ROOT / "wiki/assets/textures"
 
 
@@ -26,9 +33,8 @@ def rgb(h):
     return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4)) + (255,)
 
 
-GUM = [rgb(h) for h in ("07161c", "0d252d", "133741", "1b4a55", "2a6a72")]
-GLOW = [rgb(h) for h in ("2fa7b8", "5fe0dc", "a8fff0")]
-BONE = [rgb(h) for h in ("6d6650", "9b9378", "c9c1a2", "e6dfc3", "f6f1da")]
+# Sculk-Palette (dunkel) fuer die Zaehne: nur die Spitzen eine Spur heller, kein Knochenweiss.
+TOOTH = [rgb(h) for h in ("06141a", "0b1f27", "11303a", "1a424b", "2b5a5e")]
 
 
 def rng(seed):
@@ -41,129 +47,143 @@ def rng(seed):
 
 
 def texture():
+    """16x16 Zahn-Textur fuer Auto-UV: Zeile v entspricht Modellhoehe 16 - v; die Zaehne reichen bis Hoehe 10."""
     img = Image.new("RGBA", (16, 16))
     px = img.load()
-    r = rng(7)
-    # Zahnfleisch 0..7 x 0..7: dunkel mit helleren Adern und wenigen leuchtenden Punkten.
-    for y in range(8):
-        for x in range(8):
-            t = 1 + (1 if (x + 2 * y) % 5 == 0 else 0) + (1 if r() < 0.18 else 0)
-            px[x, y] = GUM[min(t, 3)]
-    for x, y in ((2, 1), (6, 4), (3, 6)):
-        px[x, y] = GLOW[0]
-    # Zahn 8..15 x 0..7: Knochen, links hell, rechts schattig, Spitze oben heller, Kerbe in der Mitte.
-    for y in range(8):
-        for x in range(8):
-            tone = 3 if x < 3 else (2 if x < 6 else 1)
-            if y < 2:
-                tone = min(tone + 1, 4)
-            if x == 4 and 3 <= y <= 5:
-                tone = 0
-            px[8 + x, y] = BONE[tone]
-    # Boden 0..15 x 8..15: Zahnfleisch-Wulst quer, Zungenrille in der Mitte, Leuchtpunkte.
-    for y in range(8):
+    r = rng(17)
+    for y in range(16):
         for x in range(16):
-            t = 0 if y in (0, 7) else 1
-            if abs(x - 7.5) <= 1.5:
-                t = 2 if y % 2 == 0 else 3
-            if (x * 3 + y * 5) % 11 == 0:
-                t = min(t + 1, 4)
-            px[x, 8 + y] = GUM[t]
-    for x, y in ((3, 12), (12, 10), (5, 14), (10, 14)):
-        px[x, y] = GLOW[1]
-    px[12, 10] = GLOW[2]
+            t = 1 + (1 if r() < 0.3 else 0)
+            if y <= 7:  # Hoehe 9..16: Spitzen, eine Stufe heller
+                t += 1
+            if y <= 6 and (x + y) % 5 == 0:
+                t += 1  # feine Kante, nur bei genauem Hinsehen
+            if y >= 12 and r() < 0.4:
+                t -= 1
+            px[x, y] = TOOTH[max(0, min(4, t))]
     return img
 
 
-GUM_UV, TOOTH_UV, FLOOR_UV = [0, 0, 8, 8], [8, 0, 16, 8], [0, 8, 16, 16]
+SCULK, TEETH = "#sculk", "#teeth"
+LIPS = [(0, 2, 4, 0), (1, 4, 6, 1), (3, 6, 7, 2.5)]  # (Abstand vom Rand, y0, y1, z-Einzug) je Stufe
 
 
-def box(frm, to, uv):
-    face = {"uv": uv, "texture": "#0"}
-    return {"from": frm, "to": to, "faces": {d: dict(face) for d in ("north", "south", "east", "west", "up", "down")}}
+def jaw_elements(f):
+    """Bild f in 0..1: 0 offen, 1 zu. Liste von (from, to, Textur)."""
+    els = [([0, 0, 0], [16, 2, 16], SCULK)]
+    if f == 0:
+        els += [([0, 2, 0], [2, 4, 16], SCULK), ([14, 2, 0], [16, 4, 16], SCULK)]
+        for z in (0, 4, 8, 12):
+            els += [([0, 4, z], [2, 6, z + 2], TEETH), ([0.5, 6, z + 0.5], [1.5, 8, z + 1.5], TEETH)]
+        for z in (2, 6, 10, 14):
+            els += [([14, 4, z], [16, 6, z + 2], TEETH), ([14.5, 6, z + 0.5], [15.5, 8, z + 1.5], TEETH)]
+        return els
+    inner = 2 + 6 * f  # Innenkante der Lippen wandert vom Rand zur Mitte
+    for out, y0, y1, zi in LIPS:
+        if out < inner:
+            els.append(([out, y0, zi], [inner, y1, 16 - zi], SCULK))
+            els.append(([16 - inner, y0, zi], [16 - out, y1, 16 - zi], SCULK))
+    if f == 1:
+        for z in (1.5, 5.5, 9.5):
+            els += [([5.5, 7, z], [8.5, 8.5, z + 2], TEETH), ([7, 8.5, z + 0.5], [9, 10, z + 1.5], TEETH)]
+        for z in (3.5, 7.5, 11.5):
+            els += [([7.5, 7, z], [10.5, 8.5, z + 2], TEETH), ([7, 8.5, z + 0.5], [9, 10, z + 1.5], TEETH)]
+        return els
+    top = max(y1 for out, y0, y1, zi in LIPS if out < inner)
+    for z in (1.5, 5.5, 9.5):  # Zaehne reiten auf den Innenkanten der Lippen mit
+        els += [([inner - 2.5, top, z], [inner, top + 1.5, z + 2], TEETH),
+                ([inner - 1.5, top + 1.5, z + 0.5], [inner - 0.5, top + 3, z + 1.5], TEETH)]
+    for z in (3.5, 7.5, 11.5):
+        els += [([16 - inner, top, z], [18.5 - inner, top + 1.5, z + 2], TEETH),
+                ([16.5 - inner, top + 1.5, z + 0.5], [17.5 - inner, top + 3, z + 1.5], TEETH)]
+    return els
 
 
-def jaw(snapped):
-    els = [box([0, 0, 0], [16, 2, 16], GUM_UV)]
-    els[0]["faces"]["up"] = {"uv": FLOOR_UV, "texture": "#0"}
-    els.append(box([0, 2, 0], [2, 4, 16], GUM_UV))
-    els.append(box([14, 2, 0], [16, 4, 16], GUM_UV))
-    if not snapped:
-        for z in (0, 4, 8, 12):  # linke Reihe: kurze Zaehne
-            els.append(box([0, 4, z], [2, 6, z + 2], TOOTH_UV))
-            els.append(box([0.5, 6, z + 0.5], [1.5, 8, z + 1.5], TOOTH_UV))
-        for z in (2, 6, 10, 14):  # rechte Reihe, um eine Zahnbreite versetzt
-            els.append(box([14, 4, z], [16, 6, z + 2], TOOTH_UV))
-            els.append(box([14.5, 6, z + 0.5], [15.5, 8, z + 1.5], TOOTH_UV))
-    else:
-        # Besitzer N34: geschlossen = zwei Sculk-Lippen, die sich von beiden Raendern wie eine Muschel zu einer flachen
-        # Kuppel schliessen; entlang der Naht greifen die Fangzaehne beider Seiten im Wechsel ineinander.
-        del els[1:]
-        for half in (0, 1):
-            def mx(x0, x1):
-                return [x0, x1] if half == 0 else [16 - x1, 16 - x0]
-            a, b = mx(0, 8)
-            els.append(box([a, 2, 0], [b, 4, 16], GUM_UV))
-            a, b = mx(1, 8)
-            els.append(box([a, 4, 1], [b, 6, 15], GUM_UV))
-            a, b = mx(3, 8)
-            els.append(box([a, 6, 2.5], [b, 7, 13.5], GUM_UV))
-            els[-1]["faces"]["up"] = {"uv": FLOOR_UV, "texture": "#0"}  # leuchtende Adern oben auf der Lippe
-        for z in (1.5, 5.5, 9.5):  # Fangzaehne der linken Lippe, ueber die Naht gebogen
-            els.append(box([5.5, 7, z], [8.5, 8.5, z + 2], TOOTH_UV))
-            els.append(box([7, 8.5, z + 0.5], [9, 10, z + 1.5], TOOTH_UV))
-        for z in (3.5, 7.5, 11.5):  # rechte Lippe, versetzt dazwischen: die Reihen greifen ineinander
-            els.append(box([7.5, 7, z], [10.5, 8.5, z + 2], TOOTH_UV))
-            els.append(box([7, 8.5, z + 0.5], [9, 10, z + 1.5], TOOTH_UV))
-    return {"parent": "minecraft:block/block", "textures": {"0": "simplebuilding:block/sculk_jaw",
-            "particle": "simplebuilding:block/sculk_jaw"}, "elements": els}
+AXIS = {"west": (0, -1), "east": (0, 1), "down": (1, -1), "up": (1, 1), "north": (2, -1), "south": (2, 1)}
+
+
+def covered(i, face, els):
+    """Liegt die Flaeche ganz an einem anderen Quader an (verdeckt, z. B. Unterseite auf dem Sockel, Lippennaht)?"""
+    frm, to, _ = els[i]
+    ax, sign = AXIS[face]
+    plane = to[ax] if sign > 0 else frm[ax]
+    others = [a for a in range(3) if a != ax]
+    for j, (f2, t2, _) in enumerate(els):
+        if j == i:
+            continue
+        touches = (f2[ax] == plane) if sign > 0 else (t2[ax] == plane)
+        if touches and all(f2[a] <= frm[a] and t2[a] >= to[a] for a in others):
+            return True
+    return False
+
+
+def r4(v):
+    v = round(v, 4)
+    return int(v) if v == int(v) else v
+
+
+def model(f):
+    raw = [([r4(v) for v in a], [r4(v) for v in b], t) for a, b, t in jaw_elements(f)]
+    elements = []
+    for i, (frm, to, texture_ref) in enumerate(raw):
+        faces = {}
+        for face, (ax, sign) in AXIS.items():
+            if covered(i, face, raw):
+                continue
+            entry = {"texture": texture_ref}
+            if (sign < 0 and frm[ax] == 0) or (sign > 0 and to[ax] == 16):
+                entry["cullface"] = face
+            faces[face] = entry
+        if faces:
+            elements.append({"from": frm, "to": to, "faces": faces})
+    return {"parent": "minecraft:block/block",
+            "textures": {"sculk": "minecraft:block/sculk", "teeth": "simplebuilding:block/sculk_jaw",
+                         "particle": "minecraft:block/sculk"},
+            "elements": elements}
+
+
+FRAMES = {"sculk_jaw": 0.0, "sculk_jaw_motion_1": 1 / 3, "sculk_jaw_motion_2": 2 / 3, "sculk_jaw_snapped": 1.0}
+
+
+def blockstates():
+    """triggered=zu, motion=Zwischenbild: Zuschnappen zaehlt 2 -> 1 -> 0 von offen her, Oeffnen von zu her."""
+    pick = {(False, 0): "sculk_jaw", (True, 2): "sculk_jaw_motion_1", (True, 1): "sculk_jaw_motion_2",
+            (True, 0): "sculk_jaw_snapped", (False, 2): "sculk_jaw_motion_2", (False, 1): "sculk_jaw_motion_1"}
+    return {"variants": {f"motion={m},triggered={'true' if t else 'false'}": {"model": "simplebuilding:block/" + name}
+                         for (t, m), name in sorted(pick.items(), key=lambda kv: (kv[0][1], kv[0][0]))}}
 
 
 def files():
-    out = {
-        "textures/block/sculk_jaw.png": texture(),
-        "models/block/sculk_jaw.json": jaw(False),
-        "models/block/sculk_jaw_snapped.json": jaw(True),
-        "blockstates/sculk_jaw.json": {"variants": {
-            "triggered=false": {"model": "simplebuilding:block/sculk_jaw"},
-            "triggered=true": {"model": "simplebuilding:block/sculk_jaw_snapped"}}},
-        "items/sculk_jaw.json": {"model": {"type": "minecraft:model", "model": "simplebuilding:block/sculk_jaw"}},
-    }
+    out = {"textures/block/sculk_jaw.png": texture(), "blockstates/sculk_jaw.json": blockstates(),
+           "items/sculk_jaw.json": {"model": {"type": "minecraft:model", "model": "simplebuilding:block/sculk_jaw"}}}
+    for name, f in FRAMES.items():
+        out[f"models/block/{name}.json"] = model(f)
     return out
 
 
-def render(model, img, scale=14):
-    """Grober Isometrie-Vorschauer: Quader mit der echten Textur (Naechster-Nachbar), Maler-Reihenfolge."""
-    import math
+def render(mdl, teeth, scale=10):
+    """Grobe Isometrie (Sculk als Flaechenfarbe, Zaehne aus der Textur gemittelt) - nur fuer die Form."""
     W = 16 * scale * 2
     canvas = Image.new("RGB", (W, W), (46, 46, 52))
     d = ImageDraw.Draw(canvas)
-    c, s = math.cos(math.radians(45)), math.sin(math.radians(45))
+    c = math.cos(math.radians(45))
 
     def proj(x, y, z):
         x, z = x - 8, z - 8
-        rx, rz = x * c - z * s, x * s + z * c
-        return (W / 2 + rx * scale, W * 0.62 + rz * scale * 0.5 - y * scale * 0.87)
-
-    def avg(uv):
-        reg = img.crop(tuple(uv)).convert("RGB").resize((1, 1), Image.BOX)
-        return reg.getpixel((0, 0))
+        return (W / 2 + (x - z) * c * scale, W * 0.62 + (x + z) * c * scale * 0.5 - y * scale * 0.87)
+    tcol = teeth.convert("RGB").resize((1, 1), Image.BOX).getpixel((0, 0))
     polys = []
-    for e in model["elements"]:
+    for e in mdl["elements"]:
         (x0, y0, z0), (x1, y1, z1) = e["from"], e["to"]
-        col = avg(e["faces"]["north"]["uv"])
-        faces = {"up": ([(x0, y1, z0), (x1, y1, z0), (x1, y1, z1), (x0, y1, z1)], 1.0),
-                 "south": ([(x0, y0, z1), (x1, y0, z1), (x1, y1, z1), (x0, y1, z1)], 0.78),
-                 "east": ([(x1, y0, z0), (x1, y0, z1), (x1, y1, z1), (x1, y1, z0)], 0.62)}
-        for name, (pts, sh) in faces.items():
-            if name == "up":
-                col2 = avg(e["faces"]["up"]["uv"])
-            else:
-                col2 = col
-            polys.append(((x0 + x1 + z0 + z1) / 2 * -0 + (y0 + y1) / 2 + (x0 + x1) / 2 + (z0 + z1) / 2 * 1.0, pts,
-                          tuple(int(v * sh) for v in col2)))
-    # hinten (kleines x+z) zuerst
-    polys.sort(key=lambda p: (sum(q[0] + q[2] for q in p[1]) / 4, sum(q[1] for q in p[1]) / 4))
+        tex_ref = next(iter(e["faces"].values()))["texture"]
+        col = (13, 40, 48) if tex_ref == SCULK else tuple(min(255, v + 25) for v in tcol)
+        for name, pts, sh in (("up", [(x0, y1, z0), (x1, y1, z0), (x1, y1, z1), (x0, y1, z1)], 1.0),
+                              ("south", [(x0, y0, z1), (x1, y0, z1), (x1, y1, z1), (x0, y1, z1)], 0.78),
+                              ("east", [(x1, y0, z0), (x1, y0, z1), (x1, y1, z1), (x1, y1, z0)], 0.62)):
+            if name in e["faces"]:
+                key = sum(p[0] + p[2] + p[1] * 1.2 for p in pts) / 4
+                polys.append((key, pts, tuple(int(v * sh) for v in col)))
+    polys.sort(key=lambda p: p[0])
     for _, pts, col in polys:
         d.polygon([proj(*p) for p in pts], fill=col, outline=(0, 0, 0))
     return canvas
@@ -171,10 +191,11 @@ def render(model, img, scale=14):
 
 def preview(f):
     tex = f["textures/block/sculk_jaw.png"]
-    out = Image.new("RGB", (16 * 14 * 2 * 2 + 16 * 8 + 30, 16 * 14 * 2), (46, 46, 52))
-    out.paste(render(f["models/block/sculk_jaw.json"], tex), (0, 0))
-    out.paste(render(f["models/block/sculk_jaw_snapped.json"], tex), (16 * 14 * 2, 0))
-    out.paste(tex.convert("RGB").resize((16 * 8, 16 * 8), Image.NEAREST), (16 * 14 * 4 + 15, 20))
+    names = list(FRAMES)
+    out = Image.new("RGB", (320 * len(names) + 140, 320), (46, 46, 52))
+    for i, name in enumerate(names):
+        out.paste(render(f[f"models/block/{name}.json"], tex), (320 * i, 0))
+    out.paste(tex.convert("RGB").resize((128, 128), Image.NEAREST), (320 * len(names) + 6, 20))
     return out
 
 
@@ -205,8 +226,8 @@ def main():
     (WIKI / "block").mkdir(parents=True, exist_ok=True)
     f["textures/block/sculk_jaw.png"].save(WIKI / "block/sculk_jaw.png")
     PREVIEW.mkdir(parents=True, exist_ok=True)
-    preview(f).save(PREVIEW / "sculk_jaw.png")
-    print("written, preview", PREVIEW / "sculk_jaw.png")
+    preview(f).save(PREVIEW / "jaw-frames.png")
+    print("written, preview", PREVIEW / "jaw-frames.png")
     return 0
 
 

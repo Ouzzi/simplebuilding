@@ -43,10 +43,12 @@ public final class TrapTests {
         // 0 = noch nie zu, 1 = zu, 2 = waehrend die Sau drin ist wieder aufgegangen (Flackern)
         int[] phase = {0};
         boolean[] dark = {false};
+        boolean[] moved = {false};
         helper.onEachTick(() -> {
             boolean snapped = helper.getBlockState(pos).getValue(SculkJawBlock.SNAPPED);
             if (pig.isAlive() && pig.blockPosition().equals(helper.absolutePos(pos)) && phase[0] == 1 && !snapped) phase[0] = 2;
             if (phase[0] == 0 && snapped) phase[0] = 1;
+            if (snapped && helper.getBlockState(pos).getValue(SculkJawBlock.MOTION) > 0) moved[0] = true;
             if (pig.isAlive() && pig.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS)) dark[0] = true;
         });
         helper.runAfterDelay(70, () -> {
@@ -54,10 +56,14 @@ public final class TrapTests {
             helper.assertTrue(Math.abs(pig.getHealth() - (full - SculkJawBlock.BITE_DAMAGE)) < 0.01F,
                     "one bite of " + SculkJawBlock.BITE_DAMAGE + " expected: pig health " + pig.getHealth() + " of " + full);
             helper.assertTrue(dark[0], "the pig in the jaw got no darkness");
+            helper.assertTrue(moved[0], "the jaw snapped shut without its closing frames");
+            helper.assertTrue(helper.getBlockState(pos).getValue(SculkJawBlock.MOTION) == 0, "the shut jaw is still moving: "
+                    + helper.getBlockState(pos));
             pig.discard();
             helper.succeedWhen(() -> {
                 helper.assertTrue(helper.getBlockState(pos).is(ModBlocks.SCULK_JAW), "jaw gone: " + helper.getBlockState(pos));
                 helper.assertFalse(helper.getBlockState(pos).getValue(SculkJawBlock.SNAPPED), "the empty jaw did not reopen");
+                helper.assertTrue(helper.getBlockState(pos).getValue(SculkJawBlock.MOTION) == 0, "the jaw is still opening");
             });
         });
     }
