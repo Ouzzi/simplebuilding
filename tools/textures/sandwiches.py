@@ -1135,7 +1135,7 @@ def filling_v5(key, p):
     return im
 
 
-def bun_top_v5(n):
+def bun_top_v5(n, gloss=True):
     im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
     cells = {}
     for x in range(X0, X1 + 1):
@@ -1165,7 +1165,7 @@ def bun_top_v5(n):
             idx = 0 if t > 0.2 or k < h - 1 else 1
         put(im, x, y, hx(BUN_WARM[idx]))
     # glossy highlight on the upper left of the dome
-    for x in (5, 6, 7):
+    for x in ((5, 6, 7) if gloss else ()):
         top_y = min(y for (cx, y) in cells if cx == x)
         put(im, x, top_y + 1, hx('fde9b0'))
     return im
@@ -1679,7 +1679,10 @@ def preview_v8(path):
 #      (no more checker look) and the dome gets a larger gloss spot.         <- built in
 #   B  toasted: A, with a toastier crust (one tone darker) and a golden toasted crumb line.
 #   C  sesame + sauce: A, sesame seeds on the dome instead of the cuts, a creamy sauce line on the bottom slice.
-N18_STYLE = 'A'
+# Owner 2026-10-11: B is built in, but the gloss was too scattered. Like Vanilla food (1-3 shine pixels) B now has
+# one aimed highlight: two pixels on the upper left of the dome. The fillings carry no gloss specks (colour and
+# contact shadow only), the baker's cuts use the mid cut tone so they read as cuts, not as more shine.
+N18_STYLE = 'B'
 SESAME = 'fff3d0'
 SAUCE = ('fff6e0', 'f1e2b8')
 
@@ -1692,11 +1695,14 @@ def filling_n18(key, p, variant=None):
         for x in range(16):
             c = im.getpixel((x, y))
             if c[3]:
-                put(im, x, y, _vivid(c, 1.15, 1.03))
+                c = _vivid(c, 1.15, 1.03)
+                if variant == 'B' and 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2] > 235:
+                    c = shade(c, 0.93)                                  # no white specks that read as shine
+                put(im, x, y, c)
     gloss = _vivid(hx(pal['5']), 1.2, 1.04)
     for x in range(X0, X1 + 1):
         rr = _layer_rows(x, p)
-        if (x * 3 + p * 5) % 5 == 1:
+        if variant != 'B' and (x * 3 + p * 5) % 5 == 1:
             put(im, x, rr[0], gloss)                                    # gloss specks on the lit row
         if len(rr) == 2:
             put(im, x, rr[1], shade(im.getpixel((x, rr[1])), 0.82))    # contact shadow (2-row base layer)
@@ -1710,7 +1716,7 @@ def filling_n18(key, p, variant=None):
 
 def bun_top_n18(n, variant=None):
     variant = variant or N18_STYLE
-    im = bun_top_v5(n)
+    im = bun_top_v5(n, gloss=variant != 'B')
     cells = {(x, y) for y in range(16) for x in range(16) if im.getpixel((x, y))[3]}
     lowest = {}
     for (x, y) in cells:
@@ -1746,8 +1752,8 @@ def bun_top_n18(n, variant=None):
             for dx, dy in ((0, 0), (1, -1)):                            # short 2-px cuts, one tone
                 q = (cx + dx, y0 + dy)
                 if inside(q):
-                    put(im, *q, hx(CUT_LIGHT))
-    for x, dy in ((5, 1), (6, 1), (5, 2)):                              # larger gloss spot on the upper left
+                    put(im, *q, hx(CUT_MID if variant == 'B' else CUT_LIGHT))
+    for x, dy in (((5, 1), (6, 1)) if variant == 'B' else ((5, 1), (6, 1), (5, 2))):                              # larger gloss spot on the upper left
         col = [y for (cx, y) in cells if cx == x]
         if col and inside((x, min(col) + dy)) and not (variant == 'C' and im.getpixel((x, min(col) + dy))[:3] == hx(SESAME)[:3]):
             put(im, x, min(col) + dy, hx('fff0c4'))
@@ -1784,7 +1790,7 @@ def preview_n18(path):
               ['chicken_cooked', 'cheese', 'beetroot', 'potato'], ['beef_cooked', 'cheese', 'carrot', 'kelp', 'golden']]
     rows = [('vorher (v8)', [sandwich_v8([], True)] + [sandwich_v8(c) for c in combos])]
     names = {'A': 'A saftig: Glanzpunkte, Kontaktschatten, Fuellung quillt beidseitig, ruhige Schnitte',
-             'B': 'B geroestet: wie A, Kruste dunkler, goldene Roestkante',
+             'B': 'B geroestet: Kruste dunkler, goldene Roestkante, ein Glanzpunkt (2 px) wie Vanilla-Essen',
              'C': 'C Sesam + Sosse: wie A, Sesam statt Schnitten, cremige Sossenlinie'}
     for v in 'ABC':
         rows.append((names[v] + (' * eingebaut' if v == N18_STYLE else ''),

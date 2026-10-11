@@ -56,23 +56,39 @@ def ramp(path, box=None, steps=5):
     return [px[min(len(px) - 1, int(q * (len(px) - 1)))] for q in (0.05, 0.3, 0.55, 0.75, 0.9)][:steps]
 
 
-def mask(with_content, empty):
+def mask(with_content, empty, palette=None):
+    """Pixels where with_content differs from empty. With a palette only pixels in those colours count: the boat
+    hull's lit edge next to the chest also differs from the plain boat, and painting it in the chest colours left
+    a stray diagonal line (owner 2026-10-11)."""
     a, b = with_content.load(), empty.load()
-    return {(x, y) for x in range(16) for y in range(16) if a[x, y] != b[x, y] and a[x, y][3] > 0}
+    return {(x, y) for x in range(16) for y in range(16) if a[x, y] != b[x, y] and a[x, y][3] > 0
+            and (palette is None or a[x, y][:3] in palette)}
+
+
+def chest_palette():
+    """Colours of vanilla's chest (on the chest minecart) plus the two dark tones of its slanted boat front."""
+    src = vanilla("chest_minecart")
+    cols = {src.getpixel(q)[:3] for q in mask(src, vanilla("minecart"))}
+    cart = {c[:3] for c in vanilla("minecart").get_flattened_data() if c[3]}
+    return (cols - cart) | {(0x42, 0x2F, 0x0B), (0x47, 0x37, 0x25)}
+
+
+def interior(region):
+    return {(x, y) for (x, y) in region if all(q in region for q in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)))}
 
 
 def paint(src, region, shades, lock=None):
     """The region of vanilla sprite src in the tier shades, by vanilla's light; near-white grey pixels become the lock."""
     out = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
     p, o = src.load(), out.load()
-    lums = [lum(p[x, y]) for x, y in region
-            if not (lock and max(p[x, y][:3]) - min(p[x, y][:3]) < 20 and lum(p[x, y]) > 150)]
+    grey = lambda c: max(c[:3]) - min(c[:3]) < 20
+    lums = [lum(p[x, y]) for x, y in region if not (lock and grey(p[x, y]))]
     lo, hi = min(lums), max(lums)
     for x, y in region:
         c = p[x, y]
-        grey = max(c[:3]) - min(c[:3]) < 20
-        if lock and grey and lum(c) > 150:
-            o[x, y] = lock + (255,)
+        if lock and grey(c):
+            # vanilla's latch: only its brightest pixel becomes the lock, the other latch greys are front wood
+            o[x, y] = lock + (255,) if lum(c) > 190 else shades[1] + (255,)
             continue
         t = (lum(c) - lo) / max(1.0, hi - lo)
         o[x, y] = shades[min(len(shades) - 1, int(t * len(shades)))] + (255,)
@@ -81,35 +97,26 @@ def paint(src, region, shades, lock=None):
 
 def tier_marks(img, region, tier, kind):
     o = img.load()
-    top = sorted(region, key=lambda q: (q[1], q[0]))
-    rows = {}
-    for x, y in region:
-        rows.setdefault(y, []).append(x)
     if kind in ("chest", "boat"):
-        lock_pixels = [(x, y) for (x, y) in region if o[x, y][:3] == LOCK[tier]]
-        if not lock_pixels:
-            # no lit lock pixel in vanilla's shape (boats): put one at the front edge of the lid
-            y = sorted(rows)[len(rows) // 2]
-            lock_pixels = [(min(rows[y]) + 1, y)]
-            o[lock_pixels[0]] = LOCK[tier] + (255,)
+        # a two-pixel latch like vanilla's chest: lock over its shadow (the boats' chest has no lit latch pixel,
+        # it gets one on the front face where the minecart's latch sits)
+        lock_pixels = [(x, y) for (x, y) in region if o[x, y][:3] == LOCK[tier]] or [(3, 6)]
         for (x, y) in lock_pixels:
-            if (x, y + 1) in region:
+            o[x, y] = LOCK[tier] + (255,)
+            if (x, y + 1) in region and (x, y + 1) not in lock_pixels:
                 o[x, y + 1] = LOCK_DARK[tier] + (255,)
-    if tier == "reinforced" and kind in ("chest", "boat"):
-        # metal band across the lid: a row in the middle of the lid, lit
-        y = sorted(rows)[4]
-        for x in rows[y]:
-            if o[x, y][:3] not in (LOCK[tier], LOCK_DARK[tier]):
-                o[x, y] = (205, 210, 214, 255)
+    # Owner 2026-10-11: no more lines across the shape. The reinforced metal band ran straight over the round lid
+    # and its outline, so the tiers keep only their latch; marks sit on inner lid pixels, never on the outline.
+    inner = sorted(interior(region), key=lambda q: (q[1], q[0]))
     if tier == "enderite":
         # two end sparkles on the lit top
-        ys = sorted(rows)
+        ys = sorted({y for _, y in inner})
         for y, pick in ((ys[1], 0.35), (ys[3], 0.7)):
-            xs = sorted(rows[y])
+            xs = sorted(x for x, yy in inner if yy == y)
             o[xs[int(pick * (len(xs) - 1))], y] = (240, 170, 250, 255)
     if tier == "netherite" and kind in ("furnace", "hopper"):
-        y = sorted(rows)[1]
-        xs = sorted(rows[y])
+        y = sorted({y for _, y in inner})[2]
+        xs = sorted(x for x, yy in inner if yy == y)
         o[xs[len(xs) // 2], y] = (230, 170, 60, 255)
     return img
 
@@ -133,10 +140,15 @@ def build():
             models[name] = {"parent": "minecraft:item/generated",
                             "textures": {"layer0": "minecraft:item/minecart", "layer1": f"simplebuilding:item/{name}"}}
             items[name] = {"model": {"type": "minecraft:model", "model": f"simplebuilding:item/{name}"}}
+    chest = chest_palette()
+    # the chest is the same on every wood, the hull (and its edge next to the chest) is not: only pixels in the
+    # chest colours on all chest boats that differ from the plain boat belong to the chest
+    boats = [vanilla(f"{wood}_chest_boat") for wood in WOODS[:-1]]
     boat_region = set()
-    for wood in WOODS[:-1]:
-        boat_region |= mask(vanilla(f"{wood}_chest_boat"), vanilla(f"{wood}_boat"))
-    raft_region = mask(vanilla("bamboo_chest_raft"), vanilla("bamboo_raft"))
+    for wood, img in zip(WOODS[:-1], boats):
+        boat_region |= mask(img, vanilla(f"{wood}_boat"), chest)
+    boat_region = {q for q in boat_region if all(img.getpixel(q)[:3] in chest for img in boats)}
+    raft_region = mask(vanilla("bamboo_chest_raft"), vanilla("bamboo_raft"), chest)
     for tier in TIERS:
         shades = ramp(OWN_TEX / f"entity/chest/{tier}.png", (14, 0, 42, 14))
         for shape, region, src in (("boat", boat_region, vanilla("oak_chest_boat")),
