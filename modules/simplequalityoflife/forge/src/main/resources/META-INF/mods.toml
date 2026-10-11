@@ -61,6 +61,13 @@ ordering="AFTER"
 side="BOTH"
 
 [[dependencies.simplequalityoflife]]
+modId="simplemovement"
+mandatory=true
+versionRange="[0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.simplequalityoflife]]
 modId="simpleweather"
 mandatory=true
 versionRange="[0,)"

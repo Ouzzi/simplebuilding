@@ -23,7 +23,6 @@ public final class QolConfigScreen {
     else if(v instanceof Double x)cat.addEntry(e.startDoubleField(name,x).setMin(min(f.getName())).setMax(max(f.getName())).setDefaultValue((Double)d).setTooltip(tip).setSaveConsumer(save::accept).build());
     else if(v instanceof Integer x)cat.addEntry(e.startIntField(name,x).setMin((int)min(f.getName())).setMax((int)max(f.getName())).setDefaultValue((Integer)d).setTooltip(tip).setSaveConsumer(save::accept).build());
     else if(v instanceof java.util.List<?> x)cat.addEntry(e.startStrList(name,x.stream().map(Object::toString).toList()).setDefaultValue(((java.util.List<?>)d).stream().map(Object::toString).toList()).setTooltip(tip).setSaveConsumer(save::accept).build());
-    else if(v instanceof SimplequalityoflifeConfig.SlideActivationMode x)cat.addEntry(e.startEnumSelector(name,SimplequalityoflifeConfig.SlideActivationMode.class,x).setDefaultValue((SimplequalityoflifeConfig.SlideActivationMode)d).setTooltip(tip).setSaveConsumer(save::accept).build());
    }catch(IllegalAccessException ex){throw new IllegalStateException(ex);}
   }
  }

@@ -725,7 +725,8 @@
         "simpleloot",
         "simplecreatures",
         "simplefarming",
-        "simpletools"
+        "simpletools",
+        "simplemovement"
       ],
       "optional": [
         "simplebuilding",
@@ -747,7 +748,8 @@
           "simpleloot",
           "simplecreatures",
           "simplefarming",
-          "simpletools"
+          "simpletools",
+          "simplemovement"
         ],
         "devMods": [
           "cloth_config"
@@ -780,7 +782,8 @@
             "simpleloot",
             "simplecreatures",
             "simplefarming",
-            "simpletools"
+            "simpletools",
+            "simplemovement"
           ],
           "devMods": [
             "cloth_config"
@@ -1648,6 +1651,102 @@
         "fabric": ":modules:simpleweather:fabric",
         "neoforge": ":modules:simpleweather:neoforge",
         "forge": ":modules:simpleweather:forge"
+      },
+      "parent": "simplequalityoflife",
+      "bundle": "required"
+    },
+    {
+      "id": "simplemovement",
+      "name": "Simple Movement",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Movement",
+      "description": "Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow; a sub-mod of Simple QoL, also playable alone.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "cloth_config"
+      ],
+      "optional": [
+        "simplequalityoflife",
+        "modmenu"
+      ],
+      "checks": [
+        "modules/simplemovement/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplemovement",
+        "catalogues": [
+          "modules/simplemovement/fabric/src/main/java/com/simplebuilding/modules/simplemovement/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplemovement"
+        ],
+        "devMods": [
+          "cloth_config"
+        ],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplemovementGameTest",
+            "report": "integration/build/simplemovement-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplemovement:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplemovement/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplemovement:forge:runGameTestServer",
+            "report": "modules/simplemovement/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplemovementStandaloneGameTest",
+              "report": "integration/build/standalone/simplemovement-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplemovement:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplemovement/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplemovement.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplemovement/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplemovement",
+        "shared": "modules/simplemovement/shared",
+        "fabric": "modules/simplemovement/fabric",
+        "neoforge": "modules/simplemovement/neoforge",
+        "forge": "modules/simplemovement/forge",
+        "generated": "modules/simplemovement/generated/resources",
+        "lang": "modules/simplemovement/shared/resources/assets/simplemovement/lang",
+        "wikiManual": "modules/simplemovement/wiki/manual.json",
+        "balanceDir": "balance/simplemovement"
+      },
+      "projects": {
+        "fabric": ":modules:simplemovement:fabric",
+        "neoforge": ":modules:simplemovement:neoforge",
+        "forge": ":modules:simplemovement:forge"
       },
       "parent": "simplequalityoflife",
       "bundle": "required"

@@ -1,62 +1,6 @@
 {
   "features": [
     {
-      "id": "crawl",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/PlayerEntityCrawlMixin.java"
-      ],
-      "en": {
-        "title": "Manual crawling",
-        "summary": "P or /crawl sets the synchronized swimming pose. Jump exits. Commands are limited to one change per 10 ticks; spectators and passengers are refused."
-      },
-      "de": {
-        "title": "Manuelles Kriechen",
-        "summary": "P oder /crawl setzt die synchronisierte Schwimmpose. Springen beendet das Kriechen. Maximal eine Aenderung je 10 Ticks; Zuschauer und Passagiere werden abgewiesen."
-      }
-    },
-    {
-      "id": "autowalk",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/client/SimplequalityoflifeClient.java"
-      ],
-      "en": {
-        "title": "Auto-walk",
-        "summary": "R toggles ordinary forward input only when the server enables qOL.enableAutowalk (default false). Opening a screen or leaving the world stops it. A click sound signals the change. It adds no speed or reach."
-      },
-      "de": {
-        "title": "Automatisch laufen",
-        "summary": "R schaltet normale Vorwaertseingabe nur bei Serverfreigabe qOL.enableAutowalk (Standard false). Bildschirm oeffnen oder Welt verlassen beendet sie. Ein Klickton meldet die Aenderung. Kein Tempo- oder Reichweitenbonus."
-      }
-    },
-    {
-      "id": "climbing",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/LadderSpeedMixin.java"
-      ],
-      "en": {
-        "title": "Climbing and sliding",
-        "summary": "Climbing speed defaults to 0.4 blocks/tick (range 0.2–0.4). Slide speed defaults to 0.8 (range 0.15–0.8). CAMERA requires looking down and sneaking; ALWAYS requires looking down without sneaking. The server rejects excess vertical movement on climbable blocks with a bounded latency allowance."
-      },
-      "de": {
-        "title": "Klettern und Rutschen",
-        "summary": "Klettertempo standardmaessig 0.4 Bloecke/Tick (0.2–0.4), Rutschtempo 0.8 (0.15–0.8). CAMERA verlangt Blick nach unten und Schleichen; ALWAYS Blick nach unten ohne Schleichen. Der Server weist ueberhoehte Bewegung auf kletterbaren Bloecken mit begrenztem Latenzspielraum ab."
-      }
-    },
-    {
-      "id": "powder_snow",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/PowderSnowWalkMixin.java"
-      ],
-      "en": {
-        "title": "Frost Walker on powder snow",
-        "summary": "Frost Walker permits walking on powder snow. Enabled by frostWalkerWalkOnPowderSnow, default true."
-      },
-      "de": {
-        "title": "Eislaeufer auf Pulverschnee",
-        "summary": "Eislaeufer erlaubt das Gehen auf Pulverschnee. frostWalkerWalkOnPowderSnow ist standardmaessig true."
-      }
-    },
-    {
       "id": "weather",
       "sources": [
         "modules/simpleweather/shared/java/com/simplebuilding/modules/simpleweather/mixin/ServerWeatherMixin.java"
@@ -96,6 +40,20 @@
       "de": {
         "title": "enableSimpleInterfaces",
         "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Interfaces (Simple-Stil fuer Vanilla-Behaelterfenster). Standard: true."
+      }
+    },
+    {
+      "id": "config_enableSimpleMovement",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "enableSimpleMovement",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Movement. Default: true."
+      },
+      "de": {
+        "title": "enableSimpleMovement",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Movement. Standard: true."
       }
     },
     {
@@ -152,90 +110,6 @@
       "de": {
         "title": "enableSimpleLoot",
         "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Loot. Standard: true."
-      }
-    },
-    {
-      "id": "config_frostWalkerWalkOnPowderSnow",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "frostWalkerWalkOnPowderSnow",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "frostWalkerWalkOnPowderSnow",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_enableAutowalk",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.enableAutowalk",
-        "summary": "Server setting (rain density is a local visual preference). Default: false."
-      },
-      "de": {
-        "title": "qOL.enableAutowalk",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: false."
-      }
-    },
-    {
-      "id": "config_qOL_ladderClimbingSpeed",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.ladderClimbingSpeed",
-        "summary": "Server setting (rain density is a local visual preference). Default: 0.4."
-      },
-      "de": {
-        "title": "qOL.ladderClimbingSpeed",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 0.4."
-      }
-    },
-    {
-      "id": "config_qOL_enableFastLadderSlide",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.enableFastLadderSlide",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.enableFastLadderSlide",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_ladderSlideSpeed",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.ladderSlideSpeed",
-        "summary": "Server setting (rain density is a local visual preference). Default: 0.8."
-      },
-      "de": {
-        "title": "qOL.ladderSlideSpeed",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 0.8."
-      }
-    },
-    {
-      "id": "config_qOL_ladderSlideActivation",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.ladderSlideActivation",
-        "summary": "Server setting (rain density is a local visual preference). Default: \"CAMERA\"."
-      },
-      "de": {
-        "title": "qOL.ladderSlideActivation",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: \"CAMERA\"."
       }
     },
     {
@@ -301,25 +175,11 @@
       ],
       "en": {
         "title": "Commands",
-        "summary": "/crawl is available to players. Owner-level /simplequalityoflife offers tweaks autowalk, frostWalkerSnow, ladderSpeed. Changes are saved to config/simplequalityoflife.json."
+        "summary": "Owner-level /simplequalityoflife submod <weather|interfaces|loot|creatures|farming|tools|movement> <true|false> switches a bundled sub-mod; the former tweak commands moved with their features into the sub-mods (/simpleloot, /simplecreatures, /simplefarming, /simpletools, /simplemovement). Changes are saved to config/simplequalityoflife.json."
       },
       "de": {
         "title": "Befehle",
-        "summary": "/crawl ist fuer Spieler. Besitzerberechtigung: /simplequalityoflife mit tweaks autowalk, frostWalkerSnow, ladderSpeed. Speichern in config/simplequalityoflife.json."
-      }
-    },
-    {
-      "id": "config_qOL_enableManualCrawl",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "Manual Crawling",
-        "summary": "Allow /crawl and the crawl key. The server validates and limits changes. Default: true."
-      },
-      "de": {
-        "title": "Manuelles Kriechen",
-        "summary": "/crawl und die Kriechtaste erlauben. Der Server prüft und begrenzt Änderungen. Standard: true."
+        "summary": "Besitzerberechtigung: /simplequalityoflife submod <weather|interfaces|loot|creatures|farming|tools|movement> <true|false> schaltet eine gebuendelte Sub-Mod; die frueheren tweak-Befehle sind mit ihren Funktionen in die Sub-Mods gewandert (/simpleloot, /simplecreatures, /simplefarming, /simpletools, /simplemovement). Speichern in config/simplequalityoflife.json."
       }
     },
     {
@@ -383,10 +243,10 @@
         "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 44 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
+        "summary": "Guide to this mod: 48 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 44 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
+        "summary": "Handbuch zu dieser Mod: 48 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
       }
     }
   }

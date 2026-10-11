@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.modules.simplemovement.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "PlayerEntityCrawlMixin",
+    "LivingEntityJumpMixin",
+    "LadderSpeedMixin",
+    "ClimbPacketMixin",
+    "PowderSnowWalkMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

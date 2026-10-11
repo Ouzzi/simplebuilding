@@ -7,8 +7,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             if (!(c.gui.screen() instanceof net.minecraft.client.gui.screens.TitleScreen)) throw new AssertionError("Title screen missing");
             if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplequalityoflife") || !net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplebuilding")) throw new AssertionError("Both mods must boot");
             try {
-                var type=Class.forName("com.simplequalityoflife.client.SimplequalityoflifeClient");
-                if(type.getField("autoWalkKey").get(null)==null || type.getField("crawlKey").get(null)==null) throw new AssertionError("Both key mappings registered");
+                var type=Class.forName("com.simplebuilding.modules.simplemovement.client.MovementClient");
+                if(type.getField("autoWalkKey").get(null)==null || type.getField("crawlKey").get(null)==null) throw new AssertionError("Both Simple Movement key mappings registered (bundled sub-mod)");
             } catch(ReflectiveOperationException e){throw new AssertionError(e);}
         });
         context.takeScreenshot("simplequalityoflife-title");
@@ -19,6 +19,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 try {
                     var config=Class.forName("com.simplequalityoflife.client.ClientNetworking").getMethod("getSyncedConfig").invoke(null);
                     if(config==null)throw new AssertionError("Server config was not synchronized");
+                    for(var sub:new String[]{"com.simplebuilding.modules.simplemovement.SimpleMovement","com.simplebuilding.modules.simpletools.SimpleTools","com.simplebuilding.modules.simplefarming.SimpleFarming"})
+                        if(Class.forName(sub).getMethod("syncedConfig").invoke(null)==null)throw new AssertionError("Sub-mod server config was not synchronized: "+sub);
                 }catch(ReflectiveOperationException e){throw new AssertionError(e);}
             });
             context.takeScreenshot("simplequalityoflife-world");
@@ -85,7 +87,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     }
     private static boolean crawling(net.minecraft.client.Minecraft client){
         if(client.player==null)return false;
-        try{return (Boolean)Class.forName("com.simplequalityoflife.util.CrawlAccessor").getMethod("simpleQualityOfLife$isCrawling").invoke(client.player);}
+        try{return (Boolean)Class.forName("com.simplebuilding.modules.simplemovement.CrawlAccessor").getMethod("simpleQualityOfLife$isCrawling").invoke(client.player);}
         catch(ReflectiveOperationException e){throw new AssertionError(e);}
     }
 }

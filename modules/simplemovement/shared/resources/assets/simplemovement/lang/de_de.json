@@ -1,0 +1,23 @@
+{
+  "simplemovement.title": "Simple Movement",
+  "simplemovement.tab.general": "Allgemein",
+  "simplemovement.option.enableManualCrawl": "Manuelles Kriechen",
+  "simplemovement.option.enableManualCrawl.tooltip": "/crawl und die Kriechtaste erlauben. Der\nServer prüft und begrenzt Änderungen.\nStandard: true.",
+  "simplemovement.option.enableAutowalk": "Auto-Walk aktivieren",
+  "simplemovement.option.enableAutowalk.tooltip": "Automatisches Gehen per Tastendruck.\nStandard: false.",
+  "simplemovement.option.ladderClimbingSpeed": "Leiter-Geschwindigkeit",
+  "simplemovement.option.ladderClimbingSpeed.tooltip": "Vertikale Geschwindigkeit beim Klettern.\nVanilla ist ~0.2. Standard: 0.4. Erlaubter\nBereich: 0.2–0.4.",
+  "simplemovement.option.enableFastLadderSlide": "Schnelles Leiter-Rutschen",
+  "simplemovement.option.enableFastLadderSlide.tooltip": "Erlaubt schnelles Rutschen an Leitern.\nStandard: true.",
+  "simplemovement.option.ladderSlideSpeed": "Rutsch-Geschwindigkeit",
+  "simplemovement.option.ladderSlideSpeed.tooltip": "Geschwindigkeit beim Rutschen. Standard: 0.8.\nErlaubter Bereich: 0.15–0.8.",
+  "simplemovement.option.ladderSlideActivation": "Rutsch-Aktivierung",
+  "simplemovement.option.ladderSlideActivation.tooltip": "Wie das Rutschen aktiviert wird (CAMERA =\nnach unten schauen + schleichen, ALWAYS =\nnach unten schauen außer beim Schleichen).\nStandard: \"CAMERA\".",
+  "simplemovement.option.frostWalkerWalkOnPowderSnow": "Frostläufer auf Pulverschnee",
+  "simplemovement.option.frostWalkerWalkOnPowderSnow.tooltip": "Erlaubt es Spielern mit Frostläufer-Stiefeln,\nohne Einsinken auf Pulverschnee zu laufen.\nStandard: true.",
+  "command.simplemovement.changed": "Konfiguration gespeichert: %s = %s",
+  "command.simplemovement.speed": "Klettertempo gespeichert: %s",
+  "key.simplemovement.autowalk": "Automatisch Gehen",
+  "key.simplemovement.crawl": "Krabbeln",
+  "key.category.simplemovement.general": "Simple Quality of Life"
+}

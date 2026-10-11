@@ -24,6 +24,9 @@ neoForge { mods { simplefarming { sourceSet project(':modules:simplefarming:neof
 evaluationDependsOn(':modules:simpletools:neoforge')
 dependencies { jarJar project(':modules:simpletools:neoforge'); runtimeOnly project(':modules:simpletools:neoforge') }
 neoForge { mods { simpletools { sourceSet project(':modules:simpletools:neoforge').sourceSets.main } } }
+evaluationDependsOn(':modules:simplemovement:neoforge')
+dependencies { jarJar project(':modules:simplemovement:neoforge'); runtimeOnly project(':modules:simplemovement:neoforge') }
+neoForge { mods { simplemovement { sourceSet project(':modules:simplemovement:neoforge').sourceSets.main } } }
 // SimpleLib (style blocks for the linked panel) nested per principle 6a; compiled against.
 evaluationDependsOn(':modules:simplelib:neoforge')
 dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }
@@ -41,4 +44,4 @@ dependencies { implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootPr
 dependencies { implementation project(':common') }
 evaluationDependsOn(':mc26_3:neoforge')
 neoForge { mods { simplebuilding { sourceSet project(':mc26_3:neoforge').sourceSets.main } } }
-neoForge.runs.moduleIntegrationGameTest.loadedMods=[neoForge.mods.simplequalityoflife,neoForge.mods.simplebuilding,neoForge.mods.simpleweather,neoForge.mods.simpleinterfaces,neoForge.mods.simpleloot,neoForge.mods.simplecreatures,neoForge.mods.simplefarming,neoForge.mods.simpletools]
+neoForge.runs.moduleIntegrationGameTest.loadedMods=[neoForge.mods.simplequalityoflife,neoForge.mods.simplebuilding,neoForge.mods.simpleweather,neoForge.mods.simpleinterfaces,neoForge.mods.simpleloot,neoForge.mods.simplecreatures,neoForge.mods.simplefarming,neoForge.mods.simpletools,neoForge.mods.simplemovement]

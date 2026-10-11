@@ -24,7 +24,8 @@
     "simpleloot",
     "simplecreatures",
     "simplefarming",
-    "simpletools"
+    "simpletools",
+    "simplemovement"
   ],
   "devMods": [
     "jei",

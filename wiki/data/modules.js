@@ -198,13 +198,14 @@ window.WIKI_MODULES = [
       "simpleloot",
       "simplecreatures",
       "simplefarming",
-      "simpletools"
+      "simpletools",
+      "simplemovement"
     ],
     "optional": [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "88811fb2f5f5"
+    "dataHash": "d95369a015e8"
   },
   {
     "id": "simpletweaks",
@@ -371,6 +372,26 @@ window.WIKI_MODULES = [
       "modmenu"
     ],
     "dataHash": "499e87886520"
+  },
+  {
+    "id": "simplemovement",
+    "displayName": "Simple Movement",
+    "description": "Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow; a sub-mod of Simple QoL, also playable alone.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplequalityoflife",
+      "modmenu"
+    ],
+    "dataHash": "de52a3d9d645"
   },
   {
     "id": "simpletools",

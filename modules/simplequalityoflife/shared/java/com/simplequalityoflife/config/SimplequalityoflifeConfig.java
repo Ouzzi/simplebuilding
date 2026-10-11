@@ -12,10 +12,6 @@ import java.util.List;
 @Config(name = Simplequalityoflife.MOD_ID)
 public class SimplequalityoflifeConfig implements ConfigData {
 
-    public static final double MAX_CLIMB_SPEED = 0.4;
-    public static final double MAX_SLIDE_SPEED = 0.8;
-    public static final double DEFAULT_CLIMB_SPEED = 0.4;
-    public static final double DEFAULT_SLIDE_SPEED = 0.8;
     public static final int DEFAULT_LINKED_RANGE = 64;
     public static final int MIN_LINKED_RANGE = 8;
     public static final int MAX_LINKED_RANGE = 128;
@@ -24,10 +20,7 @@ public class SimplequalityoflifeConfig implements ConfigData {
     }
     public void normalizeNumbers() {
         if (qOL == null) qOL = new QOL();
-        qOL.ladderClimbingSpeed = bounded(qOL.ladderClimbingSpeed, 0.2, MAX_CLIMB_SPEED, 0.4);
-        qOL.ladderSlideSpeed = bounded(qOL.ladderSlideSpeed, 0.15, MAX_SLIDE_SPEED, 0.8);
         qOL.linkedContainerRange = Math.clamp(qOL.linkedContainerRange, MIN_LINKED_RANGE, MAX_LINKED_RANGE);
-        if (qOL.ladderSlideActivation == null) qOL.ladderSlideActivation = SlideActivationMode.CAMERA;
     }
     public void normalize() {
         normalizeNumbers();
@@ -36,10 +29,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
         if (values == null) return new ArrayList<>();
         return new ArrayList<>(values.stream().filter(v -> v != null && !v.isBlank() && v.length() <= 64).distinct().limit(64).toList());
     }
-    // Diese Enum muss public sein, damit Cloth Config sie lesen kann
-    public enum SlideActivationMode {
-        CAMERA, ALWAYS
-    }
 
     // --- Sub-Mods (Super-Mod, docs/ai/KONZEPT-SUPERMOD-SUBMOD-2026-10-06.md): one switch per bundled sub-mod ---
     @ConfigEntry.Gui.Tooltip
@@ -47,6 +36,9 @@ public class SimplequalityoflifeConfig implements ConfigData {
 
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleInterfaces = true;
+
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleMovement = true;
 
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleTools = true;
@@ -60,36 +52,10 @@ public class SimplequalityoflifeConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleLoot = true;
 
-    // Option außerhalb der QOL-Kategorie (Global)
-    @ConfigEntry.Gui.Tooltip
-    public boolean frostWalkerWalkOnPowderSnow = true;
-
     @ConfigEntry.Gui.CollapsibleObject
     public QOL qOL = new QOL();
 
     public static class QOL {
-        @ConfigEntry.Gui.Tooltip
-        public boolean enableManualCrawl = true;
-
-        // --- Movement & AutoWalk ---
-        @ConfigEntry.Gui.Tooltip
-        public boolean enableAutowalk = false;
-
-        // --- World Interaction ---
-        // --- Ladder Mechanics ---
-        @ConfigEntry.Gui.Tooltip
-        public double ladderClimbingSpeed = DEFAULT_CLIMB_SPEED; // Vanilla default is ~0.2
-
-        @ConfigEntry.Gui.Tooltip
-        public boolean enableFastLadderSlide = true;
-
-        @ConfigEntry.Gui.Tooltip
-        public double ladderSlideSpeed = DEFAULT_SLIDE_SPEED;
-
-        @ConfigEntry.Gui.Tooltip
-        @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
-        public SlideActivationMode ladderSlideActivation = SlideActivationMode.CAMERA;
-
         // --- Containers (2026-10-04) ---
         @ConfigEntry.Gui.Tooltip
         public boolean enableLinkedContainers = true;

@@ -1,77 +1,45 @@
 package com.simplequalityoflife.command;
 
-import com.mojang.brigadier.arguments.*;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.simplequalityoflife.Simplequalityoflife;
 import com.simplequalityoflife.config.SimplequalityoflifeConfig;
-import com.simplequalityoflife.util.CrawlAccessor;
-import com.mojang.brigadier.CommandDispatcher;
-import me.shedaniel.autoconfig.AutoConfig;
-import net.minecraft.ChatFormatting;
+import java.util.function.BiConsumer;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
 
-import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-
+/**
+ * {@code /simplequalityoflife submod <name> <true|false>} (owners): the super-mod switches. The former tweak commands
+ * moved with their features into the sub-mods ({@code /simpleloot}, {@code /simplecreatures}, {@code /simplefarming},
+ * {@code /simpletools}, {@code /simplemovement}, {@code /simpleinterfaces}; {@code /crawl} belongs to Simple Movement).
+ */
 public class ModCommands {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-
-            dispatcher.register(Commands.literal("crawl")
-                    .executes(ctx -> {
-                        // Both loaders use Vanilla synchronized pose; gameplay decisions stay on the server.
-                        if (ctx.getSource().getEntity() instanceof Player player && player instanceof CrawlAccessor crawler) {
-                            if (!com.simplequalityoflife.util.CrawlLimiter.allow(player)) return 0;
-                            boolean newState = !crawler.simpleQualityOfLife$isCrawling();
-                            crawler.simpleQualityOfLife$setCrawling(newState);
-                            // Kein Feedback im Chat, um Spam beim Drücken der Taste zu vermeiden
-                        }
-                        return 1;
-                    }));
-
-            // --- CONFIG COMMANDS (simplequalityoflife) ---
-            dispatcher.register(Commands.literal("simplequalityoflife")
-                    // Level 4 (OWNERS) für Admin-Befehle (Config Änderungen).
-                    .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
-
-                    // --- Tweaks (Alle Features) ---
-                    .then(Commands.literal("tweaks")
-                            .then(boolTweak("autowalk", (c, v) -> { c.qOL.enableAutowalk = v; }, "Auto-Walk enabled"))
-                            .then(boolTweak("frostWalkerSnow", (c, v) -> { c.frostWalkerWalkOnPowderSnow = v; }, "Frost Walker on Powder Snow"))
-                            .then(Commands.literal("ladderSpeed")
-                                    .then(Commands.argument("speed", DoubleArgumentType.doubleArg(0.2, 0.4))
-                                            .executes(ctx -> {
-                                                double val = DoubleArgumentType.getDouble(ctx, "speed");
-                                                Simplequalityoflife.getConfig().qOL.ladderClimbingSpeed = val;
-                                                saveConfig();
-                                                ctx.getSource().sendSuccess(() -> Component.translatable("command.simplequalityoflife.speed", val), true);
-                                                return 1;
-                                            })))
-                    )
-            );
+        var submod = Commands.literal("submod");
+        submod.then(toggle("weather", (c, v) -> c.enableSimpleWeather = v));
+        submod.then(toggle("interfaces", (c, v) -> c.enableSimpleInterfaces = v));
+        submod.then(toggle("loot", (c, v) -> c.enableSimpleLoot = v));
+        submod.then(toggle("creatures", (c, v) -> c.enableSimpleCreatures = v));
+        submod.then(toggle("farming", (c, v) -> c.enableSimpleFarming = v));
+        submod.then(toggle("tools", (c, v) -> c.enableSimpleTools = v));
+        submod.then(toggle("movement", (c, v) -> c.enableSimpleMovement = v));
+        dispatcher.register(Commands.literal("simplequalityoflife")
+                .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
+                .then(submod));
     }
 
-    // Baut einen einfachen An/Aus-Schalter für ein Boolean-Feature.
-    private static LiteralArgumentBuilder<CommandSourceStack> boolTweak(String name,
-                                                                       BiConsumer<SimplequalityoflifeConfig, Boolean> setter,
-                                                                       String label) {
+    private static com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> toggle(String name,
+            BiConsumer<SimplequalityoflifeConfig, Boolean> setter) {
         return Commands.literal(name)
                 .then(Commands.argument("enabled", BoolArgumentType.bool())
                         .executes(ctx -> {
                             boolean val = BoolArgumentType.getBool(ctx, "enabled");
                             setter.accept(Simplequalityoflife.getConfig(), val);
-                            saveConfig();
-                            ctx.getSource().sendSuccess(() -> Component.translatable("command.simplequalityoflife.changed", name, val), true);
+                            Simplequalityoflife.save();
+                            ctx.getSource().sendSuccess(() -> Component.translatable("command.simplequalityoflife.changed", "submod " + name, val), true);
                             return 1;
                         }));
-    }
-
-    private static void saveConfig() {
-        Simplequalityoflife.save();
     }
 }
