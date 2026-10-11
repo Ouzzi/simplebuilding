@@ -22,7 +22,23 @@ Tastenbelegung, GUI-Skalierung, Tooltips, Render-Layer, Client-Crash-Risiken. Nu
 - **SDL-Eingabe 26.3:** keine Roh-Maustasten (`button == 0/1`) in Client-Code; die einzigen Treffer sind `PortableContainers.java:63` (`ContainerInput.PICKUP`, Server-Slot-Klick `button != 1`, kein GLFW) und WayfinderScreen `case 2` (Tab-Index, nicht Taste). Alle Screens benutzen `MouseButtonEvent`/`KeyEvent` und `InputConstants.*`. Keine `GLFW*`-Importe im Produktivcode (nur Test-Zugriffe).
 - **Tastenbelegung:** Fabric/NeoForge/Forge registrieren dieselben 5 Tasten der Hauptmod (H Highlight, G Werkzeug-Einstellungen, B Rucksack, Octant-Figur + HUD ungebunden); QoL R/P, Interfaces ungebunden. Kollision nur P (C2). Alle `key.*`-Namen haben EN+DE-Eintraege.
 - **Lang:** alle 468 literalen `Component.translatable("...")`-Schluessel aus Client-/Common-Code sind in EN vorhanden (Treffer waren Praefixe mit angehaengtem Teil oder Vanilla-Schluessel); EN und DE haben identische Schluesselmengen (0 fehlend in beide Richtungen, ueber alle Lang-Dateien vereinigt). Kein hartkodierter englischer `Component.literal` im Anzeigecode (nur Pack-Namen).
-- **Client-NPE:** HUD-Overlays (Rangefinder, Speedometer, DoubleJump, SoulBurn), `HammockLeashRenderer`, `MouseMixin`, `WarmGlowEntityMixin`, `SmithingScreenMixin`, `TrimReferenceScreen`, `BlueprintScreen.insertExample`, `OctantScreen.cornerAccepted` pruefen `player`/`level` vorher auf null (bzw. Aufrufstelle prueft). `RangefinderHudOverlay:41`/`SpeedometerHudOverlay:92` dereferenzieren `client.player` ohne eigenen Check; der Guard steht in den Zeilen davor (F1-/Welt-Pruefung, siehe Kommentar) - nicht im Detail verifiziert, ob dieser Guard `player == null` einschliesst (zu pruefen, Client-Lauf deckt In-World ab).
+- **Client-NPE:** HUD-Overlays (Rangefinder, Speedometer, DoubleJump, SoulBurn), `HammockLeashRenderer`, `MouseMixin`, `WarmGlowEntityMixin`, `SmithingScreenMixin`, `TrimReferenceScreen`, `BlueprintScreen.insertExample`, `OctantScreen.cornerAccepted` pruefen `player`/`level` vorher auf null (bzw. Aufrufstelle prueft). Rangefinder-/Speedometer-HUD pruefen `client.player == null` als erste Zeile (verifiziert).
 - **Threading:** keine `Thread`/`CompletableFuture`/Executor in Client-Code; Netzwerk-Handler laufen ueber die Loader-Handler auf dem Client-Thread.
 - **Render:** Hervorhebungs-Geometrie nutzt Aufblaehung 0.001-0.009 (`BlockHighlightRenderer.java:160,163,284,285,342`), Fuellung stets groesser als Linien; kein belegtes Z-Fighting. `HammockRenderer.java:106-108` zeichnet Wolle/Spreader/Seil als drei `entityCutout`-Durchgaenge; Z-Fighting nicht belegt.
 - **Skalierung (Rechnung):** Truhe max 338x222, Rucksack max 212x238, Wayfinder 208x184, Gildenbuch 292x180, Tiegel ohne Fass max 204 hoch - alle <= 427x240 (854x480, Skala 2). Ausnahme C3. BlueprintScreen/OctantScreen/BuildingWandScreen layouten dynamisch aus `width/height`.
+
+## Testlaeufe (sb-test, Fabric 26.3, xvfb)
+
+| Ziel | Ergebnis |
+|---|---|
+| `client-fabric-263` (HEAD d70cb2d97) | 177/177 gruen, 808 s (Run `2026-10-10T23-18-09Z-904f`) |
+| 16 Modul-Client-Smokes `module-*-client-263` | 92/92 gruen (Money 4, Riding 4, Models 6, Fun 4, Visuals 5, Sounds 3, QoL 8, Tweaks 3, Dimensions 7, Sandwiches 1, SimpleLib 3, Interfaces 26, Maps 9, Trims 1, Mobs 7, Weather 1) |
+
+Keine roten Tests. Kein Test belegt C1-C8; C1 (Forge-Doppelregistrierung) liegt ausserhalb jeder Client-Suite.
+
+### Abdeckungsluecken (P4, belegt durch Testlauf-Auswahl)
+
+| ID | Prio | Fund | Beleg | Vorschlag |
+|---|---|---|---|---|
+| C9 | P4 | Client-Tests laufen nur auf Fabric 26.3; `client-neoforge-263` und jede Forge-Client-Probe fehlen im Lauf (Tabelle "uebersprungen"), daher bleiben loaderspezifische Client-Fehler wie C1 (Tasten-/HUD-Registrierung) unentdeckt. Modul-Client-Smokes gibt es nur als `fabric`. | Runner-Ausgabe 2026-10-10 (`Client NeoForge - MC 26.3  uebersprungen`); `tools/testrunner/run.py:227-239,321-324` | `client-neoforge-263` ins Nacht-Gate aufnehmen; Mini-Check "jede Taste genau einmal in `options.keyMappings`" je Loader. |
+| C10 | P4 | Kein Test fuer Tastenbelegung (Kollisionen/Defaults) und fuer Screen-Passung bei 854x480 (Skala 2); C2 und C3 waeren damit rot geworden. | Suche in `common/src/shared/clientgametest`, `modules/*/clienttest` nach `keyMappings`/`854` ohne Treffer | Test: alle Mod-`KeyMapping`s gegen `Minecraft.options.keyMappings` auf gleiche Default-Taste pruefen; Screenshot-/Bounds-Test der groessten Screens (Tiegel Enderite+Fass) bei 427x240 GUI-Groesse. |
