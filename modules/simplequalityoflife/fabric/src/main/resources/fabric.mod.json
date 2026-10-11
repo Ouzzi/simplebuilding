@@ -21,6 +21,7 @@
   "depends": {
     "simpleweather": "*",
     "simpleinterfaces": "*",
+    "simplefarming": "*",
     "simplecreatures": "*",
     "simpleloot": "*",
     "fabricloader": ">=0.19.5",

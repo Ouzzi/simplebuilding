@@ -6,13 +6,10 @@
   "mixins": [
     "AnvilRepairCostMixin",
     "ThriftDurabilityMixin",
-    "FarmlandTrampleMixin",
     "FullDurabilityDamageMixin",
     "FullDurabilityEfficiencyMixin",
-    "GrassOutlineMixin",
     "LadderSpeedMixin",
     "PowderSnowWalkMixin",
-    "SharpnessGrassCutMixin",
     "PlayerEntityCrawlMixin",
     "LivingEntityJumpMixin",
     "ClimbPacketMixin",

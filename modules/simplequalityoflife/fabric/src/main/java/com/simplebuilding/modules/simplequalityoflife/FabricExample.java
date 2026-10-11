@@ -28,8 +28,7 @@ public final class FabricExample implements ModInitializer {
    if(net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.canSend(h.player,ConfigSyncPayload.TYPE))net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(h.player,new ConfigSyncPayload(new com.google.gson.Gson().toJson(Simplequalityoflife.getConfig())));
   });
   net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((p,w,hand,hit)->{
-   var a=HoeHarvestHandler.onRightClickBlock(p,hand,hit.getBlockPos(),hit.getDirection());if(a!=net.minecraft.world.InteractionResult.PASS)return a;
-   a=FurnaceLavaFillHandler.onRightClickBlock(p,hand,hit.getBlockPos(),hit.getDirection());if(a!=net.minecraft.world.InteractionResult.PASS)return a;
+   var a=FurnaceLavaFillHandler.onRightClickBlock(p,hand,hit.getBlockPos(),hit.getDirection());if(a!=net.minecraft.world.InteractionResult.PASS)return a;
    return com.simplequalityoflife.container.LinkedContainers.onRightClickBlock(p,hand,hit.getBlockPos());
   });
  }

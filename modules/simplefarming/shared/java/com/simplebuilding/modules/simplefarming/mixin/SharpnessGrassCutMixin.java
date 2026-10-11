@@ -1,7 +1,7 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simplefarming.mixin;
 
-import com.simplequalityoflife.Simplequalityoflife;
-import com.simplequalityoflife.util.VegetationUtil;
+import com.simplebuilding.modules.simplefarming.SimpleFarming;
+import com.simplebuilding.modules.simplefarming.VegetationUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.ItemTags;
@@ -23,7 +23,7 @@ public class SharpnessGrassCutMixin {
 
     @Inject(method = "attack", at = @At("HEAD"))
     private void onAttack(Entity target, CallbackInfo ci) {
-        if (!Simplequalityoflife.getConfig().qOL.sharpnessCutsGrass) return;
+        if (!SimpleFarming.active() || !SimpleFarming.config().sharpnessCutsGrass) return;
 
         Player player = (Player) (Object) this;
         // attack() runs on both sides; breaking blocks on the client desyncs and spawns ghost drops.
@@ -49,7 +49,7 @@ public class SharpnessGrassCutMixin {
     @Unique
     private void cutGrassAround(Player player, Entity target) {
         if (player.isShiftKeyDown() || player.distanceToSqr(target) > 4.5 * 4.5) return;
-        if (!com.simplequalityoflife.event.InteractionGuard.action(player)) return;
+        if (!com.simplebuilding.modules.simplefarming.InteractionGuard.action(player)) return;
         AABB box = target.getBoundingBox().intersect(player.getBoundingBox().inflate(2));
         BlockPos min = BlockPos.containing(box.minX, box.minY, box.minZ);
         BlockPos max = BlockPos.containing(box.maxX, box.maxY, box.maxZ);
@@ -57,7 +57,7 @@ public class SharpnessGrassCutMixin {
         int checked = 0;
         for (BlockPos pos : BlockPos.betweenClosed(min, max)) {
             if (++checked > 27) break;
-            if (!com.simplequalityoflife.event.InteractionGuard.mayChange(player, pos)) continue;
+            if (!com.simplebuilding.modules.simplefarming.InteractionGuard.mayChange(player, pos)) continue;
             BlockState state = player.level().getBlockState(pos);
 
             if (VegetationUtil.isCuttable(state)) {

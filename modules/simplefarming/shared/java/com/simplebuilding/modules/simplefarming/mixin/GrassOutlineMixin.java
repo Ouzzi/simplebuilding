@@ -1,7 +1,7 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simplefarming.mixin;
 
-import com.simplequalityoflife.Simplequalityoflife;
-import com.simplequalityoflife.util.VegetationUtil;
+import com.simplebuilding.modules.simplefarming.SimpleFarming;
+import com.simplebuilding.modules.simplefarming.VegetationUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.ItemTags;
@@ -34,7 +34,7 @@ public class GrassOutlineMixin {
             return;
         }
 
-        if (!Simplequalityoflife.configFor(player.level()).qOL.sharpnessCutsGrass) return;
+        if (!SimpleFarming.active(player.level()) || !SimpleFarming.configFor(player.level()).sharpnessCutsGrass) return;
         if (player.isShiftKeyDown()) {
             return;
         }

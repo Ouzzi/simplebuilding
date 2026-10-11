@@ -1,4 +1,4 @@
-package com.simplequalityoflife.util;
+package com.simplebuilding.modules.simplefarming;
 
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;

@@ -1,6 +1,6 @@
-package com.simplequalityoflife.event;
+package com.simplebuilding.modules.simplefarming;
 
-import com.simplequalityoflife.Simplequalityoflife;
+import com.simplebuilding.modules.simplefarming.SimpleFarming;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -47,7 +47,7 @@ public class HoeHarvestHandler {
      */
     public static boolean wouldHarvest(Player player, InteractionHand hand, BlockPos pos) {
         Level level = player.level();
-        if (!Simplequalityoflife.configFor(level).qOL.enableHoeHarvest || hand != InteractionHand.MAIN_HAND) return false;
+        if (!SimpleFarming.active(level) || !SimpleFarming.configFor(level).enableHoeHarvest || hand != InteractionHand.MAIN_HAND) return false;
         if (!player.getMainHandItem().is(ItemTags.HOES) || !InteractionGuard.allow(player, pos)) return false;
         BlockState state = level.getBlockState(pos);
         return isMatureCrop(state, state.getBlock());

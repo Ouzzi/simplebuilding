@@ -76,34 +76,6 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       }
     },
     {
-      "id": "farmland",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/util/Protection.java"
-      ],
-      "en": {
-        "title": "Feather Falling farmland protection",
-        "summary": "Feather Falling boots prevent trampling. This complements SimpleBuilding Breeze head protection. Enabled by qOL.preventFarmlandTrampleWithFeatherFalling, default true."
-      },
-      "de": {
-        "title": "Federfall schuetzt Ackerland",
-        "summary": "Federfallstiefel verhindern Zertrampeln. Dies ergaenzt den Breezekopf-Schutz aus SimpleBuilding. qOL.preventFarmlandTrampleWithFeatherFalling ist standardmaessig true."
-      }
-    },
-    {
-      "id": "hoe_harvest",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/event/HoeHarvestHandler.java"
-      ],
-      "en": {
-        "title": "Hoe harvest and replant",
-        "summary": "Main-hand hoes harvest mature wheat, carrots, potatoes, beetroot, nether wart, and cocoa. One seed is taken from the actual loot; survival costs one durability. Server reach, world border, spawn protection, build rights, loader break vetoes, and a four-tick action limit are enforced."
-      },
-      "de": {
-        "title": "Mit Hacke ernten und nachpflanzen",
-        "summary": "Hacke in der Haupthand erntet reifen Weizen, Karotten, Kartoffeln, Rote Bete, Netherwarzen und Kakao. Ein Samen stammt aus echter Beute; im Ueberleben kostet es eine Haltbarkeit. Server prueft Reichweite, Weltgrenze, Spawnschutz, Baurechte, Loader-Abbruch und vier Ticks Aktionspause."
-      }
-    },
-    {
       "id": "furnace_lava",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/event/FurnaceLavaFillHandler.java"
@@ -115,20 +87,6 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       "de": {
         "title": "Ofen mit Lava fuellen",
         "summary": "Beide Haende koennen einen Lavaeimer in Ofen, Hochofen oder Raeucherofen mit leerem Brennstoffplatz oder einem leeren Eimer einsetzen. Verschlossene Oefen und Schleichen sind ausgeschlossen. Ueberleben verbraucht Lava; ein vorhandener Eimer wird genau einmal zurueckgegeben. SimpleBuilding-Ofenunterklassen nutzen die Vanilla-Schnittstelle."
-      }
-    },
-    {
-      "id": "grass",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/SharpnessGrassCutMixin.java"
-      ],
-      "en": {
-        "title": "Sharpness cuts vegetation",
-        "summary": "Sharpness III or higher on a sword or axe clears explicit small vegetation overlapping the attacked entity. Sneaking disables it. At most 27 positions within 4.5 blocks are considered; loader break vetoes and action cooldown apply. The matching vegetation outline is hidden."
-      },
-      "de": {
-        "title": "Schaerfe schneidet Pflanzen",
-        "summary": "Schaerfe III oder hoeher auf Schwert oder Axt entfernt kleine Pflanzen am angegriffenen Wesen. Schleichen deaktiviert es. Hoechstens 27 Positionen innerhalb 4.5 Bloecken; Loader-Abbruch und Aktionspause gelten. Passende Pflanzenumrisse werden verborgen."
       }
     },
     {
@@ -188,6 +146,20 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       }
     },
     {
+      "id": "config_enableSimpleFarming",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "enableSimpleFarming",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Farming. Default: true."
+      },
+      "de": {
+        "title": "enableSimpleFarming",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Farming. Standard: true."
+      }
+    },
+    {
       "id": "config_enableSimpleCreatures",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
@@ -241,48 +213,6 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       "de": {
         "title": "qOL.enableAutowalk",
         "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: false."
-      }
-    },
-    {
-      "id": "config_qOL_preventFarmlandTrampleWithFeatherFalling",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.preventFarmlandTrampleWithFeatherFalling",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.preventFarmlandTrampleWithFeatherFalling",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_sharpnessCutsGrass",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.sharpnessCutsGrass",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.sharpnessCutsGrass",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_enableHoeHarvest",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.enableHoeHarvest",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.enableHoeHarvest",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
       }
     },
     {
@@ -475,11 +405,11 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       ],
       "en": {
         "title": "Commands",
-        "summary": "/crawl is available to players. Owner-level /simplequalityoflife offers tweaks fullDurabilityBonus, autowalk, farmlandProtect, frostWalkerSnow, hoeHarvest, furnaceLava, sharpnessCut, ladderSpeed. Changes are saved to config/simplequalityoflife.json."
+        "summary": "/crawl is available to players. Owner-level /simplequalityoflife offers tweaks fullDurabilityBonus, autowalk, frostWalkerSnow, furnaceLava, ladderSpeed. Changes are saved to config/simplequalityoflife.json."
       },
       "de": {
         "title": "Befehle",
-        "summary": "/crawl ist fuer Spieler. Besitzerberechtigung: /simplequalityoflife mit tweaks fullDurabilityBonus, autowalk, farmlandProtect, frostWalkerSnow, hoeHarvest, furnaceLava, sharpnessCut, ladderSpeed. Speichern in config/simplequalityoflife.json."
+        "summary": "/crawl ist fuer Spieler. Besitzerberechtigung: /simplequalityoflife mit tweaks fullDurabilityBonus, autowalk, frostWalkerSnow, furnaceLava, ladderSpeed. Speichern in config/simplequalityoflife.json."
       }
     },
     {
@@ -701,7 +631,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 39,
+    "features": 34,
     "recipes": 1,
     "lootTables": 0,
     "tags": 0,

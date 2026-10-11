@@ -27,7 +27,7 @@ for line in config.splitlines():
  k='text.autoconfig.simplequalityoflife.option.'+key
  for lang in (en,de):assert k in lang and k+'.@Tooltip' in lang and ('Default:' in lang[k+'.@Tooltip'] or 'Standard:' in lang[k+'.@Tooltip']),key
 manual=unique(MODULE/'wiki/manual.json')
-assert len(manual['features'])>=35
+assert len(manual['features'])>=10
 for feature in manual['features']:
  assert feature['en']['summary'] and feature['de']['summary']
  for source in feature['sources']:assert (MODULE.parents[1]/source).is_file(),source

@@ -43,11 +43,8 @@ public class ModCommands {
                     .then(Commands.literal("tweaks")
                             .then(boolTweak("fullDurabilityBonus", (c, v) -> { c.qOL.enableFullDurabilityBonus = v; }, "Full Durability Bonus enabled"))
                             .then(boolTweak("autowalk", (c, v) -> { c.qOL.enableAutowalk = v; }, "Auto-Walk enabled"))
-                            .then(boolTweak("farmlandProtect", (c, v) -> { c.qOL.preventFarmlandTrampleWithFeatherFalling = v; }, "Farmland Feather Falling Protection"))
                             .then(boolTweak("frostWalkerSnow", (c, v) -> { c.frostWalkerWalkOnPowderSnow = v; }, "Frost Walker on Powder Snow"))
-                            .then(boolTweak("hoeHarvest", (c, v) -> { c.qOL.enableHoeHarvest = v; }, "Hoe Harvest & Replant"))
                             .then(boolTweak("furnaceLava", (c, v) -> { c.qOL.enableFurnaceLavaFill = v; }, "Furnace Lava Fill"))
-                            .then(boolTweak("sharpnessCut", (c, v) -> { c.qOL.sharpnessCutsGrass = v; }, "Sharpness Cuts Grass"))
                             .then(Commands.literal("ladderSpeed")
                                     .then(Commands.argument("speed", DoubleArgumentType.doubleArg(0.2, 0.4))
                                             .executes(ctx -> {

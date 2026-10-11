@@ -196,13 +196,14 @@ window.WIKI_MODULES = [
       "simpleweather",
       "simpleinterfaces",
       "simpleloot",
-      "simplecreatures"
+      "simplecreatures",
+      "simplefarming"
     ],
     "optional": [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "59635fa83247"
+    "dataHash": "a8b690869dfb"
   },
   {
     "id": "simpletweaks",
@@ -369,6 +370,27 @@ window.WIKI_MODULES = [
       "modmenu"
     ],
     "dataHash": "499e87886520"
+  },
+  {
+    "id": "simplefarming",
+    "displayName": "Simple Farming",
+    "description": "Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops; a sub-mod of Simple QoL, also playable alone.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simplequalityoflife",
+      "modmenu"
+    ],
+    "dataHash": "5462cf9f9e6b"
   },
   {
     "id": "simplecreatures",

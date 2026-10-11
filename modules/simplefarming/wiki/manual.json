@@ -1,0 +1,118 @@
+{
+  "features": [
+    {
+      "id": "farmland",
+      "sources": [
+        "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/Protection.java"
+      ],
+      "en": {
+        "title": "Feather Falling farmland protection",
+        "summary": "Feather Falling boots prevent trampling. This complements SimpleBuilding Breeze head protection. Enabled by preventFarmlandTrampleWithFeatherFalling, default true."
+      },
+      "de": {
+        "title": "Federfall schuetzt Ackerland",
+        "summary": "Federfallstiefel verhindern Zertrampeln. Dies ergaenzt den Breezekopf-Schutz aus SimpleBuilding. preventFarmlandTrampleWithFeatherFalling ist standardmaessig true."
+      }
+    },
+    {
+      "id": "hoe_harvest",
+      "sources": [
+        "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/HoeHarvestHandler.java"
+      ],
+      "en": {
+        "title": "Hoe harvest and replant",
+        "summary": "Main-hand hoes harvest mature wheat, carrots, potatoes, beetroot, nether wart, and cocoa. One seed is taken from the actual loot; survival costs one durability. Server reach, world border, spawn protection, build rights, loader break vetoes, and a four-tick action limit are enforced."
+      },
+      "de": {
+        "title": "Mit Hacke ernten und nachpflanzen",
+        "summary": "Hacke in der Haupthand erntet reifen Weizen, Karotten, Kartoffeln, Rote Bete, Netherwarzen und Kakao. Ein Samen stammt aus echter Beute; im Ueberleben kostet es eine Haltbarkeit. Server prueft Reichweite, Weltgrenze, Spawnschutz, Baurechte, Loader-Abbruch und vier Ticks Aktionspause."
+      }
+    },
+    {
+      "id": "grass",
+      "sources": [
+        "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/mixin/SharpnessGrassCutMixin.java"
+      ],
+      "en": {
+        "title": "Sharpness cuts vegetation",
+        "summary": "Sharpness III or higher on a sword or axe clears explicit small vegetation overlapping the attacked entity. Sneaking disables it. At most 27 positions within 4.5 blocks are considered; loader break vetoes and action cooldown apply. The matching vegetation outline is hidden."
+      },
+      "de": {
+        "title": "Schaerfe schneidet Pflanzen",
+        "summary": "Schaerfe III oder hoeher auf Schwert oder Axt entfernt kleine Pflanzen am angegriffenen Wesen. Schleichen deaktiviert es. Hoechstens 27 Positionen innerhalb 4.5 Bloecken; Loader-Abbruch und Aktionspause gelten. Passende Pflanzenumrisse werden verborgen."
+      }
+    },
+    {
+      "id": "config_preventFarmlandTrampleWithFeatherFalling",
+      "sources": [
+        "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java"
+      ],
+      "en": {
+        "title": "preventFarmlandTrampleWithFeatherFalling",
+        "summary": "Server setting. Default: true."
+      },
+      "de": {
+        "title": "preventFarmlandTrampleWithFeatherFalling",
+        "summary": "Servereinstellung. Standard: true."
+      }
+    },
+    {
+      "id": "config_sharpnessCutsGrass",
+      "sources": [
+        "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java"
+      ],
+      "en": {
+        "title": "sharpnessCutsGrass",
+        "summary": "Server setting. Default: true."
+      },
+      "de": {
+        "title": "sharpnessCutsGrass",
+        "summary": "Servereinstellung. Standard: true."
+      }
+    },
+    {
+      "id": "config_enableHoeHarvest",
+      "sources": [
+        "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java"
+      ],
+      "en": {
+        "title": "enableHoeHarvest",
+        "summary": "Server setting. Default: true."
+      },
+      "de": {
+        "title": "enableHoeHarvest",
+        "summary": "Servereinstellung. Standard: true."
+      }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingCommands.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "Owner-level /simplefarming farmlandProtect, hoeHarvest and sharpnessCut <true|false>; changes are saved to config/simplefarming.json."
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "Besitzerberechtigung: /simplefarming farmlandProtect, hoeHarvest und sharpnessCut <true|false>; Speichern in config/simplefarming.json."
+      }
+    },
+    {
+      "id": "submod",
+      "sources": [
+        "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/SimpleFarming.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/SubMods.java"
+      ],
+      "en": {
+        "title": "Sub-mod of Simple QoL",
+        "summary": "Playable alone (config/simplefarming.json). Bundled in Simple QoL, which can switch it off with \"Enable Simple Farming\". On the first start the old Simple QoL settings of this sub-mod are taken over once."
+      },
+      "de": {
+        "title": "Sub-Mod von Simple QoL",
+        "summary": "Allein spielbar (config/simplefarming.json). In Simple QoL gebuendelt, dort mit \"Simple Farming aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig uebernommen."
+      }
+    }
+  ],
+  "notes": {}
+}

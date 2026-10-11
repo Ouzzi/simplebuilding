@@ -47,6 +47,13 @@ ordering="AFTER"
 side="BOTH"
 
 [[dependencies.simplequalityoflife]]
+modId="simplefarming"
+mandatory=true
+versionRange="[0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.simplequalityoflife]]
 modId="simpleweather"
 mandatory=true
 versionRange="[0,)"

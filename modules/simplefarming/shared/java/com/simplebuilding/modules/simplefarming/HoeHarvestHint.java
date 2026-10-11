@@ -1,4 +1,4 @@
-package com.simplequalityoflife.event;
+package com.simplebuilding.modules.simplefarming;
 
 import com.simplebuilding.framework.api.TransformHints;
 import net.minecraft.world.InteractionHand;
@@ -11,7 +11,7 @@ import net.minecraft.world.phys.BlockHitResult;
  * (registration touches no client class); without SimpleBuilding nobody asks.
  */
 public final class HoeHarvestHint {
-    public static final String ID = "simplequalityoflife:hoe_harvest";
+    public static final String ID = "simplefarming:hoe_harvest";
 
     private HoeHarvestHint() {
     }

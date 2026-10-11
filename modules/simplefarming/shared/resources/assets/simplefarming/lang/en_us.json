@@ -1,0 +1,11 @@
+{
+  "simplefarming.title": "Simple Farming",
+  "simplefarming.tab.general": "General",
+  "simplefarming.option.preventFarmlandTrampleWithFeatherFalling": "Feather Falling Protects Farmland",
+  "simplefarming.option.preventFarmlandTrampleWithFeatherFalling.tooltip": "If enabled, players with Feather Falling\nboots will not trample farmland. Default:\ntrue.",
+  "simplefarming.option.sharpnessCutsGrass": "Sharpness Cuts Grass",
+  "simplefarming.option.sharpnessCutsGrass.tooltip": "If enabled, Sharpness III+ weapons cut\nthrough grass/flowers when attacking\nentities. Default: true.",
+  "simplefarming.option.enableHoeHarvest": "Hoe Replanting",
+  "simplefarming.option.enableHoeHarvest.tooltip": "Right-click fully grown crops with a hoe to\nharvest and replant them. Consumes\ndurability. Default: true.",
+  "command.simplefarming.changed": "Configuration saved: %s = %s"
+}

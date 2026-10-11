@@ -54,6 +54,9 @@ public class SimplequalityoflifeConfig implements ConfigData {
     public boolean enableSimpleInterfaces = true;
 
     @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleFarming = true;
+
+    @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleCreatures = true;
 
     @ConfigEntry.Gui.Tooltip
@@ -74,16 +77,7 @@ public class SimplequalityoflifeConfig implements ConfigData {
         @ConfigEntry.Gui.Tooltip
         public boolean enableAutowalk = false;
 
-        // --- Farming & World Interaction ---
-        @ConfigEntry.Gui.Tooltip
-        public boolean preventFarmlandTrampleWithFeatherFalling = true;
-
-        @ConfigEntry.Gui.Tooltip
-        public boolean sharpnessCutsGrass = true;
-
-        @ConfigEntry.Gui.Tooltip
-        public boolean enableHoeHarvest = true;
-
+        // --- World Interaction ---
         @ConfigEntry.Gui.Tooltip
         public boolean enableFurnaceLavaFill = true;
 

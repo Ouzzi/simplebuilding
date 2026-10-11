@@ -14,7 +14,6 @@ public final class QolForge {
   net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(e->{if(e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM))com.simplequalityoflife.guide.QolGuide.register();});
   if(net.minecraftforge.fml.ModList.isLoaded("ftbquests"))com.simplequalityoflife.guide.QolGuide.installQuests(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
   net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e->{if(!e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)||!true)return;var book=new net.minecraft.world.item.ItemStack(com.simplequalityoflife.guide.QolGuide.book());var anchor=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.WRITABLE_BOOK);/* before the writable book: a tail append clashes with other mods' putAfter at the tail */if(e.getEntries().contains(anchor))e.getEntries().putBefore(anchor,book,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);else e.accept(book);});
-  if(ModuleForgeTests.enabled())QolForgeChecks.register();
   channel=ChannelBuilder.named(net.minecraft.resources.Identifier.parse("simplequalityoflife:main")).payloadChannel().protocol(NetworkProtocol.PLAY).clientbound()
    .add(ConfigSyncPayload.TYPE,ConfigSyncPayload.STREAM_CODEC.cast(),(p,c)->{c.setPacketHandled(true);c.enqueueWork(()->QolForgeClient.receive(p));})
    .add(CrawlStatePayload.TYPE,CrawlStatePayload.CODEC.cast(),(p,c)->{c.setPacketHandled(true);c.enqueueWork(()->QolForgeClient.receive(p));})
@@ -28,12 +27,10 @@ public final class QolForge {
   PlayerEvent.PlayerLoggedInEvent.BUS.addListener(e->{if(e.getEntity() instanceof ServerPlayer p)sync(p);});
   net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock.BUS.addListener(net.minecraftforge.eventbus.api.listener.Priority.LOWEST,e->{
    if(e.getUseBlock().isDenied()||e.getUseItem().isDenied())return false;
-   var result=HoeHarvestHandler.onRightClickBlock(e.getEntity(),e.getHand(),e.getPos(),e.getFace());
-   if(result==InteractionResult.PASS)result=FurnaceLavaFillHandler.onRightClickBlock(e.getEntity(),e.getHand(),e.getPos(),e.getFace());
+   var result=FurnaceLavaFillHandler.onRightClickBlock(e.getEntity(),e.getHand(),e.getPos(),e.getFace());
    if(result==InteractionResult.PASS)result=com.simplequalityoflife.container.LinkedContainers.onRightClickBlock(e.getEntity(),e.getHand(),e.getPos());
    if(result==InteractionResult.PASS)return false;e.setCancellationResult(result);return true;
   });
-  net.minecraftforge.event.level.BlockEvent.FarmlandTrampleEvent.BUS.addListener(e->{return com.simplequalityoflife.util.Protection.farmland(e.getEntity());});
  }
  private static void sync(ServerPlayer p){if(p.connection!=null)channel.send(new ConfigSyncPayload(new com.google.gson.Gson().toJson(Simplequalityoflife.getConfig())),PacketDistributor.PLAYER.with(p));}
 }
