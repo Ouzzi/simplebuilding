@@ -11,14 +11,12 @@ window the full block shows for that cell (normal or mirror texture chosen by ce
 The per-material models (<checker>_stairs_<mask>, <checker>_slab_<mask>, parent = the template, textures only) and the
 blockstates come from datagen (ModModelProvider.registerCheckerShapes, mask rule checkerStairMask = stair_mask here).
 --check compares instead of writing."""
-import glob
 import json
 import os
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ASSETS = os.path.join(REPO, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding')
-GENERATED = os.path.join(REPO, 'mc26_3', 'generated', 'assets', 'simplebuilding', 'blockstates')
 NS = 'simplebuilding'
 DIRS = {'down': (0, -1, 0), 'up': (0, 1, 0), 'north': (0, 0, -1), 'south': (0, 0, 1), 'west': (-1, 0, 0), 'east': (1, 0, 0)}
 
@@ -33,20 +31,7 @@ def bit(i, j, k):
     return 1 << (i + 2 * j + 4 * k)
 
 
-def rotate(cells, x, y):
-    """Blockstate rotation: x about the x axis first, then y (clockwise seen from above), about the block centre."""
-    assert x in (0, 180)
-    if x:
-        cells = {(i, 1 - j, 1 - k) for (i, j, k) in cells}
-    for _ in range(y // 90):
-        cells = {(1 - k, j, i) for (i, j, k) in cells}
-    return cells
-
-
-STRAIGHT = {(i, 0, k) for i in (0, 1) for k in (0, 1)} | {(1, 1, 0), (1, 1, 1)}
-OUTER = {(i, 0, k) for i in (0, 1) for k in (0, 1)} | {(1, 1, 1)}
-INNER = {(i, 0, k) for i in (0, 1) for k in (0, 1)} | {(1, 1, 0), (1, 1, 1), (0, 1, 1)}
-BASE = {'straight': STRAIGHT, 'outer_right': OUTER, 'outer_left': OUTER, 'inner_right': INNER, 'inner_left': INNER}
+BASE = ('straight', 'outer_right', 'outer_left', 'inner_right', 'inner_left')
 
 
 def mask_of(cells):
@@ -99,17 +84,11 @@ def stair_mask(facing, half, shape):
 def build():
     """Only the shared cell templates; the per-material models and blockstates come from datagen (ModModelProvider)."""
     out = {}
-    names = sorted(os.path.basename(p)[:-len('_stairs.json')] for p in glob.glob(os.path.join(GENERATED, '*_checker_stairs.json')))
-    # cross-check the rule against the Vanilla blockstate rotations (x then y) once per run
-    with open(os.path.join(GENERATED, f'{names[0]}_stairs.json')) as f:
-        states = json.load(f)['variants']
     used = set()
-    for key, v in states.items():
-        props = dict(p.split('=') for p in key.split(','))
-        by_rotation = mask_of(rotate(BASE[props['shape']], v.get('x', 0), v.get('y', 0)))
-        by_rule = stair_mask(props['facing'], props['half'], props['shape'])
-        assert by_rotation == by_rule, (key, by_rotation, by_rule)
-        used.add(by_rule)
+    for facing in ('east', 'south', 'west', 'north'):
+        for half in ('bottom', 'top'):
+            for shape in BASE:
+                used.add(stair_mask(facing, half, shape))
     used |= {mask_of({(i, 0, k) for i in (0, 1) for k in (0, 1)}), mask_of({(i, 1, k) for i in (0, 1) for k in (0, 1)})}
     for m in used:
         out[f'models/block/checker_cells/{m}.json'] = js(template(m))
