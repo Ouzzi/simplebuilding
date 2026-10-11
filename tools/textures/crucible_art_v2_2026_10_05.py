@@ -298,7 +298,8 @@ def reinforced_cauldron_item():
 
     Owner N12 (2026-10-06, "Item-Textur verbessern"): the band is no longer one flat stripe but the block side's
     diamond plates - lit from the left (spark on the left plate, the right end in the darker turquoise), a seam
-    between the plates, a shaded lower row - and two diamond studs sit on the rim like the corner studs on top."""
+    between the plates, a shaded lower row - and two diamond studs sit on the rim like the corner studs on top.
+    Owner 2026-10-11: seam and studs removed again (they read as stray strokes and dots at item size)."""
     a = np.array(p.vanilla('item/cauldron').convert('RGBA'))
     tones = [(26, 26, 30), (45, 45, 50), (52, 52, 56), (63, 62, 66), (73, 72, 72), (79, 79, 79), (89, 88, 88), (103, 97, 97)]
     ok = a[:, :, 3] > 0
@@ -310,17 +311,14 @@ def reinforced_cauldron_item():
     h, i, k, j = (94, 228, 214), (186, 250, 240), (44, 182, 190), (26, 120, 132)
     rows = [y for y in range(16) if ok[y].sum() >= 10]
     band = rows[-1] - 3
-    upper = [i, h, h, j, h, i, h, k, k]
-    lower = [k, j, j, j, k, j, j, j, j]
+    # Owner 2026-10-11 ("sinnlose Striche"): the seam and the second spark made short vertical strokes in the band
+    # and the two rim studs stood alone as stray dots; now one lit band with a single spark, a calm lower row.
+    upper = [h, i, h, h, h, h, h, k, k]
+    lower = [k, j, j, j, j, j, j, j, j]
     for y, pattern in ((band, upper), (band + 1, lower)):
         xs = [x for x in range(16) if ok[y, x]][1:-1]
         for x, color in zip(xs, pattern[:len(xs)]):
             a[y, x, :3] = color
-    # two diamond studs on the rim (light left, shaded right), like the corner studs of the block top
-    rim = next(y for y in range(16) if ok[y].sum() >= 10)
-    for x, color in ((3, h), (11, k)):
-        if ok[rim + 1, x]:
-            a[rim + 1, x, :3] = color
     return Image.fromarray(a)
 
 

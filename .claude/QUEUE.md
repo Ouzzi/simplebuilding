@@ -619,7 +619,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 28 (2026-10-09, Besitzer)
 - [x] Farbkasten (paint_box, 4 Stufen) so übernommen.
-- [ ] **Farbkasten-Textur überarbeiten** (Besitzer: Funktion ok, Textur soll später neu).
+- [x] **Farbkasten-Textur überarbeiten** (Besitzer: Funktion ok, Textur soll später neu). (claude-tex12: Variante D = C-Töpfe ohne Lücken im B-Kasten)
 - [x] Enderit-Eimer Variante A: Voll-Wasser bedeckt den Rand und läuft wie Lava über.
 - [x] (→ `claude-q-ebucket`) Enderit-Eimer halb-Texturen (Wasser/Lava/Seelenlava: wie voll, nur die zwei obersten äußeren Flüssigkeitspixel zeigen den Eimer) mit der Kapazität „2 Eimer“ aus Nachtrag 21 einbauen.
 - [x] Seelenlava Textur + Animation neu, fließende Seelenlava vor- und rückwärts (in Arbeit, claude-soullava). (Audit 09.10.: claude-soullava 5037a180a; Rückwärtslauf siehe N29)
@@ -646,7 +646,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ### Texturen-Feedback 09.10. spät (claude-q-texfix31)
 - [x] Halbe Lava-/Seelenlava-Enderit-Eimer mit derselben Maske wie der halbe Wassereimer (Enderit-Rand oben, zwei Randpixel frei), Glanz in Inhaltsfarbe bleibt. Milch: kein Mod-Eimer hält Milch (Entscheidung PLAN-TEX7/N12), daher keine Milch-Textur. (claude-q-texfix31)
 - [x] Farbkasten nochmals: Vorschläge A/B/C (`paint_box_2026_10_09.py --proposals`), A eingebaut (offene Dose, Deckel hinten, 16 Farbpunkte einzeln zwischen Holzstegen). (claude-q-texfix31)
-- [ ] Besitzer-Entscheidung: Farbkasten A behalten oder B/C (CHOSEN im Generator umstellen); Milch im Enderit-Eimer gewünscht? (wäre neues Feature: Melken, Trinken, halb/voll).
+- [ ] (Farbkasten entschieden 11.10.: D, claude-tex12) Offen: Milch im Enderit-Eimer gewünscht? (wäre neues Feature: Melken, Trinken, halb/voll).
 
 ## Nachtrag 30 (2026-10-10, Besitzer)
 

@@ -84,8 +84,28 @@ DESIGNS = {
         "cODDDDDDDDDDDDOc",
         ".cOOOOOOOOOOOOc.",
     ],
+    # D (owner 2026-10-11: "C, aber ohne Luecken, und wie B"): B's box (lid behind, shaded walls, front with the
+    # latch) holding C's 4x4 big pans (2x2 each, shaded bottom right), packed edge to edge without wooden ribs.
+    "D": [
+        "..cOOOOOOOOOOc..",
+        "..OhllllllllmO..",
+        ".OOOOOOOOOOOOOO.",
+        ".OhwwwwwwwwwwdO.",
+        ".Ohw00112233wdO.",
+        ".Ohw0+1+2+3+wdO.",
+        ".Ohw44556677wdO.",
+        ".Ohw4+5+6+7+wdO.",
+        ".Ohw8899AABBwdO.",
+        ".Ohw8+9+A+B+wdO.",
+        ".OhwCCEEFFGGwdO.",
+        ".OhwC+E+F+G+wdO.",
+        ".cOOOOOOOOOOOOc.",
+        ".OhllllSSllllmO.",
+        ".OmmmmmssmmmmdO.",
+        ".cOOOOOOOOOOOOc.",
+    ],
 }
-CHOSEN = "A"
+CHOSEN = "D"
 DYES = [0xF9FFFE, 0xF9801D, 0xC74EBD, 0x3AB3DA, 0xFED83D, 0x80C71F, 0xF38BAA, 0x474F52,
         0x9D9D97, 0x169C9C, 0x8932B8, 0x3C44AA, 0x835432, 0x5E7C16, 0xB02E26, 0x1D1D21]  # DyeColor texture colours
 PANS = "0123456789ABCEFG"  # one symbol per dye (no D: that is the darkest wood)
@@ -112,6 +132,8 @@ SPECKS = {
           ((11, 11), (0xA6, 0x7A, 0xEF))],
     "C": [((1, 6), (0x84, 0x56, 0xA3)), ((14, 10), (0xA6, 0x7A, 0xEF)), ((6, 1), (0xA6, 0x7A, 0xEF)),
           ((9, 14), (0x88, 0x58, 0xA8))],
+    "D": [((4, 1), (0x84, 0x56, 0xA3)), ((10, 1), (0xA6, 0x7A, 0xEF)), ((3, 14), (0x88, 0x58, 0xA8)),
+          ((11, 13), (0xA6, 0x7A, 0xEF))],
 }
 
 
