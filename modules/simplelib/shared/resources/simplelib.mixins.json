@@ -19,7 +19,8 @@
   ],
   "client": [
     "client.WarmGlowEntityMixin",
-    "client.WarmGlowSlotMixin"
+    "client.WarmGlowSlotMixin",
+    "client.SlotIconTintMixin"
   ],
   "server": [],
   "injectors": {

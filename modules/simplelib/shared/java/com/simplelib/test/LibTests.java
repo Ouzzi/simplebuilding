@@ -67,7 +67,7 @@ public final class LibTests {
         ALL.put("loose_barrel_menu_keeps_the_raised_limit", LibTests::looseBarrelMenu);
         ALL.put("hoppers_fill_raised_slots", LibTests::hoppersFillRaisedSlots);
         ALL.put("reinforced_crucible_loads_old_nine_slots", LibTests::reinforcedCrucibleLoadsOldNineSlots);
-        ALL.put("enderite_barrel_box_below_the_crucible", LibTests::enderiteBarrelBelow);
+        ALL.put("crucible_barrel_beside_inventory_centred", LibTests::barrelBesideInventoryCentred);
     }
 
     // ------------------------------------------------------------ helpers
@@ -213,26 +213,24 @@ public final class LibTests {
     }
 
     /**
-     * N14 (owner): from enderite on the barrel box sits under the crucible box (window not wider than without a barrel),
-     * below it the inventory; lower tiers keep the barrel beside the crucible. Purely the layout numbers.
+     * N37 (owner, mockup a of N34): every tier - enderite too - shows the barrel box beside the crucible box and the
+     * inventory box under both, the inventory centred (same margin left and right). Purely the layout numbers.
      */
-    private static void enderiteBarrelBelow(GameTestHelper h) {
+    private static void barrelBesideInventoryCentred(GameTestHelper h) {
         for (CrucibleTier tier : CrucibleTier.values()) {
             com.simplelib.crucible.CrucibleMenu.Layout compact = com.simplelib.crucible.CrucibleMenu.layout(tier, false);
             com.simplelib.crucible.CrucibleMenu.Layout wide = com.simplelib.crucible.CrucibleMenu.layout(tier, true);
-            boolean below = com.simplelib.crucible.CrucibleMenu.barrelBelow(tier);
-            check(h, below == (tier == CrucibleTier.ENDERITE), tier + ": barrel below only from enderite on");
             int crucibleBottom = wide.y() + wide.sectionHeight();
             int barrelBottom = wide.barrelBoxTop() + wide.barrelBoxHeight();
-            if (below) {
-                check(h, wide.barrelBoxTop() >= crucibleBottom, tier + ": barrel box overlaps the crucible box");
-                check(h, wide.inventoryBoxLeft() >= wide.barrelBox() + wide.barrelBoxWidth(), tier + ": inventory box overlaps the barrel box");
-                check(h, com.simplelib.crucible.CrucibleMenu.imageHeight(tier) <= 240, tier + ": panel does not fit 240 px (854x480 at scale 2)");
-                check(h, wide.barrelBox() == wide.x() && wide.barrelBoxWidth() == wide.crucibleWidth(), tier + ": barrel box not under the crucible box");
-            } else {
-                check(h, wide.barrelBox() >= wide.x() + wide.crucibleWidth(), tier + ": barrel box not beside the crucible box");
-                check(h, wide.inventoryBoxTop() >= barrelBottom, tier + ": inventory box overlaps the barrel box");
+            check(h, wide.barrelBox() >= wide.x() + wide.crucibleWidth(), tier + ": barrel box not beside the crucible box");
+            check(h, wide.inventoryBoxTop() >= barrelBottom && wide.inventoryBoxTop() >= crucibleBottom, tier + ": inventory box not under both boxes");
+            for (com.simplelib.crucible.CrucibleMenu.Layout l : new com.simplelib.crucible.CrucibleMenu.Layout[] {compact, wide}) {
+                int leftGap = l.inventoryLeft() - 1 - l.inventoryBoxLeft();
+                int rightGap = l.inventoryBoxLeft() + l.inventoryBoxWidth() - (l.inventoryLeft() - 1 + 162);
+                check(h, Math.abs(leftGap - rightGap) <= 1, tier + ": inventory not centred (" + leftGap + " / " + rightGap + ")");
             }
+            check(h, com.simplelib.crucible.CrucibleMenu.imageWidth(tier) <= 424, tier + ": window wider than 424 px (854x480 at scale 2)");
+            check(h, com.simplelib.crucible.CrucibleMenu.imageHeight(tier) <= 240, tier + ": panel does not fit 240 px (854x480 at scale 2)");
             check(h, wide.y() + wide.height() <= com.simplelib.crucible.CrucibleMenu.imageHeight(tier)
                     && compact.y() + compact.height() <= com.simplelib.crucible.CrucibleMenu.imageHeight(tier), tier + ": panel taller than the image");
             for (int i = 0; i < tier.slots(); i++) {
@@ -240,7 +238,7 @@ public final class LibTests {
                 check(h, bx > wide.barrelBox() && bx + 16 < wide.barrelBox() + wide.barrelBoxWidth()
                         && by > wide.barrelBoxTop() && by + 16 < barrelBottom, tier + ": barrel field " + i + " outside its box");
                 check(h, wide.slotY(tier, i) + 16 < crucibleBottom, tier + ": crucible field " + i + " outside its box");
-                if (below) check(h, bx == wide.slotX(tier, i), tier + ": barrel field " + i + " not under its crucible field");
+                check(h, by == wide.slotY(tier, i), tier + ": barrel field " + i + " not level with its crucible field");
             }
             check(h, wide.inventoryTop() + 58 + 16 < wide.inventoryBoxTop() + wide.inventoryBoxHeight(), tier + ": hotbar outside the inventory box");
         }
@@ -249,8 +247,9 @@ public final class LibTests {
 
     private static void tierLayout(GameTestHelper h) {
         check(h, CrucibleTier.IRON.slots() == 6 && CrucibleTier.REINFORCED.slots() == 12
-                && CrucibleTier.NETHERITE.slots() == 18 && CrucibleTier.ENDERITE.slots() == 27, "slot counts (owner F4, reinforced 12 since N30)");
-        check(h, CrucibleTier.REINFORCED.below(6) == 9 && CrucibleTier.REINFORCED.below(9) == -1, "reinforced fourth row below");
+                && CrucibleTier.NETHERITE.slots() == 18 && CrucibleTier.ENDERITE.slots() == 30, "slot counts (owner F4, reinforced 12 since N30, enderite 30 since N37)");
+        check(h, CrucibleTier.REINFORCED.grids() == 2 && CrucibleTier.REINFORCED.rows() == 2 && CrucibleTier.REINFORCED.below(0) == 3
+                && CrucibleTier.REINFORCED.below(3) == -1 && CrucibleTier.REINFORCED.below(6) == 9, "reinforced 2x6 (N37: two 2x3 grids)");
         check(h, CrucibleTier.IRON.below(0) == 3 && CrucibleTier.IRON.below(3) == -1, "iron below");
         check(h, CrucibleTier.NETHERITE.below(6) == -1 && CrucibleTier.NETHERITE.below(9) == 12, "second grid below");
         check(h, CrucibleTier.ENDERITE.stackMultiplier() == 2 && CrucibleTier.NETHERITE.stackMultiplier() == 1, "stack multiplier");
