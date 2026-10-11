@@ -87,3 +87,8 @@ Gemeinsam: Aura im Umkreis 16 Blöcke gibt **Zittern** (I ab Sichtkontakt, II un
 - Drop: Wächterauge → Trank „Fokus“ (Zittern-Immunität 3 min) oder Endgame-Kompass zu Gateways.
 
 Empfehlung: **F-C** passt zu den neuen End-Inhalten (Shellker, Fake-Gateways, Wracks) und spielt mit Blickmechanik ähnlich Deceiver; **F-A** wäre der „extrem stark aussehende“ Klassiker für die Overworld.
+
+## Besitzer N38 (2026-10-11), umgesetzt auf claude-n38
+- Doppeltes Leben: 200 (mit Brustplatte 240).
+- Verwandlung: mit jeder Welle nimmt er die Gestalt eines Wellen-Mobs an (synchronisiert, Client zeichnet einen Stellvertreter) und damit dessen Hitbox (EntityDimensions des Ziels, refreshDimensions). Größere Box nur, wo sie frei ist (kein Ersticken); ein Treffer und das Beruhigen enttarnen ihn.
+- Er zählt als Monster (Enemy): Trugbild lässt ihn deshalb unverändert (vorher sah der Spieler unter Trugbild einen Zombie mit der kleinen Hitbox). Friedlich greifen ihn Golems nicht an (canBeSeenAsEnemy nur im Kampf).

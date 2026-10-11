@@ -26,7 +26,7 @@ public final class MobsTests {
             check(BuiltInRegistries.ENTITY_TYPE.containsKey(MobsRegistry.DECEIVER_KEY.identifier()), "deceiver entity type");
             check(BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplemobs", "deceiver_cloth")), "cloth item");
             check(BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplemobs", "deceiver_spawn_egg")), "spawn egg");
-            check(DeceiverEntity.createAttributes().build().getBaseValue(net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH) == 100.0, "100 health");
+            check(DeceiverEntity.createAttributes().build().getBaseValue(net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH) == 200.0, "200 health (owner N38: double life)");
             h.succeed();
         });
         add("phases", h -> {
@@ -126,6 +126,31 @@ public final class MobsTests {
                     check(m.isSilent(), "a fake makes no step sounds");
                 }
             }
+            h.succeed();
+        });
+        add("disguise_hitbox", h -> {
+            var level = h.getLevel();
+            for (int x = 0; x < 8; x++) for (int z = 0; z < 8; z++) level.setBlock(h.absolutePos(new BlockPos(x, 0, z)), Blocks.STONE.defaultBlockState(), 3);
+            var deceiver = h.spawn(MobsRegistry.DECEIVER, 2, 1, 2);
+            check(deceiver.getMaxHealth() == 200.0f, "double life: " + deceiver.getMaxHealth());
+            check(deceiver instanceof net.minecraft.world.entity.monster.Enemy, "a monster, so Mirage keeps its shape");
+            float small = deceiver.getBbHeight();
+            var golem = net.minecraft.world.entity.EntityTypes.IRON_GOLEM;
+            check(deceiver.disguiseAs(golem), "turns into an iron golem in the open");
+            check(deceiver.look() == golem, "looks like the golem");
+            check(deceiver.getBbHeight() == golem.getHeight() && deceiver.getBbWidth() == golem.getWidth(), "takes the golem's hit box: " + deceiver.getBbHeight());
+            check(deceiver.disguiseAs(null) && deceiver.look() == null && deceiver.getBbHeight() == small, "back to its own box");
+            // Under a one block high ceiling a zombie box would suffocate it: refused, the small box stays.
+            var tunnel = h.spawn(MobsRegistry.DECEIVER, 6, 1, 6);
+            level.setBlock(h.absolutePos(new BlockPos(6, 2, 6)), Blocks.STONE.defaultBlockState(), 3);
+            check(!tunnel.disguiseAs(net.minecraft.world.entity.EntityTypes.ZOMBIE), "no taller shape under a low ceiling");
+            check(tunnel.look() == null && tunnel.getBbHeight() == small, "keeps its box under the ceiling");
+            check(!tunnel.isInWall(), "does not suffocate");
+            // A hit unmasks it.
+            check(deceiver.disguiseAs(net.minecraft.world.entity.EntityTypes.ZOMBIE), "zombie in the open");
+            var player = h.makeMockServerPlayerInLevel();
+            deceiver.hurtServer(level, level.damageSources().playerAttack(player), 1.0f);
+            check(deceiver.look() == null && deceiver.getBbHeight() == small, "a hit unmasks it");
             h.succeed();
         });
         HowlerTests.addAll(MobsTests::add);
