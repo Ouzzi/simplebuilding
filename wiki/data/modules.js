@@ -183,7 +183,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplequalityoflife",
     "displayName": "Simple Quality of Life",
-    "description": "Server-controlled movement, farming, mob, weather, and vault utilities. Super-mod: bundles Simple Weather.",
+    "description": "Server-controlled movement, farming, mob, weather, and vault utilities. Super-mod: bundles Simple Weather and Simple Interfaces.",
     "version": "1.0.6",
     "minecraft": "26.3",
     "loaders": [
@@ -193,13 +193,14 @@ window.WIKI_MODULES = [
     ],
     "requires": [
       "cloth_config",
-      "simpleweather"
+      "simpleweather",
+      "simpleinterfaces"
     ],
     "optional": [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "04d156b0dc40"
+    "dataHash": "94e04ad539b3"
   },
   {
     "id": "simpletweaks",

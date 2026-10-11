@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simpleinterfaces.client;
 
+import com.simplebuilding.modules.simpleinterfaces.ContainersConfig;
 import com.simplebuilding.framework.api.ContainerStyleHints;
 import com.simplebuilding.modules.simpleinterfaces.style.BoxLayout;
 import com.simplebuilding.modules.simpleinterfaces.style.BoxMotifs;
@@ -79,7 +80,7 @@ public final class StyledScreens {
 
     /** The style that applies to {@code screen} right now, or {@code null} (Vanilla). */
     public static @Nullable ScreenStyle style(AbstractContainerScreen<?> screen) {
-        if (!UiStyleToggle.isEnabled()) return null;
+        if (!ContainersConfig.on() || !UiStyleToggle.isEnabled()) return null;
         ScreenStyle style = ContainerStyles.find(menuType(screen), screen.getClass().getName());
         return style != null && ContainersClient.config().isOn(style.id()) ? style : null;
     }

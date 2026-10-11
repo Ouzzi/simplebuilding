@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simpleinterfaces.mixin;
 
+import com.simplebuilding.modules.simpleinterfaces.ContainersConfig;
 import com.simplebuilding.modules.simpleinterfaces.client.ContainersClient;
 import com.simplebuilding.modules.simpleinterfaces.client.StyleToggleButton;
 import com.simplebuilding.modules.simpleinterfaces.client.StyleToggleClient;
@@ -26,7 +27,7 @@ public abstract class StyleToggleMixin extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void simpleinterfaces$toggle(CallbackInfo ci) {
-        if ((StyleToggleClient.development || ContainersClient.config().showStyleToggle)
+        if (ContainersConfig.on() && (StyleToggleClient.development || ContainersClient.config().showStyleToggle)
                 && StyleToggleClient.KEY != null) {
             this.addRenderableWidget(new StyleToggleButton(this.leftPos + this.imageWidth + 4, this.topPos - 18,
                     button -> UiStyleToggle.toggle()));

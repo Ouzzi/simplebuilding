@@ -230,6 +230,20 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       }
     },
     {
+      "id": "config_enableSimpleInterfaces",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "enableSimpleInterfaces",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Interfaces (Simple style for Vanilla container screens). Default: true."
+      },
+      "de": {
+        "title": "enableSimpleInterfaces",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Interfaces (Simple-Stil fuer Vanilla-Behaelterfenster). Standard: true."
+      }
+    },
+    {
       "id": "config_frostWalkerWalkOnPowderSnow",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
@@ -813,7 +827,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 47,
+    "features": 48,
     "recipes": 1,
     "lootTables": 0,
     "tags": 0,
