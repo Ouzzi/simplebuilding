@@ -106,7 +106,7 @@ public class BlueprintScreen extends Screen {
     private Button exampleButton;
     // Hilfe-Reiter und Kopieren als Pixel-Symbole mit Namen im Tooltip (Queue N29).
     private IconButton copyButton;
-    private IconButton helpButton;
+    private Button helpButton;
     private IconButton resetViewButton;
     private IconButton guideTab;
     private IconButton blocksTab;
@@ -210,8 +210,8 @@ public class BlueprintScreen extends Screen {
         addRenderableWidget(insertBox);
         insertButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.editor.insert"), layout.insertButton, b -> insertTarget()));
 
-        helpButton = addRenderableWidget(new IconButton(layout.book, Component.translatable("simplebuilding.blueprint.help.title"),
-                Component.translatable("simplebuilding.blueprint.help.open"), null, this::toggleHelp));
+        helpButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.help.title"), layout.book, b -> toggleHelp()));
+        helpButton.setTooltip(Tooltip.create(Component.translatable("simplebuilding.blueprint.help.open")));
         resetViewButton = addRenderableWidget(new IconButton(layout.reset, Component.translatable("simplebuilding.blueprint.editor.view_reset"),
                 Component.translatable("simplebuilding.blueprint.editor.view_reset_tip"), RESET_ICON, controls::reset));
         exampleButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.editor.example"), layout.example, b -> insertExample()));
@@ -224,7 +224,7 @@ public class BlueprintScreen extends Screen {
         copyButton = addRenderableWidget(new IconButton(layout.copy, Component.translatable("simplebuilding.blueprint.help.copy"),
                 copyTip(), COPY_ICON, this::copyGuide));
 
-        doneButton = addRenderableWidget(button(Component.translatable("gui.done"), readOnly ? layout.doneWide : layout.done, b -> onClose()));
+        doneButton = addRenderableWidget(button(Component.translatable("gui.done"), layout.done, b -> onClose()));
         signButton = addRenderableWidget(button(Component.translatable("book.signButton"), layout.sign, b -> {
             signing = true;
             updateButtons();
@@ -257,6 +257,7 @@ public class BlueprintScreen extends Screen {
     private void updateButtons() {
         boolean valid = parsed.ok() && !parsed.model().isEmpty();
         doneButton.visible = !signing;
+        helpButton.visible = !signing;
         signButton.visible = !signing && !readOnly;
         signButton.active = valid;
         titleBox.visible = signing;
