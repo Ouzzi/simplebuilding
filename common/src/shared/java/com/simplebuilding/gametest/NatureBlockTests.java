@@ -214,6 +214,84 @@ public final class NatureBlockTests {
         });
     }
 
+    /**
+     * Besitzer N34: Sand-/Kies-Stufen landen auf Stufen. (a) Eine untere Stufe direkt ueber einer unteren derselben Art faellt
+     * den halben Block und beide werden voll; (b) eine obere Stufe ueber einem vollen Block oder einer oberen Stufe faellt
+     * in ihrer Zelle nach unten (schwebte vorher); eine obere ueber einer unteren derselben Art wird mit ihr voll; ueber
+     * einer fremden unteren Stufe rutscht sie in der eigenen Zelle nach unten. Kein Item.
+     */
+    public static void gravitySlabsSettleOnSlabsAndHalfSteps(GameTestHelper helper) {
+        if (!McVersion.NATURE_VARIANTS) {
+            helper.succeed();
+            return;
+        }
+        for (int x = 0; x <= 7; x++) {
+            helper.setBlock(new BlockPos(x, 1, 1), Blocks.STONE);
+            helper.setBlock(new BlockPos(x, 1, 4), Blocks.STONE);
+        }
+        BlockState sand = ModBlocks.SAND_SLAB.defaultBlockState();
+        BlockState gravel = ModBlocks.GRAVEL_SLAB.defaultBlockState();
+        helper.setBlock(new BlockPos(0, 2, 1), sand);
+        helper.setBlock(new BlockPos(0, 3, 1), sand);
+        helper.setBlock(new BlockPos(2, 2, 1), sand.setValue(SlabBlock.TYPE, SlabType.TOP));
+        helper.setBlock(new BlockPos(4, 2, 1), gravel);
+        helper.setBlock(new BlockPos(4, 3, 1), gravel.setValue(SlabBlock.TYPE, SlabType.TOP));
+        helper.setBlock(new BlockPos(6, 2, 1), Blocks.STONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP));
+        helper.setBlock(new BlockPos(6, 3, 1), sand.setValue(SlabBlock.TYPE, SlabType.TOP));
+        helper.setBlock(new BlockPos(0, 2, 4), Blocks.STONE_SLAB.defaultBlockState());
+        helper.setBlock(new BlockPos(0, 3, 4), sand.setValue(SlabBlock.TYPE, SlabType.TOP));
+        helper.setBlock(new BlockPos(3, 2, 4), sand);
+        helper.setBlock(new BlockPos(3, 5, 4), sand.setValue(SlabBlock.TYPE, SlabType.TOP));
+        helper.succeedWhen(() -> {
+            helper.assertTrue(helper.getBlockState(new BlockPos(0, 2, 1)).is(Blocks.SAND) && helper.getBlockState(new BlockPos(0, 3, 1)).isAir(),
+                    "(a) a sand slab right above a lower sand slab did not drop onto it: " + helper.getBlockState(new BlockPos(0, 2, 1))
+                            + " / " + helper.getBlockState(new BlockPos(0, 3, 1)));
+            expectSlab(helper, new BlockPos(2, 2, 1), ModBlocks.SAND_SLAB, SlabType.BOTTOM);
+            helper.assertTrue(helper.getBlockState(new BlockPos(4, 2, 1)).is(Blocks.GRAVEL) && helper.getBlockState(new BlockPos(4, 3, 1)).isAir(),
+                    "an upper gravel slab above a lower one did not merge: " + helper.getBlockState(new BlockPos(4, 2, 1)));
+            expectSlab(helper, new BlockPos(6, 3, 1), ModBlocks.SAND_SLAB, SlabType.BOTTOM);
+            expectSlab(helper, new BlockPos(6, 2, 1), Blocks.STONE_SLAB, SlabType.TOP);
+            expectSlab(helper, new BlockPos(0, 3, 4), ModBlocks.SAND_SLAB, SlabType.BOTTOM);
+            expectSlab(helper, new BlockPos(0, 2, 4), Blocks.STONE_SLAB, SlabType.BOTTOM);
+            helper.assertTrue(helper.getBlockState(new BlockPos(3, 2, 4)).is(Blocks.SAND) && helper.getBlockState(new BlockPos(3, 5, 4)).isAir(),
+                    "an upper sand slab falling from higher up did not merge with the lower one: " + helper.getBlockState(new BlockPos(3, 2, 4)));
+            helper.assertTrue(helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.FallingBlockEntity.class, helper.getBounds()).isEmpty(),
+                    "a slab is still falling");
+            helper.assertTrue(helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds()).isEmpty(),
+                    "a landing slab broke into an item");
+        });
+    }
+
+    /**
+     * Besitzer N34 (c): eine obere Sand-Stufe startet ihren Fall auf ihrer sichtbaren Hoehe (halber Block ueber dem Zellboden)
+     * statt im ersten Tick einen halben Block tiefer aufzutauchen, und landet unten als untere Stufe.
+     */
+    public static void upperGravitySlabStartsFallingFromItsOwnHeight(GameTestHelper helper) {
+        if (!McVersion.NATURE_VARIANTS) {
+            helper.succeed();
+            return;
+        }
+        helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
+        BlockPos rel = new BlockPos(2, 4, 2);
+        helper.setBlock(rel, ModBlocks.SAND_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP));
+        BlockPos abs = helper.absolutePos(rel);
+        ServerLevel level = helper.getLevel();
+        helper.getBlockState(rel).tick(level, abs, level.getRandom());
+        List<net.minecraft.world.entity.item.FallingBlockEntity> falling = level.getEntitiesOfClass(
+                net.minecraft.world.entity.item.FallingBlockEntity.class, new net.minecraft.world.phys.AABB(abs).inflate(1.0));
+        helper.assertTrue(falling.size() == 1, "expected one falling slab, found " + falling.size());
+        var entity = falling.get(0);
+        helper.assertTrue(Math.abs(entity.getY() - (abs.getY() + 0.5)) < 1.0E-6 && Math.abs(entity.yo - (abs.getY() + 0.5)) < 1.0E-6,
+                "the upper slab starts falling at y " + entity.getY() + " (old " + entity.yo + "), not at its visible " + (abs.getY() + 0.5));
+        helper.assertTrue(entity.getBlockState().is(ModBlocks.SAND_SLAB) && entity.getBlockState().getValue(SlabBlock.TYPE) == SlabType.BOTTOM,
+                "the falling slab renders as " + entity.getBlockState());
+        helper.assertTrue(helper.getBlockState(rel).isAir(), "the slab left its block behind: " + helper.getBlockState(rel));
+        helper.succeedWhen(() -> {
+            expectSlab(helper, new BlockPos(2, 2, 2), ModBlocks.SAND_SLAB, SlabType.BOTTOM);
+            helper.assertTrue(helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds()).isEmpty(), "the slab broke");
+        });
+    }
+
     private static void expectSlab(GameTestHelper helper, BlockPos pos, Block slab, SlabType type) {
         BlockState state = helper.getBlockState(pos);
         helper.assertTrue(state.is(slab) && state.getValue(SlabBlock.TYPE) == type,

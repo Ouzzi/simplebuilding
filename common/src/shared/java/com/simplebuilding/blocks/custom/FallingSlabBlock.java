@@ -20,6 +20,15 @@ import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.Entity;
 
 /**
  * Sand- und Kies-Stufe (Besitzer N25): eine Stufe, die faellt wie Sand ({@link FallingBlock} nachgebaut, weil eine
@@ -55,15 +64,71 @@ public class FallingSlabBlock extends MergingSlabBlock implements Fallable {
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (state.getValue(TYPE) == SlabType.DOUBLE) {
+        SlabType type = state.getValue(TYPE);
+        if (type == SlabType.DOUBLE) {
             // Doppelstufe (alte Welt, /setblock): wird zum vollen Block, der dann selbst faellt.
             level.setBlockAndUpdate(pos, fullState());
             return;
         }
-        if (FallingBlock.isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinY()) {
-            BlockState falling = state.getValue(TYPE) == SlabType.TOP ? state.setValue(TYPE, SlabType.BOTTOM) : state;
-            FallingBlockEntity.fall(level, pos, falling);
+        if (pos.getY() < level.getMinY()) {
+            return;
         }
+        BlockPos belowPos = pos.below();
+        BlockState below = level.getBlockState(belowPos);
+        // Besitzer N34: eine untere Stufe derselben Art darunter faengt die fallende Stufe auf (beide werden voll).
+        boolean fallsThrough = FallingBlock.isFree(below) || isMergeTarget(below);
+        if (type == SlabType.BOTTOM) {
+            if (fallsThrough) {
+                fall(level, pos, state, 0.0);
+            }
+            return;
+        }
+        // Obere Stufe: ihre untere Haelfte ist frei. Sie faellt mindestens bis zum Boden der eigenen Zelle - auch auf
+        // einen vollen Block darunter (Besitzer N34, schwebte vorher).
+        if (fallsThrough || isFullHeight(below, level, belowPos)) {
+            fall(level, pos, state, 0.5);
+        } else {
+            // Darunter etwas Niedriges, das keine Landung traegt (fremde untere Stufe, Ackerboden): die Stufe rutscht
+            // in der eigenen Zelle nach unten und bleibt dort liegen wie eine untere Stufe.
+            level.setBlockAndUpdate(pos, state.setValue(TYPE, SlabType.BOTTOM));
+        }
+    }
+
+    /** Eine liegende untere Stufe derselben Art: Landeplatz, auf dem die fallende Stufe zum vollen Block wird. */
+    private boolean isMergeTarget(BlockState below) {
+        return below.is(this) && below.getValue(TYPE) == SlabType.BOTTOM;
+    }
+
+    /** Traegt der Block darunter eine Landung auf voller Hoehe (Oberkante seiner Kollision bei 1)? */
+    private static boolean isFullHeight(BlockState below, BlockGetter level, BlockPos belowPos) {
+        VoxelShape shape = below.getCollisionShape(level, belowPos);
+        return !shape.isEmpty() && shape.max(Direction.Axis.Y) >= 1.0;
+    }
+
+    /**
+     * Wie {@link FallingBlockEntity#fall}, aber die Entity startet {@code lift} Bloecke ueber dem Zellboden: eine obere
+     * Stufe faellt als untere ab ihrer sichtbaren Hoehe, statt im ersten Tick einen halben Block tiefer zu erscheinen
+     * (Besitzer N34). Der private Konstruktor ist nicht erreichbar; {@link Entity#load} setzt Zustand und Lage, bevor
+     * die Entity der Welt (und damit dem Client) bekannt wird.
+     */
+    private static void fall(ServerLevel level, BlockPos pos, BlockState state, double lift) {
+        BlockState falling = state.setValue(TYPE, SlabType.BOTTOM);
+        if (falling.hasProperty(BlockStateProperties.WATERLOGGED)) {
+            falling = falling.setValue(BlockStateProperties.WATERLOGGED, false);
+        }
+        if (lift == 0.0) {
+            FallingBlockEntity.fall(level, pos, falling);
+            return;
+        }
+        FallingBlockEntity entity = new FallingBlockEntity(EntityTypes.FALLING_BLOCK, level);
+        CompoundTag tag = new CompoundTag();
+        tag.store("BlockState", BlockState.CODEC, falling);
+        tag.store("Pos", Vec3.CODEC, new Vec3(pos.getX() + 0.5, pos.getY() + lift, pos.getZ() + 0.5));
+        entity.load(TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), tag));
+        entity.blocksBuilding = true;
+        entity.setStartPos(entity.blockPosition());
+        level.setBlockAndUpdate(pos, state.getFluidState().createLegacyBlock());
+        level.addFreshEntity(entity);
     }
 
     /**
