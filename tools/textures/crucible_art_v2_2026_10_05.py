@@ -814,7 +814,8 @@ def resources():
         tex = barrel_textures(tier)
         for part, path in barrel_paths(tier).items():
             out[path] = tex[part]
-    out[LIB.parent / 'item/reinforced_cauldron.png'] = reinforced_cauldron_item()
+    # Owner N34 (2026-10-11): the item shows the 3D block (modules/simplelib/tools/gen_resources.py); the flat
+    # sprite reinforced_cauldron_item() is no longer written (kept for the N11 comparison preview).
     out.update(bucket_resources(CHOICE['copper_bucket'], CHOICE['enderite_bucket']))
     return out
 

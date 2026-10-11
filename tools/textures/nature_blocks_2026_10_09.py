@@ -5,8 +5,9 @@
   Paletten aus den Vanilla-Eisfarben, die Formen sind eigene.
 - Nautilusschalen-Block (Saeule): Stirnseite = Schnitt durch die Schale (Spirale mit Kammerwaenden, aussen die
   gestreifte Wohnkammer), Seiten = Aussenseite mit welligen Tigerstreifen auf Perlmutt.
-- Froschlichter Scharlach/Aqua/Azur: Aufbau wie Vanillas Froschlicht (helles Inneres, Rand dunkler, an den Seiten
-  herablaufende Tropfen), aber eigenes Tropfen-/Blasenmuster und eigene Farbrampen.
+- Froschlichter Scharlach/Aqua/Azur: Aufbau wie Vanillas Froschlicht (Besitzer N34: "wie Vanilla", nur die Farbe je
+  Variante) - Seite ein weiches rundes Leuchten mit feinen senkrechten Schlieren, Stirnseite ein flacher heller Kern
+  mit weichem, unregelmaessigem Rand; eigene Farbrampen.
 
 Rissiges Eis braucht keine Textur (Modelle zeigen auf minecraft:block/frosted_ice_0..3), die Stufen ebenso.
 
@@ -228,43 +229,47 @@ def froglight_ramp(hue):
 
 
 def froglight_side(ramp, seed):
-    """Seite: Kern hell, an Ober- und Unterkante laufen ungleich lange Tropfen ein, Seitenkanten weich dunkler."""
+    """Seite wie Vanillas Froschlicht (Besitzer N34 2026-10-11: "sieht nicht wie Vanilla aus" - keine Zacken mehr):
+    ein weiches, rundes Leuchten - Kern fast weiss, nach aussen gleichmaessig dunkler, Ecken am dunkelsten - und
+    darueber feine senkrechte Schlieren (jede Spalte eine Spur heller oder dunkler, pixelweise etwas Rauschen)."""
     r = rng(seed)
-    top = [1 + int(r() * 6) for _ in range(16)]
-    bottom = [1 + int(r() * 6) for _ in range(16)]
+    column = [(-1 if r() < 0.45 else 0.25) for _ in range(16)]
     g = [[7] * 16 for _ in range(16)]
     for y in range(16):
         for x in range(16):
-            d = min(x, 15 - x)
-            a = 1 + int(6 * y / top[x]) if y < top[x] else 7
-            b = 1 + int(6 * (15 - y) / bottom[x]) if 15 - y < bottom[x] else 7
-            c = 2 + 2 * d + (1 if r() < 0.35 else 0)
-            tone = min(7, a, b, c)
-            if 3 <= tone <= 6 and r() < 0.22:
-                tone -= 1
-            g[y][x] = max(0, tone)
+            dx, dy = abs(x - 7.5) / 8, abs(y - 7.5) / 8
+            rad = (dx ** 2.6 + dy ** 2.6) ** (1 / 2.6)
+            t = max(0.0, (rad - 0.42) / 0.95)
+            tone = 7.7 - 7.7 * t ** 1.1
+            if tone > 1.5:
+                tone += column[x] * (0.7 + 0.5 * r())
+            tone += (r() - 0.5) * 0.6
+            g[y][x] = max(0, min(7, int(round(tone))))
+    for x, y in ((0, 0), (15, 0), (0, 15), (15, 15)):
+        g[y][x] = 0
     return paint(g, ramp)
 
 
 def froglight_top(ramp, seed):
-    """Stirnseite: grosser heller Kern, zackiger Rand, Ecken am dunkelsten."""
+    """Stirnseite wie Vanilla: grosser, ganz flacher heller Kern, ein zwei bis drei Pixel breiter weicher Rand mit
+    unregelmaessig tiefen Einbuchtungen, die Ecken am dunkelsten; nur die hellen sechs Toene der Rampe."""
     r = rng(seed)
-    depth = [[1 + int(r() * 3) for _ in range(16)] for _ in range(4)]  # Randtiefe je Kante und Position
-    g = [[7] * 16 for _ in range(16)]
+    reach = [[1 + int(r() * 2.6) for _ in range(16)] for _ in range(4)]  # Randbreite je Kante und Position
+    g = [[5] * 16 for _ in range(16)]
     for y in range(16):
         for x in range(16):
-            dist = [y, 15 - y, x, 15 - x]
-            pos = [x, x, y, y]
-            tone = 7
+            dist = (y, 15 - y, x, 15 - x)
+            pos = (x, x, y, y)
+            tone = 5
             for edge in range(4):
-                reach = depth[edge][pos[edge]]
-                if dist[edge] < reach + 1:
-                    tone = min(tone, 2 + int(5 * dist[edge] / (reach + 1)))
-            if min(x, 15 - x) + min(y, 15 - y) <= 1:
+                d, w = dist[edge], reach[edge][pos[edge]]
+                if d <= w:
+                    tone = min(tone, 1 + int(r() * 2) + int(3 * d / (w + 1)))
+            if min(x, 15 - x) + min(y, 15 - y) == 0:
+                tone = 0
+            elif min(x, 15 - x) + min(y, 15 - y) == 1:
                 tone = min(tone, 1)
-            if 3 <= tone <= 6 and r() < 0.18:
-                tone -= 1
-            g[y][x] = tone
+            g[y][x] = max(0, min(5, tone)) + 2
     return paint(g, ramp)
 
 

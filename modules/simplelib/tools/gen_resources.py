@@ -234,9 +234,15 @@ def files():
                 out[f"{a}/models/block/reinforced_cauldron_{content}_level{level}.json"] = {
                     "parent": f"minecraft:block/template_cauldron_level{level}", "textures": dict(rc_tex, content=texture)}
     out[f"{a}/blockstates/reinforced_cauldron.json"] = {"variants": cauldron_variants}
-    # Like Vanilla's cauldron the item is a flat sprite (the block model has no GUI transform, owner image 17).
-    out[f"{a}/models/item/reinforced_cauldron.json"] = {"parent": "minecraft:item/generated",
-                                                        "textures": {"layer0": f"{NS}:item/reinforced_cauldron"}}
+    # Owner N34 (2026-10-11, "Item-Icon immer noch falsch", the flat sprite was rejected three times; same batch: the
+    # wooden cauldrons get their 3D block in the inventory): the item shows the block itself like the crucibles and
+    # barrels - the block model with the Vanilla block display transforms (Vanilla's cauldron model has none).
+    out[f"{a}/models/item/reinforced_cauldron.json"] = {"parent": rc, "display": {
+        "gui": {"rotation": [30, 225, 0], "translation": [0, 0, 0], "scale": [0.625, 0.625, 0.625]},
+        "ground": {"rotation": [0, 0, 0], "translation": [0, 3, 0], "scale": [0.25, 0.25, 0.25]},
+        "fixed": {"rotation": [0, 0, 0], "translation": [0, 0, 0], "scale": [0.5, 0.5, 0.5]},
+        "thirdperson_righthand": {"rotation": [75, 45, 0], "translation": [0, 2.5, 0], "scale": [0.375, 0.375, 0.375]},
+        "firstperson_righthand": {"rotation": [0, 45, 0], "translation": [0, 0, 0], "scale": [0.4, 0.4, 0.4]}}}
     out[f"{a}/items/reinforced_cauldron.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:item/reinforced_cauldron"}}
     out[f"{d}/loot_table/blocks/reinforced_cauldron.json"] = {
         "type": "minecraft:block",

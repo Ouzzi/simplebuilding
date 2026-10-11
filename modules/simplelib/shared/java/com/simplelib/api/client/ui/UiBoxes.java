@@ -144,12 +144,22 @@ public final class UiBoxes {
         g.fill(x + 1, y + 15, x + 15, y + 16, colors.base);
         int flick = (int) (millis / 160);
         for (int i = 0; i < 3; i++) {
-            int tx = x + 2 + i * 5;
-            int h = Math.min(level - 3, 4 + (UiFlames.hash(i, flick) & 3));
-            for (int k = 0; k < h; k++) {
-                int dx = ((k + i + flick) & 2) == 0 ? 0 : 1;
-                g.fill(tx + dx, y + 13 - k, tx + dx + 2, y + 14 - k, colors.tongue);
-            }
+            int h = Math.min(level - 3, 5 + (UiFlames.hash(i, flick) & 3));
+            tongue(g, x + 2 + i * 5, y + 14, h, UiFlames.hash(i + 3, flick) & 1, colors.tongue);
+        }
+    }
+
+    /**
+     * A Vanilla-like flame tongue standing on row {@code bottom} (owner N34 2026-10-11: flames instead of wavy lines):
+     * 3 px wide, the top third 2 px wide leaning right by {@code lean} (0/1), a 1 px tip.
+     */
+    public static void tongue(GuiGraphicsExtractor g, int tx, int bottom, int h, int lean, int color) {
+        int narrow = Math.max(1, h / 3);
+        for (int k = 0; k < h; k++) {
+            int yy = bottom - k;
+            if (k == h - 1) g.fill(tx + 1 + lean, yy, tx + 2 + lean, yy + 1, color);
+            else if (k >= h - 1 - narrow) g.fill(tx + lean, yy, tx + 2 + lean, yy + 1, color);
+            else g.fill(tx, yy, tx + 3, yy + 1, color);
         }
     }
 
@@ -167,13 +177,7 @@ public final class UiBoxes {
     public static void fuelSlot(GuiGraphicsExtractor g, int x, int y, UiPalette p, int level, ProgressColors colors, long millis) {
         slot(g, x, y, p);
         int sil = UiPalette.scale(p.slot(), 0.86);
-        for (int i = 0; i < 3; i++) {
-            int tx = x + 2 + i * 5;
-            for (int k = 0; k < 11; k++) {
-                int dx = ((k + i) & 2) == 0 ? 0 : 1;
-                g.fill(tx + dx, y + 13 - k, tx + dx + 2, y + 14 - k, sil);
-            }
-        }
+        for (int i = 0; i < 3; i++) tongue(g, x + 2 + i * 5, y + 14, 12 - (i & 1) * 2, i & 1, sil);
         progressFill(g, x, y, level, colors, millis);
     }
 

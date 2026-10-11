@@ -157,11 +157,11 @@ public final class WorkScreens {
 
     /**
      * Furnace, blast furnace, smoker (image 4): the fuel slot (menu slot 1) shows the burn time as flames filling it
-     * from below, heat waves (smoke curls for the smoker) at Vanilla's flame spot, warm while lit; the arrow fills
-     * with the cooking progress; big result slot (menu slot 2).
+     * from below, a flame at Vanilla's flame spot that burns down like Vanilla's while lit (owner N34: no heat waves
+     * any more); the arrow fills with the cooking progress; big result slot (menu slot 2).
      */
     public static boolean furnace(AbstractContainerScreen<?> screen, AbstractFurnaceMenu menu, GuiGraphicsExtractor g, int left, int top,
-            int w, int h, int titleY, ProgressColors colors, UiSymbols.Bitmap waves) {
+            int w, int h, int titleY, ProgressColors colors) {
         UiPalette p = base(screen, g, left, top, w, h, titleY, new int[0][], false, new int[][] {{57, 36, 71, 50}}, List.of(2), true);
         if (p == null) return false;
         slots(screen, g, left, top, w, p, List.of(2), List.of(1));
@@ -169,7 +169,8 @@ public final class WorkScreens {
         int level = lit ? Mth.clamp(Mth.ceil(menu.getLitProgress() * 16), 1, 16) : 0;
         Slot fuel = menu.getSlot(1);
         UiBoxes.fuelSlot(g, left + fuel.x, top + fuel.y, p, level, colors, lit ? Util.getMillis() : 0);
-        UiSymbols.engrave(g, waves, left + 57, top + 36, p, lit ? UiPalette.mix(p.slot(), colors.tongue, 0.55) : p.slot(), true);
+        UiSymbols.flame(g, left + 57, top + 36, p, lit ? menu.getLitProgress() : 0, colors.tongue, colors.body, colors.base,
+                0xFFFFF6D0);
         UiSymbols.progress(g, UiSymbols.ARROW, left + 80, top + 35, p, menu.getBurnProgress(), false);
         return true;
     }

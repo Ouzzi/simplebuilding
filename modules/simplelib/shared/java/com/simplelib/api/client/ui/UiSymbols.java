@@ -6,7 +6,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
  * Engraved symbols of the N12 container style instead of text (owner image 3; README of the W0-B previews, point 5):
  * a stroke in the slot colour with a 1 px light edge under it, sunk like the slots. Progress fills the symbol white
  * (image 4) from the left or from the top. Pixel art and numbers exactly as {@code tools/ui/simpleinterfaces_preview.py}
- * (ARROW, HEAT, SMOKE, ARROW_DOWN, CHECK, CROSS, PYRAMID, STAR); keep both in step. Client only.
+ * (ARROW, HEAT, SMOKE, FLAME, ARROW_DOWN, CHECK, CROSS, PYRAMID, STAR); keep both in step. Client only.
  */
 public final class UiSymbols {
     /** Progress colour (image 4: white arrow). */
@@ -74,6 +74,15 @@ public final class UiSymbols {
             ".#....#....#..", "#....#....#...", "#....#....#...", ".#....#....#..", "..#....#....#.", "..#....#....#.",
             ".#....#....#..", "#....#....#...", "#....#....#...", ".#....#....#..", "..#....#....#.", "..#....#....#.",
             ".#....#....#..");
+    /**
+     * 14x14 flame at Vanilla's flame spot of the furnaces (owner N34 2026-10-11: "Flammen wie Vanilla, jetzt nur
+     * Wellenlinien" - replaces {@link #HEAT}/{@link #SMOKE} there): a tall middle tongue and two side tongues over a
+     * round bed, drawn with {@link #flame}.
+     */
+    public static final Bitmap FLAME = Bitmap.of(
+            ".......#......", "......##......", "......###.....", ".#...####.....", ".##..#####..#.", ".###.#####.##.",
+            ".###.#####.##.", "..###########.", ".############.", ".#############", "##############", "##############",
+            ".############.", "..##########..");
     /** 14x13: smoker - soft curls instead of sharp waves. */
     public static final Bitmap SMOKE = Bitmap.of(
             "..##....##....", ".#..#..#..#...", "....#.....#...", "...#.....#....", "..#.....#.....", "..#.....#.##..",
@@ -139,6 +148,40 @@ public final class UiSymbols {
             }
         }
         for (int k = 0; k < xs.length; k++) g.fill(x + xs[k], y + ys[k], x + xs[k] + 1, y + ys[k] + 1, color);
+    }
+
+    /**
+     * The engraved {@link #FLAME}; while lit it burns like Vanilla's flame sprite: the part below {@code lit} (0..1 of the
+     * height, from the bottom) glows - edge pixels in {@code tongue}, one pixel in in {@code body}, the core in
+     * {@code base}, the innermost pixels white-hot ({@code hot}).
+     */
+    public static void flame(GuiGraphicsExtractor g, int x, int y, UiPalette p, float lit, int tongue, int body, int base, int hot) {
+        Bitmap bm = FLAME;
+        engrave(g, bm, x, y, p);
+        if (lit <= 0) return;
+        double cut = (1 - lit) * bm.height();
+        int[] xs = bm.xs(), ys = bm.ys();
+        int[] tones = {tongue, body, base, hot};
+        for (int k = 0; k < xs.length; k++) {
+            if (ys[k] < cut) continue;
+            g.fill(x + xs[k], y + ys[k], x + xs[k] + 1, y + ys[k] + 1, tones[Math.min(depth(bm, xs[k], ys[k]), 3)]);
+        }
+    }
+
+    /** Pixels between ({@code x}, {@code y}) and the symbol's edge (diamond distance, 0 = edge pixel). */
+    private static int depth(Bitmap bm, int x, int y) {
+        int k = 0;
+        while (k < 4 && diamond(bm, x, y, k + 1)) k++;
+        return k;
+    }
+
+    private static boolean diamond(Bitmap bm, int x, int y, int r) {
+        for (int dx = -r; dx <= r; dx++) {
+            for (int dy = -r; dy <= r; dy++) {
+                if (Math.abs(dx) + Math.abs(dy) <= r && !bm.has(x + dx, y + dy)) return false;
+            }
+        }
+        return true;
     }
 
     /** Engraved symbol filled white up to {@code frac} (0..1) of its width, or of its height when {@code vertical}. */

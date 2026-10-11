@@ -320,23 +320,30 @@ def furnace_fill(c, x, y, level, colors, millis):
     c.fill(x + 1, y + 15, x + 15, y + 16, colors[2])
     flick = millis // 160
     for i in range(3):
-        tx = x + 2 + i * 5
-        h = min(level - 3, 4 + (hash_(i, flick) & 3))
-        for k in range(h):
-            dx = 0 if ((k + i + flick) & 2) == 0 else 1
-            c.fill(tx + dx, y + 13 - k, tx + dx + 2, y + 14 - k, colors[1])
+        h = min(level - 3, 5 + (hash_(i, flick) & 3))
+        tongue(c, x + 2 + i * 5, y + 14, h, (hash_(i + 3, flick) & 1), colors[1])
+
+
+def tongue(c, tx, bottom, h, lean, edge):
+    """UiBoxes.tongue: a Vanilla-like flame tongue (owner N34: flames, not wavy lines) standing on row bottom - 3 px
+    wide, the top third 2 px wide leaning by lean, a 1 px tip."""
+    for k in range(max(h, 0)):
+        yy = bottom - k
+        if k == h - 1:
+            c.fill(tx + 1 + lean, yy, tx + 2 + lean, yy + 1, edge)
+        elif k >= h - 1 - max(1, h // 3):
+            c.fill(tx + lean, yy, tx + 2 + lean, yy + 1, edge)
+        else:
+            c.fill(tx, yy, tx + 3, yy + 1, edge)
 
 
 def fuel_slot(c, x, y, p, level, colors=FILL_COOK, millis=0):
-    """NEW (image 4): the fuel slot is its own burn display - dim tongue silhouettes over the whole slot (so the slot
+    """NEW (image 4): the fuel slot is its own burn display - dim flame-tongue silhouettes over the whole slot (so the slot
     reads as 'fire' even when cold), the burn time fills it from below (furnace_fill)."""
     slot(c, x, y, p)
     sil = scale(p[3], 0.86)
     for i in range(3):
-        tx = x + 2 + i * 5
-        for k in range(11):
-            dx = 0 if ((k + i) & 2) == 0 else 1
-            c.fill(tx + dx, y + 13 - k, tx + dx + 2, y + 14 - k, sil)
+        tongue(c, x + 2 + i * 5, y + 14, 12 - (i & 1) * 2, i & 1, sil)
     furnace_fill(c, x, y, level, colors, millis)
 
 
@@ -416,6 +423,12 @@ SMOKE = bitmap([          # 14x13: smoker - soft curls instead of sharp waves
     '..#.....#.....',
     '...#.....#....',
 ])
+FLAME = bitmap([          # 14x14: owner N34 (2026-10-11) - a flame like Vanilla's instead of the heat waves
+    '.......#......', '......##......', '......###.....', '.#...####.....', '.##..#####..#.', '.###.#####.##.',
+    '.###.#####.##.', '..###########.', '.############.', '.#############', '##############', '##############',
+    '.############.', '..##########..',
+])
+FLAME_HOT = 0xFFFFF6D0
 CROSS = bitmap(['#.....#', '##...##', '.##.##.', '..###..', '.##.##.', '##...##', '#.....#'])
 CHECK = bitmap(['......#', '.....##', '#...##.', '##.##..', '.###...', '..#....'])
 WHEEL = bitmap([          # 19x19 grindstone wheel
@@ -467,6 +480,25 @@ def symbol_progress(c, bm, x, y, p, frac, color=PROGRESS, vertical=False):
     for (dx, dy) in bm:
         if (dy if vertical else dx) < frac * (h if vertical else w):
             c.px(x + dx, y + dy, color)
+
+
+def flame(c, x, y, p, lit, fill):
+    """UiSymbols.flame: engraved FLAME; the part below lit (from the bottom) glows - edge tongue, then body, base, hot."""
+    symbol(c, FLAME, x, y, p)
+    if lit <= 0:
+        return
+    s = set(FLAME)
+    h = max(dy for _, dy in FLAME) + 1
+    body, tongue, base = fill
+    tones = (tongue, body, base, FLAME_HOT)
+    for (dx, dy) in FLAME:
+        if dy < (1 - lit) * h:
+            continue
+        k = 0
+        while k < 4 and all((dx + i, dy + j) in s for i in range(-k - 1, k + 2) for j in range(-k - 1, k + 2)
+                            if abs(i) + abs(j) <= k + 1):
+            k += 1
+        c.px(x + dx, y + dy, tones[min(k, 3)])
 
 
 def bm_size(bm):
@@ -900,7 +932,7 @@ def s_crafting():
     return render(sc, top)
 
 
-def furnace_screen(key, title, pal, fill, waves, items, burn=0.65, cook=0.55):
+def furnace_screen(key, title, pal, fill, items, burn=0.65, cook=0.55):
     sc = Screen(key, title, 176, 166, pal)
     inp, fuel, res = sc.s(56, 17), sc.s(56, 53), sc.b(116, 35)
     sc.add(57, 36, 71, 50)
@@ -908,7 +940,7 @@ def furnace_screen(key, title, pal, fill, waves, items, burn=0.65, cook=0.55):
     def top(c):
         slot(c, *inp, pal)
         fuel_slot(c, *fuel, pal, int(round(16 * burn)), fill, 1234)
-        symbol(c, waves, 57, 36, pal, color=mix(pal[3], fill[1], 0.55))   # heat over the fire, warm while lit
+        flame(c, 57, 36, pal, burn, fill)   # Vanilla-like flame, burning down with the fuel
         symbol_progress(c, ARROW, 80, 35, pal, cook)
         big_slot(c, *res, pal)
         item(c, items[0], *inp, items[1])
@@ -920,18 +952,18 @@ def furnace_screen(key, title, pal, fill, waves, items, burn=0.65, cook=0.55):
 
 @screen('g2', 'ofen', 'Ofen', vanilla=('furnace',))
 def s_furnace():
-    return render(*furnace_screen('ofen', 'Ofen', P['furnace'], FILL_COOK, HEAT, ('raw_iron', 12, None, 0, 'iron_ingot', 4)))
+    return render(*furnace_screen('ofen', 'Ofen', P['furnace'], FILL_COOK, ('raw_iron', 12, None, 0, 'iron_ingot', 4)))
 
 
 @screen('g2', 'schmelzofen', 'Schmelzofen', vanilla=('blast_furnace',))
 def s_blast():
-    return render(*furnace_screen('schmelz', 'Schmelzofen', P['blast_furnace'], FILL_BLAST, HEAT,
+    return render(*furnace_screen('schmelz', 'Schmelzofen', P['blast_furnace'], FILL_BLAST,
                                   ('raw_gold', 20, None, 0, 'gold_ingot', 7), burn=0.9, cook=0.3))
 
 
 @screen('g2', 'raeucherofen', 'Raeucherofen', vanilla=('smoker',))
 def s_smoker():
-    return render(*furnace_screen('raeucher', 'Räucherofen', P['smoker'], FILL_COOK, SMOKE,
+    return render(*furnace_screen('raeucher', 'Räucherofen', P['smoker'], FILL_COOK,
                                   ('beef', 8, 'oak_log', 14, 'cooked_beef', 3), burn=0.4, cook=0.8))
 
 
