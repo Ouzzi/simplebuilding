@@ -365,7 +365,8 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         }
         var player = this.minecraft.player;
         boolean infinite = player.hasInfiniteMaterials();
-        lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.levels", cost, this.menu.basePrice())
+        // N37 (owner): the price is the level needed; only a few levels are used up, like Vanilla.
+        lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.levels", cost, AstralEnchanting.levelCost(cost))
                 .withStyle(infinite || player.experienceLevel >= cost ? ChatFormatting.GREEN : ChatFormatting.RED));
         int lapis = AstralEnchanting.lapisCost(cost), blaze = AstralEnchanting.blazePowderCost(cost);
         lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.lapis", lapis)

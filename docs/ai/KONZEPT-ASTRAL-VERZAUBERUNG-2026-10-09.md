@@ -133,10 +133,13 @@ schwache dürfen unter 50 Level kosten, drei starke kosten 50.
    allen Reglerstufen. Jede weggenommene Stufe senkt beide Terme, der Preis fällt also streng; 50 kostet nur die volle
    Auswahl. Angebote mit `V <= 50` zahlen `Roh`.
 4. Lapislazuli = 1 je angefangene 10 Level (1-5), Lohenstaub doppelt so viel.
+5. **Benötigt / kostet (Besitzer N37, 11.10.):** der Preis ist die **benötigte Mindeststufe** (max. 50); abgezogen werden
+   nur wenige Level wie bei Vanilla: `kostet = ceil(Preis / 10)` (1-5, wächst mit Anzahl/Stärke der Verzauberungen,
+   gleich der Lapis-Zahl). Lapis/Lohenstaub unverändert nach Preis. UI (Knopf-Tooltip): „Benötigt Lv X · kostet Y“.
 
 Weil kein Preis 50 übersteigt (und nur die volle Auswahl 50 kostet), passt bei Stärke 50 jede Kombination; darunter schneidet das Budget ab (zu teure
-Reglerstufen grau). Entschieden (Claude): Verbrauch = Preis (Besitzer: „XP-Level-Kosten max 50“), statt der alten 1-5
-Level; das ist teurer als Vanilla, dafür gezielt und ohne Amboss-Strafkosten.
+Reglerstufen grau). Früher (N35, Claude): Verbrauch = Preis; seit N37 (Besitzer) ist der Preis nur die benötigte Stufe, verbraucht werden
+1-5 Level (Punkt 5).
 
 **Werte (Vanilla 26.3).**
 

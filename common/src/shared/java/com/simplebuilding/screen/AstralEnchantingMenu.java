@@ -267,7 +267,8 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
                 Holder<Enchantment> holder = enchantment(level, row);
                 if (holder != null && this.chosen[row] > 0) result.enchant(holder, Math.min(this.chosen[row], holder.value().getMaxLevel()));
             }
-            player.onEnchantmentPerformed(result, levels);
+            // N37 (owner): the price is the level needed; like Vanilla only a few levels are used up (1-5).
+            player.onEnchantmentPerformed(result, AstralEnchanting.levelCost(levels));
             if (!player.hasInfiniteMaterials()) {
                 this.stock.removeItem(AstralEnchantingTableBlockEntity.LAPIS, AstralEnchanting.lapisCost(levels));
                 this.stock.removeItem(AstralEnchantingTableBlockEntity.BLAZE, AstralEnchanting.blazePowderCost(levels));

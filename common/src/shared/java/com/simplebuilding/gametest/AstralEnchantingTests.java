@@ -164,6 +164,11 @@ public final class AstralEnchantingTests {
         eq(helper, AstralEnchanting.lapisCost(3), 1, "lapis for 3 levels");
         eq(helper, AstralEnchanting.lapisCost(30), 3, "lapis for 30 levels");
         eq(helper, AstralEnchanting.lapisCost(50), 5, "lapis for 50 levels");
+        // N37: the price is the level needed; enchanting uses up 1 level per started 10 of it (1-5), like Vanilla's 1-3.
+        eq(helper, AstralEnchanting.levelCost(0), 0, "nothing chosen costs nothing");
+        eq(helper, AstralEnchanting.levelCost(3), 1, "Sharpness I needs Lv 3, costs 1");
+        eq(helper, AstralEnchanting.levelCost(27), 3, "needs Lv 27, costs 3");
+        eq(helper, AstralEnchanting.levelCost(50), 5, "needs Lv 50, costs 5");
         eq(helper, AstralEnchanting.blazePowderCost(50), 10, "blaze powder twice the lapis");
         helper.succeed();
     }
@@ -427,7 +432,7 @@ public final class AstralEnchantingTests {
             eq(helper, EnchantmentHelper.getItemEnchantmentLevel(offered.get(row), result), chosen[row], "level of " + offered.get(row));
         }
         eq(helper, total(result), sum(chosen), "enchantment levels on the pickaxe");
-        eq(helper, player.experienceLevel, before - levels, "levels used up");
+        eq(helper, player.experienceLevel, before - AstralEnchanting.levelCost(levels), "only a few levels used up (N37: price = level needed)");
         eq(helper, table.getItem(AstralEnchantingTableBlockEntity.LAPIS).getCount(), 10 - AstralEnchanting.lapisCost(levels), "lapis left");
         eq(helper, table.getItem(AstralEnchantingTableBlockEntity.BLAZE).getCount(), 10 - AstralEnchanting.blazePowderCost(levels), "blaze powder left");
         helper.assertTrue(player.getEnchantmentSeed() != seed, "the enchantment seed did not change");

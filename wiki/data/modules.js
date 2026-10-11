@@ -265,7 +265,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "6b28bc6990ca"
+    "dataHash": "a2652f7207e4"
   },
   {
     "id": "simpleinterfaces",

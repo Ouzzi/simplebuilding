@@ -39,9 +39,9 @@ import net.minecraft.world.level.block.state.BlockState;
  * enchantment adds a quarter of the sum, {@code raw = ceil(sum x (3 + n) / 4)} with {@code n} chosen enchantments.
  * When the full choice of an offer would cost more than {@value #MAX_PRICE}, the price is scaled, not capped (owner
  * N37: every level less costs less), see {@link #price}. The budget is the tier ({@value #MIN_BUDGET} without any shelf) up to {@value #MAX_PRICE}; since no price
- * exceeds {@value #MAX_PRICE}, only tier {@value #TIER_MAX} lets every slider reach its maximum at once. Enchanting uses up
- * the price in levels (the player needs them), lapis 1 per started {@value #LEVELS_PER_LAPIS} levels (1-5), blaze powder
- * twice that.
+ * exceeds {@value #MAX_PRICE}, only tier {@value #TIER_MAX} lets every slider reach its maximum at once. The price is the level
+ * the player needs; enchanting uses up only {@link #levelCost} levels (1 per started {@value #LEVELS_PER_LAPIS}, 1-5, owner
+ * N37), lapis 1 per started {@value #LEVELS_PER_LAPIS} levels (1-5), blaze powder twice that.
  */
 public final class AstralEnchanting {
     public static final int MAX_SHELVES = 15;
@@ -189,6 +189,15 @@ public final class AstralEnchanting {
             if (price(test, maxLevels, values) <= budget) return level;
         }
         return 0;
+    }
+
+    /**
+     * Levels used up by an enchanting of {@code price} (owner N37): the price is only the level the player needs, like
+     * Vanilla's table only a few levels go - one per started {@value #LEVELS_PER_LAPIS} levels of the price (1-5), so
+     * more and stronger enchantments cost more. Same count as the lapis.
+     */
+    public static int levelCost(int price) {
+        return price <= 0 ? 0 : Math.min(5, Math.ceilDiv(price, LEVELS_PER_LAPIS));
     }
 
     /** Lapis lazuli: one per started {@value #LEVELS_PER_LAPIS} levels of the price (1-5). */

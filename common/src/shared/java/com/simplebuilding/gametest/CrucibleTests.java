@@ -63,7 +63,7 @@ public final class CrucibleTests {
         int smokingTicks = helper.getLevel().recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMOKING,
                 new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.BEEF)), helper.getLevel()).orElseThrow().value().cookingTime();
         Block[] blocks = {lib("iron_crucible"), lib("reinforced_crucible"), lib("netherite_crucible"), CrucibleCompat.enderiteCrucible()};
-        int[] sizes = {6, 12, 18, 27}; // reinforced 12 since N30
+        int[] sizes = {6, 12, 18, 30}; // reinforced 12 since N30, enderite 30 since N37
         for (int i = 0; i < blocks.length; i++) {
             BlockPos pos = new BlockPos(i + 1, 2, 2);
             helper.setBlock(pos.below(), Blocks.CAMPFIRE);
@@ -311,11 +311,11 @@ public final class CrucibleTests {
         for (int x = 0; x < 8; x++) for (int z = 0; z < 8; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
     }
 
-    /** Enderite crucible: 27 slots and double stacks; Enderite barrel double stacks too (owner F4/F10, 59). */
+    /** Enderite crucible: 30 slots (27 before N37; saves load by index, so old contents stay) and double stacks; Enderite barrel double stacks too (owner F4/F10, 59). */
     public static void enderiteTiersHaveTwentySevenSlotsAndDoubleStacks(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
         Block crucible = CrucibleCompat.enderiteCrucible();
-        helper.assertTrue(crucible != null && CrucibleCompat.crucibleSlots(crucible) == 27, "enderite crucible needs 27 slots");
+        helper.assertTrue(crucible != null && CrucibleCompat.crucibleSlots(crucible) == 30, "enderite crucible needs 30 slots (5x6, N37)");
         helper.assertTrue(CrucibleCompat.stackMultiplier(crucible) == 2, "enderite crucible holds double stacks");
         helper.assertTrue(CrucibleCompat.stackMultiplier(CrucibleCompat.enderiteBarrel()) == 2, "enderite barrel holds double stacks");
         helper.setBlock(new BlockPos(1, 1, 1), crucible);

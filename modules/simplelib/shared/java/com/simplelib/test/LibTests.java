@@ -216,7 +216,7 @@ public final class LibTests {
 
     private static void tierLayout(GameTestHelper h) {
         check(h, CrucibleTier.IRON.slots() == 6 && CrucibleTier.REINFORCED.slots() == 12
-                && CrucibleTier.NETHERITE.slots() == 18 && CrucibleTier.ENDERITE.slots() == 27, "slot counts (owner F4, reinforced 12 since N30)");
+                && CrucibleTier.NETHERITE.slots() == 18 && CrucibleTier.ENDERITE.slots() == 30, "slot counts (owner F4, reinforced 12 since N30, enderite 30 since N37)");
         check(h, CrucibleTier.REINFORCED.grids() == 2 && CrucibleTier.REINFORCED.rows() == 2 && CrucibleTier.REINFORCED.below(0) == 3
                 && CrucibleTier.REINFORCED.below(3) == -1 && CrucibleTier.REINFORCED.below(6) == 9, "reinforced 2x6 (N37: two 2x3 grids)");
         check(h, CrucibleTier.IRON.below(0) == 3 && CrucibleTier.IRON.below(3) == -1, "iron below");
