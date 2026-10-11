@@ -183,6 +183,122 @@ DESIGNS = {
         "................",
         "................",
     ],
+    # Owner N34 round 2 (2026-10-11): three variations each of F and G - as rounded as possible, soft transitions
+    # (graded wood rows instead of hard outline seams); G without colours outside the box. Previews only.
+    # F1: F with cut corners, a soft shaded hinge instead of the black seam, the tray rounded at the bottom.
+    "F1": [
+        "..OOOOOOOOOOOO..",
+        ".OhhhhhhhhhhhhO.",
+        ".OhliiliiliilmO.",
+        ".OhllllllllllmO.",
+        ".OmmmmmmmmmmmdO.",
+        ".ODDDDDDDDDDDDO.",
+        "OhhhhhhhhhhhhhmO",
+        "Ohww0+1+2+3+wwdO",
+        "Ohww4+5+6+7+wwdO",
+        "Ohww8+9+A+B+wwdO",
+        "OhwwC+E+F+G+wwdO",
+        "OhwwwwwwwwwwwwdO",
+        "OmmmmmmSSmmmmmdO",
+        ".ODDDDDDDDDDDDO.",
+        "..OOOOOOOOOOOO..",
+        "................",
+    ],
+    # F2: a round-cornered tin in one piece, low lid band with two oval wells, two rows of eight tall pans.
+    "F2": [
+        "................",
+        "...OOOOOOOOOO...",
+        "..OhhhhhhhhhhO..",
+        ".OhliiillliiimO.",
+        ".OhllllllllllmO.",
+        ".OmmmmmmmmmmmdO.",
+        "OhhhhhhhhhhhhhmO",
+        "Ohll01234567llmO",
+        "Ohll01234567llmO",
+        "Ohll89ABCEFGlldO",
+        "Ohll89ABCEFGlldO",
+        "OmmmmmmSSmmmmmdO",
+        ".OddddddssdddDO.",
+        "..OOOOOOOOOOOO..",
+        "................",
+        "................",
+    ],
+    # F3: an oval tin, the open lid a rounded arch behind, 4x4 pans centred in a soft frame.
+    "F3": [
+        "....OOOOOOOO....",
+        "..OOhhhhhhhhOO..",
+        ".OhhliiliiliimO.",
+        ".OmmmmmmmmmmmdO.",
+        "..OOOOOOOOOOOO..",
+        ".OhhhhhhhhhhhmO.",
+        "Ohll0+1+2+3+llmO",
+        "Ohll4+5+6+7+llmO",
+        "Ohll8+9+A+B+lldO",
+        "OhllC+E+F+G+lldO",
+        "OmlllllllllllldO",
+        ".OmmmmmSSmmmmdO.",
+        "..OOOOOOOOOOOO..",
+        "................",
+        "................",
+        "................",
+    ],
+    # G1: crayon box with cut corners, only the crayon tips inside the open box (back row taller, front row lower).
+    "G1": [
+        "................",
+        "................",
+        "..OOOOOOOOOOOO..",
+        ".OhhhhhhhhhhhhO.",
+        ".Ohi0i2i4i6iidO.",
+        ".Ohi01234567idO.",
+        ".Ohi8iAiCiFiidO.",
+        ".Ohi89ABCEFGidO.",
+        ".OmmmmmmmmmmmdO.",
+        ".OhllllllllllmO.",
+        ".OhlSSSSSSSSlmO.",
+        ".OhlssssssssldO.",
+        ".OmmmmmmmmmmmdO.",
+        "..OOOOOOOOOOOO..",
+        "................",
+        "................",
+    ],
+    # G2: a lower, wider box, the crayons as one flat bed of tips under a soft rim, a rounded label.
+    "G2": [
+        "................",
+        "................",
+        "................",
+        "..OOOOOOOOOOOO..",
+        ".OhhhhhhhhhhhhO.",
+        "Ohi0i1i2i3i4iidO",
+        "Ohi0516273849idO",
+        "OhiAiBiCiEiFiidO",
+        "OhiAGBiCiEiFiidO",
+        "OmmmmmmmmmmmmmdO",
+        "OhllSSSSSSSSllmO",
+        "OhlsssssssssslmO",
+        "OmmmmmmmmmmmmmdO",
+        ".ODDDDDDDDDDDDO.",
+        "..OOOOOOOOOOOO..",
+        "................",
+    ],
+    # G3: crayon box with its flap folded open behind (rounded), the tips in two rows inside the box only.
+    "G3": [
+        "...OOOOOOOOOO...",
+        "..OhhhhhhhhhhO..",
+        "..OmmmmmmmmmdO..",
+        ".OOOOOOOOOOOOOO.",
+        ".OhiiiiiiiiiidO.",
+        ".Ohi0i2i4i6iidO.",
+        ".Ohi01234567idO.",
+        ".Ohi8iAiCiFiidO.",
+        ".Ohi89ABCEFGidO.",
+        ".OmmmmmmmmmmmdO.",
+        ".OhllSSSSSSllmO.",
+        ".OhllssssssllmO.",
+        ".OmmmmmmmmmmmdO.",
+        "..OOOOOOOOOOOO..",
+        "................",
+        "................",
+    ],
 }
 
 
@@ -293,7 +409,7 @@ def preview(images: dict[str, Image.Image], path: Path, extra: Path | None) -> N
 def proposals(path: Path, designs: str = "", scale: int = 12) -> None:
     """The proposals side by side (4 tiers each, scale x) with 1x/2x inventory sizes; designs = letters (default all)."""
     from PIL import ImageDraw
-    designs = designs or "".join(DESIGNS)
+    designs = designs.split(",") if "," in designs else list(designs or DESIGNS)
     pad = 12
     cell = 16 * scale + pad
     sheet = Image.new("RGBA", (pad + 5 * cell + 60, pad + len(designs) * (cell + 16)), (0x8B, 0x8B, 0x8B, 255))
@@ -316,7 +432,7 @@ def main() -> None:
     parser.add_argument("--preview", type=Path)
     parser.add_argument("--tooltip", type=Path, help="client screenshot crop appended under the preview")
     parser.add_argument("--proposals", type=Path, help="write the proposal sheet here and nothing else")
-    parser.add_argument("--designs", default="", help="with --proposals: only these designs, e.g. DEFGHI")
+    parser.add_argument("--designs", default="", help="with --proposals: only these designs, e.g. DEFGHI or D,F,F1,F2")
     parser.add_argument("--scale", type=int, default=12, help="with --proposals: pixel scale")
     args = parser.parse_args()
     if args.proposals:

@@ -293,32 +293,18 @@ BARREL_TIERS = ('copper', 'reinforced', 'netherite', 'enderite')
 
 
 def reinforced_cauldron_item():
-    """Vanilla's cauldron item sprite in the reinforced cauldron's tones with its turquoise band (owner image 17:
-    the block model has no GUI transform, so Vanilla uses a flat sprite; so do we).
-
-    Owner N12 (2026-10-06, "Item-Textur verbessern"): the band is no longer one flat stripe but the block side's
-    diamond plates - lit from the left (spark on the left plate, the right end in the darker turquoise), a seam
-    between the plates, a shaded lower row - and two diamond studs sit on the rim like the corner studs on top.
-    Owner 2026-10-11: seam and studs removed again (they read as stray strokes and dots at item size)."""
+    """Owner N34 (2026-10-11, after the 3D block was rejected too): Vanilla's cauldron item sprite unchanged as the
+    base, only the reinforcement in the block's diamond turquoise on chosen pixels - one band in Vanilla's dark groove
+    row (row 8) that wraps round the outline (lit from the left: spark, light, then the shaded right end) and the three
+    feet (left, right, middle leg). Symmetric, no stray pixels; the greys stay Vanilla's."""
     a = np.array(p.vanilla('item/cauldron').convert('RGBA'))
-    tones = [(26, 26, 30), (45, 45, 50), (52, 52, 56), (63, 62, 66), (73, 72, 72), (79, 79, 79), (89, 88, 88), (103, 97, 97)]
-    ok = a[:, :, 3] > 0
-    lu = a[:, :, :3].astype(float) @ np.array([.299, .587, .114])
-    lo, hi = lu[ok].min(), lu[ok].max()
-    idx = np.rint((lu - lo) / max(hi - lo, 1) * (len(tones) - 1)).clip(0, len(tones) - 1).astype(int)
-    a[ok, :3] = np.array(tones)[idx[ok]]
-    # the block side's band colours: h plate, i spark, k shaded plate, j lower row / seam
     h, i, k, j = (94, 228, 214), (186, 250, 240), (44, 182, 190), (26, 120, 132)
-    rows = [y for y in range(16) if ok[y].sum() >= 10]
-    band = rows[-1] - 3
-    # Owner 2026-10-11 ("sinnlose Striche"): the seam and the second spark made short vertical strokes in the band
-    # and the two rim studs stood alone as stray dots; now one lit band with a single spark, a calm lower row.
-    upper = [h, i, h, h, h, h, h, k, k]
-    lower = [k, j, j, j, j, j, j, j, j]
-    for y, pattern in ((band, upper), (band + 1, lower)):
-        xs = [x for x in range(16) if ok[y, x]][1:-1]
-        for x, color in zip(xs, pattern[:len(xs)]):
-            a[y, x, :3] = color
+    band = [j, h, i, h, h, h, k, k, k, j, j]          # x 2..12, the outline pixels included
+    accents = [((x, 8), c) for x, c in zip(range(2, 13), band)] + [((2, 12), j), ((12, 12), j), ((7, 14), j)]
+    for (x, y), color in accents:
+        if a[y, x, 3] == 0:
+            raise ValueError(f'reinforced cauldron accent on a transparent pixel {x},{y}')
+        a[y, x, :3] = color
     return Image.fromarray(a)
 
 
@@ -814,8 +800,7 @@ def resources():
         tex = barrel_textures(tier)
         for part, path in barrel_paths(tier).items():
             out[path] = tex[part]
-    # Owner N34 (2026-10-11): the item shows the 3D block (modules/simplelib/tools/gen_resources.py); the flat
-    # sprite reinforced_cauldron_item() is no longer written (kept for the N11 comparison preview).
+    out[LIB.parent / 'item/reinforced_cauldron.png'] = reinforced_cauldron_item()
     out.update(bucket_resources(CHOICE['copper_bucket'], CHOICE['enderite_bucket']))
     return out
 
