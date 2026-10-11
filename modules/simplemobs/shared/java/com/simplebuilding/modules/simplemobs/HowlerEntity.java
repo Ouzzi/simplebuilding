@@ -125,6 +125,17 @@ public class HowlerEntity extends Monster implements VibrationSystem {
     public boolean jawsOpening() { return biteTicks() > 0; }
     public boolean emerging() { return emergeTicks() > 0; }
 
+    /** Client: ticks left of the antenna twitch after a heard vibration (entity event 61, like the Warden). */
+    private int tendrilTicks, tendrilTicksO;
+
+    public float tendrilAnimation(float partialTicks) { return net.minecraft.util.Mth.lerp(partialTicks, tendrilTicksO, tendrilTicks) / 10.0f; }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 61) tendrilTicks = 10;
+        else super.handleEntityEvent(id);
+    }
+
     public void startEmerging() { this.entityData.set(DATA_EMERGE, HowlerLogic.EMERGE_TICKS); }
 
     /** Test/screenshot hook: open the jaws for a bite (no damage unless a target is in reach when they snap). */
@@ -197,6 +208,10 @@ public class HowlerEntity extends Monster implements VibrationSystem {
     @Override
     public void tick() {
         super.tick();
+        if (this.level().isClientSide()) {
+            tendrilTicksO = tendrilTicks;
+            if (tendrilTicks > 0) tendrilTicks--;
+        }
         if (this.level() instanceof ServerLevel level) {
             VibrationSystem.Ticker.tick(level, this.vibrationData, this.vibrationUser);
             int e = emergeTicks();
@@ -401,7 +416,8 @@ public class HowlerEntity extends Monster implements VibrationSystem {
     /** Test hook: what the Howler does when it hears something at {@code pos}. */
     public void onHeard(BlockPos pos, @Nullable Entity source, @Nullable Entity projectileOwner) {
         vibrationCooldown = 20;
-        this.playSound(SoundEvents.SCULK_CLICKING, 1.5f, 0.6f);
+        if (this.level() instanceof ServerLevel level) level.broadcastEntityEvent(this, (byte) 61);
+        this.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 3.0f, 0.8f);
         if (projectileOwner == null && canHunt(source)) {
             hear((Player) source);
         } else if (this.getTarget() == null) {
