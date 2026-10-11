@@ -104,7 +104,111 @@ DESIGNS = {
         ".OmmmmmssmmmmdO.",
         ".cOOOOOOOOOOOOc.",
     ],
+    # Owner N34 (2026-10-11): D stays built in; five more ideas E-I, previews only (--proposals --designs DEFGHI).
+    # E: a painter's palette board with a thumb hole, the 16 colours as dabs around the edge.
+    "E": [
+        "................",
+        "...OOOOOOOOOO...",
+        "..OhhhhhhhhhhO..",
+        ".Ohl0+l1+l2+lmO.",
+        "Ohl3+lllllll4+mO",
+        "Ohl5+lOOllll6+mO",
+        "Ohl7+O..Ollll8+O",
+        "OhlA+O..OllllB+O",
+        "OhlC+lOOllllE+dO",
+        "Ohl9+lllllllF+dO",
+        "OmmG+mmmmmmmmmdO",
+        ".OdddddddddddDO.",
+        "..OOOOOOOOOOOO..",
+        "................",
+        "................",
+        "................",
+    ],
+    # F: a watercolour box - the lid stands open behind with three mixing wells, 4x4 pans of 2x1, latch in front.
+    "F": [
+        ".cOOOOOOOOOOOOc.",
+        ".OhhhhhhhhhhhhO.",
+        ".OhliiliiliilmO.",
+        ".OhllllllllllmO.",
+        ".OmmmmmmmmmmmdO.",
+        "OOOOOOOOOOOOOOOO",
+        "OhhhhhhhhhhhhhmO",
+        "Ohww0+1+2+3+wwdO",
+        "Ohww4+5+6+7+wwdO",
+        "Ohww8+9+A+B+wwdO",
+        "OhwwC+E+F+G+wwdO",
+        "OhwwwwwwwwwwwwdO",
+        "ODDDDDDSSDDDDDDO",
+        "cOOOOOOOOOOOOOOc",
+        "................",
+        "................",
+    ],
+    # G: a crayon box - two staggered rows of eight crayons standing in the box, a label band on the front.
+    "G": [
+        "................",
+        "....0.2.4.6.....",
+        "....01234567....",
+        "....01234567....",
+        "..cOOOOOOOOOOc..",
+        "..Oi8iAiCiFiiO..",
+        "..Oi89ABCEFGiO..",
+        "..Oi89ABCEFGiO..",
+        ".cOOOOOOOOOOOOc.",
+        ".OhllllllllllmO.",
+        ".OhlSSSSSSSSlmO.",
+        ".OhlssssssssldO.",
+        ".OmmmmmmmmmmmdO.",
+        ".cOOOOOOOOOOOOc.",
+        "................",
+        "................",
+    ],
+    # H: a colour wheel - 16 slices in a round wooden frame around a metal hub (drawn by colour_wheel()).
+    "H": None,
+    # I: a travel set opened like a book (two halves with four pairs of pans each) and a brush in front.
+    "I": [
+        "................",
+        "................",
+        "cOOOOOOOOOOOOOOc",
+        "OhwwwwwOhwwwwwdO",
+        "Ohw0+1+Oh2+3+wdO",
+        "Ohw4+5+Oh6+7+wdO",
+        "Ohw8+9+OhA+B+wdO",
+        "OhwC+E+OhF+G+wdO",
+        "OhwwwwwOhwwwwwdO",
+        "ODDDDDDODDDDDDDO",
+        "cOOOOOOOOOOOOOOc",
+        "..OOOOOOOOOOOOO.",
+        "..OlllllllSSiiO.",
+        "..OOOOOOOOOOOOO.",
+        "................",
+        "................",
+    ],
 }
+
+
+def colour_wheel() -> list[str]:
+    """Design H: outline ring, a wooden rim lit from the top left, 16 slices clockwise from the top, metal hub."""
+    import math
+    rows = []
+    for y in range(16):
+        row = ""
+        for x in range(16):
+            dx, dy = x - 7.5, y - 7.5
+            r = math.hypot(dx, dy)
+            if r > 7.6:
+                row += "."
+            elif r > 6.6:
+                row += "O"
+            elif r > 5.6:
+                row += "h" if dx + dy < 0 else "d"
+            elif r > 1.6:
+                row += PANS[int((math.atan2(dx, -dy) % (2 * math.pi)) / (2 * math.pi) * 16) % 16]
+            else:
+                row += "S" if dx + dy < 0 else "s"
+        rows.append(row)
+    return rows
+
+
 CHOSEN = "D"
 DYES = [0xF9FFFE, 0xF9801D, 0xC74EBD, 0x3AB3DA, 0xFED83D, 0x80C71F, 0xF38BAA, 0x474F52,
         0x9D9D97, 0x169C9C, 0x8932B8, 0x3C44AA, 0x835432, 0x5E7C16, 0xB02E26, 0x1D1D21]  # DyeColor texture colours
@@ -137,11 +241,24 @@ SPECKS = {
 }
 
 
+def rows_of(design: str) -> list[str]:
+    return colour_wheel() if design == "H" else DESIGNS[design]
+
+
+def specks(design: str) -> list:
+    """Enderite specks: the hand-placed ones, else four on wood pixels spread over the item (never on a pan)."""
+    if design in SPECKS:
+        return SPECKS[design]
+    wood = [(x, y) for y, row in enumerate(rows_of(design)) for x, ch in enumerate(row) if ch in "lmhd"]
+    tones = [(0x84, 0x56, 0xA3), (0xA6, 0x7A, 0xEF), (0x88, 0x58, 0xA8), (0xA6, 0x7A, 0xEF)]
+    return [(wood[(i * 2 + 1) * len(wood) // 8], tones[i]) for i in range(4)]
+
+
 def build(design: str = CHOSEN) -> dict[str, Image.Image]:
     images = {}
     for name, colours in TIERS.items():
         img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
-        for y, row in enumerate(DESIGNS[design]):
+        for y, row in enumerate(rows_of(design)):
             for x, ch in enumerate(row):
                 if ch == "+":  # shaded corner of a 2x2 pan: the pan's dye, a quarter darker
                     rgb = tuple(round(v * 0.72) for v in POTS[row[x - 1]])
@@ -150,7 +267,7 @@ def build(design: str = CHOSEN) -> dict[str, Image.Image]:
                 if rgb:
                     img.putpixel((x, y), rgb + (255,))
         if name == "enderite_paint_box":
-            for (x, y), rgb in SPECKS[design]:
+            for (x, y), rgb in specks(design):
                 img.putpixel((x, y), rgb + (255,))
         images[name] = img
     return images
@@ -173,14 +290,15 @@ def preview(images: dict[str, Image.Image], path: Path, extra: Path | None) -> N
     print(path)
 
 
-def proposals(path: Path) -> None:
-    """A/B/C side by side (4 tiers each, 12x) with 1x/2x inventory sizes and the Vanilla bundle as reference."""
+def proposals(path: Path, designs: str = "", scale: int = 12) -> None:
+    """The proposals side by side (4 tiers each, scale x) with 1x/2x inventory sizes; designs = letters (default all)."""
     from PIL import ImageDraw
-    scale, pad = 12, 12
+    designs = designs or "".join(DESIGNS)
+    pad = 12
     cell = 16 * scale + pad
-    sheet = Image.new("RGBA", (pad + 5 * cell, pad + len(DESIGNS) * (cell + 16)), (0x8B, 0x8B, 0x8B, 255))
+    sheet = Image.new("RGBA", (pad + 5 * cell + 60, pad + len(designs) * (cell + 16)), (0x8B, 0x8B, 0x8B, 255))
     draw = ImageDraw.Draw(sheet)
-    for r, design in enumerate(DESIGNS):
+    for r, design in enumerate(designs):
         y = pad + r * (cell + 16)
         draw.text((pad, y), design + (" (eingebaut)" if design == CHOSEN else ""), fill=(0, 0, 0, 255))
         imgs = list(build(design).values())
@@ -197,10 +315,12 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--preview", type=Path)
     parser.add_argument("--tooltip", type=Path, help="client screenshot crop appended under the preview")
-    parser.add_argument("--proposals", type=Path, help="write the A/B/C proposal sheet here and nothing else")
+    parser.add_argument("--proposals", type=Path, help="write the proposal sheet here and nothing else")
+    parser.add_argument("--designs", default="", help="with --proposals: only these designs, e.g. DEFGHI")
+    parser.add_argument("--scale", type=int, default=12, help="with --proposals: pixel scale")
     args = parser.parse_args()
     if args.proposals:
-        proposals(args.proposals)
+        proposals(args.proposals, args.designs, args.scale)
         return
     images = build()
     for out in OUT_DIRS:

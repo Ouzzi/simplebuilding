@@ -711,7 +711,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 34 (2026-10-11, Besitzer, Screenshots im Vorschauordner n34/)
 - [ ] Verstärkter Kessel: Item-Icon immer noch falsch.
 - [ ] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen.
-- [ ] (Mockups a/b/c fertig auf claude-n34-ui, previews/n34/tiegel-*; offen: Besitzer-Wahl, dann echte Umsetzung) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.
+- [ ] (Mockups a/b/c fertig auf claude-n34-ui, previews/n34/tiegel-*; offen: Besitzer-Wahl, dann echte Umsetzung) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.,
+- [x] Verstärkter Kessel: Item-Icon immer noch falsch. (claude-n34-tex: Item zeigt jetzt den 3D-Block wie Tiegel/Fässer/Holzkessel, 2D-Sprite entfernt; Client-Screenshot geprüft; Besitzer-Abnahme offen)
+- [ ] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen. (claude-n34-tex: Vorschläge E–I in previews/n34/farbkasten-EFGHI.png, `paint_box_2026_10_09.py --proposals --designs DEFGHI`; wartet auf Besitzerwahl)
+- [ ] Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.
 - [ ] Eichen-Kessel (Holzkessel) hat im Inventar kein 3D-Modell.
 - [ ] Checker-Treppen/-Stufen: Texturen weiterhin falsch orientiert (checker_stairs.png).
 - [ ] Achtel-Blöcke im Inventar ca. 10 % kleiner rendern.
@@ -721,11 +724,12 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Sculk Jaw: kein Flackern (Öffnen/Schließen) vor jedem Schaden, statisch geschlossen; Spieler stärker verlangsamen + Darkness; nur erster Treffer ~1 Herz Schaden, danach keiner; geschlossene Form schöner.
 - [x] (claude-n34-ui) Blaupause-Hilfe: die beiden Buttons (blueprint_help_buttons.png) mit Minecraft-Texturen statt eigenen rendern; Rezeptbuch-/Hilfe-Button unten bekommt einen Rahmen.
 - [ ] Magnet: Interaktion eines Items zwischen zwei Magneten weiterhin verbuggt.
-- [ ] Öfen: Flammen-Textur mehr wie Vanilla (jetzt nur Wellenlinien).
+- [x] Öfen: Flammen-Textur mehr wie Vanilla (jetzt nur Wellenlinien). (claude-n34-tex: simpleinterfaces-Ofen-UIs – Flamme wie Vanilla statt Hitzewellen, brennt mit dem Brennstoff ab; Brennstoff-Slot mit Flammenzungen statt Zickzack; Block-Fronten waren schon Vanilla; Besitzer-Abnahme offen)
 - [ ] Itemfilter-Button deaktiviert = grau statt rot (rot = Fehler), überall anpassen.
 - [ ] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla.,
 - [x] (claude-own1) Einstellungen-Taste G -> K (kollidierte mit Vanilla „Quick Actions“); KNOWN_COLLISIONS leer; Texte angepasst.
 - [x] (claude-own1) guide_book_vanilla_* komplett entfernt (Lang, Rezepte, Preise, Advancements, Texturen, Wiki); alte IDs -> guide_book (LegacyItemIds).
 - Notiz: Das QoL-Stufe-4-Modul heißt „Simple Loot“ (`simpleloot`), siehe docs/ai/PLAN-QOL-AUFTEILUNG-2026-10-10.md.,
 - [x] (claude-n34-ui) Itemfilter-Button deaktiviert = grau statt rot (rot = Fehler), überall anpassen.
-- [ ] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla.
+- [ ] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla.,
+- [x] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla. (claude-n34-tex: Aufbau wie Vanilla – rundes Leuchten mit Schlieren / flacher Kern, nur eigene Farbe; Besitzer-Abnahme offen)

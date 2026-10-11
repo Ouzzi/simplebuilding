@@ -4,12 +4,10 @@ import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.mojang.renderpearl.api.pipeline.RenderPipeline;
 import com.simplebuilding.modules.simpleinterfaces.client.WorkScreens;
 import com.simplelib.api.client.ui.UiBoxes.ProgressColors;
-import com.simplelib.api.client.ui.UiSymbols;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractFurnaceScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractRecipeBookScreen;
 import net.minecraft.client.gui.screens.inventory.BlastFurnaceScreen;
-import net.minecraft.client.gui.screens.inventory.SmokerScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -46,9 +44,8 @@ public abstract class FurnaceBackgroundMixin extends AbstractRecipeBookScreen<Ab
     private void simpleinterfaces$drawStyle(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
         Object self = this;
         ProgressColors colors = self instanceof BlastFurnaceScreen ? ProgressColors.BLAST : ProgressColors.FIRE;
-        UiSymbols.Bitmap waves = self instanceof SmokerScreen ? UiSymbols.SMOKE : UiSymbols.HEAT;
         this.simpleinterfaces$styled = WorkScreens.furnace(this, this.menu, graphics, this.leftPos, this.topPos, this.imageWidth,
-                this.imageHeight, this.titleLabelY, colors, waves);
+                this.imageHeight, this.titleLabelY, colors);
     }
 
     @WrapWithCondition(method = "extractBackground", at = @At(value = "INVOKE",
