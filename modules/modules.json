@@ -40,7 +40,8 @@
         "simplefun",
         "simpledimensions",
         "simpletrims",
-        "simplemobs"
+        "simplemobs",
+        "simpleenddragonfight"
       ],
       "paths": {
         "root": ".",
@@ -1820,6 +1821,93 @@
         "neoforge": ":modules:simpleaesthetics:neoforge",
         "forge": ":modules:simpleaesthetics:forge"
       }
+    },
+    {
+      "id": "simpleenddragonfight",
+      "name": "Simple End Dragon Fight",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple End Dragon Fight",
+      "description": "Ender Dragon fight: +1 health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [],
+      "optional": [],
+      "checks": [
+        "modules/simpleenddragonfight/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleenddragonfight",
+        "catalogues": [
+          "modules/simpleenddragonfight/fabric/src/main/java/com/simplebuilding/modules/simpleenddragonfight/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleenddragonfight"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleenddragonfightGameTest",
+            "report": "integration/build/simpleenddragonfight-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simpleenddragonfight:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simpleenddragonfight/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simpleenddragonfight:forge:runGameTestServer",
+            "report": "modules/simpleenddragonfight/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleenddragonfightStandaloneGameTest",
+              "report": "integration/build/standalone/simpleenddragonfight-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simpleenddragonfight:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simpleenddragonfight/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simpleenddragonfight.ModuleClientSmoke"
+          ],
+          "sources": "modules/simpleenddragonfight/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simpleenddragonfight",
+        "shared": "modules/simpleenddragonfight/shared",
+        "fabric": "modules/simpleenddragonfight/fabric",
+        "neoforge": "modules/simpleenddragonfight/neoforge",
+        "forge": "modules/simpleenddragonfight/forge",
+        "generated": "modules/simpleenddragonfight/generated/resources",
+        "lang": "modules/simpleenddragonfight/shared/resources/assets/simpleenddragonfight/lang",
+        "wikiManual": "modules/simpleenddragonfight/wiki/manual.json",
+        "balanceDir": "balance/simpleenddragonfight"
+      },
+      "projects": {
+        "fabric": ":modules:simpleenddragonfight:fabric",
+        "neoforge": ":modules:simpleenddragonfight:neoforge",
+        "forge": ":modules:simpleenddragonfight:forge"
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     }
   ]
 }

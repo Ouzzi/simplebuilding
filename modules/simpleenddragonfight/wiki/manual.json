@@ -1,0 +1,144 @@
+{
+  "features": [
+    {
+      "id": "player_scaling",
+      "sources": [
+        "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/DragonScaling.java",
+        "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/FightSession.java",
+        "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/DragonFightServer.java"
+      ],
+      "en": {
+        "title": "One health bar per player",
+        "summary": "Every player on the main End island adds one full dragon health bar: 300 health per player (300, 600, 900 ...), or the Vanilla 200 per player with \"raiseBaseHealth\" off.",
+        "details": [
+          "Counted are all survival and adventure players within 160 blocks of the exit portal; creative players and spectators do not count (config countCreative). Solo stays one bar.",
+          "A newcomer raises the health at once (checked every second); the dragon keeps its current share, so a half-dead dragon stays half dead. The boss bar shows the share correctly.",
+          "Who leaves, dies or disconnects keeps counting for 60 seconds (leaveGraceSeconds); only then the dragon loses that bar, again keeping its share and never dropping below 1 health.",
+          "End crystals heal in proportion to the larger health. Above 1024 health (the Vanilla attribute limit) the rest is carried by reduced damage taken, so 4 players still face 1200 effective health.",
+          "A new fight (dragon respawned with crystals) starts clean; only the dragon of the Vanilla End fight is touched, never dragons of other mods."
+        ]
+      },
+      "de": {
+        "title": "Eine Lebensleiste je Spieler",
+        "summary": "Jeder Spieler auf der End-Hauptinsel gibt dem Drachen eine volle Lebensleiste mehr: 300 Leben je Spieler (300, 600, 900 ...), mit \"raiseBaseHealth\" aus die Vanilla-200 je Spieler.",
+        "details": [
+          "Es zählen alle Spieler im Überlebens- und Abenteuermodus bis 160 Blöcke vom Ausgangsportal; Kreativ-Spieler und Zuschauer zählen nicht (Config countCreative). Allein bleibt es eine Leiste.",
+          "Ein Neuer hebt das Leben sofort an (Prüfung jede Sekunde); der Drache behält seinen Lebensanteil, ein halb toter Drache bleibt also halb tot. Die Bossleiste zeigt den Anteil richtig.",
+          "Wer die Insel verlässt, stirbt oder die Verbindung verliert, zählt 60 Sekunden weiter (leaveGraceSeconds); erst dann verliert der Drache die Leiste, wieder mit gleichem Anteil und nie unter 1 Leben.",
+          "End-Kristalle heilen im Verhältnis zum größeren Leben. Über 1024 Leben (Vanilla-Grenze des Attributs) trägt verringerter Schaden den Rest, 4 Spieler kämpfen also trotzdem gegen 1200 Leben.",
+          "Ein neuer Kampf (Drache mit Kristallen wiederbelebt) beginnt frisch; nur der Drache des Vanilla-End-Kampfs wird verändert, nie Drachen anderer Mods."
+        ]
+      }
+    },
+    {
+      "id": "faster_dragon",
+      "sources": [
+        "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/mixin/EnderDragonMixin.java",
+        "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/DragonFightServer.java"
+      ],
+      "en": {
+        "title": "Faster dragon",
+        "summary": "The dragon flies and turns 20 % faster, plus 1.5 % per further player, at most 35 %.",
+        "details": [
+          "Only in the flying phases; perching, breath attacks and landing keep their Vanilla timing so the fight is not cut short."
+        ]
+      },
+      "de": {
+        "title": "Schnellerer Drache",
+        "summary": "Der Drache fliegt und wendet 20 % schneller, dazu 1,5 % je weiterem Spieler, höchstens 35 %.",
+        "details": [
+          "Nur in den Flugphasen; Sitzen, Atem-Angriffe und Landung behalten ihr Vanilla-Tempo, damit der Kampf nicht zu kurz wird."
+        ]
+      }
+    },
+    {
+      "id": "entry_animation",
+      "sources": [
+        "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/FightSession.java"
+      ],
+      "en": {
+        "title": "Entry animation",
+        "summary": "Every player who enters a running fight gets a 3-second greeting: portal ring, the dragon rises and scents the newcomer, a growl with a shock ring, then sparks rain down.",
+        "details": [
+          "Each entry is queued and played one after the other with a short pause, so every trigger stays visible; the growl climbs a little in pitch with each one.",
+          "Purely cosmetic and server side (particles and sounds): no stun, no phase change, works without the mod on the client. Players already on the island before the dragon appears get no animation."
+        ]
+      },
+      "de": {
+        "title": "Eintritts-Animation",
+        "summary": "Jeder Spieler, der einen laufenden Kampf betritt, bekommt eine 3-Sekunden-Begrüßung: Portalring, der Drache steigt auf und wittert den Neuen, Brüllen mit Schockring, dann regnen Funken herab.",
+        "details": [
+          "Jeder Eintritt kommt in eine Warteschlange und wird nacheinander mit kurzer Pause gespielt, so bleibt jeder Auslöser sichtbar; das Brüllen wird mit jedem etwas höher.",
+          "Rein kosmetisch und serverseitig (Partikel und Töne): keine Betäubung, kein Phasenwechsel, geht auch ohne Mod auf dem Client. Wer schon vor dem Drachen auf der Insel ist, bekommt keine Animation."
+        ]
+      }
+    },
+    {
+      "id": "dragonmites",
+      "sources": [
+        "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/Dragonmite.java",
+        "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/FightSession.java"
+      ],
+      "en": {
+        "title": "Dragonmites",
+        "summary": "From half health on, the dragon calls Dragonmites near the exit portal: a first wave at once, then one every 30 seconds.",
+        "details": [
+          "2 mites per wave, one more for every two further players (4 players: 3, 8 players: 5); at most 8 + players alive at once, never more than 16.",
+          "Dragonmite: 14 health, 3 damage, armor 2, fast; a hit may slow you for 2 seconds. Endermen ignore it. Drops Dragon Chitin (killed by a player) and 3 experience.",
+          "When the dragon dies or the module is switched off, every called mite dissolves in smoke without drops. They spawn only through the fight; the spawn egg shows in the creative tab only with exposeSpawnEgg."
+        ]
+      },
+      "de": {
+        "title": "Dragonmites",
+        "summary": "Ab halbem Leben ruft der Drache Dragonmites nahe dem Ausgangsportal: eine erste Welle sofort, dann alle 30 Sekunden eine.",
+        "details": [
+          "2 Mites je Welle, eine mehr für je zwei weitere Spieler (4 Spieler: 3, 8 Spieler: 5); höchstens 8 + Spielerzahl gleichzeitig, nie mehr als 16.",
+          "Dragonmite: 14 Leben, 3 Schaden, Rüstung 2, flink; ein Treffer kann 2 Sekunden verlangsamen. Endermen beachten sie nicht. Lässt Drachen-Chitin (von Spielern getötet) und 3 Erfahrung fallen.",
+          "Stirbt der Drache oder wird das Modul abgeschaltet, lösen sich alle gerufenen Mites ohne Beute in Rauch auf. Sie entstehen nur durch den Kampf; das Spawn-Ei zeigt der Kreativtab nur mit exposeSpawnEgg."
+        ]
+      }
+    },
+    {
+      "id": "config",
+      "sources": [
+        "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/DragonFightConfig.java"
+      ],
+      "en": {
+        "title": "Config",
+        "summary": "Server file config/simpleenddragonfight.json; with SimpleBuilding the module is also switched by \"Enable Simple End Dragon Fight\".",
+        "details": [
+          "enabled, raiseBaseHealth (300 instead of 200 per player), maxPlayers (0 = all), countCreative, leaveGraceSeconds 60, islandRadius 160.",
+          "speedMultiplier 1.2, speedPerPlayer 0.015, speedCap 1.35, crystalHealScaling.",
+          "mitesEnabled, waveIntervalSeconds 30, miteBase 2, miteExtraPerTwoPlayers 1, maxAliveMites 16, animationEnabled, animationTicks 60, maxQueued 16, exposeSpawnEgg."
+        ]
+      },
+      "de": {
+        "title": "Config",
+        "summary": "Server-Datei config/simpleenddragonfight.json; mit SimpleBuilding schaltet zusätzlich \"Simple End Dragon Fight aktivieren\" das Modul.",
+        "details": [
+          "enabled, raiseBaseHealth (300 statt 200 je Spieler), maxPlayers (0 = alle), countCreative, leaveGraceSeconds 60, islandRadius 160.",
+          "speedMultiplier 1,2, speedPerPlayer 0,015, speedCap 1,35, crystalHealScaling.",
+          "mitesEnabled, waveIntervalSeconds 30, miteBase 2, miteExtraPerTwoPlayers 1, maxAliveMites 16, animationEnabled, animationTicks 60, maxQueued 16, exposeSpawnEgg."
+        ]
+      }
+    }
+  ],
+  "notes": {
+    "simpleenddragonfight:dragon_chitin": {
+      "en": {
+        "summary": "Plate shed by Dragonmites during the dragon fight. A material for now - later for recipes."
+      },
+      "de": {
+        "summary": "Platte, die Dragonmites im Drachenkampf abwerfen. Vorerst ein Material - später für Rezepte."
+      }
+    },
+    "simpleenddragonfight:dragonmite_spawn_egg": {
+      "en": {
+        "summary": "Creative spawn egg of an unbound Dragonmite; in the creative tab only with the config exposeSpawnEgg."
+      },
+      "de": {
+        "summary": "Kreativ-Spawn-Ei einer ungebundenen Dragonmite; im Kreativtab nur mit der Config exposeSpawnEgg."
+      }
+    }
+  }
+}

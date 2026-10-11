@@ -1918,6 +1918,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleTrims.@Tooltip": "Schaltet das gebündelte Modul Simple Trims ein oder aus: seine Rüstungsbesatz-Vorlagen und Besatz-Aufwertungen. Aus behält seine Gegenstände und Blöcke in der Welt, sie bewirken aber nichts. Gilt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.option.enableSimpleMobs": "Simple Mobs aktivieren",
   "text.autoconfig.simplebuilding.option.enableSimpleMobs.@Tooltip": "Schaltet das gebündelte Modul Simple Mobs ein oder aus: seine Kreaturen und ihr Verhalten. Aus behält seine Gegenstände und Blöcke in der Welt, sie bewirken aber nichts. Gilt nach einem Neustart. Standard: an.",
+  "text.autoconfig.simplebuilding.option.enableSimpleEndDragonFight": "Simple End Dragon Fight aktivieren",
+  "text.autoconfig.simplebuilding.option.enableSimpleEndDragonFight.@Tooltip": "Schaltet das gebündelte Modul Simple End Dragon Fight ein oder aus: Drachenleben je Spieler, schnellerer Drache, Eintritts-Animationen und Dragonmites. Aus stellt den Vanilla-Kampf wieder her; Drachen-Chitin bleibt in der Welt. Gilt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.category.equipment": "Verzauberungen & Rüstung",
   "text.autoconfig.simplebuilding.category.pistons": "Kolben",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

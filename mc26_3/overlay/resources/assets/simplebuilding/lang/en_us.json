@@ -1918,6 +1918,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleTrims.@Tooltip": "Turns the bundled Simple Trims module on or off: its armor trim templates and trim upgrades. Off keeps its items and blocks in the world but they do nothing. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.option.enableSimpleMobs": "Enable Simple Mobs",
   "text.autoconfig.simplebuilding.option.enableSimpleMobs.@Tooltip": "Turns the bundled Simple Mobs module on or off: its mobs and their behaviour. Off keeps its items and blocks in the world but they do nothing. Takes effect after a restart. Default: on.",
+  "text.autoconfig.simplebuilding.option.enableSimpleEndDragonFight": "Enable Simple End Dragon Fight",
+  "text.autoconfig.simplebuilding.option.enableSimpleEndDragonFight.@Tooltip": "Turns the bundled Simple End Dragon Fight module on or off: dragon health per player, a faster dragon, entry animations and Dragonmites. Off restores the Vanilla fight; Dragon Chitin stays in the world. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.category.equipment": "Enchantments & Armor",
   "text.autoconfig.simplebuilding.category.pistons": "Pistons",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

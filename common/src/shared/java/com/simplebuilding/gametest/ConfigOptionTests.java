@@ -647,6 +647,7 @@ public final class ConfigOptionTests {
             "root.enableSimpleDimensions boolean=true",
             "root.enableSimpleTrims boolean=true",
             "root.enableSimpleMobs boolean=true",
+            "root.enableSimpleEndDragonFight boolean=true",
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
             "root.airJumpCooldownTicks int=400",
@@ -1248,7 +1249,8 @@ public final class ConfigOptionTests {
     public static void superModSwitchesReachTheBundledSubMods(GameTestHelper helper) {
         String[][] switches = {{"enableSimpleRiding", "simpleriding"}, {"enableSimpleSandwiches", "simplesandwiches"},
                 {"enableSimpleTweaks", "simpletweaks"}, {"enableSimpleMoney", "simplemoney"}, {"enableSimpleFun", "simplefun"},
-                {"enableSimpleDimensions", "simpledimension"}, {"enableSimpleTrims", "simpletrims"}, {"enableSimpleMobs", "simplemobs"}};
+                {"enableSimpleDimensions", "simpledimension"}, {"enableSimpleTrims", "simpletrims"}, {"enableSimpleMobs", "simplemobs"},
+                {"enableSimpleEndDragonFight", "simpleenddragonfight"}};
         try {
             Class.forName("com.simplebuilding.framework.api.SubMods");
         } catch (ClassNotFoundException e) {

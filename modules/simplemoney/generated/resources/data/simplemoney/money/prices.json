@@ -2685,6 +2685,17 @@
       "chance": 1
     },
     {
+      "item": "simpleenddragonfight:dragon_chitin",
+      "tier": 5,
+      "hours": 30.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplefun:brick_snowball",
       "tier": 0,
       "hours": 0.5,
