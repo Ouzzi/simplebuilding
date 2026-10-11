@@ -11,6 +11,7 @@ import com.simplemaps.SimpleMaps;
 import com.simplemaps.Waypoint;
 import com.simplemaps.Waypoints;
 import com.simplemaps.WayfinderData;
+import com.simplemaps.WayfinderLayout;
 import com.simplemaps.net.FrameViewPayload;
 import com.simplemaps.net.WaypointEditPayload;
 import java.util.ArrayList;
@@ -38,20 +39,21 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * The wayfinder map screen (N18 plan, part B): a 4:3 map area whose 16 px grid always fits (12 x 9 cells), drag to
- * pan, wheel or +/- to zoom (1, 4, 8, 16, 64 blocks per pixel). Left bookmarks: snap, grid, zoom, height lines,
- * discovered structures (Feature 3).
+ * The wayfinder map screen (N18 plan, part B): a map area whose 16 px grid always fits, as large as the window allows
+ * ({@link WayfinderLayout}, owner N38), drag to pan, wheel or +/- to zoom (1, 4, 8, 16, 64 blocks per pixel). Left
+ * tool buttons (Vanilla button sprites): snap, grid, zoom, height lines, discovered structures (Feature 3).
  * Right bookmarks: player and waypoints 1-8 (click centres). Right-click on the map: "create waypoint" → every
  * bookmark except the eight waypoints is greyed out; a free one is taken at once, an occupied one turns red first
  * and is replaced by a second click. Right-click on a waypoint bookmark: configure (name, colour or mob head),
  * delete. Opened from an item frame (Feature 4) the waypoints are read-only and the view is stored in the frame.
  */
 public final class WayfinderScreen extends Screen {
-    public static final int CELL = 16, COLS = 12, ROWS = 9, MAP_W = COLS * CELL, MAP_H = ROWS * CELL;
-    public static final int FRAME = 8, TITLE_H = 12, FOOTER_H = 12;
-    public static final int PANEL_W = MAP_W + 2 * FRAME, PANEL_H = TITLE_H + MAP_H + FOOTER_H + 2 * FRAME;
-    public static final int TAB_W = 24, TAB_H = 16, TAB_OUT = 20;
-    public static final int LEFT_TABS = 5, RIGHT_TABS = 1 + Waypoint.SLOTS;
+    public static final int CELL = WayfinderLayout.CELL, FRAME = WayfinderLayout.FRAME;
+    public static final int LEFT_TABS = WayfinderLayout.LEFT_TABS, RIGHT_TABS = WayfinderLayout.RIGHT_TABS;
+    private static final int BTN = WayfinderLayout.BTN, RIB_W = WayfinderLayout.RIB_W, RIB_IN = WayfinderLayout.RIB_IN,
+            RIB_OUT = WayfinderLayout.RIB_OUT, RIB_HOVER = WayfinderLayout.RIB_HOVER;
+    /** Icons on the grey Vanilla buttons: light with a dark drop shadow, like button text. */
+    private static final int ICON = 0xFFE8E8E8, ICON_SHADOW = 0xFF3A3A3A;
     /** Parchment brown box (the map's colour); derived like every other N12 box. */
     public static final UiPalette PALETTE = UiPalette.derived(0xFFB08A57);
     private static final Identifier PLAYER = Identifier.withDefaultNamespace("player");
@@ -64,7 +66,8 @@ public final class WayfinderScreen extends Screen {
     private final InteractionHand hand;
     private final int frameId;
     private final UiContextMenu menu = new UiContextMenu(PALETTE);
-    private int left, top, mapX, mapY;
+    private WayfinderLayout layout;
+    private int left, top, mapX, mapY, cols, rows, mapW, mapH, panelW, panelH;
     /** Top-left of the map area in blocks. */
     private double originX, originZ;
     private boolean placed, dragging, moved;
@@ -129,20 +132,29 @@ public final class WayfinderScreen extends Screen {
 
     /** Client smoke: screen position of the map area's centre. */
     public int mapCenterX() {
-        return mapX + MAP_W / 2;
+        return mapX + mapW / 2;
     }
 
     public int mapCenterY() {
-        return mapY + MAP_H / 2;
+        return mapY + mapH / 2;
     }
 
     /** Client smoke: screen position of a left bookmark's centre. */
     public int leftTabCenterX() {
-        return left - TAB_OUT + TAB_W / 2;
+        return layout.buttonX() + BTN / 2;
     }
 
     public int leftTabCenterY(int i) {
-        return leftTabY(i) + TAB_H / 2;
+        return leftTabY(i) + BTN / 2;
+    }
+
+    /** Client smoke: the map size in grid cells. */
+    public int mapCols() {
+        return cols;
+    }
+
+    public int mapRows() {
+        return rows;
     }
 
     public static int zoom() {
@@ -151,10 +163,24 @@ public final class WayfinderScreen extends Screen {
 
     @Override
     protected void init() {
-        left = (width - PANEL_W) / 2;
-        top = (height - PANEL_H) / 2;
-        mapX = left + FRAME;
-        mapY = top + FRAME + TITLE_H;
+        int oldW = mapW, oldH = mapH;
+        layout = WayfinderLayout.of(width, height);
+        cols = layout.cols();
+        rows = layout.rows();
+        mapW = layout.mapW();
+        mapH = layout.mapH();
+        panelW = layout.panelW();
+        panelH = layout.panelH();
+        left = layout.left();
+        top = layout.top();
+        mapX = layout.mapX();
+        mapY = layout.mapY();
+        if (placed && oldW > 0) {
+            // Window resized: keep the centre where it was.
+            originX += (oldW - mapW) / 2.0 * zoom();
+            originZ += (oldH - mapH) / 2.0 * zoom();
+            if (snap) snapOrigin();
+        }
         if (!placed) {
             placed = true;
             MapsComponents.View view = frameMode() ? stack().get(MapsComponents.VIEW) : null;
@@ -179,8 +205,8 @@ public final class WayfinderScreen extends Screen {
 
     private void centerOn(double x, double z, boolean snapToCell) {
         int bpp = zoom();
-        originX = x - MAP_W / 2.0 * bpp;
-        originZ = z - MAP_H / 2.0 * bpp;
+        originX = x - mapW / 2.0 * bpp;
+        originZ = z - mapH / 2.0 * bpp;
         if (snapToCell) snapOrigin();
     }
 
@@ -189,8 +215,8 @@ public final class WayfinderScreen extends Screen {
         if (minecraft == null || minecraft.player == null) return;
         int bpp = zoom(), cell = CELL * bpp;
         if (snap) {
-            originX = (Math.floorDiv(minecraft.player.getBlockX(), cell) - COLS / 2) * (double) cell;
-            originZ = (Math.floorDiv(minecraft.player.getBlockZ(), cell) - ROWS / 2) * (double) cell;
+            originX = (Math.floorDiv(minecraft.player.getBlockX(), cell) - cols / 2) * (double) cell;
+            originZ = (Math.floorDiv(minecraft.player.getBlockZ(), cell) - rows / 2) * (double) cell;
         } else {
             centerOn(minecraft.player.getX(), minecraft.player.getZ(), false);
         }
@@ -228,13 +254,13 @@ public final class WayfinderScreen extends Screen {
     }
 
     private boolean overMap(double x, double y) {
-        return x >= mapX && x < mapX + MAP_W && y >= mapY && y < mapY + MAP_H;
+        return x >= mapX && x < mapX + mapW && y >= mapY && y < mapY + mapH;
     }
 
     private void zoomBy(int steps, double anchorX, double anchorY) {
         int next = Mth.clamp(zoomIndex + steps, 0, WayfinderData.ZOOMS.length - 1);
         if (next == zoomIndex) return;
-        double ax = Mth.clamp(anchorX - mapX, 0, MAP_W), ay = Mth.clamp(anchorY - mapY, 0, MAP_H);
+        double ax = Mth.clamp(anchorX - mapX, 0, mapW), ay = Mth.clamp(anchorY - mapY, 0, mapH);
         double bx = originX + ax * zoom(), bz = originZ + ay * zoom();
         zoomIndex = next;
         originX = bx - ax * zoom();
@@ -245,20 +271,21 @@ public final class WayfinderScreen extends Screen {
     // ---------------------------------------------------------------- tabs
 
     private int leftTabY(int i) {
-        return mapY + i * (TAB_H + 2);
+        return layout.buttonY(i);
     }
 
     private int rightTabY(int i) {
-        return mapY + i * TAB_H;
+        return layout.ribbonY(i);
     }
 
     private int tabAt(double x, double y, boolean leftSide) {
         int count = leftSide ? LEFT_TABS : RIGHT_TABS;
-        int tx = leftSide ? left - TAB_OUT : left + PANEL_W - (TAB_W - TAB_OUT);
-        if (x < tx || x >= tx + TAB_W) return -1;
+        int x0 = leftSide ? layout.buttonX() : left + panelW;
+        int x1 = leftSide ? x0 + BTN : x0 + RIB_OUT + RIB_HOVER;
+        if (x < x0 || x >= x1) return -1;
         for (int i = 0; i < count; i++) {
             int ty = leftSide ? leftTabY(i) : rightTabY(i);
-            if (y >= ty && y < ty + TAB_H) return i;
+            if (y >= ty && y < ty + (leftSide ? BTN : layout.ribH())) return i;
         }
         return -1;
     }
@@ -272,12 +299,12 @@ public final class WayfinderScreen extends Screen {
         Waypoints waypoints = waypoints();
         boolean dialog = editSlot >= 0;
         drawTabs(g, mouseX, mouseY, waypoints, dialog);
-        UiBoxes.box(g, left, top, PANEL_W, PANEL_H, PALETTE);
+        UiBoxes.box(g, left, top, panelW, panelH, PALETTE);
         g.text(font, stack.isEmpty() ? title : stack.getHoverName(), left + FRAME, top + FRAME + 1, PALETTE.label(), false);
         // Map area: sunk dark field, then the explored tiles.
-        g.fill(mapX - 1, mapY - 1, mapX + MAP_W + 1, mapY + MAP_H + 1, UiBoxes.RIM);
-        g.fill(mapX, mapY, mapX + MAP_W, mapY + MAP_H, 0xFF2C2A25);
-        g.enableScissor(mapX, mapY, mapX + MAP_W, mapY + MAP_H);
+        g.fill(mapX - 1, mapY - 1, mapX + mapW + 1, mapY + mapH + 1, UiBoxes.RIM);
+        g.fill(mapX, mapY, mapX + mapW, mapY + mapH, 0xFF2C2A25);
+        g.enableScissor(mapX, mapY, mapX + mapW, mapY + mapH);
         if (mapId >= 0) {
             drawTiles(g, mapId);
             if (grid) drawGrid(g);
@@ -286,13 +313,13 @@ public final class WayfinderScreen extends Screen {
         }
         g.disableScissor();
         Component status = status(mapId);
-        if (status != null) g.centeredText(font, status, mapX + MAP_W / 2, mapY + MAP_H / 2 - 4, 0xFFE8E2D0);
+        if (status != null) g.centeredText(font, status, mapX + mapW / 2, mapY + mapH / 2 - 4, 0xFFE8E2D0);
         drawFooter(g, mouseX, mouseY);
         if (picking) {
-            UiBookmarks.greyOut(g, left, top, PANEL_W, PANEL_H);
-            for (int i = 0; i < LEFT_TABS; i++) UiBookmarks.greyOut(g, left - TAB_OUT, leftTabY(i), TAB_OUT, TAB_H);
-            UiBookmarks.greyOut(g, left + PANEL_W, rightTabY(0), TAB_OUT, TAB_H);
-            g.centeredText(font, Component.translatable("screen.simplemaps.pick_slot"), mapX + MAP_W / 2, mapY + MAP_H / 2 - 4, 0xFFFFFFFF);
+            UiBookmarks.greyOut(g, left, top, panelW, panelH);
+            for (int i = 0; i < LEFT_TABS; i++) UiBookmarks.greyOut(g, layout.buttonX(), leftTabY(i), BTN, BTN);
+            UiBookmarks.greyOut(g, left + panelW, rightTabY(0), RIB_OUT, layout.ribH());
+            g.centeredText(font, Component.translatable("screen.simplemaps.pick_slot"), mapX + mapW / 2, mapY + mapH / 2 - 4, 0xFFFFFFFF);
         }
         if (dialog) drawDialog(g);
         super.extractRenderState(g, mouseX, mouseY, a);
@@ -313,7 +340,7 @@ public final class WayfinderScreen extends Screen {
         int bpp = zoom();
         long px0 = originPx(), pz0 = originPz();
         int tx0 = (int) Math.floorDiv(px0, WayfinderData.TILE), tz0 = (int) Math.floorDiv(pz0, WayfinderData.TILE);
-        int tx1 = (int) Math.floorDiv(px0 + MAP_W - 1, WayfinderData.TILE), tz1 = (int) Math.floorDiv(pz0 + MAP_H - 1, WayfinderData.TILE);
+        int tx1 = (int) Math.floorDiv(px0 + mapW - 1, WayfinderData.TILE), tz1 = (int) Math.floorDiv(pz0 + mapH - 1, WayfinderData.TILE);
         for (int tx = tx0; tx <= tx1; tx++) {
             for (int tz = tz0; tz <= tz1; tz++) {
                 TileCache.Entry e = MapsClient.CACHE.want(new TileCache.Key(mapId, bpp, tx, tz));
@@ -328,8 +355,8 @@ public final class WayfinderScreen extends Screen {
     /** World-aligned lines every 16 map pixels (one chunk at 1:1). */
     private void drawGrid(GuiGraphicsExtractor g) {
         long px0 = originPx(), pz0 = originPz();
-        for (int x = (int) Math.floorMod(-px0, CELL); x < MAP_W; x += CELL) g.fill(mapX + x, mapY, mapX + x + 1, mapY + MAP_H, 0x40000000);
-        for (int y = (int) Math.floorMod(-pz0, CELL); y < MAP_H; y += CELL) g.fill(mapX, mapY + y, mapX + MAP_W, mapY + y + 1, 0x40000000);
+        for (int x = (int) Math.floorMod(-px0, CELL); x < mapW; x += CELL) g.fill(mapX + x, mapY, mapX + x + 1, mapY + mapH, 0x40000000);
+        for (int y = (int) Math.floorMod(-pz0, CELL); y < mapH; y += CELL) g.fill(mapX, mapY + y, mapX + mapW, mapY + y + 1, 0x40000000);
     }
 
     private void drawMarks(GuiGraphicsExtractor g, Waypoints waypoints) {
@@ -371,7 +398,7 @@ public final class WayfinderScreen extends Screen {
     private void drawStructures(GuiGraphicsExtractor g, int mapId) {
         for (WayfinderData.Mark m : MapsClient.CACHE.marks(mapId)) {
             int x = screenX(m.x()), y = screenY(m.z());
-            if (x < mapX - 4 || x > mapX + MAP_W + 4 || y < mapY - 4 || y > mapY + MAP_H + 4) continue;
+            if (x < mapX - 4 || x > mapX + mapW + 4 || y < mapY - 4 || y > mapY + mapH + 4) continue;
             int color = 0xFF000000 | Mth.hsvToRgb((m.id().hashCode() & 0xFFFF) / 65536.0F, 0.6F, 0.95F);
             for (int r = 0; r <= 4; r++) g.fill(x - (4 - r), y - r, x + (4 - r) + 1, y - r + 1, r == 4 ? UiBoxes.RIM : color);
             for (int r = 1; r <= 4; r++) g.fill(x - (4 - r), y + r, x + (4 - r) + 1, y + r + 1, r == 4 ? UiBoxes.RIM : color);
@@ -401,55 +428,60 @@ public final class WayfinderScreen extends Screen {
     }
 
     private void drawFooter(GuiGraphicsExtractor g, int mouseX, int mouseY) {
-        int y = mapY + MAP_H + 3;
+        int y = mapY + mapH + 3;
         g.text(font, Component.translatable("screen.simplemaps.zoom", zoom()), mapX, y, PALETTE.label(), false);
         if (overMap(mouseX, mouseY)) {
             String pos = blockX(mouseX) + ", " + blockZ(mouseY);
-            g.text(font, pos, mapX + MAP_W - font.width(pos), y, PALETTE.label(), false);
+            g.text(font, pos, mapX + mapW - font.width(pos), y, PALETTE.label(), false);
         }
     }
 
     private void drawTabs(GuiGraphicsExtractor g, int mouseX, int mouseY, Waypoints waypoints, boolean dialog) {
         boolean[] states = {snap, grid, false, contour, structures};
         for (int i = 0; i < LEFT_TABS; i++) {
-            int x = left - TAB_OUT, y = leftTabY(i);
+            int x = layout.buttonX(), y = leftTabY(i);
             boolean hover = !dialog && tabAt(mouseX, mouseY, true) == i;
-            UiBookmarks.tab(g, x, y, TAB_W, TAB_H, true, PALETTE, states[i], hover);
-            drawLeftIcon(g, i, x + 3, y + 3);
+            UiBookmarks.button(g, x, y, BTN, BTN, states[i], hover);
+            // Shadow first, then the light icon one pixel up-left (Vanilla button text look).
+            drawLeftIcon(g, i, x + 6, y + 5, ICON_SHADOW, true);
+            drawLeftIcon(g, i, x + 5, y + 4, ICON, false);
         }
+        int ribH = layout.ribH();
         for (int i = 0; i < RIGHT_TABS; i++) {
-            int x = left + PANEL_W - (TAB_W - TAB_OUT), y = rightTabY(i);
+            int y = rightTabY(i);
             boolean hover = !dialog && tabAt(mouseX, mouseY, false) == i;
             Optional<Waypoint> w = i == 0 ? Optional.empty() : waypoints.get(i - 1);
-            UiBookmarks.tab(g, x, y, TAB_W, TAB_H, false, PALETTE, w.isPresent(), hover);
-            int ix = x + TAB_W - 15;
+            int shift = hover ? RIB_HOVER : 0, x = left + panelW - RIB_IN + shift;
+            UiBookmarks.ribbon(g, x, y, RIB_W, ribH, false, PALETTE, i == 0 || w.isPresent(), hover);
+            int ix = left + panelW + 2 + shift, iy = y + (ribH - 10) / 2;
             if (i == 0) {
-                g.item(new ItemStack(net.minecraft.world.item.Items.COMPASS), ix - 2, y);
+                g.item(new ItemStack(net.minecraft.world.item.Items.COMPASS), ix + 1, y + (ribH - 16) / 2);
             } else if (w.isPresent() && w.get().head().isPresent()) {
                 g.pose().pushMatrix();
-                g.pose().translate(ix, y + 3);
+                g.pose().translate(ix, iy);
                 g.pose().scale(10 / 16.0F, 10 / 16.0F);
                 BuiltInRegistries.ITEM.getOptional(w.get().head().get()).ifPresent(item -> g.item(new ItemStack(item), 0, 0));
                 g.pose().popMatrix();
             } else {
-                g.fill(ix, y + 4, ix + 8, y + 12, UiBoxes.RIM);
-                g.fill(ix + 1, y + 5, ix + 7, y + 11, w.map(Waypoint::color).orElse(0xFF8A7656));
+                g.fill(ix + 1, iy + 1, ix + 9, iy + 9, UiBoxes.RIM);
+                g.fill(ix + 2, iy + 2, ix + 8, iy + 8, w.map(Waypoint::color).orElse(0xFF8A7656));
             }
-            g.text(font, String.valueOf(i == 0 ? "" : i), ix + 9, y + 4, PALETTE.label(), false);
-            if (picking && confirmSlot == i - 1 && i > 0) UiBookmarks.confirm(g, x, y, TAB_W, TAB_H);
+            if (i > 0) g.text(font, String.valueOf(i), ix + 12, y + (ribH - 8) / 2 + 1, w.isPresent() ? PALETTE.label() : 0xFF5A4E3E, false);
+            if (picking && confirmSlot == i - 1 && i > 0) UiBookmarks.confirm(g, left + panelW, y, RIB_OUT + shift, ribH);
         }
     }
 
-    /** Engraved 10x10 icons: magnet (snap), grid, magnifier (zoom), height lines. */
-    private void drawLeftIcon(GuiGraphicsExtractor g, int i, int x, int y) {
-        int c = PALETTE.label();
+    /** 10x10 icons: magnet (snap), grid, zoom level, height lines, structure (house). */
+    private void drawLeftIcon(GuiGraphicsExtractor g, int i, int x, int y, int c, boolean shadow) {
         switch (i) {
             case 0 -> {
                 g.fill(x + 1, y + 1, x + 4, y + 8, c);
                 g.fill(x + 7, y + 1, x + 10, y + 8, c);
                 g.fill(x + 1, y + 7, x + 10, y + 10, c);
-                g.fill(x + 1, y + 1, x + 4, y + 3, 0xFFC0392B);
-                g.fill(x + 7, y + 1, x + 10, y + 3, 0xFFC0392B);
+                if (!shadow) {
+                    g.fill(x + 1, y + 1, x + 4, y + 3, 0xFFE04A3A);
+                    g.fill(x + 7, y + 1, x + 10, y + 3, 0xFFE04A3A);
+                }
             }
             case 1 -> {
                 for (int k = 0; k <= 9; k += 3) {
@@ -459,9 +491,10 @@ public final class WayfinderScreen extends Screen {
             }
             case 2 -> {
                 String label = "1:" + zoom();
+                float scale = font.width(label) > 14 ? 0.75F : 1.0F;
                 g.pose().pushMatrix();
-                g.pose().translate(x - 1, y + 1);
-                g.pose().scale(0.75F, 0.75F);
+                g.pose().translate(x + 5 - font.width(label) * scale / 2.0F, y + 1);
+                g.pose().scale(scale, scale);
                 g.text(font, label, 0, 0, c, false);
                 g.pose().popMatrix();
             }
@@ -469,8 +502,8 @@ public final class WayfinderScreen extends Screen {
                 g.fill(x + 4, y, x + 6, y + 1, c);
                 g.fill(x + 2, y + 1, x + 8, y + 3, c);
                 g.fill(x, y + 3, x + 10, y + 5, c);
-                g.fill(x + 1, y + 5, x + 9, y + 9, c);
-                g.fill(x + 4, y + 6, x + 6, y + 9, PALETTE.fill());
+                g.fill(x + 1, y + 5, x + 9, y + 10, c);
+                if (!shadow) g.fill(x + 4, y + 7, x + 6, y + 10, 0xFF6B6B6B);
             }
             default -> {
                 g.fill(x, y + 2, x + 10, y + 3, c);
@@ -648,7 +681,7 @@ public final class WayfinderScreen extends Screen {
                     if (snap) snapOrigin();
                 }
                 case 1 -> grid = !grid;
-                case 2 -> zoomBy(button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT ? -1 : 1, mapX + MAP_W / 2.0, mapY + MAP_H / 2.0);
+                case 2 -> zoomBy(button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT ? -1 : 1, mapX + mapW / 2.0, mapY + mapH / 2.0);
                 case 3 -> contour = !contour;
                 default -> structures = !structures;
             }
@@ -743,11 +776,11 @@ public final class WayfinderScreen extends Screen {
             return super.keyPressed(event);
         }
         if (key == InputConstants.KEY_EQUALS || key == InputConstants.KEY_ADD) {
-            zoomBy(-1, mapX + MAP_W / 2.0, mapY + MAP_H / 2.0);
+            zoomBy(-1, mapX + mapW / 2.0, mapY + mapH / 2.0);
             return true;
         }
         if (key == InputConstants.KEY_MINUS || key == KEY_KP_MINUS) {
-            zoomBy(1, mapX + MAP_W / 2.0, mapY + MAP_H / 2.0);
+            zoomBy(1, mapX + mapW / 2.0, mapY + mapH / 2.0);
             return true;
         }
         return super.keyPressed(event);
@@ -766,7 +799,7 @@ public final class WayfinderScreen extends Screen {
     @Override
     public void removed() {
         if (frameMode() && frame() != null && MapsItems.isWayfinder(stack())) {
-            double cx = originX + MAP_W / 2.0 * zoom(), cz = originZ + MAP_H / 2.0 * zoom();
+            double cx = originX + mapW / 2.0 * zoom(), cz = originZ + mapH / 2.0 * zoom();
             SimpleMaps.toServer.accept(new FrameViewPayload(frameId, new MapsComponents.View(Mth.floor(cx), Mth.floor(cz), zoom())));
         }
         super.removed();

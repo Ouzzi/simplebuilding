@@ -30,6 +30,11 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             context.takeScreenshot("simplemaps-hand");
             screen(context, "simplemaps-screen", true, true, false, 0);
+            // Owner N38: the map fills the window instead of the old fixed 12 x 9 cells.
+            context.runOnClient(c -> {
+                WayfinderScreen s = (WayfinderScreen) c.gui.screen();
+                if (s.mapCols() <= 12 || s.mapRows() <= 9) throw new AssertionError("map not enlarged: " + s.mapCols() + "x" + s.mapRows());
+            });
             // Waypoints through the real packet path: one colour, one mob head.
             context.runOnClient(c -> {
                 int x = c.player.getBlockX(), z = c.player.getBlockZ();
@@ -76,9 +81,25 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             screen(context, "simplemaps-contour", true, false, true, 0);
             screen(context, "simplemaps-zoom", false, true, false, 2);
+            // GUI scale 1: the same window has twice the GUI pixels, the map grows with it.
+            context.runOnClient(c -> {
+                c.options.guiScale().set(1);
+                c.resizeGui();
+            });
+            screen(context, "simplemaps-screen-gui1", true, true, false, 0);
+            context.runOnClient(c -> {
+                c.options.guiScale().set(0);
+                c.resizeGui();
+            });
             context.runOnClient(c -> c.gui.setScreen(null));
             context.waitTicks(5);
             context.takeScreenshot("simplemaps-locator");
+            // Owner N38: Nether and End maps in the Overworld show an animated jamming signal, not the Overworld.
+            world.getServer().runCommand("item replace entity @a weapon.mainhand with simplemaps:nether_wayfinder_map");
+            world.getServer().runCommand("item replace entity @a weapon.offhand with simplemaps:end_wayfinder_map");
+            context.waitTicks(20);
+            context.takeScreenshot("simplemaps-jammed");
+            world.getServer().runCommand("item replace entity @a weapon.offhand with minecraft:air");
             // Feature 4: a framed copy shows its stored view.
             world.getServer().runCommand("execute as @p at @s run setblock ~ ~1 ~3 minecraft:stone");
             world.getServer().runCommand("execute as @p at @s run tp @s ~ ~ ~ 0 0");

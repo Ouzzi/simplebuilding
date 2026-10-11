@@ -80,4 +80,9 @@ public final class ModuleGameTest {
     public void hostSwitch(GameTestHelper h) {
         MapsTests.ALL.get("host_switch").accept(h);
     }
+
+    @GameTest
+    public void screenLayout(GameTestHelper h) {
+        MapsTests.ALL.get("screen_layout").accept(h);
+    }
 }
