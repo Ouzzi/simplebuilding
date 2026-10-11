@@ -798,7 +798,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Sculk Jaw nur auf vollen Blöcken platzierbar.
 
 ## Nachtrag 38 (2026-10-11, Besitzer)
-- [ ] Sculk Jaw: Spieler noch langsamer; Blindheits-Dauer wächst exponentiell mit der Zeit drin (raus innerhalb 2 s ≈ 3 s, 3 s ≈ 5 s, max. 60 s); geschlossen die Knochen-Zähne zeigen.
+- [x ] Sculk Jaw: Spieler noch langsamer; Blindheits-Dauer wächst exponentiell mit der Zeit drin (raus innerhalb 2 s ≈ 3 s, 3 s ≈ 5 s, max. 60 s); geschlossen die Knochen-Zähne zeigen. (claude-jaw5: Bremse 0,06/0,015; Blindheit d(t)=min(60,max(3,3·(5/3)^(t−2))) s + Dunkelheit; gedämpfte Knochenspitzen; Bilder n38/jaw-*.png. Volle-Blöcke-Regel liegt schon auf claude-n37-world 032663492)
 - [ ] Tooltips überall überarbeiten: nur an wichtigen Stellen Beschreibung, sonst nur Name; Beschreibungen sehr kurz.
 - [ ] Schachfiguren: flache Variante heißt "Flat …" (Flat Rook, Flat Knight, …).
 - [ ] Wayfinder-Karten-GUI: so groß wie möglich; seitliche Lesezeichen-Buttons schöner und weniger gedrängt (rechts), Buttons allgemein hübscher.
