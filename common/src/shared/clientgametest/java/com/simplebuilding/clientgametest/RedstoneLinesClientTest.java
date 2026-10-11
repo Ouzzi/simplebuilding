@@ -44,8 +44,9 @@ public final class RedstoneLinesClientTest {
         });
         script.awaitPackets();
         script.idle("let the lamps switch", 10);
-        script.act("lit lamps at the lever, bridge lanes; dark lamp behind the other line", client -> {
-            ServerLevel level = client.getSingleplayerServer().overworld();
+        script.awaitPackets();
+        script.act("lit lamps at the lever, bridge lanes; dark lamp behind the other line (as the client sees them)", client -> {
+            var level = client.level;
             for (int i = 0; i < LANES.length; i++) {
                 boolean lit = level.getBlockState(new BlockPos(X0 + 13, 0, LANES[i])).getValue(RedstoneLampBlock.LIT);
                 if (lit != (i < 3)) throw new AssertionError("lamp of lane " + i + " is " + (lit ? "lit" : "dark"));
