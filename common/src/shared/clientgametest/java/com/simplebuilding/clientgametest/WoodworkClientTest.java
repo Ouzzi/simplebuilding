@@ -49,8 +49,7 @@ public final class WoodworkClientTest {
             List<String> found = new ArrayList<>();
             for (WoodBlocks.Family family : WoodBlocks.families()) {
                 for (SherdMotif motif : new SherdMotif[]{SherdMotif.ANGLER, SherdMotif.SNORT}) {
-                    BlockState state = family.carved().defaultBlockState().setValue(CarvedLogBlock.FACING, Direction.NORTH)
-                            .setValue(CarvedLogBlock.MOTIF, motif);
+                    BlockState state = family.carved().only(Direction.NORTH, motif);
                     Set<String> north = spritesOn(models.get(state), Direction.NORTH);
                     String expected = "minecraft:entity/decorated_pot/" + motif.getSerializedName() + "_pottery_pattern_" + family.wood().id();
                     if (!north.contains(expected)) {
@@ -162,7 +161,9 @@ public final class WoodworkClientTest {
     }
 
     private static BlockState carved(WoodBlocks.Family family, SherdMotif motif) {
-        return family.carved().defaultBlockState().setValue(CarvedLogBlock.FACING, Direction.NORTH).setValue(CarvedLogBlock.MOTIF, motif);
+        // north: the sherd motif, east: the wood's own motif, west: a second sherd side (same motif), south: plain
+        return family.carved().only(Direction.NORTH, motif).setValue(CarvedLogBlock.EAST, CarvedLogBlock.Carving.WOOD)
+                .setValue(CarvedLogBlock.WEST, CarvedLogBlock.Carving.SHERD);
     }
 
     private static void set(ServerLevel level, int x, int y, BlockState state) {

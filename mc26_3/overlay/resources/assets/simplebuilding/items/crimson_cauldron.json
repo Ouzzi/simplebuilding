@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplebuilding:block/crimson_cauldron"
+    "model": "simplebuilding:item/crimson_cauldron"
   }
 }

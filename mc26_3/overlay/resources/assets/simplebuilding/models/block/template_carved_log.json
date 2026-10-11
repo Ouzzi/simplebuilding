@@ -41,54 +41,6 @@
           "cullface": "east"
         }
       }
-    },
-    {
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        16
-      ],
-      "faces": {
-        "north": {
-          "texture": "#motif",
-          "cullface": "north"
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        16
-      ],
-      "faces": {
-        "north": {
-          "texture": "#frame",
-          "cullface": "north"
-        },
-        "east": {
-          "texture": "#carving",
-          "cullface": "east"
-        },
-        "south": {
-          "texture": "#carving",
-          "cullface": "south"
-        },
-        "west": {
-          "texture": "#carving",
-          "cullface": "west"
-        }
-      }
     }
   ]
 }

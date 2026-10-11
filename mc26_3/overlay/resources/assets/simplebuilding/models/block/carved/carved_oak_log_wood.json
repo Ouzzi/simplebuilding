@@ -1,0 +1,6 @@
+{
+  "parent": "simplebuilding:block/template_carved_wood",
+  "textures": {
+    "carving": "simplebuilding:block/carved/oak_carving"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simplebuilding:block/nihilith_quartz_checker_slab"
+    },
+    "type=top": {
+      "model": "simplebuilding:block/nihilith_quartz_checker_slab_top"
+    },
+    "type=double": {
+      "model": "simplebuilding:block/nihilith_quartz_checker"
+    }
+  }
+}

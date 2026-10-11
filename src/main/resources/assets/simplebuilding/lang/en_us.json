@@ -3842,7 +3842,7 @@
   "item.simplebuilding.bamboo_crate": "Bamboo Crate",
   "block.simplebuilding.carved_bamboo_block": "Block of Carved Bamboo",
   "item.simplebuilding.carved_bamboo_block": "Block of Carved Bamboo",
-  "jei.simplebuilding.info.woodwork_carved": "Carved wood: hold a pottery sherd in the off hand and a chisel in the main hand, then right-click the side of a standing stripped log (or of carved wood). That side shows the sherd's motif in a darker shade of the wood. The sherd is not used up; the chisel loses 1 durability. Breaking drops the carved log with its motif.",
+  "jei.simplebuilding.info.woodwork_carved": "Carved wood: right-click a side of a standing stripped log (or of carved wood) with a chisel. Without a sherd that side gets the wood's own motif; with a pottery sherd in the off hand it shows the sherd's motif in a darker shade of the wood. Every side is carved on its own (all sherd sides of one block share the last sherd's motif). Sneaking with the chisel takes a side's carving off again. The sherd is not used up; the chisel loses 1 durability. Breaking drops the carved log as carved.",
   "simplebuilding.testcentre.section.woodwork": "Woodwork",
   "simplebuilding.testcentre.section.woodwork.sub": "hollow logs, sheets, cauldrons, crates, carving",
   "simplebuilding.testcentre.woodwork.crawl": "Hollow logs",

@@ -3842,7 +3842,7 @@
   "item.simplebuilding.bamboo_crate": "Bambuskiste",
   "block.simplebuilding.carved_bamboo_block": "Geschnitzter Bambusblock",
   "item.simplebuilding.carved_bamboo_block": "Geschnitzter Bambusblock",
-  "jei.simplebuilding.info.woodwork_carved": "Geschnitztes Holz: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms (oder geschnitzten Holzes) rechtsklicken. Diese Seite zeigt das Motiv der Scherbe in einem dunkleren Ton des Holzes. Die Scherbe bleibt erhalten, der Meißel verliert 1 Haltbarkeit. Abgebaut droppt der Stamm mit seinem Motiv.",
+  "jei.simplebuilding.info.woodwork_carved": "Geschnitztes Holz: mit dem Meißel auf die Seite eines stehenden entrindeten Stamms (oder geschnitzten Holzes) rechtsklicken. Ohne Scherbe bekommt diese Seite das holzeigene Motiv, mit einer Töpferscherbe in der Nebenhand das Motiv der Scherbe in einem dunkleren Ton des Holzes. Jede Seite wird einzeln gemeißelt (alle Scherbenseiten eines Blocks zeigen das Motiv der zuletzt benutzten Scherbe). Schleichen mit dem Meißel nimmt das Motiv einer Seite wieder ab. Die Scherbe bleibt erhalten, der Meißel verliert 1 Haltbarkeit. Abgebaut droppt der Stamm wie er geschnitzt war.",
   "simplebuilding.testcentre.section.woodwork": "Holzwerk",
   "simplebuilding.testcentre.section.woodwork.sub": "Röhren, Platten, Kessel, Kisten, Schnitzen",
   "simplebuilding.testcentre.woodwork.crawl": "Ausgehöhlte Stämme",

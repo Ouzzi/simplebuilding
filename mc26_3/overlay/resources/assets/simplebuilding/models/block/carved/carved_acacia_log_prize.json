@@ -1,9 +1,6 @@
 {
-  "parent": "simplebuilding:block/template_carved_log",
+  "parent": "simplebuilding:block/template_carved_sherd",
   "textures": {
-    "side": "minecraft:block/stripped_acacia_log",
-    "end": "minecraft:block/stripped_acacia_log_top",
-    "carving": "simplebuilding:block/carved/acacia_carving",
     "frame": "simplebuilding:block/carved/acacia_frame",
     "motif": "minecraft:entity/decorated_pot/prize_pottery_pattern_acacia"
   }
