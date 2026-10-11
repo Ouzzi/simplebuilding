@@ -337,10 +337,14 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
                 lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.value",
                         this.menu.levelPrice(row, 1), this.menu.value(row), max).withStyle(ChatFormatting.GRAY));
                 lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.tax").withStyle(ChatFormatting.DARK_GRAY));
-                // N37 (owner): always right beside the whole window, level with the row - never over the sliders.
-                // Vanilla's positioner draws at (x + 12, y - 12).
+                // N37 (owner): always right beside the whole window, level with the row - never over the sliders. Own
+                // positioner (Vanilla's flips to the left when the tooltip does not fit), the lines wrapped to the room.
                 int[] at = rowTooltipAnchor(row);
-                g.setTooltipForNextFrame(this.font, lines, java.util.Optional.empty(), at[0], at[1]);
+                int maxWidth = Math.max(60, this.width - at[0] - 6);
+                List<net.minecraft.util.FormattedCharSequence> wrapped = new ArrayList<>();
+                for (Component line : lines) wrapped.addAll(this.font.split(line, maxWidth));
+                g.setTooltipForNextFrame(this.font, wrapped, (screenW, screenH, mx, my, w, h) ->
+                        new org.joml.Vector2i(at[0], Math.max(4, Math.min(at[1], screenH - h - 4))), mouseX, mouseY, false);
             }
         }
     }
@@ -350,9 +354,9 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         return this.leftPos + this.imageWidth;
     }
 
-    /** Position handed to the tooltip of slider {@code row}: its box starts 4 px right of the window, at the row's top. */
+    /** Top left of the tooltip of slider {@code row}: 6 px right of the window (room for its frame), at the row's top. */
     public int[] rowTooltipAnchor(int row) {
-        return new int[] {this.leftPos + this.imageWidth + 4 - 12, this.topPos + rowY(row) + 12};
+        return new int[] {this.leftPos + this.imageWidth + 6, this.topPos + rowY(row)};
     }
 
     private List<Component> buttonTooltip() {

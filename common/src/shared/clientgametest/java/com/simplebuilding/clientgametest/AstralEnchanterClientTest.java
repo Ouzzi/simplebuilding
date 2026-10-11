@@ -104,8 +104,8 @@ public final class AstralEnchanterClientTest {
         script.act("the tooltip anchor lies right of the window", c -> {
             AstralEnchantingScreen screen = (AstralEnchantingScreen) c.gui.screen();
             int[] at = screen.rowTooltipAnchor(0);
-            if (at[0] + 12 <= screen.windowRight()) {
-                throw new AssertionError("tooltip at x " + (at[0] + 12) + " overlaps the window ending at " + screen.windowRight());
+            if (at[0] <= screen.windowRight()) {
+                throw new AssertionError("tooltip at x " + at[0] + " overlaps the window ending at " + screen.windowRight());
             }
         });
         script.shot("astral-enchanter-tooltip");
