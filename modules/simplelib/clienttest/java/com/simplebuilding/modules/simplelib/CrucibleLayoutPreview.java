@@ -29,7 +29,7 @@ final class CrucibleLayoutPreview extends Screen {
         super.extractRenderState(g, mouseX, mouseY, a);
         int rows = variant == 'a' ? 3 : variant == 'b' ? 4 : 5;
         int cols = variant == 'a' ? 9 : variant == 'b' ? 7 : 6;
-        int boxW = Math.max(176, cols * 18 + 2 * MARGIN);
+        int boxW = cols * 18 + 2 * MARGIN; // box width follows the grid; the pair is centred over the 176 px inventory (equal margins left and right)
         int sectionH = GRID_TOP + rows * 18 + FIRE;
         int totalW = boxW * 2 + GAP, totalH = sectionH + GAP + INV_BOX;
         int x0 = (width - totalW) / 2, y0 = (height - totalH) / 2;

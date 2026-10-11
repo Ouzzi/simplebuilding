@@ -49,7 +49,7 @@ public final class BlueprintEditorLayout {
     public static final int CELL_H = 18;
     public static final int ICON = 16;
     /** Breite eines Hilfe-Reiters (Symbol 16 + Rand). */
-    public static final int TAB_W = 20;
+    public static final int TAB_W = 24, TAB_H = 24;
     public static final int INSERT_W = 50;
     /** Zeilenhoehe der Hilfe-Blockliste. */
     public static final int HELP_ROW = 18;
@@ -90,14 +90,14 @@ public final class BlueprintEditorLayout {
         wandIcon = new Rect(listX, footerY + 23, ICON, ICON);
         wandBar = new Rect(listX + ICON + 3, footerY + 28, Math.max(1, listW - ICON - 3), 6);
 
-        int textW = Math.max(1, codeW - ICON - 4);
+        int textW = Math.max(1, codeW);
         status = new Rect(codeX, footerY + 1, textW, 9);
         chars = new Rect(codeX, footerY + 12, textW, 9);
-        book = new Rect(codeX + codeW - ICON, footerY + 2, ICON, ICON);
-
         int bw = (viewW - 4) / 2;
-        sign = new Rect(viewX, footerY, bw, 20);
-        done = new Rect(viewX + viewW - bw, footerY, bw, 20);
+        // Zeile 1: Done | Help, Zeile 2: Sign (alle buendig in der Spalte unter dem Hilfebereich).
+        done = new Rect(viewX, footerY, bw, 20);
+        book = new Rect(viewX + viewW - bw, footerY, bw, 20);
+        sign = new Rect(viewX, footerY + 20, bw, 20);
         doneWide = new Rect(viewX, footerY, viewW, 20);
         titleBox = new Rect(viewX, footerY, viewW, 18);
         confirm = new Rect(viewX, footerY + 20, bw, 20);
@@ -107,13 +107,13 @@ public final class BlueprintEditorLayout {
         example = new Rect(viewX + 6, bodyY + bodyH - 24, viewW - 12, 18);
 
         // Reiter und Kopieren als Symbole (Queue N29): links die Reiter, rechts in derselben Zeile Kopieren.
-        blocksTab = new Rect(viewX + 2, bodyY + 2, TAB_W, ICON);
-        guideTab = new Rect(blocksTab.right() + 2, bodyY + 2, TAB_W, ICON);
-        copy = new Rect(viewX + viewW - ICON - 2, bodyY + 2, ICON, ICON);
-        insertField = new Rect(viewX + 3, bodyY + 19, viewW - 6 - INSERT_W - 2, 16);
-        insertButton = new Rect(insertField.right() + 2, bodyY + 19, INSERT_W, 16);
-        helpList = new Rect(viewX + 1, bodyY + 38, viewW - 2, bodyH - 39);
-        guideText = new Rect(viewX + 1, bodyY + 19, viewW - 2, bodyH - 20);
+        blocksTab = new Rect(viewX + 2, bodyY + 2, TAB_W, TAB_H);
+        guideTab = new Rect(blocksTab.right() + 2, bodyY + 2, TAB_W, TAB_H);
+        copy = new Rect(viewX + viewW - ICON - 2, bodyY + 6, ICON, ICON);
+        insertField = new Rect(viewX + 3, bodyY + 28, viewW - 6 - INSERT_W - 2, 16);
+        insertButton = new Rect(insertField.right() + 2, bodyY + 28, INSERT_W, 16);
+        helpList = new Rect(viewX + 1, bodyY + 47, viewW - 2, bodyH - 48);
+        guideText = new Rect(viewX + 1, bodyY + 28, viewW - 2, bodyH - 29);
     }
 
     /**
