@@ -194,9 +194,9 @@ public final class LibTests {
             int crucibleBottom = wide.y() + wide.sectionHeight();
             int barrelBottom = wide.barrelBoxTop() + wide.barrelBoxHeight();
             if (below) {
-                check(h, wide.width() == compact.width(), tier + ": barrel makes the window wider");
                 check(h, wide.barrelBoxTop() >= crucibleBottom, tier + ": barrel box overlaps the crucible box");
-                check(h, wide.inventoryBoxTop() >= barrelBottom, tier + ": inventory box overlaps the barrel box");
+                check(h, wide.inventoryBoxLeft() >= wide.barrelBox() + wide.barrelBoxWidth(), tier + ": inventory box overlaps the barrel box");
+                check(h, com.simplelib.crucible.CrucibleMenu.imageHeight(tier) <= 240, tier + ": panel does not fit 240 px (854x480 at scale 2)");
                 check(h, wide.barrelBox() == wide.x() && wide.barrelBoxWidth() == wide.crucibleWidth(), tier + ": barrel box not under the crucible box");
             } else {
                 check(h, wide.barrelBox() >= wide.x() + wide.crucibleWidth(), tier + ": barrel box not beside the crucible box");
@@ -211,7 +211,7 @@ public final class LibTests {
                 check(h, wide.slotY(tier, i) + 16 < crucibleBottom, tier + ": crucible field " + i + " outside its box");
                 if (below) check(h, bx == wide.slotX(tier, i), tier + ": barrel field " + i + " not under its crucible field");
             }
-            check(h, wide.inventoryTop() + 58 + 16 < wide.y() + wide.height(), tier + ": hotbar outside the panel");
+            check(h, wide.inventoryTop() + 58 + 16 < wide.inventoryBoxTop() + wide.inventoryBoxHeight(), tier + ": hotbar outside the inventory box");
         }
         h.succeed();
     }

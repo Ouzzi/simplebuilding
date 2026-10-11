@@ -303,6 +303,14 @@ public final class NetworkHandlerTests {
         helper.assertTrue(nbt.getIntOr("SettingsAxis", -1) == 3,
                 "the wand axis mode was not stored, got " + nbt.getIntOr("SettingsAxis", -1));
 
+        // SBG-04: nonsense values are clamped (diamond wand: radius 0..4, axis 0..3).
+        ModMessageHandlers.handleBuildingWandConfigure(new BuildingWandConfigurePayload(Integer.MAX_VALUE, 99), player);
+        helper.assertTrue(customData(wand).getIntOr("SettingsRadius", -1) <= 4 && customData(wand).getIntOr("SettingsAxis", -1) == 3,
+                "oversized wand settings were not clamped");
+        ModMessageHandlers.handleBuildingWandConfigure(new BuildingWandConfigurePayload(-5, -1), player);
+        helper.assertTrue(customData(wand).getIntOr("SettingsRadius", -1) == 0 && customData(wand).getIntOr("SettingsAxis", -1) == 0,
+                "negative wand settings were not clamped");
+
         // A payload aimed at something that is not a wand must be dropped, not applied blindly.
         ItemStack notAWand = new ItemStack(Items.STICK);
         player.setItemInHand(InteractionHand.MAIN_HAND, notAWand);

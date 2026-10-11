@@ -50,5 +50,6 @@
   "simpleinterfaces.option.screen.merchant": "Villager trading",
   "simpleinterfaces.option.screen.merchant.tooltip": "Trading screen in green: offer list as raised tiles (the chosen offer sunk), engraved trade arrows, sunk XP bar. Default: on.",
   "simpleinterfaces.option.screen.player_inventory": "Player inventory",
-  "simpleinterfaces.option.screen.player_inventory.tooltip": "Your own inventory (E) as one light box: armor and shield slots, sunk field behind your player model, 2x2 crafting with an engraved arrow. Recipe book and other mods' buttons stay. Default: on."
+  "simpleinterfaces.option.screen.player_inventory.tooltip": "Your own inventory (E) as one light box: armor and shield slots, sunk field behind your player model, 2x2 crafting with an engraved arrow. Recipe book and other mods' buttons stay. Default: on.",
+  "key.category.simpleinterfaces.general": "Simple Interfaces"
 }

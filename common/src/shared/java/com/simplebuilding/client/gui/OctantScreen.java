@@ -361,7 +361,7 @@ public class OctantScreen extends Screen {
 
         // KORREKTUR: Übergib das 'input' Objekt direkt an matchesKey
         if (ClientState.settingsKey.matches(input)
-                || keyCode == InputConstants.KEY_E
+                || this.minecraft.options.keyInventory.matches(input)
                 || keyCode == InputConstants.KEY_ESCAPE) {
             this.onClose();
             return true;

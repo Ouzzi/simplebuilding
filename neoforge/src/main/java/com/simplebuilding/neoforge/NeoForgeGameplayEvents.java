@@ -94,7 +94,13 @@ public final class NeoForgeGameplayEvents {
             DynamicLightHandler.onDisconnect(serverPlayer);
             com.simplebuilding.util.SledgehammerUpgrades.onDisconnect(serverPlayer);
             com.simplebuilding.tweaks.item.EchoCompassItem.onDisconnect(serverPlayer);
+            com.simplebuilding.util.WandUndo.onDisconnect(serverPlayer);
         }
+    }
+
+    @SubscribeEvent
+    public static void onServerStopped(net.neoforged.neoforge.event.server.ServerStoppedEvent event) {
+        com.simplebuilding.util.WandUndo.clearAll();
     }
 
     @SubscribeEvent

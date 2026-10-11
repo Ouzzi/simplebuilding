@@ -99,6 +99,16 @@ public final class WandUndo {
         }
     }
 
+    /** SBG-03: raeumt den Record eines Spielers bei Abmeldung auf. */
+    public static void onDisconnect(Player player) {
+        RECORDS.remove(player.getUUID());
+    }
+
+    /** SBG-03: raeumt bei Serverstopp alle Records auf (Einzelspieler: sonst bliebe Welt A im Speicher). */
+    public static void clearAll() {
+        RECORDS.clear();
+    }
+
     /** Beginnt eine neue Aktion; die vorige ist damit nicht mehr rueckgaengig zu machen. */
     public static void begin(Player player, Level level) {
         if (level.isClientSide()) {
