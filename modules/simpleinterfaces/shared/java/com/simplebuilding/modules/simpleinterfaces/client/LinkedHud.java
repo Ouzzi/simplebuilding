@@ -1,4 +1,4 @@
-package com.simplequalityoflife.client;
+package com.simplebuilding.modules.simpleinterfaces.client;
 
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiPalette;

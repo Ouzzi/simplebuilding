@@ -1,8 +1,8 @@
-package com.simplequalityoflife.mixin.client;
+package com.simplebuilding.modules.simpleinterfaces.mixin;
 
-import com.simplequalityoflife.client.LinkedPanel;
-import com.simplequalityoflife.client.LinkedScreen;
-import com.simplequalityoflife.container.LinkedMenu;
+import com.simplebuilding.modules.simpleinterfaces.client.LinkedPanel;
+import com.simplebuilding.modules.simpleinterfaces.client.LinkedScreen;
+import com.simplebuilding.modules.simpleinterfaces.linked.LinkedMenu;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

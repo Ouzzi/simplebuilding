@@ -1,6 +1,6 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simpleinterfaces.mixin;
 
-import com.simplequalityoflife.container.PortableContainers;
+import com.simplebuilding.modules.simpleinterfaces.linked.PortableContainers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;

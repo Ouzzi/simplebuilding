@@ -1,4 +1,4 @@
-package com.simplequalityoflife.network;
+package com.simplebuilding.modules.simpleinterfaces.network;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
  * ended). {@code icon} is the marked block's item for the HUD slot.
  */
 public record LinkedOpenPayload(int containerId, int size, Component title, ItemStack icon) implements CustomPacketPayload {
-    public static final Type<LinkedOpenPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath("simplequalityoflife", "linked_open"));
+    public static final Type<LinkedOpenPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath("simpleinterfaces", "linked_open"));
     public static final StreamCodec<RegistryFriendlyByteBuf, LinkedOpenPayload> CODEC = StreamCodec.composite(
             ByteBufCodecs.VAR_INT, LinkedOpenPayload::containerId,
             ByteBufCodecs.VAR_INT, LinkedOpenPayload::size,

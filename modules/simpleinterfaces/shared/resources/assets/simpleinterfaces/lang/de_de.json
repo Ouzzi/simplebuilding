@@ -51,5 +51,15 @@
   "simpleinterfaces.option.screen.merchant.tooltip": "Handels-Bildschirm in Grün: Angebotsliste als erhabene Kacheln (das gewählte Angebot eingelassen), eingravierte Handelspfeile, eingelassener XP-Balken. Standard: an.",
   "simpleinterfaces.option.screen.player_inventory": "Spieler-Inventar",
   "simpleinterfaces.option.screen.player_inventory.tooltip": "Dein eigenes Inventar (E) als ein heller Kasten: Rüstungs- und Schild-Slots, eingelassenes Feld hinter deinem Spielermodell, 2x2-Herstellen mit eingraviertem Pfeil. Rezeptbuch und Knöpfe anderer Mods bleiben. Standard: an.",
-  "key.category.simpleinterfaces.general": "Simple Interfaces"
+  "key.category.simpleinterfaces.general": "Simple Interfaces",
+  "simpleinterfaces.option.enableLinkedContainers": "Verknüpfte Behälter",
+  "simpleinterfaces.option.enableLinkedContainers.tooltip": "Schleichen + Rechtsklick mit leerer Hand merkt\neinen Behälter vor. Die nächste geöffnete Truhe\noder GUI zeigt ihn darüber an, mit gemeinsamem\nInventar. Erneut Schleichen + Rechtsklick hebt\ndie Vormerkung auf. Standard: true.",
+  "simpleinterfaces.option.linkedContainerRange": "Reichweite verknüpfter Behälter",
+  "simpleinterfaces.option.linkedContainerRange.tooltip": "Blöcke zwischen Spieler und vorgemerktem\nBehälter. Weiter weg, andere Dimension oder\nungeladener Chunk beenden die Vormerkung.\nStandard: 64. Erlaubter Bereich: 8–128.",
+  "simpleinterfaces.option.enableEasyShulkers": "Einfache Shulkerkisten",
+  "simpleinterfaces.option.enableEasyShulkers.tooltip": "Rechtsklick mit einer Shulkerkiste in die Luft\noder auf ihren Inventarplatz öffnet sie, ohne\nsie zu platzieren. Solange sie offen ist, bleibt\nsie in ihrem Platz gesperrt. Standard: true.",
+  "simpleinterfaces.option.enableEasyEnderChests": "Einfache Endertruhen",
+  "simpleinterfaces.option.enableEasyEnderChests.tooltip": "Rechtsklick mit einer Endertruhe in die Luft\noder auf ihren Inventarplatz öffnet deine\nEndertruhe, ohne sie zu platzieren.\nStandard: true.",
+  "container.simpleinterfaces.linked": "Vorgemerkt: %s",
+  "simpleinterfaces.tab.server": "Verknüpfte Behälter (Server)"
 }

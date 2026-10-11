@@ -712,7 +712,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Quality of Life",
-      "description": "Server-controlled movement, farming, mob, weather, and vault utilities. Super-mod: bundles Simple Weather and Simple Interfaces.",
+      "description": "Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Creatures, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -1204,7 +1204,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Interfaces",
-      "description": "Client-only restyle of the Vanilla container screens in the Simple style: a coloured box per block and a light inventory box, drawn in code.",
+      "description": "Restyle of the Vanilla container screens (a coloured box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone.",
       "loaders": [
         "fabric",
         "neoforge",

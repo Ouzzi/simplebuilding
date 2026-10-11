@@ -11,9 +11,6 @@
     "fabric-gametest": [
       "com.simplebuilding.modules.simplequalityoflife.ModuleGameTest"
     ],
-    "client": [
-      "com.simplebuilding.modules.simplequalityoflife.QolFabricClient"
-    ],
     "modmenu": [
       "com.simplebuilding.modules.simplequalityoflife.QolModMenu"
     ]
@@ -32,9 +29,6 @@
     "cloth-config": "*",
     "fabric-api": "*"
   },
-  "mixins": [
-    "simplequalityoflife-common.mixins.json"
-  ],
   "suggests": {
     "simplebuilding": "*",
     "modmenu": "*"

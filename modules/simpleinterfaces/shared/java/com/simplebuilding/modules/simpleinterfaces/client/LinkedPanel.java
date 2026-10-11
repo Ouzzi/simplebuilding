@@ -1,10 +1,10 @@
-package com.simplequalityoflife.client;
+package com.simplebuilding.modules.simpleinterfaces.client;
 
-import com.simplequalityoflife.container.LinkedContainers;
-import com.simplequalityoflife.container.LinkedMenu;
-import com.simplequalityoflife.container.LinkedSlot;
-import com.simplequalityoflife.mixin.client.SlotPositionAccessor;
-import com.simplequalityoflife.network.LinkedOpenPayload;
+import com.simplebuilding.modules.simpleinterfaces.linked.LinkedContainers;
+import com.simplebuilding.modules.simpleinterfaces.linked.LinkedMenu;
+import com.simplebuilding.modules.simpleinterfaces.linked.LinkedSlot;
+import com.simplebuilding.modules.simpleinterfaces.mixin.SlotPositionAccessor;
+import com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiPalette;
 import net.minecraft.client.Minecraft;
@@ -174,7 +174,7 @@ public final class LinkedPanel {
             if (row < 0 || row >= this.visible) continue;
             UiBoxes.slot(graphics, this.relX + 8 + i % 9 * 18, this.relY + 18 + row * 18, PALETTE);
         }
-        graphics.text(font, Component.translatable("container.simplequalityoflife.linked", this.title), this.relX + 8, this.relY + 6, PALETTE.label(), false);
+        graphics.text(font, Component.translatable("container.simpleinterfaces.linked", this.title), this.relX + 8, this.relY + 6, PALETTE.label(), false);
         if (this.visible < this.rows) {
             int track = this.visible * 18 - 2;
             int thumb = Math.max(6, track * this.visible / this.rows);

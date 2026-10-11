@@ -183,7 +183,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplequalityoflife",
     "displayName": "Simple Quality of Life",
-    "description": "Server-controlled movement, farming, mob, weather, and vault utilities. Super-mod: bundles Simple Weather and Simple Interfaces.",
+    "description": "Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Creatures, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.",
     "version": "1.0.6",
     "minecraft": "26.3",
     "loaders": [
@@ -205,7 +205,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "d95369a015e8"
+    "dataHash": "846fad52ecf2"
   },
   {
     "id": "simpletweaks",
@@ -286,7 +286,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleinterfaces",
     "displayName": "Simple Interfaces",
-    "description": "Client-only restyle of the Vanilla container screens in the Simple style: a coloured box per block and a light inventory box, drawn in code.",
+    "description": "Restyle of the Vanilla container screens (a coloured box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -302,7 +302,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "a663ac27e962"
+    "dataHash": "29d1b7b0d459"
   },
   {
     "id": "simplemaps",

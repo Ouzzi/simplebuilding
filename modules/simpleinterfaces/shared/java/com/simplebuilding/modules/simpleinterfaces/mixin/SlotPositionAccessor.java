@@ -1,4 +1,4 @@
-package com.simplequalityoflife.mixin.client;
+package com.simplebuilding.modules.simpleinterfaces.mixin;
 
 import net.minecraft.world.inventory.Slot;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,8 +1,8 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simpleinterfaces.mixin;
 
-import com.simplequalityoflife.container.LinkedContainers;
-import com.simplequalityoflife.container.LinkedMenu;
-import com.simplequalityoflife.container.PortableContainers;
+import com.simplebuilding.modules.simpleinterfaces.linked.LinkedContainers;
+import com.simplebuilding.modules.simpleinterfaces.linked.LinkedMenu;
+import com.simplebuilding.modules.simpleinterfaces.linked.PortableContainers;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;

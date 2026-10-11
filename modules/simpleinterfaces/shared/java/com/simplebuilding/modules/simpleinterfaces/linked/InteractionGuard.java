@@ -1,4 +1,4 @@
-package com.simplequalityoflife.event;
+package com.simplebuilding.modules.simpleinterfaces.linked;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 public final class InteractionGuard {

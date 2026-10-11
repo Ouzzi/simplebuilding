@@ -1,8 +1,8 @@
-package com.simplequalityoflife.container;
+package com.simplebuilding.modules.simpleinterfaces.linked;
 
-import com.simplequalityoflife.Simplequalityoflife;
-import com.simplequalityoflife.event.InteractionGuard;
-import com.simplequalityoflife.network.LinkedOpenPayload;
+import com.simplebuilding.modules.simpleinterfaces.SimpleInterfaces;
+import com.simplebuilding.modules.simpleinterfaces.linked.InteractionGuard;
+import com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -101,7 +101,7 @@ public final class LinkedContainers {
     /** Use hook of every loader: sneak + right-click with an empty main hand on a container. */
     public static InteractionResult onRightClickBlock(Player player, InteractionHand hand, BlockPos pos) {
         Level level = player.level();
-        if (hand != InteractionHand.MAIN_HAND || !Simplequalityoflife.configFor(level).qOL.enableLinkedContainers) return InteractionResult.PASS;
+        if (hand != InteractionHand.MAIN_HAND || !SimpleInterfaces.active(level) || !SimpleInterfaces.configFor(level).enableLinkedContainers) return InteractionResult.PASS;
         if (!player.isSecondaryUseActive() || !player.getMainHandItem().isEmpty() || player.isSpectator()) return InteractionResult.PASS;
         if (!(level.getBlockEntity(pos) instanceof BaseContainerBlockEntity be)) return InteractionResult.PASS;
         if (level.isClientSide()) return InteractionResult.SUCCESS;
@@ -162,8 +162,8 @@ public final class LinkedContainers {
     /** Whether {@code mark} still holds for {@code player}: switch, range, dimension, chunk, container. */
     public static boolean valid(ServerPlayer player, @Nullable Mark mark) {
         if (mark == null || player.isRemoved() || player.isSpectator()) return false;
-        var config = Simplequalityoflife.getConfig().qOL;
-        if (!config.enableLinkedContainers || !player.level().dimension().equals(mark.dimension())) return false;
+        var config = SimpleInterfaces.config();
+        if (!SimpleInterfaces.active() || !config.enableLinkedContainers || !player.level().dimension().equals(mark.dimension())) return false;
         Level level = player.level();
         if (!level.isLoaded(mark.pos())) return false;
         double range = config.linkedContainerRange;

@@ -10,8 +10,6 @@ modId="minecraft"
 type="required"
 versionRange="[26.3,26.4)"
 
-[[mixins]]
-config="simplequalityoflife-common.mixins.json"
 [[dependencies.simplequalityoflife]]
 modId="cloth_config"
 type="required"

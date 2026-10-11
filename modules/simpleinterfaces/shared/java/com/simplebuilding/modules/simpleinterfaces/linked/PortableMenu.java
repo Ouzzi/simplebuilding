@@ -1,4 +1,4 @@
-package com.simplequalityoflife.container;
+package com.simplebuilding.modules.simpleinterfaces.linked;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;

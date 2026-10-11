@@ -1,13 +1,12 @@
-package com.simplequalityoflife.test;
+package com.simplebuilding.modules.simpleinterfaces;
 
 import java.util.ArrayList;
-import com.simplequalityoflife.Simplequalityoflife;
-import com.simplequalityoflife.config.SimplequalityoflifeConfig;
-import com.simplequalityoflife.container.LinkedContainers;
-import com.simplequalityoflife.container.LinkedSlot;
-import com.simplequalityoflife.container.PortableContainers;
-import com.simplequalityoflife.container.PortableMenu;
-import com.simplequalityoflife.event.InteractionGuard;
+import com.simplebuilding.modules.simpleinterfaces.SimpleInterfaces;
+import com.simplebuilding.modules.simpleinterfaces.linked.LinkedContainers;
+import com.simplebuilding.modules.simpleinterfaces.linked.LinkedSlot;
+import com.simplebuilding.modules.simpleinterfaces.linked.PortableContainers;
+import com.simplebuilding.modules.simpleinterfaces.linked.PortableMenu;
+import com.simplebuilding.modules.simpleinterfaces.linked.InteractionGuard;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,21 +33,88 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.Vec3;
 
 /** Linked GUIs and Easy Shulkers / Ender Chests (owner queue 2026-10-04). */
-public final class ContainerTests {
-    private ContainerTests() {
+public final class LinkedTests {
+    /** Linked containers and Easy Shulkers (moved from Simple QoL); registered next to ContainerTests on every loader. */
+    public static final java.util.Map<String, java.util.function.Consumer<GameTestHelper>> ALL = new java.util.LinkedHashMap<>();
+    static {
+        ALL.put("linked_mark", LinkedTests::linkedMark);
+        ALL.put("linked_range", LinkedTests::linkedRange);
+        ALL.put("linked_transfer", LinkedTests::linkedTransfer);
+        ALL.put("linked_inventory", LinkedTests::linkedInventory);
+        ALL.put("portable_shulker", LinkedTests::portableShulker);
+        ALL.put("portable_ender_chest", LinkedTests::portableEnderChest);
+        ALL.put("linked_qol_migration", LinkedTests::qolMigration);
+        ALL.put("linked_sync", LinkedTests::sync);
+        ALL.put("linked_super_switch", LinkedTests::superSwitch);
+    }
+
+    private LinkedTests() {
+    }
+
+    /** First start: the old qOL container values are taken over once into simpleinterfaces-server.json, never the style file. */
+    public static void qolMigration(GameTestHelper h) {
+        try {
+            var dir = java.nio.file.Files.createTempDirectory("simpleinterfaces-migration");
+            java.nio.file.Files.writeString(dir.resolve("simplequalityoflife.json"), "{\"qOL\":{\"linkedContainerRange\":32,\"enableEasyEnderChests\":false,\"enableAutowalk\":true}}");
+            var taken = SimpleInterfaces.read(dir);
+            h.assertTrue(taken.linkedContainerRange == 32 && !taken.enableEasyEnderChests && taken.enableEasyShulkers && taken.enableLinkedContainers, "old QoL values taken over, others default");
+            h.assertTrue(java.nio.file.Files.isRegularFile(dir.resolve("simpleinterfaces-server.json")) && !java.nio.file.Files.exists(dir.resolve("simpleinterfaces.json")), "own server file written, style file untouched");
+            java.nio.file.Files.writeString(dir.resolve("simpleinterfaces-server.json"), "{\"linkedContainerRange\":999}");
+            var own = SimpleInterfaces.read(dir);
+            h.assertTrue(own.linkedContainerRange == LinkedConfig.MAX_LINKED_RANGE && own.enableEasyEnderChests, "own file wins over QoL, bounded");
+            var empty = SimpleInterfaces.read(java.nio.file.Files.createTempDirectory("simpleinterfaces-empty"));
+            h.assertTrue(empty.linkedContainerRange == 64 && empty.enableEasyShulkers, "no file: defaults");
+        } catch (java.io.IOException e) {
+            h.fail("migration io: " + e);
+        }
+        h.succeed();
+    }
+
+    /** The client predicts with the server values: a valid payload is kept, garbage ignored, leaving forgets it. */
+    public static void sync(GameTestHelper h) {
+        configured(() -> {
+            try {
+                SimpleInterfaces.config().enableEasyShulkers = false;
+                SimpleInterfaces.receiveSync(SimpleInterfaces.syncJson());
+                h.assertTrue(SimpleInterfaces.syncedConfig() != null && !SimpleInterfaces.syncedConfig().enableEasyShulkers, "server value arrives");
+                SimpleInterfaces.receiveSync("{not json");
+                h.assertTrue(!SimpleInterfaces.syncedConfig().enableEasyShulkers, "invalid payload ignored");
+                h.assertTrue(SimpleInterfaces.configFor(h.getLevel()) == SimpleInterfaces.config(), "server level reads the server values");
+            } finally {
+                SimpleInterfaces.clearSync();
+            }
+        });
+        h.assertTrue(SimpleInterfaces.syncedConfig() == null, "cleared");
+        h.succeed();
+    }
+
+    /** "Enable Simple Interfaces" off in the super-mod: no marks, boxes stay closed. */
+    public static void superSwitch(GameTestHelper h) {
+        configured(() -> {
+            var p = player(h, new BlockPos(1, 2, 3));
+            p.getInventory().setItem(3, new ItemStack(Items.SHULKER_BOX));
+            com.simplebuilding.framework.api.SubMods.set(SimpleInterfaces.MOD_ID, false);
+            h.assertTrue(!SimpleInterfaces.active() && !ContainersConfig.on(), "one switch for style and linked containers");
+            h.assertTrue(!PortableContainers.open(p, 3), "switched-off sub-mod: boxes stay closed");
+            var pos = new BlockPos(1, 2, 1);
+            h.setBlock(pos, Blocks.CHEST);
+            p.setShiftKeyDown(true);
+            h.assertTrue(LinkedContainers.onRightClickBlock(p, InteractionHand.MAIN_HAND, h.absolutePos(pos)) == net.minecraft.world.InteractionResult.PASS, "switched-off sub-mod: no mark");
+        });
+        h.succeed();
     }
 
     private static void configured(Runnable body) {
-        var config = Simplequalityoflife.getConfig();
-        var old = config.qOL;
+        var old = SimpleInterfaces.CONFIG;
         var guard = InteractionGuard.permission;
         var sync = LinkedContainers.openSync;
         try {
-            config.qOL = new SimplequalityoflifeConfig.QOL();
+            SimpleInterfaces.CONFIG = new LinkedConfig();
             LinkedContainers.openSync = (player, payload) -> true;
             body.run();
         } finally {
-            config.qOL = old;
+            SimpleInterfaces.CONFIG = old;
+            com.simplebuilding.framework.api.SubMods.set(SimpleInterfaces.MOD_ID, true);
             InteractionGuard.permission = guard;
             LinkedContainers.openSync = sync;
         }
@@ -100,9 +166,9 @@ public final class ContainerTests {
             InteractionGuard.permission = (a, b) -> false;
             h.assertTrue(LinkedContainers.onRightClickBlock(p, InteractionHand.MAIN_HAND, abs) == InteractionResult.PASS && LinkedContainers.mark(p) == null, "Claim veto refuses the mark");
             InteractionGuard.permission = (a, b) -> true;
-            Simplequalityoflife.getConfig().qOL.enableLinkedContainers = false;
+            SimpleInterfaces.config().enableLinkedContainers = false;
             h.assertTrue(LinkedContainers.onRightClickBlock(p, InteractionHand.MAIN_HAND, abs) == InteractionResult.PASS && LinkedContainers.mark(p) == null, "Switch off refuses the mark");
-            Simplequalityoflife.getConfig().qOL.enableLinkedContainers = true;
+            SimpleInterfaces.config().enableLinkedContainers = true;
             // A double chest: marking one half and clicking the other half unmarks the same container.
             var left = new BlockPos(3, 2, 1);
             var right = left.relative(Direction.NORTH.getClockWise());
@@ -123,14 +189,14 @@ public final class ContainerTests {
     /** Range (with its config bounds), a broken block and the tick check end the mark. */
     public static void linkedRange(GameTestHelper h) {
         configured(() -> {
-            var c = new SimplequalityoflifeConfig();
-            c.qOL.linkedContainerRange = 999;
+            var c = new LinkedConfig();
+            c.linkedContainerRange = 999;
             c.normalize();
-            h.assertTrue(c.qOL.linkedContainerRange == SimplequalityoflifeConfig.MAX_LINKED_RANGE, "Range hard cap 128");
-            c.qOL.linkedContainerRange = 0;
+            h.assertTrue(c.linkedContainerRange == LinkedConfig.MAX_LINKED_RANGE, "Range hard cap 128");
+            c.linkedContainerRange = 0;
             c.normalize();
-            h.assertTrue(c.qOL.linkedContainerRange == SimplequalityoflifeConfig.MIN_LINKED_RANGE, "Range lower bound 8");
-            h.assertTrue(new SimplequalityoflifeConfig().qOL.linkedContainerRange == 64, "Default range 64");
+            h.assertTrue(c.linkedContainerRange == LinkedConfig.MIN_LINKED_RANGE, "Range lower bound 8");
+            h.assertTrue(new LinkedConfig().linkedContainerRange == 64, "Default range 64");
             var pos = new BlockPos(1, 2, 1);
             h.setBlock(pos, Blocks.CHEST);
             var abs = h.absolutePos(pos);
@@ -139,7 +205,7 @@ public final class ContainerTests {
             LinkedContainers.onRightClickBlock(p, InteractionHand.MAIN_HAND, abs);
             LinkedContainers.tick(p);
             h.assertTrue(LinkedContainers.mark(p) != null, "Mark survives a tick in range");
-            Simplequalityoflife.getConfig().qOL.linkedContainerRange = 8;
+            SimpleInterfaces.config().linkedContainerRange = 8;
             p.setPos(Vec3.atCenterOf(abs).add(7, 0, 0));
             LinkedContainers.tick(p);
             h.assertTrue(LinkedContainers.mark(p) != null, "Inside the configured range");
@@ -223,7 +289,7 @@ public final class ContainerTests {
             h.setBlock(boxPos, Blocks.SHULKER_BOX);
             var box = (Container) h.getLevel().getBlockEntity(h.absolutePos(boxPos));
             box.setItem(0, new ItemStack(Items.DIAMOND, 5));
-            var sent = new ArrayList<com.simplequalityoflife.network.LinkedOpenPayload>();
+            var sent = new ArrayList<com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload>();
             LinkedContainers.openSync = (player, payload) -> sent.add(payload);
             var p = player(h, new BlockPos(2, 2, 3));
             var menu = p.inventoryMenu;
@@ -295,9 +361,9 @@ public final class ContainerTests {
             h.assertTrue(p.containerMenu instanceof PortableMenu, "Use in the air opens the box");
             p.closeContainer();
             h.assertTrue(contents(box, Items.DIAMOND) == 5, "Contents kept after closing");
-            Simplequalityoflife.getConfig().qOL.enableEasyShulkers = false;
+            SimpleInterfaces.config().enableEasyShulkers = false;
             h.assertTrue(!PortableContainers.open(p, 3) && !PortableContainers.interceptClick(p.inventoryMenu, 36 + 3, 1, ContainerInput.PICKUP, p), "Switch off: boxes stay closed");
-            Simplequalityoflife.getConfig().qOL.enableEasyShulkers = true;
+            SimpleInterfaces.config().enableEasyShulkers = true;
             // A SimpleBuilding tier box (public registry ID): 45 slots, its own components kept.
             var tier = BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:netherite_shulker_box"));
             if (tier != Items.AIR) {
@@ -329,7 +395,7 @@ public final class ContainerTests {
             menu.clicked(27 + 27 + 4, 0, ContainerInput.PICKUP, p);
             h.assertTrue(menu.getCarried().isEmpty() && p.getInventory().getItem(4) == chest, "Ender chest item locked too");
             p.closeContainer();
-            Simplequalityoflife.getConfig().qOL.enableEasyEnderChests = false;
+            SimpleInterfaces.config().enableEasyEnderChests = false;
             h.assertTrue(!PortableContainers.open(p, 4), "Switch off: ender chest stays closed");
             p.getEnderChestInventory().clearContent();
         });

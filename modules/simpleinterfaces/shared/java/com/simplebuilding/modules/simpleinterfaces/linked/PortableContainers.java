@@ -1,6 +1,6 @@
-package com.simplequalityoflife.container;
+package com.simplebuilding.modules.simpleinterfaces.linked;
 
-import com.simplequalityoflife.Simplequalityoflife;
+import com.simplebuilding.modules.simpleinterfaces.SimpleInterfaces;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.function.BooleanSupplier;
@@ -43,7 +43,8 @@ public final class PortableContainers {
     }
 
     public static boolean openable(ItemStack stack, Level level) {
-        var config = Simplequalityoflife.configFor(level).qOL;
+        if (!SimpleInterfaces.active(level)) return false;
+        var config = SimpleInterfaces.configFor(level);
         if (stack.isEmpty()) return false;
         if (stack.is(Items.ENDER_CHEST)) return config.enableEasyEnderChests;
         return config.enableEasyShulkers && stack.getCount() == 1 && stack.getItem() instanceof BlockItem item

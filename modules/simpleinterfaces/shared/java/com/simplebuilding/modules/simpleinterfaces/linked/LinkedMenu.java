@@ -1,4 +1,4 @@
-package com.simplequalityoflife.container;
+package com.simplebuilding.modules.simpleinterfaces.linked;
 
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;

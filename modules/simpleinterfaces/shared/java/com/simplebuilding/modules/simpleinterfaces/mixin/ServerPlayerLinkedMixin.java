@@ -1,7 +1,7 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simpleinterfaces.mixin;
 
-import com.simplequalityoflife.container.LinkedContainers;
-import com.simplequalityoflife.container.PortableContainers;
+import com.simplebuilding.modules.simpleinterfaces.linked.LinkedContainers;
+import com.simplebuilding.modules.simpleinterfaces.linked.PortableContainers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import org.spongepowered.asm.mixin.Mixin;

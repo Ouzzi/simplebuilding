@@ -1,6 +1,6 @@
-package com.simplequalityoflife.mixin.client;
+package com.simplebuilding.modules.simpleinterfaces.mixin;
 
-import com.simplequalityoflife.client.LinkedHud;
+import com.simplebuilding.modules.simpleinterfaces.client.LinkedHud;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.Hud;
