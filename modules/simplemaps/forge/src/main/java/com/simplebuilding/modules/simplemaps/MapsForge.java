@@ -30,7 +30,7 @@ import net.minecraftforge.registries.RegisterEvent;
 public final class MapsForge {
     static Channel<CustomPacketPayload> channel;
 
-    public MapsForge(FMLJavaModLoadingContext context) {
+    public MapsForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplemaps.forge.ModuleForgeTests.register(context.getModBusGroup());
         SimpleMaps.init(FMLPaths.CONFIGDIR.get());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             if (event.getRegistryKey().equals(Registries.DATA_COMPONENT_TYPE)) MapsComponents.register();
