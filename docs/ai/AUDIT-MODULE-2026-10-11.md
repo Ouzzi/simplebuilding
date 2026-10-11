@@ -7,7 +7,7 @@ sub-mod switch, lang, standalone targets, Forge coverage. Only a check script wa
 Clean (checked, no finding): no Java import across module boundaries except `com.simplelib.api` (allowed, rule 6a) and
 `framework.api`; no unguarded foreign IDs in recipes/loot/tags (only Money price tables, gated at runtime by
 `MoneyLinks.loaded`); every module that imports `framework` bundles it (Fabric `include`, NeoForge `jarJar`,
-Forge generic) - except simpleinterfaces/simplemaps/simplemobs, see M-12; `tools/multimod.py` valid; all 16
+Forge generic) - except simpleinterfaces, see M-12; `tools/multimod.py` valid; all 16
 `modules/*/tools/check_data.py` pass; `wiki/generate.py --all --check` up to date; EN/DE lang key sets identical in all
 modules; fabric/neoforge/forge dependency metadata matches `modules.json` (requires/optional) apart from M-06/M-07;
 every mixin class is registered and no client mixin sits in the common list; no raw mouse-button numbers.
@@ -31,4 +31,7 @@ every mixin class is registered and no client mixin sits in the common list; no 
 Counts: P1 0, P2 3 (M-01, M-03, M-05), P3 2 (M-02, M-04), P4 8 (M-06..M-13).
 
 ## Runs
-RUNS_PLACEHOLDER
+- `python3.12 tools/testrunner/run.py --targets standalone` (all 16 modules, Fabric + NeoForge, 26.3, commit d70cb2d97): **alles gruen: 690/690 bestanden, 0 rot** (Datensatz `testing/runs/2026-10-10T22-59-59Z-9ce2.json`). Standalone-Targets exist for 15 modules (simplelib has none by design).
+- `./gradlew -Pforge263=true -Pforge_runs=true :modules:{simplelib,simpleinterfaces,simplemaps,simplemobs,simplesandwiches,simpletrims,simpleweather}:forge:compileJava`: EXIT=0 (compiles; runtime on Forge for these 7 is untested, see M-05).
+- Static checks: all `modules/*/tools/check_data.py`, `tools/multimod.py`, `wiki/generate.py --all --check` green (they miss M-02).
+- Not tested: Forge runtime of the 7 modules, client targets, 26.2/1.21.11 ports, real corrupt-config behaviour (M-03 from code reading), M-11 timing.
