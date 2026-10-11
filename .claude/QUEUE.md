@@ -713,7 +713,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen.
 - [ ] (Mockups a/b/c fertig auf claude-n34-ui, previews/n34/tiegel-*; offen: Besitzer-Wahl, dann echte Umsetzung) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.,
 - [x] Verstärkter Kessel: Item-Icon immer noch falsch. (claude-n34-tex: Item zeigt jetzt den 3D-Block wie Tiegel/Fässer/Holzkessel, 2D-Sprite entfernt; Client-Screenshot geprüft; Besitzer-Abnahme offen)
-- [ ] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen. (claude-n34-tex: Vorschläge E–I in previews/n34/farbkasten-EFGHI.png, `paint_box_2026_10_09.py --proposals --designs DEFGHI`; wartet auf Besitzerwahl)
+- [x] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen. (claude-n34-tex: Besitzer wählte F1 aus E–I/F1–F3/G1–G3 – kurzer Deckel, matte Farben, alle 4 Stufen eingebaut statt D; Client-Abnahme offen)
 - [ ] Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.
 - [ ] Eichen-Kessel (Holzkessel) hat im Inventar kein 3D-Modell.
 - [ ] Checker-Treppen/-Stufen: Texturen weiterhin falsch orientiert (checker_stairs.png).

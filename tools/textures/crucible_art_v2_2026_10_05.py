@@ -294,13 +294,16 @@ BARREL_TIERS = ('copper', 'reinforced', 'netherite', 'enderite')
 
 def reinforced_cauldron_item():
     """Owner N34 (2026-10-11, after the 3D block was rejected too): Vanilla's cauldron item sprite unchanged as the
-    base, only the reinforcement in the block's diamond turquoise on chosen pixels - one band in Vanilla's dark groove
-    row (row 8) that wraps round the outline (lit from the left: spark, light, then the shaded right end) and the three
-    feet (left, right, middle leg). Symmetric, no stray pixels; the greys stay Vanilla's."""
+    base, only the reinforcement in the block's diamond turquoise on chosen pixels - one band round the pot and the
+    three feet (left, right, middle leg). Round 3: the icon shows the pot corner-on (the middle leg is the front
+    corner), so the band runs as a V - down both visible sides from the outline (row 7) to the front corner (x 7,
+    row 10), lit from the left (spark on the left side, the right side in the shaded turquoise). Symmetric, no stray
+    pixels; the greys stay Vanilla's."""
     a = np.array(p.vanilla('item/cauldron').convert('RGBA'))
     h, i, k, j = (94, 228, 214), (186, 250, 240), (44, 182, 190), (26, 120, 132)
-    band = [j, h, i, h, h, h, k, k, k, j, j]          # x 2..12, the outline pixels included
-    accents = [((x, 8), c) for x, c in zip(range(2, 13), band)] + [((2, 12), j), ((12, 12), j), ((7, 14), j)]
+    band = [j, h, i, h, h, k, k, k, k, j, j]          # x 2..12, the outline pixels included
+    rows = [7, 7, 8, 8, 9, 10, 9, 8, 8, 7, 7]         # V with its tip at the front corner
+    accents = [((x, y), c) for x, y, c in zip(range(2, 13), rows, band)] + [((2, 12), j), ((12, 12), j), ((7, 14), j)]
     for (x, y), color in accents:
         if a[y, x, 3] == 0:
             raise ValueError(f'reinforced cauldron accent on a transparent pixel {x},{y}')

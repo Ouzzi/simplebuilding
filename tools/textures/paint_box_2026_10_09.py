@@ -185,21 +185,23 @@ DESIGNS = {
     ],
     # Owner N34 round 2 (2026-10-11): three variations each of F and G - as rounded as possible, soft transitions
     # (graded wood rows instead of hard outline seams); G without colours outside the box. Previews only.
-    # F1: F with cut corners, a soft shaded hinge instead of the black seam, the tray rounded at the bottom.
+    # F1 (owner N34 round 3, 2026-10-11: chosen and built in, replaces D): F with cut corners, a short lid (owner:
+    # "Deckel verkuerzen") with the three mixing wells, a soft shaded hinge instead of the black seam, the tray
+    # rounded at the bottom, tier fittings (c) on the tray corners; the dye pans matt (MATTE).
     "F1": [
+        "................",
+        "................",
         "..OOOOOOOOOOOO..",
-        ".OhhhhhhhhhhhhO.",
         ".OhliiliiliilmO.",
-        ".OhllllllllllmO.",
         ".OmmmmmmmmmmmdO.",
         ".ODDDDDDDDDDDDO.",
-        "OhhhhhhhhhhhhhmO",
+        "chhhhhhhhhhhhhmc",
         "Ohww0+1+2+3+wwdO",
         "Ohww4+5+6+7+wwdO",
         "Ohww8+9+A+B+wwdO",
         "OhwwC+E+F+G+wwdO",
         "OhwwwwwwwwwwwwdO",
-        "OmmmmmmSSmmmmmdO",
+        "cmmmmmmSSmmmmmdc",
         ".ODDDDDDDDDDDDO.",
         "..OOOOOOOOOOOO..",
         "................",
@@ -325,11 +327,20 @@ def colour_wheel() -> list[str]:
     return rows
 
 
-CHOSEN = "D"
+CHOSEN = "F1"
 DYES = [0xF9FFFE, 0xF9801D, 0xC74EBD, 0x3AB3DA, 0xFED83D, 0x80C71F, 0xF38BAA, 0x474F52,
         0x9D9D97, 0x169C9C, 0x8932B8, 0x3C44AA, 0x835432, 0x5E7C16, 0xB02E26, 0x1D1D21]  # DyeColor texture colours
 PANS = "0123456789ABCEFG"  # one symbol per dye (no D: that is the darkest wood)
-POTS = {PANS[i]: ((c >> 16) & 255, (c >> 8) & 255, c & 255) for i, c in enumerate(DYES)}
+# Owner N34 round 3: matt, muted paint (less saturated, no gloss) - each dye 35 % towards its own grey, 8 % darker.
+MATTE = (0.35, 0.92)
+
+
+def _matt(rgb):
+    grey = 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]
+    return tuple(round((v + (grey - v) * MATTE[0]) * MATTE[1]) for v in rgb)
+
+
+POTS = {PANS[i]: _matt(((c >> 16) & 255, (c >> 8) & 255, c & 255)) for i, c in enumerate(DYES)}
 # Vanilla chest wood tones (entity/chest/normal.png), a lighter top edge and a dark brown outline.
 OAK = {"O": (0x3B, 0x27, 0x09), "h": (0xC2, 0x8C, 0x3C), "l": (0xAB, 0x79, 0x2D), "m": (0xA2, 0x6B, 0x23),
        "d": (0x8F, 0x69, 0x1D), "D": (0x7F, 0x5F, 0x22), "i": (0x5C, 0x40, 0x14), "w": (0x95, 0x6C, 0x2E)}
