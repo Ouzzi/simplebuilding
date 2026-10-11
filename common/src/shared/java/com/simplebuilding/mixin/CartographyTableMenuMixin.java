@@ -25,7 +25,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * Kartentisch als Blaupausen-Scanner: Oktant mit Auswahl oben, leere/unsignierte Blaupause
  * unten, gefuellte Blaupause rechts. Logik in {@link BlueprintCartography}/{@link BlueprintScanner}.
  */
-@Mixin(CartographyTableMenu.class)
+// Hoehere Prioritaet = spaeter angewandt: wickelt auch Slots anderer Mods (Simple Maps) statt von ihnen ersetzt zu werden.
+@Mixin(value = CartographyTableMenu.class, priority = 1100)
 public abstract class CartographyTableMenuMixin extends AbstractContainerMenu {
     @Shadow @Final private ContainerLevelAccess access;
     @Shadow @Final private ResultContainer resultContainer;
