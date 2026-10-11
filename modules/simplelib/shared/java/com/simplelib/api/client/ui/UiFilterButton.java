@@ -8,7 +8,7 @@ import net.minecraft.network.chat.Component;
 
 /**
  * The filter key of every filtering block of the Simple mods (owner's filter principle, 2026-10-09: mod hoppers,
- * autonomous crafter, later ones): a raised 18x18 key that shows only the mode - off (red cross), exact (green
+ * autonomous crafter, later ones): a raised 18x18 key that shows only the mode - off (grey cross; red is for errors only), exact (green
  * check), same kind (three yellow squares). Its caption is {@link #label}: an engraved funnel and a colon in front of
  * the key, instead of the word "Filter". Same pixels everywhere; the block decides what a press does. Client only.
  */
@@ -19,7 +19,7 @@ public class UiFilterButton extends Button {
     /** Width of {@link #label}: funnel (12), gap (2), colon (2). */
     public static final int LABEL_WIDTH = 16;
 
-    private static final int RED = 0xFFD8402F, GREEN = 0xFF55E05A, YELLOW = 0xFFFFE055;
+    private static final int GREY = 0xFF8A8A8A, GREEN = 0xFF55E05A, YELLOW = 0xFFFFE055;
 
     private final IntSupplier mode;
     private final Supplier<UiPalette> palette;
@@ -43,7 +43,7 @@ public class UiFilterButton extends Button {
             case KIND -> {
                 for (int k = 0; k < 3; k++) g.fill(x + 3 + k * 4, y + 7, x + 6 + k * 4, y + 10, YELLOW);
             }
-            default -> UiSymbols.engrave(g, UiSymbols.CROSS, x + 5, y + 5, p, RED, false);
+            default -> UiSymbols.engrave(g, UiSymbols.CROSS, x + 5, y + 5, p, GREY, false);
         }
     }
 
