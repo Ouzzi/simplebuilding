@@ -93,7 +93,7 @@ public class ModWorldGen {
             context.register(CRACKED_ICE_PATCH_KEY, new OreFeature(new BlockMatchTest(Blocks.ICE),
                     ModBlocks.CRACKED_ICE.defaultBlockState(), CRACKED_ICE_PATCH_SIZE));
             context.register(CRACKED_ICE_SINGLE_KEY, new net.minecraft.world.level.levelgen.feature.SimpleBlockFeature(
-                    net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider.simple(ModBlocks.CRACKED_ICE)));
+                    new net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider(ModBlocks.CRACKED_ICE.defaultBlockState())));
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             context.register(SAGE_ORE_KEY, new OreFeature(List.of(
