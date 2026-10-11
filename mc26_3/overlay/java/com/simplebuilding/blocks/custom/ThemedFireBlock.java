@@ -67,7 +67,7 @@ public class ThemedFireBlock extends BaseFireBlock {
     private static Block register(String name, MapColor color, TagKey<Block> base, boolean nausea) {
         Identifier id = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
         BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(Blocks.SOUL_FIRE)
-                .setId(ResourceKey.create(Registries.BLOCK, id)).mapColor(color).lightLevel(state -> LIGHT);
+                .setId(ResourceKey.create(Registries.BLOCK, id)).noLootTable().mapColor(color).lightLevel(state -> LIGHT);
         return Registry.register(BuiltInRegistries.BLOCK, id, new ThemedFireBlock(properties, base, nausea));
     }
 
