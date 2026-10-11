@@ -236,6 +236,9 @@ public final class WorkstationTests {
         helper.assertFalse(menu.hasRecipeError(), "valid recipe has no error");
         helper.assertTrue(AutoSmitherBlock.smith(helper.getBlockState(smitherPos), helper.getLevel(), helper.absolutePos(smitherPos)),
                 "smithing succeeds");
+        // Without a container in front the result is ejected (N35); a stored result (older worlds) is what hoppers/players take.
+        helper.assertTrue(menu.getSlot(AutoSmitherMenu.RESULT_SLOT).getItem().isEmpty(), "no container: the result is ejected, not stored");
+        smither.storeResult(new ItemStack(Items.NETHERITE_PICKAXE));
         helper.assertTrue(menu.getSlot(AutoSmitherMenu.RESULT_SLOT).getItem().is(Items.NETHERITE_PICKAXE), "finished output is stored");
         // Keep every input occupied while the real hopper extracts the finished result.
         smither.setItem(AutoSmitherBlockEntity.BASE_SLOT, new ItemStack(Items.DIAMOND_PICKAXE));
