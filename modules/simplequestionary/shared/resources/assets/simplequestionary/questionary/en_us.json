@@ -1,0 +1,165 @@
+{
+  "_comment": "Fallback texts for items without their own questionary entry: 8 variants per item class and page, picked by a stable hash of the item id. Mood only - the 'use' page adds the real recipe facts below.",
+  "fallback": {
+    "block": {
+      "lore": [
+        "{name} was cut from the bones of the world, and the world has not yet noticed it is missing.",
+        "Builders of a forgotten age stacked {name} into walls no map remembers. Some of those walls still stand, somewhere.",
+        "Every grain of {name} once lay in the dark for a thousand years. It is in no hurry to tell you about it.",
+        "The old masons swore {name} hums when no one is near. No one has ever been near enough to prove them wrong.",
+        "{mod} brought {name} into the world, and the world made room for it, as worlds do.",
+        "Rain has tried for ages to wear {name} away. Rain is patient, but so is {name}.",
+        "Somewhere a scribe wrote the first word about {name}, then set down the quill and simply built with it.",
+        "Over this block the stars keep silent. It was old before the first name was spoken."
+      ],
+      "use": [
+        "{name} is placed like any block. What else it does, {mod} keeps to itself; the recipe line below tells the plain facts.",
+        "Set {name} where a block belongs. If it has a deeper purpose, try using it, breaking it, or giving it a redstone signal.",
+        "Builders use {name} as part of their work. The recipes below show where it comes from and where it goes.",
+        "{name} answers to the hand that places it. Whatever {mod} intended, it will not say; ask the recipes and the wise.",
+        "A block is a promise of shape. {name} keeps that promise; the rest is written in the recipes of {mod}.",
+        "Place it, look at it, try a tool on it. {name} reveals its use to those who try, not to those who read.",
+        "Some blocks build, some blocks work. To learn which {name} is, place it and watch it for a while.",
+        "{name} fits into a wall, a floor or a riddle. The line below counts the recipes that know it."
+      ],
+      "secret": [
+        "Some say {name} remembers every hand that placed it. Lay your palm on it at night, and perhaps it will remember yours.",
+        "Under a full moon, they say, {name} is a little warmer than the blocks around it.",
+        "The deepest layer of {name} is said to hold a single word. No pickaxe has reached it yet.",
+        "Builders who sleep beside {name} dream of corridors they have never walked.",
+        "It is whispered that {mod} hid one more thing inside {name}. Nobody agrees on what it is.",
+        "Old maps mark a place where {name} grows by itself. The maps disagree on where.",
+        "Knock on {name} three times and listen. The echo, they say, is never quite your own.",
+        "{name} is the last word of a dying mountain. Keep it, and the mountain is not quite gone."
+      ]
+    },
+    "tool": {
+      "lore": [
+        "{name} was made for a hand that knows its work. It has outlived many such hands.",
+        "Smiths of the old roads gave every blade and pick a name. This one they called {name}, and they called it quietly.",
+        "The edge of {name} remembers the stone it first struck, and the stone remembers it.",
+        "{mod} forged {name}, but the work it has done since is its own story.",
+        "Tools wear out, the saying goes, and stories do not. {name} is trying to be both.",
+        "A traveler once traded a whole kingdom's map for {name}. He never said whether it was a good trade.",
+        "Every scratch on {name} is a sentence. Read them all and you would know its owner's life.",
+        "Over this tool the stars keep silent. It was sharp before the first name was spoken."
+      ],
+      "use": [
+        "Hold {name} and use it on the world. Its power shows in its tooltip; the recipes below show its making.",
+        "{name} is meant to be swung, struck or used. Try it on blocks and creatures to learn what it is good for.",
+        "A tool tells its use by its wear. Watch how {name} wears, and you will know its trade.",
+        "{name} answers only to those who work. Whatever {mod} intended with it, the tooltip and the recipes say the plain facts.",
+        "Enchant {name} if it allows; it may surprise you with what it accepts.",
+        "Use {name} for its craft and nothing else at first. Its true reach shows once you know it well.",
+        "Tools are questions asked of the world. {name} asks in its own way; listen to the answer.",
+        "Carry {name} where the work is hardest. The line below counts the recipes it belongs to."
+      ],
+      "secret": [
+        "They say {name} grows sharper in the hands of someone who never boasts.",
+        "In the dark, the edge of {name} is said to glint once for every secret it has cut through.",
+        "An old smith swore {name} hums before it breaks. Listen closely, and you may hear it.",
+        "{name} was once dropped into the void, the story goes, and came back by itself. Nobody believes it.",
+        "Some believe {mod} hid a second name inside {name}. Speak it, and the tool will know you.",
+        "Hold {name} under a moon of your choosing, and perhaps it will whisper what it was made for.",
+        "Every hundredth stroke of {name}, the miners say, is struck by someone else.",
+        "Over the secret of {name}, the stars keep silent. Perhaps it has none; perhaps that is the secret."
+      ]
+    },
+    "armor": {
+      "lore": [
+        "{name} has stood between its wearer and the world many times. The world usually lost.",
+        "Knights of a forgotten order wore pieces like {name}, and their names are written inside, too small to read.",
+        "{mod} shaped {name} to be worn, but it was the wearing that gave it its stories.",
+        "Every dent in {name} is a battle someone survived. That is the oldest kind of story.",
+        "The guards of the old towers polished {name} until it shone like a lantern, and slept in it.",
+        "It is said {name} remembers the weight of its first wearer and quietly compares every other.",
+        "Over this armor the stars keep silent. It was strong before the first name was spoken.",
+        "{name} was made to be forgotten when worn. Good armor is felt only when it is needed."
+      ],
+      "use": [
+        "Wear {name} in its slot. Its protection shows in the tooltip; the recipes below show its making.",
+        "{name} is worn, not held. Put it on and see how the world strikes you differently.",
+        "Armor answers blows. Whatever else {mod} gave {name}, the tooltip tells the plain facts.",
+        "Wear {name} into danger and back again. The line below counts the recipes that know it.",
+        "Enchant {name} if it allows, and it may guard you against more than blades.",
+        "Put {name} on, and look at your armor bar. That is the honest part of its story.",
+        "{name} protects whoever wears it, friend or stranger. Choose who that is with care.",
+        "Some armor is for battle, some for show, some for both. Wear {name} and decide which it is."
+      ],
+      "secret": [
+        "They say {name} grows lighter on a wearer who has never run from a fight.",
+        "At night the inside of {name} is said to be warm, as if someone had just taken it off.",
+        "A legend claims {name} once turned an arrow back to its archer. The archer never told the story.",
+        "{mod} is said to have hidden a single stitch in {name} that no blade can cut.",
+        "Wear {name} in the rain and listen: some hear a march in the drops.",
+        "Old soldiers knock twice on {name} before battle. They will not tell you why.",
+        "It is whispered that {name} has a twin somewhere, and that the two feel each other's blows.",
+        "Over the secret of {name}, the stars keep silent. Perhaps it is listening for you."
+      ]
+    },
+    "food": {
+      "lore": [
+        "{name} was first shared at a long table in a hungry winter. Nobody at that table ever forgot the taste.",
+        "Travelers of the old roads carried {name} wrapped in cloth and spoke of it like a friend.",
+        "{mod} brought {name} to the world's kitchens, and the kitchens made it their own.",
+        "Every bite of {name} holds a little of the sun that grew it, or so the cooks say.",
+        "The old brewers wrote recipes for things like {name} in a language only cooks could read.",
+        "It is said a lost king traded his crown for a single serving of {name}, and thought it fair.",
+        "Over this dish the stars keep silent, but the smell of {name} speaks loud enough.",
+        "{name} has fed heroes and cowards alike. It never asked which was which."
+      ],
+      "use": [
+        "Eat or drink {name} to use it. How much it gives shows when you try; the recipes below show its making.",
+        "{name} is meant for the hungry. Keep some at hand for long journeys.",
+        "Consumed, {name} gives what it has. Whatever else {mod} put into it, the plain facts are in the recipes below.",
+        "Share {name} with friends; a full traveler walks further.",
+        "Some food heals, some food strengthens, some only tastes good. Try {name} to learn which it is.",
+        "Store {name} where it is safe. Hunger arrives when the chests are far away.",
+        "{name} is a meal, a remedy, or both. The line below counts the recipes that know it.",
+        "Use {name} when the hunger bar runs low, or when the day simply needs something good."
+      ],
+      "secret": [
+        "They say {name} tastes different to everyone who has ever been truly lost.",
+        "Eaten under the stars, {name} is said to bring dreams of a kitchen you have never seen.",
+        "An old cook claimed the best {name} is the one you give away.",
+        "{mod} is said to have hidden a pinch of something unnamed in {name}. Cooks still argue about it.",
+        "Leave {name} on a windowsill at night, the story goes, and someone small will leave a thank-you.",
+        "Some swear {name} is warmer in the first minute after a long journey.",
+        "It is whispered that the first {name} was made by mistake, and that the mistake was never repeated.",
+        "Over the secret of {name}, the stars keep silent. Perhaps they are simply eating."
+      ]
+    },
+    "misc": {
+      "lore": [
+        "Over this object the stars keep silent. It was old before the first name was spoken, and it remembers every hand that ever held {name}.",
+        "{name} came from somewhere. Where exactly, even {mod} might not say.",
+        "Collectors of the old courts kept things like {name} in velvet boxes and never explained why.",
+        "{name} has passed through many pockets. Each pocket left it a little wiser.",
+        "A wandering merchant once sold {name} as a wonder. He was, for once, not entirely lying.",
+        "Scholars argued for a hundred years about {name}. Then they used it and stopped arguing.",
+        "{name} is small enough to forget and strange enough to remember.",
+        "Every world has things like {name}: quiet, useful, and older than they look."
+      ],
+      "use": [
+        "{name} answers only to those who bring patience. Whatever {mod} intended with it, it will not say; look to the recipes and the wise.",
+        "Keep {name}; it may be an ingredient, a tool or a key. The recipes below tell which.",
+        "{name} is used where it is needed. The line below counts the recipes that know it.",
+        "Try {name} in your hand, on a block, or at a crafting table. Its use shows to those who try.",
+        "Some things are made to be used, some to be combined. {name} is likely one of them.",
+        "Carry {name} until you find its place. Most things have one.",
+        "{name} has a purpose in the work of {mod}. The recipes below are the honest part of its story.",
+        "Ask the crafting table about {name}: it knows more than this book does."
+      ],
+      "secret": [
+        "Some say {name} is the last word of a dying lamp. Hold it under a moon of your choosing, and perhaps it will whisper.",
+        "They say {name} is never quite where you left it, though it is always close.",
+        "In the old tongue, {name} meant something else entirely. No one remembers what.",
+        "{mod} is said to have hidden one more use in {name}, waiting for the right question.",
+        "Hold {name} to your ear in a quiet cave, and some hear the sea.",
+        "It is whispered that {name} is lighter on the way home than on the way out.",
+        "Somewhere there is a door that opens only for {name}. Nobody has found it yet.",
+        "Over the secret of {name}, the stars keep silent. Perhaps it is still being written."
+      ]
+    }
+  }
+}

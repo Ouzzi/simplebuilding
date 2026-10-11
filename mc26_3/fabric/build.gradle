@@ -234,6 +234,11 @@ dependencies {
     include project(':modules:simplemaps:fabric')
     implementation project(':modules:simplemaps:fabric')
 }
+// Simple Questionary bundled as a Sub-Mod; switch "Enable Simple Questionary" in the config.
+dependencies {
+    include project(':modules:simplequestionary:fabric')
+    implementation project(':modules:simplequestionary:fabric')
+}
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }
 

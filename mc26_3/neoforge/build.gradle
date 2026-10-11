@@ -222,6 +222,12 @@ evaluationDependsOn(':modules:simplemaps:neoforge')
 dependencies { implementation project(':modules:simplemaps:neoforge') }
 neoForge.mods { simplemaps { sourceSet project(':modules:simplemaps:neoforge').sourceSets.main } }
 neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simplemaps) }
+// Simple Questionary bundled as a Sub-Mod; switch "Enable Simple Questionary" in the config.
+dependencies { jarJar project(':modules:simplequestionary:neoforge') }
+evaluationDependsOn(':modules:simplequestionary:neoforge')
+dependencies { implementation project(':modules:simplequestionary:neoforge') }
+neoForge.mods { simplequestionary { sourceSet project(':modules:simplequestionary:neoforge').sourceSets.main } }
+neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simplequestionary) }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }
 

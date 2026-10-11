@@ -190,3 +190,26 @@ bei den anderen Modulen. Verifikation: Coverage-Test, `check_data.py`, Client-Sc
 2. Geheimseite sofort sichtbar (Empfehlung) oder per Lapis-Siegel?
 3. Rezeptmenge: 2 Lapis + Buch + 5 Bretter okay, oder teurer/billiger?
 4. Vanilla vollständig in V1 oder zuerst nur Simple-Mods + Fallback, Vanilla in einer zweiten Welle?
+
+## 16. Antworten Besitzer + Umsetzung V1 (Branch `claude-questionary`, 2026-10-11)
+Besitzer: Name Questionary Table / Fragentisch; eigenes Modul `simplequestionary` (requires simplelib); Geheimseite sofort
+sichtbar; Rezept 2 Lapis + 1 Buch + 5 Bretter (Shape aus 2.); V1 = Simple-Mods + Vanilla. Diese Runde nur die Mechanik,
+Texte folgen später (einziges befülltes Beispiel: `simplebuilding:enderite_ingot`, Astral-Fakt korrigiert: 20 Schläge mit
+dem Netherit-Vorschlaghammer auf den Zaubertisch, Enderit-Nugget in der Nebenhand).
+
+Plan/Stand:
+- Modul `modules/simplequestionary` nach Muster Simple Maps (fabric/neoforge/forge 26.3, Standalone-Targets, Forge-Target,
+  Client-Smoke). Block `questionary_table` (Facing, Axt, 2.5), Modell aus Elementen, Texturen per
+  `modules/simplequestionary/tools/gen_textures.py` (eigene Pixel-Art).
+- Menü: 1 Slot (1 Stück, Shift-Klick), Inventar; Item kommt beim Schließen zurück. Bildschirm: Kasten links (simplelib
+  `UiBoxes`), Buch rechts (2 Seiten, Textfluss links→rechts), 3 Lesezeichen (`UiBookmarks`), Vanilla-Seitenpfeile,
+  Mausrad/A/D/Pfeiltasten, „n / 3“. Ohne Item: Willkommensseite.
+- Daten: `assets/<ns>/questionary/<lang>.json` (Client-Reload-Listener, Fallback `en_us`), Einträge, `family:<name>` mit
+  `items` (`#tag`, `regex:<pfad>`), Einzel-Eintrag gewinnt; `fallback.<block|tool|armor|food|misc>.<lore|use|secret>` je
+  8 Varianten (FNV-1a über `id#seite`). Platzhalter `{name}`, `{mod}`, `{item:ns:id}`.
+- Seite 2: Automatik-Zeile aus dem RecipeManager (Server berechnet beim Einlegen, Paket `facts` an den Client; Config
+  `autoFacts` in `config/simplequestionary.json`).
+- Abdeckung: `tools/questionary/check_data.py` (Bericht, rot nur bei Strukturfehlern; `--strict` für später) + GameTest
+  `coverage` (zählt Lücken, nur Warnung). SB-Bündelung: Schalter „Enable Simple Questionary“ (`enableSimpleQuestionary`).
+  Wiki: `questionary` je Item in den Wiki-Daten (Einzel-Einträge), Anzeige auf der Item-Seite.
+- Später: Generator-Skelett (`_facts`), Texte für alle Items, BER-Aufblättern, simplelib-Buchbausteine (`BookPageWidget`).

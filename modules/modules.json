@@ -1598,6 +1598,93 @@
         "neoforge": ":modules:simpleweather:neoforge",
         "forge": ":modules:simpleweather:forge"
       }
+    },
+    {
+      "id": "simplequestionary",
+      "name": "Simple Questionary",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Questionary",
+      "description": "The Questionary Table: put any item in and read its lore, its use and a secret in an open book.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [],
+      "checks": [
+        "modules/simplequestionary/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplequestionary",
+        "catalogues": [
+          "modules/simplequestionary/fabric/src/main/java/com/simplebuilding/modules/simplequestionary/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplequestionary"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplequestionaryGameTest",
+            "report": "integration/build/simplequestionary-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplequestionary:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplequestionary/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplequestionary:forge:runGameTestServer",
+            "report": "modules/simplequestionary/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplequestionaryStandaloneGameTest",
+              "report": "integration/build/standalone/simplequestionary-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplequestionary:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplequestionary/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplequestionary.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplequestionary/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplequestionary",
+        "shared": "modules/simplequestionary/shared",
+        "fabric": "modules/simplequestionary/fabric",
+        "neoforge": "modules/simplequestionary/neoforge",
+        "forge": "modules/simplequestionary/forge",
+        "generated": "modules/simplequestionary/generated/resources",
+        "lang": "modules/simplequestionary/shared/resources/assets/simplequestionary/lang",
+        "wikiManual": "modules/simplequestionary/wiki/manual.json",
+        "balanceDir": "balance/simplequestionary"
+      },
+      "projects": {
+        "fabric": ":modules:simplequestionary:fabric",
+        "neoforge": ":modules:simplequestionary:neoforge",
+        "forge": ":modules:simplequestionary:forge"
+      }
     }
   ]
 }

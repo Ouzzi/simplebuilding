@@ -1900,6 +1900,8 @@
   "text.autoconfig.simplebuilding.category.modules": "Simple Mods",
   "text.autoconfig.simplebuilding.option.enableSimpleMaps": "Simple Maps aktivieren",
   "text.autoconfig.simplebuilding.option.enableSimpleMaps.@Tooltip": "Schaltet das gebündelte Modul Simple Maps ein oder aus: Wegfinder-Karten, ihre Beute und die Kartentisch-Erweiterungen. Gilt nach einem Neustart. Standard: an.",
+  "text.autoconfig.simplebuilding.option.enableSimpleQuestionary": "Simple Questionary aktivieren",
+  "text.autoconfig.simplebuilding.option.enableSimpleQuestionary.@Tooltip": "Schaltet das gebündelte Modul Simple Questionary ein oder aus: den Fragentisch und sein Buch mit Überlieferung, Nutzen und Geheimnis. Gilt nach einem Neustart.",
   "text.autoconfig.simplebuilding.category.equipment": "Verzauberungen & Rüstung",
   "text.autoconfig.simplebuilding.category.pistons": "Kolben",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

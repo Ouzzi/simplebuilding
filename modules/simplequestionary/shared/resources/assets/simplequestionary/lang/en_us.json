@@ -1,0 +1,15 @@
+{
+  "block.simplequestionary.questionary_table": "Questionary Table",
+  "container.simplequestionary.questionary_table": "Questionary Table",
+  "screen.simplequestionary.page.lore": "Lore",
+  "screen.simplequestionary.page.use": "Use",
+  "screen.simplequestionary.page.secret": "Secret",
+  "screen.simplequestionary.welcome.title": "Questionary",
+  "screen.simplequestionary.welcome.1": "Place an item in the slot on the left, and the book will tell you what it knows.",
+  "screen.simplequestionary.welcome.2": "Three pages: its lore, its use, and a secret. Turn them with the bookmarks, the arrows, the mouse wheel or A and D.",
+  "screen.simplequestionary.empty": "This page is still blank.",
+  "screen.simplequestionary.facts.made_from": "Made from:",
+  "screen.simplequestionary.facts.not_crafted": "No recipe makes it.",
+  "screen.simplequestionary.facts.recipes": "%s recipes make it, %s use it.",
+  "screen.simplequestionary.facts.none": "No recipe facts."
+}

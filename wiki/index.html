@@ -998,6 +998,8 @@ en: {
   recipeNotInData: 'Recipe <code>{0}</code> is not in the data.',
   noRecipe: 'No recipe in the data.',
   secUsedIn: 'Used in',
+  secQuestionary: 'Questionary',
+  qLore: 'Lore', qUse: 'Use', qSecret: 'Secret',
   notAnIngredient: 'Not an ingredient in any recipe.',
   secTrades: 'Trades',
   tradeNotInData: 'Trade <code>{0}</code> is not in the data.',
@@ -1508,6 +1510,8 @@ de: {
   recipeNotInData: 'Rezept <code>{0}</code> ist nicht in den Daten.',
   noRecipe: 'Kein Rezept in den Daten.',
   secUsedIn: 'Verwendet in',
+  secQuestionary: 'Fragentisch',
+  qLore: 'Überlieferung', qUse: 'Nutzen', qSecret: 'Geheimnis',
   notAnIngredient: 'In keinem Rezept als Zutat.',
   secTrades: 'Handel',
   tradeNotInData: 'Handel <code>{0}</code> ist nicht in den Daten.',
@@ -2945,6 +2949,11 @@ function entryPage(id, kind) {
 
   var used = strs(e.usedIn);
   part('secUsedIn', used.length > 0, '<div class="rows">' + used.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeRow(r) : '<div class="row"><code>' + esc(rid) + '</code></div>'; }).join('') + '</div>', esc(T('notAnIngredient')), { count: used.length });
+  /* Fragentisch (Simple Questionary): dieselben Texte wie im Spiel, aus assets/<ns>/questionary/<lang>.json. */
+  var qv = isObj(e.questionary) ? (e.questionary[LANG] || e.questionary.en) : null;
+  if (isObj(qv)) part('secQuestionary', true, ['lore', 'use', 'secret'].filter(function (k) { return strs(qv[k]).length; }).map(function (k) {
+    return '<h3>' + esc(T(k === 'lore' ? 'qLore' : k === 'use' ? 'qUse' : 'qSecret')) + '</h3>' + strs(qv[k]).map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
+  }).join(''), '');
 
   var rel = relatedIds(id);
   var feats = arr(D.features).filter(function (f) { return isObj(f) && strs(f.related).indexOf(id) >= 0; });

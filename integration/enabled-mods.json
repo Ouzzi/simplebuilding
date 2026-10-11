@@ -18,7 +18,8 @@
     "simplemaps",
     "simpletrims",
     "simplemobs",
-    "simpleweather"
+    "simpleweather",
+    "simplequestionary"
   ],
   "devMods": [
     "jei",

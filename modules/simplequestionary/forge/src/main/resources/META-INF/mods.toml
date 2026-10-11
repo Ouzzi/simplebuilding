@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[66,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplequestionary"
+version="${version}"
+displayName="Simple Questionary"
+description="The Questionary Table: put any item in and read its lore, its use and a secret in an open book."
+[[dependencies.simplequestionary]]
+modId="forge"
+mandatory=true
+versionRange="[66,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplequestionary]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplequestionary]]
+modId="simplelib"
+mandatory=true
+versionRange="[0.2.0,)"
+ordering="AFTER"
+side="BOTH"

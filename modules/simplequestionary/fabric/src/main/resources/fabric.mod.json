@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "simplequestionary",
+  "version": "${version}",
+  "name": "Simple Questionary",
+  "description": "The Questionary Table: put any item in and read its lore, its use and a secret in an open book.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplequestionary.QuestionaryFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplequestionary.QuestionaryFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplequestionary.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.2.0"
+  }
+}

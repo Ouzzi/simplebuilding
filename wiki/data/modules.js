@@ -356,5 +356,22 @@ window.WIKI_MODULES = [
       "modmenu"
     ],
     "dataHash": "499e87886520"
+  },
+  {
+    "id": "simplequestionary",
+    "displayName": "Simple Questionary",
+    "description": "The Questionary Table: put any item in and read its lore, its use and a secret in an open book.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [],
+    "dataHash": "d114427fb9ab"
   }
 ];
