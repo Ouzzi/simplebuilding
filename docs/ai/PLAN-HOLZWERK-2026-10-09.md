@@ -52,3 +52,21 @@ Client-Screenshot nach `<preview-dir>/wood/`.
   Z-Fighting/Flackern. Das Essen liegt immer auf der untersten Innenseite: Boden (oben offen), untere Seitenwand
   (seitlich), Erdboden unter der Kiste (Öffnung nach unten).
 - **Trichter:** Vanilla-`Container` – oben füllt, unten leert in jeder Ausrichtung (Test).
+
+## Schnitzmotive je Holzart (Queue Nachtrag 33, 2026-10-11)
+
+Recherche (nur Stilprinzipien, nichts kopiert): Vanilla `chiseled_*` (Steinziegel, Sandstein, Tuff, Bücherregal-Seite),
+Rechiseled/Chipped (viele Holz-Varianten als Paneele/Rahmen), Chiseled Wood. Was gut aussieht: ein Rahmen, der jeden
+Block als Paneel liest (gekachelt ergibt sich ein Raster); Relief nur über 1 px Licht oben-links / Schatten
+unten-rechts; ein einziges, mittiges Motiv mit Abstand zum Rahmen; die Grundtextur (Maserung) bleibt sichtbar.
+
+Umsetzung: `carved_<stamm>` bekommt auf den drei Seiten ohne Scherbe ein eigenes Holz-Motiv
+(`textures/block/carved/<holz>_carving.png`, Überlagerung auf dem entrindeten Stamm), die Scherbenseite einen Rahmen
+(`<holz>_frame.png`). Generator `tools/textures/woodwork_2026_10_09.py` (`CARVINGS`, `CARVE_PAL`); Vorschau
+`--preview <client.jar> <ordner>` schreibt `carved_old_new.png` (alt/neu, 3x3 gekachelt, 8x).
+Motive: Eiche Eichenblatt, Fichte Tannenzweig, Birke Birken-Rune (Berkanan) mit Rindenstrichen, Dschungel
+Tempelmaske, Akazie Savannensonne, Schwarzeiche Knoten, Mangrove Stelzwurzeln, Kirsche Blüte, Blasseiche
+Knarz-Auge, Karmesin Pilz mit Wurzeln, Wirr Spirale, Bambus Zaungitter.
+Farben aus den Planken (dunkelste/drittdunkelste/hellste); Abweichungen: helle Hölzer (Birke, Kirsche, Blasseiche,
+Bambus) Schnittfarben abgedunkelt, dunkle Hölzer (Schwarzeiche, Karmesin, Wirr) Lichtkante aus dem entrindeten Stamm.
+Offen: Pappel (26.3-Holz, `poplar`) hat noch kein `carved_poplar_log` (Java + WoodKind); Besitzer-Feedback zu den Motiven.

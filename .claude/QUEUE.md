@@ -705,4 +705,4 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] **Kupferfeuer (copper fire):** wie Schwefelfeuer, aber ohne Effekt.
 - [ ] **Schwarzpulver aus Schwefel + Kohle** craftbar; Schwefel soll dabei gleich schwer zu bekommen sein wie Creeper-Schwarzpulver (Balance prüfen, ggf. Ausbeute/Zutat anpassen).
 - [ ] **Neuer Deep-Dark-Mob (Konzept zuerst):** beschwörbar wie der Warden: Konstruktion aus 4 Sculk-Katalysatoren + geschnitzter Kürbis + 2 Sculk Jaws auf den Schultern + Sculk-Sensor vorne (in Reichweite der Katalysatoren und des Kürbisses); dann mit Ziegenhorn Geräusche machen → Konstruktion verwandelt sich in den Mob. Feindlich. Konzept ausdenken und vorlegen.
-- [ ] **Geschnitztes Holz verbessern:** andere Mods mit carved/chiseled wood ansehen, jede Holzart eigenes Schnitzmotiv; Vorschau zeigen, Besitzer verbessert dann.
+- [x] **Geschnitztes Holz verbessern:** (claude-carved, Besitzer-Feedback offen) andere Mods mit carved/chiseled wood ansehen, jede Holzart eigenes Schnitzmotiv; Vorschau zeigen, Besitzer verbessert dann.

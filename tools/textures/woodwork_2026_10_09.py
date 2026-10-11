@@ -47,6 +47,220 @@ POT_KEY = [(71, 37, 29), (82, 45, 37), (94, 55, 47), (105, 59, 49), (117, 66, 54
            (131, 73, 59), (139, 78, 64), (140, 78, 64), (148, 83, 68), (149, 90, 68), (159, 89, 73),
            (159, 101, 71), (171, 113, 75), (185, 128, 83)]
 MOTIF_SHADES = (0.42, 0.52, 0.62)
+# Own carving per wood (Queue Nachtrag 33, docs/ai/PLAN-HOLZWERK-2026-10-09.md "Schnitzmotive"): a transparent overlay on
+# the stripped log - bevelled frame (light top/left, shadow bottom/right) and an incised 12x12 motif in the middle,
+# the grain stays visible. Colours (cut edge, cut floor, light lip) are the darkest, third-darkest and lightest colour
+# of the wood's Vanilla planks, measured once 2026-10-11; where the planks are darker than the stripped log (dark oak,
+# crimson, warped) the light lip is the stripped log's lightest colour instead, else it would not show; on the light
+# woods (birch, cherry, pale oak, bamboo) the two cut colours are those plank colours darkened (x0.72-0.8), else the
+# cut would be lighter than its own lip and read as a raised white line.
+CARVE_PAL = {
+    "oak": (0x67502C, 0x967441, 0xC29D62),
+    "spruce": (0x553A1F, 0x614B2E, 0x886539),
+    "birch": (0x7B6C4C, 0x887C5C, 0xD7CB8D),
+    "jungle": (0x68462F, 0x976A44, 0xBF8E6B),
+    "acacia": (0x884728, 0x99502B, 0xC26D3F),
+    "dark_oak": (0x291A0C, 0x3A2411, 0x523F27),
+    "mangrove": (0x5D1C1E, 0x6F2A2D, 0x8B4D3A),
+    "cherry": (0x94605C, 0xA27974, 0xE7CAC5),
+    "pale_oak": (0x908686, 0x9E9495, 0xFFFBF8),
+    "crimson": (0x3F1E2D, 0x4B2737, 0xA04468),
+    "warped": (0x113835, 0x1F5752, 0x3DA9A6),
+    "bamboo": (0x73652E, 0x96863D, 0xEFD97E),
+}
+# 12x12 motifs, '#' = cut. One per wood, after its tree.
+CARVINGS = {
+    "oak": [  # oak leaf with its midrib
+        ".....##.....",
+        "....#..#....",
+        "..##.##.##..",
+        "..#..##..#..",
+        "...#.##.#...",
+        ".##..##..##.",
+        ".#...##...#.",
+        "..#..##..#..",
+        "...#.##.#...",
+        "....####....",
+        ".....##.....",
+        ".....##.....",
+    ],
+    "spruce": [  # fir branch, needles hanging down
+        ".....##.....",
+        "....####....",
+        "...#.##.#...",
+        "..#..##..#..",
+        "....####....",
+        "...#.##.#...",
+        "..#..##..#..",
+        ".#...##...#.",
+        "....####....",
+        "..##.##.##..",
+        ".#...##...#.",
+        ".....##.....",
+    ],
+    "birch": [  # the birch rune (berkanan) between bark dashes
+        "....#.......",
+        "##..##....##",
+        "....#.#.....",
+        "....#..#....",
+        "....#...#...",
+        "....#..#....",
+        "....##......",
+        "....#.#.....",
+        "....#..#....",
+        "....#...#...",
+        "##..#..#..##",
+        "....##......",
+    ],
+    "jungle": [  # temple mask
+        "...######...",
+        "..#......#..",
+        ".#........#.",
+        ".#.##..##.#.",
+        ".#........#.",
+        ".#...##...#.",
+        ".#........#.",
+        ".#.######.#.",
+        ".#.#.##.#.#.",
+        ".#.######.#.",
+        "..#......#..",
+        "...######...",
+    ],
+    "acacia": [  # savanna sun
+        ".....##.....",
+        ".#...##...#.",
+        "..#......#..",
+        "....####....",
+        "...#....#...",
+        "##.#.##.#.##",
+        "##.#.##.#.##",
+        "...#....#...",
+        "....####....",
+        "..#......#..",
+        ".#...##...#.",
+        ".....##.....",
+    ],
+    "dark_oak": [  # four-lobed knot
+        "..##....##..",
+        ".#..#..#..#.",
+        ".#...##...#.",
+        "..#..##..#..",
+        "...##..##...",
+        "...#....#...",
+        "...#....#...",
+        "...##..##...",
+        "..#..##..#..",
+        ".#...##...#.",
+        ".#..#..#..#.",
+        "..##....##..",
+    ],
+    "mangrove": [  # stilt roots arching into the mud
+        ".....##.....",
+        ".....##.....",
+        "....#..#....",
+        "...#.##.#...",
+        "..#.#..#.#..",
+        ".#..#..#..#.",
+        ".#.#....#.#.",
+        "#..#....#..#",
+        "#.#......#.#",
+        "#.#......#.#",
+        "############",
+        "............",
+    ],
+    "cherry": [  # five-petal blossom
+        ".....##.....",
+        "....####....",
+        "....####....",
+        ".##..##..##.",
+        "####....####",
+        "####.##.####",
+        ".##..##..##.",
+        "............",
+        "...##..##...",
+        "..###..###..",
+        "..##....##..",
+        "............",
+    ],
+    "pale_oak": [  # the creaking's eye, cracked
+        "..#......#..",
+        "...#....#...",
+        "...######...",
+        "..#......#..",
+        ".#...##...#.",
+        "#...####...#",
+        "#...####...#",
+        ".#...##...#.",
+        "..#......#..",
+        "...######...",
+        "...#....#...",
+        "..#......#..",
+    ],
+    "crimson": [  # crimson fungus with roots
+        "...######...",
+        ".##......##.",
+        "#...#..#...#",
+        "#..........#",
+        ".###.##.###.",
+        "....#..#....",
+        "....#..#....",
+        "....#..#....",
+        "...#....#...",
+        "..#.#..#.#..",
+        ".#..#..#..#.",
+        "............",
+    ],
+    "warped": [  # twisting warped spiral
+        "...######...",
+        "..#......#..",
+        ".#..####..#.",
+        ".#.#....#.#.",
+        ".#.#.##.#.#.",
+        ".#.#..#.#.#.",
+        ".#..##..#.#.",
+        "..#.....#.#.",
+        "...#####..#.",
+        ".........#..",
+        "..#.....#...",
+        "...#####....",
+    ],
+    "bamboo": [  # bamboo fence lattice
+        "...#....#...",
+        "...#....#...",
+        "...#....#...",
+        "############",
+        "...#....#...",
+        "...#....#...",
+        "...#....#...",
+        "...#....#...",
+        "############",
+        "...#....#...",
+        "...#....#...",
+        "...#....#...",
+    ],
+}
+
+
+def carving(wood: str, motif: bool = True) -> Image.Image:
+    """The carving overlay of a wood: bevelled frame, and with {@code motif} its incised motif (cut edges facing the
+    light are the darkest, the cut floor the mid tone, the lip below/right of a cut catches the light)."""
+    dark, mid, light = (((c >> 16) & 255, (c >> 8) & 255, c & 255, 255) for c in CARVE_PAL[wood])
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    for i in range(16):
+        img.putpixel((i, 0), light)
+        img.putpixel((0, i), light)
+        img.putpixel((i, 15), mid)
+        img.putpixel((15, i), mid)
+    if not motif:
+        return img
+    cut = {(x + 2, y + 2) for y, row in enumerate(CARVINGS[wood]) for x, ch in enumerate(row) if ch == "#"}
+    for x, y in cut:
+        img.putpixel((x, y), dark if (x - 1, y) not in cut or (x, y - 1) not in cut else mid)
+    for x, y in cut:
+        for lip in ((x + 1, y), (x, y + 1)):
+            if lip not in cut and 1 <= lip[0] <= 14 and 1 <= lip[1] <= 14 and img.getpixel(lip)[3] == 0:
+                img.putpixel(lip, light)
+    return img
 FACING_Y = {"north": 0, "east": 90, "south": 180, "west": 270}
 # Crate opening (model: open top) per facing, the barrel's blockstate rotations.
 CRATE_FACING = {"up": {}, "down": {"x": 180}, "north": {"x": 90}, "east": {"x": 90, "y": 90},
@@ -102,6 +316,9 @@ def templates() -> None:
         "elements": [
             {"from": [0, 0, 0], "to": [16, 16, 16], "faces": faces},
             {"from": [0, 0, 0], "to": [16, 16, 16], "faces": {"north": {"texture": "#motif", "cullface": "north"}}},
+            {"from": [0, 0, 0], "to": [16, 16, 16], "faces": {
+                "north": {"texture": "#frame", "cullface": "north"}, "east": {"texture": "#carving", "cullface": "east"},
+                "south": {"texture": "#carving", "cullface": "south"}, "west": {"texture": "#carving", "cullface": "west"}}},
         ],
     })
     w = 2
@@ -220,9 +437,12 @@ def wood_assets(wood: str, log: str) -> None:
     block_item(name)
     # carved wood: one model per motif, turned by facing
     name = f"carved_{log}"
+    put_png(f"{NS}/textures/block/carved/{wood}_carving.png", carving(wood))
+    put_png(f"{NS}/textures/block/carved/{wood}_frame.png", carving(wood, motif=False))
     for motif in MOTIFS:
         put_json(f"{NS}/models/block/carved/{name}_{motif}.json", {"parent": sb("block/template_carved_log"), "textures": {
             "side": tex["stripped"], "end": tex["stripped_top"],
+            "carving": sb(f"block/carved/{wood}_carving"), "frame": sb(f"block/carved/{wood}_frame"),
             "motif": mc(f"entity/decorated_pot/{motif}_pottery_pattern_{wood}")}})
     put_json(f"{NS}/blockstates/{name}.json", {"variants": {
         f"facing={facing},motif={motif}": ({"model": sb(f"block/carved/{name}_{motif}")} | ({"y": y} if y else {}))
@@ -236,28 +456,54 @@ def wood_assets(wood: str, log: str) -> None:
 
 
 def preview(jar: str, out: Path) -> None:
-    """16x previews of every derived motif on its stripped wood, built from a local Minecraft jar (not checked in)."""
+    """Previews from a local Minecraft jar (not checked in): carved_motifs.png (every sherd motif on every wood) and
+    carved_old_new.png - per wood: old sherd face, new sherd face (framed), new carving side, carving side 3x3 tiled,
+    all 8x."""
     import zipfile
+    from PIL import ImageDraw
     z = zipfile.ZipFile(jar)
     def img(p): return Image.open(io.BytesIO(z.read(p))).convert("RGBA")
     pals = {}
     for wood, _l, rgb in WOODS:
         base = ((rgb >> 16) & 255, (rgb >> 8) & 255, rgb & 255)
         pals[wood] = {POT_KEY[i]: tuple(int(round(c * f)) for c in base) + (255,) for i, f in enumerate(MOTIF_SHADES)}
+    def sherd(wood, side, motif):
+        pat = img(f"assets/minecraft/textures/entity/decorated_pot/{motif}_pottery_pattern.png")
+        tile = side.copy()
+        for y in range(16):
+            for x in range(16):
+                p = pat.getpixel((x, y))
+                if p[3] and p[:3] in pals[wood]:
+                    tile.putpixel((x, y), pals[wood][p[:3]])
+        return tile
+    sides = {w: img(f"assets/minecraft/textures/block/stripped_{log}.png").crop((0, 0, 16, 16)) for w, log, _c in WOODS}
     sheet = Image.new("RGBA", (len(MOTIFS) * 17 + 1, len(WOODS) * 17 + 1), (40, 40, 40, 255))
-    for r, (wood, log, _c) in enumerate(WOODS):
-        side = img(f"assets/minecraft/textures/block/stripped_{log}.png").crop((0, 0, 16, 16))
+    for r, (wood, _log, _c) in enumerate(WOODS):
         for c, motif in enumerate(MOTIFS):
-            pat = img(f"assets/minecraft/textures/entity/decorated_pot/{motif}_pottery_pattern.png")
-            tile = side.copy()
-            for y in range(16):
-                for x in range(16):
-                    p = pat.getpixel((x, y))
-                    if p[3] and p[:3] in pals[wood]:
-                        tile.putpixel((x, y), pals[wood][p[:3]])
-            sheet.paste(tile, (1 + c * 17, 1 + r * 17))
+            sheet.paste(sherd(wood, sides[wood], motif), (1 + c * 17, 1 + r * 17))
     out.mkdir(parents=True, exist_ok=True)
     sheet.resize((sheet.width * 6, sheet.height * 6), Image.NEAREST).save(out / "carved_motifs.png")
+    k, row_h = 8, 50
+    old_new = Image.new("RGBA", (160 + (16 * 3 + 48 + 16) * k, len(WOODS) * (48 + 4) * k + 4 * k), (40, 40, 40, 255))
+    d = ImageDraw.Draw(old_new)
+    for r, (wood, _log, _c) in enumerate(WOODS):
+        side = sides[wood]
+        new_side = side.copy()
+        new_side.alpha_composite(carving(wood))
+        new_face = sherd(wood, side, "heart")
+        new_face.alpha_composite(carving(wood, motif=False))
+        y = 4 * k + r * (48 + 4) * k
+        d.text((8, y + 8), wood, fill=(230, 230, 230, 255))
+        x = 160
+        for tile in (sherd(wood, side, "heart"), new_face, new_side):
+            old_new.paste(tile.resize((16 * k, 16 * k), Image.NEAREST), (x, y))
+            x += (16 + 4) * k
+        wall = Image.new("RGBA", (48, 48))
+        for i in range(3):
+            for j in range(3):
+                wall.paste(new_side, (16 * i, 16 * j))
+        old_new.paste(wall.resize((48 * k, 48 * k), Image.NEAREST), (x, y))
+    old_new.save(out / "carved_old_new.png")
 
 
 def main() -> int:
