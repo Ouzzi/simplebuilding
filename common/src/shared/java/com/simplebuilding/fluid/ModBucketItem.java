@@ -289,7 +289,7 @@ public class ModBucketItem extends BucketItem {
             if (after.isEmpty()) {
                 level.playSound(null, player.blockPosition(), SoundEvents.ITEM_BREAK.value(), SoundSource.PLAYERS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
                 if (level instanceof ServerLevel server) {
-                    server.sendParticles(new net.minecraft.core.particles.ItemParticleOption(net.minecraft.core.particles.ParticleTypes.ITEM, poured),
+                    server.sendParticles(new net.minecraft.core.particles.ItemParticleOption(net.minecraft.core.particles.ParticleTypes.ITEM, poured.getItem()),
                             player.getX(), player.getEyeY() - 0.4, player.getZ(), 12, 0.3, 0.2, 0.3, 0.05);
                 }
                 return InteractionResult.SUCCESS.heldItemTransformedTo(ItemStack.EMPTY);
