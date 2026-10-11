@@ -44,25 +44,33 @@ public final class RedstoneLinesClientTest {
         });
         script.awaitPackets();
         script.idle("let the lamps switch", 10);
-        script.command("tp @a 7.0 7.0 22.0 180.0 50.0");
+        script.command("tp @a 7.0 9.0 19.5 180.0 55.0");
         script.awaitPackets();
         script.awaitChunks();
         script.idle("let the dust settle in the picture", 20);
         script.shot("redstone-lines");
-        script.awaitPackets();
-        script.act("lit lamps at the lever, bridge lanes; dark lamp behind the other line (as the client sees them)", client -> {
-            var level = client.level;
+        String[] report = {null};
+        onServer(script, "read the lamps on the server", server -> {
+            ServerLevel level = server.overworld();
+            StringBuilder out = new StringBuilder();
             for (int i = 0; i < LANES.length; i++) {
                 boolean lit = level.getBlockState(new BlockPos(X0 + 13, 0, LANES[i])).getValue(RedstoneLampBlock.LIT);
                 if (lit != (i < 3)) {
-                    StringBuilder powers = new StringBuilder();
+                    out.append("lamp of lane ").append(i).append(" is ").append(lit ? "lit" : "dark").append("; lane:");
                     for (int x = X0; x <= X0 + 13; x++) {
                         BlockState state = level.getBlockState(new BlockPos(x, 0, LANES[i]));
-                        powers.append(' ').append(state.hasProperty(SignalDustBlock.POWER) ? String.valueOf(state.getValue(SignalDustBlock.POWER)) : state.getBlock().toString());
+                        out.append(' ').append(state.hasProperty(SignalDustBlock.POWER) ? state.getValue(SignalDustBlock.POWER) + "/"
+                                + state.getValue(SignalDustBlock.EAST) : state.toString());
                     }
-                    throw new AssertionError("lamp of lane " + i + " is " + (lit ? "lit" : "dark") + "; lane:" + powers);
+                    out.append(". ");
                 }
             }
+            report[0] = out.toString();
+        });
+        script.idle("let the server answer", 5);
+        script.act("lit lamps at the lever and bridge lanes; dark lamp behind the other line", client -> {
+            if (report[0] == null) throw new AssertionError("the server did not report the lamps");
+            if (!report[0].isEmpty()) throw new AssertionError(report[0]);
         });
         onServer(script, "clear the lanes", server -> {
             for (int z : LANES) for (int x = X0; x <= X0 + 14; x++) {
