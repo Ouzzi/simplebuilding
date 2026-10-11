@@ -40,7 +40,7 @@ import net.minecraft.world.item.ItemStack;
  * (simplelib {@code UiBoxes}/{@code UiBookmarks}), no texture per size.
  */
 public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> {
-    public static final int BOOK_X = QuestionaryMenu.LEFT_WIDTH + 4, BOOK_Y = 4, BOOK_W = 270, BOOK_H = 208;
+    public static final int BOOK_X = QuestionaryMenu.LEFT_WIDTH + 4, BOOK_Y = 4, BOOK_W = 224, BOOK_H = 208;
     public static final int TAB_W = 15, TAB_OUT = 4, TAB_H = 26, TAB_GAP = 4, TAB_Y = BOOK_Y + 14;
     /** Space kept free at the bottom of both pages for the arrows and the page number. */
     private static final int BOTTOM = 24;

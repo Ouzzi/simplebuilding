@@ -16,8 +16,9 @@ import net.minecraft.world.item.ItemStack;
  * send the recipe facts for the "Use" page ({@link QuestionaryFacts}); closing gives the item back.
  */
 public class QuestionaryMenu extends AbstractContainerMenu {
-    /** Layout shared with the screen: the left box is a Vanilla-wide container, the book sits to its right. */
-    public static final int LEFT_WIDTH = 176, LEFT_HEIGHT = 184, WIDTH = 470, HEIGHT = 212;
+    /** Layout shared with the screen: the left box is a Vanilla-wide container, the book sits to its right. The whole
+     *  width must stay under 427 (an 854 px window at GUI scale 2), the height under 240. */
+    public static final int LEFT_WIDTH = 176, LEFT_HEIGHT = 184, WIDTH = 424, HEIGHT = 212;
     public static final int SLOT_X = 80, SLOT_Y = 26, INVENTORY_X = 8, INVENTORY_Y = 102;
     public static final int ITEM_SLOT = 0, INVENTORY_START = 1, INVENTORY_END = 37;
 
