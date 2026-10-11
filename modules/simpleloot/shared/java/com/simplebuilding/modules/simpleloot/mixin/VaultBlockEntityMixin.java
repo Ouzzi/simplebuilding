@@ -1,7 +1,7 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simpleloot.mixin;
 
 import com.mojang.serialization.Codec;
-import com.simplequalityoflife.util.IVaultCooldown;
+import com.simplebuilding.modules.simpleloot.IVaultCooldown;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.world.level.block.entity.BlockEntity;

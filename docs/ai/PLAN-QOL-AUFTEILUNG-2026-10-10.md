@@ -113,3 +113,25 @@ nicht verteilt), gemeinsame Config-Oberfläche mit je Sub-Mod oberstem Punkt „
 
 ## Besitzer-Entscheidung 2026-10-11
 - Das Modul der Stufe 4 (Tresor-Abklingzeit) heißt **„Simple Loot“** (`simpleloot`); dieser Name ist verbindlich.
+
+## Umsetzung Stufen 4–10 (`claude-qol4`, 2026-10-11)
+
+Vorlage ist Simple Weather (Stufe 3): eigenes Modul `com.simplebuilding.modules.<id>`, Gson-Config
+`config/<id>.json` mit einmaliger Übernahme der gleichnamigen `qOL.*`-Felder (bzw. Wurzelfeld
+`frostWalkerWalkOnPowderSnow`), Cloth-Screen, `SubMods`-Schalter, Modul- und Standalone-Targets, Bündeln in QoL
+(Fabric `include`, NeoForge `jarJar`, Forge `forgeBundleModules`). Entscheidungen:
+
+- **Befehle:** jede Sub-Mod hat ihre eigene Wurzel mit den bisherigen Unterbefehlen (`/simpleloot vaults cooldown <Tage>`,
+  `/simplecreatures muteSuffixes|babySuffixes …`, `/simplefarming farmlandProtect|hoeHarvest|sharpnessCut <bool>`,
+  `/simpletools fullDurabilityBonus|furnaceLava <bool>`, `/simplemovement autowalk|frostWalkerSnow <bool>`, `ladderSpeed <x>`);
+  `/crawl` gehört Simple Movement. Kein Alias in QoL (kein Import). QoL behält `/simplequalityoflife submod <id> <bool>`.
+- **Server-Werte am Client:** Tools (Haltbarkeitsbonus), Farming (Hacke, Gras-Umriss), Movement (Leiter, Pulverschnee,
+  Autowalk) und Interfaces (Container) bekommen je ein eigenes `config_sync`-Paket (wie bisher QoL); Loot und Creatures
+  sind rein serverseitig.
+- **Thrift-ID bleibt `simplequalityoflife:thrift`:** Simple Tools liefert die Datei weiter unter
+  `data/simplequalityoflife/enchantment/thrift.json` (Namensraum ≠ Mod-ID ist für Datenpakete erlaubt). Damit behalten
+  alle Gegenstände in bestehenden Welten ihre Verzauberung, ohne Datenfix/Alias.
+- **Tasten:** `key.simplequalityoflife.autowalk/crawl` → `key.simplemovement.*`, `options.txt` wird beim ersten
+  Client-Start einmalig umgeschrieben (wie `LegacyMigration` in Simple Interfaces).
+- **Partner-Tests:** Tools und Farming laden in ihrem Modultarget SimpleBuilding (Querprüfungen Hammer/Ofen/Breeze-Kopf),
+  standalone werden diese Prüfungen übersprungen (`partnerMissing`).

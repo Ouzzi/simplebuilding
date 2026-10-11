@@ -21,6 +21,7 @@
   "depends": {
     "simpleweather": "*",
     "simpleinterfaces": "*",
+    "simpleloot": "*",
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",
     "java": ">=25",

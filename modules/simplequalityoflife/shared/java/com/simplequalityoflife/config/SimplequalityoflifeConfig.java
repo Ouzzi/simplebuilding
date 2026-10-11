@@ -19,7 +19,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
     public static final double DEFAULT_SLIDE_SPEED = 0.8;
     public static final double DEFAULT_DURABILITY_THRESHOLD = 0.8;
     public static final double DEFAULT_DURABILITY_BONUS_MULTIPLIER = 1.0;
-    public static final int DEFAULT_VAULT_COOLDOWN_DAYS = 100;
     public static final int DEFAULT_LINKED_RANGE = 64;
     public static final int MIN_LINKED_RANGE = 8;
     public static final int MAX_LINKED_RANGE = 128;
@@ -32,7 +31,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
         qOL.ladderSlideSpeed = bounded(qOL.ladderSlideSpeed, 0.15, MAX_SLIDE_SPEED, 0.8);
         qOL.fullDurabilityThreshold = bounded(qOL.fullDurabilityThreshold, 0.8, 1, 0.8);
         qOL.fullDurabilityBonusMultiplier = bounded(qOL.fullDurabilityBonusMultiplier, 1, MAX_BONUS, DEFAULT_DURABILITY_BONUS_MULTIPLIER);
-        qOL.vaultCooldownDays = Math.clamp(qOL.vaultCooldownDays, 1, 36500);
         qOL.linkedContainerRange = Math.clamp(qOL.linkedContainerRange, MIN_LINKED_RANGE, MAX_LINKED_RANGE);
         if (qOL.ladderSlideActivation == null) qOL.ladderSlideActivation = SlideActivationMode.CAMERA;
     }
@@ -58,6 +56,9 @@ public class SimplequalityoflifeConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleInterfaces = true;
 
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleLoot = true;
+
     // Option außerhalb der QOL-Kategorie (Global)
     @ConfigEntry.Gui.Tooltip
     public boolean frostWalkerWalkOnPowderSnow = true;
@@ -69,8 +70,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
         @ConfigEntry.Gui.Tooltip
         public boolean enableManualCrawl = true;
 
-        @ConfigEntry.Gui.Tooltip
-        public boolean enableVaultCooldown = true;
         // --- Movement & AutoWalk ---
         @ConfigEntry.Gui.Tooltip
         public boolean enableAutowalk = false;
@@ -111,10 +110,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
         @ConfigEntry.Gui.Tooltip
         @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
         public SlideActivationMode ladderSlideActivation = SlideActivationMode.CAMERA;
-
-        // --- Vaults ---
-        @ConfigEntry.Gui.Tooltip
-        public int vaultCooldownDays = DEFAULT_VAULT_COOLDOWN_DAYS;
 
         // --- Durability Mechanics ---
         @ConfigEntry.Gui.Tooltip

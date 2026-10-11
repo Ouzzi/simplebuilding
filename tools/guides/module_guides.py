@@ -71,6 +71,7 @@ MODULES = [
                 "aus Bündeln.")),
     dict(module="simplequalityoflife", ns="simplequalityoflife", package="com.simplequalityoflife.guide",
          cls="QolGuide", kind="item", author="Simple Quality of Life", recipe="minecraft:chest",
+         submods=("simpleloot",),
          name=("Simple Quality of Life Guide", "Simple-Quality-of-Life-Handbuch"),
          intro=("Server-controlled movement, farming, mob, weather and vault utilities.",
                 "Servergesteuerte Hilfen für Bewegung, Landwirtschaft, Mobs, Wetter und Tresore.")),
@@ -211,9 +212,14 @@ def split_to(title: str, body: str, count: int) -> list[str]:
 def build_pages(cfg: dict) -> list[tuple[tuple[str, str], tuple[str, str]]]:
     """[((title_en, body_en), (title_de, body_de)), ...]"""
     manual = json.loads((REPO / "modules" / cfg["module"] / "wiki/manual.json").read_text(encoding="utf-8"))
+    features = list(manual["features"])
+    # A super-mod's guide also covers its bundled sub-mods (their own wiki pages, without the sub-mod note).
+    for sub in cfg.get("submods", ()):
+        sub_manual = json.loads((REPO / "modules" / sub / "wiki/manual.json").read_text(encoding="utf-8"))
+        features += [f for f in sub_manual["features"] if f["id"] != "submod"]
     entries = [((cfg["author"], cfg["intro"][0]), (cfg["author"], cfg["intro"][1]))]
     has_config = False
-    for feature in manual["features"]:
+    for feature in features:
         fid = feature["id"]
         if fid.startswith(SKIP_PREFIXES) or fid in SKIP_IDS:
             has_config |= fid.startswith(("config_", "config-")) or fid == "configuration"

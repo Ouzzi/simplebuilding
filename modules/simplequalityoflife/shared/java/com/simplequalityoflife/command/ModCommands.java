@@ -39,18 +39,6 @@ public class ModCommands {
                     // Level 4 (OWNERS) für Admin-Befehle (Config Änderungen).
                     .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
 
-                    // --- Vaults ---
-                    .then(Commands.literal("vaults")
-                            .then(Commands.literal("cooldown")
-                                    .then(Commands.argument("days", IntegerArgumentType.integer(1, 36500))
-                                            .executes(ctx -> {
-                                                int val = IntegerArgumentType.getInteger(ctx, "days");
-                                                Simplequalityoflife.getConfig().qOL.vaultCooldownDays = val;
-                                                saveConfig();
-                                                ctx.getSource().sendSuccess(() -> Component.translatable("command.simplequalityoflife.days", val), true);
-                                                return 1;
-                                            }))))
-
                     // --- Tweaks (Alle Features) ---
                     .then(Commands.literal("tweaks")
                             .then(boolTweak("fullDurabilityBonus", (c, v) -> { c.qOL.enableFullDurabilityBonus = v; }, "Full Durability Bonus enabled"))

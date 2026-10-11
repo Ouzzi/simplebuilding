@@ -1,7 +1,7 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simpleloot.mixin;
 
-import com.simplequalityoflife.Simplequalityoflife;
-import com.simplequalityoflife.util.IVaultCooldown;
+import com.simplebuilding.modules.simpleloot.SimpleLoot;
+import com.simplebuilding.modules.simpleloot.IVaultCooldown;
 import net.minecraft.world.level.block.entity.vault.VaultServerData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -30,8 +30,8 @@ public class VaultServerDataMixin implements IVaultCooldown {
         // Config sicher abrufen
         long configDays = 100;
         try {
-            if (Simplequalityoflife.getConfig() != null) {
-                configDays = Simplequalityoflife.getConfig().qOL.vaultCooldownDays;
+            if (SimpleLoot.config() != null) {
+                configDays = SimpleLoot.config().vaultCooldownDays;
             }
         } catch (Exception e) {
             // Fallback

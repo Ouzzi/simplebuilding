@@ -202,20 +202,6 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       }
     },
     {
-      "id": "vault",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/VaultServerDataMixin.java"
-      ],
-      "en": {
-        "title": "Vault cooldown",
-        "summary": "A player may loot a vault again after qOL.vaultCooldownDays, default 100 Minecraft days, bounded 1–36500. The original SimpleBuildingLootTimes UUID-to-time map is retained. Missing timestamps on already rewarded entries start a cooldown rather than granting free repeat loot; backwards time does not unlock rewards."
-      },
-      "de": {
-        "title": "Tresor-Abklingzeit",
-        "summary": "Ein Spieler darf nach qOL.vaultCooldownDays erneut plundern, Standard 100 Minecraft-Tage, Grenze 1–36500. Die originale SimpleBuildingLootTimes-UUID-Zeitkarte bleibt. Fehlende Zeitstempel bereits belohnter Spieler beginnen eine Pause statt Gratisbeute; rueckwaerts laufende Zeit entsperrt nichts."
-      }
-    },
-    {
       "id": "config_enableSimpleWeather",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
@@ -241,6 +227,20 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       "de": {
         "title": "enableSimpleInterfaces",
         "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Interfaces (Simple-Stil fuer Vanilla-Behaelterfenster). Standard: true."
+      }
+    },
+    {
+      "id": "config_enableSimpleLoot",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "enableSimpleLoot",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Loot. Default: true."
+      },
+      "de": {
+        "title": "enableSimpleLoot",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Loot. Standard: true."
       }
     },
     {
@@ -426,20 +426,6 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       }
     },
     {
-      "id": "config_qOL_vaultCooldownDays",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.vaultCooldownDays",
-        "summary": "Server setting (rain density is a local visual preference). Default: 100."
-      },
-      "de": {
-        "title": "qOL.vaultCooldownDays",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 100."
-      }
-    },
-    {
       "id": "config_qOL_enableFullDurabilityBonus",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
@@ -587,11 +573,11 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       ],
       "en": {
         "title": "Commands",
-        "summary": "/crawl is available to players. Owner-level /simplequalityoflife offers vaults cooldown; tweaks fullDurabilityBonus, autowalk, farmlandProtect, frostWalkerSnow, hoeHarvest, furnaceLava, sharpnessCut, ladderSpeed; muteSuffixes and babySuffixes list/add/remove/clear. Changes are saved to config/simplequalityoflife.json."
+        "summary": "/crawl is available to players. Owner-level /simplequalityoflife offers tweaks fullDurabilityBonus, autowalk, farmlandProtect, frostWalkerSnow, hoeHarvest, furnaceLava, sharpnessCut, ladderSpeed; muteSuffixes and babySuffixes list/add/remove/clear. Changes are saved to config/simplequalityoflife.json."
       },
       "de": {
         "title": "Befehle",
-        "summary": "/crawl ist fuer Spieler. Besitzerberechtigung: /simplequalityoflife mit vaults cooldown; tweaks fullDurabilityBonus, autowalk, farmlandProtect, frostWalkerSnow, hoeHarvest, furnaceLava, sharpnessCut, ladderSpeed; muteSuffixes und babySuffixes list/add/remove/clear. Speichern in config/simplequalityoflife.json."
+        "summary": "/crawl ist fuer Spieler. Besitzerberechtigung: /simplequalityoflife mit tweaks fullDurabilityBonus, autowalk, farmlandProtect, frostWalkerSnow, hoeHarvest, furnaceLava, sharpnessCut, ladderSpeed; muteSuffixes und babySuffixes list/add/remove/clear. Speichern in config/simplequalityoflife.json."
       }
     },
     {
@@ -606,20 +592,6 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       "de": {
         "title": "Manuelles Kriechen",
         "summary": "/crawl und die Kriechtaste erlauben. Der Server prüft und begrenzt Änderungen. Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_enableVaultCooldown",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "Repeat Vault Rewards",
-        "summary": "Allow repeat vault rewards after the server cooldown. Disable to retain Vanilla one-time rewards. Default: true."
-      },
-      "de": {
-        "title": "Erneute Tresorbelohnungen",
-        "summary": "Erneute Tresorbelohnungen nach der Serverpause erlauben. Abschalten behält einmalige Vanilla-Belohnungen. Standard: true."
       }
     },
     {
@@ -827,7 +799,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 48,
+    "features": 46,
     "recipes": 1,
     "lootTables": 0,
     "tags": 0,

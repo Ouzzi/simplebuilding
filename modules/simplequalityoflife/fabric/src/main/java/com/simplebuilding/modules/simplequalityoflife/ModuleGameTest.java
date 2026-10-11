@@ -18,11 +18,9 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void muting(GameTestHelper h){com.simplequalityoflife.test.QolTests.muting(h);}
  @GameTest(maxTicks=100) public void baby(GameTestHelper h){com.simplequalityoflife.test.QolTests.baby(h);}
  @GameTest(maxTicks=100) public void piglins(GameTestHelper h){com.simplequalityoflife.test.QolTests.piglins(h);}
- @GameTest(maxTicks=100) public void vault(GameTestHelper h){com.simplequalityoflife.test.QolTests.vault(h);}
  @GameTest(maxTicks=100) public void vegetation(GameTestHelper h){com.simplequalityoflife.test.QolTests.vegetation(h);}
  @GameTest(maxTicks=100) public void crossMod(GameTestHelper h){com.simplequalityoflife.test.QolTests.crossMod(h);}
  @GameTest(maxTicks=100) public void realMovementPackets(GameTestHelper h){com.simplequalityoflife.test.QolTests.realMovementPackets(h);}
- @GameTest(maxTicks=100) public void vaultPersistence(GameTestHelper h){com.simplequalityoflife.test.QolTests.vaultPersistence(h);}
  @GameTest(maxTicks=100) public void thrift(GameTestHelper h){com.simplequalityoflife.test.QolTests.thrift(h);}
  @GameTest(maxTicks=100) public void anvilRepairCost(GameTestHelper h){com.simplequalityoflife.test.QolTests.anvilRepairCost(h);}
  @GameTest(maxTicks=100) public void goldTrim(GameTestHelper h){com.simplequalityoflife.test.QolTests.goldTrim(h);}

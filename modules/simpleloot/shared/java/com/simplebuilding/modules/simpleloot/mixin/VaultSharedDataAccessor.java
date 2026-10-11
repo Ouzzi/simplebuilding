@@ -1,4 +1,4 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simpleloot.mixin;
 
 import net.minecraft.world.level.block.entity.vault.VaultSharedData;
 import org.spongepowered.asm.mixin.Mixin;

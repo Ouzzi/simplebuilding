@@ -1,4 +1,4 @@
-package com.simplequalityoflife.util;
+package com.simplebuilding.modules.simpleloot;
 
 import java.util.Map;
 import java.util.UUID;

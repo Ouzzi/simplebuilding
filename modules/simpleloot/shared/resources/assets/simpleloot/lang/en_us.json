@@ -1,0 +1,10 @@
+{
+  "simpleloot.title": "Simple Loot",
+  "simpleloot.tab.general": "General",
+  "simpleloot.option.enableVaultCooldown": "Repeat Vault Rewards",
+  "simpleloot.option.enableVaultCooldown.tooltip": "Allow repeat vault rewards after the server\ncooldown. Disable to retain Vanilla one-time\nrewards. Default: true.",
+  "simpleloot.option.vaultCooldownDays": "Vault Cooldown (Days)",
+  "simpleloot.option.vaultCooldownDays.tooltip": "Time in Minecraft days until a player can\nloot a vault again. Default: 100. Allowed\nrange: 1–36500.",
+  "command.simpleloot.days": "Vault cooldown saved: %s days",
+  "command.simpleloot.changed": "Configuration saved: %s = %s"
+}

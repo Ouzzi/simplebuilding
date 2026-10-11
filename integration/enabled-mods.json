@@ -20,7 +20,8 @@
     "simplemobs",
     "simpleweather",
     "simplequestionary",
-    "simpleaesthetics"
+    "simpleaesthetics",
+    "simpleloot"
   ],
   "devMods": [
     "jei",

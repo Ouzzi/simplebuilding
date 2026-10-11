@@ -1,7 +1,7 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simpleloot.mixin;
 
-import com.simplequalityoflife.Simplequalityoflife;
-import com.simplequalityoflife.util.IVaultCooldown;
+import com.simplebuilding.modules.simpleloot.SimpleLoot;
+import com.simplebuilding.modules.simpleloot.IVaultCooldown;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -28,12 +28,12 @@ public class VaultBlockEntityServerMixin {
     // Hält fest, ob der Spieler beim Eintritt in die Vanilla-tryInsertKey-Logik bereits belohnt war.
     // tryInsertKey läuft serverseitig und synchron (HEAD vor TAIL), daher ist ein statisches Feld sicher.
     @Unique
-    private static boolean simplequalityoflife$wasRewardedBeforeUnlock;
+    private static boolean simpleloot$wasRewardedBeforeUnlock;
 
     // --- TICK LOGIK ---
     @Inject(method = "tick", at = @At("HEAD"))
     private static void tickCooldowns(ServerLevel world, BlockPos pos, BlockState state, VaultConfig config, VaultServerData serverData, VaultSharedData sharedData, CallbackInfo ci) {
-        if (!Simplequalityoflife.getConfig().qOL.enableVaultCooldown) return;
+        if (!(SimpleLoot.active() && SimpleLoot.config().enableVaultCooldown)) return;
 
         if (world.getGameTime() % 40 != 0) return;
 
@@ -74,12 +74,12 @@ public class VaultBlockEntityServerMixin {
     private static void checkCooldownClick(ServerLevel world, BlockPos pos, BlockState state, VaultConfig config, VaultServerData serverData, VaultSharedData sharedData, Player player, ItemStack stack, CallbackInfo ci) {
         // Diese Methode fängt Fälle ab, wo der Tick vielleicht noch nicht lief,
         // der Spieler aber schon klickt.
-        simplequalityoflife$wasRewardedBeforeUnlock = false;
+        simpleloot$wasRewardedBeforeUnlock = false;
         if (serverData instanceof IVaultCooldown cooldownData) {
             UUID uuid = player.getUUID();
             Set<UUID> rewardedPlayers = ((VaultServerDataAccessor) serverData).getRewardedPlayersSet();
 
-            if (Simplequalityoflife.getConfig().qOL.enableVaultCooldown && rewardedPlayers.contains(uuid) && !cooldownData.hasLootedRecently(uuid, world.getGameTime())) {
+            if (SimpleLoot.active() && SimpleLoot.config().enableVaultCooldown && rewardedPlayers.contains(uuid) && !cooldownData.hasLootedRecently(uuid, world.getGameTime())) {
                 // Sofortiger Reset beim Klick
                 rewardedPlayers.remove(uuid);
                 Set<UUID> connectedPlayers = ((VaultSharedDataAccessor) sharedData).getConnectedPlayersSet();
@@ -89,11 +89,11 @@ public class VaultBlockEntityServerMixin {
                 ((VaultSharedDataAccessor) sharedData).setDirty(true);
                 world.sendBlockUpdated(pos, state, state, 3);
 
-                Simplequalityoflife.LOGGER.debug("Vault Klick-Reset für {}", player.getName().getString());
+                SimpleLoot.LOGGER.debug("Vault Klick-Reset für {}", player.getName().getString());
             }
 
             // Zustand festhalten, mit dem die Vanilla-Logik startet (nach einem evtl. Reset oben).
-            simplequalityoflife$wasRewardedBeforeUnlock = rewardedPlayers.contains(uuid);
+            simpleloot$wasRewardedBeforeUnlock = rewardedPlayers.contains(uuid);
         }
     }
 
@@ -103,12 +103,12 @@ public class VaultBlockEntityServerMixin {
 
         // Nur stempeln, wenn dieser Klick FRISCHEN Loot gewährt hat (vorher nicht belohnt, jetzt schon).
         // Verhindert, dass wiederholtes Anklicken eines bereits geplünderten Vaults die Abklingzeit zurücksetzt.
-        if (!simplequalityoflife$wasRewardedBeforeUnlock && rewardedPlayers.contains(player.getUUID())) {
+        if (!simpleloot$wasRewardedBeforeUnlock && rewardedPlayers.contains(player.getUUID())) {
             if (serverData instanceof IVaultCooldown cooldownData) {
                 cooldownData.markLooted(player.getUUID(), world.getGameTime());
                 ((VaultServerDataAccessor) serverData).setDirty(true);
 
-                Simplequalityoflife.LOGGER.debug("Vault: Zeit gespeichert für {}", player.getName().getString());
+                SimpleLoot.LOGGER.debug("Vault: Zeit gespeichert für {}", player.getName().getString());
             }
         }
     }

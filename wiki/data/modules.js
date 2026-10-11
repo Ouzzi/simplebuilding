@@ -194,13 +194,14 @@ window.WIKI_MODULES = [
     "requires": [
       "cloth_config",
       "simpleweather",
-      "simpleinterfaces"
+      "simpleinterfaces",
+      "simpleloot"
     ],
     "optional": [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "94e04ad539b3"
+    "dataHash": "05a4ca2853f5"
   },
   {
     "id": "simpletweaks",
@@ -367,6 +368,26 @@ window.WIKI_MODULES = [
       "modmenu"
     ],
     "dataHash": "499e87886520"
+  },
+  {
+    "id": "simpleloot",
+    "displayName": "Simple Loot",
+    "description": "Vault cooldown in days instead of once per player; a sub-mod of Simple QoL, also playable alone.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplequalityoflife",
+      "modmenu"
+    ],
+    "dataHash": "39b577a27d14"
   },
   {
     "id": "simplequestionary",
