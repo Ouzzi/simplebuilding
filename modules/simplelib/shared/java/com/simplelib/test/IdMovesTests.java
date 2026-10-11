@@ -174,7 +174,7 @@ public final class IdMovesTests {
         } catch (java.io.IOException e) {
             throw h.assertionException("cannot read " + file + ": " + e);
         } finally {
-            advancements.stopListening();
+            advancements.clearTriggers();
         }
         h.succeed();
     }

@@ -47,6 +47,7 @@
       "com.simplebuilding.gametest.TestCentreGameTest",
       "com.simplebuilding.gametest.BlueprintGameTest",
       "com.simplebuilding.gametest.TradeAndMigrationGameTest",
+      "com.simplebuilding.gametest.MigrationWorldGameTest",
       "com.simplebuilding.gametest.ToolBehaviourGameTest",
       "com.simplebuilding.gametest.BlockBehaviourGameTest",
       "com.simplebuilding.gametest.DataIntegrityGameTest",

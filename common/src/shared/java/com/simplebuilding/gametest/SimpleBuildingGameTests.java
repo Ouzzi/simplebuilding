@@ -391,6 +391,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trade_and_migration_game_test_renamed_item_ids_still_load_as_the_renamed_items", TradeAndMigrationTests::renamedItemIdsStillLoadAsTheRenamedItems)
                     .build(),
+            GameTestSpec.named("migration_world_game_test_fixtures_are_buildable", MigrationWorldTests::fixturesAreBuildable)
+                    .build(),
+            GameTestSpec.named("migration_world_game_test_world_loads_under_moved_ids", MigrationWorldTests::worldLoadsUnderMovedIds)
+                    .build(),
             GameTestSpec.named("network_handler_game_test_double_jump_needs_enchanted_boots_and_wears_them", NetworkHandlerTests::doubleJumpNeedsEnchantedBootsAndWearsThem)
                     .build(),
             GameTestSpec.named("network_handler_game_test_space_key_and_trim_benefit_flags_reach_the_player", NetworkHandlerTests::spaceKeyAndTrimBenefitFlagsReachThePlayer)
