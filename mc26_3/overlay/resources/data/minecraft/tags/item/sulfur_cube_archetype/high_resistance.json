@@ -77,7 +77,15 @@
       "required": false
     },
     {
+      "id": "simplebuilding:stripped_oak_cauldron",
+      "required": false
+    },
+    {
       "id": "simplebuilding:spruce_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_spruce_cauldron",
       "required": false
     },
     {
@@ -85,7 +93,15 @@
       "required": false
     },
     {
+      "id": "simplebuilding:stripped_birch_cauldron",
+      "required": false
+    },
+    {
       "id": "simplebuilding:jungle_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_jungle_cauldron",
       "required": false
     },
     {
@@ -93,7 +109,15 @@
       "required": false
     },
     {
+      "id": "simplebuilding:stripped_acacia_cauldron",
+      "required": false
+    },
+    {
       "id": "simplebuilding:dark_oak_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_dark_oak_cauldron",
       "required": false
     },
     {
@@ -101,7 +125,15 @@
       "required": false
     },
     {
+      "id": "simplebuilding:stripped_mangrove_cauldron",
+      "required": false
+    },
+    {
       "id": "simplebuilding:cherry_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_cherry_cauldron",
       "required": false
     },
     {
@@ -109,7 +141,15 @@
       "required": false
     },
     {
+      "id": "simplebuilding:stripped_pale_oak_cauldron",
+      "required": false
+    },
+    {
       "id": "simplebuilding:crimson_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_crimson_cauldron",
       "required": false
     },
     {
@@ -117,7 +157,15 @@
       "required": false
     },
     {
+      "id": "simplebuilding:stripped_warped_cauldron",
+      "required": false
+    },
+    {
       "id": "simplebuilding:bamboo_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_bamboo_cauldron",
       "required": false
     }
   ]

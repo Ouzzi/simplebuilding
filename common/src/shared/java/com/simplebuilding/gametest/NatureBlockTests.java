@@ -205,13 +205,35 @@ public final class NatureBlockTests {
             }
         });
         helper.succeedWhen(() -> {
-            helper.assertTrue(helper.getBlockState(stoodOn).is(Blocks.WATER), "cracked ice under the stand is "
+            helper.assertTrue(helper.getBlockState(stoodOn).isAir(), "cracked ice under the stand breaks away without water, is "
                     + helper.getBlockState(stoodOn));
             helper.assertValueEqual(seenAge[0], CrackedIceBlock.MAX_AGE, "highest crack seen before melting");
             helper.assertTrue(helper.getBlockState(alone).is(ModBlocks.CRACKED_ICE)
                     && helper.getBlockState(alone).getValue(CrackedIceBlock.AGE) == 0, "cracked ice nobody stood on changed: "
                     + helper.getBlockState(alone));
         });
+    }
+
+    /** Rissiges Eis: abgebaut bleibt kein Wasser zurueck (Eis auf Stein wuerde zu Wasser), der Meissel macht Eis zu rissigem Eis. */
+    public static void crackedIceLeavesNoWaterAndChiselMakesIt(GameTestHelper helper) {
+        if (!McVersion.NATURE_VARIANTS) {
+            helper.succeed();
+            return;
+        }
+        BlockPos stone = new BlockPos(1, 1, 1);
+        BlockPos ice = stone.above();
+        helper.setBlock(stone, Blocks.STONE);
+        helper.setBlock(ice, ModBlocks.CRACKED_ICE);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        player.gameMode.destroyBlock(helper.absolutePos(ice));
+        helper.assertTrue(helper.getBlockState(ice).isAir(), "mined cracked ice leaves " + helper.getBlockState(ice));
+        helper.setBlock(ice, Blocks.ICE);
+        player.gameMode.destroyBlock(helper.absolutePos(ice));
+        helper.assertTrue(helper.getBlockState(ice).is(Blocks.WATER), "control: mined plain ice on stone leaves water, is " + helper.getBlockState(ice));
+        helper.assertTrue(com.simplebuilding.items.custom.ChiselItem.FINAL_STONE_FWD.get(Blocks.ICE) == ModBlocks.CRACKED_ICE,
+                "the stone chisel turns ice into cracked ice");
+        helper.succeed();
     }
 
     private static void expectSlab(GameTestHelper helper, BlockPos pos, Block slab, SlabType type) {

@@ -34,6 +34,11 @@ public final class WorkstationGameTest {
         WorkstationTests.autoSmitherSmithsOncePerPulse(helper);
     }
 
+    @GameTest(maxTicks = 100)
+    public void autoSmitherEjectsWithoutContainer(GameTestHelper helper) {
+        WorkstationTests.autoSmitherEjectsWithoutContainer(helper);
+    }
+
     @GameTest
     public void autoSmitherSortsHopperInput(GameTestHelper helper) {
         WorkstationTests.autoSmitherSortsHopperInput(helper);

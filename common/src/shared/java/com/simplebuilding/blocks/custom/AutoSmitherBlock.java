@@ -6,6 +6,7 @@ import com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity;
 import com.simplebuilding.version.BlockCodecs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
@@ -35,7 +36,7 @@ import org.jspecify.annotations.Nullable;
 /**
  * Auto-Schmied: der Crafter des Schmiedetischs (Besitzer 2026-10-02). Verhalten wie Vanillas {@code CrafterBlock}: eine
  * steigende Redstone-Flanke schmiedet nach der Server-Verzögerung (Standard {@link #DELAY_TICKS} Ticks) genau einmal; das
- * Ergebnis geht in den Container vor der Front oder bleibt im Ausgabeslot. Ohne passendes Rezept klickt es wie der Crafter
+ * Ergebnis geht in den Container vor der Front, sonst wird es wie beim Crafter ausgeworfen (Dispense-Sound/-Partikel). Ohne passendes Rezept klickt es wie der Crafter
  * (Ereignis 1050). Dauersignal loest nicht erneut aus. Komparator: belegte Eingaenge (0, 5, 10, 15).
  */
 public class AutoSmitherBlock extends BaseEntityBlock {
@@ -138,7 +139,11 @@ public class AutoSmitherBlock extends BaseEntityBlock {
             }
         }
         if (!remaining.isEmpty()) {
-            smither.storeResult(remaining);
+            // Wie der Crafter: ohne (freien) Container davor wird das Ergebnis in Blickrichtung ausgeworfen.
+            net.minecraft.world.phys.Vec3 center = net.minecraft.world.phys.Vec3.atCenterOf(pos);
+            DefaultDispenseItemBehavior.spawnItem(level, remaining, 6, facing, center.relative(facing, 0.7));
+            level.levelEvent(1049, pos, 0);
+            level.levelEvent(2010, pos, facing.get3DDataValue());
         }
     }
 

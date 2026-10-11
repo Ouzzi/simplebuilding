@@ -307,6 +307,11 @@ public class ChiselItem extends Item {
             registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP, family.wood().strippedBlock(), family.hollowStripped());
         }
 
+        // Rissiges Eis (Queue Nachtrag 35): der Meissel macht aus Eis rissiges Eis (Spatel zurueck).
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP, Blocks.ICE, ModBlocks.CRACKED_ICE);
+        }
+
         // =================================================================================
         // MERGING
         // =================================================================================

@@ -167,6 +167,11 @@ public final class WoodworkTests {
         BlockState filled = helper.getBlockState(water);
         check(filled.is(oak) && filled.getValue(WoodenCauldronBlock.CONTENT) == WoodenCauldronBlock.Content.WATER
                 && WoodenCauldronBlock.levelOf(filled) == 3, fails, "water bucket fills it (" + filled + ")");
+        BlockPos strippedPos = new BlockPos(7, 1, 1);
+        helper.setBlock(strippedPos, oak().strippedCauldron());
+        useBlock(helper, player, new ItemStack(Items.WATER_BUCKET), strippedPos);
+        check(helper.getBlockState(strippedPos).getValue(WoodenCauldronBlock.CONTENT) == WoodenCauldronBlock.Content.WATER, fails,
+                "the stripped cauldron holds water too");
         check(player.getMainHandItem().is(Items.BUCKET), fails, "the bucket comes back empty");
         useBlock(helper, player, new ItemStack(Items.GLASS_BOTTLE), water);
         check(WoodenCauldronBlock.levelOf(helper.getBlockState(water)) == 2, fails, "a bottle takes one level");
@@ -361,7 +366,7 @@ public final class WoodworkTests {
         List<String> missing = new ArrayList<>();
         var recipes = helper.getLevel().getServer().getRecipeManager();
         for (WoodBlocks.Family family : WoodBlocks.families()) {
-            for (Block block : List.of(family.hollow(), family.hollowStripped(), family.sheet(), family.strippedSheet(), family.cauldron(), family.crate())) {
+            for (Block block : List.of(family.hollow(), family.hollowStripped(), family.sheet(), family.strippedSheet(), family.cauldron(), family.strippedCauldron(), family.crate())) {
                 Identifier id = BuiltInRegistries.BLOCK.getKey(block);
                 if (recipes.byKey(ResourceKey.create(Registries.RECIPE, id)).isEmpty()) {
                     missing.add(id.getPath());
