@@ -54,7 +54,7 @@ public class SoulfireBlaze extends Blaze {
         return this.entityData.get(DATA_SOUL_CHARGED);
     }
 
-    void setSoulCharged(boolean charged) {
+    public void setSoulCharged(boolean charged) {
         this.entityData.set(DATA_SOUL_CHARGED, charged);
     }
 
