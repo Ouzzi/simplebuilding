@@ -37,7 +37,15 @@ public final class MapsForge {
             if (event.getRegistryKey().equals(Registries.ITEM)) MapsItems.register();
         });
         BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
-            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) MapsItems.tabStacks().forEach(event::accept);
+            if (!event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) return;
+            // After the vanilla map like on Fabric: appending to the tail clashes with other mods' putAfter at the tail.
+            var entries = event.getEntries();
+            var previous = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.MAP);
+            for (var stack : MapsItems.tabStacks()) {
+                if (entries.contains(previous)) entries.putAfter(previous, stack, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                else event.accept(stack);
+                previous = stack;
+            }
         });
         channel = ChannelBuilder.named(SimpleMaps.id("main")).payloadChannel().protocol(NetworkProtocol.PLAY)
                 .serverbound()

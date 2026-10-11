@@ -154,6 +154,9 @@ public final class MapsTests {
     private static void revealExplores(GameTestHelper h) {
         BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
         h.setBlock(new BlockPos(1, 1, 1), Blocks.GOLD_BLOCK);
+        // The shared gametest world may hand out a chunk whose surface heightmap is stale at tick 0 (seen once in the gate): rebuild it.
+        net.minecraft.world.level.levelgen.Heightmap.primeHeightmaps(h.getLevel().getChunkAt(pos),
+                java.util.EnumSet.of(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE));
         WayfinderData data = new WayfinderData();
         for (int phase = 0; phase < 16; phase++) Reveal.step(h.getLevel(), pos.getX(), pos.getY(), pos.getZ(), data, 8, phase);
         int c = data.color(pos.getX(), pos.getZ());
