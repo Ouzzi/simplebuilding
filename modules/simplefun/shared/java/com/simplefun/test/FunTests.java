@@ -87,6 +87,16 @@ public final class FunTests {
   }
 
   /** Super-mod switch "Enable Simple Fun" off: registries unchanged, empty tab, no vanilla tab entries, no loot. */
+  private static net.minecraft.world.item.CreativeModeTab funTab() {
+    return BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(
+        ResourceKey.create(Registries.CREATIVE_MODE_TAB, AnimalHeads.id("fun")));
+  }
+
+  private static net.minecraft.world.item.CreativeModeTab.ItemDisplayParameters displayParameters(GameTestHelper h) {
+    return new net.minecraft.world.item.CreativeModeTab.ItemDisplayParameters(
+        h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
+  }
+
   public static void subModSwitch(GameTestHelper h) {
     var sw = com.simplebuilding.framework.api.SubMods.enabled("simplefun");
     try {
@@ -96,21 +106,15 @@ public final class FunTests {
           BuiltInRegistries.CREATIVE_MODE_TAB.getValue(AnimalHeads.id("fun")) != null
               && BuiltInRegistries.ITEM.getValue(AnimalHeads.id("brick_snowball")) != null,
           "Registries stay");
-      CreativeModeTabs.tryRebuildTabContents(
-          h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
-      h.assertTrue(
-          BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(
-                  ResourceKey.create(Registries.CREATIVE_MODE_TAB, AnimalHeads.id("fun")))
-              .getDisplayItems()
-              .isEmpty(),
-          "Own tab empty while off");
+      // buildContents directly: tryRebuildTabContents is a no-op while its parameters stay the same.
+      funTab().buildContents(displayParameters(h));
+      h.assertTrue(funTab().getDisplayItems().isEmpty(), "Own tab empty while off");
       var pools = new ArrayList<LootPool.Builder>();
       FunLoot.apply(BuiltInLootTables.CHARGED_CREEPER, pools::add, h.getLevel().registryAccess());
       h.assertTrue(pools.isEmpty(), "No loot while off");
     } finally {
       com.simplebuilding.framework.api.SubMods.set("simplefun", sw);
-      CreativeModeTabs.tryRebuildTabContents(
-          h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
+      funTab().buildContents(displayParameters(h));
     }
     h.assertTrue(SimplefunCommon.on() == sw, "Switch restored");
     h.succeed();
