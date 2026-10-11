@@ -1,0 +1,44 @@
+# Audit CLIENT (2026-10-11)
+
+Branch `claude-audit-client` (von claude-wave1 d70cb2d97). Bereich: Screens, HUDs, Renderer, Eingabe (26.3-SDL),
+Tastenbelegung, GUI-Skalierung, Tooltips, Render-Layer, Client-Crash-Risiken. Nur belegte Funde; Unsicheres ist als
+"zu pruefen" markiert. Kein Produktivcode geaendert.
+
+## Funde
+
+| ID | Prio | Fund | Beleg | Vorschlag |
+|---|---|---|---|---|
+| C1 | P2 | Forge 26.3 registriert `key.simplebuilding.toggle_hud` zweimal: zwei `KeyMapping`-Instanzen gleichen Namens, beide per `event.register(...)`. Nur die zweite steht in `ClientState.hudToggleKey`; die erste ist ein verwaister Doppel-Eintrag in den Steuerungs-Optionen (zwei Zeilen, gleicher Name, Belegung teilen sich nicht). | `mc26_3/forge/src/main/java/com/simplebuilding/forge/SimplebuildingForgeClient.java:180-192` (zwei `new KeyMapping("key.simplebuilding.toggle_hud"...)` + zwei `event.register`); NeoForge `SimplebuildingNeoForgeClient.java:228` und Fabric `SimplebuildingClient.java:165` registrieren einmal. | Zeilen 180-182 (erste Instanz) loeschen. Test: Zaehl-Assertion "Name nur einmal in `options.keyMappings`" im Forge-Client-Smoke. |
+| C2 | P2 | Standardtaste `P` fuer "Crawl" (QoL) kollidiert mit der Vanilla-Taste `P` (Soziale Interaktionen / Spielerliste). Beide Bindungen loesen aus, der Spieler bekommt zwei Reaktionen bzw. Vanillas Konflikt-Rotmarkierung in den Steuerungen. | `modules/simplequalityoflife/shared/java/com/simplequalityoflife/client/SimplequalityoflifeClient.java:8` (`InputConstants.KEY_P`); Vanilla `key.socialInteractions` = P. Weitere Defaults `R` (Autowalk), `H`, `G`, `B` kollidieren mit keiner Vanilla-Taste. | Crawl auf `UNKNOWN` (nur per Befehl `/crawl` noetig) oder freie Taste (z. B. `KEY_K`). |
+| C3 | P2 | Enderite-Tiegel mit Fass (`barrelBelow`) braucht 256 px Hoehe; bei 854x480 / GUI-Skala 2 stehen nur 240 px zur Verfuegung, Ober- und Unterkante (Titel / Inventar-Box) werden abgeschnitten. Auch bei 1280x720 / Skala 3 (240 px). | Rechnung aus `CrucibleMenu`: `panelHeight(tier)` = `GRID_TOP 18 + rows(3)*18 + FIRE_ROOM 12` + `BOX_GAP 2` + `INVENTORY_BOX 100` = 186; plus `barrelBelowHeight` = `6 + 3*18 + 8` = 68 und `BOX_GAP 2` = 256 (`modules/simplelib/shared/java/com/simplelib/crucible/CrucibleMenu.java:36-43,100-125`, `CrucibleTier.java:15`). Nicht per Screenshot belegt (zu pruefen im Client-Lauf bei kleinem Fenster). | Barrel-Kasten bei zu geringer Hoehe neben statt unter den Tiegel legen (Breite 178+2+178=358 < 427 passt bei Skala 2), oder Reihen des gestapelten Fasses kuerzen. |
+| C4 | P3 | Tastenkategorie-Uebersetzung der Hauptmod hat den falschen Schluessel: `key.categories.simplebuilding.simplemods` (Plural). Fuer `KeyMapping.Category.register(Identifier)` verwenden die uebrigen Module `key.category.<ns>.<pfad>` (QoL: `key.category.simplequalityoflife.general`). Wirkung vermutlich: Kategorie zeigt in den Steuerungen den Rohschluessel statt "SimpleMods". Zu pruefen im Client (Screenshot Steuerungen). | `src/main/resources/assets/simplebuilding/lang/en_us.json:499` + `de_de.json:475` (`key.categories...`) vs. `modules/simplequalityoflife/.../en_us.json:48` (`key.category...`); registriert in `SimplebuildingClient.java:58` (`"simplemods"`). | Schluessel `key.category.simplebuilding.simplemods` additiv ergaenzen (alten lassen). |
+| C5 | P3 | SimpleInterfaces registriert Kategorie `simpleinterfaces:general` ohne Uebersetzung (Lang hat nur `key.simpleinterfaces.toggle_style`). | `StyleToggleClient.java:13`; `modules/simpleinterfaces/shared/resources/assets/simpleinterfaces/lang/en_us.json` (nur Zeile 4 mit `key.`) | `key.category.simpleinterfaces.general` in EN/DE ergaenzen. |
+| C6 | P4 | OctantScreen und BuildingWandScreen schliessen auf fest verdrahtetes `KEY_E` statt auf `options.keyInventory`; wer die Inventartaste umbelegt, schliesst diese Screens nicht mit ihr (GuideBookScreen und BlueprintScreen machen es richtig). | `common/src/shared/java/com/simplebuilding/client/gui/OctantScreen.java:364`, `BuildingWandScreen.java:138` vs. `GuideBookScreen.java:543` (`keyInventory.matches`) | `minecraft.options.keyInventory.matches(input)` benutzen. |
+| C7 | P4 | Rohzahl 333 statt `InputConstants.KEY_NUMPADSUBTRACT`/`KEY_SUBTRACT` im Wayfinder. Wert ist korrekt (GLFW_KEY_KP_SUBTRACT), aber unter der 26.3-SDL-Regel unerwuenscht (Kommentar im Code deutet auf GLFW-Konstante). Zoom-Taste `KEY_ADD` (Num +) und `KEY_EQUALS` sind benannt. | `modules/simplemaps/shared/java/com/simplemaps/client/WayfinderScreen.java:691` | Benannte Konstante verwenden. |
+| C8 | P4 | Autowalk-Zustand (`walking`) bleibt statisch ueber Welten erhalten, wenn das Spiel die Welt verlaesst waehrend `walking` true ist und danach direkt wieder ein Spieler beitritt: `tick` setzt nur bei `player == null` zurueck (sofern ein Tick ohne Spieler lief; beim Server-zu-Server-Wechsel ohne null-Tick laeuft Autowalk weiter). Zu pruefen. | `SimplequalityoflifeClient.java:11-12` | Beim Disconnect (`ClientPlayConnectionEvents.DISCONNECT` o. ae.) zuruecksetzen; geringer Nutzen. |
+
+## Geprueft ohne Fund
+
+- **SDL-Eingabe 26.3:** keine Roh-Maustasten (`button == 0/1`) in Client-Code; die einzigen Treffer sind `PortableContainers.java:63` (`ContainerInput.PICKUP`, Server-Slot-Klick `button != 1`, kein GLFW) und WayfinderScreen `case 2` (Tab-Index, nicht Taste). Alle Screens benutzen `MouseButtonEvent`/`KeyEvent` und `InputConstants.*`. Keine `GLFW*`-Importe im Produktivcode (nur Test-Zugriffe).
+- **Tastenbelegung:** Fabric/NeoForge/Forge registrieren dieselben 5 Tasten der Hauptmod (H Highlight, G Werkzeug-Einstellungen, B Rucksack, Octant-Figur + HUD ungebunden); QoL R/P, Interfaces ungebunden. Kollision nur P (C2). Alle `key.*`-Namen haben EN+DE-Eintraege.
+- **Lang:** alle 468 literalen `Component.translatable("...")`-Schluessel aus Client-/Common-Code sind in EN vorhanden (Treffer waren Praefixe mit angehaengtem Teil oder Vanilla-Schluessel); EN und DE haben identische Schluesselmengen (0 fehlend in beide Richtungen, ueber alle Lang-Dateien vereinigt). Kein hartkodierter englischer `Component.literal` im Anzeigecode (nur Pack-Namen).
+- **Client-NPE:** HUD-Overlays (Rangefinder, Speedometer, DoubleJump, SoulBurn), `HammockLeashRenderer`, `MouseMixin`, `WarmGlowEntityMixin`, `SmithingScreenMixin`, `TrimReferenceScreen`, `BlueprintScreen.insertExample`, `OctantScreen.cornerAccepted` pruefen `player`/`level` vorher auf null (bzw. Aufrufstelle prueft). Rangefinder-/Speedometer-HUD pruefen `client.player == null` als erste Zeile (verifiziert).
+- **Threading:** keine `Thread`/`CompletableFuture`/Executor in Client-Code; Netzwerk-Handler laufen ueber die Loader-Handler auf dem Client-Thread.
+- **Render:** Hervorhebungs-Geometrie nutzt Aufblaehung 0.001-0.009 (`BlockHighlightRenderer.java:160,163,284,285,342`), Fuellung stets groesser als Linien; kein belegtes Z-Fighting. `HammockRenderer.java:106-108` zeichnet Wolle/Spreader/Seil als drei `entityCutout`-Durchgaenge; Z-Fighting nicht belegt.
+- **Skalierung (Rechnung):** Truhe max 338x222, Rucksack max 212x238, Wayfinder 208x184, Gildenbuch 292x180, Tiegel ohne Fass max 204 hoch - alle <= 427x240 (854x480, Skala 2). Ausnahme C3. BlueprintScreen/OctantScreen/BuildingWandScreen layouten dynamisch aus `width/height`.
+
+## Testlaeufe (sb-test, Fabric 26.3, xvfb)
+
+| Ziel | Ergebnis |
+|---|---|
+| `client-fabric-263` (HEAD d70cb2d97) | 177/177 gruen, 808 s (Run `2026-10-10T23-18-09Z-904f`) |
+| 16 Modul-Client-Smokes `module-*-client-263` | 92/92 gruen (Money 4, Riding 4, Models 6, Fun 4, Visuals 5, Sounds 3, QoL 8, Tweaks 3, Dimensions 7, Sandwiches 1, SimpleLib 3, Interfaces 26, Maps 9, Trims 1, Mobs 7, Weather 1) |
+
+Keine roten Tests. Kein Test belegt C1-C8; C1 (Forge-Doppelregistrierung) liegt ausserhalb jeder Client-Suite.
+
+### Abdeckungsluecken (P4, belegt durch Testlauf-Auswahl)
+
+| ID | Prio | Fund | Beleg | Vorschlag |
+|---|---|---|---|---|
+| C9 | P4 | Client-Tests laufen nur auf Fabric 26.3; `client-neoforge-263` und jede Forge-Client-Probe fehlen im Lauf (Tabelle "uebersprungen"), daher bleiben loaderspezifische Client-Fehler wie C1 (Tasten-/HUD-Registrierung) unentdeckt. Modul-Client-Smokes gibt es nur als `fabric`. | Runner-Ausgabe 2026-10-10 (`Client NeoForge - MC 26.3  uebersprungen`); `tools/testrunner/run.py:227-239,321-324` | `client-neoforge-263` ins Nacht-Gate aufnehmen; Mini-Check "jede Taste genau einmal in `options.keyMappings`" je Loader. |
+| C10 | P4 | Kein Test fuer Tastenbelegung (Kollisionen/Defaults) und fuer Screen-Passung bei 854x480 (Skala 2); C2 und C3 waeren damit rot geworden. | Suche in `common/src/shared/clientgametest`, `modules/*/clienttest` nach `keyMappings`/`854` ohne Treffer | Test: alle Mod-`KeyMapping`s gegen `Minecraft.options.keyMappings` auf gleiche Default-Taste pruefen; Screenshot-/Bounds-Test der groessten Screens (Tiegel Enderite+Fass) bei 427x240 GUI-Groesse. |
