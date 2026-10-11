@@ -31,7 +31,8 @@ window.WIKI_MODULES = [
       "simplefun",
       "simpledimensions",
       "simpletrims",
-      "simplemobs"
+      "simplemobs",
+      "simpleenddragonfight"
     ]
   },
   {
@@ -403,5 +404,20 @@ window.WIKI_MODULES = [
     ],
     "optional": [],
     "dataHash": "3f5707f1aac1"
+  },
+  {
+    "id": "simpleenddragonfight",
+    "displayName": "Simple End Dragon Fight",
+    "description": "Ender Dragon fight: +1 health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "efef43d95051"
   }
 ];
