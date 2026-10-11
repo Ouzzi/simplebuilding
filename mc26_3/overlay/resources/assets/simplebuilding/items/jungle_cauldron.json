@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplebuilding:block/jungle_cauldron"
+    "model": "simplebuilding:item/jungle_cauldron"
   }
 }

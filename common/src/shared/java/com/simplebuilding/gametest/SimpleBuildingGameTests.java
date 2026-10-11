@@ -330,6 +330,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("woodwork_game_test_wooden_cauldron_holds_water_and_burns_with_lava", WoodworkTests::woodenCauldronHoldsWaterAndBurnsWithLava)
                     .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("woodwork_game_test_wooden_cauldron_takes_crucible_buckets", WoodworkTests::woodenCauldronTakesCrucibleBuckets)
+                    .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
+                    .build(),
             GameTestSpec.named("woodwork_game_test_crates_store_food_for_hoppers_and_comparators", WoodworkTests::cratesStoreFoodForHoppersAndComparators)
                     .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
                     .build(),

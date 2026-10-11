@@ -7990,7 +7990,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Acacia Log",
         "de_de": "Geschnitzter Akazienstamm"
       },
-      "texture": "assets/textures/block/carved/acacia_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -8027,7 +8027,7 @@ window.WIKI_DATA = {
         "en_us": "Block of Carved Bamboo",
         "de_de": "Geschnitzter Bambusblock"
       },
-      "texture": "assets/textures/block/carved/bamboo_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -8064,7 +8064,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Birch Log",
         "de_de": "Geschnitzter Birkenstamm"
       },
-      "texture": "assets/textures/block/carved/birch_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -8101,7 +8101,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Cherry Log",
         "de_de": "Geschnitzter Kirschstamm"
       },
-      "texture": "assets/textures/block/carved/cherry_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -8138,7 +8138,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Crimson Stem",
         "de_de": "Geschnitzter Karmesinstiel"
       },
-      "texture": "assets/textures/block/carved/crimson_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -8175,7 +8175,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Dark Oak Log",
         "de_de": "Geschnitzter Schwarzeichenstamm"
       },
-      "texture": "assets/textures/block/carved/dark_oak_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -8212,7 +8212,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Jungle Log",
         "de_de": "Geschnitzter Tropenbaumstamm"
       },
-      "texture": "assets/textures/block/carved/jungle_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -8249,7 +8249,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Mangrove Log",
         "de_de": "Geschnitzter Mangrovenstamm"
       },
-      "texture": "assets/textures/block/carved/mangrove_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -8286,7 +8286,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Oak Log",
         "de_de": "Geschnitzter Eichenstamm"
       },
-      "texture": "assets/textures/block/carved/oak_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -8323,7 +8323,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Pale Oak Log",
         "de_de": "Geschnitzter Blasseichenstamm"
       },
-      "texture": "assets/textures/block/carved/pale_oak_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -8360,7 +8360,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Spruce Log",
         "de_de": "Geschnitzter Fichtenstamm"
       },
-      "texture": "assets/textures/block/carved/spruce_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -8397,7 +8397,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Warped Stem",
         "de_de": "Geschnitzter Wirrstiel"
       },
-      "texture": "assets/textures/block/carved/warped_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -44058,7 +44058,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Acacia Log",
         "de_de": "Geschnitzter Akazienstamm"
       },
-      "texture": "assets/textures/block/carved/acacia_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -44099,7 +44099,7 @@ window.WIKI_DATA = {
         "en_us": "Block of Carved Bamboo",
         "de_de": "Geschnitzter Bambusblock"
       },
-      "texture": "assets/textures/block/carved/bamboo_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -44140,7 +44140,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Birch Log",
         "de_de": "Geschnitzter Birkenstamm"
       },
-      "texture": "assets/textures/block/carved/birch_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -44181,7 +44181,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Cherry Log",
         "de_de": "Geschnitzter Kirschstamm"
       },
-      "texture": "assets/textures/block/carved/cherry_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -44222,7 +44222,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Crimson Stem",
         "de_de": "Geschnitzter Karmesinstiel"
       },
-      "texture": "assets/textures/block/carved/crimson_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -44263,7 +44263,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Dark Oak Log",
         "de_de": "Geschnitzter Schwarzeichenstamm"
       },
-      "texture": "assets/textures/block/carved/dark_oak_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -44304,7 +44304,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Jungle Log",
         "de_de": "Geschnitzter Tropenbaumstamm"
       },
-      "texture": "assets/textures/block/carved/jungle_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -44345,7 +44345,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Mangrove Log",
         "de_de": "Geschnitzter Mangrovenstamm"
       },
-      "texture": "assets/textures/block/carved/mangrove_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -44386,7 +44386,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Oak Log",
         "de_de": "Geschnitzter Eichenstamm"
       },
-      "texture": "assets/textures/block/carved/oak_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -44427,7 +44427,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Pale Oak Log",
         "de_de": "Geschnitzter Blasseichenstamm"
       },
-      "texture": "assets/textures/block/carved/pale_oak_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -44468,7 +44468,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Spruce Log",
         "de_de": "Geschnitzter Fichtenstamm"
       },
-      "texture": "assets/textures/block/carved/spruce_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -44509,7 +44509,7 @@ window.WIKI_DATA = {
         "en_us": "Carved Warped Stem",
         "de_de": "Geschnitzter Wirrstiel"
       },
-      "texture": "assets/textures/block/carved/warped_carving.png",
+      "texture": null,
       "craftedBy": [],
       "usedIn": [],
       "trades": [],

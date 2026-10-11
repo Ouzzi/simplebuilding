@@ -725,7 +725,13 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Achtel-Blöcke im Inventar ca. 10 % kleiner rendern.
 - [x] Sand-/Kies-Stufen (gravity_slabs.png): untere Stufe – eine Stufe einen Block darüber fällt nicht auf sie; obere Stufe fällt gar nicht (schwebt); platzierte obere Gravity-Stufe teleportiert beim ersten Fall-Tick von oben nach unten, dann fällt sie. (claude-n34-phys: Halbfall auf gleichartige untere Stufe, obere fällt in eigener Zelle, Fall-Entity startet auf sichtbarer Höhe; 2 neue Tests)
 - [ ] Holzkessel nimmt nur Vanilla-Lava: Enderit-Lava-Eimer (und alle Enderit-Eimer) auf Kompatibilität zu Vanilla-Interaktionen prüfen.
-- [ ] Geschnitztes Holz: ohne Scherbe gemeißelt → holzeigenes Motiv; mit Scherbe → Vanilla-Scherbenmotiv.
+- [ ] Geschnitztes Holz: ohne Scherbe gemeißelt → holzeigenes Motiv; mit Scherbe → Vanilla-Scherbenmotiv.,
+- [x] Eichen-Kessel (Holzkessel) hat im Inventar kein 3D-Modell. (claude-n34-blocks: Item-Modell mit Block-Parent + GUI-Transform fuer alle Hoelzer; Client-Sicht offen)
+- [x] Checker-Treppen/-Stufen: Texturen weiterhin falsch orientiert (checker_stairs.png). (claude-n34-blocks: Zellmodelle je Form (weltbuendig, ohne uvlock), Datagen; Client-Sicht offen)
+- [x] Achtel-Blöcke im Inventar ca. 10 % kleiner rendern. (claude-n34-blocks: GUI-Skala 0.9 (Octet- und Schach-Achtel-Item))
+- [ ] Sand-/Kies-Stufen (gravity_slabs.png): untere Stufe – eine Stufe einen Block darüber fällt nicht auf sie; obere Stufe fällt gar nicht (schwebt); platzierte obere Gravity-Stufe teleportiert beim ersten Fall-Tick von oben nach unten, dann fällt sie.
+- [x] Holzkessel nimmt nur Vanilla-Lava: Enderit-Lava-Eimer (und alle Enderit-Eimer) auf Kompatibilität zu Vanilla-Interaktionen prüfen. (claude-n34-blocks: CauldronBuckets (Item-Klasse statt Gleichheit) fuer Holzkessel; Gametest woodenCauldronTakesCrucibleBuckets)
+- [x] Geschnitztes Holz: ohne Scherbe gemeißelt → holzeigenes Motiv; mit Scherbe → Vanilla-Scherbenmotiv. (claude-n34-blocks: je Seite einzeln (none/wood/sherd + gemeinsames Motiv), Schleichen nimmt ab)
 - [ ] Sculk Jaw: kein Flackern (Öffnen/Schließen) vor jedem Schaden, statisch geschlossen; Spieler stärker verlangsamen + Darkness; nur erster Treffer ~1 Herz Schaden, danach keiner; geschlossene Form schöner.
 - [x] (claude-n34-ui) Blaupause-Hilfe: die beiden Buttons (blueprint_help_buttons.png) mit Minecraft-Texturen statt eigenen rendern; Rezeptbuch-/Hilfe-Button unten bekommt einen Rahmen.
 - [ ] Magnet: Interaktion eines Items zwischen zwei Magneten weiterhin verbuggt.

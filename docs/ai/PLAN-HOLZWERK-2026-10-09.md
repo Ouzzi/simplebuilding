@@ -21,9 +21,14 @@ Blasseiche, Karmesin, Wirr, Bambus (12; `woodwork/WoodKind`).
 4. **Holz-Kessel** (`<holz>_cauldron`): Inhalt leer/Wasser/Lava/Pulverschnee wie der verstärkte Kessel aus
    simplelib (Vanilla-Interaktionen über Abbildung auf Vanilla-Kessel). Brennbar; Lava hinein → brennt ~3 s und
    wird zur Lavaquelle. Karmesin/Wirr brennen nicht und halten Lava. Rezept: Röhre über Platte (gleiches Holz).
-5. **Gemeißeltes Holz** (`carved_<stamm>`): Scherbe in der Nebenhand + Meißel in der Haupthand, Klick auf die
-   Seite eines stehenden entrindeten Stamms (oder ein gemeißeltes Holz) → Motiv der Scherbe auf dieser Seite.
-   Scherbe bleibt, Meißel −1 Haltbarkeit + Abklingzeit. Droppt sich mit Motiv (`copy_state`).
+5. **Gemeißeltes Holz** (`carved_<stamm>`, Queue Nachtrag 34): jede der vier Seiten eines stehenden entrindeten Stamms
+   (oder gemeißelten Holzes) wird einzeln gemeißelt: Meißel ohne Scherbe → holzeigenes Motiv, mit Scherbe in der
+   Nebenhand → Vanilla-Scherbenmotiv auf dieser Seite; Schleichen + Meißel nimmt die Seite wieder ab (die letzte gibt den
+   Stamm zurück). Zustand: `north/east/south/west` = `none|wood|sherd` plus ein gemeinsames `motif` (alle Scherbenseiten
+   eines Blocks zeigen das zuletzt benutzte Scherbenmotiv - ein Blockstate kann kein Motiv je Seite halten, 25^4 Zustände
+   wären zu viele). Oben/unten bleibt der alte Meißel-Job (ohne Scherbe aushöhlen); Seiten-Klick auf entrindeten Stamm
+   höhlt nicht mehr aus, sondern meißelt. Scherbe bleibt, Meißel −1 Haltbarkeit + Abklingzeit. Droppt sich mit allen
+   fünf Eigenschaften (`copy_state`), gesetzt bleiben die Seiten wie sie waren.
 6. **Texturen ohne Vanilla-Kopien:** Modelle zeigen auf Vanilla-Texturen; die Motive entstehen zur Ladezeit über
    die Vanilla-Atlasquelle `paletted_permutations` aus `entity/decorated_pot/*_pottery_pattern` (Hintergrund
    transparent, die drei Motivfarben → drei dunkle Töne des entrindeten Holzes; nur Paletten-PNGs im Repo).
@@ -70,3 +75,10 @@ Knarz-Auge, Karmesin Pilz mit Wurzeln, Wirr Spirale, Bambus Zaungitter.
 Farben aus den Planken (dunkelste/drittdunkelste/hellste); Abweichungen: helle Hölzer (Birke, Kirsche, Blasseiche,
 Bambus) Schnittfarben abgedunkelt, dunkle Hölzer (Schwarzeiche, Karmesin, Wirr) Lichtkante aus dem entrindeten Stamm.
 Offen: Pappel (26.3-Holz, `poplar`) hat noch kein `carved_poplar_log` (Java + WoodKind); Besitzer-Feedback zu den Motiven.
+
+## Nachtrag 34 (2026-10-11): Item-Modell, Kessel-Eimer
+- Holzkessel-Item: `models/item/<holz>_cauldron.json` (Parent = Blockmodell + GUI-/Hand-Transformationen; Vanillas `block/cauldron`
+  hat keinen Parent und damit kein 3D-Icon). Generator `woodwork_2026_10_09.py`.
+- Kupfer-/Enderit-/Keramik-Eimer am Holzkessel: `fluid/CauldronBuckets` (aus `CauldronBucketMixin` herausgezogen, Entscheidung
+  nach Item-Klasse `ModBucketItem`, nie nach Item-Gleichheit); `WoodenCauldronBlock.useItemOn` ruft es mit dem auf Vanilla
+  abgebildeten Zustand und bildet das Ergebnis zurück. Test `woodenCauldronTakesCrucibleBuckets`.

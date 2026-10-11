@@ -189,6 +189,62 @@ public final class WoodworkTests {
         });
     }
 
+    /** N34: copper, Enderite and ceramic buckets work on the wooden cauldron like on the Vanilla one (no item identity checks). */
+    public static void woodenCauldronTakesCrucibleBuckets(GameTestHelper helper) {
+        if (!McVersion.WOODWORK) {
+            helper.succeed();
+            return;
+        }
+        WoodenCauldronBlock oak = oak().cauldron();
+        WoodenCauldronBlock crimson = WoodBlocks.family(WoodKind.CRIMSON).cauldron(); // never burns: lava stays for the test
+        BlockPos a = new BlockPos(1, 1, 1);
+        BlockPos b = new BlockPos(3, 1, 1);
+        BlockPos c = new BlockPos(5, 1, 1);
+        helper.setBlock(a, oak);
+        helper.setBlock(b, crimson);
+        helper.setBlock(c, crimson);
+        ServerPlayer player = player(helper, GameType.SURVIVAL);
+        List<String> fails = new ArrayList<>();
+        WoodenCauldronBlock.Content water = WoodenCauldronBlock.Content.WATER;
+        WoodenCauldronBlock.Content lava = WoodenCauldronBlock.Content.LAVA;
+        WoodenCauldronBlock.Content empty = WoodenCauldronBlock.Content.EMPTY;
+        // full Enderite water bucket: pours one of its two buckets (half stays), the half one takes it back (full again)
+        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_WATER_BUCKET), a);
+        check(helper.getBlockState(a).getValue(WoodenCauldronBlock.CONTENT) == water && WoodenCauldronBlock.levelOf(helper.getBlockState(a)) == 3,
+                fails, "full Enderite water bucket fills the oak cauldron (" + helper.getBlockState(a) + ")");
+        check(player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET), fails, "half Enderite water bucket stays");
+        useBlock(helper, player, player.getMainHandItem(), a);
+        check(helper.getBlockState(a).getValue(WoodenCauldronBlock.CONTENT) == empty
+                && player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_WATER_BUCKET), fails,
+                "the half bucket takes the full cauldron and becomes full (" + player.getMainHandItem() + ")");
+        // empty Enderite bucket scoops a full water cauldron; copper water bucket pours
+        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET), a);
+        check(helper.getBlockState(a).getValue(WoodenCauldronBlock.CONTENT) == water && player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.COPPER_BUCKET),
+                fails, "copper water bucket fills it, the empty copper bucket stays");
+        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET), a);
+        check(helper.getBlockState(a).getValue(WoodenCauldronBlock.CONTENT) == empty
+                && player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET), fails, "the empty Enderite bucket scoops it (half)");
+        // lava: full Enderite lava, copper lava breaks, ceramic lava
+        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_LAVA_BUCKET), b);
+        check(helper.getBlockState(b).getValue(WoodenCauldronBlock.CONTENT) == lava && player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET),
+                fails, "full Enderite lava bucket fills the crimson cauldron (" + helper.getBlockState(b) + ")");
+        useBlock(helper, player, player.getMainHandItem(), b);
+        check(helper.getBlockState(b).getValue(WoodenCauldronBlock.CONTENT) == empty
+                && player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_LAVA_BUCKET), fails, "the half lava bucket takes lava back");
+        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET), b);
+        check(helper.getBlockState(b).getValue(WoodenCauldronBlock.CONTENT) == lava && player.getMainHandItem().isEmpty(), fails,
+                "copper lava bucket pours and breaks (" + player.getMainHandItem() + ")");
+        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET), b);
+        check(helper.getBlockState(b).getValue(WoodenCauldronBlock.CONTENT) == empty
+                && player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET), fails, "the empty Enderite bucket scoops lava (half)");
+        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.CERAMIC_LAVA_BUCKET), c);
+        check(helper.getBlockState(c).getValue(WoodenCauldronBlock.CONTENT) == lava, fails, "ceramic lava bucket pours");
+        // soul lava never goes into a wooden cauldron
+        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET), a);
+        check(helper.getBlockState(a).getValue(WoodenCauldronBlock.CONTENT) == empty, fails, "soul lava is refused");
+        finish(helper, fails);
+    }
+
     public static void cratesStoreFoodForHoppersAndComparators(GameTestHelper helper) {
         if (!McVersion.WOODWORK) {
             helper.succeed();
@@ -330,23 +386,47 @@ public final class WoodworkTests {
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.ANGLER_POTTERY_SHERD));
         chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, rel, Direction.EAST)));
         BlockState carved = helper.getBlockState(rel);
-        check(carved.is(oak().carved()) && carved.getValue(CarvedLogBlock.FACING) == Direction.EAST
+        check(carved.is(oak().carved()) && CarvedLogBlock.carving(carved, Direction.EAST) == CarvedLogBlock.Carving.SHERD
                 && carved.getValue(CarvedLogBlock.MOTIF) == SherdMotif.ANGLER, fails, "angler carved east (" + carved + ")");
+        check(CarvedLogBlock.carving(carved, Direction.NORTH) == CarvedLogBlock.Carving.NONE
+                && CarvedLogBlock.carving(carved, Direction.WEST) == CarvedLogBlock.Carving.NONE, fails, "the other sides stay plain (" + carved + ")");
         check(player.getOffhandItem().is(Items.ANGLER_POTTERY_SHERD), fails, "the sherd stays");
+        // every side on its own: a second sherd on the west side, then the wood's own motif (no sherd) on the north side
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.HEART_POTTERY_SHERD));
-        chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, rel, Direction.EAST)));
-        check(helper.getBlockState(rel).getValue(CarvedLogBlock.MOTIF) == SherdMotif.HEART, fails, "re-carving changes the motif");
+        chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, rel, Direction.WEST)));
+        BlockState two = helper.getBlockState(rel);
+        check(CarvedLogBlock.carving(two, Direction.EAST) == CarvedLogBlock.Carving.SHERD
+                && CarvedLogBlock.carving(two, Direction.WEST) == CarvedLogBlock.Carving.SHERD
+                && two.getValue(CarvedLogBlock.MOTIF) == SherdMotif.HEART, fails, "a second sherd side shares the newest motif (" + two + ")");
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, rel, Direction.NORTH)));
+        BlockState three = helper.getBlockState(rel);
+        check(CarvedLogBlock.carving(three, Direction.NORTH) == CarvedLogBlock.Carving.WOOD
+                && CarvedLogBlock.carving(three, Direction.SOUTH) == CarvedLogBlock.Carving.NONE, fails,
+                "without a sherd a side gets the wood's own motif, the others are untouched (" + three + ")");
+        chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, plain, Direction.NORTH)));
+        check(helper.getBlockState(plain).is(oak().carved()) && CarvedLogBlock.carving(helper.getBlockState(plain), Direction.NORTH) == CarvedLogBlock.Carving.WOOD,
+                fails, "a plain stripped log carved without a sherd shows the wood motif on that side only (" + helper.getBlockState(plain) + ")");
+        // sneaking takes carvings off; the last one gives the stripped log back
+        player.setShiftKeyDown(true);
+        chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, plain, Direction.NORTH)));
+        check(helper.getBlockState(plain).is(Blocks.STRIPPED_OAK_LOG), fails, "sneaking takes the last carving off (" + helper.getBlockState(plain) + ")");
+        chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, rel, Direction.WEST)));
+        check(CarvedLogBlock.carving(helper.getBlockState(rel), Direction.WEST) == CarvedLogBlock.Carving.NONE
+                && CarvedLogBlock.carving(helper.getBlockState(rel), Direction.EAST) == CarvedLogBlock.Carving.SHERD, fails, "sneaking clears only the clicked side");
+        player.setShiftKeyDown(false);
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.ANGLER_POTTERY_SHERD));
         chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, plain, Direction.UP)));
         check(helper.getBlockState(plain).is(Blocks.STRIPPED_OAK_LOG), fails, "with a sherd the top face does nothing");
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
         chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, plain, Direction.UP)));
-        check(helper.getBlockState(plain).is(oak().hollowStripped()), fails, "without a sherd the chisel hollows the log ("
+        check(helper.getBlockState(plain).is(oak().hollowStripped()), fails, "without a sherd the chisel still hollows the log from the top ("
                 + helper.getBlockState(plain) + ")");
         List<ItemStack> drops = Block.getDrops(helper.getBlockState(rel), helper.getLevel(), helper.absolutePos(rel), null);
-        boolean keepsMotif = drops.size() == 1 && drops.get(0).is(oak().carved().asItem())
-                && drops.get(0).has(DataComponents.BLOCK_STATE)
-                && "heart".equals(drops.get(0).get(DataComponents.BLOCK_STATE).properties().get("motif"));
-        check(keepsMotif, fails, "carved wood drops with its motif (" + drops + ")");
+        var props = drops.size() == 1 && drops.get(0).has(DataComponents.BLOCK_STATE) ? drops.get(0).get(DataComponents.BLOCK_STATE).properties() : null;
+        boolean keepsCarving = props != null && drops.get(0).is(oak().carved().asItem()) && "heart".equals(props.get("motif"))
+                && "sherd".equals(props.get("east")) && "wood".equals(props.get("north")) && "none".equals(props.get("west"));
+        check(keepsCarving, fails, "carved wood drops with all its sides and its motif (" + drops + ")");
         for (SherdMotif motif : SherdMotif.values()) {
             check(SherdMotif.of(new ItemStack(motif.sherd())) == motif, fails, "sherd for " + motif.getSerializedName());
         }

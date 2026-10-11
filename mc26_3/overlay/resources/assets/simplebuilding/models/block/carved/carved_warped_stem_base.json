@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:block/template_carved_log",
+  "textures": {
+    "side": "minecraft:block/stripped_warped_stem",
+    "end": "minecraft:block/stripped_warped_stem_top"
+  }
+}

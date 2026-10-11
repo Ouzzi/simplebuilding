@@ -15,37 +15,57 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Carving a sherd motif into wood (docs/ai/PLAN-HOLZWERK-2026-10-09.md): chisel in the main hand, a pottery sherd in
- * the off hand, right-click the side of a standing stripped log (or of carved wood, to change the motif). The sherd
- * is a stencil and stays; the chisel takes one point of damage and its usual cooldown.
+ * Carving wood with the chisel (docs/ai/PLAN-HOLZWERK-2026-10-09.md, N34), side by side: chisel in the main hand,
+ * right-click a side of a standing stripped log (or of carved wood). Without a sherd the side gets the wood's own
+ * motif, with a pottery sherd in the off hand the sherd's pattern (the sherd is a stencil and stays); every side is
+ * carved on its own. Sneaking with the chisel takes the carving off that side again (the last one turns the log
+ * back into the stripped log). The chisel takes one point of damage and its usual cooldown. Top and bottom clicks
+ * keep the chisel's old job (without sherd it hollows the log).
  */
 public final class PotteryCarving {
     private PotteryCarving() {
     }
 
-    /** The carved state for {@code target} clicked on {@code face} with {@code motif}, or null if it cannot be carved. */
-    public static @Nullable BlockState carve(BlockState target, Direction face, SherdMotif motif) {
+    /**
+     * The carved state for {@code target} clicked on {@code face}: {@code motif} null = the wood's own motif; with
+     * {@code remove} the side's carving is taken off (the stripped log comes back when nothing is left). Null if it
+     * cannot be carved. All sherd sides share one motif, so a new sherd changes the motif of the other sherd sides too.
+     */
+    public static @Nullable BlockState carve(BlockState target, Direction face, @Nullable SherdMotif motif, boolean remove) {
         if (!face.getAxis().isHorizontal()) {
             return null;
         }
-        CarvedLogBlock carved = null;
-        if (target.getBlock() instanceof CarvedLogBlock already) {
-            carved = already;
-        } else if (target.hasProperty(RotatedPillarBlock.AXIS) && target.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y) {
-            carved = WoodBlocks.carvedFor(target.getBlock());
+        if (target.getBlock() instanceof CarvedLogBlock block) {
+            BlockState next = target.setValue(CarvedLogBlock.side(face), remove ? CarvedLogBlock.Carving.NONE
+                    : motif == null ? CarvedLogBlock.Carving.WOOD : CarvedLogBlock.Carving.SHERD);
+            if (motif != null && !remove) {
+                next = next.setValue(CarvedLogBlock.MOTIF, motif);
+            }
+            if (!CarvedLogBlock.carved(next)) {
+                return strippedOf(block).defaultBlockState();
+            }
+            return next;
         }
-        return carved == null ? null : carved.defaultBlockState().setValue(CarvedLogBlock.FACING, face).setValue(CarvedLogBlock.MOTIF, motif);
+        if (remove || !target.hasProperty(RotatedPillarBlock.AXIS) || target.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y) {
+            return null;
+        }
+        CarvedLogBlock carved = WoodBlocks.carvedFor(target.getBlock());
+        return carved == null ? null : carved.only(face, motif);
+    }
+
+    private static Block strippedOf(CarvedLogBlock block) {
+        return block.wood().strippedBlock();
     }
 
     /**
-     * The chisel's use on a block when a sherd is in the off hand: null if the sherd rule does not apply (the chisel
-     * carries on as usual), otherwise the result - also PASS for a stripped log clicked on its top, so the sherd
-     * never hollows the log by accident.
+     * The chisel's use on a block: null if carving does not apply (the chisel carries on as usual), otherwise the
+     * result - also PASS for a sherd on a stripped log's top, so the sherd never hollows the log by accident.
      */
     public static @Nullable InteractionResult useOn(ChiselItem chisel, UseOnContext context) {
         Player player = context.getPlayer();
@@ -53,16 +73,23 @@ public final class PotteryCarving {
             return null;
         }
         SherdMotif motif = SherdMotif.of(player.getOffhandItem());
-        if (motif == null) {
-            return null;
-        }
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockState target = level.getBlockState(pos);
-        if (!(target.getBlock() instanceof CarvedLogBlock) && WoodBlocks.carvedFor(target.getBlock()) == null) {
+        boolean alreadyCarved = target.getBlock() instanceof CarvedLogBlock;
+        if (!alreadyCarved && WoodBlocks.carvedFor(target.getBlock()) == null) {
             return null;
         }
-        BlockState carved = carve(target, context.getClickedFace(), motif);
+        Direction face = context.getClickedFace();
+        boolean remove = player.isShiftKeyDown();
+        if (!face.getAxis().isHorizontal()) {
+            // Top/bottom: a sherd must not hollow the log; without one the chisel's table runs (hollowing).
+            return motif != null ? InteractionResult.PASS : null;
+        }
+        if (remove && !alreadyCarved) {
+            return null; // sneaking on a plain stripped log: the chisel's own reverse action
+        }
+        BlockState carved = carve(target, face, motif, remove);
         if (carved == null || carved == target) {
             return InteractionResult.PASS;
         }
@@ -76,8 +103,8 @@ public final class PotteryCarving {
         level.setBlockAndUpdate(pos, carved);
         level.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 0.8F, 1.1F + level.getRandom().nextFloat() * 0.2F);
         ((ServerLevel) level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, target),
-                pos.getX() + 0.5 + context.getClickedFace().getStepX() * 0.5, pos.getY() + 0.5,
-                pos.getZ() + 0.5 + context.getClickedFace().getStepZ() * 0.5, 10, 0.2, 0.2, 0.2, 0.05);
+                pos.getX() + 0.5 + face.getStepX() * 0.5, pos.getY() + 0.5,
+                pos.getZ() + 0.5 + face.getStepZ() * 0.5, 10, 0.2, 0.2, 0.2, 0.05);
         if (!player.getAbilities().instabuild) {
             player.getCooldowns().addCooldown(stack, chisel.effectiveCooldownTicks());
             stack.hurtAndBreak(ChiselItem.TRANSFORM_DAMAGE, player, EquipmentSlot.MAINHAND);

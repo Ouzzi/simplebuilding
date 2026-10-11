@@ -12,6 +12,10 @@
             "type": "minecraft:copy_state",
             "block": "simplebuilding:carved_dark_oak_log",
             "properties": [
+              "north",
+              "east",
+              "south",
+              "west",
               "motif"
             ]
           },

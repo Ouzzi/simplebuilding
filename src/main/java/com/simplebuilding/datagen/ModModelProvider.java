@@ -923,25 +923,73 @@ public class ModModelProvider extends FabricModelProvider {
         generator.createTrivialCube(palette.chiseled());
     }
 
-    /** Treppe und Stufe eines Schachbretts: Checker-Textur auf allen Seiten (Nord/Sued gespiegelt wie das Schachbrett), doppelte Stufe = Schachbrett. */
+    /**
+     * Treppe und Stufe eines Schachbretts (N34): jede Form (Hälfte, Richtung, Ecke) ist ein eigenes Modell aus 8-px-Zellen
+     * (Vorlage models/block/checker_cells/<maske>.json, erzeugt von tools/textures/checker_shapes_2026_10_11.py), dessen
+     * Seiten genau den Texturausschnitt des vollen Schachbrett-Blocks zeigen - weltbündiges Raster in jeder Drehung,
+     * deshalb ohne x/y/uvlock im Blockstate. Doppelte Stufe = Schachbrett.
+     */
     private void registerCheckerShapes(BlockModelGenerators generator, ModBlocks.CheckerShapes shapes) {
         String name = BuiltInRegistries.BLOCK.getKey(shapes.checker()).getPath();
         Material texture = new Material(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/" + name));
         Material mirror = new Material(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/" + name + "_mirror"));
-        TextureMapping mapping = new TextureMapping().put(TextureSlot.BOTTOM, texture).put(TextureSlot.TOP, texture)
-                .put(TextureSlot.SIDE, texture).put(SIDE_MIRROR, mirror).put(TextureSlot.PARTICLE, texture);
-        Identifier inner = CHECKER_STAIRS_INNER.create(shapes.stairs(), mapping, generator.modelOutput);
-        Identifier straight = CHECKER_STAIRS_STRAIGHT.create(shapes.stairs(), mapping, generator.modelOutput);
-        Identifier outer = CHECKER_STAIRS_OUTER.create(shapes.stairs(), mapping, generator.modelOutput);
-        generator.blockStateOutput.accept(BlockModelGenerators.createStairs(shapes.stairs(), BlockModelGenerators.plainVariant(inner),
-                BlockModelGenerators.plainVariant(straight), BlockModelGenerators.plainVariant(outer)));
-        generator.registerSimpleItemModel(shapes.stairs(), straight);
-        Identifier bottom = CHECKER_SLAB.create(shapes.slab(), mapping, generator.modelOutput);
-        Identifier top = CHECKER_SLAB_TOP.create(shapes.slab(), mapping, generator.modelOutput);
+        TextureMapping mapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(SIDE_MIRROR, mirror);
+        java.util.Map<Integer, Identifier> stairModels = new java.util.HashMap<>();
+        java.util.Map<Integer, Identifier> slabModels = new java.util.HashMap<>();
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(shapes.stairs())
+                .with(PropertyDispatch.initial(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.HALF, BlockStateProperties.STAIRS_SHAPE)
+                        .generate((facing, half, shape) -> BlockModelGenerators.plainVariant(stairModels.computeIfAbsent(
+                                checkerStairMask(facing, half, shape), mask -> checkerCells(mask).create(shapes.stairs(), mapping, generator.modelOutput))))));
+        int straight = checkerStairMask(Direction.EAST, net.minecraft.world.level.block.state.properties.Half.BOTTOM,
+                net.minecraft.world.level.block.state.properties.StairsShape.STRAIGHT);
+        generator.registerSimpleItemModel(shapes.stairs(), stairModels.get(straight));
+        Identifier bottom = slabModels.computeIfAbsent(0x33, mask -> checkerCells(mask).create(shapes.slab(), mapping, generator.modelOutput));
+        Identifier top = slabModels.computeIfAbsent(0xCC, mask -> checkerCells(mask).create(shapes.slab(), mapping, generator.modelOutput));
         Identifier full = ModelLocationUtils.getModelLocation(shapes.checker());
         generator.blockStateOutput.accept(BlockModelGenerators.createSlab(shapes.slab(), BlockModelGenerators.plainVariant(bottom),
                 BlockModelGenerators.plainVariant(top), BlockModelGenerators.plainVariant(full)));
         generator.registerSimpleItemModel(shapes.slab(), bottom);
+    }
+
+    private static ModelTemplate checkerCells(int mask) {
+        return new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/checker_cells/" + mask)),
+                Optional.of("_" + mask), TextureSlot.SIDE, SIDE_MIRROR);
+    }
+
+    /**
+     * Zellen-Maske einer Treppenform (Bit i + 2j + 4k, i = x, j = y, k = z, je 8-px-Zelle): unten die ganze untere Lage, oben
+     * der Teil an der Seite der Blickrichtung (bei Ecken nur ein Viertel bzw. drei Viertel); obere Hälfte: umgekehrt.
+     */
+    static int checkerStairMask(Direction facing, net.minecraft.world.level.block.state.properties.Half half,
+            net.minecraft.world.level.block.state.properties.StairsShape shape) {
+        Direction right = facing.getClockWise();
+        Direction left = facing.getCounterClockWise();
+        int mask = 0;
+        for (int i = 0; i < 2; i++) {
+            for (int k = 0; k < 2; k++) {
+                int cx = i * 2 - 1;
+                int cz = k * 2 - 1;
+                int front = cx * facing.getStepX() + cz * facing.getStepZ();
+                int onRight = cx * right.getStepX() + cz * right.getStepZ();
+                int onLeft = cx * left.getStepX() + cz * left.getStepZ();
+                boolean high = switch (shape) {
+                    case STRAIGHT -> front > 0;
+                    case OUTER_RIGHT -> front > 0 && onRight > 0;
+                    case OUTER_LEFT -> front > 0 && onLeft > 0;
+                    case INNER_RIGHT -> front > 0 || onRight > 0;
+                    case INNER_LEFT -> front > 0 || onLeft > 0;
+                };
+                boolean bottomHalf = half == net.minecraft.world.level.block.state.properties.Half.BOTTOM;
+                if (bottomHalf) {
+                    mask |= 1 << (i + 4 * k);
+                    if (high) mask |= 1 << (i + 2 + 4 * k);
+                } else {
+                    mask |= 1 << (i + 2 + 4 * k);
+                    if (high) mask |= 1 << (i + 4 * k);
+                }
+            }
+        }
+        return mask;
     }
 
     private void registerMirroredChecker(BlockModelGenerators generator, Block block) {
