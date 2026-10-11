@@ -101,6 +101,8 @@ public final class McVersion {
     public static final boolean END_RAILS = false;
     /** Crucible SB parts: 26.3 only (SimpleLib is not built for 26.2). */
     public static final boolean CRUCIBLE = false;
+    /** Sulfur fire and copper fire (queue N33): 26.3 only (Vanilla sulfur arrives with 26.3). */
+    public static final boolean FIRES = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = false;
     /** Building cores move in the hand when used (weighted pulse/spin/rise/boomerang, longer ore animation; Nachtrag 11). */

@@ -161,6 +161,9 @@ public final class DataIntegrityTests {
         blocks.add("potted_silent_dandelion");
         // Crucible P5: the soul lava fluid block (like vanilla lava, only a bucket form).
         blocks.add("soul_lava");
+        // Queue N33: sulfur fire and copper fire are fires (no item, no loot), placed by flint and steel.
+        blocks.add("sulfur_fire");
+        blocks.add("copper_fire");
         // Chess: one octet cell block for all colours (placed by the 13 octet items) and the chess piece cell
         // (placed by the piece items).
         blocks.add("checker_octet");
@@ -196,6 +199,8 @@ public final class DataIntegrityTests {
             "goat_horn_holder",
             // soul lava (Crucible P5): a fluid block like vanilla lava, removed only by scooping
             "soul_lava",
+            // fires drop nothing (N33)
+            "sulfur_fire", "copper_fire",
             // chess: an octet cell drops its octets (CheckerOctetBlock#getDrops), a piece cell its pieces
             // (ChessPiecesBlock#getDrops)
             "checker_octet", "chess_pieces");
@@ -1689,6 +1694,10 @@ public final class DataIntegrityTests {
             blocks.add(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible());
             blocks.add(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel());
             blocks.add(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BLOCK);
+        }
+        if (McVersion.FIRES) {
+            blocks.add(com.simplebuilding.blocks.custom.ThemedFireBlock.SULFUR_FIRE);
+            blocks.add(com.simplebuilding.blocks.custom.ThemedFireBlock.COPPER_FIRE);
         }
         // Schach: Treppen und Stufen der Schachbretter, in einer Schleife registriert (ModBlocks.CHECKER_SHAPES).
         for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {

@@ -3666,5 +3666,8 @@
   "simplebuilding.testcentre.vehicles.chest": "Chest carts, boats",
   "simplebuilding.testcentre.vehicles.chest.sub": "slots like the chest",
   "simplebuilding.testcentre.vehicles.chest.sub2": "36 / 45 / 54",
-  "key.category.simplebuilding.simplemods": "SimpleMods"
+  "key.category.simplebuilding.simplemods": "SimpleMods",
+  "block.simplebuilding.sulfur_fire": "Sulfur Fire",
+  "block.simplebuilding.copper_fire": "Copper Fire",
+  "jei.simplebuilding.info.sulfur_fires": "Flint and steel (or a fire charge) lights sulfur fire on sulfur blocks and copper fire on copper blocks, the way soul fire burns on soul sand. Both sit between normal fire and soul fire: 1.5 damage, light level 12, they never spread and burn nothing. Standing in sulfur fire also gives nausea; copper fire has no effect. Gunpowder: 3 sulfur and 1 coal or charcoal make 1 gunpowder (about as laborious as creeper drops)."
 }

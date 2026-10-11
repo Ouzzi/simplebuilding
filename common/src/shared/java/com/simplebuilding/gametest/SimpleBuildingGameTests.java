@@ -315,6 +315,14 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(TrapTests.JAW_MAX_TICKS).build(),
             GameTestSpec.named("trap_game_test_workstations_are_heavy_sulfur_cube_food", TrapTests::workstationsAreHeavySulfurCubeFood)
                     .build(),
+            GameTestSpec.named("fire_game_test_sulfur_fire_burns_on_sulfur_and_gives_nausea", FireTests::sulfurFireBurnsOnSulfurAndGivesNausea)
+                    .maxTicks(FireTests.FIRE_MAX_TICKS).build(),
+            GameTestSpec.named("fire_game_test_copper_fire_burns_on_copper_without_effect", FireTests::copperFireBurnsOnCopperWithoutEffect)
+                    .maxTicks(FireTests.FIRE_MAX_TICKS).build(),
+            GameTestSpec.named("fire_game_test_fires_keep_their_base_blocks", FireTests::firesKeepTheirBaseBlocks)
+                    .build(),
+            GameTestSpec.named("fire_game_test_gunpowder_crafts_from_sulfur_and_coal", FireTests::gunpowderCraftsFromSulfurAndCoal)
+                    .build(),
             GameTestSpec.named("woodwork_game_test_hollow_logs_let_small_mobs_and_crawlers_through", WoodworkTests::hollowLogsLetSmallMobsAndCrawlersThrough)
                     .build(),
             GameTestSpec.named("woodwork_game_test_sheets_connect_and_let_light_through", WoodworkTests::sheetsConnectAndLetLightThrough)

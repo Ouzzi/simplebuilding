@@ -3666,5 +3666,8 @@
   "simplebuilding.testcentre.vehicles.chest": "Güterloren, Boote",
   "simplebuilding.testcentre.vehicles.chest.sub": "Plätze wie die Truhe",
   "simplebuilding.testcentre.vehicles.chest.sub2": "36 / 45 / 54",
-  "key.category.simplebuilding.simplemods": "SimpleMods"
+  "key.category.simplebuilding.simplemods": "SimpleMods",
+  "block.simplebuilding.sulfur_fire": "Schwefelfeuer",
+  "block.simplebuilding.copper_fire": "Kupferfeuer",
+  "jei.simplebuilding.info.sulfur_fires": "Feuerzeug (oder Feuerkugel) entzündet auf Schwefelblöcken Schwefelfeuer und auf Kupferblöcken Kupferfeuer, so wie Seelenfeuer auf Seelensand brennt. Beide liegen zwischen normalem Feuer und Seelenfeuer: 1,5 Schaden, Lichtstärke 12, sie breiten sich nicht aus und verbrennen nichts. Wer im Schwefelfeuer steht, bekommt zusätzlich Übelkeit; Kupferfeuer hat keinen Effekt. Schwarzpulver: 3 Schwefel und 1 Kohle oder Holzkohle ergeben 1 Schwarzpulver (etwa so mühsam wie Creeper-Drops)."
 }

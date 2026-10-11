@@ -3826,6 +3826,38 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "themed_fires",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/ThemedFireBlock.java",
+        "common/src/shared/java/com/simplebuilding/mixin/BaseFireGetStateMixin.java",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/gunpowder_from_sulfur.json",
+        "mc26_3/overlay/resources/data/simplebuilding/tags/block/sulfur_fire_base_blocks.json",
+        "mc26_3/overlay/resources/data/simplebuilding/tags/block/copper_fire_base_blocks.json"
+      ],
+      "related": [
+        "minecraft:sulfur",
+        "minecraft:gunpowder"
+      ],
+      "en": {
+        "title": "Sulfur fire and copper fire",
+        "summary": "Two fires between normal fire and soul fire: sulfur fire (with nausea) on sulfur blocks, copper fire (no effect) on copper blocks. Gunpowder from sulfur and coal.",
+        "details": [
+          "Flint and steel, a fire charge or igniting lava on a sulfur block, polished sulfur, sulfur bricks, chiseled sulfur or potent sulfur lights sulfur fire; on any block of the #minecraft:copper tag (copper block and its weathered and waxed forms) it lights copper fire. Like soul fire on soul sand, they exist only on their base blocks, never spread and burn nothing.",
+          "Both deal 1.5 damage (fire 1, soul fire 2) and shine at light level 12 (fire 15, soul fire 10). Sulfur fire is yellow-green and also gives nausea (10 seconds, refreshed while standing in it); copper fire is green and has no effect. They count as #minecraft:fire and drop nothing.",
+          "Gunpowder: 3 sulfur and 1 coal or charcoal craft 1 gunpowder. Balance: a creeper drops 0 to 2 gunpowder (about 1), so one gunpowder costs three mined sulfur blocks, which only generate in sulfur caves, plus a coal; 12 sulfur spikes (4 per sulfur block) work too. The wandering trader's gunpowder for emeralds stays the cheaper way. Simple Money does not price sulfur or gunpowder, so there is no buy-and-craft loop."
+        ]
+      },
+      "de": {
+        "title": "Schwefelfeuer und Kupferfeuer",
+        "summary": "Zwei Feuer zwischen normalem Feuer und Seelenfeuer: Schwefelfeuer (mit Übelkeit) auf Schwefelblöcken, Kupferfeuer (ohne Effekt) auf Kupferblöcken. Schwarzpulver aus Schwefel und Kohle.",
+        "details": [
+          "Feuerzeug, Feuerkugel oder zündende Lava auf einem Schwefelblock, polierten Schwefel, Schwefelziegeln, gemeißeltem Schwefel oder starkem Schwefel entzündet Schwefelfeuer; auf jedem Block des Tags #minecraft:copper (Kupferblock samt verwitterten und gewachsten Formen) entsteht Kupferfeuer. Wie Seelenfeuer auf Seelensand gibt es sie nur auf ihren Basisblöcken, sie breiten sich nicht aus und verbrennen nichts.",
+          "Beide richten 1,5 Schaden an (Feuer 1, Seelenfeuer 2) und leuchten mit Lichtstärke 12 (Feuer 15, Seelenfeuer 10). Schwefelfeuer ist gelbgrün und gibt zusätzlich Übelkeit (10 Sekunden, erneuert, solange man darin steht); Kupferfeuer ist grün und ohne Effekt. Sie zählen zu #minecraft:fire und hinterlassen nichts.",
+          "Schwarzpulver: 3 Schwefel und 1 Kohle oder Holzkohle ergeben 1 Schwarzpulver. Balance: Ein Creeper lässt 0 bis 2 Schwarzpulver fallen (im Schnitt etwa 1); ein Schwarzpulver kostet hier drei abgebaute Schwefelblöcke, die nur in Schwefelhöhlen entstehen, plus eine Kohle; auch 12 Schwefelspitzen (4 je Schwefelblock) gehen. Das Schwarzpulver des Wanderhändlers gegen Smaragde bleibt der günstigere Weg. Simple Money bepreist weder Schwefel noch Schwarzpulver, eine Kauf-und-Craft-Schleife gibt es nicht."
+        ]
+      }
+    },
+    {
       "id": "spear_dispenser",
       "related": [
         "minecraft:iron_spear",
@@ -83331,6 +83363,54 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:gunpowder_from_sulfur",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "minecraft:gunpowder",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/gunpowder_from_sulfur.json",
+      "ingredients": [
+        "#minecraft:coals",
+        "minecraft:sulfur"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:sulfur"
+        ],
+        [
+          "minecraft:sulfur"
+        ],
+        [
+          "minecraft:sulfur"
+        ],
+        [
+          "#minecraft:coals"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 12
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:coals"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:hollow_acacia_log",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -124643,6 +124723,17 @@ window.WIKI_DATA = {
   ],
   "tags": [
     {
+      "id": "simplebuilding:block/copper_fire_base_blocks",
+      "replace": false,
+      "values": [
+        {
+          "id": "#minecraft:copper",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/tags/block/copper_fire_base_blocks.json"
+    },
+    {
       "id": "simplebuilding:block/end_piston_immovable",
       "replace": false,
       "values": [
@@ -124738,6 +124829,33 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/block/piston_breachable_extra.json"
+    },
+    {
+      "id": "simplebuilding:block/sulfur_fire_base_blocks",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:sulfur",
+          "required": true
+        },
+        {
+          "id": "minecraft:polished_sulfur",
+          "required": true
+        },
+        {
+          "id": "minecraft:sulfur_bricks",
+          "required": true
+        },
+        {
+          "id": "minecraft:chiseled_sulfur",
+          "required": true
+        },
+        {
+          "id": "minecraft:potent_sulfur",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/tags/block/sulfur_fire_base_blocks.json"
     },
     {
       "id": "simplebuilding:enchantment/exclusive_set/break_through_group",
@@ -157499,15 +157617,15 @@ window.WIKI_DATA = {
   "counts": {
     "items": 712,
     "blocks": 454,
-    "recipes": 1203,
+    "recipes": 1204,
     "lootTables": 344,
     "trades": 20,
     "enchantments": 19,
-    "tags": 51,
+    "tags": 53,
     "config": 223,
     "inWorld": 493,
     "advancements": 119,
-    "features": 50,
+    "features": 51,
     "undocumented": 0,
     "incompleteProse": 0
   },
