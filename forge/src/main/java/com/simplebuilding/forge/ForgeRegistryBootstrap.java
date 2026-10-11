@@ -103,5 +103,9 @@ public final class ForgeRegistryBootstrap {
         LegacyItemIds.RENAMED_BLOCKS.forEach((oldPath, newPath) -> registry.addAlias(
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, oldPath),
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, newPath)));
+        if (event.getRegistryKey().equals(Registries.ITEM) || event.getRegistryKey().equals(Registries.BLOCK)) {
+            LegacyItemIds.REPLACED_BY_VANILLA.forEach((oldPath, vanilla) -> registry.addAlias(
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, oldPath), vanilla));
+        }
     }
 }

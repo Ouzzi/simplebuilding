@@ -11,16 +11,16 @@ import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Astral piston (pushes) and Nihil piston (pulls), docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md. A
- * receiver of its own End channel exactly like the lamp: {@link #POWER} is the signal it receives from
- * horizontal powder or switches of the same channel (the powder connects to it), it passes nothing on
- * and reads no vanilla redstone. On the rising edge (power 0 to more) it moves one block in each of the
+ * receiver of its own line: {@link #POWER} is the signal it receives from horizontally adjacent Astral (Nihil) or
+ * Bridge Redstone, which vanilla sources feed (the dust connects to it); it passes nothing on
+ * and reads no other vanilla redstone. On the rising edge (power 0 to more) it moves one block in each of the
  * six directions ({@link EndPistonMoves}); after firing it does not look at its input again for
  * {@link #cooldown()} ticks, so a clock cannot flood the server. No block entity, no direction.
  */
 public class EndPistonBlock extends EndSignalBlock {
 
     public EndPistonBlock(boolean astral, Properties properties) {
-        super(astral, Kind.PISTON, properties);
+        super(astral, properties);
     }
 
     /** Server cap 4..100, also enforced here at runtime. */

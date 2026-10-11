@@ -123,8 +123,8 @@ def preview():
     except OSError:
         font = ImageFont.load_default()
     refs = [vanilla("powered_rail"), vanilla("powered_rail_on"),
-            Image.open(ASSETS / "textures/block/astralit_switch.png").convert("RGBA"),
-            Image.open(ASSETS / "textures/block/nihilith_switch.png").convert("RGBA")]
+            Image.open(ASSETS / "textures/item/astral_redstone.png").convert("RGBA"),  # switch removed 2026-10-11
+            Image.open(ASSETS / "textures/item/nihil_redstone.png").convert("RGBA")]
     rows = [("Vorlagen", refs)] + [(k, [recolour(ch, on, k) for ch in ["astral", "nihil"] for on in [False, True]])
                                    for k in VARIANTS]
     cell = 16 * scale

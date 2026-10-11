@@ -3500,47 +3500,52 @@
     {
       "id": "end_signals",
       "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
+        "common/src/shared/java/com/simplebuilding/mixin/RedstoneWireEvaluatorLinesMixin.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
         "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
         "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/EndPistonBlock.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/EndPistonMoves.java",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/bridge_redstone.json",
         "mc26_3/generated/data/simplebuilding/recipe/astral_piston.json",
         "mc26_3/generated/data/simplebuilding/recipe/nihil_piston.json"
       ],
       "related": [
         "simplebuilding:nihil_redstone",
         "simplebuilding:astral_redstone",
-        "simplebuilding:nihilith_switch",
-        "simplebuilding:astralit_switch",
-        "simplebuilding:nihilith_lamp",
-        "simplebuilding:astralit_lamp",
+        "simplebuilding:bridge_redstone",
         "simplebuilding:astral_piston",
         "simplebuilding:nihil_piston"
       ],
       "en": {
-        "title": "Isolated End Signals",
-        "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+        "title": "Astral, Nihil and Bridge Redstone",
+        "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
         "details": [
-          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-          "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-          "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access.",
-          "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They receive their own channel like a lamp and relay nothing; they fire when the signal switches on, not while it stays on.",
-          "On firing, the Astral Piston pushes the block on each of its six sides one cell away; the Nihil Piston pulls the block two cells away on each side into the cell next to it. Exactly one block per side, never a chain: if the target cell is not air or replaceable, or holds a liquid source, that side does nothing. Block entities, unbreakable blocks, pistons, End signal blocks, two-part blocks, liquids, blocks that break or refuse a piston and the tag simplebuilding:end_piston_immovable stay put; glazed terracotta is pushed but not pulled. A block moves at most once per game tick, however many End pistons fire.",
+          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+          "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+          "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+          "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+          "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+          "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload.",
+          "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They take the signal of their own line's redstone (or Bridge Redstone) lying next to them and relay nothing; they fire when the signal switches on, not while it stays on.",
+          "On firing, the Astral Piston pushes the block on each of its six sides one cell away; the Nihil Piston pulls the block two cells away on each side into the cell next to it. Exactly one block per side, never a chain: if the target cell is not air or replaceable, or holds a liquid source, that side does nothing. Block entities, unbreakable blocks, pistons, End pistons, two-part blocks, liquids, blocks that break or refuse a piston and the tag simplebuilding:end_piston_immovable stay put; glazed terracotta is pushed but not pulled. A block moves at most once per game tick, however many End pistons fire.",
           "server.machines.endPistonCooldownTicks (default 8, clamped to 4–100) is the wait after firing. server.features.endPistons (default true) needs server.features.endSignals as well; switched off, the pistons do nothing and their recipes disappear on datapack reload."
         ]
       },
       "de": {
-        "title": "Getrennte End-Signale",
-        "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+        "title": "Astral-, Nihil- und Brücken-Redstone",
+        "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
         "details": [
-          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-          "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff.",
-          "Astral-Kolben und Nihil-Kolben: ein Kolben (Nihil: ein klebriger Kolben) in der Mitte, vier passende Redstone an den Kanten und vier Polierter Astralit bzw. Polierter Nihilit in den Ecken. Sie empfangen ihren eigenen Kanal wie eine Lampe und leiten nichts weiter; sie lösen aus, wenn das Signal einschaltet, nicht solange es anliegt.",
-          "Beim Auslösen drückt der Astral-Kolben den Block auf jeder seiner sechs Seiten ein Feld weg; der Nihil-Kolben holt auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich. Genau ein Block je Seite, nie eine Kette: Ist das Zielfeld weder Luft noch ersetzbar oder steht dort eine Flüssigkeitsquelle, tut diese Seite nichts. Block-Entities, unzerstörbare Blöcke, Kolben, End-Signalblöcke, zweiteilige Blöcke, Flüssigkeiten, Blöcke, die an einem Kolben brechen oder ihn verweigern, und der Tag simplebuilding:end_piston_immovable bleiben stehen; glasierte Keramik wird gedrückt, aber nicht gezogen. Ein Block bewegt sich höchstens einmal pro Spieltick, egal wie viele End-Kolben auslösen.",
+          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+          "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+          "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+          "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+          "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+          "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen.",
+          "Astral-Kolben und Nihil-Kolben: ein Kolben (Nihil: ein klebriger Kolben) in der Mitte, vier passende Redstone an den Kanten und vier Polierter Astralit bzw. Polierter Nihilit in den Ecken. Sie nehmen das Signal des Redstones ihrer eigenen Linie (oder von Brücken-Redstone) direkt daneben und leiten nichts weiter; sie lösen aus, wenn das Signal einschaltet, nicht solange es anliegt.",
+          "Beim Auslösen drückt der Astral-Kolben den Block auf jeder seiner sechs Seiten ein Feld weg; der Nihil-Kolben holt auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich. Genau ein Block je Seite, nie eine Kette: Ist das Zielfeld weder Luft noch ersetzbar oder steht dort eine Flüssigkeitsquelle, tut diese Seite nichts. Block-Entities, unzerstörbare Blöcke, Kolben, End-Kolben, zweiteilige Blöcke, Flüssigkeiten, Blöcke, die an einem Kolben brechen oder ihn verweigern, und der Tag simplebuilding:end_piston_immovable bleiben stehen; glasierte Keramik wird gedrückt, aber nicht gezogen. Ein Block bewegt sich höchstens einmal pro Spieltick, egal wie viele End-Kolben auslösen.",
           "server.machines.endPistonCooldownTicks (Standard 8, begrenzt auf 4–100) ist die Wartezeit nach dem Auslösen. server.features.endPistons (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet tun die Kolben nichts und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
       }
@@ -3562,14 +3567,15 @@
         "simplebuilding:astral_rail",
         "simplebuilding:nihil_rail",
         "simplebuilding:astral_redstone",
-        "simplebuilding:nihil_redstone"
+        "simplebuilding:nihil_redstone",
+        "simplebuilding:bridge_redstone"
       ],
       "en": {
         "title": "Astral and Nihil Rails",
         "summary": "Straight rails of the two End channels: the Astral Rail raises the minecart top speed and boosts towards it, the Nihil Rail brakes to a stop.",
         "details": [
           "Recipe like the powered rail: six gold ingots, a stick and Astral Redstone (Astral Rail) or Nihil Redstone (Nihil Rail) make 6 rails. They are straight only (no curves) and minecarts treat them as rails.",
-          "Power comes from the rail's own channel like a lamp: Astral or Nihil Redstone or a switch of the same channel on a horizontal neighbor. Vanilla redstone, the other channel and neighboring rails do not power it. The rail checks its neighbors every two game ticks while a source of its channel lies next to it.",
+          "Power comes from the rail's own line: Astral or Nihil Redstone (or Bridge Redstone) on a horizontal neighbor, which any vanilla source can feed. Vanilla redstone dust, the other line and neighboring rails do not power it. The rail checks its neighbors every two game ticks while such redstone lies next to it.",
           "Astral Rail: on a flat Astral Rail the top speed is server.machines.astralRailMaxSpeed blocks per second (default 16, clamped to 8–20; vanilla 8), or the experimental max_minecart_speed game rule if that is higher. On slopes, in water and on every other rail the vanilla limit applies, so a fast cart meets the normal limit again before a curve. Unpowered it is a plain rail that keeps the cart's momentum; momentum above the limit is cut to the limit.",
           "Powered Astral Rail: every game tick the cart gains boost × (1 − (speed / top speed)²), boost = server.machines.astralRailBoost (default 0.12 blocks per tick, clamped to 0.07–0.25, at most a quarter of the top speed). That is more than a powered rail's 0.06 when slow and less the faster the cart goes; the speed approaches the top speed and never reaches it. Vanilla friction still applies. A cart standing still is pushed away from a solid block at one end of the rail, like on a powered rail.",
           "Powered Nihil Rail: every game tick the cart keeps 80 % of its speed minus server.machines.nihilRailBrake (default 0.08 blocks per tick, clamped to 0.02–0.4); below 0.03 it stops and is held while the power stays on. Unpowered, carts roll through.",
@@ -3581,7 +3587,7 @@
         "summary": "Gerade Schienen der beiden End-Kanäle: die Astral-Schiene hebt das Höchsttempo der Lore an und beschleunigt darauf zu, die Nihil-Schiene bremst bis zum Halt.",
         "details": [
           "Rezept wie die Antriebsschiene: sechs Goldbarren, ein Stock und Astral-Redstone (Astral-Schiene) bzw. Nihil-Redstone (Nihil-Schiene) ergeben 6 Schienen. Sie sind nur gerade (keine Kurven), Loren behandeln sie als Schienen.",
-          "Strom kommt wie bei einer Lampe aus dem eigenen Kanal: Astral- bzw. Nihil-Redstone oder ein Schalter desselben Kanals auf einem waagerechten Nachbarfeld. Vanilla-Redstone, der andere Kanal und benachbarte Schienen speisen sie nicht. Die Schiene prüft ihre Nachbarn alle zwei Spielticks, solange eine Quelle ihres Kanals daneben liegt.",
+          "Strom kommt aus der eigenen Linie: Astral- bzw. Nihil-Redstone (oder Brücken-Redstone) auf einem waagerechten Nachbarfeld, das jede Vanilla-Quelle speisen kann. Vanilla-Redstone-Staub, die andere Linie und benachbarte Schienen speisen sie nicht. Die Schiene prüft ihre Nachbarn alle zwei Spielticks, solange solches Redstone daneben liegt.",
           "Astral-Schiene: auf einer flachen Astral-Schiene beträgt das Höchsttempo server.machines.astralRailMaxSpeed Blöcke pro Sekunde (Standard 16, begrenzt auf 8–20; Vanilla 8) oder die experimentelle Spielregel max_minecart_speed, wenn sie höher ist. Auf Steigungen, im Wasser und auf allen anderen Schienen gilt die Vanilla-Grenze, eine schnelle Lore trifft vor einer Kurve also wieder auf die normale Grenze. Ungespeist ist sie eine normale Schiene, die den Schwung erhält; Schwung über der Grenze wird auf die Grenze gekappt.",
           "Gespeiste Astral-Schiene: jeden Spieltick gewinnt die Lore Schub × (1 − (Tempo / Höchsttempo)²), Schub = server.machines.astralRailBoost (Standard 0,12 Blöcke pro Tick, begrenzt auf 0,07–0,25, höchstens ein Viertel des Höchsttempos). Langsam ist das mehr als die 0,06 einer Antriebsschiene, je schneller die Lore, desto weniger; das Tempo nähert sich dem Höchsttempo und erreicht es nie. Die Vanilla-Reibung wirkt weiter. Eine stehende Lore wird wie auf einer Antriebsschiene von einem festen Block am Schienenende weggeschoben.",
           "Gespeiste Nihil-Schiene: jeden Spieltick behält die Lore 80 % ihres Tempos abzüglich server.machines.nihilRailBrake (Standard 0,08 Blöcke pro Tick, begrenzt auf 0,02–0,4); unter 0,03 hält sie an und bleibt stehen, solange der Strom anliegt. Ungespeist rollen Loren durch.",
@@ -10739,222 +10745,123 @@
     },
     "nihil_redstone": {
       "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
         "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
         "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
       ],
       "en": {
-        "title": "Isolated End Signals",
-        "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+        "title": "Astral, Nihil and Bridge Redstone",
+        "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
         "details": [
-          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-          "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-          "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+          "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+          "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+          "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+          "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+          "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
         ]
       },
       "de": {
-        "title": "Getrennte End-Signale",
-        "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+        "title": "Astral-, Nihil- und Brücken-Redstone",
+        "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
         "details": [
-          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-          "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+          "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+          "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+          "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+          "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+          "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
       },
       "items": {
         "simplebuilding:nihil_redstone": {
-          "en": "Nihil Redstone: craft 2 from a Nihilit Shard and redstone; carries only the Nihilit channel.",
-          "de": "Nihil-Redstone: Aus einem Nihilitsplitter und Redstone entstehen 2 Stück; leitet nur den Nihilit-Kanal.",
+          "en": "Nihil Redstone: craft 2 from a Nihilit Shard and redstone; the Nihil redstone line.",
+          "de": "Nihil-Redstone: Aus einem Nihilitsplitter und Redstone entstehen 2 Stück; die Nihil-Redstone-Linie.",
           "sources": [
             "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone.json",
-            "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java"
+            "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java"
           ]
         }
       }
     },
     "astral_redstone": {
       "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
         "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
         "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
       ],
       "en": {
-        "title": "Isolated End Signals",
-        "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+        "title": "Astral, Nihil and Bridge Redstone",
+        "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
         "details": [
-          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-          "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-          "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+          "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+          "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+          "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+          "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+          "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
         ]
       },
       "de": {
-        "title": "Getrennte End-Signale",
-        "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+        "title": "Astral-, Nihil- und Brücken-Redstone",
+        "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
         "details": [
-          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-          "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+          "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+          "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+          "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+          "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+          "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
       },
       "items": {
         "simplebuilding:astral_redstone": {
-          "en": "Astral Redstone: craft 2 from Astralit Dust and redstone; carries only the Astralit channel.",
-          "de": "Astral-Redstone: Aus Astralitstaub und Redstone entstehen 2 Stück; leitet nur den Astralit-Kanal.",
+          "en": "Astral Redstone: craft 2 from Astralit Dust and redstone; the Astral redstone line.",
+          "de": "Astral-Redstone: Aus Astralitstaub und Redstone entstehen 2 Stück; die Astral-Redstone-Linie.",
           "sources": [
             "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone.json",
-            "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java"
+            "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java"
           ]
         }
       }
     },
-    "nihilith_switch": {
+    "bridge_redstone": {
       "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
         "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
         "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
       ],
       "en": {
-        "title": "Isolated End Signals",
-        "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+        "title": "Astral, Nihil and Bridge Redstone",
+        "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
         "details": [
-          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-          "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-          "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+          "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+          "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+          "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+          "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+          "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
         ]
       },
       "de": {
-        "title": "Getrennte End-Signale",
-        "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+        "title": "Astral-, Nihil- und Brücken-Redstone",
+        "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
         "details": [
-          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-          "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+          "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+          "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+          "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+          "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+          "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
       },
       "items": {
-        "simplebuilding:nihilith_switch": {
-          "en": "Nihilit Signal Switch: a lever plus Nihilit channel redstone makes this channel's switch.",
-          "de": "Nihilit-Signalschalter: Ein Hebel und Redstone des Nihilit-Kanals ergeben dessen Schalter.",
+        "simplebuilding:bridge_redstone": {
+          "en": "Bridge Redstone: craft 3 from Astralit Dust, a Nihilit Shard and redstone; links all three redstone lines.",
+          "de": "Brücken-Redstone: Aus Astralitstaub, einem Nihilitsplitter und Redstone entstehen 3 Stück; verbindet alle drei Redstone-Linien.",
           "sources": [
-            "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_switch.json",
-            "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java"
-          ]
-        }
-      }
-    },
-    "astralit_switch": {
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
-      ],
-      "en": {
-        "title": "Isolated End Signals",
-        "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
-        "details": [
-          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-          "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-          "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-        ]
-      },
-      "de": {
-        "title": "Getrennte End-Signale",
-        "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
-        "details": [
-          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-          "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-        ]
-      },
-      "items": {
-        "simplebuilding:astralit_switch": {
-          "en": "Astralit Signal Switch: a lever plus Astralit channel redstone makes this channel's switch.",
-          "de": "Astralit-Signalschalter: Ein Hebel und Redstone des Astralit-Kanals ergeben dessen Schalter.",
-          "sources": [
-            "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_switch.json",
-            "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java"
-          ]
-        }
-      }
-    },
-    "nihilith_lamp": {
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
-      ],
-      "en": {
-        "title": "Isolated End Signals",
-        "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
-        "details": [
-          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-          "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-          "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-        ]
-      },
-      "de": {
-        "title": "Getrennte End-Signale",
-        "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
-        "details": [
-          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-          "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-        ]
-      },
-      "items": {
-        "simplebuilding:nihilith_lamp": {
-          "en": "Nihilit Signal Lamp: a redstone lamp plus Nihilit channel redstone makes this channel's receiving lamp.",
-          "de": "Nihilit-Signallampe: Eine Redstone-Lampe und Redstone des Nihilit-Kanals ergeben dessen Empfängerlampe.",
-          "sources": [
-            "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_lamp.json",
-            "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java"
-          ]
-        }
-      }
-    },
-    "astralit_lamp": {
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
-      ],
-      "en": {
-        "title": "Isolated End Signals",
-        "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
-        "details": [
-          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-          "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-          "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-        ]
-      },
-      "de": {
-        "title": "Getrennte End-Signale",
-        "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
-        "details": [
-          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-          "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-        ]
-      },
-      "items": {
-        "simplebuilding:astralit_lamp": {
-          "en": "Astralit Signal Lamp: a redstone lamp plus Astralit channel redstone makes this channel's receiving lamp.",
-          "de": "Astralit-Signallampe: Eine Redstone-Lampe und Redstone des Astralit-Kanals ergeben dessen Empfängerlampe.",
-          "sources": [
-            "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_lamp.json",
-            "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java"
+            "mc26_3/overlay/resources/data/simplebuilding/recipe/bridge_redstone.json",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java"
           ]
         }
       }

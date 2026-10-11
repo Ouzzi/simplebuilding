@@ -111,17 +111,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:astralit_lamp",
-      "tier": 4,
-      "hours": 25.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:astralit_ore",
       "tier": 4,
       "hours": 25.0,
@@ -155,10 +144,10 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:astralit_quartz_checker",
+      "item": "simplebuilding:bridge_redstone",
       "tier": 4,
       "hours": 25.0,
-      "craft": 4,
+      "craft": 0,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -166,10 +155,10 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:astralit_switch",
+      "item": "simplebuilding:astralit_quartz_checker",
       "tier": 4,
       "hours": 25.0,
-      "craft": 0,
+      "craft": 4,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -1728,17 +1717,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:nihilith_lamp",
-      "tier": 4,
-      "hours": 25.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:nihilith_ore",
       "tier": 4,
       "hours": 25.0,
@@ -1784,17 +1762,6 @@
     },
     {
       "item": "simplebuilding:nihilith_shard",
-      "tier": 4,
-      "hours": 25.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:nihilith_switch",
       "tier": 4,
       "hours": 25.0,
       "craft": 0,

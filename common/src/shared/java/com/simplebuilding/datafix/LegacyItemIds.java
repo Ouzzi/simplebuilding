@@ -26,13 +26,24 @@ import org.jetbrains.annotations.Nullable;
  * for upgraded worlds, because decoding comes after fixing), and ids that exist cost nothing.
  *
  * <p>Item ids and the renamed End redstone block ids are aliased, preserving both stacks and
- * placed blocks. Only the {@code simplebuilding} namespace is looked at.
+ * placed blocks; {@link #REPLACED_BY_VANILLA} points removed blocks at a vanilla id. Only old ids in the
+ * {@code simplebuilding} namespace are looked at.
  */
 public final class LegacyItemIds {
 
     /** Block items renamed on 26.3; their placed blocks use the same aliases. */
     public static final Map<String, String> RENAMED_BLOCKS = com.simplebuilding.version.McVersion.END_SYSTEMS
             ? Map.of("astralit_powder", "astral_redstone", "nihilith_powder", "nihil_redstone") : Map.of();
+
+    /**
+     * Removed blocks (and their items) that now load as a vanilla block (Nachtrag 36, 2026-10-11): Astral/Nihil Redstone
+     * became vanilla-like dust, so their own switches and lamps are replaced by the lever and the redstone lamp. Old
+     * stacks and placed blocks keep working; block state properties that do not exist on the new block are dropped.
+     */
+    public static final Map<String, Identifier> REPLACED_BY_VANILLA = com.simplebuilding.version.McVersion.END_SYSTEMS
+            ? Map.of("astralit_switch", Identifier.withDefaultNamespace("lever"), "nihilith_switch", Identifier.withDefaultNamespace("lever"),
+                    "astralit_lamp", Identifier.withDefaultNamespace("redstone_lamp"), "nihilith_lamp", Identifier.withDefaultNamespace("redstone_lamp"))
+            : Map.of();
 
     /**
      * Item and entity type ids both renamed (Nachtrag 29, 2026-10-09): the medium armor stand was removed; old stacks
@@ -88,6 +99,8 @@ public final class LegacyItemIds {
             return null;
         }
         if (!com.simplebuilding.version.McVersion.MEGA_GUIDES && id.getPath().startsWith("guide_book_")) return null;
+        Identifier vanilla = REPLACED_BY_VANILLA.get(id.getPath());
+        if (vanilla != null) return vanilla;
         String now = RENAMED_BLOCKS.getOrDefault(id.getPath(), RENAMED.getOrDefault(id.getPath(), RENAMED_STANDS.get(id.getPath())));
         return now == null ? null : Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, now);
     }
@@ -105,6 +118,8 @@ public final class LegacyItemIds {
             return stand == null ? null : Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, stand);
         }
         if (!r.key().equals(Registries.BLOCK)) return null;
+        Identifier vanilla = REPLACED_BY_VANILLA.get(id.getPath());
+        if (vanilla != null) return vanilla;
         String now = RENAMED_BLOCKS.get(id.getPath());
         return now == null ? null : Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, now);
     }

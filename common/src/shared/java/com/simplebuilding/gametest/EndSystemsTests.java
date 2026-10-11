@@ -143,24 +143,6 @@ public final class EndSystemsTests {
         helper.succeed();
     }
 
-    /** N24: Astral powder carries a signal one hop per tick, Nihil powder one hop per two ticks. */
-    public static void astralSignalTravelsFasterThanNihil(GameTestHelper helper) {
-        if (!active(helper)) return;
-        for (int x = 0; x <= 9; x++) for (int z = 0; z <= 4; z += 2) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
-        // far end first, so each hop needs its own scheduled tick instead of one in-order sweep
-        for (int x = 8; x >= 1; x--) {
-            helper.setBlock(new BlockPos(x, 1, 0), ModBlocks.ASTRAL_REDSTONE);
-            helper.setBlock(new BlockPos(x, 1, 2), ModBlocks.NIHIL_REDSTONE);
-        }
-        helper.setBlock(new BlockPos(0, 1, 0), ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
-        helper.setBlock(new BlockPos(0, 1, 2), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
-        helper.runAfterDelay(12, () -> {
-            helper.assertTrue(helper.getBlockState(new BlockPos(8, 1, 0)).getValue(EndSignalBlock.POWER) > 0, "astral signal not at the end after 12 ticks");
-            helper.assertTrue(helper.getBlockState(new BlockPos(8, 1, 2)).getValue(EndSignalBlock.POWER) == 0, "nihil signal as fast as astral");
-            helper.succeed();
-        });
-    }
-
     public static void channelsStayIsolatedAndStopAtFifteen(GameTestHelper helper) {
         if (!active(helper)) return;
         // Fold the 16-segment path into the loader's 8x8 room, with one-block gaps.
@@ -168,61 +150,23 @@ public final class EndSystemsTests {
                 new BlockPos(5,1,2), new BlockPos(5,1,3), new BlockPos(4,1,3), new BlockPos(3,1,3), new BlockPos(2,1,3), new BlockPos(1,1,3),
                 new BlockPos(1,1,4), new BlockPos(1,1,5), new BlockPos(2,1,5), new BlockPos(3,1,5), new BlockPos(4,1,5));
         for (int x = 0; x <= 6; x++) for (int z = 0; z <= 6; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
-        helper.setBlock(new BlockPos(0, 1, 1), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        // Since 2026-10-11 a redstone block feeds Nihil Redstone like vanilla dust; Astral next to it stays dark.
+        helper.setBlock(new BlockPos(0, 1, 1), Blocks.REDSTONE_BLOCK);
         for (var pos : path) helper.setBlock(pos, ModBlocks.NIHIL_REDSTONE);
         for (int x = 1; x <= 5; x++) helper.setBlock(new BlockPos(x, 1, 6), ModBlocks.ASTRAL_REDSTONE);
-        helper.setBlock(new BlockPos(6, 1, 6), Blocks.REDSTONE_BLOCK);
-        helper.setBlock(new BlockPos(5, 1, 5), ModBlocks.NIHILITH_LAMP);
-        helper.runAfterDelay(90, () -> {
+        helper.setBlock(new BlockPos(5, 1, 5), Blocks.REDSTONE_LAMP);
+        helper.runAfterDelay(20, () -> {
+            helper.assertTrue(helper.getBlockState(path.get(0)).getValue(EndSignalBlock.POWER) == 15, "redstone block did not feed nihil redstone");
             helper.assertTrue(helper.getBlockState(path.get(14)).getValue(EndSignalBlock.POWER) == 1, "fifteenth segment not powered");
             helper.assertTrue(helper.getBlockState(path.get(15)).getValue(EndSignalBlock.POWER) == 0, "sixteenth segment powered");
-            helper.assertTrue(helper.getBlockState(new BlockPos(5, 1, 5)).getValue(EndSignalBlock.POWER) == 0, "out-of-range lamp powered");
-            for (int x = 1; x <= 5; x++) helper.assertTrue(helper.getBlockState(new BlockPos(x, 1, 6)).getValue(EndSignalBlock.POWER) == 0, "astralit took nihilith or vanilla power");
-            BlockPos absolute = helper.absolutePos(path.get(0));
-            helper.assertTrue(helper.getLevel().getBlockState(absolute).getSignal(helper.getLevel(), absolute, Direction.NORTH) == 0, "powder emits vanilla redstone");
-            helper.setBlock(new BlockPos(0, 1, 1), ModBlocks.NIHILITH_SWITCH);
+            helper.assertFalse(helper.getBlockState(new BlockPos(5, 1, 5)).getValue(net.minecraft.world.level.block.RedstoneLampBlock.LIT), "out-of-range lamp lit");
+            for (int x = 1; x <= 5; x++) helper.assertTrue(helper.getBlockState(new BlockPos(x, 1, 6)).getValue(EndSignalBlock.POWER) == 0, "astral took nihil power");
+            helper.setBlock(new BlockPos(0, 1, 1), Blocks.AIR);
         });
         helper.runAfterDelay(180, () -> {
             for (var pos : path) helper.assertTrue(helper.getBlockState(pos).getValue(EndSignalBlock.POWER) == 0, "signal latched after source turned off");
             helper.succeed();
         });
-    }
-
-    public static void matchingLampsAndConfigLimits(GameTestHelper helper) {
-        if (!active(helper)) return;
-        var config = ServerTuning.get();
-        int beforeRange = config.machines.endSignalRange;
-        boolean before = config.features.endSignals;
-        try {
-            config.machines.endSignalRange = 999;
-            helper.assertTrue(EndSignalBlock.range() == 15, "range cap bypassed");
-            config.machines.endSignalRange = -1;
-            helper.assertTrue(EndSignalBlock.range() == 1, "range floor bypassed");
-            config.machines.endSignalRange = 3;
-            for (int x = 0; x <= 5; x++) helper.setBlock(new BlockPos(x, 0, 1), Blocks.STONE);
-            helper.setBlock(new BlockPos(0, 1, 1), ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
-            for (int x = 1; x <= 4; x++) helper.setBlock(new BlockPos(x, 1, 1), ModBlocks.ASTRAL_REDSTONE);
-            // Explicit scheduled tick calls avoid leaving a global config altered across asynchronous tests.
-            for (int pass = 0; pass < 4; pass++) for (int x = 0; x <= 4; x++) {
-                var pos = helper.absolutePos(new BlockPos(x, 1, 1));
-                helper.getLevel().getBlockState(pos).tick(helper.getLevel(), pos, helper.getLevel().getRandom());
-            }
-            helper.assertTrue(helper.getBlockState(new BlockPos(3, 1, 1)).getValue(EndSignalBlock.POWER) == 1 && helper.getBlockState(new BlockPos(4, 1, 1)).getValue(EndSignalBlock.POWER) == 0, "lower server range ignored");
-            helper.setBlock(new BlockPos(3, 1, 2), ModBlocks.ASTRALIT_LAMP);
-            helper.setBlock(new BlockPos(2, 1, 2), ModBlocks.NIHILITH_LAMP);
-            for (int x : new int[]{2, 3}) {
-                var pos = helper.absolutePos(new BlockPos(x, 1, 2));
-                helper.getLevel().getBlockState(pos).tick(helper.getLevel(), pos, helper.getLevel().getRandom());
-            }
-            helper.assertTrue(helper.getBlockState(new BlockPos(3, 1, 2)).getValue(EndSignalBlock.POWER) > 0 && helper.getBlockState(new BlockPos(2, 1, 2)).getValue(EndSignalBlock.POWER) == 0, "lamps ignore channel identity");
-            config.features.endSignals = false;
-            for (int x = 0; x <= 4; x++) {
-                var pos = helper.absolutePos(new BlockPos(x, 1, 1));
-                helper.getLevel().getBlockState(pos).tick(helper.getLevel(), pos, helper.getLevel().getRandom());
-                helper.assertTrue(helper.getBlockState(new BlockPos(x, 1, 1)).getValue(EndSignalBlock.POWER) == 0, "disabled network still powered");
-            }
-        } finally { config.machines.endSignalRange = beforeRange; config.features.endSignals = before; }
-        helper.succeed();
     }
 
     /**
@@ -241,23 +185,24 @@ public final class EndSystemsTests {
         helper.setBlock(new BlockPos(2, 1, 3), ModBlocks.NIHIL_REDSTONE);
         helper.setBlock(new BlockPos(3, 1, 3), Blocks.REDSTONE_WIRE);
         helper.setBlock(new BlockPos(5, 1, 4), Blocks.STONE);
-        helper.setBlock(new BlockPos(3, 1, 4), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(new BlockPos(3, 1, 4), Blocks.REDSTONE_BLOCK);
         helper.setBlock(new BlockPos(4, 1, 4), ModBlocks.NIHIL_REDSTONE);
         helper.setBlock(new BlockPos(5, 2, 4), ModBlocks.NIHIL_REDSTONE);
+        RedstoneLinesTests.reshape(helper);
         helper.runAfterDelay(20, () -> {
             var dot = helper.getBlockState(new BlockPos(1, 1, 5));
             helper.assertTrue(sides(dot).equals("none none none none"), "lone powder is not a dot: " + sides(dot));
             helper.assertTrue(sides(helper.getBlockState(new BlockPos(3, 1, 1))).equals("none side none side"), "two pieces are no east-west line: " + sides(helper.getBlockState(new BlockPos(3, 1, 1))));
-            helper.assertTrue(sides(helper.getBlockState(new BlockPos(2, 1, 3))).equals("none none none none"), "nihil powder connected to astral powder or vanilla dust: " + sides(helper.getBlockState(new BlockPos(2, 1, 3))));
-            helper.assertTrue(helper.getBlockState(new BlockPos(1, 1, 3)).getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.EAST)
+            helper.assertTrue(sides(helper.getBlockState(new BlockPos(2, 1, 3))).equals("none none none none"), "nihil redstone connected to astral redstone or vanilla dust: " + sides(helper.getBlockState(new BlockPos(2, 1, 3))));
+            helper.assertTrue(helper.getBlockState(new BlockPos(1, 1, 3)).getValue(com.simplebuilding.blocks.custom.SignalDustBlock.EAST)
                     == net.minecraft.world.level.block.state.properties.RedstoneSide.NONE, "astral powder connected to nihil powder");
             var lower = helper.getBlockState(new BlockPos(4, 1, 4));
             helper.assertTrue(sides(lower).equals("none up none side"), "powder does not climb the wall: " + sides(lower));
             var upper = helper.getBlockState(new BlockPos(5, 2, 4));
-            helper.assertTrue(upper.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.WEST)
+            helper.assertTrue(upper.getValue(com.simplebuilding.blocks.custom.SignalDustBlock.WEST)
                     == net.minecraft.world.level.block.state.properties.RedstoneSide.SIDE, "upper powder does not reach down: " + sides(upper));
-            int range = EndSignalBlock.range();
-            helper.assertTrue(lower.getValue(EndSignalBlock.POWER) == range, "powder next to the switch has " + lower.getValue(EndSignalBlock.POWER));
+            int range = 15;
+            helper.assertTrue(lower.getValue(EndSignalBlock.POWER) == range, "powder next to the redstone block has " + lower.getValue(EndSignalBlock.POWER));
             helper.assertTrue(upper.getValue(EndSignalBlock.POWER) == range - 1, "signal did not climb the step: " + upper.getValue(EndSignalBlock.POWER));
             helper.assertTrue(helper.getBlockState(new BlockPos(2, 1, 3)).getValue(EndSignalBlock.POWER) == 0, "nihil powder took vanilla or astral power");
             helper.succeed();
@@ -435,31 +380,33 @@ public final class EndSystemsTests {
             config.machines.endPistonCooldownTicks = 8;
             for (int x = 0; x <= 7; x++) for (int z = 0; z <= 7; z++) helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
             helper.setBlock(new BlockPos(3, 0, 3), Blocks.STONE);
-            BlockPos piston = new BlockPos(3, 2, 3), sw = new BlockPos(2, 2, 3);
+            // The source: a redstone block at sw feeding the Astral Redstone between it and the piston.
+            BlockPos piston = new BlockPos(3, 2, 3), sw = new BlockPos(1, 2, 3);
             helper.setBlock(piston, ModBlocks.ASTRAL_PISTON);
+            helper.setBlock(new BlockPos(2, 2, 3), ModBlocks.ASTRAL_REDSTONE);
             helper.setBlock(new BlockPos(4, 2, 3), Blocks.STONE);
             Runnable tick = () -> {
                 var pos = helper.absolutePos(piston);
                 helper.getLevel().getBlockState(pos).tick(helper.getLevel(), pos, helper.getLevel().getRandom());
             };
-            helper.setBlock(sw, ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+            helper.setBlock(sw, Blocks.REDSTONE_BLOCK);
             tick.run();
-            helper.assertTrue(helper.getBlockState(piston).getValue(EndSignalBlock.POWER) > 0, "piston does not receive its switch");
+            helper.assertTrue(helper.getBlockState(piston).getValue(EndSignalBlock.POWER) > 0, "piston does not receive its line");
             helper.assertTrue(isMoving(helper, new BlockPos(5, 2, 3)), "rising edge did not fire");
             helper.setBlock(new BlockPos(3, 3, 3), Blocks.STONE);
             tick.run();
             helper.assertTrue(helper.getBlockState(new BlockPos(3, 3, 3)).is(Blocks.STONE), "held signal fired again");
-            helper.setBlock(sw, ModBlocks.ASTRALIT_SWITCH);
+            helper.setBlock(sw, Blocks.AIR);
             tick.run();
-            helper.assertTrue(helper.getBlockState(piston).getValue(EndSignalBlock.POWER) == 0, "signal latched after switch off");
-            helper.setBlock(sw, ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+            helper.assertTrue(helper.getBlockState(piston).getValue(EndSignalBlock.POWER) == 0, "signal latched after the source was removed");
+            helper.setBlock(sw, Blocks.REDSTONE_BLOCK);
             tick.run();
             helper.assertTrue(isMoving(helper, new BlockPos(3, 4, 3)), "second rising edge did not fire");
             config.features.endPistons = false;
-            helper.setBlock(sw, ModBlocks.ASTRALIT_SWITCH);
+            helper.setBlock(sw, Blocks.AIR);
             tick.run();
             helper.setBlock(new BlockPos(3, 2, 4), Blocks.STONE);
-            helper.setBlock(sw, ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+            helper.setBlock(sw, Blocks.REDSTONE_BLOCK);
             tick.run();
             helper.assertTrue(helper.getBlockState(piston).getValue(EndSignalBlock.POWER) == 0
                     && helper.getBlockState(new BlockPos(3, 2, 4)).is(Blocks.STONE), "disabled piston moved or took power");
@@ -474,12 +421,15 @@ public final class EndSystemsTests {
         BlockPos astral = new BlockPos(2, 2, 2), nihil = new BlockPos(5, 2, 5);
         helper.setBlock(astral, ModBlocks.ASTRAL_PISTON);
         helper.setBlock(astral.west(), Blocks.REDSTONE_BLOCK);
-        helper.setBlock(astral.east(), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(astral.east(), ModBlocks.NIHIL_REDSTONE);
+        helper.setBlock(astral.east(2), Blocks.REDSTONE_BLOCK);
         helper.setBlock(astral.above(), Blocks.STONE);
         helper.setBlock(nihil, ModBlocks.NIHIL_PISTON);
-        helper.setBlock(nihil.west(), ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(nihil.west(), ModBlocks.ASTRAL_REDSTONE);
+        helper.setBlock(nihil.west(2), Blocks.REDSTONE_BLOCK);
         helper.setBlock(nihil.above(2), Blocks.STONE);
         helper.setBlock(astral.north(), ModBlocks.ASTRAL_REDSTONE);
+        RedstoneLinesTests.reshape(helper);
         for (BlockPos rel : List.of(astral, nihil, astral.north())) {
             var pos = helper.absolutePos(rel);
             helper.getLevel().getBlockState(pos).tick(helper.getLevel(), pos, helper.getLevel().getRandom());
@@ -488,17 +438,17 @@ public final class EndSystemsTests {
                 && helper.getBlockState(astral.above()).is(Blocks.STONE), "astral piston took vanilla or nihil power");
         helper.assertTrue(helper.getBlockState(nihil).getValue(EndSignalBlock.POWER) == 0
                 && helper.getBlockState(nihil.above(2)).is(Blocks.STONE), "nihil piston took astral power");
-        helper.assertTrue(helper.getBlockState(astral.north()).getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.SOUTH)
+        helper.assertTrue(helper.getBlockState(astral.north()).getValue(com.simplebuilding.blocks.custom.SignalDustBlock.SOUTH)
                 .isConnected(), "astral powder does not connect to the astral piston");
         helper.assertTrue(helper.getBlockState(astral.north()).getValue(EndSignalBlock.POWER) == 0, "piston passed a signal on");
         helper.succeed();
     }
 
     private static String sides(net.minecraft.world.level.block.state.BlockState state) {
-        return state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.NORTH).getSerializedName() + " "
-                + state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.EAST).getSerializedName() + " "
-                + state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.SOUTH).getSerializedName() + " "
-                + state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.WEST).getSerializedName();
+        return state.getValue(com.simplebuilding.blocks.custom.SignalDustBlock.NORTH).getSerializedName() + " "
+                + state.getValue(com.simplebuilding.blocks.custom.SignalDustBlock.EAST).getSerializedName() + " "
+                + state.getValue(com.simplebuilding.blocks.custom.SignalDustBlock.SOUTH).getSerializedName() + " "
+                + state.getValue(com.simplebuilding.blocks.custom.SignalDustBlock.WEST).getSerializedName();
     }
 
     // --- Nihil-Gewoelbe (2026-10-04): weltweit geteilter Inhalt. Alle Tests teilen den Weltspeicher und laufen
@@ -746,29 +696,31 @@ public final class EndSystemsTests {
         helper.succeed();
     }
 
-    /** Only a powder or switch of the rail's own channel powers it; vanilla redstone and the other channel never do. */
+    /** Only dust of the rail's own line powers it; vanilla redstone and the other line never do. */
     public static void endRailIsFedOnlyByItsOwnChannel(GameTestHelper helper) {
         if (!railsActive(helper)) return;
         for (int x = 0; x <= 7; x++) for (int z = 0; z <= 6; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
         BlockPos astral = new BlockPos(1, 1, 1), nihil = new BlockPos(4, 1, 1), vanilla = new BlockPos(1, 1, 4), viaPowder = new BlockPos(5, 1, 4);
         helper.setBlock(astral, eastWest(ModBlocks.ASTRAL_RAIL));
-        helper.setBlock(astral.north(), ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(astral.north(), ModBlocks.ASTRAL_REDSTONE);
+        helper.setBlock(astral.north().west(), Blocks.REDSTONE_BLOCK);
         helper.setBlock(nihil, eastWest(ModBlocks.NIHIL_RAIL));
-        helper.setBlock(nihil.north(), ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(nihil.north(), ModBlocks.ASTRAL_REDSTONE);
+        helper.setBlock(nihil.north().east(), Blocks.REDSTONE_BLOCK);
         helper.setBlock(vanilla, eastWest(ModBlocks.ASTRAL_RAIL));
         helper.setBlock(vanilla.north(), Blocks.REDSTONE_BLOCK);
         helper.setBlock(viaPowder, eastWest(ModBlocks.NIHIL_RAIL));
         helper.setBlock(new BlockPos(5, 1, 5), ModBlocks.NIHIL_REDSTONE);
-        helper.setBlock(new BlockPos(6, 1, 5), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(new BlockPos(6, 1, 5), Blocks.REDSTONE_BLOCK);
         // One sequence: scheduling new delays from inside a delayed callback breaks the test ticker.
         helper.startSequence().thenIdle(20).thenExecute(() -> {
-            helper.assertTrue(powered(helper, astral), "astral switch did not power the astral rail");
-            helper.assertFalse(powered(helper, nihil), "astral switch powered a nihil rail");
+            helper.assertTrue(powered(helper, astral), "astral redstone did not power the astral rail");
+            helper.assertFalse(powered(helper, nihil), "astral redstone powered a nihil rail");
             helper.assertFalse(powered(helper, vanilla), "vanilla redstone powered an astral rail");
             helper.assertTrue(powered(helper, viaPowder), "nihil powder did not power the nihil rail");
-            helper.setBlock(astral.north(), Blocks.AIR);
+            helper.setBlock(astral.north().west(), Blocks.AIR);
         }).thenIdle(6).thenExecute(() ->
-                helper.assertFalse(powered(helper, astral), "astral rail stayed powered without its switch")).thenSucceed();
+                helper.assertFalse(powered(helper, astral), "astral rail stayed powered without its source")).thenSucceed();
     }
 
     /**
@@ -780,7 +732,7 @@ public final class EndSystemsTests {
         if (!railsActive(helper)) return;
         for (int x = 0; x <= 7; x++) for (int z = 1; z <= 2; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
         helper.setBlock(new BlockPos(0, 1, 1), Blocks.STONE);
-        helper.setBlock(new BlockPos(0, 1, 2), ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(new BlockPos(0, 1, 2), Blocks.REDSTONE_BLOCK);
         for (int x = 1; x <= 7; x++) {
             helper.setBlock(new BlockPos(x, 1, 1), eastWest(ModBlocks.ASTRAL_RAIL));
             helper.setBlock(new BlockPos(x, 1, 2), ModBlocks.ASTRAL_REDSTONE);
@@ -812,8 +764,8 @@ public final class EndSystemsTests {
         if (!railsActive(helper)) return;
         for (int x = 0; x <= 7; x++) for (int z = 0; z <= 7; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
         java.util.Map<BlockPos, net.minecraft.world.level.block.state.BlockState> rails = new java.util.LinkedHashMap<>();
-        // Lane z=1: powered Nihil rails x=1..6 (powder north of them, switch at x=0). Lane z=3: unpowered Nihil rails.
-        helper.setBlock(new BlockPos(0, 1, 0), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        // Lane z=1: powered Nihil rails x=1..6 (powder north of them, redstone block at x=0). Lane z=3: unpowered Nihil rails.
+        helper.setBlock(new BlockPos(0, 1, 0), Blocks.REDSTONE_BLOCK);
         for (int x = 1; x <= 6; x++) {
             rails.put(new BlockPos(x, 1, 1), eastWest(ModBlocks.NIHIL_RAIL));
             helper.setBlock(new BlockPos(x, 1, 0), ModBlocks.NIHIL_REDSTONE);
@@ -826,7 +778,7 @@ public final class EndSystemsTests {
             rails.put(new BlockPos(5, 1, z), ModBlocks.NIHIL_RAIL.defaultBlockState().setValue(EndRailBlock.SHAPE, RailShape.NORTH_SOUTH));
             helper.setBlock(new BlockPos(6, 1, z), ModBlocks.NIHIL_REDSTONE);
         }
-        helper.setBlock(new BlockPos(7, 1, 6), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(new BlockPos(7, 1, 6), Blocks.REDSTONE_BLOCK);
         // Placing a rail lets it reconnect to its neighbours; setting the same block again keeps the given shape.
         for (int pass = 0; pass < 2; pass++) rails.forEach(helper::setBlock);
         double cap = EndRailPhysics.maxSpeedPerTick();

@@ -13,6 +13,7 @@
     "StructurePieceAccessor",
     "AbstractArrowAccessor",
     "AbstractMinecartEndRailMixin",
+    "RedstoneWireEvaluatorLinesMixin",
     "MinecartBehaviorEndRailMixin",
     "AbstractFurnaceBlockEntityMixin",
     "CarvedStairMixin",
