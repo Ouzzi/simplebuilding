@@ -39,6 +39,7 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
 12. Testläufe sparsam: Server-Ziele parallel, Client-Tests seriell und nur bei Anzeigeänderungen, Agenten nur Server-Tests.
 13. Am Ende eines Runs: Testzentrale neu bauen (`/sbtestcentre build`), Abdeckungstest muss alle Items abdecken.
 14. **UI/Tooltips:** Füllstand/Haltbarkeit, die schon als Balken/Optik sichtbar ist, nicht zusätzlich im Tooltip (z. B. Keramik-Eimer, Netherite-Kolben-Item).
+    Eimer (Kupfer, Enderit, Eisen, Keramik) zeichnen **nie** eine Haltbarkeitslinie: Abnutzung zeigt die Textur (Keramik: heil/angeschlagen/rissig/brüchig), Füllung der Name; der Enderit-Eimer zeigt im Tooltip nur seinen Titel.
 
 ## 4. Tests und Gate
 - Vollständiges Gate: `./gradlew.bat check -q` (enthält checkBalance, JadeProviderSplitTest, checkAtlases, checkWiki).

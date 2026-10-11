@@ -315,6 +315,12 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(TrapTests.JAW_MAX_TICKS).build(),
             GameTestSpec.named("trap_game_test_workstations_are_heavy_sulfur_cube_food", TrapTests::workstationsAreHeavySulfurCubeFood)
                     .build(),
+            GameTestSpec.named("n37_world_game_test_piles_break_only_the_looked_at_part", N37WorldTests::pilesBreakOnlyTheLookedAtPart)
+                    .build(),
+            GameTestSpec.named("n37_world_game_test_buckets_draw_no_bar_and_the_enderite_bucket_shows_only_its_name", N37WorldTests::bucketsDrawNoBarAndTheEnderiteBucketShowsOnlyItsName)
+                    .build(),
+            GameTestSpec.named("n37_world_game_test_sculk_jaw_needs_a_full_block_top", N37WorldTests::sculkJawNeedsAFullBlockTop)
+                    .build(),
             GameTestSpec.named("fire_game_test_sulfur_fire_burns_on_sulfur_and_gives_nausea", FireTests::sulfurFireBurnsOnSulfurAndGivesNausea)
                     .maxTicks(FireTests.FIRE_MAX_TICKS).build(),
             GameTestSpec.named("fire_game_test_copper_fire_burns_on_copper_without_effect", FireTests::copperFireBurnsOnCopperWithoutEffect)
