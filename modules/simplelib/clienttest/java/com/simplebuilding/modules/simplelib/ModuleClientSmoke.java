@@ -20,6 +20,13 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.takeScreenshot("simplelib-crucible-netherite-barrel");
             crucible(context, CrucibleTier.ENDERITE);
             context.takeScreenshot("simplelib-crucible-enderite-barrel");
+            // Layout comparison: 854x480 (GUI scale 2) and 1920x1080 (auto scale) with the barrel docked.
+            // (a real window resize, so the GUI re-lays out at the auto scale)
+            context.runOnClient(c -> c.getWindow().setWindowed(1920, 1080));
+            context.waitTicks(3);
+            context.takeScreenshot("simplelib-crucible-enderite-barrel-1080");
+            context.runOnClient(c -> c.getWindow().setWindowed(854, 480));
+            context.waitTicks(3);
             context.runOnClient(c -> c.gui.setScreen(null));
         }
     }
