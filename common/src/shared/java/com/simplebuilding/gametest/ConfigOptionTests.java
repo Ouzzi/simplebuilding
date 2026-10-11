@@ -274,11 +274,17 @@ public final class ConfigOptionTests {
         } finally { machines.autoSmitherDelayTicks = old; }
         helper.startSequence().thenExecuteAfter(10, () -> {
             helper.assertTrue(smither.getItem(1).is(Items.DIAMOND_SWORD), "smither ran before configured delay");
-            helper.assertTrue(smither.getItem(3).isEmpty(), "early result");
+            helper.assertTrue(ejected(helper, pos).isEmpty(), "early result");
         }).thenExecuteAfter(35, () -> {
             helper.assertTrue(smither.getItem(1).isEmpty(), "input not consumed");
-            helper.assertTrue(smither.getItem(3).is(Items.NETHERITE_SWORD), "configured pulse did not finish");
+            helper.assertTrue(ejected(helper, pos).stream().anyMatch(e -> e.getItem().is(Items.NETHERITE_SWORD)), "configured pulse did not finish");
         }).thenSucceed();
+    }
+
+    /** Items the smither at {@code pos} ejected (it spits its result out when no container is in front). */
+    private static java.util.List<net.minecraft.world.entity.item.ItemEntity> ejected(GameTestHelper helper, BlockPos pos) {
+        return helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                new net.minecraft.world.phys.AABB(helper.absolutePos(pos)).inflate(3));
     }
 
     private ConfigOptionTests() {
