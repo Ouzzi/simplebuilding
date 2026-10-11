@@ -22,7 +22,7 @@ dependencies {
     implementation minecraft.dependency("net.minecraftforge:forge:26.3-${rootProject.mc263_forge_version}")
 }
 apply from: rootProject.file('gradle/forge-framework.gradle')
-processResources { filesMatching('META-INF/mods.toml') { expand version: project.version } }
+processResources { inputs.property('version', project.version.toString()); filesMatching('META-INF/mods.toml') { expand version: project.version } }
 if (providers.gradleProperty('forge_runs').getOrElse('false').toBoolean()) {
     minecraft.runs {
         configureEach { workingDir = layout.projectDirectory.dir('run') }

@@ -12,6 +12,6 @@ dependencies {
     implementation "net.fabricmc.fabric-api:fabric-api:${rootProject.mc263_fabric_version}"
     implementation project(':framework')
 }
-processResources { filesMatching('fabric.mod.json') { expand version: project.version } }
+processResources { inputs.property('version', project.version.toString()); filesMatching('fabric.mod.json') { expand version: project.version } }
 
 sourceSets.main.resources.srcDir '../generated/resources'
