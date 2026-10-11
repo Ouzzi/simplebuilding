@@ -26,7 +26,7 @@ public final class QuestionaryForge {
     public QuestionaryForge(FMLJavaModLoadingContext context) {
         com.simplebuilding.modules.simplequestionary.forge.ModuleForgeTests.register(context.getModBusGroup());
         SimpleQuestionary.init(FMLPaths.CONFIGDIR.get());
-        SimpleQuestionary.modName = ns -> ModList.get().getModContainerById(ns).map(c -> c.getModInfo().getDisplayName()).orElse(ns);
+        SimpleQuestionary.modName = ns -> ModList.getModContainerById(ns).map(c -> c.getModInfo().getDisplayName()).orElse(ns);
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             var key = event.getRegistryKey();
             if (key.equals(Registries.BLOCK)) QuestionaryRegistry.registerBlocks();
