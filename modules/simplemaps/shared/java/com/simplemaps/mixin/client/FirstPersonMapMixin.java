@@ -16,9 +16,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /** The wayfinder map in hand is held and drawn like a Vanilla map, showing the area around the holder. */
 @Mixin(FirstPersonHandsAndItemsRenderer.class)
 public abstract class FirstPersonMapMixin {
-    @ModifyExpressionValue(method = "submitArmWithItem",
+    /** Vanilla / Fabric: {@code stack.has(MAP_ID)}. */
+    @ModifyExpressionValue(method = "submitArmWithItem", require = 0,
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;has(Lnet/minecraft/core/component/DataComponentType;)Z"))
     private boolean simplemaps$holdLikeMap(boolean original, @com.llamalad7.mixinextras.sugar.Local(argsOnly = true) ItemStack stack) {
+        return original || MapsItems.isWayfinder(stack);
+    }
+
+    /** NeoForge's patched renderer asks {@code stack.getItem() instanceof MapItem} instead (the Fabric target is absent there and crashed the client at startup). */
+    @com.llamalad7.mixinextras.expression.Definition(id = "mapItem", type = net.minecraft.world.item.MapItem.class)
+    @com.llamalad7.mixinextras.expression.Expression("? instanceof mapItem")
+    @ModifyExpressionValue(method = "submitArmWithItem", require = 0,
+            at = @At("MIXINEXTRAS:EXPRESSION"))
+    private boolean simplemaps$holdLikeMapInstanceof(boolean original, @com.llamalad7.mixinextras.sugar.Local(argsOnly = true) ItemStack stack) {
         return original || MapsItems.isWayfinder(stack);
     }
 

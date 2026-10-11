@@ -18,7 +18,7 @@ import net.minecraftforge.registries.RegisterEvent;
 /** Forge 26.3 entry; same registration order as Fabric/NeoForge. */
 @Mod(Sandwiches.MOD_ID)
 public final class SandwichesForge {
-    public SandwichesForge(FMLJavaModLoadingContext context) {
+    public SandwichesForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplesandwiches.forge.ModuleForgeTests.register(context.getModBusGroup());
         Sandwiches.init(FMLPaths.CONFIGDIR.get());
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplesandwiches.guide.SandwichGuide.installQuests(FMLPaths.CONFIGDIR.get());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {

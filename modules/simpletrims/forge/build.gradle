@@ -2,4 +2,5 @@ plugins {
     id 'java-library'
     id 'net.minecraftforge.gradle' version '7.0.36'
 }
+ext.forgeMixinConfigs = ['simpletrims.forge.mixins.json']
 apply from: rootProject.file('gradle/module-forge.gradle')

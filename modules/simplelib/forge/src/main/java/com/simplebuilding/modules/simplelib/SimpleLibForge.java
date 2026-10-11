@@ -19,7 +19,7 @@ import net.minecraftforge.registries.RegisterEvent;
 /** Forge 26.3 entry; same registration order as Fabric/NeoForge. */
 @Mod(SimpleLib.MOD_ID)
 public final class SimpleLibForge {
-    public SimpleLibForge(FMLJavaModLoadingContext context) {
+    public SimpleLibForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplelib.forge.ModuleForgeTests.register(context.getModBusGroup());
         SimpleLib.init(FMLPaths.CONFIGDIR.get());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             var key = event.getRegistryKey();

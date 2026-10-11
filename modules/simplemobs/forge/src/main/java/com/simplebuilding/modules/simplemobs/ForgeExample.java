@@ -11,7 +11,7 @@ import net.minecraftforge.registries.RegisterEvent;
 
 @Mod("simplemobs")
 public final class ForgeExample {
-    public ForgeExample(FMLJavaModLoadingContext context) {
+    public ForgeExample(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplemobs.forge.ModuleForgeTests.register(context.getModBusGroup());
         var bus = context.getModBusGroup();
         RegisterEvent.getBus(bus).addListener(event -> {
             event.register(Registries.ENTITY_TYPE, r -> r.register(MobsRegistry.DECEIVER_KEY, MobsRegistry.DECEIVER));

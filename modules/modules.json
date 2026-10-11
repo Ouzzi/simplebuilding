@@ -1030,6 +1030,14 @@
           "neoforge": {
             "task": ":modules:simplesandwiches:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplesandwiches/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplesandwiches:forge:runGameTestServer",
+            "report": "modules/simplesandwiches/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
           }
         },
         "standalone": {
@@ -1107,6 +1115,14 @@
           "neoforge": {
             "task": ":modules:simplelib:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplelib/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplelib:forge:runGameTestServer",
+            "report": "modules/simplelib/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
           }
         },
         "client": {
@@ -1178,6 +1194,14 @@
           "neoforge": {
             "task": ":modules:simpleinterfaces:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simpleinterfaces/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simpleinterfaces:forge:runGameTestServer",
+            "report": "modules/simpleinterfaces/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
           }
         },
         "standalone": {
@@ -1259,6 +1283,14 @@
           "neoforge": {
             "task": ":modules:simplemaps:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplemaps/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplemaps:forge:runGameTestServer",
+            "report": "modules/simplemaps/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
           }
         },
         "standalone": {
@@ -1338,6 +1370,14 @@
           "neoforge": {
             "task": ":modules:simpletrims:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simpletrims/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simpletrims:forge:runGameTestServer",
+            "report": "modules/simpletrims/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
           }
         },
         "standalone": {
@@ -1415,6 +1455,14 @@
           "neoforge": {
             "task": ":modules:simplemobs:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplemobs/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplemobs:forge:runGameTestServer",
+            "report": "modules/simplemobs/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
           }
         },
         "standalone": {
@@ -1499,6 +1547,14 @@
           "neoforge": {
             "task": ":modules:simpleweather:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simpleweather/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simpleweather:forge:runGameTestServer",
+            "report": "modules/simpleweather/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
           }
         },
         "standalone": {
