@@ -95,7 +95,7 @@ final class EndNetherTests {
             h.assertTrue(s.getHealth() < 120.0f, "health dropped");
             h.assertFalse(s.canBeAffected(new MobEffectInstance(EndNetherMobs.gravity(), 200)), "immune to its own gravity");
             BlockPos before = s.blockPosition();
-            for (int i = 0; i < 6; i++) { s.invulnerableTime = 0; s.hurtServer(l, l.damageSources().generic(), 15.0f); }
+            for (int i = 2; i <= 7; i++) s.hurtServer(l, l.damageSources().generic(), i * 10.0f); // rising hits pierce the hurt cooldown
             h.assertTrue(s.blockPosition().equals(before), "never teleports, even when weak");
             var loot = l.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("simplemobs", "entities/shellker")));
             h.assertTrue(loot != LootTable.EMPTY, "loot table loads");
