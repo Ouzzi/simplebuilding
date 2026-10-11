@@ -638,6 +638,7 @@ public final class ConfigOptionTests {
             "server.soulLava.fortressChance double=0.1",
 
             "root.enableSimpleMaps boolean=true",
+            "root.enableSimpleQuestionary boolean=true",
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
             "root.airJumpCooldownTicks int=400",

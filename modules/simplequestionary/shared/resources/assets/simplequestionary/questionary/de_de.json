@@ -1,0 +1,165 @@
+{
+  "_comment": "Fallback texts for items without their own questionary entry: 8 variants per item class and page, picked by a stable hash of the item id. Mood only - the 'use' page adds the real recipe facts below.",
+  "fallback": {
+    "block": {
+      "lore": [
+        "{name} wurde aus den Knochen der Welt geschnitten, und die Welt hat noch nicht bemerkt, dass es fehlt.",
+        "Baumeister eines vergessenen Zeitalters schichteten {name} zu Mauern, die keine Karte mehr kennt. Manche stehen noch, irgendwo.",
+        "Jedes Korn von {name} lag einst tausend Jahre im Dunkeln. Es hat keine Eile, dir davon zu erzählen.",
+        "Die alten Steinmetze schworen, {name} summe, wenn niemand in der Nähe ist. Niemand kam je nah genug, um es zu widerlegen.",
+        "{mod} brachte {name} in die Welt, und die Welt machte Platz dafür, wie Welten es tun.",
+        "Seit Ewigkeiten versucht der Regen, {name} abzutragen. Der Regen ist geduldig, aber {name} ist es auch.",
+        "Irgendwo schrieb ein Schreiber das erste Wort über {name}, legte dann die Feder weg und baute einfach damit.",
+        "Über diesen Block schweigen die Sterne. Er war alt, bevor der erste Name gesprochen wurde."
+      ],
+      "use": [
+        "{name} wird gesetzt wie jeder Block. Was es sonst kann, behält {mod} für sich; die Rezeptzeile unten nennt die nüchternen Fakten.",
+        "Setz {name}, wo ein Block hingehört. Hat es einen tieferen Zweck, benutze es, bau es ab oder gib ihm ein Redstone-Signal.",
+        "Baumeister verwenden {name} für ihr Werk. Die Rezepte unten zeigen, woher es kommt und wohin es geht.",
+        "{name} gehorcht der Hand, die es setzt. Was {mod} damit vorhatte, verrät es nicht; frag die Rezepte und die Weisen.",
+        "Ein Block ist ein Versprechen von Form. {name} hält es; der Rest steht in den Rezepten von {mod}.",
+        "Setz es, sieh es an, versuch ein Werkzeug daran. {name} zeigt seinen Nutzen denen, die probieren, nicht denen, die lesen.",
+        "Manche Blöcke bauen, manche arbeiten. Was {name} ist, erfährst du, wenn du es setzt und eine Weile beobachtest.",
+        "{name} passt in eine Mauer, einen Boden oder ein Rätsel. Die Zeile unten zählt die Rezepte, die es kennen."
+      ],
+      "secret": [
+        "Manche sagen, {name} erinnere sich an jede Hand, die es setzte. Leg nachts die Hand darauf, vielleicht merkt es sich deine.",
+        "Bei Vollmond, heißt es, ist {name} ein wenig wärmer als die Blöcke ringsum.",
+        "In der tiefsten Schicht von {name} soll ein einziges Wort liegen. Keine Spitzhacke hat es bisher erreicht.",
+        "Wer neben {name} schläft, träumt von Gängen, die er nie betreten hat.",
+        "Man flüstert, {mod} habe noch etwas in {name} versteckt. Niemand ist sich einig, was.",
+        "Alte Karten zeigen einen Ort, an dem {name} von selbst wächst. Die Karten sind sich nicht einig, wo.",
+        "Klopf dreimal an {name} und horch. Das Echo, sagt man, ist nie ganz dein eigenes.",
+        "{name} ist das letzte Wort eines sterbenden Berges. Behalte es, und der Berg ist nicht ganz fort."
+      ]
+    },
+    "tool": {
+      "lore": [
+        "{name} wurde für eine Hand gemacht, die ihr Handwerk kennt. Es hat viele solcher Hände überdauert.",
+        "Die Schmiede der alten Straßen gaben jeder Klinge und Hacke einen Namen. Diese nannten sie {name}, und sie nannten es leise.",
+        "Die Schneide von {name} erinnert sich an den ersten Stein, den sie traf, und der Stein erinnert sich an sie.",
+        "{mod} schmiedete {name}, doch die Arbeit, die es seitdem tat, ist seine eigene Geschichte.",
+        "Werkzeuge nutzen sich ab, sagt man, Geschichten nicht. {name} versucht, beides zu sein.",
+        "Ein Reisender tauschte einst die Karte eines ganzen Königreichs gegen {name}. Ob es ein guter Tausch war, sagte er nie.",
+        "Jeder Kratzer auf {name} ist ein Satz. Wer alle liest, kennt das Leben seines Besitzers.",
+        "Über dieses Werkzeug schweigen die Sterne. Es war scharf, bevor der erste Name gesprochen wurde."
+      ],
+      "use": [
+        "Halte {name} und benutze es an der Welt. Seine Kraft steht im Tooltip; die Rezepte unten zeigen, wie es entsteht.",
+        "{name} will geschwungen, geschlagen oder benutzt werden. Versuch es an Blöcken und Kreaturen, um zu sehen, wofür es taugt.",
+        "Ein Werkzeug verrät seinen Nutzen durch seine Abnutzung. Sieh, wie {name} sich abnutzt, und du kennst sein Handwerk.",
+        "{name} antwortet nur denen, die arbeiten. Was {mod} damit vorhatte: Tooltip und Rezepte nennen die nüchternen Fakten.",
+        "Verzaubere {name}, wenn es das zulässt; es überrascht dich vielleicht mit dem, was es annimmt.",
+        "Benutze {name} zuerst nur für sein Handwerk. Seine wahre Reichweite zeigt sich, wenn du es gut kennst.",
+        "Werkzeuge sind Fragen an die Welt. {name} fragt auf seine Weise; hör auf die Antwort.",
+        "Trag {name} dorthin, wo die Arbeit am härtesten ist. Die Zeile unten zählt die Rezepte, zu denen es gehört."
+      ],
+      "secret": [
+        "Man sagt, {name} werde schärfer in den Händen von jemandem, der nie prahlt.",
+        "Im Dunkeln soll die Schneide von {name} einmal für jedes Geheimnis aufblitzen, das sie durchtrennt hat.",
+        "Ein alter Schmied schwor, {name} summe, bevor es zerbricht. Hör genau hin, vielleicht hörst du es.",
+        "{name} fiel einst in die Leere, so die Geschichte, und kam von selbst zurück. Niemand glaubt es.",
+        "Manche glauben, {mod} habe einen zweiten Namen in {name} versteckt. Sprich ihn aus, und das Werkzeug kennt dich.",
+        "Halte {name} unter einen Mond deiner Wahl, vielleicht flüstert es, wofür es gemacht wurde.",
+        "Jeden hundertsten Schlag mit {name}, sagen die Bergleute, führt jemand anderes.",
+        "Über das Geheimnis von {name} schweigen die Sterne. Vielleicht hat es keins; vielleicht ist genau das das Geheimnis."
+      ]
+    },
+    "armor": {
+      "lore": [
+        "{name} stand schon oft zwischen seinem Träger und der Welt. Meist verlor die Welt.",
+        "Ritter eines vergessenen Ordens trugen Stücke wie {name}; ihre Namen stehen innen, zu klein zum Lesen.",
+        "{mod} formte {name} zum Tragen, doch erst das Tragen gab ihm seine Geschichten.",
+        "Jede Delle in {name} ist ein Kampf, den jemand überlebt hat. Das ist die älteste Art von Geschichte.",
+        "Die Wachen der alten Türme polierten {name}, bis es leuchtete wie eine Laterne, und schliefen darin.",
+        "Es heißt, {name} erinnere sich an das Gewicht seines ersten Trägers und vergleiche still jeden anderen damit.",
+        "Über diese Rüstung schweigen die Sterne. Sie war stark, bevor der erste Name gesprochen wurde.",
+        "{name} wurde gemacht, um beim Tragen vergessen zu werden. Gute Rüstung spürt man erst, wenn man sie braucht."
+      ],
+      "use": [
+        "Trag {name} in seinem Platz. Sein Schutz steht im Tooltip; die Rezepte unten zeigen, wie es entsteht.",
+        "{name} wird getragen, nicht gehalten. Leg es an und sieh, wie die Welt dich anders trifft.",
+        "Rüstung beantwortet Schläge. Was {mod} {name} sonst mitgab, nennt der Tooltip nüchtern.",
+        "Trag {name} in die Gefahr und wieder zurück. Die Zeile unten zählt die Rezepte, die es kennen.",
+        "Verzaubere {name}, wenn es das zulässt, dann schützt es dich vielleicht vor mehr als Klingen.",
+        "Leg {name} an und schau auf deine Rüstungsleiste. Das ist der ehrliche Teil seiner Geschichte.",
+        "{name} schützt jeden, der es trägt, Freund oder Fremden. Wähle mit Bedacht, wer das ist.",
+        "Manche Rüstung ist für den Kampf, manche zum Zeigen, manche für beides. Trag {name} und entscheide selbst."
+      ],
+      "secret": [
+        "Man sagt, {name} werde leichter an einem Träger, der nie vor einem Kampf davongelaufen ist.",
+        "Nachts soll das Innere von {name} warm sein, als hätte es gerade jemand abgelegt.",
+        "Eine Legende sagt, {name} habe einst einen Pfeil zu seinem Schützen zurückgelenkt. Der Schütze erzählte es nie.",
+        "{mod} soll in {name} einen einzigen Stich versteckt haben, den keine Klinge durchtrennt.",
+        "Trag {name} im Regen und horch: manche hören einen Marsch in den Tropfen.",
+        "Alte Soldaten klopfen vor dem Kampf zweimal auf {name}. Warum, verraten sie nicht.",
+        "Man flüstert, {name} habe irgendwo einen Zwilling, und beide spürten die Schläge des anderen.",
+        "Über das Geheimnis von {name} schweigen die Sterne. Vielleicht lauscht es nach dir."
+      ]
+    },
+    "food": {
+      "lore": [
+        "{name} wurde zuerst an einer langen Tafel in einem hungrigen Winter geteilt. Niemand dort vergaß je den Geschmack.",
+        "Reisende der alten Straßen trugen {name} in Tuch gewickelt und sprachen davon wie von einem Freund.",
+        "{mod} brachte {name} in die Küchen der Welt, und die Küchen machten es zu ihrem eigenen.",
+        "In jedem Bissen {name} steckt ein wenig der Sonne, die es wachsen ließ, sagen die Köche.",
+        "Die alten Brauer schrieben Rezepte für Dinge wie {name} in einer Sprache, die nur Köche lesen konnten.",
+        "Ein verlorener König soll seine Krone gegen eine einzige Portion {name} getauscht haben und fand es gerecht.",
+        "Über dieses Gericht schweigen die Sterne, doch der Duft von {name} spricht laut genug.",
+        "{name} hat Helden und Feiglinge gleichermaßen gesättigt. Es fragte nie, wer wer war."
+      ],
+      "use": [
+        "Iss oder trink {name}, um es zu nutzen. Was es gibt, merkst du beim Probieren; die Rezepte unten zeigen, wie es entsteht.",
+        "{name} ist für die Hungrigen. Halte für lange Reisen etwas davon bereit.",
+        "Verzehrt gibt {name}, was es hat. Was {mod} sonst hineingab: die nüchternen Fakten stehen in den Rezepten unten.",
+        "Teile {name} mit Freunden; ein satter Reisender kommt weiter.",
+        "Manches Essen heilt, manches stärkt, manches schmeckt nur gut. Probier {name}, um zu wissen, was davon.",
+        "Lagere {name} sicher. Der Hunger kommt, wenn die Truhen weit weg sind.",
+        "{name} ist Mahlzeit, Heilmittel oder beides. Die Zeile unten zählt die Rezepte, die es kennen.",
+        "Nutze {name}, wenn die Hungerleiste sinkt, oder wenn der Tag einfach etwas Gutes braucht."
+      ],
+      "secret": [
+        "Man sagt, {name} schmecke jedem anders, der einmal wirklich verloren war.",
+        "Unter den Sternen gegessen soll {name} Träume von einer Küche bringen, die du nie gesehen hast.",
+        "Ein alter Koch behauptete, das beste {name} sei das, das man verschenkt.",
+        "{mod} soll eine Prise von etwas Namenlosem in {name} versteckt haben. Die Köche streiten noch darüber.",
+        "Leg {name} nachts aufs Fensterbrett, so die Geschichte, und jemand Kleines hinterlässt ein Dankeschön.",
+        "Manche schwören, {name} sei in der ersten Minute nach einer langen Reise wärmer.",
+        "Man flüstert, das erste {name} sei ein Versehen gewesen, und das Versehen sei nie wiederholt worden.",
+        "Über das Geheimnis von {name} schweigen die Sterne. Vielleicht essen sie gerade."
+      ]
+    },
+    "misc": {
+      "lore": [
+        "Über diesen Gegenstand schweigen die Sterne. Er war alt, bevor der erste Name gesprochen wurde, und er erinnert sich an jede Hand, die {name} je hielt.",
+        "{name} kam von irgendwoher. Woher genau, verrät vielleicht nicht einmal {mod}.",
+        "Sammler der alten Höfe bewahrten Dinge wie {name} in Samtschachteln auf und erklärten nie, warum.",
+        "{name} ging durch viele Taschen. Jede Tasche machte es ein wenig weiser.",
+        "Ein fahrender Händler verkaufte {name} einst als Wunder. Er log ausnahmsweise nicht ganz.",
+        "Gelehrte stritten hundert Jahre über {name}. Dann benutzten sie es und hörten auf zu streiten.",
+        "{name} ist klein genug, um es zu vergessen, und seltsam genug, um sich daran zu erinnern.",
+        "Jede Welt hat Dinge wie {name}: still, nützlich und älter, als sie aussehen."
+      ],
+      "use": [
+        "{name} antwortet nur dem Geduldigen. Was {mod} damit vorhatte, verrät es nicht; frag die Rezepte und die Weisen.",
+        "Behalte {name}; es kann Zutat, Werkzeug oder Schlüssel sein. Die Rezepte unten sagen, was.",
+        "{name} wird gebraucht, wo es gebraucht wird. Die Zeile unten zählt die Rezepte, die es kennen.",
+        "Versuch {name} in der Hand, an einem Block oder an der Werkbank. Sein Nutzen zeigt sich denen, die probieren.",
+        "Manche Dinge sind zum Benutzen da, manche zum Verbinden. {name} ist wohl eins davon.",
+        "Trag {name} bei dir, bis du seinen Platz findest. Die meisten Dinge haben einen.",
+        "{name} hat einen Zweck im Werk von {mod}. Die Rezepte unten sind der ehrliche Teil seiner Geschichte.",
+        "Frag die Werkbank nach {name}: sie weiß mehr als dieses Buch."
+      ],
+      "secret": [
+        "Manche sagen, {name} sei das letzte Wort einer sterbenden Lampe. Halte es unter einen Mond deiner Wahl, vielleicht flüstert es.",
+        "Man sagt, {name} liege nie ganz dort, wo du es hingelegt hast, aber immer in der Nähe.",
+        "In der alten Sprache bedeutete {name} etwas ganz anderes. Niemand weiß mehr, was.",
+        "{mod} soll in {name} noch einen Nutzen versteckt haben, der auf die richtige Frage wartet.",
+        "Halte {name} in einer stillen Höhle ans Ohr, und manche hören das Meer.",
+        "Man flüstert, {name} sei auf dem Heimweg leichter als auf dem Hinweg.",
+        "Irgendwo gibt es eine Tür, die sich nur für {name} öffnet. Niemand hat sie bisher gefunden.",
+        "Über das Geheimnis von {name} schweigen die Sterne. Vielleicht wird es noch geschrieben."
+      ]
+    }
+  }
+}

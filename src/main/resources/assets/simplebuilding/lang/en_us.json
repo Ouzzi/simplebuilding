@@ -1900,6 +1900,8 @@
   "text.autoconfig.simplebuilding.category.modules": "Simple Mods",
   "text.autoconfig.simplebuilding.option.enableSimpleMaps": "Enable Simple Maps",
   "text.autoconfig.simplebuilding.option.enableSimpleMaps.@Tooltip": "Turns the bundled Simple Maps module on or off: wayfinder maps, their loot and cartography table upgrades. Takes effect after a restart. Default: on.",
+  "text.autoconfig.simplebuilding.option.enableSimpleQuestionary": "Enable Simple Questionary",
+  "text.autoconfig.simplebuilding.option.enableSimpleQuestionary.@Tooltip": "Turns the bundled Simple Questionary module on or off: the Questionary Table and its book of lore, use and secrets. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.category.equipment": "Enchantments & Armor",
   "text.autoconfig.simplebuilding.category.pistons": "Pistons",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

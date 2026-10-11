@@ -78,6 +78,27 @@ def trade_values(repo, resources, ns):
     return found
 
 
+def questionary(resources, ns):
+    """
+    Own entries of assets/<ns>/questionary/<lang>.json (Simple Questionary), per item path:
+    {"en": {"lore": [...], "use": [...], "secret": [...]}, "de": {...}}. Families and the fallback are resolved
+    only in game; later resource dirs win per key like resource packs.
+    """
+    out = {}
+    for lang, short in (('en_us', 'en'), ('de_de', 'de')):
+        for resource in resources:
+            path = resource / 'assets' / ns / 'questionary' / f'{lang}.json'
+            if not path.is_file():
+                continue
+            for key, value in json.loads(path.read_text(encoding='utf-8')).items():
+                if key.startswith('_') or key.startswith('family:') or key == 'fallback' or not isinstance(value, dict):
+                    continue
+                pages = {page: [value[page]] if isinstance(value[page], str) else value[page]
+                         for page in ('lore', 'use', 'secret') if page in value}
+                out.setdefault(key, {})[short] = pages
+    return out
+
+
 def extract(entry, g, check=False):
     """Return the UI schema and completeness problems; absent features are empty."""
     repo, mid, paths = g.REPO, entry['id'], entry['paths']
@@ -219,8 +240,11 @@ def extract(entry, g, check=False):
         for ingredient in recipe.get('ingredients', []):
             used.setdefault(ingredient, []).append(recipe['id'])
     values = trade_values(repo, [generated, *resources], ns)
+    texts = questionary([generated, *resources], ns)
     for kind in ('items', 'blocks'):
         for value in collections[kind]:
+            if value['id'].split(':', 1)[1] in texts:
+                value['questionary'] = texts[value['id'].split(':', 1)[1]]
             value['craftedBy'] = sorted(made.get(value['id'], []))
             value['usedIn'] = sorted(used.get(value['id'], []))
             if value['id'] in values:

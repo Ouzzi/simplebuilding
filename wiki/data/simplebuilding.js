@@ -15425,6 +15425,36 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_sword_smithing"
       ],
       "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "Forged where the End forgets its own edges. Four shards of scrap, four diamonds and the weight of Netherite were pressed into one bar, and it has been humming ever since.",
+            "Miners of the outer islands say it keeps a note only the void can hear."
+          ],
+          "use": [
+            "Blast Raw Enderite Scrap into Enderite Scrap. Four scrap, four diamonds and a Netherite Ingot make one ingot; nine nuggets make one, too.",
+            "At a Smithing Table the Enderite Upgrade lifts Netherite gear and many blocks to Enderite. Enderite items are safe from the void; the armor lets you drift down while you hold jump."
+          ],
+          "secret": [
+            "Hold an Enderite Nugget in your off hand and strike an Enchanting Table 20 times with a Netherite Sledgehammer: it becomes the Astral Enchanter, strong up to 50 with blazewood bookshelves and a Blazing Obsidian floor.",
+            "Break it, and table and nugget return. Eight nuggets around a bucket make the Enderite Bucket."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Geschmiedet dort, wo das Ende seine eigenen Kanten vergisst. Vier Platten, vier Diamanten und das Gewicht von Netherit wurden zu einem Barren gepresst, und er summt seitdem.",
+            "Die Bergleute der äußeren Inseln sagen, er hält einen Ton, den nur die Leere hört."
+          ],
+          "use": [
+            "Schmilz Rohe Enderitplatten im Hochofen zu Enderitplatten. Vier Platten, vier Diamanten und ein Netheritbarren ergeben einen Barren, neun Nuggets ebenso.",
+            "Am Schmiedetisch hebt die Enderit-Aufwertung Netherit-Ausrüstung und viele Blöcke auf Enderit. Enderit ist vor der Leere sicher; mit der Rüstung schwebst du bei gedrückter Sprungtaste hinab."
+          ],
+          "secret": [
+            "Halte ein Enderit-Nugget in der Nebenhand und schlage 20-mal mit einem Netherit-Vorschlaghammer auf einen Zaubertisch: er wird zum Astral-Verzauberer, mit Lohen-Bücherregalen und Lohen-Obsidian-Boden bis Stärke 50.",
+            "Baust du ihn ab, kommen Tisch und Nugget zurück. Acht Nuggets um einen Eimer ergeben den Enderit-Eimer."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -128440,6 +128470,26 @@ window.WIKI_DATA = {
     {
       "range": null,
       "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleQuestionary",
+      "shortName": "enableSimpleQuestionary",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Questionary",
+      "labelDe": "Simple Questionary aktivieren",
+      "tooltip": "Turns the bundled Simple Questionary module on or off: the Questionary Table and its book of lore, use and secrets. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Questionary ein oder aus: den Fragentisch und sein Buch mit Überlieferung, Nutzen und Geheimnis. Gilt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
       "reload": "no",
       "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
@@ -157622,7 +157672,7 @@ window.WIKI_DATA = {
     "trades": 20,
     "enchantments": 19,
     "tags": 53,
-    "config": 223,
+    "config": 224,
     "inWorld": 493,
     "advancements": 119,
     "features": 51,

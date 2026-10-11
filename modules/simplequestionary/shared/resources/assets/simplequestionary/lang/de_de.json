@@ -1,0 +1,15 @@
+{
+  "block.simplequestionary.questionary_table": "Fragentisch",
+  "container.simplequestionary.questionary_table": "Fragentisch",
+  "screen.simplequestionary.page.lore": "Überlieferung",
+  "screen.simplequestionary.page.use": "Nutzen",
+  "screen.simplequestionary.page.secret": "Geheimnis",
+  "screen.simplequestionary.welcome.title": "Fragebuch",
+  "screen.simplequestionary.welcome.1": "Lege links einen Gegenstand in das Feld, und das Buch erzählt dir, was es weiß.",
+  "screen.simplequestionary.welcome.2": "Drei Seiten: Überlieferung, Nutzen und ein Geheimnis. Blättere mit den Lesezeichen, den Pfeilen, dem Mausrad oder A und D.",
+  "screen.simplequestionary.empty": "Diese Seite ist noch leer.",
+  "screen.simplequestionary.facts.made_from": "Hergestellt aus:",
+  "screen.simplequestionary.facts.not_crafted": "Kein Rezept stellt es her.",
+  "screen.simplequestionary.facts.recipes": "%s Rezepte stellen es her, %s nutzen es.",
+  "screen.simplequestionary.facts.none": "Keine Rezeptangaben."
+}

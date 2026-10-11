@@ -99,6 +99,7 @@ public final class ConfigOptions {
      */
     public static final Set<String> RESTART_REQUIRED = Set.of(
             "enableSimpleMaps",
+            "enableSimpleQuestionary",
             "server.soulLava.fuelMultiplier",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",

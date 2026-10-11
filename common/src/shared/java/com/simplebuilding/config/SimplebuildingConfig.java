@@ -27,12 +27,16 @@ public class SimplebuildingConfig implements ConfigData {
 
     // =====================================================================================
     // Reiter 0: Simple Mods - Schalter der gebuendelten Sub-Mods (Konzept Super-/Sub-Mod), oberster Punkt.
-    // Simple Maps liest diesen Schluessel selbst aus der Datei (MapsConfig.HOST_KEY); Neustart noetig.
+    // Simple Maps/Questionary lesen ihren Schluessel selbst aus der Datei (MapsConfig/QuestionaryConfig.HOST_KEY); Neustart noetig.
     // =====================================================================================
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleMaps = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleQuestionary = true;
 
     // =====================================================================================
     // Reiter 1: Werkzeuge & Bauen

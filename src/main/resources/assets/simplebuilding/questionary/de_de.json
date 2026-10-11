@@ -1,0 +1,16 @@
+{
+  "enderite_ingot": {
+    "lore": [
+      "Geschmiedet dort, wo das Ende seine eigenen Kanten vergisst. Vier Platten, vier Diamanten und das Gewicht von Netherit wurden zu einem Barren gepresst, und er summt seitdem.",
+      "Die Bergleute der äußeren Inseln sagen, er hält einen Ton, den nur die Leere hört."
+    ],
+    "use": [
+      "Schmilz Rohe Enderitplatten im Hochofen zu Enderitplatten. Vier Platten, vier Diamanten und ein Netheritbarren ergeben einen Barren, neun Nuggets ebenso.",
+      "Am Schmiedetisch hebt die Enderit-Aufwertung Netherit-Ausrüstung und viele Blöcke auf Enderit. Enderit ist vor der Leere sicher; mit der Rüstung schwebst du bei gedrückter Sprungtaste hinab."
+    ],
+    "secret": [
+      "Halte ein Enderit-Nugget in der Nebenhand und schlage 20-mal mit einem Netherit-Vorschlaghammer auf einen Zaubertisch: er wird zum Astral-Verzauberer, mit Lohen-Bücherregalen und Lohen-Obsidian-Boden bis Stärke 50.",
+      "Baust du ihn ab, kommen Tisch und Nugget zurück. Acht Nuggets um einen Eimer ergeben den Enderit-Eimer."
+    ]
+  }
+}

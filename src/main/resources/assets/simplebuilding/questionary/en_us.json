@@ -1,0 +1,16 @@
+{
+  "enderite_ingot": {
+    "lore": [
+      "Forged where the End forgets its own edges. Four shards of scrap, four diamonds and the weight of Netherite were pressed into one bar, and it has been humming ever since.",
+      "Miners of the outer islands say it keeps a note only the void can hear."
+    ],
+    "use": [
+      "Blast Raw Enderite Scrap into Enderite Scrap. Four scrap, four diamonds and a Netherite Ingot make one ingot; nine nuggets make one, too.",
+      "At a Smithing Table the Enderite Upgrade lifts Netherite gear and many blocks to Enderite. Enderite items are safe from the void; the armor lets you drift down while you hold jump."
+    ],
+    "secret": [
+      "Hold an Enderite Nugget in your off hand and strike an Enchanting Table 20 times with a Netherite Sledgehammer: it becomes the Astral Enchanter, strong up to 50 with blazewood bookshelves and a Blazing Obsidian floor.",
+      "Break it, and table and nugget return. Eight nuggets around a bucket make the Enderite Bucket."
+    ]
+  }
+}

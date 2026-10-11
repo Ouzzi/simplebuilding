@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "simplequestionary:block/questionary_table",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "simplequestionary:block/questionary_table"
+    },
+    "facing=south": {
+      "model": "simplequestionary:block/questionary_table",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "simplequestionary:block/questionary_table",
+      "y": 270
+    }
+  }
+}

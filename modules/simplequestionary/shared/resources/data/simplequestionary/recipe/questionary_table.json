@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:book",
+    "L": "minecraft:lapis_lazuli",
+    "P": "#minecraft:planks"
+  },
+  "pattern": [
+    "LBL",
+    "PPP",
+    "P P"
+  ],
+  "result": {
+    "id": "simplequestionary:questionary_table"
+  }
+}

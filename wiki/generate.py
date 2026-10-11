@@ -2453,6 +2453,12 @@ def build(line: str, check: bool = False) -> tuple[dict, list[str]]:
     iconless: list[str] = []
     items, blocks, phantom, unnamed = collect_items_and_blocks(
         roots, lang, recipes, loot_tables, trades, item_properties, registered, icons, iconless)
+    # Simple Questionary texts of SimpleBuilding's own items (assets/simplebuilding/questionary/<lang>.json).
+    import modules as module_wiki
+    texts = module_wiki.questionary([REPO / "src/main/resources", REPO / "mc26_3/overlay/resources"], NS)
+    for entry in (*items, *blocks):
+        if entry["id"].split(":", 1)[1] in texts:
+            entry["questionary"] = texts[entry["id"].split(":", 1)[1]]
 
     manual_path = WIKI / "manual.json"
     manual = read_json(manual_path) if manual_path.exists() else {"features": [], "notes": {}}
