@@ -747,3 +747,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Keramik-Eimer: Tooltip ohne Restgüsse (Abnutzungsbalken zeigt es) – Regel: Füllstand/Haltbarkeit nie doppelt im Tooltip; Lava nur einmal: Lava aufnehmen → spröde Variante, zerbricht beim Ausgießen.
 - [ ] Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.
 - [ ] Nihilith-Signalschalter überarbeiten; Konzept Astral-/Nihil-Redstone erklären.
+
+## Nachtrag 36 (2026-10-11, Besitzer)
+- [ ] Questionary Table (Tisch aus Buch + Lapis + Holz; Item links, Buch rechts mit 3 Seiten Lore/Nutzen/Geheim, für jedes Item, Fremd-Mod-Fallback mystisch): Konzept fertig in docs/ai/KONZEPT-QUESTIONARY-TABLE-2026-10-11.md (claude-concept-quest), Umsetzung nach Besitzer-OK (4 offene Fragen im Konzept).
