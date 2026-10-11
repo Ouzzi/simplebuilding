@@ -113,9 +113,13 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         // Handbuecher aufs Lesepult und ins gemeisselte Buecherregal wie jedes beschriebene Buch.
         var lecternBooks = builder(ItemTags.LECTERN_BOOKS);
         var bookshelfBooks = builder(ItemTags.BOOKSHELF_BOOKS);
+        java.util.Set<Item> seenBooks = new java.util.HashSet<>();
         for (com.simplebuilding.guide.GuideBooks.Book book : com.simplebuilding.guide.GuideBooks.Book.values()) {
-            lecternBooks.add(key(com.simplebuilding.guide.GuideBooks.item(book)));
-            bookshelfBooks.add(key(com.simplebuilding.guide.GuideBooks.item(book)));
+            // Legacy book aliases share an item: add each one once.
+            if (seenBooks.add(com.simplebuilding.guide.GuideBooks.item(book))) {
+                lecternBooks.add(key(com.simplebuilding.guide.GuideBooks.item(book)));
+                bookshelfBooks.add(key(com.simplebuilding.guide.GuideBooks.item(book)));
+            }
         }
 
         // Rotator: Unbreaking ja, Mending nein (Besitzer 2026-09-28) - EnchantmentMixin liest diesen Tag.

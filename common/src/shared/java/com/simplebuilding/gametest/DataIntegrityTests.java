@@ -2047,6 +2047,20 @@ public final class DataIntegrityTests {
             expectCut(expectedCuts, coated[1], p.polished(), p);
         }
 
+        // Polished end stone: vanilla owns "2x2 end stone -> 4 end stone bricks", so the mod recipe
+        // takes the bricks and End Stone / its bricks are cut (audit D-01, no clash with vanilla).
+        expectedCuts.add("end_stone -> 1 polished_end_stone");
+        expectedCuts.add("end_stone_bricks -> 1 polished_end_stone");
+        assertShapedRecipe(helper, modRecipes, "polished_end_stone", ModItems.POLISHED_END_STONE, 4,
+                new String[]{"##", "##"}, Map.of('#', Items.END_STONE_BRICKS), problems);
+        Optional<RecipeHolder<CraftingRecipe>> endStoneSquare = recipeManager.getRecipeFor(RecipeType.CRAFTING,
+                grid(new String[]{"##", "##"}, Map.of('#', Items.END_STONE)), level);
+        if (endStoneSquare.isEmpty() || !endStoneSquare.get().id().identifier().equals(
+                Identifier.withDefaultNamespace("end_stone_bricks"))) {
+            problems.add("2x2 end stone no longer crafts vanilla end_stone_bricks: "
+                    + endStoneSquare.map(h -> h.id().identifier().toString()).orElse("nothing"));
+        }
+
         for (Block older : List.of(ModBlocks.POLISHED_END_STONE, ModBlocks.ASTRAL_END_STONE, ModBlocks.NIHIL_END_STONE,
                 ModBlocks.ASTRAL_PURPUR_BLOCK, ModBlocks.NIHIL_PURPUR_BLOCK)) {
             describeMining(helper, level, at, pickaxe, older.defaultBlockState(), mined);

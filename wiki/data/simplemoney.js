@@ -110,7 +110,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       },
       "de": {
         "title": "Banknotenrohling",
-        "summary": "Eine ungew?hnliche Schmiedezutat aus Spezialpapier, Harzfaser und einem Eisenbarren. Mit Spezialfaser und einem Goldbarren veredeln.",
+        "summary": "Eine ungewöhnliche Schmiedezutat aus Spezialpapier, Harzfaser und einem Eisenbarren. Mit Spezialfaser und einem Goldbarren veredeln.",
         "details": [
           "Registry-ID: simplemoney:blank_note",
           "Stapelgrenze: 64",
@@ -136,7 +136,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       },
       "de": {
         "title": "Veredelter Banknotenrohling",
-        "summary": "Eine ungew?hnliche Zutat aus einem veredelten Banknotenrohling. Drei Rohlinge, gr?ner Farbstoff und Tintenbeutel ergeben drei rohe Geldscheine.",
+        "summary": "Eine ungewöhnliche Zutat aus einem veredelten Banknotenrohling. Drei Rohlinge, grüner Farbstoff und Tintenbeutel ergeben drei rohe Geldscheine.",
         "details": [
           "Registry-ID: simplemoney:refined_blank_note",
           "Stapelgrenze: 64",
@@ -189,7 +189,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       },
       "de": {
         "title": "Geldschein",
-        "summary": "W?hrung f?r die zus?tzlichen Dorfbewohner- und fahrenden H?ndlerangebote. Episch, feuerfest und dauerhaft gl?nzend; Benutzung erzeugt einen Umbl?tterklang und ein Dorfbewohnerpartikel ohne Verbrauch.",
+        "summary": "Währung für die zusätzlichen Dorfbewohner- und fahrenden Händlerangebote. Episch, feuerfest und dauerhaft glänzend; Benutzung erzeugt einen Umblätterklang und ein Dorfbewohnerpartikel ohne Verbrauch.",
         "details": [
           "Registry-ID: simplemoney:money_bill",
           "Stapelgrenze: 64",
@@ -3101,7 +3101,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         },
         "de": {
           "title": "Banknotenrohling",
-          "summary": "Eine ungew?hnliche Schmiedezutat aus Spezialpapier, Harzfaser und einem Eisenbarren. Mit Spezialfaser und einem Goldbarren veredeln.",
+          "summary": "Eine ungewöhnliche Schmiedezutat aus Spezialpapier, Harzfaser und einem Eisenbarren. Mit Spezialfaser und einem Goldbarren veredeln.",
           "details": [
             "Registry-ID: simplemoney:blank_note",
             "Stapelgrenze: 64",
@@ -3164,7 +3164,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         },
         "de": {
           "title": "Geldschein",
-          "summary": "W?hrung f?r die zus?tzlichen Dorfbewohner- und fahrenden H?ndlerangebote. Episch, feuerfest und dauerhaft gl?nzend; Benutzung erzeugt einen Umbl?tterklang und ein Dorfbewohnerpartikel ohne Verbrauch.",
+          "summary": "Währung für die zusätzlichen Dorfbewohner- und fahrenden Händlerangebote. Episch, feuerfest und dauerhaft glänzend; Benutzung erzeugt einen Umblätterklang und ein Dorfbewohnerpartikel ohne Verbrauch.",
           "details": [
             "Registry-ID: simplemoney:money_bill",
             "Stapelgrenze: 64",
@@ -3252,7 +3252,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         },
         "de": {
           "title": "Veredelter Banknotenrohling",
-          "summary": "Eine ungew?hnliche Zutat aus einem veredelten Banknotenrohling. Drei Rohlinge, gr?ner Farbstoff und Tintenbeutel ergeben drei rohe Geldscheine.",
+          "summary": "Eine ungewöhnliche Zutat aus einem veredelten Banknotenrohling. Drei Rohlinge, grüner Farbstoff und Tintenbeutel ergeben drei rohe Geldscheine.",
           "details": [
             "Registry-ID: simplemoney:refined_blank_note",
             "Stapelgrenze: 64",

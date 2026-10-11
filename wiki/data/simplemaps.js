@@ -34,7 +34,7 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         "details": [
           "While held in the main or off hand the map explores like a Vanilla map at 1:1 (default radius 96 blocks, server bounds 16–128), one 16th of the columns per tick, only in loaded chunks. Under a ceiling (Nether) the floor below the holder is mapped.",
           "A map binds to the dimension it is first used in. Which dimensions a map accepts is set by the dimension type tags simplemaps:nether_wayfinder and simplemaps:end_wayfinder; the plain map takes every dimension in neither tag.",
-          "Only explored 128 x 128-block tiles are stored (colour and height per block); at most maxTilesPerMap tiles per map (default 4096, server bounds 16–16384).",
+          "Only explored 128 x 128-block tiles are stored (color and height per block); at most maxTilesPerMap tiles per map (default 4096, server bounds 16–16384).",
           "Recipes (shapeless): map + compass + 4 gold ingots + 1 echo shard; the Nether map needs 2 echo shards and a netherite scrap instead, the End map 2 echo shards and a shulker shell.",
           "Found in chests: cartographer and shipwreck map chests 5 % (plain map), bastions and Nether fortresses 2 % (Nether map), end city treasure 2 % (End map)."
         ]
@@ -63,7 +63,7 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         "summary": "Use the map to open it: drag to move, mouse wheel or +/− to zoom (1, 4, 8, 16 and 64 blocks per pixel).",
         "details": [
           "The map area is 4:3 with a 16-pixel grid that always fits (12 x 9 cells). Left bookmarks: snap to grid, grid on/off, zoom, height lines. Right bookmarks: player and waypoints 1–8; a click centres the view (with snap the player's grid cell).",
-          "Height lines colour explored land in bands of 8 blocks with a dark line between bands.",
+          "Height lines color explored land in bands of 8 blocks with a dark line between bands.",
           "With a recovery compass in the other hand the last death point appears on the map, also over unexplored ground."
         ]
       },
@@ -90,7 +90,7 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         "summary": "Up to eight waypoints belong to the map itself; they show in the locator bar while the map is in the main or off hand.",
         "details": [
           "Right-click the map → Create waypoint: everything except the eight waypoint bookmarks is greyed out; a free bookmark takes it at once, an occupied one turns red first and is replaced by a second click.",
-          "Right-click a waypoint bookmark → configure (name up to 32 characters, one of 16 colours or a mob head as icon from the tag simplemaps:waypoint_heads) or delete."
+          "Right-click a waypoint bookmark → configure (name up to 32 characters, one of 16 colors or a mob head as icon from the tag simplemaps:waypoint_heads) or delete."
         ]
       },
       "de": {

@@ -66,7 +66,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "59bdf64a0ffe"
+    "dataHash": "6816620f3847"
   },
   {
     "id": "simpleriding",
@@ -125,7 +125,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "6e216355cabe"
+    "dataHash": "d6b752e0f54c"
   },
   {
     "id": "simplevisuals",
@@ -232,7 +232,7 @@ window.WIKI_MODULES = [
       "griefdefender",
       "claimchunk"
     ],
-    "dataHash": "336c09c2aa9f"
+    "dataHash": "f690c64083e7"
   },
   {
     "id": "simplesandwiches",
@@ -285,7 +285,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "5b9a99b1a260"
+    "dataHash": "a663ac27e962"
   },
   {
     "id": "simplemaps",
@@ -302,7 +302,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "ecf4dbe3659f"
+    "dataHash": "9b87a510e53f"
   },
   {
     "id": "simpletrims",
