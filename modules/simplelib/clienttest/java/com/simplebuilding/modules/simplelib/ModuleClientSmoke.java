@@ -29,17 +29,9 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(3);
             // N34 layout mockups a/b/c at 854x480 and 1920x1080 (-Dsimplelib.crucibleLayout limits them, default all).
             String only = System.getProperty("simplelib.crucibleLayout", "abc");
-            for (char v : new char[] {'a', 'b', 'c'}) {
-                if (only.indexOf(v) < 0) continue;
-                context.runOnClient(c -> c.setScreenAndShow(new CrucibleLayoutPreview(v)));
-                context.waitTicks(3);
-                context.takeScreenshot("simplelib-tiegel-" + v + "-854");
-                context.runOnClient(c -> c.getWindow().setWindowed(1920, 1080));
-                context.waitTicks(3);
-                context.takeScreenshot("simplelib-tiegel-" + v + "-1080");
-                context.runOnClient(c -> c.getWindow().setWindowed(854, 480));
-                context.waitTicks(3);
-            }
+            if (only.contains("a")) { show(context, 'a'); context.takeScreenshot("simplelib-tiegel-a-854"); big(context); context.takeScreenshot("simplelib-tiegel-a-1080"); small(context); }
+            if (only.contains("b")) { show(context, 'b'); context.takeScreenshot("simplelib-tiegel-b-854"); big(context); context.takeScreenshot("simplelib-tiegel-b-1080"); small(context); }
+            if (only.contains("c")) { show(context, 'c'); context.takeScreenshot("simplelib-tiegel-c-854"); big(context); context.takeScreenshot("simplelib-tiegel-c-1080"); small(context); }
             context.runOnClient(c -> c.gui.setScreen(null));
         }
     }
@@ -59,5 +51,20 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.runOnClient(c -> {
             if (!(c.gui.screen() instanceof CrucibleScreen)) throw new AssertionError(tier + " crucible screen closed itself: " + c.gui.screen());
         });
+    }
+
+    private static void show(ClientGameTestContext context, char v) {
+        context.runOnClient(c -> c.setScreenAndShow(new CrucibleLayoutPreview(v)));
+        context.waitTicks(3);
+    }
+
+    private static void big(ClientGameTestContext context) {
+        context.runOnClient(c -> c.getWindow().setWindowed(1920, 1080));
+        context.waitTicks(3);
+    }
+
+    private static void small(ClientGameTestContext context) {
+        context.runOnClient(c -> c.getWindow().setWindowed(854, 480));
+        context.waitTicks(3);
     }
 }
