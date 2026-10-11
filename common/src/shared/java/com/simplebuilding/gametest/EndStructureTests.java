@@ -96,7 +96,9 @@ public final class EndStructureTests {
 
     public static void wreckHasLootChestsAndFrame(GameTestHelper helper) {
         if (!active(helper)) return;
-        BlockPos base = helper.absolutePos(new BlockPos(0, 1, 0));
+        // The wrecks (with their mound) are much larger than the 8x8 test room: build them high above it, one after
+        // the other, and clear them again so neighbouring tests of the batch never see the blocks.
+        BlockPos base = helper.absolutePos(new BlockPos(0, 48, 0));
         place(helper, "wreck_stern_elytra", base);
         int chests = 0;
         for (BlockPos p : BlockPos.betweenClosed(base, base.offset(16, 14, 18))) {
@@ -115,10 +117,22 @@ public final class EndStructureTests {
         helper.assertTrue(frames.size() == 1 && frames.get(0).getItem().is(Items.ELYTRA)
                 && frames.get(0).getItem().getDamageValue() == frames.get(0).getItem().getMaxDamage() - 1, "expected one frame with a broken elytra");
         frames.forEach(f -> f.discard());
-        BlockPos plain = base.offset(0, 0, 20);
-        place(helper, "wreck_bow_none", plain);
-        helper.assertTrue(helper.getLevel().getEntitiesOfClass(ItemFrame.class, new AABB(plain).inflate(14)).isEmpty(), "frame-less wreck spawned a frame");
+        clear(helper, base);
+        place(helper, "wreck_bow_none", base);
+        boolean noFrame = helper.getLevel().getEntitiesOfClass(ItemFrame.class, new AABB(base).inflate(14)).isEmpty();
+        clear(helper, base);
+        helper.assertTrue(noFrame, "frame-less wreck spawned a frame");
         helper.succeed();
+    }
+
+    private static void clear(GameTestHelper helper, BlockPos base) {
+        for (BlockPos p : BlockPos.betweenClosed(base, base.offset(24, 16, 28)))
+            if (!helper.getLevel().getBlockState(p).isAir()) {
+                if (helper.getLevel().getBlockEntity(p) instanceof RandomizableContainer r) r.setLootTable(null); // no loot spill
+                if (helper.getLevel().getBlockEntity(p) instanceof net.minecraft.world.Clearable c) c.clearContent();
+                helper.getLevel().setBlock(p, Blocks.AIR.defaultBlockState(), 2 | 16);
+            }
+        helper.getLevel().getEntitiesOfClass(ItemFrame.class, new AABB(base).inflate(30)).forEach(f -> f.discard());
     }
 
     public static void gatewayAndPathPlace(GameTestHelper helper) {
