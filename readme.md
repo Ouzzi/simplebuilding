@@ -76,7 +76,7 @@ Alle nur fuer Operatoren.
 
 ## Config
 
-`config/simplebuilding.json` (im Spiel ueber Mod Menu bzw. die NeoForge-Modliste, Taste G oeffnet
+`config/simplebuilding.json` (im Spiel ueber Mod Menu bzw. die NeoForge-Modliste, Taste K oeffnet
 die Werkzeug-Einstellungen). Abschnitte: `tools` (Hervorhebung, Animationen, Hungerkosten des
 Baustabs), `worldGen` (Handel, Beute), `tweaks` (alles aus Simple Tweaks) und einzelne Schalter wie
 Luftsprung, Ruestungsbesatz-Boni und Endportalrahmen-Durchbruch durch Kolben. Die clientrelevanten

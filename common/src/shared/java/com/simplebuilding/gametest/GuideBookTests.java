@@ -880,7 +880,7 @@ public final class GuideBookTests {
         boolean wasOp = players.isOp(player.nameAndId());
         var chapters = com.simplebuilding.component.ModDataComponentTypes.GUIDE_CHAPTERS;
         var tools = GuideBooks.tab(GuideBooks.Book.TOOLS);
-        var caves = GuideBooks.tab(GuideBooks.Book.VANILLA_CAVES);
+        var caves = GuideBooks.tab(GuideBooks.Book.TRIMS);
         try {
             players.deop(player.nameAndId());
             player.getInventory().clearContent();
@@ -894,8 +894,8 @@ public final class GuideBookTests {
             helper.assertTrue(!player.getMainHandItem().has(chapters), "the used book kept its mask");
             helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.isOpen(player, GuideBooks.tab(GuideBooks.Book.ADMIN)), "an old mask opened Server Admin for a non-operator");
 
-            ItemStack vanilla = new ItemStack(ModItems.GUIDE_BOOK_VANILLA_START);
-            vanilla.set(chapters, 1 << GuideBooks.Book.VANILLA_CAVES.ordinal());
+            ItemStack vanilla = new ItemStack(ModItems.GUIDE_BOOK);
+            vanilla.set(chapters, 1 << GuideBooks.Book.TRIMS.ordinal());
             player.getInventory().setItem(20, vanilla);
             com.simplebuilding.tweaks.TweaksContent.onPlayerJoin(player);
             helper.assertTrue(player.entityTags().contains(com.simplebuilding.guide.GuideUnlocks.tag(caves)), "a carried old book did not move its chapter at login");
@@ -1005,7 +1005,7 @@ public final class GuideBookTests {
         }
         NonNullList<ItemStack> rest = match.get().value().getRemainingItems(input);
         for (int i = 0; i < grid.size(); i++) {
-            boolean isGuide = grid.get(i).is(ModItems.GUIDE_BOOK) || grid.get(i).is(ModItems.GUIDE_BOOK_VANILLA_START);
+            boolean isGuide = grid.get(i).is(ModItems.GUIDE_BOOK);
             boolean stays = !rest.get(i).isEmpty() && rest.get(i).is(grid.get(i).getItem());
             if (isGuide && guideStays && !stays) {
                 problems.add(grid + ": the guide does not stay in the grid (left " + rest.get(i) + ")");

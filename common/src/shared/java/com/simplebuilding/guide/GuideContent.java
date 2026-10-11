@@ -49,7 +49,7 @@ public final class GuideContent {
     public static final String TOOLTIP = "tooltip.simplebuilding.guide_book.";
     public static final String MOD_NAME_KEY = TOOLTIP + "mod";
     public static final List<String> GUI_KEYS = List.of("contents", "chapters", "in_chapter", "no_recipe", "locked",
-            "previous", "next", "shapeless", "operator_only", "shelf.mod", "shelf.vanilla");
+            "previous", "next", "shapeless", "operator_only", "shelf.mod");
 
     /**
      * Ob der Buchbildschirm das Spiel anhaelt: nein, wie das Inventar (Besitzer 2026-09-29). Der
@@ -109,8 +109,7 @@ public final class GuideContent {
                 ch("simplebuilding:backpack", List.of("simplebuilding:leather_sheet", "simplebuilding:backpack"), List.of()),
                 ch("simplebuilding:basic_upgrade_template", List.of("simplebuilding:basic_upgrade_template", "simplebuilding:iron_chisel@upgrade_copper_chisel_to_iron_chisel"), List.of()),
                 ch("minecraft:enchanting_table", List.of(), List.of("minecraft:enchanting_table", "minecraft:enchanted_book")),
-                ch("minecraft:ward_armor_trim_smithing_template", List.of(), List.of("minecraft:ward_armor_trim_smithing_template")),
-                ch("simplebuilding:guide_book_vanilla_start", List.of("simplebuilding:guide_book_vanilla_start"), List.of()))));
+                ch("minecraft:ward_armor_trim_smithing_template", List.of(), List.of("minecraft:ward_armor_trim_smithing_template"))));
         STYLES.put(GuideBooks.Book.TOOLS, new BookStyle(0xE08A4F, List.of(
                 ch("simplebuilding:iron_chisel", List.of("simplebuilding:copper_chisel"), List.of("simplebuilding:stone_chisel", "simplebuilding:copper_chisel", "simplebuilding:iron_chisel", "simplebuilding:gold_chisel", "simplebuilding:diamond_chisel", "simplebuilding:netherite_chisel")),
                 ch("simplebuilding:diamond_chisel", List.of(), List.of("simplebuilding:diamond_chisel", "minecraft:enchanted_book")),
@@ -252,112 +251,6 @@ public final class GuideContent {
                 ch("minecraft:comparator", List.of(), List.of("minecraft:ward_armor_trim_smithing_template", "minecraft:iron_boots")),
                 ch("minecraft:piston", List.of(), List.of("simplebuilding:netherite_piston", "simplebuilding:iron_building_wand")),
                 ch("minecraft:barrier", List.of(), List.of("simplebuilding:backpack", "simplebuilding:magnet", "simplebuilding:blueprint")))));
-        STYLES.put(GuideBooks.Book.VANILLA_START, new BookStyle(0x9C7A4E, List.of(
-                ch("minecraft:oak_log", List.of(), List.of("minecraft:oak_log", "minecraft:crafting_table", "minecraft:wooden_pickaxe")),
-                ch("minecraft:crafting_table", List.of("minecraft:oak_planks", "minecraft:crafting_table", "minecraft:stick"), List.of("minecraft:oak_log")),
-                ch("minecraft:stone_pickaxe", List.of("minecraft:wooden_pickaxe", "minecraft:stone_pickaxe"), List.of("minecraft:cobblestone", "minecraft:stone_axe", "minecraft:stone_shovel")),
-                ch("minecraft:torch", List.of("minecraft:torch", "minecraft:charcoal"), List.of("minecraft:coal")),
-                ch("minecraft:cooked_beef", List.of("minecraft:cooked_beef", "minecraft:bread"), List.of("minecraft:cooked_porkchop", "minecraft:baked_potato")),
-                ch("minecraft:white_bed", com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT ? List.of("minecraft:white_bed", "minecraft:straw_bed") : List.of("minecraft:white_bed"), List.of("minecraft:white_wool", "minecraft:hay_block")),
-                ch("minecraft:furnace", List.of("minecraft:furnace", "minecraft:iron_ingot@iron_ingot_from_smelting_raw_iron"), List.of("minecraft:smoker", "minecraft:blast_furnace")),
-                ch("minecraft:iron_pickaxe", List.of("minecraft:iron_pickaxe", "minecraft:shield"), List.of("minecraft:iron_sword", "minecraft:bucket")),
-                ch("minecraft:chest", List.of("minecraft:chest", "minecraft:barrel"), List.of("minecraft:bundle", "minecraft:copper_chest")),
-                ch("minecraft:recovery_compass", List.of("minecraft:recovery_compass"), List.of("minecraft:echo_shard", "minecraft:compass")),
-                ch("minecraft:emerald", List.of(), List.of("minecraft:emerald", "minecraft:composter", "minecraft:lectern", "minecraft:smithing_table")))));
-        STYLES.put(GuideBooks.Book.VANILLA_OVERWORLD, new BookStyle(0x6FB35A, List.of(
-                ch("minecraft:grass_block", List.of(), List.of("minecraft:grass_block", "minecraft:sand", "minecraft:snow_block", "minecraft:mud")),
-                ch("minecraft:oak_sapling", List.of("minecraft:bone_meal"), List.of("minecraft:oak_sapling", "minecraft:cherry_sapling", "minecraft:pale_oak_sapling", "minecraft:mangrove_propagule")),
-                ch(com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT ? "minecraft:poplar_sapling" : "minecraft:oak_sapling",
-                        com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT ? List.of("minecraft:poplar_planks") : List.of("minecraft:oak_planks"),
-                        com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT
-                                ? List.of("minecraft:poplar_log", "minecraft:orange_poplar_leaves", "minecraft:red_shrub", "minecraft:shelf_mushroom")
-                                : List.of("minecraft:oak_log", "minecraft:birch_sapling", "minecraft:spruce_sapling", "minecraft:dark_oak_sapling")),
-                ch("minecraft:emerald_ore", List.of(), List.of("minecraft:emerald_ore", "minecraft:iron_ore", "minecraft:powder_snow_bucket")),
-                ch("minecraft:bell", List.of(), List.of("minecraft:bell", "minecraft:iron_block", "minecraft:carved_pumpkin")),
-                ch("minecraft:chiseled_sandstone", List.of(), List.of("minecraft:tnt", "minecraft:mossy_cobblestone", "minecraft:cauldron", "minecraft:dark_oak_log")),
-                ch("minecraft:campfire", List.of(), List.of("minecraft:spyglass", "minecraft:copper_spear", "minecraft:bundle", "minecraft:map")),
-                ch("minecraft:brush", List.of("minecraft:brush"), List.of("minecraft:suspicious_sand", "minecraft:suspicious_gravel", "minecraft:sniffer_egg")),
-                ch("minecraft:lightning_rod", List.of("minecraft:lightning_rod"), List.of("minecraft:clock", "minecraft:water_bucket")),
-                ch("minecraft:compass", List.of("minecraft:compass", "minecraft:map"), List.of("minecraft:cartography_table", "minecraft:lodestone")))));
-        STYLES.put(GuideBooks.Book.VANILLA_CAVES, new BookStyle(0x8F8F96, List.of(
-                ch("minecraft:deepslate", List.of(), List.of("minecraft:stone", "minecraft:deepslate", "minecraft:bedrock")),
-                ch("minecraft:diamond_ore", List.of(), List.of("minecraft:coal_ore", "minecraft:copper_ore", "minecraft:iron_ore", "minecraft:gold_ore", "minecraft:redstone_ore", "minecraft:diamond_ore")),
-                ch("minecraft:iron_pickaxe", List.of(), List.of("minecraft:iron_pickaxe", "minecraft:diamond", "minecraft:torch", "minecraft:water_bucket")),
-                ch("minecraft:glow_berries", List.of(), List.of("minecraft:moss_block", "minecraft:glow_berries", "minecraft:pointed_dripstone", "minecraft:sculk")),
-                ch("minecraft:sulfur", List.of("minecraft:polished_sulfur", "minecraft:potent_sulfur"), List.of("minecraft:sulfur_spike", "minecraft:cinnabar", "minecraft:cinnabar_bricks")),
-                ch("minecraft:slime_ball", List.of(), List.of("minecraft:slime_ball", "minecraft:bucket", "minecraft:oak_log", "minecraft:tnt")),
-                ch("minecraft:sculk_shrieker", List.of(), List.of("minecraft:sculk_sensor", "minecraft:sculk_shrieker", "minecraft:echo_shard")),
-                ch("minecraft:spawner", List.of("minecraft:name_tag"), List.of("minecraft:cobweb", "minecraft:rail", "minecraft:music_disc_bounce")),
-                ch("minecraft:trial_key", List.of("minecraft:mace"), List.of("minecraft:trial_key", "minecraft:ominous_trial_key", "minecraft:heavy_core", "minecraft:breeze_rod")),
-                ch("minecraft:water_bucket", List.of(), List.of("minecraft:water_bucket", "minecraft:cobblestone", "minecraft:torch", "minecraft:bread")))));
-        STYLES.put(GuideBooks.Book.VANILLA_OCEAN, new BookStyle(0x3FA3C9, List.of(
-                ch("minecraft:oak_boat", List.of("minecraft:oak_boat", "minecraft:oak_chest_boat"), com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT ? List.of("minecraft:bamboo_raft", "minecraft:poplar_boat") : List.of("minecraft:bamboo_raft")),
-                ch("minecraft:turtle_helmet", List.of("minecraft:turtle_helmet"), List.of("minecraft:turtle_scute", "minecraft:potion")),
-                ch("minecraft:brain_coral_block", List.of(), List.of("minecraft:brain_coral_block", "minecraft:kelp", "minecraft:seagrass", "minecraft:sea_pickle")),
-                ch("minecraft:heart_of_the_sea", List.of(), List.of("minecraft:map", "minecraft:heart_of_the_sea", "minecraft:chest")),
-                ch("minecraft:prismarine_bricks", List.of(), List.of("minecraft:sponge", "minecraft:gold_block", "minecraft:prismarine_shard", "minecraft:tide_armor_trim_smithing_template")),
-                ch("minecraft:conduit", List.of("minecraft:conduit"), List.of("minecraft:nautilus_shell", "minecraft:heart_of_the_sea", "minecraft:prismarine")),
-                ch("minecraft:trident", List.of(), List.of("minecraft:trident", "minecraft:enchanted_book")),
-                ch("minecraft:iron_nautilus_armor", List.of(), List.of("minecraft:nautilus_shell", "minecraft:copper_nautilus_armor", "minecraft:diamond_nautilus_armor")),
-                ch("minecraft:fishing_rod", List.of("minecraft:fishing_rod"), List.of("minecraft:cod", "minecraft:name_tag", "minecraft:saddle", "minecraft:enchanted_book")),
-                ch("minecraft:axolotl_bucket", List.of(), List.of("minecraft:axolotl_bucket", "minecraft:tropical_fish_bucket", "minecraft:turtle_egg")))));
-        STYLES.put(GuideBooks.Book.VANILLA_NETHER, new BookStyle(0xC24A3A, List.of(
-                ch("minecraft:obsidian", List.of("minecraft:flint_and_steel"), List.of("minecraft:obsidian", "minecraft:crying_obsidian")),
-                ch("minecraft:compass", List.of(), List.of("minecraft:compass", "minecraft:netherrack")),
-                ch("minecraft:lava_bucket", List.of(), List.of("minecraft:lava_bucket", "minecraft:ghast_tear", "minecraft:potion")),
-                ch("minecraft:crimson_nylium", List.of(), List.of("minecraft:crimson_stem", "minecraft:warped_stem", "minecraft:soul_sand", "minecraft:basalt")),
-                ch("minecraft:gold_ingot", List.of(), List.of("minecraft:golden_helmet", "minecraft:gold_ingot", "minecraft:ender_pearl", "minecraft:obsidian")),
-                ch("minecraft:nether_bricks", List.of(), List.of("minecraft:blaze_rod", "minecraft:wither_skeleton_skull", "minecraft:nether_wart", "minecraft:saddle")),
-                ch("minecraft:gilded_blackstone", List.of(), List.of("minecraft:netherite_upgrade_smithing_template", "minecraft:snout_armor_trim_smithing_template", "minecraft:gold_block")),
-                ch("minecraft:ancient_debris", List.of("minecraft:netherite_scrap", "minecraft:netherite_ingot"), List.of("minecraft:ancient_debris", "minecraft:diamond_pickaxe")),
-                ch("minecraft:netherite_pickaxe", List.of("minecraft:netherite_pickaxe@netherite_pickaxe_smithing", "minecraft:netherite_upgrade_smithing_template"), List.of("minecraft:smithing_table")),
-                ch("minecraft:warped_fungus_on_a_stick", List.of("minecraft:warped_fungus_on_a_stick"), List.of("minecraft:saddle", "minecraft:dried_ghast", "minecraft:snowball")),
-                ch("minecraft:respawn_anchor", List.of("minecraft:respawn_anchor"), List.of("minecraft:glowstone", "minecraft:crying_obsidian")))));
-        STYLES.put(GuideBooks.Book.VANILLA_END, new BookStyle(0xCFC57A, List.of(
-                ch("minecraft:ender_eye", List.of("minecraft:ender_eye"), List.of("minecraft:ender_pearl", "minecraft:blaze_powder")),
-                ch("minecraft:end_portal_frame", List.of(), List.of("minecraft:end_portal_frame", "minecraft:ender_eye")),
-                ch("minecraft:carved_pumpkin", List.of(), List.of("minecraft:carved_pumpkin", "minecraft:bow", "minecraft:arrow", "minecraft:cobblestone")),
-                ch("minecraft:end_crystal", List.of(), List.of("minecraft:end_crystal", "minecraft:obsidian", "minecraft:iron_bars")),
-                ch("minecraft:dragon_egg", List.of(), List.of("minecraft:dragon_egg", "minecraft:dragon_breath", "minecraft:glass_bottle")),
-                ch("minecraft:ender_pearl", List.of(), List.of("minecraft:ender_pearl", "minecraft:end_stone")),
-                ch("minecraft:purpur_block", List.of(), List.of("minecraft:shulker_shell", "minecraft:dragon_head", "minecraft:spire_armor_trim_smithing_template")),
-                ch("minecraft:elytra", List.of(), List.of("minecraft:elytra", "minecraft:firework_rocket", "minecraft:phantom_membrane")),
-                ch("minecraft:shulker_box", List.of("minecraft:shulker_box"), List.of("minecraft:shulker_shell", "minecraft:chest")),
-                ch("minecraft:chorus_fruit", List.of("minecraft:popped_chorus_fruit", "minecraft:purpur_block"), List.of("minecraft:chorus_flower", "minecraft:end_rod")))));
-        STYLES.put(GuideBooks.Book.VANILLA_REDSTONE, new BookStyle(0xD6453B, List.of(
-                ch("minecraft:redstone", List.of(), List.of("minecraft:lever", "minecraft:stone_button", "minecraft:redstone_torch", "minecraft:redstone_block")),
-                ch("minecraft:repeater", List.of("minecraft:repeater"), List.of("minecraft:redstone_torch", "minecraft:stone")),
-                ch("minecraft:comparator", List.of("minecraft:comparator"), List.of("minecraft:chest", "minecraft:hopper")),
-                ch("minecraft:redstone_torch", List.of("minecraft:redstone_torch"), List.of("minecraft:redstone", "minecraft:stick")),
-                ch("minecraft:piston", List.of("minecraft:piston", "minecraft:sticky_piston"), List.of("minecraft:slime_block", "minecraft:honey_block", "minecraft:obsidian")),
-                ch("minecraft:observer", List.of("minecraft:observer"), List.of("minecraft:sugar_cane", "minecraft:piston")),
-                ch("minecraft:hopper", List.of("minecraft:hopper", "minecraft:dropper"), List.of("minecraft:dispenser", "minecraft:chest")),
-                ch("minecraft:crafter", List.of("minecraft:crafter"), List.of("minecraft:hopper", "minecraft:crafting_table")),
-                ch("minecraft:copper_bulb", List.of("minecraft:copper_bulb"), List.of("minecraft:waxed_copper_bulb", "minecraft:honeycomb")),
-                ch("minecraft:daylight_detector", List.of("minecraft:daylight_detector", "minecraft:target"), List.of("minecraft:calibrated_sculk_sensor", "minecraft:tripwire_hook")))));
-        STYLES.put(GuideBooks.Book.VANILLA_GEAR, new BookStyle(0xA9B6C0, List.of(
-                ch("minecraft:copper_pickaxe", List.of("minecraft:copper_pickaxe"), List.of("minecraft:wooden_pickaxe", "minecraft:stone_pickaxe", "minecraft:iron_pickaxe", "minecraft:golden_pickaxe", "minecraft:diamond_pickaxe")),
-                ch("minecraft:iron_chestplate", List.of("minecraft:iron_chestplate"), List.of("minecraft:leather_chestplate", "minecraft:copper_chestplate", "minecraft:chainmail_chestplate", "minecraft:diamond_chestplate")),
-                ch("minecraft:iron_sword", List.of("minecraft:iron_sword", "minecraft:iron_axe"), List.of("minecraft:shield")),
-                ch("minecraft:iron_spear", List.of("minecraft:iron_spear"), List.of("minecraft:wooden_spear", "minecraft:copper_spear", "minecraft:diamond_spear")),
-                ch("minecraft:bow", List.of("minecraft:bow", "minecraft:crossbow"), List.of("minecraft:arrow", "minecraft:spectral_arrow", "minecraft:firework_rocket")),
-                ch("minecraft:mace", List.of("minecraft:mace"), List.of("minecraft:heavy_core", "minecraft:breeze_rod", "minecraft:wind_charge")),
-                ch("minecraft:enchanting_table", List.of("minecraft:enchanting_table", "minecraft:bookshelf"), List.of("minecraft:lapis_lazuli", "minecraft:book")),
-                ch("minecraft:anvil", List.of("minecraft:anvil"), List.of("minecraft:enchanted_book", "minecraft:name_tag")),
-                ch("minecraft:experience_bottle", List.of("minecraft:grindstone"), List.of("minecraft:enchanted_book", "minecraft:experience_bottle")),
-                ch("minecraft:enchanted_book", List.of(), List.of("minecraft:enchanted_book")),
-                ch("minecraft:smithing_table", List.of("minecraft:smithing_table"), List.of("minecraft:coast_armor_trim_smithing_template", "minecraft:netherite_upgrade_smithing_template")))));
-        STYLES.put(GuideBooks.Book.VANILLA_FARMING, new BookStyle(0xCFA73C, List.of(
-                ch("minecraft:wheat", List.of("minecraft:wooden_hoe", "minecraft:bread"), List.of("minecraft:wheat_seeds", "minecraft:carrot", "minecraft:potato", "minecraft:beetroot_seeds")),
-                ch("minecraft:sugar_cane", List.of("minecraft:sugar", "minecraft:paper"), List.of("minecraft:melon", "minecraft:pumpkin", "minecraft:cactus", "minecraft:bamboo")),
-                ch("minecraft:wheat", List.of(), List.of("minecraft:wheat", "minecraft:carrot", "minecraft:wheat_seeds", "minecraft:golden_carrot")),
-                ch("minecraft:bone", List.of(), List.of("minecraft:bone", "minecraft:cod", "minecraft:wheat_seeds", "minecraft:lead")),
-                ch("minecraft:saddle", List.of(), List.of("minecraft:saddle", "minecraft:iron_horse_armor", "minecraft:lead", "minecraft:cactus")),
-                ch("minecraft:honey_bottle", List.of("minecraft:beehive", "minecraft:honey_bottle"), List.of("minecraft:honeycomb", "minecraft:campfire", "minecraft:shears")),
-                ch("minecraft:golden_dandelion", List.of("minecraft:golden_dandelion"), List.of("minecraft:dandelion", "minecraft:gold_nugget")),
-                ch("minecraft:zombie_head", List.of(), List.of("minecraft:rotten_flesh", "minecraft:bone", "minecraft:gunpowder", "minecraft:string")),
-                ch("minecraft:phantom_membrane", List.of(), List.of("minecraft:phantom_membrane", "minecraft:white_bed")),
-                ch("minecraft:iron_block", List.of(), List.of("minecraft:iron_block", "minecraft:carved_pumpkin", "minecraft:snow_block", "minecraft:copper_block")))));
     }
 
     static {

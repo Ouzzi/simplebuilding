@@ -110,3 +110,6 @@ nicht verteilt), gemeinsame Config-Oberfläche mit je Sub-Mod oberstem Punkt „
 - **Registry-IDs (Thrift, Guide-Buch)** wandern nicht ohne Datenfix (Stufe 7).
 - **simpleinterfaces wird mit Stufe 9 serverseitig** (bisher reiner Client-Stil) → `environment` und
   Tests anpassen.
+
+## Besitzer-Entscheidung 2026-10-11
+- Das Modul der Stufe 4 (Tresor-Abklingzeit) heißt **„Simple Loot“** (`simpleloot`); dieser Name ist verbindlich.

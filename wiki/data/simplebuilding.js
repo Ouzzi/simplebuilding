@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 769,
+      "count": 768,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -677,7 +677,7 @@ window.WIKI_DATA = {
           "Upgrading instead of crafting anew: with the Basic Upgrade at the smithing table a wand goes copper -> iron -> gold -> diamond for one core of the new tier (Iron, Gold or Diamond Core), keeping enchantments, damage and name.",
           "Master Builder enchantment: the wand may also use the rest of the inventory and reinforced bundles as a material source.",
           "Color Palette enchantment: every position gets one of the building blocks you carry, chosen by a hash of the position - the same in preview and build, and mixed on floors too; every stack counts once, so more stacks of a kind make it more frequent. The build places exactly the block the preview showed at each position; when a stack runs out, the palette shrinks to what is left.",
-          "Constructor's Touch enchantment: unlocks the settings menu ('Open Tool Settings' key, default G), where the radius and build axis (automatic, X, Y, Z) can be set.",
+          "Constructor's Touch enchantment: unlocks the settings menu ('Open Tool Settings' key, default K), where the radius and build axis (automatic, X, Y, Z) can be set.",
           "Cover enchantment: the area only grows in front of blocks of the same kind as the clicked block, and only as far as those positions hang together with the center edge to edge - thicken a wall by one layer or extend a floor without square overhangs. The axis setting does not apply in this mode. Cover excludes Bridge and Linear; Cover is found as a book in pillager outposts and woodland mansions, a Bridge book only in the creative tab.",
           "Where to find them: Copper Building Wand from a mason (level 4, 62 emeralds), Iron Building Wand in woodland mansion chests, Diamond Building Wand with a random enchantment in end city treasure chests.",
           "The enderite wand currently cannot be given the wand enchantments and therefore cannot open the settings menu either.",
@@ -707,7 +707,7 @@ window.WIKI_DATA = {
           "Aufwerten statt neu bauen: Mit der Basis-Aufwertung am Schmiedetisch wird ein Stab für einen Kern der neuen Stufe (Eisen-, Gold- bzw. Diamantkern) von Kupfer → Eisen → Gold → Diamant aufgewertet, Verzauberungen, Schaden und Name bleiben erhalten.",
           "Verzauberung Baumeister: der Stab darf auch das restliche Inventar und verstärkte Bündel als Materialquelle nutzen.",
           "Verzauberung Farbpalette: Jede Stelle bekommt einen der mitgeführten Baublöcke, gewählt über einen Hash der Position - gleich in Vorschau und Bau und auch auf Böden gemischt; jeder Stapel zählt einmal, mehr Stapel einer Sorte machen sie also häufiger. Der Bau setzt an jeder Stelle genau den Block, den die Vorschau dort gezeigt hat; geht ein Stapel aus, schrumpft die Palette auf das, was übrig ist.",
-          "Verzauberung Berührung des Konstrukteurs: schaltet das Einstellungsmenü (Taste 'Werkzeug-Einstellungen öffnen', Standard G) frei, in dem sich Radius und Bauachse (automatisch, X, Y, Z) festlegen lassen.",
+          "Verzauberung Berührung des Konstrukteurs: schaltet das Einstellungsmenü (Taste 'Werkzeug-Einstellungen öffnen', Standard K) frei, in dem sich Radius und Bauachse (automatisch, X, Y, Z) festlegen lassen.",
           "Verzauberung Abdeckung: Die Fläche wächst nur vor Blöcken derselben Sorte wie der angeklickte Block, und nur so weit, wie diese Stellen Kante an Kante mit der Mitte zusammenhängen - eine Mauer um eine Schicht verdicken oder einen Boden erweitern, ohne quadratische Überstände. Die Achsen-Einstellung gilt in diesem Modus nicht. Abdeckung schließt Brücke und Linear aus; Abdeckung gibt es als Buch in Plünderer-Außenposten und Waldanwesen, ein Brücke-Buch nur im Kreativ-Reiter.",
           "Fundorte: Kupfer-Baustab beim Steinmetz (Stufe 4, 62 Smaragde), Eisen-Baustab in Waldanwesen-Kisten, Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten.",
           "Der Enderit-Stab lässt sich derzeit nicht mit den Stab-Verzauberungen versehen und kann daher auch das Einstellungsmenü nicht öffnen.",
@@ -820,7 +820,7 @@ window.WIKI_DATA = {
           "Getting started: craft an octant (a gold core, four gold nuggets, a lightning rod, a lead and a compass) or buy one from the wandering trader for 10 emeralds; it is also found in ancient cities, nether fortresses and pillager outposts (trading and loot can each be switched off in the config).",
           "Step 1: right-clicking a block sets Pos 1, sneak + right-click sets Pos 2. Every click costs 1 durability (the plain octant has 128).",
           "Step 2: the HUD on the left shows both positions and the measurement: distance in blocks for a line, area with width x depth for a plane, volume with width x height x depth for a box. Both corner blocks count.",
-          "Step 3: G opens the Octant Manager: adjust positions and size with the edit fields or the +/- buttons, pick shape and axis, lock the selection. Alt + mouse wheel switches the shape, Ctrl + wheel and sneak key + wheel move Pos 1 and Pos 2 in the direction you are facing without opening the menu.",
+          "Step 3: K opens the Octant Manager: adjust positions and size with the edit fields or the +/- buttons, pick shape and axis, lock the selection. Alt + mouse wheel switches the shape, Ctrl + wheel and sneak key + wheel move Pos 1 and Pos 2 in the direction you are facing without opening the menu.",
           "Shapes: Cuboid, Cylinder, Prism, Pyramid, Sphere, Rectangle (2D), Ellipse (2D). The axis (+X/+Y/+Z/-X/-Y/-Z) orients Cylinder, Ellipse, Pyramid and Prism.",
           "By default the area figure is only drawn when the octant carries Constructor's Touch (the config option \"Invert Octant Area Preview\" turns that around). The two corner outlines are always drawn once you have set them. H hides and shows the figure.",
           "Range on the octant increases block interaction range in the main hand (+2 / +6 / +10 blocks at levels I, II and III), so you can set corners from further away.",
@@ -838,7 +838,7 @@ window.WIKI_DATA = {
           "Einstieg: Oktant craften (Goldkern, vier Goldnuggets, ein Blitzableiter, Leine und Kompass) oder beim fahrenden Händler für 10 Smaragde kaufen; auch in Antiken Städten, Netherfestungen und Plünderer-Außenposten zu finden (Handel und Beute jeweils per Config abschaltbar).",
           "Schritt 1: Rechtsklick auf einen Block setzt Pos 1, Schleichen + Rechtsklick setzt Pos 2. Jeder Klick kostet 1 Haltbarkeit (128 beim normalen Oktanten).",
           "Schritt 2: Das HUD links zeigt beide Positionen und den Messwert: Abstand in Blöcken bei einer Linie, Fläche mit Breite x Tiefe bei einer Ebene, Volumen mit Breite x Höhe x Tiefe bei einem Kasten. Beide Eckblöcke zählen mit.",
-          "Schritt 3: Mit G öffnest du den Oktant-Manager: Positionen und Größe per Eingabefeld oder +/- Knöpfen anpassen, Form und Achse wählen, Auswahl sperren. Mit Alt + Mausrad wechselst du die Form, mit Strg + Mausrad bzw. Schleichen-Taste + Mausrad verschiebst du Pos 1 bzw. Pos 2 in Blickrichtung, ohne das Menü zu öffnen.",
+          "Schritt 3: Mit K öffnest du den Oktant-Manager: Positionen und Größe per Eingabefeld oder +/- Knöpfen anpassen, Form und Achse wählen, Auswahl sperren. Mit Alt + Mausrad wechselst du die Form, mit Strg + Mausrad bzw. Schleichen-Taste + Mausrad verschiebst du Pos 1 bzw. Pos 2 in Blickrichtung, ohne das Menü zu öffnen.",
           "Formen: Quader, Zylinder, Prisma, Pyramide, Kugel, Rechteck (2D), Ellipse (2D). Die Achse (+X/+Y/+Z/-X/-Y/-Z) richtet Zylinder, Ellipse, Pyramide und Prisma aus.",
           "Die Flächenfigur wird standardmäßig nur gezeichnet, wenn der Oktant Berührung des Konstrukteurs trägt (Config \"Oktant-Flächenvorschau umkehren\" dreht das um). Die beiden Eckpunkt-Umrisse siehst du immer. Mit H blendest du die Figur aus und ein.",
           "Reichweite auf dem Oktanten erhöht die Block-Interaktionsreichweite in der Haupthand (+2/+6/+10 Blöcke je Stufe), du kannst Eckpunkte also aus größerer Entfernung setzen.",
@@ -2326,7 +2326,7 @@ window.WIKI_DATA = {
         "summary": "SimpleBuilding ships seven enchantments for its building tools: Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover and Bridge. They sit on building wands, chisels, reinforced bundles and a few helper tools, and they change where building material comes from, how fast the work goes and what extra functions a tool has. Linear, Cover and Bridge change the shape the building wand builds (line, surface, bridge).",
         "details": [
           "Building wand basics: right-clicking a block face with the building wand (main hand) places an area in front of that face, at right angles to the direction you clicked (or to the axis chosen in the menu), which grows ring by ring out from the clicked point (4 ticks of pause per ring; with Linear the wand builds only a line instead). Every placed block costs 1 material and 1 durability (not in creative); only replaceable blocks (canBeReplaced) are filled. The build stops when the material runs out or the wand is in neither the main nor the off hand.",
-          "Wand tiers: copper 3, iron 5, gold 7, diamond 9, netherite 11, enderite 13 blocks of edge length (BUILDING_WAND_SQUARE_*); the radius is (edge length - 1) / 2. The radius can be lowered as far as 0 in the settings menu - and that menu only exists with Constructor's Touch on the wand ('Open Tool Settings' key, default G).",
+          "Wand tiers: copper 3, iron 5, gold 7, diamond 9, netherite 11, enderite 13 blocks of edge length (BUILDING_WAND_SQUARE_*); the radius is (edge length - 1) / 2. The radius can be lowered as far as 0 in the settings menu - and that menu only exists with Constructor's Touch on the wand ('Open Tool Settings' key, default K).",
           "Material for the building wand comes, without any enchantment, only from the off-hand and hotbar (reinforced bundles only when the bundle itself carries Master Builder). Master Builder on the wand opens up the rest of the inventory and all reinforced bundles as a source; Color Palette mixes the carried blocks per position, exactly as the preview shows.",
           "Master Builder on a reinforced bundle: right-clicking a block places blocks straight out of the bundle; in survival the pick-block key pulls blocks that are only in the bundle into your hand.",
           "Constructor's Touch is not one single effect but a different one per tool: a stick turns a block's orientation (facing, axis, rotation, top/bottom half, hinge, stairs and rail shape - never amounts, growth or charges; main hand only, needs build rights, doors turn as a whole; neighbors update at once, a wall torch or lever only turns to a side that holds it, and on a block with nothing to turn - a double chest, a crafting table - the click goes on to the block), the chisel gains extra conversion rows, the sledgehammer can convert stairs and slabs back, the building wand gets its settings menu, the detector's signal loses only half as much per block, the magnet pulls from 8 instead of 4 blocks and learns filters from item frames, enchanted quivers feed arrows from the whole inventory, octants show the filled preview.",
@@ -2343,7 +2343,7 @@ window.WIKI_DATA = {
         "summary": "SimpleBuilding bringt sieben Verzauberungen für seine Bauwerkzeuge mit: Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung und Brücke. Sie sitzen auf Baustäben, Meißeln, Verstärkten Bündeln und einigen Hilfswerkzeugen und verändern, woher Baumaterial kommt, wie schnell gearbeitet wird und welche Zusatzfunktionen ein Werkzeug hat. Linear, Abdeckung und Brücke ändern die Form, die der Baustab baut (Linie, Oberfläche, Brücke).",
         "details": [
           "Baustab-Grundlagen: Rechtsklick mit dem Baustab (Haupthand) auf eine Blockseite setzt vor dieser Seite eine Fläche senkrecht zur Klickrichtung (oder zur im Menü gewählten Achse), die vom Klickpunkt aus Ring für Ring wächst (4 Ticks Pause je Ring; mit Linear baut der Stab stattdessen nur eine Linie). Pro gesetztem Block wird 1 Material und 1 Haltbarkeit verbraucht (nicht im Kreativmodus); nur ersetzbare Blöcke (canBeReplaced) werden gefüllt. Der Aufbau stoppt, wenn das Material ausgeht oder der Stab weder in Haupt- noch Nebenhand liegt.",
-          "Baustab-Stufen: Kupfer 3, Eisen 5, Gold 7, Diamant 9, Netherit 11, Enderit 13 Blöcke Kantenlänge (BUILDING_WAND_SQUARE_*); der Radius ist (Kantenlänge − 1) / 2. Der Radius lässt sich im Einstellungsmenü bis auf 0 verkleinern – das Menü gibt es nur mit Berührung des Konstrukteurs auf dem Stab (Taste „Werkzeug-Einstellungen öffnen“, Standard G).",
+          "Baustab-Stufen: Kupfer 3, Eisen 5, Gold 7, Diamant 9, Netherit 11, Enderit 13 Blöcke Kantenlänge (BUILDING_WAND_SQUARE_*); der Radius ist (Kantenlänge − 1) / 2. Der Radius lässt sich im Einstellungsmenü bis auf 0 verkleinern – das Menü gibt es nur mit Berührung des Konstrukteurs auf dem Stab (Taste „Werkzeug-Einstellungen öffnen“, Standard K).",
           "Material für den Baustab kommt ohne Verzauberung nur aus Nebenhand und Hotbar (Verstärkte Bündel nur, wenn das Bündel selbst Baumeister trägt). Baumeister auf dem Stab öffnet das restliche Inventar und alle Verstärkten Bündel als Quelle; Farbpalette mischt die mitgeführten Blöcke je Stelle, genau wie die Vorschau es zeigt.",
           "Baumeister auf einem Verstärkten Bündel: Rechtsklick auf einen Block platziert Blöcke direkt aus dem Bündel; die Blockauswahl-Taste holt im Überlebensmodus Blöcke, die nur im Bündel liegen, in die Hand.",
           "Berührung des Konstrukteurs ist kein einzelner Effekt, sondern je Werkzeug ein anderer: Stock dreht die Ausrichtung eines Blocks (Richtung, Achse, Drehung, obere/untere Hälfte, Scharnier, Treppen- und Schienenform - nie Mengen, Wachstum oder Ladungen; nur Haupthand, braucht Baurecht, Türen drehen sich ganz; Nachbarn aktualisieren sich sofort, eine Wandfackel oder ein Hebel dreht sich nur zu einer Seite, die sie hält, und bei einem Block ohne Drehbares - Doppeltruhe, Werkbank - geht der Klick an den Block weiter), Meißel bekommt zusätzliche Umwandlungsreihen, Vorschlaghammer kann Treppen und Stufen zurückverwandeln, Baustab bekommt sein Einstellungsmenü, Detektor-Signal verliert je Block nur halb so viel, Attraktor zieht auf 8 statt 4 Blöcke und lernt Filter vom Rahmen, verzauberte Köcher liefern Pfeile aus dem ganzen Inventar, Oktanten zeigen die gefüllte Vorschau.",
@@ -9277,7 +9277,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Right-click a block face (wand in the main hand): build the area.",
-            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default G) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
+            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default K) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
             "Button 'Radius: n / max': raises the radius by 1; past the maximum it wraps back to 0.",
             "Button 'Axis: Face (Auto)': cycles through X, Y, Z and back to Face (Auto); a set axis is drawn yellow, Face (Auto) gray.",
             "Button 'Done', the E key, Esc or the settings key again: closes the menu.",
@@ -9359,7 +9359,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Rechtsklick auf eine Blockseite (Stab in der Haupthand): Fläche bauen.",
-            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard G) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
+            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard K) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
             "Schaltfläche 'Radius: n / max': erhöht den Radius um 1; nach dem Maximum springt er auf 0 zurück.",
             "Schaltfläche 'Achse: Face (Auto)': wechselt reihum zu X, Y, Z und wieder zurück zu Face (Auto); eine gesetzte Achse wird gelb, Face (Auto) grau dargestellt.",
             "Schaltfläche 'Fertig', Taste E, Esc oder erneut die Einstellungstaste: schließt das Menü.",
@@ -10255,7 +10255,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Right-click a block face (wand in the main hand): build the area.",
-            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default G) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
+            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default K) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
             "Button 'Radius: n / max': raises the radius by 1; past the maximum it wraps back to 0.",
             "Button 'Axis: Face (Auto)': cycles through X, Y, Z and back to Face (Auto); a set axis is drawn yellow, Face (Auto) gray.",
             "Button 'Done', the E key, Esc or the settings key again: closes the menu.",
@@ -10337,7 +10337,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Rechtsklick auf eine Blockseite (Stab in der Haupthand): Fläche bauen.",
-            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard G) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
+            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard K) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
             "Schaltfläche 'Radius: n / max': erhöht den Radius um 1; nach dem Maximum springt er auf 0 zurück.",
             "Schaltfläche 'Achse: Face (Auto)': wechselt reihum zu X, Y, Z und wieder zurück zu Face (Auto); eine gesetzte Achse wird gelb, Face (Auto) grau dargestellt.",
             "Schaltfläche 'Fertig', Taste E, Esc oder erneut die Einstellungstaste: schließt das Menü.",
@@ -11628,7 +11628,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Right-click a block face (wand in the main hand): build the area.",
-            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default G) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
+            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default K) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
             "Button 'Radius: n / max': raises the radius by 1; past the maximum it wraps back to 0.",
             "Button 'Axis: Face (Auto)': cycles through X, Y, Z and back to Face (Auto); a set axis is drawn yellow, Face (Auto) gray.",
             "Button 'Done', the E key, Esc or the settings key again: closes the menu.",
@@ -11710,7 +11710,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Rechtsklick auf eine Blockseite (Stab in der Haupthand): Fläche bauen.",
-            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard G) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
+            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard K) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
             "Schaltfläche 'Radius: n / max': erhöht den Radius um 1; nach dem Maximum springt er auf 0 zurück.",
             "Schaltfläche 'Achse: Face (Auto)': wechselt reihum zu X, Y, Z und wieder zurück zu Face (Auto); eine gesetzte Achse wird gelb, Face (Auto) grau dargestellt.",
             "Schaltfläche 'Fertig', Taste E, Esc oder erneut die Einstellungstaste: schließt das Menü.",
@@ -14254,7 +14254,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Right-click a block face (wand in the main hand): build the area.",
-            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default G) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
+            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default K) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
             "Button 'Radius: n / max': raises the radius by 1; past the maximum it wraps back to 0.",
             "Button 'Axis: Face (Auto)': cycles through X, Y, Z and back to Face (Auto); a set axis is drawn yellow, Face (Auto) gray.",
             "Button 'Done', the E key, Esc or the settings key again: closes the menu.",
@@ -14336,7 +14336,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Rechtsklick auf eine Blockseite (Stab in der Haupthand): Fläche bauen.",
-            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard G) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
+            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard K) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
             "Schaltfläche 'Radius: n / max': erhöht den Radius um 1; nach dem Maximum springt er auf 0 zurück.",
             "Schaltfläche 'Achse: Face (Auto)': wechselt reihum zu X, Y, Z und wieder zurück zu Face (Auto); eine gesetzte Achse wird gelb, Face (Auto) grau dargestellt.",
             "Schaltfläche 'Fertig', Taste E, Esc oder erneut die Einstellungstaste: schließt das Menü.",
@@ -16731,7 +16731,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Right-click a block face (wand in the main hand): build the area.",
-            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default G) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
+            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default K) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
             "Button 'Radius: n / max': raises the radius by 1; past the maximum it wraps back to 0.",
             "Button 'Axis: Face (Auto)': cycles through X, Y, Z and back to Face (Auto); a set axis is drawn yellow, Face (Auto) gray.",
             "Button 'Done', the E key, Esc or the settings key again: closes the menu.",
@@ -16813,7 +16813,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Rechtsklick auf eine Blockseite (Stab in der Haupthand): Fläche bauen.",
-            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard G) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
+            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard K) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
             "Schaltfläche 'Radius: n / max': erhöht den Radius um 1; nach dem Maximum springt er auf 0 zurück.",
             "Schaltfläche 'Achse: Face (Auto)': wechselt reihum zu X, Y, Z und wieder zurück zu Face (Auto); eine gesetzte Achse wird gelb, Face (Auto) grau dargestellt.",
             "Schaltfläche 'Fertig', Taste E, Esc oder erneut die Einstellungstaste: schließt das Menü.",
@@ -18027,59 +18027,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:guide_book_vanilla_start",
-      "name": {
-        "en_us": "Mega Guide: Minecraft",
-        "de_de": "Mega-Handbuch: Minecraft"
-      },
-      "texture": "assets/textures/item/guide_book_vanilla_start.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "note": {
-        "en": {
-          "summary": "Mega Guide: Minecraft: craft shapelessly from a book and a wooden pickaxe. On 26.3, two separate Mega Guides hold the Minecraft and SimpleBuilding shelves. Only the base guides are items; topic books are inserted content. Older lines retain their previous books until the port run.",
-          "details": [
-            "Craft the SimpleBuilding guide from a book and a crafting table, or the Minecraft guide from a book and a wooden pickaxe. Guides are never first-join gifts on 26.3, even with the old gift option enabled. No guide-book chest loot is registered; enchanted books with cover textures remain in loot.",
-            "Every topic tab opens by itself as soon as one of its gate recipes is in your recipe book - nothing is consumed and nothing has to be clicked. The gates are the simplest recipe of the stage plus the theme's base item: Stone Chisel (Tools), Enchanting Table or Bookshelf (Enchantments), Bricks, Stone Bricks or Copper Building Wand (Building), Chest, Backpack, Quiver or Reinforced Bundle (Storage), Piston, Reinforced Hopper, Reinforced Furnace or Reinforced Piston (Machines), Enderite Ingot or the Astralit/Nihilit blocks from End Stone (End), Stone, Oak, Light or Heavy Weighted or Copper Pressure Plate (Pads), Copper Core, Gauge, Detector or Attractor (Gadgets) and the Pulsating, Glowing or Emitting trim template (Trims); on the Minecraft shelf Crafting Table or Oak Planks, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone Torch, Stone Sword and Bread. Every path into the recipe book (recipe advancements, crafting the item, /recipe give) triggers the check; it also runs at login and when a guide is used. A locked tab's tooltip names the item to craft.",
-            "Open tabs belong to the player, not to the book: each one is remembered as a player tag (simplebuilding.guide_tab.<id>) that survives death and relogging, so a tab stays open even if the recipe is taken away again; its chapter advancement is awarded too. Chapters inserted the old way (simplebuilding:guide_chapters) open for whoever uses the book or carries it at login, and the book then drops the mask. Old chapter IDs alias to the corresponding base guide; the data fixer preserves their chapter on world load. The tooltip lists the reader's open tabs with miniature book textures and localized names.",
-            "The screen shows the opened shelf. Eight topic tabs fit on the right; remaining topics sit on the left beneath Contents and the other-shelf tab (within six left tabs). Locked topics are gray. Server Admin requires operator level 2. Reading does not pause the game.",
-            "JEI displays normal base recipes and an information page explaining how tabs open. The topic page names the item to craft for each tab. Optional building, storage and pad quests use the chapter advancements awarded by the server on 26.3."
-          ]
-        },
-        "de": {
-          "summary": "Mega-Handbuch: Minecraft: Formlos aus einem Buch und einer Holzspitzhacke hergestellt. Auf 26.3 enthalten zwei getrennte Mega-Handbuecher die Regale fuer Minecraft und SimpleBuilding. Nur die Basis-Handbuecher sind Items; Themenbuecher sind eingefuegte Inhalte. Aeltere Linien behalten ihre bisherigen Buecher bis zum Port-Run.",
-          "details": [
-            "Mod-Handbuch: Buch + Werkbank. Minecraft-Handbuch: Buch + Holzspitzhacke. Auf 26.3 gibt es kein Handbuch beim Erstbeitritt, auch bei eingeschaltetem altem Config-Schalter. Im Code ist kein Handbuch-Truhenloot registriert; verzauberte Buecher mit Cover-Texturen bleiben in der Beute.",
-            "Jeder Themenreiter öffnet sich von selbst, sobald eines seiner Tor-Rezepte in deinem Rezeptbuch steht - nichts wird verbraucht, nichts muss angeklickt werden. Tore sind das einfachste Rezept der Stufe und das Grund-Item des Themas: Steinmeißel (Werkzeuge), Zaubertisch oder Bücherregal (Verzauberungen), Ziegelsteine, Steinziegel oder Kupfer-Baustab (Bauen), Truhe, Rucksack, Köcher oder Verstärktes Bündel (Lager), Kolben, Verstärkter Trichter, Verstärkter Ofen oder Verstärkter Kolben (Maschinen), Enderitbarren oder die Astralit-/Nihilit-Blöcke aus Endstein (End), Stein-, Eichen-, Wägeplatte (leicht/schwer) oder Kupfer-Druckplatte (Pads), Kupferkern, Messuhr, Detektor oder Attraktor (Geräte) und die pulsierende, leuchtende oder strahlende Besatzvorlage (Besätze); im Minecraft-Regal Werkbank oder Eichenbretter, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone-Fackel, Steinschwert und Brot. Jeder Weg ins Rezeptbuch (Rezept-Erfolge, das Item herstellen, /recipe give) löst die Prüfung aus; sie läuft auch beim Betreten und beim Benutzen eines Handbuchs. Der Tooltip eines gesperrten Reiters nennt das Item, das du herstellen sollst.",
-            "Offene Reiter gehören dem Spieler, nicht dem Buch: jeder wird als Spieler-Tag (simplebuilding.guide_tab.<id>) gemerkt, der Tod und Neuanmeldung übersteht; ein Reiter bleibt also offen, auch wenn das Rezept wieder genommen wird. Sein Kapitel-Erfolg wird mit vergeben. Auf alte Art eingefügte Kapitel (simplebuilding:guide_chapters) öffnen sich für den, der das Buch benutzt oder beim Betreten trägt; das Buch verliert danach die Maske. Alte Themen-IDs zeigen auf das Basisbuch; der Datenfixer erhält das Thema beim Laden. Der Tooltip zeigt die offenen Reiter des Lesers mit kleinen Buchtexturen und übersetzten Namen.",
-            "Der Bildschirm zeigt das geöffnete Regal. Acht Themenreiter stehen rechts, übrige links unter Inhalt und dem anderen Regal (innerhalb von sechs linken Reitern). Gesperrte Themen sind grau. Server-Admin braucht OP-Stufe 2. Lesen pausiert das Spiel nicht.",
-            "JEI zeigt die normalen Basisrezepte und eine Infoseite dazu, wie sich Reiter öffnen. Die Themenseite nennt je Reiter das herzustellende Item. Optionale Bau-, Lager- und Pad-Quests verwenden auf 26.3 serverseitig verliehene Kapitel-Erfolge."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideUnlocks.java",
-          "common/src/shared/java/com/simplebuilding/networking/GuideStatePayload.java",
-          "common/src/shared/java/com/simplebuilding/mixin/GuideRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideTabs.java",
-          "common/src/shared/java/com/simplebuilding/datafix/ModDataFixer.java",
-          "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/tooltip/GuideTooltip.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/root.json",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_start.json"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:hollow_acacia_log",
       "name": {
         "en_us": "Hollow Acacia Log",
@@ -19274,7 +19221,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Right-click a block face (wand in the main hand): build the area.",
-            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default G) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
+            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default K) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
             "Button 'Radius: n / max': raises the radius by 1; past the maximum it wraps back to 0.",
             "Button 'Axis: Face (Auto)': cycles through X, Y, Z and back to Face (Auto); a set axis is drawn yellow, Face (Auto) gray.",
             "Button 'Done', the E key, Esc or the settings key again: closes the menu.",
@@ -19356,7 +19303,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Rechtsklick auf eine Blockseite (Stab in der Haupthand): Fläche bauen.",
-            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard G) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
+            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard K) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
             "Schaltfläche 'Radius: n / max': erhöht den Radius um 1; nach dem Maximum springt er auf 0 zurück.",
             "Schaltfläche 'Achse: Face (Auto)': wechselt reihum zu X, Y, Z und wieder zurück zu Face (Auto); eine gesetzte Achse wird gelb, Face (Auto) grau dargestellt.",
             "Schaltfläche 'Fertig', Taste E, Esc oder erneut die Einstellungstaste: schließt das Menü.",
@@ -23926,7 +23873,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Right-click a block face (wand in the main hand): build the area.",
-            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default G) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
+            "'Open Tool Settings' key (key.simplebuilding.simple_settings, default K) with the wand in the main hand: opens the settings menu (heading 'Configuration', window title 'Building Wand Settings') - only if the wand carries Constructor's Touch.",
             "Button 'Radius: n / max': raises the radius by 1; past the maximum it wraps back to 0.",
             "Button 'Axis: Face (Auto)': cycles through X, Y, Z and back to Face (Auto); a set axis is drawn yellow, Face (Auto) gray.",
             "Button 'Done', the E key, Esc or the settings key again: closes the menu.",
@@ -24008,7 +23955,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Rechtsklick auf eine Blockseite (Stab in der Haupthand): Fläche bauen.",
-            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard G) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
+            "Taste 'Werkzeug-Einstellungen öffnen' (key.simplebuilding.simple_settings, Standard K) mit dem Stab in der Haupthand: öffnet das Einstellungsmenü (Überschrift 'Konfiguration', Fenstertitel 'Baustab-Einstellungen') - nur, wenn der Stab die Verzauberung Berührung des Konstrukteurs trägt.",
             "Schaltfläche 'Radius: n / max': erhöht den Radius um 1; nach dem Maximum springt er auf 0 zurück.",
             "Schaltfläche 'Achse: Face (Auto)': wechselt reihum zu X, Y, Z und wieder zurück zu Face (Auto); eine gesetzte Achse wird gelb, Face (Auto) grau dargestellt.",
             "Schaltfläche 'Fertig', Taste E, Esc oder erneut die Einstellungstaste: schließt das Menü.",
@@ -27359,7 +27306,7 @@ window.WIKI_DATA = {
             "Fill opacity = 0.3 x (config \"buildingHighlightOpacity\" / 100); default value 40, so 0.12. The lines have a fixed opacity of 0.8.",
             "Preview shapes: Cuboid and Rectangle (2D) draw the complete box; Cylinder and Ellipse (2D) an elliptical cross-section over the full length of the axis; Sphere an ellipsoid that fills the box; Pyramid a base that shrinks linearly towards the tip; Prism a wedge that tapers only along the shorter base side (the ridge runs along the longer side).",
             "The axis (+X, +Y, +Z, -X, -Y, -Z; default +Y) decides which way Cylinder, Ellipse, Pyramid and Prism stand up; on a negative axis the figure is upside down.",
-            "Octant Manager (key G, octant in the main hand): a vanilla-style panel (popup background, dark gray title and labels, 20-pixel buttons and edit fields) on the right, the world stays visible. Page 1 (Selection) has a [-] field [+] group per coordinate for P1 (x,y,z), P2 (x,y,z) and Size (width, height, depth); a size change sets P2 = P1 + size - 1, minimum size 1. Below that, buttons for shape and axis plus a summary with Pos 1, Pos 2 and Distance/Area/Volume. The server only accepts corners within 320 blocks of you (each axis) and inside the build height; farther ones keep the old corner, and a mouse-wheel nudge moves a corner by at most 16 per step.",
+            "Octant Manager (key K, octant in the main hand): a vanilla-style panel (popup background, dark gray title and labels, 20-pixel buttons and edit fields) on the right, the world stays visible. Page 1 (Selection) has a [-] field [+] group per coordinate for P1 (x,y,z), P2 (x,y,z) and Size (width, height, depth); a size change sets P2 = P1 + size - 1, minimum size 1. Below that, buttons for shape and axis plus a summary with Pos 1, Pos 2 and Distance/Area/Volume. The server only accepts corners within 320 blocks of you (each axis) and inside the build height; farther ones keep the old corner, and a mouse-wheel nudge moves a corner by at most 16 per step.",
             "Shape order when cycling: Cuboid, Cylinder, Prism, Pyramid, Sphere, Rectangle (2D), Ellipse (2D).",
             "Page 2 (Fill Settings): Hollow ON/OFF, Layer Mode ON/OFF (both values hard-coded English), Order (Default, Bottom Up, Top Down) and Figure ON/OFF.",
             "Footer on both pages: lock button (lock/unlock, tooltip \"Lock/Unlock current selection\"), page button (\">> Settings\" / \"<< Selection\") and \"Done\".",
@@ -27378,8 +27325,8 @@ window.WIKI_DATA = {
             "Right-click a block: set Pos 1",
             "Sneak + right-click a block: set Pos 2",
             "Sneak + right-click in the air: clear the whole selection (only when not locked)",
-            "G (\"Open Tool Settings\", octant in the main hand): open the Octant Manager",
-            "In the Octant Manager: G, E or Esc closes the menu; movement keys keep working",
+            "K (\"Open Tool Settings\", octant in the main hand): open the Octant Manager",
+            "In the Octant Manager: K, E or Esc closes the menu; movement keys keep working",
             "Alt + mouse wheel: cycle the shape forwards/backwards",
             "Ctrl + mouse wheel: move Pos 1 in the direction you are facing (1 block per notch)",
             "Sneak key (default: Shift) + mouse wheel: move Pos 2 in the direction you are facing (1 block per notch)",
@@ -27422,7 +27369,7 @@ window.WIKI_DATA = {
             "Deckkraft der Füllung = 0,3 x (Config \"buildingHighlightOpacity\" / 100); Standardwert 40, also 0,12. Die Linien haben feste Deckkraft 0,8.",
             "Formen der Vorschau: Quader und Rechteck (2D) zeichnen den kompletten Kasten; Zylinder und Ellipse (2D) einen elliptischen Querschnitt über die volle Länge der Achse; Kugel ein Ellipsoid, das den Kasten ausfüllt; Pyramide eine Grundfläche, die zur Spitze hin linear kleiner wird; Prisma einen Keil, der sich nur entlang der kürzeren Grundseite verjüngt (der First läuft entlang der längeren Seite).",
             "Die Achse (+X, +Y, +Z, -X, -Y, -Z; Standard +Y) legt fest, in welche Richtung Zylinder, Ellipse, Pyramide und Prisma aufgerichtet sind; bei negativer Achse steht die Figur auf dem Kopf.",
-            "Oktant-Manager (Taste G, Oktant in der Haupthand): ein Fenster im Vanilla-Stil (Popup-Hintergrund, dunkelgrauer Titel und Beschriftungen, 20 Pixel hohe Knöpfe und Eingabefelder) rechts im Bild, die Welt bleibt sichtbar. Seite 1 (Auswahl) hat je Koordinate eine Gruppe [-] Feld [+] für P1 (x,y,z), P2 (x,y,z) und Maß (Breite, Höhe, Tiefe); eine Größenänderung setzt P2 = P1 + Größe - 1, Mindestgröße 1. Darunter Knöpfe für Form und Achse sowie eine Zusammenfassung mit Pos. 1, Pos. 2 und Abstand/Fläche/Volumen. Der Server übernimmt nur Ecken bis 320 Blöcke um dich (je Achse) und innerhalb der Bauhöhe; weiter entfernte lassen die alte Ecke stehen, und ein Mausrad-Schubs verschiebt eine Ecke um höchstens 16 je Schritt.",
+            "Oktant-Manager (Taste K, Oktant in der Haupthand): ein Fenster im Vanilla-Stil (Popup-Hintergrund, dunkelgrauer Titel und Beschriftungen, 20 Pixel hohe Knöpfe und Eingabefelder) rechts im Bild, die Welt bleibt sichtbar. Seite 1 (Auswahl) hat je Koordinate eine Gruppe [-] Feld [+] für P1 (x,y,z), P2 (x,y,z) und Maß (Breite, Höhe, Tiefe); eine Größenänderung setzt P2 = P1 + Größe - 1, Mindestgröße 1. Darunter Knöpfe für Form und Achse sowie eine Zusammenfassung mit Pos. 1, Pos. 2 und Abstand/Fläche/Volumen. Der Server übernimmt nur Ecken bis 320 Blöcke um dich (je Achse) und innerhalb der Bauhöhe; weiter entfernte lassen die alte Ecke stehen, und ein Mausrad-Schubs verschiebt eine Ecke um höchstens 16 je Schritt.",
             "Formreihenfolge beim Durchschalten: Quader, Zylinder, Prisma, Pyramide, Kugel, Rechteck (2D), Ellipse (2D).",
             "Seite 2 (Fülleinstellungen): Hohl ON/OFF, Ebenenmodus ON/OFF (beide fest englisch), Reihenfolge (Standard, Von Unten nach Oben, Von Oben nach Unten) und Figur AN/AUS.",
             "Fußzeile auf beiden Seiten: Schloss-Knopf (sperren/entsperren, Tooltip \"Aktuelle Auswahl sperren/entsperren\"), Seitenwechsel-Knopf (\">> Settings\" / \"<< Selection\") und \"Fertig\".",
@@ -27441,8 +27388,8 @@ window.WIKI_DATA = {
             "Rechtsklick auf Block: Pos 1 setzen",
             "Schleichen + Rechtsklick auf Block: Pos 2 setzen",
             "Schleichen + Rechtsklick in die Luft: gesamte Auswahl löschen (nur wenn nicht gesperrt)",
-            "G (\"Werkzeug-Einstellungen öffnen\", Oktant in der Haupthand): Oktant-Manager öffnen",
-            "Im Oktant-Manager: G, E oder Esc schließt das Menü; Bewegungstasten funktionieren weiter",
+            "K (\"Werkzeug-Einstellungen öffnen\", Oktant in der Haupthand): Oktant-Manager öffnen",
+            "Im Oktant-Manager: K, E oder Esc schließt das Menü; Bewegungstasten funktionieren weiter",
             "Alt + Mausrad: Form vor/zurück schalten",
             "Strg + Mausrad: Pos 1 in Blickrichtung verschieben (1 Block pro Rastung)",
             "Schleichen-Taste (Standard: Umschalt) + Mausrad: Pos 2 in Blickrichtung verschieben (1 Block pro Rastung)",
@@ -83382,50 +83329,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:guide_book_vanilla_start",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_start.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:wooden_pickaxe"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:wooden_pickaxe"
-        ]
-      ],
-      "lines": [
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:hollow_acacia_log",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -114884,230 +114787,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:guide_book_vanilla_caves",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_caves",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_caves.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:torch",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book",
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:torch"
-        ]
-      ],
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_end",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_end",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_end.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:ender_eye",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book",
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:ender_eye"
-        ]
-      ],
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_farming",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_farming",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_farming.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:wheat_seeds",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book",
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:wheat_seeds"
-        ]
-      ],
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_gear",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_gear",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_gear.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:stone_sword",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book",
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:stone_sword"
-        ]
-      ],
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_nether",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_nether",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_nether.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:flint_and_steel",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book",
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:flint_and_steel"
-        ]
-      ],
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_ocean",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_ocean",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_ocean.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:oak_boat",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book",
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:oak_boat"
-        ]
-      ],
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_overworld",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_overworld",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_overworld.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:oak_sapling",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book",
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:oak_sapling"
-        ]
-      ],
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_redstone",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_redstone",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_redstone.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:redstone",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book",
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:redstone"
-        ]
-      ],
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:infused_potion_pad_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -123313,7 +122992,7 @@ window.WIKI_DATA = {
             "Gold/Diamond chisel adds: Prismarine -> Prismarine Bricks (stairs and slabs as well); Smooth Stone -> Stone (slab as well); End Stone -> End Stone Bricks; Purpur Pillar -> Purpur Block; Copper Block -> Cut Copper -> Chiseled Copper -> Copper Grate; the five dead coral blocks in a cycle; the five living coral blocks in a cycle.",
             "Netherite/Enderite chisel adds: Polished Diorite -> Diorite -> Calcite -> Dripstone Block; Obsidian -> Crying Obsidian; Crimson and Warped Stems -> stripped; each of the 16 concrete colors -> the matching concrete powder. Each tier also contains everything from the tiers below it (the maps are chained together with merge).",
             "Sledgehammer: sneak + right-click (held down, bow-drawing animation, 4 to 40 ticks depending on material and Efficiency) undoes conversions when the enchantment is present - slab -> stairs and stairs -> full block; that costs 2 durability instead of 1. On older lines, without the enchantment the sneaking branch returns null; on 26.3 it instead cuts the aimed corner (forwards, block -> stairs -> slab, works without it too).",
-            "Building Wand: only with this enchantment does the \"Open Tool Settings\" key (key.simplebuilding.simple_settings, default: G) open the BuildingWandScreen (window title \"Building Wand Settings\", on-screen heading \"Configuration\") with the buttons \"Radius: n / max\" (0 up to the tier's maximum, cycling) and \"Axis: Face (Auto) -> X -> Y -> Z\", plus \"Done\". The values are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; without the enchantment the key does nothing for a Building Wand (Fabric, NeoForge and Forge all check the same way).",
+            "Building Wand: only with this enchantment does the \"Open Tool Settings\" key (key.simplebuilding.simple_settings, default: K) open the BuildingWandScreen (window title \"Building Wand Settings\", on-screen heading \"Configuration\") with the buttons \"Radius: n / max\" (0 up to the tier's maximum, cycling) and \"Axis: Face (Auto) -> X -> Y -> Z\", plus \"Done\". The values are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; without the enchantment the key does nothing for a Building Wand (Fabric, NeoForge and Forge all check the same way).",
             "Detector: the signal loss of every block along the line of sight is multiplied by 0.5 (TOUCH_LOSS_FACTOR), so an ore's signal gets through twice as much rock (signals: 18 common, 13 gold, 9 diamond and emerald, 5 ancient debris and End ores); the range stays the same.",
             "Only Constructor's Touch enables the stored item-type filter, including on placed Attractors. Sneak-click a block or loose item, or right-click an item in the inventory to select it. Sneak-click empty air to clear it.",
             "Quiver: when shooting a bow (BowItemMixin), arrows are also drawn from quivers lying anywhere else in the inventory (slot 9 and up) - but only if that quiver carries the enchantment. Offhand, chest armor slot and hotbar work without it.",
@@ -123328,7 +123007,7 @@ window.WIKI_DATA = {
             "Stick: right-click a block = next value of the first block property; sneak + right-click = previous value.",
             "Chisel: right-click = convert forwards; sneak + right-click = backwards. Spatula: right-click = backwards; sneak + right-click = forwards.",
             "Sledgehammer: hold sneak + right-click = slab -> stairs, or stairs -> full block.",
-            "Building Wand: the \"Open Tool Settings\" key (default G) opens radius/axis; G, E, Esc or the \"Done\" button closes the menu again.",
+            "Building Wand: the \"Open Tool Settings\" key (default K) opens radius/axis; K, E, Esc or the \"Done\" button closes the menu again.",
             "Attractor: sneak-click a block or dropped item, or right-click an inventory item, to choose the filter; sneak-click air to clear. Filtering requires Constructor's Touch."
           ],
           "caveats": [
@@ -123347,7 +123026,7 @@ window.WIKI_DATA = {
             "Meißel Gold/Diamant zusätzlich: Prismarin → Prismarinziegel (auch Treppen und Stufen); glatter Stein → Stein (auch Stufe); Endstein → Endsteinziegel; Purpursäule → Purpurblock; Kupferblock → geschnittener Kupferblock → gemeißelter Kupferblock → Kupfergitter; die fünf toten Korallenblöcke im Kreis; die fünf lebenden Korallenblöcke im Kreis.",
             "Meißel Netherit/Enderit zusätzlich: polierter Diorit → Diorit → Kalzit → Tropfsteinblock; Obsidian → weinender Obsidian; Karmesin- und Wirrstiel → entrindet; jede der 16 Betonfarben → passendes Betonpulver. Höhere Stufen enthalten immer die Reihen der niedrigeren (die Maps werden per merge verkettet).",
             "Vorschlaghammer: Schleichen + Rechtsklick (gedrückt halten, Bogen-Animation, Dauer 4 bis 40 Ticks je nach Material und Effizienz) macht mit der Verzauberung Umwandlungen rückgängig – Stufe → Treppe und Treppe → ganzer Block; das kostet 2 Haltbarkeit statt 1. Auf älteren Linien liefert der Schleich-Zweig ohne die Verzauberung null; auf 26.3 wird stattdessen die Zielecke abgetragen (vorwärts Block → Treppe → Stufe geht auch ohne).",
-            "Baustab: Nur mit dieser Verzauberung öffnet die Taste „Werkzeug-Einstellungen öffnen“ (key.simplebuilding.simple_settings, Standard: G) den BuildingWandScreen (Fenstertitel „Baustab-Einstellungen“, Überschrift im Bild „Konfiguration“) mit den Knöpfen „Radius: n / max“ (0 bis zum Maximum der Stufe, zyklisch) und „Achse: Face (Auto) → X → Y → Z“ sowie „Fertig“. Die Werte werden als SettingsRadius/SettingsAxis im Stab gespeichert und per BuildingWandConfigurePayload an den Server geschickt; ohne die Verzauberung tut die Taste beim Baustab nichts (Fabric, NeoForge und Forge prüfen gleich).",
+            "Baustab: Nur mit dieser Verzauberung öffnet die Taste „Werkzeug-Einstellungen öffnen“ (key.simplebuilding.simple_settings, Standard: K) den BuildingWandScreen (Fenstertitel „Baustab-Einstellungen“, Überschrift im Bild „Konfiguration“) mit den Knöpfen „Radius: n / max“ (0 bis zum Maximum der Stufe, zyklisch) und „Achse: Face (Auto) → X → Y → Z“ sowie „Fertig“. Die Werte werden als SettingsRadius/SettingsAxis im Stab gespeichert und per BuildingWandConfigurePayload an den Server geschickt; ohne die Verzauberung tut die Taste beim Baustab nichts (Fabric, NeoForge und Forge prüfen gleich).",
             "Detektor: Der Signalverlust jedes Blocks entlang der Sichtlinie wird mit 0.5 multipliziert (TOUCH_LOSS_FACTOR), das Signal eines Erzes durchdringt also doppelt so viel Gestein (Signale: 18 gewöhnlich, 13 Gold, 9 Diamant und Smaragd, 5 Antiker Schrott und End-Erze); die Reichweite bleibt gleich.",
             "Nur mit Berührung wirkt der gespeicherte Itemfilter, auch abgelegt. Schleichklick auf einen Block oder ein loses Item oder Rechtsklick auf ein Inventar-Item wählt den Filter. Schleichklick ins Leere löscht ihn.",
             "Köcher: Beim Schießen mit dem Bogen (BowItemMixin) werden Pfeile auch aus Köchern gezogen, die irgendwo im restlichen Inventar (ab Slot 9) liegen – aber nur, wenn dieser Köcher die Verzauberung trägt. Nebenhand, Brustplatz und Hotbar funktionieren ohne.",
@@ -123362,7 +123041,7 @@ window.WIKI_DATA = {
             "Stock: Rechtsklick auf Block = nächster Wert der ersten Blockeigenschaft; Schleichen + Rechtsklick = vorheriger Wert.",
             "Meißel: Rechtsklick = vorwärts umwandeln; Schleichen + Rechtsklick = rückwärts. Spatel: Rechtsklick = rückwärts; Schleichen + Rechtsklick = vorwärts.",
             "Vorschlaghammer: Schleichen + Rechtsklick halten = Stufe → Treppe bzw. Treppe → Block.",
-            "Baustab: Taste „Werkzeug-Einstellungen öffnen“ (Standard G) öffnet Radius/Achse; G, E, Esc oder der Knopf „Fertig“ schließt das Menü wieder.",
+            "Baustab: Taste „Werkzeug-Einstellungen öffnen“ (Standard K) öffnet Radius/Achse; K, E, Esc oder der Knopf „Fertig“ schließt das Menü wieder.",
             "Attraktor: Schleichklick auf Block oder liegendes Item bzw. Rechtsklick auf Inventar-Item wählt den Filter; Schleichklick in die Luft löscht ihn. Filtern braucht Berührung des Konstrukteurs."
           ],
           "caveats": [
@@ -125923,10 +125602,6 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:guide_book",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:guide_book_vanilla_start",
           "required": true
         },
         {
@@ -153522,8 +153197,7 @@ window.WIKI_DATA = {
           "name": "crafted",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:guide_book",
-            "simplebuilding:guide_book_vanilla_start"
+            "simplebuilding:guide_book"
           ]
         }
       ],
@@ -153613,174 +153287,6 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/tweaks.json"
-    },
-    {
-      "id": "simplebuilding:guides/vanilla_caves",
-      "parent": "simplebuilding:guides/root",
-      "icon": "simplebuilding:guide_book_vanilla_start",
-      "frame": "task",
-      "hidden": false,
-      "title": {
-        "en_us": "Vanilla Caves"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "criteria": [
-        {
-          "name": "unlocked",
-          "trigger": "minecraft:impossible"
-        }
-      ],
-      "needs": "any",
-      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_caves.json"
-    },
-    {
-      "id": "simplebuilding:guides/vanilla_end",
-      "parent": "simplebuilding:guides/root",
-      "icon": "simplebuilding:guide_book_vanilla_start",
-      "frame": "task",
-      "hidden": false,
-      "title": {
-        "en_us": "Vanilla End"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "criteria": [
-        {
-          "name": "unlocked",
-          "trigger": "minecraft:impossible"
-        }
-      ],
-      "needs": "any",
-      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_end.json"
-    },
-    {
-      "id": "simplebuilding:guides/vanilla_farming",
-      "parent": "simplebuilding:guides/root",
-      "icon": "simplebuilding:guide_book_vanilla_start",
-      "frame": "task",
-      "hidden": false,
-      "title": {
-        "en_us": "Vanilla Farming"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "criteria": [
-        {
-          "name": "unlocked",
-          "trigger": "minecraft:impossible"
-        }
-      ],
-      "needs": "any",
-      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_farming.json"
-    },
-    {
-      "id": "simplebuilding:guides/vanilla_gear",
-      "parent": "simplebuilding:guides/root",
-      "icon": "simplebuilding:guide_book_vanilla_start",
-      "frame": "task",
-      "hidden": false,
-      "title": {
-        "en_us": "Vanilla Gear"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "criteria": [
-        {
-          "name": "unlocked",
-          "trigger": "minecraft:impossible"
-        }
-      ],
-      "needs": "any",
-      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_gear.json"
-    },
-    {
-      "id": "simplebuilding:guides/vanilla_nether",
-      "parent": "simplebuilding:guides/root",
-      "icon": "simplebuilding:guide_book_vanilla_start",
-      "frame": "task",
-      "hidden": false,
-      "title": {
-        "en_us": "Vanilla Nether"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "criteria": [
-        {
-          "name": "unlocked",
-          "trigger": "minecraft:impossible"
-        }
-      ],
-      "needs": "any",
-      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_nether.json"
-    },
-    {
-      "id": "simplebuilding:guides/vanilla_ocean",
-      "parent": "simplebuilding:guides/root",
-      "icon": "simplebuilding:guide_book_vanilla_start",
-      "frame": "task",
-      "hidden": false,
-      "title": {
-        "en_us": "Vanilla Ocean"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "criteria": [
-        {
-          "name": "unlocked",
-          "trigger": "minecraft:impossible"
-        }
-      ],
-      "needs": "any",
-      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_ocean.json"
-    },
-    {
-      "id": "simplebuilding:guides/vanilla_overworld",
-      "parent": "simplebuilding:guides/root",
-      "icon": "simplebuilding:guide_book_vanilla_start",
-      "frame": "task",
-      "hidden": false,
-      "title": {
-        "en_us": "Vanilla Overworld"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "criteria": [
-        {
-          "name": "unlocked",
-          "trigger": "minecraft:impossible"
-        }
-      ],
-      "needs": "any",
-      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_overworld.json"
-    },
-    {
-      "id": "simplebuilding:guides/vanilla_redstone",
-      "parent": "simplebuilding:guides/root",
-      "icon": "simplebuilding:guide_book_vanilla_start",
-      "frame": "task",
-      "hidden": false,
-      "title": {
-        "en_us": "Vanilla Redstone"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "criteria": [
-        {
-          "name": "unlocked",
-          "trigger": "minecraft:impossible"
-        }
-      ],
-      "needs": "any",
-      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_redstone.json"
     },
     {
       "id": "simplebuilding:hammer/bright_idea",
@@ -157989,16 +157495,16 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 713,
+    "items": 712,
     "blocks": 454,
-    "recipes": 1204,
+    "recipes": 1203,
     "lootTables": 344,
     "trades": 20,
     "enchantments": 19,
     "tags": 51,
     "config": 223,
     "inWorld": 493,
-    "advancements": 127,
+    "advancements": 119,
     "features": 50,
     "undocumented": 0,
     "incompleteProse": 0

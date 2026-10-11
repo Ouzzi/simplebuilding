@@ -41,8 +41,7 @@ import net.minecraft.world.item.crafting.display.StonecutterRecipeDisplay;
 
 /**
  * Der Buchbildschirm der Handbuecher, nach dem Vorbild von Eidolons Codex: eine aufgeschlagene
- * Doppelseite in einem Ledereinband, links ein Lesezeichen "Inhalt" und darunter eines, das zum
- * anderen Regal wechselt (Mod-Buecher / Vanilla-Buecher, {@link GuideBooks.Shelf}), rechts je Buch
+ * Doppelseite in einem Ledereinband, links ein Lesezeichen "Inhalt" ({@link GuideBooks.Shelf}), rechts je Buch
  * des offenen Regals ein farbiges Lesezeichen mit dem Schluesselitem (gesperrt, solange das Buch
  * nicht im Inventar liegt).
  *
@@ -75,7 +74,7 @@ public class GuideBookScreen extends Screen {
      */
     private static final int TAB_Y = 12, TAB_STEP = com.simplebuilding.version.McVersion.MEGA_GUIDES ? 20 : 18, RIGHT_TABS = com.simplebuilding.version.McVersion.MEGA_GUIDES ? 8 : 9;
     /** Das Regal-Lesezeichen links, unter "Inhalt"; darunter die Buecher, die rechts keinen Platz haben. */
-    private static final int SHELF_TAB_Y = TAB_Y + 24, LEFT_BOOK_TAB_Y = SHELF_TAB_Y + 24;
+    private static final int SHELF_TAB_Y = TAB_Y + 24;
     /** Einzug der Aufzaehlungszeilen und Abstand zwischen Absaetzen. */
     private static final int BULLET_INDENT = 8, PARAGRAPH_GAP = 3;
 
@@ -200,25 +199,7 @@ public class GuideBookScreen extends Screen {
 
     /** Oberkante von Lesezeichen {@code i}, relativ zum Buch. */
     static int tabY(int i) {
-        return leftTab(i) ? (com.simplebuilding.version.McVersion.MEGA_GUIDES ? SHELF_TAB_Y : LEFT_BOOK_TAB_Y) + (i - RIGHT_TABS) * TAB_STEP : TAB_Y + i * TAB_STEP;
-    }
-
-    private GuideBooks.Shelf otherShelf() {
-        return book.shelf() == GuideBooks.Shelf.MOD ? GuideBooks.Shelf.VANILLA : GuideBooks.Shelf.MOD;
-    }
-
-    /** Das Buch, das der Regalwechsel oeffnet (das Einstiegsbuch, sonst das erste verfuegbare), oder null. */
-    private GuideBooks.Book otherShelfTarget() {
-        GuideBooks.Shelf other = otherShelf();
-        if (available(other.hub())) {
-            return other.hub();
-        }
-        for (GuideBooks.Book b : other.books()) {
-            if (available(b)) {
-                return b;
-            }
-        }
-        return null;
+        return leftTab(i) ? SHELF_TAB_Y + (i - RIGHT_TABS) * TAB_STEP : TAB_Y + i * TAB_STEP;
     }
 
     boolean available(GuideBooks.Book b) {
@@ -579,13 +560,6 @@ public class GuideBookScreen extends Screen {
             goTo(0, true);
             return true;
         }
-        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES && overShelfTab(mx, my)) {
-            GuideBooks.Book target = otherShelfTarget();
-            if (target != null) {
-                open(target, LAST_SPREAD.getOrDefault(target, 0));
-            }
-            return true;
-        }
         List<GuideBooks.Book> books = shelfBooks();
         for (int i = 0; i < books.size(); i++) {
             if (overTab(i, mx, my)) {
@@ -630,10 +604,6 @@ public class GuideBookScreen extends Screen {
 
     private boolean overContentsTab(double mx, double my) {
         return in(mx, my, bx - 22, by + TAB_Y, 24, 20);
-    }
-
-    private boolean overShelfTab(double mx, double my) {
-        return in(mx, my, bx - 22, by + SHELF_TAB_Y, 24, 20);
     }
 
     private boolean overTab(int i, double mx, double my) {
@@ -691,22 +661,6 @@ public class GuideBookScreen extends Screen {
         if (overContentsTab(mouseX, mouseY)) {
             hoveredText = Component.translatable(GuideContent.GUI + "contents");
         }
-        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) {
-        // Regalwechsel: zeigt das Einstiegsbuch des anderen Regals; gesperrt, solange keines seiner Buecher da ist.
-        GuideBooks.Shelf other = otherShelf();
-        GuideBooks.Book shelfTarget = otherShelfTarget();
-        blitMirrored(g, bx - 24, by + SHELF_TAB_Y, shelfTarget != null ? 0 : 64, 184, 30, 20);
-        g.item(new ItemStack(GuideBooks.item(other.hub())), bx - 20, by + SHELF_TAB_Y + 3);
-        if (shelfTarget == null) {
-            g.fill(bx - 20, by + SHELF_TAB_Y + 3, bx - 4, by + SHELF_TAB_Y + 19, com.simplebuilding.version.McVersion.MEGA_GUIDES ? 0x88777777 : 0x88402A18);
-        }
-        if (overShelfTab(mouseX, mouseY)) {
-            hoveredText = shelfTarget != null ? Component.translatable(GuideContent.shelfKey(other))
-                    : Component.translatable(GuideContent.GUI + "locked", Component.translatable(GuideBooks.keyItem(other.hub()).asItem().getDescriptionId()));
-        }
-
-        }
-
         blit(g, bx, by, 0, 0, BOOK_W, BOOK_H);
 
         for (int side = 0; side < 2; side++) {

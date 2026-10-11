@@ -145,7 +145,7 @@ public final class SimplebuildingForgeClient {
         );
         ClientState.settingsKey = new KeyMapping(
                 "key.simplebuilding.simple_settings",
-                InputConstants.KEY_G,
+                InputConstants.KEY_K,
                 KEY_CATEGORY_SIMPLEMODS
         );
         ClientState.backpackKey = new KeyMapping(

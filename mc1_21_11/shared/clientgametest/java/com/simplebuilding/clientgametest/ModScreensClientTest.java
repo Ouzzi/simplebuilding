@@ -228,11 +228,11 @@ public final class ModScreensClientTest {
     /**
      * The GLFW key code the settings key steps press.
      *
-     * <p>Both loaders register {@code key.simplebuilding.simple_settings} on G
+     * <p>Both loaders register {@code key.simplebuilding.simple_settings} on K
      * ({@code SimplebuildingClient} on Fabric, {@code SimplebuildingNeoForgeClient} on NeoForge).
      * {@link #assertSettingsKeyIsBound} is what keeps that assumption honest at run time.
      */
-    private static final int SETTINGS_KEY = InputConstants.KEY_G;
+    private static final int SETTINGS_KEY = InputConstants.KEY_K;
 
     /** Vanilla's default inventory key; checked against the binding by {@link #assertInventoryKeyIsBound}. */
     private static final int INVENTORY_KEY = InputConstants.KEY_E;

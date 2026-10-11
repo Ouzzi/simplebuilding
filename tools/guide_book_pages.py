@@ -46,7 +46,7 @@ TOPICS_PER_PAGE = 4
 # GuideBooks.CONTENTS_FIRST_TOPIC / CONTENTS_FIRST_GUIDE / CONTENTS_MORE: links on contents page 1 and each further one.
 CONTENTS_FIRST_TOPIC, CONTENTS_FIRST_GUIDE, CONTENTS_MORE = 6, 11, 11
 # What the keybind arguments render as.
-KEYBINDS = {"%1$s": "G", "%2$s": "B"}
+KEYBINDS = {"%1$s": "K", "%2$s": "B"}
 
 _WIDTHS = {}
 
