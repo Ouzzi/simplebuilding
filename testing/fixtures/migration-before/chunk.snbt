@@ -1,0 +1,390 @@
+{
+    DataVersion: 5023,
+    Status: "minecraft:full",
+    block_entities: [
+        {
+            Items: [
+                {
+                    Slot: 0b,
+                    components: {
+                        "minecraft:damage": 17,
+                        "minecraft:enchantments": {
+                            "simplebuilding:range": 2
+                        }
+                    },
+                    count: 1,
+                    id: "simplebuilding:diamond_sledgehammer"
+                },
+                {
+                    Slot: 1b,
+                    components: {
+                        "minecraft:damage": 11,
+                        "minecraft:enchantments": {
+                            "minecraft:unbreaking": 3,
+                            "simplebuilding:kinetic_protection": 2
+                        },
+                        "simplebuilding:glow_level": 1,
+                        "simplebuilding:visual_glow": 1b
+                    },
+                    count: 1,
+                    id: "simplebuilding:enderite_chestplate"
+                },
+                {
+                    Slot: 2b,
+                    count: 1,
+                    id: "simplebuilding:enderite_sledgehammer"
+                },
+                {
+                    Slot: 3b,
+                    count: 3,
+                    id: "simplebuilding:reinforced_chest"
+                },
+                {
+                    Slot: 4b,
+                    count: 3,
+                    id: "simplebuilding:netherite_chest"
+                },
+                {
+                    Slot: 5b,
+                    count: 3,
+                    id: "simplebuilding:enderite_chest"
+                },
+                {
+                    Slot: 6b,
+                    count: 3,
+                    id: "simplebuilding:reinforced_furnace"
+                },
+                {
+                    Slot: 7b,
+                    count: 3,
+                    id: "simplebuilding:enderite_furnace"
+                },
+                {
+                    Slot: 8b,
+                    count: 3,
+                    id: "simplebuilding:enderite_crucible"
+                }
+            ],
+            components: {},
+            id: "simplebuilding:tiered_chest",
+            x: 0,
+            y: 64,
+            z: 1
+        },
+        {
+            Items: [
+                {
+                    Slot: 0b,
+                    components: {
+                        "minecraft:damage": 17,
+                        "minecraft:enchantments": {
+                            "simplebuilding:range": 2
+                        }
+                    },
+                    count: 1,
+                    id: "simplebuilding:diamond_sledgehammer"
+                },
+                {
+                    Slot: 1b,
+                    components: {
+                        "minecraft:damage": 11,
+                        "minecraft:enchantments": {
+                            "minecraft:unbreaking": 3,
+                            "simplebuilding:kinetic_protection": 2
+                        },
+                        "simplebuilding:glow_level": 1,
+                        "simplebuilding:visual_glow": 1b
+                    },
+                    count: 1,
+                    id: "simplebuilding:enderite_chestplate"
+                },
+                {
+                    Slot: 2b,
+                    count: 1,
+                    id: "simplebuilding:enderite_sledgehammer"
+                },
+                {
+                    Slot: 3b,
+                    count: 3,
+                    id: "simplebuilding:reinforced_chest"
+                },
+                {
+                    Slot: 4b,
+                    count: 3,
+                    id: "simplebuilding:netherite_chest"
+                },
+                {
+                    Slot: 5b,
+                    count: 3,
+                    id: "simplebuilding:enderite_chest"
+                },
+                {
+                    Slot: 6b,
+                    count: 3,
+                    id: "simplebuilding:reinforced_furnace"
+                },
+                {
+                    Slot: 7b,
+                    count: 3,
+                    id: "simplebuilding:enderite_furnace"
+                },
+                {
+                    Slot: 8b,
+                    count: 3,
+                    id: "simplebuilding:enderite_crucible"
+                }
+            ],
+            components: {},
+            id: "simplebuilding:tiered_chest",
+            x: 1,
+            y: 64,
+            z: 1
+        },
+        {
+            Items: [
+                {
+                    Slot: 0b,
+                    components: {
+                        "minecraft:damage": 17,
+                        "minecraft:enchantments": {
+                            "simplebuilding:range": 2
+                        }
+                    },
+                    count: 1,
+                    id: "simplebuilding:diamond_sledgehammer"
+                },
+                {
+                    Slot: 1b,
+                    components: {
+                        "minecraft:damage": 11,
+                        "minecraft:enchantments": {
+                            "minecraft:unbreaking": 3,
+                            "simplebuilding:kinetic_protection": 2
+                        },
+                        "simplebuilding:glow_level": 1,
+                        "simplebuilding:visual_glow": 1b
+                    },
+                    count: 1,
+                    id: "simplebuilding:enderite_chestplate"
+                },
+                {
+                    Slot: 2b,
+                    count: 1,
+                    id: "simplebuilding:enderite_sledgehammer"
+                },
+                {
+                    Slot: 3b,
+                    count: 3,
+                    id: "simplebuilding:reinforced_chest"
+                },
+                {
+                    Slot: 4b,
+                    count: 3,
+                    id: "simplebuilding:netherite_chest"
+                },
+                {
+                    Slot: 5b,
+                    count: 3,
+                    id: "simplebuilding:enderite_chest"
+                },
+                {
+                    Slot: 6b,
+                    count: 3,
+                    id: "simplebuilding:reinforced_furnace"
+                },
+                {
+                    Slot: 7b,
+                    count: 3,
+                    id: "simplebuilding:enderite_furnace"
+                },
+                {
+                    Slot: 8b,
+                    count: 3,
+                    id: "simplebuilding:enderite_crucible"
+                }
+            ],
+            components: {},
+            id: "simplebuilding:tiered_chest",
+            x: 2,
+            y: 64,
+            z: 1
+        },
+        {
+            Items: [
+                {
+                    Slot: 0b,
+                    components: {
+                        "minecraft:damage": 17,
+                        "minecraft:enchantments": {
+                            "simplebuilding:range": 2
+                        }
+                    },
+                    count: 1,
+                    id: "simplebuilding:diamond_sledgehammer"
+                }
+            ],
+            RecipesUsed: {},
+            components: {},
+            cooking_time_spent: 0,
+            cooking_total_time: 0,
+            id: "simplebuilding:mod_furnace",
+            lit_time_remaining: 0,
+            lit_total_time: 0,
+            speed_multiplier: 1.0f,
+            x: 3,
+            y: 64,
+            z: 1
+        },
+        {
+            Items: [
+                {
+                    Slot: 0b,
+                    components: {
+                        "minecraft:damage": 17,
+                        "minecraft:enchantments": {
+                            "simplebuilding:range": 2
+                        }
+                    },
+                    count: 1,
+                    id: "simplebuilding:diamond_sledgehammer"
+                }
+            ],
+            RecipesUsed: {},
+            components: {},
+            cooking_time_spent: 0,
+            cooking_total_time: 0,
+            id: "simplebuilding:mod_furnace",
+            lit_time_remaining: 0,
+            lit_total_time: 0,
+            speed_multiplier: 1.0f,
+            x: 4,
+            y: 64,
+            z: 1
+        },
+        {
+            Afterglow: 0,
+            Contents: [
+                {
+                    Count: 1,
+                    Item: {
+                        components: {
+                            "minecraft:damage": 17,
+                            "minecraft:enchantments": {
+                                "simplebuilding:range": 2
+                            }
+                        },
+                        count: 1,
+                        id: "simplebuilding:diamond_sledgehammer"
+                    },
+                    Slot: 0
+                },
+                {
+                    Count: 1,
+                    Item: {
+                        components: {
+                            "minecraft:damage": 11,
+                            "minecraft:enchantments": {
+                                "minecraft:unbreaking": 3,
+                                "simplebuilding:kinetic_protection": 2
+                            },
+                            "simplebuilding:glow_level": 1,
+                            "simplebuilding:visual_glow": 1b
+                        },
+                        count: 1,
+                        id: "simplebuilding:enderite_chestplate"
+                    },
+                    Slot: 1
+                },
+                {
+                    Count: 1,
+                    Item: {
+                        count: 1,
+                        id: "simplebuilding:enderite_sledgehammer"
+                    },
+                    Slot: 2
+                },
+                {
+                    Count: 3,
+                    Item: {
+                        count: 3,
+                        id: "simplebuilding:reinforced_chest"
+                    },
+                    Slot: 3
+                },
+                {
+                    Count: 3,
+                    Item: {
+                        count: 3,
+                        id: "simplebuilding:netherite_chest"
+                    },
+                    Slot: 4
+                },
+                {
+                    Count: 3,
+                    Item: {
+                        count: 3,
+                        id: "simplebuilding:enderite_chest"
+                    },
+                    Slot: 5
+                },
+                {
+                    Count: 3,
+                    Item: {
+                        count: 3,
+                        id: "simplebuilding:reinforced_furnace"
+                    },
+                    Slot: 6
+                },
+                {
+                    Count: 3,
+                    Item: {
+                        count: 3,
+                        id: "simplebuilding:enderite_furnace"
+                    },
+                    Slot: 7
+                },
+                {
+                    Count: 3,
+                    Item: {
+                        count: 3,
+                        id: "simplebuilding:enderite_crucible"
+                    },
+                    Slot: 8
+                }
+            ],
+            Experience: 0.0f,
+            Heat: 0,
+            Progress: [I; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            Results: [I; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            Targets: [I; -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+            components: {},
+            id: "simplelib:crucible",
+            x: 8,
+            y: 64,
+            z: 1
+        }
+    ],
+    sections: [
+        {
+            Y: 4b,
+            block_states: {
+                data: [L; 0L, 40926266145L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L],
+                palette: [
+                    "minecraft:air",
+                    "simplebuilding:reinforced_chest",
+                    "simplebuilding:netherite_chest",
+                    "simplebuilding:enderite_chest",
+                    "simplebuilding:reinforced_furnace",
+                    "simplebuilding:enderite_furnace",
+                    "simplebuilding:checker_octet",
+                    "simplebuilding:andesite_octet",
+                    "simplebuilding:oak_octet",
+                    "simplebuilding:enderite_crucible"
+                ]
+            }
+        }
+    ],
+    xPos: 0,
+    yPos: -4,
+    zPos: 0
+}

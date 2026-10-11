@@ -87,8 +87,8 @@ public final class MigrationWorldTests {
     static final Set<String> ID_KEYED = Set.of("components", "minecraft:enchantments", "minecraft:stored_enchantments");
     /** String fields that hold a registry id (item/block entity/entity id, palette block name). */
     static final Set<String> ID_FIELDS = Set.of("id", "Name");
-    /** String lists of recipe keys (recipe book). */
-    static final Set<String> ID_LISTS = Set.of("recipes", "toBeDisplayed");
+    /** String lists of ids: recipe-book keys, block palette entries written as plain names (default states). */
+    static final Set<String> ID_LISTS = Set.of("recipes", "toBeDisplayed", "palette");
 
     private MigrationWorldTests() {
     }
