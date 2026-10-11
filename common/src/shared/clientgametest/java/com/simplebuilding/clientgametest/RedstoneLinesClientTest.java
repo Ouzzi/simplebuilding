@@ -44,7 +44,7 @@ public final class RedstoneLinesClientTest {
         });
         script.awaitPackets();
         script.idle("let the lamps switch", 10);
-        script.command("tp @a 7.0 9.0 19.5 180.0 55.0");
+        script.command("tp @a 6.5 14.0 19.5 180.0 70.0");
         script.awaitPackets();
         script.awaitChunks();
         script.idle("let the dust settle in the picture", 20);
@@ -56,7 +56,8 @@ public final class RedstoneLinesClientTest {
             for (int i = 0; i < LANES.length; i++) {
                 boolean lit = level.getBlockState(new BlockPos(X0 + 13, 0, LANES[i])).getValue(RedstoneLampBlock.LIT);
                 if (lit != (i < 3)) {
-                    out.append("lamp of lane ").append(i).append(" is ").append(lit ? "lit" : "dark").append("; lane:");
+                    out.append("lamp of lane ").append(i).append(" is ").append(lit ? "lit" : "dark").append(" (signal there: ")
+                            .append(level.hasNeighborSignal(new BlockPos(X0 + 13, 0, LANES[i]))).append("); lane:");
                     for (int x = X0; x <= X0 + 13; x++) {
                         BlockState state = level.getBlockState(new BlockPos(x, 0, LANES[i]));
                         out.append(' ').append(state.hasProperty(SignalDustBlock.POWER) ? state.getValue(SignalDustBlock.POWER) + "/"
