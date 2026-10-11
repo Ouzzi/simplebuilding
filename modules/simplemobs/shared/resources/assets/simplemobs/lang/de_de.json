@@ -15,5 +15,19 @@
   "message.simplemobs.howler.fades": "Der Ruf verhallt",
   "message.simplemobs.howler.too_bright": "Zu hell – der Tiefenheuler erwacht nur im Dunkeln",
   "message.simplemobs.howler.too_peaceful": "Zu friedlich – nichts antwortet auf den Ruf",
-  "message.simplemobs.howler.wrong_dimension": "Der Ruf findet hier kein Echo"
+  "message.simplemobs.howler.wrong_dimension": "Der Ruf findet hier kein Echo",
+  "entity.simplemobs.shellker": "Shellker",
+  "entity.simplemobs.shellker_bullet": "Shellker-Geschoss",
+  "entity.simplemobs.soulfire_blaze": "Seelenfeuer-Lohe",
+  "entity.simplemobs.soul_fireball": "Seelenfeuerkugel",
+  "item.simplemobs.shellker_shell": "Shellker-Schale",
+  "item.simplemobs.shellker_helmet": "Shellker-Helm",
+  "item.simplemobs.shellker_spawn_egg": "Shellker-Spawn-Ei",
+  "item.simplemobs.soulfire_rod": "Seelenfeuer-Rute",
+  "item.simplemobs.soulfire_blaze_spawn_egg": "Seelenfeuer-Lohe-Spawn-Ei",
+  "effect.simplemobs.high_gravity": "Schwerkraft",
+  "item.minecraft.potion.effect.high_gravity": "Trank der Schwerkraft",
+  "item.minecraft.splash_potion.effect.high_gravity": "Wurftrank der Schwerkraft",
+  "item.minecraft.lingering_potion.effect.high_gravity": "Verweiltrank der Schwerkraft",
+  "item.minecraft.tipped_arrow.effect.high_gravity": "Pfeil der Schwerkraft"
 }

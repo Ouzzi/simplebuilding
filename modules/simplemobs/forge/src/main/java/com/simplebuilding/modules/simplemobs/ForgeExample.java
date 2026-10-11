@@ -51,6 +51,28 @@ public final class ForgeExample {
             }
         });
         net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> MobsServer.tick(e.server()));
+        RegisterEvent.getBus(bus).addListener(event -> {
+            event.register(Registries.ENTITY_TYPE, r -> EndNetherMobs.entityTypes(r::register));
+            event.register(Registries.ITEM, r -> EndNetherMobs.items(r::register));
+            event.register(Registries.MOB_EFFECT, r -> EndNetherMobs.effects(r::register));
+            event.register(Registries.POTION, r -> EndNetherMobs.potions(r::register));
+        });
+        EntityAttributeCreationEvent.BUS.addListener(event -> {
+            event.put(EndNetherMobs.SHELLKER, ShellkerEntity.createAttributes().build());
+            event.put(EndNetherMobs.SOULFIRE_BLAZE, net.minecraft.world.entity.monster.Blaze.createAttributes().build());
+        });
+        BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
+            if (e.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
+                putAfter(e, new ItemStack(Items.SHULKER_SPAWN_EGG), new ItemStack(EndNetherMobs.SHELLKER_EGG));
+                putAfter(e, new ItemStack(Items.BLAZE_SPAWN_EGG), new ItemStack(EndNetherMobs.SOULFIRE_EGG));
+            }
+            if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
+                putAfter(e, new ItemStack(Items.SHULKER_SHELL), new ItemStack(EndNetherMobs.SHELL));
+                putAfter(e, new ItemStack(Items.BLAZE_ROD), new ItemStack(EndNetherMobs.ROD));
+            }
+            if (e.getTabKey().equals(CreativeModeTabs.COMBAT)) putAfter(e, new ItemStack(Items.TURTLE_HELMET), new ItemStack(EndNetherMobs.HELMET));
+        });
+        net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> EndNetherServer.tick(e.server()));
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == Dist.CLIENT) ForgeClientExample.init();
     }
 
