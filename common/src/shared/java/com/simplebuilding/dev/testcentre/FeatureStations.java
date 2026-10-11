@@ -826,8 +826,7 @@ public final class FeatureStations {
             c.place(x, 0, 8, f.strippedCauldron().with(com.simplebuilding.woodwork.WoodenCauldronBlock.Content.WATER, 3));
             c.place(x, 0, 6, f.crate());
             c.contents(x, 0, 6, List.of(new ItemStack(foods[i % foods.length], 64), new ItemStack(foods[(i + 3) % foods.length], 32)));
-            c.place(x, 0, 7, f.carved().only(Direction.NORTH, motifs[i % motifs.length])
-                    .setValue(com.simplebuilding.woodwork.CarvedLogBlock.EAST, com.simplebuilding.woodwork.CarvedLogBlock.Carving.WOOD));
+            c.place(x, 0, 7, f.carved().carvedWith(i % 2 == 0 ? motifs[i % motifs.length] : null));
         }
         int chestX = families.size() + 2;
         c.place(chestX, 0, 7, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));

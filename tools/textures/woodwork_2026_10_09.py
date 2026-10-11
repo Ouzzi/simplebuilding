@@ -310,7 +310,7 @@ def templates() -> None:
         "parent": "minecraft:block/block", "textures": {"particle": "#planks"}, "elements": crate_elements()})
     cube = {"down": "#end", "up": "#end", "north": "#side", "south": "#side", "west": "#side", "east": "#side"}
     faces = {d: {"texture": t, "cullface": d} for d, t in cube.items()}
-    # Carved wood (N34): a plain stripped log plus one overlay per carved side (north, turned by the blockstate).
+    # Carved wood (N34/N40): a plain stripped log plus the overlay on every side (north, turned by the blockstate).
     put_json(f"{NS}/models/block/template_carved_log.json", {
         "parent": "minecraft:block/block", "textures": {"particle": "#side"},
         "elements": [{"from": [0, 0, 0], "to": [16, 16, 16], "faces": faces}]})
@@ -455,13 +455,13 @@ def wood_assets(wood: str, log: str) -> None:
         put_json(f"{NS}/models/block/carved/{name}_{motif}.json", {"parent": sb("block/template_carved_sherd"), "textures": {
             "frame": sb(f"block/carved/{wood}_frame"),
             "motif": mc(f"entity/decorated_pot/{motif}_pottery_pattern_{wood}")}})
-    # every side is its own multipart overlay (none / wood motif / sherd motif), the motif property shared by the sherd sides
+    # N40: carved all round - the overlay (wood motif or sherd motif) on all four sides
     parts = [{"apply": {"model": sb(f"block/carved/{name}_base")}}]
     for side, y in FACING_Y.items():
         turn = {"y": y} if y else {}
-        parts.append({"when": {side: "wood"}, "apply": {"model": sb(f"block/carved/{name}_wood")} | turn})
+        parts.append({"when": {"carving": "wood"}, "apply": {"model": sb(f"block/carved/{name}_wood")} | turn})
         for motif in MOTIFS:
-            parts.append({"when": {side: "sherd", "motif": motif},
+            parts.append({"when": {"carving": "sherd", "motif": motif},
                           "apply": {"model": sb(f"block/carved/{name}_{motif}")} | turn})
     put_json(f"{NS}/blockstates/{name}.json", {"multipart": parts})
 
@@ -470,9 +470,9 @@ def wood_assets(wood: str, log: str) -> None:
             {"type": "minecraft:model", "model": sb(f"block/carved/{name}_base")},
             {"type": "minecraft:model", "model": sb(f"block/carved/{name}_{overlay}")}]}
 
-    # item: the north side as dropped (sherd motif, else the wood's own motif)
+    # item: the carving as dropped (sherd motif, else the wood's own motif)
     put_json(f"{NS}/items/{name}.json", {"model": {
-        "type": "minecraft:select", "property": "minecraft:block_state", "block_state_property": "north",
+        "type": "minecraft:select", "property": "minecraft:block_state", "block_state_property": "carving",
         "cases": [{"when": "sherd", "model": {
             "type": "minecraft:select", "property": "minecraft:block_state", "block_state_property": "motif",
             "cases": [{"when": motif, "model": item_model(motif)} for motif in MOTIFS],
