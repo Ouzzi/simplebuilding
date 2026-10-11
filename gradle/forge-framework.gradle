@@ -23,7 +23,6 @@ tasks.register('prepareForgeFramework') {
     inputs.property('frameworkVersion', apiProject.version.toString())
     inputs.file(apiJar.flatMap { it.archiveFile })
     if (bundleLib) inputs.file(libJar.flatMap { it.archiveFile })
-    moduleJars.each { inputs.file(it.flatMap { j -> j.archiveFile }) }
     outputs.dir(metadata)
     doLast {
         def jarName = apiJar.get().archiveFileName.get()
