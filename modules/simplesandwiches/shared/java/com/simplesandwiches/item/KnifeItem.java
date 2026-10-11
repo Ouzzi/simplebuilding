@@ -47,15 +47,6 @@ public class KnifeItem extends Item {
         return MATERIAL.applySwordProperties(base, ATTACK_DAMAGE_BASELINE, ATTACK_SPEED_BASELINE);
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context,
-                                net.minecraft.world.item.component.TooltipDisplay display,
-                                java.util.function.Consumer<net.minecraft.network.chat.Component> out,
-                                net.minecraft.world.item.TooltipFlag flag) {
-        super.appendHoverText(stack, context, display, out, flag);
-        out.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplesandwiches.knife.recipe")
-                .withStyle(net.minecraft.ChatFormatting.GRAY));
-    }
 
     /** Spreading butter on the board plays a wiping motion (Vanilla brush animation) while the click is held. */
     public static final int SPREAD_TICKS = 20;

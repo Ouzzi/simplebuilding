@@ -112,11 +112,6 @@ public class NetheritePistonItem extends BlockItem {
         super.appendHoverText(stack, context, displayComponent, textConsumer, type);
         textConsumer.accept(Component.translatable(tooltipKey).withStyle(ChatFormatting.GRAY));
         textConsumer.accept(Component.translatable(tooltipKey + ".2").withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable(tooltipKey + ".3").withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable(tooltipKey + ".4").withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable(tooltipKey + ".5").withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable(tooltipKey + ".6").withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable(tooltipKey + ".7").withStyle(ChatFormatting.GRAY));
         // The durability bar already shows the wear (AGENTS.md: no bar value twice in the tooltip).
     }
 }

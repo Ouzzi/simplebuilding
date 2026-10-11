@@ -200,8 +200,8 @@ public final class ImmersionTests {
         expectLines(helper, TweaksBlocks.ENDERITE_ELYTRA_PAD, "Tier III of III", "Area: 128 x 128 blocks, 192 high", "Recharges boosts in the whole area");
         expectLines(helper, TweaksBlocks.ELYTRA_PAD, "Tier I of III", "Area: 5 x 5 blocks, 5 high");
         expectLines(helper, TweaksBlocks.REINFORCED_FLYPAD, "Tier II of III", "Flight area: 8 x 8 blocks, 16 high", "Flying out gives you Slow Falling");
-        expectLines(helper, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "Tier III of III", "Stand still for 5 s: bed or respawn anchor.", "No bed/anchor: spawn.");
-        expectLines(helper, TweaksBlocks.POTION_PAD, "Tier I of III", "Effects: up to 45 s; capped by the potion.", "Cooldown afterward: about 67.5 s.");
+        expectLines(helper, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "Tier III of III", "Stand still 5 s: bed or anchor.");
+        expectLines(helper, TweaksBlocks.POTION_PAD, "Tier I of III", "Up to 45 s; cooldown 67.5 s");
         expectLines(helper, ModBlocks.ENDERITE_FURNACE, "Works 8× as fast", "Double experience");
         expectLines(helper, ModBlocks.REINFORCED_SMOKER, "Works 2× as fast");
         expectLines(helper, ModBlocks.NETHERITE_BLAST_FURNACE, "Works 4× as fast", "Double experience");
@@ -210,14 +210,11 @@ public final class ImmersionTests {
                     "blast furnace tooltip contains only speed and experience");
         }
         expectLines(helper, ModBlocks.REINFORCED_HOPPER, "Moves an item every 4 ticks",
-                "Filter in its menu: exact or type match",
-                "The item lying in a slot is its filter; one always stays");
+                "Filter in its menu: exact or type match");
         expectLines(helper, ModBlocks.NETHERITE_HOPPER, "Moves an item every 2 ticks",
-                "Filter in its menu: exact or type match",
-                "The item lying in a slot is its filter; one always stays");
+                "Filter in its menu: exact or type match");
         expectLines(helper, ModBlocks.ENDERITE_HOPPER, "Moves an item every tick",
-                "Filter in its menu: exact or type match",
-                "The item lying in a slot is its filter; one always stays");
+                "Filter in its menu: exact or type match");
         expectLines(helper, ModBlocks.REINFORCED_STICKY_PISTON, "Pushes up to 18 blocks");
         expectLines(helper, ModBlocks.LEVITATING_SAND, "Falls upward instead of down");
         expectLines(helper, ModBlocks.SUSPENDED_GRAVEL, "Hangs in mid-air and never falls");

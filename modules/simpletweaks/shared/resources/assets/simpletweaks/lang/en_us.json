@@ -1,9 +1,6 @@
 {
   "item.simpletweaks.claim_deed": "Legacy Claim Deed",
   "tooltip.simpletweaks.claim_deed.inactive": "Claims are off by default.",
-  "tooltip.simpletweaks.claim_deed.inactive.2": "Ask the server admin about protection.",
-  "tooltip.simpletweaks.claim_deed.data": "Saved deed data is retained.",
-  "tooltip.simpletweaks.claim_deed.data.2": "Only the server claim ledger grants rights.",
   "config.simpletweaks.claims.tab": "Server Claims",
   "config.simpletweaks.claims.enabled": "Enable Claims",
   "config.simpletweaks.claims.enabled.tooltip": "Stages 1–3, 5 and 6 plus partial stage-4\nprotection are implemented: atomic claims,\nVanilla/tool checks, owner trust, OP4\nadministration and the Dimensions adapter.\nAutomation still has unsupported paths,\nincluding copper golems, crafters and unknown\nmod behaviors. Not ready to enable. Off by\ndefault; disabled hooks do not read claim\ndata. Development tests only. Default: false.",
