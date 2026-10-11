@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 
 /**
  * The automatic line under the "Use" page: read from the server's RecipeManager (clients do not have every recipe),
- * so it never goes stale - what the item is made from (the first recipe that makes it), how many recipes make it and
+ * so it never goes stale - what the item is made from (the recipe with the most different ingredients), how many recipes make it and
  * in how many recipes it is an ingredient.
  */
 public final class QuestionaryFacts {
@@ -45,11 +45,16 @@ public final class QuestionaryFacts {
                 ingredients = List.of();
             }
             if (makes(recipe, stack, context)) {
-                if (makes++ == 0) {
-                    for (Ingredient ingredient : ingredients) {
-                        ingredient.items().findFirst().map(Holder::value).map(BuiltInRegistries.ITEM::getKey)
-                                .filter(id -> madeFrom.size() < MAX_INGREDIENTS).ifPresent(madeFrom::add);
-                    }
+                makes++;
+                Set<Identifier> these = new LinkedHashSet<>();
+                for (Ingredient ingredient : ingredients) {
+                    ingredient.items().findFirst().map(Holder::value).map(BuiltInRegistries.ITEM::getKey)
+                            .filter(id -> these.size() < MAX_INGREDIENTS).ifPresent(these::add);
+                }
+                // The recipe with the most different ingredients tells the most (not "block -> 9 ingots").
+                if (these.size() > madeFrom.size()) {
+                    madeFrom.clear();
+                    madeFrom.addAll(these);
                 }
             }
             for (Ingredient ingredient : ingredients) {

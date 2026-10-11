@@ -40,8 +40,10 @@ import net.minecraft.world.item.ItemStack;
  * (simplelib {@code UiBoxes}/{@code UiBookmarks}), no texture per size.
  */
 public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> {
-    public static final int BOOK_X = QuestionaryMenu.LEFT_WIDTH + 4, BOOK_Y = 4, BOOK_W = 224, BOOK_H = 176;
+    public static final int BOOK_X = QuestionaryMenu.LEFT_WIDTH + 4, BOOK_Y = 4, BOOK_W = 270, BOOK_H = 208;
     public static final int TAB_W = 15, TAB_OUT = 4, TAB_H = 26, TAB_GAP = 4, TAB_Y = BOOK_Y + 14;
+    /** Space kept free at the bottom of both pages for the arrows and the page number. */
+    private static final int BOTTOM = 24;
     private static final int PAGE_MARGIN = 8, TEXT_W = BOOK_W / 2 - 2 * PAGE_MARGIN - 2, LINE = 10;
     private static final int COVER = 0xFF2C4A86, COVER_DARK = 0xFF16264A, PAPER = 0xFFF4E9CF, PAPER_EDGE = 0xFFD9C79F;
     private static final int INK = 0xFF3B2A1A, HEADING = 0xFF6B4423, GOLD = 0xFFE8B923;
@@ -86,7 +88,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractBackground(g, mouseX, mouseY, a);
         int x0 = leftPos, y0 = topPos;
-        UiBoxes.box(g, x0, y0, QuestionaryMenu.LEFT_WIDTH, QuestionaryMenu.HEIGHT, UiPalette.INVENTORY);
+        UiBoxes.box(g, x0, y0, QuestionaryMenu.LEFT_WIDTH, QuestionaryMenu.LEFT_HEIGHT, UiPalette.INVENTORY);
         for (int i = 0; i < menu.slots.size(); i++) {
             Slot slot = menu.slots.get(i);
             if (i == QuestionaryMenu.ITEM_SLOT) UiBoxes.bigSlot(g, x0 + slot.x, y0 + slot.y, UiPalette.INVENTORY);
@@ -174,8 +176,8 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
             g.text(font, line, rx, y, INK, false);
             y += LINE;
         }
-        if (!stack.isEmpty() && p == Page.USE) facts(g, stack, rx, BOOK_Y + BOOK_H - 6 - PAGE_MARGIN - footerHeight());
-        g.centeredText(font, (page + 1) + " / 3", BOOK_X + BOOK_W / 2, BOOK_Y + BOOK_H - 18, HEADING);
+        if (!stack.isEmpty() && p == Page.USE) facts(g, stack, rx, BOOK_Y + BOOK_H - BOTTOM - footerHeight());
+        g.centeredText(font, (page + 1) + " / 3", BOOK_X + BOOK_W * 3 / 4, BOOK_Y + BOOK_H - 18, HEADING);
     }
 
     private int firstLineOffset(ItemStack stack) {
@@ -249,8 +251,8 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
             if (!lines.isEmpty()) lines.add(FormattedCharSequence.EMPTY);
             lines.addAll(font.split(Component.literal(paragraph), TEXT_W));
         }
-        int leftRows = (BOOK_H - 6 - 2 * PAGE_MARGIN - firstLineOffset(stack) - 14) / LINE;
-        int rightRows = (BOOK_H - 6 - 2 * PAGE_MARGIN - 14 - (!stack.isEmpty() && page == 1 ? footerHeight() : 0)) / LINE;
+        int leftRows = (BOOK_H - BOTTOM - PAGE_MARGIN - firstLineOffset(stack)) / LINE;
+        int rightRows = (BOOK_H - BOTTOM - PAGE_MARGIN - (!stack.isEmpty() && page == 1 ? footerHeight() + 4 : 0)) / LINE;
         // A blank line never starts the right page.
         int split = Math.min(leftRows, lines.size());
         leftLines = List.copyOf(lines.subList(0, split));

@@ -42,13 +42,12 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             Item described = BuiltInRegistries.ITEM.getOptional(Identifier.fromNamespaceAndPath("simplebuilding", "enderite_ingot")).orElse(Items.BOOK);
             put(world.getServer(), described);
             context.waitTicks(10);
-            String[] names = {"lore", "use", "secret"};
-            for (int i = 0; i < 3; i++) {
-                int page = i;
-                context.runOnClient(c -> ((QuestionaryScreen) c.gui.screen()).setPage(page));
-                context.waitTicks(3);
-                context.takeScreenshot("simplequestionary-" + names[i]);
-            }
+            page(context, 0);
+            context.takeScreenshot("simplequestionary-lore");
+            page(context, 1);
+            context.takeScreenshot("simplequestionary-use");
+            page(context, 2);
+            context.takeScreenshot("simplequestionary-secret");
             // A Vanilla item without its own text shows a fallback variant.
             put(world.getServer(), Items.ECHO_SHARD);
             context.waitTicks(10);
@@ -61,6 +60,11 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.runOnClient(c -> c.player.closeContainer());
             context.waitTicks(5);
         }
+    }
+
+    private static void page(ClientGameTestContext context, int page) {
+        context.runOnClient(c -> ((QuestionaryScreen) c.gui.screen()).setPage(page));
+        context.waitTicks(3);
     }
 
     private static void put(TestServerContext onServer, Item item) {
