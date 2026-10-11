@@ -237,7 +237,7 @@ public final class TestCentreSections {
                     TcText.lit(namespace)));
         }
         c.title(0, 5, wallZ, TcText.t("section.books", "Enchanted Books"),
-                TcText.t("section.books.sub", "mod first, then vanilla"));
+                TcText.t("section.books.sub", "all guide books"));
         int end = c.frameGrid(1, 0, wallZ, books, labels, 3);
         c.backWall(0, end, wallZ, 7);
         return c;

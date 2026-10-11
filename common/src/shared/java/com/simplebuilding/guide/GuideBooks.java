@@ -77,13 +77,13 @@ public final class GuideBooks {
     private GuideBooks() {
     }
 
-    /** Die zwei Regale; auf dem Buchbildschirm je eine Reihe Lesezeichen. */
+    /** Das Regal der Handbuecher (das Vanilla-Regal ist 2026-10-11 entfallen); auf dem Buchbildschirm eine Reihe Lesezeichen. */
     public enum Shelf {
-        MOD, VANILLA;
+        MOD;
 
         /** The shelf hub: on 26.3 its chapters unlock in the screen; older lines use it as a recipe ingredient. */
         public Book hub() {
-            return this == MOD ? Book.GUIDE : Book.VANILLA_START;
+            return Book.GUIDE;
         }
 
         public List<Book> books() {
@@ -120,16 +120,7 @@ public final class GuideBooks {
         GADGETS("gadgets", "guide_book_gadgets", Shelf.MOD),
         TRIMS("trims", "guide_book_trims", Shelf.MOD),
         /** Server commands and config: on 26.3 only operators can unlock/read the topic ({@link #operatorOnly}). */
-        ADMIN("admin", "guide_book_admin", Shelf.MOD),
-        VANILLA_START("vanilla_start", "guide_book_vanilla_start", Shelf.VANILLA),
-        VANILLA_OVERWORLD("vanilla_overworld", "guide_book_vanilla_overworld", Shelf.VANILLA),
-        VANILLA_CAVES("vanilla_caves", "guide_book_vanilla_caves", Shelf.VANILLA),
-        VANILLA_OCEAN("vanilla_ocean", "guide_book_vanilla_ocean", Shelf.VANILLA),
-        VANILLA_NETHER("vanilla_nether", "guide_book_vanilla_nether", Shelf.VANILLA),
-        VANILLA_END("vanilla_end", "guide_book_vanilla_end", Shelf.VANILLA),
-        VANILLA_REDSTONE("vanilla_redstone", "guide_book_vanilla_redstone", Shelf.VANILLA),
-        VANILLA_GEAR("vanilla_gear", "guide_book_vanilla_gear", Shelf.VANILLA),
-        VANILLA_FARMING("vanilla_farming", "guide_book_vanilla_farming", Shelf.VANILLA);
+        ADMIN("admin", "guide_book_admin", Shelf.MOD);
 
         private final String id;
         private final String itemName;
@@ -228,15 +219,6 @@ public final class GuideBooks {
             case GADGETS -> ModItems.GUIDE_BOOK_GADGETS;
             case TRIMS -> ModItems.GUIDE_BOOK_TRIMS;
             case ADMIN -> ModItems.GUIDE_BOOK_ADMIN;
-            case VANILLA_START -> ModItems.GUIDE_BOOK_VANILLA_START;
-            case VANILLA_OVERWORLD -> ModItems.GUIDE_BOOK_VANILLA_OVERWORLD;
-            case VANILLA_CAVES -> ModItems.GUIDE_BOOK_VANILLA_CAVES;
-            case VANILLA_OCEAN -> ModItems.GUIDE_BOOK_VANILLA_OCEAN;
-            case VANILLA_NETHER -> ModItems.GUIDE_BOOK_VANILLA_NETHER;
-            case VANILLA_END -> ModItems.GUIDE_BOOK_VANILLA_END;
-            case VANILLA_REDSTONE -> ModItems.GUIDE_BOOK_VANILLA_REDSTONE;
-            case VANILLA_GEAR -> ModItems.GUIDE_BOOK_VANILLA_GEAR;
-            case VANILLA_FARMING -> ModItems.GUIDE_BOOK_VANILLA_FARMING;
         };
     }
 
@@ -257,15 +239,6 @@ public final class GuideBooks {
             case GADGETS -> Items.COPPER_INGOT;
             case TRIMS -> Items.AMETHYST_SHARD;
             case ADMIN -> Items.COMPARATOR;
-            case VANILLA_START -> Items.WOODEN_PICKAXE;
-            case VANILLA_OVERWORLD -> Items.OAK_SAPLING;
-            case VANILLA_CAVES -> Items.TORCH;
-            case VANILLA_OCEAN -> Items.OAK_BOAT;
-            case VANILLA_NETHER -> Items.FLINT_AND_STEEL;
-            case VANILLA_END -> Items.ENDER_EYE;
-            case VANILLA_REDSTONE -> Items.REDSTONE;
-            case VANILLA_GEAR -> Items.STONE_SWORD;
-            case VANILLA_FARMING -> Items.WHEAT_SEEDS;
         };
     }
 
@@ -306,7 +279,7 @@ public final class GuideBooks {
      */
     public static List<String> gates(Book book) {
         return switch (book) {
-            case GUIDE, VANILLA_START, ADMIN -> List.of();
+            case GUIDE, ADMIN -> List.of();
             case TOOLS -> List.of("simplebuilding:stone_chisel");
             case ENCHANTMENTS -> List.of("minecraft:enchanting_table", "minecraft:bookshelf");
             // The pebble recipes have no recipe advancement (nothing puts them into the recipe book), so they cannot gate.
@@ -321,14 +294,6 @@ public final class GuideBooks {
             case GADGETS -> List.of("simplebuilding:copper_core_plus", "simplebuilding:velocity_gauge", "simplebuilding:detector", "simplebuilding:magnet");
             case TRIMS -> List.of("simplebuilding:pulsating_trim_template", "simplebuilding:glowing_armor_upgrade_dummy",
                     "simplebuilding:emitting_armor_upgrade_dummy");
-            case VANILLA_OVERWORLD -> List.of("minecraft:crafting_table", "minecraft:oak_planks");
-            case VANILLA_CAVES -> List.of("minecraft:torch");
-            case VANILLA_OCEAN -> List.of("minecraft:oak_boat");
-            case VANILLA_NETHER -> List.of("minecraft:flint_and_steel");
-            case VANILLA_END -> List.of("minecraft:ender_eye");
-            case VANILLA_REDSTONE -> List.of("minecraft:redstone_torch");
-            case VANILLA_GEAR -> List.of("minecraft:stone_sword");
-            case VANILLA_FARMING -> List.of("minecraft:bread");
         };
     }
 
@@ -344,15 +309,7 @@ public final class GuideBooks {
             case PADS -> Items.STONE_PRESSURE_PLATE;
             case GADGETS -> ModItems.COPPER_CORE;
             case TRIMS -> ModItems.PULSATING_TRIM_TEMPLATE;
-            case VANILLA_OVERWORLD -> Items.CRAFTING_TABLE;
-            case VANILLA_CAVES -> Items.TORCH;
-            case VANILLA_OCEAN -> Items.OAK_BOAT;
-            case VANILLA_NETHER -> Items.FLINT_AND_STEEL;
-            case VANILLA_END -> Items.ENDER_EYE;
-            case VANILLA_REDSTONE -> Items.REDSTONE_TORCH;
-            case VANILLA_GEAR -> Items.STONE_SWORD;
-            case VANILLA_FARMING -> Items.BREAD;
-            case GUIDE, VANILLA_START, ADMIN -> keyItem(book);
+            case GUIDE, ADMIN -> keyItem(book);
         };
     }
 

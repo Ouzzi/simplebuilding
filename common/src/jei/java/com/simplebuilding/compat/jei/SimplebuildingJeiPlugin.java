@@ -118,7 +118,7 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
         }
         // Infoseiten der Gegenstaende ohne JEI-sichtbares Rezept (Loot, Erzabbau, Altbestand).
         if (com.simplebuilding.version.McVersion.MEGA_GUIDES) registration.addItemStackInfo(
-                List.of(new ItemStack(com.simplebuilding.items.ModItems.GUIDE_BOOK), new ItemStack(com.simplebuilding.items.ModItems.GUIDE_BOOK_VANILLA_START)),
+                List.of(new ItemStack(com.simplebuilding.items.ModItems.GUIDE_BOOK)),
                 Component.translatable("jei.simplebuilding.info.mega_guides"));
         var infoPages = new java.util.LinkedHashMap<>(RecipelessJeiInfo.pages());
         infoPages.putAll(RecipelessJeiInfo.supplementalPages());

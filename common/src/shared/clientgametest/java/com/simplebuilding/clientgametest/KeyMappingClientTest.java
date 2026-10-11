@@ -18,11 +18,8 @@ public final class KeyMappingClientTest {
     private static final String MOD_PREFIX = "key.simple";
     /** "key.debug.*" are F3 combinations, not plain keys: they cannot collide with a plain key. */
     private static final String DEBUG_PREFIX = "key.debug.";
-    /**
-     * Known, still open collisions (audit C10 finding): Settings defaults to G, which vanilla 26.x
-     * uses for "Quick Actions". Remove the entry when the default key is changed.
-     */
-    private static final Set<String> KNOWN_COLLISIONS = Set.of("key.simplebuilding.simple_settings");
+    /** No known collisions left (Settings moved from G to K, 2026-10-11). */
+    private static final Set<String> KNOWN_COLLISIONS = Set.of();
 
     private KeyMappingClientTest() {
     }

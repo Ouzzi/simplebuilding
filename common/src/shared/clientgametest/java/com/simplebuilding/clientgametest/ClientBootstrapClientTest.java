@@ -200,7 +200,7 @@ public final class ClientBootstrapClientTest {
      * binding by {@link #assertBindingOnKey} before it is pressed - see the class javadoc for why
      * a raw code needs that control at all.
      */
-    private static final int SETTINGS_KEY = InputConstants.KEY_G;
+    private static final int SETTINGS_KEY = InputConstants.KEY_K;
     private static final int HIGHLIGHT_TOGGLE_KEY = InputConstants.KEY_H;
     private static final int JUMP_KEY = InputConstants.KEY_SPACE;
 

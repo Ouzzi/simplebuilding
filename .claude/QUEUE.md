@@ -723,4 +723,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Magnet: Interaktion eines Items zwischen zwei Magneten weiterhin verbuggt.
 - [ ] Öfen: Flammen-Textur mehr wie Vanilla (jetzt nur Wellenlinien).
 - [ ] Itemfilter-Button deaktiviert = grau statt rot (rot = Fehler), überall anpassen.
-- [ ] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla.
+- [ ] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla.,
+- [x] (claude-own1) Einstellungen-Taste G -> K (kollidierte mit Vanilla „Quick Actions“); KNOWN_COLLISIONS leer; Texte angepasst.
+- [x] (claude-own1) guide_book_vanilla_* komplett entfernt (Lang, Rezepte, Preise, Advancements, Texturen, Wiki); alte IDs -> guide_book (LegacyItemIds).
+- Notiz: Das QoL-Stufe-4-Modul heißt „Simple Loot“ (`simpleloot`), siehe docs/ai/PLAN-QOL-AUFTEILUNG-2026-10-10.md.

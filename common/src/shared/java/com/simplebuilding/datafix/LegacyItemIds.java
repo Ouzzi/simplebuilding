@@ -43,9 +43,15 @@ public final class LegacyItemIds {
             ? Map.of("medium_armor_stand", "small_armor_stand") : Map.of();
 
     /** Old path -> new path, both in the {@code simplebuilding} namespace. */
-    public static final Map<String, String> RENAMED = !com.simplebuilding.version.McVersion.MEGA_GUIDES ? Map.of(
-            "velocity-gauge", "velocity_gauge", "echo_compass", "echo_sounder",
-            "laser_pointer", "amethyst_lens", "ore_detector", "detector") : Map.ofEntries(
+    public static final Map<String, String> RENAMED = !com.simplebuilding.version.McVersion.MEGA_GUIDES ? Map.ofEntries(
+            Map.entry("velocity-gauge", "velocity_gauge"), Map.entry("echo_compass", "echo_sounder"),
+            Map.entry("laser_pointer", "amethyst_lens"), Map.entry("ore_detector", "detector"),
+            // Besitzer 2026-10-11: Vanilla-Regal entfernt; auch auf den Legacy-Linien werden die Buecher zum Handbuch.
+            Map.entry("guide_book_vanilla_start", "guide_book"), Map.entry("guide_book_vanilla_overworld", "guide_book"),
+            Map.entry("guide_book_vanilla_caves", "guide_book"), Map.entry("guide_book_vanilla_ocean", "guide_book"),
+            Map.entry("guide_book_vanilla_nether", "guide_book"), Map.entry("guide_book_vanilla_end", "guide_book"),
+            Map.entry("guide_book_vanilla_redstone", "guide_book"), Map.entry("guide_book_vanilla_gear", "guide_book"),
+            Map.entry("guide_book_vanilla_farming", "guide_book")) : Map.ofEntries(
             Map.entry("velocity-gauge", "velocity_gauge"),
             Map.entry("echo_compass", "echo_sounder"),
             Map.entry("laser_pointer", "amethyst_lens"),
@@ -61,14 +67,16 @@ public final class LegacyItemIds {
             Map.entry("guide_book_gadgets", "guide_book"),
             Map.entry("guide_book_trims", "guide_book"),
             Map.entry("guide_book_admin", "guide_book"),
-            Map.entry("guide_book_vanilla_overworld", "guide_book_vanilla_start"),
-            Map.entry("guide_book_vanilla_caves", "guide_book_vanilla_start"),
-            Map.entry("guide_book_vanilla_ocean", "guide_book_vanilla_start"),
-            Map.entry("guide_book_vanilla_nether", "guide_book_vanilla_start"),
-            Map.entry("guide_book_vanilla_end", "guide_book_vanilla_start"),
-            Map.entry("guide_book_vanilla_redstone", "guide_book_vanilla_start"),
-            Map.entry("guide_book_vanilla_gear", "guide_book_vanilla_start"),
-            Map.entry("guide_book_vanilla_farming", "guide_book_vanilla_start"));
+            // Besitzer 2026-10-11: das Vanilla-Regal entfaellt; alte Vanilla-Buecher werden zum allgemeinen Handbuch.
+            Map.entry("guide_book_vanilla_start", "guide_book"),
+            Map.entry("guide_book_vanilla_overworld", "guide_book"),
+            Map.entry("guide_book_vanilla_caves", "guide_book"),
+            Map.entry("guide_book_vanilla_ocean", "guide_book"),
+            Map.entry("guide_book_vanilla_nether", "guide_book"),
+            Map.entry("guide_book_vanilla_end", "guide_book"),
+            Map.entry("guide_book_vanilla_redstone", "guide_book"),
+            Map.entry("guide_book_vanilla_gear", "guide_book"),
+            Map.entry("guide_book_vanilla_farming", "guide_book"));
 
     private LegacyItemIds() {
     }

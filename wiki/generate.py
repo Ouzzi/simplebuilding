@@ -1334,7 +1334,7 @@ def load_item_properties(roots: dict) -> dict:
         stack = re.search(r"settings\.stacksTo\(McVersion\.MEGA_GUIDES \? (\d+) :", code)
         if not stack:
             raise ValueError("Mega guide stack size changed; update wiki property extraction")
-        for id in ("simplebuilding:guide_book", "simplebuilding:guide_book_vanilla_start"):
+        for id in ("simplebuilding:guide_book",):
             out.setdefault(id, {})["maxStackSize"] = int(stack.group(1))
     return out
 
@@ -1373,7 +1373,7 @@ def registered_ids(roots: dict) -> tuple[set[str], set[str]] | None:
     items = {entry["id"] for entry in payload.get("items", []) if entry.get("id")}
     if roots.get("client_jar_version") == "26.3":
         # registerGuideBook returns the shelf hub for topics on the main line; no chapter item exists.
-        items = {id for id in items if not id.startswith("simplebuilding:guide_book_") or id == "simplebuilding:guide_book_vanilla_start"}
+        items = {id for id in items if not id.startswith("simplebuilding:guide_book_")}
     blocks = set(payload.get("blocks", []))
     if not items and not blocks:
         return None

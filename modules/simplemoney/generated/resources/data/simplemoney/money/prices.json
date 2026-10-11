@@ -1233,17 +1233,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:guide_book_vanilla_start",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "librarian",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:husk_head",
       "tier": 3,
       "hours": 15.0,

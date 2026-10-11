@@ -154,7 +154,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         ));
         ClientState.settingsKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.simplebuilding.simple_settings",
-                InputConstants.KEY_G,
+                InputConstants.KEY_K,
             KEY_CATEGORY_SIMPLEMODS
         ));
         ClientState.backpackKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(

@@ -13,6 +13,7 @@
     "simplebuilding:guide_book_tools": "Legacy alias; trade only the canonical current item.",
     "simplebuilding:guide_book_trims": "Legacy alias; trade only the canonical current item.",
     "simplebuilding:guide_book_tweaks": "Legacy alias; trade only the canonical current item.",
+    "simplebuilding:guide_book_vanilla_start": "Legacy alias; trade only the canonical current item.",
     "simplebuilding:guide_book_vanilla_caves": "Legacy alias; trade only the canonical current item.",
     "simplebuilding:guide_book_vanilla_end": "Legacy alias; trade only the canonical current item.",
     "simplebuilding:guide_book_vanilla_farming": "Legacy alias; trade only the canonical current item.",
@@ -1257,17 +1258,6 @@
     },
     {
       "item": "simplebuilding:guide_book",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "librarian",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:guide_book_vanilla_start",
       "tier": 0,
       "hours": 0.5,
       "craft": 2,

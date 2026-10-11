@@ -1382,8 +1382,14 @@ public final class TradeAndMigrationTests {
         renamed.put("echo_compass", com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS);
         renamed.put("laser_pointer", com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER);
         renamed.put("ore_detector", ModItems.ORE_DETECTOR);
+        {
+            // Owner 2026-10-11: the vanilla guide shelf is gone; old vanilla books become the general guide.
+            renamed.put("guide_book_vanilla_start", ModItems.GUIDE_BOOK);
+            renamed.put("guide_book_vanilla_nether", ModItems.GUIDE_BOOK);
+        }
         Map<String, String> newPaths = Map.of("velocity-gauge", "velocity_gauge", "echo_compass", "echo_sounder",
-                "laser_pointer", "amethyst_lens", "ore_detector", "detector");
+                "laser_pointer", "amethyst_lens", "ore_detector", "detector",
+                "guide_book_vanilla_start", "guide_book", "guide_book_vanilla_nether", "guide_book");
         net.minecraft.resources.RegistryOps<net.minecraft.nbt.Tag> nbt = registries.createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE);
 
         net.minecraft.nbt.ListTag chestItems = new net.minecraft.nbt.ListTag();

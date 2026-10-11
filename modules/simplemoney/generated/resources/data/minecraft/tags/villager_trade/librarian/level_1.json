@@ -22,10 +22,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/guide_book_vanilla_start",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/pulsating_trim_template",
       "required": false
     }
