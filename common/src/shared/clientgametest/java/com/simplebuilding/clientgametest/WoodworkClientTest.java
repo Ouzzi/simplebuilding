@@ -202,9 +202,11 @@ public final class WoodworkClientTest {
         });
         script.awaitPackets();
         String[][] views = {
-                {"n34-checker-front", "9.5 2.4 8.0 0.0 35.0"},
-                {"n34-checker-above", "9.5 3.6 13.0 0.0 90.0"},
-                {"n34-checker-low", "3.5 1.7 13.0 -90.0 25.0"},
+                {"n34-checker-gap12-west", "3.5 1.7 12.0 -90.0 20.0"},
+                {"n34-checker-gap14-west", "3.5 1.7 14.0 -90.0 20.0"},
+                {"n34-checker-gap12-east", "16.5 1.7 12.0 90.0 20.0"},
+                                {"n34-checker-low", "3.5 1.7 13.0 -90.0 25.0"},
+                {"n34-checker-top", "9.5 2.6 12.0 0.0 60.0"},
                 {"n34-carved-east", "8.0 2.0 15.5 90.0 20.0"},
                 {"n34-carved-south", "5.5 2.2 18.5 180.0 20.0"},
         };
