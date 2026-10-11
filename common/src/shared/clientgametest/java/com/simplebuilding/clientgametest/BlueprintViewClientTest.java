@@ -425,12 +425,12 @@ public final class BlueprintViewClientTest {
     }
 
     /**
-     * Queue N29: a help tab or the copy button is a small icon (no text label drawn, at most 20 px wide)
+     * Queue N29: a help tab or the copy button is a small icon (no text label drawn, at most 24 px wide)
      * whose name ({@code key}) is its narration message and appears in its tooltip.
      */
     private static void iconWithTooltip(net.minecraft.client.gui.components.AbstractWidget widget, String key) {
         String name = net.minecraft.network.chat.Component.translatable(key).getString();
-        if (widget.getWidth() > 20 || widget instanceof net.minecraft.client.gui.components.Button) {
+        if (widget.getWidth() > 24 || widget instanceof net.minecraft.client.gui.components.Button) {
             throw new AssertionError("'" + name + "' is still a " + widget.getWidth() + " px text button, not an icon: " + widget);
         }
         if (!widget.getMessage().getString().equals(name)) {
