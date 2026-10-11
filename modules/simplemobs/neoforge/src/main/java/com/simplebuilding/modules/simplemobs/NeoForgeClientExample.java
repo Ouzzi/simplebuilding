@@ -19,6 +19,7 @@ final class NeoForgeClientExample {
             event.registerEntityRenderer(MobsRegistry.DECEIVER, DeceiverRenderer::new);
             event.registerEntityRenderer(MobsRegistry.HOLLOW_HOWLER, HowlerRenderer::new);
             event.registerEntityRenderer(MobsRegistry.HOWLER_RITUAL, NoopRenderer::new);
+            event.registerEntityRenderer(DisguiseRegistry.MARKER, NoopRenderer::new);
         });
     }
     private NeoForgeClientExample() {}

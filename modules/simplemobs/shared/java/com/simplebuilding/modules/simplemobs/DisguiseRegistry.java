@@ -35,6 +35,17 @@ public final class DisguiseRegistry {
     public static final TagKey<EntityType<?>> SEES_THROUGH =
             TagKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(MobsRegistry.ID, "sees_through_disguise"));
 
+    public static final ResourceKey<EntityType<?>> MARKER_KEY =
+            ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(MobsRegistry.ID, "disguise_marker"));
+    /** Carries a player's disguise to clients (own synced data, vanilla tracking). */
+    public static final EntityType<DisguiseMarker> MARKER = EntityType.Builder.<DisguiseMarker>of(DisguiseMarker::new, net.minecraft.world.entity.MobCategory.MISC)
+            .sized(0.1f, 0.1f)
+            .noSummon()
+            .noSave()
+            .clientTrackingRange(10)
+            .updateInterval(2)
+            .build(MARKER_KEY);
+
     public static final Item CLOAK = new Item(new Item.Properties()
             .durability(CloakLogic.DURABILITY)
             .rarity(Rarity.UNCOMMON)
@@ -73,6 +84,7 @@ public final class DisguiseRegistry {
 
     /** Fabric: direct registration. */
     public static void registerAll() {
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, MARKER_KEY, MARKER);
         items((k, v) -> Registry.register(BuiltInRegistries.ITEM, k, v));
         potions((k, v) -> Registry.register(BuiltInRegistries.POTION, k, v));
     }

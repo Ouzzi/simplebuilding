@@ -25,6 +25,7 @@ public final class NeoForgeExample {
                 h.register(MobsRegistry.DECEIVER_KEY, MobsRegistry.DECEIVER);
                 h.register(MobsRegistry.HOWLER_KEY, MobsRegistry.HOLLOW_HOWLER);
                 h.register(MobsRegistry.RITUAL_KEY, MobsRegistry.HOWLER_RITUAL);
+                h.register(DisguiseRegistry.MARKER_KEY, DisguiseRegistry.MARKER);
             });
             event.register(Registries.ITEM, h -> {
                 h.register(MobsRegistry.CLOTH_KEY, MobsRegistry.CLOTH);

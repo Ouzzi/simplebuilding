@@ -23,6 +23,7 @@ public final class ForgeExample {
                 r.register(MobsRegistry.DECEIVER_KEY, MobsRegistry.DECEIVER);
                 r.register(MobsRegistry.HOWLER_KEY, MobsRegistry.HOLLOW_HOWLER);
                 r.register(MobsRegistry.RITUAL_KEY, MobsRegistry.HOWLER_RITUAL);
+                r.register(DisguiseRegistry.MARKER_KEY, DisguiseRegistry.MARKER);
             });
             event.register(Registries.ITEM, r -> {
                 r.register(MobsRegistry.CLOTH_KEY, MobsRegistry.CLOTH);

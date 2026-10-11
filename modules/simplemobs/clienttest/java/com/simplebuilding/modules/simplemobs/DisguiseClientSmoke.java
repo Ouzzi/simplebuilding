@@ -41,12 +41,9 @@ public final class DisguiseClientSmoke implements FabricClientGameTest {
             context.takeScreenshot("simplemobs-disguise-cow");
             world.getServer().runOnServer(server -> {
                 ServerPlayer p = server.getPlayerList().getPlayers().getFirst();
-                DisguiseHolder d = (DisguiseHolder) p;
-                d.simplemobs$setSpec(CloakLogic.playerSpec(UUID.fromString("ec561538-f3fd-461d-aff5-086b22154bce"), "Alex"));
-                d.simplemobs$setGear(0, new ItemStack(Items.DIAMOND_HELMET));
-                d.simplemobs$setGear(1, new ItemStack(Items.GOLDEN_CHESTPLATE));
-                d.simplemobs$setGear(4, new ItemStack(Items.IRON_SWORD));
-                p.refreshDimensions();
+                Disguise.apply(p, CloakLogic.playerSpec(UUID.fromString("ec561538-f3fd-461d-aff5-086b22154bce"), "Alex"), new ItemStack[] {
+                        new ItemStack(Items.DIAMOND_HELMET), new ItemStack(Items.GOLDEN_CHESTPLATE), ItemStack.EMPTY, ItemStack.EMPTY,
+                        new ItemStack(Items.IRON_SWORD), ItemStack.EMPTY});
             });
             context.waitTicks(20);
             context.takeScreenshot("simplemobs-disguise-player");

@@ -27,5 +27,6 @@
   "message.simplemobs.disguise.no_room": "Hier ist kein Platz für diese Gestalt",
   "message.simplemobs.disguise.revealed": "Deine Tarnung fällt - sie haben dich gesehen",
   "message.simplemobs.mirror.found": "Der Spiegel zeigt %s Täuschungen",
-  "item.simplemobs.illusion_shard": "Trugsplitter"
+  "item.simplemobs.illusion_shard": "Trugsplitter",
+  "entity.simplemobs.disguise_marker": "Tarnungs-Marker"
 }
