@@ -154,6 +154,7 @@ public final class MobsTests {
             h.succeed();
         });
         HowlerTests.addAll(MobsTests::add);
+        DisguiseTests.addAll(MobsTests::add);
     }
 
     private MobsTests() {}

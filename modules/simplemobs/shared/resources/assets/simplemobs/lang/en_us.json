@@ -15,5 +15,16 @@
   "message.simplemobs.howler.fades": "The call fades away",
   "message.simplemobs.howler.too_bright": "Too bright - the Howler only wakes in the dark",
   "message.simplemobs.howler.too_peaceful": "Too peaceful - nothing answers the call",
-  "message.simplemobs.howler.wrong_dimension": "The call finds no echo here"
+  "message.simplemobs.howler.wrong_dimension": "The call finds no echo here",
+  "item.simplemobs.deceiver_cloak": "Cloak of Deception",
+  "item.simplemobs.trick_mirror": "Trick Mirror",
+  "item.minecraft.potion.effect.veiled_invisibility": "Potion of Veiled Invisibility",
+  "item.minecraft.splash_potion.effect.veiled_invisibility": "Splash Potion of Veiled Invisibility",
+  "item.minecraft.lingering_potion.effect.veiled_invisibility": "Lingering Potion of Veiled Invisibility",
+  "item.minecraft.tipped_arrow.effect.veiled_invisibility": "Arrow of Veiled Invisibility",
+  "message.simplemobs.disguise.morph": "You now look like %s",
+  "message.simplemobs.disguise.refused": "%s sees through every disguise",
+  "message.simplemobs.disguise.no_room": "No room to take this shape here",
+  "message.simplemobs.disguise.revealed": "Your disguise falls - they have seen you",
+  "message.simplemobs.mirror.found": "The mirror shows %s deceptions"
 }

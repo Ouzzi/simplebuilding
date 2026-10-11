@@ -15,5 +15,16 @@
   "message.simplemobs.howler.fades": "Der Ruf verhallt",
   "message.simplemobs.howler.too_bright": "Zu hell – der Tiefenheuler erwacht nur im Dunkeln",
   "message.simplemobs.howler.too_peaceful": "Zu friedlich – nichts antwortet auf den Ruf",
-  "message.simplemobs.howler.wrong_dimension": "Der Ruf findet hier kein Echo"
+  "message.simplemobs.howler.wrong_dimension": "Der Ruf findet hier kein Echo",
+  "item.simplemobs.deceiver_cloak": "Tarnumhang",
+  "item.simplemobs.trick_mirror": "Trugbild-Spiegel",
+  "item.minecraft.potion.effect.veiled_invisibility": "Trank der stillen Unsichtbarkeit",
+  "item.minecraft.splash_potion.effect.veiled_invisibility": "Wurftrank der stillen Unsichtbarkeit",
+  "item.minecraft.lingering_potion.effect.veiled_invisibility": "Verweiltrank der stillen Unsichtbarkeit",
+  "item.minecraft.tipped_arrow.effect.veiled_invisibility": "Pfeil der stillen Unsichtbarkeit",
+  "message.simplemobs.disguise.morph": "Du siehst jetzt aus wie %s",
+  "message.simplemobs.disguise.refused": "%s durchschaut jede Tarnung",
+  "message.simplemobs.disguise.no_room": "Hier ist kein Platz für diese Gestalt",
+  "message.simplemobs.disguise.revealed": "Deine Tarnung fällt - sie haben dich gesehen",
+  "message.simplemobs.mirror.found": "Der Spiegel zeigt %s Täuschungen"
 }

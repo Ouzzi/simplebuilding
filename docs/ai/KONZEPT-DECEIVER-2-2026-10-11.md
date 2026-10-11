@@ -55,3 +55,17 @@ Gemeinsam: alles in `simplemobs` (Sub-Mod), Config in `simplemobs-server.json`, 
 - Q2: Art-Wahl per Probe (Rechtsklick auf Mob, Empfehlung) oder per Crafting mit einem Spawn-Ei/Item?
 - Q3: Hostile-Mobs ignorieren die Art nur, bis du sie angreifst (Empfehlung: ja), oder dauerhaft?
 - Q4: Trugbild-Spiegel jetzt mitmachen (Empfehlung: ja, klein) oder streichen?
+
+## Antworten Besitzer 2026-10-11 (gehen dem Konzept oben vor)
+- **Q1 Platz:** Umhang auf dem Brustplatz (Rezept wie oben). Getragen: Mobs erkennen den Träger erst im **3-Block-Radius** (statt Folgeweite 16-35).
+- **Q2 statt Probe/Art-Speicher:** Mit angezogenem Umhang **Rechtsklick (leere Hand) auf einen Mob = Verwandlung** in diesen Mob: Aussehen + Hitbox (Kamera-/Augenhöhe folgt), Mobs dieser Art halten dich für ihresgleichen (wählen dich nie als Ziel). Auch in **andere Spieler**: dann deren Skin und Rüstung/Ausrüstung (Momentaufnahme beim Verwandeln), Hitbox bleibt Spieler. **Schlagen oder Block abbauen = Rückverwandlung**, Umhang ablegen ebenso.
+- **Q3 Enttarnung durch Angriff:** der getroffene Mob und alle Mobs im 5x5-Bereich um ihn erkennen dich normal (60 s); alle anderen danach im erhöhten, aber weiter verringerten Radius **8 Blöcke** für 30 s. Der Umhang verliert dabei 10 Haltbarkeit (einmal je Enttarnung).
+- Bosse (Wither, Enderdrache, Älterer Wächter), Warden und Hollow Howler sehen durch (Tag `#simplemobs:sees_through_disguise`, `#c:bosses` optional) und sind keine Verwandlungsziele.
+- **Q4:** Trank der Unsichtbarkeit ohne Partikel und Trugbild-Spiegel jetzt mitbauen.
+- **Zusatz Spezialangriff „Verdoppeln“:** nach jeder Welle wirft der Deceiver mit Chance `p = 5 % + 75 % * t^2`, `t = clamp((1 - Leben/Max) / 0.8)`: volles Leben 5 %, 60 % Leben ~24 %, ab 20 % Leben 80 %. Abklingzeit 30 s. Verdoppelt werden nur seine lebenden Beschwörungen (keine wilden Mobs: Farmtiere bleiben sicher), höchstens 8 Kopien je Wurf und nie über die Obergrenze 24 (`HARD_CAP`). Kopien sind immer Trugbilder (1 Leben, kein Schaden, lautlos) und verschwinden mit seinem Tod – Begründung: 80 % echte Verdopplung im Endkampf wäre unfair/lag-anfällig, so bleibt es eine Wahrnehmungsprüfung.
+
+## Umsetzung (claude-deceiver2)
+- Basis: Hitbox/Verwandlung des Deceivers aus `claude-n38` (Cherry-Pick, `disguiseAs`, Stand-in-Render).
+- `Disguise` (Spielerzustand via Mixin-Interface `DisguiseHolder`: synchronisierte Entity-Daten am Spieler = Verwandlungs-Id + 6 Ausrüstungs-Slots), `CloakLogic` (reine Regeln: Radien, Zeiten, Chance-Kurve liegt in `DeceiverLogic`).
+- Mixins: `TargetingConditions.test` (Erkennung), `Player` (Daten, Rechtsklick, Schlag, Tick), `Avatar.getDefaultDimensions` (Hitbox), `LivingEntity` (Treffer = Enttarnung, Daten-Update), `ServerPlayerGameMode.destroyBlock` (Abbau = Rückverwandlung), Client `EntityRenderDispatcher.extractEntity` (Stand-in Mob/Spieler mit Skin + Rüstung).
+- Items: `deceiver_cloak` (Brust, 240 Haltbarkeit, Reparatur Täuscherstoff, Drop 3 % + 2 %/Looting), `trick_mirror` (2 s halten, Kegel 30° je Seite, 24 Blöcke, 20 s Abklingzeit, 64 Haltbarkeit, Drop 8 %); Tränke `veiled_invisibility` 3:00 / `long_veiled_invisibility` 8:00 (Unsichtbarkeit ohne Partikel). Abweichung: Spiegel lässt Fakes/Verkleidete 5 s für alle leuchten (Glowing) statt nur für den Nutzer; keine Config-Schlüssel (Konstanten in `CloakLogic`); Umhang nutzt sich nur beim Verwandeln (1) und Enttarnen (10) ab.

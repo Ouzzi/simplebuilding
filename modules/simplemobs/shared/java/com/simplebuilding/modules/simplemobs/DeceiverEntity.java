@@ -86,6 +86,7 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
     private final List<UUID> summons = new ArrayList<>();
     private final List<Long> summonBorn = new ArrayList<>();
     private List<String> waveKinds = List.of();
+    private int doubleCooldown;
 
     public DeceiverEntity(EntityType<? extends DeceiverEntity> type, Level level) {
         super(type, level);
@@ -243,6 +244,7 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
         if (actionTicks > 0 && --actionTicks == 0) setAction(ACT_NONE, 0);
         if (shoveCooldown > 0) shoveCooldown--;
         if (healCooldown > 0) healCooldown--;
+        if (doubleCooldown > 0) doubleCooldown--;
         pruneSummons(level);
 
         if (pendingTeleport >= 0 && --pendingTeleport < 0) {
@@ -340,6 +342,7 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
             this.playSound(SoundEvents.EVOKER_PREPARE_SUMMON, 1.0f, 1.2f);
         } else {
             summonWave(level, target, phase);
+            if (doubleCooldown <= 0 && this.random.nextFloat() < DeceiverLogic.doubleChance(getHealth(), getMaxHealth())) doubleSummons(level, target);
             teleportNear(level, target);
             disguiseAsWave(level);
             setAction(ACT_TELEPORT, 20);
@@ -418,6 +421,38 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
         peacefulTheme = peaceful;
         summonWave(level, target, phase());
         return summons.size();
+    }
+
+    /** Test hook: doubles now (ignoring chance and cooldown); returns how many copies appeared. */
+    public int doubleNow(ServerLevel level, Player target) {
+        return doubleSummons(level, target);
+    }
+
+    /**
+     * Special attack (owner 11.10.): every living summon gets a copy next to it. Copies are always fakes (1 health, no
+     * damage) and vanish with the Deceiver; at most {@link DeceiverLogic#DOUBLE_MAX_COPIES}, never above the hard cap.
+     */
+    private int doubleSummons(ServerLevel level, Player target) {
+        doubleCooldown = DeceiverLogic.DOUBLE_COOLDOWN_TICKS;
+        int room = DeceiverLogic.doubleCopies(summons.size());
+        int made = 0;
+        for (UUID id : List.copyOf(summons)) {
+            if (made >= room) break;
+            Entity e = level.getEntity(id);
+            if (e == null || !e.isAlive()) continue;
+            String kind = BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getPath();
+            if (!DeceiverLogic.fakeSafe(kind)) continue;
+            Vec3 spot = findSpot(level, e.position(), 1.0, 2.5, null);
+            if (spot == null) continue;
+            int before = summons.size();
+            spawnSummon(level, kind, false, spot, phase(), target);
+            if (summons.size() > before) made++;
+        }
+        if (made > 0) {
+            this.playSound(SoundEvents.ILLUSIONER_MIRROR_MOVE, 1.2f, 0.7f);
+            level.sendParticles(ParticleTypes.WITCH, this.getX(), this.getY() + 1.0, this.getZ(), 40, 0.6, 0.8, 0.6, 0.15);
+        }
+        return made;
     }
 
     private void summonWave(ServerLevel level, Player target, Phase phase) {

@@ -76,6 +76,42 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "Kämpfen und Gesehenwerden bleiben möglich; gedämpft werden nur Vibrationen, die du auslöst."
         ]
       }
+    },
+    {
+      "id": "deceiver_disguise",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/Disguise.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/CloakLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/TrickMirrorItem.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/DisguiseRegistry.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/DeceiverLogic.java"
+      ],
+      "en": {
+        "title": "Deceiver: cloak, disguise, mirror",
+        "summary": "From Deceiver Cloth: a cloak that lets you take any mob's or player's shape, a particle-free invisibility potion and a mirror that sees through deceptions. The Deceiver itself has double life, takes the hit box of the mob it imitates and can double its summons.",
+        "details": [
+          "Cloak of Deception (chest slot, like the Elytra, 240 durability, repaired with Deceiver Cloth): recipe Cloth-Cloth-Cloth / Phantom Membrane - . - Phantom Membrane / Cloth - . - Cloth; also dropped by the Deceiver (3 %, +2 % per Looting level).",
+          "Worn, mobs notice you only within 3 blocks. With an empty hand right-click a mob to take its shape (look, hit box and eye height); mobs of that kind take you for one of theirs. Right-click another player to look like them, with their skin and the armor and gear they wore at that moment. Each disguise costs 1 durability.",
+          "Hitting anything or breaking a block ends the disguise. Hurting a mob reveals you: it and every mob in the 5x5 around it know you for 60 s, all others notice you within 8 blocks for 30 s (still less than vanilla); the cloak loses 10 durability.",
+          "Bosses (Wither, Ender Dragon, Elder Guardian), the Warden and the Hollow Howler see through the cloak and cannot be imitated (entity tag simplemobs:sees_through_disguise).",
+          "Potion of Veiled Invisibility: Potion of Invisibility + Deceiver Cloth (also splash and lingering), Redstone for 8:00, Gunpowder / Dragon's Breath as usual. Vanilla invisibility without swirl particles.",
+          "Trick Mirror: Gold Ingot - Amethyst Shard - Gold Ingot / Gold Ingot - Deceiver Cloth - Gold Ingot / - Stick -; also 8 % Deceiver drop. Hold it up for 2 s: in a cone of 30 degrees up to 24 blocks fakes and disguised Deceivers or players glow for 5 s and every disguise falls. 20 s cooldown, 64 uses.",
+          "The Deceiver has 200 health (240 armored) and turns into one of its wave's mobs, taking its hit box only where there is room. Special attack: after a wave it may double its summons - 5 % at full health, rising with the square of the lost health to 80 % at 20 % health and below; 30 s cooldown, at most 8 copies and never above 24 summons. Copies are always fakes and vanish with it."
+        ]
+      },
+      "de": {
+        "title": "Deceiver: Umhang, Verwandlung, Spiegel",
+        "summary": "Aus Täuscherstoff: ein Umhang, mit dem du die Gestalt jedes Mobs oder Spielers annimmst, ein Unsichtbarkeitstrank ohne Partikel und ein Spiegel, der Täuschungen durchschaut. Der Deceiver selbst hat doppeltes Leben, nimmt die Hitbox des nachgeahmten Mobs an und kann seine Beschwörungen verdoppeln.",
+        "details": [
+          "Tarnumhang (Brustplatz wie die Elytren, 240 Haltbarkeit, Reparatur mit Täuscherstoff): Rezept Stoff-Stoff-Stoff / Phantomhaut - . - Phantomhaut / Stoff - . - Stoff; außerdem Deceiver-Drop (3 %, +2 % je Plünderungsstufe).",
+          "Getragen bemerken dich Mobs erst im 3-Block-Radius. Mit leerer Hand Rechtsklick auf einen Mob: du nimmst seine Gestalt an (Aussehen, Hitbox, Augenhöhe); Mobs dieser Art halten dich für ihresgleichen. Rechtsklick auf einen Spieler: du siehst aus wie er, mit Skin sowie der Rüstung und Ausrüstung, die er in dem Moment trug. Jede Verwandlung kostet 1 Haltbarkeit.",
+          "Schlagen oder Block abbauen beendet die Verwandlung. Verletzt du einen Mob, bist du enttarnt: er und alle Mobs im 5x5-Bereich um ihn erkennen dich 60 s lang, alle anderen bemerken dich 30 s lang im Umkreis von 8 Blöcken (weiter weniger als Vanilla); der Umhang verliert 10 Haltbarkeit.",
+          "Bosse (Wither, Enderdrache, Großer Wächter), der Warden und der Hollow Howler durchschauen den Umhang und sind keine Verwandlungsziele (Entity-Tag simplemobs:sees_through_disguise).",
+          "Trank der stillen Unsichtbarkeit: Trank der Unsichtbarkeit + Täuscherstoff (auch Wurf- und Verweiltrank), Redstone für 8:00, Schwarzpulver / Drachenatem wie üblich. Vanilla-Unsichtbarkeit ohne Wirbelpartikel.",
+          "Trugbild-Spiegel: Goldbarren - Amethystscherbe - Goldbarren / Goldbarren - Täuscherstoff - Goldbarren / - Stock -; außerdem 8 % Deceiver-Drop. 2 s hochhalten: in einem 30-Grad-Kegel bis 24 Blöcke leuchten Fälschungen und verkleidete Deceiver oder Spieler 5 s lang, jede Verwandlung fällt. 20 s Abklingzeit, 64 Nutzungen.",
+          "Der Deceiver hat 200 Leben (240 mit Platte) und verwandelt sich in einen Mob seiner Welle, mit dessen Hitbox nur wo Platz ist. Spezialangriff: nach einer Welle kann er seine Beschwörungen verdoppeln - 5 % bei vollem Leben, mit dem Quadrat des verlorenen Lebens steigend bis 80 % ab 20 % Leben; 30 s Abklingzeit, höchstens 8 Kopien und nie über 24 Beschwörungen. Kopien sind immer Trugbilder und verschwinden mit ihm."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -89,6 +125,44 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_awkward_echo_core.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_invisibility_deceiver_cloth",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_invisibility_deceiver_cloth.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_long_invisibility_deceiver_cloth",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_long_invisibility_deceiver_cloth.json",
       "ingredients": [
         "minecraft:lingering_potion"
       ],
@@ -118,6 +192,25 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       }
     },
     {
+      "id": "simplemobs:brewing/lingering_potion_veiled_invisibility_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_veiled_invisibility_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/potion_awkward_echo_core",
       "type": "minecraft:brewing",
       "category": null,
@@ -137,6 +230,44 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       }
     },
     {
+      "id": "simplemobs:brewing/potion_invisibility_deceiver_cloth",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_invisibility_deceiver_cloth.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_long_invisibility_deceiver_cloth",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_long_invisibility_deceiver_cloth.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/potion_long_silence_gunpowder",
       "type": "minecraft:brewing",
       "category": null,
@@ -146,6 +277,25 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_long_silence_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_long_veiled_invisibility_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_long_veiled_invisibility_gunpowder.json",
       "ingredients": [
         "minecraft:potion"
       ],
@@ -194,6 +344,44 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       }
     },
     {
+      "id": "simplemobs:brewing/potion_veiled_invisibility_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_veiled_invisibility_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_veiled_invisibility_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_veiled_invisibility_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/splash_potion_awkward_echo_core",
       "type": "minecraft:brewing",
       "category": null,
@@ -213,6 +401,44 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       }
     },
     {
+      "id": "simplemobs:brewing/splash_potion_invisibility_deceiver_cloth",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_invisibility_deceiver_cloth.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_long_invisibility_deceiver_cloth",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_long_invisibility_deceiver_cloth.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/splash_potion_long_silence_dragon_breath",
       "type": "minecraft:brewing",
       "category": null,
@@ -222,6 +448,25 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_long_silence_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_long_veiled_invisibility_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_long_veiled_invisibility_dragon_breath.json",
       "ingredients": [
         "minecraft:splash_potion"
       ],
@@ -268,6 +513,142 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "minecraft:splash_potion"
         ]
       }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_veiled_invisibility_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_veiled_invisibility_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_veiled_invisibility_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_veiled_invisibility_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:deceiver_cloak",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplemobs:deceiver_cloak",
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/deceiver_cloak.json",
+      "ingredients": [
+        "minecraft:phantom_membrane",
+        "simplemobs:deceiver_cloth"
+      ],
+      "pattern": [
+        "CCC",
+        "P P",
+        "C C"
+      ],
+      "key": {
+        "C": [
+          "simplemobs:deceiver_cloth"
+        ],
+        "P": [
+          "minecraft:phantom_membrane"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplemobs:deceiver_cloth",
+            "count": 5
+          },
+          {
+            "id": "minecraft:phantom_membrane",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:trick_mirror",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplemobs:trick_mirror",
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/trick_mirror.json",
+      "ingredients": [
+        "minecraft:amethyst_shard",
+        "minecraft:gold_ingot",
+        "minecraft:stick",
+        "simplemobs:deceiver_cloth"
+      ],
+      "pattern": [
+        "GAG",
+        "GCG",
+        " S "
+      ],
+      "key": {
+        "G": [
+          "minecraft:gold_ingot"
+        ],
+        "A": [
+          "minecraft:amethyst_shard"
+        ],
+        "C": [
+          "simplemobs:deceiver_cloth"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:amethyst_shard",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:deceiver_cloth",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     }
   ],
   "lootTables": [
@@ -282,6 +663,28 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "simplemobs:deceiver_cloth"
           ],
           "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobs:deceiver_cloak"
+          ],
+          "conditions": [
+            "minecraft:killed_by_player",
+            "minecraft:random_chance_with_enchanted_bonus"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobs:trick_mirror"
+          ],
+          "conditions": [
+            "minecraft:killed_by_player",
+            "minecraft:random_chance_with_enchanted_bonus"
+          ],
           "functions": []
         }
       ],
@@ -385,6 +788,37 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/block/howler_replaceable.json"
     },
     {
+      "id": "simplemobs:entity_type/sees_through_disguise",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:wither",
+          "required": true
+        },
+        {
+          "id": "minecraft:ender_dragon",
+          "required": true
+        },
+        {
+          "id": "minecraft:elder_guardian",
+          "required": true
+        },
+        {
+          "id": "minecraft:warden",
+          "required": true
+        },
+        {
+          "id": "simplemobs:hollow_howler",
+          "required": true
+        },
+        {
+          "id": "#c:bosses",
+          "required": false
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/entity_type/sees_through_disguise.json"
+    },
+    {
       "id": "simplemobs:item/howler_jaw_drops",
       "replace": false,
       "values": [
@@ -400,6 +834,26 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
   "enchantments": [],
   "items": [
     {
+      "id": "simplemobs:deceiver_cloak",
+      "name": {
+        "en_us": "Cloak of Deception",
+        "de_de": "Tarnumhang"
+      },
+      "note": {
+        "en": {
+          "summary": "Worn on the chest: mobs notice you only within 3 blocks; empty-handed right-click a mob or player to take its shape. Hitting or breaking a block ends it."
+        },
+        "de": {
+          "summary": "Auf dem Brustplatz: Mobs bemerken dich erst im 3-Block-Radius; mit leerer Hand Rechtsklick auf Mob oder Spieler = Verwandlung. Schlagen oder Abbauen beendet sie."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/deceiver_cloak.png",
+      "craftedBy": [
+        "simplemobs:deceiver_cloak"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplemobs:deceiver_cloth",
       "name": {
         "en_us": "Deceiver Cloth",
@@ -407,15 +861,18 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       },
       "note": {
         "en": {
-          "summary": "Shimmering cloth dropped by the Deceiver. Material for the cloak of deception and invisibility without particles (planned)."
+          "summary": "Shimmering cloth dropped by the Deceiver. Material for the Cloak of Deception, the Trick Mirror and the Potion of Veiled Invisibility."
         },
         "de": {
-          "summary": "Schimmernder Stoff, den der Deceiver fallen lässt. Material für den Tarnumhang und Unsichtbarkeit ohne Partikel (geplant)."
+          "summary": "Schimmernder Stoff, den der Deceiver fallen lässt. Material für den Tarnumhang, den Trugbild-Spiegel und den Trank der stillen Unsichtbarkeit."
         }
       },
       "texture": "assets/textures/simplemobs/item/deceiver_cloth.png",
       "craftedBy": [],
-      "usedIn": []
+      "usedIn": [
+        "simplemobs:deceiver_cloak",
+        "simplemobs:trick_mirror"
+      ]
     },
     {
       "id": "simplemobs:deceiver_spawn_egg",
@@ -470,6 +927,26 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       "texture": "assets/textures/simplemobs/item/hollow_howler_spawn_egg.png",
       "craftedBy": [],
       "usedIn": []
+    },
+    {
+      "id": "simplemobs:trick_mirror",
+      "name": {
+        "en_us": "Trick Mirror",
+        "de_de": "Trugbild-Spiegel"
+      },
+      "note": {
+        "en": {
+          "summary": "Hold up for 2 s: fakes and disguised Deceivers or players in front of you glow and lose their disguise. 20 s cooldown."
+        },
+        "de": {
+          "summary": "2 s hochhalten: Fälschungen und verkleidete Deceiver oder Spieler vor dir leuchten auf und verlieren ihre Tarnung. 20 s Abklingzeit."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/trick_mirror.png",
+      "craftedBy": [
+        "simplemobs:trick_mirror"
+      ],
+      "usedIn": []
     }
   ],
   "blocks": [],
@@ -487,13 +964,13 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 2,
-    "recipes": 10,
+    "features": 3,
+    "recipes": 25,
     "lootTables": 3,
-    "tags": 3,
+    "tags": 4,
     "advancements": 0,
     "enchantments": 0,
-    "items": 4,
+    "items": 6,
     "blocks": 0,
     "trades": 0,
     "config": 0,

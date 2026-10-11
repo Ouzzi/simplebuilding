@@ -5,11 +5,18 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "EntitySilenceMixin",
-    "SculkSensorBlockMixin"
+    "SculkSensorBlockMixin",
+    "AvatarDisguiseMixin",
+    "LivingEntityDisguiseMixin",
+    "PlayerDisguiseMixin",
+    "ServerPlayerGameModeDisguiseMixin",
+    "TargetingConditionsCloakMixin"
   ],
   "client": [
     "DeceiverLookMixin",
-    "WalkAnimationAccessor"
+    "WalkAnimationAccessor",
+    "AvatarAccessor",
+    "PlayerDisguiseLookMixin"
   ],
   "injectors": {
     "defaultRequire": 1

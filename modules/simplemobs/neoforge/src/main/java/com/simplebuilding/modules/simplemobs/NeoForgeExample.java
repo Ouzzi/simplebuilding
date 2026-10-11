@@ -32,6 +32,8 @@ public final class NeoForgeExample {
                 h.register(MobsRegistry.ECHO_CORE_KEY, MobsRegistry.ECHO_CORE);
                 h.register(MobsRegistry.HOWLER_EGG_KEY, MobsRegistry.HOWLER_EGG);
             });
+            event.register(Registries.ITEM, h -> DisguiseRegistry.items(h::register));
+            event.register(Registries.POTION, h -> DisguiseRegistry.potions(h::register));
             event.register(Registries.MOB_EFFECT, h -> h.register(MobsRegistry.SILENCE_KEY, MobsRegistry.SILENCE));
             event.register(Registries.POTION, h -> {
                 h.register(MobsRegistry.SILENCE_POTION_KEY, MobsRegistry.silencePotion());
@@ -46,6 +48,10 @@ public final class NeoForgeExample {
             if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
                 event.accept(MobsRegistry.EGG);
                 insertAfter(event, new ItemStack(Items.HOGLIN_SPAWN_EGG), new ItemStack(MobsRegistry.HOWLER_EGG));
+            }
+            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
+                event.accept(DisguiseRegistry.CLOAK);
+                event.accept(DisguiseRegistry.MIRROR);
             }
             if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
                 event.accept(MobsRegistry.CLOTH);

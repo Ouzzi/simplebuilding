@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 MODULE = Path(__file__).resolve().parents[1]
-ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg')
+ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror')
 for locale in ('en_us', 'de_de'):
     data = json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{locale}.json').read_text(encoding='utf-8'))
     assert 'entity.simplemobs.deceiver' in data and 'entity.simplemobs.hollow_howler' in data
@@ -34,5 +34,10 @@ for tag in ('block/howler_jaw', 'item/howler_jaw_drops'):
     for v in json.loads((MODULE / f'shared/resources/data/simplemobs/tags/{tag}.json').read_text(encoding='utf-8'))['values']:
         if isinstance(v, dict) or not v.startswith(('minecraft:', '#minecraft:', 'simplemobs:')):
             assert isinstance(v, dict) and v.get('required') is False, f'foreign id must be optional: {v}'
-assert len(list((MODULE / 'shared/resources/data/simplemobs/recipe/brewing').glob('*.json'))) == 10
+assert len(list((MODULE / 'shared/resources/data/simplemobs/recipe/brewing').glob('*.json'))) == 23
+assert (MODULE / 'shared/resources/assets/simplemobs/textures/entity/equipment/humanoid/deceiver_cloak.png').is_file()
+sees = json.loads((MODULE / 'shared/resources/data/simplemobs/tags/entity_type/sees_through_disguise.json').read_text(encoding='utf-8'))['values']
+assert 'minecraft:warden' in sees and 'simplemobs:hollow_howler' in sees
+for v in sees:
+    assert not isinstance(v, dict) or v.get('required') is False, v
 print('simplemobs: bilingual names, loot and assets valid')
