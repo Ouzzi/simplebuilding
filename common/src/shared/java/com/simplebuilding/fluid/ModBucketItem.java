@@ -35,8 +35,8 @@ import org.jspecify.annotations.Nullable;
 /**
  * The crucible buckets (plan section 10, owner round 3 answers 32-36):
  * <ul>
- *   <li><b>Copper</b>: water and lava, never soul lava. Pouring oxidizes it one stage (0-3, looks only) unless
- *       waxed; poured water never makes a source (one flowing block that runs off); pouring lava breaks it.
+ *   <li><b>Copper</b>: water and lava, never soul lava. It oxidizes (stage 0-3, N35) only while carried in the hotbar or off hand,
+ *       at about a copper block's pace ({@link #weatherTick}); waxed it holds still when empty, with water at half pace; poured water never makes a source (one flowing block that runs off); pouring lava breaks it.
  *       Main hand bucket + axe in the off hand scrapes one stage (or the wax) off, + honeycomb waxes it.</li>
  *   <li><b>Enderite</b>: water, lava and soul lava (milk: {@link EnderiteMilkBucketItem}), never breaks. Owner N21/N28: it holds two buckets of one fluid
  *       (half and full items, {@link ModFluids#fullEnderite}). Use only scoops while it has room (empty and half);
@@ -124,6 +124,7 @@ public class ModBucketItem extends BucketItem {
     public boolean breaksOnPour() {
         if (kind == Kind.ENDERITE || getContent() == Fluids.EMPTY) return false;
         if (kind == Kind.COPPER) return getContent().is(FluidTags.LAVA);
+        if (kind == Kind.CERAMIC) return getContent().is(FluidTags.LAVA); // N35: the brittle lava bucket is a one-shot
         return getContent().isSame(ModFluids.SOUL_LAVA);
     }
 
@@ -143,7 +144,6 @@ public class ModBucketItem extends BucketItem {
         if (half != null) return stack.transmuteCopy(half, 1);
         Item empty = kind == Kind.CERAMIC ? ModFluids.ceramic(Fluids.EMPTY, stage) : empty(kind);
         ItemStack out = stack.transmuteCopy(empty == null ? Items.BUCKET : empty, 1);
-        if (kind == Kind.COPPER) oxidize(out);
         return wear(out);
     }
 
@@ -153,7 +153,8 @@ public class ModBucketItem extends BucketItem {
      */
     public static ItemStack fill(ItemStack empty, Item filled) {
         if (empty.getItem() instanceof ModBucketItem bucket && bucket.kind == Kind.CERAMIC && filled instanceof ModBucketItem target) {
-            Item staged = ModFluids.ceramic(target.getContent(), bucket.stage);
+            // N35: lava makes the ceramic bucket brittle at once (it breaks when poured); water keeps the stage.
+            Item staged = ModFluids.ceramic(target.getContent(), target.getContent().is(FluidTags.LAVA) ? CERAMIC_STAGES - 1 : bucket.stage);
             if (staged != null) filled = staged;
         }
         return empty.transmuteCopy(filled, 1);
@@ -202,9 +203,57 @@ public class ModBucketItem extends BucketItem {
         return Boolean.TRUE.equals(stack.get(ModDataComponentTypes.WAXED));
     }
 
-    /** One oxidation stage more (owner 32: on pouring), unless waxed. */
+    /** One oxidation stage more, unless waxed. */
     public static void oxidize(ItemStack stack) {
         if (!waxed(stack)) stack.set(ModDataComponentTypes.OXIDATION, Math.min(3, oxidation(stack) + 1));
+    }
+
+    /** Average ticks per oxidation stage of a carried copper bucket: about a copper block's weathering (N35). */
+    public static final int OXIDATION_TICKS = 24000;
+
+    /**
+     * Average ticks per oxidation stage of this copper bucket, 0 when it does not react (N35): unwaxed always;
+     * waxed and empty or with lava never; waxed with water at half the pace (the wax outside protects, the water inside does not).
+     */
+    public static int oxidationInterval(ItemStack stack) {
+        if (!(stack.getItem() instanceof ModBucketItem bucket) || bucket.kind != Kind.COPPER) return 0;
+        if (!waxed(stack)) return OXIDATION_TICKS;
+        return bucket.getContent().isSame(Fluids.WATER) ? OXIDATION_TICKS * 2 : 0;
+    }
+
+    /** One tick of carrying: a random chance of one stage more, even when waxed (see {@link #oxidationInterval}). */
+    public static void weatherTick(ItemStack stack, net.minecraft.util.RandomSource random) {
+        int interval = oxidationInterval(stack);
+        if (interval > 0 && oxidation(stack) < 3 && random.nextInt(interval) == 0) {
+            stack.set(ModDataComponentTypes.OXIDATION, oxidation(stack) + 1);
+        }
+    }
+
+    /** N35: the ceramic wear is shown as a bar (the tooltip no longer lists the pours left). */
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        return kind == Kind.CERAMIC ? ceramicUses(stack) > 0 : super.isBarVisible(stack);
+    }
+
+    @Override
+    public int getBarWidth(ItemStack stack) {
+        return kind == Kind.CERAMIC ? Math.round(13.0F * (CERAMIC_USES - ceramicUses(stack)) / CERAMIC_USES) : super.getBarWidth(stack);
+    }
+
+    @Override
+    public int getBarColor(ItemStack stack) {
+        if (kind != Kind.CERAMIC) return super.getBarColor(stack);
+        return net.minecraft.util.Mth.hsvToRgb(Math.max(0.0F, (float) (CERAMIC_USES - ceramicUses(stack)) / CERAMIC_USES) / 3.0F, 1.0F, 1.0F);
+    }
+
+    /** Only a bucket in the hotbar or the off hand weathers; the rest of the inventory and bundles do not (N35). */
+    @Override
+    public void inventoryTick(ItemStack stack, ServerLevel level, net.minecraft.world.entity.Entity owner, @Nullable EquipmentSlot slot) {
+        super.inventoryTick(stack, level, owner, slot);
+        if (kind != Kind.COPPER || !(owner instanceof Player player)) return;
+        boolean carried = player.getOffhandItem() == stack;
+        for (int i = 0; i < 9 && !carried; i++) carried = player.getInventory().getItem(i) == stack;
+        if (carried) weatherTick(stack, level.getRandom());
     }
 
     /** Axe: takes the wax off first, otherwise one oxidation stage. True when something changed. */
@@ -239,6 +288,10 @@ public class ModBucketItem extends BucketItem {
             ItemStack after = afterPour(poured);
             if (after.isEmpty()) {
                 level.playSound(null, player.blockPosition(), SoundEvents.ITEM_BREAK.value(), SoundSource.PLAYERS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
+                if (level instanceof ServerLevel server) {
+                    server.sendParticles(new net.minecraft.core.particles.ItemParticleOption(net.minecraft.core.particles.ParticleTypes.ITEM, poured.getItem()),
+                            player.getX(), player.getEyeY() - 0.4, player.getZ(), 12, 0.3, 0.2, 0.3, 0.05);
+                }
                 return InteractionResult.SUCCESS.heldItemTransformedTo(ItemStack.EMPTY);
             }
             return InteractionResult.SUCCESS.heldItemTransformedTo(after);
@@ -357,7 +410,8 @@ public class ModBucketItem extends BucketItem {
                         .withStyle(net.minecraft.ChatFormatting.RED));
             }
             if (waxed(stack)) {
-                lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.copper_bucket.waxed")
+                lines.accept(net.minecraft.network.chat.Component.translatable(getContent().isSame(Fluids.WATER)
+                        ? "tooltip.simplebuilding.copper_bucket.waxed_damp" : "tooltip.simplebuilding.copper_bucket.waxed")
                         .withStyle(net.minecraft.ChatFormatting.GOLD));
             }
         } else if (kind == Kind.ENDERITE && getContent() != Fluids.EMPTY) {
@@ -367,11 +421,9 @@ public class ModBucketItem extends BucketItem {
                     ? "tooltip.simplebuilding.enderite_bucket.half" : "tooltip.simplebuilding.enderite_bucket.full")
                     .withStyle(net.minecraft.ChatFormatting.DARK_GRAY));
         } else if (kind == Kind.CERAMIC) {
-            lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.ceramic_bucket")
+            lines.accept(net.minecraft.network.chat.Component.translatable(getContent().is(FluidTags.LAVA)
+                    ? "tooltip.simplebuilding.ceramic_bucket.brittle" : "tooltip.simplebuilding.ceramic_bucket")
                     .withStyle(net.minecraft.ChatFormatting.GRAY));
-            lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.ceramic_bucket.uses",
-                    CERAMIC_USES - ceramicUses(stack), CERAMIC_USES).withStyle(stage >= CERAMIC_STAGES - 1
-                    ? net.minecraft.ChatFormatting.RED : net.minecraft.ChatFormatting.GRAY));
         }
     }
 

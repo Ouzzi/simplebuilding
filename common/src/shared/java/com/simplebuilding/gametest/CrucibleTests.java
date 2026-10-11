@@ -562,7 +562,7 @@ public final class CrucibleTests {
         helper.succeed();
     }
 
-    /** Copper bucket: no soul lava, oxidizes on pouring, no water source, breaks on lava; axe/honeycomb (owner 32/33). */
+    /** Copper bucket: no soul lava, pouring does not oxidize (N35), no water source, breaks on lava; axe/honeycomb (owner 32/33). */
     public static void copperBucketRules(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
         ServerLevel level = helper.getLevel();
@@ -570,10 +570,11 @@ public final class CrucibleTests {
         helper.assertTrue(ModBucketItem.filled(ModBucketItem.Kind.COPPER, ModFluids.SOUL_LAVA) == null, "copper bucket refuses soul lava");
         ModBucketItem water = (ModBucketItem) ModFluids.COPPER_WATER_BUCKET;
         ItemStack after = water.pourAt(level, helper.absolutePos(new BlockPos(2, 1, 2)), new ItemStack(water));
-        helper.assertTrue(after.is(ModFluids.COPPER_BUCKET) && ModBucketItem.oxidation(after) == 1, "pouring oxidizes one stage");
+        helper.assertTrue(after.is(ModFluids.COPPER_BUCKET) && ModBucketItem.oxidation(after) == 0, "pouring no longer oxidizes (N35)");
         helper.assertTrue(!level.getFluidState(helper.absolutePos(new BlockPos(2, 1, 2))).isSource(), "copper water is never a source");
         ModBucketItem lava = (ModBucketItem) ModFluids.COPPER_LAVA_BUCKET;
         helper.assertTrue(lava.pourAt(level, helper.absolutePos(new BlockPos(5, 1, 5)), new ItemStack(lava)).isEmpty(), "copper bucket breaks on lava");
+        after.set(com.simplebuilding.component.ModDataComponentTypes.OXIDATION, 1);
         helper.assertTrue(ModBucketItem.scrape(after) && ModBucketItem.oxidation(after) == 0, "axe scrapes one stage");
         after.set(com.simplebuilding.component.ModDataComponentTypes.WAXED, true);
         ModBucketItem.oxidize(after);
@@ -864,14 +865,15 @@ public final class CrucibleTests {
                 && ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, Fluids.LAVA) == ModFluids.CERAMIC_LAVA_BUCKET, "ceramic lava bucket");
         helper.assertTrue(ModBucketItem.filled(ModBucketItem.Kind.CERAMIC, ModFluids.SOUL_LAVA) == null, "ceramic takes soul lava");
         ModBucketItem lava = (ModBucketItem) ModFluids.CERAMIC_LAVA_BUCKET;
-        helper.assertTrue(lava.kind() == ModBucketItem.Kind.CERAMIC && !lava.breaksOnPour(), "ceramic lava breaks on pour");
+        helper.assertTrue(lava.kind() == ModBucketItem.Kind.CERAMIC && lava.breaksOnPour(), "ceramic lava must break on pour (N35)");
         ItemStack bucket = ModBucketItem.fill(new ItemStack(ModFluids.CERAMIC_BUCKET), ModFluids.CERAMIC_LAVA_BUCKET);
-        helper.assertTrue(bucket.is(ModFluids.CERAMIC_LAVA_BUCKET) && ModBucketItem.ceramicUses(bucket) == 0, "scoop: " + bucket);
+        helper.assertTrue(bucket.is(ModFluids.CERAMIC_LAVA[ModBucketItem.CERAMIC_STAGES - 1]), "scoop makes it brittle: " + bucket);
+        lava = (ModBucketItem) bucket.getItem();
         BlockPos target = helper.absolutePos(new BlockPos(3, 1, 3));
         bucket = lava.pourAt(level, target, bucket);
         helper.assertTrue(level.getFluidState(target).is(net.minecraft.tags.FluidTags.LAVA) && level.getFluidState(target).isSource(),
                 "ceramic lava makes a lava source");
-        helper.assertTrue(bucket.is(ModFluids.CERAMIC_EMPTY[1]) && ModBucketItem.ceramicUses(bucket) == 1, "after pour: " + bucket);
+        helper.assertTrue(bucket.isEmpty(), "the brittle lava bucket must break when poured: " + bucket);
         ItemStack fuel = new ItemStack(ModFluids.CERAMIC_LAVA_BUCKET);
         boolean burns = fuel.getComponents().keySet().stream().anyMatch(type ->
                 "minecraft:cooking_fuel".equals(String.valueOf(net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(type))));
@@ -880,6 +882,61 @@ public final class CrucibleTests {
                 "minecraft:use_remainder".equals(String.valueOf(net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(type)))),
                 "ceramic lava bucket leaves a remainder");
         helper.assertTrue(ModFluids.buckets().contains(ModFluids.CERAMIC_LAVA_BUCKET), "not in the bucket list");
+        helper.succeed();
+    }
+
+    /** N35: copper buckets oxidize only in the hotbar or off hand, never in the rest of the inventory (simulated ticks). */
+    public static void copperBucketOxidizesOnlyInHotbarOrOffhand(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        ItemStack hotbar = new ItemStack(ModFluids.COPPER_BUCKET), inventory = new ItemStack(ModFluids.COPPER_BUCKET), off = new ItemStack(ModFluids.COPPER_BUCKET);
+        player.getInventory().setItem(3, hotbar);
+        player.getInventory().setItem(20, inventory);
+        player.setItemInHand(InteractionHand.OFF_HAND, off);
+        helper.assertTrue(ModBucketItem.oxidationInterval(hotbar) == ModBucketItem.OXIDATION_TICKS, "unwaxed pace");
+        for (int t = 0; t < 600_000; t++) {
+            for (ItemStack stack : new ItemStack[] {hotbar, inventory, off}) stack.getItem().inventoryTick(stack, level, player, null);
+        }
+        helper.assertTrue(ModBucketItem.oxidation(hotbar) >= 1, "a hotbar bucket must weather, stage " + ModBucketItem.oxidation(hotbar));
+        helper.assertTrue(ModBucketItem.oxidation(off) >= 1, "an off-hand bucket must weather, stage " + ModBucketItem.oxidation(off));
+        helper.assertTrue(ModBucketItem.oxidation(inventory) == 0, "a bucket in the inventory must not weather");
+        helper.succeed();
+    }
+
+    /** N35: waxed and empty (or lava) does not react; waxed with water reacts at half pace. */
+    public static void copperBucketWaxedWaterWeathersAtHalfPace(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        ItemStack empty = new ItemStack(ModFluids.COPPER_BUCKET), water = new ItemStack(ModFluids.COPPER_WATER_BUCKET);
+        ItemStack lava = new ItemStack(ModFluids.COPPER_LAVA_BUCKET), plain = new ItemStack(ModFluids.COPPER_WATER_BUCKET);
+        for (ItemStack stack : new ItemStack[] {empty, water, lava}) stack.set(com.simplebuilding.component.ModDataComponentTypes.WAXED, true);
+        helper.assertTrue(ModBucketItem.oxidationInterval(empty) == 0 && ModBucketItem.oxidationInterval(lava) == 0, "waxed empty/lava must not react");
+        helper.assertTrue(ModBucketItem.oxidationInterval(water) == 2 * ModBucketItem.oxidationInterval(plain), "waxed water is half pace");
+        player.getInventory().setItem(0, empty);
+        player.getInventory().setItem(1, water);
+        player.getInventory().setItem(2, lava);
+        for (int t = 0; t < 1_500_000; t++) {
+            for (ItemStack stack : new ItemStack[] {empty, water, lava}) stack.getItem().inventoryTick(stack, level, player, null);
+        }
+        helper.assertTrue(ModBucketItem.oxidation(empty) == 0 && ModBucketItem.oxidation(lava) == 0, "waxed empty/lava weathered");
+        helper.assertTrue(ModBucketItem.oxidation(water) >= 1 && ModBucketItem.waxed(water), "waxed water bucket must weather slowly and keep its wax");
+        helper.succeed();
+    }
+
+    /** N35: lava makes the ceramic bucket brittle at once; pouring it places the lava and the bucket is gone. */
+    public static void ceramicBucketWithLavaIsBrittleAndBreaksOnPour(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        floor(helper);
+        ItemStack water = ModBucketItem.fill(new ItemStack(ModFluids.CERAMIC_BUCKET), ModFluids.CERAMIC_WATER_BUCKET);
+        helper.assertTrue(water.is(ModFluids.CERAMIC_WATER[0]), "water keeps the stage");
+        ItemStack lava = ModBucketItem.fill(new ItemStack(ModFluids.CERAMIC_BUCKET), ModFluids.CERAMIC_LAVA_BUCKET);
+        helper.assertTrue(lava.is(ModFluids.CERAMIC_LAVA[ModBucketItem.CERAMIC_STAGES - 1]), "lava makes it brittle: " + lava);
+        BlockPos target = helper.absolutePos(new BlockPos(3, 1, 3));
+        ItemStack left = ((ModBucketItem) lava.getItem()).pourAt(level, target, lava);
+        helper.assertTrue(left.isEmpty() && level.getFluidState(target).is(net.minecraft.tags.FluidTags.LAVA), "brittle bucket must break and leave lava");
         helper.succeed();
     }
 
@@ -907,11 +964,11 @@ public final class CrucibleTests {
         ItemStack water = ModBucketItem.fill(empty, ModFluids.CERAMIC_WATER_BUCKET);
         helper.assertTrue(water.is(ModFluids.CERAMIC_WATER[0]) && ModBucketItem.ceramicUses(water) == 0, "scoop does not wear: " + water);
         // Pour advances exactly one stage and keeps the filling counter.
-        ItemStack lava = new ItemStack(ModFluids.CERAMIC_LAVA[1]);
+        ItemStack lava = new ItemStack(ModFluids.CERAMIC_WATER[1]); // N35: lava buckets are brittle one-shots, so water here
         lava.set(com.simplebuilding.component.ModDataComponentTypes.CERAMIC_USES, 1);
         BlockPos target = helper.absolutePos(new BlockPos(2, 1, 2));
         ItemStack after = ((ModBucketItem) lava.getItem()).pourAt(level, target, lava);
-        helper.assertTrue(level.getFluidState(target).is(net.minecraft.tags.FluidTags.LAVA), "chipped lava bucket pours lava");
+        helper.assertTrue(level.getFluidState(target).is(net.minecraft.tags.FluidTags.WATER), "chipped water bucket pours water");
         helper.assertTrue(after.is(ModFluids.CERAMIC_EMPTY[2]) && ModBucketItem.ceramicUses(after) == 2, "pour into stage 2: " + after);
         // The filling survives a stage change too.
         ItemStack held = new ItemStack(ModFluids.CERAMIC_WATER[2]);

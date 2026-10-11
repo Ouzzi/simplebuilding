@@ -753,8 +753,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Kessel aus entrindetem Holz (stripped oak usw.).
 - [x] (claude-n35-render) Gemeißeltes Eis: Motive symmetrischer/ausgewogener.
 - [ ] Rissiges Eis: beim Zerbrechen keine Wasserquelle; Weltgenerierung: Flecken in Eisseen u. ä. + vereinzelt 1x1-Stellen; Meißel macht normales Eis zu rissigem Eis.
-- [ ] Keramik-Eimer: Tooltip ohne Restgüsse (Abnutzungsbalken zeigt es) – Regel: Füllstand/Haltbarkeit nie doppelt im Tooltip; Lava nur einmal: Lava aufnehmen → spröde Variante, zerbricht beim Ausgießen.
-- [ ] Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.
+- [x] (claude-n35-buckets) Keramik-Eimer: Tooltip ohne Restgüsse (Abnutzungsbalken zeigt es) – Regel: Füllstand/Haltbarkeit nie doppelt im Tooltip; Lava nur einmal: Lava aufnehmen → spröde Variante, zerbricht beim Ausgießen.
+- [x] (claude-n35-buckets) Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.
 - [ ] Nihilith-Signalschalter überarbeiten; Konzept Astral-/Nihil-Redstone erklären.
 
 ## Nachtrag 36 (2026-10-11, Besitzer)

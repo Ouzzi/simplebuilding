@@ -38,6 +38,7 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
 11. Vor jedem Löschen/Überschreiben das Ziel ansehen; keine destruktiven Git-Befehle ohne Rückfrage.
 12. Testläufe sparsam: Server-Ziele parallel, Client-Tests seriell und nur bei Anzeigeänderungen, Agenten nur Server-Tests.
 13. Am Ende eines Runs: Testzentrale neu bauen (`/sbtestcentre build`), Abdeckungstest muss alle Items abdecken.
+14. **UI/Tooltips:** Füllstand/Haltbarkeit, die schon als Balken/Optik sichtbar ist, nicht zusätzlich im Tooltip (z. B. Keramik-Eimer, Netherite-Kolben-Item).
 
 ## 4. Tests und Gate
 - Vollständiges Gate: `./gradlew.bat check -q` (enthält checkBalance, JadeProviderSplitTest, checkAtlases, checkWiki).

@@ -82,6 +82,21 @@ public final class CrucibleGameTest {
     }
 
     @GameTest
+    public void copperBucketOxidizesOnlyInHotbarOrOffhand(GameTestHelper helper) {
+        CrucibleTests.copperBucketOxidizesOnlyInHotbarOrOffhand(helper);
+    }
+
+    @GameTest
+    public void copperBucketWaxedWaterWeathersAtHalfPace(GameTestHelper helper) {
+        CrucibleTests.copperBucketWaxedWaterWeathersAtHalfPace(helper);
+    }
+
+    @GameTest
+    public void ceramicBucketWithLavaIsBrittleAndBreaksOnPour(GameTestHelper helper) {
+        CrucibleTests.ceramicBucketWithLavaIsBrittleAndBreaksOnPour(helper);
+    }
+
+    @GameTest
     public void copperBucketFullyOxidizedScoopsNothing(GameTestHelper helper) {
         CrucibleTests.copperBucketFullyOxidizedScoopsNothing(helper);
     }
