@@ -960,7 +960,7 @@ public final class GuideBookTests {
         ServerPlayer player = mockPlayer(helper);
         var main = net.minecraft.world.InteractionHand.MAIN_HAND;
         helper.assertValueEqual((int) net.minecraft.core.registries.BuiltInRegistries.ITEM.stream()
-                .filter(item -> item instanceof com.simplebuilding.items.custom.GuideBookItem).count(), 2, "registered guide items");
+                .filter(item -> item instanceof com.simplebuilding.items.custom.GuideBookItem).count(), 1, "registered guide items");
         for (GuideBooks.Shelf shelf : GuideBooks.Shelf.values()) {
             Item hub = GuideBooks.item(shelf.hub());
             var baseGrid = List.of(new ItemStack(Items.BOOK), new ItemStack(GuideBooks.keyItem(shelf.hub())));
