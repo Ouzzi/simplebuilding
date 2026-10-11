@@ -3,6 +3,8 @@
   "textures": {
     "side": "minecraft:block/stripped_jungle_log",
     "end": "minecraft:block/stripped_jungle_log_top",
+    "carving": "simplebuilding:block/carved/jungle_carving",
+    "frame": "simplebuilding:block/carved/jungle_frame",
     "motif": "minecraft:entity/decorated_pot/angler_pottery_pattern_jungle"
   }
 }

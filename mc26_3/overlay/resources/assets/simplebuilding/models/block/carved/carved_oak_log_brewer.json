@@ -3,6 +3,8 @@
   "textures": {
     "side": "minecraft:block/stripped_oak_log",
     "end": "minecraft:block/stripped_oak_log_top",
+    "carving": "simplebuilding:block/carved/oak_carving",
+    "frame": "simplebuilding:block/carved/oak_frame",
     "motif": "minecraft:entity/decorated_pot/brewer_pottery_pattern_oak"
   }
 }

@@ -3,6 +3,8 @@
   "textures": {
     "side": "minecraft:block/stripped_cherry_log",
     "end": "minecraft:block/stripped_cherry_log_top",
+    "carving": "simplebuilding:block/carved/cherry_carving",
+    "frame": "simplebuilding:block/carved/cherry_frame",
     "motif": "minecraft:entity/decorated_pot/sheaf_pottery_pattern_cherry"
   }
 }

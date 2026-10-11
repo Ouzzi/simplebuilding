@@ -3,6 +3,8 @@
   "textures": {
     "side": "minecraft:block/stripped_birch_log",
     "end": "minecraft:block/stripped_birch_log_top",
+    "carving": "simplebuilding:block/carved/birch_carving",
+    "frame": "simplebuilding:block/carved/birch_frame",
     "motif": "minecraft:entity/decorated_pot/guster_pottery_pattern_birch"
   }
 }

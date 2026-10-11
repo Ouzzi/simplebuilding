@@ -3,6 +3,8 @@
   "textures": {
     "side": "minecraft:block/stripped_warped_stem",
     "end": "minecraft:block/stripped_warped_stem_top",
+    "carving": "simplebuilding:block/carved/warped_carving",
+    "frame": "simplebuilding:block/carved/warped_frame",
     "motif": "minecraft:entity/decorated_pot/arms_up_pottery_pattern_warped"
   }
 }

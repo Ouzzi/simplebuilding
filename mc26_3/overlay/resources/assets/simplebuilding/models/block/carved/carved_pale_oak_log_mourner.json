@@ -3,6 +3,8 @@
   "textures": {
     "side": "minecraft:block/stripped_pale_oak_log",
     "end": "minecraft:block/stripped_pale_oak_log_top",
+    "carving": "simplebuilding:block/carved/pale_oak_carving",
+    "frame": "simplebuilding:block/carved/pale_oak_frame",
     "motif": "minecraft:entity/decorated_pot/mourner_pottery_pattern_pale_oak"
   }
 }

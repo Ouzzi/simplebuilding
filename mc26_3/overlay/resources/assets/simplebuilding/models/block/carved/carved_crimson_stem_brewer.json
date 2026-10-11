@@ -3,6 +3,8 @@
   "textures": {
     "side": "minecraft:block/stripped_crimson_stem",
     "end": "minecraft:block/stripped_crimson_stem_top",
+    "carving": "simplebuilding:block/carved/crimson_carving",
+    "frame": "simplebuilding:block/carved/crimson_frame",
     "motif": "minecraft:entity/decorated_pot/brewer_pottery_pattern_crimson"
   }
 }
