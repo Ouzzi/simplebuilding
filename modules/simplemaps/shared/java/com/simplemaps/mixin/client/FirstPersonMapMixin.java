@@ -24,7 +24,8 @@ public abstract class FirstPersonMapMixin {
     }
 
     /** NeoForge's patched renderer asks {@code stack.getItem() instanceof MapItem} instead (the Fabric target is absent there and crashed the client at startup). */
-    @com.llamalad7.mixinextras.expression.Expression("? instanceof MapItem")
+    @com.llamalad7.mixinextras.expression.Definition(id = "mapItem", type = net.minecraft.world.item.MapItem.class)
+    @com.llamalad7.mixinextras.expression.Expression("? instanceof mapItem")
     @ModifyExpressionValue(method = "submitArmWithItem", require = 0,
             at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean simplemaps$holdLikeMapInstanceof(boolean original, @com.llamalad7.mixinextras.sugar.Local(argsOnly = true) ItemStack stack) {
