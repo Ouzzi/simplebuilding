@@ -43,6 +43,37 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             context.waitTicks(20);
             context.takeScreenshot("simplemobs-deceiver-armored");
+            // Hollow Howler: idle, jaws open, shriek, emerging
+            world.getServer().runOnServer(server -> {
+                var level = server.getLevel(net.minecraft.world.level.Level.OVERWORLD);
+                level.getEntities(MobsRegistry.DECEIVER, e -> true).forEach(e -> e.discard());
+                var p = server.getPlayerList().getPlayers().getFirst();
+                var at = p.blockPosition().offset(0, 0, 5);
+                for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++) level.setBlockAndUpdate(at.offset(dx, 0, dz), net.minecraft.world.level.block.Blocks.SCULK.defaultBlockState());
+                var h = MobsRegistry.HOLLOW_HOWLER.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
+                if (h == null) throw new AssertionError("Hollow Howler did not spawn");
+                h.snapTo(at.getX() + 0.5, at.getY() + 1, at.getZ() + 0.5, 180f, 0f);
+                h.setYBodyRot(180f);
+                h.setYHeadRot(180f);
+                h.setNoAi(true);
+                level.addFreshEntity(h);
+            });
+            context.waitTicks(30);
+            context.takeScreenshot("simplemobs-howler-idle");
+            world.getServer().runOnServer(server -> server.getLevel(net.minecraft.world.level.Level.OVERWORLD).getEntities(MobsRegistry.HOLLOW_HOWLER, e -> true).getFirst().holdJawsOpen());
+            context.waitTicks(10);
+            context.takeScreenshot("simplemobs-howler-bite");
+            world.getServer().runOnServer(server -> {
+                var level = server.getLevel(net.minecraft.world.level.Level.OVERWORLD);
+                var h = level.getEntities(MobsRegistry.HOLLOW_HOWLER, e -> true).getFirst();
+                h.startBite();
+                h.shriek(level, HowlerLogic.Phase.ONE);
+            });
+            context.waitTicks(3);
+            context.takeScreenshot("simplemobs-howler-shriek");
+            world.getServer().runOnServer(server -> server.getLevel(net.minecraft.world.level.Level.OVERWORLD).getEntities(MobsRegistry.HOLLOW_HOWLER, e -> true).getFirst().startEmerging());
+            context.waitTicks(16);
+            context.takeScreenshot("simplemobs-howler-emerge");
         }
     }
 }

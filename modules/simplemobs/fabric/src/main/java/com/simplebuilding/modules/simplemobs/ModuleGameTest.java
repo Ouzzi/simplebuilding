@@ -10,4 +10,14 @@ public final class ModuleGameTest {
     @GameTest public void pulseAndHeal(GameTestHelper helper) { MobsTests.ALL.get("pulse_and_heal").accept(helper); }
     @GameTest public void spawnRules(GameTestHelper helper) { MobsTests.ALL.get("spawn_rules").accept(helper); }
     @GameTest public void fight(GameTestHelper helper) { MobsTests.ALL.get("fight").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerRegistered(GameTestHelper helper) { MobsTests.ALL.get("howler_registered").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerRules(GameTestHelper helper) { MobsTests.ALL.get("howler_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerPattern(GameTestHelper helper) { MobsTests.ALL.get("howler_pattern").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerJawTag(GameTestHelper helper) { MobsTests.ALL.get("howler_jaw_tag").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerHornRule(GameTestHelper helper) { MobsTests.ALL.get("howler_horn_rule").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerAbortLight(GameTestHelper helper) { MobsTests.ALL.get("howler_abort_light").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerAbortSensor(GameTestHelper helper) { MobsTests.ALL.get("howler_abort_sensor").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerSummon(GameTestHelper helper) { MobsTests.ALL.get("howler_summon").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerFight(GameTestHelper helper) { MobsTests.ALL.get("howler_fight").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void silenceDampens(GameTestHelper helper) { MobsTests.ALL.get("silence_dampens").accept(helper); }
 }

@@ -2,16 +2,24 @@ package com.simplebuilding.modules.simplemobs;
 
 import com.simplebuilding.modules.simplemobs.client.DeceiverModel;
 import com.simplebuilding.modules.simplemobs.client.DeceiverRenderer;
+import com.simplebuilding.modules.simplemobs.client.HowlerModel;
+import com.simplebuilding.modules.simplemobs.client.HowlerRenderer;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 /** Client-only; referenced only behind the dist check. */
 final class NeoForgeClientExample {
     static void init(IEventBus bus) {
-        bus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) ->
-                event.registerLayerDefinition(DeceiverModel.LAYER, DeceiverModel::createBodyLayer));
-        bus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
-                event.registerEntityRenderer(MobsRegistry.DECEIVER, DeceiverRenderer::new));
+        bus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> {
+            event.registerLayerDefinition(DeceiverModel.LAYER, DeceiverModel::createBodyLayer);
+            event.registerLayerDefinition(HowlerModel.LAYER, HowlerModel::createBodyLayer);
+        });
+        bus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
+            event.registerEntityRenderer(MobsRegistry.DECEIVER, DeceiverRenderer::new);
+            event.registerEntityRenderer(MobsRegistry.HOLLOW_HOWLER, HowlerRenderer::new);
+            event.registerEntityRenderer(MobsRegistry.HOWLER_RITUAL, NoopRenderer::new);
+        });
     }
     private NeoForgeClientExample() {}
 }

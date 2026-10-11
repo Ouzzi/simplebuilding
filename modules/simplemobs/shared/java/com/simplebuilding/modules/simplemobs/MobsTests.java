@@ -128,6 +128,7 @@ public final class MobsTests {
             }
             h.succeed();
         });
+        HowlerTests.addAll(MobsTests::add);
     }
 
     private MobsTests() {}

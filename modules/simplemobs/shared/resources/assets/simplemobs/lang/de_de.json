@@ -1,5 +1,19 @@
 {
   "entity.simplemobs.deceiver": "Deceiver",
   "item.simplemobs.deceiver_cloth": "Täuscherstoff",
-  "item.simplemobs.deceiver_spawn_egg": "Deceiver-Spawn-Ei"
+  "item.simplemobs.deceiver_spawn_egg": "Deceiver-Spawn-Ei",
+  "entity.simplemobs.hollow_howler": "Tiefenheuler",
+  "entity.simplemobs.howler_manifestation": "Tiefenheuler-Manifestation",
+  "item.simplemobs.hollow_howler_spawn_egg": "Tiefenheuler-Spawn-Ei",
+  "item.simplemobs.echo_core": "Echokern",
+  "effect.simplemobs.silence": "Stille",
+  "item.minecraft.potion.effect.silence": "Trank der Stille",
+  "item.minecraft.splash_potion.effect.silence": "Wurftrank der Stille",
+  "item.minecraft.lingering_potion.effect.silence": "Verweiltrank der Stille",
+  "item.minecraft.tipped_arrow.effect.silence": "Pfeil der Stille",
+  "message.simplemobs.howler.awakens": "Die Tiefe antwortet auf den Ruf ...",
+  "message.simplemobs.howler.fades": "Der Ruf verhallt",
+  "message.simplemobs.howler.too_bright": "Zu hell – der Tiefenheuler erwacht nur im Dunkeln",
+  "message.simplemobs.howler.too_peaceful": "Zu friedlich – nichts antwortet auf den Ruf",
+  "message.simplemobs.howler.wrong_dimension": "Der Ruf findet hier kein Echo"
 }

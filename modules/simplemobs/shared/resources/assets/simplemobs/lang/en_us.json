@@ -1,5 +1,19 @@
 {
   "entity.simplemobs.deceiver": "Deceiver",
   "item.simplemobs.deceiver_cloth": "Deceiver Cloth",
-  "item.simplemobs.deceiver_spawn_egg": "Deceiver Spawn Egg"
+  "item.simplemobs.deceiver_spawn_egg": "Deceiver Spawn Egg",
+  "entity.simplemobs.hollow_howler": "Hollow Howler",
+  "entity.simplemobs.howler_manifestation": "Howler Manifestation",
+  "item.simplemobs.hollow_howler_spawn_egg": "Hollow Howler Spawn Egg",
+  "item.simplemobs.echo_core": "Echo Core",
+  "effect.simplemobs.silence": "Silence",
+  "item.minecraft.potion.effect.silence": "Potion of Silence",
+  "item.minecraft.splash_potion.effect.silence": "Splash Potion of Silence",
+  "item.minecraft.lingering_potion.effect.silence": "Lingering Potion of Silence",
+  "item.minecraft.tipped_arrow.effect.silence": "Arrow of Silence",
+  "message.simplemobs.howler.awakens": "The deep answers the call...",
+  "message.simplemobs.howler.fades": "The call fades away",
+  "message.simplemobs.howler.too_bright": "Too bright - the Howler only wakes in the dark",
+  "message.simplemobs.howler.too_peaceful": "Too peaceful - nothing answers the call",
+  "message.simplemobs.howler.wrong_dimension": "The call finds no echo here"
 }

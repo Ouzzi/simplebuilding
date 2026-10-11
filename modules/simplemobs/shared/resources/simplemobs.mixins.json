@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simplebuilding.modules.simplemobs.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "EntitySilenceMixin",
+    "SculkSensorBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
