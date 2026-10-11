@@ -60,6 +60,12 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             context.waitTicks(30);
             context.takeScreenshot("simplemobs-howler-idle");
+            world.getServer().runOnServer(server -> {
+                var h = server.getLevel(net.minecraft.world.level.Level.OVERWORLD).getEntities(MobsRegistry.HOLLOW_HOWLER, e -> true).getFirst();
+                h.onHeard(h.blockPosition(), null, null);
+            });
+            context.waitTicks(3);
+            context.takeScreenshot("simplemobs-howler-listen");
             world.getServer().runOnServer(server -> server.getLevel(net.minecraft.world.level.Level.OVERWORLD).getEntities(MobsRegistry.HOLLOW_HOWLER, e -> true).getFirst().holdJawsOpen());
             context.waitTicks(10);
             context.takeScreenshot("simplemobs-howler-bite");

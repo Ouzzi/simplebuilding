@@ -7,7 +7,7 @@
 Palette from Vanilla sculk/catalyst (dark sculk, teal, cyan glow, catalyst bone) so it sits next to the blocks it is
 summoned from; the shapes are drawn here. UV layout (128x128) matches HowlerModel:
 legs (0,0)/(0,20) 5x13x5, body (24,0) 14x14x9, arms (72,0)/(94,0) 5x18x5, catalyst caps (0,40)/(30,40) 7x5x7,
-jaw (60,40) 10x4x10, skull (0,56) 10x9x10, teeth (42,56)/(42,60) 8x1x1, ribs (62,56) 10x9x1, tendrils (90,56)/(100,56) 2x6x2.
+jaw (60,40) 10x4x10, skull (0,56) 10x9x10, teeth (42,56)/(42,60) 8x1x1, ribs (62,56) 10x9x1, antennae (90,56)/(90,68) 10x10 planes (front + mirrored back).
 """
 import os
 import sys
@@ -411,10 +411,11 @@ def silence_icon():
 
 
 def outputs():
-    s = skin()
+    s = skin_variant('A')  # owner 11.10.: proposal A "Warden-treu" with Warden-like antennae
     return {
         RES / 'textures/entity/hollow_howler/hollow_howler.png': s,
         RES / 'textures/entity/hollow_howler/hollow_howler_glow.png': glow(s),
+        RES / 'textures/entity/hollow_howler/hollow_howler_antennae.png': antenna_glow(),
         RES / 'textures/item/echo_core.png': echo_core(),
         RES / 'textures/item/hollow_howler_spawn_egg.png': egg(),
         RES / 'textures/mob_effect/silence.png': silence_icon(),
@@ -444,7 +445,7 @@ def front_view(skin_img, glow_img):
         (0, 0, 5, 13, 5, -7, -13), (0, 20, 5, 13, 5, 2, -13), (24, 0, 14, 14, 9, -7, -27),
         (72, 0, 5, 18, 5, -12, -26), (94, 0, 5, 18, 5, 7, -26), (0, 40, 7, 5, 7, -13, -30), (30, 40, 7, 5, 7, 6, -30),
         (62, 56, 10, 9, 1, -5, -25), (60, 40, 10, 4, 10, -5, -31), (0, 56, 10, 9, 10, -5, -40),
-        (90, 56, 2, 6, 2, -5, -46), (100, 56, 2, 6, 2, 3, -46)]
+        (90, 56, 10, 10, 0, -14, -47), (90, 68, 10, 10, 0, 4, -47)]
     canvas = Image.new('RGBA', (32, 48), (34, 40, 48, 255))
     for (u, v, w, h, d, x0, y0) in parts:
         fx, fy, fw, fh = faces(u, v, w, h, d)['front']
@@ -646,14 +647,45 @@ def skin_variant(key):
     for yy in range(y, y + h):
         for xx in range(x, x + w):
             _put(img, xx, yy, W_DARK)
-    # tendrils: teal like the Warden's, one cyan tip
-    for (u, v) in ((90, 56), (100, 56)):
-        for name, (x, y, w, h) in faces(u, v, 2, 6, 2).items():
-            for yy in range(y, y + h):
-                for xx in range(x, x + w):
-                    t = yy - y
-                    c = CYAN_B if name == 'top' or (t == 0 and xx == x) else W_TEAL[1] if t < 3 else W_TEAL[0] if t < 5 else W_BASE
-                    _put(img, xx, yy, c)
+    # antennae like the Warden's: flat forked sculk tendrils beside the skull (front and back face)
+    for (u, v), flip in (((90, 56), False), ((90, 68), True)):
+        paint_antenna(img, u, v, flip, glow_only=False)
+    return img
+
+
+ANTENNA = [  # right antenna, front face; the stem meets the skull at the lower right
+    "..cc......",
+    ".chT......",
+    ".hTk..hc..",
+    "..Tt.hT...",
+    "...tTt....",
+    "....tT....",
+    ".....tT...",
+    "......tT..",
+    ".......tT.",
+    "........tT",
+]
+ANT_PAL = {'c': CYAN_B, 'h': CYAN, 'T': W_TEAL[1], 't': W_TEAL[0], 'k': W_DARK}
+
+
+def paint_antenna(img, u, v, flip, glow_only):
+    """Front face at (u, v), back face at (u + 10, v) mirrored; glow_only paints the listening glow instead."""
+    for face_x, mirror in ((u, flip), (u + 10, not flip)):
+        for y, row in enumerate(ANTENNA):
+            for x, ch in enumerate(row):
+                if ch == '.':
+                    continue
+                c = ANT_PAL[ch]
+                if glow_only:
+                    c = CYAN_B if ch in 'ch' or (x + y) % 3 == 0 else CYAN
+                _put(img, face_x + (9 - x if mirror else x), v + y, c)
+
+
+def antenna_glow():
+    """Emissive layer shown while the Howler listens (like the Warden's tendril layer)."""
+    img = Image.new('RGBA', (128, 128), (0, 0, 0, 0))
+    for (u, v), flip in (((90, 56), False), ((90, 68), True)):
+        paint_antenna(img, u, v, flip, glow_only=True)
     return img
 
 
@@ -661,7 +693,7 @@ def side_view(skin_img):
     """Orthographic right-side view (the 'right' faces), to show the depth and the overgrown skull."""
     parts = [  # (u, v, w, h, d, z0, y0) z0 = front of the box (smaller = front)
         (0, 0, 5, 13, 5, -2, -13), (24, 0, 14, 14, 9, -4, -27), (72, 0, 5, 18, 5, -2, -26), (0, 40, 7, 5, 7, -3, -30),
-        (60, 40, 10, 4, 10, -6, -31), (0, 56, 10, 9, 10, -6, -40), (90, 56, 2, 6, 2, -4, -46)]
+        (60, 40, 10, 4, 10, -6, -31), (0, 56, 10, 9, 10, -6, -40)]
     canvas = Image.new('RGBA', (24, 48), (34, 40, 48, 255))
     for (u, v, w, h, d, z0, y0) in parts:
         fx, fy, fw, fh = faces(u, v, w, h, d)['right']
