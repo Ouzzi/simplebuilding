@@ -28,6 +28,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void cloakPlayerMorph(GameTestHelper helper) { MobsTests.ALL.get("cloak_player_morph").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void cloakReveal(GameTestHelper helper) { MobsTests.ALL.get("cloak_reveal").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trickMirror(GameTestHelper helper) { MobsTests.ALL.get("trick_mirror").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void deceiverDrops(GameTestHelper helper) { MobsTests.ALL.get("deceiver_drops").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void doubleChance(GameTestHelper helper) { MobsTests.ALL.get("double_chance").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void doubleCap(GameTestHelper helper) { MobsTests.ALL.get("double_cap").accept(helper); }
 }

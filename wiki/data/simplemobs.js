@@ -84,7 +84,8 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/CloakLogic.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/TrickMirrorItem.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/DisguiseRegistry.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/DeceiverLogic.java"
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/DeceiverLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/DeceiverEntity.java"
       ],
       "en": {
         "title": "Deceiver: cloak, disguise, mirror",
@@ -96,7 +97,9 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "Bosses (Wither, Ender Dragon, Elder Guardian), the Warden and the Hollow Howler see through the cloak and cannot be imitated (entity tag simplemobs:sees_through_disguise).",
           "Potion of Veiled Invisibility: Potion of Invisibility + Deceiver Cloth (also splash and lingering), Redstone for 8:00, Gunpowder / Dragon's Breath as usual. Vanilla invisibility without swirl particles.",
           "Trick Mirror: Gold Ingot - Amethyst Shard - Gold Ingot / Gold Ingot - Deceiver Cloth - Gold Ingot / - Stick -; also 8 % Deceiver drop. Hold it up for 2 s: in a cone of 30 degrees up to 24 blocks fakes and disguised Deceivers or players glow for 5 s and every disguise falls. 20 s cooldown, 64 uses.",
-          "The Deceiver has 200 health (240 armored) and turns into one of its wave's mobs, taking its hit box only where there is room. Special attack: after a wave it may double its summons - 5 % at full health, rising with the square of the lost health to 80 % at 20 % health and below; 30 s cooldown, at most 8 copies and never above 24 summons. Copies are always fakes and vanish with it."
+          "The Deceiver has 200 health (280 armored) and turns into one of its wave's mobs, taking its hit box only where there is room. Special attack: after a wave it may double its summons - 5 % at full health, rising with the square of the lost health to 80 % at 20 % health and below; 30 s cooldown, at most 8 copies and never above 24 summons. Copies are always fakes and vanish with it.",
+          "Drops: Deceiver Cloth 2-4 with a 50 % chance (never doubled), Illusion Shard 1-2 (+Looting). An armored Deceiver (chest plate) has 280 health and 6 armor and drops twice the Illusion Shards.",
+          "(With SimpleBuilding) Mirage potions from the Illusion Shard: Awkward Potion + Illusion Shard = Potion of the Mirage (\"hostile\": peaceful mobs look hostile); + Fermented Spider Eye = Potion of the Reverse Mirage (\"peaceful\": hostile mobs look peaceful); Redstone lengthens both to 8:00, Gunpowder / Dragon's Breath make splash and lingering potions. No stronger level: the effect has no strength."
         ]
       },
       "de": {
@@ -109,7 +112,9 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "Bosse (Wither, Enderdrache, Großer Wächter), der Warden und der Hollow Howler durchschauen den Umhang und sind keine Verwandlungsziele (Entity-Tag simplemobs:sees_through_disguise).",
           "Trank der stillen Unsichtbarkeit: Trank der Unsichtbarkeit + Täuscherstoff (auch Wurf- und Verweiltrank), Redstone für 8:00, Schwarzpulver / Drachenatem wie üblich. Vanilla-Unsichtbarkeit ohne Wirbelpartikel.",
           "Trugbild-Spiegel: Goldbarren - Amethystscherbe - Goldbarren / Goldbarren - Täuscherstoff - Goldbarren / - Stock -; außerdem 8 % Deceiver-Drop. 2 s hochhalten: in einem 30-Grad-Kegel bis 24 Blöcke leuchten Fälschungen und verkleidete Deceiver oder Spieler 5 s lang, jede Verwandlung fällt. 20 s Abklingzeit, 64 Nutzungen.",
-          "Der Deceiver hat 200 Leben (240 mit Platte) und verwandelt sich in einen Mob seiner Welle, mit dessen Hitbox nur wo Platz ist. Spezialangriff: nach einer Welle kann er seine Beschwörungen verdoppeln - 5 % bei vollem Leben, mit dem Quadrat des verlorenen Lebens steigend bis 80 % ab 20 % Leben; 30 s Abklingzeit, höchstens 8 Kopien und nie über 24 Beschwörungen. Kopien sind immer Trugbilder und verschwinden mit ihm."
+          "Der Deceiver hat 200 Leben (280 mit Platte) und verwandelt sich in einen Mob seiner Welle, mit dessen Hitbox nur wo Platz ist. Spezialangriff: nach einer Welle kann er seine Beschwörungen verdoppeln - 5 % bei vollem Leben, mit dem Quadrat des verlorenen Lebens steigend bis 80 % ab 20 % Leben; 30 s Abklingzeit, höchstens 8 Kopien und nie über 24 Beschwörungen. Kopien sind immer Trugbilder und verschwinden mit ihm.",
+          "Drops: Täuscherstoff 2-4 mit 50 % Chance (nie doppelt), Trugsplitter 1-2 (+Plünderung). Ein Deceiver mit Brustplatte hat 280 Leben und 6 Rüstung und droppt doppelt so viele Trugsplitter.",
+          "(Mit SimpleBuilding) Trugbild-Tränke aus dem Trugsplitter: Seltsamer Trank + Trugsplitter = Trank des Trugbilds (\"feindlich\": friedliche Mobs wirken feindlich); + Fermentiertes Spinnenauge = Trank des umgekehrten Trugbilds (\"friedlich\": feindliche Mobs wirken friedlich); Redstone verlängert beide auf 8:00, Schwarzpulver / Drachenatem ergeben Wurf- und Verweiltränke. Keine stärkere Stufe: der Effekt hat keine Stärke."
         ]
       }
     }
@@ -220,6 +225,25 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_awkward_echo_core.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_awkward_illusion_shard",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_awkward_illusion_shard.json",
       "ingredients": [
         "minecraft:potion"
       ],
@@ -662,6 +686,16 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "items": [
             "simplemobs:deceiver_cloth"
           ],
+          "conditions": [
+            "minecraft:random_chance"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobs:illusion_shard"
+          ],
           "conditions": [],
           "functions": []
         },
@@ -689,6 +723,22 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       ],
       "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/deceiver.json"
+    },
+    {
+      "id": "simplemobs:entities/deceiver_armor_bonus",
+      "kind": "entities",
+      "type": "minecraft:entity",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobs:illusion_shard"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/deceiver_armor_bonus.json"
     },
     {
       "id": "simplemobs:entities/hollow_howler",
@@ -929,6 +979,24 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       "usedIn": []
     },
     {
+      "id": "simplemobs:illusion_shard",
+      "name": {
+        "en_us": "Illusion Shard",
+        "de_de": "Trugsplitter"
+      },
+      "note": {
+        "en": {
+          "summary": "The Deceiver's second drop (1-2, armored Deceivers twice as many). (With SimpleBuilding) Awkward Potion + Illusion Shard = Potion of the Mirage."
+        },
+        "de": {
+          "summary": "Zweiter Drop des Deceivers (1-2, mit Brustplatte doppelt so viele). (Mit SimpleBuilding) Seltsamer Trank + Trugsplitter = Trank des Trugbilds."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/illusion_shard.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplemobs:trick_mirror",
       "name": {
         "en_us": "Trick Mirror",
@@ -965,12 +1033,12 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
   "incompleteProse": {},
   "counts": {
     "features": 3,
-    "recipes": 25,
-    "lootTables": 3,
+    "recipes": 26,
+    "lootTables": 4,
     "tags": 4,
     "advancements": 0,
     "enchantments": 0,
-    "items": 6,
+    "items": 7,
     "blocks": 0,
     "trades": 0,
     "config": 0,

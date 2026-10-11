@@ -55,6 +55,7 @@ public final class NeoForgeExample {
             }
             if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
                 event.accept(MobsRegistry.CLOTH);
+                event.accept(DisguiseRegistry.SHARD);
                 insertAfter(event, new ItemStack(Items.ECHO_SHARD), new ItemStack(MobsRegistry.ECHO_CORE));
             }
         });

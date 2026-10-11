@@ -1,4 +1,4 @@
-"""Deceiver stage 2 textures (own pixel art): cloak of deception (item + worn layer) and trick mirror.
+"""Deceiver stage 2 textures (own pixel art): cloak of deception (item + worn layer), trick mirror, illusion shard.
 
     python tools/textures/deceiver2_textures.py          # write PNGs + previews
     python tools/textures/deceiver2_textures.py --check  # fail if the committed PNGs differ
@@ -76,6 +76,28 @@ def mirror_item():
     ])
 
 
+def shard_item():
+    # A long splinter of violet glass with a gold core vein, a second small chip beside it.
+    return draw([
+        "................",
+        "..........kk....",
+        ".........kmwk...",
+        "........kmwnk...",
+        ".......kmwnok...",
+        "......kmmyok....",
+        ".....kmnyok.....",
+        "....kmnyok......",
+        "...kmnyok.......",
+        "...knyok..kk....",
+        "..knook..kmnk...",
+        "..kook...knok...",
+        "..kkk.....kk....",
+        "................",
+        "................",
+        "................",
+    ])
+
+
 def worn():
     img = Image.new('RGBA', (64, 32), (0, 0, 0, 0))
 
@@ -108,16 +130,17 @@ def outputs():
     return {
         RES / 'textures/item/deceiver_cloak.png': cloak_item(),
         RES / 'textures/item/trick_mirror.png': mirror_item(),
+        RES / 'textures/item/illusion_shard.png': shard_item(),
         RES / 'textures/entity/equipment/humanoid/deceiver_cloak.png': worn(),
     }
 
 
 def preview(items):
     PREVIEW.mkdir(parents=True, exist_ok=True)
-    sheet = Image.new('RGBA', (16 * 8 * 2 + 64 * 8 + 60, 64 * 4 + 20), (60, 60, 66, 255))
-    for i, n in enumerate(['deceiver_cloak', 'trick_mirror']):
+    sheet = Image.new('RGBA', (16 * 8 * 2 + 64 * 8 + 60, 300), (60, 60, 66, 255))
+    for i, n in enumerate(['deceiver_cloak', 'trick_mirror', 'illusion_shard']):
         t = items[RES / f'textures/item/{n}.png'].resize((128, 128), Image.NEAREST)
-        sheet.paste(t, (10 + i * 140, 10), t)
+        sheet.paste(t, (10 + (i % 2) * 140, 10 + (i // 2) * 140), t)
     w = items[RES / 'textures/entity/equipment/humanoid/deceiver_cloak.png'].resize((512, 256), Image.NEAREST)
     sheet.paste(w, (300, 10), w)
     sheet.save(PREVIEW / 'textures.png')

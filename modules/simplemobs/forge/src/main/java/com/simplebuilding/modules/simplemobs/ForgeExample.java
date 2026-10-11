@@ -53,6 +53,7 @@ public final class ForgeExample {
             }
             if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
                 e.accept(MobsRegistry.CLOTH);
+                e.accept(DisguiseRegistry.SHARD);
                 putAfter(e, new ItemStack(Items.ECHO_SHARD), new ItemStack(MobsRegistry.ECHO_CORE));
             }
         });

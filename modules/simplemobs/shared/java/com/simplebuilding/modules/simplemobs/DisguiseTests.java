@@ -180,6 +180,25 @@ final class DisguiseTests {
             h.assertTrue(found == 2, "two deceptions found: " + found);
             h.succeed();
         });
+        add.accept("deceiver_drops", h -> {
+            floor(h, 0, 6);
+            var plain = h.spawn(MobsRegistry.DECEIVER, 1, 1, 1);
+            var armored = h.spawn(MobsRegistry.DECEIVER, 4, 1, 4);
+            plain.setNoAi(true);
+            armored.setNoAi(true);
+            plain.setArmored(false);
+            armored.setArmored(true);
+            armored.setHealth(armored.getMaxHealth());
+            h.assertTrue(plain.getMaxHealth() == 200f && plain.getArmorValue() == 0, "plain: 200 health, no armor");
+            h.assertTrue(armored.getMaxHealth() == (float) DeceiverEntity.ARMORED_HEALTH && armored.getArmorValue() == 6, "armored: 280 health, 6 armor: " + armored.getMaxHealth() + "/" + armored.getArmorValue());
+            var tables = h.getLevel().getServer().reloadableRegistries();
+            h.assertTrue(tables.getLootTable(DeceiverEntity.ARMOR_BONUS_LOOT) != net.minecraft.world.level.storage.loot.LootTable.EMPTY, "armor bonus table (twice the shards) exists");
+            boolean sb = net.minecraft.core.registries.BuiltInRegistries.POTION.containsKey(Identifier.fromNamespaceAndPath("simplebuilding", "mirage"));
+            var mirage = h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", "brewing/potion_awkward_illusion_shard")));
+            h.assertTrue(mirage.isPresent() == sb, "Mirage potion from the Illusion Shard exactly when Simple Building is there (sb=" + sb + ")");
+            h.assertTrue(BuiltInRegistries.ITEM.containsKey(DisguiseRegistry.SHARD_KEY.identifier()), "illusion shard registered");
+            h.succeed();
+        });
         add.accept("double_chance", h -> {
             float full = DeceiverLogic.doubleChance(200f, 200f), low = DeceiverLogic.doubleChance(40f, 200f);
             h.assertTrue(Math.abs(full - 0.05f) < 1e-4, "5 % at full health: " + full);

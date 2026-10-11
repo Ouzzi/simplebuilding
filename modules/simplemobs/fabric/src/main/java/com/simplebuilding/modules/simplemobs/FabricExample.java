@@ -28,6 +28,7 @@ public final class FabricExample implements ModInitializer {
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
             out.accept(MobsRegistry.CLOTH);
+            out.accept(DisguiseRegistry.SHARD);
             out.insertAfter(Items.ECHO_SHARD, java.util.List.of(new ItemStack(MobsRegistry.ECHO_CORE)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
     }

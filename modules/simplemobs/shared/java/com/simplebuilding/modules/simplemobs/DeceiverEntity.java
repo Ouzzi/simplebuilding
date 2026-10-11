@@ -68,7 +68,10 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
     private static final EntityDataAccessor<Boolean> DATA_HOSTILE = SynchedEntityData.defineId(DeceiverEntity.class, EntityDataSerializers.BOOLEAN);
     /** Entity type id of the current disguise; empty = its own shape. */
     private static final EntityDataAccessor<String> DATA_LOOK = SynchedEntityData.defineId(DeceiverEntity.class, EntityDataSerializers.STRING);
-    public static final double HEALTH = 200.0, ARMORED_HEALTH = 240.0;
+    public static final double HEALTH = 200.0, ARMORED_HEALTH = 280.0, ARMORED_ARMOR = 6.0;
+    /** Rolled once more for an armored Deceiver: twice the Illusion Shards (owner 11.10.), the cloth stays single. */
+    public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable> ARMOR_BONUS_LOOT =
+            net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("simplemobs", "entities/deceiver_armor_bonus"));
 
     public final AnimationState idleState = new AnimationState();
     public final AnimationState summonState = new AnimationState();
@@ -166,7 +169,21 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
     /** Plays one of the ACT_ animations (also used by the client screenshot test). */
     public void playAction(int action, int ticks) { setAction(action, ticks); }
 
-    public void setArmored(boolean armored) { this.entityData.set(DATA_ARMORED, armored); }
+    /** Owner 11.10.: the chest plate makes it tougher - 280 health and 6 armor (iron chestplate). */
+    public void setArmored(boolean armored) {
+        this.entityData.set(DATA_ARMORED, armored);
+        var hp = this.getAttribute(Attributes.MAX_HEALTH);
+        if (hp != null) hp.setBaseValue(armored ? ARMORED_HEALTH : HEALTH);
+        var armor = this.getAttribute(Attributes.ARMOR);
+        if (armor != null) armor.setBaseValue(armored ? ARMORED_ARMOR : 0.0);
+        if (this.getHealth() > this.getMaxHealth()) this.setHealth(this.getMaxHealth());
+    }
+
+    @Override
+    protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean killedByPlayer) {
+        super.dropCustomDeathLoot(level, source, killedByPlayer);
+        if (isArmored()) this.dropFromLootTable(level, source, killedByPlayer, ARMOR_BONUS_LOOT);
+    }
 
     private void setAction(int action, int ticks) {
         this.entityData.set(DATA_ACTION, action);
@@ -189,7 +206,7 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
     @Override
     protected void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput in) {
         super.readAdditionalSaveData(in);
-        this.entityData.set(DATA_ARMORED, in.getBooleanOr("Armored", false));
+        setArmored(in.getBooleanOr("Armored", false));
         this.entityData.set(DATA_HOSTILE, in.getBooleanOr("Hostile", false));
         this.rolled = in.getBooleanOr("Rolled", false);
         this.peacefulTheme = in.getBooleanOr("PeacefulTheme", false);
@@ -236,8 +253,7 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
         if (!rolled) {
             rolled = true;
             if (this.random.nextFloat() < 0.3f) {
-                this.entityData.set(DATA_ARMORED, true);
-                this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(ARMORED_HEALTH);
+                setArmored(true);
                 this.setHealth((float) ARMORED_HEALTH);
             }
         }

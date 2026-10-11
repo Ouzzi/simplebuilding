@@ -27,6 +27,8 @@ import net.minecraft.world.item.equipment.Equippable;
 public final class DisguiseRegistry {
     public static final ResourceKey<Item> CLOAK_KEY = key("deceiver_cloak");
     public static final ResourceKey<Item> MIRROR_KEY = key("trick_mirror");
+    /** The Deceiver's second drop (owner 11.10.): brews the Mirage potions (with Simple Building); armored Deceivers drop twice as many. */
+    public static final ResourceKey<Item> SHARD_KEY = key("illusion_shard");
     public static final ResourceKey<EquipmentAsset> CLOAK_ASSET =
             ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(MobsRegistry.ID, "deceiver_cloak"));
     /** Mobs that see through the cloak and cannot be imitated: bosses, the Warden, the Hollow Howler. */
@@ -43,6 +45,7 @@ public final class DisguiseRegistry {
                     .build())
             .repairable(MobsRegistry.CLOTH)
             .setId(CLOAK_KEY));
+    public static final Item SHARD = new Item(new Item.Properties().setId(SHARD_KEY));
     public static final Item MIRROR = new TrickMirrorItem(new Item.Properties().durability(64).rarity(Rarity.UNCOMMON).setId(MIRROR_KEY));
 
     public static final ResourceKey<Potion> VEILED_KEY = ResourceKey.create(Registries.POTION, Identifier.fromNamespaceAndPath(MobsRegistry.ID, "veiled_invisibility"));
@@ -60,6 +63,7 @@ public final class DisguiseRegistry {
     public static void items(BiConsumer<ResourceKey<Item>, Item> out) {
         out.accept(CLOAK_KEY, CLOAK);
         out.accept(MIRROR_KEY, MIRROR);
+        out.accept(SHARD_KEY, SHARD);
     }
 
     public static void potions(BiConsumer<ResourceKey<Potion>, Potion> out) {

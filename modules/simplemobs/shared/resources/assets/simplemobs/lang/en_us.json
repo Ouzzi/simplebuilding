@@ -26,5 +26,6 @@
   "message.simplemobs.disguise.refused": "%s sees through every disguise",
   "message.simplemobs.disguise.no_room": "No room to take this shape here",
   "message.simplemobs.disguise.revealed": "Your disguise falls - they have seen you",
-  "message.simplemobs.mirror.found": "The mirror shows %s deceptions"
+  "message.simplemobs.mirror.found": "The mirror shows %s deceptions",
+  "item.simplemobs.illusion_shard": "Illusion Shard"
 }
