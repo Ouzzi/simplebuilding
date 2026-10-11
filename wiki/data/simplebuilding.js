@@ -4622,7 +4622,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -4632,7 +4632,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -4647,8 +4647,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:astralit_chess_bishop_flat",
       "name": {
-        "en_us": "Astralit Bishop (Flat)",
-        "de_de": "Astralit-Läufer (flach)"
+        "en_us": "Flat Astralit Bishop",
+        "de_de": "Flacher Astralit-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -4672,7 +4672,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -4682,7 +4682,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -4722,7 +4722,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -4732,7 +4732,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -4747,8 +4747,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:astralit_chess_king_flat",
       "name": {
-        "en_us": "Astralit King (Flat)",
-        "de_de": "Astralit-König (flach)"
+        "en_us": "Flat Astralit King",
+        "de_de": "Flacher Astralit-König"
       },
       "texture": null,
       "craftedBy": [
@@ -4772,7 +4772,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -4782,7 +4782,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -4822,7 +4822,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -4832,7 +4832,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -4847,8 +4847,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:astralit_chess_knight_flat",
       "name": {
-        "en_us": "Astralit Knight (Flat)",
-        "de_de": "Astralit-Springer (flach)"
+        "en_us": "Flat Astralit Knight",
+        "de_de": "Flacher Astralit-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -4872,7 +4872,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -4882,7 +4882,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -4922,7 +4922,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -4932,7 +4932,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -4947,8 +4947,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:astralit_chess_pawn_flat",
       "name": {
-        "en_us": "Astralit Pawn (Flat)",
-        "de_de": "Astralit-Bauer (flach)"
+        "en_us": "Flat Astralit Pawn",
+        "de_de": "Flacher Astralit-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -4972,7 +4972,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -4982,7 +4982,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -5022,7 +5022,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -5032,7 +5032,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -5047,8 +5047,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:astralit_chess_queen_flat",
       "name": {
-        "en_us": "Astralit Queen (Flat)",
-        "de_de": "Astralit-Dame (flach)"
+        "en_us": "Flat Astralit Queen",
+        "de_de": "Flache Astralit-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -5072,7 +5072,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -5082,7 +5082,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -5122,7 +5122,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -5132,7 +5132,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -5147,8 +5147,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:astralit_chess_rook_flat",
       "name": {
-        "en_us": "Astralit Rook (Flat)",
-        "de_de": "Astralit-Turm (flach)"
+        "en_us": "Flat Astralit Rook",
+        "de_de": "Flacher Astralit-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -5172,7 +5172,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -5182,7 +5182,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -6579,7 +6579,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -6589,7 +6589,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -6604,8 +6604,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:blackstone_chess_bishop_flat",
       "name": {
-        "en_us": "Blackstone Bishop (Flat)",
-        "de_de": "Schwarzstein-Läufer (flach)"
+        "en_us": "Flat Blackstone Bishop",
+        "de_de": "Flacher Schwarzstein-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -6629,7 +6629,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -6639,7 +6639,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -6679,7 +6679,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -6689,7 +6689,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -6704,8 +6704,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:blackstone_chess_king_flat",
       "name": {
-        "en_us": "Blackstone King (Flat)",
-        "de_de": "Schwarzstein-König (flach)"
+        "en_us": "Flat Blackstone King",
+        "de_de": "Flacher Schwarzstein-König"
       },
       "texture": null,
       "craftedBy": [
@@ -6729,7 +6729,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -6739,7 +6739,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -6779,7 +6779,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -6789,7 +6789,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -6804,8 +6804,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:blackstone_chess_knight_flat",
       "name": {
-        "en_us": "Blackstone Knight (Flat)",
-        "de_de": "Schwarzstein-Springer (flach)"
+        "en_us": "Flat Blackstone Knight",
+        "de_de": "Flacher Schwarzstein-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -6829,7 +6829,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -6839,7 +6839,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -6879,7 +6879,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -6889,7 +6889,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -6904,8 +6904,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:blackstone_chess_pawn_flat",
       "name": {
-        "en_us": "Blackstone Pawn (Flat)",
-        "de_de": "Schwarzstein-Bauer (flach)"
+        "en_us": "Flat Blackstone Pawn",
+        "de_de": "Flacher Schwarzstein-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -6929,7 +6929,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -6939,7 +6939,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -6979,7 +6979,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -6989,7 +6989,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -7004,8 +7004,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:blackstone_chess_queen_flat",
       "name": {
-        "en_us": "Blackstone Queen (Flat)",
-        "de_de": "Schwarzstein-Dame (flach)"
+        "en_us": "Flat Blackstone Queen",
+        "de_de": "Flache Schwarzstein-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -7029,7 +7029,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -7039,7 +7039,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -7079,7 +7079,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -7089,7 +7089,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -7104,8 +7104,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:blackstone_chess_rook_flat",
       "name": {
-        "en_us": "Blackstone Rook (Flat)",
-        "de_de": "Schwarzstein-Turm (flach)"
+        "en_us": "Flat Blackstone Rook",
+        "de_de": "Flacher Schwarzstein-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -7129,7 +7129,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -7139,7 +7139,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -13183,7 +13183,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -13193,7 +13193,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -13208,8 +13208,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:ender_quartz_chess_bishop_flat",
       "name": {
-        "en_us": "Ender Quartz Bishop (Flat)",
-        "de_de": "Enderquarz-Läufer (flach)"
+        "en_us": "Flat Ender Quartz Bishop",
+        "de_de": "Flacher Enderquarz-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -13233,7 +13233,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -13243,7 +13243,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -13283,7 +13283,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -13293,7 +13293,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -13308,8 +13308,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:ender_quartz_chess_king_flat",
       "name": {
-        "en_us": "Ender Quartz King (Flat)",
-        "de_de": "Enderquarz-König (flach)"
+        "en_us": "Flat Ender Quartz King",
+        "de_de": "Flacher Enderquarz-König"
       },
       "texture": null,
       "craftedBy": [
@@ -13333,7 +13333,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -13343,7 +13343,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -13383,7 +13383,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -13393,7 +13393,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -13408,8 +13408,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:ender_quartz_chess_knight_flat",
       "name": {
-        "en_us": "Ender Quartz Knight (Flat)",
-        "de_de": "Enderquarz-Springer (flach)"
+        "en_us": "Flat Ender Quartz Knight",
+        "de_de": "Flacher Enderquarz-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -13433,7 +13433,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -13443,7 +13443,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -13483,7 +13483,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -13493,7 +13493,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -13508,8 +13508,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:ender_quartz_chess_pawn_flat",
       "name": {
-        "en_us": "Ender Quartz Pawn (Flat)",
-        "de_de": "Enderquarz-Bauer (flach)"
+        "en_us": "Flat Ender Quartz Pawn",
+        "de_de": "Flacher Enderquarz-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -13533,7 +13533,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -13543,7 +13543,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -13583,7 +13583,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -13593,7 +13593,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -13608,8 +13608,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:ender_quartz_chess_queen_flat",
       "name": {
-        "en_us": "Ender Quartz Queen (Flat)",
-        "de_de": "Enderquarz-Dame (flach)"
+        "en_us": "Flat Ender Quartz Queen",
+        "de_de": "Flache Enderquarz-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -13633,7 +13633,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -13643,7 +13643,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -13683,7 +13683,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -13693,7 +13693,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -13708,8 +13708,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:ender_quartz_chess_rook_flat",
       "name": {
-        "en_us": "Ender Quartz Rook (Flat)",
-        "de_de": "Enderquarz-Turm (flach)"
+        "en_us": "Flat Ender Quartz Rook",
+        "de_de": "Flacher Enderquarz-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -13733,7 +13733,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -13743,7 +13743,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -20250,7 +20250,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -20260,7 +20260,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -20275,8 +20275,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:lapis_chess_bishop_flat",
       "name": {
-        "en_us": "Lapis Bishop (Flat)",
-        "de_de": "Lapis-Läufer (flach)"
+        "en_us": "Flat Lapis Bishop",
+        "de_de": "Flacher Lapis-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -20300,7 +20300,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -20310,7 +20310,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -20350,7 +20350,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -20360,7 +20360,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -20375,8 +20375,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:lapis_chess_king_flat",
       "name": {
-        "en_us": "Lapis King (Flat)",
-        "de_de": "Lapis-König (flach)"
+        "en_us": "Flat Lapis King",
+        "de_de": "Flacher Lapis-König"
       },
       "texture": null,
       "craftedBy": [
@@ -20400,7 +20400,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -20410,7 +20410,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -20450,7 +20450,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -20460,7 +20460,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -20475,8 +20475,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:lapis_chess_knight_flat",
       "name": {
-        "en_us": "Lapis Knight (Flat)",
-        "de_de": "Lapis-Springer (flach)"
+        "en_us": "Flat Lapis Knight",
+        "de_de": "Flacher Lapis-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -20500,7 +20500,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -20510,7 +20510,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -20550,7 +20550,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -20560,7 +20560,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -20575,8 +20575,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:lapis_chess_pawn_flat",
       "name": {
-        "en_us": "Lapis Pawn (Flat)",
-        "de_de": "Lapis-Bauer (flach)"
+        "en_us": "Flat Lapis Pawn",
+        "de_de": "Flacher Lapis-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -20600,7 +20600,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -20610,7 +20610,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -20650,7 +20650,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -20660,7 +20660,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -20675,8 +20675,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:lapis_chess_queen_flat",
       "name": {
-        "en_us": "Lapis Queen (Flat)",
-        "de_de": "Lapis-Dame (flach)"
+        "en_us": "Flat Lapis Queen",
+        "de_de": "Flache Lapis-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -20700,7 +20700,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -20710,7 +20710,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -20750,7 +20750,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -20760,7 +20760,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -20775,8 +20775,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:lapis_chess_rook_flat",
       "name": {
-        "en_us": "Lapis Rook (Flat)",
-        "de_de": "Lapis-Turm (flach)"
+        "en_us": "Flat Lapis Rook",
+        "de_de": "Flacher Lapis-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -20800,7 +20800,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -20810,7 +20810,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -22722,7 +22722,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -22732,7 +22732,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -22747,8 +22747,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nether_brick_chess_bishop_flat",
       "name": {
-        "en_us": "Nether Brick Bishop (Flat)",
-        "de_de": "Netherziegel-Läufer (flach)"
+        "en_us": "Flat Nether Brick Bishop",
+        "de_de": "Flacher Netherziegel-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -22772,7 +22772,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -22782,7 +22782,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -22822,7 +22822,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -22832,7 +22832,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -22847,8 +22847,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nether_brick_chess_king_flat",
       "name": {
-        "en_us": "Nether Brick King (Flat)",
-        "de_de": "Netherziegel-König (flach)"
+        "en_us": "Flat Nether Brick King",
+        "de_de": "Flacher Netherziegel-König"
       },
       "texture": null,
       "craftedBy": [
@@ -22872,7 +22872,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -22882,7 +22882,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -22922,7 +22922,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -22932,7 +22932,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -22947,8 +22947,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nether_brick_chess_knight_flat",
       "name": {
-        "en_us": "Nether Brick Knight (Flat)",
-        "de_de": "Netherziegel-Springer (flach)"
+        "en_us": "Flat Nether Brick Knight",
+        "de_de": "Flacher Netherziegel-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -22972,7 +22972,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -22982,7 +22982,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -23022,7 +23022,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -23032,7 +23032,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -23047,8 +23047,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nether_brick_chess_pawn_flat",
       "name": {
-        "en_us": "Nether Brick Pawn (Flat)",
-        "de_de": "Netherziegel-Bauer (flach)"
+        "en_us": "Flat Nether Brick Pawn",
+        "de_de": "Flacher Netherziegel-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -23072,7 +23072,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -23082,7 +23082,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -23122,7 +23122,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -23132,7 +23132,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -23147,8 +23147,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nether_brick_chess_queen_flat",
       "name": {
-        "en_us": "Nether Brick Queen (Flat)",
-        "de_de": "Netherziegel-Dame (flach)"
+        "en_us": "Flat Nether Brick Queen",
+        "de_de": "Flache Netherziegel-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -23172,7 +23172,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -23182,7 +23182,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -23222,7 +23222,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -23232,7 +23232,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -23247,8 +23247,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nether_brick_chess_rook_flat",
       "name": {
-        "en_us": "Nether Brick Rook (Flat)",
-        "de_de": "Netherziegel-Turm (flach)"
+        "en_us": "Flat Nether Brick Rook",
+        "de_de": "Flacher Netherziegel-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -23272,7 +23272,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -23282,7 +23282,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -26137,7 +26137,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -26147,7 +26147,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -26162,8 +26162,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_chess_bishop_flat",
       "name": {
-        "en_us": "Nihilit Bishop (Flat)",
-        "de_de": "Nihilit-Läufer (flach)"
+        "en_us": "Flat Nihilit Bishop",
+        "de_de": "Flacher Nihilit-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -26187,7 +26187,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -26197,7 +26197,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -26237,7 +26237,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -26247,7 +26247,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -26262,8 +26262,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_chess_king_flat",
       "name": {
-        "en_us": "Nihilit King (Flat)",
-        "de_de": "Nihilit-König (flach)"
+        "en_us": "Flat Nihilit King",
+        "de_de": "Flacher Nihilit-König"
       },
       "texture": null,
       "craftedBy": [
@@ -26287,7 +26287,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -26297,7 +26297,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -26337,7 +26337,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -26347,7 +26347,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -26362,8 +26362,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_chess_knight_flat",
       "name": {
-        "en_us": "Nihilit Knight (Flat)",
-        "de_de": "Nihilit-Springer (flach)"
+        "en_us": "Flat Nihilit Knight",
+        "de_de": "Flacher Nihilit-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -26387,7 +26387,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -26397,7 +26397,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -26437,7 +26437,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -26447,7 +26447,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -26462,8 +26462,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_chess_pawn_flat",
       "name": {
-        "en_us": "Nihilit Pawn (Flat)",
-        "de_de": "Nihilit-Bauer (flach)"
+        "en_us": "Flat Nihilit Pawn",
+        "de_de": "Flacher Nihilit-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -26487,7 +26487,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -26497,7 +26497,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -26537,7 +26537,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -26547,7 +26547,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -26562,8 +26562,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_chess_queen_flat",
       "name": {
-        "en_us": "Nihilit Queen (Flat)",
-        "de_de": "Nihilit-Dame (flach)"
+        "en_us": "Flat Nihilit Queen",
+        "de_de": "Flache Nihilit-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -26587,7 +26587,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -26597,7 +26597,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -26637,7 +26637,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -26647,7 +26647,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -26662,8 +26662,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_chess_rook_flat",
       "name": {
-        "en_us": "Nihilit Rook (Flat)",
-        "de_de": "Nihilit-Turm (flach)"
+        "en_us": "Flat Nihilit Rook",
+        "de_de": "Flacher Nihilit-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -26687,7 +26687,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -26697,7 +26697,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -28832,7 +28832,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -28842,7 +28842,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -28857,8 +28857,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_astralit_chess_bishop_flat",
       "name": {
-        "en_us": "Polished Astralit Bishop (Flat)",
-        "de_de": "Polierter Astralit-Läufer (flach)"
+        "en_us": "Flat Polished Astralit Bishop",
+        "de_de": "Flacher polierter Astralit-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -28882,7 +28882,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -28892,7 +28892,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -28932,7 +28932,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -28942,7 +28942,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -28957,8 +28957,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_astralit_chess_king_flat",
       "name": {
-        "en_us": "Polished Astralit King (Flat)",
-        "de_de": "Polierter Astralit-König (flach)"
+        "en_us": "Flat Polished Astralit King",
+        "de_de": "Flacher polierter Astralit-König"
       },
       "texture": null,
       "craftedBy": [
@@ -28982,7 +28982,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -28992,7 +28992,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -29032,7 +29032,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -29042,7 +29042,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -29057,8 +29057,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_astralit_chess_knight_flat",
       "name": {
-        "en_us": "Polished Astralit Knight (Flat)",
-        "de_de": "Polierter Astralit-Springer (flach)"
+        "en_us": "Flat Polished Astralit Knight",
+        "de_de": "Flacher polierter Astralit-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -29082,7 +29082,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -29092,7 +29092,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -29132,7 +29132,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -29142,7 +29142,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -29157,8 +29157,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_astralit_chess_pawn_flat",
       "name": {
-        "en_us": "Polished Astralit Pawn (Flat)",
-        "de_de": "Polierter Astralit-Bauer (flach)"
+        "en_us": "Flat Polished Astralit Pawn",
+        "de_de": "Flacher polierter Astralit-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -29182,7 +29182,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -29192,7 +29192,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -29232,7 +29232,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -29242,7 +29242,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -29257,8 +29257,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_astralit_chess_queen_flat",
       "name": {
-        "en_us": "Polished Astralit Queen (Flat)",
-        "de_de": "Polierte Astralit-Dame (flach)"
+        "en_us": "Flat Polished Astralit Queen",
+        "de_de": "Flache polierte Astralit-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -29282,7 +29282,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -29292,7 +29292,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -29332,7 +29332,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -29342,7 +29342,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -29357,8 +29357,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_astralit_chess_rook_flat",
       "name": {
-        "en_us": "Polished Astralit Rook (Flat)",
-        "de_de": "Polierter Astralit-Turm (flach)"
+        "en_us": "Flat Polished Astralit Rook",
+        "de_de": "Flacher polierter Astralit-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -29382,7 +29382,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -29392,7 +29392,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -30114,7 +30114,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -30124,7 +30124,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -30139,8 +30139,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_ender_quartz_chess_bishop_flat",
       "name": {
-        "en_us": "Polished Ender Quartz Bishop (Flat)",
-        "de_de": "Polierter Enderquarz-Läufer (flach)"
+        "en_us": "Flat Polished Ender Quartz Bishop",
+        "de_de": "Flacher polierter Enderquarz-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -30164,7 +30164,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -30174,7 +30174,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -30214,7 +30214,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -30224,7 +30224,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -30239,8 +30239,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_ender_quartz_chess_king_flat",
       "name": {
-        "en_us": "Polished Ender Quartz King (Flat)",
-        "de_de": "Polierter Enderquarz-König (flach)"
+        "en_us": "Flat Polished Ender Quartz King",
+        "de_de": "Flacher polierter Enderquarz-König"
       },
       "texture": null,
       "craftedBy": [
@@ -30264,7 +30264,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -30274,7 +30274,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -30314,7 +30314,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -30324,7 +30324,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -30339,8 +30339,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_ender_quartz_chess_knight_flat",
       "name": {
-        "en_us": "Polished Ender Quartz Knight (Flat)",
-        "de_de": "Polierter Enderquarz-Springer (flach)"
+        "en_us": "Flat Polished Ender Quartz Knight",
+        "de_de": "Flacher polierter Enderquarz-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -30364,7 +30364,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -30374,7 +30374,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -30414,7 +30414,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -30424,7 +30424,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -30439,8 +30439,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_ender_quartz_chess_pawn_flat",
       "name": {
-        "en_us": "Polished Ender Quartz Pawn (Flat)",
-        "de_de": "Polierter Enderquarz-Bauer (flach)"
+        "en_us": "Flat Polished Ender Quartz Pawn",
+        "de_de": "Flacher polierter Enderquarz-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -30464,7 +30464,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -30474,7 +30474,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -30514,7 +30514,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -30524,7 +30524,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -30539,8 +30539,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_ender_quartz_chess_queen_flat",
       "name": {
-        "en_us": "Polished Ender Quartz Queen (Flat)",
-        "de_de": "Polierte Enderquarz-Dame (flach)"
+        "en_us": "Flat Polished Ender Quartz Queen",
+        "de_de": "Flache polierte Enderquarz-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -30564,7 +30564,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -30574,7 +30574,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -30614,7 +30614,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -30624,7 +30624,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -30639,8 +30639,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_ender_quartz_chess_rook_flat",
       "name": {
-        "en_us": "Polished Ender Quartz Rook (Flat)",
-        "de_de": "Polierter Enderquarz-Turm (flach)"
+        "en_us": "Flat Polished Ender Quartz Rook",
+        "de_de": "Flacher polierter Enderquarz-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -30664,7 +30664,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -30674,7 +30674,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -31101,7 +31101,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -31111,7 +31111,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -31126,8 +31126,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_nihilith_chess_bishop_flat",
       "name": {
-        "en_us": "Polished Nihilit Bishop (Flat)",
-        "de_de": "Polierter Nihilit-Läufer (flach)"
+        "en_us": "Flat Polished Nihilit Bishop",
+        "de_de": "Flacher polierter Nihilit-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -31151,7 +31151,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -31161,7 +31161,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -31201,7 +31201,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -31211,7 +31211,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -31226,8 +31226,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_nihilith_chess_king_flat",
       "name": {
-        "en_us": "Polished Nihilit King (Flat)",
-        "de_de": "Polierter Nihilit-König (flach)"
+        "en_us": "Flat Polished Nihilit King",
+        "de_de": "Flacher polierter Nihilit-König"
       },
       "texture": null,
       "craftedBy": [
@@ -31251,7 +31251,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -31261,7 +31261,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -31301,7 +31301,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -31311,7 +31311,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -31326,8 +31326,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_nihilith_chess_knight_flat",
       "name": {
-        "en_us": "Polished Nihilit Knight (Flat)",
-        "de_de": "Polierter Nihilit-Springer (flach)"
+        "en_us": "Flat Polished Nihilit Knight",
+        "de_de": "Flacher polierter Nihilit-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -31351,7 +31351,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -31361,7 +31361,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -31401,7 +31401,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -31411,7 +31411,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -31426,8 +31426,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_nihilith_chess_pawn_flat",
       "name": {
-        "en_us": "Polished Nihilit Pawn (Flat)",
-        "de_de": "Polierter Nihilit-Bauer (flach)"
+        "en_us": "Flat Polished Nihilit Pawn",
+        "de_de": "Flacher polierter Nihilit-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -31451,7 +31451,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -31461,7 +31461,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -31501,7 +31501,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -31511,7 +31511,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -31526,8 +31526,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_nihilith_chess_queen_flat",
       "name": {
-        "en_us": "Polished Nihilit Queen (Flat)",
-        "de_de": "Polierte Nihilit-Dame (flach)"
+        "en_us": "Flat Polished Nihilit Queen",
+        "de_de": "Flache polierte Nihilit-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -31551,7 +31551,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -31561,7 +31561,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -31601,7 +31601,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -31611,7 +31611,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -31626,8 +31626,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_nihilith_chess_rook_flat",
       "name": {
-        "en_us": "Polished Nihilit Rook (Flat)",
-        "de_de": "Polierter Nihilit-Turm (flach)"
+        "en_us": "Flat Polished Nihilit Rook",
+        "de_de": "Flacher polierter Nihilit-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -31651,7 +31651,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -31661,7 +31661,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -32421,7 +32421,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -32431,7 +32431,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -32446,8 +32446,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:purpur_chess_bishop_flat",
       "name": {
-        "en_us": "Purpur Bishop (Flat)",
-        "de_de": "Purpur-Läufer (flach)"
+        "en_us": "Flat Purpur Bishop",
+        "de_de": "Flacher Purpur-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -32471,7 +32471,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -32481,7 +32481,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -32521,7 +32521,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -32531,7 +32531,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -32546,8 +32546,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:purpur_chess_king_flat",
       "name": {
-        "en_us": "Purpur King (Flat)",
-        "de_de": "Purpur-König (flach)"
+        "en_us": "Flat Purpur King",
+        "de_de": "Flacher Purpur-König"
       },
       "texture": null,
       "craftedBy": [
@@ -32571,7 +32571,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -32581,7 +32581,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -32621,7 +32621,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -32631,7 +32631,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -32646,8 +32646,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:purpur_chess_knight_flat",
       "name": {
-        "en_us": "Purpur Knight (Flat)",
-        "de_de": "Purpur-Springer (flach)"
+        "en_us": "Flat Purpur Knight",
+        "de_de": "Flacher Purpur-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -32671,7 +32671,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -32681,7 +32681,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -32721,7 +32721,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -32731,7 +32731,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -32746,8 +32746,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:purpur_chess_pawn_flat",
       "name": {
-        "en_us": "Purpur Pawn (Flat)",
-        "de_de": "Purpur-Bauer (flach)"
+        "en_us": "Flat Purpur Pawn",
+        "de_de": "Flacher Purpur-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -32771,7 +32771,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -32781,7 +32781,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -32821,7 +32821,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -32831,7 +32831,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -32846,8 +32846,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:purpur_chess_queen_flat",
       "name": {
-        "en_us": "Purpur Queen (Flat)",
-        "de_de": "Purpur-Dame (flach)"
+        "en_us": "Flat Purpur Queen",
+        "de_de": "Flache Purpur-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -32871,7 +32871,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -32881,7 +32881,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -32921,7 +32921,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -32931,7 +32931,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -32946,8 +32946,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:purpur_chess_rook_flat",
       "name": {
-        "en_us": "Purpur Rook (Flat)",
-        "de_de": "Purpur-Turm (flach)"
+        "en_us": "Flat Purpur Rook",
+        "de_de": "Flacher Purpur-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -32971,7 +32971,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -32981,7 +32981,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -33284,7 +33284,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -33294,7 +33294,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -33309,8 +33309,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:quartz_chess_bishop_flat",
       "name": {
-        "en_us": "Quartz Bishop (Flat)",
-        "de_de": "Quarz-Läufer (flach)"
+        "en_us": "Flat Quartz Bishop",
+        "de_de": "Flacher Quarz-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -33334,7 +33334,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -33344,7 +33344,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -33384,7 +33384,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -33394,7 +33394,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -33409,8 +33409,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:quartz_chess_king_flat",
       "name": {
-        "en_us": "Quartz King (Flat)",
-        "de_de": "Quarz-König (flach)"
+        "en_us": "Flat Quartz King",
+        "de_de": "Flacher Quarz-König"
       },
       "texture": null,
       "craftedBy": [
@@ -33434,7 +33434,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -33444,7 +33444,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -33484,7 +33484,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -33494,7 +33494,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -33509,8 +33509,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:quartz_chess_knight_flat",
       "name": {
-        "en_us": "Quartz Knight (Flat)",
-        "de_de": "Quarz-Springer (flach)"
+        "en_us": "Flat Quartz Knight",
+        "de_de": "Flacher Quarz-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -33534,7 +33534,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -33544,7 +33544,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -33584,7 +33584,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -33594,7 +33594,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -33609,8 +33609,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:quartz_chess_pawn_flat",
       "name": {
-        "en_us": "Quartz Pawn (Flat)",
-        "de_de": "Quarz-Bauer (flach)"
+        "en_us": "Flat Quartz Pawn",
+        "de_de": "Flacher Quarz-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -33634,7 +33634,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -33644,7 +33644,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -33684,7 +33684,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -33694,7 +33694,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -33709,8 +33709,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:quartz_chess_queen_flat",
       "name": {
-        "en_us": "Quartz Queen (Flat)",
-        "de_de": "Quarz-Dame (flach)"
+        "en_us": "Flat Quartz Queen",
+        "de_de": "Flache Quarz-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -33734,7 +33734,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -33744,7 +33744,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -33784,7 +33784,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -33794,7 +33794,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -33809,8 +33809,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:quartz_chess_rook_flat",
       "name": {
-        "en_us": "Quartz Rook (Flat)",
-        "de_de": "Quarz-Turm (flach)"
+        "en_us": "Flat Quartz Rook",
+        "de_de": "Flacher Quarz-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -33834,7 +33834,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -33844,7 +33844,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -34289,7 +34289,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -34299,7 +34299,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -34314,8 +34314,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:red_nether_brick_chess_bishop_flat",
       "name": {
-        "en_us": "Red Nether Brick Bishop (Flat)",
-        "de_de": "Roter Netherziegel-Läufer (flach)"
+        "en_us": "Flat Red Nether Brick Bishop",
+        "de_de": "Flacher roter Netherziegel-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -34339,7 +34339,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -34349,7 +34349,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -34389,7 +34389,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -34399,7 +34399,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -34414,8 +34414,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:red_nether_brick_chess_king_flat",
       "name": {
-        "en_us": "Red Nether Brick King (Flat)",
-        "de_de": "Roter Netherziegel-König (flach)"
+        "en_us": "Flat Red Nether Brick King",
+        "de_de": "Flacher roter Netherziegel-König"
       },
       "texture": null,
       "craftedBy": [
@@ -34439,7 +34439,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -34449,7 +34449,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -34489,7 +34489,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -34499,7 +34499,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -34514,8 +34514,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:red_nether_brick_chess_knight_flat",
       "name": {
-        "en_us": "Red Nether Brick Knight (Flat)",
-        "de_de": "Roter Netherziegel-Springer (flach)"
+        "en_us": "Flat Red Nether Brick Knight",
+        "de_de": "Flacher roter Netherziegel-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -34539,7 +34539,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -34549,7 +34549,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -34589,7 +34589,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -34599,7 +34599,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -34614,8 +34614,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:red_nether_brick_chess_pawn_flat",
       "name": {
-        "en_us": "Red Nether Brick Pawn (Flat)",
-        "de_de": "Roter Netherziegel-Bauer (flach)"
+        "en_us": "Flat Red Nether Brick Pawn",
+        "de_de": "Flacher roter Netherziegel-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -34639,7 +34639,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -34649,7 +34649,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -34689,7 +34689,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -34699,7 +34699,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -34714,8 +34714,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:red_nether_brick_chess_queen_flat",
       "name": {
-        "en_us": "Red Nether Brick Queen (Flat)",
-        "de_de": "Rote Netherziegel-Dame (flach)"
+        "en_us": "Flat Red Nether Brick Queen",
+        "de_de": "Flache rote Netherziegel-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -34739,7 +34739,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -34749,7 +34749,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -34789,7 +34789,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -34799,7 +34799,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -34814,8 +34814,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:red_nether_brick_chess_rook_flat",
       "name": {
-        "en_us": "Red Nether Brick Rook (Flat)",
-        "de_de": "Roter Netherziegel-Turm (flach)"
+        "en_us": "Flat Red Nether Brick Rook",
+        "de_de": "Flacher roter Netherziegel-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -34839,7 +34839,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -34849,7 +34849,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -36882,7 +36882,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -36892,7 +36892,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -36907,8 +36907,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:resin_chess_bishop_flat",
       "name": {
-        "en_us": "Resin Bishop (Flat)",
-        "de_de": "Harz-Läufer (flach)"
+        "en_us": "Flat Resin Bishop",
+        "de_de": "Flacher Harz-Läufer"
       },
       "texture": null,
       "craftedBy": [
@@ -36932,7 +36932,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -36942,7 +36942,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -36982,7 +36982,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -36992,7 +36992,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -37007,8 +37007,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:resin_chess_king_flat",
       "name": {
-        "en_us": "Resin King (Flat)",
-        "de_de": "Harz-König (flach)"
+        "en_us": "Flat Resin King",
+        "de_de": "Flacher Harz-König"
       },
       "texture": null,
       "craftedBy": [
@@ -37032,7 +37032,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -37042,7 +37042,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -37082,7 +37082,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -37092,7 +37092,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -37107,8 +37107,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:resin_chess_knight_flat",
       "name": {
-        "en_us": "Resin Knight (Flat)",
-        "de_de": "Harz-Springer (flach)"
+        "en_us": "Flat Resin Knight",
+        "de_de": "Flacher Harz-Springer"
       },
       "texture": null,
       "craftedBy": [
@@ -37132,7 +37132,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -37142,7 +37142,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -37182,7 +37182,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -37192,7 +37192,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -37207,8 +37207,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:resin_chess_pawn_flat",
       "name": {
-        "en_us": "Resin Pawn (Flat)",
-        "de_de": "Harz-Bauer (flach)"
+        "en_us": "Flat Resin Pawn",
+        "de_de": "Flacher Harz-Bauer"
       },
       "texture": null,
       "craftedBy": [
@@ -37232,7 +37232,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -37242,7 +37242,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -37282,7 +37282,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -37292,7 +37292,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -37307,8 +37307,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:resin_chess_queen_flat",
       "name": {
-        "en_us": "Resin Queen (Flat)",
-        "de_de": "Harz-Dame (flach)"
+        "en_us": "Flat Resin Queen",
+        "de_de": "Flache Harz-Dame"
       },
       "texture": null,
       "craftedBy": [
@@ -37332,7 +37332,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -37342,7 +37342,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -37382,7 +37382,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -37392,7 +37392,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
@@ -37407,8 +37407,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:resin_chess_rook_flat",
       "name": {
-        "en_us": "Resin Rook (Flat)",
-        "de_de": "Harz-Turm (flach)"
+        "en_us": "Flat Resin Rook",
+        "de_de": "Flacher Harz-Turm"
       },
       "texture": null,
       "craftedBy": [
@@ -37432,7 +37432,7 @@ window.WIKI_DATA = {
           "tools/textures/chess_2026_10_06.py"
         ],
         "en": {
-          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+          "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
           "details": [
             "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
             "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -37442,7 +37442,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+          "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
           "details": [
             "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
             "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",

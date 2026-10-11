@@ -70,10 +70,14 @@ def entries(lang_file, lang):
         for flat in (False, True):
             for pid, pen, pde, fem in PIECES:
                 key = f'item.simplebuilding.{cid}_chess_{pid}' + ('_flat' if flat else '')
+                # Flat variants lead with the adjective (owner N38): "Flat Quartz Rook", "Flacher Quarz-Turm".
                 if lang == 'en':
-                    out[key] = f'{en} {pen}' + (' (Flat)' if flat else '')
+                    out[key] = ('Flat ' if flat else '') + f'{en} {pen}'
                 else:
-                    out[key] = (de_f if fem else de_m) + pde + (' (flach)' if flat else '')
+                    prefix = de_f if fem else de_m
+                    if flat:
+                        prefix = ('Flache ' if fem else 'Flacher ') + re.sub(r'^(Rot|Poliert)', lambda m: m.group(1).lower(), prefix)
+                    out[key] = prefix + pde
         if checker:
             base = existing[f'block.simplebuilding.{checker}']
             for shape, en_s, de_s in (('stairs', ' Stairs', 'treppe'), ('slab', ' Slab', 'stufe')):

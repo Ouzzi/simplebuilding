@@ -12281,7 +12281,7 @@
         "tools/textures/chess_2026_10_06.py"
       ],
       "en": {
-        "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above. The stonecutter cuts any piece from one octet of its color.",
+        "summary": "Chess pieces in the 13 octet colors: pawn, rook, knight, bishop, queen and king, each as a 3D figure and as a flat token whose raised symbol reads from above (Flat Pawn, Flat Rook, Flat Knight ...). The stonecutter cuts any piece from one octet of its color.",
         "details": [
           "A piece stands on a quarter of a block top - one field of the quartz checker below - so one block holds four pieces and a board of 4 x 4 checkers is a full chessboard.",
           "Right-click places it on the clicked quarter of a block with a full top face or on a free quarter of a block that already holds pieces; it faces where you look.",
@@ -12291,7 +12291,7 @@
         ]
       },
       "de": {
-        "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist. Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
+        "summary": "Schachfiguren in den 13 Achtel-Farben: Bauer, Turm, Springer, Läufer, Dame und König, je als 3D-Figur und als flacher Spielstein, dessen erhabenes Symbol von oben lesbar ist (Flacher Bauer, Flacher Turm, Flacher Springer ...). Der Steinmetz schneidet jede Figur aus einem Achtel ihrer Farbe.",
         "details": [
           "Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Quarz-Schachbretts darunter -, ein Block trägt also vier Figuren, und ein Brett aus 4 x 4 Schachbrettern ist ein ganzes Schachbrett.",
           "Rechtsklick stellt sie auf das angeklickte Viertel eines Blocks mit voller Oberseite oder auf ein freies Viertel eines Blocks, der schon Figuren trägt; sie schaut in deine Blickrichtung.",
