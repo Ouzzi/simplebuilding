@@ -33,15 +33,14 @@ import net.minecraft.world.level.block.state.BlockState;
  * {@value #FLOOR_BONUS} once the shelves stand at 30 (15 bookshelves on the floor = 40). So 30-40 needs blazewood
  * shelves OR the floor, and {@value #TIER_MAX} needs both (owner N32, 2026-10-10).
  *
- * <p><b>Budget.</b> The tier is the budget in points ({@value #MIN_BUDGET} without any shelf: one level of a common
- * enchantment); at {@value #TIER_MAX} every slider is free up to its maximum. Each slider level costs points by the
- * enchantment's rarity (Vanilla weight): common/uncommon {@value #COMMON_COST}, rare {@value #RARE_COST}, very rare
- * {@value #VERY_RARE_COST}.
- *
- * <p><b>Price.</b> Levels used up: 1 per started {@value #POINTS_PER_LEVEL} points spent (1-3 up to 30 like Vanilla's
- * 1-3, up to {@value #MAX_LEVEL_COST} above), always {@value #MAX_LEVEL_COST} at tier {@value #TIER_MAX}. Lapis = levels
- * used up, blaze powder twice that. The player needs at least as many levels as points spent (at most 30, at least the
- * levels used up) - Vanilla asks for the slot's level.
+ * <p><b>Price (owner N35, 2026-10-11).</b> Points are XP levels. Every enchantment has a value at its maximum level:
+ * a base by its Vanilla anvil cost (1: 4, 2: 6, up to 4: 9, more: 12) plus {@value #VALUE_PER_MAX_LEVEL} per maximum
+ * level. A slider level costs its share, {@code ceil(value x level / max)}. Combining is taxed: each further chosen
+ * enchantment adds a quarter of the sum, {@code price = min(50, ceil(sum x (3 + n) / 4))} with {@code n} chosen
+ * enchantments. The budget is the tier ({@value #MIN_BUDGET} without any shelf) up to {@value #MAX_PRICE}; since no price
+ * exceeds {@value #MAX_PRICE}, only tier {@value #TIER_MAX} lets every slider reach its maximum at once. Enchanting uses up
+ * the price in levels (the player needs them), lapis 1 per started {@value #LEVELS_PER_LAPIS} levels (1-5), blaze powder
+ * twice that.
  */
 public final class AstralEnchanting {
     public static final int MAX_SHELVES = 15;
@@ -59,16 +58,12 @@ public final class AstralEnchanting {
     /** Floor: 5x5 blazing obsidian right under the table (radius 2). */
     public static final int FLOOR_RADIUS = 2;
     public static final int MIN_BUDGET = 3;
-    /** Budget at tier 50: every slider to its maximum. */
-    public static final int UNLIMITED = Short.MAX_VALUE;
-    public static final int COMMON_COST = 3;
-    public static final int RARE_COST = 6;
-    public static final int VERY_RARE_COST = 10;
-    /** Levels used up at most (and always at tier {@value #TIER_MAX}). */
-    public static final int MAX_LEVEL_COST = 5;
-    /** Points per used-up level (30 points = 3 levels). */
-    public static final int POINTS_PER_LEVEL = 10;
-    public static final int MAX_REQUIRED_LEVEL = 30;
+    /** Highest price in levels; the budget at tier {@value #TIER_MAX}, where every slider is free. */
+    public static final int MAX_PRICE = 50;
+    /** Value added per maximum level of an enchantment. */
+    public static final int VALUE_PER_MAX_LEVEL = 2;
+    /** Levels per lapis lazuli (started). */
+    public static final int LEVELS_PER_LAPIS = 10;
     public static final int BLAZE_PER_LAPIS = 2;
     public static final int CHOICES = 3;
 
@@ -116,58 +111,72 @@ public final class AstralEnchanting {
         return floor ? STEP_BLAZE_SHELVES : STEP_SHELF_OR_FLOOR;
     }
 
-    /** Points to spend at this tier; {@link #UNLIMITED} at {@value #TIER_MAX}. */
+    /** Levels that may be spent at this tier: the tier, at least {@value #MIN_BUDGET}, at most {@value #MAX_PRICE}. */
     public static int budget(int tier) {
-        if (tier >= TIER_MAX) return UNLIMITED;
-        return Math.max(MIN_BUDGET, tier);
+        return Math.clamp(tier, MIN_BUDGET, MAX_PRICE);
     }
 
-    /** Points one slider level costs, by the enchantment's Vanilla weight (10/5 common, 2 rare, 1 very rare). */
-    public static int pointsPerLevel(int weight) {
-        if (weight >= 5) return COMMON_COST;
-        if (weight >= 2) return RARE_COST;
-        return VERY_RARE_COST;
+    /** Base value by the enchantment's Vanilla anvil cost (1 common, 2 uncommon, 4 rare, 8 very rare). */
+    public static int rarityValue(int anvilCost) {
+        if (anvilCost <= 1) return 4;
+        if (anvilCost <= 2) return 6;
+        if (anvilCost <= 4) return 9;
+        return 12;
     }
 
-    /** Points the chosen slider levels cost together. */
-    public static int spent(int[] levels, int[] pointsPerLevel) {
+    /** Value of an enchantment at its maximum level: rarity base + {@value #VALUE_PER_MAX_LEVEL} per maximum level. */
+    public static int value(int anvilCost, int maxLevel) {
+        return rarityValue(anvilCost) + VALUE_PER_MAX_LEVEL * Math.max(1, maxLevel);
+    }
+
+    public static int value(Enchantment enchantment) {
+        return value(enchantment.getAnvilCost(), enchantment.getMaxLevel());
+    }
+
+    /** Price of one slider before the tax: its share of the value, {@code ceil(value x level / max)}. */
+    public static int levelPrice(int level, int maxLevel, int value) {
+        if (level <= 0 || maxLevel <= 0) return 0;
+        return Math.ceilDiv(value * Math.min(level, maxLevel), maxLevel);
+    }
+
+    /** Sum of the slider prices before the tax. */
+    public static int basePrice(int[] levels, int[] maxLevels, int[] values) {
         int sum = 0;
-        for (int i = 0; i < levels.length; i++) {
-            sum += Math.max(0, levels[i]) * pointsPerLevel[i];
-        }
+        for (int i = 0; i < levels.length; i++) sum += levelPrice(levels[i], maxLevels[i], values[i]);
         return sum;
     }
 
-    /** The highest level slider {@code row} may take with the others as they are, within {@code maxLevel} and the budget. */
-    public static int maxAffordable(int row, int[] levels, int[] pointsPerLevel, int maxLevel, int budget) {
-        int others = 0;
-        for (int i = 0; i < levels.length; i++) {
-            if (i != row) others += Math.max(0, levels[i]) * pointsPerLevel[i];
+    /** How many sliders stand above 0. */
+    public static int chosenCount(int[] levels) {
+        int n = 0;
+        for (int level : levels) if (level > 0) n++;
+        return n;
+    }
+
+    /** The price in levels: the sum plus a quarter of it per further enchantment, at most {@value #MAX_PRICE}. */
+    public static int price(int[] levels, int[] maxLevels, int[] values) {
+        int n = chosenCount(levels);
+        if (n == 0) return 0;
+        return Math.min(MAX_PRICE, Math.ceilDiv(basePrice(levels, maxLevels, values) * (3 + n), 4));
+    }
+
+    /** The highest level slider {@code row} may take with the others as they are, within its maximum and the budget. */
+    public static int maxAffordable(int row, int[] levels, int[] maxLevels, int[] values, int budget) {
+        int[] test = levels.clone();
+        for (int level = maxLevels[row]; level > 0; level--) {
+            test[row] = level;
+            if (price(test, maxLevels, values) <= budget) return level;
         }
-        int left = budget - others;
-        if (left <= 0 || pointsPerLevel[row] <= 0) return 0;
-        return Math.min(maxLevel, left / pointsPerLevel[row]);
+        return 0;
     }
 
-    /** Levels used up: 0 without a choice, 1 per started 10 points (at most 5), always 5 at tier {@value #TIER_MAX}. */
-    public static int levelCost(int spent, int tier) {
-        if (spent <= 0) return 0;
-        if (tier >= TIER_MAX) return MAX_LEVEL_COST;
-        return Math.clamp((spent + POINTS_PER_LEVEL - 1) / POINTS_PER_LEVEL, 1, MAX_LEVEL_COST);
+    /** Lapis lazuli: one per started {@value #LEVELS_PER_LAPIS} levels of the price (1-5). */
+    public static int lapisCost(int price) {
+        return price <= 0 ? 0 : Math.ceilDiv(price, LEVELS_PER_LAPIS);
     }
 
-    /** Levels the player must have: the points spent (at most 30), never fewer than the levels used up. */
-    public static int requiredLevel(int spent, int tier) {
-        if (spent <= 0) return 0;
-        return Math.max(levelCost(spent, tier), Math.min(MAX_REQUIRED_LEVEL, spent));
-    }
-
-    public static int lapisCost(int levelCost) {
-        return levelCost;
-    }
-
-    public static int blazePowderCost(int levelCost) {
-        return BLAZE_PER_LAPIS * levelCost;
+    public static int blazePowderCost(int price) {
+        return BLAZE_PER_LAPIS * lapisCost(price);
     }
 
     // ------------------------------------------------------------------ the world

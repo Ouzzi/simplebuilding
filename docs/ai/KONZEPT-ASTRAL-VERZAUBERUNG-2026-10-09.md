@@ -113,3 +113,64 @@ Zeile, was für die nächste Stufe fehlt: mehr Bücherregale (`p < 15`), Lohen-R
 Boden), Boden (`p = 30`), Lohen-Regale statt Bücherregale (Boden vorhanden, `p < 30`), oder „Maximum“.
 Code: `AstralEnchanting.tier/nextStep`, Menü-DataSlot `setup`. Entschieden (Claude): Boden bleibt +10 erst ab 15 Punkten;
 Zwischenwerte gerundet (nicht jede Zusatzpunkt-Stufe steigt um 1).
+
+## Kosten-Konzept 11.10. (Nachtrag 35, Branch claude-astral4) - ersetzt Budget/Kosten aus N27/N32
+Besitzer: höchstens Level 50; erst bei Stärke 50 sind alle angezeigten Verzauberungen zugleich maximierbar, darunter
+weniger (kein „∞“ mehr). Preis je Verzauberungsstufe nach ihrem Wert, dazu eine „Steuer“ fürs Kombinieren: drei
+schwache dürfen unter 50 Level kosten, drei starke kosten 50.
+
+**Punkte = XP-Level.** Es gibt nur noch eine Einheit: der Preis ist die Zahl der Level, die das Verzaubern verbraucht
+(der Spieler muss sie haben). Budget = Stärke des Tisches, mindestens 3, höchstens 50.
+
+**Formel.**
+1. Wert einer Verzauberung auf Höchststufe: `W = Grundwert(Amboss-Kosten) + 2 x Höchststufe`, Grundwert nach den
+   Vanilla-Amboss-Kosten (= Seltenheit): 1 → 4, 2 → 6, bis 4 → 9, darüber 12.
+2. Reglerstufe `L` von `M` kostet ihren Anteil: `ceil(W x L / M)`.
+3. Steuer: bei `n` gewählten Verzauberungen `Preis = min(50, ceil(Summe x (3 + n) / 4))`, also +1/4 der Summe je
+   weiterer Verzauberung (eine: x1, zwei: x1,25, drei: x1,5).
+4. Lapislazuli = 1 je angefangene 10 Level (1-5), Lohenstaub doppelt so viel.
+
+Weil kein Preis 50 übersteigt, passt bei Stärke 50 jede Kombination; darunter schneidet das Budget ab (zu teure
+Reglerstufen grau). Entschieden (Claude): Verbrauch = Preis (Besitzer: „XP-Level-Kosten max 50“), statt der alten 1-5
+Level; das ist teurer als Vanilla, dafür gezielt und ohne Amboss-Strafkosten.
+
+**Werte (Vanilla 26.3).**
+
+| Verzauberung | Amboss | Max | Wert W | Preis je Stufe 1..Max |
+|---|---|---|---|---|
+| Schärfe / Effizienz / Stärke | 1 | 5 | 14 | 3, 6, 9, 12, 14 |
+| Schutz / Durchschuss | 1 | 4 | 12 | 3, 6, 9, 12 |
+| Treue | 1 | 3 | 10 | 4, 7, 10 |
+| Haltbarkeit / Schnellladen | 2 | 3 | 12 | 4, 8, 12 |
+| Rückstoß | 2 | 2 | 10 | 5, 10 |
+| Federfall | 2 | 4 | 14 | 4, 7, 11, 14 |
+| Bann / Dichte | 2 | 5 | 16 | 4, 7, 10, 13, 16 |
+| Plünderung / Glück / Glück des Meeres / Köder | 4 | 3 | 15 | 5, 10, 15 |
+| Verbrennung / Schlag | 4 | 2 | 13 | 7, 13 |
+| Flamme / Mehrfachschuss / Wasseraffinität | 4 | 1 | 11 | 11 |
+| Harpune | 4 | 5 | 19 | 4, 8, 12, 16, 19 |
+| Behutsamkeit / Unendlichkeit / Entladung | 8 | 1 | 14 | 14 |
+| Dornen | 8 | 3 | 18 | 6, 12, 18 |
+
+**Beispiele.**
+
+| Item | Wahl | Summe | Steuer | Preis (Level) | Lapis / Lohenstaub | ab Stärke |
+|---|---|---|---|---|---|---|
+| Schwert | Schärfe V | 14 | x1 | 14 | 2 / 4 | 14 |
+| Schwert | Schärfe V + Plünderung III | 29 | x1,25 | 37 | 4 / 8 | 37 |
+| Schwert | Schärfe V + Plünderung III + Verbrennung II | 42 | x1,5 | 50 (63) | 5 / 10 | 50 |
+| Schwert | Schärfe II + Haltbarkeit I + Rückstoß I | 15 | x1,5 | 23 | 3 / 6 | 23 |
+| Spitzhacke | Effizienz V + Haltbarkeit III | 26 | x1,25 | 33 | 4 / 8 | 33 |
+| Spitzhacke | Effizienz V + Glück III + Haltbarkeit III | 41 | x1,5 | 50 (62) | 5 / 10 | 50 |
+| Spitzhacke | Behutsamkeit + Effizienz V + Haltbarkeit III | 40 | x1,5 | 50 (60) | 5 / 10 | 50 |
+| Bogen | Stärke V + Schlag II + Flamme | 38 | x1,5 | 50 (57) | 5 / 10 | 50 |
+| Buch | Schutz IV + Rückstoß II + Treue III (drei schwache) | 32 | x1,5 | 48 | 5 / 10 | 48 |
+| Buch | Schärfe I (ohne Regale) | 3 | x1 | 3 | 1 / 2 | 0 (Budget 3) |
+
+Bei Stärke 30 (15 Bücherregale) z. B. Schärfe V + Plünderung II (24 x 1,25 = 30); bei 40 Schärfe V + Plünderung III (37).
+
+**UI (N35).** Namen in kleinerer Schrift (75 %), Regler-Abschnitte je Stufe abgestuft (Stufe 1 in der Reglerfarbe,
+jede höhere einen Ton dunkler, höchstens bis 55 % Helligkeit), oben rechts „Preis/Budget Lv“ statt „x/∞“ (Tooltip:
+Stärke, Preis von Budget, Erklärung), im Verzaubern-Knopf unter Buch und Level in einer Zeile ein blauer Punkt mit dem
+Lapis- und ein orange-roter Punkt mit dem Lohenstaub-Bedarf (rot, wenn er fehlt). Tooltip je Regler: Preis Stufe 1 und
+Wert auf Höchststufe, Steuer-Hinweis. Code: `AstralEnchanting.value/levelPrice/price/maxAffordable/budget`.

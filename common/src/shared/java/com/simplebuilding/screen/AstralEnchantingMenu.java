@@ -31,8 +31,8 @@ import org.jspecify.annotations.Nullable;
  * Menu of the Astral Enchanter (owner 2026-10-09, queue N27). Built like Vanilla's enchanting menu: the item slot
  * belongs to the menu (it goes back to the player on close), lapis and blaze powder are the table's own slots
  * ({@link AstralEnchantingTableBlockEntity}, they stay in the block). Instead of three fixed offers there are three
- * random enchantments that fit the item, each with a slider 0..max; the sliders share the table's budget
- * ({@link AstralEnchanting}). Everything reaches the server as Vanilla menu button clicks: {@code row * 16 + level} sets
+ * random enchantments that fit the item, each with a slider 0..max; the sliders share the table's budget in levels
+ * ({@link AstralEnchanting}: value per enchantment, a tax for combining, at most 50). Everything reaches the server as Vanilla menu button clicks: {@code row * 16 + level} sets
  * a slider, {@link #BUTTON_ENCHANT} enchants. The server checks every click against the budget and the stock again.
  */
 public class AstralEnchantingMenu extends AbstractContainerMenu {
@@ -63,11 +63,11 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
     private final DataSlot tier = DataSlot.standalone();
     /** Shelf points * 2 + 1 with the floor (for the tooltip: what the next stage lacks). */
     private final DataSlot setup = DataSlot.standalone();
-    /** Per row: enchantment id (holder id map, -1 none), max level, chosen level, points per level. */
+    /** Per row: enchantment id (holder id map, -1 none), max level, chosen level, value at the max level. */
     private final int[] enchant = {-1, -1, -1};
     private final int[] maxLevel = new int[3];
     private final int[] chosen = new int[3];
-    private final int[] cost = new int[3];
+    private final int[] value = new int[3];
 
     /** Client. */
     public AstralEnchantingMenu(int containerId, Inventory inventory) {
@@ -112,7 +112,7 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
         this.addStandardInventorySlots(inventory, 8, INVENTORY_Y);
         this.addDataSlot(this.tier);
         this.addDataSlot(this.setup);
-        for (int[] array : new int[][] {this.enchant, this.maxLevel, this.chosen, this.cost}) {
+        for (int[] array : new int[][] {this.enchant, this.maxLevel, this.chosen, this.value}) {
             for (int i = 0; i < 3; i++) this.addDataSlot(DataSlot.shared(array, i));
         }
         refresh();
@@ -131,7 +131,7 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
                 Holder<Enchantment> holder = i < choices.size() ? choices.get(i) : null;
                 this.enchant[i] = holder == null ? -1 : ids.getId(holder);
                 this.maxLevel[i] = holder == null ? 0 : holder.value().getMaxLevel();
-                this.cost[i] = holder == null ? 0 : AstralEnchanting.pointsPerLevel(holder.value().getWeight());
+                this.value[i] = holder == null ? 0 : AstralEnchanting.value(holder.value());
                 this.chosen[i] = 0;
             }
             this.broadcastChanges();
@@ -186,33 +186,37 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
         return this.chosen[row];
     }
 
-    public int pointsPerLevel(int row) {
-        return this.cost[row];
+    /** Value of the row's enchantment at its maximum level (before the tax). */
+    public int value(int row) {
+        return this.value[row];
+    }
+
+    /** Levels the row's slider would cost alone at {@code level} (before the tax). */
+    public int levelPrice(int row, int level) {
+        return AstralEnchanting.levelPrice(level, maxLevel(row), this.value[row]);
     }
 
     public int[] chosenLevels() {
         return this.chosen.clone();
     }
 
-    public int[] pointsPerLevel() {
-        return this.cost.clone();
+    private int[] maxLevels() {
+        return new int[] {maxLevel(0), maxLevel(1), maxLevel(2)};
     }
 
-    public int spent() {
-        return AstralEnchanting.spent(this.chosen, this.cost);
+    /** Sum of the slider prices before the tax. */
+    public int basePrice() {
+        return AstralEnchanting.basePrice(this.chosen, maxLevels(), this.value);
+    }
+
+    /** The price in levels (tax included, at most 50): used up on enchanting, and the player needs it. */
+    public int price() {
+        return AstralEnchanting.price(this.chosen, maxLevels(), this.value);
     }
 
     /** Highest level the slider in {@code row} may reach now (the rest greyed out). */
     public int affordable(int row) {
-        return AstralEnchanting.maxAffordable(row, this.chosen, this.cost, maxLevel(row), budget());
-    }
-
-    public int levelCost() {
-        return AstralEnchanting.levelCost(spent(), tier());
-    }
-
-    public int requiredLevel() {
-        return AstralEnchanting.requiredLevel(spent(), tier());
+        return AstralEnchanting.maxAffordable(row, this.chosen, maxLevels(), this.value, budget());
     }
 
     public int lapis() {
@@ -225,12 +229,11 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
 
     /** Whether {@code player} could enchant now (client: to light the button; server checks again). */
     public boolean canEnchant(Player player) {
-        int spent = spent();
-        if (this.itemSlot.getItem(0).isEmpty() || spent <= 0 || spent > budget()) return false;
+        int price = price();
+        if (this.itemSlot.getItem(0).isEmpty() || price <= 0 || price > budget()) return false;
         if (player.hasInfiniteMaterials()) return true;
-        int levels = levelCost();
-        return player.experienceLevel >= requiredLevel()
-                && lapis() >= AstralEnchanting.lapisCost(levels) && blazePowder() >= AstralEnchanting.blazePowderCost(levels);
+        return player.experienceLevel >= price
+                && lapis() >= AstralEnchanting.lapisCost(price) && blazePowder() >= AstralEnchanting.blazePowderCost(price);
     }
 
     /** Enchantment of a row on this side, or null. */
@@ -256,9 +259,8 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
         if (!canEnchant(player)) return false;
         return this.access.evaluate((level, pos) -> {
             int tier = readTier(level, pos);
-            int spent = spent();
-            if (spent > AstralEnchanting.budget(tier) || !canEnchant(player)) return false;
-            int levels = AstralEnchanting.levelCost(spent, tier);
+            int levels = price();
+            if (levels > AstralEnchanting.budget(tier) || !canEnchant(player)) return false;
             ItemStack stack = this.itemSlot.getItem(0);
             ItemStack result = stack.is(Items.BOOK) ? stack.transmuteCopy(Items.ENCHANTED_BOOK, 1) : stack.copy();
             for (int row = 0; row < 3; row++) {
