@@ -69,7 +69,7 @@ Einordnung: **stärker als Wither-Skelette, schwächer als Warden** - der Maw is
 - **Phasen:**
   1. >50 %: Biss + Echo-Schrei, jagt Vibrationen.
   2. <=50 %: "Hunger": Kiefern bleiben offen (Tempo +15 %), Biss-Reichweite +1; er spuckt alle 15 s 3 **Sculk Jaws** (SB: echte Blöcke, 20 s Lebensdauer, aus dem Boden; ohne SB: *Sculk-Venen* + Wurzelfalle ohne Block-Item, siehe Abschnitt 9) als Falle um das Ziel.
-  3. <=20 %: "Wut": Echo-Schrei alle 6 s, Rückstoßresistenz 1,0, ruft alle 25 s 2 Sculk-Stachelwürmer? -> **nicht empfohlen**; Phase 3 bleibt Tempo +, kein Beschwören (Balance, Frage 4).
+  3. <=20 %: "Wut": Echo-Schrei alle 6 s, Rückstoßresistenz 1,0, Tempo +25 %; ruft **keine** Verstärkung (Balance, Frage 4).
 - Despawn: persistent, solange er ein Ziel hat; ohne Ziel nach 10 min ohne Spieler im Umkreis 64 (Config).
 - Feind von **allen Spielern**, greift Sculk-Wesen nicht an. Wird **nicht** vom Warden/Wither angegriffen (Fraktion "Deep Dark").
 
