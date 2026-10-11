@@ -46,7 +46,7 @@ final class EnvironmentClaimTests {
  static void hopper(GameTestHelper h){with(h,c->{
   var l=h.getLevel();var inside=ToolClaimTests.boundary(h);var owner=player(h,inside.east(10));
   yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Hopper fixture");
-  for(var block:List.of(Blocks.HOPPER,BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplebuilding:reinforced_hopper"))))for(boolean same:new boolean[]{false,true}){
+  for(var block:simpleBuilding()?List.of(Blocks.HOPPER,BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplebuilding:reinforced_hopper"))):List.of(Blocks.HOPPER))for(boolean same:new boolean[]{false,true}){
    var from=same?inside.east(3):inside.west();var target=from.east();
    for(var pos:List.of(from,target)){if(l.getBlockEntity(pos) instanceof Container old)old.clearContent();l.setBlock(pos,Blocks.AIR.defaultBlockState(),3);}
    l.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,new net.minecraft.world.phys.AABB(from).inflate(2)).forEach(Entity::discard);

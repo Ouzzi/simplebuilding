@@ -310,6 +310,15 @@ Schätzung in Agenten-Sitzungen (1 S ≈ ein Queue-Auftrag inkl. Tests).
 - 1c: neues Modul `simpleaesthetics` 1.0.0 (keine Inhalte; `config/simpleaesthetics.json` mit drei Schaltern, ohne
   eigenen Config-Bildschirm), `requires`+bündelt Visuals/Sounds/Models, Standalone-Target, Wiki-Kapitel, Money-Preisliste.
 
+**Status Stufe 2 (11.10., Branch `claude-split2` auf `claude-split1`):** Simple Tweaks hängt nicht mehr hart an SB:
+`modules.json` `requires: []`, `optional` + `simplebuilding`; Fabric `depends` → `suggests`, NeoForge `type="optional"`,
+Forge `mandatory=false`. Standalone-Target lädt nur Simple Tweaks (`standalone.requires: []`). Tests mit SB-Bezug
+(Legacy-Aliase, SB-Werkzeuge/-Kolben/-Trichter/-Magnet, `WorldPermissions`) laufen mit SB unverändert und überspringen
+allein mit Log-Hinweis; allein prüft `every_legacy_registry_lookup`, dass die Aliase leer bleiben (kein Treffer, Vanilla
+verwirft unbekannte Einträge). Die Alias-Suche selbst brauchte keinen `isModLoaded`-Schalter: das Ziel `simplebuilding:*`
+fehlt dann einfach in der Registry. Integrations-Targets (`module-simpletweaks-*-263`) laden SB weiter. Pads/Chunk-Loader
+bleiben in SB (F2).
+
 Summe ≈ 32 Agenten-Sitzungen. Stufen 1a–2 sind unabhängig voneinander parallelisierbar (verschiedene Dateien bis auf
 `modules.json` – additiv). Ab Stufe 3 strikt nacheinander (gemeinsame Registrierungsdateien).
 
