@@ -23,6 +23,7 @@
   "simplebuilding.testcentre.command.kit": "Ausrüstung an %s Spieler gegeben",
   "simplebuilding.testcentre.command.section_built": "Abschnitt %s neu gebaut (%s ms)",
   "simplebuilding.testcentre.command.unknown_section": "Unbekannter Abschnitt %s",
+  "simplebuilding.testcentre.command.overworld_only": "Die Testzentrale steht in der Oberwelt - erst dorthin wechseln",
   "simplebuilding.testcentre.command.unsorted": "%s Mod-Items stehen noch in keinem Abschnitt (siehe 'Unsortiert')",
   "simplebuilding.testcentre.controls.clear": "Klares Wetter",
   "simplebuilding.testcentre.controls.creative": "Kreativ",

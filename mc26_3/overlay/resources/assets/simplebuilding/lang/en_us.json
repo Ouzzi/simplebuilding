@@ -23,6 +23,7 @@
   "simplebuilding.testcentre.command.kit": "Kit given to %s player(s)",
   "simplebuilding.testcentre.command.section_built": "Section %s rebuilt (%s ms)",
   "simplebuilding.testcentre.command.unknown_section": "Unknown section %s",
+  "simplebuilding.testcentre.command.overworld_only": "The test centre lives in the Overworld - go there first",
   "simplebuilding.testcentre.command.unsorted": "%s mod items are not in a section yet (see 'Unsorted')",
   "simplebuilding.testcentre.controls.clear": "Clear weather",
   "simplebuilding.testcentre.controls.creative": "Creative",
