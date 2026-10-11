@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 768,
+      "count": 780,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -4003,7 +4003,8 @@ window.WIKI_DATA = {
         "simplebuilding:acacia_sheet"
       ],
       "usedIn": [
-        "simplebuilding:acacia_cauldron"
+        "simplebuilding:acacia_cauldron",
+        "simplebuilding:stripped_acacia_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/acacia_sheet.png",
@@ -5997,7 +5998,8 @@ window.WIKI_DATA = {
         "simplebuilding:bamboo_sheet"
       ],
       "usedIn": [
-        "simplebuilding:bamboo_cauldron"
+        "simplebuilding:bamboo_cauldron",
+        "simplebuilding:stripped_bamboo_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/bamboo_sheet.png",
@@ -6224,7 +6226,8 @@ window.WIKI_DATA = {
         "simplebuilding:birch_sheet"
       ],
       "usedIn": [
-        "simplebuilding:birch_cauldron"
+        "simplebuilding:birch_cauldron",
+        "simplebuilding:stripped_birch_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/birch_sheet.png",
@@ -8593,7 +8596,8 @@ window.WIKI_DATA = {
         "simplebuilding:cherry_sheet"
       ],
       "usedIn": [
-        "simplebuilding:cherry_cauldron"
+        "simplebuilding:cherry_cauldron",
+        "simplebuilding:stripped_cherry_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/cherry_sheet.png",
@@ -10705,7 +10709,8 @@ window.WIKI_DATA = {
         "simplebuilding:crimson_sheet"
       ],
       "usedIn": [
-        "simplebuilding:crimson_cauldron"
+        "simplebuilding:crimson_cauldron",
+        "simplebuilding:stripped_crimson_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/crimson_sheet.png",
@@ -11183,7 +11188,8 @@ window.WIKI_DATA = {
         "simplebuilding:dark_oak_sheet"
       ],
       "usedIn": [
-        "simplebuilding:dark_oak_cauldron"
+        "simplebuilding:dark_oak_cauldron",
+        "simplebuilding:stripped_dark_oak_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/dark_oak_sheet.png",
@@ -18532,7 +18538,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_acacia_log"
       ],
       "usedIn": [
-        "simplebuilding:acacia_cauldron",
+        "simplebuilding:stripped_acacia_cauldron",
         "simplebuilding:stripped_acacia_sheet"
       ],
       "trades": [],
@@ -18577,7 +18583,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_bamboo_block"
       ],
       "usedIn": [
-        "simplebuilding:bamboo_cauldron",
+        "simplebuilding:stripped_bamboo_cauldron",
         "simplebuilding:stripped_bamboo_sheet"
       ],
       "trades": [],
@@ -18622,7 +18628,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_birch_log"
       ],
       "usedIn": [
-        "simplebuilding:birch_cauldron",
+        "simplebuilding:stripped_birch_cauldron",
         "simplebuilding:stripped_birch_sheet"
       ],
       "trades": [],
@@ -18667,7 +18673,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_cherry_log"
       ],
       "usedIn": [
-        "simplebuilding:cherry_cauldron",
+        "simplebuilding:stripped_cherry_cauldron",
         "simplebuilding:stripped_cherry_sheet"
       ],
       "trades": [],
@@ -18712,7 +18718,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_crimson_stem"
       ],
       "usedIn": [
-        "simplebuilding:crimson_cauldron",
+        "simplebuilding:stripped_crimson_cauldron",
         "simplebuilding:stripped_crimson_sheet"
       ],
       "trades": [],
@@ -18757,7 +18763,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_dark_oak_log"
       ],
       "usedIn": [
-        "simplebuilding:dark_oak_cauldron",
+        "simplebuilding:stripped_dark_oak_cauldron",
         "simplebuilding:stripped_dark_oak_sheet"
       ],
       "trades": [],
@@ -18802,7 +18808,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_jungle_log"
       ],
       "usedIn": [
-        "simplebuilding:jungle_cauldron",
+        "simplebuilding:stripped_jungle_cauldron",
         "simplebuilding:stripped_jungle_sheet"
       ],
       "trades": [],
@@ -18847,7 +18853,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_mangrove_log"
       ],
       "usedIn": [
-        "simplebuilding:mangrove_cauldron",
+        "simplebuilding:stripped_mangrove_cauldron",
         "simplebuilding:stripped_mangrove_sheet"
       ],
       "trades": [],
@@ -18892,7 +18898,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_oak_log"
       ],
       "usedIn": [
-        "simplebuilding:oak_cauldron",
+        "simplebuilding:stripped_oak_cauldron",
         "simplebuilding:stripped_oak_sheet"
       ],
       "trades": [],
@@ -18937,7 +18943,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_pale_oak_log"
       ],
       "usedIn": [
-        "simplebuilding:pale_oak_cauldron",
+        "simplebuilding:stripped_pale_oak_cauldron",
         "simplebuilding:stripped_pale_oak_sheet"
       ],
       "trades": [],
@@ -18982,7 +18988,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_spruce_log"
       ],
       "usedIn": [
-        "simplebuilding:spruce_cauldron",
+        "simplebuilding:stripped_spruce_cauldron",
         "simplebuilding:stripped_spruce_sheet"
       ],
       "trades": [],
@@ -19027,8 +19033,8 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_warped_stem"
       ],
       "usedIn": [
-        "simplebuilding:stripped_warped_sheet",
-        "simplebuilding:warped_cauldron"
+        "simplebuilding:stripped_warped_cauldron",
+        "simplebuilding:stripped_warped_sheet"
       ],
       "trades": [],
       "icon": "assets/textures/render/hollow_stripped_warped_stem.png",
@@ -20126,7 +20132,8 @@ window.WIKI_DATA = {
         "simplebuilding:jungle_sheet"
       ],
       "usedIn": [
-        "simplebuilding:jungle_cauldron"
+        "simplebuilding:jungle_cauldron",
+        "simplebuilding:stripped_jungle_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/jungle_sheet.png",
@@ -22257,7 +22264,8 @@ window.WIKI_DATA = {
         "simplebuilding:mangrove_sheet"
       ],
       "usedIn": [
-        "simplebuilding:mangrove_cauldron"
+        "simplebuilding:mangrove_cauldron",
+        "simplebuilding:stripped_mangrove_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/mangrove_sheet.png",
@@ -27182,7 +27190,8 @@ window.WIKI_DATA = {
         "simplebuilding:oak_sheet"
       ],
       "usedIn": [
-        "simplebuilding:oak_cauldron"
+        "simplebuilding:oak_cauldron",
+        "simplebuilding:stripped_oak_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/oak_sheet.png",
@@ -28241,7 +28250,8 @@ window.WIKI_DATA = {
         "simplebuilding:pale_oak_sheet"
       ],
       "usedIn": [
-        "simplebuilding:pale_oak_cauldron"
+        "simplebuilding:pale_oak_cauldron",
+        "simplebuilding:stripped_pale_oak_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/pale_oak_sheet.png",
@@ -38416,7 +38426,8 @@ window.WIKI_DATA = {
         "simplebuilding:spruce_sheet"
       ],
       "usedIn": [
-        "simplebuilding:spruce_cauldron"
+        "simplebuilding:spruce_cauldron",
+        "simplebuilding:stripped_spruce_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/spruce_sheet.png",
@@ -39118,6 +39129,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_acacia_cauldron",
+      "name": {
+        "en_us": "Stripped Acacia Cauldron",
+        "de_de": "Entrindeter Akazienholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_acacia_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_acacia_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_acacia_sheet",
       "name": {
         "en_us": "Stripped Acacia Sheet",
@@ -39128,7 +39177,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_acacia_sheet"
       ],
       "usedIn": [
-        "simplebuilding:acacia_cauldron"
+        "simplebuilding:acacia_cauldron",
+        "simplebuilding:stripped_acacia_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_acacia_sheet.png",
@@ -39156,6 +39206,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_bamboo_cauldron",
+      "name": {
+        "en_us": "Stripped Bamboo Cauldron",
+        "de_de": "Entrindeter Bambuskessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_bamboo_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_bamboo_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_bamboo_sheet",
       "name": {
         "en_us": "Stripped Bamboo Sheet",
@@ -39166,7 +39254,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_bamboo_sheet"
       ],
       "usedIn": [
-        "simplebuilding:bamboo_cauldron"
+        "simplebuilding:bamboo_cauldron",
+        "simplebuilding:stripped_bamboo_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_bamboo_sheet.png",
@@ -39194,6 +39283,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_birch_cauldron",
+      "name": {
+        "en_us": "Stripped Birch Cauldron",
+        "de_de": "Entrindeter Birkenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_birch_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_birch_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_birch_sheet",
       "name": {
         "en_us": "Stripped Birch Sheet",
@@ -39204,7 +39331,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_birch_sheet"
       ],
       "usedIn": [
-        "simplebuilding:birch_cauldron"
+        "simplebuilding:birch_cauldron",
+        "simplebuilding:stripped_birch_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_birch_sheet.png",
@@ -39232,6 +39360,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_cherry_cauldron",
+      "name": {
+        "en_us": "Stripped Cherry Cauldron",
+        "de_de": "Entrindeter Kirschholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_cherry_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_cherry_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_cherry_sheet",
       "name": {
         "en_us": "Stripped Cherry Sheet",
@@ -39242,7 +39408,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_cherry_sheet"
       ],
       "usedIn": [
-        "simplebuilding:cherry_cauldron"
+        "simplebuilding:cherry_cauldron",
+        "simplebuilding:stripped_cherry_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_cherry_sheet.png",
@@ -39270,6 +39437,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_crimson_cauldron",
+      "name": {
+        "en_us": "Stripped Crimson Cauldron",
+        "de_de": "Entrindeter Karmesinholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_crimson_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_crimson_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_crimson_sheet",
       "name": {
         "en_us": "Stripped Crimson Sheet",
@@ -39280,7 +39485,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_crimson_sheet"
       ],
       "usedIn": [
-        "simplebuilding:crimson_cauldron"
+        "simplebuilding:crimson_cauldron",
+        "simplebuilding:stripped_crimson_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_crimson_sheet.png",
@@ -39308,6 +39514,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_dark_oak_cauldron",
+      "name": {
+        "en_us": "Stripped Dark Oak Cauldron",
+        "de_de": "Entrindeter Schwarzeichenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_dark_oak_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_dark_oak_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_dark_oak_sheet",
       "name": {
         "en_us": "Stripped Dark Oak Sheet",
@@ -39318,7 +39562,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_dark_oak_sheet"
       ],
       "usedIn": [
-        "simplebuilding:dark_oak_cauldron"
+        "simplebuilding:dark_oak_cauldron",
+        "simplebuilding:stripped_dark_oak_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_dark_oak_sheet.png",
@@ -39346,6 +39591,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_jungle_cauldron",
+      "name": {
+        "en_us": "Stripped Jungle Cauldron",
+        "de_de": "Entrindeter Tropenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_jungle_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_jungle_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_jungle_sheet",
       "name": {
         "en_us": "Stripped Jungle Sheet",
@@ -39356,7 +39639,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_jungle_sheet"
       ],
       "usedIn": [
-        "simplebuilding:jungle_cauldron"
+        "simplebuilding:jungle_cauldron",
+        "simplebuilding:stripped_jungle_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_jungle_sheet.png",
@@ -39384,6 +39668,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_mangrove_cauldron",
+      "name": {
+        "en_us": "Stripped Mangrove Cauldron",
+        "de_de": "Entrindeter Mangrovenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_mangrove_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_mangrove_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_mangrove_sheet",
       "name": {
         "en_us": "Stripped Mangrove Sheet",
@@ -39394,7 +39716,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_mangrove_sheet"
       ],
       "usedIn": [
-        "simplebuilding:mangrove_cauldron"
+        "simplebuilding:mangrove_cauldron",
+        "simplebuilding:stripped_mangrove_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_mangrove_sheet.png",
@@ -39422,6 +39745,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_oak_cauldron",
+      "name": {
+        "en_us": "Stripped Oak Cauldron",
+        "de_de": "Entrindeter Eichenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_oak_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_oak_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_oak_sheet",
       "name": {
         "en_us": "Stripped Oak Sheet",
@@ -39432,7 +39793,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_oak_sheet"
       ],
       "usedIn": [
-        "simplebuilding:oak_cauldron"
+        "simplebuilding:oak_cauldron",
+        "simplebuilding:stripped_oak_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_oak_sheet.png",
@@ -39460,6 +39822,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_pale_oak_cauldron",
+      "name": {
+        "en_us": "Stripped Pale Oak Cauldron",
+        "de_de": "Entrindeter Blasseichenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_pale_oak_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_pale_oak_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_pale_oak_sheet",
       "name": {
         "en_us": "Stripped Pale Oak Sheet",
@@ -39470,7 +39870,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_pale_oak_sheet"
       ],
       "usedIn": [
-        "simplebuilding:pale_oak_cauldron"
+        "simplebuilding:pale_oak_cauldron",
+        "simplebuilding:stripped_pale_oak_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_pale_oak_sheet.png",
@@ -39498,6 +39899,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_spruce_cauldron",
+      "name": {
+        "en_us": "Stripped Spruce Cauldron",
+        "de_de": "Entrindeter Fichtenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_spruce_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_spruce_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_spruce_sheet",
       "name": {
         "en_us": "Stripped Spruce Sheet",
@@ -39508,7 +39947,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_spruce_sheet"
       ],
       "usedIn": [
-        "simplebuilding:spruce_cauldron"
+        "simplebuilding:spruce_cauldron",
+        "simplebuilding:stripped_spruce_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_spruce_sheet.png",
@@ -39536,6 +39976,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_warped_cauldron",
+      "name": {
+        "en_us": "Stripped Warped Cauldron",
+        "de_de": "Entrindeter Wirrholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_warped_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_warped_cauldron.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_warped_sheet",
       "name": {
         "en_us": "Stripped Warped Sheet",
@@ -39546,6 +40024,7 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_warped_sheet"
       ],
       "usedIn": [
+        "simplebuilding:stripped_warped_cauldron",
         "simplebuilding:warped_cauldron"
       ],
       "trades": [],
@@ -40364,6 +40843,7 @@ window.WIKI_DATA = {
         "simplebuilding:warped_sheet"
       ],
       "usedIn": [
+        "simplebuilding:stripped_warped_cauldron",
         "simplebuilding:warped_cauldron"
       ],
       "trades": [],
@@ -41384,7 +41864,8 @@ window.WIKI_DATA = {
         "simplebuilding:acacia_sheet"
       ],
       "usedIn": [
-        "simplebuilding:acacia_cauldron"
+        "simplebuilding:acacia_cauldron",
+        "simplebuilding:stripped_acacia_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/acacia_sheet.png",
@@ -42722,7 +43203,8 @@ window.WIKI_DATA = {
         "simplebuilding:bamboo_sheet"
       ],
       "usedIn": [
-        "simplebuilding:bamboo_cauldron"
+        "simplebuilding:bamboo_cauldron",
+        "simplebuilding:stripped_bamboo_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/bamboo_sheet.png",
@@ -42911,7 +43393,8 @@ window.WIKI_DATA = {
         "simplebuilding:birch_sheet"
       ],
       "usedIn": [
-        "simplebuilding:birch_cauldron"
+        "simplebuilding:birch_cauldron",
+        "simplebuilding:stripped_birch_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/birch_sheet.png",
@@ -44723,7 +45206,8 @@ window.WIKI_DATA = {
         "simplebuilding:cherry_sheet"
       ],
       "usedIn": [
-        "simplebuilding:cherry_cauldron"
+        "simplebuilding:cherry_cauldron",
+        "simplebuilding:stripped_cherry_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/cherry_sheet.png",
@@ -45705,7 +46189,8 @@ window.WIKI_DATA = {
         "simplebuilding:crimson_sheet"
       ],
       "usedIn": [
-        "simplebuilding:crimson_cauldron"
+        "simplebuilding:crimson_cauldron",
+        "simplebuilding:stripped_crimson_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/crimson_sheet.png",
@@ -46207,7 +46692,8 @@ window.WIKI_DATA = {
         "simplebuilding:dark_oak_sheet"
       ],
       "usedIn": [
-        "simplebuilding:dark_oak_cauldron"
+        "simplebuilding:dark_oak_cauldron",
+        "simplebuilding:stripped_dark_oak_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/dark_oak_sheet.png",
@@ -50233,7 +50719,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_acacia_log"
       ],
       "usedIn": [
-        "simplebuilding:acacia_cauldron",
+        "simplebuilding:stripped_acacia_cauldron",
         "simplebuilding:stripped_acacia_sheet"
       ],
       "trades": [],
@@ -50282,7 +50768,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_bamboo_block"
       ],
       "usedIn": [
-        "simplebuilding:bamboo_cauldron",
+        "simplebuilding:stripped_bamboo_cauldron",
         "simplebuilding:stripped_bamboo_sheet"
       ],
       "trades": [],
@@ -50331,7 +50817,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_birch_log"
       ],
       "usedIn": [
-        "simplebuilding:birch_cauldron",
+        "simplebuilding:stripped_birch_cauldron",
         "simplebuilding:stripped_birch_sheet"
       ],
       "trades": [],
@@ -50380,7 +50866,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_cherry_log"
       ],
       "usedIn": [
-        "simplebuilding:cherry_cauldron",
+        "simplebuilding:stripped_cherry_cauldron",
         "simplebuilding:stripped_cherry_sheet"
       ],
       "trades": [],
@@ -50429,7 +50915,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_crimson_stem"
       ],
       "usedIn": [
-        "simplebuilding:crimson_cauldron",
+        "simplebuilding:stripped_crimson_cauldron",
         "simplebuilding:stripped_crimson_sheet"
       ],
       "trades": [],
@@ -50478,7 +50964,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_dark_oak_log"
       ],
       "usedIn": [
-        "simplebuilding:dark_oak_cauldron",
+        "simplebuilding:stripped_dark_oak_cauldron",
         "simplebuilding:stripped_dark_oak_sheet"
       ],
       "trades": [],
@@ -50527,7 +51013,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_jungle_log"
       ],
       "usedIn": [
-        "simplebuilding:jungle_cauldron",
+        "simplebuilding:stripped_jungle_cauldron",
         "simplebuilding:stripped_jungle_sheet"
       ],
       "trades": [],
@@ -50576,7 +51062,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_mangrove_log"
       ],
       "usedIn": [
-        "simplebuilding:mangrove_cauldron",
+        "simplebuilding:stripped_mangrove_cauldron",
         "simplebuilding:stripped_mangrove_sheet"
       ],
       "trades": [],
@@ -50625,7 +51111,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_oak_log"
       ],
       "usedIn": [
-        "simplebuilding:oak_cauldron",
+        "simplebuilding:stripped_oak_cauldron",
         "simplebuilding:stripped_oak_sheet"
       ],
       "trades": [],
@@ -50674,7 +51160,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_pale_oak_log"
       ],
       "usedIn": [
-        "simplebuilding:pale_oak_cauldron",
+        "simplebuilding:stripped_pale_oak_cauldron",
         "simplebuilding:stripped_pale_oak_sheet"
       ],
       "trades": [],
@@ -50723,7 +51209,7 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_spruce_log"
       ],
       "usedIn": [
-        "simplebuilding:spruce_cauldron",
+        "simplebuilding:stripped_spruce_cauldron",
         "simplebuilding:stripped_spruce_sheet"
       ],
       "trades": [],
@@ -50772,8 +51258,8 @@ window.WIKI_DATA = {
         "simplebuilding:hollow_stripped_warped_stem"
       ],
       "usedIn": [
-        "simplebuilding:stripped_warped_sheet",
-        "simplebuilding:warped_cauldron"
+        "simplebuilding:stripped_warped_cauldron",
+        "simplebuilding:stripped_warped_sheet"
       ],
       "trades": [],
       "icon": "assets/textures/render/hollow_stripped_warped_stem.png",
@@ -51206,7 +51692,8 @@ window.WIKI_DATA = {
         "simplebuilding:jungle_sheet"
       ],
       "usedIn": [
-        "simplebuilding:jungle_cauldron"
+        "simplebuilding:jungle_cauldron",
+        "simplebuilding:stripped_jungle_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/jungle_sheet.png",
@@ -52619,7 +53106,8 @@ window.WIKI_DATA = {
         "simplebuilding:mangrove_sheet"
       ],
       "usedIn": [
-        "simplebuilding:mangrove_cauldron"
+        "simplebuilding:mangrove_cauldron",
+        "simplebuilding:stripped_mangrove_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/mangrove_sheet.png",
@@ -55368,7 +55856,8 @@ window.WIKI_DATA = {
         "simplebuilding:oak_sheet"
       ],
       "usedIn": [
-        "simplebuilding:oak_cauldron"
+        "simplebuilding:oak_cauldron",
+        "simplebuilding:stripped_oak_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/oak_sheet.png",
@@ -55898,7 +56387,8 @@ window.WIKI_DATA = {
         "simplebuilding:pale_oak_sheet"
       ],
       "usedIn": [
-        "simplebuilding:pale_oak_cauldron"
+        "simplebuilding:pale_oak_cauldron",
+        "simplebuilding:stripped_pale_oak_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/pale_oak_sheet.png",
@@ -61441,7 +61931,8 @@ window.WIKI_DATA = {
         "simplebuilding:spruce_sheet"
       ],
       "usedIn": [
-        "simplebuilding:spruce_cauldron"
+        "simplebuilding:spruce_cauldron",
+        "simplebuilding:stripped_spruce_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/spruce_sheet.png",
@@ -61770,6 +62261,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_acacia_cauldron",
+      "name": {
+        "en_us": "Stripped Acacia Cauldron",
+        "de_de": "Entrindeter Akazienholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_acacia_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_acacia_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_acacia_cauldron",
+      "drops": [
+        "simplebuilding:stripped_acacia_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_acacia_sheet",
       "name": {
         "en_us": "Stripped Acacia Sheet",
@@ -61780,7 +62313,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_acacia_sheet"
       ],
       "usedIn": [
-        "simplebuilding:acacia_cauldron"
+        "simplebuilding:acacia_cauldron",
+        "simplebuilding:stripped_acacia_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_acacia_sheet.png",
@@ -61812,6 +62346,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_bamboo_cauldron",
+      "name": {
+        "en_us": "Stripped Bamboo Cauldron",
+        "de_de": "Entrindeter Bambuskessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_bamboo_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_bamboo_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_bamboo_cauldron",
+      "drops": [
+        "simplebuilding:stripped_bamboo_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_bamboo_sheet",
       "name": {
         "en_us": "Stripped Bamboo Sheet",
@@ -61822,7 +62398,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_bamboo_sheet"
       ],
       "usedIn": [
-        "simplebuilding:bamboo_cauldron"
+        "simplebuilding:bamboo_cauldron",
+        "simplebuilding:stripped_bamboo_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_bamboo_sheet.png",
@@ -61854,6 +62431,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_birch_cauldron",
+      "name": {
+        "en_us": "Stripped Birch Cauldron",
+        "de_de": "Entrindeter Birkenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_birch_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_birch_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_birch_cauldron",
+      "drops": [
+        "simplebuilding:stripped_birch_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_birch_sheet",
       "name": {
         "en_us": "Stripped Birch Sheet",
@@ -61864,7 +62483,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_birch_sheet"
       ],
       "usedIn": [
-        "simplebuilding:birch_cauldron"
+        "simplebuilding:birch_cauldron",
+        "simplebuilding:stripped_birch_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_birch_sheet.png",
@@ -61896,6 +62516,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_cherry_cauldron",
+      "name": {
+        "en_us": "Stripped Cherry Cauldron",
+        "de_de": "Entrindeter Kirschholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_cherry_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_cherry_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_cherry_cauldron",
+      "drops": [
+        "simplebuilding:stripped_cherry_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_cherry_sheet",
       "name": {
         "en_us": "Stripped Cherry Sheet",
@@ -61906,7 +62568,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_cherry_sheet"
       ],
       "usedIn": [
-        "simplebuilding:cherry_cauldron"
+        "simplebuilding:cherry_cauldron",
+        "simplebuilding:stripped_cherry_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_cherry_sheet.png",
@@ -61938,6 +62601,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_crimson_cauldron",
+      "name": {
+        "en_us": "Stripped Crimson Cauldron",
+        "de_de": "Entrindeter Karmesinholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_crimson_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_crimson_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_crimson_cauldron",
+      "drops": [
+        "simplebuilding:stripped_crimson_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_crimson_sheet",
       "name": {
         "en_us": "Stripped Crimson Sheet",
@@ -61948,7 +62653,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_crimson_sheet"
       ],
       "usedIn": [
-        "simplebuilding:crimson_cauldron"
+        "simplebuilding:crimson_cauldron",
+        "simplebuilding:stripped_crimson_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_crimson_sheet.png",
@@ -61980,6 +62686,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_dark_oak_cauldron",
+      "name": {
+        "en_us": "Stripped Dark Oak Cauldron",
+        "de_de": "Entrindeter Schwarzeichenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_dark_oak_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_dark_oak_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_dark_oak_cauldron",
+      "drops": [
+        "simplebuilding:stripped_dark_oak_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_dark_oak_sheet",
       "name": {
         "en_us": "Stripped Dark Oak Sheet",
@@ -61990,7 +62738,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_dark_oak_sheet"
       ],
       "usedIn": [
-        "simplebuilding:dark_oak_cauldron"
+        "simplebuilding:dark_oak_cauldron",
+        "simplebuilding:stripped_dark_oak_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_dark_oak_sheet.png",
@@ -62022,6 +62771,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_jungle_cauldron",
+      "name": {
+        "en_us": "Stripped Jungle Cauldron",
+        "de_de": "Entrindeter Tropenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_jungle_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_jungle_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_jungle_cauldron",
+      "drops": [
+        "simplebuilding:stripped_jungle_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_jungle_sheet",
       "name": {
         "en_us": "Stripped Jungle Sheet",
@@ -62032,7 +62823,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_jungle_sheet"
       ],
       "usedIn": [
-        "simplebuilding:jungle_cauldron"
+        "simplebuilding:jungle_cauldron",
+        "simplebuilding:stripped_jungle_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_jungle_sheet.png",
@@ -62064,6 +62856,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_mangrove_cauldron",
+      "name": {
+        "en_us": "Stripped Mangrove Cauldron",
+        "de_de": "Entrindeter Mangrovenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_mangrove_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_mangrove_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_mangrove_cauldron",
+      "drops": [
+        "simplebuilding:stripped_mangrove_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_mangrove_sheet",
       "name": {
         "en_us": "Stripped Mangrove Sheet",
@@ -62074,7 +62908,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_mangrove_sheet"
       ],
       "usedIn": [
-        "simplebuilding:mangrove_cauldron"
+        "simplebuilding:mangrove_cauldron",
+        "simplebuilding:stripped_mangrove_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_mangrove_sheet.png",
@@ -62106,6 +62941,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_oak_cauldron",
+      "name": {
+        "en_us": "Stripped Oak Cauldron",
+        "de_de": "Entrindeter Eichenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_oak_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_oak_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_oak_cauldron",
+      "drops": [
+        "simplebuilding:stripped_oak_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_oak_sheet",
       "name": {
         "en_us": "Stripped Oak Sheet",
@@ -62116,7 +62993,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_oak_sheet"
       ],
       "usedIn": [
-        "simplebuilding:oak_cauldron"
+        "simplebuilding:oak_cauldron",
+        "simplebuilding:stripped_oak_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_oak_sheet.png",
@@ -62148,6 +63026,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_pale_oak_cauldron",
+      "name": {
+        "en_us": "Stripped Pale Oak Cauldron",
+        "de_de": "Entrindeter Blasseichenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_pale_oak_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_pale_oak_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_pale_oak_cauldron",
+      "drops": [
+        "simplebuilding:stripped_pale_oak_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_pale_oak_sheet",
       "name": {
         "en_us": "Stripped Pale Oak Sheet",
@@ -62158,7 +63078,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_pale_oak_sheet"
       ],
       "usedIn": [
-        "simplebuilding:pale_oak_cauldron"
+        "simplebuilding:pale_oak_cauldron",
+        "simplebuilding:stripped_pale_oak_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_pale_oak_sheet.png",
@@ -62190,6 +63111,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_spruce_cauldron",
+      "name": {
+        "en_us": "Stripped Spruce Cauldron",
+        "de_de": "Entrindeter Fichtenholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_spruce_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_spruce_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_spruce_cauldron",
+      "drops": [
+        "simplebuilding:stripped_spruce_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_spruce_sheet",
       "name": {
         "en_us": "Stripped Spruce Sheet",
@@ -62200,7 +63163,8 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_spruce_sheet"
       ],
       "usedIn": [
-        "simplebuilding:spruce_cauldron"
+        "simplebuilding:spruce_cauldron",
+        "simplebuilding:stripped_spruce_cauldron"
       ],
       "trades": [],
       "icon": "assets/textures/render/stripped_spruce_sheet.png",
@@ -62232,6 +63196,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:stripped_warped_cauldron",
+      "name": {
+        "en_us": "Stripped Warped Cauldron",
+        "de_de": "Entrindeter Wirrholzkessel"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:stripped_warped_cauldron"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stripped_warped_cauldron.png",
+      "lootTable": "simplebuilding:blocks/stripped_warped_cauldron",
+      "drops": [
+        "simplebuilding:stripped_warped_cauldron"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
+          "details": [
+            "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
+            "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
+            "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          ]
+        },
+        "de": {
+          "summary": "Holzkessel funktionieren wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein), sind aber aus Holz.",
+          "details": [
+            "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
+            "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
+            "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stripped_warped_sheet",
       "name": {
         "en_us": "Stripped Warped Sheet",
@@ -62242,6 +63248,7 @@ window.WIKI_DATA = {
         "simplebuilding:stripped_warped_sheet"
       ],
       "usedIn": [
+        "simplebuilding:stripped_warped_cauldron",
         "simplebuilding:warped_cauldron"
       ],
       "trades": [],
@@ -62966,6 +63973,7 @@ window.WIKI_DATA = {
         "simplebuilding:warped_sheet"
       ],
       "usedIn": [
+        "simplebuilding:stripped_warped_cauldron",
         "simplebuilding:warped_cauldron"
       ],
       "trades": [],
@@ -64092,7 +65100,6 @@ window.WIKI_DATA = {
       "ingredients": [
         "simplebuilding:acacia_sheet",
         "simplebuilding:hollow_acacia_log",
-        "simplebuilding:hollow_stripped_acacia_log",
         "simplebuilding:stripped_acacia_sheet"
       ],
       "pattern": [
@@ -64101,8 +65108,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "H": [
-          "simplebuilding:hollow_acacia_log",
-          "simplebuilding:hollow_stripped_acacia_log"
+          "simplebuilding:hollow_acacia_log"
         ],
         "S": [
           "simplebuilding:acacia_sheet",
@@ -67166,7 +68172,6 @@ window.WIKI_DATA = {
       "ingredients": [
         "simplebuilding:bamboo_sheet",
         "simplebuilding:hollow_bamboo_block",
-        "simplebuilding:hollow_stripped_bamboo_block",
         "simplebuilding:stripped_bamboo_sheet"
       ],
       "pattern": [
@@ -67175,8 +68180,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "H": [
-          "simplebuilding:hollow_bamboo_block",
-          "simplebuilding:hollow_stripped_bamboo_block"
+          "simplebuilding:hollow_bamboo_block"
         ],
         "S": [
           "simplebuilding:bamboo_sheet",
@@ -67530,7 +68534,6 @@ window.WIKI_DATA = {
       "ingredients": [
         "simplebuilding:birch_sheet",
         "simplebuilding:hollow_birch_log",
-        "simplebuilding:hollow_stripped_birch_log",
         "simplebuilding:stripped_birch_sheet"
       ],
       "pattern": [
@@ -67539,8 +68542,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "H": [
-          "simplebuilding:hollow_birch_log",
-          "simplebuilding:hollow_stripped_birch_log"
+          "simplebuilding:hollow_birch_log"
         ],
         "S": [
           "simplebuilding:birch_sheet",
@@ -71719,7 +72721,6 @@ window.WIKI_DATA = {
       "ingredients": [
         "simplebuilding:cherry_sheet",
         "simplebuilding:hollow_cherry_log",
-        "simplebuilding:hollow_stripped_cherry_log",
         "simplebuilding:stripped_cherry_sheet"
       ],
       "pattern": [
@@ -71728,8 +72729,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "H": [
-          "simplebuilding:hollow_cherry_log",
-          "simplebuilding:hollow_stripped_cherry_log"
+          "simplebuilding:hollow_cherry_log"
         ],
         "S": [
           "simplebuilding:cherry_sheet",
@@ -73653,7 +74653,6 @@ window.WIKI_DATA = {
       "ingredients": [
         "simplebuilding:crimson_sheet",
         "simplebuilding:hollow_crimson_stem",
-        "simplebuilding:hollow_stripped_crimson_stem",
         "simplebuilding:stripped_crimson_sheet"
       ],
       "pattern": [
@@ -73662,8 +74661,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "H": [
-          "simplebuilding:hollow_crimson_stem",
-          "simplebuilding:hollow_stripped_crimson_stem"
+          "simplebuilding:hollow_crimson_stem"
         ],
         "S": [
           "simplebuilding:crimson_sheet",
@@ -74493,7 +75491,6 @@ window.WIKI_DATA = {
       "ingredients": [
         "simplebuilding:dark_oak_sheet",
         "simplebuilding:hollow_dark_oak_log",
-        "simplebuilding:hollow_stripped_dark_oak_log",
         "simplebuilding:stripped_dark_oak_sheet"
       ],
       "pattern": [
@@ -74502,8 +75499,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "H": [
-          "simplebuilding:hollow_dark_oak_log",
-          "simplebuilding:hollow_stripped_dark_oak_log"
+          "simplebuilding:hollow_dark_oak_log"
         ],
         "S": [
           "simplebuilding:dark_oak_sheet",
@@ -84727,7 +85723,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/jungle_cauldron.json",
       "ingredients": [
         "simplebuilding:hollow_jungle_log",
-        "simplebuilding:hollow_stripped_jungle_log",
         "simplebuilding:jungle_sheet",
         "simplebuilding:stripped_jungle_sheet"
       ],
@@ -84737,8 +85732,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "H": [
-          "simplebuilding:hollow_jungle_log",
-          "simplebuilding:hollow_stripped_jungle_log"
+          "simplebuilding:hollow_jungle_log"
         ],
         "S": [
           "simplebuilding:jungle_sheet",
@@ -87782,7 +88776,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/mangrove_cauldron.json",
       "ingredients": [
         "simplebuilding:hollow_mangrove_log",
-        "simplebuilding:hollow_stripped_mangrove_log",
         "simplebuilding:mangrove_sheet",
         "simplebuilding:stripped_mangrove_sheet"
       ],
@@ -87792,8 +88785,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "H": [
-          "simplebuilding:hollow_mangrove_log",
-          "simplebuilding:hollow_stripped_mangrove_log"
+          "simplebuilding:hollow_mangrove_log"
         ],
         "S": [
           "simplebuilding:mangrove_sheet",
@@ -93267,7 +94259,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/oak_cauldron.json",
       "ingredients": [
         "simplebuilding:hollow_oak_log",
-        "simplebuilding:hollow_stripped_oak_log",
         "simplebuilding:oak_sheet",
         "simplebuilding:stripped_oak_sheet"
       ],
@@ -93277,8 +94268,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "H": [
-          "simplebuilding:hollow_oak_log",
-          "simplebuilding:hollow_stripped_oak_log"
+          "simplebuilding:hollow_oak_log"
         ],
         "S": [
           "simplebuilding:oak_sheet",
@@ -95219,7 +96209,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/pale_oak_cauldron.json",
       "ingredients": [
         "simplebuilding:hollow_pale_oak_log",
-        "simplebuilding:hollow_stripped_pale_oak_log",
         "simplebuilding:pale_oak_sheet",
         "simplebuilding:stripped_pale_oak_sheet"
       ],
@@ -95229,8 +96218,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "H": [
-          "simplebuilding:hollow_pale_oak_log",
-          "simplebuilding:hollow_stripped_pale_oak_log"
+          "simplebuilding:hollow_pale_oak_log"
         ],
         "S": [
           "simplebuilding:pale_oak_sheet",
@@ -108194,7 +109182,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/spruce_cauldron.json",
       "ingredients": [
         "simplebuilding:hollow_spruce_log",
-        "simplebuilding:hollow_stripped_spruce_log",
         "simplebuilding:spruce_sheet",
         "simplebuilding:stripped_spruce_sheet"
       ],
@@ -108204,8 +109191,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "H": [
-          "simplebuilding:hollow_spruce_log",
-          "simplebuilding:hollow_stripped_spruce_log"
+          "simplebuilding:hollow_spruce_log"
         ],
         "S": [
           "simplebuilding:spruce_sheet",
@@ -108831,6 +109817,51 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:stripped_acacia_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_acacia_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_acacia_cauldron.json",
+      "ingredients": [
+        "simplebuilding:acacia_sheet",
+        "simplebuilding:hollow_stripped_acacia_log",
+        "simplebuilding:stripped_acacia_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_acacia_log"
+        ],
+        "S": [
+          "simplebuilding:acacia_sheet",
+          "simplebuilding:stripped_acacia_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_acacia_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:acacia_log",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:stripped_acacia_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -108861,6 +109892,51 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:stripped_acacia_log",
             "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stripped_bamboo_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_bamboo_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_bamboo_cauldron.json",
+      "ingredients": [
+        "simplebuilding:bamboo_sheet",
+        "simplebuilding:hollow_stripped_bamboo_block",
+        "simplebuilding:stripped_bamboo_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_bamboo_block"
+        ],
+        "S": [
+          "simplebuilding:bamboo_sheet",
+          "simplebuilding:stripped_bamboo_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 3.375
+          },
+          {
+            "id": "minecraft:stripped_bamboo_block",
+            "count": 1
           }
         ]
       }
@@ -108901,6 +109977,51 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:stripped_birch_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_birch_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_birch_cauldron.json",
+      "ingredients": [
+        "simplebuilding:birch_sheet",
+        "simplebuilding:hollow_stripped_birch_log",
+        "simplebuilding:stripped_birch_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_birch_log"
+        ],
+        "S": [
+          "simplebuilding:birch_sheet",
+          "simplebuilding:stripped_birch_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_birch_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:birch_log",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:stripped_birch_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -108931,6 +110052,51 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:stripped_birch_log",
             "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stripped_cherry_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_cherry_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_cherry_cauldron.json",
+      "ingredients": [
+        "simplebuilding:cherry_sheet",
+        "simplebuilding:hollow_stripped_cherry_log",
+        "simplebuilding:stripped_cherry_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_cherry_log"
+        ],
+        "S": [
+          "simplebuilding:cherry_sheet",
+          "simplebuilding:stripped_cherry_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_cherry_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:cherry_log",
+            "count": 0.375
           }
         ]
       }
@@ -108971,6 +110137,51 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:stripped_crimson_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_crimson_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_crimson_cauldron.json",
+      "ingredients": [
+        "simplebuilding:crimson_sheet",
+        "simplebuilding:hollow_stripped_crimson_stem",
+        "simplebuilding:stripped_crimson_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_crimson_stem"
+        ],
+        "S": [
+          "simplebuilding:crimson_sheet",
+          "simplebuilding:stripped_crimson_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_crimson_stem",
+            "count": 1
+          },
+          {
+            "id": "minecraft:crimson_stem",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:stripped_crimson_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -109001,6 +110212,51 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:stripped_crimson_stem",
             "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stripped_dark_oak_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_dark_oak_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_dark_oak_cauldron.json",
+      "ingredients": [
+        "simplebuilding:dark_oak_sheet",
+        "simplebuilding:hollow_stripped_dark_oak_log",
+        "simplebuilding:stripped_dark_oak_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_dark_oak_log"
+        ],
+        "S": [
+          "simplebuilding:dark_oak_sheet",
+          "simplebuilding:stripped_dark_oak_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_dark_oak_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 0.375
           }
         ]
       }
@@ -109041,6 +110297,51 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:stripped_jungle_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_jungle_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_jungle_cauldron.json",
+      "ingredients": [
+        "simplebuilding:hollow_stripped_jungle_log",
+        "simplebuilding:jungle_sheet",
+        "simplebuilding:stripped_jungle_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_jungle_log"
+        ],
+        "S": [
+          "simplebuilding:jungle_sheet",
+          "simplebuilding:stripped_jungle_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_jungle_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:jungle_log",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:stripped_jungle_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -109071,6 +110372,51 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:stripped_jungle_log",
             "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stripped_mangrove_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_mangrove_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_mangrove_cauldron.json",
+      "ingredients": [
+        "simplebuilding:hollow_stripped_mangrove_log",
+        "simplebuilding:mangrove_sheet",
+        "simplebuilding:stripped_mangrove_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_mangrove_log"
+        ],
+        "S": [
+          "simplebuilding:mangrove_sheet",
+          "simplebuilding:stripped_mangrove_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_mangrove_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 0.375
           }
         ]
       }
@@ -109111,6 +110457,51 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:stripped_oak_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_oak_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_oak_cauldron.json",
+      "ingredients": [
+        "simplebuilding:hollow_stripped_oak_log",
+        "simplebuilding:oak_sheet",
+        "simplebuilding:stripped_oak_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_oak_log"
+        ],
+        "S": [
+          "simplebuilding:oak_sheet",
+          "simplebuilding:stripped_oak_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_oak_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:stripped_oak_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -109141,6 +110532,51 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:stripped_oak_log",
             "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stripped_pale_oak_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_pale_oak_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_pale_oak_cauldron.json",
+      "ingredients": [
+        "simplebuilding:hollow_stripped_pale_oak_log",
+        "simplebuilding:pale_oak_sheet",
+        "simplebuilding:stripped_pale_oak_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_pale_oak_log"
+        ],
+        "S": [
+          "simplebuilding:pale_oak_sheet",
+          "simplebuilding:stripped_pale_oak_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_pale_oak_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 0.375
           }
         ]
       }
@@ -109181,6 +110617,51 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:stripped_spruce_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_spruce_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_spruce_cauldron.json",
+      "ingredients": [
+        "simplebuilding:hollow_stripped_spruce_log",
+        "simplebuilding:spruce_sheet",
+        "simplebuilding:stripped_spruce_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_spruce_log"
+        ],
+        "S": [
+          "simplebuilding:spruce_sheet",
+          "simplebuilding:stripped_spruce_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_spruce_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:spruce_log",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:stripped_spruce_sheet",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -109211,6 +110692,51 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:stripped_spruce_log",
             "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:stripped_warped_cauldron",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "stripped_wooden_cauldron",
+      "result": {
+        "id": "simplebuilding:stripped_warped_cauldron",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/stripped_warped_cauldron.json",
+      "ingredients": [
+        "simplebuilding:hollow_stripped_warped_stem",
+        "simplebuilding:stripped_warped_sheet",
+        "simplebuilding:warped_sheet"
+      ],
+      "pattern": [
+        "H",
+        "S"
+      ],
+      "key": {
+        "H": [
+          "simplebuilding:hollow_stripped_warped_stem"
+        ],
+        "S": [
+          "simplebuilding:warped_sheet",
+          "simplebuilding:stripped_warped_sheet"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stripped_warped_stem",
+            "count": 1
+          },
+          {
+            "id": "minecraft:warped_stem",
+            "count": 0.375
           }
         ]
       }
@@ -111971,7 +113497,6 @@ window.WIKI_DATA = {
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/warped_cauldron.json",
       "ingredients": [
-        "simplebuilding:hollow_stripped_warped_stem",
         "simplebuilding:hollow_warped_stem",
         "simplebuilding:stripped_warped_sheet",
         "simplebuilding:warped_sheet"
@@ -111982,8 +113507,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "H": [
-          "simplebuilding:hollow_warped_stem",
-          "simplebuilding:hollow_stripped_warped_stem"
+          "simplebuilding:hollow_warped_stem"
         ],
         "S": [
           "simplebuilding:warped_sheet",
@@ -120298,6 +121822,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stray_skull.json"
     },
     {
+      "id": "simplebuilding:blocks/stripped_acacia_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_acacia_cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_acacia_cauldron.json"
+    },
+    {
       "id": "simplebuilding:blocks/stripped_acacia_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -120312,6 +121852,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_acacia_sheet.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stripped_bamboo_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_bamboo_cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_bamboo_cauldron.json"
     },
     {
       "id": "simplebuilding:blocks/stripped_bamboo_sheet",
@@ -120330,6 +121886,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_bamboo_sheet.json"
     },
     {
+      "id": "simplebuilding:blocks/stripped_birch_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_birch_cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_birch_cauldron.json"
+    },
+    {
       "id": "simplebuilding:blocks/stripped_birch_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -120344,6 +121916,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_birch_sheet.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stripped_cherry_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_cherry_cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_cherry_cauldron.json"
     },
     {
       "id": "simplebuilding:blocks/stripped_cherry_sheet",
@@ -120362,6 +121950,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_cherry_sheet.json"
     },
     {
+      "id": "simplebuilding:blocks/stripped_crimson_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_crimson_cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_crimson_cauldron.json"
+    },
+    {
       "id": "simplebuilding:blocks/stripped_crimson_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -120376,6 +121980,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_crimson_sheet.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stripped_dark_oak_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_dark_oak_cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_dark_oak_cauldron.json"
     },
     {
       "id": "simplebuilding:blocks/stripped_dark_oak_sheet",
@@ -120394,6 +122014,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_dark_oak_sheet.json"
     },
     {
+      "id": "simplebuilding:blocks/stripped_jungle_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_jungle_cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_jungle_cauldron.json"
+    },
+    {
       "id": "simplebuilding:blocks/stripped_jungle_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -120408,6 +122044,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_jungle_sheet.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stripped_mangrove_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_mangrove_cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_mangrove_cauldron.json"
     },
     {
       "id": "simplebuilding:blocks/stripped_mangrove_sheet",
@@ -120426,6 +122078,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_mangrove_sheet.json"
     },
     {
+      "id": "simplebuilding:blocks/stripped_oak_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_oak_cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_oak_cauldron.json"
+    },
+    {
       "id": "simplebuilding:blocks/stripped_oak_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -120440,6 +122108,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_oak_sheet.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stripped_pale_oak_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_pale_oak_cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_pale_oak_cauldron.json"
     },
     {
       "id": "simplebuilding:blocks/stripped_pale_oak_sheet",
@@ -120458,6 +122142,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_pale_oak_sheet.json"
     },
     {
+      "id": "simplebuilding:blocks/stripped_spruce_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_spruce_cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_spruce_cauldron.json"
+    },
+    {
       "id": "simplebuilding:blocks/stripped_spruce_sheet",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -120472,6 +122172,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_spruce_sheet.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stripped_warped_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:stripped_warped_cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_warped_cauldron.json"
     },
     {
       "id": "simplebuilding:blocks/stripped_warped_sheet",
@@ -127896,6 +129612,49 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/xp_repair_incompatible.json"
+    },
+    {
+      "id": "simplebuilding:worldgen/biome/has_cracked_ice",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:frozen_ocean",
+          "required": true
+        },
+        {
+          "id": "minecraft:deep_frozen_ocean",
+          "required": true
+        },
+        {
+          "id": "minecraft:frozen_river",
+          "required": true
+        },
+        {
+          "id": "minecraft:ice_spikes",
+          "required": true
+        },
+        {
+          "id": "minecraft:snowy_plains",
+          "required": true
+        },
+        {
+          "id": "minecraft:snowy_taiga",
+          "required": true
+        },
+        {
+          "id": "minecraft:snowy_beach",
+          "required": true
+        },
+        {
+          "id": "minecraft:snowy_slopes",
+          "required": true
+        },
+        {
+          "id": "minecraft:grove",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/tags/worldgen/biome/has_cracked_ice.json"
     },
     {
       "id": "simplebuilding:worldgen/biome/has_structure/end_outer_islands",
@@ -137374,6 +139133,35 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "id": "chisel/minecraft:ice/simplebuilding:cracked_ice",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:cracked_ice",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
         "id": "chisel/minecraft:jungle_planks/minecraft:jungle_stairs",
         "kind": "chisel",
         "inputs": [
@@ -145132,6 +146920,35 @@ window.WIKI_DATA = {
         "lines": [
           "1.21.11",
           "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:cracked_ice/minecraft:ice",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:cracked_ice",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:ice",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
           "26.3"
         ]
       },
@@ -157495,15 +159312,15 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 712,
-    "blocks": 454,
-    "recipes": 1203,
-    "lootTables": 344,
+    "items": 724,
+    "blocks": 466,
+    "recipes": 1215,
+    "lootTables": 356,
     "trades": 20,
     "enchantments": 19,
-    "tags": 51,
+    "tags": 52,
     "config": 223,
-    "inWorld": 493,
+    "inWorld": 495,
     "advancements": 119,
     "features": 50,
     "undocumented": 0,
