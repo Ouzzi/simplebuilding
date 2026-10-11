@@ -222,12 +222,21 @@ public final class LibTests {
             com.simplelib.crucible.CrucibleMenu.Layout wide = com.simplelib.crucible.CrucibleMenu.layout(tier, true);
             int crucibleBottom = wide.y() + wide.sectionHeight();
             int barrelBottom = wide.barrelBoxTop() + wide.barrelBoxHeight();
-            check(h, wide.barrelBox() >= wide.x() + wide.crucibleWidth(), tier + ": barrel box not beside the crucible box");
+            check(h, wide.barrelBox() >= wide.crucibleLeft() + wide.crucibleWidth(), tier + ": barrel box not beside the crucible box");
+            // N37 (owner): Vanilla's 7 px from every box edge to its grid, left and right - compact boxes.
+            for (com.simplelib.crucible.CrucibleMenu.Layout l : new com.simplelib.crucible.CrucibleMenu.Layout[] {compact, wide}) {
+                int gridLeft = l.slotX(tier, 0) - 1, gridRight = gridLeft + com.simplelib.crucible.CrucibleMenu.gridsWidth(tier);
+                check(h, gridLeft - l.crucibleLeft() == 7 && l.crucibleLeft() + l.crucibleWidth() - gridRight == 7,
+                        tier + ": crucible margins " + (gridLeft - l.crucibleLeft()) + " / " + (l.crucibleLeft() + l.crucibleWidth() - gridRight));
+            }
+            int barrelGrid = wide.barrelX(tier, 0) - 1;
+            check(h, barrelGrid - wide.barrelBox() == 7 && wide.barrelBox() + wide.barrelBoxWidth() - barrelGrid - com.simplelib.crucible.CrucibleMenu.gridsWidth(tier) == 7,
+                    tier + ": barrel margins not 7 px");
             check(h, wide.inventoryBoxTop() >= barrelBottom && wide.inventoryBoxTop() >= crucibleBottom, tier + ": inventory box not under both boxes");
             for (com.simplelib.crucible.CrucibleMenu.Layout l : new com.simplelib.crucible.CrucibleMenu.Layout[] {compact, wide}) {
                 int leftGap = l.inventoryLeft() - 1 - l.inventoryBoxLeft();
                 int rightGap = l.inventoryBoxLeft() + l.inventoryBoxWidth() - (l.inventoryLeft() - 1 + 162);
-                check(h, Math.abs(leftGap - rightGap) <= 1, tier + ": inventory not centred (" + leftGap + " / " + rightGap + ")");
+                check(h, leftGap == 7 && rightGap == 7, tier + ": inventory margins " + leftGap + " / " + rightGap + " (Vanilla 7)");
             }
             check(h, com.simplelib.crucible.CrucibleMenu.imageWidth(tier) <= 424, tier + ": window wider than 424 px (854x480 at scale 2)");
             check(h, com.simplelib.crucible.CrucibleMenu.imageHeight(tier) <= 240, tier + ": panel does not fit 240 px (854x480 at scale 2)");

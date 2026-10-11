@@ -344,6 +344,20 @@ public final class CrucibleTests {
         helper.assertTrue(CrucibleCompat.isAttached(helper.getBlockState(beside)), "barrel attached to the crucible");
         helper.assertTrue(container.getMaxStackSize(cobble) == 128, "attached, the barrel inherits the double stacks, got " + container.getMaxStackSize(cobble));
         helper.assertTrue(container.getMaxStackSize(new ItemStack(Items.IRON_SWORD)) == 1, "unstackable items stay single");
+        // Owner N37: attached, the copper barrel (27 of its own) has the Enderite crucible's 30 slots.
+        helper.assertTrue(container.getContainerSize() == 30, "attached copper barrel has the crucible's 30 slots, got " + container.getContainerSize());
+        for (int i = 0; i < 27; i++) if (i != 5) container.setItem(i, new ItemStack(Items.DIRT));
+        container.setItem(27, new ItemStack(Items.APPLE, 3));
+        container.setItem(29, new ItemStack(Items.STICK, 2));
+        helper.assertTrue(container.getItem(29).is(Items.STICK), "slot 30 holds items while attached");
+        // Crucible gone: back to 27; the extra slots move into the free slot, what does not fit drops - nothing is lost.
+        helper.setBlock(at, Blocks.AIR);
+        helper.assertTrue(!CrucibleCompat.isAttached(helper.getBlockState(beside)) && container.getContainerSize() == 27,
+                "detached: a 27-slot copper barrel again, got " + container.getContainerSize());
+        helper.assertTrue(container.getItem(5).is(Items.APPLE) && container.getItem(5).getCount() == 3, "the apples moved into the free slot 6");
+        var dropped = helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                new net.minecraft.world.phys.AABB(helper.absolutePos(beside)).inflate(2), e -> e.getItem().is(Items.STICK));
+        helper.assertTrue(dropped.size() == 1 && dropped.get(0).getItem().getCount() == 2, "the sticks that did not fit dropped, not lost: " + dropped.size());
         helper.succeed();
     }
 

@@ -75,7 +75,7 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
     }
 
     private void applyLabels(CrucibleMenu.Layout l) {
-        titleLabelX = l.x() + 8;
+        titleLabelX = l.crucibleLeft() + 8;
         titleLabelY = l.y() + 6;
         inventoryLabelX = l.inventoryLeft();
         inventoryLabelY = l.inventoryTop() - 11;
@@ -88,7 +88,7 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         applyLabels(l);
         UiPalette top = palette(tier);
         int x0 = leftPos, y0 = topPos;
-        int px = x0 + l.x(), py = y0 + l.y();
+        int px = x0 + l.crucibleLeft(), py = y0 + l.y();
         boolean attached = menu.barrelAttached();
         UiBoxes.box(g, px, py, l.crucibleWidth(), l.sectionHeight(), top);
         // N12c: the barrel gets its own box with the same frame as the others (owner: no thicker edges).
@@ -222,7 +222,7 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
         CrucibleMenu.Layout l = layout();
         int flames = Math.max(CrucibleFlames.targetPixels(HeatLevel.HIGH, false, l.sectionHeight()), 8);
         int bottom = l.y() + l.sectionHeight() - FRAME_BOTTOM;
-        return mx >= l.x() + FRAME && mx < l.x() + l.crucibleWidth() - FRAME && my >= bottom - flames && my < bottom;
+        return mx >= l.crucibleLeft() + FRAME && mx < l.crucibleLeft() + l.crucibleWidth() - FRAME && my >= bottom - flames && my < bottom;
     }
 
     private Component stateLine(int slot) {
@@ -239,7 +239,18 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
     @Override
     protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         UiPalette top = palette(tier);
-        g.text(font, title, titleLabelX, titleLabelY, top.label(), false);
+        // N37: the box is only as wide as its grid; a longer title is drawn smaller so it stays inside the frame.
+        int room = layout().crucibleWidth() - 16, width = font.width(title);
+        if (width <= room) {
+            g.text(font, title, titleLabelX, titleLabelY, top.label(), false);
+        } else {
+            float scale = Math.max(0.5F, room / (float) width);
+            g.pose().pushMatrix();
+            g.pose().translate(titleLabelX, titleLabelY + (1 - scale) * 4);
+            g.pose().scale(scale, scale);
+            g.text(font, title, 0, 0, top.label(), false);
+            g.pose().popMatrix();
+        }
         g.text(font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, INVENTORY.label(), false);
     }
 }

@@ -43,18 +43,27 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.takeScreenshot("simplelib-crucible-enderite-barrel-1080");
             context.runOnClient(c -> c.getWindow().setWindowed(854, 480));
             context.waitTicks(3);
-            crucible(context, CrucibleTier.REINFORCED);
-            context.takeScreenshot("simplelib-crucible-reinforced-barrel");
+            // N37: every tier with and without a barrel (7 px margins, compact boxes).
+            for (CrucibleTier tier : CrucibleTier.values()) {
+                for (boolean barrel : new boolean[] {false, true}) {
+                    crucible(context, tier, barrel);
+                    context.takeScreenshot("simplelib-crucible-" + tier.id() + (barrel ? "-with-barrel" : "-alone"));
+                }
+            }
             context.runOnClient(c -> c.gui.setScreen(null));
         }
     }
 
     /** A client-side crucible menu of {@code tier} with a barrel attached and a few items, opened and rendered. */
     private static void crucible(ClientGameTestContext context, CrucibleTier tier) {
+        crucible(context, tier, true);
+    }
+
+    private static void crucible(ClientGameTestContext context, CrucibleTier tier, boolean barrel) {
         context.runOnClient(c -> {
             Inventory inv = c.player.getInventory();
             CrucibleMenu menu = CrucibleMenu.client(tier, 0, inv);
-            menu.setData(tier.slots() + 3, 1);
+            menu.setData(tier.slots() + 3, barrel ? 1 : 0);
             menu.getSlot(0).set(new ItemStack(Items.RAW_IRON, 12));
             menu.getSlot(menu.wideCrucibleStart()).set(new ItemStack(Items.RAW_IRON, 12));
             menu.getSlot(menu.barrelStart()).set(new ItemStack(Items.IRON_INGOT, 5));

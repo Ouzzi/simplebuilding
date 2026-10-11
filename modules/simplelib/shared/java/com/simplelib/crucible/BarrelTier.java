@@ -13,7 +13,7 @@ public enum BarrelTier {
     NETHERITE("netherite", 5, 1),
     ENDERITE("enderite", 6, 2);
 
-    /** Most slots a crucible uses in an attached barrel (the Enderite crucible's 30 since N37; the copper barrel has 27, the rest stay empty). */
+    /** Most slots a crucible uses in an attached barrel (the Enderite crucible's 30 since N37; a smaller barrel, e.g. copper with 27, stores that many while attached). */
     public static final int MAX_CRUCIBLE_SLOTS = 30;
 
     private final String id;
