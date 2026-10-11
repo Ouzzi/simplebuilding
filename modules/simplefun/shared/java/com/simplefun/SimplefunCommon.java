@@ -17,7 +17,7 @@ public final class SimplefunCommon {
     var gson = new GsonBuilder().setPrettyPrinting().create();
     config =
         com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(
-            p, SimplefunConfig.class, gson, Constants.LOG::warn);
+            p, t -> gson.fromJson(t, SimplefunConfig.class), Constants.LOG::warn);
     if (config == null) config = new SimplefunConfig();
     config.normalize();
     if (!Files.exists(p)) saveConfig();

@@ -54,7 +54,7 @@ public final class LibConfig {
     public static void load(Path dir) {
         JsonObject json = new JsonObject();
         Path file = dir == null ? null : dir.resolve(FILE);
-        JsonObject read = com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file, JsonObject.class, GSON, SimpleLib.LOG::warn);
+        JsonObject read = com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file, t -> GSON.fromJson(t, JsonObject.class), SimpleLib.LOG::warn);
         if (read != null) json = read;
         apply(json);
         if (file != null) {

@@ -25,7 +25,7 @@ public final class SimpleMoney {
  private static java.nio.file.attribute.FileTime lastRead;
  public static void loadConfig(Path dir) {
   Path file=dir.resolve("simplemoney.json"); Gson gson=new Gson();
-  Config read=com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file,Config.class,gson,org.slf4j.LoggerFactory.getLogger("SimpleMoney")::warn);
+  Config read=com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file,t->gson.fromJson(t,Config.class),org.slf4j.LoggerFactory.getLogger("SimpleMoney")::warn);
   if(read!=null&&read.trades==null) { org.slf4j.LoggerFactory.getLogger("SimpleMoney").warn("simplemoney.json has no trades section, old file kept as {}",com.simplebuilding.framework.api.ConfigFiles.quarantine(file)); read=null; }
   config=read!=null?read:new Config();
   try { if(read==null) { Files.createDirectories(dir); Files.writeString(file,gson.toJson(config)); }

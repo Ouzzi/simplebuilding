@@ -33,7 +33,7 @@ public final class MapsConfig {
     public static void load(Path dir) {
         JsonObject json = new JsonObject();
         Path file = dir == null ? null : dir.resolve(FILE);
-        JsonObject read = com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file, JsonObject.class, GSON, SimpleMaps.LOG::warn);
+        JsonObject read = com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file, t -> GSON.fromJson(t, JsonObject.class), SimpleMaps.LOG::warn);
         if (read != null) json = read;
         apply(json);
         enabled = hostAllows(dir);

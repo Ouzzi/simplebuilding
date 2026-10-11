@@ -1,12 +1,12 @@
 package com.simplebuilding.framework.api;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * Since 0.1.7. One policy for a broken server config in every module: never crash, move the unreadable file to
@@ -19,14 +19,14 @@ public final class ConfigFiles {
     private ConfigFiles() {}
 
     /**
-     * Reads {@code file} as JSON of {@code type}. Returns {@code null} when the file is missing, or when it is
+     * Reads {@code file} and hands its text to {@code parser} (e.g. {@code text -> gson.fromJson(text, X.class)}). Returns {@code null} when the file is missing, or when it is
      * unreadable/unparsable/empty (then it is quarantined first and {@code warn} gets one line). The caller uses its
      * defaults for {@code null}.
      */
-    public static <T> T readOrQuarantine(Path file, Class<T> type, Gson gson, Consumer<String> warn) {
+    public static <T> T readOrQuarantine(Path file, Function<String, T> parser, Consumer<String> warn) {
         if (file == null || !Files.isRegularFile(file)) return null;
         try {
-            T value = gson.fromJson(Files.readString(file), type);
+            T value = parser.apply(Files.readString(file));
             if (value != null) return value;
             throw new IllegalStateException("file is empty");
         } catch (Exception e) {

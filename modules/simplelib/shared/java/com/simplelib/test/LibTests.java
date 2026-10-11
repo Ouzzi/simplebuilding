@@ -148,8 +148,7 @@ public final class LibTests {
                 check(h, names.stream().anyMatch(n -> n.startsWith(LibConfig.FILE + ".broken-")), "broken file not kept: " + names);
             }
             com.google.gson.JsonParser.parseString(java.nio.file.Files.readString(file));
-            check(h, com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(dir.resolve("none.json"), JsonObject.class,
-                    new com.google.gson.Gson(), x -> { }) == null, "missing file must give null");
+            check(h, com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(dir.resolve("none.json"), t -> t, x -> { }) == null, "missing file must give null");
         } catch (java.io.IOException | RuntimeException e) {
             h.fail("broken config handling threw " + e);
             return;
