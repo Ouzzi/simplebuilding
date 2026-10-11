@@ -16,6 +16,22 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         try (var world = context.worldBuilder().create()) {
             world.getConnection().waitForClientboundPackets();
             world.getConnection().waitForChunksRender();
+            // N39: outline (selection box) of the crucible with a docked barrel, looked at from the side and from above.
+            world.getServer().runOnServer(server -> {
+                var p = server.getPlayerList().getPlayers().getFirst();
+                var l = p.level();
+                var at = p.blockPosition().offset(0, 0, -3);
+                l.setBlockAndUpdate(at, com.simplelib.registry.LibBlocks.NETHERITE_CRUCIBLE.defaultBlockState()
+                        .setValue(com.simplelib.crucible.CrucibleBlock.FACING, net.minecraft.core.Direction.EAST));
+                l.setBlockAndUpdate(at.west(), com.simplelib.registry.LibBlocks.NETHERITE_BARREL.defaultBlockState()
+                        .setValue(com.simplelib.crucible.CrucibleBarrelBlock.ATTACHED, true)
+                        .setValue(com.simplelib.crucible.CrucibleBarrelBlock.FACING, net.minecraft.core.Direction.EAST));
+                p.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES, net.minecraft.world.phys.Vec3.atCenterOf(at).add(0, -0.2, 0));
+            });
+            world.getConnection().waitForClientboundPackets();
+            world.getConnection().waitForChunksRender();
+            context.waitTicks(10);
+            context.takeScreenshot("simplelib-crucible-hitbox");
             crucible(context, CrucibleTier.NETHERITE);
             context.takeScreenshot("simplelib-crucible-netherite-barrel");
             crucible(context, CrucibleTier.ENDERITE);
