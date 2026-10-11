@@ -299,7 +299,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
             y += LINE;
         }
         if (!stack.isEmpty() && p == Page.USE) facts(g, stack, rx, FOOTER_Y - 2 - footerHeight());
-        g.centeredText(font, (page + 1) + " / 3", BOOK_X + BOOK_W / 2, BOOK_Y + BOOK_H - 19, HEADING);
+        g.centeredText(font, (page + 1) + " / 3", BOOK_X + BOOK_W * 3 / 4, BOOK_Y + BOOK_H - 19, HEADING);
     }
 
     /** The guide book's heading line: a thin ink line with a small gold diamond in its middle. */

@@ -716,10 +716,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 34 (2026-10-11, Besitzer, Screenshots im Vorschauordner n34/)
 - [ ] Verstärkter Kessel: Item-Icon immer noch falsch.
 - [ ] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen.
-- [ ] (Mockups a/b/c fertig auf claude-n34-ui, previews/n34/tiegel-*; offen: Besitzer-Wahl, dann echte Umsetzung) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.,
+- [x] (claude-n37-ui: Variante c umgesetzt, Mockup-Klasse entfernt) (Mockups a/b/c fertig auf claude-n34-ui, previews/n34/tiegel-*; offen: Besitzer-Wahl, dann echte Umsetzung) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.,
 - [x] Verstärkter Kessel: Item-Icon immer noch falsch. (claude-n34-tex: Item zeigt jetzt den 3D-Block wie Tiegel/Fässer/Holzkessel, 2D-Sprite entfernt; Client-Screenshot geprüft; Besitzer-Abnahme offen)
 - [x] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen. (claude-n34-tex: Besitzer wählte F1 aus E–I/F1–F3/G1–G3 – kurzer Deckel, matte Farben, alle 4 Stufen eingebaut statt D; Client-Abnahme offen)
-- [ ] Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.
+- [x] (claude-n37-ui: Variante c gewählt und umgesetzt) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.
 - [ ] Eichen-Kessel (Holzkessel) hat im Inventar kein 3D-Modell.
 - [ ] Checker-Treppen/-Stufen: Texturen weiterhin falsch orientiert (checker_stairs.png).
 - [ ] Achtel-Blöcke im Inventar ca. 10 % kleiner rendern.
@@ -771,16 +771,16 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 37 (2026-10-11, Besitzer, Screenshots im Vorschauordner n37/)
 - [ ] Sculk Jaw: weitere Beispiele zur Wahl – die aktuelle Form ist bisher die beste (Varianten nah daran).
-- [ ] Fragentisch: viel epischer, Block an Zaubertisch erinnernd; UI besonders schön, an das Guide-Buch erinnernd, im modernen UI-Stil der Mod.
+- [x] (claude-n37-ui: Obsidian/Gold/Lapis-Block mit Buch, Glyphen-Partikel; GUI Lapis-Pult + Guide-Buch-Look) Fragentisch: viel epischer, Block an Zaubertisch erinnernd; UI besonders schön, an das Guide-Buch erinnernd, im modernen UI-Stil der Mod.
 - [ ] Platzierte Bündel: Items 3D (1 px tief) rendern.
-- [ ] UI-Farbvarianten (z. B. braun): Hintergrund-Symbole der Slots nicht korrekt sichtbar (brown_ui_icons.png).
+- [x] (claude-n37-ui: simplelib UiSlotIcons/UiPalette.slotIcon, Vanilla-Kontrast je Thema, SB-Fenster + simpleinterfaces) UI-Farbvarianten (z. B. braun): Hintergrund-Symbole der Slots nicht korrekt sichtbar (brown_ui_icons.png).
 - [ ] Placeables gezielt abbauen: das angeschaute Teil wird abgebaut.
 - [ ] Platzierter Ziegenhorn: Textur korrekt, aber nicht schön → verbessern.
 - [ ] Kisten von der Seite: Inhalt nicht erkennbar → seitlich Item-Texturen zeigen (crate_side.png).
-- [ ] Astral-Verzauberer: Tooltip der Verzauberungen immer rechts neben dem gesamten UI; Preis bleibt bei 50, obwohl eine Stufe weniger gewählt ist (astral_max.png / astral_one_less.png) → Preis muss bei weniger Stufen sinken.
+- [x] (claude-n37-ui: Tooltip rechts neben dem Fenster; Preis skaliert streng monoton, 50 nur bei voller Wahl; Besitzer-Nachtrag: Preis = benötigte Stufe, kostet 1-5 Level) Astral-Verzauberer: Tooltip der Verzauberungen immer rechts neben dem gesamten UI; Preis bleibt bei 50, obwohl eine Stufe weniger gewählt ist (astral_max.png / astral_one_less.png) → Preis muss bei weniger Stufen sinken.
 - [ ] Enderit-Eimer: Tooltip nur Titel.
 - [ ] Eimer: keine Haltbarkeitslinie rendern.
-- [ ] Verstärkter Tiegel: Slots 2x6 statt 3x4.
-- [ ] Enderit-Tiegel mit Fass: über dem Inventar rendern, Inventar zentriert.
+- [x] (claude-n37-ui) Verstärkter Tiegel: Slots 2x6 statt 3x4.
+- [x] (claude-n37-ui: Besitzer-Wahl Variante c, 5x6 = 30 Plätze, Fass daneben, Inventar zentriert darunter; alte 27er-Inhalte laden per Index) Enderit-Tiegel mit Fass: über dem Inventar rendern, Inventar zentriert.
 - [ ] Auf der Truhe des Enderit-Boots stehen: man buggt und bewegt sich langsam (Vanilla anscheinend auch) → beheben.
 - [ ] Sculk Jaw nur auf vollen Blöcken platzierbar.
