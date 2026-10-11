@@ -120,28 +120,44 @@ public final class AstralEnchantingTests {
         eq(helper, AstralEnchanting.price(pick, pickMax, pickValue), 50, "Efficiency V + Fortune III + Unbreaking III");
         int[] weakBook = {4, 2, 3}, weakMax = {4, 2, 3}, weakValue = {12, 10, 10};
         eq(helper, AstralEnchanting.price(weakBook, weakMax, weakValue), 48, "book Protection IV + Knockback II + Loyalty III: three weak below 50");
-        eq(helper, AstralEnchanting.price(new int[] {2, 1, 1}, new int[] {5, 3, 2}, new int[] {14, 12, 10}), 23, "Sharpness II + Unbreaking I + Knockback I");
+        eq(helper, AstralEnchanting.price(new int[] {2, 1, 1}, new int[] {5, 3, 2}, new int[] {14, 12, 10}), 22, "Sharpness II + Unbreaking I + Knockback I (scaled, N37)");
         eq(helper, AstralEnchanting.price(new int[] {5, 0, 0}, swordMax, swordValue), 14, "one enchantment: no tax");
-        eq(helper, AstralEnchanting.price(new int[] {5, 3, 0}, swordMax, swordValue), 37, "two enchantments: +1/4");
-        eq(helper, AstralEnchanting.price(new int[] {5, 0, 3}, pickMax, pickValue), 33, "Efficiency V + Unbreaking III");
+        eq(helper, AstralEnchanting.price(new int[] {5, 3, 0}, swordMax, swordValue), 32, "two enchantments: +1/4, scaled (N37)");
+        eq(helper, AstralEnchanting.price(new int[] {5, 0, 3}, pickMax, pickValue), 29, "Efficiency V + Unbreaking III (scaled, N37)");
         eq(helper, AstralEnchanting.price(new int[3], swordMax, swordValue), 0, "nothing chosen");
         eq(helper, AstralEnchanting.price(new int[] {1, 0, 0}, swordMax, swordValue), 3, "Sharpness I without shelves fits the budget of 3");
-        // Max 50, and only at 50 everything at once.
-        for (int a = 0; a <= 5; a++) {
-            for (int b = 0; b <= 3; b++) {
-                for (int c = 0; c <= 2; c++) {
-                    int price = AstralEnchanting.price(new int[] {a, b, c}, swordMax, swordValue);
-                    helper.assertTrue(price <= AstralEnchanting.MAX_PRICE, "price above 50 at " + a + "/" + b + "/" + c);
+        // Max 50 only for the full choice, and every level less costs less (owner N37: 50 stayed 50 one level lower).
+        int[][][] offers = {{swordMax, swordValue}, {pickMax, pickValue}, {weakMax, weakValue}, {{3, 3, 1}, {12, 12, 14}}};
+        for (int[][] offer : offers) {
+            int[] max = offer[0], value = offer[1];
+            for (int a = 0; a <= max[0]; a++) {
+                for (int b = 0; b <= max[1]; b++) {
+                    for (int c = 0; c <= max[2]; c++) {
+                        int[] levels = {a, b, c};
+                        int price = AstralEnchanting.price(levels, max, value);
+                        boolean full = a == max[0] && b == max[1] && c == max[2];
+                        helper.assertTrue(full ? price <= AstralEnchanting.MAX_PRICE : price < AstralEnchanting.MAX_PRICE,
+                                "price " + price + " at " + a + "/" + b + "/" + c);
+                        for (int row = 0; row < 3; row++) {
+                            if (levels[row] == 0) continue;
+                            int[] less = levels.clone();
+                            less[row]--;
+                            helper.assertTrue(AstralEnchanting.price(less, max, value) < price,
+                                    "one level less at row " + row + " does not cost less than " + price + " at " + a + "/" + b + "/" + c);
+                        }
+                    }
                 }
             }
         }
+        eq(helper, AstralEnchanting.price(new int[] {3, 2, 1}, new int[] {3, 3, 1}, new int[] {12, 12, 14}), 45,
+                "Thrift III + Unbreaking II + Silk Touch: one level below the full 50 (owner screenshot N37)");
         eq(helper, AstralEnchanting.maxAffordable(2, new int[] {5, 3, 0}, swordMax, swordValue, AstralEnchanting.budget(50)), 2, "tier 50: all three at max");
-        eq(helper, AstralEnchanting.maxAffordable(2, new int[] {5, 3, 0}, swordMax, swordValue, AstralEnchanting.budget(49)), 0, "tier 49: the third does not fit");
+        eq(helper, AstralEnchanting.maxAffordable(2, new int[] {5, 3, 0}, swordMax, swordValue, AstralEnchanting.budget(49)), 1, "tier 49: the third only at level 1");
         eq(helper, AstralEnchanting.maxAffordable(1, new int[] {5, 0, 0}, swordMax, swordValue, AstralEnchanting.budget(30)), 2, "tier 30: Looting II next to Sharpness V (30 levels)");
         eq(helper, AstralEnchanting.maxAffordable(1, new int[] {5, 0, 0}, swordMax, swordValue, AstralEnchanting.budget(40)), 3, "tier 40: Looting III next to Sharpness V");
         eq(helper, AstralEnchanting.maxAffordable(0, new int[3], swordMax, swordValue, AstralEnchanting.budget(0)), 1, "without shelves: Sharpness I");
         eq(helper, AstralEnchanting.maxAffordable(1, new int[3], swordMax, swordValue, AstralEnchanting.budget(0)), 0, "without shelves: Looting greyed out");
-        eq(helper, AstralEnchanting.maxAffordable(0, new int[] {0, 3, 3}, pickMax, pickValue, AstralEnchanting.budget(40)), 0, "tier 40: next to Fortune III + Unbreaking III no Efficiency (the third costs the tax)");
+        eq(helper, AstralEnchanting.maxAffordable(0, new int[] {0, 3, 3}, pickMax, pickValue, AstralEnchanting.budget(40)), 2, "tier 40: next to Fortune III + Unbreaking III Efficiency II (scaled price, N37)");
         eq(helper, AstralEnchanting.maxAffordable(0, new int[] {0, 3, 3}, pickMax, pickValue, AstralEnchanting.budget(50)), 5, "tier 50: Efficiency V as well");
         // Lapis 1 per started 10 levels, blaze powder twice that.
         eq(helper, AstralEnchanting.lapisCost(0), 0, "no lapis without a choice");

@@ -234,34 +234,15 @@ public final class StyledScreens {
     /**
      * Tint for an empty-slot icon on {@code screen}: {@code -1} = Vanilla (screen not styled), {@code 0} = leave it out
      * (the brewing stand's blaze powder slot shows its fuel level instead), else the colour for
-     * {@code blitSprite(..., color)}. Vanilla's icons are one grey each ({@link #iconGrey}); the tint scales it to the slot's
-     * top-line colour at 80 % so it reads as an engraved silhouette.
+     * {@code blitSprite(..., color)}: the slot palette's icon colour (SimpleLib {@link com.simplelib.api.client.ui.UiPalette#slotIcon},
+     * owner N37: the same contrast to the slot as Vanilla's icons in every theme).
      */
     public static int slotIconColor(AbstractContainerScreen<?> screen, Slot slot, net.minecraft.resources.Identifier icon,
             int imageWidth, int imageHeight, int titleY) {
         ScreenStyle style = style(screen);
         if (style == null || layout(screen, imageWidth, imageHeight, titleY) == null) return -1;
-        String path = icon.getPath();
-        if (path.equals("container/slot/brewing_fuel")) return 0;
+        if (icon.getPath().equals("container/slot/brewing_fuel")) return 0;
         UiPalette p = playerSlot(slot) ? UiPalette.INVENTORY : palette(screen, style);
-        int grey = iconGrey(path);
-        int top = p.slotTop(), color = 0xCC000000;
-        for (int shift = 16; shift >= 0; shift -= 8) color |= Math.min(255, ((top >> shift) & 255) * 255 / grey) << shift;
-        return color;
-    }
-
-    /**
-     * The single grey of a Vanilla 26.3 empty-slot sprite (measured): saddle and mount armor 124, potion and blaze powder
-     * 104, banner and dye 55, banner pattern 58, all others (tools, armor, lapis, ingots ...) 85.
-     */
-    static int iconGrey(String path) {
-        return switch (path) {
-            case "container/slot/saddle", "container/slot/horse_armor", "container/slot/llama_armor",
-                    "container/slot/nautilus_armor_inventory" -> 124;
-            case "container/slot/potion", "container/slot/brewing_fuel" -> 104;
-            case "container/slot/banner", "container/slot/dye" -> 55;
-            case "container/slot/banner_pattern" -> 58;
-            default -> 85;
-        };
+        return com.simplelib.api.client.ui.UiSlotIcons.tint(p, icon);
     }
 }

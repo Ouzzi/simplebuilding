@@ -337,9 +337,22 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
                 lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.value",
                         this.menu.levelPrice(row, 1), this.menu.value(row), max).withStyle(ChatFormatting.GRAY));
                 lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.tax").withStyle(ChatFormatting.DARK_GRAY));
-                g.setTooltipForNextFrame(this.font, lines, java.util.Optional.empty(), mouseX, mouseY);
+                // N37 (owner): always right beside the whole window, level with the row - never over the sliders.
+                // Vanilla's positioner draws at (x + 12, y - 12).
+                int[] at = rowTooltipAnchor(row);
+                g.setTooltipForNextFrame(this.font, lines, java.util.Optional.empty(), at[0], at[1]);
             }
         }
+    }
+
+    /** Right edge of the window (screen coordinates) - for the client test. */
+    public int windowRight() {
+        return this.leftPos + this.imageWidth;
+    }
+
+    /** Position handed to the tooltip of slider {@code row}: its box starts 4 px right of the window, at the row's top. */
+    public int[] rowTooltipAnchor(int row) {
+        return new int[] {this.leftPos + this.imageWidth + 4 - 12, this.topPos + rowY(row) + 12};
     }
 
     private List<Component> buttonTooltip() {

@@ -8,7 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-/** Client smoke: the module boots; the crucible window with an attached barrel (N14: from enderite the barrel box sits below). */
+/** Client smoke: the module boots; the crucible window with an attached barrel (N37: the barrel box beside the crucible on every tier, inventory centred below). */
 public final class ModuleClientSmoke implements FabricClientGameTest {
     @Override public void runTest(ClientGameTestContext context) {
         if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplelib")) throw new AssertionError("Module did not boot");

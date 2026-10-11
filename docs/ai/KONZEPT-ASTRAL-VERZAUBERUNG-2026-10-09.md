@@ -126,11 +126,15 @@ schwache dürfen unter 50 Level kosten, drei starke kosten 50.
 1. Wert einer Verzauberung auf Höchststufe: `W = Grundwert(Amboss-Kosten) + 2 x Höchststufe`, Grundwert nach den
    Vanilla-Amboss-Kosten (= Seltenheit): 1 → 4, 2 → 6, bis 4 → 9, darüber 12.
 2. Reglerstufe `L` von `M` kostet ihren Anteil: `ceil(W x L / M)`.
-3. Steuer: bei `n` gewählten Verzauberungen `Preis = min(50, ceil(Summe x (3 + n) / 4))`, also +1/4 der Summe je
+3. Steuer: bei `n` gewählten Verzauberungen `Roh = ceil(Summe x (3 + n) / 4)`, also +1/4 der Summe je
    weiterer Verzauberung (eine: x1, zwei: x1,25, drei: x1,5).
+3b. Skalierung statt Kappung (Besitzer N37, 11.10.: bei 50 mit einer Stufe weniger blieb der Preis 50): kostet die volle
+   Auswahl des Angebots roh `V > 50`, gilt `Preis = min(Roh, c + ceil(Roh x (50 - M) / V))` mit `c` gewählten und `M`
+   allen Reglerstufen. Jede weggenommene Stufe senkt beide Terme, der Preis fällt also streng; 50 kostet nur die volle
+   Auswahl. Angebote mit `V <= 50` zahlen `Roh`.
 4. Lapislazuli = 1 je angefangene 10 Level (1-5), Lohenstaub doppelt so viel.
 
-Weil kein Preis 50 übersteigt, passt bei Stärke 50 jede Kombination; darunter schneidet das Budget ab (zu teure
+Weil kein Preis 50 übersteigt (und nur die volle Auswahl 50 kostet), passt bei Stärke 50 jede Kombination; darunter schneidet das Budget ab (zu teure
 Reglerstufen grau). Entschieden (Claude): Verbrauch = Preis (Besitzer: „XP-Level-Kosten max 50“), statt der alten 1-5
 Level; das ist teurer als Vanilla, dafür gezielt und ohne Amboss-Strafkosten.
 
@@ -157,17 +161,19 @@ Level; das ist teurer als Vanilla, dafür gezielt und ohne Amboss-Strafkosten.
 | Item | Wahl | Summe | Steuer | Preis (Level) | Lapis / Lohenstaub | ab Stärke |
 |---|---|---|---|---|---|---|
 | Schwert | Schärfe V | 14 | x1 | 14 | 2 / 4 | 14 |
-| Schwert | Schärfe V + Plünderung III | 29 | x1,25 | 37 | 4 / 8 | 37 |
+| Schwert | Schärfe V + Plünderung III | 29 | x1,25 | 32 (37) | 4 / 8 | 32 |
 | Schwert | Schärfe V + Plünderung III + Verbrennung II | 42 | x1,5 | 50 (63) | 5 / 10 | 50 |
-| Schwert | Schärfe II + Haltbarkeit I + Rückstoß I | 15 | x1,5 | 23 | 3 / 6 | 23 |
-| Spitzhacke | Effizienz V + Haltbarkeit III | 26 | x1,25 | 33 | 4 / 8 | 33 |
+| Schwert | Schärfe II + Haltbarkeit I + Rückstoß I | 15 | x1,5 | 22 (23) | 3 / 6 | 22 |
+| Spitzhacke | Effizienz V + Haltbarkeit III | 26 | x1,25 | 29 (33) | 3 / 6 | 29 |
 | Spitzhacke | Effizienz V + Glück III + Haltbarkeit III | 41 | x1,5 | 50 (62) | 5 / 10 | 50 |
 | Spitzhacke | Behutsamkeit + Effizienz V + Haltbarkeit III | 40 | x1,5 | 50 (60) | 5 / 10 | 50 |
 | Bogen | Stärke V + Schlag II + Flamme | 38 | x1,5 | 50 (57) | 5 / 10 | 50 |
 | Buch | Schutz IV + Rückstoß II + Treue III (drei schwache) | 32 | x1,5 | 48 | 5 / 10 | 48 |
 | Buch | Schärfe I (ohne Regale) | 3 | x1 | 3 | 1 / 2 | 0 (Budget 3) |
 
-Bei Stärke 30 (15 Bücherregale) z. B. Schärfe V + Plünderung II (24 x 1,25 = 30); bei 40 Schärfe V + Plünderung III (37).
+Bei Stärke 30 (15 Bücherregale) z. B. Schärfe V + Plünderung II (roh 30, skaliert 27); bei 40 Schärfe V + Plünderung III (32).
+In Klammern der Rohpreis vor der Skalierung (N37). Beispiel aus dem Besitzer-Screenshot: Sparsamkeit III + Haltbarkeit II
++ Behutsamkeit kostet 45 statt 50, erst Haltbarkeit III macht 50.
 
 **UI (N35).** Namen in kleinerer Schrift (75 %), Regler-Abschnitte je Stufe abgestuft (Stufe 1 in der Reglerfarbe,
 jede höhere einen Ton dunkler, höchstens bis 55 % Helligkeit), oben rechts „Preis/Budget Lv“ statt „x/∞“ (Tooltip:

@@ -39,6 +39,17 @@ public record UiPalette(int fill, int light, int shade, int slot, int slotTop, i
                 l < 125 ? LIGHT_LABEL : DARK_LABEL);
     }
 
+    /**
+     * Colour of an empty-slot icon (armour silhouettes, lapis, potion ...) on this palette's slot (owner N37: on the
+     * brown backpack Vanilla's grey icons vanished). The slot colour darkened by Vanilla's own contrast - its icons
+     * (#555555) sit 54 below its slot grey (#8B8B8B) - so the inventory keeps Vanilla's exact grey and every other theme
+     * gets the same contrast in its own hue; very dark slots keep at least 30 % of the slot colour.
+     */
+    public int slotIcon() {
+        double l = luminance(slot);
+        return l <= 0 ? 0xFF000000 : scale(slot, Math.max(0.3, (l - 54 + 0.5) / l));
+    }
+
     /** {@code color} with its RGB scaled by {@code f} (clamped), alpha opaque. */
     public static int scale(int color, double f) {
         int r = (int) Math.min(255, ((color >> 16) & 255) * f), gr = (int) Math.min(255, ((color >> 8) & 255) * f),
