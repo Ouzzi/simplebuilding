@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "stripped_wooden_cauldron",
+  "key": {
+    "H": "simplebuilding:hollow_stripped_bamboo_block",
+    "S": [
+      "simplebuilding:bamboo_sheet",
+      "simplebuilding:stripped_bamboo_sheet"
+    ]
+  },
+  "pattern": [
+    "H",
+    "S"
+  ],
+  "result": {
+    "id": "simplebuilding:stripped_bamboo_cauldron"
+  }
+}

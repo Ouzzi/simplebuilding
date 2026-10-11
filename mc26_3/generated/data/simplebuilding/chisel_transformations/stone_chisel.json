@@ -131,6 +131,12 @@
         "minecraft:stripped_bamboo_block",
         "simplebuilding:hollow_stripped_bamboo_block"
       ]
+    },
+    {
+      "blocks": [
+        "minecraft:ice",
+        "simplebuilding:cracked_ice"
+      ]
     }
   ],
   "table": "chisel",

@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#simplebuilding:has_cracked_ice",
+  "features": "simplebuilding:cracked_ice_patch_placed",
+  "step": "top_layer_modification"
+}

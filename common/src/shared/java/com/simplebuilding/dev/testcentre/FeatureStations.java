@@ -823,6 +823,7 @@ public final class FeatureStations {
             c.place(x, 0, 3, f.sheet());
             c.place(x, 0, 4, f.strippedSheet());
             c.place(x, 0, 5, f.cauldron().with(com.simplebuilding.woodwork.WoodenCauldronBlock.Content.WATER, 3));
+            c.place(x, 0, 8, f.strippedCauldron().with(com.simplebuilding.woodwork.WoodenCauldronBlock.Content.WATER, 3));
             c.place(x, 0, 6, f.crate());
             c.contents(x, 0, 6, List.of(new ItemStack(foods[i % foods.length], 64), new ItemStack(foods[(i + 3) % foods.length], 32)));
             c.place(x, 0, 7, f.carved().only(Direction.NORTH, motifs[i % motifs.length])

@@ -406,17 +406,29 @@
     "simplebuilding:storage_crafting_table",
     "simplebuilding:stray_skull",
     "simplebuilding:stray_wall_skull",
+    "simplebuilding:stripped_acacia_cauldron",
     "simplebuilding:stripped_acacia_sheet",
+    "simplebuilding:stripped_bamboo_cauldron",
     "simplebuilding:stripped_bamboo_sheet",
+    "simplebuilding:stripped_birch_cauldron",
     "simplebuilding:stripped_birch_sheet",
+    "simplebuilding:stripped_cherry_cauldron",
     "simplebuilding:stripped_cherry_sheet",
+    "simplebuilding:stripped_crimson_cauldron",
     "simplebuilding:stripped_crimson_sheet",
+    "simplebuilding:stripped_dark_oak_cauldron",
     "simplebuilding:stripped_dark_oak_sheet",
+    "simplebuilding:stripped_jungle_cauldron",
     "simplebuilding:stripped_jungle_sheet",
+    "simplebuilding:stripped_mangrove_cauldron",
     "simplebuilding:stripped_mangrove_sheet",
+    "simplebuilding:stripped_oak_cauldron",
     "simplebuilding:stripped_oak_sheet",
+    "simplebuilding:stripped_pale_oak_cauldron",
     "simplebuilding:stripped_pale_oak_sheet",
+    "simplebuilding:stripped_spruce_cauldron",
     "simplebuilding:stripped_spruce_sheet",
+    "simplebuilding:stripped_warped_cauldron",
     "simplebuilding:stripped_warped_sheet",
     "simplebuilding:sulfur_bricks_octet",
     "simplebuilding:sulfur_octet",
@@ -3226,37 +3238,73 @@
       "id": "simplebuilding:stray_skull"
     },
     {
+      "id": "simplebuilding:stripped_acacia_cauldron"
+    },
+    {
       "id": "simplebuilding:stripped_acacia_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_bamboo_cauldron"
     },
     {
       "id": "simplebuilding:stripped_bamboo_sheet"
     },
     {
+      "id": "simplebuilding:stripped_birch_cauldron"
+    },
+    {
       "id": "simplebuilding:stripped_birch_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_cherry_cauldron"
     },
     {
       "id": "simplebuilding:stripped_cherry_sheet"
     },
     {
+      "id": "simplebuilding:stripped_crimson_cauldron"
+    },
+    {
       "id": "simplebuilding:stripped_crimson_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_dark_oak_cauldron"
     },
     {
       "id": "simplebuilding:stripped_dark_oak_sheet"
     },
     {
+      "id": "simplebuilding:stripped_jungle_cauldron"
+    },
+    {
       "id": "simplebuilding:stripped_jungle_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_mangrove_cauldron"
     },
     {
       "id": "simplebuilding:stripped_mangrove_sheet"
     },
     {
+      "id": "simplebuilding:stripped_oak_cauldron"
+    },
+    {
       "id": "simplebuilding:stripped_oak_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_pale_oak_cauldron"
     },
     {
       "id": "simplebuilding:stripped_pale_oak_sheet"
     },
     {
+      "id": "simplebuilding:stripped_spruce_cauldron"
+    },
+    {
       "id": "simplebuilding:stripped_spruce_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_warped_cauldron"
     },
     {
       "id": "simplebuilding:stripped_warped_sheet"

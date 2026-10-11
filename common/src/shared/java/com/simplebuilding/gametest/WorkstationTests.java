@@ -175,6 +175,31 @@ public final class WorkstationTests {
                 .thenSucceed();
     }
 
+    /** Wie der Crafter: ohne Container vor der Front wird das Ergebnis in Blickrichtung ausgeworfen, nichts bleibt im Ausgabeslot. */
+    public static void autoSmitherEjectsWithoutContainer(GameTestHelper helper) {
+        if (!McVersion.AUTO_SMITHER) {
+            helper.succeed();
+            return;
+        }
+        BlockPos smitherPos = new BlockPos(1, 2, 1);
+        BlockPos powerPos = smitherPos.west();
+        helper.setBlock(smitherPos, ModBlocks.AUTO_SMITHER.defaultBlockState().setValue(AutoSmitherBlock.FACING, Direction.EAST));
+        AutoSmitherBlockEntity smither = helper.getBlockEntity(smitherPos, AutoSmitherBlockEntity.class);
+        smither.setItem(AutoSmitherBlockEntity.TEMPLATE_SLOT, new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE));
+        smither.setItem(AutoSmitherBlockEntity.BASE_SLOT, new ItemStack(Items.DIAMOND_SWORD));
+        smither.setItem(AutoSmitherBlockEntity.ADDITION_SLOT, new ItemStack(Items.NETHERITE_INGOT));
+        helper.setBlock(powerPos, Blocks.REDSTONE_BLOCK);
+        helper.startSequence()
+                .thenExecuteAfter(10, () -> {
+                    helper.assertTrue(smither.getItem(AutoSmitherBlockEntity.BASE_SLOT).isEmpty(), "the sword was used");
+                    helper.assertTrue(smither.getItem(AutoSmitherBlockEntity.RESULT_SLOT).isEmpty(), "nothing stays in the output slot");
+                    helper.assertTrue(helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                            new net.minecraft.world.phys.AABB(helper.absolutePos(smitherPos)).inflate(3))
+                            .stream().anyMatch(e -> e.getItem().is(Items.NETHERITE_SWORD)), "the netherite sword was ejected as an item");
+                })
+                .thenSucceed();
+    }
+
     /**
      * Trichter legen nach Vanillas Schmiede-Mengen ein (Vorlage, Basis, Material), Fremdes bleibt draussen, herausziehen
      * geht nur aus dem gespeicherten Ergebnisslot.
@@ -211,6 +236,9 @@ public final class WorkstationTests {
         helper.assertFalse(menu.hasRecipeError(), "valid recipe has no error");
         helper.assertTrue(AutoSmitherBlock.smith(helper.getBlockState(smitherPos), helper.getLevel(), helper.absolutePos(smitherPos)),
                 "smithing succeeds");
+        // Without a container in front the result is ejected (N35); a stored result (older worlds) is what hoppers/players take.
+        helper.assertTrue(menu.getSlot(AutoSmitherMenu.RESULT_SLOT).getItem().isEmpty(), "no container: the result is ejected, not stored");
+        smither.storeResult(new ItemStack(Items.NETHERITE_PICKAXE));
         helper.assertTrue(menu.getSlot(AutoSmitherMenu.RESULT_SLOT).getItem().is(Items.NETHERITE_PICKAXE), "finished output is stored");
         // Keep every input occupied while the real hopper extracts the finished result.
         smither.setItem(AutoSmitherBlockEntity.BASE_SLOT, new ItemStack(Items.DIAMOND_PICKAXE));

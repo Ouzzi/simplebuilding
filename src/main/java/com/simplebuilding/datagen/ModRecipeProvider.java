@@ -349,10 +349,16 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     }
                     shaped(RecipeCategory.DECORATIONS, family.cauldron())
                             .pattern("H").pattern("S")
-                            .define('H', Ingredient.of(family.hollow(), family.hollowStripped()))
+                            .define('H', family.hollow())
                             .define('S', Ingredient.of(family.sheet(), family.strippedSheet()))
                             .group("wooden_cauldron")
                             .unlockedBy(getHasName(family.hollow()), has(family.hollow())).save(output);
+                    shaped(RecipeCategory.DECORATIONS, family.strippedCauldron())
+                            .pattern("H").pattern("S")
+                            .define('H', family.hollowStripped())
+                            .define('S', Ingredient.of(family.sheet(), family.strippedSheet()))
+                            .group("stripped_wooden_cauldron")
+                            .unlockedBy(getHasName(family.hollowStripped()), has(family.hollowStripped())).save(output);
                     shaped(RecipeCategory.DECORATIONS, family.crate())
                             .pattern("P P").pattern("P P").pattern("PPP")
                             .define('P', wood.planks()).group("crate")

@@ -762,7 +762,18 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] (claude-n35-render) Gemeißeltes Eis: Motive symmetrischer/ausgewogener.
 - [ ] Rissiges Eis: beim Zerbrechen keine Wasserquelle; Weltgenerierung: Flecken in Eisseen u. ä. + vereinzelt 1x1-Stellen; Meißel macht normales Eis zu rissigem Eis.
 - [x] (claude-n35-buckets) Keramik-Eimer: Tooltip ohne Restgüsse (Abnutzungsbalken zeigt es) – Regel: Füllstand/Haltbarkeit nie doppelt im Tooltip; Lava nur einmal: Lava aufnehmen → spröde Variante, zerbricht beim Ausgießen.
-- [x] (claude-n35-buckets) Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.
+- [x] (claude-n35-buckets) Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.,
+- [ ] Kisten (crates): Items in 3D sichtbar, etwas größer, 1 px Höhe, von überall in der Kiste sichtbar (Mischung aus crate_ref_apples.png und crate_ref_iso.png), nicht nur oben.
+- [x] Smither wirft Items nicht aus wie der Vanilla-Crafter → wie Crafter. (claude-n35-world)
+- [ ] Kreativ-Baustab sieht nicht gut aus → wie die anderen Stäbe, nur in Sonder-Umfärbung.
+- [ ] Astral-Verzauberer: Schrift der Verzauberungen kleiner wie Vanilla (wirkt gedrängt); Slider-Stufen farblich abstufen (Stufe 1 aktuelle Farbe, jede höhere Stufe dunklerer Shade); "x/∞" erklären/ersetzen; unter dem Buch-Button in einer Zeile Lapis (blauer Punkt) und Lohenstaub (orange-roter Punkt) mit Bedarf; Kosten-Konzept überarbeiten: max. Level 50, erst bei Max alle angezeigten Verzauberungen maximierbar, darunter weniger; Preis je Verzauberung nach Wert, plus „Steuer“ fürs Kombinieren (3 schwache < 50 Level, 3 starke = 50).
+- [x] End-Schiffswracks ca. 80 % vergraben + Endstein obendrauf (schwerer erkennbar). (claude-n35-world)
+- [ ] Resonanz-Button im Inventar: Schrift kleiner, Button schmaler.
+- [x] Kessel aus entrindetem Holz (stripped oak usw.). (claude-n35-world)
+- [ ] Gemeißeltes Eis: Motive symmetrischer/ausgewogener.
+- [x] Rissiges Eis: beim Zerbrechen keine Wasserquelle; Weltgenerierung: Flecken in Eisseen u. ä. + vereinzelt 1x1-Stellen; Meißel macht normales Eis zu rissigem Eis. (claude-n35-world)
+- [ ] Keramik-Eimer: Tooltip ohne Restgüsse (Abnutzungsbalken zeigt es) – Regel: Füllstand/Haltbarkeit nie doppelt im Tooltip; Lava nur einmal: Lava aufnehmen → spröde Variante, zerbricht beim Ausgießen.
+- [ ] Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.
 - [ ] Nihilith-Signalschalter überarbeiten; Konzept Astral-/Nihil-Redstone erklären.
 
 ## Nachtrag 36 (2026-10-11, Besitzer)

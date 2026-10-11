@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "id": "simplebuilding:cracked_ice",
+    "properties": {
+      "age": "0"
+    }
+  }
+}

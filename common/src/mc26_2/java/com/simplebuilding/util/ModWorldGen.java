@@ -44,6 +44,10 @@ public class ModWorldGen {
     public static final ResourceKey<PlacedFeature> ASTRALIT_ORE_PLACED_KEY = registerPlacedKey("astralit_ore_placed");
     public static final ResourceKey<PlacedFeature> NIHILITH_ORE_PLACED_KEY = registerPlacedKey("nihilith_ore_placed");
 
+    /** Cracked ice keys (26.3 main line, McVersion.NATURE_VARIANTS); this line registers nothing until the port. */
+    public static final ResourceKey<PlacedFeature> CRACKED_ICE_PATCH_PLACED_KEY = registerPlacedKey("cracked_ice_patch_placed");
+    public static final ResourceKey<PlacedFeature> CRACKED_ICE_SINGLE_PLACED_KEY = registerPlacedKey("cracked_ice_single_placed");
+
     /** Sage Ore keys (26.3 main line, McVersion.SAGE_ORE); this line registers nothing until the port. */
     public static final ResourceKey<ConfiguredFeature<?, ?>> SAGE_ORE_KEY = registerConfiguredKey("sage_ore");
     public static final ResourceKey<PlacedFeature> SAGE_ORE_PLACED_KEY = registerPlacedKey("sage_ore_placed");

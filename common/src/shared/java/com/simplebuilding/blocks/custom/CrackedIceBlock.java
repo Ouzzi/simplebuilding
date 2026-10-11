@@ -2,12 +2,16 @@ package com.simplebuilding.blocks.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IceBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,12 +19,12 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.AABB;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Rissiges Eis (Besitzer N25): wer darauf steht, laesst es reissen - jede Sekunde mit jemandem darauf eine Stufe mehr
- * (Modelle auf Vanillas {@code frosted_ice_0..3}), nach der letzten Stufe wird es zu Wasser (im Nether verdampft es,
- * wie Eis). Steht niemand mehr darauf, bleibt der erreichte Riss stehen. Sonst verhaelt es sich wie Eis
- * (Licht schmilzt es, abgebaut ohne Behutsamkeit wird es zu Wasser, wenn darunter Wasser oder ein Block steht).
+ * (Modelle auf Vanillas {@code frosted_ice_0..3}), nach der letzten Stufe bricht es weg (ohne Wasserquelle, Nachtrag 35). Steht niemand mehr darauf, bleibt der erreichte Riss stehen. Sonst verhaelt es sich wie Eis
+ * (Licht schmilzt es, abgebaut hinterlaesst es anders als Eis kein Wasser).
  */
 public class CrackedIceBlock extends IceBlock {
     public static final int MAX_AGE = 3;
@@ -53,8 +57,8 @@ public class CrackedIceBlock extends IceBlock {
             level.playSound(null, pos, SoundEvents.GLASS_HIT, SoundSource.BLOCKS, 0.7F, 0.6F + 0.15F * age);
             level.scheduleTick(pos, this, TICKS_PER_CRACK);
         } else {
-            level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 0.8F, 1.2F);
-            melt(state, level, pos);
+            // Einbrechen: das Eis bricht weg und hinterlaesst keine Wasserquelle (Nachtrag 35).
+            level.destroyBlock(pos, false);
         }
     }
 
@@ -62,6 +66,15 @@ public class CrackedIceBlock extends IceBlock {
     public static boolean isStoodOn(Level level, BlockPos pos) {
         AABB top = new AABB(pos.getX(), pos.getY() + 1.0, pos.getZ(), pos.getX() + 1.0, pos.getY() + 1.25, pos.getZ() + 1.0);
         return !level.getEntitiesOfClass(LivingEntity.class, top, entity -> !entity.isSpectator()).isEmpty();
+    }
+
+    /** Abgebaut hinterlaesst es kein Wasser (anders als Eis): nur Statistik, Erschoepfung und Drops. */
+    @Override
+    public void playerDestroy(ServerLevel level, ServerPlayer player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity,
+                              ItemStack destroyedWith) {
+        player.awardStat(Stats.BLOCK_MINED.get(this));
+        player.causeFoodExhaustion(0.005F);
+        dropResources(state, level, pos, blockEntity, player, destroyedWith);
     }
 
     @Override

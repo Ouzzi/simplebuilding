@@ -309,6 +309,8 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(NatureBlockTests.FALLING_SLAB_MAX_TICKS).build(),
             GameTestSpec.named("nature_block_game_test_natural_slabs_place_into_the_full_block", NatureBlockTests::naturalSlabsPlaceIntoTheFullBlock)
                     .build(),
+            GameTestSpec.named("nature_block_game_test_cracked_ice_leaves_no_water_and_chisel_makes_it", NatureBlockTests::crackedIceLeavesNoWaterAndChiselMakesIt)
+                    .build(),
             GameTestSpec.named("nature_block_game_test_cracked_ice_melts_under_an_entity_after_some_seconds", NatureBlockTests::crackedIceMeltsUnderAnEntityAfterSomeSeconds)
                     .maxTicks(NatureBlockTests.CRACKED_ICE_MAX_TICKS).build(),
             GameTestSpec.named("trap_game_test_sculk_jaw_bites_and_reopens_silently", TrapTests::sculkJawBitesAndReopensSilently)
@@ -885,6 +887,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("workstation_game_test_auto_smither_smiths_once_per_pulse", WorkstationTests::autoSmitherSmithsOncePerPulse)
                     .maxTicks(200).build(),
+            GameTestSpec.named("workstation_game_test_auto_smither_ejects_without_container", WorkstationTests::autoSmitherEjectsWithoutContainer)
+                    .maxTicks(100).build(),
             GameTestSpec.named("workstation_game_test_autonomous_crafter_crafts_only_above_hoppers", WorkstationTests::autonomousCrafterCraftsOnlyAboveHoppers)
                     .maxTicks(WorkstationTests.CRAFTER_MAX_TICKS).build(),
             GameTestSpec.named("workstation_game_test_autonomous_crafter_stops_on_redstone", WorkstationTests::autonomousCrafterStopsOnRedstone)

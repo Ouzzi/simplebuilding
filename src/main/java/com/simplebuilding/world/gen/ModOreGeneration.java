@@ -42,6 +42,16 @@ public class ModOreGeneration {
             BiomeModifications.addFeature(END_BIOMES.and(context -> com.simplebuilding.config.ConfigFlags.scrapEnabled()),
                     GenerationStep.Decoration.UNDERGROUND_ORES, ModWorldGen.SCRAP_END_PLACED_KEY);
         }
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            // Rissiges Eis in Eisbiomen, nach dem Gefrieren der Oberflaeche (Nachtrag 35); NeoForge/Forge: biome_modifier-JSON.
+            net.minecraft.tags.TagKey<net.minecraft.world.level.biome.Biome> crackedIceBiomes = net.minecraft.tags.TagKey.create(
+                    net.minecraft.core.registries.Registries.BIOME,
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath(com.simplebuilding.Simplebuilding.MOD_ID, "has_cracked_ice"));
+            BiomeModifications.addFeature(BiomeSelectors.tag(crackedIceBiomes), GenerationStep.Decoration.TOP_LAYER_MODIFICATION,
+                    ModWorldGen.CRACKED_ICE_PATCH_PLACED_KEY);
+            BiomeModifications.addFeature(BiomeSelectors.tag(crackedIceBiomes), GenerationStep.Decoration.TOP_LAYER_MODIFICATION,
+                    ModWorldGen.CRACKED_ICE_SINGLE_PLACED_KEY);
+        }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().or(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD))
                             .and(context -> com.simplebuilding.config.ConfigFlags.sageOreEnabled()),

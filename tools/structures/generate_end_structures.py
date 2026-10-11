@@ -141,9 +141,10 @@ def gateway(variant):
 # figurehead, mast with crow's nest, raised stern cabin with magenta glass windows and a wide aft deck.
 # The ship is described procedurally in ship coordinates (v = 0 at the bow tip .. 27 at the stern,
 # dz = sideways offset from the keel, y = 0 at the keel); every wreck is a damaged slice of it.
-# Wrecks sit half buried: an end-stone mound fills the hull up to GROUND and slopes away around it,
-# and the structure starts GROUND blocks below the surface (start_height).
-GROUND = 4
+# Wrecks are mostly buried (N35, about 80 % of the hull): an end-stone mound fills the hull up to GROUND and slopes
+# away around it, the structure starts GROUND blocks below the surface (start_height), and irregular patches of end
+# stone cover the deck that still sticks out. Chests and item frames keep an air pocket inside the fill.
+GROUND = 8
 WOOL = 'minecraft:purple_wool'
 GLASS = 'minecraft:magenta_stained_glass'
 STEM_Y = {1: 7, 2: 7, 3: 7, 4: 6, 5: 5, 6: 4, 7: 3, 8: 2, 9: 1, 10: 1}   # bow stem rises like the vanilla keel
@@ -256,6 +257,7 @@ def wreck(kind, frame):
         s[(17, 8, 0)] = (PILLAR, {'axis': 'y'}, None)
     for k in list(s):           # weathering: holes in deck, walls and railing
         if k[1] > GROUND and rng.random() < (0.22 if kind == 'broken' else 0.12): del s[k]
+        elif k[1] > GROUND + 2 and rng.random() < 0.3: del s[k]      # the upper works rotted away
     chests = {'bow': [(9, 4, 0)], 'stern': [(24, 6, -2), (21, 4, 2)], 'broken': [(16, 4, 2)],
               'tilt': [(24, 6, -2), (21, 4, 2)]}[kind]
     for c in chests:
@@ -282,8 +284,36 @@ def wreck(kind, frame):
     move = lambda p: (p[0] - mx, p[1], p[2] - mz)
     g.b = {move(k): b for k, b in g.b.items()}
     for e in g.ent: e['pos'] = move(e['pos'])
+    keep = {k for k, b in g.b.items() if b[0] == 'minecraft:chest'} | {e['pos'] for e in g.ent}
     bury(g, rng, GROUND)
+    cover(g, rng, GROUND, keep)
+    pockets(g, keep)
     return g
+
+
+def cover(g, rng, ground, keep):
+    """Irregular end-stone patches over the part that still sticks out: deck pieces under them become end stone."""
+    cols = sorted({(x, z) for (x, y, z), b in g.b.items() if b[0] != STONE})
+    centres = [rng.choice(cols) for _ in range(max(3, len(cols) // 40))]
+    radii = [rng.uniform(2.0, 4.2) for _ in centres]
+    for (x, z) in cols:
+        d = min(math.hypot(x - cx, z - cz) - r + rng.uniform(-0.8, 0.8) for (cx, cz), r in zip(centres, radii))
+        if d > 0: continue
+        top = max(y for (xx, y, zz) in g.b if (xx, zz) == (x, z))
+        for y in range(ground, top + 1):
+            if (x, y, z) in g.b and (x, y, z) not in keep and rng.random() < 0.8: g.put(x, y, z, STONE)
+        if top < ground + 3 and rng.random() < 0.6 and (x, top + 1, z) not in g.b: g.put(x, top + 1, z, STONE)
+
+
+def pockets(g, keep):
+    """Chests and item frames stay reachable: a 3x3x2 air pocket in the end-stone fill around each."""
+    for (cx, cy, cz) in keep:
+        for dx in (-1, 0, 1):
+            for dz in (-1, 0, 1):
+                for dy in (0, 1):
+                    k = (cx + dx, cy + dy, cz + dz)
+                    if (k not in g.b or g.b[k][0] == STONE) and k[1] >= 0:
+                        g.b[k] = ('minecraft:air', {}, None)
 
 
 def bury(g, rng, ground):

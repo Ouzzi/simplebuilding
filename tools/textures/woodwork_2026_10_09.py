@@ -481,6 +481,28 @@ def wood_assets(wood: str, log: str) -> None:
     }})
 
 
+def stripped_cauldron(wood: str, log: str) -> None:
+    """N35: the same cauldron in stripped wood (stripped log outside, planks inside)."""
+    stripped = "stripped_" + log
+    name = f"stripped_{wood}_cauldron"
+    ctex = {"particle": mc(f"block/{stripped}"), "side": mc(f"block/{stripped}"), "top": mc(f"block/{stripped}_top"),
+            "bottom": mc(f"block/{stripped}_top"), "inside": mc(f"block/{wood}_planks")}
+    put_json(f"{NS}/models/block/{name}.json", {"parent": "minecraft:block/cauldron", "textures": ctex})
+    for content, content_tex in {"water": mc("block/water_still"), "powder_snow": mc("block/powder_snow")}.items():
+        for level, template in ((1, "template_cauldron_level1"), (2, "template_cauldron_level2"), (3, "template_cauldron_full")):
+            put_json(f"{NS}/models/block/{name}_{content}_{level}.json",
+                     {"parent": mc(f"block/{template}"), "textures": ctex | {"content": content_tex}})
+    put_json(f"{NS}/models/block/{name}_lava.json",
+             {"parent": mc("block/template_cauldron_full"), "textures": ctex | {"content": mc("block/lava_still")}})
+    variants = {}
+    for content in ("empty", "water", "lava", "powder_snow"):
+        for level in (1, 2, 3):
+            model = {"empty": name, "lava": f"{name}_lava"}.get(content, f"{name}_{content}_{level}")
+            variants[f"content={content},level={level}"] = {"model": sb(f"block/{model}")}
+    put_json(f"{NS}/blockstates/{name}.json", {"variants": variants})
+    block_item(name)
+
+
 def preview(jar: str, out: Path) -> None:
     """Previews from a local Minecraft jar (not checked in): carved_motifs.png (every sherd motif on every wood) and
     carved_old_new.png - per wood: old sherd face, new sherd face (framed), new carving side, carving side 3x3 tiled,
@@ -537,6 +559,7 @@ def main() -> int:
     palettes()
     for wood, log, _c in WOODS:
         wood_assets(wood, log)
+        stripped_cauldron(wood, log)
     if "--preview" in sys.argv:
         i = sys.argv.index("--preview")
         preview(sys.argv[i + 1], Path(sys.argv[i + 2]))
