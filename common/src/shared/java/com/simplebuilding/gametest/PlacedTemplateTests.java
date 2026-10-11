@@ -725,6 +725,77 @@ public final class PlacedTemplateTests {
         helper.succeed();
     }
 
+    public static final int ATTRACTOR_PAIR_TICKS = 120;
+
+    /**
+     * Besitzer N34: ein Item zwischen zwei Attractors auf dem Boden kommt beim gemeinsamen Schwerpunkt zur Ruhe - kein
+     * Zittern, kein Huepfen, kein zweites Item. Echtes Ticken (Block-Entity-Takt und Item-Physik), keine Handaufrufe.
+     */
+    public static void anItemBetweenTwoFloorAttractorsComesToRest(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 2.0, 7.5));
+        player.setShiftKeyDown(true);
+        for (int x = 0; x < 8; x++) for (int z = 0; z < 8; z++) helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
+        use(helper, player, new ItemStack(ModItems.MAGNET), new BlockPos(1, 1, 3), Direction.UP);
+        use(helper, player, new ItemStack(ModItems.MAGNET), new BlockPos(6, 1, 3), Direction.UP);
+        player.setShiftKeyDown(false);
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        settleBetweenAttractors(helper, new BlockPos(1, 2, 3), new BlockPos(6, 2, 3), new Vec3(2.0, 2.2, 3.5));
+    }
+
+    /** Besitzer N34: zwei Attractors an Waenden, die sich ansehen, halten ein Item ruhig in der Luft zwischen sich. */
+    public static void anItemBetweenTwoFacingAttractorsHoversStill(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 2.0, 7.5));
+        player.setShiftKeyDown(true);
+        for (int x = 0; x < 8; x++) for (int z = 0; z < 8; z++) helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
+        helper.setBlock(new BlockPos(0, 3, 4), Blocks.STONE);
+        helper.setBlock(new BlockPos(6, 3, 4), Blocks.STONE);
+        use(helper, player, new ItemStack(ModItems.MAGNET), new BlockPos(0, 3, 4), Direction.EAST);
+        use(helper, player, new ItemStack(ModItems.MAGNET), new BlockPos(6, 3, 4), Direction.WEST);
+        player.setShiftKeyDown(false);
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        settleBetweenAttractors(helper, new BlockPos(1, 3, 4), new BlockPos(5, 3, 4), new Vec3(1.9, 3.6, 4.5));
+    }
+
+    /**
+     * Legt ein Item bei {@code start} ab, laesst die Welt {@link #ATTRACTOR_PAIR_TICKS} - 20 Ticks laufen und prueft: genau ein
+     * Item mit unveraenderter Anzahl, in der Naehe des Schwerpunkts beider Zielpunkte, in den letzten 30 Ticks fast still.
+     */
+    private static void settleBetweenAttractors(GameTestHelper helper, BlockPos plateA, BlockPos plateB, Vec3 start) {
+        PlacedTemplateBlockEntity a = helper.getBlockEntity(plateA, PlacedTemplateBlockEntity.class);
+        PlacedTemplateBlockEntity b = helper.getBlockEntity(plateB, PlacedTemplateBlockEntity.class);
+        helper.assertTrue(a.getTemplate().is(ModItems.MAGNET) && b.getTemplate().is(ModItems.MAGNET), "two placed attractors");
+        Vec3 centre = PlacedAttractors.target(a).add(PlacedAttractors.target(b)).scale(0.5);
+        ServerLevel level = helper.getLevel();
+        Vec3 abs = helper.absoluteVec(start);
+        ItemEntity item = new ItemEntity(level, abs.x, abs.y, abs.z, new ItemStack(Items.COBBLESTONE, 5), 0, 0, 0);
+        item.setPickUpDelay(32767);
+        level.addFreshEntity(item);
+        List<Vec3> path = new java.util.ArrayList<>();
+        List<Boolean> ground = new java.util.ArrayList<>();
+        helper.onEachTick(() -> {
+            path.add(item.position());
+            ground.add(item.onGround());
+        });
+        helper.runAfterDelay(ATTRACTOR_PAIR_TICKS - 20, () -> {
+            StringBuilder trace = new StringBuilder();
+            for (int i = 0; i < path.size(); i += 5) {
+                Vec3 p = path.get(i).subtract(centre);
+                trace.append(String.format(java.util.Locale.ROOT, " t%d(%.2f,%.2f,%.2f%s)", i, p.x, p.y, p.z, ground.get(i) ? "g" : ""));
+            }
+            List<ItemEntity> all = level.getEntitiesOfClass(ItemEntity.class, helper.getBounds(), e -> e.getItem().is(Items.COBBLESTONE));
+            int total = all.stream().mapToInt(e -> e.getItem().getCount()).sum();
+            helper.assertTrue(all.size() == 1 && total == 5, "items " + all.size() + " / count " + total + " (expected one stack of 5);" + trace);
+            double travelled = 0.0;
+            for (int i = path.size() - 30; i < path.size(); i++) travelled += path.get(i).distanceTo(path.get(i - 1));
+            helper.assertTrue(travelled < 0.2, String.format(java.util.Locale.ROOT, "the item still moves: %.2f blocks in the last 30 ticks;", travelled) + trace);
+            double off = item.position().distanceTo(centre);
+            helper.assertTrue(off <= com.simplebuilding.items.custom.MagnetItem.minimumDistance() + 0.75,
+                    String.format(java.util.Locale.ROOT, "the item rests %.2f blocks from the shared centre;", off) + trace);
+            item.discard();
+            helper.succeed();
+        });
+    }
+
     /**
      * Der Attractor legt sich mit Schleichen + Rechtsklick ab wie eine Vorlage (derselbe Block, eigene
      * pixelgenaue Trefferform, Name des Attractors) und zieht dort lose Items im Umkreis zu sich: ein

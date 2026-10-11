@@ -129,4 +129,14 @@ public final class PlacedTemplateGameTest {
     public void severalAttractorsShareOneCentreAndFloatingItemsHover(GameTestHelper helper) {
         PlacedTemplateTests.severalAttractorsShareOneCentreAndFloatingItemsHover(helper);
     }
+
+    @GameTest(maxTicks = PlacedTemplateTests.ATTRACTOR_PAIR_TICKS)
+    public void anItemBetweenTwoFloorAttractorsComesToRest(GameTestHelper helper) {
+        PlacedTemplateTests.anItemBetweenTwoFloorAttractorsComesToRest(helper);
+    }
+
+    @GameTest(maxTicks = PlacedTemplateTests.ATTRACTOR_PAIR_TICKS)
+    public void anItemBetweenTwoFacingAttractorsHoversStill(GameTestHelper helper) {
+        PlacedTemplateTests.anItemBetweenTwoFacingAttractorsHoversStill(helper);
+    }
 }

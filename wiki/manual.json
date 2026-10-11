@@ -4956,7 +4956,8 @@
           "Only Constructor's Touch enables the stored item-type filter, including on placed Attractors. Sneak-click a block or loose item, or right-click an item in the inventory to select it. Sneak-click empty air to clear it.",
           "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 8 blocks before the server multiplier.",
           "The Attractor has no durability. Display items, other players' reserved items and death drops, and items in simplebuilding:attractor_ignore stay in place.",
-          "Held and placed Attractors brake items inside their dead zone without adding pull or lift. server.tools.attractorMinimumDistance defaults to 1.25 blocks and is limited to 0.5–2 blocks."
+          "Held and placed Attractors brake items inside their dead zone without adding pull or lift. server.tools.attractorMinimumDistance defaults to 1.25 blocks and is limited to 0.5–2 blocks.",
+          "An item within reach of several placed Attractors heads for the centre of all of them. If it arrives in the air, the Attractors hold it there without gravity and it comes to rest instead of jittering; it falls again as soon as none holds it."
         ],
         "controls": [
           "Hold in either hand to attract; sneak to pause.",
@@ -4974,7 +4975,8 @@
           "Nur mit Berührung wirkt der gespeicherte Itemfilter, auch abgelegt. Schleichklick auf einen Block oder ein loses Item oder Rechtsklick auf ein Inventar-Item wählt den Filter. Schleichklick ins Leere löscht ihn.",
           "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 8 Blöcken vor dem Serverfaktor.",
           "Keine Haltbarkeit. Ausstellungsitems, für andere reservierte Items und Todesbeute sowie simplebuilding:attractor_ignore bleiben liegen.",
-          "Gehaltene und abgelegte Attraktoren bremsen Items in ihrer Ruhezone ohne Zug oder Anheben. server.tools.attractorMinimumDistance beträgt standardmäßig 1,25 Blöcke und ist auf 0,5–2 Blöcke begrenzt."
+          "Gehaltene und abgelegte Attraktoren bremsen Items in ihrer Ruhezone ohne Zug oder Anheben. server.tools.attractorMinimumDistance beträgt standardmäßig 1,25 Blöcke und ist auf 0,5–2 Blöcke begrenzt.",
+          "Liegt ein Item in Reichweite mehrerer abgelegter Attraktoren, zieht es zur Mitte aller. Kommt es dort in der Luft an, halten die Attraktoren es ohne Schwerkraft fest, und es kommt zur Ruhe statt zu zittern; hält es keiner mehr, fällt es wieder."
         ],
         "controls": [
           "In einer Hand halten zum Anziehen, schleichen zum Pausieren.",
@@ -12516,7 +12518,7 @@
       "en": {
         "summary": "A silent trap that slows like a cobweb and bites with sculk fangs.",
         "details": [
-          "Anything that wades into it is slowed like in a cobweb. The open jaw snaps shut and bites for 3 damage (1.5 hearts), then reopens after 20 ticks and bites again while someone is still inside. Wardens and spectators are ignored.",
+          "Anything that wades into it is slowed much more than in a cobweb and gets Darkness. The open jaw snaps shut and bites once for 2 damage (1 heart), then stays shut and harmless while someone is still inside; it reopens 20 ticks after the last one has left. Wardens and spectators are ignored.",
           "It makes no sound at all: placing, biting, opening and breaking are silent. Mine it with a hoe; it drops itself.",
           "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare."
         ]
@@ -12524,7 +12526,7 @@
       "de": {
         "summary": "Eine lautlose Falle, die wie ein Spinnennetz bremst und mit Sculk-Fangzähnen zubeißt.",
         "details": [
-          "Wer hineingerät, wird wie im Spinnennetz verlangsamt. Die offene Kiefer schnappt zu und beißt für 3 Schaden (1,5 Herzen), öffnet sich nach 20 Ticks wieder und beißt erneut, solange noch jemand drinsteht. Wardens und Zuschauer ignoriert sie.",
+          "Wer hineingerät, wird viel stärker als im Spinnennetz verlangsamt und bekommt Dunkelheit. Die offene Kiefer schnappt zu und beißt einmal für 2 Schaden (1 Herz), bleibt dann geschlossen und harmlos, solange noch jemand drinsteht, und öffnet sich erst 20 Ticks nachdem der Letzte draußen ist. Wardens und Zuschauer ignoriert sie.",
           "Sie macht überhaupt kein Geräusch: Platzieren, Zubeißen, Öffnen und Abbauen sind lautlos. Mit der Hacke abbauen; sie droppt sich selbst.",
           "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten."
         ]

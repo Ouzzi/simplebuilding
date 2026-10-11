@@ -715,12 +715,12 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Eichen-Kessel (Holzkessel) hat im Inventar kein 3D-Modell.
 - [ ] Checker-Treppen/-Stufen: Texturen weiterhin falsch orientiert (checker_stairs.png).
 - [ ] Achtel-Blöcke im Inventar ca. 10 % kleiner rendern.
-- [ ] Sand-/Kies-Stufen (gravity_slabs.png): untere Stufe – eine Stufe einen Block darüber fällt nicht auf sie; obere Stufe fällt gar nicht (schwebt); platzierte obere Gravity-Stufe teleportiert beim ersten Fall-Tick von oben nach unten, dann fällt sie.
+- [x] Sand-/Kies-Stufen (gravity_slabs.png): untere Stufe – eine Stufe einen Block darüber fällt nicht auf sie; obere Stufe fällt gar nicht (schwebt); platzierte obere Gravity-Stufe teleportiert beim ersten Fall-Tick von oben nach unten, dann fällt sie. (claude-n34-phys: Halbfall auf gleichartige untere Stufe, obere fällt in eigener Zelle, Fall-Entity startet auf sichtbarer Höhe; 2 neue Tests)
 - [ ] Holzkessel nimmt nur Vanilla-Lava: Enderit-Lava-Eimer (und alle Enderit-Eimer) auf Kompatibilität zu Vanilla-Interaktionen prüfen.
 - [ ] Geschnitztes Holz: ohne Scherbe gemeißelt → holzeigenes Motiv; mit Scherbe → Vanilla-Scherbenmotiv.
-- [ ] Sculk Jaw: kein Flackern (Öffnen/Schließen) vor jedem Schaden, statisch geschlossen; Spieler stärker verlangsamen + Darkness; nur erster Treffer ~1 Herz Schaden, danach keiner; geschlossene Form schöner.
+- [x] Sculk Jaw: kein Flackern (Öffnen/Schließen) vor jedem Schaden, statisch geschlossen; Spieler stärker verlangsamen + Darkness; nur erster Treffer ~1 Herz Schaden, danach keiner; geschlossene Form schöner. (claude-n34-phys: bleibt zu solange jemand drin, 2 Schaden einmal, Bremse 0,12/0,02, Dunkelheit; Muschel-Modell, Vorschau n34/jaw.png; Client-Sicht offen)
 - [ ] Blaupause-Hilfe: die beiden Buttons (blueprint_help_buttons.png) mit Minecraft-Texturen statt eigenen rendern; Rezeptbuch-/Hilfe-Button unten bekommt einen Rahmen.
-- [ ] Magnet: Interaktion eines Items zwischen zwei Magneten weiterhin verbuggt.
+- [x] Magnet: Interaktion eines Items zwischen zwei Magneten weiterhin verbuggt. (claude-n34-phys: Ursache Schwebe-Ausgleich je 2-Tick-Takt → 0,02-Sägezahn jeden Tick; jetzt NoGravity solange gehalten + gedämpfte Feder, Freigabe per Mixin; 2 Repro-Tests)
 - [ ] Öfen: Flammen-Textur mehr wie Vanilla (jetzt nur Wellenlinien).
 - [ ] Itemfilter-Button deaktiviert = grau statt rot (rot = Fehler), überall anpassen.
 - [ ] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla.
