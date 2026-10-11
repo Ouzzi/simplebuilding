@@ -813,6 +813,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 40 (2026-10-11, Besitzer)
 - [ ] Neues Sub-Modul Simple End Dragon Fight (Konzept + Skalierungs-Vorschläge zuerst): ab halbem Leben alle 30 s Dragonmites (eigene Endermites, nur mit Drache) nahe dem Brunnen; +1 Leben je Spieler, automatische Anpassung, wenn neue Spieler die End-Insel (mit Puffer) betreten; Eintritts-Animation + Partikel je Spieler (Warteschlange, jeder Trigger sichtbar); Drache allgemein schneller.
-- [ ] Geschnitztes Holz rundherum (alle Seiten), nicht nur eine Seite.
-- [ ] Blaupause: Ziehen (Drag) rotiert das Modell beim geraden Ziehen weiterhin.
-- [ ] Screenshot buggy_end.webp (n40/): verbuggt aussehende Fläche im End prüfen.
+- [x] (claude-n40) Geschnitztes Holz rundherum (alle Seiten), nicht nur eine Seite. (ein Meißel-Klick schnitzt alle 4 Seiten, Schleichen nimmt alles ab; Zustand carving+motif, alte Zustände migriert)
+- [x] (claude-n40) Blaupause: Ziehen (Drag) rotiert das Modell beim geraden Ziehen weiterhin. (Ursache: Bild-Trackball kippte das geneigte Modell mit und sammelte Rollen an; jetzt Drehteller Gier/Neigung getrennt, rechte/mittlere Taste verschiebt)
+- [x] (claude-n40) Screenshot buggy_end.webp (n40/): verbuggt aussehende Fläche im End prüfen. (Testzentrale im End gebaut: Glattstein+Seelaternen; /sbtestcentre nur noch in der Oberwelt)
