@@ -48,6 +48,7 @@ public final class LibTests {
         ALL.put("warms_food_and_eats_faster", LibTests::warmsFood);
         ALL.put("afterglow_keeps_heat", LibTests::afterglow);
         ALL.put("hopper_rules", LibTests::hopperRules);
+        ALL.put("crucible_hitboxes_match_model", LibTests::crucibleHitboxes);
         ALL.put("axe_builds_iron_crucible", LibTests::axeBuild);
         ALL.put("break_drops_contents", LibTests::breakDrops);
         ALL.put("axe_upgrade_keeps_contents", LibTests::axeUpgrade);
@@ -158,6 +159,36 @@ public final class LibTests {
     }
 
     /** Owner N11 P6: a high-heat crucible burns like magma for crucibleBurnDamage; 0 switches the burn off. */
+    /** Owner 2026-10-11: outline/collision follow the model (handles turn with the facing, blank stages grow wall by wall, attached barrel box). */
+    private static void crucibleHitboxes(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        BlockPos pos = h.absolutePos(new BlockPos(1, 2, 1));
+        for (net.minecraft.core.Direction d : net.minecraft.core.Direction.Plane.HORIZONTAL) {
+            boolean xSides = d.getAxis() == net.minecraft.core.Direction.Axis.Z;
+            for (var block : new net.minecraft.world.level.block.Block[] {LibBlocks.IRON_CRUCIBLE, LibBlocks.NETHERITE_CRUCIBLE, LibBlocks.REINFORCED_CRUCIBLE}) {
+                BlockState st = block.defaultBlockState().setValue(CrucibleBlock.FACING, d);
+                var outline = st.getShape(level, pos).bounds();
+                var coll = st.getCollisionShape(level, pos).bounds();
+                check(h, xSides ? (outline.minX == 0 && outline.maxX == 1 && outline.minZ == 1 / 16.0 && outline.maxZ == 15 / 16.0)
+                        : (outline.minZ == 0 && outline.maxZ == 1 && outline.minX == 1 / 16.0 && outline.maxX == 15 / 16.0),
+                        "handles in the outline on the " + (xSides ? "x" : "z") + " sides for " + d + ": " + outline);
+                check(h, outline.maxY == 14 / 16.0 && outline.minY == 0, "outline height 14/16: " + outline);
+                check(h, coll.maxY == 11 / 16.0 && !st.getShape(level, pos).isEmpty() && !st.getInteractionShape(level, pos).isEmpty(),
+                        "collision handles to 11/16, interior shape set: " + coll);
+            }
+            for (int stage = 1; stage <= 5; stage++) {
+                var b = LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(CrucibleBlankBlock.STAGE, stage)
+                        .setValue(CrucibleBlankBlock.FACING, d).getShape(level, pos).bounds();
+                check(h, b.minY == 0 && b.maxY == 14 / 16.0 && b.maxX <= 1 && b.minX >= 0, "blank stage " + stage + " " + d + " is no full cube: " + b);
+            }
+        }
+        BlockState north = LibBlocks.COPPER_BARREL.defaultBlockState().setValue(com.simplelib.crucible.CrucibleBarrelBlock.ATTACHED, true)
+                .setValue(com.simplelib.crucible.CrucibleBarrelBlock.FACING, net.minecraft.core.Direction.NORTH);
+        var nb = north.getShape(level, pos).bounds();
+        check(h, nb.minZ == 0 && nb.maxZ == 13 / 16.0 && nb.maxY == 11 / 16.0, "attached barrel north box: " + nb);
+        h.succeed();
+    }
+
     private static void crucibleBurnDamageFollowsConfig(GameTestHelper h) {
         CrucibleBlockEntity be = crucible(h, new BlockPos(1, 2, 1), Blocks.LAVA_CAULDRON.defaultBlockState(), LibBlocks.IRON_CRUCIBLE);
         run(h, be, 1);

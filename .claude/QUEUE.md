@@ -803,3 +803,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] (claude-n38) Nether-/End-Wayfinder-Karten zeigen in der Hand die Oberwelt → stattdessen Störsignal.
 - [x] (claude-n38) Deceiver: doppeltes Leben; nach Verwandlung in größeren Mob dessen Hitbox.
 - [ ] Guide-Bücher erweitern, alles aktuell.
+
+## Nachtrag 39 (2026-10-11, Besitzer)
+- [x] Tiegel-Hitboxen (alle Stufen, mit angedocktem Fass, SimpleLib + SB): Henkel fehlten im Umriss und drehten nicht mit; Rohling-Stufen waren Vollwürfel; Innenraum-Interaktionsform ergänzt; Gametest `crucible_hitboxes_match_model` (claude-n39-fix)
+- [x] Verstärker einmal durchgeprüft (Funktion/Kette/Noten/Hitbox/Texturen/Tests: ohne Befund außer fehlendem Tooltip); Tooltip für Musik-/Noten-Verstärker (en/de) + Gametest `amplifiers_have_tooltip_and_full_cube_hitbox` (claude-n39-fix)

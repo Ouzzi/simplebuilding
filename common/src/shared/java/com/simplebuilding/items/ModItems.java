@@ -494,9 +494,9 @@ public class ModItems {
 
     /** Lautsprecher (2026-10-03): Astralit verstaerkt Plattenspieler, Nihilit Notenbloecke ({@link com.simplebuilding.util.SpeakerBoost}). */
     public static final Item JUKEBOX_AMPLIFIER = com.simplebuilding.version.McVersion.MUSIC_DISCS
-            ? registerItem("jukebox_amplifier", s -> new BlockItem(ModBlocks.JUKEBOX_AMPLIFIER, s)) : null;
+            ? registerItem("jukebox_amplifier", s -> new com.simplebuilding.items.custom.AmplifierItem(ModBlocks.JUKEBOX_AMPLIFIER, s, "tooltip.simplebuilding.jukebox_amplifier")) : null;
     public static final Item NOTE_AMPLIFIER = com.simplebuilding.version.McVersion.MUSIC_DISCS
-            ? registerItem("note_amplifier", s -> new BlockItem(ModBlocks.NOTE_AMPLIFIER, s)) : null;
+            ? registerItem("note_amplifier", s -> new com.simplebuilding.items.custom.AmplifierItem(ModBlocks.NOTE_AMPLIFIER, s, "tooltip.simplebuilding.note_amplifier")) : null;
 
 
 
