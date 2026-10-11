@@ -21,7 +21,7 @@ versionRange="[26.3,)"
 [[dependencies.simpleinterfaces]]
 modId="simplelib"
 type="required"
-versionRange="[0,)"
+versionRange="[0.2.0,)"
 ordering="AFTER"
 side="BOTH"
 

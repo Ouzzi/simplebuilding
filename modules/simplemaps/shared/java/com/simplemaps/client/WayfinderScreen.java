@@ -722,6 +722,9 @@ public final class WayfinderScreen extends Screen {
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
 
+    /** Numpad minus in the 26.3 SDL scancode table (KEY_ADD = 87 is numpad plus); InputConstants has no constant for it. */
+    private static final int KEY_KP_MINUS = InputConstants.KEY_ADD - 1;
+
     @Override
     public boolean keyPressed(KeyEvent event) {
         int key = event.key();
@@ -743,7 +746,7 @@ public final class WayfinderScreen extends Screen {
             zoomBy(-1, mapX + MAP_W / 2.0, mapY + MAP_H / 2.0);
             return true;
         }
-        if (key == InputConstants.KEY_MINUS || key == 333 /* GLFW_KEY_KP_SUBTRACT */) {
+        if (key == InputConstants.KEY_MINUS || key == KEY_KP_MINUS) {
             zoomBy(1, mapX + MAP_W / 2.0, mapY + MAP_H / 2.0);
             return true;
         }

@@ -25,8 +25,10 @@ public final class SimpleMoney {
  private static java.nio.file.attribute.FileTime lastRead;
  public static void loadConfig(Path dir) {
   Path file=dir.resolve("simplemoney.json"); Gson gson=new Gson();
-  try { if(Files.exists(file)) { config=gson.fromJson(Files.readString(file),Config.class); if(config==null||config.trades==null) throw new IllegalArgumentException("Missing trades configuration"); }
-   else { Files.createDirectories(dir); Files.writeString(file,gson.toJson(config)); }
+  Config read=com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file,Config.class,gson,org.slf4j.LoggerFactory.getLogger("SimpleMoney")::warn);
+  if(read!=null&&read.trades==null) { org.slf4j.LoggerFactory.getLogger("SimpleMoney").warn("simplemoney.json has no trades section, old file kept as {}",com.simplebuilding.framework.api.ConfigFiles.quarantine(file)); read=null; }
+  config=read!=null?read:new Config();
+  try { if(read==null) { Files.createDirectories(dir); Files.writeString(file,gson.toJson(config)); }
    if(config.links==null) config.links=new Links(); config.links.normalize();
    configFile=file; lastRead=Files.getLastModifiedTime(file);
   } catch(Exception e) { throw new IllegalStateException("Cannot load "+file,e); }

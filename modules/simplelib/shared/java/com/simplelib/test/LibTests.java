@@ -37,6 +37,7 @@ public final class LibTests {
     static {
         ALL.put("creative_tab_routing", LibTests::creativeTabRouting);
         ALL.put("config_bounds", LibTests::configBounds);
+        ALL.put("broken_config_is_quarantined", LibTests::brokenConfigIsQuarantined);
         ALL.put("tier_layout", LibTests::tierLayout);
         ALL.put("heat_sources", LibTests::heatSources);
         ALL.put("heat_two_below", LibTests::heatTwoBelow);
@@ -131,6 +132,29 @@ public final class LibTests {
         LibConfig.reset();
         check(h, LibConfig.factorHigh == 0.75 && LibConfig.afterglowSeconds[0] == 2, "defaults wrong");
         check(h, LibConfig.crucibleBurnDamage == 1.0, "crucible burn damage default is not magma's 1");
+        h.succeed();
+    }
+
+    /** Shared policy (framework ConfigFiles): a broken server config never crashes, it is moved to *.broken-<time> and defaults are written. */
+    private static void brokenConfigIsQuarantined(GameTestHelper h) {
+        try {
+            java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("simplelib-broken");
+            java.nio.file.Path file = dir.resolve(LibConfig.FILE);
+            java.nio.file.Files.writeString(file, "{ \"reinforcedSpeed\": 3,, }");
+            LibConfig.load(dir);
+            check(h, LibConfig.factorHigh == 0.75, "defaults not used after a broken file");
+            try (var files = java.nio.file.Files.list(dir)) {
+                var names = files.map(x -> x.getFileName().toString()).toList();
+                check(h, names.stream().anyMatch(n -> n.startsWith(LibConfig.FILE + ".broken-")), "broken file not kept: " + names);
+            }
+            com.google.gson.JsonParser.parseString(java.nio.file.Files.readString(file));
+            check(h, com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(dir.resolve("none.json"), JsonObject.class,
+                    new com.google.gson.Gson(), x -> { }) == null, "missing file must give null");
+        } catch (java.io.IOException | RuntimeException e) {
+            h.fail("broken config handling threw " + e);
+            return;
+        }
+        LibConfig.reset();
         h.succeed();
     }
 

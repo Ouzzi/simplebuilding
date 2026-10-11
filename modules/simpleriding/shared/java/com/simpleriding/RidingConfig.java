@@ -37,8 +37,9 @@ public final class RidingConfig {
  }
  public static RidingConfig load(Path directory) {
   var gson=new GsonBuilder().setPrettyPrinting().create(); var path=directory.resolve("simpleriding.json");
-  try { RidingConfig c=Files.exists(path)?gson.fromJson(Files.readString(path),RidingConfig.class):new RidingConfig();
-   if(c==null)c=new RidingConfig(); c.normalize(); if(!Files.exists(path)){ Files.createDirectories(directory); Files.writeString(path,gson.toJson(c)); } return c;
-  } catch(Exception e) { throw new IllegalStateException("Cannot read Simple Riding server config "+path,e); }
+  RidingConfig c=com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(path,RidingConfig.class,gson,org.slf4j.LoggerFactory.getLogger("SimpleRiding")::warn);
+  if(c==null)c=new RidingConfig();
+  try { c.normalize(); if(!Files.exists(path)){ Files.createDirectories(directory); Files.writeString(path,gson.toJson(c)); } return c;
+  } catch(java.io.IOException e) { throw new IllegalStateException("Cannot write Simple Riding server config "+path,e); }
  }
 }

@@ -1,4 +1,5 @@
 plugins { id 'net.fabricmc.fabric-loom' }
+ext.moduleVersion = '0.2.0'
 apply from: rootProject.file('gradle/module-fabric.gradle')
 // Bundles the shared framework API (creative-tab switch) for standalone runs.
 dependencies { include project(':framework') }

@@ -33,15 +33,8 @@ public final class MapsConfig {
     public static void load(Path dir) {
         JsonObject json = new JsonObject();
         Path file = dir == null ? null : dir.resolve(FILE);
-        try {
-            if (file != null && Files.isRegularFile(file)) {
-                json = GSON.fromJson(Files.readString(file), JsonObject.class);
-                if (json == null) json = new JsonObject();
-            }
-        } catch (Exception e) {
-            SimpleMaps.LOG.warn("Unreadable {}, using defaults: {}", FILE, e.toString());
-            json = new JsonObject();
-        }
+        JsonObject read = com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file, JsonObject.class, GSON, SimpleMaps.LOG::warn);
+        if (read != null) json = read;
         apply(json);
         enabled = hostAllows(dir);
         if (file != null) {

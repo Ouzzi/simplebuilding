@@ -108,6 +108,7 @@
         "simplemodels",
         "simplequalityoflife",
         "simpleriding",
+        "simplesandwiches",
         "simplesounds",
         "simpletweaks",
         "simplevisuals",
@@ -151,8 +152,7 @@
             "report": "modules/simplemoney/forge/build/module-junit.xml",
             "gradleArgs": [
               "-Pforge263=true",
-              "-Pforge_runs=true",
-              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+              "-Pforge_runs=true"
             ],
             "testMods": [
               "simplebuilding"
@@ -256,8 +256,7 @@
             "report": "modules/simpleriding/forge/build/module-junit.xml",
             "gradleArgs": [
               "-Pforge263=true",
-              "-Pforge_runs=true",
-              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+              "-Pforge_runs=true"
             ],
             "testMods": [
               "simplebuilding"
@@ -340,8 +339,7 @@
             "report": "modules/simplemodels/forge/build/module-junit.xml",
             "gradleArgs": [
               "-Pforge263=true",
-              "-Pforge_runs=true",
-              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+              "-Pforge_runs=true"
             ],
             "testMods": [
               "simplebuilding"
@@ -438,8 +436,7 @@
             "report": "modules/simplefun/forge/build/module-junit.xml",
             "gradleArgs": [
               "-Pforge263=true",
-              "-Pforge_runs=true",
-              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+              "-Pforge_runs=true"
             ],
             "testMods": [
               "simplebuilding"
@@ -538,8 +535,7 @@
             "report": "modules/simplevisuals/forge/build/module-junit.xml",
             "gradleArgs": [
               "-Pforge263=true",
-              "-Pforge_runs=true",
-              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+              "-Pforge_runs=true"
             ],
             "testMods": [
               "simplebuilding"
@@ -638,8 +634,7 @@
             "report": "modules/simplesounds/forge/build/module-junit.xml",
             "gradleArgs": [
               "-Pforge263=true",
-              "-Pforge_runs=true",
-              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+              "-Pforge_runs=true"
             ],
             "testMods": [
               "simplebuilding"
@@ -739,8 +734,7 @@
             "report": "modules/simplequalityoflife/forge/build/module-junit.xml",
             "gradleArgs": [
               "-Pforge263=true",
-              "-Pforge_runs=true",
-              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+              "-Pforge_runs=true"
             ],
             "testMods": [
               "simplebuilding"
@@ -841,8 +835,7 @@
             "report": "modules/simpletweaks/forge/build/module-junit.xml",
             "gradleArgs": [
               "-Pforge263=true",
-              "-Pforge_runs=true",
-              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+              "-Pforge_runs=true"
             ],
             "testMods": [
               "simplebuilding",
@@ -1082,7 +1075,7 @@
     {
       "id": "simplelib",
       "name": "SimpleLib",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "SimpleLib",
