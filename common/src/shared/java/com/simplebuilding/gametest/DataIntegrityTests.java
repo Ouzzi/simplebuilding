@@ -1695,6 +1695,10 @@ public final class DataIntegrityTests {
             blocks.add(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel());
             blocks.add(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BLOCK);
         }
+        if (McVersion.FIRES) {
+            blocks.add(com.simplebuilding.blocks.custom.ThemedFireBlock.SULFUR_FIRE);
+            blocks.add(com.simplebuilding.blocks.custom.ThemedFireBlock.COPPER_FIRE);
+        }
         // Schach: Treppen und Stufen der Schachbretter, in einer Schleife registriert (ModBlocks.CHECKER_SHAPES).
         for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
             blocks.add(shapes.stairs());
