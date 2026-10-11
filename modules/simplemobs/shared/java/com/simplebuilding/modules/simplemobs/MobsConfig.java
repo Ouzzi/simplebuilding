@@ -1,0 +1,103 @@
+package com.simplebuilding.modules.simplemobs;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Server config {@code config/simplemobs-server.json}. Read once at start; an unreadable file is renamed to
+ * {@code .broken} and the defaults are written instead (same policy as the other modules, without the framework jar).
+ */
+public final class MobsConfig {
+    public static final String FILE = "simplemobs-server.json";
+    private static final Logger LOG = LoggerFactory.getLogger("simplemobs");
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
+    /** Hollow Howler: the summoning ritual on/off (the mob itself and its spawn egg stay registered). */
+    public static boolean howlerEnabled = true;
+    /** Highest light (block + sky, like monster spawns) at the skull for the ritual to start and keep running. */
+    public static int howlerMaxLight = HowlerLogic.MAX_LIGHT;
+    public static boolean howlerSculkTrail = true;
+    public static int howlerSculkTrailMax = HowlerLogic.TRAIL_MAX;
+    public static boolean howlerTransformSculk = true;
+    public static boolean howlerHunger = true;
+    public static int howlerDespawnMinutes = 10;
+    public static List<String> howlerAllowDimensions = new ArrayList<>(List.of("minecraft:overworld"));
+
+    private MobsConfig() {}
+
+    public static void load(Path dir) {
+        Path file = dir == null ? null : dir.resolve(FILE);
+        JsonObject json = new JsonObject();
+        if (file != null && Files.isRegularFile(file)) {
+            try {
+                JsonObject read = GSON.fromJson(Files.readString(file), JsonObject.class);
+                if (read == null) throw new IllegalStateException("file is empty");
+                json = read;
+            } catch (Exception e) {
+                Path broken = file.resolveSibling(FILE + ".broken-" + System.currentTimeMillis());
+                try { Files.move(file, broken); } catch (Exception ignored) { }
+                LOG.warn("Unreadable {}, using defaults ({}); old file kept as {}", FILE, e.toString(), broken.getFileName());
+            }
+        }
+        apply(json);
+        if (file != null) {
+            try {
+                Files.createDirectories(dir);
+                Files.writeString(file, GSON.toJson(toJson()));
+            } catch (Exception e) {
+                LOG.warn("Could not write {}: {}", FILE, e.toString());
+            }
+        }
+    }
+
+    /** Reads and clamps every value; missing or broken keys keep their defaults. */
+    public static void apply(JsonObject json) {
+        howlerEnabled = bool(json, "howlerEnabled", true);
+        howlerMaxLight = Math.max(0, Math.min(15, integer(json, "howlerMaxLight", HowlerLogic.MAX_LIGHT)));
+        howlerSculkTrail = bool(json, "howlerSculkTrail", true);
+        howlerSculkTrailMax = Math.max(0, Math.min(200, integer(json, "howlerSculkTrailMax", HowlerLogic.TRAIL_MAX)));
+        howlerTransformSculk = bool(json, "howlerTransformSculk", true);
+        howlerHunger = bool(json, "howlerHunger", true);
+        howlerDespawnMinutes = Math.max(1, Math.min(1440, integer(json, "howlerDespawnMinutes", 10)));
+        List<String> dims = new ArrayList<>();
+        try {
+            if (json.has("howlerAllowDimensions")) for (JsonElement e : json.getAsJsonArray("howlerAllowDimensions")) dims.add(e.getAsString());
+            else dims.add("minecraft:overworld");
+        } catch (Exception e) {
+            dims = new ArrayList<>(List.of("minecraft:overworld"));
+        }
+        howlerAllowDimensions = dims;
+    }
+
+    public static JsonObject toJson() {
+        JsonObject o = new JsonObject();
+        o.addProperty("howlerEnabled", howlerEnabled);
+        o.addProperty("howlerMaxLight", howlerMaxLight);
+        o.addProperty("howlerSculkTrail", howlerSculkTrail);
+        o.addProperty("howlerSculkTrailMax", howlerSculkTrailMax);
+        o.addProperty("howlerTransformSculk", howlerTransformSculk);
+        o.addProperty("howlerHunger", howlerHunger);
+        o.addProperty("howlerDespawnMinutes", howlerDespawnMinutes);
+        JsonArray dims = new JsonArray();
+        howlerAllowDimensions.forEach(dims::add);
+        o.add("howlerAllowDimensions", dims);
+        return o;
+    }
+
+    private static boolean bool(JsonObject json, String key, boolean fallback) {
+        try { return json.has(key) && json.get(key).isJsonPrimitive() ? json.get(key).getAsBoolean() : fallback; } catch (Exception e) { return fallback; }
+    }
+
+    private static int integer(JsonObject json, String key, int fallback) {
+        try { return json.has(key) ? json.get(key).getAsInt() : fallback; } catch (Exception e) { return fallback; }
+    }
+}

@@ -1,4 +1,22 @@
-# Konzept: Neuer Deep-Dark-Mob "Hollow Howler" (N33, 2026-10-11, Fassung 2 nach Besitzer-Antworten)
+# Konzept: Neuer Deep-Dark-Mob "Hollow Howler" / "Tiefenheuler" (N33, 2026-10-11, Fassung 3: umgesetzt)
+
+## Besitzer-Entscheidungen 11.10. (abschließend, gehen allem unten vor)
+- Name: EN **Hollow Howler**, DE **Tiefenheuler**.
+- Licht: Block- **und** Tageslicht am Kopf (Schädel) <= 7, sonst kein Start bzw. Abbruch.
+- Sensor: **beliebige Position** wie bei Shriekern/Warden-Spawn, auch entfernt – höchstens 5 Blöcke (je Achse) von der Mitte der Konstruktion (mittlerer Katalysator); er muss den Hornruf wirklich hören (Vibration). Damit entfällt die feste Sensor-Position aus Abschnitt 2.
+- Bauform: Sculk-Block unten, darauf T aus 3 Sculk-Katalysatoren, Jaw (Tag `#simplemobs:howler_jaw`: Sculk-Shrieker immer, `simplebuilding:sculk_jaw` optional) auf der Mitte, Skelettschädel darauf; Drehung erlaubt.
+- Ritual: ein Ruf mit beliebigem Ziegenhorn -> 5 s Manifestation; Abbruch bei abgebautem Sensor oder zu hellem Licht (Teile bleiben, Partikel/Sound/Meldung); Teile erst am Ende verbraucht.
+- Stärke: 240 HP, 2 Phasen + Wut, keine Verstärkung; blind, hört Vibrationen, offene Kiefer Schwachstelle; Drops wie Abschnitt 7.
+
+## Umsetzung (Branch claude-howler, Modul simplemobs)
+- Code: `modules/simplemobs/shared/java/.../simplemobs/Howler*.java` (Entity, Logic, Pattern, Ritual, Manifestations-Marker), `MobsConfig` (`config/simplemobs-server.json`), `SilenceEffect` + Mixins (`EntitySilenceMixin`: Stille dämpft wie Wolle; `SculkSensorBlockMixin`: Sensor-Aktivierung meldet Frequenz + Quelle an das Ritual), Client `HowlerModel/Renderer/RenderState`.
+- Horn-Erkennung: Frequenz von `INSTRUMENT_PLAY` + Quelle ist ein Spieler mit Ziegenhorn-Abklingzeit (Vanilla setzt sie beim Blasen); Spieler <= 16 Blöcke.
+- Schwachstelle: x1,5 nur in den 0,6 s, in denen sich die Kiefer zum Biss öffnen (Phase 2 zeigt die Kiefer halb offen, ohne Dauer-Bonus) – Entscheidung Agent, damit Timing belohnt wird.
+- Ohne SB: Phase-2-Fallen sind Sculk-Schlingen (Partikel, nach 1 s Langsamkeit II 2 s + 4 Schaden), Drop +1 Echosplitter statt Sculk-Kiefer. Mit SB und mobGriefing: echte Sculk-Kiefer-Blöcke für 20 s (gespeichert, werden auch nach Tod entfernt).
+- Echo-Kern + Trank der Stille (3:00/8:00) als Brau-Rezepte `data/simplemobs/recipe/brewing/*` (26.3 datengetrieben).
+- Texturen: `tools/textures/howler_textures.py` (eigene Pixel-Art, Palette aus Vanilla-Sculk/Katalysator), Vorschau `~/previews/howler/`.
+- Nicht umgesetzt: eigenes Handbuch-Item für Simple Mobs (das Modul hat noch keins; Wiki-Einträge sind da).
+
 
 Queue N33 "Neuer Deep-Dark-Mob (Konzept zuerst)". Nur Konzept, nichts umgesetzt. Vorschau: `<preview-dir>/concepts/hollow_howler.png` (Schichtplan + Seitenansicht; verbindlich ist der ASCII-Plan unten). Format wie `KONZEPT-MOBS-2026-10-07.md`.
 
