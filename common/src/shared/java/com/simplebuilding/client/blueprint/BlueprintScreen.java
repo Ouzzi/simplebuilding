@@ -217,8 +217,10 @@ public class BlueprintScreen extends Screen {
         exampleButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.editor.example"), layout.example, b -> insertExample()));
         Component blocksName = Component.translatable("simplebuilding.blueprint.help.blocks_tab");
         Component guideName = Component.translatable("simplebuilding.blueprint.help.guide_tab");
-        blocksTab = addRenderableWidget(new IconButton(layout.blocksTab, blocksName, blocksName, BLOCKS_ICON, () -> showTab(true)));
-        guideTab = addRenderableWidget(new IconButton(layout.guideTab, guideName, guideName, GUIDE_ICON, () -> showTab(false)));
+        blocksTab = addRenderableWidget(new IconButton(layout.blocksTab, blocksName, blocksName, null, () -> showTab(true)));
+        blocksTab.item = new ItemStack(Items.BRICKS);
+        guideTab = addRenderableWidget(new IconButton(layout.guideTab, guideName, guideName, null, () -> showTab(false)));
+        guideTab.item = new ItemStack(Items.WRITABLE_BOOK);
         copyButton = addRenderableWidget(new IconButton(layout.copy, Component.translatable("simplebuilding.blueprint.help.copy"),
                 copyTip(), COPY_ICON, this::copyGuide));
 
@@ -868,6 +870,8 @@ public class BlueprintScreen extends Screen {
         private final Runnable action;
         private String[] bitmap;
         private Component tipText;
+        /** Vanilla-Item als Symbol (Reiter); gesetzt = Vanilla-Knopf-Sprite statt Pixelsymbol. */
+        ItemStack item;
 
         IconButton(Rect r, Component label, Component tooltip, String[] bitmap, Runnable action) {
             super(r.x(), r.y(), r.w(), r.h(), label);
@@ -895,10 +899,12 @@ public class BlueprintScreen extends Screen {
         protected void extractContents(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
             int x = getX(), y = getY();
             if (bitmap == null) {
-                if (isHoveredOrFocused()) {
-                    g.fill(x - 1, y - 1, x + width + 1, y + height + 1, 0x40FFFFFF);
-                }
-                g.item(new ItemStack(Items.KNOWLEDGE_BOOK), x, y);
+                // Vanilla-Knopfrahmen (Sprite), darauf das Vanilla-Item; inaktiver Reiter = gewaehlt.
+                String sprite = !active ? "widget/button_disabled" : isHoveredOrFocused() ? "widget/button_highlighted" : "widget/button";
+                g.blitSprite(net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED,
+                        net.minecraft.resources.Identifier.withDefaultNamespace(sprite), item != null ? x : x - 2, item != null ? y : y - 2, item != null ? width : width + 4, item != null ? height : height + 4);
+                g.item(item != null ? item : new ItemStack(Items.KNOWLEDGE_BOOK), x + (width - 16) / 2, y + (height - 16) / 2);
+                if (item != null && !active) g.fill(x + 1, y + height + 1, x + width - 1, y + height + 2, 0xFFFFFFFF);
                 return;
             }
             // Ein inaktiver Reiter ist der gewaehlte: hell hinterlegt mit Unterstrich (Queue N29).
