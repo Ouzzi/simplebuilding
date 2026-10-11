@@ -1250,19 +1250,25 @@ public final class ConfigOptionTests {
                 {"enableSimpleTweaks", "simpletweaks"}, {"enableSimpleMoney", "simplemoney"}, {"enableSimpleFun", "simplefun"},
                 {"enableSimpleDimensions", "simpledimension"}, {"enableSimpleTrims", "simpletrims"}, {"enableSimpleMobs", "simplemobs"}};
         try {
+            Class.forName("com.simplebuilding.framework.api.SubMods");
+        } catch (ClassNotFoundException e) {
+            helper.succeed(); // 26.2: no framework and no bundled sub-mods, the switches are only stored.
+            return;
+        }
+        try {
             for (String[] pair : switches) {
                 SimplebuildingConfig config = new SimplebuildingConfig();
                 java.lang.reflect.Field field = SimplebuildingConfig.class.getField(pair[0]);
                 helper.assertTrue(field.getBoolean(config), pair[0] + " defaults on");
                 SimplebuildingConfig.applySubModSwitches(config);
-                helper.assertTrue(com.simplebuilding.framework.api.SubMods.enabled(pair[1]), pair[0] + " on reaches " + pair[1]);
+                helper.assertTrue(SimplebuildingConfig.subModEnabled(pair[1]), pair[0] + " on reaches " + pair[1]);
                 field.setBoolean(config, false);
                 config.validatePostLoad();
-                helper.assertTrue(com.simplebuilding.framework.api.SubMods.enabled(pair[1]), "A detached config does not switch " + pair[1]);
+                helper.assertTrue(SimplebuildingConfig.subModEnabled(pair[1]), "A detached config does not switch " + pair[1]);
                 SimplebuildingConfig.applySubModSwitches(config);
-                helper.assertFalse(com.simplebuilding.framework.api.SubMods.enabled(pair[1]), pair[0] + " off reaches " + pair[1]);
+                helper.assertFalse(SimplebuildingConfig.subModEnabled(pair[1]), pair[0] + " off reaches " + pair[1]);
                 for (String[] other : switches) {
-                    if (other != pair) helper.assertTrue(com.simplebuilding.framework.api.SubMods.enabled(other[1]), pair[0] + " leaves " + other[1] + " alone");
+                    if (other != pair) helper.assertTrue(SimplebuildingConfig.subModEnabled(other[1]), pair[0] + " leaves " + other[1] + " alone");
                 }
                 SimplebuildingConfig.applySubModSwitches(new SimplebuildingConfig());
             }

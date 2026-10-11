@@ -78,14 +78,35 @@ public class SimplebuildingConfig implements ConfigData {
      */
     public static void applySubModSwitches(SimplebuildingConfig c) {
         if (c == null) return;
-        com.simplebuilding.framework.api.SubMods.set("simpleriding", c.enableSimpleRiding);
-        com.simplebuilding.framework.api.SubMods.set("simplesandwiches", c.enableSimpleSandwiches);
-        com.simplebuilding.framework.api.SubMods.set("simpletweaks", c.enableSimpleTweaks);
-        com.simplebuilding.framework.api.SubMods.set("simplemoney", c.enableSimpleMoney);
-        com.simplebuilding.framework.api.SubMods.set("simplefun", c.enableSimpleFun);
-        com.simplebuilding.framework.api.SubMods.set("simpledimension", c.enableSimpleDimensions);
-        com.simplebuilding.framework.api.SubMods.set("simpletrims", c.enableSimpleTrims);
-        com.simplebuilding.framework.api.SubMods.set("simplemobs", c.enableSimpleMobs);
+        setSubMod("simpleriding", c.enableSimpleRiding);
+        setSubMod("simplesandwiches", c.enableSimpleSandwiches);
+        setSubMod("simpletweaks", c.enableSimpleTweaks);
+        setSubMod("simplemoney", c.enableSimpleMoney);
+        setSubMod("simplefun", c.enableSimpleFun);
+        setSubMod("simpledimension", c.enableSimpleDimensions);
+        setSubMod("simpletrims", c.enableSimpleTrims);
+        setSubMod("simplemobs", c.enableSimpleMobs);
+    }
+
+    /**
+     * framework SubMods by reflection: the shared tree also compiles for 26.2, which has no framework (and no
+     * bundled sub-mods); there the call does nothing and every sub-mod counts as on.
+     */
+    public static void setSubMod(String modId, boolean enabled) {
+        try {
+            Class.forName("com.simplebuilding.framework.api.SubMods").getMethod("set", String.class, boolean.class).invoke(null, modId, enabled);
+        } catch (ReflectiveOperationException | LinkageError ignored) {
+            // 26.2: no framework on the classpath.
+        }
+    }
+
+    /** Reads a framework SubMods switch; true without framework (26.2). */
+    public static boolean subModEnabled(String modId) {
+        try {
+            return (Boolean) Class.forName("com.simplebuilding.framework.api.SubMods").getMethod("enabled", String.class).invoke(null, modId);
+        } catch (ReflectiveOperationException | LinkageError ignored) {
+            return true;
+        }
     }
 
     // =====================================================================================
