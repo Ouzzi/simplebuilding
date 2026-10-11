@@ -70,7 +70,7 @@ final class EndNetherTests {
             h.assertTrue(EndNetherLogic.heavyMotion(new Vec3(0, 0.5, 0), false, false).y == 0.5, "no levitation, no change");
             Vec3 glide = EndNetherLogic.heavyMotion(new Vec3(1, -0.05, 0), true, false);
             h.assertTrue(glide.x < 1 && glide.y < -0.1, "elytra sinks and slows");
-            h.assertTrue(EndNetherLogic.BULLET_SPEED == 0.15 * 1.5, "bullet 1.5x faster");
+            h.assertTrue(Math.abs(EndNetherLogic.BULLET_SPEED - 0.15 * 1.5) < 1e-9, "bullet 1.5x faster");
             h.assertTrue(EndNetherLogic.attachFace(Direction.UP, d -> d == Direction.DOWN) == Direction.DOWN
                     && EndNetherLogic.attachFace(Direction.UP, d -> false) == Direction.UP, "keeps a face, never teleports");
             h.assertTrue(EndNetherLogic.maySoulSpawn(true, true, true, 0, 0.0f, 0.2f), "valley spawn");
