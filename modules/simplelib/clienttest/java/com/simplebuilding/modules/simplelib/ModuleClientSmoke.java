@@ -44,12 +44,23 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.runOnClient(c -> c.getWindow().setWindowed(854, 480));
             context.waitTicks(3);
             // N37: every tier with and without a barrel (7 px margins, compact boxes).
-            for (CrucibleTier tier : CrucibleTier.values()) {
-                for (boolean barrel : new boolean[] {false, true}) {
-                    crucible(context, tier, barrel);
-                    context.takeScreenshot("simplelib-crucible-" + tier.id() + (barrel ? "-with-barrel" : "-alone"));
-                }
-            }
+            // (literal names: the test runner reads them from the source)
+            crucible(context, CrucibleTier.IRON, false);
+            context.takeScreenshot("simplelib-crucible-iron-alone");
+            crucible(context, CrucibleTier.IRON, true);
+            context.takeScreenshot("simplelib-crucible-iron-with-barrel");
+            crucible(context, CrucibleTier.REINFORCED, false);
+            context.takeScreenshot("simplelib-crucible-reinforced-alone");
+            crucible(context, CrucibleTier.REINFORCED, true);
+            context.takeScreenshot("simplelib-crucible-reinforced-with-barrel");
+            crucible(context, CrucibleTier.NETHERITE, false);
+            context.takeScreenshot("simplelib-crucible-netherite-alone");
+            crucible(context, CrucibleTier.NETHERITE, true);
+            context.takeScreenshot("simplelib-crucible-netherite-with-barrel");
+            crucible(context, CrucibleTier.ENDERITE, false);
+            context.takeScreenshot("simplelib-crucible-enderite-alone");
+            crucible(context, CrucibleTier.ENDERITE, true);
+            context.takeScreenshot("simplelib-crucible-enderite-with-barrel");
             context.runOnClient(c -> c.gui.setScreen(null));
         }
     }
