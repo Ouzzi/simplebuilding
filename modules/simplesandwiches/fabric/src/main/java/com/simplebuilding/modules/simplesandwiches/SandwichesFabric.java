@@ -23,6 +23,7 @@ public final class SandwichesFabric implements ModInitializer {
         ModBlockEntities.register(FabricBlockEntityTypeBuilder.create(CuttingBoardBlockEntity::new, ModBlocks.boards()).build());
         SandwichRegistry.tab();
         SandwichRegistry.setup();
+        SandwichesEnabledCondition.register();
         if (FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplesandwiches.guide.SandwichGuide.installQuests(FabricLoader.getInstance().getConfigDir());
     }
 }
