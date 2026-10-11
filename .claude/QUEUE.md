@@ -699,3 +699,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 32 (2026-10-10, Besitzer)
 - [x] (claude-q-astral3) Astral Enchanter Stufenregel: 0-30 normale Bücherregale (15 = 30); 30-40 mit Lohen-Regalen ODER Lohen-Obsidian-Boden; 50 nur mit beidem; mehr Regler-Punkte je Stufe.
   Erledigt auf claude-q-astral3: Formel im Konzept (Abschnitt „Stufenregel 10.10.“), `AstralEnchanting.tier/nextStep`, Tooltip über der Stärke zeigt Regal-Punkte, Boden und was für die nächste Stufe fehlt, Lang EN/DE, Handbuch, Wiki, Tests für alle Kombinationen.
+
+## Nachtrag 33 (2026-10-11, Besitzer)
+- [ ] **Schwefelfeuer (sulfur fire):** Stufe zwischen normalem Feuer und Seelenfeuer (Schaden/Licht/Farbe dazwischen), gibt zusätzlich Übelkeit (Nausea).
+- [ ] **Kupferfeuer (copper fire):** wie Schwefelfeuer, aber ohne Effekt.
+- [ ] **Schwarzpulver aus Schwefel + Kohle** craftbar; Schwefel soll dabei gleich schwer zu bekommen sein wie Creeper-Schwarzpulver (Balance prüfen, ggf. Ausbeute/Zutat anpassen).
+- [ ] **Neuer Deep-Dark-Mob (Konzept zuerst):** beschwörbar wie der Warden: Konstruktion aus 4 Sculk-Katalysatoren + geschnitzter Kürbis + 2 Sculk Jaws auf den Schultern + Sculk-Sensor vorne (in Reichweite der Katalysatoren und des Kürbisses); dann mit Ziegenhorn Geräusche machen → Konstruktion verwandelt sich in den Mob. Feindlich. Konzept ausdenken und vorlegen.
+- [ ] **Geschnitztes Holz verbessern:** andere Mods mit carved/chiseled wood ansehen, jede Holzart eigenes Schnitzmotiv; Vorschau zeigen, Besitzer verbessert dann.
