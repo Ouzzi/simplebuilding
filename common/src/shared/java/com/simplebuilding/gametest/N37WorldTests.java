@@ -51,16 +51,16 @@ public final class N37WorldTests {
         helper.setBlock(rel.below(), Blocks.STONE);
         helper.setBlock(rel, ModBlocks.PLACED_SMALL_PARTS.defaultBlockState().setValue(PlacedSmallPartsBlock.FACING, Direction.EAST));
         PlacedSmallPartsBlockEntity pile = helper.getBlockEntity(rel, PlacedSmallPartsBlockEntity.class);
-        pile.setParts(List.of(new ItemStack(Items.CANDLE), new ItemStack(Items.WHITE_CANDLE), new ItemStack(Items.SEA_PICKLE)));
+        pile.setParts(List.of(new ItemStack(Items.CANDLE), new ItemStack(Items.IRON_INGOT), new ItemStack(Items.SEA_PICKLE)));
         BlockPos pos = helper.absolutePos(rel);
-        helper.assertValueEqual(helper.getBlockState(rel).getValue(PlacedSmallPartsBlock.CANDLES), 2, "candles before");
+        helper.assertValueEqual(helper.getBlockState(rel).getValue(PlacedSmallPartsBlock.CANDLES), 1, "candles before");
 
         breakLookingAt(helper, player, pos, 1);
         helper.assertTrue(helper.getBlockState(rel).is(ModBlocks.PLACED_SMALL_PARTS), "the whole pile broke: " + helper.getBlockState(rel));
-        helper.assertValueEqual(items(helper, rel), List.of(Items.CANDLE, Items.SEA_PICKLE), "parts left after breaking the white candle");
+        helper.assertValueEqual(items(helper, rel), List.of(Items.CANDLE, Items.SEA_PICKLE), "parts left after breaking the iron ingot");
         helper.assertValueEqual(helper.getBlockState(rel).getValue(PlacedSmallPartsBlock.CANDLES), 1, "candles after");
         helper.assertValueEqual(helper.getBlockState(rel).getValue(PlacedSmallPartsBlock.FACING), Direction.EAST, "facing after");
-        helper.assertValueEqual(dropped(helper, rel, Items.WHITE_CANDLE), 1, "dropped white candles");
+        helper.assertValueEqual(dropped(helper, rel, Items.IRON_INGOT), 1, "dropped iron ingots");
         helper.assertValueEqual(dropped(helper, rel, Items.CANDLE) + dropped(helper, rel, Items.SEA_PICKLE), 0, "other parts dropped");
 
         breakLookingAt(helper, player, pos, 1);
