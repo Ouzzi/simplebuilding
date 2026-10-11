@@ -17,6 +17,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void brokenConfigIsQuarantined(GameTestHelper h) {
+        LibTests.ALL.get("broken_config_is_quarantined").accept(h);
+    }
+
+    @GameTest
     public void tierLayout(GameTestHelper h) {
         LibTests.ALL.get("tier_layout").accept(h);
     }

@@ -30,7 +30,7 @@ tasks.register('prepareForgeFramework') {
         target.parentFile.mkdirs()
         def jars = [[
             identifier: [group: apiProject.group.toString(), artifact: apiProject.name],
-            version: [range: '[0.1.5,0.2)', artifactVersion: apiProject.version.toString()],
+            version: [range: '[0.1.7,0.2)', artifactVersion: apiProject.version.toString()],
             path: "META-INF/jarjar/${jarName}"
         ]]
         if (bundleLib) {

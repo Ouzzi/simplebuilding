@@ -22,7 +22,7 @@
     "minecraft": "~26.3",
     "java": ">=25",
     "cloth-config": "*",
-    "simplelib": "*"
+    "simplelib": ">=0.2.0"
   },
   "mixins": [
     "simpleinterfaces.mixins.json"

@@ -13,7 +13,7 @@ versionRange="[26.3,26.4)"
 [[dependencies.simplemaps]]
 modId="simplelib"
 type="required"
-versionRange="[0,)"
+versionRange="[0.2.0,)"
 ordering="AFTER"
 side="BOTH"
 

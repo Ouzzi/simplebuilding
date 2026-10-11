@@ -15,17 +15,12 @@ public final class SimplefunCommon {
     if (config != null) return;
     var p = Path.of("config/simplefun.json");
     var gson = new GsonBuilder().setPrettyPrinting().create();
-    try {
-      config =
-          Files.exists(p)
-              ? gson.fromJson(Files.readString(p), SimplefunConfig.class)
-              : new SimplefunConfig();
-      if (config == null) config = new SimplefunConfig();
-      config.normalize();
-      if (!Files.exists(p)) saveConfig();
-    } catch (Exception e) {
-      throw new IllegalStateException("Invalid Simple Fun server config", e);
-    }
+    config =
+        com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(
+            p, t -> gson.fromJson(t, SimplefunConfig.class), Constants.LOG::warn);
+    if (config == null) config = new SimplefunConfig();
+    config.normalize();
+    if (!Files.exists(p)) saveConfig();
   }
 
   public static SimplefunConfig getConfig() {

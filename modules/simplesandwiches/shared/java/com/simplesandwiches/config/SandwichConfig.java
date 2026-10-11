@@ -38,15 +38,8 @@ public final class SandwichConfig {
     public static void load(Path dir) {
         JsonObject json = new JsonObject();
         Path file = dir == null ? null : dir.resolve(FILE);
-        try {
-            if (file != null && Files.isRegularFile(file)) {
-                json = GSON.fromJson(Files.readString(file), JsonObject.class);
-                if (json == null) json = new JsonObject();
-            }
-        } catch (Exception e) {
-            Sandwiches.LOG.warn("Unreadable {}, using defaults: {}", FILE, e.toString());
-            json = new JsonObject();
-        }
+        JsonObject read = com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file, t -> GSON.fromJson(t, JsonObject.class), Sandwiches.LOG::warn);
+        if (read != null) json = read;
         apply(json);
         if (file != null) {
             try {

@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'net.neoforged.moddev' version '2.0.147'
 }
+ext.moduleVersion = '0.2.0'
 apply from: rootProject.file('gradle/module-neoforge.gradle')
 
 neoForge.runs {
