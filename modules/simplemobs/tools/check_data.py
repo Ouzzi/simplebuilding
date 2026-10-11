@@ -26,8 +26,8 @@ for tex in ('hollow_howler', 'hollow_howler_glow'):
     assert (MODULE / f'shared/resources/assets/simplemobs/textures/entity/hollow_howler/{tex}.png').is_file()
 assert (MODULE / 'shared/resources/assets/simplemobs/textures/mob_effect/silence.png').is_file()
 howler = json.loads((MODULE / 'shared/resources/data/simplemobs/loot_table/entities/hollow_howler.json').read_text(encoding='utf-8'))
-names = [e.get('name') for pool in howler['pools'] for e in pool['entries']]
-assert names == ['minecraft:echo_shard', 'simplemobs:echo_core', 'simplemobs:howler_jaw_drops'], names
+names = [e.get('name') or e.get('items') for pool in howler['pools'] for e in pool['entries']]
+assert names == ['minecraft:echo_shard', 'simplemobs:echo_core', '#simplemobs:howler_jaw_drops'], names
 jaw = json.loads((MODULE / 'shared/resources/data/simplemobs/tags/block/howler_jaw.json').read_text(encoding='utf-8'))
 assert 'minecraft:sculk_shrieker' in jaw['values'], 'the shrieker keeps the ritual playable without Simple Building'
 for tag in ('block/howler_jaw', 'item/howler_jaw_drops'):

@@ -35,7 +35,7 @@
       "entries": [
         {
           "type": "minecraft:tag",
-          "name": "simplemobs:howler_jaw_drops",
+          "items": "#simplemobs:howler_jaw_drops",
           "expand": false,
           "functions": [
             {
