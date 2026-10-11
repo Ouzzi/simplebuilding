@@ -9,6 +9,18 @@ public final class VisualsTests {
  public static boolean isModLoaded(String mod){return BuiltInRegistries.ITEM.keySet().stream().anyMatch(i->i.getNamespace().equals(mod))||BuiltInRegistries.BLOCK.keySet().stream().anyMatch(i->i.getNamespace().equals(mod));}
  /** Without the partner the coupling cannot be observed: pass with a log note instead of failing. */
  public static boolean partnerMissing(net.minecraft.gametest.framework.GameTestHelper h,String mod,String what){if(isModLoaded(mod))return false;com.mojang.logging.LogUtils.getLogger().info("[standalone] {} not loaded - skipping {}",mod,what);h.succeed();return true;}
+ /** Super-mod switch "Enable Simple Aesthetics" off: registries/command/effect list stay, every cosmetic option reports inert. */
+ public static void subModSwitch(GameTestHelper h){
+  var sw=com.simplebuilding.framework.api.SubMods.enabled("simplevisuals");
+  try{
+   com.simplebuilding.framework.api.SubMods.set("simplevisuals",false);
+   h.assertTrue(!Visuals.on(),"Switch off reaches Simple Visuals");
+   h.assertTrue(h.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild("simplevisuals")!=null&&!EffectRegistry.ALL.isEmpty(),"Command and effect registry stay");
+   h.assertTrue(!Visuals.active(true),"No cosmetic option active while off");
+  }finally{com.simplebuilding.framework.api.SubMods.set("simplevisuals",sw);}
+  h.assertTrue(Visuals.on()==sw&&Visuals.active(true)==sw&&!Visuals.active(false),"Switch restored");
+  h.succeed();
+ }
  public static void launch(GameTestHelper h){
   if(isModLoaded("simplebuilding"))h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplebuilding:enderite_ingot")),"SimpleBuilding content visible when loaded");
   h.assertTrue(h.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild("simplevisuals")!=null,"Command registered");

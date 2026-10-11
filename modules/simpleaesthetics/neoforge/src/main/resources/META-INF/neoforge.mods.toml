@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpleaesthetics"
+version="${version}"
+displayName="Simple Aesthetics"
+description="Super-mod: bundles Simple Visuals, Simple Sounds and Simple Models, with one on/off switch each."
+[[dependencies.simpleaesthetics]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+[[dependencies.simpleaesthetics]]
+modId="simplevisuals"
+type="required"
+versionRange="[0,)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.simpleaesthetics]]
+modId="simplesounds"
+type="required"
+versionRange="[0,)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.simpleaesthetics]]
+modId="simplemodels"
+type="required"
+versionRange="[0,)"
+ordering="AFTER"
+side="BOTH"

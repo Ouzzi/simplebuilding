@@ -398,7 +398,9 @@
         "fabric": ":modules:simplemodels:fabric",
         "neoforge": ":modules:simplemodels:neoforge",
         "forge": ":modules:simplemodels:forge"
-      }
+      },
+      "parent": "simpleaesthetics",
+      "bundle": "required"
     },
     {
       "id": "simplefun",
@@ -598,7 +600,9 @@
         "fabric": ":modules:simplevisuals:fabric",
         "neoforge": ":modules:simplevisuals:neoforge",
         "forge": ":modules:simplevisuals:forge"
-      }
+      },
+      "parent": "simpleaesthetics",
+      "bundle": "required"
     },
     {
       "id": "simplesounds",
@@ -697,7 +701,9 @@
         "fabric": ":modules:simplesounds:fabric",
         "neoforge": ":modules:simplesounds:neoforge",
         "forge": ":modules:simplesounds:forge"
-      }
+      },
+      "parent": "simpleaesthetics",
+      "bundle": "required"
     },
     {
       "id": "simplequalityoflife",
@@ -1722,6 +1728,98 @@
       },
       "parent": "simplebuilding",
       "bundle": "optional"
+    },
+    {
+      "id": "simpleaesthetics",
+      "name": "Simple Aesthetics",
+      "version": "1.0.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Aesthetics",
+      "description": "Super-mod without content of its own: bundles Simple Visuals, Simple Sounds and Simple Models with one on/off switch each.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "simplevisuals",
+        "simplesounds",
+        "simplemodels"
+      ],
+      "optional": [],
+      "checks": [
+        "modules/simpleaesthetics/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleaesthetics",
+        "catalogues": [
+          "modules/simpleaesthetics/fabric/src/main/java/com/simplebuilding/modules/simpleaesthetics/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleaesthetics",
+          "simplevisuals",
+          "simplesounds",
+          "simplemodels"
+        ],
+        "devMods": [
+          "cloth_config"
+        ],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleaestheticsGameTest",
+            "report": "integration/build/simpleaesthetics-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simpleaesthetics:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simpleaesthetics/neoforge/build/module-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [
+            "simplevisuals",
+            "simplesounds",
+            "simplemodels"
+          ],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleaestheticsStandaloneGameTest",
+              "report": "integration/build/standalone/simpleaesthetics-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simpleaesthetics:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simpleaesthetics/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simpleaesthetics.ModuleClientSmoke"
+          ],
+          "sources": "modules/simpleaesthetics/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simpleaesthetics",
+        "shared": "modules/simpleaesthetics/shared",
+        "fabric": "modules/simpleaesthetics/fabric",
+        "neoforge": "modules/simpleaesthetics/neoforge",
+        "forge": "modules/simpleaesthetics/forge",
+        "generated": "modules/simpleaesthetics/generated/resources",
+        "lang": "modules/simpleaesthetics/shared/resources/assets/simpleaesthetics/lang",
+        "wikiManual": "modules/simpleaesthetics/wiki/manual.json",
+        "balanceDir": "balance/simpleaesthetics"
+      },
+      "projects": {
+        "fabric": ":modules:simpleaesthetics:fabric",
+        "neoforge": ":modules:simpleaesthetics:neoforge",
+        "forge": ":modules:simpleaesthetics:forge"
+      }
     }
   ]
 }

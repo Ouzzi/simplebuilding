@@ -384,5 +384,24 @@ window.WIKI_MODULES = [
     ],
     "optional": [],
     "dataHash": "d114427fb9ab"
+  },
+  {
+    "id": "simpleaesthetics",
+    "displayName": "Simple Aesthetics",
+    "description": "Super-mod without content of its own: bundles Simple Visuals, Simple Sounds and Simple Models with one on/off switch each.",
+    "version": "1.0.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplevisuals",
+      "simplesounds",
+      "simplemodels"
+    ],
+    "optional": [],
+    "dataHash": "3f5707f1aac1"
   }
 ];

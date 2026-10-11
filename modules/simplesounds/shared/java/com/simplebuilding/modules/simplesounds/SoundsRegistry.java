@@ -6,6 +6,10 @@ import java.util.*;
 public final class SoundsRegistry {
  public record Effect(String id, String category, String sound, int interval, float volume, float pitch) {}
  public static final List<Effect> ALL=load();
+ /** Super-mod switch "Enable Simple Aesthetics" (framework SubMods); checks only its own id, independent of Simple Visuals. Runtime only. */
+ public static boolean on(){return com.simplebuilding.framework.api.SubMods.enabled("simplesounds");}
+ /** Pure gate of the playback decision: audible volume and the super-mod switch on. */
+ public static boolean plays(float volume){return on()&&volume>0;}
  public static List<Effect> load() {
   try(var stream=SoundsRegistry.class.getResourceAsStream("/assets/simplesounds/effects.json")) {
    if(stream==null) throw new IllegalStateException("Missing sound mappings");

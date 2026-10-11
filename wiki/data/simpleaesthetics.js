@@ -1,0 +1,75 @@
+window.WIKI_MODULE_DATA = window.WIKI_MODULE_DATA || {};
+window.WIKI_MODULE_DATA["simpleaesthetics"] = {
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simpleaesthetics",
+    "name": "Simple Aesthetics",
+    "version": "1.0.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ]
+  },
+  "features": [
+    {
+      "id": "supermod",
+      "sources": [
+        "modules/simpleaesthetics/shared/java/com/simplebuilding/modules/simpleaesthetics/SimpleAesthetics.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/SubMods.java"
+      ],
+      "en": {
+        "title": "Super-mod for looks and sounds",
+        "summary": "Simple Aesthetics has no content of its own: it bundles Simple Visuals, Simple Sounds and Simple Models. config/simpleaesthetics.json holds one switch each (enableSimpleVisuals, enableSimpleSounds, enableSimpleModels, default true); off makes that sub-mod inert, its own settings stay in its own config. Every sub-mod is also playable alone."
+      },
+      "de": {
+        "title": "Super-Mod fuer Optik und Klang",
+        "summary": "Simple Aesthetics hat keine eigenen Inhalte: Es buendelt Simple Visuals, Simple Sounds und Simple Models. config/simpleaesthetics.json hat je einen Schalter (enableSimpleVisuals, enableSimpleSounds, enableSimpleModels, Standard true); aus macht die Sub-Mod wirkungslos, ihre eigenen Einstellungen bleiben in ihrer eigenen Config. Jede Sub-Mod ist auch allein spielbar."
+      }
+    }
+  ],
+  "recipes": [],
+  "lootTables": [],
+  "tags": [],
+  "advancements": [],
+  "enchantments": [],
+  "items": [],
+  "blocks": [],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 1,
+    "recipes": 0,
+    "lootTables": 0,
+    "tags": 0,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 0,
+    "blocks": 0,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+};

@@ -18,7 +18,7 @@ public final class ModelTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     static {
         ALL.put("guide_book", com.simplebuilding.modules.simplemodels.guide.ModelsGuide::gameTest);
-        ALL.put("launch", ModelTests::launch); ALL.put("assignment", ModelTests::assignment);
+        ALL.put("sub_mod_switch", ModelTests::subModSwitch); ALL.put("launch", ModelTests::launch); ALL.put("assignment", ModelTests::assignment);
         ALL.put("permissions", ModelTests::permissions); ALL.put("request_bounds", ModelTests::requestBounds);
         ALL.put("config_bounds", ModelTests::configBounds); ALL.put("definition_bounds", ModelTests::definitionBounds);
         ALL.put("folder_scan", ModelTests::folderScan); ALL.put("reload_fail_closed", ModelTests::reloadFailClosed);
@@ -40,6 +40,21 @@ public final class ModelTests {
     private static void ioRejects(Path file, int cap) {
         try { ModelCatalogue.read(file, cap); } catch (java.io.IOException e) { return; }
         throw new AssertionError("Unsafe file was accepted");
+    }
+    /** Super-mod switch off: registry (guide book, command) stays, anvil requests are not intercepted and assign refuses. */
+    public static void subModSwitch(GameTestHelper h) {
+        var sw = com.simplebuilding.framework.api.SubMods.enabled("simplemodels");
+        try {
+            com.simplebuilding.framework.api.SubMods.set("simplemodels", false);
+            h.assertTrue(!Models.on(), "Switch off reaches Simple Models");
+            h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplemodels:guide_book")), "Registry stays");
+            h.assertTrue(h.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild("simplemodels") != null, "Command stays");
+            h.assertTrue(!Models.request(Models.PREFIX + "renamed:tomato") && !Models.request(Models.RESET), "Anvil request not intercepted while off");
+            fixture("minecraft:diamond_sword", () -> h.assertTrue(Models.assign(new ItemStack(Items.DIAMOND_SWORD), "@model:renamed:tomato", true).isEmpty(), "No assignment while off"));
+        } finally { com.simplebuilding.framework.api.SubMods.set("simplemodels", sw); }
+        h.assertTrue(Models.on() == sw, "Switch restored");
+        h.assertTrue(Models.request(Models.RESET) == sw, "Anvil request works again once restored");
+        h.succeed();
     }
     public static void launch(GameTestHelper h) {
         h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().noneMatch(id -> id.getNamespace().equals("simplemodels") && !id.getPath().equals("guide_book")), "No scaffold token or invented registry items (only the guide)");
