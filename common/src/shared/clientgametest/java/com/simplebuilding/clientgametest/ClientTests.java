@@ -118,7 +118,9 @@ public final class ClientTests {
                 // Fahrzeug-Stufen (Queue N19/N23, 26.3): carts and chest boats in the world, item sprites in the hotbar.
                 new Entry("vehicles", VehicleClientTest::inWorld),
                 // Queue N23 (26.3): the End structures, one picture per variant; clears them again.
-                new Entry("end-structures", EndStructureClientTest::inWorld));
+                new Entry("end-structures", EndStructureClientTest::inWorld),
+                // Audit C9/C10: unique key mapping names, our defaults collide with nothing (no picture).
+                new Entry("key-mappings", KeyMappingClientTest::inWorld));
     }
 
     /**

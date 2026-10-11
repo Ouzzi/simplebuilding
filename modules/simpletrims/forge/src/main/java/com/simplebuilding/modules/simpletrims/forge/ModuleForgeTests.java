@@ -14,6 +14,6 @@ public final class ModuleForgeTests {
  }
  public static void instances(Registry<TestEnvironmentDefinition<?>> environments,Registry<GameTestInstance> instances){
   Holder<TestEnvironmentDefinition<?>> env=environments.getOrThrow(GameTestEnvironments.DEFAULT_KEY);
-  cases().forEach((name,body)->{var data=new TestData<>(env,net.minecraft.world.level.Level.OVERWORLD,Identifier.parse("simpletrims:empty"),com.simpletrims.test.TrimsTests.MAX_TICKS.getOrDefault(name,100),0,true,net.minecraft.world.level.block.Rotation.NONE,false,1,1,false,1);Registry.register(instances,id(name),new FunctionGameTestInstance(ResourceKey.create(Registries.TEST_FUNCTION,id(name)),data));});
+  cases().forEach((name,body)->{var data=new TestData<>(env,net.minecraft.world.level.Level.OVERWORLD,Identifier.parse("simpletrims:empty"),com.simpletrims.test.TrimsTests.MAX_TICKS.getOrDefault(name.substring("module_game_test_".length()),100),0,true,net.minecraft.world.level.block.Rotation.NONE,false,1,1,false,1);Registry.register(instances,id(name),new FunctionGameTestInstance(ResourceKey.create(Registries.TEST_FUNCTION,id(name)),data));});
  }
 }
