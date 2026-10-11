@@ -41563,8 +41563,8 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A silent trap that slows like a cobweb and bites with sculk fangs.",
           "details": [
-            "Anything that wades into it is slowed much more than in a cobweb and gets Darkness. The open jaw snaps shut and bites once for 2 damage (1 heart), then stays shut and harmless while someone is still inside; it reopens 20 ticks after the last one has left. Wardens and spectators are ignored.",
-            "It is camouflaged as sculk: its surfaces use the sculk texture with its slowly pulsing glow, and the teeth are only a fine dark hint. It snaps shut in a short motion and opens again just as visibly.",
+            "Anything that wades into it is slowed far more than in a cobweb and gets Darkness and Blindness. The Blindness grows with the time spent inside: after t seconds it lasts 3 × (5/3)^(t − 2) seconds, at least 3 and at most 60 (out after 2 s: 3 s, after 3 s: 5 s, after 4 s: about 8 s). The open jaw snaps shut and bites once for 2 damage (1 heart), then stays shut and harmless while someone is still inside; it reopens 20 ticks after the last one has left. Wardens and spectators are ignored.",
+            "It is camouflaged as sculk: its surfaces use the sculk texture with its slowly pulsing glow, and only the bone tips of the teeth along the seam give it away. It snaps shut in a short motion and opens again just as visibly.",
             "It makes no sound at all: placing, biting, opening and breaking are silent. Mine it with a hoe; it drops itself.",
             "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare."
           ]
@@ -41572,8 +41572,8 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Eine lautlose Falle, die wie ein Spinnennetz bremst und mit Sculk-Fangzähnen zubeißt.",
           "details": [
-            "Wer hineingerät, wird viel stärker als im Spinnennetz verlangsamt und bekommt Dunkelheit. Die offene Kiefer schnappt zu und beißt einmal für 2 Schaden (1 Herz), bleibt dann geschlossen und harmlos, solange noch jemand drinsteht, und öffnet sich erst 20 Ticks nachdem der Letzte draußen ist. Wardens und Zuschauer ignoriert sie.",
-            "Sie ist als Sculk getarnt: ihre Flächen tragen die Sculk-Textur mit deren langsam pulsierendem Leuchten, die Zähne sind nur eine feine, dunkle Andeutung. Sie schnappt in einer kurzen Bewegung zu und öffnet sich ebenso sichtbar wieder.",
+            "Wer hineingerät, wird weit stärker als im Spinnennetz verlangsamt und bekommt Dunkelheit und Blindheit. Die Blindheit wächst mit der Verweildauer: nach t Sekunden hält sie 3 × (5/3)^(t − 2) Sekunden, mindestens 3 und höchstens 60 (nach 2 s raus: 3 s, nach 3 s: 5 s, nach 4 s: etwa 8 s). Die offene Kiefer schnappt zu und beißt einmal für 2 Schaden (1 Herz), bleibt dann geschlossen und harmlos, solange noch jemand drinsteht, und öffnet sich erst 20 Ticks nachdem der Letzte draußen ist. Wardens und Zuschauer ignoriert sie.",
+            "Sie ist als Sculk getarnt: ihre Flächen tragen die Sculk-Textur mit deren langsam pulsierendem Leuchten, nur die Knochenspitzen der Zähne an der Naht verraten sie. Sie schnappt in einer kurzen Bewegung zu und öffnet sich ebenso sichtbar wieder.",
             "Sie macht überhaupt kein Geräusch: Platzieren, Zubeißen, Öffnen und Abbauen sind lautlos. Mit der Hacke abbauen; sie droppt sich selbst.",
             "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten."
           ]
@@ -67046,8 +67046,8 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A silent trap that slows like a cobweb and bites with sculk fangs.",
           "details": [
-            "Anything that wades into it is slowed much more than in a cobweb and gets Darkness. The open jaw snaps shut and bites once for 2 damage (1 heart), then stays shut and harmless while someone is still inside; it reopens 20 ticks after the last one has left. Wardens and spectators are ignored.",
-            "It is camouflaged as sculk: its surfaces use the sculk texture with its slowly pulsing glow, and the teeth are only a fine dark hint. It snaps shut in a short motion and opens again just as visibly.",
+            "Anything that wades into it is slowed far more than in a cobweb and gets Darkness and Blindness. The Blindness grows with the time spent inside: after t seconds it lasts 3 × (5/3)^(t − 2) seconds, at least 3 and at most 60 (out after 2 s: 3 s, after 3 s: 5 s, after 4 s: about 8 s). The open jaw snaps shut and bites once for 2 damage (1 heart), then stays shut and harmless while someone is still inside; it reopens 20 ticks after the last one has left. Wardens and spectators are ignored.",
+            "It is camouflaged as sculk: its surfaces use the sculk texture with its slowly pulsing glow, and only the bone tips of the teeth along the seam give it away. It snaps shut in a short motion and opens again just as visibly.",
             "It makes no sound at all: placing, biting, opening and breaking are silent. Mine it with a hoe; it drops itself.",
             "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare."
           ]
@@ -67055,8 +67055,8 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Eine lautlose Falle, die wie ein Spinnennetz bremst und mit Sculk-Fangzähnen zubeißt.",
           "details": [
-            "Wer hineingerät, wird viel stärker als im Spinnennetz verlangsamt und bekommt Dunkelheit. Die offene Kiefer schnappt zu und beißt einmal für 2 Schaden (1 Herz), bleibt dann geschlossen und harmlos, solange noch jemand drinsteht, und öffnet sich erst 20 Ticks nachdem der Letzte draußen ist. Wardens und Zuschauer ignoriert sie.",
-            "Sie ist als Sculk getarnt: ihre Flächen tragen die Sculk-Textur mit deren langsam pulsierendem Leuchten, die Zähne sind nur eine feine, dunkle Andeutung. Sie schnappt in einer kurzen Bewegung zu und öffnet sich ebenso sichtbar wieder.",
+            "Wer hineingerät, wird weit stärker als im Spinnennetz verlangsamt und bekommt Dunkelheit und Blindheit. Die Blindheit wächst mit der Verweildauer: nach t Sekunden hält sie 3 × (5/3)^(t − 2) Sekunden, mindestens 3 und höchstens 60 (nach 2 s raus: 3 s, nach 3 s: 5 s, nach 4 s: etwa 8 s). Die offene Kiefer schnappt zu und beißt einmal für 2 Schaden (1 Herz), bleibt dann geschlossen und harmlos, solange noch jemand drinsteht, und öffnet sich erst 20 Ticks nachdem der Letzte draußen ist. Wardens und Zuschauer ignoriert sie.",
+            "Sie ist als Sculk getarnt: ihre Flächen tragen die Sculk-Textur mit deren langsam pulsierendem Leuchten, nur die Knochenspitzen der Zähne an der Naht verraten sie. Sie schnappt in einer kurzen Bewegung zu und öffnet sich ebenso sichtbar wieder.",
             "Sie macht überhaupt kein Geräusch: Platzieren, Zubeißen, Öffnen und Abbauen sind lautlos. Mit der Hacke abbauen; sie droppt sich selbst.",
             "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten."
           ]

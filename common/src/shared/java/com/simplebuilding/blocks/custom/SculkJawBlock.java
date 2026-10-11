@@ -36,7 +36,18 @@ public class SculkJawBlock extends WebBlock {
     /** Ticks zwischen zwei Pruefungen der geschlossenen Kiefer; ist dann niemand mehr drin, oeffnet sie sich. */
     public static final int REOPEN_TICKS = 20;
     /** Bremse in der Kiefer (Spinnennetz: 0,25 / 0,05). */
-    public static final Vec3 STUCK = new Vec3(0.12, 0.02, 0.12);
+    public static final Vec3 STUCK = new Vec3(0.06, 0.015, 0.06);
+    /**
+     * Besitzer N38: Blindheit, die mit der Verweildauer exponentiell waechst. Nach {@code t} Sekunden in der Kiefer haelt
+     * sie {@code d(t) = min(60, max(3, 3 * (5/3)^(t - 2)))} Sekunden an: raus nach 2 s -> 3 s, nach 3 s -> 5 s,
+     * nach 4 s -> 8,3 s, nach 5 s -> 13,9 s, ab knapp 8 s Verweilen das Maximum von 60 s. Waehrend man drinsteht, wird sie
+     * fortlaufend auf d(t) verlaengert, also bleibt nach dem Herauskommen genau d(Verweildauer).
+     */
+    public static final double BLIND_BASE_SECONDS = 3.0;
+    public static final double BLIND_GROWTH = 5.0 / 3.0;
+    public static final double BLIND_MAX_SECONDS = 60.0;
+    /** Verweildauer je Lebewesen: erster und letzter Tick in einer Kiefer (nur Server, schwach referenziert). */
+    private static final java.util.Map<LivingEntity, long[]> DWELL = new java.util.WeakHashMap<>();
     /** Dunkelheit in Ticks, aufgefrischt solange das Opfer drinsteht. */
     public static final int DARKNESS_TICKS = 60;
     /**
@@ -74,7 +85,30 @@ public class SculkJawBlock extends WebBlock {
                 if (dark == null || dark.getDuration() < DARKNESS_TICKS - 20) {
                     living.addEffect(new MobEffectInstance(MobEffects.DARKNESS, DARKNESS_TICKS, 0, false, false, true));
                 }
+                blind(server, living);
             }
+        }
+    }
+
+    /** Blindheit in Ticks nach {@code dwellTicks} Ticks in der Kiefer (Formel an {@link #BLIND_BASE_SECONDS}). */
+    public static int blindnessTicks(long dwellTicks) {
+        double seconds = BLIND_BASE_SECONDS * Math.pow(BLIND_GROWTH, dwellTicks / 20.0 - 2.0);
+        return (int) Math.round(Math.min(BLIND_MAX_SECONDS, Math.max(BLIND_BASE_SECONDS, seconds)) * 20.0);
+    }
+
+    /** Zaehlt die Verweildauer (ein Tick Luecke beendet sie) und verlaengert die Blindheit auf {@link #blindnessTicks}. */
+    private static void blind(ServerLevel level, LivingEntity living) {
+        long now = level.getGameTime();
+        long[] dwell = DWELL.get(living);
+        if (dwell == null || now - dwell[1] > 2) {
+            dwell = new long[] {now, now};
+            DWELL.put(living, dwell);
+        }
+        dwell[1] = now;
+        int ticks = blindnessTicks(now - dwell[0]);
+        MobEffectInstance blind = living.getEffect(MobEffects.BLINDNESS);
+        if (blind == null || blind.getDuration() < ticks - 10) {
+            living.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, ticks, 0, false, false, true));
         }
     }
 
