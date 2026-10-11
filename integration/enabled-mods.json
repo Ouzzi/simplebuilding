@@ -23,7 +23,8 @@
     "simpleaesthetics",
     "simpleloot",
     "simplecreatures",
-    "simplefarming"
+    "simplefarming",
+    "simpletools"
   ],
   "devMods": [
     "jei",

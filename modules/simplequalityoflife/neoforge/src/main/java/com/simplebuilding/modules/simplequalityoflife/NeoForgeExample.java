@@ -25,8 +25,7 @@ public final class NeoForgeExample {
   });
   game.addListener(net.neoforged.bus.api.EventPriority.LOWEST,(net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock e)->{
    if(e.isCanceled())return;
-   var a=FurnaceLavaFillHandler.onRightClickBlock(e.getEntity(),e.getHand(),e.getPos(),e.getFace());
-   if(a==net.minecraft.world.InteractionResult.PASS)a=com.simplequalityoflife.container.LinkedContainers.onRightClickBlock(e.getEntity(),e.getHand(),e.getPos());
+   var a=com.simplequalityoflife.container.LinkedContainers.onRightClickBlock(e.getEntity(),e.getHand(),e.getPos());
    if(a!=net.minecraft.world.InteractionResult.PASS){e.setCancellationResult(a);e.setCanceled(true);}
   });
  }

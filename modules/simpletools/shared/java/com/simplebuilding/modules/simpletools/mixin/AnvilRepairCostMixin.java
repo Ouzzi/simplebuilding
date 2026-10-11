@@ -1,6 +1,6 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simpletools.mixin;
 
-import com.simplequalityoflife.Simplequalityoflife;
+import com.simplebuilding.modules.simpletools.SimpleTools;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AnvilMenu;
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * ({@code repair_cost}) bei jeder Amboss-Benutzung. Aendert der Vorgang die Verzauberungen nicht - Reparatur mit
  * Material, zwei Werkzeuge ohne neue Verzauberung zusammenlegen, Umbenennen -, behaelt das Ergebnis die hoehere
  * Arbeitskosten seiner Zutaten statt sie zu verdoppeln. Nur Verzaubern macht den Gegenstand teurer; so lohnt das
- * Reparieren am Amboss neben Reparatur. Server-Option {@code qOL.anvilRepairKeepsCost}.
+ * Reparieren am Amboss neben Reparatur. Server-Option {@code anvilRepairKeepsCost}.
  */
 @Mixin(AnvilMenu.class)
 public abstract class AnvilRepairCostMixin extends ItemCombinerMenu {
@@ -31,7 +31,7 @@ public abstract class AnvilRepairCostMixin extends ItemCombinerMenu {
 
     @Inject(method = "createResult", at = @At("RETURN"))
     private void qol$repairKeepsCost(CallbackInfo ci) {
-        if (!Simplequalityoflife.getConfig().qOL.anvilRepairKeepsCost) {
+        if (!SimpleTools.active() || !SimpleTools.config().anvilRepairKeepsCost) {
             return;
         }
         ItemStack result = this.resultSlots.getItem(0);

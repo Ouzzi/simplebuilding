@@ -41,10 +41,8 @@ public class ModCommands {
 
                     // --- Tweaks (Alle Features) ---
                     .then(Commands.literal("tweaks")
-                            .then(boolTweak("fullDurabilityBonus", (c, v) -> { c.qOL.enableFullDurabilityBonus = v; }, "Full Durability Bonus enabled"))
                             .then(boolTweak("autowalk", (c, v) -> { c.qOL.enableAutowalk = v; }, "Auto-Walk enabled"))
                             .then(boolTweak("frostWalkerSnow", (c, v) -> { c.frostWalkerWalkOnPowderSnow = v; }, "Frost Walker on Powder Snow"))
-                            .then(boolTweak("furnaceLava", (c, v) -> { c.qOL.enableFurnaceLavaFill = v; }, "Furnace Lava Fill"))
                             .then(Commands.literal("ladderSpeed")
                                     .then(Commands.argument("speed", DoubleArgumentType.doubleArg(0.2, 0.4))
                                             .executes(ctx -> {

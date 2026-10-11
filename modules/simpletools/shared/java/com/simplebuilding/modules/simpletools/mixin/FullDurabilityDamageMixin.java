@@ -1,6 +1,6 @@
-package com.simplequalityoflife.mixin;
+package com.simplebuilding.modules.simpletools.mixin;
 
-import com.simplequalityoflife.Simplequalityoflife;
+import com.simplebuilding.modules.simpletools.SimpleTools;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -21,7 +21,7 @@ public class FullDurabilityDamageMixin {
 
         if (!((Object) this instanceof Player player)) return;
 
-        if (!Simplequalityoflife.configFor(player.level()).qOL.enableFullDurabilityBonus) return;
+        if (!SimpleTools.active(player.level()) || !SimpleTools.configFor(player.level()).enableFullDurabilityBonus) return;
 
         ItemStack stack = player.getMainHandItem();
 
@@ -31,9 +31,9 @@ public class FullDurabilityDamageMixin {
         float currentDamage = stack.getDamageValue();
         float durabilityPercent = (maxDamage - currentDamage) / maxDamage;
 
-        if (durabilityPercent >= Simplequalityoflife.configFor(player.level()).qOL.fullDurabilityThreshold) {
+        if (durabilityPercent >= SimpleTools.configFor(player.level()).fullDurabilityThreshold) {
             double originalDamage = info.getReturnValue();
-            info.setReturnValue(originalDamage * Simplequalityoflife.configFor(player.level()).qOL.fullDurabilityBonusMultiplier);
+            info.setReturnValue(originalDamage * SimpleTools.configFor(player.level()).fullDurabilityBonusMultiplier);
         }
     }
 }

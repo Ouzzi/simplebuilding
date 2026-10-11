@@ -1,0 +1,8 @@
+plugins {
+    id 'java-library'
+    id 'net.minecraftforge.gradle' version '7.0.36'
+}
+ext.forgeMixinConfigs = ['simpletools.mixins.json', 'simpletools.forge.mixins.json']
+apply from: rootProject.file('gradle/module-forge.gradle')
+ext.forgeNativeConfig = [id: 'simpletools', modId: 'simpletools', root: 'modules/simpletools/shared/java', screens: ['com/simplebuilding/modules/simpletools/ToolsScreen.java'], factory: 'com.simplebuilding.modules.simpletools.ToolsScreen.create(parent)']
+apply from: rootProject.file('gradle/forge-native-config.gradle')

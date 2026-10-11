@@ -21,6 +21,7 @@
   "depends": {
     "simpleweather": "*",
     "simpleinterfaces": "*",
+    "simpletools": "*",
     "simplefarming": "*",
     "simplecreatures": "*",
     "simpleloot": "*",

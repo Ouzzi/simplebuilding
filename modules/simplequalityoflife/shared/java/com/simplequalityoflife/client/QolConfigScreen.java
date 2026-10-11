@@ -27,7 +27,7 @@ public final class QolConfigScreen {
    }catch(IllegalAccessException ex){throw new IllegalStateException(ex);}
   }
  }
- private static double min(String key){return switch(key){case "ladderClimbingSpeed"->0.2;case "ladderSlideSpeed"->0.15;case "fullDurabilityThreshold"->0.8;case "fullDurabilityBonusMultiplier"->1;case "linkedContainerRange"->SimplequalityoflifeConfig.MIN_LINKED_RANGE;default->0;};}
- private static double max(String key){return switch(key){case "ladderClimbingSpeed"->0.4;case "ladderSlideSpeed"->0.8;case "fullDurabilityThreshold"->1;case "fullDurabilityBonusMultiplier"->1.5;case "linkedContainerRange"->SimplequalityoflifeConfig.MAX_LINKED_RANGE;default->100;};}
+ private static double min(String key){return switch(key){case "ladderClimbingSpeed"->0.2;case "ladderSlideSpeed"->0.15;case "linkedContainerRange"->SimplequalityoflifeConfig.MIN_LINKED_RANGE;default->0;};}
+ private static double max(String key){return switch(key){case "ladderClimbingSpeed"->0.4;case "ladderSlideSpeed"->0.8;case "linkedContainerRange"->SimplequalityoflifeConfig.MAX_LINKED_RANGE;default->100;};}
  public static String tab(String key){return key.startsWith("enableSimple")?"submods":key.contains("Linked")||key.contains("linked")||key.contains("Easy")?"containers":key.contains("ladder")||key.contains("Ladder")||key.contains("Autowalk")||key.contains("Crawl")?"movement":key.contains("Suffix")||key.contains("muted")||key.contains("piglin")?"mobs":(key.contains("vault")||key.contains("Vault"))?"vaults":"interaction";}
 }

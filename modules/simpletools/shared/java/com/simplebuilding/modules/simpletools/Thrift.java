@@ -1,6 +1,6 @@
-package com.simplequalityoflife.registry;
+package com.simplebuilding.modules.simpletools;
 
-import com.simplequalityoflife.Simplequalityoflife;
+import com.simplebuilding.modules.simpletools.SimpleTools;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -10,10 +10,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 
-/** Die Verzauberung Sparsamkeit (data/simplequalityoflife/enchantment/thrift.json): nur Schluessel und Rechnung. */
+/**
+ * Die Verzauberung Sparsamkeit (data/simplequalityoflife/enchantment/thrift.json): nur Schluessel und Rechnung. Die ID bleibt
+ * {@code simplequalityoflife:thrift} (Simple Tools liefert die Datei in diesem Namensraum), damit Gegenstaende in bestehenden
+ * Welten ihre Verzauberung behalten. Sie wirkt auch bei abgeschaltetem Sub-Mod-Schalter: sonst sinke die Haltbarkeit
+ * verzauberter Gegenstaende unter ihren Verschleiss.
+ */
 public final class Thrift {
     public static final ResourceKey<Enchantment> KEY = ResourceKey.create(Registries.ENCHANTMENT,
-            Identifier.fromNamespaceAndPath(Simplequalityoflife.MOD_ID, "thrift"));
+            Identifier.fromNamespaceAndPath("simplequalityoflife", "thrift"));
     public static final int MAX_LEVEL = 3;
 
     private Thrift() {

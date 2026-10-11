@@ -14,11 +14,8 @@ public class SimplequalityoflifeConfig implements ConfigData {
 
     public static final double MAX_CLIMB_SPEED = 0.4;
     public static final double MAX_SLIDE_SPEED = 0.8;
-    public static final double MAX_BONUS = 1.5;
     public static final double DEFAULT_CLIMB_SPEED = 0.4;
     public static final double DEFAULT_SLIDE_SPEED = 0.8;
-    public static final double DEFAULT_DURABILITY_THRESHOLD = 0.8;
-    public static final double DEFAULT_DURABILITY_BONUS_MULTIPLIER = 1.0;
     public static final int DEFAULT_LINKED_RANGE = 64;
     public static final int MIN_LINKED_RANGE = 8;
     public static final int MAX_LINKED_RANGE = 128;
@@ -29,8 +26,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
         if (qOL == null) qOL = new QOL();
         qOL.ladderClimbingSpeed = bounded(qOL.ladderClimbingSpeed, 0.2, MAX_CLIMB_SPEED, 0.4);
         qOL.ladderSlideSpeed = bounded(qOL.ladderSlideSpeed, 0.15, MAX_SLIDE_SPEED, 0.8);
-        qOL.fullDurabilityThreshold = bounded(qOL.fullDurabilityThreshold, 0.8, 1, 0.8);
-        qOL.fullDurabilityBonusMultiplier = bounded(qOL.fullDurabilityBonusMultiplier, 1, MAX_BONUS, DEFAULT_DURABILITY_BONUS_MULTIPLIER);
         qOL.linkedContainerRange = Math.clamp(qOL.linkedContainerRange, MIN_LINKED_RANGE, MAX_LINKED_RANGE);
         if (qOL.ladderSlideActivation == null) qOL.ladderSlideActivation = SlideActivationMode.CAMERA;
     }
@@ -52,6 +47,9 @@ public class SimplequalityoflifeConfig implements ConfigData {
 
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleInterfaces = true;
+
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleTools = true;
 
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleFarming = true;
@@ -78,9 +76,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
         public boolean enableAutowalk = false;
 
         // --- World Interaction ---
-        @ConfigEntry.Gui.Tooltip
-        public boolean enableFurnaceLavaFill = true;
-
         // --- Ladder Mechanics ---
         @ConfigEntry.Gui.Tooltip
         public double ladderClimbingSpeed = DEFAULT_CLIMB_SPEED; // Vanilla default is ~0.2
@@ -94,22 +89,6 @@ public class SimplequalityoflifeConfig implements ConfigData {
         @ConfigEntry.Gui.Tooltip
         @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
         public SlideActivationMode ladderSlideActivation = SlideActivationMode.CAMERA;
-
-        // --- Durability Mechanics ---
-        @ConfigEntry.Gui.Tooltip
-        public boolean enableFullDurabilityBonus = true;
-
-        @ConfigEntry.Gui.Tooltip
-        public double fullDurabilityThreshold = DEFAULT_DURABILITY_THRESHOLD;
-
-        @ConfigEntry.Gui.Tooltip
-        public double fullDurabilityBonusMultiplier = DEFAULT_DURABILITY_BONUS_MULTIPLIER;
-
-        // --- Amboss ---
-        /** Reparieren ohne neue Verzauberung erhoeht die Arbeitskosten am Amboss nicht (2026-10-02). */
-        @ConfigEntry.Gui.Tooltip
-        public boolean anvilRepairKeepsCost = true;
-
 
         // --- Containers (2026-10-04) ---
         @ConfigEntry.Gui.Tooltip

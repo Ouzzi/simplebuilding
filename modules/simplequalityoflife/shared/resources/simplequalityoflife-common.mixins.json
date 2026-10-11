@@ -4,10 +4,6 @@
   "compatibilityLevel": "JAVA_25",
   "minVersion": "0.8",
   "mixins": [
-    "AnvilRepairCostMixin",
-    "ThriftDurabilityMixin",
-    "FullDurabilityDamageMixin",
-    "FullDurabilityEfficiencyMixin",
     "LadderSpeedMixin",
     "PowderSnowWalkMixin",
     "PlayerEntityCrawlMixin",

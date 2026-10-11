@@ -75,34 +75,6 @@
       }
     },
     {
-      "id": "furnace_lava",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/event/FurnaceLavaFillHandler.java"
-      ],
-      "en": {
-        "title": "Furnace lava fill",
-        "summary": "Either hand inserts one lava bucket into a furnace, blast furnace, or smoker with an empty fuel slot or one leftover empty bucket. Locked furnaces and sneaking are excluded. Survival consumes the lava bucket; an existing empty bucket is returned exactly once. SimpleBuilding furnace subclasses are supported through the Vanilla interface."
-      },
-      "de": {
-        "title": "Ofen mit Lava fuellen",
-        "summary": "Beide Haende koennen einen Lavaeimer in Ofen, Hochofen oder Raeucherofen mit leerem Brennstoffplatz oder einem leeren Eimer einsetzen. Verschlossene Oefen und Schleichen sind ausgeschlossen. Ueberleben verbraucht Lava; ein vorhandener Eimer wird genau einmal zurueckgegeben. SimpleBuilding-Ofenunterklassen nutzen die Vanilla-Schnittstelle."
-      }
-    },
-    {
-      "id": "durability",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/FullDurabilityDamageMixin.java"
-      ],
-      "en": {
-        "title": "Durability bonus",
-        "summary": "Damageable held Vanilla and mod tools above the durability threshold can gain attack damage and mining speed. The default multiplier is 1.0 (no bonus), with a server-enforced range of 1–1.5. The threshold defaults to 80% (range 80–100%). Item durability itself is unchanged."
-      },
-      "de": {
-        "title": "Haltbarkeitsbonus",
-        "summary": "Gehaltene beschaedigbare Vanilla- und Mod-Werkzeuge ueber der Haltbarkeitsschwelle koennen mehr Angriffsschaden und Abbaugeschwindigkeit erhalten. Standardfaktor 1.0 (kein Bonus), serverseitiger Bereich 1–1.5. Schwelle standardmaessig 80% (Bereich 80–100%). Die Haltbarkeit selbst bleibt unveraendert."
-      }
-    },
-    {
       "id": "weather",
       "sources": [
         "modules/simpleweather/shared/java/com/simplebuilding/modules/simpleweather/mixin/ServerWeatherMixin.java"
@@ -142,6 +114,20 @@
       "de": {
         "title": "enableSimpleInterfaces",
         "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Interfaces (Simple-Stil fuer Vanilla-Behaelterfenster). Standard: true."
+      }
+    },
+    {
+      "id": "config_enableSimpleTools",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "enableSimpleTools",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Tools. Default: true."
+      },
+      "de": {
+        "title": "enableSimpleTools",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Tools. Standard: true."
       }
     },
     {
@@ -215,20 +201,6 @@
       }
     },
     {
-      "id": "config_qOL_enableFurnaceLavaFill",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.enableFurnaceLavaFill",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.enableFurnaceLavaFill",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
       "id": "config_qOL_ladderClimbingSpeed",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
@@ -282,63 +254,6 @@
       "de": {
         "title": "qOL.ladderSlideActivation",
         "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: \"CAMERA\"."
-      }
-    },
-    {
-      "id": "config_qOL_enableFullDurabilityBonus",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.enableFullDurabilityBonus",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.enableFullDurabilityBonus",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_fullDurabilityThreshold",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.fullDurabilityThreshold",
-        "summary": "Server setting (rain density is a local visual preference). Default: 0.8."
-      },
-      "de": {
-        "title": "qOL.fullDurabilityThreshold",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 0.8."
-      }
-    },
-    {
-      "id": "config_qOL_fullDurabilityBonusMultiplier",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.fullDurabilityBonusMultiplier",
-        "summary": "Server setting. Default: 1.0 (no bonus). Range: 1.0–1.5. Saved 1.5 remains 1.5; absent keys use 1.0. Nonfinite values fall back to 1.0; finite out-of-range values are clamped."
-      },
-      "de": {
-        "title": "qOL.fullDurabilityBonusMultiplier",
-        "summary": "Servereinstellung. Standard: 1.0 (kein Bonus). Bereich: 1.0–1.5. Gespeicherte 1.5 bleiben 1.5; fehlende Schluessel nutzen 1.0. Nicht endliche Werte fallen auf 1.0 zurueck; endliche Werte ausserhalb des Bereichs werden begrenzt."
-      }
-    },
-    {
-      "id": "config_qOL_anvilRepairKeepsCost",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java",
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/AnvilRepairCostMixin.java"
-      ],
-      "en": {
-        "title": "qOL.anvilRepairKeepsCost",
-        "summary": "Server setting. Default: true. Repairing with material, combining two items without new enchantments or renaming keeps the higher anvil cost of the inputs instead of raising it; only a change of enchantments raises it like vanilla."
-      },
-      "de": {
-        "title": "qOL.anvilRepairKeepsCost",
-        "summary": "Servereinstellung. Standard: true. Reparieren mit Material, Zusammenlegen zweier Gegenstände ohne neue Verzauberung oder Umbenennen behält die höhere Ambosskosten der Zutaten, statt sie zu erhöhen; nur eine Änderung der Verzauberungen erhöht sie wie in Vanilla."
       }
     },
     {
@@ -404,11 +319,11 @@
       ],
       "en": {
         "title": "Commands",
-        "summary": "/crawl is available to players. Owner-level /simplequalityoflife offers tweaks fullDurabilityBonus, autowalk, frostWalkerSnow, furnaceLava, ladderSpeed. Changes are saved to config/simplequalityoflife.json."
+        "summary": "/crawl is available to players. Owner-level /simplequalityoflife offers tweaks autowalk, frostWalkerSnow, ladderSpeed. Changes are saved to config/simplequalityoflife.json."
       },
       "de": {
         "title": "Befehle",
-        "summary": "/crawl ist fuer Spieler. Besitzerberechtigung: /simplequalityoflife mit tweaks fullDurabilityBonus, autowalk, frostWalkerSnow, furnaceLava, ladderSpeed. Speichern in config/simplequalityoflife.json."
+        "summary": "/crawl ist fuer Spieler. Besitzerberechtigung: /simplequalityoflife mit tweaks autowalk, frostWalkerSnow, ladderSpeed. Speichern in config/simplequalityoflife.json."
       }
     },
     {
@@ -446,36 +361,6 @@
           "Mit -Pforge263=true aktivieren. Config-/Kriechpakete nur zum Client, Tasten, Abbau-Veto und Ackerschutz nutzen Forge-Hooks. JSON-Konfiguration behält Felder und Grenzen. Cloth-GUI fehlt. Forge-Clients und Netzwerk mit echten Spielern bleiben ungeprüft.",
           "Der experimentelle Forge-Transport benötigt das Modul derzeit auf Server und Client."
         ]
-      }
-    },
-    {
-      "id": "thrift",
-      "sources": [
-        "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/enchantment/thrift.json",
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/ThriftDurabilityMixin.java",
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/registry/Thrift.java"
-      ],
-      "en": {
-        "title": "Thrift",
-        "summary": "Enchantment for every item with durability, levels I-III: +1/3 maximum durability per level, level III doubles it. Not combinable with Mending; Unbreaking still works. Anvil repair with material restores a quarter of the (larger) maximum per item, so the same number of items as without the enchantment repairs it fully. Enchanting table, trades and loot like other non-treasure enchantments."
-      },
-      "de": {
-        "title": "Sparsamkeit",
-        "summary": "Verzauberung für alles mit Haltbarkeit, Stufen I-III: +1/3 maximale Haltbarkeit je Stufe, Stufe III verdoppelt sie. Nicht mit Reparatur kombinierbar; Haltbarkeit (Unbreaking) wirkt weiter. Die Amboss-Reparatur mit Material gibt je Stück ein Viertel des (größeren) Maximums zurück, also repariert dieselbe Anzahl wie ohne Verzauberung vollständig. Verzauberungstisch, Handel und Beute wie andere Nicht-Schatz-Verzauberungen."
-      }
-    },
-    {
-      "id": "anvil_repair_cost",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/AnvilRepairCostMixin.java"
-      ],
-      "en": {
-        "title": "Repairing keeps the anvil cost",
-        "summary": "Repairing with material, combining two items without new enchantments or renaming keeps the higher anvil cost of the inputs instead of raising it. Only a change of enchantments raises it like vanilla. Server option qOL.anvilRepairKeepsCost (default true)."
-      },
-      "de": {
-        "title": "Reparieren hält die Ambosskosten",
-        "summary": "Reparieren mit Material, Zusammenlegen zweier Gegenstände ohne neue Verzauberung oder Umbenennen behält die höhere Ambosskosten der Zutaten, statt sie zu erhöhen. Nur eine Änderung der Verzauberungen erhöht sie wie in Vanilla. Server-Option qOL.anvilRepairKeepsCost (Standard true)."
       }
     },
     {
@@ -554,41 +439,7 @@
   "lootTables": [],
   "tags": [],
   "advancements": [],
-  "enchantments": [
-    {
-      "id": "simplequalityoflife:thrift",
-      "name": {
-        "en_us": "Thrift",
-        "de_de": "Sparsamkeit"
-      },
-      "description": {
-        "en_us": ""
-      },
-      "maxLevel": 3,
-      "weight": 5,
-      "anvilCost": 2,
-      "slots": [
-        "any"
-      ],
-      "supportedItems": "#minecraft:enchantable/durability",
-      "primaryItems": null,
-      "exclusiveSet": "minecraft:mending",
-      "effects": [],
-      "implementedIn": "none",
-      "hasEffect": false,
-      "source": "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/enchantment/thrift.json",
-      "note": {
-        "en": {
-          "title": "Thrift",
-          "summary": "Enchantment for every item with durability, levels I-III: +1/3 maximum durability per level, level III doubles it. Not combinable with Mending; Unbreaking still works. Anvil repair with material restores a quarter of the (larger) maximum per item, so the same number of items as without the enchantment repairs it fully. Enchanting table, trades and loot like other non-treasure enchantments."
-        },
-        "de": {
-          "title": "Sparsamkeit",
-          "summary": "Verzauberung für alles mit Haltbarkeit, Stufen I-III: +1/3 maximale Haltbarkeit je Stufe, Stufe III verdoppelt sie. Nicht mit Reparatur kombinierbar; Haltbarkeit (Unbreaking) wirkt weiter. Die Amboss-Reparatur mit Material gibt je Stück ein Viertel des (größeren) Maximums zurück, also repariert dieselbe Anzahl wie ohne Verzauberung vollständig. Verzauberungstisch, Handel und Beute wie andere Nicht-Schatz-Verzauberungen."
-        }
-      }
-    }
-  ],
+  "enchantments": [],
   "items": [
     {
       "id": "simplequalityoflife:guide_book",
@@ -602,10 +453,10 @@
           "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 43 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
+          "summary": "Guide to this mod: 44 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 43 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
+          "summary": "Handbuch zu dieser Mod: 44 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
         }
       },
       "texture": "assets/textures/simplequalityoflife/item/guide_book.png",
@@ -630,12 +481,12 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 34,
+    "features": 26,
     "recipes": 1,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,
-    "enchantments": 1,
+    "enchantments": 0,
     "items": 1,
     "blocks": 0,
     "trades": 0,

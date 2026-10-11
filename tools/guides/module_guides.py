@@ -71,7 +71,7 @@ MODULES = [
                 "aus Bündeln.")),
     dict(module="simplequalityoflife", ns="simplequalityoflife", package="com.simplequalityoflife.guide",
          cls="QolGuide", kind="item", author="Simple Quality of Life", recipe="minecraft:chest",
-         submods=("simpleloot","simplecreatures","simplefarming",),
+         submods=("simpleloot","simplecreatures","simplefarming","simpletools",),
          name=("Simple Quality of Life Guide", "Simple-Quality-of-Life-Handbuch"),
          intro=("Server-controlled movement, farming, mob, weather and vault utilities.",
                 "Servergesteuerte Hilfen für Bewegung, Landwirtschaft, Mobs, Wetter und Tresore.")),

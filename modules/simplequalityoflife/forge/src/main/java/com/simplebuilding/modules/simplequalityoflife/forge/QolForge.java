@@ -27,8 +27,7 @@ public final class QolForge {
   PlayerEvent.PlayerLoggedInEvent.BUS.addListener(e->{if(e.getEntity() instanceof ServerPlayer p)sync(p);});
   net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock.BUS.addListener(net.minecraftforge.eventbus.api.listener.Priority.LOWEST,e->{
    if(e.getUseBlock().isDenied()||e.getUseItem().isDenied())return false;
-   var result=FurnaceLavaFillHandler.onRightClickBlock(e.getEntity(),e.getHand(),e.getPos(),e.getFace());
-   if(result==InteractionResult.PASS)result=com.simplequalityoflife.container.LinkedContainers.onRightClickBlock(e.getEntity(),e.getHand(),e.getPos());
+   var result=com.simplequalityoflife.container.LinkedContainers.onRightClickBlock(e.getEntity(),e.getHand(),e.getPos());
    if(result==InteractionResult.PASS)return false;e.setCancellationResult(result);return true;
   });
  }

@@ -197,13 +197,14 @@ window.WIKI_MODULES = [
       "simpleinterfaces",
       "simpleloot",
       "simplecreatures",
-      "simplefarming"
+      "simplefarming",
+      "simpletools"
     ],
     "optional": [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "a8b690869dfb"
+    "dataHash": "88811fb2f5f5"
   },
   {
     "id": "simpletweaks",
@@ -370,6 +371,27 @@ window.WIKI_MODULES = [
       "modmenu"
     ],
     "dataHash": "499e87886520"
+  },
+  {
+    "id": "simpletools",
+    "displayName": "Simple Tools",
+    "description": "Full-durability bonus, the Thrift enchantment, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simplequalityoflife",
+      "modmenu"
+    ],
+    "dataHash": "fc848f7a3f09"
   },
   {
     "id": "simplefarming",

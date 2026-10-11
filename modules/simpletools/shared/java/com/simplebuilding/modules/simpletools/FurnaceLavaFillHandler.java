@@ -1,6 +1,6 @@
-package com.simplequalityoflife.event;
+package com.simplebuilding.modules.simpletools;
 
-import com.simplequalityoflife.Simplequalityoflife;
+import com.simplebuilding.modules.simpletools.SimpleTools;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -23,7 +23,7 @@ public class FurnaceLavaFillHandler {
 
 
     public static InteractionResult onRightClickBlock(Player player, InteractionHand hand, BlockPos pos, Direction face) {
-        if (!Simplequalityoflife.getConfig().qOL.enableFurnaceLavaFill) return InteractionResult.PASS;
+        if (!SimpleTools.active() || !SimpleTools.config().enableFurnaceLavaFill) return InteractionResult.PASS;
 
         // Item der genutzten Hand prüfen (funktioniert für Haupt- und Nebenhand).
         ItemStack stack = player.getItemInHand(hand);

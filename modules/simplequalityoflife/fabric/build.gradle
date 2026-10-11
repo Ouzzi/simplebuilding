@@ -3,7 +3,7 @@ ext.moduleVersion = '1.0.6'
 apply from: rootProject.file('gradle/module-fabric.gradle')
 dependencies { include project(':framework') }
 // Super-mod (docs/ai/KONZEPT-SUPERMOD-SUBMOD-2026-10-06.md): requires and nests its sub-mods; no class imports.
-dependencies { include project(':modules:simpleweather:fabric'); include project(':modules:simpleinterfaces:fabric'); include project(':modules:simpleloot:fabric'); include project(':modules:simplecreatures:fabric'); include project(':modules:simplefarming:fabric') }
+dependencies { include project(':modules:simpleweather:fabric'); include project(':modules:simpleinterfaces:fabric'); include project(':modules:simpleloot:fabric'); include project(':modules:simplecreatures:fabric'); include project(':modules:simplefarming:fabric'); include project(':modules:simpletools:fabric') }
 // SimpleLib (style blocks com.simplelib.api.client.ui for the linked panel) nested per principle 6a; compiled against.
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
 

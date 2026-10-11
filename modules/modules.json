@@ -724,7 +724,8 @@
         "simpleinterfaces",
         "simpleloot",
         "simplecreatures",
-        "simplefarming"
+        "simplefarming",
+        "simpletools"
       ],
       "optional": [
         "simplebuilding",
@@ -745,7 +746,8 @@
           "simpleinterfaces",
           "simpleloot",
           "simplecreatures",
-          "simplefarming"
+          "simplefarming",
+          "simpletools"
         ],
         "devMods": [
           "cloth_config"
@@ -777,7 +779,8 @@
             "simpleinterfaces",
             "simpleloot",
             "simplecreatures",
-            "simplefarming"
+            "simplefarming",
+            "simpletools"
           ],
           "devMods": [
             "cloth_config"
@@ -1645,6 +1648,107 @@
         "fabric": ":modules:simpleweather:fabric",
         "neoforge": ":modules:simpleweather:neoforge",
         "forge": ":modules:simpleweather:forge"
+      },
+      "parent": "simplequalityoflife",
+      "bundle": "required"
+    },
+    {
+      "id": "simpletools",
+      "name": "Simple Tools",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Tools",
+      "description": "Full-durability bonus, the Thrift enchantment, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "cloth_config"
+      ],
+      "optional": [
+        "simplebuilding",
+        "simplequalityoflife",
+        "modmenu"
+      ],
+      "checks": [
+        "modules/simpletools/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpletools",
+        "catalogues": [
+          "modules/simpletools/fabric/src/main/java/com/simplebuilding/modules/simpletools/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpletools",
+          "simplebuilding"
+        ],
+        "devMods": [
+          "cloth_config"
+        ],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpletoolsGameTest",
+            "report": "integration/build/simpletools-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simpletools:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simpletools/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simpletools:forge:runGameTestServer",
+            "report": "modules/simpletools/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpletoolsStandaloneGameTest",
+              "report": "integration/build/standalone/simpletools-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simpletools:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simpletools/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simpletools.ModuleClientSmoke"
+          ],
+          "sources": "modules/simpletools/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simpletools",
+        "shared": "modules/simpletools/shared",
+        "fabric": "modules/simpletools/fabric",
+        "neoforge": "modules/simpletools/neoforge",
+        "forge": "modules/simpletools/forge",
+        "generated": "modules/simpletools/generated/resources",
+        "lang": "modules/simpletools/shared/resources/assets/simpletools/lang",
+        "wikiManual": "modules/simpletools/wiki/manual.json",
+        "balanceDir": "balance/simpletools"
+      },
+      "projects": {
+        "fabric": ":modules:simpletools:fabric",
+        "neoforge": ":modules:simpletools:neoforge",
+        "forge": ":modules:simpletools:forge"
       },
       "parent": "simplequalityoflife",
       "bundle": "required"
