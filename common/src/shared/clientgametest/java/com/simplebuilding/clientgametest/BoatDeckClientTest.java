@@ -72,6 +72,11 @@ public final class BoatDeckClientTest {
                 throw new AssertionError("The client has no Enderite chest boat");
             }
             worstGap = Math.max(worstGap, Math.abs(client.player.getY() - deck.maxY));
+            if (counted[0] < 12) {
+                TestLog.info(String.format(java.util.Locale.ROOT, "boat deck tick %d: y %.5f deck %.5f ground %s dy %.4f colliders %d",
+                        counted[0], client.player.getY(), deck.maxY, client.player.onGround(), client.player.getDeltaMovement().y,
+                        client.level.getEntityCollisions(client.player, client.player.getBoundingBox().expandTowards(0.0, -0.2, 0.0)).size()));
+            }
             wet |= client.player.isInWater();
             airborne |= !client.player.onGround();
             return ++counted[0] >= STAND_TICKS;
