@@ -32,8 +32,8 @@ import net.minecraft.world.phys.Vec3;
  * Queue N37, world part (owner 2026-10-11): placeables break part by part, buckets draw no durability bar and the
  * Enderite bucket shows only its name, the sculk jaw needs a full block top.
  */
-public final class N37WorldTests {
-    private N37WorldTests() {
+public final class WorldPolishTests {
+    private WorldPolishTests() {
     }
 
     /**

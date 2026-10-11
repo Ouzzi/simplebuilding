@@ -772,15 +772,15 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 37 (2026-10-11, Besitzer, Screenshots im Vorschauordner n37/)
 - [ ] Sculk Jaw: weitere Beispiele zur Wahl – die aktuelle Form ist bisher die beste (Varianten nah daran).
 - [ ] Fragentisch: viel epischer, Block an Zaubertisch erinnernd; UI besonders schön, an das Guide-Buch erinnernd, im modernen UI-Stil der Mod.
-- [ ] Platzierte Bündel: Items 3D (1 px tief) rendern.
+- [x] Platzierte Bündel: Items 3D (1 px tief) rendern. (claude-n37-world)
 - [ ] UI-Farbvarianten (z. B. braun): Hintergrund-Symbole der Slots nicht korrekt sichtbar (brown_ui_icons.png).
-- [ ] Placeables gezielt abbauen: das angeschaute Teil wird abgebaut.
-- [ ] Platzierter Ziegenhorn: Textur korrekt, aber nicht schön → verbessern.
-- [ ] Kisten von der Seite: Inhalt nicht erkennbar → seitlich Item-Texturen zeigen (crate_side.png).
+- [x] Placeables gezielt abbauen: das angeschaute Teil wird abgebaut. (claude-n37-world)
+- [x] Platzierter Ziegenhorn: Textur korrekt, aber nicht schön → verbessern. (claude-n37-world)
+- [x] Kisten von der Seite: Inhalt nicht erkennbar → seitlich Item-Texturen zeigen (crate_side.png). (claude-n37-world)
 - [ ] Astral-Verzauberer: Tooltip der Verzauberungen immer rechts neben dem gesamten UI; Preis bleibt bei 50, obwohl eine Stufe weniger gewählt ist (astral_max.png / astral_one_less.png) → Preis muss bei weniger Stufen sinken.
-- [ ] Enderit-Eimer: Tooltip nur Titel.
-- [ ] Eimer: keine Haltbarkeitslinie rendern.
+- [x] Enderit-Eimer: Tooltip nur Titel. (claude-n37-world)
+- [x] Eimer: keine Haltbarkeitslinie rendern. (claude-n37-world)
 - [ ] Verstärkter Tiegel: Slots 2x6 statt 3x4.
 - [ ] Enderit-Tiegel mit Fass: über dem Inventar rendern, Inventar zentriert.
 - [ ] Auf der Truhe des Enderit-Boots stehen: man buggt und bewegt sich langsam (Vanilla anscheinend auch) → beheben.
-- [ ] Sculk Jaw nur auf vollen Blöcken platzierbar.
+- [x] Sculk Jaw nur auf vollen Blöcken platzierbar. (claude-n37-world)
