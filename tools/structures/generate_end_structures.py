@@ -15,6 +15,7 @@ NS = 'simplebuilding'
 BRICK, STONE = 'minecraft:end_stone_bricks', 'minecraft:end_stone'
 SLAB, WALL, STAIR = 'minecraft:end_stone_brick_slab', 'minecraft:end_stone_brick_wall', 'minecraft:end_stone_brick_stairs'
 PURPUR, PILLAR, PSLAB, PSTAIR = 'minecraft:purpur_block', 'minecraft:purpur_pillar', 'minecraft:purpur_slab', 'minecraft:purpur_stairs'
+OBSIDIAN = 'minecraft:obsidian'
 LOOT = f'{NS}:chests/end_wreck'
 DIR_ID = {'down': 0, 'up': 1, 'north': 2, 'south': 3, 'west': 4, 'east': 5}
 
@@ -135,69 +136,167 @@ def gateway(variant):
 
 
 # ---------------------------------------------------------------- shipwrecks
-L, W, CZ = 11, 5, 2
+# Shape language of the vanilla End-city ship (end_city/ship): purpur hull that widens step by step
+# (keel pillar, stair ribs), obsidian hold floor, deck with stair railing, rising bow stem with a
+# figurehead, mast with crow's nest, raised stern cabin with magenta glass windows and a wide aft deck.
+# The ship is described procedurally in ship coordinates (v = 0 at the bow tip .. 27 at the stern,
+# dz = sideways offset from the keel, y = 0 at the keel); every wreck is a damaged slice of it.
+# Wrecks sit half buried: an end-stone mound fills the hull up to GROUND and slopes away around it,
+# and the structure starts GROUND blocks below the surface (start_height).
+GROUND = 4
+WOOL = 'minecraft:purple_wool'
+GLASS = 'minecraft:magenta_stained_glass'
+STEM_Y = {1: 7, 2: 7, 3: 7, 4: 6, 5: 5, 6: 4, 7: 3, 8: 2, 9: 1, 10: 1}   # bow stem rises like the vanilla keel
+BODY_HW = {1: 1, 2: 2, 3: 3, 4: 4, 5: 4, 6: 4}                          # hull half width per height
 
 
-def hull(kind, rng):
-    g = Grid()
-    for x in range(L):
-        h = 2
-        if kind == 'bow':
-            h = 2 if x <= 5 else (1 if x <= 8 else 0)
-        for z in range(CZ - h, CZ + h + 1):
-            g.put(x, 1, z, PURPUR if (x + z) % 5 else PILLAR, **({} if (x + z) % 5 else {'axis': 'x'}))
-        for y in (2, 3):
-            for z in (CZ - h, CZ + h):
-                g.put(x, y, z, PURPUR)
-        if kind == 'bow' and x >= 9:
-            g.put(x, 2, CZ, PURPUR)
-            if x == 10: g.put(x, 3, CZ, PSLAB, type='bottom'); g.put(x, 4, CZ, 'minecraft:end_rod', facing='up')
-        if kind != 'bow':
-            g.put(x, 4, CZ - h, PSLAB, type='bottom'); g.put(x, 4, CZ + h, PSLAB, type='bottom')
-    if kind in ('stern', 'tilt'):  # transom + aft cabin
-        for z in range(W):
-            for y in (2, 3, 4): g.put(0, y, z, PURPUR)
-        for x in range(0, 4):
-            for z in (0, W - 1):
-                for y in (4, 5): g.put(x, y, z, PURPUR)
-            for z in range(W): g.put(x, 6, z, PSLAB, type='bottom')
-        for z in range(W): g.put(0, 5, z, PURPUR)
-        g.put(3, 4, CZ, PSTAIR, facing='west', half='bottom')
-    for y in range(2, 8 if kind != 'bow' else 7):  # mast
-        g.put(7 if kind == 'stern' else 6, y, CZ, PILLAR, axis='y')
-    return g
+def _lim(v):
+    return max(0, min(4, (v - 4) // 2))   # the bow narrows by one block every two
+
+
+def _hw(v, y):
+    if v < 11 and y < STEM_Y.get(v, 0): return None
+    return min(BODY_HW[y], _lim(v))
+
+
+def _inward(dz):
+    return 'south' if dz < 0 else 'north'
+
+
+def ship():
+    s = {}
+
+    def B(v, y, dz, name, nbt=None, **props):
+        s[(v, y, dz)] = (name, {k: str(x) for k, x in props.items()}, nbt)
+
+    for v in range(9, 26): B(v, 0, 0, PILLAR, axis='x')                       # keel
+    for v in range(1, 11):                                                      # stem
+        for y in range(STEM_Y[v], STEM_Y.get(v - 1, STEM_Y[v]) + 1 if v > 1 else STEM_Y[v] + 1):
+            B(v, y, 0, PILLAR, axis='y' if y != STEM_Y[v] else 'x')
+    B(0, 8, 0, PURPUR); B(-1, 8, 0, PSLAB, type='top')                         # figurehead: head + snout
+    B(0, 7, 0, PSTAIR, facing='west', half='top')                              # jaw
+    for dz in (-1, 1): B(0, 9, dz, 'minecraft:end_rod', facing='up')           # horns
+    for v in range(5, 27):                                                      # hull
+        for y in range(1, 7):
+            hw = _hw(v, y)
+            if hw is None: continue
+            for dz in range(-hw, hw + 1):
+                if y <= 2: B(v, y, dz, OBSIDIAN if (y == 2 and abs(dz) < hw and dz) else PURPUR)
+                elif abs(dz) == hw or v == 26: B(v, y, dz, PURPUR)
+    for v in (13, 17, 21, 25):                                                  # stair ribs
+        for y in (1, 2, 3, 5):
+            hw = _hw(v, y)
+            for dz in (-hw - 1, hw + 1): B(v, y, dz, PSTAIR, facing=_inward(dz), half='top')
+    for v in range(5, 19):                                                      # main deck + railing
+        hw = min(4, _lim(v))
+        for dz in range(-hw, hw + 1): B(v, 7, dz, PURPUR)
+        if v >= 6:
+            for dz in {-hw, hw}:
+                if v % 3 == 0 or hw == 0: B(v, 8, dz, PURPUR)
+                else: B(v, 8, dz, PSTAIR, facing=_inward(dz), half='bottom')
+    for v in (11, 12): s.pop((v, 7, 0), None)                                   # hatch
+    B(10, 8, 0, PILLAR, axis='y'); B(10, 9, 0, 'minecraft:end_rod', facing='up')
+    for v in range(19, 27):                                                     # stern cabin
+        for dz in range(-3, 4): B(v, 5, dz, PURPUR)
+        for y in (6, 7, 8):
+            for dz in range(-4, 5):
+                if abs(dz) != 4 and v not in (19, 26): continue
+                corner = abs(dz) == 4 and v in (19, 26)
+                if corner: B(v, y, dz, PILLAR, axis='y')
+                elif y == 7 and (v + dz) % 3 == 0: B(v, y, dz, GLASS)
+                else: B(v, y, dz, BRICK)
+    for y in (6, 7): s.pop((19, y, 0), None)                                    # cabin door
+    for v in range(19, 28):                                                     # aft deck
+        for dz in range(-5, 6): B(v, 9, dz, PURPUR)
+        for dz in (-6, 6): B(v, 9, dz, PSTAIR, facing=_inward(dz), half='bottom')
+        for dz in (-5, 5):
+            if v % 3 == 0: B(v, 10, dz, PURPUR)
+            else: B(v, 10, dz, PSTAIR, facing=_inward(dz), half='bottom')
+    for dz in range(-4, 5): B(27, 10, dz, PSTAIR, facing='east', half='bottom')
+    for dz in (-5, 5): B(27, 11, dz, 'minecraft:end_rod', facing='up')
+    for y in range(2, 23): B(14, y, 0, PILLAR, axis='y')                        # mast
+    for v in (13, 14, 15):                                                      # crow's nest
+        for dz in (-1, 0, 1):
+            if (v, dz) != (14, 0): B(v, 21, dz, PSLAB, type='top')
+    B(14, 23, 0, 'minecraft:end_rod', facing='up')
+    return s
+
+
+def _slice(s, rng, lo, hi):
+    """Keep lo..hi (ship v); cut ends are ragged (0-2 blocks)."""
+    out = {}
+    for (v, y, dz), b in s.items():
+        a = lo + (rng.randrange(3) if lo > -1 else 0)
+        c = hi - (rng.randrange(3) if hi < 27 else 0)
+        if a <= v <= c: out[(v, y, dz)] = b
+    return out
 
 
 def wreck(kind, frame):
     rng = random.Random(3000 + len(kind) * 7)
-    g = hull(kind, rng)
-    fx, fz = (5, CZ - 1)       # frame sits against the wall at z = CZ-2
-    wall_y = 3
-    if kind == 'broken':
-        for k in list(g.b):
-            if k[1] >= 2 and 3 <= k[0] <= 8 and rng.random() < 0.55: del g.b[k]
-        for k in list(g.b):
-            if k[1] == 1 and rng.random() < 0.18: del g.b[k]
-        for k in list(g.b):
-            if k[1] >= 5 and rng.random() < 0.5: del g.b[k]
-    shear = (lambda z: math.floor((z - CZ) * 0.75 + 0.5)) if kind == 'tilt' else (lambda z: 0)
-    if kind == 'tilt':
-        g.b = {(x, y + shear(z) + 2, z): v for (x, y, z), v in g.b.items()}
-    off = 2 if kind == 'tilt' else 0
-    ys = lambda z, y: y + shear(z) + off
-    chests = {'bow': [(7, 2, CZ)], 'stern': [(2, 2, CZ - 1), (2, 2, CZ + 1)], 'broken': [(2, 2, CZ)], 'tilt': [(2, 2, CZ - 1), (2, 2, CZ + 1)]}[kind]
-    for x, y, z in chests:
-        g.b.pop((x, ys(z, y), z), None); chest(g, x, ys(z, y), z, 'east')
-    if frame != 'none':
-        wy = ys(fz - 1, wall_y)
-        g.put(fx, wy, fz - 1, PURPUR)               # make sure the wall behind the frame exists
-        g.b.pop((fx, wy, fz), None)
+    lo, hi = {'bow': (-1, 13), 'stern': (17, 27), 'broken': (8, 20), 'tilt': (8, 27)}[kind]
+    s = _slice(ship(), rng, lo, hi)
+    if kind == 'bow':           # the mast stays with the midship; drop the cut-off crow's nest
+        for k in [k for k in s if k[1] > 11]: del s[k]
+    if kind == 'broken':        # mast snapped at y 9 and fallen sideways onto the ground, sail beside it
+        for k in [k for k in s if k[0] in (13, 14, 15) and k[1] > 9]: del s[k]
+        for dz in range(5, 16): s[(14, GROUND, dz)] = (PILLAR, {'axis': 'z'}, None)
+        for v in (13, 15):
+            for dz in (14, 15, 16): s[(v, GROUND, dz)] = (PSLAB, {'type': 'bottom'}, None)
+        for v in range(10, 13):
+            for dz in range(6, 13):
+                if rng.random() < 0.6: s[(v, GROUND, dz)] = (WOOL, {}, None)
+    if kind == 'tilt':          # mast broken at y 14 with a yard and a torn sail hanging from it
+        for k in [k for k in s if k[1] > 14 and k[0] in (13, 14, 15)]: del s[k]
+        for dz in range(-3, 4): s[(14, 13, dz)] = (PILLAR, {'axis': 'z'}, None)
+        for y in range(8, 13):
+            for dz in range(-3, 4):
+                if rng.random() < 0.72 - 0.08 * (12 - y): s[(13, y, dz)] = (WOOL, {}, None)
+    if kind == 'stern':         # stump of the main mast in front of the cabin
+        s[(17, 8, 0)] = (PILLAR, {'axis': 'y'}, None)
+    for k in list(s):           # weathering: holes in deck, walls and railing
+        if k[1] > GROUND and rng.random() < (0.22 if kind == 'broken' else 0.12): del s[k]
+    chests = {'bow': [(9, 4, 0)], 'stern': [(24, 6, -2), (21, 4, 2)], 'broken': [(16, 4, 2)],
+              'tilt': [(24, 6, -2), (21, 4, 2)]}[kind]
+    for c in chests:
+        s[c] = ('minecraft:chest', {'facing': 'east', 'type': 'single', 'waterlogged': 'false'},
+                {'id': 'minecraft:chest', 'LootTable': LOOT})
+    ents = []
+    if frame != 'none':         # frame position, wall behind it, facing
+        pos, wall, facing = {'bow': ((8, 5, -1), (8, 5, -2), 'south'), 'stern': ((25, 7, 0), (26, 7, 0), 'east'),
+                             'broken': ((12, 5, -3), (12, 5, -4), 'south'), 'tilt': ((25, 7, 0), (26, 7, 0), 'east')}[kind]
+        s[wall] = (PURPUR, {}, None); s.pop(pos, None)
         item = None
         if frame == 'elytra':
             item = {'id': 'minecraft:elytra', 'count': ('i', 1), 'components': {'minecraft:damage': ('i', 431)}}
-        g.ent.append({'pos': (fx, wy, fz), 'facing': 'south', 'item': item})
-    g.support()
+        ents.append({'pos': pos, 'facing': facing, 'item': item})
+    # ship coordinates -> template: x = -v (bow towards +x/east), z = dz, y; tilt = roll around the keel
+    roll = (lambda dz: round(dz * 0.5)) if kind == 'tilt' else (lambda dz: 0)
+    tf = lambda v, y, dz: (-v, y + roll(dz), dz)
+    g = Grid()
+    for (v, y, dz), (name, props, nbt) in s.items(): g.b[tf(v, y, dz)] = (name, props, nbt)
+    for e in ents: e['pos'] = tf(*e['pos'])
+    g.ent = ents
+    g.b = {k: b for k, b in g.b.items() if k[1] >= 0}   # the rolled-under side lies deep in the ground anyway
+    mx, mz = min(k[0] for k in g.b) - 2, min(k[2] for k in g.b) - 2
+    move = lambda p: (p[0] - mx, p[1], p[2] - mz)
+    g.b = {move(k): b for k, b in g.b.items()}
+    for e in g.ent: e['pos'] = move(e['pos'])
+    bury(g, rng, GROUND)
     return g
+
+
+def bury(g, rng, ground):
+    """End-stone mound: fills the hull footprint up to ground-1 and slopes away over two rings."""
+    cols = {(x, z) for (x, y, z) in g.b}
+    ring = lambda src: {(x + dx, z + dz) for (x, z) in src for dx in (-1, 0, 1) for dz in (-1, 0, 1)} - src
+    r1 = ring(cols); r2 = ring(cols | r1)
+    frames = {e['pos'] for e in g.ent}
+    for group, top in ((cols, ground), (r1, ground - 1), (r2, ground - 2)):
+        for (x, z) in sorted(group):
+            h = top - (rng.random() < 0.4 and group is not cols)
+            for y in range(0, h):
+                if (x, y, z) not in g.b and (x, y, z) not in frames: g.put(x, y, z, STONE)
 
 
 # ---------------------------------------------------------------- path
@@ -256,7 +355,7 @@ def build():
         out[f'worldgen/structure/{name}.json'] = J({
             'type': 'minecraft:jigsaw', 'biomes': f'#{NS}:has_structure/end_outer_islands', 'step': 'surface_structures',
             'spawn_overrides': {}, 'terrain_adaptation': 'none', 'start_pool': f'{NS}:{name}', 'size': 1,
-            'start_height': {'absolute': 0}, 'project_start_to_heightmap': 'WORLD_SURFACE_WG',
+            'start_height': {'absolute': -GROUND if name == 'end_wreck' else 0}, 'project_start_to_heightmap': 'WORLD_SURFACE_WG',
             'max_distance_from_center': 16, 'use_expansion_hack': False,
             'dimension_padding': 8})   # void columns project to y=0: the padding rejects them
         sp, se, salt, fr = sets[name]
