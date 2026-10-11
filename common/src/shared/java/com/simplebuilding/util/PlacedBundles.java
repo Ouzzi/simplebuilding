@@ -186,7 +186,7 @@ public final class PlacedBundles {
      */
     private static final Map<java.util.UUID, Long> LAST_SCROLL = new java.util.HashMap<>();
 
-    private static boolean scrollAllowed(Player player, long now) {
+    private static boolean soundAllowed(Player player, long now) {
         if (LAST_SCROLL.size() > 64) {
             LAST_SCROLL.values().removeIf(t -> now - t > 40 || t > now);
         }
@@ -200,8 +200,8 @@ public final class PlacedBundles {
 
     public static boolean scroll(Player player, BlockPos pos, int step) {
         Level level = player.level();
-        // SBG-06: build permission (adventure/spectator, border, spawn protection) and at most one step per 2 ticks and player.
-        if (step != 0 && (!player.mayBuild() || !level.mayInteract(player, pos) || !scrollAllowed(player, level.getGameTime()))) {
+        // SBG-06: build permission (adventure/spectator, border, spawn protection); the sound plays at most every 2 ticks per player.
+        if (step != 0 && (!player.mayBuild() || !level.mayInteract(player, pos))) {
             return false;
         }
         if (step == 0 || !player.isAlive() || player.isSpectator() || !player.isShiftKeyDown()
@@ -210,7 +210,7 @@ public final class PlacedBundles {
             return false;
         }
         be.cycle(Integer.signum(step));
-        level.playSound(null, pos, SoundEvents.BUNDLE_INSERT, SoundSource.BLOCKS, 0.4F, 1.4F + level.getRandom().nextFloat() * 0.2F);
+        if (soundAllowed(player, level.getGameTime())) level.playSound(null, pos, SoundEvents.BUNDLE_INSERT, SoundSource.BLOCKS, 0.4F, 1.4F + level.getRandom().nextFloat() * 0.2F);
         return true;
     }
 
