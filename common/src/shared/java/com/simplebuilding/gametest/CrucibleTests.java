@@ -964,11 +964,11 @@ public final class CrucibleTests {
         ItemStack water = ModBucketItem.fill(empty, ModFluids.CERAMIC_WATER_BUCKET);
         helper.assertTrue(water.is(ModFluids.CERAMIC_WATER[0]) && ModBucketItem.ceramicUses(water) == 0, "scoop does not wear: " + water);
         // Pour advances exactly one stage and keeps the filling counter.
-        ItemStack lava = new ItemStack(ModFluids.CERAMIC_LAVA[1]);
+        ItemStack lava = new ItemStack(ModFluids.CERAMIC_WATER[1]); // N35: lava buckets are brittle one-shots, so water here
         lava.set(com.simplebuilding.component.ModDataComponentTypes.CERAMIC_USES, 1);
         BlockPos target = helper.absolutePos(new BlockPos(2, 1, 2));
         ItemStack after = ((ModBucketItem) lava.getItem()).pourAt(level, target, lava);
-        helper.assertTrue(level.getFluidState(target).is(net.minecraft.tags.FluidTags.LAVA), "chipped lava bucket pours lava");
+        helper.assertTrue(level.getFluidState(target).is(net.minecraft.tags.FluidTags.WATER), "chipped water bucket pours water");
         helper.assertTrue(after.is(ModFluids.CERAMIC_EMPTY[2]) && ModBucketItem.ceramicUses(after) == 2, "pour into stage 2: " + after);
         // The filling survives a stage change too.
         ItemStack held = new ItemStack(ModFluids.CERAMIC_WATER[2]);
