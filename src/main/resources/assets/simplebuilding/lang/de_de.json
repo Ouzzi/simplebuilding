@@ -2757,6 +2757,8 @@
   "jukebox_song.simplebuilding.brimstone_b_side": "SimpleBuilding - Rally",
   "block.simplebuilding.jukebox_amplifier": "Musik-Verstärker",
   "item.simplebuilding.jukebox_amplifier": "Musik-Verstärker",
+  "tooltip.simplebuilding.jukebox_amplifier": "Neben einem Plattenspieler: lauter und weiter. Gibt die Musik per Funk (16 Blöcke) an andere Musik-Verstärker weiter, mit Musiknoten",
+  "tooltip.simplebuilding.note_amplifier": "Neben einem Notenblock: lauter und weiter. Gibt den Ton an angrenzende Noten-Verstärker weiter",
   "block.simplebuilding.note_amplifier": "Noten-Verstärker",
   "item.simplebuilding.note_amplifier": "Noten-Verstärker",
   "jei.simplebuilding.info.music_discs": "Schallplatten der Dimensionen von SimpleBuilding. End-Platte (Heavy Heart, Monolith, Iron Sonata): Endsiedlungs-Truhen (4 %). Nether-Platte (Riffstorm, Rally): Bastion-Truhen (4 %). Oberwelt: Rainfall/Storytime in Waldanwesen-Truhen (5 %), Soft Breeze/Blockwood in Truhen der Antiken Stätte (2,5 %); beide Oberwelt-Platten fallen auch, wenn ein Skelett einen Creeper tötet. Eine Platte auf den Boden legen (Schleichen + Rechtsklick) und mit einem Vorschlaghammer rechtsklicken: nächster Track (1 Haltbarkeit); der Tooltip nennt den Track.",

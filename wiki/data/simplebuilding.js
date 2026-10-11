@@ -22010,7 +22010,7 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:jungle_cauldron",
@@ -29982,7 +29982,7 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:oak_cauldron",
@@ -56422,7 +56422,7 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:jungle_cauldron",
@@ -61090,7 +61090,7 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:oak_cauldron",

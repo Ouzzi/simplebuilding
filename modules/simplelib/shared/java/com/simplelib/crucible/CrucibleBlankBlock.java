@@ -45,6 +45,32 @@ public class CrucibleBlankBlock extends Block {
         registerDefaultState(stateDefinition.any().setValue(STAGE, 1).setValue(FACING, Direction.NORTH));
     }
 
+    /** Model boxes per stage (see {@code crucible_blank_N.json}): base 0-4, then the walls north/east/south/west, then a handle. */
+    private static final double[][] PARTS = {{0, 0, 0, 16, 4, 16}, {1, 4, 1, 15, 14, 3}, {13, 4, 3, 15, 14, 13},
+            {1, 4, 13, 15, 14, 15}, {1, 4, 3, 3, 14, 13}, {15, 9, 6, 16, 11, 10}};
+    private static final net.minecraft.world.phys.shapes.VoxelShape[][] SHAPES = new net.minecraft.world.phys.shapes.VoxelShape[5][4];
+
+    static {
+        for (int stage = 1; stage <= 5; stage++) {
+            for (Direction d : Direction.Plane.HORIZONTAL) {
+                // stage 1 = base + north wall, stage n = n walls (stage 5 = four walls + one handle)
+                int parts = Math.min(stage, 4) + 1 + (stage == 5 ? 1 : 0);
+                net.minecraft.world.phys.shapes.VoxelShape shape = net.minecraft.world.phys.shapes.Shapes.empty();
+                for (int k = 0; k < parts; k++) {
+                    double[] b = PARTS[k];
+                    shape = net.minecraft.world.phys.shapes.Shapes.or(shape, CrucibleBlock.turned(d, b[0], b[1], b[2], b[3], b[4], b[5]));
+                }
+                SHAPES[stage - 1][d.get2DDataValue()] = shape;
+            }
+        }
+    }
+
+    @Override
+    protected net.minecraft.world.phys.shapes.VoxelShape getShape(BlockState state, net.minecraft.world.level.BlockGetter level,
+            net.minecraft.core.BlockPos pos, net.minecraft.world.phys.shapes.CollisionContext context) {
+        return SHAPES[state.getValue(STAGE) - 1][state.getValue(FACING).get2DDataValue()];
+    }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(STAGE, FACING);

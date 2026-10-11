@@ -1240,6 +1240,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("music_disc_game_test_speakers_boost_only_their_own_source", MusicDiscTests::speakersBoostOnlyTheirOwnSource).build(),
             GameTestSpec.named("music_disc_game_test_speaker_range_and_config_caps", MusicDiscTests::speakerRangeAndConfigCaps).build(),
             GameTestSpec.named("music_disc_game_test_speaker_recipes_use_any_planks", MusicDiscTests::speakerRecipesUseAnyPlanks).build(),
+            GameTestSpec.named("music_disc_game_test_amplifiers_have_tooltip_and_full_cube_hitbox", MusicDiscTests::amplifiersHaveTooltipAndFullCubeHitbox).build(),
             GameTestSpec.named("music_disc_game_test_track_cycle_skips_missing_tracks", MusicDiscTests::trackCycleSkipsMissingTracks).build(),
             GameTestSpec.named("music_disc_game_test_speaker_chains_follow_their_kind_up_to_the_limit", MusicDiscTests::speakerChainsFollowTheirKindUpToTheLimit).build(),
             GameTestSpec.named("music_disc_game_test_amplified_jukebox_reaches_farther_through_the_real_use_path", MusicDiscTests::amplifiedJukeboxReachesFartherThroughTheRealUsePath).build(),

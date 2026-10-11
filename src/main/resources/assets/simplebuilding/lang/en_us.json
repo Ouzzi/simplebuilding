@@ -2757,6 +2757,8 @@
   "jukebox_song.simplebuilding.brimstone_b_side": "SimpleBuilding - Rally",
   "block.simplebuilding.jukebox_amplifier": "Jukebox Amplifier",
   "item.simplebuilding.jukebox_amplifier": "Jukebox Amplifier",
+  "tooltip.simplebuilding.jukebox_amplifier": "Next to a jukebox: louder and farther. Relays the music by radio (16 blocks) to other Jukebox Amplifiers, with music notes",
+  "tooltip.simplebuilding.note_amplifier": "Next to a note block: louder and farther. Passes the note on to touching Note Amplifiers",
   "block.simplebuilding.note_amplifier": "Note Amplifier",
   "item.simplebuilding.note_amplifier": "Note Amplifier",
   "jei.simplebuilding.info.music_discs": "Dimension music discs by SimpleBuilding. End disc (Heavy Heart, Monolith, Iron Sonata): End city chests (4 %). Nether disc (Riffstorm, Rally): bastion chests (4 %). Overworld: Rainfall/Storytime in woodland mansion chests (5 %), Soft Breeze/Blockwood in ancient city chests (2.5 %); both Overworld discs also drop when a skeleton kills a creeper. Place a disc on the ground (sneak + right-click) and right-click it with a sledgehammer to switch to its next track (1 durability); the tooltip names the track.",

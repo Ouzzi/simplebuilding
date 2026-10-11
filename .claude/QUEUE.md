@@ -815,4 +815,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Neues Sub-Modul Simple End Dragon Fight (Konzept + Skalierungs-Vorschläge zuerst): ab halbem Leben alle 30 s Dragonmites (eigene Endermites, nur mit Drache) nahe dem Brunnen; +1 Leben je Spieler, automatische Anpassung, wenn neue Spieler die End-Insel (mit Puffer) betreten; Eintritts-Animation + Partikel je Spieler (Warteschlange, jeder Trigger sichtbar); Drache allgemein schneller.
 - [ ] Geschnitztes Holz rundherum (alle Seiten), nicht nur eine Seite.
 - [ ] Blaupause: Ziehen (Drag) rotiert das Modell beim geraden Ziehen weiterhin.
-- [ ] Screenshot buggy_end.webp (n40/): verbuggt aussehende Fläche im End prüfen.
+- [ ] Screenshot buggy_end.webp (n40/): verbuggt aussehende Fläche im End prüfen.,
+## Nachtrag 39 (2026-10-11, Besitzer)
+- [x] Tiegel-Hitboxen (alle Stufen, mit angedocktem Fass, SimpleLib + SB): Henkel fehlten im Umriss und drehten nicht mit; Rohling-Stufen waren Vollwürfel; Innenraum-Interaktionsform ergänzt; Gametest `crucible_hitboxes_match_model` (claude-n39-fix)
+- [x] Verstärker einmal durchgeprüft (Funktion/Kette/Noten/Hitbox/Texturen/Tests: ohne Befund außer fehlendem Tooltip); Tooltip für Musik-/Noten-Verstärker (en/de) + Gametest `amplifiers_have_tooltip_and_full_cube_hitbox` (claude-n39-fix)
