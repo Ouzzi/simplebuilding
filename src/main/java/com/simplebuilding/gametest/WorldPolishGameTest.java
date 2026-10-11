@@ -17,7 +17,12 @@ public final class WorldPolishGameTest {
     }
 
     @GameTest
-    public void sculkJawNeedsAFullBlockTop(GameTestHelper helper) {
-        WorldPolishTests.sculkJawNeedsAFullBlockTop(helper);
+    public void sculkJawNeedsFullBlockTop(GameTestHelper helper) {
+        WorldPolishTests.sculkJawNeedsFullBlockTop(helper);
+    }
+
+    @GameTest
+    public void standersStayOnTheChestBoatDeck(GameTestHelper helper) {
+        WorldPolishTests.standersStayOnTheChestBoatDeck(helper);
     }
 }

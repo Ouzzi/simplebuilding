@@ -155,7 +155,7 @@ public final class WorldPolishTests {
      * The sculk jaw stands only on a block with a solid, full top: stone and an upper slab yes; a lower slab, a fence,
      * a glass pane or air no. Taking the block away under a jaw removes it.
      */
-    public static void sculkJawNeedsAFullBlockTop(GameTestHelper helper) {
+    public static void sculkJawNeedsFullBlockTop(GameTestHelper helper) {
         if (!McVersion.NATURE_VARIANTS || ModBlocks.SCULK_JAW == null) {
             helper.succeed();
             return;
@@ -182,5 +182,36 @@ public final class WorldPolishTests {
         helper.setBlock(floor, Blocks.AIR);
         helper.assertTrue(helper.getBlockState(floor.above()).isAir(), "the jaw stayed without its floor: " + helper.getBlockState(floor.above()));
         helper.succeed();
+    }
+
+    /**
+     * Who stands on a tier chest boat stays on its deck ({@code TieredChestBoat#keepDeckStandersOnTop}): an armor stand
+     * sunk a little into the boat's top is lifted back onto it and keeps the ground; a riding passenger is left alone.
+     */
+    public static void standersStayOnTheChestBoatDeck(GameTestHelper helper) {
+        if (!McVersion.TIERED_VEHICLES || com.simplebuilding.entity.ModEntities.ENDERITE_CHEST_BOAT == null) {
+            helper.succeed();
+            return;
+        }
+        for (int x = 0; x < 5; x++) {
+            for (int z = 0; z < 5; z++) {
+                helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
+            }
+        }
+        ServerLevel level = helper.getLevel();
+        var boat = com.simplebuilding.entity.ModEntities.ENDERITE_CHEST_BOAT.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
+        Vec3 at = helper.absoluteVec(new Vec3(2.5, 2.0, 2.5));
+        boat.setPos(at.x, at.y, at.z);
+        level.addFreshEntity(boat);
+        double deck = boat.getBoundingBox().maxY;
+        var stand = new net.minecraft.world.entity.decoration.ArmorStand(level, at.x, deck - 0.06, at.z);
+        level.addFreshEntity(stand);
+        helper.runAfterDelay(5, () -> {
+            double top = boat.getBoundingBox().maxY;
+            helper.assertTrue(Math.abs(stand.getY() - top) < 1.0E-6,
+                    "the armor stand is not on the deck: y " + stand.getY() + ", deck " + top);
+            helper.assertTrue(stand.onGround(), "the armor stand on the deck has no ground");
+            helper.succeed();
+        });
     }
 }
