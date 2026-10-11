@@ -803,3 +803,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] (claude-n38) Nether-/End-Wayfinder-Karten zeigen in der Hand die Oberwelt → stattdessen Störsignal.
 - [x] (claude-n38) Deceiver: doppeltes Leben; nach Verwandlung in größeren Mob dessen Hitbox.
 - [ ] Guide-Bücher erweitern, alles aktuell.
+
+## Nachtrag 38b (2026-10-11, Besitzer, Deceiver Stufe 2 – in Arbeit auf claude-deceiver2)
+- [ ] Tarn-Umhang (Brustplatz): Erkennung erst im 3-Block-Radius; Rechtsklick auf Mob/Spieler → Verwandlung (Spieler mit Skin + Rüstung); Schlag/Abbauen → Rückverwandlung; Enttarnung: angegriffener Mob + 5x5, danach erhöhter, aber verringerter Radius.
+- [ ] Unsichtbarkeitstrank ohne Partikel; Trugbild-Spiegel.
+- [ ] Spezialangriff: Mob-Anzahl verdoppeln, Chance 5 % → 80 % bei wenig Leben.
+- [ ] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt.
+- [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
