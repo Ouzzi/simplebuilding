@@ -157,6 +157,28 @@ public final class WoodworkClientTest {
         }
         script.command("fill 4 0 " + CRATE_Z + " 16 2 " + CRATE_Z + " minecraft:air", true);
         script.command("kill @e[type=!minecraft:player]", true);
+        // Queue N35: the slide switches of both channels off and on, the chiseled ice blocks and the creative wand
+        // in hand, for the owner's look (ids as strings: the End switches only exist on 26.3).
+        String[] showcase = {"simplebuilding:nihilith_switch", "simplebuilding:nihilith_switch[enabled=true]",
+                "simplebuilding:astralit_switch", "simplebuilding:astralit_switch[enabled=true]"};
+        for (int i = 0; i < showcase.length; i++) {
+            script.command("setblock " + (6 + i) + " 0 " + CRATE_Z + " " + showcase[i], true);
+        }
+        script.command("setblock 10 0 " + CRATE_Z + " simplebuilding:chiseled_packed_ice", true);
+        script.command("setblock 11 0 " + CRATE_Z + " simplebuilding:chiseled_blue_ice", true);
+        script.command("setblock 10 1 " + CRATE_Z + " simplebuilding:chiseled_blue_ice", true);
+        script.command("setblock 11 1 " + CRATE_Z + " simplebuilding:chiseled_packed_ice", true);
+        script.command("item replace entity @p weapon.mainhand with simplebuilding:creative_building_wand", true);
+        script.command("tp @a 8.5 1.0 13.6 0.0 35.0");
+        script.awaitPackets();
+        script.idle("let the N35 showcase settle", 20);
+        script.shot("n35-switches-ice-wand");
+        script.command("tp @a 7.5 0.4 14.9 0.0 60.0");
+        script.awaitPackets();
+        script.idle("let the switch close-up settle", 15);
+        script.shot("n35-switches-close");
+        script.command("item replace entity @p weapon.mainhand with minecraft:air", true);
+        script.command("fill 4 0 " + CRATE_Z + " 16 2 " + CRATE_Z + " minecraft:air", true);
         script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
         script.awaitPackets();
     }

@@ -49,12 +49,12 @@ public class EndSignalBlock extends Block {
         builder.add(POWER, ENABLED);
     }
 
-    // Shapes follow the models: powder a flat layer, the switch a thin plate like a pressure plate,
+    // Shapes follow the models: powder a flat layer, the switch a thin plate with its slider (N35: 3 px),
     // the lamp a full cube like the redstone lamp (2026-10-02, the old floating plane and 14 px box
     // did not match what was drawn).
     @Override protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return kind == Kind.POWDER ? Block.box(1, 0, 1, 15, 1, 15)
-                : kind == Kind.SWITCH ? Block.box(2, 0, 2, 14, 2, 14) : Shapes.block();
+                : kind == Kind.SWITCH ? Block.box(2, 0, 2, 14, 3, 14) : Shapes.block();
     }
 
     @Override protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
