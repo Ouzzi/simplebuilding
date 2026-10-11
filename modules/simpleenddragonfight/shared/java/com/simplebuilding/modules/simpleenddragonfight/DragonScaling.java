@@ -54,6 +54,14 @@ public final class DragonScaling {
         return Math.max(0, Math.min(cap, 8 + Math.max(1, players)));
     }
 
+    /**
+     * Lasting difficulty of further summonings (owner 2026-10-11): +step per summoning on health, damage and speed,
+     * linear, never above the cap; multiplies with the player scaling.
+     */
+    public static double summonFactor(double step, double cap, int summons) {
+        return Math.max(1.0, Math.min(Math.max(1.0, cap), 1.0 + step * Math.max(0, summons)));
+    }
+
     /** Whether the half-health threshold is reached (the session latches it per fight). */
     public static boolean half(float health, float max) {
         return max > 0 && health <= max * 0.5f;

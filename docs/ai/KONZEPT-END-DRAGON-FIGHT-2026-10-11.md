@@ -4,14 +4,15 @@
 - **Skalierung:** jeder zählende Spieler = **+1 volle Lebensleiste**. Config-Schalter `raiseBaseHealth` („Basis-Leben erhöhen“, Standard an): HP = **300 × Spielerzahl**; aus: Vanilla-Basis, HP = **200 × Spielerzahl**. Alle anwesenden Spieler zählen voll (**keine AFK-Gewichtung**, Vorschlag E entfällt), Kreativ/Zuschauer zählen nicht. Anpassung sofort beim Betreten (Radius 160, Prüfung jede Sekunde), Absenken erst nach der Schonfrist 60 s; der aktuelle Lebensanteil bleibt beim Umrechnen erhalten; die Bossleiste zeigt den Anteil. Die Modi `sqrt/linear/flat/tiers` (Abschnitt 6) und `hpFactorPerPlayer`/`activityWeighting` entfallen.
 - **Dragonmites:** ab halbem Leben alle 30 s nahe dem Brunnen, Werte und Deckel laut Abschnitt 3/6. Drop statt Enderperle: eigenes Item **„Drachen-Chitin“ / „Dragon Chitin“** (Vanilla-Stil, vorerst Material, Wiki-Hinweis „später für Rezepte“); `maxPearlsPerFight` entfällt.
 - **Eintritts-Animation:** Stufe 1 (Portalring, Aufsteigen, Brüllen mit Schockring, Funken), Warteschlange je Spieler.
+- **Beschwörungen (Zusatz 11.10.):** jede weitere Drachen-Beschwörung (Respawn per Kristallen) macht den Drachen dauerhaft schwerer: **+15 % je Beschwörung** (`summonScaling`, 0–1) auf Leben, Schaden und Tempo, linear, Deckel `summonMaxMultiplier` 3,0 (Tempo zusätzlich `summonSpeedCap` 2,0). Zähler weltweit (SavedData `simpleenddragonfight:dragon_summons` in der Oberwelt, mit letzter Drachen-UUID gegen Doppelzählung); der erste Drache zählt nicht. Multiplikativ mit dem Spieler-Scaling.
 - **Tempo:** Drache allgemein schneller (×1,20, + 0,015 je weiterem Spieler, Deckel 1,35).
 
 ### Umsetzungsnotizen (Stufe 1)
 - `max_health` ist in Vanilla auf 1024 begrenzt: bis 1024 trägt der Attribut-Modifier `simpleenddragonfight:player_scale` (permanent, damit Leben/Anteil einen Neustart überstehen; jede Sekunde neu abgeglichen) das Leben, darüber skaliert ein Schadensfaktor (1024 / Ziel-HP) den Schaden am Drachen, so dass z. B. 4 Spieler effektiv 1200 HP haben. Die Bossleiste zeigt Leben/Max, also den richtigen Anteil.
-- Kristallheilung wächst mit dem Max-Leben (Abschnitt 6 D, Schalter `crystalHealScaling`). Drachenschaden (`damageScalePerPlayer`) bleibt Vanilla (nicht beauftragt).
+- Kristallheilung wächst mit dem Max-Leben (Abschnitt 6 D, Schalter `crystalHealScaling`). Drachenschaden je Spieler (`damageScalePerPlayer`) bleibt Vanilla (nicht beauftragt); nur die Beschwörungen erhöhen ihn.
 - Bossleisten-Puls der Animation (Schritt 4) entfällt: der Bossleisten-Name gehört dem Vanilla-Kampf (privat); alles Übrige rein serverseitig mit Partikel- und Ton-Paketen.
-- Config: `config/simpleenddragonfight.json` (19 Schlüssel, EN/DE-Namen und Tooltips in der Lang-Datei und im Wiki); mit SimpleBuilding zusätzlich der Schalter „Enable Simple End Dragon Fight“ (framework SubMods).
-- Tests: Logik als Gametests (`simpleenddragonfight:*`, 11 Fälle) statt JUnit (Module haben keinen JUnit-Satz).
+- Config: `config/simpleenddragonfight.json` (22 Schlüssel, EN/DE-Namen und Tooltips in der Lang-Datei und im Wiki); mit SimpleBuilding zusätzlich der Schalter „Enable Simple End Dragon Fight“ (framework SubMods).
+- Tests: Logik als Gametests (`simpleenddragonfight:*`, 13 Fälle) statt JUnit (Module haben keinen JUnit-Satz).
 
 Quelle: `.claude/QUEUE.md` Nachtrag 40. Nur Konzept, kein Code. Namen/Methoden der MC-26.3-Klassen (EnderDragon, EndDragonFight, Phasen) sind hier aus Vanilla-Wissen genannt und müssen bei der Umsetzung gegen die Mappings geprüft werden.
 

@@ -11,7 +11,7 @@ RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplebuilding/modules/simpleenddragonfight'
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'DragonFightConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert len(config_keys) == 19, config_keys
+assert len(config_keys) == 22, config_keys
 langs = {}
 for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
@@ -37,7 +37,7 @@ for f in manual['features']:
     for src in f['sources']:
         assert (MODULE.parents[1] / src).is_file(), src
 mixins = json.loads((RES / f'{NS}.mixins.json').read_text(encoding='utf-8'))
-assert mixins['mixins'] == ['EnderDragonMixin']
+assert mixins['mixins'] == ['DragonAttackMixin', 'EnderDragonMixin']
 gen = subprocess.run([sys.executable, str(MODULE / 'tools/gen_textures.py'), '--check'], capture_output=True, text=True)
 assert gen.returncode == 0, gen.stdout + gen.stderr
 print(f'{NS}: bilingual names and {len(config_keys)} config texts, loot, assets, textures and wiki valid')

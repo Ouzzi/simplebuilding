@@ -32,7 +32,7 @@ public final class DragonFightTests {
     private static boolean near(double a, double b) { return Math.abs(a - b) < 0.01; }
 
     private static EnderDragon dragon(GameTestHelper h) {
-        EnderDragon d = EntityType.ENDER_DRAGON.create(h.getLevel(), EntitySpawnReason.COMMAND);
+        EnderDragon d = net.minecraft.world.entity.EntityTypes.ENDER_DRAGON.create(h.getLevel(), EntitySpawnReason.COMMAND);
         h.assertTrue(d != null, "test dragon");
         BlockPos at = h.absolutePos(new BlockPos(1, 12, 1));
         d.snapTo(at.getX() + 0.5, at.getY(), at.getZ() + 0.5, 0f, 0f);
@@ -234,6 +234,44 @@ public final class DragonFightTests {
                 com.simplebuilding.framework.api.SubMods.set(DragonFightRegistry.ID, old);
                 d.discard();
             }
+            h.succeed();
+        });
+        add("summon_counter", h -> {
+            DragonSummons data = new DragonSummons();
+            UUID first = UUID.randomUUID(), second = UUID.randomUUID(), third = UUID.randomUUID();
+            h.assertTrue(data.record(first, false) == 0, "the first dragon is no further summoning");
+            h.assertTrue(data.record(first, false) == 0, "the same dragon again (restart, reload) counts once");
+            h.assertTrue(data.record(second, true) == 1 && data.record(third, true) == 2, "every respawned dragon adds one");
+            h.assertTrue(new DragonSummons().record(first, true) == 1, "a world that killed a dragon before the module counts the next one");
+            var round = DragonSummons.CODEC.encodeStart(com.mojang.serialization.JavaOps.INSTANCE, data).getOrThrow();
+            h.assertTrue(DragonSummons.CODEC.parse(com.mojang.serialization.JavaOps.INSTANCE, round).getOrThrow().record(third, true) == 2, "count and last dragon are saved");
+            h.assertTrue(near(DragonScaling.summonFactor(0.15, 3.0, 0), 1.0) && near(DragonScaling.summonFactor(0.15, 3.0, 2), 1.3)
+                    && near(DragonScaling.summonFactor(0.15, 3.0, 40), 3.0) && near(DragonScaling.summonFactor(0.0, 3.0, 5), 1.0), "+15 % per summoning, capped");
+            h.succeed();
+        });
+        add("summon_scaling", h -> {
+            ServerLevel level = h.getLevel();
+            EnderDragon d = dragon(h);
+            BlockPos center = h.absolutePos(new BlockPos(1, 1, 1));
+            FightSession s = new FightSession();
+            s.setSummons(2);
+            List<Player> two = players(h, 2);
+            s.scan(level, d, center, two, 0);
+            h.assertTrue(near(d.getMaxHealth(), 600 * 1.3) && near(d.getHealth(), 780), "2 players x 2 summonings: 600 x 1.3 = 780 (got " + d.getMaxHealth() + ")");
+            h.assertTrue(near(DragonFightServer.speedFactor(d), 1.215 * 1.3) && near(DragonFightServer.attackFactor(d), 1.3), "speed and attack x1.3");
+            Player strong = two.get(0), plain = two.get(1);
+            float a = strong.getHealth();
+            strong.hurtServer(level, level.damageSources().mobAttack(d), 4f);
+            float lostStrong = a - strong.getHealth();
+            s.setSummons(0);
+            s.scan(level, d, center, two, 20);
+            h.assertTrue(near(d.getMaxHealth(), 600) && near(DragonFightServer.attackFactor(d), 1.0), "no summonings: plain player scaling");
+            float b = plain.getHealth();
+            plain.hurtServer(level, level.damageSources().mobAttack(d), 4f);
+            float lostPlain = b - plain.getHealth();
+            h.assertTrue(lostPlain > 0 && near(lostStrong, lostPlain * 1.3f), "dragon hits 30 % harder (" + lostStrong + " vs " + lostPlain + ")");
+            FightSession.unscale(d);
+            d.discard();
             h.succeed();
         });
         add("no_simplebuilding_needed", h -> {

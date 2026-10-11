@@ -4,6 +4,7 @@
   "package": "com.simplebuilding.modules.simpleenddragonfight.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "DragonAttackMixin",
     "EnderDragonMixin"
   ],
   "injectors": {

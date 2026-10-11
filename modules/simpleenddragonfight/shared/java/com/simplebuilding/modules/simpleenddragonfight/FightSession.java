@@ -50,6 +50,7 @@ public final class FightSession {
     private int step, pause, played;
     private double target;
     private int lastWaveSize;
+    private int summons;
 
     // ---- read access for tests and the wiki-facing messages ----
     public int counted() { return lastSeen.size(); }
@@ -60,6 +61,15 @@ public final class FightSession {
     public long nextWave() { return nextWave; }
     public int lastWaveSize() { return lastWaveSize; }
     public @Nullable UUID dragonId() { return dragonId; }
+    public int summons() { return summons; }
+
+    /** Further summonings so far (world-wide {@link DragonSummons}); applied at the next scaling. */
+    public void setSummons(int summons) { this.summons = Math.max(0, summons); }
+
+    /** The current summoning multiplier on health, damage and speed. */
+    public double summonFactor() {
+        return DragonScaling.summonFactor(DragonFightConfig.summonScaling, DragonFightConfig.summonMaxMultiplier, summons);
+    }
 
     /** One server tick: scan every second, keep the scaling in step, run waves, the queue and crystal healing. */
     public void tick(ServerLevel level, @Nullable EnderDragon dragon, BlockPos center, List<? extends Player> players, long now) {
@@ -115,7 +125,8 @@ public final class FightSession {
         if (attr == null) return;
         double base = attr.getBaseValue();
         int players = DragonScaling.players(n, DragonFightConfig.maxPlayers);
-        target = DragonScaling.targetHealth(DragonFightConfig.raiseBaseHealth, base, players);
+        double summon = summonFactor();
+        target = DragonScaling.targetHealth(DragonFightConfig.raiseBaseHealth, base, players) * summon;
         double applied = DragonScaling.appliedMax(target);
         double oldMax = dragon.getMaxHealth();
         if (Math.abs(applied - oldMax) > 0.01) {
@@ -123,8 +134,9 @@ public final class FightSession {
             attr.addOrReplacePermanentModifier(new AttributeModifier(SCALE_ID, applied - base, AttributeModifier.Operation.ADD_VALUE));
             if (health > 0) dragon.setHealth(DragonScaling.rescale(health, oldMax, dragon.getMaxHealth()));
         }
+        double speed = DragonScaling.speed(DragonFightConfig.speedMultiplier, DragonFightConfig.speedPerPlayer, DragonFightConfig.speedCap, players);
         DragonFightServer.setFactors(dragon.getUUID(), DragonScaling.damageFactor(target),
-                (float) DragonScaling.speed(DragonFightConfig.speedMultiplier, DragonFightConfig.speedPerPlayer, DragonFightConfig.speedCap, players));
+                (float) Math.min(Math.max(speed, DragonFightConfig.summonSpeedCap), speed * summon), (float) summon);
     }
 
     /** Back to Vanilla (module or switch off): removes the modifier, keeps the health share. */

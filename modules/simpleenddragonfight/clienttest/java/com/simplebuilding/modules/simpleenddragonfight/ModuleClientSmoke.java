@@ -24,17 +24,17 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 var base = p.blockPosition().offset(0, 0, 3);
                 for (int dx = -2; dx <= 2; dx++) for (int dz = -1; dz <= 1; dz++) level.setBlockAndUpdate(base.offset(dx, -1, dz), Blocks.END_STONE.defaultBlockState());
                 place(level, DragonFightRegistry.DRAGONMITE.create(level, EntitySpawnReason.COMMAND), base.getX() - 0.2, base.getY(), base.getZ() + 0.5);
-                place(level, EntityType.ENDERMITE.create(level, EntitySpawnReason.COMMAND), base.getX() + 1.4, base.getY(), base.getZ() + 0.5);
+                place(level, net.minecraft.world.entity.EntityTypes.ENDERMITE.create(level, EntitySpawnReason.COMMAND), base.getX() + 1.4, base.getY(), base.getZ() + 0.5);
             });
             context.waitTicks(30);
             context.takeScreenshot("simpleenddragonfight-dragonmite");
             world.getServer().runOnServer(server -> {
                 var level = server.getLevel(Level.OVERWORLD);
                 level.getEntities(DragonFightRegistry.DRAGONMITE, e -> true).forEach(e -> e.discard());
-                level.getEntities(EntityType.ENDERMITE, e -> true).forEach(e -> e.discard());
+                level.getEntities(net.minecraft.world.entity.EntityTypes.ENDERMITE, e -> true).forEach(e -> e.discard());
                 var p = server.getPlayerList().getPlayers().getFirst();
                 var at = p.blockPosition().offset(0, 6, 18);
-                EnderDragon d = EntityType.ENDER_DRAGON.create(level, EntitySpawnReason.COMMAND);
+                EnderDragon d = net.minecraft.world.entity.EntityTypes.ENDER_DRAGON.create(level, EntitySpawnReason.COMMAND);
                 if (d == null) throw new AssertionError("dragon did not spawn");
                 d.snapTo(at.getX() + 0.5, at.getY(), at.getZ() + 0.5, 0f, 0f);
                 d.setNoAi(true);
@@ -46,7 +46,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 world.getServer().runOnServer(server -> {
                     var level = server.getLevel(Level.OVERWORLD);
                     var p = server.getPlayerList().getPlayers().getFirst();
-                    var d = level.getEntities(EntityType.ENDER_DRAGON, e -> true).getFirst();
+                    var d = level.getEntities(net.minecraft.world.entity.EntityTypes.ENDER_DRAGON, e -> true).getFirst();
                     FightSession.playStep(level, d, p, s, 60, 0);
                 });
                 context.waitTicks(1);

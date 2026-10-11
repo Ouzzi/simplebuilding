@@ -41,5 +41,11 @@
   "config.simpleenddragonfight.maxQueued": "Warteschlangen-Länge",
   "config.simpleenddragonfight.maxQueued.tooltip": "Höchstens so viele wartende Eintritts-Animationen; darüber fällt die älteste weg. Standard: 16.",
   "config.simpleenddragonfight.exposeSpawnEgg": "Spawn-Ei im Kreativtab",
-  "config.simpleenddragonfight.exposeSpawnEgg.tooltip": "Zeigt das Dragonmite-Spawn-Ei im Kreativtab. Standard: aus."
+  "config.simpleenddragonfight.exposeSpawnEgg.tooltip": "Zeigt das Dragonmite-Spawn-Ei im Kreativtab. Standard: aus.",
+  "config.simpleenddragonfight.summonScaling": "Schwerer je Beschwörung",
+  "config.simpleenddragonfight.summonScaling.tooltip": "Jeder weitere mit End-Kristallen beschworene Drache bekommt diesen Anteil mehr Leben, Schaden und Tempo, dauerhaft (weltweiter Zähler). 0 = aus. Standard: 0,15 (+15 %).",
+  "config.simpleenddragonfight.summonMaxMultiplier": "Beschwörungs-Deckel",
+  "config.simpleenddragonfight.summonMaxMultiplier.tooltip": "Höchster Faktor durch Beschwörungen. Standard: 3,0.",
+  "config.simpleenddragonfight.summonSpeedCap": "Tempo-Obergrenze mit Beschwörungen",
+  "config.simpleenddragonfight.summonSpeedCap.tooltip": "Höchstes Gesamttempo, wenn Beschwörungen dazukommen. Standard: 2,0."
 }

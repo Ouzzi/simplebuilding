@@ -41,5 +41,11 @@
   "config.simpleenddragonfight.maxQueued": "Queue length",
   "config.simpleenddragonfight.maxQueued.tooltip": "Most waiting entry animations; beyond that the oldest is dropped. Default: 16.",
   "config.simpleenddragonfight.exposeSpawnEgg": "Spawn egg in creative tab",
-  "config.simpleenddragonfight.exposeSpawnEgg.tooltip": "Shows the Dragonmite spawn egg in the creative tab. Default: off."
+  "config.simpleenddragonfight.exposeSpawnEgg.tooltip": "Shows the Dragonmite spawn egg in the creative tab. Default: off.",
+  "config.simpleenddragonfight.summonScaling": "Harder per summoning",
+  "config.simpleenddragonfight.summonScaling.tooltip": "Every further dragon summoned with End crystals adds this share to health, damage and speed, for good (world-wide count). 0 = off. Default: 0.15 (+15 %).",
+  "config.simpleenddragonfight.summonMaxMultiplier": "Summoning cap",
+  "config.simpleenddragonfight.summonMaxMultiplier.tooltip": "Highest multiplier from summonings. Default: 3.0.",
+  "config.simpleenddragonfight.summonSpeedCap": "Speed cap with summonings",
+  "config.simpleenddragonfight.summonSpeedCap.tooltip": "Highest total flight speed once summonings add to it. Default: 2.0."
 }

@@ -18,7 +18,7 @@ import net.minecraft.world.level.dimension.end.EnderDragonFight;
  */
 public final class DragonFightServer {
     private static final FightSession END = new FightSession();
-    /** dragon UUID -> {damage factor, speed factor}; only managed dragons have an entry. */
+    /** dragon UUID -> {damage-taken factor, speed factor, attack factor}; only managed dragons have an entry. */
     private static final Map<UUID, float[]> FACTORS = new ConcurrentHashMap<>();
 
     private DragonFightServer() {}
@@ -34,11 +34,12 @@ public final class DragonFightServer {
             Entity e = end.getEntity(fight.dragonUUID());
             if (e instanceof EnderDragon d && d.isAlive()) dragon = d;
         }
+        if (dragon != null) END.setSummons(DragonSummons.get(server).record(dragon.getUUID(), fight.hasPreviouslyKilledDragon()));
         BlockPos center = dragon != null ? EnderDragonFight.getPodiumLocation(dragon.getFightOrigin()) : BlockPos.ZERO;
         END.tick(end, dragon, center, end.players(), end.getGameTime());
     }
 
-    static void setFactors(UUID dragon, float damage, float speed) { FACTORS.put(dragon, new float[] {damage, speed}); }
+    static void setFactors(UUID dragon, float damage, float speed, float attack) { FACTORS.put(dragon, new float[] {damage, speed, attack}); }
 
     static void clearFactors(UUID dragon) { FACTORS.remove(dragon); }
 
@@ -53,5 +54,15 @@ public final class DragonFightServer {
         float[] f = DragonFightRegistry.on() ? FACTORS.get(dragon.getUUID()) : null;
         if (f == null || dragon.getPhaseManager().getCurrentPhase().isSitting()) return 1.0f;
         return f[1];
+    }
+
+    /** Multiplier on the damage a managed dragon deals (summonings; 1 if unmanaged or the module is off). */
+    public static float attackFactor(EnderDragon dragon) {
+        float[] f = DragonFightServer.factors(dragon);
+        return f == null ? 1.0f : f[2];
+    }
+
+    private static float[] factors(EnderDragon dragon) {
+        return DragonFightRegistry.on() ? FACTORS.get(dragon.getUUID()) : null;
     }
 }

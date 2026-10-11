@@ -21,7 +21,7 @@ public final class DragonFightConfig {
     /** All keys in file order (lang/wiki checks read this list). */
     public static final List<String> KEYS = List.of("enabled", "raiseBaseHealth", "maxPlayers", "countCreative", "leaveGraceSeconds",
             "islandRadius", "speedMultiplier", "speedPerPlayer", "speedCap", "crystalHealScaling", "mitesEnabled", "waveIntervalSeconds",
-            "miteBase", "miteExtraPerTwoPlayers", "maxAliveMites", "animationEnabled", "animationTicks", "maxQueued", "exposeSpawnEgg");
+            "miteBase", "miteExtraPerTwoPlayers", "maxAliveMites", "animationEnabled", "animationTicks", "maxQueued", "exposeSpawnEgg", "summonScaling", "summonMaxMultiplier", "summonSpeedCap");
 
     public static boolean enabled = true;
     /** On: 300 health per counted player; off: the Vanilla base (200) per player. */
@@ -44,6 +44,12 @@ public final class DragonFightConfig {
     public static int animationTicks = 60;
     public static int maxQueued = 16;
     public static boolean exposeSpawnEgg = false;
+    /** Each further summoning: +15 % health, damage and speed (0 = off). */
+    public static double summonScaling = 0.15;
+    /** Highest summoning multiplier. */
+    public static double summonMaxMultiplier = 3.0;
+    /** Highest total flight speed with summonings (the player speed cap stays below it). */
+    public static double summonSpeedCap = 2.0;
 
     private DragonFightConfig() {}
 
@@ -93,6 +99,9 @@ public final class DragonFightConfig {
         animationTicks = clamp(integer(json, "animationTicks", 60), 20, 200);
         maxQueued = clamp(integer(json, "maxQueued", 16), 1, 64);
         exposeSpawnEgg = bool(json, "exposeSpawnEgg", false);
+        summonScaling = clamp(number(json, "summonScaling", 0.15), 0.0, 1.0);
+        summonMaxMultiplier = clamp(number(json, "summonMaxMultiplier", 3.0), 1.0, 10.0);
+        summonSpeedCap = clamp(number(json, "summonSpeedCap", 2.0), 0.5, 3.0);
     }
 
     public static JsonObject toJson() {
@@ -116,6 +125,9 @@ public final class DragonFightConfig {
         o.addProperty("animationTicks", animationTicks);
         o.addProperty("maxQueued", maxQueued);
         o.addProperty("exposeSpawnEgg", exposeSpawnEgg);
+        o.addProperty("summonScaling", summonScaling);
+        o.addProperty("summonMaxMultiplier", summonMaxMultiplier);
+        o.addProperty("summonSpeedCap", summonSpeedCap);
         return o;
     }
 
