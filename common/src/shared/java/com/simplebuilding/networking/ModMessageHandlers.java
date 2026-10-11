@@ -227,11 +227,12 @@ public final class ModMessageHandlers {
 
     public static void handleBuildingWandConfigure(BuildingWandConfigurePayload payload, ServerPlayer player) {
         ItemStack stack = player.getMainHandItem();
-        if (stack.getItem() instanceof BuildingWandItem) {
+        if (stack.getItem() instanceof BuildingWandItem wand) {
             CustomData nbtComponent = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
             CompoundTag nbt = nbtComponent.copyTag();
-            nbt.putInt("SettingsRadius", payload.selectedRadius());
-            nbt.putInt("SettingsAxis", payload.axisMode());
+            // SBG-04: clamp what a manipulated client could send (radius 0..tier maximum, axis mode 0..3).
+            nbt.putInt("SettingsRadius", Math.max(0, Math.min(payload.selectedRadius(), (wand.getWandSquareDiameter() - 1) / 2)));
+            nbt.putInt("SettingsAxis", Math.max(0, Math.min(payload.axisMode(), 3)));
             stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
         }
     }

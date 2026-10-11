@@ -3889,5 +3889,6 @@
   "simplebuilding.testcentre.vehicles.hopper.sub2": "filter like the hopper",
   "simplebuilding.testcentre.vehicles.chest": "Chest carts, boats",
   "simplebuilding.testcentre.vehicles.chest.sub": "slots like the chest",
-  "simplebuilding.testcentre.vehicles.chest.sub2": "36 / 45 / 54"
+  "simplebuilding.testcentre.vehicles.chest.sub2": "36 / 45 / 54",
+  "key.category.simplebuilding.simplemods": "SimpleMods"
 }

@@ -5,8 +5,10 @@ import net.minecraft.resources.Identifier;
 public final class SimplequalityoflifeClient {
  public static KeyMapping autoWalkKey,crawlKey;
  private static boolean walking;
- public static void initClient(){Simplequalityoflife.clientConfig(ClientNetworking::getSyncedConfig);var cat=KeyMapping.Category.register(Identifier.fromNamespaceAndPath("simplequalityoflife","general"));autoWalkKey=new KeyMapping("key.simplequalityoflife.autowalk",com.mojang.blaze3d.platform.InputConstants.KEY_R,cat);crawlKey=new KeyMapping("key.simplequalityoflife.crawl",com.mojang.blaze3d.platform.InputConstants.KEY_P,cat);}
+ public static void initClient(){Simplequalityoflife.clientConfig(ClientNetworking::getSyncedConfig);var cat=KeyMapping.Category.register(Identifier.fromNamespaceAndPath("simplequalityoflife","general"));autoWalkKey=new KeyMapping("key.simplequalityoflife.autowalk",com.mojang.blaze3d.platform.InputConstants.KEY_R,cat);crawlKey=new KeyMapping("key.simplequalityoflife.crawl",com.mojang.blaze3d.platform.InputConstants.UNKNOWN.getValue(),cat);}
+ private static Object lastPlayer;
  public static void tick(Minecraft c){
+  if(c.player!=lastPlayer){lastPlayer=c.player;if(walking)c.options.keyUp.setDown(false);walking=false;}
   if(c.player==null||c.gui.screen()!=null){if(walking)c.options.keyUp.setDown(false);walking=false;return;}
   if(crawlKey.consumeClick())c.player.connection.sendCommand("crawl");
   var config=ClientNetworking.getSyncedConfig();boolean allowed=config!=null&&config.qOL.enableAutowalk;

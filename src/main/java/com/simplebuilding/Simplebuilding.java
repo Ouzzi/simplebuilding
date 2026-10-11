@@ -137,7 +137,9 @@ public class Simplebuilding implements ModInitializer {
             DynamicLightHandler.onDisconnect(handler.player);
             com.simplebuilding.util.SledgehammerUpgrades.onDisconnect(handler.player);
             com.simplebuilding.tweaks.item.EchoCompassItem.onDisconnect(handler.player);
+            com.simplebuilding.util.WandUndo.onDisconnect(handler.player);
         });
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplebuilding.util.WandUndo.clearAll());
     }
 
     private void registerNetworking() {

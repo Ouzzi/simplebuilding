@@ -184,8 +184,26 @@ public final class PlacedBundles {
      * Hotbar) oder zurueck. Nur fuer einen schleichenden Spieler in Reichweite und nur bei mindestens
      * zwei Items. Liefert true, wenn weitergeschaltet wurde.
      */
+    private static final Map<java.util.UUID, Long> LAST_SCROLL = new java.util.HashMap<>();
+
+    private static boolean scrollAllowed(Player player, long now) {
+        if (LAST_SCROLL.size() > 64) {
+            LAST_SCROLL.values().removeIf(t -> now - t > 40 || t > now);
+        }
+        Long last = LAST_SCROLL.get(player.getUUID());
+        if (last != null && now - last < 2 && last <= now) {
+            return false;
+        }
+        LAST_SCROLL.put(player.getUUID(), now);
+        return true;
+    }
+
     public static boolean scroll(Player player, BlockPos pos, int step) {
         Level level = player.level();
+        // SBG-06: build permission (adventure/spectator, border, spawn protection) and at most one step per 2 ticks and player.
+        if (step != 0 && (!player.mayBuild() || !level.mayInteract(player, pos) || !scrollAllowed(player, level.getGameTime()))) {
+            return false;
+        }
         if (step == 0 || !player.isAlive() || player.isSpectator() || !player.isShiftKeyDown()
                 || !level.isLoaded(pos) || !player.isWithinBlockInteractionRange(pos, SCROLL_RANGE_SLACK)
                 || !(level.getBlockEntity(pos) instanceof PlacedBundleBlockEntity be) || be.contents().size() < 2) {

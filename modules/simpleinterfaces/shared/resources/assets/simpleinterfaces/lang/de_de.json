@@ -50,5 +50,6 @@
   "simpleinterfaces.option.screen.merchant": "Handel mit Dorfbewohnern",
   "simpleinterfaces.option.screen.merchant.tooltip": "Handels-Bildschirm in Grün: Angebotsliste als erhabene Kacheln (das gewählte Angebot eingelassen), eingravierte Handelspfeile, eingelassener XP-Balken. Standard: an.",
   "simpleinterfaces.option.screen.player_inventory": "Spieler-Inventar",
-  "simpleinterfaces.option.screen.player_inventory.tooltip": "Dein eigenes Inventar (E) als ein heller Kasten: Rüstungs- und Schild-Slots, eingelassenes Feld hinter deinem Spielermodell, 2x2-Herstellen mit eingraviertem Pfeil. Rezeptbuch und Knöpfe anderer Mods bleiben. Standard: an."
+  "simpleinterfaces.option.screen.player_inventory.tooltip": "Dein eigenes Inventar (E) als ein heller Kasten: Rüstungs- und Schild-Slots, eingelassenes Feld hinter deinem Spielermodell, 2x2-Herstellen mit eingraviertem Pfeil. Rezeptbuch und Knöpfe anderer Mods bleiben. Standard: an.",
+  "key.category.simpleinterfaces.general": "Simple Interfaces"
 }

@@ -3892,5 +3892,6 @@
   "simplebuilding.testcentre.vehicles.hopper.sub2": "Filter wie der Trichter",
   "simplebuilding.testcentre.vehicles.chest": "Güterloren, Boote",
   "simplebuilding.testcentre.vehicles.chest.sub": "Plätze wie die Truhe",
-  "simplebuilding.testcentre.vehicles.chest.sub2": "36 / 45 / 54"
+  "simplebuilding.testcentre.vehicles.chest.sub2": "36 / 45 / 54",
+  "key.category.simplebuilding.simplemods": "SimpleMods"
 }
