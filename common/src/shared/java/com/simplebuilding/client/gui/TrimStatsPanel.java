@@ -70,7 +70,12 @@ public final class TrimStatsPanel {
                 TrimStatsLayout.ICON_WIDTH, TrimStatsLayout.ICON_HEIGHT);
         // Dunkelgrau ohne Schatten wie die Vanilla-Beschriftung "Crafting" daneben: auf #C6C6C6 klar lesbar
         // (Weiss mit Schatten war im Client-Screenshot zu blass).
-        context.text(font, Component.literal(text), panel.textX(), panel.textY(), 0xFF404040, false);
+        // N35: three quarters size, so the field stays narrow beside the vanilla elements.
+        context.pose().pushMatrix();
+        context.pose().translate(panel.textX(), panel.textY());
+        context.pose().scale(TrimStatsLayout.TEXT_SCALE, TrimStatsLayout.TEXT_SCALE);
+        context.text(font, Component.literal(text), 0, 0, 0xFF404040, false);
+        context.pose().popMatrix();
 
         if (hovered) {
             context.setComponentTooltipForNextFrame(font, tooltip(player), mouseX, mouseY);

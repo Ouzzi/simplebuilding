@@ -1,7 +1,8 @@
 """Naturvarianten (QUEUE N24/N25, docs/ai/PLAN-Q-BLOCKS-2026-10-09.md): eigene 16x16-Texturen.
 
 - gemeisseltes Packeis / gemeisseltes Blaueis: Rahmen mit Fase und Rille wie gemeisselte Steinziegel, im Feld ein
-  eingemeisselter Eiskristall (Packeis: achtarmiger Stern mit Seitenzweigen, Blaueis: gestufte Raute).
+  eingemeisselter Eiskristall (Packeis: Kristall mit Diagonalarmen und V-Zweigen, Blaueis: gestufte Raute); N35: an beiden Achsen um die
+  echte Mitte gespiegelt, Licht nur von oben.
   Paletten aus den Vanilla-Eisfarben, die Formen sind eigene.
 - Nautilusschalen-Block (Saeule): Stirnseite = Schnitt durch die Schale (Spirale mit Kammerwaenden, aussen die
   gestreifte Wohnkammer), Seiten = Aussenseite mit welligen Tigerstreifen auf Perlmutt.
@@ -74,60 +75,57 @@ def chiseled_frame(seed):
             else:
                 g[y][x] = 3
             del tl
-    # Eisschlieren im Feld: kurze helle Diagonalen wie Packeis (eigene Lage)
-    for _ in range(5):
-        x, y = 3 + int(r() * 10), 3 + int(r() * 10)
-        for k in range(1 + int(r() * 3)):
-            if 3 <= x + k <= 12 and 3 <= y - k <= 12:
-                g[y - k][x + k] = 4
+    # N35 (Besitzer 2026-10-11: symmetrischer, ausgewogener): keine Zufallsschlieren mehr im Feld, nur je eine
+    # helle Facette in den vier Feldecken, an beiden Achsen gespiegelt.
+    del r
+    for (x, y) in ((3, 3), (12, 3), (3, 12), (12, 12)):
+        g[y][x] = 4
     return g
 
 
+def mirrored(quarter):
+    """Ein Viertelmotiv (Feldpixel x, y <= 7) an beiden Achsen der echten Mitte (7,5) gespiegelt."""
+    cells = set()
+    for (x, y) in quarter:
+        cells |= {(x, y), (15 - x, y), (x, 15 - y), (15 - x, 15 - y)}
+    return cells
+
+
 def carve(g, cells):
-    """Eingemeisselte Linie: Rille dunkel (0), rechts unten daneben ein Lichtpixel (5), falls Feld."""
+    """Eingemeisselte Linie (1 px): Rille dunkel (0), darunter ein Lichtpixel (5) - Licht nur von oben, damit das
+    Motiv links/rechts spiegelgleich bleibt."""
     cells = set(cells)
     for (x, y) in cells:
         g[y][x] = 0
     for (x, y) in cells:
-        hx, hy = x + 1, y + 1
-        if (hx, hy) not in cells and 3 <= hx <= 12 and 3 <= hy <= 12 and g[hy][hx] not in (0,):
-            g[hy][hx] = 5
+        if (x, y + 1) not in cells and 3 <= y + 1 <= 12 and 3 <= x <= 12:
+            g[y + 1][x] = 5
 
 
 def chiseled_packed_ice():
+    """Eiskristall: Diagonalkreuz mit je einem V-Zweig pro Arm, kurze Achsenstriche an den Feldkanten, heller Kern;
+    an beiden Achsen gespiegelt (N35)."""
     g = chiseled_frame(11)
-    c = 7
-    cells = []
-    for d in range(-4, 5):
-        cells += [(c + d, c), (c, c + d)]
-    for d in range(-3, 4):
-        cells += [(c + d, c + d), (c + d, c - d)]
-    # Seitenzweige an den geraden Armen (V-Form kurz vor der Spitze)
-    for sx, sy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-        px, py = c + 3 * sx, c + 3 * sy
-        if sx:
-            cells += [(px + sx, py - 1), (px + sx, py + 1)]
-        else:
-            cells += [(px - 1, py + sy), (px + 1, py + sy)]
-    carve(g, cells)
-    g[c][c] = 6  # Glanzpunkt in der Mitte
+    quarter = [(4, 4), (5, 5), (6, 6)]           # Diagonalarm
+    quarter += [(6, 4), (4, 6)]                   # V-Zweig an der Armspitze
+    quarter += [(7, 6), (6, 7)]                   # kleine Raute um den Kern
+    carve(g, mirrored(quarter))
+    for (x, y) in ((7, 7), (8, 7), (7, 8), (8, 8)):
+        g[y][x] = 6 if y == 7 else 4               # heller Kern, oben glaenzend
     return paint(g, PACKED)
 
 
 def chiseled_blue_ice():
+    """Gestufte Raute: Rille als Raute um die echte Mitte, innen eine erhabene Facette (oben hell, unten dunkler);
+    an beiden Achsen gespiegelt (N35)."""
     g = chiseled_frame(23)
-    c = 7
-    outer = [(x, y) for y in range(3, 13) for x in range(3, 13) if abs(x - c) + abs(y - c) == 4]
-    inner = [(x, y) for y in range(3, 13) for x in range(3, 13) if abs(x - c) + abs(y - c) == 2]
-    carve(g, outer)
-    for (x, y) in [(x, y) for y in range(3, 13) for x in range(3, 13) if abs(x - c) + abs(y - c) < 2]:
-        g[y][x] = 6 if (x, y) == (c - 1, c) or (x, y) == (c, c - 1) else 4
-    for (x, y) in inner:
-        g[y][x] = 1 if x >= c and y >= c else 5
-    g[c][c] = 6
-    # Ecken des Feldes: kleine Facetten
-    for (x, y) in ((3, 3), (12, 3), (3, 12), (12, 12)):
-        g[y][x] = 4 if x + y < 15 else 2
+    outer = [(x, y) for y in range(3, 8) for x in range(3, 8) if (7.5 - x) + (7.5 - y) == 4]
+    carve(g, mirrored(outer))
+    for y in range(3, 13):
+        for x in range(3, 13):
+            d = abs(x - 7.5) + abs(y - 7.5)
+            if d <= 2:
+                g[y][x] = (6 if d <= 1 else 5) if y <= 7 else (4 if d <= 1 else 2)
     return paint(g, BLUE)
 
 

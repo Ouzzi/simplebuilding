@@ -157,6 +157,18 @@ public final class WoodworkClientTest {
         }
         script.command("fill 4 0 " + CRATE_Z + " 16 2 " + CRATE_Z + " minecraft:air", true);
         script.command("kill @e[type=!minecraft:player]", true);
+        // Queue N35: the chiseled ice blocks and the creative wand in hand, for the owner's look.
+        script.command("setblock 10 0 " + CRATE_Z + " simplebuilding:chiseled_packed_ice", true);
+        script.command("setblock 11 0 " + CRATE_Z + " simplebuilding:chiseled_blue_ice", true);
+        script.command("setblock 10 1 " + CRATE_Z + " simplebuilding:chiseled_blue_ice", true);
+        script.command("setblock 11 1 " + CRATE_Z + " simplebuilding:chiseled_packed_ice", true);
+        script.command("item replace entity @p weapon.mainhand with simplebuilding:creative_building_wand", true);
+        script.command("tp @a 10.5 1.2 14.0 0.0 30.0");
+        script.awaitPackets();
+        script.idle("let the N35 showcase settle", 20);
+        script.shot("n35-ice-wand");
+        script.command("item replace entity @p weapon.mainhand with minecraft:air", true);
+        script.command("fill 4 0 " + CRATE_Z + " 16 2 " + CRATE_Z + " minecraft:air", true);
         script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
         script.awaitPackets();
     }

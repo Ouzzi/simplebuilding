@@ -5,8 +5,8 @@ Usage: python tools/textures/creative_items_2026_10_09.py [preview png]
 - creative_blueprint{,_edited,_signed}: the three blueprint states (the owner's settled map sheets) with the
   cyanotype blue turned violet - the creative look - and the creative mark, a small gold four-point star, in the
   free upper right of the sheet. The white house and the red wax seal stay as they are.
-- creative_building_wand: an own wand, not a recolour - the diagonal shaft of the wand family in white quartz
-  with magenta bands, topped by a gold four-point star (the same creative mark) instead of a gem.
+- creative_building_wand (N35, owner 2026-10-11): the form of the wand family (the diamond wand) with its head
+  turned creative magenta-pink - the earlier quartz-and-star wand did not fit the other wands.
 Writes into the main tree and the wiki copy and saves a labelled 16x preview next to the existing items.
 """
 import colorsys
@@ -50,43 +50,21 @@ def star_mark(img, cx, cy):
     return img
 
 
-WAND = [
-    "................",
-    "..........o.....",
-    ".........oYo....",
-    "........oYWYo...",
-    "......ooYWWWYoo.",
-    "........oYWYo...",
-    ".........oYo....",
-    ".......jkho.....",
-    "......jkl.......",
-    ".....jml........",
-    "....jcl.........",
-    "...jgl..........",
-    ".jjcl...........",
-    ".jkl............",
-    "..ll............",
-    "................",
-]
-WAND_PAL = {
-    "o": GOLD_DARK, "Y": GOLD, "W": GOLD_LIGHT,
-    "j": (70, 52, 66, 255),     # shaft outline
-    "k": (240, 234, 228, 255),  # quartz light
-    "m": (205, 196, 190, 255),  # quartz mid
-    "h": (255, 250, 240, 255),  # quartz highlight under the star
-    "l": (128, 112, 118, 255),  # quartz shadow
-    "c": (214, 64, 196, 255),   # magenta band
-    "g": (246, 128, 232, 255),  # magenta band light
-}
-
-
 def wand():
-    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
-    for y, row in enumerate(WAND):
-        for x, ch in enumerate(row):
-            if ch != ".":
-                img.putpixel((x, y), WAND_PAL[ch])
-    return img
+    """N35 (owner 2026-10-11): the form of the other wands - the diamond wand's head and wooden shaft - with the head
+    turned creative magenta-pink (hue moved, a little lighter); the shaft stays wood."""
+    src = Image.open(ITEM / "diamond_building_wand.png").convert("RGBA")
+    out = src.copy()
+    for y in range(16):
+        for x in range(16):
+            r, g, b, a = src.getpixel((x, y))
+            if a == 0:
+                continue
+            h, sat, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+            if 0.4 <= h <= 0.6:
+                nr, ng, nb = colorsys.hsv_to_rgb(0.875, min(1.0, sat * 1.05), min(1.0, v * 1.12))
+                out.putpixel((x, y), (round(nr * 255), round(ng * 255), round(nb * 255), a))
+    return out
 
 
 def build():
@@ -104,7 +82,7 @@ def main():
         d.mkdir(parents=True, exist_ok=True)
         for name, img in after.items():
             img.save(d / f"{name}.png")
-    refs = ["blueprint", "blueprint_edited", "blueprint_signed", "enderite_building_wand"]
+    refs = ["blueprint", "blueprint_edited", "blueprint_signed", "diamond_building_wand"]
     names = list(after)
     s, cell = 10, 16 * 10 + 14
     sheet = Image.new("RGBA", (130 + 4 * cell, 2 * (cell + 22) + 34), (139, 139, 139, 255))
