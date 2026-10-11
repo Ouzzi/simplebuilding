@@ -704,7 +704,7 @@ public class ModBlocks {
      */
     /** Astral/Nihil/Bridge Redstone: vanilla dust's properties (no collision, breaks at once, pistons destroy it). */
     private static BlockBehaviour.Properties signalDust(BlockBehaviour.Properties s) {
-        return s.noCollision().instabreak().pushReaction(PushReaction.DESTROY).noOcclusion().sound(SoundType.AMETHYST)
+        return s.noCollision().instabreak().pushReaction(McVersion.PUSH_DESTROYS).noOcclusion().sound(SoundType.AMETHYST)
                 .isRedstoneConductor((state, world, pos) -> false)
                 .lightLevel(state -> state.getValue(com.simplebuilding.blocks.custom.SignalDustBlock.POWER) > 0 ? 3 : 0);
     }

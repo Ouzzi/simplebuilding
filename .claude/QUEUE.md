@@ -746,4 +746,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Rissiges Eis: beim Zerbrechen keine Wasserquelle; Weltgenerierung: Flecken in Eisseen u. ä. + vereinzelt 1x1-Stellen; Meißel macht normales Eis zu rissigem Eis.
 - [ ] Keramik-Eimer: Tooltip ohne Restgüsse (Abnutzungsbalken zeigt es) – Regel: Füllstand/Haltbarkeit nie doppelt im Tooltip; Lava nur einmal: Lava aufnehmen → spröde Variante, zerbricht beim Ausgießen.
 - [ ] Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.
-- [ ] Nihilith-Signalschalter überarbeiten; Konzept Astral-/Nihil-Redstone erklären.
+- [x] Nihilith-Signalschalter überarbeiten; Konzept Astral-/Nihil-Redstone erklären. (claude-redlines: entfällt durch Nachtrag 36 – Schalter/Lampen entfernt, Konzept in docs/ai/PLAN-REDSTONE-LINIEN-2026-10-11.md und Wiki „Astral-, Nihil- und Brücken-Redstone“)
+
+## Nachtrag 36 (2026-10-11, Besitzer: Astral/Nihil als 2./3. Redstone-Linie)
+- [x] (claude-redlines) Astral- und Nihil-Redstone verhalten sich 1:1 wie Redstone-Draht (alle Vanilla-Quellen speisen, powern dieselben Blöcke, 15→0, Schrägen, Optik); drei getrennte Linien, auch über gepowerte Blöcke (Plan docs/ai/PLAN-REDSTONE-LINIEN-2026-10-11.md).
+- [x] (claude-redlines) Brücken-Redstone (Astralitstaub + Nihilitsplitter + Redstone → 3) verbindet alle drei Linien; Textur aus den drei Farben.
+- [x] (claude-redlines) Astral-/Nihil-Schalter und -Lampen entfernt; alte Blöcke/Items laden als Hebel bzw. Redstone-Lampe (LegacyItemIds.REPLACED_BY_VANILLA); End-Kolben/-Schienen hören auf den Staub ihrer Linie.
+- [x] (claude-redlines) Lang EN/DE, Guide, Wiki, JEI-Info, Simple-Money-Preise, Testzentrale, Gametests (RedstoneLinesTests).
