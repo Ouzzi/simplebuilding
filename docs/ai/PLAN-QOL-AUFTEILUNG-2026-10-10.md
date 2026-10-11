@@ -82,21 +82,21 @@ nicht verteilt), gemeinsame Config-Oberfläche mit je Sub-Mod oberstem Punkt „
 3. **Simple Weather** herauslösen (am wenigsten gekoppelt: 3 Mixins, 2 Optionen, 1 Test, keine
    Netzwerkpakete, keine Befehle) + `framework SubMods` + Super-Mod-Schalter „Simple Weather aktivieren“
    + Bündeln in QoL. ✔ (`claude-q-qolsplit`)
-4. **Simple Loot**: `Vault*Mixin`/Accessoren/`IVaultCooldown`, Befehl `vaultCooldown` in eigene
+4. ✔ (`claude-qol4`) **Simple Loot**: `Vault*Mixin`/Accessoren/`IVaultCooldown`, Befehl `vaultCooldown` in eigene
    `/simpleloot`-Wurzel (QoL-Befehl bleibt als Alias, solange QoL ihn kennt – ohne Import: Alias weg),
    Test `vault*` umziehen.
-5. **Simple Creatures**: Mute/Baby/Piglin-Mixins, Listen-Normalisierung, Tests muting/baby/piglins.
-6. **Simple Farming**: Farmland/Gras/Hacke; bündelt framework (`TransformHints`); `InteractionGuard`-Kopie.
-7. **Simple Tools**: Haltbarkeit, Thrift (Registry + Enchant-Tags + Datapack-JSON, Namensraum
+5. ✔ (`claude-qol4`) **Simple Creatures**: Mute/Baby/Piglin-Mixins, Listen-Normalisierung, Tests muting/baby/piglins.
+6. ✔ (`claude-qol4`) **Simple Farming**: Farmland/Gras/Hacke; bündelt framework (`TransformHints`); `InteractionGuard`-Kopie.
+7. ✔ (`claude-qol4`, Thrift-ID bleibt, siehe unten) **Simple Tools**: Haltbarkeit, Thrift (Registry + Enchant-Tags + Datapack-JSON, Namensraum
    `simpletools:thrift` – **Risiko** bestehende Verzauberungen `simplequalityoflife:thrift` in Welten:
    Thrift bleibt im Namensraum `simplequalityoflife`? Nein: Datenfix über Registry-Alias in der Sub-Mod
    prüfen; sonst Thrift in der Super-Mod lassen), Amboss, Ofen-Lava.
-8. **Simple Movement**: Kriechen (Payload `CrawlStatePayload`), Autowalk-Taste (Keybind-Migration
+8. ✔ (`claude-qol4`) **Simple Movement**: Kriechen (Payload `CrawlStatePayload`), Autowalk-Taste (Keybind-Migration
    `key.simplequalityoflife.*` → `key.simplemovement.*`), Leitern inkl. Klettersicherheit.
-9. **Linked Containers + Easy Shulkers → Simple Interfaces**: `container/*`, `client/Linked*`, Payload,
+9. ✔ (`claude-qol4`, Serverwerte in `config/simpleinterfaces-server.json`) **Linked Containers + Easy Shulkers → Simple Interfaces**: `container/*`, `client/Linked*`, Payload,
    Mixins; Server-Config `linkedContainerRange` (heute QoL, synchronisiert über `ConfigSyncPayload`) bekommt
    eigene Sync in simpleinterfaces (simpleinterfaces wird damit beidseitig statt rein Client).
-10. **QoL aufräumen**: Config-Screen nur noch Sub-Mod-Schalter + Restoptionen, Guide-Seiten je Sub-Mod,
+10. ✔ (`claude-qol4`; Guide = eigene Seiten + Wiki-Seiten aller Sub-Mods über `submods` in tools/guides/module_guides.py) **QoL aufräumen**: Config-Screen nur noch Sub-Mod-Schalter + Restoptionen, Guide-Seiten je Sub-Mod,
     Wiki-Struktur Super-/Sub-Mod.
 
 ## Risiken
@@ -135,3 +135,7 @@ Vorlage ist Simple Weather (Stufe 3): eigenes Modul `com.simplebuilding.modules.
   Client-Start einmalig umgeschrieben (wie `LegacyMigration` in Simple Interfaces).
 - **Partner-Tests:** Tools und Farming laden in ihrem Modultarget SimpleBuilding (Querprüfungen Hammer/Ofen/Breeze-Kopf),
   standalone werden diese Prüfungen übersprungen (`partnerMissing`).
+- **Super-Schalter am Client:** das `config_sync`-Paket trägt auch den Schalter der Super-Mod (`active`), damit die
+  Client-Vorhersage (Leiter, Haltbarkeit, Hacke, Behälter) dem Server folgt.
+- **Thrift** wirkt auch bei abgeschalteter Simple Tools: die Verzauberung ist Datenpaket-Inhalt; ohne den Mixin fiele die
+  Haltbarkeit verzauberter Gegenstände unter ihren Verschleiß.

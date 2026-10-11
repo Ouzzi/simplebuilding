@@ -19,20 +19,6 @@
   },
   "features": [
     {
-      "id": "weather",
-      "sources": [
-        "modules/simpleweather/shared/java/com/simplebuilding/modules/simpleweather/mixin/ServerWeatherMixin.java"
-      ],
-      "en": {
-        "title": "Weather controls (Simple Weather)",
-        "summary": "Moved into the bundled sub-mod Simple Weather (simpleweather): disableWeather (default false) clears rain and thunder; clientRainParticleDensity (default 20, 0–100) is a local visual preference. Old settings are taken over once; \"Enable Simple Weather\" switches it off."
-      },
-      "de": {
-        "title": "Wettersteuerung (Simple Weather)",
-        "summary": "In die gebuendelte Sub-Mod Simple Weather (simpleweather) umgezogen: disableWeather (Standard false) loescht Regen und Gewitter; clientRainParticleDensity (Standard 20, 0–100) ist eine lokale Darstellungseinstellung. Alte Einstellungen werden einmalig uebernommen; \"Simple Weather aktivieren\" schaltet sie ab."
-      }
-    },
-    {
       "id": "config_enableSimpleWeather",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
@@ -61,45 +47,17 @@
       }
     },
     {
-      "id": "config_enableSimpleMovement",
+      "id": "config_enableSimpleLoot",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
-        "title": "enableSimpleMovement",
-        "summary": "Super-mod switch for the bundled sub-mod Simple Movement. Default: true."
+        "title": "enableSimpleLoot",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Loot. Default: true."
       },
       "de": {
-        "title": "enableSimpleMovement",
-        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Movement. Standard: true."
-      }
-    },
-    {
-      "id": "config_enableSimpleTools",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "enableSimpleTools",
-        "summary": "Super-mod switch for the bundled sub-mod Simple Tools. Default: true."
-      },
-      "de": {
-        "title": "enableSimpleTools",
-        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Tools. Standard: true."
-      }
-    },
-    {
-      "id": "config_enableSimpleFarming",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "enableSimpleFarming",
-        "summary": "Super-mod switch for the bundled sub-mod Simple Farming. Default: true."
-      },
-      "de": {
-        "title": "enableSimpleFarming",
-        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Farming. Standard: true."
+        "title": "enableSimpleLoot",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Loot. Standard: true."
       }
     },
     {
@@ -117,17 +75,45 @@
       }
     },
     {
-      "id": "config_enableSimpleLoot",
+      "id": "config_enableSimpleFarming",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
-        "title": "enableSimpleLoot",
-        "summary": "Super-mod switch for the bundled sub-mod Simple Loot. Default: true."
+        "title": "enableSimpleFarming",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Farming. Default: true."
       },
       "de": {
-        "title": "enableSimpleLoot",
-        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Loot. Standard: true."
+        "title": "enableSimpleFarming",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Farming. Standard: true."
+      }
+    },
+    {
+      "id": "config_enableSimpleTools",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "enableSimpleTools",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Tools. Default: true."
+      },
+      "de": {
+        "title": "enableSimpleTools",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Tools. Standard: true."
+      }
+    },
+    {
+      "id": "config_enableSimpleMovement",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "enableSimpleMovement",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Movement. Default: true."
+      },
+      "de": {
+        "title": "enableSimpleMovement",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Movement. Standard: true."
       }
     },
     {
@@ -255,7 +241,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 10,
+    "features": 9,
     "recipes": 1,
     "lootTables": 0,
     "tags": 0,
