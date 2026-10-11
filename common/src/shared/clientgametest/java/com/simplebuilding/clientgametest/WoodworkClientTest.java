@@ -175,7 +175,7 @@ public final class WoodworkClientTest {
             var lapis = shapes.get(1);
             net.minecraft.core.Direction[] facings = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
             for (int row = 0; row < 3; row++) {
-                int z = 4 + row * 2;
+                int z = 11 + row * 2;
                 for (int x = 5; x <= 14; x++) {
                     level.setBlock(new BlockPos(x, 0, z), lapis.checker().defaultBlockState(), 3);
                     level.setBlock(new BlockPos(x, 1, z), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 3);
@@ -184,29 +184,29 @@ public final class WoodworkClientTest {
             for (int i = 0; i < 4; i++) {
                 BlockState stairs = lapis.stairs().defaultBlockState()
                         .setValue(net.minecraft.world.level.block.StairBlock.FACING, facings[i]);
-                level.setBlock(new BlockPos(6 + i, 1, 4), stairs, 3);
-                level.setBlock(new BlockPos(6 + i, 1, 6), stairs.setValue(net.minecraft.world.level.block.StairBlock.HALF,
+                level.setBlock(new BlockPos(6 + i, 1, 11), stairs, 3);
+                level.setBlock(new BlockPos(6 + i, 1, 13), stairs.setValue(net.minecraft.world.level.block.StairBlock.HALF,
                         net.minecraft.world.level.block.state.properties.Half.TOP), 3);
-                level.setBlock(new BlockPos(6 + i, 1, 8), stairs.setValue(net.minecraft.world.level.block.StairBlock.SHAPE,
+                level.setBlock(new BlockPos(6 + i, 1, 15), stairs.setValue(net.minecraft.world.level.block.StairBlock.SHAPE,
                         net.minecraft.world.level.block.state.properties.StairsShape.OUTER_RIGHT), 3);
             }
-            level.setBlock(new BlockPos(11, 1, 4), lapis.slab().defaultBlockState(), 3);
-            level.setBlock(new BlockPos(12, 1, 4), lapis.slab().defaultBlockState()
+            level.setBlock(new BlockPos(11, 1, 11), lapis.slab().defaultBlockState(), 3);
+            level.setBlock(new BlockPos(12, 1, 11), lapis.slab().defaultBlockState()
                     .setValue(net.minecraft.world.level.block.SlabBlock.TYPE, net.minecraft.world.level.block.state.properties.SlabType.TOP), 3);
-            level.setBlock(new BlockPos(13, 1, 4), lapis.checker().defaultBlockState(), 3);
+            level.setBlock(new BlockPos(13, 1, 11), lapis.checker().defaultBlockState(), 3);
             // carved wood: sherd north + west, own motif east + south
             WoodBlocks.Family oak = WoodBlocks.family(WoodKind.OAK);
-            level.setBlock(new BlockPos(5, 1, 8), oak.carved().only(Direction.NORTH, SherdMotif.ANGLER)
+            level.setBlock(new BlockPos(5, 1, 15), oak.carved().only(Direction.NORTH, SherdMotif.ANGLER)
                     .setValue(CarvedLogBlock.EAST, CarvedLogBlock.Carving.WOOD).setValue(CarvedLogBlock.SOUTH, CarvedLogBlock.Carving.WOOD)
                     .setValue(CarvedLogBlock.WEST, CarvedLogBlock.Carving.SHERD), 3);
         });
         script.awaitPackets();
         String[][] views = {
-                {"n34-checker-front", "9.5 3.2 1.5 0.0 40.0"},
-                {"n34-checker-above", "9.5 6.0 6.0 0.0 90.0"},
-                {"n34-checker-low", "4.0 1.8 7.0 -60.0 30.0"},
-                {"n34-carved-east", "8.0 1.9 8.5 90.0 20.0"},
-                {"n34-carved-south", "5.5 2.2 11.0 180.0 20.0"},
+                {"n34-checker-front", "9.5 2.4 8.0 0.0 35.0"},
+                {"n34-checker-above", "9.5 3.6 13.0 0.0 90.0"},
+                {"n34-checker-low", "3.5 1.7 13.0 -90.0 25.0"},
+                {"n34-carved-east", "8.0 2.0 15.5 90.0 20.0"},
+                {"n34-carved-south", "5.5 2.2 18.5 180.0 20.0"},
         };
         for (String[] view : views) {
             script.command("tp @a " + view[1]);
@@ -214,7 +214,7 @@ public final class WoodworkClientTest {
             script.idle("let " + view[0] + " settle", 15);
             script.shot(view[0]);
         }
-        script.command("fill 4 0 3 15 2 9 minecraft:air", true);
+        script.command("fill 4 0 10 15 2 16 minecraft:air", true);
         script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
         String[] items = {"oak_cauldron", "dark_oak_cauldron", "acacia_octet", "andesite_octet", "lapis_quartz_checker_stairs",
                 "lapis_quartz_checker_slab", "carved_oak_log", "stone_bricks"};
