@@ -44,19 +44,26 @@ public final class RedstoneLinesClientTest {
         });
         script.awaitPackets();
         script.idle("let the lamps switch", 10);
-        script.awaitPackets();
-        script.act("lit lamps at the lever, bridge lanes; dark lamp behind the other line (as the client sees them)", client -> {
-            var level = client.level;
-            for (int i = 0; i < LANES.length; i++) {
-                boolean lit = level.getBlockState(new BlockPos(X0 + 13, 0, LANES[i])).getValue(RedstoneLampBlock.LIT);
-                if (lit != (i < 3)) throw new AssertionError("lamp of lane " + i + " is " + (lit ? "lit" : "dark"));
-            }
-        });
         script.command("tp @a 27.0 6.0 41.0 180.0 45.0");
         script.awaitPackets();
         script.awaitChunks();
         script.idle("let the dust settle in the picture", 20);
         script.shot("redstone-lines");
+        script.awaitPackets();
+        script.act("lit lamps at the lever, bridge lanes; dark lamp behind the other line (as the client sees them)", client -> {
+            var level = client.level;
+            for (int i = 0; i < LANES.length; i++) {
+                boolean lit = level.getBlockState(new BlockPos(X0 + 13, 0, LANES[i])).getValue(RedstoneLampBlock.LIT);
+                if (lit != (i < 3)) {
+                    StringBuilder powers = new StringBuilder();
+                    for (int x = X0; x <= X0 + 13; x++) {
+                        BlockState state = level.getBlockState(new BlockPos(x, 0, LANES[i]));
+                        powers.append(' ').append(state.hasProperty(SignalDustBlock.POWER) ? String.valueOf(state.getValue(SignalDustBlock.POWER)) : state.getBlock().toString());
+                    }
+                    throw new AssertionError("lamp of lane " + i + " is " + (lit ? "lit" : "dark") + "; lane:" + powers);
+                }
+            }
+        });
         onServer(script, "clear the lanes", server -> {
             for (int z : LANES) for (int x = X0; x <= X0 + 14; x++) {
                 server.overworld().setBlock(new BlockPos(x, 0, z), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
