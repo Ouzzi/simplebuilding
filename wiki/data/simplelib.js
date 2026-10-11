@@ -8,7 +8,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
   "mod": {
     "id": "simplelib",
     "name": "SimpleLib",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "minecraftLines": [
       "26.3"
     ],

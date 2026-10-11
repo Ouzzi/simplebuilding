@@ -61,6 +61,7 @@ window.WIKI_MODULES = [
       "simplemodels",
       "simplequalityoflife",
       "simpleriding",
+      "simplesandwiches",
       "simplesounds",
       "simpletweaks",
       "simplevisuals",
@@ -255,7 +256,7 @@ window.WIKI_MODULES = [
     "id": "simplelib",
     "displayName": "SimpleLib",
     "description": "Shared content bundled by SimpleBuilding and Simple Sandwiches: crucibles heated by the block below, and warm food.",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -264,7 +265,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "667cfaf88e27"
+    "dataHash": "6b28bc6990ca"
   },
   {
     "id": "simpleinterfaces",
