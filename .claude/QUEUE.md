@@ -829,4 +829,11 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Screenshot buggy_end.webp (n40/): verbuggt aussehende Fläche im End prüfen.,
 ## Nachtrag 39 (2026-10-11, Besitzer)
 - [x] Tiegel-Hitboxen (alle Stufen, mit angedocktem Fass, SimpleLib + SB): Henkel fehlten im Umriss und drehten nicht mit; Rohling-Stufen waren Vollwürfel; Innenraum-Interaktionsform ergänzt; Gametest `crucible_hitboxes_match_model` (claude-n39-fix)
-- [x] Verstärker einmal durchgeprüft (Funktion/Kette/Noten/Hitbox/Texturen/Tests: ohne Befund außer fehlendem Tooltip); Tooltip für Musik-/Noten-Verstärker (en/de) + Gametest `amplifiers_have_tooltip_and_full_cube_hitbox` (claude-n39-fix)
+- [x] Verstärker einmal durchgeprüft (Funktion/Kette/Noten/Hitbox/Texturen/Tests: ohne Befund außer fehlendem Tooltip); Tooltip für Musik-/Noten-Verstärker (en/de) + Gametest `amplifiers_have_tooltip_and_full_cube_hitbox` (claude-n39-fix),
+- [ ] Sculk Jaw: Spieler noch langsamer; Blindheits-Dauer wächst exponentiell mit der Zeit drin (raus innerhalb 2 s ≈ 3 s, 3 s ≈ 5 s, max. 60 s); geschlossen die Knochen-Zähne zeigen.
+- [x] Tooltips überall überarbeiten: nur an wichtigen Stellen Beschreibung, sonst nur Name; Beschreibungen sehr kurz. (claude-n38-text; Regel AGENTS.md Punkt 14)
+- [ ] Schachfiguren: flache Variante heißt "Flat …" (Flat Rook, Flat Knight, …).
+- [ ] Wayfinder-Karten-GUI: so groß wie möglich; seitliche Lesezeichen-Buttons schöner und weniger gedrängt (rechts), Buttons allgemein hübscher.
+- [ ] Nether-/End-Wayfinder-Karten zeigen in der Hand die Oberwelt → stattdessen Störsignal.
+- [ ] Deceiver: doppeltes Leben; nach Verwandlung in größeren Mob dessen Hitbox.
+- [x] Guide-Bücher erweitern, alles aktuell. (claude-n38-text: Keramik-Eimer, Kupfereimer-Regeln, Auto-Schmied, geschnitztes Holz, Holzkessel, rissiges Eis, Schwefel-/Kupferfeuer, Schwarzpulver, Kisten, Sculk Jaw, Astral-Preise; Fragentisch/Tiefenheuler: Module ohne Guide)

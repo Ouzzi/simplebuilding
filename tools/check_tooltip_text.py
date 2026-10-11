@@ -27,6 +27,8 @@ def main():
         for key, value in data.items():
             if "tooltip" not in key.lower() and key != "gui.simplebuilding.trim_stats.cap":
                 continue
+            if "autoconfig" in key or ".option." in key or ".config." in key or key.startswith("jei."):
+                continue  # settings-screen tooltips are not item tooltips (AGENTS.md rule 14)
             assert key in other, f"Missing translation: {path}: {key}"
             assert max(map(len, value.splitlines()), default=0) <= 48, f"Long tooltip: {path}: {key}"
             if key.startswith("tooltip.") or key.startswith("simplebuilding.blueprint.tooltip."):
