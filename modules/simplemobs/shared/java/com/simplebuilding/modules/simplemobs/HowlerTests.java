@@ -193,11 +193,14 @@ final class HowlerTests {
             float before = howler.getHealth();
             howler.hurtServer(l, src, 10f);
             float plain = before - howler.getHealth();
-            howler.setInvulnerableTime(0);
-            howler.startBite();
-            before = howler.getHealth();
-            howler.hurtServer(l, src, 10f);
-            float weak = before - howler.getHealth();
+            // a second Howler, so hurt cooldown frames do not mix in
+            HowlerEntity biting = h.spawn(MobsRegistry.HOLLOW_HOWLER, 5, 1, 5);
+            biting.setNoAi(true);
+            biting.startBite();
+            before = biting.getHealth();
+            biting.hurtServer(l, src, 10f);
+            float weak = before - biting.getHealth();
+            biting.discard();
             h.assertTrue(Math.abs(weak - plain * 1.5f) < 0.01f, "hits on opening jaws deal x1.5: " + plain + " -> " + weak);
             var p = h.absolutePos(new BlockPos(3, 1, 3));
             player.snapTo(p.getX() + 8.5, p.getY(), p.getZ() + 0.5);
