@@ -1,8 +1,0 @@
-{
-  "parent": "simplebuilding:block/checker_cells/127",
-  "textures": {
-    "side": "simplebuilding:block/polished_astralit_checker",
-    "side_mirror": "simplebuilding:block/polished_astralit_checker_mirror",
-    "particle": "simplebuilding:block/polished_astralit_checker"
-  }
-}

@@ -8,8 +8,8 @@ grid, so here every (half, facing, shape) gets its own model made of 8 px cells;
 window the full block shows for that cell (normal or mirror texture chosen by cell parity). No x/y/uvlock in the blockstates.
 
   models/block/checker_cells/<mask>.json        shared template, mask = 8-bit cell occupancy (cell i,j,k = bit i+2j+4k)
-  models/block/<checker>_<stairs|slab>_<mask>.json   textures only; <checker>_stairs / _slab / _slab_top = the item/straight models
-  blockstates/<checker>_stairs.json, <checker>_slab.json
+The per-material models (<checker>_stairs_<mask>, <checker>_slab_<mask>, parent = the template, textures only) and the
+blockstates come from datagen (ModModelProvider.registerCheckerShapes, mask rule checkerStairMask = stair_mask here).
 --check compares instead of writing."""
 import glob
 import json
@@ -79,35 +79,38 @@ def js(data):
     return (json.dumps(data, indent=2) + '\n').encode('utf-8')
 
 
+def stair_mask(facing, half, shape):
+    """Same rule as ModModelProvider.checkerStairMask (datagen): the shape's cells for a facing/half/shape."""
+    fx, fz = {'east': (1, 0), 'south': (0, 1), 'west': (-1, 0), 'north': (0, -1)}[facing]
+    rx, rz = -fz, fx  # clockwise seen from above
+    cells = set()
+    for i in (0, 1):
+        for k in (0, 1):
+            cx, cz = 2 * i - 1, 2 * k - 1
+            front, right, left = cx * fx + cz * fz, cx * rx + cz * rz, -(cx * rx + cz * rz)
+            high = {'straight': front > 0, 'outer_right': front > 0 and right > 0, 'outer_left': front > 0 and left > 0,
+                    'inner_right': front > 0 or right > 0, 'inner_left': front > 0 or left > 0}[shape]
+            cells.add((i, 0 if half == 'bottom' else 1, k))
+            if high:
+                cells.add((i, 1 if half == 'bottom' else 0, k))
+    return mask_of(cells)
+
+
 def build():
+    """Only the shared cell templates; the per-material models and blockstates come from datagen (ModModelProvider)."""
     out = {}
     names = sorted(os.path.basename(p)[:-len('_stairs.json')] for p in glob.glob(os.path.join(GENERATED, '*_checker_stairs.json')))
+    # cross-check the rule against the Vanilla blockstate rotations (x then y) once per run
+    with open(os.path.join(GENERATED, f'{names[0]}_stairs.json')) as f:
+        states = json.load(f)['variants']
     used = set()
-    for name in names:
-        tex = {'side': f'{NS}:block/{name}', 'side_mirror': f'{NS}:block/{name}_mirror', 'particle': f'{NS}:block/{name}'}
-        model = lambda kind, mask: f'{NS}:block/{name}_{kind}_{mask}'
-        stairs, slab = {}, {}
-        # stairs
-        with open(os.path.join(GENERATED, f'{name}_stairs.json')) as f:
-            states = json.load(f)['variants']
-        for key, v in states.items():
-            shape = dict(p.split('=') for p in key.split(','))['shape']
-            m = mask_of(rotate(BASE[shape], v.get('x', 0), v.get('y', 0)))
-            used.add(m)
-            out[f'models/block/{name}_stairs_{m}.json'] = js({'parent': f'{NS}:block/checker_cells/{m}', 'textures': tex})
-            stairs[key] = {'model': model('stairs', m)}
-        out[f'blockstates/{name}_stairs.json'] = js({'variants': stairs})
-        straight = mask_of(STRAIGHT)
-        out[f'models/block/{name}_stairs.json'] = js({'parent': f'{NS}:block/checker_cells/{straight}', 'textures': tex})
-        # slabs (item = bottom)
-        bottom, top = mask_of({(i, 0, k) for i in (0, 1) for k in (0, 1)}), mask_of({(i, 1, k) for i in (0, 1) for k in (0, 1)})
-        for kind, m, file in (('bottom', bottom, f'{name}_slab'), ('top', top, f'{name}_slab_top')):
-            used.add(m)
-            out[f'models/block/{file}.json'] = js({'parent': f'{NS}:block/checker_cells/{m}', 'textures': tex})
-        out[f'blockstates/{name}_slab.json'] = js({'variants': {
-            'type=bottom': {'model': f'{NS}:block/{name}_slab'}, 'type=top': {'model': f'{NS}:block/{name}_slab_top'},
-            'type=double': {'model': f'{NS}:block/{name}'}}})
-    used.add(mask_of(STRAIGHT))
+    for key, v in states.items():
+        props = dict(p.split('=') for p in key.split(','))
+        by_rotation = mask_of(rotate(BASE[props['shape']], v.get('x', 0), v.get('y', 0)))
+        by_rule = stair_mask(props['facing'], props['half'], props['shape'])
+        assert by_rotation == by_rule, (key, by_rotation, by_rule)
+        used.add(by_rule)
+    used |= {mask_of({(i, 0, k) for i in (0, 1) for k in (0, 1)}), mask_of({(i, 1, k) for i in (0, 1) for k in (0, 1)})}
     for m in used:
         out[f'models/block/checker_cells/{m}.json'] = js(template(m))
     return out

@@ -1,8 +1,0 @@
-{
-  "parent": "simplebuilding:block/checker_cells/253",
-  "textures": {
-    "side": "simplebuilding:block/lapis_quartz_checker",
-    "side_mirror": "simplebuilding:block/lapis_quartz_checker_mirror",
-    "particle": "simplebuilding:block/lapis_quartz_checker"
-  }
-}
