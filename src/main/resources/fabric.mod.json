@@ -168,6 +168,16 @@
     "jade": "*",
     "appleskin": "*",
     "mousetweaks": "*",
-    "trinkets_updated": "*"
+    "trinkets_updated": "*",
+    "simplemaps": "*",
+    "simplequestionary": "*",
+    "simpleriding": "*",
+    "simplesandwiches": "*",
+    "simpletweaks": "*",
+    "simplemoney": "*",
+    "simplefun": "*",
+    "simpledimension": "*",
+    "simpletrims": "*",
+    "simplemobs": "*"
   }
 }

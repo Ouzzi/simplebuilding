@@ -6,6 +6,10 @@ public final class Visuals {
  public static final Path CONFIG_PATH=Path.of("config/simplevisuals.json");
  public static SimplevisualsConfig CONFIG=new SimplevisualsConfig();
  private static volatile boolean serverFormatting=true;
+ /** Super-mod switch "Enable Simple Aesthetics" (framework SubMods): off = every visible client effect and the anvil colour codes are inert; runtime check only. */
+ public static boolean on(){return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID);}
+ /** Pure gate: a cosmetic option takes effect only while the super-mod switch is on. */
+ public static boolean active(boolean option){return option&&on();}
  public static boolean serverFormatting(){return serverFormatting;}
  /** Called by the authorized server command, never by the cosmetic config screen. */
  public static void setServerFormatting(boolean value){serverFormatting=value;}

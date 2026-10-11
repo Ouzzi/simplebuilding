@@ -4,6 +4,8 @@ import java.nio.file.*;
 public final class SimpleMoney {
  public static final String MOD_ID="simplemoney";
  public static Config config=new Config();
+ /** Super-mod switch "Enable Simple Money" (framework SubMods): off = items stay registered but inert (no tab entries, loot, trades, link offers). */
+ public static boolean on() { return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID); }
  public static final class Config { public Trades trades=new Trades(); public Links links=new Links(); }
  public static final class Links {
   public static final int DEFAULT_BILLS_PER_HOUR=1;
@@ -39,6 +41,7 @@ public final class SimpleMoney {
   try {
    if(configFile!=null && !Files.getLastModifiedTime(configFile).equals(lastRead)) loadConfig(configFile.getParent());
   } catch(java.io.IOException e) { throw new IllegalStateException("Cannot inspect "+configFile,e); }
+  if(!on()) return false;
   if(flag.startsWith("links:")) return MoneyLinks.enabled(flag.substring(6));
   return switch(flag) {case "enableVillagerTrades" -> config.trades.enableVillagerTrades; case "enableWanderingTrades" -> config.trades.enableWanderingTrades; default -> false;};
  }

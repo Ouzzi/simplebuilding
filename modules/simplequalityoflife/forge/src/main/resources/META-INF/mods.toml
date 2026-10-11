@@ -38,3 +38,10 @@ mandatory=true
 versionRange="[0,)"
 ordering="AFTER"
 side="BOTH"
+
+[[dependencies.simplequalityoflife]]
+modId="simpleinterfaces"
+mandatory=true
+versionRange="[0,)"
+ordering="AFTER"
+side="BOTH"

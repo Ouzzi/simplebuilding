@@ -22,7 +22,7 @@ public abstract class YeetMixin {
       boolean throwRandomly,
       net.minecraft.util.Prediction prediction,
       CallbackInfoReturnable<ItemEntity> cir) {
-    if (!SimplefunCommon.getConfig().fun.enableYeet) return;
+    if (!SimplefunCommon.on() || !SimplefunCommon.getConfig().fun.enableYeet) return;
 
     ItemEntity itemEntity = cir.getReturnValue();
     if (itemEntity == null) return;

@@ -89,9 +89,12 @@ public final class MobsRegistry {
         return longSilencePotion;
     }
 
+    /** Super-mod switch "Enable Simple Mobs" (framework SubMods): off = mobs/items stay registered but inert (no natural spawns, ritual, silence, tab entries). */
+    public static boolean on() { return com.simplebuilding.framework.api.SubMods.enabled(ID); }
+
     /** Whether a living entity carries Silence (used by the dampening mixin; false before registration). */
     public static boolean silenced(LivingEntity living) {
-        return silenceHolder != null && living.hasEffect(silenceHolder);
+        return on() && silenceHolder != null && living.hasEffect(silenceHolder);
     }
 
     /** Fabric: direct registration. */

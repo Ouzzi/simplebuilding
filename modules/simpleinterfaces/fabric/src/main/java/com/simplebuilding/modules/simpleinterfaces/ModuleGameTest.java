@@ -11,6 +11,7 @@ public final class ModuleGameTest {
     @GameTest public void styleRegistry(GameTestHelper h) { ContainerTests.registry(h); }
     @GameTest public void blockPalettes(GameTestHelper h) { ContainerTests.palettes(h); }
     @GameTest public void boxMotifs(GameTestHelper h) { ContainerTests.motifs(h); }
+    @GameTest public void subModSwitch(GameTestHelper h) { ContainerTests.subModSwitch(h); }
     @GameTest public void configDefaults(GameTestHelper h) { ContainerTests.config(h); }
     @GameTest public void legacyMigration(GameTestHelper h) { ContainerTests.legacyMigration(h); }
     @GameTest public void styleToggle(GameTestHelper h) { ContainerTests.styleToggle(h); }

@@ -45,6 +45,8 @@
   "text.autoconfig.simplequalityoflife.option.qOL.piglinsIgnoreGoldTools.@Tooltip": "Piglins greifen nicht an, wenn du goldene\nWerkzeuge oder Waffen hältst. Standard: true.\nAngriffe und Behälterinteraktionen können\nPiglins weiterhin verärgern.",
   "text.autoconfig.simplequalityoflife.option.enableSimpleWeather": "Simple Weather aktivieren",
   "text.autoconfig.simplequalityoflife.option.enableSimpleWeather.@Tooltip": "Gebündelte Sub-Mod: Wetterschalter und\nRegendichte, Einstellungen in der eigenen\nConfig von Simple Weather. Standard: true.",
+  "text.autoconfig.simplequalityoflife.option.enableSimpleInterfaces": "Simple Interfaces aktivieren",
+  "text.autoconfig.simplequalityoflife.option.enableSimpleInterfaces.@Tooltip": "Gebündelte Sub-Mod: der Simple-Stil für\nVanilla-Behälterfenster, Einstellungen in\nder eigenen Config von Simple Interfaces.\nStandard: true.",
   "key.category.simplequalityoflife.general": "Simple Quality of Life",
   "key.category.simplequalityoflife.main": "Simple Quality of Life",
   "key.simplequalityoflife.autowalk": "Automatisch Gehen",

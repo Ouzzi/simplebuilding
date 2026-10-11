@@ -22,7 +22,7 @@ public class ItemMixin {
       Player player,
       InteractionHand hand,
       CallbackInfoReturnable<InteractionResult> cir) {
-    if (!SimplefunCommon.getConfig().fun.enableThrowableBricks) {
+    if (!SimplefunCommon.on() || !SimplefunCommon.getConfig().fun.enableThrowableBricks) {
       return;
     }
     Item self = (Item) (Object) this;

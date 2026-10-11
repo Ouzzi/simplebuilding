@@ -156,6 +156,7 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!com.simplesandwiches.Sandwiches.on()) return;
         BlockState next = next(state);
         if (next == null) return;
         level.setBlock(pos, next, Block.UPDATE_ALL);
@@ -178,6 +179,7 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
+        if (!com.simplesandwiches.Sandwiches.on()) return InteractionResult.PASS;
         Content content = state.getValue(CONTENT);
         ItemStack filled = content == Content.MILK ? filledContainer(stack) : ItemStack.EMPTY;
         if ((stack.is(Items.BUCKET) && (content == Content.MILK || content == Content.SPOILED)) || !filled.isEmpty()) {
@@ -244,6 +246,7 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
 
     /** Empty cauldron + milk bucket (registered on {@code CauldronInteractions.EMPTY}). */
     public static InteractionResult fillWithMilk(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack stack) {
+        if (!com.simplesandwiches.Sandwiches.on()) return InteractionResult.PASS;
         if (!level.isClientSide()) {
             player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, emptiedContainer(stack)));
             start(level, pos, Content.MILK);

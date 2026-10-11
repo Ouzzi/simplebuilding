@@ -45,6 +45,8 @@
   "text.autoconfig.simplequalityoflife.option.qOL.piglinsIgnoreGoldTools.@Tooltip": "Piglins won't attack if you hold gold tools\nor weapons. Default: true. Attacks and\ncontainer interactions can still anger\npiglins.",
   "text.autoconfig.simplequalityoflife.option.enableSimpleWeather": "Enable Simple Weather",
   "text.autoconfig.simplequalityoflife.option.enableSimpleWeather.@Tooltip": "Bundled sub-mod: weather switch and rain\ndensity, settings in Simple Weather's own\nconfig. Default: true.",
+  "text.autoconfig.simplequalityoflife.option.enableSimpleInterfaces": "Enable Simple Interfaces",
+  "text.autoconfig.simplequalityoflife.option.enableSimpleInterfaces.@Tooltip": "Bundled sub-mod: the Simple style for\nVanilla container screens, settings in\nSimple Interfaces' own config. Default: true.",
   "key.category.simplequalityoflife.general": "Simple Quality of Life",
   "key.category.simplequalityoflife.main": "Simple Quality of Life",
   "key.simplequalityoflife.autowalk": "Auto Walk",

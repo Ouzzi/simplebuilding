@@ -52,6 +52,7 @@ public final class ClaimTests {
         TESTS.put("claims_vanilla_border",ClaimTests::vanilla);
         TESTS.put("claims_bucket_entity_hooks",ClaimTests::bucketsAndEntities);
         TESTS.put("claims_disabled_hooks",ClaimTests::disabledHooks);
+        TESTS.put("sub_mod_switch",ClaimTests::subModSwitch);
         TESTS.put("claims_bed_footprint",ClaimTests::bed);
         TESTS.put("claims_legacy_atomic_roundtrip",ClaimTests::persistence);
         TESTS.put("claims_malformed_preserved",ClaimTests::malformed);
@@ -217,6 +218,24 @@ public final class ClaimTests {
     }
 
     private ClaimTests() {}
+    /** Super-mod switch "Enable Simple Tweaks" off: registries stay, claims protect nothing; restored afterwards. */
+    static void subModSwitch(GameTestHelper h) {
+        var sw=com.simplebuilding.framework.api.SubMods.enabled("simpletweaks");
+        try {
+            with(h,c->{
+                var level=h.getLevel();var base=h.absolutePos(new BlockPos(2,3,2));var inside=new BlockPos((base.getX()>>4)*16+16,base.getY(),(base.getZ()>>4)*16+8);
+                var owner=player(h,inside.east(3));var stranger=player(h,inside.west(3));
+                yes(h,c.create(new ClaimStore.Key(level.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Claim fixture");
+                yes(h,!Claims.allow(stranger,level,inside),"Claim protects while on");
+                com.simplebuilding.framework.api.SubMods.set("simpletweaks",false);
+                yes(h,!Claims.on()&&!Claims.enabled(level.getServer()),"Switch off reaches Simple Tweaks");
+                yes(h,net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletweaks","claim_deed"))!=Items.AIR,"Registries stay");
+                yes(h,Claims.allow(stranger,level,inside)&&Claims.allowEntity(stranger,owner),"Claims inert while off");
+            });
+        } finally { com.simplebuilding.framework.api.SubMods.set("simpletweaks",sw); }
+        yes(h,Claims.on()==sw,"Switch restored");
+        h.succeed();
+    }
     static void disabledHooks(GameTestHelper h) {
         with(h,ClaimConfig.DEFAULT,c->{
             var level=h.getLevel();var pos=h.absolutePos(new BlockPos(1,3,1));var p=player(h,pos);

@@ -41,6 +41,7 @@ public final class ForgeExample {
             event.put(MobsRegistry.HOLLOW_HOWLER, HowlerEntity.createAttributes().build());
         });
         BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
+            if (!MobsRegistry.on()) return;
             if (e.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
                 e.accept(MobsRegistry.EGG);
                 putAfter(e, new ItemStack(Items.HOGLIN_SPAWN_EGG), new ItemStack(MobsRegistry.HOWLER_EGG));

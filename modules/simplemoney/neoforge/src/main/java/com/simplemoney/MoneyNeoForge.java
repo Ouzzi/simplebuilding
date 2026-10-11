@@ -27,7 +27,7 @@ public final class MoneyNeoForge {
    var anchor=new net.minecraft.world.item.ItemStack(MoneyItems.SEARCH_ANCHOR);
    if(!event.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS)||!event.getParentEntries().contains(anchor))return;
    var previous=anchor;
-   for(var stack:MoneyItems.tabStacks()){event.insertAfter(previous,stack,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);previous=stack;}
+   for(var stack:MoneyItems.vanillaStacks()){event.insertAfter(previous,stack,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);previous=stack;}
   });
   NeoForge.EVENT_BUS.addListener((LootTableLoadEvent event)->MoneyLoot.inject(event.getName().toString(),pool->event.getTable().addPool(pool.build())));
  }

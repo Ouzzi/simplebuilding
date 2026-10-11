@@ -1,0 +1,11 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+ext.moduleVersion = '1.0.0'
+apply from: rootProject.file('gradle/module-fabric.gradle')
+// framework (SubMods switches) nested per principle 3.
+dependencies { include project(':framework') }
+// Super-mod (PLAN-MODULAUFTEILUNG stage 1c): requires and nests its sub-mods; no class imports.
+dependencies {
+    include project(':modules:simplevisuals:fabric')
+    include project(':modules:simplesounds:fabric')
+    include project(':modules:simplemodels:fabric')
+}

@@ -20,7 +20,7 @@ public abstract class ChatMixin {
  @ModifyVariable(method="addMessage",at=@At("HEAD"),argsOnly=true)
  private Component visuals$death(Component message){
   var c=Visuals.CONFIG.visuals; var mc=Minecraft.getInstance();
-  if(!c.enhanceDeathMessages||c.deathCoordsMode==com.simplevisuals.config.SimplevisualsConfig.Visuals.DeathCoordsMode.DISABLED||mc.player==null)return message;
+  if(!Visuals.on()||!c.enhanceDeathMessages||c.deathCoordsMode==com.simplevisuals.config.SimplevisualsConfig.Visuals.DeathCoordsMode.DISABLED||mc.player==null)return message;
   if(message.getContents() instanceof TranslatableContents t&&t.getKey().startsWith("death.")&&t.getArgs().length>0&&t.getArgs()[0] instanceof Component victim&&victim.getString().equals(mc.player.getName().getString())){
    var pos=mc.player.blockPosition();var coords=Component.translatable("simplevisuals.death_location",pos.getX(),pos.getY(),pos.getZ()).withStyle(net.minecraft.ChatFormatting.GRAY);
    // Local only. Never disclose another player's coordinates or send a chat packet.
@@ -29,7 +29,7 @@ public abstract class ChatMixin {
  }
  @Inject(method="extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/gui/Font;IIILnet/minecraft/client/gui/components/ChatComponent$DisplayMode;Z)V",at=@At("TAIL"))
  private void visuals$heads(GuiGraphicsExtractor g,net.minecraft.client.gui.Font font,int time,int mx,int my,ChatComponent.DisplayMode mode,boolean bool,CallbackInfo ci){
-  var mc=Minecraft.getInstance();if(!Visuals.CONFIG.visuals.enableChatHeads||mc.getConnection()==null||mc.gui.hud.isHidden())return;
+  var mc=Minecraft.getInstance();if(!Visuals.on()||!Visuals.CONFIG.visuals.enableChatHeads||mc.getConnection()==null||mc.gui.hud.isHidden())return;
   double scale=getScale();g.pose().pushMatrix();g.pose().scale((float)scale);int bottom=(int)((g.guiHeight()-40)/scale);
   int n=Math.min(20,trimmedMessages.size()-chatScrollbarPos);
   for(int i=0;i<n;i++){var line=trimmedMessages.get(i+chatScrollbarPos);if(time-line.addedTime()>200&&!((ChatComponent)(Object)this).isChatFocused())continue;

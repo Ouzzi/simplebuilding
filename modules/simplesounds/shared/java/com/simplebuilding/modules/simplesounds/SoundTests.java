@@ -7,6 +7,18 @@ public final class SoundTests {
  public static boolean isModLoaded(String mod){return BuiltInRegistries.ITEM.keySet().stream().anyMatch(i->i.getNamespace().equals(mod))||BuiltInRegistries.BLOCK.keySet().stream().anyMatch(i->i.getNamespace().equals(mod));}
  /** Without the partner the coupling cannot be observed: pass with a log note instead of failing. */
  public static boolean partnerMissing(net.minecraft.gametest.framework.GameTestHelper h,String mod,String what){if(isModLoaded(mod))return false;com.mojang.logging.LogUtils.getLogger().info("[standalone] {} not loaded - skipping {}",mod,what);h.succeed();return true;}
+ /** Super-mod switch off: sound registry stays, nothing plays, no stray state. */
+ public static void subModSwitch(GameTestHelper h){
+  var sw=com.simplebuilding.framework.api.SubMods.enabled("simplesounds");
+  try{
+   com.simplebuilding.framework.api.SubMods.set("simplesounds",false);
+   h.assertTrue(!SoundsRegistry.on(),"Switch off reaches Simple Sounds");
+   h.assertTrue(!SoundsRegistry.ALL.isEmpty(),"Sound registry stays");
+   h.assertTrue(!SoundsRegistry.plays(.1f),"Nothing plays while off");
+  }finally{com.simplebuilding.framework.api.SubMods.set("simplesounds",sw);}
+  h.assertTrue(SoundsRegistry.on()==sw&&SoundsRegistry.plays(.1f)==sw&&!SoundsRegistry.plays(0),"Switch restored");
+  h.succeed();
+ }
  public static void launch(GameTestHelper h){h.assertTrue(SoundsRegistry.ALL.size()==12,"Registry missing");h.assertTrue(!BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplesounds:token")),"Placeholder item leaked");h.succeed();}
  public static void bounds(GameTestHelper h){var c=new SoundConfig();c.globalLevel=null;c.volumeCap=Float.NaN;c.soundsPerTick=Integer.MAX_VALUE;c.soundsPerPlayer=Integer.MAX_VALUE;c.cooldownTicks=Integer.MIN_VALUE;c.overrides.put("unknown",SoundConfig.Level.MAXIMUM);c.overrides.put("cold_breath",null);c.normalize();h.assertTrue(c.globalLevel==SoundConfig.Level.SUBTLE&&c.volumeCap==.25f&&c.soundsPerTick==4&&c.soundsPerPlayer==2&&c.cooldownTicks==20&&c.overrides.isEmpty(),"Unsafe config");c.volumeCap=Float.POSITIVE_INFINITY;c.normalize();h.assertTrue(c.volumeCap==.25f,"Infinity");
   h.assertTrue(SoundConfig.Level.of(null)==null,"Missing level stays missing");

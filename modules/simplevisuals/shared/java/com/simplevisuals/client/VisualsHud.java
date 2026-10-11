@@ -29,6 +29,7 @@ public final class VisualsHud {
     private static float speedOpacity, animation;
     private static double lastSpeed;
     public static void tick(Minecraft mc) {
+        if (!Visuals.on()) { if (!pickups.isEmpty() || !damages.isEmpty() || !cache.isEmpty()) reset(); return; }
         if (mc.level != level) { reset(); level = mc.level; }
         if (mc.level == null || mc.player == null || mc.isPaused()) return;
         ticks++;
@@ -53,11 +54,13 @@ public final class VisualsHud {
     public static void reset() { pickups.clear(); damages.clear(); cache.clear(); durations.clear(); biomeCooldowns.clear(); biome = null; biomeUntil = ticks = 0; speedOpacity = animation = 0; lastSpeed = 0; }
     public static int notificationCount() { return pickups.size(); }
     public static void cache(int id, net.minecraft.world.entity.Entity entity) {
+        if (!Visuals.on()) return;
         if (cache.size() >= MAX_CACHE) cache.remove(cache.keySet().iterator().next());
         if (entity instanceof net.minecraft.world.entity.item.ItemEntity item) cache.put(id, new Cached(item.getItem().copy(), 0, ticks + 20));
         else if (entity instanceof net.minecraft.world.entity.ExperienceOrb xp) cache.put(id, new Cached(ItemStack.EMPTY, xp.getValue(), ticks + 20));
     }
     public static void pickup(Minecraft mc, int id, int collector, int count) {
+        if (!Visuals.on()) return;
         if (mc.player == null || mc.level == null || mc.player.getId() != collector) return;
         var entity = mc.level.getEntity(id); if (entity != null) cache(id, entity);
         var entry = cache.remove(id); if (entry == null) return;
@@ -74,13 +77,13 @@ public final class VisualsHud {
         pickups.add(new Pickup(stack.copyWithCount(1), Math.min(999999, count), xp, ticks + Visuals.CONFIG.visuals.pickupNotifier.pickupNotifierDuration));
     }
     public static void damage(LivingEntity entity, float damage) {
-        if (!Visuals.CONFIG.visuals.damageIndicators.enable || !Float.isFinite(damage) || damage <= 0) return;
+        if (!Visuals.on() || !Visuals.CONFIG.visuals.damageIndicators.enable || !Float.isFinite(damage) || damage <= 0) return;
         if (damages.size() == MAX_DAMAGE_INDICATORS) damages.removeFirst();
         damages.add(new Damage(entity.position().add(0, entity.getBbHeight() + .3, 0), (int)Math.min(9999, Math.ceil(damage)), damage > 8, ticks + 40));
     }
     public static void render(GuiGraphicsExtractor g) {
         var mc = Minecraft.getInstance();
-        if (mc.level == null || mc.player == null || mc.gui.hud.isHidden()) return;
+        if (!Visuals.on() || mc.level == null || mc.player == null || mc.gui.hud.isHidden()) return;
         var c = Visuals.CONFIG.visuals;
         int w = g.guiWidth(), h = g.guiHeight();
         if (c.speedLines.enableSpeedLines && speedOpacity > .02 && mc.options.getCameraType().isFirstPerson()) {
@@ -132,7 +135,7 @@ public final class VisualsHud {
     }
     public static void held(GuiGraphicsExtractor g, ItemStack stack, int fade) {
         var mc = Minecraft.getInstance(); var c = Visuals.CONFIG.visuals.heldItemTooltips;
-        if (!c.enable || fade <= 0 || stack.isEmpty()) return;
+        if (!Visuals.on() || !c.enable || fade <= 0 || stack.isEmpty()) return;
         var lines = new ArrayList<Component>();
         if (c.showDurability && stack.isDamageableItem()) lines.add(Component.translatable("simplevisuals.durability", stack.getMaxDamage() - stack.getDamageValue(), stack.getMaxDamage()));
         var enchants = stack.get(DataComponents.ENCHANTMENTS);
@@ -143,7 +146,7 @@ public final class VisualsHud {
         return effect.isInfiniteDuration() ? 1 : Math.min(1, (float)effect.getDuration() / Math.max(1, durations.getOrDefault(effect.getEffect(), effect.getDuration())));
     }
     public static void effectBar(GuiGraphicsExtractor g,net.minecraft.world.effect.MobEffectInstance e,int x,int y,int width) {
-        if (!Visuals.CONFIG.visuals.enableStatusEffectBars || e.isInfiniteDuration()) return;
+        if (!Visuals.on() || !Visuals.CONFIG.visuals.enableStatusEffectBars || e.isInfiniteDuration()) return;
         g.fill(x,y,x+width,y+1,0xff000000);
         g.fill(x,y,x+(int)(width*effectProgress(e)),y+1,0xff000000|e.getEffect().value().getColor());
     }

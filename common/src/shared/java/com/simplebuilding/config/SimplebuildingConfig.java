@@ -28,6 +28,7 @@ public class SimplebuildingConfig implements ConfigData {
     // =====================================================================================
     // Reiter 0: Simple Mods - Schalter der gebuendelten Sub-Mods (Konzept Super-/Sub-Mod), oberster Punkt.
     // Simple Maps/Questionary lesen ihren Schluessel selbst aus der Datei (MapsConfig/QuestionaryConfig.HOST_KEY); Neustart noetig.
+    // Die uebrigen optionalen Sub-Mods bekommen ihren Schalter ueber framework SubMods (applySubModSwitches).
     // =====================================================================================
 
     @ConfigEntry.Category("modules")
@@ -37,6 +38,55 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleQuestionary = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleRiding = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleSandwiches = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleTweaks = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleMoney = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleFun = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleDimensions = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleTrims = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleMobs = true;
+
+    /**
+     * Super-mod (docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md, stage 1a): hands the "Enable Simple X" switches of the
+     * bundled optional sub-mods to framework SubMods (only the mod id string is shared, no class import). Called once
+     * with the live config when the loader entry point loads it; detached configs in tests never reach the switches.
+     */
+    public static void applySubModSwitches(SimplebuildingConfig c) {
+        if (c == null) return;
+        com.simplebuilding.framework.api.SubMods.set("simpleriding", c.enableSimpleRiding);
+        com.simplebuilding.framework.api.SubMods.set("simplesandwiches", c.enableSimpleSandwiches);
+        com.simplebuilding.framework.api.SubMods.set("simpletweaks", c.enableSimpleTweaks);
+        com.simplebuilding.framework.api.SubMods.set("simplemoney", c.enableSimpleMoney);
+        com.simplebuilding.framework.api.SubMods.set("simplefun", c.enableSimpleFun);
+        com.simplebuilding.framework.api.SubMods.set("simpledimension", c.enableSimpleDimensions);
+        com.simplebuilding.framework.api.SubMods.set("simpletrims", c.enableSimpleTrims);
+        com.simplebuilding.framework.api.SubMods.set("simplemobs", c.enableSimpleMobs);
+    }
 
     // =====================================================================================
     // Reiter 1: Werkzeuge & Bauen
