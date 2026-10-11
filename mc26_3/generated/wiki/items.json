@@ -19,13 +19,11 @@
     "simplebuilding:astralit_brick_wall",
     "simplebuilding:astralit_bricks",
     "simplebuilding:astralit_bricks_octet",
-    "simplebuilding:astralit_lamp",
     "simplebuilding:astralit_ore",
     "simplebuilding:astralit_pillar",
     "simplebuilding:astralit_quartz_checker",
     "simplebuilding:astralit_quartz_checker_slab",
     "simplebuilding:astralit_quartz_checker_stairs",
-    "simplebuilding:astralit_switch",
     "simplebuilding:auto_smither",
     "simplebuilding:autonomous_crafter",
     "simplebuilding:azure_froglight",
@@ -57,6 +55,7 @@
     "simplebuilding:breeze_head",
     "simplebuilding:breeze_wall_head",
     "simplebuilding:bricks_octet",
+    "simplebuilding:bridge_redstone",
     "simplebuilding:brown_concrete_octet",
     "simplebuilding:brown_hammock",
     "simplebuilding:brown_wool_octet",
@@ -270,13 +269,11 @@
     "simplebuilding:nihilith_brick_wall",
     "simplebuilding:nihilith_bricks",
     "simplebuilding:nihilith_bricks_octet",
-    "simplebuilding:nihilith_lamp",
     "simplebuilding:nihilith_ore",
     "simplebuilding:nihilith_pillar",
     "simplebuilding:nihilith_quartz_checker",
     "simplebuilding:nihilith_quartz_checker_slab",
     "simplebuilding:nihilith_quartz_checker_stairs",
-    "simplebuilding:nihilith_switch",
     "simplebuilding:note_amplifier",
     "simplebuilding:oak_cauldron",
     "simplebuilding:oak_crate",
@@ -574,9 +571,6 @@
       "id": "simplebuilding:astralit_dust"
     },
     {
-      "id": "simplebuilding:astralit_lamp"
-    },
-    {
       "id": "simplebuilding:astralit_octet",
       "maxStackSize": 99
     },
@@ -594,9 +588,6 @@
     },
     {
       "id": "simplebuilding:astralit_quartz_checker_stairs"
-    },
-    {
-      "id": "simplebuilding:astralit_switch"
     },
     {
       "id": "simplebuilding:auto_smither"
@@ -755,6 +746,9 @@
     {
       "id": "simplebuilding:bricks_octet",
       "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:bridge_redstone"
     },
     {
       "id": "simplebuilding:brittle_ceramic_bucket",
@@ -2226,9 +2220,6 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:nihilith_lamp"
-    },
-    {
       "id": "simplebuilding:nihilith_octet",
       "maxStackSize": 99
     },
@@ -2249,9 +2240,6 @@
     },
     {
       "id": "simplebuilding:nihilith_shard"
-    },
-    {
-      "id": "simplebuilding:nihilith_switch"
     },
     {
       "id": "simplebuilding:note_amplifier"
