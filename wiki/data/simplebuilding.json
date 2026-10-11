@@ -128363,8 +128363,8 @@
       "groupDe": null,
       "label": "Enable Simple Questionary",
       "labelDe": "Simple Questionary aktivieren",
-      "tooltip": "Turns the bundled Simple Questionary module on or off: the Questionary Table and its book of lore, use and secrets. Takes effect after a restart.",
-      "tooltipDe": "Schaltet das gebündelte Modul Simple Questionary ein oder aus: den Fragentisch und sein Buch mit Überlieferung, Nutzen und Geheimnis. Gilt nach einem Neustart."
+      "tooltip": "Turns the bundled Simple Questionary module on or off: the Questionary Table and its book of lore, use and secrets. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Questionary ein oder aus: den Fragentisch und sein Buch mit Überlieferung, Nutzen und Geheimnis. Gilt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
