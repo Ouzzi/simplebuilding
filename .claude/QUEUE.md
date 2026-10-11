@@ -796,3 +796,12 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Enderit-Tiegel mit Fass: über dem Inventar rendern, Inventar zentriert.
 - [ ] Auf der Truhe des Enderit-Boots stehen: man buggt und bewegt sich langsam (Vanilla anscheinend auch) → beheben.
 - [ ] Sculk Jaw nur auf vollen Blöcken platzierbar.
+
+## Nachtrag 38 (2026-10-11, Besitzer)
+- [ ] Sculk Jaw: Spieler noch langsamer; Blindheits-Dauer wächst exponentiell mit der Zeit drin (raus innerhalb 2 s ≈ 3 s, 3 s ≈ 5 s, max. 60 s); geschlossen die Knochen-Zähne zeigen.
+- [ ] Tooltips überall überarbeiten: nur an wichtigen Stellen Beschreibung, sonst nur Name; Beschreibungen sehr kurz.
+- [ ] Schachfiguren: flache Variante heißt "Flat …" (Flat Rook, Flat Knight, …).
+- [ ] Wayfinder-Karten-GUI: so groß wie möglich; seitliche Lesezeichen-Buttons schöner und weniger gedrängt (rechts), Buttons allgemein hübscher.
+- [ ] Nether-/End-Wayfinder-Karten zeigen in der Hand die Oberwelt → stattdessen Störsignal.
+- [ ] Deceiver: doppeltes Leben; nach Verwandlung in größeren Mob dessen Hitbox.
+- [ ] Guide-Bücher erweitern, alles aktuell.
