@@ -77,6 +77,7 @@
       "com.simplebuilding.gametest.ChessGameTest",
       "com.simplebuilding.gametest.NatureBlockGameTest",
       "com.simplebuilding.gametest.TrapGameTest",
+      "com.simplebuilding.gametest.FireGameTest",
       "com.simplebuilding.gametest.WoodworkGameTest",
       "com.simplebuilding.gametest.VehicleGameTest",
       "com.simplebuilding.gametest.WorkstationGameTest",

@@ -121,6 +121,10 @@ public final class RecipelessJeiInfo {
             // Ziegenhorn-Halter (Queue N24, 2026-10-09): Horn ablegen, Fackel oder Stab hineinstecken.
             map.put("goat_horn_holder", List.of(net.minecraft.world.item.Items.GOAT_HORN));
         }
+        if (com.simplebuilding.version.McVersion.FIRES) {
+            // Schwefel-/Kupferfeuer (Queue N33): entstehen auf Schwefel-/Kupferbloecken; Schwarzpulver aus Schwefel + Kohle.
+            map.put("sulfur_fires", List.of(net.minecraft.world.item.Items.SULFUR, net.minecraft.world.item.Items.GUNPOWDER));
+        }
         // Speer im Spender (Queue N24): stoesst wie eine Stachelfalle zu (SpearDispensing).
         map.put("spear_dispenser", List.<ItemLike>copyOf(com.simplebuilding.util.SpearDispensing.spears()));
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {

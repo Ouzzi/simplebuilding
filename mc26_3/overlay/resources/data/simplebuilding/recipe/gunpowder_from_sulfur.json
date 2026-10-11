@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:sulfur",
+    "minecraft:sulfur",
+    "minecraft:sulfur",
+    "#minecraft:coals"
+  ],
+  "result": {
+    "id": "minecraft:gunpowder"
+  }
+}

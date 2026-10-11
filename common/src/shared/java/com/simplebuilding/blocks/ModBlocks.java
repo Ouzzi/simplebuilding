@@ -720,6 +720,7 @@ public class ModBlocks {
     public static void registerModBlocks() {
         Simplebuilding.LOGGER.info("Registering Mod Blocks for " + Simplebuilding.MOD_ID);
         registerOctetFlammability();
+        com.simplebuilding.blocks.custom.ThemedFireBlock.register();
         if (McVersion.CRUCIBLE) {
             // Crucible P5: soul lava (fluids first; on Forge already in the FLUID event) and the SimpleLib-based blocks.
             com.simplebuilding.fluid.ModFluids.registerFluids();
