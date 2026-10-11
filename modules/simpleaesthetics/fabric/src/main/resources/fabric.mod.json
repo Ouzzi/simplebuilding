@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleaesthetics",
+  "version": "${version}",
+  "name": "Simple Aesthetics",
+  "description": "Super-mod: bundles Simple Visuals, Simple Sounds and Simple Models, with one on/off switch each.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleaesthetics.FabricExample"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleaesthetics.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "simplevisuals": "*",
+    "simplesounds": "*",
+    "simplemodels": "*",
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25"
+  }
+}

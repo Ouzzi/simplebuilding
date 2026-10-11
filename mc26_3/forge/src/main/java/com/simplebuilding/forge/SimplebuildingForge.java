@@ -81,6 +81,7 @@ public final class SimplebuildingForge {
     private void configure() {
         // The Forge 26.3 compatibility entrypoint loads and validates persistent JSON.
         Simplebuilding.setConfig(AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig());
+        SimplebuildingConfig.applySubModSwitches(Simplebuilding.getConfig());
     }
 
     private void registerContent() {

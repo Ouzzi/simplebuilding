@@ -22,7 +22,7 @@ public abstract class ModelScreenMixin {
     private void simplemodels$tabAfterRebuild(CallbackInfo ci) { simplemodels$addTab(); }
     private void simplemodels$addTab() {
         Screen self = (Screen)(Object)this;
-        if (!(self instanceof AnvilScreen || self instanceof InventoryScreen)
+        if (!com.simplebuilding.modules.simplemodels.Models.on() || !(self instanceof AnvilScreen || self instanceof InventoryScreen)
                 || self.children().stream().anyMatch(ModelsTab.class::isInstance)) return;
         var container = (ModelContainerAccessor)self;
         addRenderableWidget(new ModelsTab(self, container::simplemodels$left, container::simplemodels$top));

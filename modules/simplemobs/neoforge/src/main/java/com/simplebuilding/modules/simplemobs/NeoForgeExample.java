@@ -43,6 +43,7 @@ public final class NeoForgeExample {
             event.put(MobsRegistry.HOLLOW_HOWLER, HowlerEntity.createAttributes().build());
         });
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
+            if (!MobsRegistry.on()) return;
             if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
                 event.accept(MobsRegistry.EGG);
                 insertAfter(event, new ItemStack(Items.HOGLIN_SPAWN_EGG), new ItemStack(MobsRegistry.HOWLER_EGG));

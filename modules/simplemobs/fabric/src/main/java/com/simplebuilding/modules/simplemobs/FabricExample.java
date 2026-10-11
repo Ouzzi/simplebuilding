@@ -18,10 +18,12 @@ public final class FabricExample implements ModInitializer {
         FabricDefaultAttributeRegistry.register(MobsRegistry.HOLLOW_HOWLER, HowlerEntity.createAttributes());
         ServerTickEvents.END_SERVER_TICK.register(MobsServer::tick);
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(out -> {
+            if (!MobsRegistry.on()) return;
             out.accept(MobsRegistry.EGG);
             out.insertAfter(Items.HOGLIN_SPAWN_EGG, java.util.List.of(new ItemStack(MobsRegistry.HOWLER_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
+            if (!MobsRegistry.on()) return;
             out.accept(MobsRegistry.CLOTH);
             out.insertAfter(Items.ECHO_SHARD, java.util.List.of(new ItemStack(MobsRegistry.ECHO_CORE)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });

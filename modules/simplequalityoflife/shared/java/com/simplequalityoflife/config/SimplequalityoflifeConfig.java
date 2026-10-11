@@ -55,6 +55,9 @@ public class SimplequalityoflifeConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleWeather = true;
 
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleInterfaces = true;
+
     // Option außerhalb der QOL-Kategorie (Global)
     @ConfigEntry.Gui.Tooltip
     public boolean frostWalkerWalkOnPowderSnow = true;

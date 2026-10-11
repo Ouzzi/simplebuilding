@@ -224,6 +224,7 @@ public class CuttingBoardBlock extends Block implements EntityBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
+        if (!com.simplesandwiches.Sandwiches.on()) return InteractionResult.PASS;
         if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
         InteractionResult result = interact(level, pos, player);
         return result == InteractionResult.PASS ? InteractionResult.TRY_WITH_EMPTY_HAND : result;

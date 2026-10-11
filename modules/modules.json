@@ -30,7 +30,17 @@
         "appleskin",
         "mousetweaks",
         "trinkets_updated",
-        "curios"
+        "curios",
+        "simplemaps",
+        "simplequestionary",
+        "simpleriding",
+        "simplesandwiches",
+        "simpletweaks",
+        "simplemoney",
+        "simplefun",
+        "simpledimensions",
+        "simpletrims",
+        "simplemobs"
       ],
       "paths": {
         "root": ".",
@@ -191,7 +201,9 @@
         "tables": "modules/simplemoney/shared/resources/data/simplemoney/money",
         "generator": "modules/simplemoney/tools/generate_links.py",
         "sellEnabled": false
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simpleriding",
@@ -290,7 +302,9 @@
       },
       "checks": [
         "modules/simpleriding/tools/check_data.py"
-      ]
+      ],
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simplemodels",
@@ -384,7 +398,9 @@
         "fabric": ":modules:simplemodels:fabric",
         "neoforge": ":modules:simplemodels:neoforge",
         "forge": ":modules:simplemodels:forge"
-      }
+      },
+      "parent": "simpleaesthetics",
+      "bundle": "required"
     },
     {
       "id": "simplefun",
@@ -483,7 +499,9 @@
         "fabric": ":modules:simplefun:fabric",
         "neoforge": ":modules:simplefun:neoforge",
         "forge": ":modules:simplefun:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simplevisuals",
@@ -582,7 +600,9 @@
         "fabric": ":modules:simplevisuals:fabric",
         "neoforge": ":modules:simplevisuals:neoforge",
         "forge": ":modules:simplevisuals:forge"
-      }
+      },
+      "parent": "simpleaesthetics",
+      "bundle": "required"
     },
     {
       "id": "simplesounds",
@@ -681,7 +701,9 @@
         "fabric": ":modules:simplesounds:fabric",
         "neoforge": ":modules:simplesounds:neoforge",
         "forge": ":modules:simplesounds:forge"
-      }
+      },
+      "parent": "simpleaesthetics",
+      "bundle": "required"
     },
     {
       "id": "simplequalityoflife",
@@ -690,7 +712,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Quality of Life",
-      "description": "Server-controlled movement, farming, mob, weather, and vault utilities. Super-mod: bundles Simple Weather.",
+      "description": "Server-controlled movement, farming, mob, weather, and vault utilities. Super-mod: bundles Simple Weather and Simple Interfaces.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -698,7 +720,8 @@
       ],
       "requires": [
         "cloth_config",
-        "simpleweather"
+        "simpleweather",
+        "simpleinterfaces"
       ],
       "optional": [
         "simplebuilding",
@@ -715,7 +738,8 @@
         "requires": [
           "simplequalityoflife",
           "simplebuilding",
-          "simpleweather"
+          "simpleweather",
+          "simpleinterfaces"
         ],
         "devMods": [
           "cloth_config"
@@ -743,7 +767,8 @@
         },
         "standalone": {
           "requires": [
-            "simpleweather"
+            "simpleweather",
+            "simpleinterfaces"
           ],
           "devMods": [
             "cloth_config"
@@ -886,7 +911,9 @@
         "fabric": ":modules:simpletweaks:fabric",
         "neoforge": ":modules:simpletweaks:neoforge",
         "forge": ":modules:simpletweaks:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simpledimensions",
@@ -991,7 +1018,9 @@
         "forge": ":modules:simpledimensions:forge"
       },
       "namespace": "simpledimension",
-      "modId": "simpledimension"
+      "modId": "simpledimension",
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simplesandwiches",
@@ -1078,7 +1107,9 @@
         "fabric": ":modules:simplesandwiches:fabric",
         "neoforge": ":modules:simplesandwiches:neoforge",
         "forge": ":modules:simplesandwiches:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simplelib",
@@ -1244,7 +1275,9 @@
         "fabric": ":modules:simpleinterfaces:fabric",
         "neoforge": ":modules:simpleinterfaces:neoforge",
         "forge": ":modules:simpleinterfaces:forge"
-      }
+      },
+      "parent": "simplequalityoflife",
+      "bundle": "required"
     },
     {
       "id": "simplemaps",
@@ -1331,7 +1364,9 @@
         "fabric": ":modules:simplemaps:fabric",
         "neoforge": ":modules:simplemaps:neoforge",
         "forge": ":modules:simplemaps:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simpletrims",
@@ -1418,7 +1453,9 @@
         "fabric": ":modules:simpletrims:fabric",
         "neoforge": ":modules:simpletrims:neoforge",
         "forge": ":modules:simpletrims:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simplemobs",
@@ -1503,7 +1540,9 @@
         "fabric": ":modules:simplemobs:fabric",
         "neoforge": ":modules:simplemobs:neoforge",
         "forge": ":modules:simplemobs:forge"
-      }
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     },
     {
       "id": "simpleweather",
@@ -1597,7 +1636,9 @@
         "fabric": ":modules:simpleweather:fabric",
         "neoforge": ":modules:simpleweather:neoforge",
         "forge": ":modules:simpleweather:forge"
-      }
+      },
+      "parent": "simplequalityoflife",
+      "bundle": "required"
     },
     {
       "id": "simplequestionary",
@@ -1684,6 +1725,100 @@
         "fabric": ":modules:simplequestionary:fabric",
         "neoforge": ":modules:simplequestionary:neoforge",
         "forge": ":modules:simplequestionary:forge"
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
+    },
+    {
+      "id": "simpleaesthetics",
+      "name": "Simple Aesthetics",
+      "version": "1.0.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Aesthetics",
+      "description": "Super-mod without content of its own: bundles Simple Visuals, Simple Sounds and Simple Models with one on/off switch each.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "simplevisuals",
+        "simplesounds",
+        "simplemodels"
+      ],
+      "optional": [],
+      "checks": [
+        "modules/simpleaesthetics/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleaesthetics",
+        "catalogues": [
+          "modules/simpleaesthetics/fabric/src/main/java/com/simplebuilding/modules/simpleaesthetics/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleaesthetics",
+          "simplevisuals",
+          "simplesounds",
+          "simplemodels"
+        ],
+        "devMods": [
+          "cloth_config"
+        ],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleaestheticsGameTest",
+            "report": "integration/build/simpleaesthetics-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simpleaesthetics:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simpleaesthetics/neoforge/build/module-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [
+            "simplevisuals",
+            "simplesounds",
+            "simplemodels"
+          ],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleaestheticsStandaloneGameTest",
+              "report": "integration/build/standalone/simpleaesthetics-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simpleaesthetics:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simpleaesthetics/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simpleaesthetics.ModuleClientSmoke"
+          ],
+          "sources": "modules/simpleaesthetics/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simpleaesthetics",
+        "shared": "modules/simpleaesthetics/shared",
+        "fabric": "modules/simpleaesthetics/fabric",
+        "neoforge": "modules/simpleaesthetics/neoforge",
+        "forge": "modules/simpleaesthetics/forge",
+        "generated": "modules/simpleaesthetics/generated/resources",
+        "lang": "modules/simpleaesthetics/shared/resources/assets/simpleaesthetics/lang",
+        "wikiManual": "modules/simpleaesthetics/wiki/manual.json",
+        "balanceDir": "balance/simpleaesthetics"
+      },
+      "projects": {
+        "fabric": ":modules:simpleaesthetics:fabric",
+        "neoforge": ":modules:simpleaesthetics:neoforge",
+        "forge": ":modules:simpleaesthetics:forge"
       }
     }
   ]

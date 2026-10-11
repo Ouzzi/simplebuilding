@@ -23,6 +23,21 @@ public final class RidingTests {
  static { ALL.put("ground_flags",RidingTests::groundFlags); ALL.put("camel_dash_bounds",RidingTests::camelDashBounds); ALL.put("weighted_data_bounds",RidingTests::weightedDataBounds); ALL.put("steering_and_border",RidingTests::steeringAndBorder); ALL.put("all_mount_speed_caps",RidingTests::allMountSpeedCaps); ALL.put("nautilus_speed_and_armor",RidingTests::nautilusSpeedAndArmor); ALL.put("nautilus_dash",RidingTests::nautilusDash); ALL.put("attribute_caps",RidingTests::attributeCaps); ALL.put("feature_switches",RidingTests::featureSwitches); ALL.put("all_config_bounds",RidingTests::allConfigBounds); ALL.put("movement_packets",RidingTests::movementPackets); ALL.put("jump_packets",RidingTests::jumpPackets); ALL.put("movement_budget",RidingTests::movementBudget); ALL.put("launch",RidingTests::launch); ALL.put("armor_and_anvil",RidingTests::armorAndAnvil); ALL.put("horse_speed_and_cleanup",RidingTests::horseSpeedAndCleanup); ALL.put("pig_speed",RidingTests::pigSpeed); ALL.put("strider_speed",RidingTests::striderSpeed); ALL.put("camel_speed",RidingTests::camelSpeed); ALL.put("ghast_harness",RidingTests::ghastHarness); ALL.put("leaping_and_cleanup",RidingTests::leapingAndCleanup); ALL.put("armor_defense",RidingTests::armorDefense); ALL.put("trades",RidingTests::trades); ALL.put("loot_and_toggle",RidingTests::lootAndToggle); ALL.put("config_and_lang",RidingTests::configAndLang); ALL.put("cross_mod_storage_and_armor",RidingTests::crossModStorageAndArmor); ALL.put("vanilla_tab_placement",RidingTests::vanillaTabPlacement); ALL.putAll(HorseshoeTests.ALL); }
  static { ALL.put("book_models", RidingBookTests::models); }
  static { ALL.put("guide_book", com.simpleriding.guide.RidingGuide::gameTest); }
+ static { ALL.put("sub_mod_switch",RidingTests::subModSwitch); }
+ /** Super-mod switch "Enable Simple Riding" off: registries unchanged, no tab entries, no loot, no mount boosts. */
+ public static void subModSwitch(GameTestHelper h){
+  var sw=com.simplebuilding.framework.api.SubMods.enabled("simpleriding");
+  try{
+   com.simplebuilding.framework.api.SubMods.set("simpleriding",false);
+   h.assertTrue(!Riding.on(),"Switch off reaches Simple Riding");
+   h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.getValue(Riding.id("riding_items"))!=null&&!Horseshoes.ITEMS.isEmpty(),"Registries stay");
+   h.assertTrue(Riding.vanillaTabStacks(net.minecraft.world.item.CreativeModeTabs.COMBAT).isEmpty(),"No vanilla tab entries");
+   var pools=new ArrayList<LootPool.Builder>();RidingLoot.apply(ResourceKey.create(Registries.LOOT_TABLE,Identifier.parse("minecraft:"+RidingLoot.TABLES[0])),pools::add,h.getLevel().registryAccess());
+   h.assertTrue(pools.isEmpty(),"No loot while off");
+  }finally{com.simplebuilding.framework.api.SubMods.set("simpleriding",sw);}
+  h.assertTrue(Riding.on()==sw,"Switch restored");
+  h.succeed();
+ }
  private static Holder.Reference<Enchantment> ench(GameTestHelper h,ResourceKey<Enchantment> key){return h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);}
  private static ItemStack enchanted(GameTestHelper h,Item item,ResourceKey<Enchantment> key,int n){var s=new ItemStack(item);s.enchant(ench(h,key),n);return s;}
  private static net.minecraft.world.entity.player.Player rider(GameTestHelper h,LivingEntity e){var p=h.makeMockPlayer(net.minecraft.world.level.GameType.CREATIVE);if(e instanceof net.minecraft.world.entity.animal.equine.AbstractHorse horse)horse.setTamed(true);if(e instanceof net.minecraft.world.entity.TamableAnimal tame)tame.tame(p);if(e.getType()==EntityTypes.PIG)p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.CARROT_ON_A_STICK));if(e.getType()==EntityTypes.STRIDER)p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.WARPED_FUNGUS_ON_A_STICK));p.startRiding(e,true,false);return p;}

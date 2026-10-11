@@ -30,7 +30,7 @@ public final class HowlerRitual {
 
     /** Sculk sensor mixin hook (server side, after the sensor switched to active). {@code null}: not a horn call at all. */
     public static @Nullable Result onSensorActivated(Level level, BlockPos sensor, @Nullable Entity source, int frequency) {
-        if (!(level instanceof ServerLevel server)) return null;
+        if (!(level instanceof ServerLevel server) || !MobsRegistry.on()) return null;
         if (frequency != VibrationSystem.getGameEventFrequency(GameEvent.INSTRUMENT_PLAY)) return null;
         if (!(source instanceof Player player) || !blewHorn(player)) return Result.NOT_A_HORN;
         if (!MobsConfig.howlerEnabled) return Result.DISABLED;

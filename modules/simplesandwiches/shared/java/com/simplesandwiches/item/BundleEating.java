@@ -38,7 +38,7 @@ public final class BundleEating {
 
     /** The consumable to eat from this bundle, or null when the bundle should act like Vanilla. */
     public static Consumable eating(ItemStack bundle) {
-        if (!SandwichConfig.bundleEating || !(bundle.getItem() instanceof BundleItem)) return null;
+        if (!com.simplesandwiches.Sandwiches.on() || !SandwichConfig.bundleEating || !(bundle.getItem() instanceof BundleItem)) return null;
         ItemStack top = top(bundle);
         return edible(top) ? top.get(DataComponents.CONSUMABLE) : null;
     }

@@ -21,7 +21,17 @@ window.WIKI_MODULES = [
       "appleskin",
       "mousetweaks",
       "trinkets_updated",
-      "curios"
+      "curios",
+      "simplemaps",
+      "simplequestionary",
+      "simpleriding",
+      "simplesandwiches",
+      "simpletweaks",
+      "simplemoney",
+      "simplefun",
+      "simpledimensions",
+      "simpletrims",
+      "simplemobs"
     ]
   },
   {
@@ -173,7 +183,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplequalityoflife",
     "displayName": "Simple Quality of Life",
-    "description": "Server-controlled movement, farming, mob, weather, and vault utilities. Super-mod: bundles Simple Weather.",
+    "description": "Server-controlled movement, farming, mob, weather, and vault utilities. Super-mod: bundles Simple Weather and Simple Interfaces.",
     "version": "1.0.6",
     "minecraft": "26.3",
     "loaders": [
@@ -183,13 +193,14 @@ window.WIKI_MODULES = [
     ],
     "requires": [
       "cloth_config",
-      "simpleweather"
+      "simpleweather",
+      "simpleinterfaces"
     ],
     "optional": [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "04d156b0dc40"
+    "dataHash": "94e04ad539b3"
   },
   {
     "id": "simpletweaks",
@@ -373,5 +384,24 @@ window.WIKI_MODULES = [
     ],
     "optional": [],
     "dataHash": "d114427fb9ab"
+  },
+  {
+    "id": "simpleaesthetics",
+    "displayName": "Simple Aesthetics",
+    "description": "Super-mod without content of its own: bundles Simple Visuals, Simple Sounds and Simple Models with one on/off switch each.",
+    "version": "1.0.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplevisuals",
+      "simplesounds",
+      "simplemodels"
+    ],
+    "optional": [],
+    "dataHash": "3f5707f1aac1"
   }
 ];

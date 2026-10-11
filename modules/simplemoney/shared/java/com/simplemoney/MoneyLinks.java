@@ -39,7 +39,7 @@ public final class MoneyLinks {
                 price.safetyFloor(), MAX_PRICE);
     }
     public static Price price(MerchantOffer offer) {
-        if (offer == null || !offer.getBaseCostA().is(MoneyItems.ITEMS.get("money_bill"))) return null;
+        if (offer == null || !SimpleMoney.on() || !offer.getBaseCostA().is(MoneyItems.ITEMS.get("money_bill"))) return null;
         return PRICES.get(BuiltInRegistries.ITEM.getKey(offer.getResult().getItem()).toString());
     }
     public static boolean enabled(String module) {

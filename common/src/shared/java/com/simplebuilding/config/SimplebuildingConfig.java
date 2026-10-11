@@ -28,6 +28,7 @@ public class SimplebuildingConfig implements ConfigData {
     // =====================================================================================
     // Reiter 0: Simple Mods - Schalter der gebuendelten Sub-Mods (Konzept Super-/Sub-Mod), oberster Punkt.
     // Simple Maps/Questionary lesen ihren Schluessel selbst aus der Datei (MapsConfig/QuestionaryConfig.HOST_KEY); Neustart noetig.
+    // Die uebrigen optionalen Sub-Mods bekommen ihren Schalter ueber framework SubMods (applySubModSwitches).
     // =====================================================================================
 
     @ConfigEntry.Category("modules")
@@ -37,6 +38,76 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleQuestionary = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleRiding = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleSandwiches = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleTweaks = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleMoney = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleFun = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleDimensions = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleTrims = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleMobs = true;
+
+    /**
+     * Super-mod (docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md, stage 1a): hands the "Enable Simple X" switches of the
+     * bundled optional sub-mods to framework SubMods (only the mod id string is shared, no class import). Called once
+     * with the live config when the loader entry point loads it; detached configs in tests never reach the switches.
+     */
+    public static void applySubModSwitches(SimplebuildingConfig c) {
+        if (c == null) return;
+        setSubMod("simpleriding", c.enableSimpleRiding);
+        setSubMod("simplesandwiches", c.enableSimpleSandwiches);
+        setSubMod("simpletweaks", c.enableSimpleTweaks);
+        setSubMod("simplemoney", c.enableSimpleMoney);
+        setSubMod("simplefun", c.enableSimpleFun);
+        setSubMod("simpledimension", c.enableSimpleDimensions);
+        setSubMod("simpletrims", c.enableSimpleTrims);
+        setSubMod("simplemobs", c.enableSimpleMobs);
+    }
+
+    /**
+     * framework SubMods by reflection: the shared tree also compiles for 26.2, which has no framework (and no
+     * bundled sub-mods); there the call does nothing and every sub-mod counts as on.
+     */
+    public static void setSubMod(String modId, boolean enabled) {
+        try {
+            Class.forName("com.simplebuilding.framework.api.SubMods").getMethod("set", String.class, boolean.class).invoke(null, modId, enabled);
+        } catch (ReflectiveOperationException | LinkageError ignored) {
+            // 26.2: no framework on the classpath.
+        }
+    }
+
+    /** Reads a framework SubMods switch; true without framework (26.2). */
+    public static boolean subModEnabled(String modId) {
+        try {
+            return (Boolean) Class.forName("com.simplebuilding.framework.api.SubMods").getMethod("enabled", String.class).invoke(null, modId);
+        } catch (ReflectiveOperationException | LinkageError ignored) {
+            return true;
+        }
+    }
 
     // =====================================================================================
     // Reiter 1: Werkzeuge & Bauen

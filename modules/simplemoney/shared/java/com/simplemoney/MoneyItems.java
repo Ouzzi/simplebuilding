@@ -20,6 +20,8 @@ public final class MoneyItems {
  public static final List<String> TAB_ORDER=List.of("special_paper","resin_fiber","blank_note","special_fiber","refined_blank_note","raw_bill","money_bill");
  /** The materials also stand right after paper in the vanilla Ingredients tab, so the search tab lists them there, not at its end. */
  public static final Item SEARCH_ANCHOR=Items.PAPER;
+ /** Entries added to vanilla tabs: none while the super-mod switch is off. */
+ public static List<ItemStack> vanillaStacks(){return SimpleMoney.on()?tabStacks():List.of();}
  public static List<ItemStack> tabStacks(){return TAB_ORDER.stream().map(n->new ItemStack(ITEMS.get(n))).toList();}
  public static void register() {
   for(String name:IDS) {
@@ -43,7 +45,7 @@ public final class MoneyItems {
      super.appendHoverText(stack,context,display,consumer,flag);
     }
     @Override public InteractionResult use(Level level,Player player,InteractionHand hand) {
-     if(!name.equals("money_bill")) return super.use(level,player,hand);
+     if(!SimpleMoney.on()||!name.equals("money_bill")) return super.use(level,player,hand);
      if(!level.isClientSide()) level.playSound(null,player.getX(),player.getY(),player.getZ(),SoundEvents.BOOK_PAGE_TURN,SoundSource.PLAYERS,0.6f,1.8f);
      if(level instanceof net.minecraft.server.level.ServerLevel server) server.sendParticles(net.minecraft.core.particles.ParticleTypes.HAPPY_VILLAGER,player.getX(),player.getY()+1,player.getZ(),1,0,0,0,0.1);
      return InteractionResult.SUCCESS;
@@ -52,6 +54,6 @@ public final class MoneyItems {
   }
  }
  public static void registerTab(CreativeModeTab.Builder builder) {
-  Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,Identifier.fromNamespaceAndPath("simplemoney","money_items"),builder.icon(()->new ItemStack(ITEMS.get("money_bill"))).title(Component.translatable("itemgroup.simplemoney.money_items")).displayItems((p,o)->{if(com.simplemoney.guide.MoneyGuide.book()!=null)o.accept(com.simplemoney.guide.MoneyGuide.stack());tabStacks().forEach(o::accept);}).build());
+  Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,Identifier.fromNamespaceAndPath("simplemoney","money_items"),builder.icon(()->new ItemStack(ITEMS.get("money_bill"))).title(Component.translatable("itemgroup.simplemoney.money_items")).displayItems((p,o)->{if(!SimpleMoney.on())return;if(com.simplemoney.guide.MoneyGuide.book()!=null)o.accept(com.simplemoney.guide.MoneyGuide.stack());tabStacks().forEach(o::accept);}).build());
  }
 }

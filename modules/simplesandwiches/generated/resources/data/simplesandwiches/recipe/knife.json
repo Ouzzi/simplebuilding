@@ -1,9 +1,19 @@
 {
   "category": "equipment",
+  "fabric:load_conditions": [
+    {
+      "condition": "simplesandwiches:enabled"
+    }
+  ],
   "key": {
     "N": "minecraft:iron_nugget",
     "S": "minecraft:stick"
   },
+  "neoforge:conditions": [
+    {
+      "type": "simplesandwiches:enabled"
+    }
+  ],
   "pattern": [
     "  N",
     " NN",

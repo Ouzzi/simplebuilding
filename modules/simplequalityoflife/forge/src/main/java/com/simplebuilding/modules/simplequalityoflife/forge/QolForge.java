@@ -13,7 +13,7 @@ public final class QolForge {
   Simplequalityoflife.init();ModuleForgeTests.register(context.getModBusGroup());
   net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(e->{if(e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM))com.simplequalityoflife.guide.QolGuide.register();});
   if(net.minecraftforge.fml.ModList.isLoaded("ftbquests"))com.simplequalityoflife.guide.QolGuide.installQuests(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
-  net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e->{if(e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES))e.accept(com.simplequalityoflife.guide.QolGuide.book());});
+  net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e->{if(!e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)||!true)return;var book=new net.minecraft.world.item.ItemStack(com.simplequalityoflife.guide.QolGuide.book());var anchor=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.WRITABLE_BOOK);/* before the writable book: a tail append clashes with other mods' putAfter at the tail */if(e.getEntries().contains(anchor))e.getEntries().putBefore(anchor,book,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);else e.accept(book);});
   if(ModuleForgeTests.enabled())QolForgeChecks.register();
   channel=ChannelBuilder.named(net.minecraft.resources.Identifier.parse("simplequalityoflife:main")).payloadChannel().protocol(NetworkProtocol.PLAY).clientbound()
    .add(ConfigSyncPayload.TYPE,ConfigSyncPayload.STREAM_CODEC.cast(),(p,c)->{c.setPacketHandled(true);c.enqueueWork(()->QolForgeClient.receive(p));})

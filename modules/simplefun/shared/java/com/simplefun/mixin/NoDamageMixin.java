@@ -22,7 +22,7 @@ public class NoDamageMixin {
 
   @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true)
   private float simplefun$modifyDamage(float amount, ServerLevel level, DamageSource source) {
-    if (!SimplefunCommon.getConfig().fun.enableNoDamage) return amount;
+    if (!SimplefunCommon.on() || !SimplefunCommon.getConfig().fun.enableNoDamage) return amount;
 
     if (source.is(net.minecraft.world.damagesource.DamageTypes.PLAYER_ATTACK)
         && source.getDirectEntity() instanceof Player player) {

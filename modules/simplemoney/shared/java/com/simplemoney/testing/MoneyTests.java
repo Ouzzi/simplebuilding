@@ -28,6 +28,7 @@ public final class MoneyTests {
   ALL.put("money_game_test_config_world",MoneyTests::configWorld);
   ALL.put("money_game_test_trades",MoneyTests::trades);
   ALL.put("money_game_test_loot",MoneyTests::loot);
+  ALL.put("money_game_test_sub_mod_switch",MoneyTests::subModSwitch);
   ALL.put("money_game_test_config",MoneyTests::config);
   ALL.put("money_game_test_languages_and_assets",MoneyTests::languagesAndAssets);
   ALL.put("money_game_test_simplebuilding_storage",MoneyTests::storage);
@@ -140,6 +141,21 @@ public final class MoneyTests {
     }
    }
   }h.assertValueEqual(count,47,"source offer count");h.succeed();
+ }
+ /** Super-mod switch "Enable Simple Money" off: registries stay, no tab entries, no loot, no trades. */
+ public static void subModSwitch(GameTestHelper h) {
+  var old=com.simplebuilding.framework.api.SubMods.enabled("simplemoney");
+  try {
+   com.simplebuilding.framework.api.SubMods.set("simplemoney",false);
+   h.assertTrue(!SimpleMoney.on(),"Switch off reaches Simple Money");
+   h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.getValue(id("money_items"))!=null&&MoneyItems.ITEMS.get("money_bill")!=null,"Registries stay");
+   h.assertTrue(MoneyItems.vanillaStacks().isEmpty()&&!MoneyItems.tabStacks().isEmpty(),"No vanilla tab entries");
+   var pools=new ArrayList<LootPool.Builder>();MoneyLoot.inject("minecraft:chests/"+MoneyLoot.ENTRIES.get(0).table(),pools::add);
+   h.assertTrue(pools.isEmpty(),"No loot while off");
+   h.assertTrue(!SimpleMoney.enabled("enableVillagerTrades")&&!SimpleMoney.enabled("enableWanderingTrades"),"No trades while off");
+  } finally { com.simplebuilding.framework.api.SubMods.set("simplemoney",old); }
+  h.assertTrue(SimpleMoney.on()==old,"Switch restored");
+  h.succeed();
  }
  public static void loot(GameTestHelper h) {
   var level=h.getLevel();

@@ -178,4 +178,9 @@ public final class ModuleGameTest {
   public void creativeTabs(GameTestHelper h) {
     com.simplefun.test.FunTests.ALL.get("creative_tabs").accept(h);
   }
+
+  @GameTest
+  public void subModSwitch(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("sub_mod_switch").accept(h);
+  }
 }

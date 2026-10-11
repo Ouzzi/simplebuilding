@@ -236,6 +236,20 @@ public final class ContainerTests {
     }
 
     /** Defaults: everything on; master switch off turns every style off; a saved file round-trips. */
+    /** Super-mod switch "Enable Simple QoL" off: registry (style list) stays, the helper gating StyledScreens.style and the toggle button reports inert. */
+    public static void subModSwitch(GameTestHelper h) {
+        var sw = com.simplebuilding.framework.api.SubMods.enabled("simpleinterfaces");
+        try {
+            com.simplebuilding.framework.api.SubMods.set("simpleinterfaces", false);
+            h.assertTrue(!ContainersConfig.on(), "Switch off reaches Simple Interfaces");
+            h.assertTrue(!ContainerStyles.all().isEmpty(), "Style registry stays");
+        } finally {
+            com.simplebuilding.framework.api.SubMods.set("simpleinterfaces", sw);
+        }
+        h.assertTrue(ContainersConfig.on() == sw, "Switch restored");
+        h.succeed();
+    }
+
     public static void config(GameTestHelper h) {
         var config = new ContainersConfig();
         h.assertTrue(!config.showStyleToggle, "style comparison button defaults off");

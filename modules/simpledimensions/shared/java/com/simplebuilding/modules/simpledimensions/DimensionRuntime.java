@@ -114,7 +114,7 @@ public final class DimensionRuntime {
   for(var p:server.getPlayerList().getPlayers())tickPlayer(p);
  }
  public void tickPlayer(ServerPlayer p){
-   var l=p.level();var touched=findTouched(l,p);var c=contacts.computeIfAbsent(p.getUUID(),id->new Contact());
+   var l=p.level();var touched=DimensionRegistry.on()?findTouched(l,p):null;var c=contacts.computeIfAbsent(p.getUUID(),id->new Contact());
    if(touched==null){c.portal="";c.warmup=0;c.exit=false;}
    else if(!c.exit&&server.getTickCount()>=c.cooldown){
     String current=key(l,touched);if(!current.equals(c.portal)){c.portal=current;c.warmup=0;}
@@ -141,7 +141,7 @@ public final class DimensionRuntime {
  }
  private ServerLevel level(String id){var value=Identifier.tryParse(id);return value==null?null:server.getLevel(ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,value));}
  public boolean travel(ServerPlayer player,BlockPos contact){
-  var source=player.level();if(player.isPassenger()||player.isVehicle()||player.isSpectator()||!(source.getBlockEntity(contact) instanceof SkyPortalBlockEntity be))return false;
+  var source=player.level();if(!DimensionRegistry.on()||player.isPassenger()||player.isVehicle()||player.isSpectator()||!(source.getBlockEntity(contact) instanceof SkyPortalBlockEntity be))return false;
   var cfg=config(be.definition);
   if(cfg==null&&be.definition.isEmpty()) {
    if(source.dimension().identifier().getNamespace().equals("simpledimension"))return emergencyReturn(player);

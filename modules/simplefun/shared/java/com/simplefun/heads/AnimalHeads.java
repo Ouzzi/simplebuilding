@@ -106,7 +106,11 @@ public final class AnimalHeads {
         CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
             .title(net.minecraft.network.chat.Component.translatable("itemgroup.simplefun.fun"))
             .icon(() -> new ItemStack(com.simplefun.registry.ModItems.BRICK_SNOWBALL))
-            .displayItems((p, out) -> tabStacks().forEach(out::accept))
+            .displayItems(
+                (p, out) -> {
+                  if (!com.simplefun.SimplefunCommon.on()) return;
+                  tabStacks().forEach(out::accept);
+                })
             .build());
   }
 }

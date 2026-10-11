@@ -35,6 +35,7 @@ public final class ClaimsGameTest {
  @GameTest public void claimsToolsPad(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_pad").accept(h); }
 
  @GameTest public void claimsDisabledHooks(GameTestHelper h) { ClaimTests.TESTS.get("claims_disabled_hooks").accept(h); }
+ @GameTest public void subModSwitch(GameTestHelper h) { ClaimTests.TESTS.get("sub_mod_switch").accept(h); }
  @GameTest public void claimsBedFootprint(GameTestHelper h) { ClaimTests.TESTS.get("claims_bed_footprint").accept(h); }
  @GameTest public void claimsVanillaBorder(GameTestHelper h) { ClaimTests.TESTS.get("claims_vanilla_border").accept(h); }
  @GameTest public void claimsBucketEntityHooks(GameTestHelper h) { ClaimTests.TESTS.get("claims_bucket_entity_hooks").accept(h); }

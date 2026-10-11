@@ -27,7 +27,7 @@ public final class DimensionTests {
   ALL.put("launch",DimensionTests::launch);ALL.put("world_generation",DimensionTests::worldGeneration);
   ALL.put("six_arches_both_axes",DimensionTests::sixArchesBothAxes);ALL.put("recipes_and_mutations",DimensionTests::recipesAndMutations);
   ALL.put("separate_light",DimensionTests::separateLight);ALL.put("ignition_costs",DimensionTests::ignitionCosts);
-  ALL.put("portal_decay",DimensionTests::portalDecay);ALL.put("config_bounds",DimensionTests::configBounds);
+  ALL.put("sub_mod_switch",DimensionTests::subModSwitch);ALL.put("portal_decay",DimensionTests::portalDecay);ALL.put("config_bounds",DimensionTests::configBounds);
   ALL.put("hostile_config",DimensionTests::hostileConfig);ALL.put("config_files",DimensionTests::configFiles);
   ALL.put("legacy_entity",DimensionTests::legacyEntity);ALL.put("coordinate_rules",DimensionTests::coordinateRules);
   ALL.put("platform_geometry",DimensionTests::platformGeometry);ALL.put("safe_ground",DimensionTests::safeGround);
@@ -91,6 +91,20 @@ public final class DimensionTests {
   h.getLevel().setBlock(p.offset(0,1,2),Blocks.SEA_LANTERN.defaultBlockState(),3);yes(h,w.separateLight(m),"Separate light accepted");h.succeed();}
  public static void ignitionCosts(GameTestHelper h){var c=DimensionPortalConfig.defaultSkyblock();var cell=build(h,c,1,Direction.Axis.X);h.getLevel().setBlock(cell.offset(0,0,2),Blocks.SEA_LANTERN.defaultBlockState(),3);var p=player(h,cell,Items.FIRE_CHARGE);yes(h,ignite(p,cell)==InteractionResult.SUCCESS,"Charge activates");yes(h,p.getMainHandItem().getCount()==1,"Exactly one charge consumed");
   cell=build(h,c,0,Direction.Axis.X);h.getLevel().setBlock(cell.offset(0,0,2),Blocks.SEA_LANTERN.defaultBlockState(),3);p=player(h,cell,Items.FLINT_AND_STEEL);yes(h,ignite(p,cell)==InteractionResult.SUCCESS,"Flint activates");yes(h,p.getMainHandItem().getDamageValue()==1,"Exactly one damage consumed");h.succeed();}
+ /** Super-mod switch "Enable Simple Dimensions" off: registries unchanged, portals neither ignite nor teleport. */
+ public static void subModSwitch(GameTestHelper h){
+  var sw=com.simplebuilding.framework.api.SubMods.enabled("simpledimension");
+  try{
+   com.simplebuilding.framework.api.SubMods.set("simpledimension",false);
+   yes(h,!DimensionRegistry.on(),"Switch off reaches Simple Dimensions");
+   yes(h,BuiltInRegistries.BLOCK.getValue(DimensionRegistry.id("sky_portal"))==DimensionRegistry.PORTAL&&DimensionRegistry.PORTAL!=null,"Registries stay");
+   var c=DimensionPortalConfig.defaultSkyblock();var cell=build(h,c,1,Direction.Axis.X);h.getLevel().setBlock(cell.offset(0,0,2),Blocks.SEA_LANTERN.defaultBlockState(),3);var p=player(h,cell,Items.FIRE_CHARGE);
+   yes(h,ignite(p,cell)==InteractionResult.PASS,"No ignition while off");yes(h,p.getMainHandItem().getCount()==2,"Igniter not consumed");
+   yes(h,!DimensionRuntime.get(h.getLevel().getServer()).travel(p,cell),"No travel while off");
+  }finally{com.simplebuilding.framework.api.SubMods.set("simpledimension",sw);}
+  yes(h,DimensionRegistry.on()==sw,"Switch restored");
+  h.succeed();
+ }
  public static void portalDecay(GameTestHelper h){var p=activate(h);var b=(SkyPortalBlockEntity)h.getLevel().getBlockEntity(p);h.getLevel().setBlock(base(h),Blocks.DIRT.defaultBlockState(),3);yes(h,!DimensionRuntime.get(h.getLevel().getServer()).validFrame(h.getLevel(),p,b,DimensionPortalConfig.defaultSkyblock()),"Broken frame fails");yes(h,h.getLevel().getBlockState(p).isAir(),"Portal decays");h.succeed();}
  public static void configBounds(GameTestHelper h){var c=DimensionPortalConfig.defaultSkyblock();c.portalDelayTicks=999;c.teleportCooldownTicks=-1;c.travelCoordinateScale=999;c.maxPortalWidth=999;c.worldGeneration.height=Integer.MAX_VALUE;c.worldGeneration.minY=Integer.MIN_VALUE;ConfigLimits.validate(c);yes(h,c.portalDelayTicks==200&&c.teleportCooldownTicks==20&&c.travelCoordinateScale==10&&c.maxPortalWidth==21&&c.worldGeneration.height==384&&c.worldGeneration.minY==-64,"All numeric hard caps");h.succeed();}
  public static void hostileConfig(GameTestHelper h){for(double n:List.of(Double.NaN,Double.POSITIVE_INFINITY,Double.NEGATIVE_INFINITY)){var c=DimensionPortalConfig.defaultSkyblock();c.travelCoordinateScale=n;rejects(()->ConfigLimits.validate(c));}

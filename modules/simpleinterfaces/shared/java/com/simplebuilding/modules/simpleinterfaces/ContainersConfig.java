@@ -15,6 +15,9 @@ public final class ContainersConfig {
     /** Per screen kind (style id), default on. */
     public Map<String, Boolean> screens = new HashMap<>();
 
+    /** Super-mod switch "Enable Simple QoL" (framework SubMods): off = every screen exactly Vanilla, no toggle button. Runtime only. */
+    public static boolean on() { return com.simplebuilding.framework.api.SubMods.enabled("simpleinterfaces"); }
+
     public void normalize() {
         if (screens == null) screens = new HashMap<>();
         screens.values().removeIf(java.util.Objects::isNull);

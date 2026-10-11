@@ -97,6 +97,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void subModSwitch(GameTestHelper h) {
+        SandwichTests.ALL.get("sub_mod_switch").accept(h);
+    }
+
+    @GameTest
     public void cakeSlice(GameTestHelper h) {
         SandwichTests.ALL.get("cake_slice").accept(h);
     }

@@ -37,7 +37,7 @@ public final class FunDelights {
   }
 
   public static boolean emit(ServerPlayer p, String key, SoundEvent sound) {
-    if (!enabled(key) || p.isSpectator() || !p.isAlive()) return false;
+    if (!SimplefunCommon.on() || !enabled(key) || p.isSpectator() || !p.isAlive()) return false;
     long now = p.level().getGameTime();
     if (now < NEXT.getOrDefault(p, Long.MIN_VALUE)) return false;
     NEXT.put(p, now + SimplefunConfig.COSMETIC_COOLDOWN);

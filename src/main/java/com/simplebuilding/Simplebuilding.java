@@ -79,6 +79,7 @@ public class Simplebuilding implements ModInitializer {
     private void configure() {
         AutoConfig.register(SimplebuildingConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
+        SimplebuildingConfig.applySubModSwitches(CONFIG);
     }
 
     private void registerContent() {

@@ -82,6 +82,11 @@ public final class ConfigOptionGameTest {
     }
 
     @GameTest
+    public void superModSwitchesReachTheBundledSubMods(GameTestHelper helper) {
+        ConfigOptionTests.superModSwitchesReachTheBundledSubMods(helper);
+    }
+
+    @GameTest
     public void theConfigCommandReachesEveryOption(GameTestHelper helper) {
         ConfigOptionTests.theConfigCommandReachesEveryOption(helper);
     }

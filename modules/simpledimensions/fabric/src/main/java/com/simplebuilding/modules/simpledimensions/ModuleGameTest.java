@@ -16,6 +16,7 @@ public final class ModuleGameTest {
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void recipesAndMutations(GameTestHelper h){DimensionTests.recipesAndMutations(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void separateLight(GameTestHelper h){DimensionTests.separateLight(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void ignitionCosts(GameTestHelper h){DimensionTests.ignitionCosts(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=240) public void subModSwitch(GameTestHelper h){DimensionTests.subModSwitch(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void portalDecay(GameTestHelper h){DimensionTests.portalDecay(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void configBounds(GameTestHelper h){DimensionTests.configBounds(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void hostileConfig(GameTestHelper h){DimensionTests.hostileConfig(h);}

@@ -13,6 +13,11 @@ public final class SimpleTrims {
         return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
+    /** Super-mod switch "Enable Simple Trims" (framework SubMods): off = inert (no template-tool recognition). */
+    public static boolean on() {
+        return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID);
+    }
+
     public static void init(java.nio.file.Path configDir) {
         com.simpletrims.config.TrimsConfig.load(configDir);
     }
