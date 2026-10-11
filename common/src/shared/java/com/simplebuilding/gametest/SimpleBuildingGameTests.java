@@ -303,6 +303,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("nature_block_game_test_sand_and_gravel_slabs_fall_and_merge", NatureBlockTests::sandAndGravelSlabsFallAndMerge)
                     .maxTicks(NatureBlockTests.FALLING_SLAB_MAX_TICKS).build(),
+            GameTestSpec.named("nature_block_game_test_gravity_slabs_settle_on_slabs_and_half_steps", NatureBlockTests::gravitySlabsSettleOnSlabsAndHalfSteps)
+                    .maxTicks(NatureBlockTests.FALLING_SLAB_MAX_TICKS).build(),
+            GameTestSpec.named("nature_block_game_test_upper_gravity_slab_starts_falling_from_its_own_height", NatureBlockTests::upperGravitySlabStartsFallingFromItsOwnHeight)
+                    .maxTicks(NatureBlockTests.FALLING_SLAB_MAX_TICKS).build(),
             GameTestSpec.named("nature_block_game_test_natural_slabs_place_into_the_full_block", NatureBlockTests::naturalSlabsPlaceIntoTheFullBlock)
                     .build(),
             GameTestSpec.named("nature_block_game_test_cracked_ice_melts_under_an_entity_after_some_seconds", NatureBlockTests::crackedIceMeltsUnderAnEntityAfterSomeSeconds)
@@ -2131,6 +2135,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_template_game_test_several_attractors_share_one_centre_and_floating_items_hover", PlacedTemplateTests::severalAttractorsShareOneCentreAndFloatingItemsHover)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_an_item_between_two_floor_attractors_comes_to_rest", PlacedTemplateTests::anItemBetweenTwoFloorAttractorsComesToRest)
+                    .maxTicks(PlacedTemplateTests.ATTRACTOR_PAIR_TICKS).build(),
+            GameTestSpec.named("placed_template_game_test_an_item_between_two_facing_attractors_hovers_still", PlacedTemplateTests::anItemBetweenTwoFacingAttractorsHoversStill)
+                    .maxTicks(PlacedTemplateTests.ATTRACTOR_PAIR_TICKS).build(),
             GameTestSpec.named("placed_template_game_test_locked_octants_are_placed_and_right_click_toggles_the_outline_per_player", PlacedTemplateTests::lockedOctantsArePlacedAndRightClickTogglesTheOutlinePerPlayer)
                     .build(),
             GameTestSpec.named("pulsating_trim_game_test_upgrade_templates_use_vanilla_tooltip_structure", PulsatingTrimTests::upgradeTemplatesUseVanillaTooltipStructure)

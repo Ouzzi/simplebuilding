@@ -24,6 +24,16 @@ public final class NatureBlockGameTest {
         NatureBlockTests.sandAndGravelSlabsFallAndMerge(helper);
     }
 
+    @GameTest(maxTicks = NatureBlockTests.FALLING_SLAB_MAX_TICKS)
+    public void gravitySlabsSettleOnSlabsAndHalfSteps(GameTestHelper helper) {
+        NatureBlockTests.gravitySlabsSettleOnSlabsAndHalfSteps(helper);
+    }
+
+    @GameTest(maxTicks = NatureBlockTests.FALLING_SLAB_MAX_TICKS)
+    public void upperGravitySlabStartsFallingFromItsOwnHeight(GameTestHelper helper) {
+        NatureBlockTests.upperGravitySlabStartsFallingFromItsOwnHeight(helper);
+    }
+
     @GameTest
     public void naturalSlabsPlaceIntoTheFullBlock(GameTestHelper helper) {
         NatureBlockTests.naturalSlabsPlaceIntoTheFullBlock(helper);

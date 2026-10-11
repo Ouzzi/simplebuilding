@@ -19,12 +19,16 @@ import net.minecraft.world.level.block.SoundType;
 
 /** Fallen (QUEUE N24, claude-q-traps): Sculk-Kiefer und der Schwefelwuerfel-Easter-Egg (Ofen/Tische = schwer wie Eisen). */
 public final class TrapTests {
-    public static final int JAW_MAX_TICKS = 120;
+    public static final int JAW_MAX_TICKS = 140;
 
     private TrapTests() {
     }
 
-    /** Eine Sau in der Kiefer wird gebissen (Gesundheit sinkt, Kiefer schnappt zu) und die Kiefer oeffnet sich wieder; Klangtyp lautlos. */
+    /**
+     * Besitzer N34: eine Sau in der Kiefer wird genau einmal gebissen (1 Herz), bekommt Dunkelheit, und die Kiefer bleibt
+     * geschlossen, solange sie drinsteht (kein Auf-und-Zu, kein zweiter Biss). Ist die Sau weg, oeffnet sie sich wieder.
+     * Klangtyp lautlos.
+     */
     public static void sculkJawBitesAndReopensSilently(GameTestHelper helper) {
         if (!McVersion.NATURE_VARIANTS) {
             helper.succeed();
@@ -36,16 +40,25 @@ public final class TrapTests {
         Pig pig = helper.spawn(EntityTypes.PIG, new BlockPos(1, 1, 1));
         helper.assertTrue(pig != null, "no pig");
         float full = pig.getHealth();
-        boolean[] snapped = {false};
+        // 0 = noch nie zu, 1 = zu, 2 = waehrend die Sau drin ist wieder aufgegangen (Flackern)
+        int[] phase = {0};
+        boolean[] dark = {false};
         helper.onEachTick(() -> {
-            if (helper.getBlockState(pos).getValue(SculkJawBlock.SNAPPED)) {
-                snapped[0] = true;
-            }
+            boolean snapped = helper.getBlockState(pos).getValue(SculkJawBlock.SNAPPED);
+            if (pig.isAlive() && pig.blockPosition().equals(helper.absolutePos(pos)) && phase[0] == 1 && !snapped) phase[0] = 2;
+            if (phase[0] == 0 && snapped) phase[0] = 1;
+            if (pig.isAlive() && pig.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS)) dark[0] = true;
         });
-        helper.succeedWhen(() -> {
-            helper.assertTrue(snapped[0], "the jaw never snapped shut");
-            helper.assertTrue(pig.getHealth() <= full - SculkJawBlock.BITE_DAMAGE + 0.01F, "pig health " + pig.getHealth() + " of " + full);
-            helper.assertTrue(helper.getBlockState(pos).is(ModBlocks.SCULK_JAW), "jaw gone: " + helper.getBlockState(pos));
+        helper.runAfterDelay(70, () -> {
+            helper.assertTrue(phase[0] == 1, phase[0] == 0 ? "the jaw never snapped shut" : "the jaw opened again with the pig still inside");
+            helper.assertTrue(Math.abs(pig.getHealth() - (full - SculkJawBlock.BITE_DAMAGE)) < 0.01F,
+                    "one bite of " + SculkJawBlock.BITE_DAMAGE + " expected: pig health " + pig.getHealth() + " of " + full);
+            helper.assertTrue(dark[0], "the pig in the jaw got no darkness");
+            pig.discard();
+            helper.succeedWhen(() -> {
+                helper.assertTrue(helper.getBlockState(pos).is(ModBlocks.SCULK_JAW), "jaw gone: " + helper.getBlockState(pos));
+                helper.assertFalse(helper.getBlockState(pos).getValue(SculkJawBlock.SNAPPED), "the empty jaw did not reopen");
+            });
         });
     }
 

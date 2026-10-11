@@ -105,7 +105,7 @@ public final class PlacedAttractors {
             Pulled last = PULLED.get(entity);
             if (last != null && last.pos() != pos.asLong() && now - last.tick() < INTERVAL) continue;
             PULLED.put(entity, new Pulled(pos.asLong(), now));
-            applyPull(entity, centre(entity, active, rangeSq));
+            applyPull(entity, centre(entity, active, rangeSq), now);
         }
         return items.size();
     }
@@ -130,19 +130,28 @@ public final class PlacedAttractors {
         return sum.scale(1.0 / targets.size());
     }
 
-    private static void applyPull(ItemEntity entity, Vec3 target) {
+    /** Markiert ein Item, dem ein Attractor die Schwerkraft abgenommen hat (bleibt beim Speichern erhalten). */
+    public static final String HOVER_TAG = "simplebuilding_attractor_hover";
+    /** Letzter Takt, in dem ein Attractor das schwebende Item gehalten hat. */
+    private static final Map<ItemEntity, Long> HOVER = new WeakHashMap<>();
+
+    private static void applyPull(ItemEntity entity, Vec3 target, long now) {
         Vec3 offset = target.subtract(entity.position());
         double distance = offset.length();
         Vec3 velocity = entity.getDeltaMovement();
         Vec3 next;
         if (distance <= MagnetItem.minimumDistance()) {
             next = velocity.scale(0.2);
-            if (!entity.onGround() && !entity.isNoGravity()) {
-                // Besitzer N23 Sweetspot: ein schwebendes Item haelt die Hoehe des Zielpunkts - Schwerkraft bis
-                // zum naechsten Zug ausgleichen und sanft zur Mitte federn, statt abzusacken und zu zittern.
-                next = next.add(offset.scale(0.1)).add(0.0, entity.getGravity() * INTERVAL, 0.0);
+            if (HOVER.containsKey(entity) || (!entity.onGround() && !entity.isNoGravity())) {
+                // Besitzer N23/N34 Sweetspot: ein schwebendes Item haelt die Hoehe des Zielpunkts. Frueher glich ein Zug je
+                // Takt die Schwerkraft zweier Ticks aus - das Item sprang jeden Tick 0,02 auf und ab (Zittern, Client
+                // verschluckt sich). Jetzt nimmt der Attractor ihm die Schwerkraft ab, solange er es haelt, und federt es
+                // gedaempft zur Mitte; der Client sieht NoGravity und haelt es ebenso still.
+                hold(entity, now);
+                next = next.add(offset.scale(0.1));
             }
         } else {
+            release(entity);
             next = velocity.scale(0.8).add(offset.scale(PULL / distance));
             if (entity.onGround() && (offset.y > 0.2 || entity.horizontalCollision)) {
                 next = next.add(0.0, 0.2, 0.0);
@@ -152,8 +161,43 @@ public final class PlacedAttractors {
                 next = next.scale(MAX_SPEED / speed);
             }
         }
-        // push() statt setDeltaMovement(): setzt das Sync-Flag, der Client sieht den Zug sofort.
+        // push() statt setDeltaMovement(): setzt das Sync-Flag, der Client sieht den Zug sofort. Ein ruhendes Item
+        // bekommt keine Pakete mehr.
         Vec3 change = next.subtract(velocity);
-        entity.push(change.x, change.y, change.z);
+        if (change.lengthSqr() > 1.0E-8) {
+            entity.push(change.x, change.y, change.z);
+        }
+    }
+
+    private static void hold(ItemEntity entity, long now) {
+        if (!HOVER.containsKey(entity)) {
+            if (entity.isNoGravity()) {
+                return; // schwebt schon aus anderem Grund (Befehl, andere Mod) - nicht anfassen
+            }
+            entity.setNoGravity(true);
+            entity.addTag(HOVER_TAG);
+        }
+        HOVER.put(entity, now);
+    }
+
+    private static void release(ItemEntity entity) {
+        if (HOVER.remove(entity) != null || entity.entityTags().contains(HOVER_TAG)) {
+            entity.removeTag(HOVER_TAG);
+            entity.setNoGravity(false);
+        }
+    }
+
+    /**
+     * Jeden Server-Tick eines schwebenden Items (ItemEntityMixin): haelt es kein Attractor mehr (abgebaut, ausser Reichweite,
+     * Welt neu geladen), faellt es wieder.
+     */
+    public static void releaseIfAbandoned(ItemEntity entity) {
+        if (!entity.entityTags().contains(HOVER_TAG)) {
+            return;
+        }
+        Long last = HOVER.get(entity);
+        if (last == null || entity.level().getGameTime() - last > 2L * INTERVAL) {
+            release(entity);
+        }
     }
 }
