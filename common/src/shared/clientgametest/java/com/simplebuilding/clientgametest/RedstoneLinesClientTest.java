@@ -92,6 +92,10 @@ public final class RedstoneLinesClientTest {
             BlockState state = level.getBlockState(pos);
             if (SignalDustBlock.lineOf(state) != null) level.setBlock(pos, Block.updateFromNeighbourShapes(state, level, pos), Block.UPDATE_ALL);
         }
+        // Like a player's placement (RedstoneLampBlock#getStateForPlacement): a lamp set by setBlock is only checked on
+        // a neighbour update, and the finished lane sends it none - vanilla dust behaves the same.
+        BlockPos lamp = new BlockPos(X0 + 13, 0, z);
+        level.setBlock(lamp, Blocks.REDSTONE_LAMP.defaultBlockState().setValue(RedstoneLampBlock.LIT, level.hasNeighborSignal(lamp)), Block.UPDATE_ALL);
     }
 
     private static void onServer(Script script, String name, Consumer<MinecraftServer> work) {
