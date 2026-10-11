@@ -117,15 +117,6 @@ public class NetheritePistonItem extends BlockItem {
         textConsumer.accept(Component.translatable(tooltipKey + ".5").withStyle(ChatFormatting.GRAY));
         textConsumer.accept(Component.translatable(tooltipKey + ".6").withStyle(ChatFormatting.GRAY));
         textConsumer.accept(Component.translatable(tooltipKey + ".7").withStyle(ChatFormatting.GRAY));
-        int damage = damageOf(stack);
-        int max = maxDurability();
-        // Advanced tooltips (F3+H) already show vanilla's "Durability: x / y" for a damaged stack.
-        if (damage > 0 && max > 0 && !(type.isAdvanced() && stack.isDamaged())) {
-            int left = max - damage;
-            ChatFormatting colour = left * 4 <= max ? ChatFormatting.RED
-                    : left * 2 <= max ? ChatFormatting.GOLD : ChatFormatting.YELLOW;
-            textConsumer.accept(Component.translatable("tooltip.simplebuilding.netherite_piston.durability",
-                    left, max).withStyle(colour));
-        }
+        // The durability bar already shows the wear (AGENTS.md: no bar value twice in the tooltip).
     }
 }

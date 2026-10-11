@@ -681,6 +681,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_copper_bucket_rules", CrucibleTests::copperBucketRules)
                     .build(),
+            GameTestSpec.named("crucible_game_test_copper_bucket_oxidizes_only_in_hotbar_or_offhand", CrucibleTests::copperBucketOxidizesOnlyInHotbarOrOffhand)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_copper_bucket_waxed_water_weathers_at_half_pace", CrucibleTests::copperBucketWaxedWaterWeathersAtHalfPace)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_ceramic_bucket_with_lava_is_brittle_and_breaks_on_pour", CrucibleTests::ceramicBucketWithLavaIsBrittleAndBreaksOnPour)
+                    .build(),
             GameTestSpec.named("crucible_game_test_copper_bucket_fully_oxidized_scoops_nothing", CrucibleTests::copperBucketFullyOxidizedScoopsNothing)
                     .build(),
             GameTestSpec.named("crucible_game_test_enderite_tiers_have_twenty_seven_slots_and_double_stacks", CrucibleTests::enderiteTiersHaveTwentySevenSlotsAndDoubleStacks)
