@@ -538,7 +538,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
   - 3D-Vorschau: Drag-Rotation reparieren; Strg+Drag verschiebt; Icon-Button „Ansicht zurücksetzen“ im Vorschaufenster.
   - Layout: Überschrift, dann 3 Bereiche. (1) **Materials:** „X×Y×Z“ Zeilenumbruch „= n Blöcke“ ohne Überlappung; darunter Stab-Icon + Fortschrittsbalken; Materialliste schmaler (nur Icon + Zahl). (2) **Code:** Codeblock, darunter „Code ok“ Zeilenumbruch „xyz/XYZ Zeichen“; rechtsbündig Buch-Button (Hilfe) – Zeichenzeile wandert dafür unter den Codeblock. (3) **Preview:** breiter, mit Reset-Icon; darunter Signieren und Fertig.
   - Insert-Feld wandert in das Hilfe-Buch: Tabs tauschen, „Blocks“ zuerst und Standard; im Blocks-Tab statt normaler Suche Textfeld + Insert-Button daneben; beim Öffnen des Buchs ist Insert vorausgewählt. Tab „Guide“: vollständige, leicht verständliche Erklärung, ganz unten Copy-Button (Text kopieren, z. B. für KI-Fragen).
-- [x] (claude-q-models; Compile/Tests/Screenshot noch offen, sb-test-Platte voll) **Simple Models überarbeiten:** Modul insgesamt verbessern (Audit + Vorschläge zuerst). Models-Button im Stil der Guide-Lesezeichen, immer an der Inventar-UI über den Rüstungsslots angehängt, Icon statt Text (Rüstungsständer oder Namensschild, ggf. Besseres).
+- [x] (claude-q-models; Compile/Tests/Screenshot noch offen, Testrechner-Platte voll) **Simple Models überarbeiten:** Modul insgesamt verbessern (Audit + Vorschläge zuerst). Models-Button im Stil der Guide-Lesezeichen, immer an der Inventar-UI über den Rüstungsslots angehängt, Icon statt Text (Rüstungsständer oder Namensschild, ggf. Besseres).
 - [x] **Resonanz-Statusfeld:** rechts neben das Buch-Icon verlagern; statt Vorlage ein Herz-Symbol in Steinfarben, Resonanzwert grau daneben, schmalerer Rahmen → kompakter, vanilla-näher. (Audit 09.10.: 916e4d203, claude-brush2 29771970c; Feinschliff N29 offen)
 - [x] (claude-q-hopper) **Truhen:** Fallen-Truhen ohne „Trapped“ im GUI-Titel; generell keine Stapelgröße o. ä. in Truhen-/Container-GUIs; Mod-Fallen-Truhen-Texturen viel zu auffällig → dezenter wie Vanilla (Vorschau).
 - [x] (claude-q-hopper; Lore-Trichter: claude-q-vehicles) **Trichter:** im GUI statt Text „Filter“: Lücke ca. 1 Slot breiter zwischen den 5 Trichterslots, darin Filter-Icon + Doppelpunkt; Gesamtblock mittig (nach links verschieben). Fehlende Lore-Trichter der Mod-Trichter ergänzen. Rezept verstärkter Trichter: Trichter + gesprungener Diamant + Namensschild.
@@ -626,7 +626,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Platzierte Bündel von oben leicht abgerundet (in Arbeit, claude-soullava). (Audit 09.10.: claude-soullava 5037a180a)
 - [x] Tiegel-Flammen Form „Mittel“ (in Arbeit, claude-soullava). (Audit 09.10.: claude-soullava 5037a180a)
 
-## Nachtrag 29 (2026-10-09 nachmittags, Besitzer; Referenzbilder Ständer: /root/previews/refs-stands/ 2–4)
+## Nachtrag 29 (2026-10-09 nachmittags, Besitzer; Referenzbilder Ständer: <preview-dir>/refs-stands/ 2–4)
 - [x] Enderit-Eimer voll: bis zum Rand gefüllt, KEINE Tropfen; wie beim Axolotl-Eimer. Halber Lava-/Seelenlava-Eimer nach derselben Regel wie der halbe Wassereimer. (claude-q-texfix29)
 - [x] Stein-Herz wieder 1 px schmaler (9×9); bei maximaler Resonanz ein Diamant-Herz. (claude-q-texfix29),
 - [x] Kreativ-Blaupause und Kreativ-Bauzauberstab: unbegrenzte Reichweite; Kreativ-Blaupause nach dem Signieren nicht mehr bearbeitbar. (claude-q-creative)

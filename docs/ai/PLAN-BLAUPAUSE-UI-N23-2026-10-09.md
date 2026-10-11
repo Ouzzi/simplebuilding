@@ -34,7 +34,7 @@ Wortlaut: `.claude/QUEUE.md` Nachtrag 23 („Blaupause am Boden“, „Blaupause
 4. Lang EN/DE (Guide neu, neue Schlüssel additiv), Wiki (`manual.json` Editor-Absatz + Rechtsklick), `docs/BLUEPRINT.md` §2.
 5. Tests: JUnit Layout; GameTests Rechtsklick-Fall (leere Hand öffnet, Block in Hand/Nebenhand nicht) und Payload an Position
    (speichert, signiert, signierte/ferne abgelehnt); Client-Tests angepasst (Insert im Buch fokussiert, Reset im Fenster),
-   Screenshots vorher/nachher nach `/root/previews/blueprint/`.
+   Screenshots vorher/nachher nach `<preview-dir>/blueprint/`.
 
 ## Risiken
 - Reflexions-Feldnamen im View-Client-Test (`viewX`, `viewW`, `bodyY`, `bodyH`, `draggingView`) bleiben erhalten.

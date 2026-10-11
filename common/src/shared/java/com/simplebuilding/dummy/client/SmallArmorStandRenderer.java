@@ -39,7 +39,7 @@ import org.joml.Matrix4f;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Kleiner Ruestungsstaender (Nachtrag 29, Referenzen /root/previews/refs-stands/2-4): ein Holzpfosten mit Querholz (T) auf
+ * Kleiner Ruestungsstaender (Nachtrag 29, Referenzen <preview-dir>/refs-stands/2-4): ein Holzpfosten mit Querholz (T) auf
  * einer Steinplatte, gezeichnet mit Vanillas Ruestungsstaender-Textur (Holz mit Ringen, Steinplatte). Vanillas Modell
  * bleibt unsichtbar; eigene Ebenen zeichnen Pfosten, das eine Ruestungsteil (verschoben, damit es am Pfosten haengt) und
  * eine Tier-Ruestung mit Vanillas Pferde-, Wolfs- oder Nautilus-Ruestungsmodell, seitlich gedreht, Pfosten im Bauch.

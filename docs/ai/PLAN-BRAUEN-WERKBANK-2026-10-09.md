@@ -43,4 +43,4 @@ Dauern: schädliche 1:30 / 4:00 (wie Schwäche), Zittern II 0:45, Übelkeit 0:45
 - Server-Tests: Brau-Rezepte (echte `RecipeType.BREWING`-Auflösung je Schritt), Effekte nach dem Trinken
   (Stufe, Dauer, Milch), Trugbild-Tabelle, Warden-Loot, Werkbank behält Items / teilt zwischen zwei Menüs / Drop
   beim Abbau / kein Trichterzugriff. Compile 3 Loader, Filter-Tests 3 Loader.
-- Client: Screenshots Effekte + Werkbank (`BrewClientTest`), Vorschauen `/root/previews/brew/`.
+- Client: Screenshots Effekte + Werkbank (`BrewClientTest`), Vorschauen `<preview-dir>/brew/`.

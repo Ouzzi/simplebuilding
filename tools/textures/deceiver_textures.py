@@ -6,13 +6,14 @@
 UV layout (64x64) matches DeceiverModel: robe (0,0) 7x7x5, head/hood (0,12) 6x6x6, hood peak (24,12),
 cloak flap (24,0), chest plate (24,18), right arm (48,0), left arm (48,12), legs (0,24) / (12,24).
 """
+import os
 import sys
 from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 RES = ROOT / 'modules/simplemobs/shared/resources/assets/simplemobs'
-PREVIEW = Path('/root/previews/deceiver')
+PREVIEW = Path(os.environ.get('SB_PREVIEW_DIR', os.path.expanduser('~/previews')) + '/deceiver')
 
 ROBE = [(0x2a, 0x24, 0x44), (0x37, 0x30, 0x58), (0x46, 0x3e, 0x6c)]
 DEEP = (0x16, 0x12, 0x26)

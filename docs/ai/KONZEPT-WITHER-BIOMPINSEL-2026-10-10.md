@@ -1,6 +1,6 @@
 # Konzept: Stärkerer Wither + Biom-Pinsel (N26, 2026-10-10)
 
-Queue: „Konzept stärkerer Wither: droppt ein Item, das später für ein Biom-Werkzeug dient (Biom-Pinsel: Pinsel in der Haupthand, biomspezifisches Material in der Nebenhand; Haltbarkeit, verzauberbar).“ Nur Konzept, nichts umgesetzt. Vorschau: `/root/previews/concepts/biom_pinsel.png`, `witherherz.png`. Verwandt: `KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md` (gleiche Bedienung wie Farbpinsel).
+Queue: „Konzept stärkerer Wither: droppt ein Item, das später für ein Biom-Werkzeug dient (Biom-Pinsel: Pinsel in der Haupthand, biomspezifisches Material in der Nebenhand; Haltbarkeit, verzauberbar).“ Nur Konzept, nichts umgesetzt. Vorschau: `<preview-dir>/concepts/biom_pinsel.png`, `witherherz.png`. Verwandt: `KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md` (gleiche Bedienung wie Farbpinsel).
 
 ## A. Stärkerer Wither („Verdorrter Wither“)
 - **Beschwörung:** wie Vanilla (T aus Seelensand/Seelenerde + 3 Schädel), aber der Block **unter dem T** (Fußpunkt) ist ein Netherit-Block. Ohne ihn erscheint der normale Wither. Kein neues Item zum Starten, nur Rohstoffdruck. Alternative siehe Frage 1.

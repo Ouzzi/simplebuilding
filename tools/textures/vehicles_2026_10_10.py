@@ -10,7 +10,7 @@ end sparkles.
 
   python3.12 tools/textures/vehicles_2026_10_10.py                 # write sprites, models, preview
   python3.12 tools/textures/vehicles_2026_10_10.py --check         # sprites and models are current
-  python3.12 tools/textures/vehicles_2026_10_10.py --preview DIR   # preview to DIR (default /root/previews/vehicles)
+  python3.12 tools/textures/vehicles_2026_10_10.py --preview DIR   # preview to DIR (default ~/previews/vehicles)
 
 Vanilla sprites are read from SB_VANILLA (an extracted client jar), else from the Loom client jar.
 """
@@ -183,7 +183,7 @@ def preview(tex, out_dir):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
-    ap.add_argument("--preview", default="/root/previews/vehicles")
+    ap.add_argument("--preview", default=os.path.expanduser("~/previews/vehicles"))
     args = ap.parse_args()
     tex, models, items = build()
     stale = []

@@ -7,7 +7,7 @@ arrow, faint light/dark motifs in the box).
 
 Usage (Pillow + numpy, vanilla 26.3 textures unpacked from the client jar):
   python3.12 tools/ui/simpleinterfaces_preview.py [--vanilla DIR] [--out DIR]
-    DIR defaults: /root/vanilla263/assets/minecraft/textures, /root/previews/simpleinterfaces
+    DIR defaults: ~/vanilla263/assets/minecraft/textures, ~/previews/simpleinterfaces
   -> <out>/<group>-<ui>.png   one file per screen: vanilla before (where there is one) | new style
      <out>/kontakt-g1..g4.png contact sheet per group, <out>/kontakt-alle.png everything small,
      <out>/vergleich-bild3-bild4.png  references next to the matching new screens.
@@ -21,6 +21,7 @@ menus (TieredChestMenu, BackpackLayout, AutoSmitherMenu, FletchingMenu, Netherit
 CrucibleMenu).
 """
 from pathlib import Path
+import os
 import argparse
 import json
 import math
@@ -1667,8 +1668,8 @@ def palette_sheet():
 def main():
     global TEX, FONT, LABEL_FONT, SMALL_FONT
     ap = argparse.ArgumentParser()
-    ap.add_argument('--vanilla', default='/root/vanilla263/assets/minecraft/textures')
-    ap.add_argument('--out', default='/root/previews/simpleinterfaces')
+    ap.add_argument('--vanilla', default=os.path.expanduser('~/vanilla263/assets/minecraft/textures'))
+    ap.add_argument('--out', default=os.path.expanduser('~/previews/simpleinterfaces'))
     ap.add_argument('--only', default=None)
     a = ap.parse_args()
     TEX = Path(a.vanilla)
@@ -1696,8 +1697,8 @@ def main():
     pal = palette_sheet()
     scaled(pal).save(out / 'paletten.png')
     # comparison: image 3 + image 4 next to chest/furnace/crafting
-    b3 = Image.open(TEX.parents[2].parent / 'refs' if False else Path('/root/previews/refs-n12/bild3-container-stil.webp')).convert('RGB')
-    b4 = Image.open('/root/previews/refs-n12/bild4-ofen-stil.png').convert('RGB')
+    b3 = Image.open(TEX.parents[2].parent / 'refs' if False else Path(os.path.expanduser('~/previews/refs-n12/bild3-container-stil.webp'))).convert('RGB')
+    b4 = Image.open(os.path.expanduser('~/previews/refs-n12/bild4-ofen-stil.png')).convert('RGB')
     b3 = b3.resize((1200, int(b3.height * 1200 / b3.width)), Image.LANCZOS)
     b4 = b4.resize((700, int(b4.height * 700 / b4.width)), Image.LANCZOS)
     mine = [scaled(s_crafting()), scaled(s_chest()), scaled(s_furnace())]

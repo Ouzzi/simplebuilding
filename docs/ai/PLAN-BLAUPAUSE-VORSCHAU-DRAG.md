@@ -192,9 +192,9 @@ Neuer Client-Test `BlueprintViewClientTest`, Eintrag in
 
 - Unit: `./gradlew test --tests 'com.simplebuilding.BlueprintViewControlsTest'`
 - Client (Xvfb, nur über den Lock):
-  `SIMPLEBUILDING_SERIAL_TESTS=1 /root/heavy.sh job "xvfb-run -a -s '-screen 0 1920x1080x24' python3.12 tools/testrunner/run.py --targets client-fabric-263 --filter BlueprintView"`
+  `SIMPLEBUILDING_SERIAL_TESTS=1 <job-wrapper> job "xvfb-run -a -s '-screen 0 1920x1080x24' python3.12 tools/testrunner/run.py --targets client-fabric-263 --filter BlueprintView"`
 - Vollständiges Gate in einem Worktree: `./gradlew check -q`
-- **Nicht** `/root/sb-gate.sh` (arbeitet in `/root/simplebuilding` und pusht nach `master`)
+- **Nicht** `<gate-script>` (arbeitet in `<repo-checkout>` und pusht nach `master`)
 - Am Ende: `/sbtestcentre build`, Abdeckungstest muss alle Items abdecken
 
 ## 5. Risiken
@@ -205,7 +205,7 @@ Neuer Client-Test `BlueprintViewClientTest`, Eintrag in
 | Reflexion auf private Felder wird instabil | Nur im Test, Muster wie `trimButtonProblem`/`expectTextInput` im Bestand |
 | `hasControlDown` fehlt in 26.2 | Vorhandensein in beiden Lines prüfen, sonst Modifikatoren-Schnittstelle nutzen |
 | Reset-Knopf verschluckt Drag | Position außerhalb des View-Rechtecks + Reproduktionstest deckt es auf |
-| Client-Kaltlauf ~25 min, RAM im CT | Nur `/root/heavy.sh job`, nie parallel zu Gate/Nachtlauf, `SIMPLEBUILDING_SERIAL_TESTS=1` |
+| Client-Kaltlauf ~25 min, RAM im CT | Nur `<job-wrapper> job`, nie parallel zu Gate/Nachtlauf, `SIMPLEBUILDING_SERIAL_TESTS=1` |
 
 ## 6. Umsetzungsreihenfolge
 

@@ -84,7 +84,7 @@ Branch `bp-barrel`, Hauptlinie 26.3, Fabric zuerst. Kein Push in diesem Lauf.
 - Classpath: simplelib-Ressourcen liegen über `implementation project(':modules:simplelib:fabric')` im Fabric-Lauf;
   fällt die Ressource aus, schlägt der Test mit „not on the classpath“ fehl → dann Konstanten im Test statt JSON-Lesen
   (Entscheidung erst nach dem Lauf, hier vermerkt).
-- Lauf-Konkurrenz: ein fremder Gradle-/GameTest-Lauf ist aktiv (flock `/root/.heavy.lock`), daher nur ein Lauf
+- Lauf-Konkurrenz: ein fremder Gradle-/GameTest-Lauf ist aktiv (flock `<job-lock>`), daher nur ein Lauf
   nacheinander.
 
 ## Bericht (nach dem Lauf)

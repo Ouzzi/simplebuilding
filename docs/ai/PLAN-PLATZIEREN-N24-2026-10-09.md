@@ -37,4 +37,4 @@ Hängematte wie Leine.
 ## Verifikation
 GameTests je Punkt (Häufchen mit Vorlagen, Barrenstapel-Lage/Trefferform, Horn: ablegen/einstecken/Licht/Drop,
 Speer-Spender: Schaden + Haltbarkeit, Stäbe `up`-Zustand + Form, Hängematte: Abstandsregel). Compile 3 Loader,
-gefilterte Server-Tests 3 Loader, Wiki/Texturen-Checks, Client-Screenshot → /root/previews/place/.
+gefilterte Server-Tests 3 Loader, Wiki/Texturen-Checks, Client-Screenshot → <preview-dir>/place/.

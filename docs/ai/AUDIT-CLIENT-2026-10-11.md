@@ -27,7 +27,7 @@ Tastenbelegung, GUI-Skalierung, Tooltips, Render-Layer, Client-Crash-Risiken. Nu
 - **Render:** Hervorhebungs-Geometrie nutzt Aufblaehung 0.001-0.009 (`BlockHighlightRenderer.java:160,163,284,285,342`), Fuellung stets groesser als Linien; kein belegtes Z-Fighting. `HammockRenderer.java:106-108` zeichnet Wolle/Spreader/Seil als drei `entityCutout`-Durchgaenge; Z-Fighting nicht belegt.
 - **Skalierung (Rechnung):** Truhe max 338x222, Rucksack max 212x238, Wayfinder 208x184, Gildenbuch 292x180, Tiegel ohne Fass max 204 hoch - alle <= 427x240 (854x480, Skala 2). Ausnahme C3. BlueprintScreen/OctantScreen/BuildingWandScreen layouten dynamisch aus `width/height`.
 
-## Testlaeufe (sb-test, Fabric 26.3, xvfb)
+## Testlaeufe (Testrechner, Fabric 26.3, xvfb)
 
 | Ziel | Ergebnis |
 |---|---|

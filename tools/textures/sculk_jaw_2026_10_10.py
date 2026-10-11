@@ -18,7 +18,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 RES = ROOT / "mc26_3/overlay/resources/assets/simplebuilding"
-PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", "/root/previews/traps"))
+PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", os.path.expanduser("~/previews") + "/traps"))
 WIKI = ROOT / "wiki/assets/textures"
 
 

@@ -38,4 +38,4 @@ Queue: N15 Stapelgrößen-Rest, N18 Achtel-Stapel, N16 Trapped Copper Chest, N16
 
 ## Prüfung
 Compile 3 Loader; neue GameTests je Punkt (simplelib `module-simplelib-*`, SB `fabric-263,neoforge-263,forge-263`);
-`generate_textures --check`, Wiki `--all --check`; Vorschau `/root/previews/storage/`.
+`generate_textures --check`, Wiki `--all --check`; Vorschau `<preview-dir>/storage/`.

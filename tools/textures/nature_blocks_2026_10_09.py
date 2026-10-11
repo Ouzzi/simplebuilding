@@ -26,7 +26,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "mc26_3/overlay/resources/assets/simplebuilding/textures/block"
-PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", "/root/previews/blocks")) / "nature_blocks.png"
+PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", os.path.expanduser("~/previews") + "/blocks")) / "nature_blocks.png"
 CLIENT_JAR = Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar"
 
 

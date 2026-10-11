@@ -21,7 +21,7 @@ Ziel: Seite `?tab=textures` / `#/textures` im Wiki, die jede Textur aller Module
 
 ## Verifikation
 `python3.12 -m unittest discover -s wiki/tests`, `generate.py --all`, `--all --check`, `tools/wiki_site.py --verify-only`,
-Playwright-Screenshots Seite + Lightbox nach `/root/previews/wiki/textures-*.png`.
+Playwright-Screenshots Seite + Lightbox nach `<preview-dir>/wiki/textures-*.png`.
 
 ## Entscheidungen
 - Kein Datum im Check (sonst schlägt `--check` nach jedem Commit an); Datum = letzter Commit der Quelldatei.

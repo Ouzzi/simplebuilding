@@ -41,7 +41,7 @@ Aufträge: N21 „Puppen/Ständer“ (Interaktionen), N24 „Trainingspuppe mit 
    - **Kleiner Rüstungsständer** `small_armor_stand`: nur Stiefel (Bodenplatte), 0,5×0,5. Rezept `/_/`.
    - Abbau wie Vanilla (zwei Schläge), Drop = eigenes Item (Mixin auf `brokenByPlayer`), Pick-Block = eigenes Item.
    - Pferde-/Nautilus-Rüstung: zurückgestellt (bräuchte Pferde-/Nautilus-Modell), offen für den Besitzer.
-   - Item-Icons: eigener Generator `tools/textures/stands_2026_10_09.py`, Vorschau `/root/previews/stands/`.
+   - Item-Icons: eigener Generator `tools/textures/stands_2026_10_09.py`, Vorschau `<preview-dir>/stands/`.
 
 ## Dateien
 
@@ -61,7 +61,7 @@ Compile 3 Loader; `simplebuilding:training_dummy_game_test_*` und `simplebuildin
 fabric/neoforge/forge-263; Config-/Daten-Tests (`config_option*`, `data_integrity*`, `test_centre*`); Wiki-/Textur-
 Checks; Vorschau ansehen. Nicht abgedeckt: Skin-Darstellung am Client (braucht Profil-Auflösung im Netz).
 
-## Runde 2 – Nachtrag 29 (Branch claude-q-stands2, Referenzen /root/previews/refs-stands/2–4)
+## Runde 2 – Nachtrag 29 (Branch claude-q-stands2, Referenzen <preview-dir>/refs-stands/2–4)
 
 Besitzer: mittleren Ständer entfernen; der kleine wird ein Holzpfosten mit Querholz (T) auf einer Steinplatte und
 zeigt **genau ein** Item: ein Rüstungsteil oder eine Tier-Rüstung (Pferd wie Bild 2, Wolf, Nautilus).
@@ -91,4 +91,4 @@ Entscheidungen (selbst getroffen):
 - **Rezept:** Stock, Stock, Glatte-Stein-Stufe senkrecht (Pfosten auf Platte). **Icon:** neues T auf Platte.
 - Tests: jedes Rüstungsteil (4 Slots, mehrere Materialien), jede Tier-Rüstung, Fremd-Items, nur ein Item, Tausch,
   Abbau-Drop, Spender (Teil + Tier-Rüstung, voll lehnt ab), Migration (Entity + Item-Alias).
-  Client-Bild `/root/previews/stands2/` mit Brust, Helm, Hose, Stiefel, Pferd, Wolf, Nautilus.
+  Client-Bild `<preview-dir>/stands2/` mit Brust, Helm, Hose, Stiefel, Pferd, Wolf, Nautilus.

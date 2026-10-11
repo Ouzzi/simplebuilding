@@ -26,6 +26,6 @@ Kein Produktivcode geaendert. Skripte der Pruefungen: Python gegen `git ls-files
 - Per Quellcode nicht belegbar / zu pruefen (Client): Optik, Rendering (Hammock, Schachfiguren), Forge-Laufzeit; waren nicht Teil dieses Laufs.
 
 ## Nicht getestet / offen
-- Voller Fabric-26.3-Kernlauf (`--targets fabric-263 --filter 'simplebuilding:*'`) wurde auf sb-test eingereiht (stand hinter Gate und weiteren Auditlaeufen in der Job-Sperre); Ergebnis lag bei Abgabe nicht vor. Log: `/root/wt/claude-audit-sb/.audit-run1.log` (nicht committet). Rote Tests daraus sind hier nicht eingetragen.
+- Voller Fabric-26.3-Kernlauf (`--targets fabric-263 --filter 'simplebuilding:*'`) wurde auf Testrechner eingereiht (stand hinter Gate und weiteren Auditlaeufen in der Job-Sperre); Ergebnis lag bei Abgabe nicht vor. Log: `<Worktree>/.audit-run1.log` (nicht committet). Rote Tests daraus sind hier nicht eingetragen.
 - Kein Client-Lauf, kein Forge/NeoForge-Lauf, keine Sichtpruefung (Optik/Texturen nur per Referenz- und Generator-Check).
 - Funde sind ausschliesslich aus Datenpruefungen und gezieltem Lesen (Netzwerk-Handler, Menues, Lager-Speichern, Berechtigungen, statische Zustaende) entstanden; keine P1/P2-Funde belegbar.

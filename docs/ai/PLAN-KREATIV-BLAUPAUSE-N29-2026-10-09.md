@@ -46,4 +46,4 @@ Lang (beide Baeume), `tools/textures/creative_items_2026_10_09.py`, `wiki/manual
   Stab dort nicht; Kreativ-Blaupause baut fern mit Enderit-Stab; signierte Kreativ-Blaupause: Edit-Payload aendert
   nichts, Kartentisch-Kopie bleibt signiert; Kreativ-Stab ohne Verbrauch/Haltbarkeit im Ueberleben.
 - JUnit Layout (Icons in der Reiterzeile, keine Ueberlappung).
-- Client: Reiter/Kopieren sind Icons (schmal, ohne Text) mit Tooltip; Screenshots nach `/root/previews/creative/`.
+- Client: Reiter/Kopieren sind Icons (schmal, ohne Text) mit Tooltip; Screenshots nach `<preview-dir>/creative/`.

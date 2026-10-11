@@ -37,7 +37,7 @@ Rezepte), Lang EN/DE, Wiki, Testzentrale-Station `woodwork`, `WoodworkTests`.
 
 ## Verifikation
 Compile 3 Loader (+26.2), `simplebuilding:woodwork*` auf fabric/neoforge/forge-263, Datagen, Wiki-Check,
-Client-Screenshot nach `/root/previews/wood/`.
+Client-Screenshot nach `<preview-dir>/wood/`.
 
 ## Nachtrag Queue N31 Punkt 4 (Branch `claude-q-crates2`): Kisten überarbeitet
 

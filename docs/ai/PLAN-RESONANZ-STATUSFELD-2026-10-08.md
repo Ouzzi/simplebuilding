@@ -66,4 +66,4 @@ weisse Kante oben/links, #555555 unten/rechts, Fuellung #C6C6C6) als eigenes Nin
 `resonance_field` (Rand 3), Hoehe 18 wie der Knopf; Breite waechst mit dem Text (20 px reichen fuer Herz + "0.22x"
 nicht - Abweichung). Herz = Vanilla-Herzform (hud/heart container + full) in Steingrau mit schwarzem 1-px-Umriss.
 Wert weiss mit Schatten wie Vanilla-Stapelzahlen. Hover: `recipe_book/button_highlighted`-Rand analog.
-Pruefung: HudAndTooltip-Client-Test (Screenshot), 3x-Ausschnitt nach /root/previews/resonance/resonance-v2.png.
+Pruefung: HudAndTooltip-Client-Test (Screenshot), 3x-Ausschnitt nach <preview-dir>/resonance/resonance-v2.png.

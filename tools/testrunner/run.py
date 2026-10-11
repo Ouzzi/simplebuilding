@@ -716,7 +716,7 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     than the start of this run. A test that died half way through takes the later shots with
     it, and the missing names say where it stopped.
     """
-    # A headless Linux box (sb-test, CI) has no sound card: OpenAL then fails to open a device,
+    # A headless Linux box (Testrechner, CI) has no sound card: OpenAL then fails to open a device,
     # Minecraft switches its sound engine off and every sound assertion fails at the "can the
     # client hear anything" self check. OpenAL Soft's null backend gives the engine a silent
     # device, so SoundManager listeners fire as on a desktop. A real card is left alone.

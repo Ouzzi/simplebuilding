@@ -71,11 +71,11 @@ Plan:
 4. Textur: Variation des Vanilla-Pinsels (gleiche Form, Elternmodell `minecraft:item/brush` fuer die Haltung),
    Eisen-Zwinge statt Kupfer, lackierter dunkler Griff, Spitze als getoente Ebene; Palette eigene Pixelart.
    Generator `tools/textures/color_brush_2026_10_09.py` (liest Vanilla-Pinsel aus dem 26.3-Client-Jar im
-   Gradle-Cache), Vorschau /root/previews/brush/brush-v2.png.
+   Gradle-Cache), Vorschau <preview-dir>/brush/brush-v2.png.
 5. Tests (shared + Fabric-Wrapper + Katalog): Bogen-Reihenfolge, Nebenhand-Vorrang, Kreativ gratis,
    Palette zufaellig mit festem Seed, leerer Pinsel tut nichts, Zustaende/Inhalte bleiben.
 6. Lang EN/DE, Wiki, Rezept, Kreativreihe, Testzentrale (Reihe color_brush deckt Palette mit ab).
-Risiko: Datagen-Ausgaben von Hand gepflegt -> per runDatagen auf sb-test abgleichen.
+Risiko: Datagen-Ausgaben von Hand gepflegt -> per runDatagen auf Testrechner abgleichen.
 
 ## Runde 3 (Besitzer-Feedback 09.10., Branch claude-brush3)
 Plan:
@@ -104,4 +104,4 @@ Plan:
 4. Tests (shared + Fabric-Wrapper + Katalog): Rezept, Abbuersten echter Weg (verdaechtiger Sand mit Farbstoff im
    Inventar -> Sand, Beute, Farbstoff bleibt), Faerben, Kasten-Limit je Stufe + nur Farbstoffe, Scroll-Auswahl,
    Pinsel zufaellig mit festem Seed, Upgrade behaelt Inhalt. Client: Tooltip-Screenshot des Kastens.
-5. Lang EN/DE, Wiki, Kreativ-/Suchtab, Datagen-Ausgaben (von Hand, dann runDatagen auf sb-test abgleichen).
+5. Lang EN/DE, Wiki, Kreativ-/Suchtab, Datagen-Ausgaben (von Hand, dann runDatagen auf Testrechner abgleichen).

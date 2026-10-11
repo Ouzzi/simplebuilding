@@ -41,4 +41,4 @@ Branch `claude-q-vehicles` (von `claude-wave1` 9cb965759). Nur 26.3 (`McVersion.
 ## Prüfung
 Compile 26.3 Fabric/NeoForge/Forge + 26.2 Fabric/NeoForge; Tests `simplebuilding:vehicle*` auf fabric/neoforge/forge-263
 (Inventargröße, Stapel, Speichern, Geschwindigkeit, Brenndauer, Filter, Saug-Tempo, Drop, Rezepte); Datenprüfungen;
-Wiki-Check; Client-Screenshot nach `/root/previews/vehicles/`.
+Wiki-Check; Client-Screenshot nach `<preview-dir>/vehicles/`.

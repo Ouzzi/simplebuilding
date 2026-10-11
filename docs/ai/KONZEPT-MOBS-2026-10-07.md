@@ -31,7 +31,7 @@ Stil: vanilla-nah, 64×64-Textur, Modell aus wenigen Quadern wie Vanilla-Mobs.
 5. **Leere-Wyrm (Außenenden):** Schlange aus Endstein-Segmenten, gräbt sich durch Inseln. Jedes Segment hat eigene Lebenspunkte; der Kopf ist nur nach Abtrennen des Hinterteils verwundbar.
 
 ## Mob 4 – Shellker (End, Gateway-Wächter) – Konzept N32, 2026-10-10
-Queue N23/N24 (Wortlaut dort). Vorschau: `/root/previews/concepts/shellker.png`, `shellker_helm.png`.
+Queue N23/N24 (Wortlaut dort). Vorschau: `<preview-dir>/concepts/shellker.png`, `shellker_helm.png`.
 
 - **Wesen:** Shulker-Variante mit harter Schale, 1×1×1. Öffnet zum Schießen alle Seiten, wird dabei **nicht** größer (schießt aus einem 1×1-Loch, Öffnung nur ein Spalt/ein Auge). Kein Teleport; nur per (Klebe-)Kolben verschiebbar (Kolben-Schub = bewusster Weg am Wächter vorbei).
 - **Schaden:** geschlossen unverwundbar (wie Gürteltier, Hit-Sound „Stein“); offen normal. Leben = 4× Shulker (120 statt 30).
@@ -50,7 +50,7 @@ Queue N23/N24 (Wortlaut dort). Vorschau: `/root/previews/concepts/shellker.png`,
 4. Kolben-Verschieben: auch Beobachter/Redstone-Schub als „bewegt“? (Empfehlung: nur Kolben.)
 
 ## Mob 5 – Seelenfeuer-Lohe (Soulfire Blaze) – Konzept N32, 2026-10-10
-Queue N24 nennt nur den Namen; alles Folgende ist **Vorschlag**. Vorschau: `/root/previews/concepts/soulfire_blaze.png`.
+Queue N24 nennt nur den Namen; alles Folgende ist **Vorschlag**. Vorschau: `<preview-dir>/concepts/soulfire_blaze.png`.
 
 - **Wesen:** blaue Blaze-Variante, gleiche Größe/Flugverhalten, Stäbe und Kern in Seelenfeuer-Blau/Petrol, Kern hell-cyan. Feuerimmun.
 - **Spawn:** Seelensand-Täler (selten, Rudel 1–2, über Seelensand/Seelenboden) und Seelenfeuer-Variante des Festungs-Spawners (Chance 25 %, Config). Kein Spawn in Basaltdeltas.

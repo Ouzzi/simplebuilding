@@ -35,8 +35,8 @@ LANG_DIR = os.path.join(REPO, 'src', 'main', 'resources', 'assets', 'simplebuild
 # the 26.3 overlay carries a second copy of the lang files (kept in sync, like tools/chess_lang_2026_10_06.py)
 LANG_DIRS = [LANG_DIR, os.path.join(ASSETS, 'lang')]
 MOD_GENERATED = os.path.join(REPO, 'src', 'main', 'generated', 'assets', 'simplebuilding')
-CLIENT_JAR = '/root/vanilla263/client.jar'
-DE_LANG = '/root/.gradle/caches/neoformruntime/assets/objects/76/766975253e4de94ffc2e7e6d3b10b209da2f52c4'
+CLIENT_JAR = os.environ.get('SB_VANILLA_DIR', os.path.expanduser('~/vanilla263')) + '/client.jar'
+DE_LANG = os.path.expanduser('~/.gradle/caches') + '/neoformruntime/assets/objects/76/766975253e4de94ffc2e7e6d3b10b209da2f52c4'
 # Order = ModBlocks.OCTET_WOODS
 WOODS = ['oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry', 'pale_oak', 'poplar',
          'bamboo', 'crimson', 'warped']

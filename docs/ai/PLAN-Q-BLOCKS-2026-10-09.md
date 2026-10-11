@@ -59,7 +59,7 @@ Tests `NatureBlockTests` + Wrapper/Katalog, `DataIntegrityTests` (Zeilen, Tab-In
 ## Verifikation
 
 Compile 3 Loader (+26.2 Fabric), Tests `simplebuilding:nature_block*`, `*tab*`, `*creative*`, Config-Optionen,
-Wiki `--all --check`, Texturvorschau `/root/previews/blocks/`.
+Wiki `--all --check`, Texturvorschau `<preview-dir>/blocks/`.
 
 ## Testbericht (b866dd676)
 

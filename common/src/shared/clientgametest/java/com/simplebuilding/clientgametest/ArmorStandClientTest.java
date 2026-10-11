@@ -22,7 +22,7 @@ import net.minecraft.world.phys.AABB;
  * Armor stands (2026-10-09, docs/ai/PLAN-STAENDER-2026-10-09.md): one picture of a placed vanilla stand (arms), the
  * small stand (Nachtrag 29: post with a cross bar) with a chestplate, a helmet, leggings, boots and empty, a plain
  * training dummy and one named after the local player (skin when the profile resolves, the plain dummy otherwise), and
- * a second picture of small stands with horse, wolf and nautilus armor (compare /root/previews/refs-stands/2-4).
+ * a second picture of small stands with horse, wolf and nautilus armor (compare <preview-dir>/refs-stands/2-4).
  *
  * <p>The picture is documentary - what the stands look like is for a human. Asserted is only that the client has all
  * stands with the right types and the body armor, so a missing renderer registration (which crashes or skips the entity) fails here.

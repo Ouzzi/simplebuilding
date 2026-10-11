@@ -34,7 +34,7 @@ Prinzip `docs/ai/PRINZIPIEN-FILTER.md`.
 3. **Trichter-UI (26.3):** 5 Slots, Lücke 22 px (4 + 1 Slot) mit Trichter-Symbol + „:“, dann die Taste (nur Modus-Symbol);
    Block mittig (Slots ab x=24). Slots werden im Menü nur auf der Stil-Linie verschoben (`McVersion.CRUCIBLE` = simplelib da).
 4. **Truhen:** Stapel-Symbol aus `tieredChestLabels` raus; Fallen-Texturen: nur Vanillas Rotstich (dR−dG) × 0,6 auf die
-   Stufen-Pixel, keine Flächenfärbung. Vorschau `/root/previews/hopper/trapped-{before,after}.png`.
+   Stufen-Pixel, keine Flächenfärbung. Vorschau `<preview-dir>/hopper/trapped-{before,after}.png`.
 5. **Lore-Trichter** (Hopper-Minecarts der Mod-Stufen, im selben Queue-Punkt): nicht in diesem Branch (eigene Entitäten,
    Renderer, 3 Loader) – bleibt offen in der Queue.
 6. **Autonomer Crafter** (`simplebuilding:autonomous_crafter`, nur 26.3 über `McVersion.AUTONOMOUS_CRAFTER`):
@@ -59,4 +59,4 @@ Prinzip `docs/ai/PRINZIPIEN-FILTER.md`.
   lässt 1), Geister-Tests entfernt/umgeschrieben (HopperTests, HopperAndTrimTests, BlockInfoTests, WorldUpgradeTests,
   SledgehammerUpgradeTests, Client-Tests).
 - Crafter-Tests (Fabric/NeoForge/Forge), Datagen, `generate_textures --check`, `wiki/generate.py --all --check`.
-- Client-Screenshots `mod-ui-style` vorher/nachher nach `/root/previews/hopper/`.
+- Client-Screenshots `mod-ui-style` vorher/nachher nach `<preview-dir>/hopper/`.

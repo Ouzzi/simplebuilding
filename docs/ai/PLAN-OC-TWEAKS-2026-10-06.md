@@ -125,7 +125,7 @@ verstärkter Kessel, Milchkessel-Jade/JEI und Netherit-Fass aus `claude-crucible
    (Standard 1,0 wie Magma, 0–4, 0 = aus) in `LibConfig`; `CrucibleBlock.stepOn` liest sie; Test in `CrucibleTests`
    (Wert 0 → kein Schaden). Wiki SimpleLib `crucible` EN/DE: betretbar, Brand ab hoher Hitze.
 4. **P1 Wiki:** Bildschirmfilter im Wiki (`crucible_parts`) EN/DE erwähnen.
-5. Vorschauen `/root/previews/gadgets/` (Resonanzstab-Neigung + Amethyst-Punkt als Skizze aus den echten Sprites,
+5. Vorschauen `<preview-dir>/gadgets/` (Resonanzstab-Neigung + Amethyst-Punkt als Skizze aus den echten Sprites,
    Netherit-Fass aus dem Modell-Renderer des Wikis), Queue abhaken, Wiki neu erzeugen.
 Verifikation: Compile Fabric/NeoForge/Forge 26.3, Filter `simplebuilding:crucible*` und `simplebuilding:tweaks*`
 auf fabric-263/neoforge-263/forge-263, `wiki/generate.py --all --check`.

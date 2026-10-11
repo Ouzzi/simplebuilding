@@ -11,7 +11,7 @@ Branch `bp-chess`. Hauptlinie 26.3, Fabric zuerst. Kein Push (nur Arbeitsbranch)
 - Treppe/Stufe der Checker (Datagen `registerCheckerShapes`, `mc26_3/generated`): nutzen `ModelTemplates.STAIRS_*`/
   `SLAB_*`, alle Seiten **plain** `*_checker`. Dadurch weichen Nord/Süd vom Vollblock ab → im Inventar
   (gui-Sicht `[30,135,0]` Treppe / `[30,225,0]` Stufe) sichtbar vertauscht.
-- Vanilla-Geometrien (`/var/tmp/sb/opencode/chess/vanilla/.../models/block/`): `stairs`, `inner_stairs`,
+- Vanilla-Geometrien (`<tmp-dir>/opencode/chess/vanilla/.../models/block/`): `stairs`, `inner_stairs`,
   `outer_stairs`, `slab`, `slab_top` vollständig bekannt (UV/cullface je Face).
 - Achtel `checker_octet`: Blockstate-Multipart (104 Teile) referenziert `block/chess/octet_<farbe>` → `octet_corner`
   (Element [0,0,0]-[8,8,8]) mit `x`/`y`-Rotation je Ecke. Statisch geprüft: Property-Namen (`color`,`o000`..`o111`),
