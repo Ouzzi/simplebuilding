@@ -782,5 +782,5 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Eimer: keine Haltbarkeitslinie rendern. (claude-n37-world)
 - [ ] Verstärkter Tiegel: Slots 2x6 statt 3x4.
 - [ ] Enderit-Tiegel mit Fass: über dem Inventar rendern, Inventar zentriert.
-- [ ] Auf der Truhe des Enderit-Boots stehen: man buggt und bewegt sich langsam (Vanilla anscheinend auch) → beheben.
+- [x] Auf der Truhe des Enderit-Boots stehen: man buggt und bewegt sich langsam (Vanilla anscheinend auch) → beheben. (claude-n37-world: Mod-Kistenboote; Vanilla-Boote unverändert)
 - [x] Sculk Jaw nur auf vollen Blöcken platzierbar. (claude-n37-world)
