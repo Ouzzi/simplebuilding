@@ -67,6 +67,10 @@ public final class LibTests {
         ALL.put("hoppers_fill_raised_slots", LibTests::hoppersFillRaisedSlots);
         ALL.put("reinforced_crucible_loads_old_nine_slots", LibTests::reinforcedCrucibleLoadsOldNineSlots);
         ALL.put("enderite_barrel_box_below_the_crucible", LibTests::enderiteBarrelBelow);
+        ALL.put("id_moves_registries", IdMovesTests::registries);
+        ALL.put("id_moves_recipe_book_and_advancements", IdMovesTests::recipeBookAndAdvancements);
+        ALL.put("id_moves_refuse_loops", IdMovesTests::refuseLoops);
+        ALL.put("id_moves_adopt_config", IdMovesTests::adoptConfig);
     }
 
     // ------------------------------------------------------------ helpers

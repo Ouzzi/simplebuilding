@@ -19,6 +19,7 @@ public final class SimpleLib {
 
     public static void init(java.nio.file.Path configDir) {
         com.simplelib.config.LibConfig.load(configDir);
+        com.simplelib.test.IdMovesTests.registerTestMoves();
     }
 
     private SimpleLib() {}

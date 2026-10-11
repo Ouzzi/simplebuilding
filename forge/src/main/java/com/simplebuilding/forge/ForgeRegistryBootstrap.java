@@ -88,6 +88,8 @@ public final class ForgeRegistryBootstrap {
      * the mixin. Aliases can only be added while the registry is open, i.e. in this event.
      */
     private static void registerLegacyAliases(RegisterEvent event) {
+        // 26.3: SimpleLib adds the same tables as Forge aliases (IdMovesHook -> IdMoves, SimpleLibForge).
+        if (com.simplebuilding.datafix.IdMovesHook.LIB_ALIASES) return;
         if (!(event.getForgeRegistry() instanceof ForgeRegistry<?> registry)) {
             return;
         }

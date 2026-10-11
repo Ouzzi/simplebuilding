@@ -165,4 +165,24 @@ public final class ModuleGameTest {
     public void enderiteBarrelBoxBelowTheCrucible(GameTestHelper h) {
         LibTests.ALL.get("enderite_barrel_box_below_the_crucible").accept(h);
     }
+
+    @GameTest
+    public void idMovesRegistries(GameTestHelper h) {
+        LibTests.ALL.get("id_moves_registries").accept(h);
+    }
+
+    @GameTest
+    public void idMovesRecipeBookAndAdvancements(GameTestHelper h) {
+        LibTests.ALL.get("id_moves_recipe_book_and_advancements").accept(h);
+    }
+
+    @GameTest
+    public void idMovesRefuseLoops(GameTestHelper h) {
+        LibTests.ALL.get("id_moves_refuse_loops").accept(h);
+    }
+
+    @GameTest
+    public void idMovesAdoptConfig(GameTestHelper h) {
+        LibTests.ALL.get("id_moves_adopt_config").accept(h);
+    }
 }
