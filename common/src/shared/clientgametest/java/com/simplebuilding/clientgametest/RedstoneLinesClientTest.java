@@ -21,8 +21,8 @@ import net.minecraft.world.level.block.state.properties.AttachFace;
  * server; clears its blocks again.
  */
 public final class RedstoneLinesClientTest {
-    private static final int X0 = 20;
-    private static final int[] LANES = {30, 32, 34, 36};
+    private static final int X0 = 0;
+    private static final int[] LANES = {11, 13, 15, 17};
 
     private RedstoneLinesClientTest() {
     }
@@ -44,7 +44,7 @@ public final class RedstoneLinesClientTest {
         });
         script.awaitPackets();
         script.idle("let the lamps switch", 10);
-        script.command("tp @a 27.0 6.0 41.0 180.0 45.0");
+        script.command("tp @a 7.0 7.0 22.0 180.0 50.0");
         script.awaitPackets();
         script.awaitChunks();
         script.idle("let the dust settle in the picture", 20);
