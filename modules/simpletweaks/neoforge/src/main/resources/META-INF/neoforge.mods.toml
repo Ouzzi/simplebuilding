@@ -12,7 +12,7 @@ versionRange="[26.3,26.4)"
 
 [[dependencies.simpletweaks]]
 modId="simplebuilding"
-type="required"
+type="optional"
 versionRange="[1,)"
 ordering="AFTER"
 side="BOTH"

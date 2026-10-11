@@ -213,11 +213,10 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [
-      "simplebuilding"
-    ],
+    "requires": [],
     "optional": [
-      "simpledimensions"
+      "simpledimensions",
+      "simplebuilding"
     ],
     "dataHash": "20ecb63a9a29"
   },
