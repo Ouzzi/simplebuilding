@@ -119,6 +119,8 @@ public final class ClientTests {
                 new Entry("vehicles", VehicleClientTest::inWorld),
                 // Queue N23 (26.3): the End structures, one picture per variant; clears them again.
                 new Entry("end-structures", EndStructureClientTest::inWorld),
+                // Nachtrag 36 (26.3): Astral, Nihil and Bridge Redstone lanes into redstone lamps; clears its blocks.
+                new Entry("redstone-lines", RedstoneLinesClientTest::inWorld),
                 // Audit C9/C10: unique key mapping names, our defaults collide with nothing (no picture).
                 new Entry("key-mappings", KeyMappingClientTest::inWorld));
     }

@@ -256,15 +256,17 @@ public final class RedstoneLinesTests {
                     "alias became a simplebuilding id: " + old);
             helper.assertTrue(LegacyItemIds.renamedTo(old) != null, "no item alias for " + old);
         }
-        // A saved old lamp state (power/enabled) decodes to a redstone lamp without crashing.
-        var tag = new net.minecraft.nbt.CompoundTag();
-        tag.putString("Name", "simplebuilding:astralit_lamp");
-        var props = new net.minecraft.nbt.CompoundTag();
-        props.putString("power", "7");
-        props.putString("enabled", "true");
-        tag.put("Properties", props);
+        // A saved old lamp state decodes to a redstone lamp without crashing: encode a lit lamp in this version's
+        // format, then point its id at the old block.
+        var tag = (net.minecraft.nbt.CompoundTag) BlockState.CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE,
+                Blocks.REDSTONE_LAMP.defaultBlockState().setValue(RedstoneLampBlock.LIT, true)).getOrThrow();
+        for (String key : List.copyOf(tag.keySet())) {
+            if (tag.get(key) instanceof net.minecraft.nbt.StringTag && "minecraft:redstone_lamp".equals(tag.getStringOr(key, ""))) {
+                tag.putString(key, "simplebuilding:astralit_lamp");
+            }
+        }
         BlockState decoded = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag).result().orElse(null);
-        helper.assertTrue(decoded != null && decoded.is(Blocks.REDSTONE_LAMP), "saved astralit_lamp state decoded as " + decoded);
+        helper.assertTrue(decoded != null && decoded.is(Blocks.REDSTONE_LAMP), "saved astralit_lamp state " + tag + " decoded as " + decoded);
         helper.succeed();
     }
 }

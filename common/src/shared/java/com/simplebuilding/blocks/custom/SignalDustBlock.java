@@ -365,7 +365,8 @@ public class SignalDustBlock extends Block {
         if (direction == Direction.DOWN) return 0;
         int power = state.getValue(POWER);
         if (power == 0) return 0;
-        if (direction != Direction.UP && !state.getValue(SIDES.get(direction.getOpposite())).isConnected()) return 0;
+        // Like vanilla: the connections are worked out afresh, the stored ones may lag behind a neighbour placed later.
+        if (direction != Direction.UP && !connectionState(level, state, pos).getValue(SIDES.get(direction.getOpposite())).isConnected()) return 0;
         Line receiver = lineOf(level.getBlockState(pos.relative(direction.getOpposite())));
         if (receiver != null) return line.links(receiver) ? power - 1 : 0;
         return vanillaWireReading() ? 0 : power;
