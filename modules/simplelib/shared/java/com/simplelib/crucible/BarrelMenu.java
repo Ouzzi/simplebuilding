@@ -6,6 +6,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * A loose barrel's chest menu (owner N15): Vanilla's layout and screen, but the barrel's slots keep its raised
@@ -27,5 +28,30 @@ public class BarrelMenu extends ChestMenu {
     /** Client constructor: a mirror with the tier's stack limit. */
     public static BarrelMenu client(BarrelTier tier, int id, Inventory inventory) {
         return new BarrelMenu(tier, id, inventory, StackLimits.mirror(tier.slots(), tier::stackMultiplier));
+    }
+
+    /**
+     * Forge's moveItemStackTo caps a merge into an existing stack at the item's normal size; top up matching
+     * stacks to the slot's raised limit first, then let the loader's own code place the rest.
+     */
+    @Override
+    protected boolean moveItemStackTo(ItemStack stack, int start, int end, boolean reverse) {
+        boolean moved = false;
+        if (stack.getMaxStackSize() > 1) {
+            for (int i = reverse ? end - 1 : start; reverse ? i >= start : i < end; i += reverse ? -1 : 1) {
+                if (stack.isEmpty()) break;
+                Slot slot = slots.get(i);
+                ItemStack target = slot.getItem();
+                if (target.isEmpty() || !ItemStack.isSameItemSameComponents(stack, target)) continue;
+                int n = Math.min(slot.getMaxStackSize(target) - target.getCount(), stack.getCount());
+                if (n > 0) {
+                    stack.shrink(n);
+                    target.grow(n);
+                    slot.setChanged();
+                    moved = true;
+                }
+            }
+        }
+        return stack.isEmpty() ? moved : super.moveItemStackTo(stack, start, end, reverse) || moved;
     }
 }
