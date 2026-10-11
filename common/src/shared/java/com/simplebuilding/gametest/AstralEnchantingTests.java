@@ -48,9 +48,9 @@ public final class AstralEnchantingTests {
 
     /**
      * The numbers of the concept: tier 2 x points up to 30 (15 bookshelves), then on to 40 at 30 points (15 blazewood
-     * shelves), the floor +10 from 15 points, 50 only with both (owner N32); budget 3 without shelves, unlimited at 50; 3/6/10 points per
-     * level by rarity; 1 level per started 10 points (at most 5), always 5 at 50;
-     * lapis = levels, blaze powder twice that; the player needs the points spent in levels (at most 30).
+     * shelves), the floor +10 from 15 points, 50 only with both (owner N32); price and budget of owner N35: value by anvil cost and
+     * max level, +1/4 tax per further enchantment, at most 50 levels, budget = tier (3..50); the concept's example table;
+     * lapis 1 per started 10 levels, blaze powder twice that.
      */
     public static void budgetAndCostRules(GameTestHelper helper) {
         if (!McVersion.ASTRAL_ENCHANTING) { helper.succeed(); return; }
@@ -93,34 +93,62 @@ public final class AstralEnchantingTests {
         mixed[0] = 2;
         mixed[1] = 2;
         eq(helper, AstralEnchanting.shelfPoints(mixed), 17, "best 15 of 2 blazewood + 30 bookshelves");
+        // Budget (owner N35): the tier in levels, at least 3, at most 50 - no "unlimited" any more.
         eq(helper, AstralEnchanting.budget(0), 3, "budget without shelves");
         eq(helper, AstralEnchanting.budget(30), 30, "budget at 30");
         eq(helper, AstralEnchanting.budget(40), 40, "budget at 40");
-        eq(helper, AstralEnchanting.budget(50), AstralEnchanting.UNLIMITED, "budget at 50");
-        eq(helper, AstralEnchanting.pointsPerLevel(10), 3, "common");
-        eq(helper, AstralEnchanting.pointsPerLevel(5), 3, "uncommon");
-        eq(helper, AstralEnchanting.pointsPerLevel(2), 6, "rare");
-        eq(helper, AstralEnchanting.pointsPerLevel(1), 10, "very rare");
-        eq(helper, AstralEnchanting.levelCost(0, 30), 0, "nothing chosen");
-        eq(helper, AstralEnchanting.levelCost(3, 0), 1, "one common level without shelves");
-        eq(helper, AstralEnchanting.levelCost(15, 30), 2, "15 points");
-        eq(helper, AstralEnchanting.levelCost(30, 30), 3, "30 points");
-        eq(helper, AstralEnchanting.levelCost(9, 40), 1, "9 points at tier 40");
-        eq(helper, AstralEnchanting.levelCost(40, 40), 4, "40 points at tier 40");
-        eq(helper, AstralEnchanting.levelCost(3, 50), 5, "tier 50 always 5");
-        eq(helper, AstralEnchanting.levelCost(90, 50), 5, "tier 50");
-        eq(helper, AstralEnchanting.requiredLevel(15, 30), 15, "needs the points in levels");
-        eq(helper, AstralEnchanting.requiredLevel(90, 50), 30, "needs at most 30");
-        eq(helper, AstralEnchanting.requiredLevel(3, 50), 5, "never less than the levels used up");
-        eq(helper, AstralEnchanting.lapisCost(3), 3, "lapis");
-        eq(helper, AstralEnchanting.blazePowderCost(3), 6, "blaze powder twice the lapis");
-        // Without shelves (budget 3): one level of a common enchantment, rare ones greyed out.
-        int[] costs = {3, 6, 10};
-        eq(helper, AstralEnchanting.maxAffordable(0, new int[3], costs, 5, 3), 1, "common slider without shelves");
-        eq(helper, AstralEnchanting.maxAffordable(1, new int[3], costs, 3, 3), 0, "rare slider without shelves");
-        // Budget 30: Efficiency V (15) + Unbreaking III (9) leaves 6, so a rare slider reaches 1.
-        eq(helper, AstralEnchanting.maxAffordable(1, new int[] {5, 0, 0}, new int[] {3, 6, 3}, 3, 30), 2, "rare slider next to Efficiency V");
-        eq(helper, AstralEnchanting.spent(new int[] {5, 3, 0}, new int[] {3, 3, 6}), 24, "Efficiency V + Unbreaking III");
+        eq(helper, AstralEnchanting.budget(50), 50, "budget at 50");
+        for (int tier = 1; tier <= 50; tier++) {
+            helper.assertTrue(AstralEnchanting.budget(tier) >= AstralEnchanting.budget(tier - 1), "the budget grows with the tier at " + tier);
+        }
+        // Value: rarity base by Vanilla anvil cost + 2 per maximum level.
+        eq(helper, AstralEnchanting.value(1, 5), 14, "value of Sharpness V / Efficiency V");
+        eq(helper, AstralEnchanting.value(4, 3), 15, "value of Looting III / Fortune III");
+        eq(helper, AstralEnchanting.value(4, 2), 13, "value of Fire Aspect II");
+        eq(helper, AstralEnchanting.value(2, 3), 12, "value of Unbreaking III");
+        eq(helper, AstralEnchanting.value(8, 1), 14, "value of Silk Touch");
+        eq(helper, AstralEnchanting.value(1, 4), 12, "value of Protection IV");
+        eq(helper, AstralEnchanting.levelPrice(1, 5, 14), 3, "Sharpness I");
+        eq(helper, AstralEnchanting.levelPrice(3, 5, 14), 9, "Sharpness III");
+        eq(helper, AstralEnchanting.levelPrice(5, 5, 14), 14, "Sharpness V");
+        eq(helper, AstralEnchanting.levelPrice(0, 5, 14), 0, "level 0 is free");
+        // The concept's examples (tax: +1/4 of the sum per further enchantment, at most 50).
+        int[] sword = {5, 3, 2}, swordMax = {5, 3, 2}, swordValue = {14, 15, 13};
+        eq(helper, AstralEnchanting.basePrice(sword, swordMax, swordValue), 42, "sword sum");
+        eq(helper, AstralEnchanting.price(sword, swordMax, swordValue), 50, "Sharpness V + Looting III + Fire Aspect II");
+        int[] pick = {5, 3, 3}, pickMax = {5, 3, 3}, pickValue = {14, 15, 12};
+        eq(helper, AstralEnchanting.price(pick, pickMax, pickValue), 50, "Efficiency V + Fortune III + Unbreaking III");
+        int[] weakBook = {4, 2, 3}, weakMax = {4, 2, 3}, weakValue = {12, 10, 10};
+        eq(helper, AstralEnchanting.price(weakBook, weakMax, weakValue), 48, "book Protection IV + Knockback II + Loyalty III: three weak below 50");
+        eq(helper, AstralEnchanting.price(new int[] {2, 1, 1}, new int[] {5, 3, 2}, new int[] {14, 12, 10}), 23, "Sharpness II + Unbreaking I + Knockback I");
+        eq(helper, AstralEnchanting.price(new int[] {5, 0, 0}, swordMax, swordValue), 14, "one enchantment: no tax");
+        eq(helper, AstralEnchanting.price(new int[] {5, 3, 0}, swordMax, swordValue), 37, "two enchantments: +1/4");
+        eq(helper, AstralEnchanting.price(new int[] {5, 0, 3}, pickMax, pickValue), 33, "Efficiency V + Unbreaking III");
+        eq(helper, AstralEnchanting.price(new int[3], swordMax, swordValue), 0, "nothing chosen");
+        eq(helper, AstralEnchanting.price(new int[] {1, 0, 0}, swordMax, swordValue), 3, "Sharpness I without shelves fits the budget of 3");
+        // Max 50, and only at 50 everything at once.
+        for (int a = 0; a <= 5; a++) {
+            for (int b = 0; b <= 3; b++) {
+                for (int c = 0; c <= 2; c++) {
+                    int price = AstralEnchanting.price(new int[] {a, b, c}, swordMax, swordValue);
+                    helper.assertTrue(price <= AstralEnchanting.MAX_PRICE, "price above 50 at " + a + "/" + b + "/" + c);
+                }
+            }
+        }
+        eq(helper, AstralEnchanting.maxAffordable(2, new int[] {5, 3, 0}, swordMax, swordValue, AstralEnchanting.budget(50)), 2, "tier 50: all three at max");
+        eq(helper, AstralEnchanting.maxAffordable(2, new int[] {5, 3, 0}, swordMax, swordValue, AstralEnchanting.budget(49)), 0, "tier 49: the third does not fit");
+        eq(helper, AstralEnchanting.maxAffordable(1, new int[] {5, 0, 0}, swordMax, swordValue, AstralEnchanting.budget(30)), 2, "tier 30: Looting II next to Sharpness V (30 levels)");
+        eq(helper, AstralEnchanting.maxAffordable(1, new int[] {5, 0, 0}, swordMax, swordValue, AstralEnchanting.budget(40)), 3, "tier 40: Looting III next to Sharpness V");
+        eq(helper, AstralEnchanting.maxAffordable(0, new int[3], swordMax, swordValue, AstralEnchanting.budget(0)), 1, "without shelves: Sharpness I");
+        eq(helper, AstralEnchanting.maxAffordable(1, new int[3], swordMax, swordValue, AstralEnchanting.budget(0)), 0, "without shelves: Looting greyed out");
+        eq(helper, AstralEnchanting.maxAffordable(0, new int[] {0, 3, 3}, pickMax, pickValue, AstralEnchanting.budget(40)), 0, "tier 40: next to Fortune III + Unbreaking III no Efficiency (the third costs the tax)");
+        eq(helper, AstralEnchanting.maxAffordable(0, new int[] {0, 3, 3}, pickMax, pickValue, AstralEnchanting.budget(50)), 5, "tier 50: Efficiency V as well");
+        // Lapis 1 per started 10 levels, blaze powder twice that.
+        eq(helper, AstralEnchanting.lapisCost(0), 0, "no lapis without a choice");
+        eq(helper, AstralEnchanting.lapisCost(3), 1, "lapis for 3 levels");
+        eq(helper, AstralEnchanting.lapisCost(30), 3, "lapis for 30 levels");
+        eq(helper, AstralEnchanting.lapisCost(50), 5, "lapis for 50 levels");
+        eq(helper, AstralEnchanting.blazePowderCost(50), 10, "blaze powder twice the lapis");
         helper.succeed();
     }
 
@@ -369,12 +397,12 @@ public final class AstralEnchantingTests {
             menu.clickMenuButton(player, row * AstralEnchantingMenu.LEVELS_PER_ROW + menu.maxLevel(row));
             helper.assertTrue(menu.chosen(row) <= menu.maxLevel(row), "slider beyond its maximum");
         }
-        int spent = menu.spent();
-        helper.assertTrue(spent > 0 && spent <= 30, "points spent " + spent + " outside 1..30");
+        int spent = menu.price();
+        helper.assertTrue(spent > 0 && spent <= 30, "price " + spent + " outside 1..30 at tier 30");
         int[] chosen = menu.chosenLevels();
         List<Holder<Enchantment>> offered = new java.util.ArrayList<>();
         for (int row = 0; row < 3; row++) offered.add(menu.enchantment(helper.getLevel(), row));
-        int levels = AstralEnchanting.levelCost(spent, 30);
+        int levels = spent;
         int seed = player.getEnchantmentSeed();
         int before = player.experienceLevel;
         helper.assertTrue(menu.clickMenuButton(player, AstralEnchantingMenu.BUTTON_ENCHANT), "enchanting refused");
@@ -384,8 +412,8 @@ public final class AstralEnchantingTests {
         }
         eq(helper, total(result), sum(chosen), "enchantment levels on the pickaxe");
         eq(helper, player.experienceLevel, before - levels, "levels used up");
-        eq(helper, table.getItem(AstralEnchantingTableBlockEntity.LAPIS).getCount(), 10 - levels, "lapis left");
-        eq(helper, table.getItem(AstralEnchantingTableBlockEntity.BLAZE).getCount(), 10 - 2 * levels, "blaze powder left");
+        eq(helper, table.getItem(AstralEnchantingTableBlockEntity.LAPIS).getCount(), 10 - AstralEnchanting.lapisCost(levels), "lapis left");
+        eq(helper, table.getItem(AstralEnchantingTableBlockEntity.BLAZE).getCount(), 10 - AstralEnchanting.blazePowderCost(levels), "blaze powder left");
         helper.assertTrue(player.getEnchantmentSeed() != seed, "the enchantment seed did not change");
         eq(helper, menu.enchantId(0), -1, "offers for the already enchanted pickaxe");
         menu.removed(player);

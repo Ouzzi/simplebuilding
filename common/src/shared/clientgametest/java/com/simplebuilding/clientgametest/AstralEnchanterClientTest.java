@@ -88,6 +88,17 @@ public final class AstralEnchanterClientTest {
         script.idle("let the move reach the screen", 4);
         script.act("a move after the release leaves the slider alone", c -> expectLevel(c, 0, "after the release"));
 
+        // N35: two sliders set, so the shot shows the level shades, "price/budget" and the lapis/blaze dots in the button.
+        script.act("set two sliders", c -> {
+            for (int row = 1; row >= 0; row--) {
+                int id = row * AstralEnchantingMenu.LEVELS_PER_ROW + menu(c).maxLevel(row);
+                menu(c).clickMenuButton(c.player, id);
+                c.gameMode.handleInventoryButtonClick(menu(c).containerId, id);
+            }
+        });
+        script.idle("let the sliders reach the server", 6);
+        script.shot("astral-enchanter-combined");
+
         script.act("close the screen", c -> c.player.closeContainer());
         script.await("the screen is gone", TIMEOUT, c -> c.gui.screen() == null, c -> "still open: " + c.gui.screen());
         script.command("fill 8 0 18 12 3 22 minecraft:air");

@@ -26,7 +26,9 @@ import net.minecraft.world.item.enchantment.Enchantment;
  * lapis and blaze powder on the left like Vanilla's table, on the right three random enchantments that fit the item, each
  * with its name, its name in the enchanting glyphs (Vanilla's {@code minecraft:alt} font) and a slider 0..max with a
  * small tick per level. Click or drag on a slider, or scroll over its row; levels the budget does not allow are greyed
- * out. The button under the slots (an enchanted book and the levels it uses up) enchants. Sliders and the button reach the
+ * out. The button under the slots (an enchanted book and the levels it uses up) enchants. N35: names in a smaller font
+ * like Vanilla's offers, every slider level one shade darker, the price as "levels/budget", and the lapis (blue dot)
+ * and blaze powder (orange-red dot) it needs in one line inside the button. Sliders and the button reach the
  * server as Vanilla menu button clicks.
  */
 public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchantingMenu> {
@@ -34,13 +36,17 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
     public static final int ROW_H = 28, ROWS = 3;
     public static final int PANEL_X = 50, PANEL_Y = 17, PANEL_W = 119, PANEL_H = ROWS * ROW_H + 4;
     public static final int TRACK_X = PANEL_X + 5, TRACK_W = PANEL_W - 10, TRACK_H = 5;
-    public static final int BUTTON_X = 7, BUTTON_Y = 68, BUTTON_W = 38, BUTTON_H = 20;
+    public static final int BUTTON_X = 7, BUTTON_Y = 68, BUTTON_W = 38, BUTTON_H = 31;
+    /** Names and the level label at this scale (N35: Vanilla's offers look smaller). */
+    static final float NAME_SCALE = 0.75F;
     /** Vanilla's enchanting glyph font (the Standard Galactic Alphabet of the enchanting table). */
     private static final Style GLYPHS = Style.EMPTY.withFont(new FontDescription.Resource(Identifier.withDefaultNamespace("alt")));
     static final int PANEL = 0xFF1C1529, PANEL_RIM = 0xFF0D0914, PANEL_LIGHT = 0xFF3A2D52;
     static final int TRACK_OFF = 0xFF2B2238, TRACK_FREE = 0xFF5D4A7C, TRACK_SET = 0xFFE7A93C, TICK = 0xFF6A5A86, GLYPH = 0xFF8F7BB5;
     static final int KNOB = 0xFFF7F0FF, KNOB_RIM = 0xFF3C2A55;
     static final int TEXT = 0xFFEDE4FA, TEXT_OFF = 0xFF7A6F8C, GOLD = 0xFFF2C14E, GREEN = 0xFF80FF20, RED = 0xFFE05A4A;
+    /** Dots in the button: lapis blue like Vanilla's table, blaze powder orange-red. */
+    static final int LAPIS_DOT = 0xFF3D63DD, BLAZE_DOT = 0xFFF0602A;
 
     private static final ItemStack ENCHANTED_BOOK = new ItemStack(Items.ENCHANTED_BOOK);
 
@@ -208,7 +214,7 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         int y = top + rowY(row);
         if (holder != null) {
             Component name = holder.value().description();
-            g.text(this.font, this.font.plainSubstrByWidth(name.getString(), 74), left + TRACK_X, y, off ? TEXT_OFF : TEXT, false);
+            small(g, this.font.plainSubstrByWidth(name.getString(), (int) (80 / NAME_SCALE)), left + TRACK_X, y + 1, off ? TEXT_OFF : TEXT);
             // The name once more in the enchanting glyphs, like the offers on Vanilla's table.
             String id = holder.getRegisteredName();
             String word = id.substring(id.indexOf(':') + 1).replace('_', ' ');
@@ -217,12 +223,12 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         }
         String level = (chosen == 0 ? "-" : Component.translatable("enchantment.level." + chosen).getString())
                 + " / " + Component.translatable("enchantment.level." + max).getString();
-        g.text(this.font, level, left + TRACK_X + TRACK_W - this.font.width(level), y, chosen > 0 ? GOLD : TEXT_OFF, false);
+        small(g, level, left + TRACK_X + TRACK_W - Math.round(this.font.width(level) * NAME_SCALE), y + 1, chosen > 0 ? GOLD : TEXT_OFF);
         int ty = top + trackY(row);
         // One segment per level with a one pixel gap between them, and a small tick under every level step.
         for (int l = 1; l <= max; l++) {
             int x0 = left + levelX(l - 1, max) + (l > 1 ? 1 : 0), x1 = left + levelX(l, max) + (l == max ? 1 : 0);
-            int color = l <= chosen ? TRACK_SET : l <= affordable ? TRACK_FREE : TRACK_OFF;
+            int color = l <= chosen ? shade(TRACK_SET, l, max) : l <= affordable ? shade(TRACK_FREE, l, max) : TRACK_OFF;
             g.fill(x0, ty, x1, ty + TRACK_H, color);
         }
         for (int l = 0; l <= max; l++) {
@@ -234,6 +240,27 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         g.fill(kx - 1, ty - 1, kx + 2, ty + TRACK_H + 1, KNOB);
     }
 
+    /** Text at {@link #NAME_SCALE}. */
+    private void small(GuiGraphicsExtractor g, String text, int x, int y, int color) {
+        g.pose().pushMatrix();
+        g.pose().translate(x, y);
+        g.pose().scale(NAME_SCALE, NAME_SCALE);
+        g.text(this.font, text, 0, 0, color, false);
+        g.pose().popMatrix();
+    }
+
+    /**
+     * Owner N35: level 1 in the slider's colour, every higher level one shade darker (level 5 of 5 = the fifth shade),
+     * at most down to 55 % brightness however many levels the slider has.
+     */
+    static int shade(int color, int level, int max) {
+        if (level <= 1 || max <= 1) return color;
+        float step = Math.min(0.11F, 0.45F / (max - 1));
+        float f = 1.0F - step * (level - 1);
+        int r = Math.round(((color >> 16) & 0xFF) * f), gr = Math.round(((color >> 8) & 0xFF) * f), b = Math.round((color & 0xFF) * f);
+        return (color & 0xFF000000) | r << 16 | gr << 8 | b;
+    }
+
     private void drawButton(GuiGraphicsExtractor g, int left, int top, int mouseX, int mouseY) {
         boolean ready = this.menu.canEnchant(this.minecraft.player);
         boolean hover = onButton(mouseX, mouseY);
@@ -243,9 +270,27 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         g.fill(x + 1, y + 1, x + BUTTON_W - 1, y + 2, ready ? 0xFFB592DD : 0xFF4D4458);
         // An enchanted book and the levels the enchanting uses up (N31: the old star read as a "+" button).
         g.item(ENCHANTED_BOOK, x + 2, y + 2);
-        int cost = this.menu.levelCost();
+        var player = this.minecraft.player;
+        boolean infinite = player.hasInfiniteMaterials();
+        int cost = this.menu.price();
         String text = cost > 0 ? String.valueOf(cost) : "-";
         g.text(this.font, text, x + 27 - this.font.width(text) / 2, y + 6, ready ? GREEN : cost > 0 ? RED : TEXT_OFF, true);
+        // N35: one line under the book - a blue dot with the lapis, an orange-red dot with the blaze powder it needs.
+        int lapis = AstralEnchanting.lapisCost(cost), blaze = AstralEnchanting.blazePowderCost(cost);
+        String l = String.valueOf(lapis), b = String.valueOf(blaze);
+        int width = 4 + 1 + this.font.width(l) + 4 + 4 + 1 + this.font.width(b);
+        int dx = x + (BUTTON_W - width) / 2, dy = y + 20;
+        dx = dot(g, dx, dy, LAPIS_DOT, l, cost <= 0 ? TEXT_OFF : infinite || this.menu.lapis() >= lapis ? TEXT : RED);
+        dot(g, dx + 4, dy, BLAZE_DOT, b, cost <= 0 ? TEXT_OFF : infinite || this.menu.blazePowder() >= blaze ? TEXT : RED);
+    }
+
+    /** A round 4x4 dot and a number after it; returns the x after the number. */
+    private int dot(GuiGraphicsExtractor g, int x, int y, int color, String number, int textColor) {
+        g.fill(x + 1, y + 1, x + 3, y + 7, color);
+        g.fill(x, y + 2, x + 4, y + 6, color);
+        g.fill(x + 1, y + 2, x + 2, y + 3, 0x66FFFFFF);
+        g.text(this.font, number, x + 5, y, textColor, true);
+        return x + 5 + this.font.width(number);
     }
 
     @Override
@@ -253,8 +298,9 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         if (!ModScreenStyle.astralEnchantingLabels(g, this.font, this.title, this.titleLabelX, this.titleLabelY)) {
             g.text(this.font, this.title, this.titleLabelX, this.titleLabelY, 0xFF404040, false);
         }
-        int budget = this.menu.budget();
-        String points = this.menu.spent() + "/" + (budget >= AstralEnchanting.UNLIMITED ? "∞" : String.valueOf(budget));
+        // N35: "price/budget" in levels instead of "points/∞".
+        String points = Component.translatable("container.simplebuilding.astral_enchanting_table.budget_label",
+                this.menu.price(), this.menu.budget()).getString();
         g.text(this.font, points, PANEL_X + PANEL_W - this.font.width(points), this.titleLabelY, GOLD, true);
     }
 
@@ -269,6 +315,9 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         if (mouseX >= budgetX && mouseX < this.leftPos + PANEL_X + PANEL_W && mouseY >= this.topPos + 4 && mouseY < this.topPos + 15) {
             List<Component> lines = new ArrayList<>();
             lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.tier", this.menu.tier()));
+            lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.budget", this.menu.price(),
+                    this.menu.budget(), AstralEnchanting.MAX_PRICE).withStyle(ChatFormatting.GOLD));
+            lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.price_hint").withStyle(ChatFormatting.GRAY));
             lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.tier_hint").withStyle(ChatFormatting.GRAY));
             lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.setup", this.menu.shelfPoints(),
                     AstralEnchanting.MAX_POINTS, Component.translatable("container.simplebuilding.astral_enchanting_table."
@@ -284,8 +333,10 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
             if (holder != null) {
                 List<Component> lines = new ArrayList<>();
                 lines.add(holder.value().description().copy().withStyle(ChatFormatting.GOLD));
-                lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.points_per_level",
-                        this.menu.pointsPerLevel(row)).withStyle(ChatFormatting.GRAY));
+                int max = this.menu.maxLevel(row);
+                lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.value",
+                        this.menu.levelPrice(row, 1), this.menu.value(row), max).withStyle(ChatFormatting.GRAY));
+                lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.tax").withStyle(ChatFormatting.DARK_GRAY));
                 g.setTooltipForNextFrame(this.font, lines, java.util.Optional.empty(), mouseX, mouseY);
             }
         }
@@ -294,16 +345,15 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
     private List<Component> buttonTooltip() {
         List<Component> lines = new ArrayList<>();
         lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.enchant"));
-        int cost = this.menu.levelCost();
+        int cost = this.menu.price();
         if (cost <= 0) {
             lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.choose").withStyle(ChatFormatting.GRAY));
             return lines;
         }
         var player = this.minecraft.player;
         boolean infinite = player.hasInfiniteMaterials();
-        int need = this.menu.requiredLevel();
-        lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.levels", cost, need)
-                .withStyle(infinite || player.experienceLevel >= need ? ChatFormatting.GREEN : ChatFormatting.RED));
+        lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.levels", cost, this.menu.basePrice())
+                .withStyle(infinite || player.experienceLevel >= cost ? ChatFormatting.GREEN : ChatFormatting.RED));
         int lapis = AstralEnchanting.lapisCost(cost), blaze = AstralEnchanting.blazePowderCost(cost);
         lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.lapis", lapis)
                 .withStyle(infinite || this.menu.lapis() >= lapis ? ChatFormatting.GRAY : ChatFormatting.RED));
