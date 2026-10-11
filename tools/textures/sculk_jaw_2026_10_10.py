@@ -96,16 +96,25 @@ def jaw(snapped):
             els.append(box([14, 4, z], [16, 6, z + 2], TOOTH_UV))
             els.append(box([14.5, 6, z + 0.5], [15.5, 8, z + 1.5], TOOTH_UV))
     else:
-        for z in (0, 4, 8, 12):  # linke Klingen wachsen schraeg nach innen
-            els.append(box([0, 4, z], [2, 7, z + 2], TOOTH_UV))
-            els.append(box([2, 6, z], [4, 9, z + 2], TOOTH_UV))
-            els.append(box([4, 8, z + 0.5], [6, 11, z + 1.5], TOOTH_UV))
-            els.append(box([6, 10, z + 0.5], [7.5, 12, z + 1.5], TOOTH_UV))
-        for z in (2, 6, 10, 14):  # rechte Klingen, versetzt, greifen dazwischen
-            els.append(box([14, 4, z], [16, 7, z + 2], TOOTH_UV))
-            els.append(box([12, 6, z], [14, 9, z + 2], TOOTH_UV))
-            els.append(box([10, 8, z + 0.5], [12, 11, z + 1.5], TOOTH_UV))
-            els.append(box([8.5, 10, z + 0.5], [10, 12, z + 1.5], TOOTH_UV))
+        # Besitzer N34: geschlossen = zwei Sculk-Lippen, die sich von beiden Raendern wie eine Muschel zu einer flachen
+        # Kuppel schliessen; entlang der Naht greifen die Fangzaehne beider Seiten im Wechsel ineinander.
+        del els[1:]
+        for half in (0, 1):
+            def mx(x0, x1):
+                return [x0, x1] if half == 0 else [16 - x1, 16 - x0]
+            a, b = mx(0, 8)
+            els.append(box([a, 2, 0], [b, 4, 16], GUM_UV))
+            a, b = mx(1, 8)
+            els.append(box([a, 4, 1], [b, 6, 15], GUM_UV))
+            a, b = mx(3, 8)
+            els.append(box([a, 6, 2.5], [b, 7, 13.5], GUM_UV))
+            els[-1]["faces"]["up"] = {"uv": FLOOR_UV, "texture": "#0"}  # leuchtende Adern oben auf der Lippe
+        for z in (1.5, 5.5, 9.5):  # Fangzaehne der linken Lippe, ueber die Naht gebogen
+            els.append(box([5.5, 7, z], [8.5, 8.5, z + 2], TOOTH_UV))
+            els.append(box([7, 8.5, z + 0.5], [9, 10, z + 1.5], TOOTH_UV))
+        for z in (3.5, 7.5, 11.5):  # rechte Lippe, versetzt dazwischen: die Reihen greifen ineinander
+            els.append(box([7.5, 7, z], [10.5, 8.5, z + 2], TOOTH_UV))
+            els.append(box([7, 8.5, z + 0.5], [9, 10, z + 1.5], TOOTH_UV))
     return {"parent": "minecraft:block/block", "textures": {"0": "simplebuilding:block/sculk_jaw",
             "particle": "simplebuilding:block/sculk_jaw"}, "elements": els}
 
