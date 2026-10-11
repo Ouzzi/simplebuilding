@@ -18,8 +18,258 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       "forge"
     ]
   },
-  "features": [],
-  "recipes": [],
+  "features": [
+    {
+      "id": "hollow_howler",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/HowlerEntity.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/HowlerLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/HowlerPattern.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/HowlerRitual.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/HowlerRitualEntity.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Hollow Howler",
+        "summary": "A Deep Dark mid-boss you summon yourself: build the figure, blow a goat horn near a sculk sensor in the dark, and it manifests within 5 seconds.",
+        "details": [
+          "Figure: a Sculk block at the bottom, on it a T of three Sculk Catalysts, on the middle catalyst a jaw (a Sculk Shrieker; with SimpleBuilding also its Sculk Jaw - block tag simplemobs:howler_jaw), on the jaw a skeleton skull. The arms may point either way.",
+          "A sculk sensor anywhere within 5 blocks of the middle catalyst must hear the call: blow any goat horn within 16 blocks. Light at the skull (block and sky light) must be 7 or less, not on Peaceful, Overworld only by default.",
+          "The manifestation takes 5 seconds. Breaking the sensor or lighting up the skull aborts it with smoke, a fading click and a message - every block stays. Only at the end are the figure's blocks used up; the sensor stays and the ground around turns to sculk.",
+          "240 health, 6 armor, bite 14 (Darkness 4 s). Blind like the Warden: it hunts what it hears (sneaking and wool hide you) and its own steps are silent. Hits while its jaws open for a bite deal 1.5x damage.",
+          "Echo shriek every 12 s at targets 6-10 blocks away (8 damage, push). Below 50 % it hungers: faster, longer reach and traps around you every 15 s (SimpleBuilding Sculk Jaws for 20 s, otherwise sculk snares). Below 20 % it rages: shrieks every 6 s and ignores knockback. It never calls reinforcements.",
+          "Drops: 3-5 echo shards, one Echo Core, (with SimpleBuilding) 1-2 Sculk Jaws plus Looting, at most 4 - without SimpleBuilding one more echo shard instead. 50 XP. Never spawns naturally.",
+          "Server config simplemobs-server.json: howlerEnabled, howlerMaxLight, howlerSculkTrail, howlerSculkTrailMax, howlerTransformSculk, howlerHunger, howlerDespawnMinutes, howlerAllowDimensions. mobGriefing off: no sculk trail, no sculk ground, Vanilla snares instead of jaw blocks."
+        ]
+      },
+      "de": {
+        "title": "Tiefenheuler",
+        "summary": "Ein Deep-Dark-Zwischenboss, den du selbst beschwörst: Figur bauen, im Dunkeln nahe einem Sculk-Sensor ins Ziegenhorn blasen, und er manifestiert sich in 5 Sekunden.",
+        "details": [
+          "Figur: unten ein Sculk-Block, darauf ein T aus drei Sculk-Katalysatoren, auf dem mittleren ein Kiefer (Sculk-Kreischer; mit SimpleBuilding auch dessen Sculk-Kiefer – Block-Tag simplemobs:howler_jaw), auf dem Kiefer ein Skelettschädel. Die Arme dürfen in beide Richtungen zeigen.",
+          "Ein Sculk-Sensor höchstens 5 Blöcke vom mittleren Katalysator entfernt muss den Ruf hören: ein beliebiges Ziegenhorn in bis zu 16 Blöcken Abstand blasen. Licht am Schädel (Block- und Himmelslicht) höchstens 7, nicht auf Friedlich, standardmäßig nur in der Oberwelt.",
+          "Die Manifestation dauert 5 Sekunden. Wird der Sensor abgebaut oder der Schädel zu hell, bricht sie mit Rauch, verhallendem Klicken und einer Meldung ab – alle Blöcke bleiben. Erst am Ende werden die Blöcke der Figur verbraucht; der Sensor bleibt, der Boden ringsum wird zu Sculk.",
+          "240 Leben, 6 Rüstung, Biss 14 (Dunkelheit 4 s). Blind wie der Wärter: Er jagt, was er hört (Schleichen und Wolle verbergen dich), seine eigenen Schritte sind lautlos. Treffer, während sich seine Kiefer zum Biss öffnen, machen 1,5-fachen Schaden.",
+          "Echo-Schrei alle 12 s gegen Ziele 6–10 Blöcke entfernt (8 Schaden, Rückstoß). Unter 50 % hungert er: schneller, mehr Reichweite und alle 15 s Fallen um dich (SimpleBuilding-Sculk-Kiefer für 20 s, sonst Sculk-Schlingen). Unter 20 % tobt er: Schrei alle 6 s, kein Rückstoß. Er ruft nie Verstärkung.",
+          "Beute: 3–5 Echosplitter, ein Echokern, (mit SimpleBuilding) 1–2 Sculk-Kiefer plus Plünderung, höchstens 4 – ohne SimpleBuilding stattdessen ein Echosplitter mehr. 50 EP. Spawnt nie natürlich.",
+          "Server-Konfiguration simplemobs-server.json: howlerEnabled, howlerMaxLight, howlerSculkTrail, howlerSculkTrailMax, howlerTransformSculk, howlerHunger, howlerDespawnMinutes, howlerAllowDimensions. mobGriefing aus: keine Sculk-Spur, kein Sculk-Boden, Vanilla-Schlingen statt Kiefer-Blöcken."
+        ]
+      }
+    },
+    {
+      "id": "potion_of_silence",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/SilenceEffect.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/EntitySilenceMixin.java"
+      ],
+      "en": {
+        "title": "Potion of Silence",
+        "summary": "Awkward Potion + Echo Core: 3:00 of Silence (redstone 8:00, splash and lingering as usual). Sculk sensors, Wardens and Howlers do not hear you, like wool.",
+        "details": [
+          "Fighting and being seen still work; only vibrations you cause are dampened."
+        ]
+      },
+      "de": {
+        "title": "Trank der Stille",
+        "summary": "Seltsamer Trank + Echokern: 3:00 Stille (Redstone 8:00, Wurf- und Verweiltrank wie üblich). Sculk-Sensoren, Wärter und Tiefenheuler hören dich nicht, wie bei Wolle.",
+        "details": [
+          "Kämpfen und Gesehenwerden bleiben möglich; gedämpft werden nur Vibrationen, die du auslöst."
+        ]
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "simplemobs:brewing/lingering_potion_awkward_echo_core",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_awkward_echo_core.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_silence_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_silence_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_awkward_echo_core",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_awkward_echo_core.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_long_silence_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_long_silence_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_silence_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_silence_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_silence_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_silence_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_awkward_echo_core",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_awkward_echo_core.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_long_silence_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_long_silence_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_silence_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_silence_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_silence_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_silence_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    }
+  ],
   "lootTables": [
     {
       "id": "simplemobs:entities/deceiver",
@@ -38,6 +288,36 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/deceiver.json"
     },
     {
+      "id": "simplemobs:entities/hollow_howler",
+      "kind": "entities",
+      "type": "minecraft:entity",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:echo_shard"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobs:echo_core"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/hollow_howler.json"
+    },
+    {
       "id": "simplemobs:entities/summoned",
       "kind": "entities",
       "type": "minecraft:entity",
@@ -45,7 +325,77 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/summoned.json"
     }
   ],
-  "tags": [],
+  "tags": [
+    {
+      "id": "simplemobs:block/howler_jaw",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:sculk_shrieker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:sculk_jaw",
+          "required": false
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/block/howler_jaw.json"
+    },
+    {
+      "id": "simplemobs:block/howler_replaceable",
+      "replace": false,
+      "values": [
+        {
+          "id": "#minecraft:dirt",
+          "required": true
+        },
+        {
+          "id": "minecraft:grass_block",
+          "required": true
+        },
+        {
+          "id": "minecraft:stone",
+          "required": true
+        },
+        {
+          "id": "minecraft:deepslate",
+          "required": true
+        },
+        {
+          "id": "minecraft:tuff",
+          "required": true
+        },
+        {
+          "id": "minecraft:cobbled_deepslate",
+          "required": true
+        },
+        {
+          "id": "minecraft:sand",
+          "required": true
+        },
+        {
+          "id": "minecraft:red_sand",
+          "required": true
+        },
+        {
+          "id": "minecraft:gravel",
+          "required": true
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/block/howler_replaceable.json"
+    },
+    {
+      "id": "simplemobs:item/howler_jaw_drops",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:sculk_jaw",
+          "required": false
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/item/howler_jaw_drops.json"
+    }
+  ],
   "advancements": [],
   "enchantments": [],
   "items": [
@@ -84,6 +434,42 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       "texture": "assets/textures/simplemobs/item/deceiver_spawn_egg.png",
       "craftedBy": [],
       "usedIn": []
+    },
+    {
+      "id": "simplemobs:echo_core",
+      "name": {
+        "en_us": "Echo Core",
+        "de_de": "Echokern"
+      },
+      "note": {
+        "en": {
+          "summary": "Dropped once by every Hollow Howler. Brewed into an Awkward Potion it makes the Potion of Silence (3:00, with redstone 8:00)."
+        },
+        "de": {
+          "summary": "Lässt jeder Tiefenheuler genau einmal fallen. In einen Seltsamen Trank gebraut ergibt er den Trank der Stille (3:00, mit Redstone 8:00)."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/echo_core.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobs:hollow_howler_spawn_egg",
+      "name": {
+        "en_us": "Hollow Howler Spawn Egg",
+        "de_de": "Tiefenheuler-Spawn-Ei"
+      },
+      "note": {
+        "en": {
+          "summary": "Spawns a Hollow Howler. Creative only."
+        },
+        "de": {
+          "summary": "Beschwört einen Tiefenheuler. Nur im Kreativmodus."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/hollow_howler_spawn_egg.png",
+      "craftedBy": [],
+      "usedIn": []
     }
   ],
   "blocks": [],
@@ -101,13 +487,13 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 0,
-    "recipes": 0,
-    "lootTables": 2,
-    "tags": 0,
+    "features": 2,
+    "recipes": 10,
+    "lootTables": 3,
+    "tags": 3,
     "advancements": 0,
     "enchantments": 0,
-    "items": 2,
+    "items": 4,
     "blocks": 0,
     "trades": 0,
     "config": 0,

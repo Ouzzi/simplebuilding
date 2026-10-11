@@ -130,6 +130,9 @@ public class HowlerEntity extends Monster implements VibrationSystem {
     /** Test/screenshot hook: open the jaws for a bite (no damage unless a target is in reach when they snap). */
     public void startBite() { this.entityData.set(DATA_BITE, HowlerLogic.BITE_WINDUP_TICKS); }
 
+    /** Screenshot hook (with no AI): jaws wide open just before the snap. */
+    public void holdJawsOpen() { this.entityData.set(DATA_BITE, 1); }
+
     // ---- save ---------------------------------------------------------------------------
 
     @Override

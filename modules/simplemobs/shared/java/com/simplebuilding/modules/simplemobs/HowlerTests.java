@@ -193,7 +193,7 @@ final class HowlerTests {
             float before = howler.getHealth();
             howler.hurtServer(l, src, 10f);
             float plain = before - howler.getHealth();
-            howler.invulnerableTime = 0;
+            howler.setInvulnerableTime(0);
             howler.startBite();
             before = howler.getHealth();
             howler.hurtServer(l, src, 10f);
