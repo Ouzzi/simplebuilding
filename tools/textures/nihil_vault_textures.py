@@ -3,6 +3,11 @@ astral diamond is painted over from the neighbouring front panel and an inset ni
 takes its place.
 
 Writes only the nihil_vault textures/models and the labeled preview; deterministic --check.
+
+N46 (owner pick 2026-10-12): both chest sheets (entity/chest/astral_vault.png and nihil_vault.png) are A2/N2 from
+n46_round3_2026_10_12.py - the Vanilla ender chest structure with an astral / nihil palette. They are derived from a
+Mojang texture, so they are never committed: tools/textures/vanilla_derived.py builds them at build time (Gradle,
+wiki). This script writes only the 16x16 particle texture and the models; --check needs no client jar.
 """
 import argparse
 import colorsys
@@ -34,17 +39,6 @@ def nihil_tint(image):
 
 
 def images():
-    base = Image.open(ASSETS / "textures/entity/chest/astral_vault.png").convert("RGBA")
-    px = base.load()
-    # The astral diamond (end_system_textures.py): copy the plain panel one front face to the right over it.
-    for x, y in [(18, 38), (19, 37), (20, 36), (21, 35), (22, 36), (23, 37), (24, 38), (23, 39), (22, 40),
-                 (21, 41), (20, 40), (19, 39), (21, 38)]:
-        px[x, y] = px[x + 14, y]
-    chest = nihil_tint(base)
-    d = ImageDraw.Draw(chest)
-    # Chest front UV, same spot as the Astral Vault glyph: inset, never on the rim.
-    d.ellipse((18, 35, 24, 41), outline=RING)
-    d.point((21, 38), fill=CORE)
     block = Image.open(ASSETS / "textures/block/astral_vault.png").convert("RGBA")
     px = block.load()
     for x, y in [(5, 7), (6, 6), (7, 5), (8, 6), (9, 7), (8, 8), (7, 9), (6, 8)]:
@@ -52,7 +46,7 @@ def images():
     block = nihil_tint(block)
     d = ImageDraw.Draw(block)
     d.ellipse((5, 5, 9, 9), outline=RING)
-    return {"entity/chest/nihil_vault.png": chest, "block/nihil_vault.png": block}
+    return {"block/nihil_vault.png": block}
 
 
 def models():
@@ -70,9 +64,10 @@ def preview(art):
     jar = Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar"
     with zipfile.ZipFile(jar) as z:
         ender = Image.open(io.BytesIO(z.read("assets/minecraft/textures/entity/chest/ender.png"))).convert("RGBA")
-    astral = Image.open(ASSETS / "textures/entity/chest/astral_vault.png").convert("RGBA")
-    sheets = [("A Endertruhe (Vanilla)", ender), ("B Astralgewoelbe", astral),
-              ("C Nihil-Gewoelbe (neu)", art["entity/chest/nihil_vault.png"])]
+    import vanilla_derived
+    chests = vanilla_derived.images(jar)
+    sheets = [("A Endertruhe (Vanilla)", ender), ("B Astralgewoelbe", chests["entity/chest/astral_vault.png"]),
+              ("C Nihil-Gewoelbe (neu)", chests["entity/chest/nihil_vault.png"])]
     scale = 12
     canvas = Image.new("RGBA", (len(sheets) * (64 * scale + 24), 64 * scale + 60), (53, 53, 53))
     d = ImageDraw.Draw(canvas)
@@ -80,9 +75,7 @@ def preview(art):
         x = i * (64 * scale + 24)
         canvas.alpha_composite(sheet.resize((64 * scale, 64 * scale), Image.Resampling.NEAREST), (x, 50))
         d.text((x + 8, 12), label, fill=(240, 240, 240), font_size=28)
-    target = Path("C:/Users/o_o/code/minecraft-mods/previews")
-    if not target.exists():
-        target = ROOT / "docs/previews"
+    target = ROOT / "build/previews"  # shows Vanilla pixels: never into a committed folder
     target.mkdir(parents=True, exist_ok=True)
     canvas.save(target / "nihil-gewoelbe-vorschau.png")
     return target / "nihil-gewoelbe-vorschau.png"
@@ -114,7 +107,7 @@ def main():
     if args.check:
         if failures:
             raise SystemExit("Outdated: " + ", ".join(failures))
-        print(f"Nihil Vault: {len(art)} textures and models current")
+        print(f"Astral/Nihil Vault: {len(art)} textures and models current")
         return
     print(f"Nihil Vault: {len(art)} textures, models and preview {preview(art)} generated")
 

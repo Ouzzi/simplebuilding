@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:green_terracotta_octet",
+    "simplebuilding:green_terracotta_octet",
+    "simplebuilding:green_terracotta_octet",
+    "simplebuilding:green_terracotta_octet",
+    "simplebuilding:green_terracotta_octet",
+    "simplebuilding:green_terracotta_octet",
+    "simplebuilding:green_terracotta_octet",
+    "simplebuilding:green_terracotta_octet"
+  ],
+  "result": {
+    "id": "minecraft:green_terracotta"
+  }
+}

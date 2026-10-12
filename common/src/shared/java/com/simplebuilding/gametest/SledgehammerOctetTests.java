@@ -288,6 +288,32 @@ public final class SledgehammerOctetTests {
      * chess checkers their chess ones) has a material octet cell and item (stack 99) that the hammer finds from the
      * block, its stairs and its slab; the stonecutter makes 8 from the block and 8 craft back; a stone octet places.
      */
+    /** "Mehr 0,125er-Bloecke": every listed material (also the ones without stairs: terracotta, metal, logs) has cell, item and way back. */
+    public static void materialOctetsCoverTheExtraPalette(GameTestHelper helper) {
+        if (!McVersion.CHESS) { helper.succeed(); return; }
+        java.util.List<String> problems = new java.util.ArrayList<>();
+        var blocks = net.minecraft.core.registries.BuiltInRegistries.BLOCK;
+        var recipes = helper.getLevel().getServer().getRecipeManager();
+        java.util.Set<String> seen = new java.util.HashSet<>();
+        int extra = 0;
+        for (com.simplebuilding.blocks.OctetMaterials.Material m : com.simplebuilding.blocks.OctetMaterials.ALL) {
+            if (!seen.add(m.key())) problems.add("duplicate " + m.key());
+            Block full = blocks.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath(m.namespace(), m.base())).orElse(null);
+            if (full == null || !full.defaultBlockState().isCollisionShapeFullBlock(helper.getLevel(), BlockPos.ZERO)) { problems.add("no full block " + m.base()); continue; }
+            if (java.util.Set.of("log", "metal", "terracotta").contains(m.group())) extra++;
+            Block cell = MaterialOctets.cellFor(full);
+            if (cell == null) { problems.add("no octet for " + m.base()); continue; }
+            Item item = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(blocks.getKey(cell));
+            if (!(item instanceof MaterialOctetItem octet) || octet.cell() != cell) problems.add("item of " + m.key());
+            if (recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", m.base() + "_from_octets"))).isEmpty())
+                problems.add("no recipe back to " + m.base());
+        }
+        helper.assertTrue(extra >= 40, "only " + extra + " extra-palette materials");
+        helper.assertTrue(problems.isEmpty(), "extra octets: " + problems);
+        helper.succeed();
+    }
+
     public static void materialOctetsCoverEveryStairBlock(GameTestHelper helper) {
         if (!McVersion.CHESS) { helper.succeed(); return; }
         java.util.List<String> problems = new java.util.ArrayList<>();

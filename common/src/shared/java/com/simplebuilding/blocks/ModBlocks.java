@@ -34,6 +34,9 @@ public class ModBlocks {
                     s -> new net.minecraft.world.level.block.FlowerPotBlock(SILENT_DANDELION, s)) : null;
     public static final Block NIHIL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, signalDust(s))) : null;
     public static final Block ASTRAL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("astral_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, signalDust(s))) : null;
+    /** Astral/Nihilith Lamp (Nachtrag 44, 2026-10-12): toggles like a copper bulb on a pulse of its own line's dust. */
+    public static final Block NIHILITH_LAMP = McVersion.END_SYSTEMS ? registerBlock("nihilith_lamp", s -> new EndSignalLampBlock(false, endLamp(s))) : null;
+    public static final Block ASTRALIT_LAMP = McVersion.END_SYSTEMS ? registerBlock("astralit_lamp", s -> new EndSignalLampBlock(true, endLamp(s))) : null;
     /** Bridge Redstone (2026-10-11): links redstone, Astral and Nihil like one shared wire. */
     public static final Block BRIDGE_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("bridge_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.BRIDGE, signalDust(s))) : null;
     // Astral-/Nihil-Kolben (2026-10-03, docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md): Empfaenger des eigenen Kanals wie
@@ -494,7 +497,7 @@ public class ModBlocks {
     public static final List<Block> WOOD_OCTETS = McVersion.CHESS ? woodOctets() : List.of();
     /** Melonen-Achtel: eine gesetzte Melonenscheibe (Schleichen + Rechtsklick); droppt Melonenscheiben. */
     public static final Block MELON_OCTET = McVersion.CHESS ? registerBlock("melon_octet", Blocks.MELON,
-            s -> new MaterialOctetBlock(Blocks.MELON, () -> net.minecraft.world.item.Items.MELON_SLICE, octetProperties(s))) : null;
+            s -> new MaterialOctetBlock(Blocks.MELON, () -> net.minecraft.world.item.Items.MELON_SLICE, octetProperties(s, Blocks.MELON))) : null;
 
     /**
      * Achtelzellen aller uebrigen Bloecke mit Stufe und Treppe (Queue N19/N15, Liste {@link OctetMaterials}, vom
@@ -514,7 +517,7 @@ public class ModBlocks {
             String name = material.key() + "_octet";
             Identifier itemId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
             Block cell = registerBlock(name, source, s -> new MaterialOctetBlock(source,
-                    () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s)));
+                    () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s, source)));
             OCTET_GROUPS.put(cell, material.group());
             out.add(cell);
         }
@@ -542,9 +545,19 @@ public class ModBlocks {
             String name = wood + "_octet";
             Identifier itemId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
             out.add(registerBlock(name, planks, s -> new MaterialOctetBlock(planks,
-                    () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s))));
+                    () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s, planks))));
         }
         return List.copyOf(out);
+    }
+
+    /**
+     * Octet cells have no blockstate properties of the source, so state-dependent lambdas copied from it (log axis in
+     * the map colour, lit in the light level) would throw: pin both to the source's default state.
+     */
+    private static BlockBehaviour.Properties octetProperties(BlockBehaviour.Properties s, Block source) {
+        net.minecraft.world.level.block.state.BlockState def = source.defaultBlockState();
+        int light = def.getLightEmission();
+        return octetProperties(s.mapColor(source.defaultMapColor()).lightLevel(state -> light));
     }
 
     private static BlockBehaviour.Properties octetProperties(BlockBehaviour.Properties s) {
@@ -562,6 +575,10 @@ public class ModBlocks {
         for (Block cell : MATERIAL_OCTETS) {
             if ("wool".equals(OCTET_GROUPS.get(cell))) {
                 ((com.simplebuilding.mixin.FireBlockFlammables) Blocks.FIRE).simplebuilding$setFlammable(cell, 30, 60);
+            }
+            // Staemme brennen wie ihre Staemme (5/5); Nether-Staemme nicht.
+            if ("log".equals(OCTET_GROUPS.get(cell)) && ((MaterialOctetBlock) cell).source().defaultBlockState().ignitedByLava()) {
+                ((com.simplebuilding.mixin.FireBlockFlammables) Blocks.FIRE).simplebuilding$setFlammable(cell, 5, 5);
             }
         }
     }
@@ -708,6 +725,13 @@ public class ModBlocks {
     /**
      * Registriert einen Block und weist ihm vor der Erstellung den notwendigen RegistryKey zu.
      */
+    /** Astral/Nihilith Lamp: redstone lamp strength, no conductor (like the copper bulb), light 15 while lit. */
+    private static BlockBehaviour.Properties endLamp(BlockBehaviour.Properties s) {
+        return s.strength(0.3F).sound(SoundType.AMETHYST).mapColor(MapColor.COLOR_PURPLE)
+                .isRedstoneConductor((state, world, pos) -> false)
+                .lightLevel(state -> state.getValue(EndSignalLampBlock.LIT) ? 15 : 0);
+    }
+
     /** Astral/Nihil/Bridge Redstone: vanilla dust's properties (no collision, breaks at once, pistons destroy it). */
     private static BlockBehaviour.Properties signalDust(BlockBehaviour.Properties s) {
         return s.noCollision().instabreak().pushReaction(McVersion.PUSH_DESTROYS).noOcclusion().sound(SoundType.AMETHYST)

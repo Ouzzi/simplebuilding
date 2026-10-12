@@ -54,6 +54,14 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuilding/nihilith_lamp",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_lamp",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplebuilding/astralit_quartz_checker",
       "required": false
     },
