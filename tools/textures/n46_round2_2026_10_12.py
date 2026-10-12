@@ -326,3 +326,28 @@ if __name__ == '__main__':
     a = ap.parse_args()
     if a.html:
         page(a.html)
+
+
+def qtable_final():
+    """Round 3 owner pick: R3 with a full shelf of books on every side (Vanilla bookshelf logic: 2 px spines, light
+    left column, dark right edge, light top) and a lower lapis edge (only the bottom row of the top slab)."""
+    t = qtable2(2)
+    side = t['side']
+    W = OAK
+    for x in range(16):
+        side.putpixel((x, 4), H(W[4]))
+        side.putpixel((x, 5), H(LAPIS[2] if x % 4 else LAPIS[1]))
+    for y in range(6, 13):
+        for x in range(1, 15):
+            edge = x in (1, 14) or y in (6, 12)
+            side.putpixel((x, y), H(W[1] if edge else '2c1c0e'))
+    spines = ['2e5cc8', '8e2b2b', '4e6a34', '1e3f9a', 'a47c45', '8e2b2b']
+    for i, col in enumerate(spines):
+        x0 = 2 + i * 2
+        top_y = 7 if i % 3 != 1 else 8
+        for y in range(top_y, 12):
+            c = H(col)
+            side.putpixel((x0, y), mix(c, H('ffffff'), 0.22) if y > top_y else mix(c, H('ffffff'), 0.4))
+            side.putpixel((x0 + 1, y), mix(c, H('000000'), 0.28) if y > top_y else c)
+        side.putpixel((x0, 9 + (i % 2)), mix(H(col), H('f2cc5c'), 0.6))      # small title band
+    return t
