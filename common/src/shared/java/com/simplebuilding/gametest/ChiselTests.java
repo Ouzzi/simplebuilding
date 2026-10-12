@@ -1742,6 +1742,9 @@ public final class ChiselTests {
         for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
             stoneOwn.add(blockName(family.wood().strippedBlock()) + ">" + blockName(family.hollowStripped()));
         }
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            stoneOwn.add(blockName(net.minecraft.world.level.block.Blocks.ICE) + ">" + blockName(com.simplebuilding.blocks.ModBlocks.CRACKED_ICE));
+        }
         assertOwnContribution(helper, "stone", ChiselItem.FINAL_STONE_FWD, null, stoneOwn.toArray(new String[0]));
         assertOwnContribution(helper, "iron", ChiselItem.FINAL_IRON_FWD,
                 ChiselItem.FINAL_STONE_FWD, IRON_OWN);
