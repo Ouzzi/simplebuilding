@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "simpleend:block/stripped_duskwood_log_top",
+    "side": "simpleend:block/stripped_duskwood_log"
+  }
+}

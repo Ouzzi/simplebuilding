@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "simpleend:block/ashwood_leaves",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -5727094
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[66,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpleend"
+version="${version}"
+displayName="Simple End"
+[[dependencies.simpleend]]
+modId="forge"
+mandatory=true
+versionRange="[66,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simpleend]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simpleend]]
+modId="simpleenddragonfight"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

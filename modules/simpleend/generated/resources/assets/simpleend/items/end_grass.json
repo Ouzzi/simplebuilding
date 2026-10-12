@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "simpleend:item/end_grass",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -5727094
+      }
+    ]
+  }
+}

@@ -801,6 +801,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
 
 ## Nachtrag 47 (2026-10-12, Besitzer)
+- [ ] Furcht-Mobs (Konzept KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md „Furcht-Mob – Vorschläge“): F-A „Dread“ – spawnt NICHT natürlich, wird per Golem-Mechanik aus Blöcken gebaut/beschworen; F-C „Hollow Watcher“ im End (Außeninseln). Beide mit Zittern-Aura. (claude-fear-mobs)
 - [x] Jar-Weitergabe an Zentrale-Downloads eingerichtet (nach grünem Gate: dist-publish.sh → sb-agent → sb-web, atomar; Backups *.bak-20261012). (claude-jar-dist)
 - [ ] Stärkerer Wither + Biom-Pinsel umsetzen (Konzept docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md, Wither „halt stärker“).
 - [ ] Niedlicher End-Mob: passive Endermite-Varianten in Ash Valley/Dawnlands, knabbern Endstein → durchwühlter Endstein (erholt sich wie Gras nach Schaf). (in claude-simple-end)
@@ -826,7 +827,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 44 (2026-10-12, Besitzer)
 - [ ] Astral- und Nihilith-Lampen: neue Texturen fast wie Kupferlampe, aber End-Version (Referenz docs/ai/refs/n44/end_lamp_ref.png). Hinweis: Lampen wurden in Nachtrag 36 entfernt → wieder einführen als Lampe ihrer Redstone-Linie (an/aus wie Kupferlampe), Migration der Alt-Ids anpassen. Erst 3 Textur-Vorschläge.
-- [ ] Neue End-Holzart (grau, leicht braun, blass), alle Holzblöcke (Stamm, entrindet, Holz, Bretter, Treppe, Stufe, Zaun, Tor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Boot/Kistenboot, Blätter?), eigenes End-Design. Quelle: neue Blume (Knospe), mit Knochenmehl auf Endstein, braucht Licht: hell → mächtiger großer End-Baum; dunkel → schmales hohes End-Gestrüpp (Stöcke als Holz). Wächst im End. Erst Textur-Vorschläge + Baumformen. Im End natürlich schmal, chorusartig; neues Biom (Chorus, End-Gras/Büsche, Knospen), Tint grau-braun. Konzept: docs/ai/KONZEPT-ENDHOLZ-BIOM-2026-10-12.md (Lücken offen).
+- [x] (claude-simple-end: Aschholz/Dämmerholz, Knospen, Bäume, Biome Aschental/Dämmerlande, Modul simpleend) Neue End-Holzart (grau, leicht braun, blass), alle Holzblöcke (Stamm, entrindet, Holz, Bretter, Treppe, Stufe, Zaun, Tor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Boot/Kistenboot, Blätter?), eigenes End-Design. Quelle: neue Blume (Knospe), mit Knochenmehl auf Endstein, braucht Licht: hell → mächtiger großer End-Baum; dunkel → schmales hohes End-Gestrüpp (Stöcke als Holz). Wächst im End. Erst Textur-Vorschläge + Baumformen. Im End natürlich schmal, chorusartig; neues Biom (Chorus, End-Gras/Büsche, Knospen), Tint grau-braun. Konzept: docs/ai/KONZEPT-ENDHOLZ-BIOM-2026-10-12.md (Lücken offen).
 
 ## Nachtrag 43 (2026-10-12, Besitzer)
 - [ ] Testzentrale: alle Mods-Mobs testbar (Spawner/Spawn-Eier + passende Umgebung je Mob); Shellker mit End-Gateway-Struktur an einer Stelle. (claude-testcenter-mobs)
@@ -838,7 +839,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 42 (2026-10-12, Besitzer)
 - [ ] End-Gras: wie totes Gras/tote Büsche (Vanilla dead bush / short dry grass), Farbe wie Endstein; wächst/platzierbar auf Endstein, Weltgenerierung auf den End-Inseln.
 - [ ] Death Vault (Besitzer 12.10.: bauen in Simple Tools, Konzept-Antworten verbindlich): nach dem Tod 3–5 zufällige Items des letzten Todes gegen Bezahlung zurückholbar; gegen Duping gesichert (nur Items, die beim Tod verloren gingen und nicht aufgehoben wurden; einmalig je Tod, serverseitig). Konzept: `docs/ai/KONZEPT-DEATH-VAULT-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort.
-- [ ] Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst. Konzept: `docs/ai/KONZEPT-SOULBOUND-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort.
+- [ ] Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst. Konzept: `docs/ai/KONZEPT-SOULBOUND-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort.,
+- [x] (claude-simple-end: end_grass/end_bush in simpleend, Biom-Tint) End-Gras: wie totes Gras/tote Büsche (Vanilla dead bush / short dry grass), Farbe wie Endstein; wächst/platzierbar auf Endstein, Weltgenerierung auf den End-Inseln.
+- [ ] Death Vault (NUR KONZEPT, nicht umsetzen): nach dem Tod 3–5 zufällige Items des letzten Todes gegen Bezahlung zurückholbar; gegen Duping gesichert (nur Items, die beim Tod verloren gingen und nicht aufgehoben wurden; einmalig je Tod, serverseitig).
+- [ ] Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst.
 - [ ] Simple Creatures umbenennen in „Simple Mob Manners“ (Besitzer-Wahl 12.10.), Id simplemobmanners, mit Namespace-/Config-Migration (simplecreatures → simplemobmanners), Zentrale/Wiki/Lang anpassen.
 
 ## Nachtrag 41 (2026-10-12, Besitzer)

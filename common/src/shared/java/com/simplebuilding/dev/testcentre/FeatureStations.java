@@ -875,6 +875,83 @@ public final class FeatureStations {
     }
 
     /**
+     * Simple-End-Station (docs/ai/PLAN-SIMPLE-END-2026-10-12.md): nur wenn das Modul geladen ist, ueber Registry-Ids
+     * (keine Klassen des Moduls). Endstein-Boden; je Holzart eine Reihe mit dem ganzen Holzset, davor Knospen: eine im
+     * Licht (Leuchtstein), eine 2x2 im Licht, eine in einem dunklen Kasten (Knochenmehl -> Gestruepp); End-Gras und
+     * -Buesche; Truhe mit Booten, Knospen, Schwebfrucht und Knochenmehl.
+     */
+    public static TcCanvas simpleEnd(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        if (!net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", "ashwood_log"))) {
+            return c;
+        }
+        int wallZ = 14;
+        c.fill(0, -1, 0, 22, -1, wallZ - 1, Blocks.END_STONE.defaultBlockState());
+        String[] parts = {"W_log", "W_wood", "stripped_W_log", "stripped_W_wood", "W_planks", "W_stairs", "W_slab", "W_fence",
+                "W_fence_gate", "W_door", "W_trapdoor", "W_pressure_plate", "W_button", "W_sign", "W_leaves", "W_sticks"};
+        String[][] woods = {{"ashwood", "ash_bud"}, {"duskwood", "dusk_bud"}};
+        List<ItemStack> chest = new ArrayList<>();
+        for (int row = 0; row < woods.length; row++) {
+            String w = woods[row][0];
+            int z = 11 - row * 2;
+            for (int i = 0; i < parts.length; i++) {
+                Block b = endBlock(parts[i].replace("W", w));
+                if (b != null) c.place(1 + i, 0, z, b);
+            }
+            Block hanging = endBlock(w + "_hanging_sign");
+            if (hanging != null) c.place(17, 1, z, hanging);
+            c.place(17, 0, z, endBlock(w + "_planks"));
+            Block bud = endBlock(woods[row][1]);
+            int bx = 2 + row * 10;
+            // Licht: eine Knospe neben Leuchtstein waechst von selbst/mit Knochenmehl zum grossen Baum.
+            c.place(bx, 0, 3, bud);
+            c.place(bx + 2, 0, 3, Blocks.GLOWSTONE);
+            // 2x2 Knospen im Licht -> Riesenbaum.
+            for (int dx = 0; dx < 2; dx++) for (int dz = 0; dz < 2; dz++) c.place(bx + 4 + dx, 0, 2 + dz, bud);
+            c.place(bx + 7, 0, 3, Blocks.GLOWSTONE);
+            // Dunkel: Knospe in einem geschlossenen Kasten aus Obsidian (oben eine Falltuer zum Knochenmehl geben).
+            c.fill(bx - 1, 0, 6, bx + 1, 2, 8, Blocks.OBSIDIAN.defaultBlockState());
+            c.place(bx, 0, 7, bud);
+            c.place(bx, 1, 7, Blocks.AIR);
+            for (String id : new String[] {w + "_boat", w + "_chest_boat", woods[row][1], w + "_log"}) {
+                Item it = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", id));
+                if (it != Items.AIR) chest.add(new ItemStack(it, it.getDefaultMaxStackSize()));
+            }
+        }
+        Block grass = endBlock("end_grass"), bush = endBlock("end_bush");
+        for (int x = 12; x <= 20; x += 2) {
+            c.place(x, 0, 5, grass);
+            c.place(x + 1, 0, 6, x % 4 == 0 ? bush : grass);
+        }
+        Item fruit = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", "drift_fruit"));
+        chest.add(new ItemStack(fruit, 16));
+        chest.add(new ItemStack(Items.BONE_MEAL, 64));
+        chest.add(new ItemStack(Items.IRON_AXE));
+        chest.add(new ItemStack(Items.SHEARS));
+        for (String id : new String[] {"nibblemite_spawn_egg", "burrowed_end_stone"}) {
+            Item it = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", id));
+            if (it != Items.AIR) chest.add(new ItemStack(it, 16));
+        }
+        chest.add(new ItemStack(Items.CHORUS_FRUIT, 32));
+        c.place(21, 0, 9, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+        c.contents(21, 0, 9, chest);
+        c.title(0, 3, wallZ, TcText.t("section.simpleend", "Simple End"),
+                TcText.t("section.simpleend.sub", "End wood, buds, End grass, Drift Fruit"));
+        c.wallSign(3, 2, wallZ, TcText.bold(TcText.t("simpleend.light", "Buds in light")),
+                TcText.t("simpleend.light.sub", "light 9+: big tree,"), TcText.t("simpleend.light.sub2", "2x2: huge tree"));
+        c.wallSign(8, 2, wallZ, TcText.bold(TcText.t("simpleend.dark", "Bud in the dark")),
+                TcText.t("simpleend.dark.sub", "bone meal through the top"), TcText.t("simpleend.dark.sub2", "grows stick scrub"));
+        c.wallSign(13, 2, wallZ, TcText.bold(TcText.t("simpleend.fruit", "Drift Fruit")),
+                TcText.t("simpleend.fruit.sub", "eat: 4 s Slow Falling"), TcText.t("simpleend.fruit.sub2", "and a small hop"));
+        c.backWall(0, 22, wallZ, 5);
+        return c;
+    }
+
+    private static Block endBlock(String id) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", id)).orElse(Blocks.AIR);
+    }
+
+    /**
      * Fahrzeug-Station (Queue N19/N23, McVersion.TIERED_VEHICLES): eine gerade Strecke mit Stopp-Steinen zum Ausprobieren
      * der Ofenloren, eine kurze Strecke unter einer vollen Truhe fuer die Trichterloren (sie saugen dort an), ein
      * Wasserbecken fuer die Kistenboote, davor eine Enderittruhe mit allen Fahrzeugen (Kistenboote in jeder Holzart),

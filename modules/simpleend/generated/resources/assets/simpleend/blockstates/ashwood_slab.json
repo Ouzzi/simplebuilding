@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simpleend:block/ashwood_slab"
+    },
+    "type=double": {
+      "model": "simpleend:block/ashwood_planks"
+    },
+    "type=top": {
+      "model": "simpleend:block/ashwood_slab_top"
+    }
+  }
+}

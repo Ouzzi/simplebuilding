@@ -1,0 +1,62 @@
+package com.simplebuilding.modules.simpleend.client;
+
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.MeshTransformer;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
+
+/**
+ * Nibblemite: four Endermite-like segments at three quarters of the size, a round head with two big eyes and two
+ * little feelers that wiggle. Texture 64 x 32 (layout in modules/simpleend/tools/gen_textures.py, NIBBLE_BOXES).
+ */
+public class NibblemiteModel extends EntityModel<LivingEntityRenderState> {
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath("simpleend", "nibblemite"), "main");
+    static final int[][] SIZES = {{4, 3, 3}, {6, 4, 5}, {4, 3, 2}, {2, 2, 1}};
+    static final int[][] TEXS = {{0, 0}, {0, 6}, {0, 15}, {0, 20}};
+    private final ModelPart[] segments = new ModelPart[4];
+    private final ModelPart rightFeeler, leftFeeler;
+
+    public NibblemiteModel(ModelPart root) {
+        super(root);
+        for (int i = 0; i < 4; i++) segments[i] = root.getChild("segment" + i);
+        rightFeeler = segments[0].getChild("right_feeler");
+        leftFeeler = segments[0].getChild("left_feeler");
+    }
+
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition root = mesh.getRoot();
+        float placement = -3.5F;
+        for (int i = 0; i < 4; i++) {
+            PartDefinition seg = root.addOrReplaceChild("segment" + i, CubeListBuilder.create().texOffs(TEXS[i][0], TEXS[i][1])
+                            .addBox(SIZES[i][0] * -0.5F, 0.0F, SIZES[i][2] * -0.5F, SIZES[i][0], SIZES[i][1], SIZES[i][2]),
+                    PartPose.offset(0.0F, 24 - SIZES[i][1], placement));
+            if (i == 0) {
+                seg.addOrReplaceChild("right_feeler", CubeListBuilder.create().texOffs(24, 0).addBox(-0.5F, -3.0F, -0.5F, 1, 3, 1), PartPose.offset(-1.0F, 0.0F, -1.0F));
+                seg.addOrReplaceChild("left_feeler", CubeListBuilder.create().texOffs(28, 0).addBox(-0.5F, -3.0F, -0.5F, 1, 3, 1), PartPose.offset(1.0F, 0.0F, -1.0F));
+            }
+            if (i < 3) placement += (SIZES[i][2] + SIZES[i + 1][2]) * 0.5F;
+        }
+        return LayerDefinition.create(mesh, 64, 32).apply(MeshTransformer.scaling(0.75F));
+    }
+
+    @Override
+    public void setupAnim(LivingEntityRenderState state) {
+        super.setupAnim(state);
+        for (int i = 0; i < segments.length; i++) {
+            segments[i].yRot = Mth.cos(state.ageInTicks * 0.6F + i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.01F * (1 + Math.abs(i - 2));
+            segments[i].x = Mth.sin(state.ageInTicks * 0.6F + i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.08F * Math.abs(i - 2);
+        }
+        float wiggle = 0.25F * Mth.sin(state.ageInTicks * 0.35F);
+        rightFeeler.zRot = -0.3F + wiggle;
+        leftFeeler.zRot = 0.3F - wiggle;
+    }
+}

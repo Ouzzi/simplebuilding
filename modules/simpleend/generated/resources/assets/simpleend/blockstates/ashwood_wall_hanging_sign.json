@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "simpleend:block/ashwood_wall_hanging_sign",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "simpleend:block/ashwood_wall_hanging_sign",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "simpleend:block/ashwood_wall_hanging_sign"
+    },
+    "facing=west": {
+      "model": "simpleend:block/ashwood_wall_hanging_sign",
+      "y": 90
+    }
+  }
+}

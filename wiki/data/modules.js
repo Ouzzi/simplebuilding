@@ -32,7 +32,7 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simpletrims",
       "simplemobs",
-      "simpleenddragonfight"
+      "simpleend"
     ]
   },
   {
@@ -525,6 +525,23 @@ window.WIKI_MODULES = [
     "requires": [],
     "optional": [],
     "dataHash": "8e7329c39870"
+  },
+  {
+    "id": "simpleend",
+    "displayName": "Simple End",
+    "description": "End wood (Ashwood, Duskwood) with buds, trees and stick scrub, End grass, the Ash Valley and Dawnlands biomes on the outer End islands; bundles Simple End Dragon Fight.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simpleenddragonfight"
+    ],
+    "dataHash": "d5b2f6125af8"
   },
   {
     "id": "simplerespawn",

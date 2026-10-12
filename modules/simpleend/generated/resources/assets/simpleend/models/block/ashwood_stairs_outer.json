@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "simpleend:block/ashwood_planks",
+    "side": "simpleend:block/ashwood_planks",
+    "top": "simpleend:block/ashwood_planks"
+  }
+}

@@ -73,7 +73,7 @@ public class SimplebuildingConfig implements ConfigData {
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
-    public boolean enableSimpleEndDragonFight = true;
+    public boolean enableSimpleEnd = true;
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
@@ -94,7 +94,7 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simpledimension", c.enableSimpleDimensions);
         setSubMod("simpletrims", c.enableSimpleTrims);
         setSubMod("simplemobs", c.enableSimpleMobs);
-        setSubMod("simpleenddragonfight", c.enableSimpleEndDragonFight);
+        setSubMod("simpleend", c.enableSimpleEnd);
         setSubMod("simplerespawn", c.enableSimpleRespawn);
     }
 
