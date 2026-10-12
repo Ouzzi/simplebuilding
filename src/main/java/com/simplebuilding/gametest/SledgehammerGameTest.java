@@ -158,6 +158,10 @@ public final class SledgehammerGameTest {
         SledgehammerOctetTests.materialOctetsCoverEveryStairBlock(helper);
     }
     @GameTest
+    public void materialOctetsCoverTheExtraPalette(GameTestHelper helper) {
+        SledgehammerOctetTests.materialOctetsCoverTheExtraPalette(helper);
+    }
+    @GameTest
     public void sledgehammerTransformHintsCoverBothHandsWithoutSideEffects(GameTestHelper helper) {
         SledgehammerTests.sledgehammerTransformHintsCoverBothHandsWithoutSideEffects(helper);
     }
