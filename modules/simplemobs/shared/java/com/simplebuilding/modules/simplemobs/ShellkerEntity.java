@@ -152,7 +152,8 @@ public class ShellkerEntity extends Shulker {
 
         @Override
         public void start() {
-            this.attackTime = 20;
+            // Owner N45: shoots almost at once after opening (hit-spamming the open shell cannot hold it).
+            this.attackTime = EndNetherLogic.FIRST_SHOT_TICKS;
             setOpen(true);
         }
 
@@ -175,7 +176,7 @@ public class ShellkerEntity extends Shulker {
             getLookControl().setLookAt(target, 180.0F, 180.0F);
             if (distanceToSqr(target) < 400.0) {
                 if (this.attackTime <= 0) {
-                    this.attackTime = 20 + random.nextInt(10) * 20 / 2;
+                    this.attackTime = EndNetherLogic.shotDelay(random.nextInt(10));
                     level().addFreshEntity(new ShellkerBullet(level(), ShellkerEntity.this, target, getAttachFace().getAxis()));
                     playSound(SoundEvents.SHULKER_SHOOT, 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 0.8F);
                 }

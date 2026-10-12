@@ -451,6 +451,29 @@ public final class FeatureStations {
     }
 
     // =====================================================================================
+    // Simple Respawn (Sub-Mod, 2026-10-12): nur wenn das Modul geladen ist (Registry-ID, kein Import)
+    // =====================================================================================
+
+    public static TcCanvas respawn(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        Item guide = net.minecraft.core.registries.BuiltInRegistries.ITEM
+                .getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplerespawn", "guide_book")).orElse(null);
+        if (guide == null) {
+            return c;
+        }
+        TestCentreSections.post(c, 0, 0, new ItemStack(guide), TcText.bold(TcText.t("section.respawn", "Simple Respawn")),
+                TcText.t("section.respawn.sub", "survival: knock down"), TcText.t("section.respawn.sub2", "mate: hold right-click"));
+        // Befehlsbloecke auf Glas mit Glassaeule dazwischen (Isolation wie die Steuerwand).
+        c.command(3, 1, 2, Direction.NORTH, "simplerespawn down @p", TcText.t("respawn.down", "Knock down"),
+                TcText.t("respawn.down.sub", "nearest player"));
+        c.place(4, 0, 2, Blocks.GLASS.defaultBlockState());
+        c.place(4, 1, 2, Blocks.GLASS.defaultBlockState());
+        c.command(6, 1, 2, Direction.NORTH, "simplerespawn revive @p", TcText.t("respawn.revive", "Revive"),
+                TcText.t("respawn.revive.sub", "nearest player"));
+        return c;
+    }
+
+    // =====================================================================================
     // Pfeil-Station: jeder Pfeil gegen Trainingspuppen (Besitzer 2026-10-02)
     // =====================================================================================
 
@@ -917,6 +940,8 @@ public final class FeatureStations {
             Block hanging = endBlock(w + "_hanging_sign");
             if (hanging != null) c.place(17, 1, z, hanging);
             c.place(17, 0, z, endBlock(w + "_planks"));
+            Block shelf = endBlock(w + "_shelf");
+            if (shelf != null) c.place(18, 0, z, shelf);
             Block bud = endBlock(woods[row][1]);
             int bx = 2 + row * 10;
             // Licht: eine Knospe neben Leuchtstein waechst von selbst/mit Knochenmehl zum grossen Baum.

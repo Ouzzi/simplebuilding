@@ -40,7 +40,9 @@
         "pale_oak": "simplebuilding:woodwork/pale_oak",
         "crimson": "simplebuilding:woodwork/crimson",
         "warped": "simplebuilding:woodwork/warped",
-        "bamboo": "simplebuilding:woodwork/bamboo"
+        "bamboo": "simplebuilding:woodwork/bamboo",
+        "ashwood": "simplebuilding:woodwork/ashwood",
+        "duskwood": "simplebuilding:woodwork/duskwood"
       }
     }
   ]

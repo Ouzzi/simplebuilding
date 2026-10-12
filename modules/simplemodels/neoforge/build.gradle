@@ -5,6 +5,9 @@ plugins {
 apply from: rootProject.file('gradle/module-neoforge.gradle')
 // Bundles the shared framework API (guide-book quest installer) for standalone runs.
 dependencies { jarJar project(':framework') }
+// SimpleLib (style blocks for the model browser box, N43) nested per principle 6a; compiled against.
+evaluationDependsOn(':modules:simplelib:neoforge')
+dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }
 repositories { maven { url = 'https://maven.shedaniel.me/' } }
 dependencies { implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.mc263_cloth_version}"; implementation project(':common') }
 evaluationDependsOn(':mc26_3:neoforge')

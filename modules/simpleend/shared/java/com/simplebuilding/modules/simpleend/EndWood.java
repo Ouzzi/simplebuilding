@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.ShelfBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
@@ -50,7 +51,8 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 /**
- * One End wood set (Ashwood, Duskwood): the full Vanilla wood set (as of 26.3, without the shelf) plus its bud, the
+ * One End wood set (Ashwood, Duskwood): the full Vanilla wood set of 26.3 (shelf included since
+ * docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md) plus its bud, the
  * potted bud and the End-stick scrub block. Blocks/items/entity types are built inside the loader's registration
  * callbacks ({@link #blocks()}, {@link #items()}, {@link #entities()}).
  */
@@ -66,7 +68,7 @@ public final class EndWood {
     public WoodType woodType;
     public BlockSetType setType;
     public Block log, strippedLog, wood, strippedWood, planks, stairs, slab, fence, fenceGate, door, trapdoor, button, pressurePlate,
-            sign, wallSign, hangingSign, wallHangingSign, leaves, bud, pottedBud, sticks;
+            sign, wallSign, hangingSign, wallHangingSign, shelf, leaves, bud, pottedBud, sticks;
     public Item boat, chestBoat;
     private EntityType<Boat> boatType;
     private EntityType<ChestBoat> chestBoatType;
@@ -139,6 +141,9 @@ public final class EndWood {
                 Properties.of().mapColor(barkColor).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).ignitedByLava());
         wallHangingSign = block(id("W_wall_hanging_sign"), p -> new WallHangingSignBlock(woodType, p),
                 wallOf(hangingSign).mapColor(barkColor).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).ignitedByLava());
+        // Vanilla's shelf (Blocks.OAK_SHELF): planks colour, shelf sound, Vanilla shelf block entity (BlockEntityTypeMixin).
+        shelf = block(id("W_shelf"), ShelfBlock::new,
+                Properties.of().mapColor(plankColor).instrument(NoteBlockInstrument.BASS).sound(SoundType.SHELF).ignitedByLava().strength(2.0F, 3.0F));
         leaves = block(id("W_leaves"), p -> new TintedParticleLeavesBlock(0.01F, p),
                 Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion()
                         .isValidSpawn((s, g, p2, e) -> false).isSuffocating((s, g, p2) -> false)
@@ -174,6 +179,9 @@ public final class EndWood {
                 new Item.Properties().useBlockDescriptionPrefix().cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE).stacksTo(16).signText());
         item(id("W_hanging_sign"), p -> new HangingSignItem(hangingSign, wallHangingSign, p),
                 new Item.Properties().useBlockDescriptionPrefix().cookingFuel(ContextIntProviders.COOKING_TIME_HANGING_SIGNS).stacksTo(16).signText());
+        item(id("W_shelf"), p -> new BlockItem(shelf, p), new Item.Properties().useBlockDescriptionPrefix()
+                .component(net.minecraft.core.component.DataComponents.CONTAINER, net.minecraft.world.item.component.ItemContainerContents.EMPTY)
+                .cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_BLOCKS));
         item(id("W_leaves"), p -> new BlockItem(leaves, p), new Item.Properties().useBlockDescriptionPrefix().compostable(ContextIntProviders.COMPOSTABLE_LOW));
         item(budName, p -> new BlockItem(bud, p), new Item.Properties().useBlockDescriptionPrefix()
                 .compostable(ContextIntProviders.COMPOSTABLE_LOW).cookingFuel(ContextIntProviders.COOKING_TIME_DRY_PLANTS));
@@ -209,7 +217,7 @@ public final class EndWood {
     public List<Item> tabItems() {
         List<Item> out = new ArrayList<>();
         for (String id : List.of("W_log", "W_wood", "stripped_W_log", "stripped_W_wood", "W_planks", "W_stairs", "W_slab", "W_fence",
-                "W_fence_gate", "W_door", "W_trapdoor", "W_pressure_plate", "W_button", "W_sign", "W_hanging_sign", "W_boat",
+                "W_fence_gate", "W_door", "W_trapdoor", "W_pressure_plate", "W_button", "W_sign", "W_hanging_sign", "W_shelf", "W_boat",
                 "W_chest_boat", "W_leaves", "B", "W_sticks")) {
             out.add(itemIds.get(id.equals("B") ? budName : id(id)));
         }

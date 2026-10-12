@@ -182,6 +182,7 @@
     "simpledimension": "*",
     "simpletrims": "*",
     "simplemobs": "*",
-    "simpleend": "*"
+    "simpleend": "*",
+    "simplerespawn": "*"
   }
 }

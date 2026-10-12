@@ -130,5 +130,60 @@
     "secret": [
       "Seine Kopien sind immer Fälschungen und verschwinden mit ihm."
     ]
+  },
+  "dread_link": {
+    "lore": [
+      "Ein Glied der Kette, an der eine Keule durch hundert Schlachten schleifte. Es ist kalt und hört nie auf zu zittern."
+    ],
+    "use": [
+      "Lässt der Schreckensritter fallen, 2 bis 4 (mehr mit Plünderung), nur wenn ein Spieler den letzten Treffer setzt. Drei Glieder, eine Eisenkette und eine Amethystscherbe ergeben das Ruhe-Amulett."
+    ],
+    "secret": [
+      "Der Schreckensritter erscheint nie von selbst: Wer Glieder will, muss ihn erst bauen."
+    ]
+  },
+  "calm_amulet": {
+    "lore": [
+      "Ein kleines Gewicht aus Eisen und Amethyst, das die Hände ruhig hält."
+    ],
+    "use": [
+      "Irgendwo im Inventar getragen macht es immun gegen Zittern, ob von der Aura des Schreckensritters oder des Hohlen Wächters, vom Schrei des Wächters oder aus Tränken. Rezept: Eisenkette oben, Schreckens-Kettenglieder links, rechts und unten, Amethystscherbe in der Mitte."
+    ],
+    "secret": [
+      "Vorhandenes Zittern verschwindet, sobald es ins Inventar kommt."
+    ]
+  },
+  "watcher_eye": {
+    "lore": [
+      "Ein Auge, das jeden ansieht, der es hält. Schau nicht zu lange zurück."
+    ],
+    "use": [
+      "Lässt der Hohle Wächter auf den äußeren End-Inseln fallen. Seltsamer Trank plus Wächterauge ergibt den Trank des Fokus: 3:00 immun gegen Zittern (8:00 mit Redstone), Wurf- und Verweiltrank wie üblich."
+    ],
+    "secret": [
+      "Fokus hält das Zielen ruhig, auch beim Schrei eines Wächters – blind macht der Schrei trotzdem."
+    ]
+  },
+  "dread_spawn_egg": {
+    "lore": [
+      "Ein Ei, schwer wie ein Amboss."
+    ],
+    "use": [
+      "Erzeugt im Kreativmodus einen Schreckensritter. Im Überleben baust du ihn wie einen Eisengolem, mit einem Amboss in der Mitte der Querreihe und einem Skelettschädel als Kopf – dann setzt du dem Schädel per Rechtsklick einen Eisenhelm auf."
+    ],
+    "secret": [
+      "Helles Licht schwächt ihn: ab Licht 12 machen seine Schläge nur halben Schaden und seine Aura gibt nur Zittern I."
+    ]
+  },
+  "hollow_watcher_spawn_egg": {
+    "lore": [
+      "Ein Ei, das nie dort ist, wo du es zuletzt gesehen hast."
+    ],
+    "use": [
+      "Erzeugt im Kreativmodus einen Hohlen Wächter. Im Überleben erscheint er selten auf den äußeren End-Inseln, weit weg von der Dracheninsel."
+    ],
+    "secret": [
+      "Er bewegt sich nur, solange ihn niemand ansieht. Ein Blick durchs Fernrohr friert ihn 3 Sekunden ein – aber wer ihn zu lange anstarrt, bringt ihn zum Schreien."
+    ]
   }
 }

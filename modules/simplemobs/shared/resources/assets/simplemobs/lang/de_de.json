@@ -42,5 +42,18 @@
   "message.simplemobs.disguise.revealed": "Deine Tarnung fällt - sie haben dich gesehen",
   "message.simplemobs.mirror.found": "Der Spiegel zeigt %s Täuschungen",
   "item.simplemobs.illusion_shard": "Trugsplitter",
-  "entity.simplemobs.disguise_marker": "Tarnungs-Marker"
+  "entity.simplemobs.disguise_marker": "Tarnungs-Marker",
+  "entity.simplemobs.dread": "Schreckensritter",
+  "entity.simplemobs.hollow_watcher": "Hohler Wächter",
+  "item.simplemobs.dread_spawn_egg": "Schreckensritter-Spawn-Ei",
+  "item.simplemobs.hollow_watcher_spawn_egg": "Hohler-Wächter-Spawn-Ei",
+  "item.simplemobs.dread_link": "Schreckens-Kettenglied",
+  "item.simplemobs.calm_amulet": "Ruhe-Amulett",
+  "item.simplemobs.watcher_eye": "Wächterauge",
+  "effect.simplemobs.shivering": "Zittern",
+  "effect.simplemobs.focus": "Fokus",
+  "item.minecraft.potion.effect.focus": "Trank des Fokus",
+  "item.minecraft.splash_potion.effect.focus": "Wurftrank des Fokus",
+  "item.minecraft.lingering_potion.effect.focus": "Verweiltrank des Fokus",
+  "item.minecraft.tipped_arrow.effect.focus": "Pfeil des Fokus"
 }

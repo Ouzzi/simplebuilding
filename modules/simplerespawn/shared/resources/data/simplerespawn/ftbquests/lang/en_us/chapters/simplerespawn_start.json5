@@ -1,0 +1,10 @@
+{
+	"chapter.25882187DCE71F7E.title": "{\"translate\": \"quests.simplerespawn.start.title\"}",
+	"chapter.25882187DCE71F7E.chapter_subtitle": [
+		"{\"translate\": \"quests.simplerespawn.start.subtitle\"}"
+	],
+	"quest.3E7020879CE742C8.title": "{\"translate\": \"quests.simplerespawn.start.welcome.title\"}",
+	"quest.3E7020879CE742C8.quest_desc": [
+		"{\"translate\": \"quests.simplerespawn.start.welcome.description\"}"
+	]
+}

@@ -141,14 +141,24 @@ OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2
 PROBE = 'assets/minecraft/textures/entity/chest/ender.png'
 
 
+# Where the 26.3 loaders cache the client jar, relative to GRADLE_USER_HOME (the same layout on Windows, under
+# %USERPROFILE%\.gradle): Fabric Loom, NeoForm runtime, ForgeGradle mavenizer.
+CACHE_JARS = (('caches', 'fabric-loom', '26.3', 'minecraft-client.jar'),
+              ('caches', 'neoformruntime', 'artifacts', 'minecraft_26.3_client.jar'),
+              ('caches', 'minecraftforge', 'forgegradle', 'mavenizer', 'caches', 'minecraft_tasks', '26.3', 'client.jar'))
+
+
+def jar_candidates(explicit: str | None, env: dict, home_dir: str, join=os.path.join) -> list[str]:
+    """Candidate jar paths in search order. join is os.path.join; tests pass ntpath.join to check Windows paths."""
+    home = env.get('GRADLE_USER_HOME') or join(home_dir, '.gradle')
+    return [c for c in (explicit, env.get('SB_CLIENT_JAR')) if c] + [join(home, *parts) for parts in CACHE_JARS]
+
+
 def find_jar(explicit: str | None = None) -> Path | None:
-    """The 26.3 client jar: explicit, SB_CLIENT_JAR, or the Loom / NeoForm cache under GRADLE_USER_HOME."""
-    home = Path(os.environ.get('GRADLE_USER_HOME') or Path.home() / '.gradle')
-    candidates = [explicit, os.environ.get('SB_CLIENT_JAR')]
-    candidates += sorted(glob.glob(str(home / 'caches/fabric-loom/26.3/minecraft-client.jar')))
-    candidates += sorted(glob.glob(str(home / 'caches/neoformruntime/artifacts/minecraft_26.3_client.jar')))
-    for c in candidates:
-        if not c or not Path(c).is_file():
+    """The 26.3 client jar: explicit, SB_CLIENT_JAR, or the Loom / NeoForm / ForgeGradle cache under
+    GRADLE_USER_HOME (default ~/.gradle, on Windows %USERPROFILE%\\.gradle)."""
+    for c in jar_candidates(explicit, os.environ, str(Path.home())):
+        if not Path(c).is_file():
             continue
         try:
             with zipfile.ZipFile(c) as z:
@@ -246,8 +256,10 @@ def placeholder(rel: str, module: str | None = None) -> bytes:
 def write(out_root: Path, jar: Path | None, placeholders: bool = False, module: str | None = None) -> str:
     """Writes assets/<simplebuilding or module>/textures/<rel> under out_root; returns 'jar' or 'placeholder'."""
     if jar is None and not placeholders:
-        raise SystemExit('vanilla_derived: 26.3 client jar not found (Gradle cache fabric-loom/26.3 or '
-                         'neoformruntime, SB_CLIENT_JAR or -PsbClientJar)')
+        tried = '\n  '.join(jar_candidates(None, os.environ, str(Path.home())))
+        raise SystemExit('vanilla_derived: 26.3 client jar not found. Searched:\n  ' + tried + '\nRun any 26.3 '
+                         'build once (e.g. gradlew :mc26_3:fabric:compileJava), or pass -PsbClientJar=<path> / '
+                         'SB_CLIENT_JAR.')
     outputs = MODULE_OUTPUTS[module] if module else OUTPUTS
     drawn = (module_images(jar, module) if module else images(jar)) if jar is not None else None
     art = {rel: _png(im) for rel, im in drawn.items()} if drawn is not None else \
@@ -299,6 +311,15 @@ def main() -> None:
                 print(f'assets/{module}/textures/{rel}  {size[0]}x{size[1]}  {how}')
         return
     jar = find_jar(a.jar)
+    if a.jar and jar is None:
+        raise SystemExit(f'vanilla_derived: --jar {a.jar} is not a 26.3 client jar (no {PROBE})')
+    try:
+        import numpy  # noqa: F401
+        import PIL  # noqa: F401
+    except ImportError as e:
+        if jar is not None and not a.placeholder_if_missing:
+            raise SystemExit(f'vanilla_derived: {e}. Install: "{sys.executable}" -m pip install pillow numpy')
+        jar = None  # placeholders need neither
     mode = write(a.out, jar, a.placeholder_if_missing, a.module)
     count = len(MODULE_OUTPUTS[a.module] if a.module else OUTPUTS)
     print(f'vanilla_derived: {count} textures ({mode}{", " + str(jar) if jar else ""}) -> {a.out}')

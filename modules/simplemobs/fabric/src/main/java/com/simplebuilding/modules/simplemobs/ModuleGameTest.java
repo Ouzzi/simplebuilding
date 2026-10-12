@@ -43,9 +43,23 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void doubleCap(GameTestHelper helper) { MobsTests.ALL.get("double_cap").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void endnetherRegistered(GameTestHelper helper) { MobsTests.ALL.get("endnether_registered").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void endnetherRules(GameTestHelper helper) { MobsTests.ALL.get("endnether_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 60) public void shellkerN45(GameTestHelper helper) { MobsTests.ALL.get("shellker_n45").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void shellkerShell(GameTestHelper helper) { MobsTests.ALL.get("shellker_shell").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void shellkerConvert(GameTestHelper helper) { MobsTests.ALL.get("shellker_convert").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void shellkerGateway(GameTestHelper helper) { MobsTests.ALL.get("shellker_gateway").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void highGravity(GameTestHelper helper) { MobsTests.ALL.get("high_gravity").accept(helper); }
     @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void soulfireBlaze(GameTestHelper helper) { MobsTests.ALL.get("soulfire_blaze").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearRegistered(GameTestHelper helper) { MobsTests.ALL.get("fear_registered").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearDreadSummon(GameTestHelper helper) { MobsTests.ALL.get("fear_dread_summon").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearAuraLevels(GameTestHelper helper) { MobsTests.ALL.get("fear_aura_levels").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void fearDreadLight(GameTestHelper helper) { MobsTests.ALL.get("fear_dread_light").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearDreadShield(GameTestHelper helper) { MobsTests.ALL.get("fear_dread_shield").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearDreadStomp(GameTestHelper helper) { MobsTests.ALL.get("fear_dread_stomp").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherGaze(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_gaze").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherSpyglass(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_spyglass").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherScream(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_scream").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherTeleport(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_teleport").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherSpawnRules(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_spawn_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearDrops(GameTestHelper helper) { MobsTests.ALL.get("fear_drops").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearImmunity(GameTestHelper helper) { MobsTests.ALL.get("fear_immunity").accept(helper); }
 }

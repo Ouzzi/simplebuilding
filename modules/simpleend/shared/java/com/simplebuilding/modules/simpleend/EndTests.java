@@ -55,6 +55,11 @@ public final class EndTests {
         return n;
     }
 
+    /** A partner mod is there when its namespace has registered items (no loader call in shared code). */
+    private static boolean loaded(String namespace) {
+        return BuiltInRegistries.ITEM.keySet().stream().anyMatch(id -> id.getNamespace().equals(namespace));
+    }
+
     private static void waitForLight(GameTestHelper h, BlockPos rel, boolean bright, Runnable then) {
         h.succeedWhen(() -> {
             h.assertTrue(EndBudBlock.bright(h.getLevel(), h.absolutePos(rel)) == bright, "light around the bud not settled yet");
@@ -66,8 +71,9 @@ public final class EndTests {
         add("guide_book", com.simplebuilding.modules.simpleend.guide.EndGuide::gameTest);
         add("registered", h -> {
             for (EndWood w : EndWood.ALL) {
-                h.assertTrue(w.blockIds.size() == 21, w.name + ": 21 blocks, got " + w.blockIds.size());
-                h.assertTrue(w.itemIds.size() == 20, w.name + ": 20 items, got " + w.itemIds.size());
+                h.assertTrue(w.blockIds.size() == 22, w.name + ": 22 blocks, got " + w.blockIds.size());
+                h.assertTrue(w.itemIds.size() == 21, w.name + ": 21 items, got " + w.itemIds.size());
+                h.assertTrue(BlockEntityTypes.SHELF.isValid(w.shelf.defaultBlockState()), w.name + " shelf block entity");
                 h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleEnd.id(w.id("W_boat"))), w.name + " boat entity");
                 h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleEnd.id(w.id("W_chest_boat"))), w.name + " chest boat entity");
                 h.assertTrue(BlockEntityTypes.SIGN.isValid(w.sign.defaultBlockState()) && BlockEntityTypes.SIGN.isValid(w.wallSign.defaultBlockState()), w.name + " sign block entity");
@@ -87,8 +93,10 @@ public final class EndTests {
                 h.assertTrue(new ItemStack(w.boat).is(ItemTags.BOATS) && new ItemStack(w.chestBoat).is(ItemTags.CHEST_BOATS), "boat tags");
                 h.assertTrue(new ItemStack(w.itemIds.get(w.id("W_sign"))).is(ItemTags.SIGNS), "sign tag");
                 h.assertTrue(new ItemStack(w.log).is(EndRegistry.VOID_SAFE), "void-safe tag");
+                h.assertTrue(w.shelf.defaultBlockState().is(net.minecraft.tags.TagKey.create(Registries.BLOCK,
+                        net.minecraft.resources.Identifier.withDefaultNamespace("wooden_shelves"))), "wooden shelves tag");
                 for (String r : new String[] {"W_planks", "W_wood", "stripped_W_wood", "W_stairs", "W_slab", "W_fence", "W_fence_gate", "W_door",
-                        "W_trapdoor", "W_button", "W_pressure_plate", "W_sign", "W_hanging_sign", "W_boat", "W_chest_boat"}) {
+                        "W_trapdoor", "W_button", "W_pressure_plate", "W_sign", "W_hanging_sign", "W_shelf", "W_boat", "W_chest_boat"}) {
                     ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> key = ResourceKey.create(Registries.RECIPE, SimpleEnd.id(w.id(r)));
                     h.assertTrue(recipes.byKey(key).isPresent(), "recipe " + key.identifier());
                 }
@@ -106,9 +114,43 @@ public final class EndTests {
                 Items.IRON_AXE.useOn(new UseOnContext(p, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false)));
                 BlockState now = h.getBlockState(at);
                 h.assertTrue(now.is(w.strippedLog) && now.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.X, w.name + ": axe strips the log, got " + now);
-                for (Block b : new Block[] {w.log, w.planks, w.leaves, w.sticks}) h.assertTrue(fire.simpleend$canBurn(b.defaultBlockState()), BuiltInRegistries.BLOCK.getKey(b) + " burns");
+                for (Block b : new Block[] {w.log, w.planks, w.shelf, w.leaves, w.sticks}) h.assertTrue(fire.simpleend$canBurn(b.defaultBlockState()), BuiltInRegistries.BLOCK.getKey(b) + " burns");
             }
             h.assertTrue(fire.simpleend$canBurn(EndRegistry.END_GRASS.defaultBlockState()), "End grass burns");
+            h.succeed();
+        });
+        // docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md: with SimpleBuilding / Simple Sandwiches loaded, the End woods have
+        // every per-wood block of those mods (registered, recipe, burns); without them none of those ids exists.
+        // Only public registry ids, no class of the partners (module independence, rule 3).
+        add("partner_wood_features", h -> {
+            var recipes = h.getLevel().recipeAccess();
+            boolean sb = loaded("simplebuilding");
+            boolean sandwiches = loaded("simplesandwiches");
+            FireBlockInvoker fire = (FireBlockInvoker) Blocks.FIRE;
+            for (EndWood w : EndWood.ALL) {
+                String n = w.name;
+                for (String id : new String[] {"hollow_" + n + "_log", "hollow_stripped_" + n + "_log", n + "_sheet", "stripped_" + n + "_sheet",
+                        n + "_cauldron", "stripped_" + n + "_cauldron", n + "_crate", "carved_" + n + "_log", n + "_octet", n + "_log_octet",
+                        "stripped_" + n + "_log_octet"}) {
+                    var key = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", id);
+                    h.assertTrue(BuiltInRegistries.BLOCK.containsKey(key) == sb, key + " registered only with SimpleBuilding");
+                    h.assertTrue(BuiltInRegistries.ITEM.containsKey(key) == sb, key + " item only with SimpleBuilding");
+                    if (sb && !id.endsWith("_octet")) {
+                        BlockState state = BuiltInRegistries.BLOCK.getValue(key).defaultBlockState();
+                        h.assertTrue(fire.simpleend$canBurn(state), key + " burns like wood");
+                        h.assertTrue(state.is(BlockTags.MINEABLE_WITH_AXE), key + " is mined with the axe");
+                    }
+                }
+                for (String r : new String[] {"hollow_" + n + "_log", n + "_crate", n + "_cauldron", n + "_octet_from_" + n + "_planks_stonecutting",
+                        n + "_log_octet_from_" + n + "_log_stonecutting", "reinforced_chest_boat_" + n}) {
+                    var key = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", r));
+                    h.assertTrue(recipes.byKey(key).isPresent() == sb, "recipe " + key.identifier() + " only with SimpleBuilding");
+                }
+                var board = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplesandwiches", n + "_cutting_board");
+                h.assertTrue(BuiltInRegistries.BLOCK.containsKey(board) == sandwiches, board + " only with Simple Sandwiches");
+                var boardRecipe = ResourceKey.create(Registries.RECIPE, board);
+                h.assertTrue(!sandwiches || recipes.byKey(boardRecipe).isPresent(), "recipe " + board);
+            }
             h.succeed();
         });
         add("bud_light_grows_tree", h -> {

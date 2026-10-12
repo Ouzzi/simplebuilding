@@ -28,7 +28,17 @@
     "ClaimCrafterMixin",
     "ClaimLightningMixin",
     "ClaimTransportInvoker",
-    "ClaimLightningInvoker"
+    "ClaimLightningInvoker",
+    "ClaimGriefMixin",
+    "ClaimEndermanTakeMixin",
+    "ClaimEndermanLeaveMixin",
+    "ClaimDoorMixin",
+    "ClaimRemoveBlockMixin",
+    "ClaimSilverfishMixin",
+    "ClaimDragonMixin",
+    "ClaimTrampleMixin",
+    "ClaimTurtleEggMixin",
+    "ClaimBoatMixin"
   ],
   "injectors": {
     "defaultRequire": 1

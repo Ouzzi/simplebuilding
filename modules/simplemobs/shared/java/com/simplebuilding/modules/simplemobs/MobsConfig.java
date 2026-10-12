@@ -36,6 +36,11 @@ public final class MobsConfig {
     /** Soulfire Blaze: natural spawning in Soul Sand Valleys and its chance per 10 s roll. */
     public static boolean soulfireBlazeSpawns = true;
     public static float soulfireBlazeChance = EndNetherLogic.SOUL_CHANCE;
+    /** Dread: the summoning figure on/off (the mob and its spawn egg stay registered). */
+    public static boolean dreadSummonEnabled = true;
+    /** Hollow Watcher: natural spawning on the outer End islands and its chance per 30 s roll. */
+    public static boolean hollowWatcherSpawns = true;
+    public static float hollowWatcherChance = FearLogic.WATCHER_CHANCE;
 
     private MobsConfig() {}
 
@@ -86,6 +91,11 @@ public final class MobsConfig {
         float chance;
         try { chance = json.has("soulfireBlazeChance") ? json.get("soulfireBlazeChance").getAsFloat() : EndNetherLogic.SOUL_CHANCE; } catch (Exception e) { chance = EndNetherLogic.SOUL_CHANCE; }
         soulfireBlazeChance = Math.max(0.0f, Math.min(1.0f, chance));
+        dreadSummonEnabled = bool(json, "dreadSummonEnabled", true);
+        hollowWatcherSpawns = bool(json, "hollowWatcherSpawns", true);
+        float watcher;
+        try { watcher = json.has("hollowWatcherChance") ? json.get("hollowWatcherChance").getAsFloat() : FearLogic.WATCHER_CHANCE; } catch (Exception e) { watcher = FearLogic.WATCHER_CHANCE; }
+        hollowWatcherChance = Math.max(0.0f, Math.min(1.0f, watcher));
     }
 
     public static JsonObject toJson() {
@@ -103,6 +113,9 @@ public final class MobsConfig {
         o.addProperty("shellkerGatewayGuards", shellkerGatewayGuards);
         o.addProperty("soulfireBlazeSpawns", soulfireBlazeSpawns);
         o.addProperty("soulfireBlazeChance", soulfireBlazeChance);
+        o.addProperty("dreadSummonEnabled", dreadSummonEnabled);
+        o.addProperty("hollowWatcherSpawns", hollowWatcherSpawns);
+        o.addProperty("hollowWatcherChance", hollowWatcherChance);
         return o;
     }
 

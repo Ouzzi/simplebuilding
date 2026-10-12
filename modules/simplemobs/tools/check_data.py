@@ -67,4 +67,26 @@ assert shell['pools'][0]['entries'][0]['name'] == 'simplemobs:shellker_shell'
 assert 'simplemobs:shellker_helmet' in json.loads((MODULE / 'shared/resources/data/minecraft/tags/item/head_armor.json').read_text(encoding='utf-8'))['values'], 'helmet must be head armor (trims)'
 for name in ('potion_awkward_shellker_shell', 'potion_high_gravity_redstone', 'potion_awkward_soulfire_rod'):
     assert (MODULE / f'shared/resources/data/simplemobs/recipe/brewing/{name}.json').is_file(), name
+# Fear mobs (claude-fear-mobs): Dread, Hollow Watcher, Calm Amulet, Focus
+for item in ('dread_link', 'calm_amulet', 'watcher_eye', 'dread_spawn_egg', 'hollow_watcher_spawn_egg'):
+    for locale in ('en_us', 'de_de'):
+        assert f'item.simplemobs.{item}' in json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{locale}.json').read_text(encoding='utf-8')), item
+        assert item in json.loads((MODULE / f'shared/resources/assets/simplemobs/questionary/{locale}.json').read_text(encoding='utf-8')), item
+    assert manual['notes'][f'simplemobs:{item}']['en']['summary'] and manual['notes'][f'simplemobs:{item}']['de']['summary'], item
+    assert (MODULE / f'shared/resources/assets/simplemobs/items/{item}.json').is_file(), item
+    assert (MODULE / f'shared/resources/assets/simplemobs/textures/item/{item}.png').is_file(), item
+for locale in ('en_us', 'de_de'):
+    lang = json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{locale}.json').read_text(encoding='utf-8'))
+    for key in ('entity.simplemobs.dread', 'entity.simplemobs.hollow_watcher', 'effect.simplemobs.focus', 'effect.simplemobs.shivering', 'item.minecraft.potion.effect.focus'):
+        assert key in lang, key
+for tex in ('entity/dread/dread', 'entity/dread/dread_glow', 'entity/hollow_watcher/hollow_watcher', 'entity/hollow_watcher/hollow_watcher_eyes',
+            'mob_effect/focus', 'mob_effect/shivering'):
+    assert (MODULE / f'shared/resources/assets/simplemobs/textures/{tex}.png').is_file(), tex
+dread = json.loads((MODULE / 'shared/resources/data/simplemobs/loot_table/entities/dread.json').read_text(encoding='utf-8'))
+assert dread['pools'][0]['entries'][0]['name'] == 'simplemobs:dread_link' and dread['pools'][0]['condition']['type'] == 'minecraft:killed_by_player'
+watcher = json.loads((MODULE / 'shared/resources/data/simplemobs/loot_table/entities/hollow_watcher.json').read_text(encoding='utf-8'))
+assert watcher['pools'][0]['entries'][0]['name'] == 'simplemobs:watcher_eye'
+for name in ('potion_awkward_watcher_eye', 'potion_focus_redstone', 'potion_focus_gunpowder', 'splash_potion_focus_dragon_breath'):
+    assert (MODULE / f'shared/resources/data/simplemobs/recipe/brewing/{name}.json').is_file(), name
+assert (MODULE / 'shared/resources/data/simplemobs/recipe/calm_amulet.json').is_file()
 print('simplemobs: bilingual names, loot and assets valid')

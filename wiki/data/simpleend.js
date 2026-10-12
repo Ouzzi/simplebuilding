@@ -30,22 +30,26 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       ],
       "en": {
         "title": "Ashwood and Duskwood",
-        "summary": "Two End woods with the full Vanilla wood set: log, wood, stripped log and wood, planks, stairs, slab, fence, fence gate, door, trapdoor, button, pressure plate, sign, hanging sign, leaves, boat and boat with chest.",
+        "summary": "Two End woods with the full Vanilla wood set: log, wood, stripped log and wood, planks, stairs, slab, fence, fence gate, door, trapdoor, button, pressure plate, sign, hanging sign, shelf, leaves, boat and boat with chest.",
         "details": [
           "Ashwood is pale warm grey with chorus-like knobs; Duskwood is a little browner, with twisting bark and a purpur-like plank grid.",
           "An axe strips logs and wood; all wood burns like overworld wood and works as fuel (same burn times as oak).",
           "Recipes are the Vanilla wood recipes (logs to 4 planks, planks to stairs, slabs, doors ...; hanging signs from stripped logs and iron chains).",
-          "Leaves are tinted with the dry-foliage colour of the biome: grey-brown in Ash Valley and Dawnlands, the Vanilla dry-leaf tone elsewhere."
+          "Leaves are tinted with the dry-foliage colour of the biome: grey-brown in Ash Valley and Dawnlands, the Vanilla dry-leaf tone elsewhere.",
+          "The shelf is Vanilla's shelf in End wood (six from six stripped logs): it holds three items, and linked shelves swap them with the hotbar when powered.",
+          "(with SimpleBuilding) Both woods also get SimpleBuilding's woodwork - hollow logs, sheets, wooden cauldrons, crate and carved log - plus wood and log octets and tiered chest boats. (with Simple Sandwiches) A cutting board of each wood. Without those mods none of these blocks exists."
         ]
       },
       "de": {
         "title": "Aschholz und Dämmerholz",
-        "summary": "Zwei End-Hölzer mit vollem Vanilla-Holzset: Stamm, Holz, entrindeter Stamm und entrindetes Holz, Bretter, Treppe, Stufe, Zaun, Zauntor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Laub, Boot und Boot mit Truhe.",
+        "summary": "Zwei End-Hölzer mit vollem Vanilla-Holzset: Stamm, Holz, entrindeter Stamm und entrindetes Holz, Bretter, Treppe, Stufe, Zaun, Zauntor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Regal, Laub, Boot und Boot mit Truhe.",
         "details": [
           "Aschholz ist blass warmgrau mit Chorus-Knubbeln; Dämmerholz ist etwas brauner, mit gedrehter Rinde und purpurartigem Bretterraster.",
           "Eine Axt entrindet Stämme und Holz; alles Holz brennt wie Oberwelt-Holz und ist Brennstoff (Brenndauer wie Eiche).",
           "Rezepte sind die Vanilla-Holzrezepte (Stamm zu 4 Brettern, Bretter zu Treppen, Stufen, Türen …; Hängeschilder aus entrindeten Stämmen und Eisenketten).",
-          "Laub wird mit der Trockenlaub-Farbe des Bioms gefärbt: grau-braun in Aschental und Dämmerlande, sonst im Vanilla-Trockenlaub-Ton."
+          "Laub wird mit der Trockenlaub-Farbe des Bioms gefärbt: grau-braun in Aschental und Dämmerlande, sonst im Vanilla-Trockenlaub-Ton.",
+          "Das Regal ist das Vanilla-Regal aus End-Holz (sechs aus sechs entrindeten Stämmen): es hält drei Gegenstände, verbundene Regale tauschen sie mit Redstone-Signal gegen die Schnellleiste.",
+          "(mit SimpleBuilding) Beide Hölzer bekommen auch SimpleBuildings Holzwerk – ausgehöhlte Stämme, Platten, Holzkessel, Kiste und geschnitzten Stamm – dazu Holz- und Stamm-Achtel und gestufte Kistenboote. (mit Simple Sandwiches) Ein Schneidebrett je Holz. Ohne diese Mods gibt es keinen dieser Blöcke."
         ]
       }
     },
@@ -525,6 +529,39 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           {
             "id": "simpleend:ashwood_log",
             "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_shelf",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "shelf",
+      "result": {
+        "id": "simpleend:ashwood_shelf",
+        "count": 6
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_shelf.json",
+      "ingredients": [
+        "simpleend:stripped_ashwood_log"
+      ],
+      "pattern": [
+        "###",
+        "   ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:stripped_ashwood_log"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleend:stripped_ashwood_log",
+            "count": 6
           }
         ]
       }
@@ -1039,6 +1076,39 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       }
     },
     {
+      "id": "simpleend:duskwood_shelf",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "shelf",
+      "result": {
+        "id": "simpleend:duskwood_shelf",
+        "count": 6
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_shelf.json",
+      "ingredients": [
+        "simpleend:stripped_duskwood_log"
+      ],
+      "pattern": [
+        "###",
+        "   ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:stripped_duskwood_log"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleend:stripped_duskwood_log",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleend:duskwood_sign",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -1519,6 +1589,22 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_pressure_plate.json"
     },
     {
+      "id": "simpleend:blocks/ashwood_shelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_shelf"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_shelf.json"
+    },
+    {
       "id": "simpleend:blocks/ashwood_sign",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -1806,6 +1892,22 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         }
       ],
       "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_pressure_plate.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_shelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_shelf"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_shelf.json"
     },
     {
       "id": "simpleend:blocks/duskwood_sign",
@@ -2249,6 +2351,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "required": true
         },
         {
+          "id": "simpleend:ashwood_shelf",
+          "required": true
+        },
+        {
           "id": "simpleend:ashwood_leaves",
           "required": true
         },
@@ -2317,6 +2423,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "required": true
         },
         {
+          "id": "simpleend:duskwood_shelf",
+          "required": true
+        },
+        {
           "id": "simpleend:duskwood_leaves",
           "required": true
         },
@@ -2361,7 +2471,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Boat",
         "de_de": "Aschholzboot"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood boat from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Boot aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "texture": "assets/textures/simpleend/item/ashwood_boat.png",
       "craftedBy": [
         "simpleend:ashwood_boat"
@@ -2376,7 +2493,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Boat with Chest",
         "de_de": "Aschholzboot mit Truhe"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood boat with chest from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Boot mit Truhe aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "texture": "assets/textures/simpleend/item/ashwood_chest_boat.png",
       "craftedBy": [
         "simpleend:ashwood_chest_boat"
@@ -2431,7 +2555,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Boat",
         "de_de": "Dämmerholzboot"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood boat from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Boot aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "texture": "assets/textures/simpleend/item/duskwood_boat.png",
       "craftedBy": [
         "simpleend:duskwood_boat"
@@ -2446,7 +2577,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Boat with Chest",
         "de_de": "Dämmerholzboot mit Truhe"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood boat with chest from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Boot mit Truhe aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "texture": "assets/textures/simpleend/item/duskwood_chest_boat.png",
       "craftedBy": [
         "simpleend:duskwood_chest_boat"
@@ -2545,7 +2683,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Button",
         "de_de": "Aschholzknopf"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood button from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Knopf aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:ashwood_button"
       ],
@@ -2557,7 +2702,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Door",
         "de_de": "Aschholztür"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood door from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Tür aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:ashwood_door"
       ],
@@ -2569,7 +2721,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Fence",
         "de_de": "Aschholzzaun"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood fence from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Zaun aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:ashwood_fence"
       ],
@@ -2581,7 +2740,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Fence Gate",
         "de_de": "Aschholzzauntor"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood fence gate from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Zauntor aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:ashwood_fence_gate"
       ],
@@ -2593,7 +2759,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Hanging Sign",
         "de_de": "Aschholzhängeschild"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood hanging sign from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Hängeschild aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "texture": "assets/textures/simpleend/block/ashwood_hanging_sign.png",
       "craftedBy": [
         "simpleend:ashwood_hanging_sign"
@@ -2644,7 +2817,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Planks",
         "de_de": "Aschholzbretter"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood planks from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Bretter aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "texture": "assets/textures/simpleend/block/ashwood_planks.png",
       "craftedBy": [
         "simpleend:ashwood_planks"
@@ -2668,9 +2848,36 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Pressure Plate",
         "de_de": "Aschholzdruckplatte"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood pressure plate from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Druckplatte aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:ashwood_pressure_plate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_shelf",
+      "name": {
+        "en_us": "Ashwood Shelf",
+        "de_de": "Aschholzregal"
+      },
+      "note": {
+        "en": {
+          "summary": "Ashwood shelf: holds books and items like the Vanilla shelf (Simple End)."
+        },
+        "de": {
+          "summary": "Aschholz-Regal: hält Bücher und Gegenstände wie das Vanilla-Regal (Simple End)."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/ashwood_shelf.png",
+      "craftedBy": [
+        "simpleend:ashwood_shelf"
       ],
       "usedIn": []
     },
@@ -2680,7 +2887,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Sign",
         "de_de": "Aschholzschild"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood sign from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Schild aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "texture": "assets/textures/simpleend/block/ashwood_sign.png",
       "craftedBy": [
         "simpleend:ashwood_sign"
@@ -2693,7 +2907,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Slab",
         "de_de": "Aschholzstufe"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood slab from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Stufe aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:ashwood_slab"
       ],
@@ -2705,7 +2926,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Stairs",
         "de_de": "Aschholztreppe"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood stairs from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Treppe aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:ashwood_stairs"
       ],
@@ -2737,7 +2965,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Trapdoor",
         "de_de": "Aschholzfalltür"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood trapdoor from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Falltür aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "texture": "assets/textures/simpleend/block/ashwood_trapdoor.png",
       "craftedBy": [
         "simpleend:ashwood_trapdoor"
@@ -2750,7 +2985,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Wall Hanging Sign",
         "de_de": "Aschholzwandhängeschild"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood wall hanging sign from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Wand-Hängeschild aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -2760,7 +3002,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Wall Sign",
         "de_de": "Aschholzwandschild"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood wall sign from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Wandschild aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -2770,7 +3019,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood",
         "de_de": "Aschholz"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood wood from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Aschholz-Holz aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:ashwood_wood"
       ],
@@ -2835,7 +3091,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Button",
         "de_de": "Dämmerholzknopf"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood button from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Knopf aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:duskwood_button"
       ],
@@ -2847,7 +3110,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Door",
         "de_de": "Dämmerholztür"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood door from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Tür aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:duskwood_door"
       ],
@@ -2859,7 +3129,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Fence",
         "de_de": "Dämmerholzzaun"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood fence from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Zaun aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:duskwood_fence"
       ],
@@ -2871,7 +3148,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Fence Gate",
         "de_de": "Dämmerholzzauntor"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood fence gate from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Zauntor aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:duskwood_fence_gate"
       ],
@@ -2883,7 +3167,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Hanging Sign",
         "de_de": "Dämmerholzhängeschild"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood hanging sign from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Hängeschild aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "texture": "assets/textures/simpleend/block/duskwood_hanging_sign.png",
       "craftedBy": [
         "simpleend:duskwood_hanging_sign"
@@ -2934,7 +3225,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Planks",
         "de_de": "Dämmerholzbretter"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood planks from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Bretter aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "texture": "assets/textures/simpleend/block/duskwood_planks.png",
       "craftedBy": [
         "simpleend:duskwood_planks"
@@ -2958,9 +3256,36 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Pressure Plate",
         "de_de": "Dämmerholzdruckplatte"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood pressure plate from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Druckplatte aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:duskwood_pressure_plate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_shelf",
+      "name": {
+        "en_us": "Duskwood Shelf",
+        "de_de": "Dämmerholzregal"
+      },
+      "note": {
+        "en": {
+          "summary": "Duskwood shelf: holds books and items like the Vanilla shelf (Simple End)."
+        },
+        "de": {
+          "summary": "Dämmerholz-Regal: hält Bücher und Gegenstände wie das Vanilla-Regal (Simple End)."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/duskwood_shelf.png",
+      "craftedBy": [
+        "simpleend:duskwood_shelf"
       ],
       "usedIn": []
     },
@@ -2970,7 +3295,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Sign",
         "de_de": "Dämmerholzschild"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood sign from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Schild aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "texture": "assets/textures/simpleend/block/duskwood_sign.png",
       "craftedBy": [
         "simpleend:duskwood_sign"
@@ -2983,7 +3315,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Slab",
         "de_de": "Dämmerholzstufe"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood slab from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Stufe aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:duskwood_slab"
       ],
@@ -2995,7 +3334,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Stairs",
         "de_de": "Dämmerholztreppe"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood stairs from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Treppe aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:duskwood_stairs"
       ],
@@ -3027,7 +3373,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Trapdoor",
         "de_de": "Dämmerholzfalltür"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood trapdoor from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Falltür aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "texture": "assets/textures/simpleend/block/duskwood_trapdoor.png",
       "craftedBy": [
         "simpleend:duskwood_trapdoor"
@@ -3040,7 +3393,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Wall Hanging Sign",
         "de_de": "Dämmerholzwandhängeschild"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood wall hanging sign from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Wand-Hängeschild aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -3050,7 +3410,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Wall Sign",
         "de_de": "Dämmerholzwandschild"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood wall sign from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Wandschild aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -3060,7 +3427,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood",
         "de_de": "Dämmerholz"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood wood from the End wood set (Simple End); works like its Vanilla counterpart."
+        },
+        "de": {
+          "summary": "Dämmerholz-Holz aus dem End-Holzset (Simple End); funktioniert wie das Vanilla-Gegenstück."
+        }
+      },
       "craftedBy": [
         "simpleend:duskwood_wood"
       ],
@@ -3144,7 +3518,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Potted Ash Bud",
         "de_de": "Eingetopfte Aschknospe"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ash Bud in a flower pot; decoration only, does not grow."
+        },
+        "de": {
+          "summary": "Aschknospe im Blumentopf; nur Deko, wächst nicht."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -3154,7 +3535,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Potted Dusk Bud",
         "de_de": "Eingetopfte Dämmerknospe"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Dusk Bud in a flower pot; decoration only, does not grow."
+        },
+        "de": {
+          "summary": "Dämmerknospe im Blumentopf; nur Deko, wächst nicht."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -3164,11 +3552,19 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Stripped Ashwood Log",
         "de_de": "Entrindeter Aschstamm"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Stripped Ashwood log (axe on the ashwood log); burns, floats back up from the void."
+        },
+        "de": {
+          "summary": "Entrindeter Aschholz-Stamm (Axt auf Aschholz-Stamm); brennt, schwebt aus der Leere zurück."
+        }
+      },
       "texture": "assets/textures/simpleend/block/stripped_ashwood_log.png",
       "craftedBy": [],
       "usedIn": [
         "simpleend:ashwood_hanging_sign",
+        "simpleend:ashwood_shelf",
         "simpleend:stripped_ashwood_wood"
       ]
     },
@@ -3178,7 +3574,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Stripped Ashwood",
         "de_de": "Entrindetes Aschholz"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Stripped Ashwood wood (axe on the ashwood wood); burns, floats back up from the void."
+        },
+        "de": {
+          "summary": "Entrindeter Aschholz-Holz (Axt auf Aschholz-Holz); brennt, schwebt aus der Leere zurück."
+        }
+      },
       "craftedBy": [
         "simpleend:stripped_ashwood_wood"
       ],
@@ -3190,11 +3593,19 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Stripped Duskwood Log",
         "de_de": "Entrindeter Dämmerstamm"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Stripped Duskwood log (axe on the duskwood log); burns, floats back up from the void."
+        },
+        "de": {
+          "summary": "Entrindeter Dämmerholz-Stamm (Axt auf Dämmerholz-Stamm); brennt, schwebt aus der Leere zurück."
+        }
+      },
       "texture": "assets/textures/simpleend/block/stripped_duskwood_log.png",
       "craftedBy": [],
       "usedIn": [
         "simpleend:duskwood_hanging_sign",
+        "simpleend:duskwood_shelf",
         "simpleend:stripped_duskwood_wood"
       ]
     },
@@ -3204,7 +3615,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Stripped Duskwood",
         "de_de": "Entrindetes Dämmerholz"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Stripped Duskwood wood (axe on the duskwood wood); burns, floats back up from the void."
+        },
+        "de": {
+          "summary": "Entrindeter Dämmerholz-Holz (Axt auf Dämmerholz-Holz); brennt, schwebt aus der Leere zurück."
+        }
+      },
       "craftedBy": [
         "simpleend:stripped_duskwood_wood"
       ],
@@ -3222,61 +3640,22 @@ window.WIKI_MODULE_DATA["simpleend"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleend:ashwood_boat",
-    "simpleend:ashwood_button",
-    "simpleend:ashwood_chest_boat",
-    "simpleend:ashwood_door",
-    "simpleend:ashwood_fence",
-    "simpleend:ashwood_fence_gate",
-    "simpleend:ashwood_hanging_sign",
-    "simpleend:ashwood_planks",
-    "simpleend:ashwood_pressure_plate",
-    "simpleend:ashwood_sign",
-    "simpleend:ashwood_slab",
-    "simpleend:ashwood_stairs",
-    "simpleend:ashwood_trapdoor",
-    "simpleend:ashwood_wall_hanging_sign",
-    "simpleend:ashwood_wall_sign",
-    "simpleend:ashwood_wood",
-    "simpleend:duskwood_boat",
-    "simpleend:duskwood_button",
-    "simpleend:duskwood_chest_boat",
-    "simpleend:duskwood_door",
-    "simpleend:duskwood_fence",
-    "simpleend:duskwood_fence_gate",
-    "simpleend:duskwood_hanging_sign",
-    "simpleend:duskwood_planks",
-    "simpleend:duskwood_pressure_plate",
-    "simpleend:duskwood_sign",
-    "simpleend:duskwood_slab",
-    "simpleend:duskwood_stairs",
-    "simpleend:duskwood_trapdoor",
-    "simpleend:duskwood_wall_hanging_sign",
-    "simpleend:duskwood_wall_sign",
-    "simpleend:duskwood_wood",
-    "simpleend:potted_ash_bud",
-    "simpleend:potted_dusk_bud",
-    "simpleend:stripped_ashwood_log",
-    "simpleend:stripped_ashwood_wood",
-    "simpleend:stripped_duskwood_log",
-    "simpleend:stripped_duskwood_wood"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 8,
-    "recipes": 33,
-    "lootTables": 42,
+    "recipes": 35,
+    "lootTables": 44,
     "tags": 7,
     "advancements": 0,
     "enchantments": 0,
     "items": 7,
-    "blocks": 45,
+    "blocks": 47,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 38,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }

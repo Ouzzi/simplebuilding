@@ -32,6 +32,9 @@ OWN_TEX = ROOT / "src/main/resources/assets/simplebuilding/textures"
 CLIENT_JAR = Path(os.environ.get("SB_CLIENT_JAR") or Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar")
 TIERS = ["reinforced", "netherite", "enderite"]
 WOODS = ["oak", "spruce", "birch", "jungle", "acacia", "cherry", "dark_oak", "pale_oak", "mangrove", "poplar", "bamboo"]
+# Simple End boat woods (BoatWoods.END, docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md): Simple End's own chest boat sprite under
+# the tier overlay; the case only matters while Simple End is loaded.
+END_WOODS = ["ashwood", "duskwood"]
 LOCK = {"reinforced": (90, 220, 210), "netherite": (230, 170, 60), "enderite": (250, 180, 255)}
 LOCK_DARK = {"reinforced": (40, 160, 160), "netherite": (150, 96, 30), "enderite": (200, 90, 210)}
 
@@ -158,11 +161,12 @@ def build():
             img = paint(src, region, shades, LOCK[tier])
             tex[f"{tier}_chest_{shape}_overlay"] = tier_marks(img, region, tier, "boat")
         cases = []
-        for wood in WOODS:
+        for wood in WOODS + END_WOODS:
             raft = wood == "bamboo"
             model = f"{tier}_chest_boat_{wood}"
+            ns = "simpleend" if wood in END_WOODS else "minecraft"
             models[model] = {"parent": "minecraft:item/generated", "textures": {
-                "layer0": "minecraft:item/" + ("bamboo_chest_raft" if raft else f"{wood}_chest_boat"),
+                "layer0": f"{ns}:item/" + ("bamboo_chest_raft" if raft else f"{wood}_chest_boat"),
                 "layer1": f"simplebuilding:item/{tier}_chest_{'raft' if raft else 'boat'}_overlay"}}
             cases.append({"when": wood, "model": {"type": "minecraft:model", "model": f"simplebuilding:item/{model}"}})
         items[f"{tier}_chest_boat"] = {"model": {

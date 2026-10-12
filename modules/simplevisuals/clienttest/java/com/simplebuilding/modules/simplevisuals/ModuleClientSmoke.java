@@ -14,6 +14,9 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitFor(client->client.gui.overlay()==null,1200);context.waitTicks(5);
             context.runOnClient(client->call("models",client));context.waitTicks(3);
             context.takeScreenshot("simplevisuals-models");
+            context.runOnClient(client->com.simplelib.api.client.ui.UiStyleToggle.setEnabled(false));context.waitTicks(3);
+            context.takeScreenshot("simplevisuals-models-vanilla");
+            context.runOnClient(client->com.simplelib.api.client.ui.UiStyleToggle.setEnabled(true));
             context.runOnClient(client->call("anvil",client));context.waitTicks(3);
             context.takeScreenshot("simplevisuals-anvil");
             context.runOnClient(client->call("config",client));context.waitTicks(3);

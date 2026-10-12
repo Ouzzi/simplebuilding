@@ -167,6 +167,22 @@
     {
       "id": "simplebuilding:stripped_bamboo_cauldron",
       "required": false
+    },
+    {
+      "id": "simplebuilding:ashwood_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_ashwood_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:duskwood_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_duskwood_cauldron",
+      "required": false
     }
   ]
 }

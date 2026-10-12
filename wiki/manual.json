@@ -12242,7 +12242,8 @@
           "Each octet cuts into every chess piece of its color in the stonecutter.",
           "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
           "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
-          "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py)."
+          "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py).",
+          "(with Simple End) Ashwood and Duskwood octets (planks) and octets of their logs and stripped logs."
         ]
       },
       "de": {
@@ -12256,7 +12257,8 @@
           "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
           "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
           "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
-          "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
+          "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py).",
+          "(mit Simple End) Aschholz- und Dämmerholz-Achtel (Bretter) und Achtel ihrer Stämme und entrindeten Stämme."
         ]
       }
     },
@@ -12648,7 +12650,8 @@
         "common/src/shared/java/com/simplebuilding/woodwork/HollowLogCrawl.java",
         "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
+        "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+        "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
       ],
       "en": {
         "summary": "Hollow logs are logs and stripped logs of every wood type (including crimson, warped and bamboo) with a 12 x 12 pixel tunnel along their axis.",
@@ -12656,7 +12659,8 @@
           "Crafting: 8 logs (or 8 stripped logs) of one wood in a ring give 8 hollow logs. The chisel also hollows a stripped log in the world (stone tier); the spatula or a sneaking chisel turns it back.",
           "Small mobs such as chickens, rabbits and cats fit through the tunnel; larger mobs do not.",
           "A player who sneaks in front of (or inside) a lying hollow log, facing along its axis, crawls and fits through.",
-          "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks)."
+          "Placed like a log; mined with an axe. Burnable woods burn like logs and smelt as fuel (300 ticks).",
+          "(with Simple End) Ashwood and Duskwood have hollow logs too, and their sheets, cauldrons, crate and carved log; these blocks exist only while Simple End is loaded."
         ]
       },
       "de": {
@@ -12665,7 +12669,8 @@
           "Herstellung: 8 Stämme (oder 8 entrindete Stämme) einer Holzart im Ring ergeben 8 ausgehöhlte Stämme. Auch der Meißel höhlt einen entrindeten Stamm in der Welt aus (Steinstufe); Spachtel oder schleichender Meißel machen es rückgängig.",
           "Kleine Mobs wie Hühner, Kaninchen und Katzen passen durch den Tunnel, größere nicht.",
           "Wer vor (oder in) einem liegenden ausgehöhlten Stamm schleicht und entlang seiner Achse schaut, kriecht und passt hindurch.",
-          "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks)."
+          "Wird wie ein Stamm gesetzt und mit der Axt abgebaut. Brennbare Hölzer brennen wie Stämme und dienen als Brennstoff (300 Ticks).",
+          "(mit Simple End) Auch Aschholz und Dämmerholz haben ausgehöhlte Stämme, dazu Platten, Kessel, Kiste und geschnitzten Stamm; diese Blöcke gibt es nur, wenn Simple End geladen ist."
         ]
       }
     },
@@ -12694,14 +12699,16 @@
       "sources": [
         "common/src/shared/java/com/simplebuilding/woodwork/WoodenCauldronBlock.java",
         "common/src/shared/java/com/simplebuilding/woodwork/WoodBlocks.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
       ],
       "en": {
         "summary": "Wooden cauldrons work like the Vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone) but are made of wood.",
         "details": [
           "Crafting: a hollow log above a sheet of the same wood (normal or stripped).",
           "They burn: lava poured into a wooden cauldron sets it alight, and after 3 seconds the cauldron is gone and the lava is left as a source block. Taking the lava out in time saves the cauldron.",
-          "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron."
+          "Crimson and warped cauldrons do not burn and hold lava like an iron cauldron.",
+          "(with Simple End) Ashwood and Duskwood cauldrons, normal and stripped, burn like the other overworld woods."
         ]
       },
       "de": {
@@ -12709,7 +12716,8 @@
         "details": [
           "Herstellung: ein ausgehöhlter Stamm über einer Holzplatte derselben Holzart (normal oder entrindet).",
           "Sie brennen: Lava in einem Holzkessel setzt ihn in Brand; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Wer die Lava rechtzeitig herausholt, rettet den Kessel.",
-          "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel."
+          "Karmesin- und Wirrholzkessel brennen nicht und halten Lava wie ein Eisenkessel.",
+          "(mit Simple End) Aschholz- und Dämmerholzkessel, normal und entrindet, brennen wie die übrigen Oberwelt-Hölzer."
         ]
       }
     },
@@ -12718,14 +12726,16 @@
         "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
         "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
         "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
       ],
       "en": {
         "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
         "details": [
           "Crafting: 7 planks of one wood in a U shape.",
           "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
-          "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate."
+          "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
+          "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
         ]
       },
       "de": {
@@ -12733,7 +12743,8 @@
         "details": [
           "Herstellung: 7 Bretter einer Holzart in U-Form.",
           "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
-          "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus."
+          "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
+          "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
         ]
       }
     },
@@ -12742,14 +12753,16 @@
         "common/src/shared/java/com/simplebuilding/woodwork/CarvedLogBlock.java",
         "common/src/shared/java/com/simplebuilding/woodwork/PotteryCarving.java",
         "common/src/shared/java/com/simplebuilding/woodwork/SherdMotif.java",
-        "tools/textures/woodwork_2026_10_09.py"
+        "tools/textures/woodwork_2026_10_09.py",
+        "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
       ],
       "en": {
         "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
         "details": [
           "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
           "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-          "Breaking drops the carved log with its motif."
+          "Breaking drops the carved log with its motif.",
+          "(with Simple End) Carved Ashwood and Duskwood logs with their own motifs: a knobbed chorus stalk (Ashwood) and the closed dusk bud over an island rim (Duskwood)."
         ]
       },
       "de": {
@@ -12757,7 +12770,8 @@
         "details": [
           "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
           "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-          "Abgebaut droppt der Stamm mit seinem Motiv."
+          "Abgebaut droppt der Stamm mit seinem Motiv.",
+          "(mit Simple End) Geschnitzte Asch- und Dämmerstämme mit eigenem Motiv: ein knubbeliger Chorusstiel (Aschholz) und die geschlossene Dämmerknospe über einem Inselrand (Dämmerholz)."
         ]
       }
     },
@@ -12875,7 +12889,8 @@
           "Crafting: a boat (or bamboo raft) of any wood plus the Reinforced/Netherite/Enderite Chest (shapeless); the wood is kept on the item (component simplebuilding:boat_wood, shown in the tooltip). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot - the wood stays.",
           "Opens the tier chest's menu (sneak + right-click, or the inventory key while riding).",
           "Breaking it drops the boat of the same tier and wood (keeping an anvil name) and its contents.",
-          "Drawn as vanilla's boat of the wood carrying the tier chest."
+          "Drawn as vanilla's boat of the wood carrying the tier chest.",
+          "(with Simple End) Ashwood and Duskwood boats take a tiered chest as well; the boat keeps its End wood."
         ]
       },
       "de": {
@@ -12884,7 +12899,8 @@
           "Werkbank: ein Boot (oder Bambusfloß) beliebiger Holzart und die Verstärkte/Netherit-/Enderittruhe (formlos); die Holzart bleibt am Item (Komponente simplebuilding:boat_wood, im Tooltip). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren - die Holzart bleibt.",
           "Öffnet das Menü der Stufen-Truhe (Schleichen + Rechtsklick oder Inventartaste beim Fahren).",
           "Beim Zerstören fallen das Boot derselben Stufe und Holzart (ein Amboss-Name bleibt) und der Inhalt heraus.",
-          "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe."
+          "Gezeigt als Vanilla-Boot der Holzart mit der Stufen-Truhe.",
+          "(mit Simple End) Auch Aschholz- und Dämmerholzboote nehmen eine gestufte Truhe; das Boot behält sein End-Holz."
         ]
       }
     }

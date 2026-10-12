@@ -13,6 +13,7 @@
     "TargetingConditionsCloakMixin",
     "LivingEntityGravityMixin",
     "EndGatewayFeatureMixin",
+    "ItemHelmetDreadMixin",
     "ServerPunchDisguiseMixin"
   ],
   "client": [
@@ -20,6 +21,7 @@
     "WalkAnimationAccessor",
     "AvatarAccessor",
     "PlayerDisguiseLookMixin",
+    "AimSwayMixin",
     "FirstPersonHandDisguiseMixin",
     "InventoryScreenDisguiseMixin",
     "LivingEntityRendererAccessor",

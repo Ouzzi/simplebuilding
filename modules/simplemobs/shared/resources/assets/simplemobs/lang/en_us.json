@@ -42,5 +42,18 @@
   "message.simplemobs.disguise.revealed": "Your disguise falls - they have seen you",
   "message.simplemobs.mirror.found": "The mirror shows %s deceptions",
   "item.simplemobs.illusion_shard": "Illusion Shard",
-  "entity.simplemobs.disguise_marker": "Disguise Marker"
+  "entity.simplemobs.disguise_marker": "Disguise Marker",
+  "entity.simplemobs.dread": "Dread",
+  "entity.simplemobs.hollow_watcher": "Hollow Watcher",
+  "item.simplemobs.dread_spawn_egg": "Dread Spawn Egg",
+  "item.simplemobs.hollow_watcher_spawn_egg": "Hollow Watcher Spawn Egg",
+  "item.simplemobs.dread_link": "Dread Link",
+  "item.simplemobs.calm_amulet": "Calm Amulet",
+  "item.simplemobs.watcher_eye": "Watcher Eye",
+  "effect.simplemobs.shivering": "Shivering",
+  "effect.simplemobs.focus": "Focus",
+  "item.minecraft.potion.effect.focus": "Potion of Focus",
+  "item.minecraft.splash_potion.effect.focus": "Splash Potion of Focus",
+  "item.minecraft.lingering_potion.effect.focus": "Lingering Potion of Focus",
+  "item.minecraft.tipped_arrow.effect.focus": "Arrow of Focus"
 }

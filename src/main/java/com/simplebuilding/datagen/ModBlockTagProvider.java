@@ -232,6 +232,21 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         for (com.simplebuilding.woodwork.WoodBlocks.Family family : ModBlocks.WOOD_FAMILIES) {
             family.blocks().forEach(block -> builder(BlockTags.MINEABLE_WITH_AXE).add(key(block)));
         }
+        // Simple-End-Holz (docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md): die Bloecke gibt es nur mit Simple End, die
+        // Datagen laeuft ohne - darum per ID und optional (required:false). Stamm-Achtel aus Holz mit der Axt.
+        for (com.simplebuilding.woodwork.WoodKind wood : com.simplebuilding.woodwork.WoodKind.values()) {
+            if (!wood.external() || ModBlocks.WOOD_FAMILIES.stream().anyMatch(f -> f.wood() == wood)) {
+                continue;
+            }
+            java.util.List<String> ids = new java.util.ArrayList<>(com.simplebuilding.woodwork.WoodBlocks.blockIds(wood));
+            if (ModBlocks.CHECKER_OCTET != null) {
+                ids.addAll(java.util.List.of(wood.id() + "_octet", wood.id() + "_log_octet", "stripped_" + wood.id() + "_log_octet"));
+            }
+            for (String id : ids) {
+                builder(BlockTags.MINEABLE_WITH_AXE).addOptional(net.minecraft.resources.ResourceKey.create(
+                        net.minecraft.core.registries.Registries.BLOCK, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", id)));
+            }
+        }
         if (ModBlocks.CHECKER_OCTET != null) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.CHECKER_OCTET));
         }
@@ -241,7 +256,9 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         for (net.minecraft.world.level.block.Block cell : ModBlocks.MATERIAL_OCTETS) {
             net.minecraft.world.level.block.Block source = ((com.simplebuilding.blocks.custom.MaterialOctetBlock) cell).source();
             String path = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(source).getPath();
-            if (path.equals("bamboo_mosaic")) {
+            if (path.contains("ashwood") || path.contains("duskwood")) {
+                builder(BlockTags.MINEABLE_WITH_AXE).add(key(cell));
+            } else if (path.equals("bamboo_mosaic")) {
                 builder(BlockTags.MINEABLE_WITH_AXE).add(key(cell));
             } else if (!path.endsWith("_wool")) {
                 builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(cell));

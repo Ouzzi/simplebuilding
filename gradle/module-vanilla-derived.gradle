@@ -1,31 +1,79 @@
 // Vanilla-derived textures of a module (AGENTS.md rule 7, owner 2026-10-12): pixels from a Mojang sprite are never
 // committed; tools/textures/vanilla_derived.py --module <module> draws them from the local 26.3 client jar into
 // build/generated-resources/vanillaDerived, an extra resource root of this loader project. Applied by the loader
-// projects of modules listed in vanilla_derived.MODULE_OUTPUTS. Python, jar and placeholders as in
-// mc26_3/resources.gradle: -PsbPython / SB_PYTHON, -PsbClientJar / SB_CLIENT_JAR, -PsbVanillaDerivedPlaceholders.
+// projects of modules listed in vanilla_derived.MODULE_OUTPUTS. Same switches and fallback as
+// mc26_3/resources.gradle: -PsbPython / SB_PYTHON (path or command such as "py -3"), -PsbClientJar / SB_CLIENT_JAR,
+// -PsbVanillaDerivedPlaceholders, -PsbSkipVanillaDerived; a missing Python/Pillow/numpy/jar or a failing script
+// logs a WARNING and ships grey placeholders (no Python needed), -PsbVanillaDerivedStrict fails instead.
 File vdScript = rootProject.file('tools/textures/vanilla_derived.py')
 File vdOut = layout.buildDirectory.dir('generated-resources/vanillaDerived').get().asFile
+File vdMarker = new File(vdOut.parentFile, 'vanillaDerived.placeholder')
 String vdPython = (project.findProperty('sbPython') ?: System.getenv('SB_PYTHON')) as String
-if (!vdPython) {
-    List<String> path = (System.getenv('PATH') ?: '').split(File.pathSeparator) as List<String>
-    vdPython = ['python3.12', 'python3', 'python', 'python.exe'].find { n -> path.any { new File(it, n).canExecute() } } ?: 'python3'
-}
 String vdJar = (project.findProperty('sbClientJar') ?: System.getenv('SB_CLIENT_JAR')) as String
 boolean vdPlaceholders = project.hasProperty('sbVanillaDerivedPlaceholders')
+boolean vdSkip = project.hasProperty('sbSkipVanillaDerived')
+boolean vdStrict = project.hasProperty('sbVanillaDerivedStrict')
+boolean vdWindows = System.getProperty('os.name', '').toLowerCase(Locale.ROOT).contains('windows')
 File vdGradleHome = gradle.gradleUserHomeDir
+File vdRoot = rootProject.projectDir
 String vdModule = project.parent.name
-def vdTask = tasks.register('generateVanillaDerived', Exec) {
+def vdTask = tasks.register('generateVanillaDerived') {
     description = "Draws the Vanilla-derived textures of ${vdModule} (never committed) from the local 26.3 client jar."
     inputs.files(fileTree(vdScript.parentFile) { include '*.py' }).withPropertyName('generators')
     inputs.property('jar', vdJar ?: '')
     inputs.property('placeholders', vdPlaceholders)
+    inputs.property('skip', vdSkip)
+    inputs.property('python', vdPython ?: '')
     outputs.dir(vdOut)
-    workingDir rootProject.projectDir
-    environment 'GRADLE_USER_HOME', vdGradleHome.absolutePath
-    List<String> cmd = [vdPython, '-B', vdScript.absolutePath, '--out', vdOut.absolutePath, '--module', vdModule]
-    if (vdJar) cmd += ['--jar', vdJar]
-    if (vdPlaceholders) cmd << '--placeholder-if-missing'
-    commandLine cmd
-    doFirst { project.delete(vdOut) }
+    outputs.upToDateWhen { !vdMarker.exists() }
+    doLast {
+        project.delete(vdOut, vdMarker)
+        def placeholders = {
+            // MODULE_OUTPUTS line of this module: 'module': {'path.png': ((w, h), ...), ...}
+            String line = vdScript.getText('UTF-8').readLines().find { it.trim().startsWith("'${vdModule}': {") }
+            def entries = line ? (line =~ /'([a-z0-9_\/]+\.png)': \(\((\d+), (\d+)\)/).collect { it } : []
+            entries.each { m ->
+                int w = m[2] as int, h = m[3] as int, step = Math.max(1, w.intdiv(8))
+                def img = new java.awt.image.BufferedImage(w, h, java.awt.image.BufferedImage.TYPE_INT_ARGB)
+                for (int y = 0; y < h; y++) for (int x = 0; x < w; x++) {
+                    img.setRGB(x, y, ((x.intdiv(step) + y.intdiv(step)) % 2) ? (int) 0xFF8A8A8AL : (int) 0xFF454545L)
+                }
+                File f = new File(vdOut, "assets/${vdModule}/textures/${m[1]}")
+                f.parentFile.mkdirs()
+                javax.imageio.ImageIO.write(img, 'png', f)
+            }
+            vdMarker.parentFile.mkdirs()
+            vdMarker.text = 'placeholders, see generateVanillaDerived\n'
+        }
+        def fallback = { String why ->
+            if (vdStrict) throw new GradleException(why)
+            logger.warn("WARNING generateVanillaDerived (${vdModule}): ${why}\n-> grey placeholder textures instead.")
+            placeholders()
+        }
+        if (vdSkip) { placeholders(); return }
+        List<List<String>> candidates = vdPython ? [new File(vdPython).isFile() ? [vdPython] : (vdPython.trim().split(/\s+/) as List<String>)]
+                : (vdWindows ? [['py', '-3']] : []) + [['python3.12'], ['python3'], ['python']]
+        Map<String, String> env = ['GRADLE_USER_HOME': vdGradleHome.absolutePath, 'PYTHONUTF8': '1', 'PYTHONIOENCODING': 'utf-8']
+        def run = { List<String> cmd ->
+            try {
+                ProcessBuilder pb = new ProcessBuilder(cmd).directory(vdRoot).redirectErrorStream(true)
+                pb.environment().putAll(env)
+                Process p = pb.start()
+                p.outputStream.close()
+                String text = new String(p.inputStream.readAllBytes(), 'UTF-8')
+                return [p.waitFor(), text]
+            } catch (IOException e) {
+                return [-1, e.message ?: e.toString()]
+            }
+        }
+        List<String> py = candidates.find { c -> run(c + ['-c', 'import PIL, numpy']).first() == 0 }
+        if (py == null) { fallback("no Python with Pillow and numpy among ${candidates*.join(' ')}"); return }
+        List<String> cmd = py + ['-B', vdScript.absolutePath, '--out', vdOut.absolutePath, '--module', vdModule]
+        if (vdJar) cmd += ['--jar', vdJar]
+        if (vdPlaceholders) cmd << '--placeholder-if-missing'
+        def (int code, String text) = run(cmd)
+        text.readLines().each { logger.lifecycle(it) }
+        if (code != 0) { project.delete(vdOut); fallback("vanilla_derived.py --module ${vdModule} failed (exit ${code}):\n${text.readLines().takeRight(25).join('\n')}") }
+    }
 }
 sourceSets.main.resources.srcDir(vdTask)

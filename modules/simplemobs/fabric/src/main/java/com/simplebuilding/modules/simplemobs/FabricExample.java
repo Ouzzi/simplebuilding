@@ -22,6 +22,18 @@ public final class FabricExample implements ModInitializer {
         FabricDefaultAttributeRegistry.register(EndNetherMobs.SHELLKER, ShellkerEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(EndNetherMobs.SOULFIRE_BLAZE, net.minecraft.world.entity.monster.Blaze.createAttributes());
         ServerTickEvents.END_SERVER_TICK.register(EndNetherServer::tick);
+        FearMobs.simplebuildingPresent = FabricLoader.getInstance().isModLoaded("simplebuilding");
+        FearMobs.registerAll();
+        FabricDefaultAttributeRegistry.register(FearMobs.DREAD, DreadEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(FearMobs.WATCHER, HollowWatcherEntity.createAttributes());
+        ServerTickEvents.END_SERVER_TICK.register(FearServer::tick);
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(out -> {
+            out.insertAfter(Items.WITHER_SKELETON_SPAWN_EGG, java.util.List.of(new ItemStack(FearMobs.DREAD_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            out.insertAfter(Items.ENDERMAN_SPAWN_EGG, java.util.List.of(new ItemStack(FearMobs.WATCHER_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        });
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out ->
+            out.insertAfter(Items.ENDER_EYE, java.util.List.of(new ItemStack(FearMobs.LINK), new ItemStack(FearMobs.EYE)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> out.accept(FearMobs.AMULET));
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(out -> {
             out.insertAfter(Items.SHULKER_SPAWN_EGG, java.util.List.of(new ItemStack(EndNetherMobs.SHELLKER_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             out.insertAfter(Items.BLAZE_SPAWN_EGG, java.util.List.of(new ItemStack(EndNetherMobs.SOULFIRE_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

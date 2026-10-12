@@ -1,10 +1,15 @@
 {
   "derivation": "Simple Mobs drops and spawn eggs are not sold by merchants (boss loot, creative-only eggs).",
   "excluded": {
+    "simplemobs:calm_amulet": "Crafted from Dread boss drops; not for sale.",
     "simplemobs:deceiver_cloth": "Endgame mob drop only; not for sale.",
     "simplemobs:deceiver_spawn_egg": "Creative-only spawn egg.",
+    "simplemobs:dread_link": "Dread boss drop only; not for sale.",
+    "simplemobs:dread_spawn_egg": "Creative-only spawn egg.",
     "simplemobs:echo_core": "Hollow Howler boss drop only; not for sale.",
-    "simplemobs:hollow_howler_spawn_egg": "Creative-only spawn egg."
+    "simplemobs:hollow_howler_spawn_egg": "Creative-only spawn egg.",
+    "simplemobs:hollow_watcher_spawn_egg": "Creative-only spawn egg.",
+    "simplemobs:watcher_eye": "Hollow Watcher drop only; not for sale."
   },
   "module": "simplemobs",
   "prices": []

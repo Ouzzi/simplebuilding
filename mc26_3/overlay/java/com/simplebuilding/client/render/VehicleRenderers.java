@@ -132,6 +132,35 @@ public final class VehicleRenderers {
 
     // ------------------------------------------------------------------ chest boat
 
+    /**
+     * The boat under a tiered chest boat of a Simple End wood: Vanilla's oak boat geometry with Simple End's boat
+     * texture ({@code simpleend:textures/entity/boat/<wood>.png}), as Simple End draws its own boats.
+     */
+    static final class EndWoodBoatRenderer extends AbstractBoatRenderer {
+        private final net.minecraft.client.model.Model.Simple waterPatch;
+        private final EntityModel<BoatRenderState> model;
+
+        EndWoodBoatRenderer(EntityRendererProvider.Context context, String wood) {
+            super(context, Identifier.fromNamespaceAndPath(BoatWoods.namespace(wood), "textures/entity/boat/" + wood + ".png"));
+            this.waterPatch = new net.minecraft.client.model.Model.Simple(context.bakeLayer(ModelLayers.BOAT_WATER_PATCH),
+                    t -> net.minecraft.client.renderer.rendertype.RenderTypes.waterMask());
+            this.model = new BoatModel(context.bakeLayer(ModelLayers.OAK_BOAT));
+        }
+
+        @Override
+        protected EntityModel<BoatRenderState> model() {
+            return this.model;
+        }
+
+        @Override
+        protected void submitTypeAdditions(BoatRenderState state, PoseStack poseStack, SubmitNodeCollector collector, int lightCoords) {
+            if (!state.isUnderWater) {
+                collector.submitModel(this.waterPatch, net.minecraft.util.Unit.INSTANCE, poseStack, this.texture, lightCoords,
+                        OverlayTexture.NO_OVERLAY, state.outlineColor);
+            }
+        }
+    }
+
     static final class ChestBoatRenderer extends AbstractBoatRenderer {
         static final class State extends BoatRenderState {
             String wood = BoatWoods.DEFAULT;
@@ -146,6 +175,11 @@ public final class VehicleRenderers {
         ChestBoatRenderer(EntityRendererProvider.Context context) {
             super(context, Identifier.withDefaultNamespace("textures/entity/boat/oak.png"));
             for (String wood : BoatWoods.ALL) {
+                if (BoatWoods.END.contains(wood)) {
+                    // Simple End boats have no model layer of their own: Vanilla's oak boat with the module's texture.
+                    this.boats.put(wood, new EndWoodBoatRenderer(context, wood));
+                    continue;
+                }
                 ModelLayerLocation layer = new ModelLayerLocation(Identifier.withDefaultNamespace("boat/" + wood), "main");
                 this.boats.put(wood, BoatWoods.isRaft(wood) ? new RaftRenderer(context, layer) : new BoatRenderer(context, layer));
             }

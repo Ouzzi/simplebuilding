@@ -38,7 +38,7 @@ PARTS = {
     'stairs': ('{W} Stairs', '{S}holztreppe'), 'slab': ('{W} Slab', '{S}holzstufe'), 'fence': ('{W} Fence', '{S}holzzaun'),
     'fence_gate': ('{W} Fence Gate', '{S}holzzauntor'), 'door': ('{W} Door', '{S}holztür'), 'trapdoor': ('{W} Trapdoor', '{S}holzfalltür'),
     'button': ('{W} Button', '{S}holzknopf'), 'pressure_plate': ('{W} Pressure Plate', '{S}holzdruckplatte'), 'sign': ('{W} Sign', '{S}holzschild'),
-    'hanging_sign': ('{W} Hanging Sign', '{S}holzhängeschild'), 'leaves': ('{W} Leaves', '{S}laub'), 'boat': ('{W} Boat', '{S}holzboot'),
+    'hanging_sign': ('{W} Hanging Sign', '{S}holzhängeschild'), 'shelf': ('{W} Shelf', '{S}holzregal'), 'leaves': ('{W} Leaves', '{S}laub'), 'boat': ('{W} Boat', '{S}holzboot'),
     'chest_boat': ('{W} Boat with Chest', '{S}holzboot mit Truhe'), 'sticks': ('{W} Sticks', '{S}holz-Stöcke'),
 }
 
@@ -83,7 +83,7 @@ def templates(jar):
     with zipfile.ZipFile(jar) as z:
         for entry in z.namelist():
             m = re.match(r'^(assets|data)/minecraft/(blockstates|items|models/block|models/item|loot_table/blocks|recipe)/([a-z0-9_]+)\.json$', entry)
-            if not m or not OAK_FILE.match(m.group(3)) or 'shelf' in m.group(3):
+            if not m or not OAK_FILE.match(m.group(3)):
                 continue
             raw = z.read(entry).decode('utf-8')
             for w in WOODS:
@@ -101,7 +101,7 @@ def templates(jar):
     return count, loot, tags
 
 
-TAG_SKIP = {'overworld_natural_logs', 'pale_oak_logs', 'wooden_shelves'}
+TAG_SKIP = {'overworld_natural_logs', 'pale_oak_logs'}
 
 
 def vanilla_tags(tags):
@@ -110,7 +110,7 @@ def vanilla_tags(tags):
         if name in TAG_SKIP or name.startswith('villager_trade'):
             continue
         values = [v if isinstance(v, str) else v['id'] for v in data.get('values', [])]
-        pale = [v for v in values if re.match(r'^#?minecraft:(potted_)?(stripped_)?pale_oak_', v) and 'shelf' not in v]
+        pale = [v for v in values if re.match(r'^#?minecraft:(potted_)?(stripped_)?pale_oak_', v)]
         if not pale:
             continue
         out = []
@@ -280,6 +280,10 @@ def lang():
             if part in ('boat', 'chest_boat'):
                 en[f'entity.{NS}.{key}'] = en[f'item.{NS}.{key}']
                 de[f'entity.{NS}.{key}'] = de[f'item.{NS}.{key}']
+        # Wall variants have their own names (checkWiki lists every block).
+        for part, e, d in (('wall_sign', 'Wall Sign', 'holzwandschild'), ('wall_hanging_sign', 'Wall Hanging Sign', 'holzwandhängeschild')):
+            en[f'block.{NS}.{w["name"]}_{part}'] = f'{w["en"]} {e}'
+            de[f'block.{NS}.{w["name"]}_{part}'] = w['de'] + d
         en[f'block.{NS}.{w["bud"]}'] = w['bud_en']
         de[f'block.{NS}.{w["bud"]}'] = w['bud_de']
         en[f'block.{NS}.potted_{w["bud"]}'] = f'Potted {w["bud_en"]}'

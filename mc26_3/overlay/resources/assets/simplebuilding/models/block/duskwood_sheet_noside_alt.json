@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_noside_alt",
+  "textures": {
+    "pane": "simpleend:block/duskwood_log",
+    "edge": "simpleend:block/stripped_duskwood_log"
+  }
+}

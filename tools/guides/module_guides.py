@@ -90,6 +90,11 @@ MODULES = [
          name=("Simple Tweaks Guide", "Simple-Tweaks-Handbuch"),
          intro=("Legacy compatibility and staged server-authoritative claims, disabled by default.",
                 "Kompatibilität mit alten Ständen und stufenweise, serverseitige Claims, standardmäßig aus.")),
+    dict(module="simplerespawn", ns="simplerespawn", package="com.simplebuilding.modules.simplerespawn.guide",
+         cls="RespawnGuide", kind="item", author="Simple Respawn", recipe="minecraft:glistering_melon_slice",
+         name=("Simple Respawn Guide", "Simple-Respawn-Handbuch"),
+         intro=("Downed instead of dead: teammates revive you before you bleed out.",
+                "Niedergeschlagen statt tot: Mitspieler beleben dich wieder, bevor du verblutest.")),
     dict(module="simplevisuals", ns="simplevisuals", package="com.simplevisuals.guide", cls="VisualsGuide",
          kind="client", author="Simple Visuals",
          intro=("Bounded client HUD, tooltips, anvil formatting and Vanilla immersion particles. "
@@ -133,6 +138,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:flint_and_steel": ("flint and steel", "einem Feuerzeug"),
     "minecraft:paper": ("paper", "Papier"),
     "minecraft:chorus_fruit": ("a chorus fruit", "einer Chorusfrucht"),
+    "minecraft:glistering_melon_slice": ("a glistering melon slice", "einer glitzernden Melonenscheibe"),
 }
 
 
@@ -381,6 +387,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:chest": ("chest", "Truhe"), "minecraft:item_frame": ("item frame", "Rahmen"),
     "minecraft:flint_and_steel": ("flint and steel", "Feuerzeug"), "minecraft:paper": ("paper", "Papier"),
     "minecraft:chorus_fruit": ("chorus fruit", "Chorusfrucht"),
+    "minecraft:glistering_melon_slice": ("glistering melon slice", "glitzernde Melonenscheibe"),
 }
 
 

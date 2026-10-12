@@ -188,6 +188,7 @@ public final class MobsTests {
         HowlerTests.addAll(MobsTests::add);
         DisguiseTests.addAll(MobsTests::add);
         EndNetherTests.addAll(MobsTests::add);
+        FearTests.addAll(MobsTests::add);
     }
 
     private MobsTests() {}

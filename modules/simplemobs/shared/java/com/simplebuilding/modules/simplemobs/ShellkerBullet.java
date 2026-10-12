@@ -233,7 +233,8 @@ public class ShellkerBullet extends Projectile {
         if (target.hurtOrSimulate(damageSource, 4.0F)) {
             if (this.level() instanceof ServerLevel serverLevel) EnchantmentHelper.doPostAttackEffects(serverLevel, target, damageSource);
             if (target instanceof LivingEntity living) {
-                living.addEffect(new MobEffectInstance(EndNetherMobs.gravity(), EndNetherLogic.BULLET_EFFECT_TICKS), MoreObjects.firstNonNull(owner, this));
+                int ticks = EndNetherLogic.bulletEffectTicks(living.hasEffect(EndNetherMobs.gravity()));
+                living.addEffect(new MobEffectInstance(EndNetherMobs.gravity(), ticks), MoreObjects.firstNonNull(owner, this));
             }
         }
     }
@@ -268,11 +269,13 @@ public class ShellkerBullet extends Projectile {
 
     @Override
     public boolean hurtClient(DamageSource source) {
-        return true;
+        return !EndNetherLogic.bulletShielded(this.tickCount);
     }
 
     @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+        // Owner N45: the first 2 s it can be neither knocked away nor shot down.
+        if (EndNetherLogic.bulletShielded(this.tickCount) && !source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) return false;
         this.playSound(SoundEvents.SHULKER_BULLET_HURT, 1.0F, 0.8F);
         level.sendParticles(ParticleTypes.CRIT, this.getX(), this.getY(), this.getZ(), 15, 0.2, 0.2, 0.2, 0.0);
         this.destroy();

@@ -129,6 +129,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("test_centre_game_test_each_button_runs_exactly_its_own_command_block", TestCentreTests::eachButtonRunsExactlyItsOwnCommandBlock)
                     .maxTicks(TestCentreTests.BUTTON_RUN_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_every_mod_mob_has_its_own_station_that_spawns_it_in_its_habitat", TestCentreTests::everyModMobHasItsOwnStationThatSpawnsItInItsHabitat)
+                    .maxTicks(400)
+                    .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_metal_rods_attract_lightning_within_their_own_range", BlockBehaviourTests::metalRodsAttractLightningWithinTheirOwnRange)
@@ -1504,6 +1507,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("mod_screen_style_game_test_machine_slots_sit_inside_their_boxes", ModScreenStyleTests::machineSlotsSitInsideTheirBoxes)
                     .build(),
             GameTestSpec.named("mod_screen_style_game_test_backpack_slots_sit_inside_the_one_box", ModScreenStyleTests::backpackSlotsSitInsideTheOneBox)
+                    .build(),
+            GameTestSpec.named("mod_screen_style_game_test_slotless_panels_hold_their_widgets", ModScreenStyleTests::slotlessPanelsHoldTheirWidgets)
                     .build(),
             GameTestSpec.named("hopper_game_test_redstone_power_stops_every_hopper_transfer", HopperTests::redstonePowerStopsEveryHopperTransfer)
                     .maxTicks(HopperTests.REDSTONE_LOCK_MAX_TICKS)

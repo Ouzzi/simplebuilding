@@ -16,6 +16,7 @@ public final class SandwichesFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Sandwiches.init(FabricLoader.getInstance().getConfigDir());
+        Sandwiches.simpleEnd = FabricLoader.getInstance().isModLoaded("simpleend");
         ModComponents.register();
         com.simplesandwiches.registry.ModSounds.register();
         ModBlocks.register();

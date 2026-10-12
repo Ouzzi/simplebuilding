@@ -78,6 +78,9 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(3);
             context.runOnClient(client -> click(client.gui.screen(), "Tomato"));
             context.waitTicks(3); context.takeScreenshot("simplemodels-browser");
+            context.runOnClient(client -> com.simplelib.api.client.ui.UiStyleToggle.setEnabled(false));
+            context.waitTicks(3); context.takeScreenshot("simplemodels-browser-vanilla");
+            context.runOnClient(client -> com.simplelib.api.client.ui.UiStyleToggle.setEnabled(true));
             context.runOnClient(client -> {
                 var screen = client.gui.screen();
                 var input = (ItemStack)call(screen, "preview", definitions().getFirst());

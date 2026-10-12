@@ -154,6 +154,11 @@ select.sel{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--l
 .dlcard h3{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0}
 .dlfile{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px;min-width:0}
 .dlfile .meta{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.setup-steps{margin:0;padding-left:22px}.setup-steps li{margin:0 0 12px}.setup-steps li>span{font-weight:600}
+.setup-steps .btns{margin-top:6px}
+.cmd{display:flex;gap:8px;align-items:flex-start;margin-top:6px;background:var(--sunk);border:1px solid var(--line);border-radius:8px;padding:8px}
+.cmd code{flex:1;min-width:0;background:none;padding:0;font:12.5px/1.5 var(--mono);white-space:pre-wrap;word-break:break-all}
+.cmd button{flex:none}
 .dlfile .btn{flex:none}.dlfile .meta>span{white-space:nowrap}
 .chip.fabric{background:#efe6d6;color:#7a5a2a}.chip.neoforge{background:#f6e2d6;color:#a3461f}.chip.forge{background:#dde6ef;color:#2d5277}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]) .chip.fabric{background:#3a3020;color:#e3c48f}:root:not([data-theme=light]) .chip.neoforge{background:#3d2619;color:#f0a37a}:root:not([data-theme=light]) .chip.forge{background:#1f2c3a;color:#9cc0e6}}
@@ -200,7 +205,7 @@ select.sel{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--l
     <a class="btn" href="simplemods://start?ref=wave" data-start>▶ Neuester Arbeitsstand starten</a>
     <a class="btn ghost" href="simplemods://start?ref=master" data-start>▶ master (geprüft) starten</a>
     <a class="btn ghost" href="simplemods://fetch?ref=wave">⤓ Nur holen</a>
-   </div></div>
+   </div><p class="small mut" style="margin:8px 0 0">Neuer PC? <a href="#start" data-goto="setup">Einmal einrichten</a></p></div>
   <h2>Gates</h2><div id="gates"></div>
   <h2>Warteschlange Testrechner</h2><div class="card"><ul class="list" id="queue"></ul></div>
   <h2>Hilfs-Jobs (opencode / Copilot)</h2><div id="jobs"></div>
@@ -227,7 +232,26 @@ select.sel{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--l
    <a class="btn ghost" href="simplemods://fetch?ref=wave">⤓ Nur holen</a>
   </div>
   <p class="small" data-modsum></p>
-  <p class="mut small">Ohne Starter passiert nichts. Einrichtung: siehe <code>tools/laptop-starter</code> bzw. Claude fragen.</p></div>
+  <p class="mut small">Ohne Starter passiert nichts – auf einem neuen PC zuerst unten einrichten.</p></div>
+  <div class="card setup" id="setup"><h3>Neuen PC einrichten</h3>
+  <p class="small mut" style="margin:0 0 10px">Einmal pro Windows-PC. Der Installer holt fehlende Werkzeuge per winget (Git, JDK 25, Python mit Pillow, cloudflared),
+   richtet <code>simplemods://</code> für deinen Benutzer ein und lädt den Code nach <code>%USERPROFILE%\code\simplemods-dev</code>.
+   Admin-Rechte nur, falls Windows für ein Werkzeug danach fragt. Erneut ausführen = reparieren.</p>
+  <ol class="setup-steps">
+   <li><span>Installer herunterladen</span>
+    <div class="btns"><a class="btn" href="setup/install.ps1" download="simplemods-install.txt">⤓ Installer (simplemods-install.txt)</a></div></li>
+   <li><span>PowerShell öffnen (Start ▸ „PowerShell“), diesen Befehl einfügen, Enter</span>
+    <div class="cmd"><code id="setup-cmd">…</code><button class="sm ghost" id="setup-copy" type="button">Kopieren</button></div>
+    <p class="small mut" id="setup-copied" role="status" aria-live="polite"></p></li>
+   <li><span>Im Browser die Anmeldung an der Zentrale bestätigen (einmal), danach Knöpfe oben nutzen</span></li>
+  </ol>
+  <details class="raw"><summary class="small">simplemods:// reagiert nicht?</summary>
+   <ul class="small">
+    <li>Fragt der Browser „simplemods-Starter öffnen?“, erlauben (Häkchen „immer“ setzen).</li>
+    <li>Passiert gar nichts: Installer erneut ausführen (Schritt 2). Test in PowerShell: <code>Start-Process 'simplemods://fetch?ref=wave'</code></li>
+    <li>Fehler stehen im Popup und im Log <code>%USERPROFILE%\.simplemods\starter.log</code> (Installer: <code>install.log</code>).</li>
+    <li>„Lokale Änderungen im Dev-Ordner“: dort sichern oder <code>git stash</code>, der Starter überschreibt nichts.</li>
+   </ul></details></div>
 </section>
 <section id="mods">
   <div class="card start"><h3>Mods für den Spielstart</h3>
@@ -524,6 +548,21 @@ $('dl-kind').onchange=e=>{dl.kind=e.target.value;renderDownloads();};
 $('dl-build').onchange=e=>{dl.build=+e.target.value;dl.mc='';renderDownloads();};
 document.addEventListener('click',e=>{if(e.target.id==='dl-retry'){dl.err='';$('dl-list').innerHTML='<div class="skel"></div>';downloadsLoad();}});
 downloadsLoad();
+
+// "Neuen PC einrichten": command with this Zentrale's address (the installer file comes from the browser download)
+(function(){
+ const origin=location.origin.startsWith('https://')?location.origin:'https://<zentrale>';
+ const cmd="$d=(New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path; "+
+  "$f=Get-ChildItem \"$d\\simplemods-install*.txt\" | Sort-Object LastWriteTime | Select-Object -Last 1; "+
+  "if (-not $f) { 'Erst Schritt 1: Installer herunterladen' } else { & ([scriptblock]::Create((Get-Content -Raw $f.FullName))) -Zentrale "+origin+" }";
+ const el=document.getElementById('setup-cmd'),msg=document.getElementById('setup-copied');
+ el.textContent=cmd;
+ document.getElementById('setup-copy').addEventListener('click',async()=>{
+  try{await navigator.clipboard.writeText(cmd);msg.textContent='Kopiert – in PowerShell einfügen (Rechtsklick) und Enter.';}
+  catch(e){const r=document.createRange();r.selectNodeContents(el);const sel=getSelection();sel.removeAllRanges();sel.addRange(r);msg.textContent='Markiert – mit Strg+C kopieren.';}
+ });
+ document.querySelectorAll('a[data-goto]').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>{const t=document.getElementById(a.dataset.goto);if(t)t.scrollIntoView({behavior:'smooth',block:'start'});},50)));
+})();
 </script>
 </body>
 </html>

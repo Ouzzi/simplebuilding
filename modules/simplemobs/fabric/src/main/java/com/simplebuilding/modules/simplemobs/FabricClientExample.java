@@ -20,6 +20,10 @@ public final class FabricClientExample implements ClientModInitializer {
         EntityRendererRegistry.register(EndNetherMobs.SHELLKER, com.simplebuilding.modules.simplemobs.client.ShellkerRenderer::new);
         EntityRendererRegistry.register(EndNetherMobs.SHELLKER_BULLET, com.simplebuilding.modules.simplemobs.client.ShellkerBulletRenderer::new);
         EntityRendererRegistry.register(EndNetherMobs.SOULFIRE_BLAZE, com.simplebuilding.modules.simplemobs.client.SoulfireBlazeRenderer::new);
+        ModelLayerRegistry.registerModelLayer(com.simplebuilding.modules.simplemobs.client.DreadModel.LAYER, com.simplebuilding.modules.simplemobs.client.DreadModel::createBodyLayer);
+        ModelLayerRegistry.registerModelLayer(com.simplebuilding.modules.simplemobs.client.WatcherModel.LAYER, com.simplebuilding.modules.simplemobs.client.WatcherModel::createBodyLayer);
+        EntityRendererRegistry.register(FearMobs.DREAD, com.simplebuilding.modules.simplemobs.client.DreadRenderer::new);
+        EntityRendererRegistry.register(FearMobs.WATCHER, com.simplebuilding.modules.simplemobs.client.WatcherRenderer::new);
         EntityRendererRegistry.register(EndNetherMobs.SOUL_FIREBALL, ctx -> new net.minecraft.client.renderer.entity.ThrownItemRenderer<>(ctx, 0.75F, true));
     }
 }

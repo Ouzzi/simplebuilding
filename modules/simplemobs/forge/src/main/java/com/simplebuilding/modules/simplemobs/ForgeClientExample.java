@@ -13,6 +13,8 @@ final class ForgeClientExample {
         EntityRenderersEvent.RegisterLayerDefinitions.BUS.addListener(event -> {
             event.registerLayerDefinition(DeceiverModel.LAYER, DeceiverModel::createBodyLayer);
             event.registerLayerDefinition(HowlerModel.LAYER, HowlerModel::createBodyLayer);
+            event.registerLayerDefinition(com.simplebuilding.modules.simplemobs.client.DreadModel.LAYER, com.simplebuilding.modules.simplemobs.client.DreadModel::createBodyLayer);
+            event.registerLayerDefinition(com.simplebuilding.modules.simplemobs.client.WatcherModel.LAYER, com.simplebuilding.modules.simplemobs.client.WatcherModel::createBodyLayer);
         });
         EntityRenderersEvent.RegisterRenderers.BUS.addListener(event -> {
             event.registerEntityRenderer(MobsRegistry.DECEIVER, DeceiverRenderer::new);
@@ -22,6 +24,8 @@ final class ForgeClientExample {
             event.registerEntityRenderer(EndNetherMobs.SHELLKER, com.simplebuilding.modules.simplemobs.client.ShellkerRenderer::new);
             event.registerEntityRenderer(EndNetherMobs.SHELLKER_BULLET, com.simplebuilding.modules.simplemobs.client.ShellkerBulletRenderer::new);
             event.registerEntityRenderer(EndNetherMobs.SOULFIRE_BLAZE, com.simplebuilding.modules.simplemobs.client.SoulfireBlazeRenderer::new);
+            event.registerEntityRenderer(FearMobs.DREAD, com.simplebuilding.modules.simplemobs.client.DreadRenderer::new);
+            event.registerEntityRenderer(FearMobs.WATCHER, com.simplebuilding.modules.simplemobs.client.WatcherRenderer::new);
             event.registerEntityRenderer(EndNetherMobs.SOUL_FIREBALL, ctx -> new net.minecraft.client.renderer.entity.ThrownItemRenderer<>(ctx, 0.75F, true));
         });
     }

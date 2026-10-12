@@ -1,7 +1,7 @@
 {
   "family:end_wood": {
     "items": [
-      "regex:(stripped_)?(ashwood|duskwood)_(log|wood|planks|stairs|slab|fence|fence_gate|door|trapdoor|button|pressure_plate|sign|hanging_sign|boat|chest_boat)"
+      "regex:(stripped_)?(ashwood|duskwood)_(log|wood|planks|stairs|slab|fence|fence_gate|door|trapdoor|button|pressure_plate|sign|hanging_sign|shelf|boat|chest_boat)"
     ],
     "lore": [
       "{name} comes from the pale trees of the outer End islands. Ashwood grows in Ash Valley, Duskwood, a little browner, in the Dawnlands. The grain still shows the knobs of the chorus it grew up beside."

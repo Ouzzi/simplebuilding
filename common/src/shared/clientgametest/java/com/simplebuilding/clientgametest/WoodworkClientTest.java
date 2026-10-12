@@ -116,7 +116,7 @@ public final class WoodworkClientTest {
         onServer(script, "place the crates", server -> {
             ServerLevel level = server.overworld();
             Direction[] facings = {Direction.UP, Direction.NORTH, Direction.EAST, Direction.WEST, Direction.DOWN, Direction.SOUTH, Direction.UP, Direction.UP};
-            WoodKind[] woods = WoodKind.values();
+            WoodKind[] woods = WoodKind.active().toArray(new WoodKind[0]);
             for (int i = 0; i < facings.length; i++) {
                 level.setBlock(new BlockPos(5 + i, 0, CRATE_Z), WoodBlocks.family(woods[i % woods.length]).crate().defaultBlockState().setValue(CrateBlock.FACING, facings[i]), 3);
             }

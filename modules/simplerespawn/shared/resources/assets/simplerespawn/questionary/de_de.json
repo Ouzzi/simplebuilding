@@ -1,0 +1,15 @@
+{
+  "guide_book": {
+    "lore": [
+      "In karminrotes Leder gebunden, mit weißem Stein: ein Feldhandbuch für alle, die einen Freund lieber nach Hause tragen als begraben."
+    ],
+    "use": [
+      "Erklärt, was bei tödlichem Schaden passiert, wenn ein Mitspieler online ist: Du wirst niedergeschlagen, liegst am Boden und verblutest in 60 Sekunden, wenn niemand hilft.",
+      "Ein Mitspieler hält 5 Sekunden Rechtsklick auf dich; du stehst mit 3 Herzen und leerer Hungerleiste wieder auf. Der Bildschirm bietet Zuschauen, Inventar und Aufgeben."
+    ],
+    "secret": [
+      "Ausloggen rettet dich nicht: Das Spiel wertet es als Tod, und deine Gegenstände bleiben liegen, wo du gefallen bist.",
+      "Monster verlieren das Interesse an Niedergeschlagenen, aber jeder Treffer kostet trotzdem eine Sekunde der restlichen Zeit."
+    ]
+  }
+}

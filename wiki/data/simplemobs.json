@@ -94,7 +94,7 @@
           "1x1x1 and it stays that size: to shoot it only opens a thin slit and a violet eye lights up. Closed it takes no damage at all (hits clack like stone); open it takes damage normally. 120 health (4x a Shulker), 10 XP.",
           "It never teleports. Only pistons (and sticky pistons) can push it away - pushing the guards aside is a legitimate way past them.",
           "Every End gateway gets exactly four, in the open cells beside the portal block at portal height, standing on the bedrock below: the dragon-fight ring, the exit gateways on the outer islands and worldgen gateways. Server config simplemobs-server.json: shellkerGatewayGuards.",
-          "Its bullets home in like Shulker bullets but fly 1.5x faster and give High Gravity (10 s) instead of Levitation: jumps, Levitation and Elytra lift keep only 10 %, gliding sinks fast.",
+          "Its bullets home in like Shulker bullets but fly 1.5x faster and give High Gravity instead of Levitation (30 s; 1 min if you already have it): jumps, Levitation and Elytra lift keep only 10 %, gliding sinks fast. For their first 2 s they can be neither knocked away nor shot down. It fires 1.2x as often as a Shulker and almost at once after opening its shell, so hitting it nonstop does not keep it from shooting.",
           "Drops 2-3 Shellker Shells (2.5 on average, Looting +0.5 per level). A Shellker bullet that hits an open Shellker can bud a new one into a free neighbour cell (like Shulkers). It never spawns anywhere else - to farm them, right-click a Shulker with a Shellker Shell: it turns into a Shellker (the shell is used up)."
         ]
       },
@@ -105,7 +105,7 @@
           "1x1x1 und bleibt so groß: zum Schießen öffnet er nur einen schmalen Spalt, ein violettes Auge leuchtet auf. Geschlossen nimmt er gar keinen Schaden (Treffer klacken wie Stein), offen normal. 120 Leben (4x Shulker), 10 EP.",
           "Er teleportiert sich nie. Nur Kolben (auch klebrige) können ihn verschieben - die Wächter wegzuschieben ist ein erlaubter Weg vorbei.",
           "Jedes End-Gateway bekommt genau vier, in den freien Feldern neben dem Portalblock auf Portalhöhe, auf dem Grundgestein darunter: der Ring nach dem Drachenkampf, die Ausgangs-Gateways auf den äußeren Inseln und Gateways aus der Weltgenerierung. Server-Config simplemobs-server.json: shellkerGatewayGuards.",
-          "Seine Geschosse suchen ihr Ziel wie Shulker-Geschosse, fliegen aber 1,5x schneller und geben Schwerkraft (10 s) statt Schweben: Sprünge, Schweben und Elytra-Auftrieb behalten nur 10 %, Gleiten sinkt schnell.",
+          "Seine Geschosse suchen ihr Ziel wie Shulker-Geschosse, fliegen aber 1,5x schneller und geben Schwerkraft statt Schweben (30 s; 1 min, wenn man sie schon hat): Sprünge, Schweben und Elytra-Auftrieb behalten nur 10 %, Gleiten sinkt schnell. In den ersten 2 s lassen sie sich weder wegschlagen noch abschießen. Er schießt 1,2x so oft wie ein Shulker und fast sofort nach dem Öffnen der Schale - Dauerschlagen hält ihn nicht vom Schießen ab.",
           "Lässt 2-3 Shellker-Schalen fallen (im Schnitt 2,5, Plünderung +0,5 je Stufe). Trifft ein Shellker-Geschoss einen offenen Shellker, kann ein neuer in ein freies Nachbarfeld knospen (wie bei Shulkern). Woanders erscheint er nie - zum Farmen einen Shulker mit einer Shellker-Schale rechtsklicken: er wird zum Shellker (die Schale wird verbraucht)."
         ]
       }
@@ -121,7 +121,7 @@
         "title": "High Gravity and the Shellker Helmet",
         "summary": "High Gravity pulls you down: jumps, Levitation and Elytra lift keep 10 %. The Shellker Helmet makes you immune.",
         "details": [
-          "From Shellker bullets (10 s) or the Potion of High Gravity: Awkward Potion + Shellker Shell = 3:00, + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions.",
+          "From Shellker bullets (30 s, 1 min if already under High Gravity) or the Potion of High Gravity: Awkward Potion + Shellker Shell = 3:00, + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions.",
           "Shellker Helmet: 5 Shellker Shells in helmet shape. Armor 3, toughness 1, knockback resistance 10 %, iron durability, repaired with Shellker Shells. Its wearer is immune to High Gravity (not to the bullets' damage) and takes 20 % less fall damage. A new helmet - the Turtle Shell stays as it is. Can be trimmed and enchanted like other helmets."
         ]
       },
@@ -129,7 +129,7 @@
         "title": "Schwerkraft und Shellker-Helm",
         "summary": "Schwerkraft zieht nach unten: Sprünge, Schweben und Elytra-Auftrieb behalten 10 %. Der Shellker-Helm macht immun.",
         "details": [
-          "Durch Shellker-Geschosse (10 s) oder den Trank der Schwerkraft: Seltsamer Trank + Shellker-Schale = 3:00, + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank.",
+          "Durch Shellker-Geschosse (30 s, 1 min bei bestehender Schwerkraft) oder den Trank der Schwerkraft: Seltsamer Trank + Shellker-Schale = 3:00, + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank.",
           "Shellker-Helm: 5 Shellker-Schalen in Helmform. Rüstung 3, Härte 1, Rückstoßresistenz 10 %, Haltbarkeit wie Eisen, Reparatur mit Shellker-Schalen. Der Träger ist immun gegen Schwerkraft (nicht gegen den Schaden der Geschosse) und nimmt 20 % weniger Fallschaden. Ein neuer Helm - der Schildkrötenpanzer bleibt unverändert. Lässt sich wie andere Helme verzieren und verzaubern."
         ]
       }
@@ -203,6 +203,108 @@
           "(Mit SimpleBuilding) Trugbild-Tränke aus dem Trugsplitter: Seltsamer Trank + Trugsplitter = Trank des Trugbilds (\"feindlich\": friedliche Mobs wirken feindlich); + Fermentiertes Spinnenauge = Trank des umgekehrten Trugbilds (\"friedlich\": feindliche Mobs wirken friedlich); Redstone verlängert beide auf 8:00, Schwarzpulver / Drachenatem ergeben Wurf- und Verweiltränke. Keine stärkere Stufe: der Effekt hat keine Stärke."
         ]
       }
+    },
+    {
+      "id": "dread",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/DreadEntity.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/DreadPattern.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearAura.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/ItemHelmetDreadMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Dread",
+        "summary": "A fear mob you build yourself: a 2.6 block knight of rusted armor with soul flames in its empty helmet and a chain mace. Its Shivering aura makes your aim waver; bright light weakens it.",
+        "details": [
+          "Figure, front view: the Iron Golem's T - a Block of Iron at the bottom, three across above it, but the middle one is an anvil (any damage) - and a Skeleton Skull on top. The blocks beside the bottom block and beside the skull must be air. Then right-click the skull with an Iron Helmet: the helmet goes on and the Dread wakes (the helmet, skull and blocks are used up). On a wrong figure smoke rises and you keep the helmet. About 63 iron ingots. Not on Peaceful; server config simplemobs-server.json: dreadSummonEnabled. It never spawns naturally.",
+          "It rises from the ground for 3 seconds (invulnerable), then hunts survival players. 260 health, armor 14, toughness 4, no knockback, slow. 60 XP.",
+          "Mace swing, announced by the raised mace and a chain rattle for 0.7 s: 18 damage (Hard 27) and a heavy push. A shield that blocks it is disabled for 10 s (an axe: 5 s).",
+          "Ground stomp, announced for 1.2 s by both arms lifting the mace, a roar and a ring of soul particles (radius 6): everyone on the ground in the ring takes 10 damage and is thrown out. Jump to dodge it. Cooldown 8 s.",
+          "Weakness: light (block and sky) of 12 or more where it stands halves the damage of all its attacks and caps its aura at Shivering I; its soul flames burn low and smoke.",
+          "Drops 2-4 Dread Links when a player lands the last hit (Looting +1)."
+        ]
+      },
+      "de": {
+        "title": "Schreckensritter",
+        "summary": "Ein Furcht-Mob, den du selbst baust: ein 2,6 Blöcke großer Ritter in verrosteter Rüstung, Seelenflammen im leeren Helm und eine Kettenkeule. Seine Zitter-Aura lässt das Zielen wackeln; helles Licht schwächt ihn.",
+        "details": [
+          "Figur von vorn: das T des Eisengolems – unten ein Eisenblock, darüber drei quer, aber der mittlere ist ein Amboss (beliebig beschädigt) – und obendrauf ein Skelettschädel. Neben dem unteren Block und neben dem Schädel muss Luft sein. Dann mit einem Eisenhelm auf den Schädel rechtsklicken: Der Helm wird aufgesetzt und der Schreckensritter erwacht (Helm, Schädel und Blöcke werden verbraucht). Bei falscher Figur steigt Rauch auf und der Helm bleibt in der Hand. Etwa 63 Eisenbarren. Nicht auf Friedlich; Server-Config simplemobs-server.json: dreadSummonEnabled. Er erscheint nie von selbst.",
+          "Er steigt 3 Sekunden lang aus dem Boden (unverwundbar) und jagt dann Spieler im Überlebensmodus. 260 Leben, Rüstung 14, Härte 4, kein Rückstoß, langsam. 60 EP.",
+          "Keulenschlag, 0,7 s angekündigt durch die erhobene Keule und Kettenrasseln: 18 Schaden (Schwer 27) und starker Stoß. Ein Schild, der ihn blockt, ist 10 s gesperrt (Axt: 5 s).",
+          "Bodenstampfer, 1,2 s angekündigt durch beide erhobenen Arme, ein Brüllen und einen Ring aus Seelenpartikeln (Radius 6): Wer im Ring am Boden steht, nimmt 10 Schaden und wird weggeschleudert. Springen weicht aus. Abklingzeit 8 s.",
+          "Schwäche: Licht (Block und Himmel) ab 12 an seinem Standort halbiert den Schaden aller Angriffe und begrenzt die Aura auf Zittern I; seine Seelenflammen werden schwach und rauchen.",
+          "Lässt 2–4 Schreckens-Kettenglieder fallen, wenn ein Spieler den letzten Treffer setzt (Plünderung +1)."
+        ]
+      }
+    },
+    {
+      "id": "hollow_watcher",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/HollowWatcherEntity.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearServer.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearAura.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Hollow Watcher",
+        "summary": "A 4 block shadow with many eyes on the outer End islands. It moves only while nobody looks at it; a spyglass look freezes it. Unwatched it teleports behind you and grips you.",
+        "details": [
+          "Spawning: rarely, only in the End farther than 1000 blocks from the origin, on End stone with room for its height, at most one within 128 blocks, not on Peaceful. Server config: hollowWatcherSpawns, hollowWatcherChance (per 30 s roll per player, default 0.04).",
+          "200 health, armor 8. 50 XP. While any player looks at it (in view, line of sight, not blinded) it stands still and starts no attack; a grip or scream already running goes on.",
+          "Looking at it through a spyglass freezes it for 3 seconds: no movement, no attack, a running grip lets go.",
+          "Teleport: unwatched and more than 8 blocks away, portal particles mark a spot 2.5 blocks behind its target for 0.6 s, then it appears there. If someone looks at it meanwhile, the jump is cancelled. Cooldown 6 s.",
+          "Grip, announced by reaching arms for 0.5 s: 6 damage and held in place for 2 s, then 4 damage and thrown away. Cooldown 10 s. Claw: 10 damage after 0.3 s.",
+          "Scream, announced for 1 s (head thrown back, low Enderman scream): Shivering II for 10 s and Blindness for 3 s to everyone within 12 blocks. It screams when its target stares at it for 5 s in a row, or unwatched every 20 s when its target is within 12 blocks in sight.",
+          "Drops 1 Watcher Eye when a player lands the last hit (Looting +1)."
+        ]
+      },
+      "de": {
+        "title": "Hohler Wächter",
+        "summary": "Ein 4 Blöcke großer Schatten mit vielen Augen auf den äußeren End-Inseln. Er bewegt sich nur, solange ihn niemand ansieht; ein Blick durchs Fernrohr friert ihn ein. Unbeobachtet springt er hinter dich und packt zu.",
+        "details": [
+          "Erscheinen: selten, nur im End weiter als 1000 Blöcke vom Ursprung, auf Endstein mit Platz für seine Höhe, höchstens einer im Umkreis von 128 Blöcken, nicht auf Friedlich. Server-Config: hollowWatcherSpawns, hollowWatcherChance (je 30-s-Wurf und Spieler, Standard 0,04).",
+          "200 Leben, Rüstung 8. 50 EP. Solange ein Spieler ihn ansieht (im Blickfeld, Sichtlinie, nicht blind), steht er still und beginnt keinen Angriff; ein laufender Griff oder Schrei geht weiter.",
+          "Ein Blick durchs Fernrohr friert ihn 3 Sekunden ein: keine Bewegung, kein Angriff, ein laufender Griff löst sich.",
+          "Teleport: unbeobachtet und weiter als 8 Blöcke entfernt markieren Portalpartikel 0,6 s lang eine Stelle 2,5 Blöcke hinter seinem Ziel, dann erscheint er dort. Sieht ihn währenddessen jemand an, bricht der Sprung ab. Abklingzeit 6 s.",
+          "Griff, 0,5 s angekündigt durch ausgestreckte Arme: 6 Schaden und 2 s festgehalten, dann 4 Schaden und weggeschleudert. Abklingzeit 10 s. Kralle: 10 Schaden nach 0,3 s.",
+          "Schrei, 1 s angekündigt (Kopf zurück, tiefer Enderman-Schrei): Zittern II für 10 s und Blindheit für 3 s für alle im Umkreis von 12 Blöcken. Er schreit, wenn sein Ziel ihn 5 s am Stück anstarrt, oder unbeobachtet alle 20 s, wenn sein Ziel in Sichtweite innerhalb von 12 Blöcken ist.",
+          "Lässt 1 Wächterauge fallen, wenn ein Spieler den letzten Treffer setzt (Plünderung +1)."
+        ]
+      }
+    },
+    {
+      "id": "shivering_aura",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearAura.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearMobs.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearServer.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/client/AimSway.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/AimSwayMixin.java"
+      ],
+      "en": {
+        "title": "Shivering aura, Calm Amulet and Focus",
+        "summary": "Near a fear mob you shiver: your aim wavers. Shivering I when it sees you within 16 blocks, II closer than 6. The Calm Amulet or the Potion of Focus makes you immune.",
+        "details": [
+          "Every second the Dread and the Hollow Watcher give Shivering for 3 s to survival players around them: level I within 16 blocks if they can see you, level II closer than 6 blocks. Milk helps only until the next pulse.",
+          "Shivering makes the view waver around your aim (about 0.6 degrees at I, 1.8 at II), so bows and crossbows lose precision. With SimpleBuilding it is SimpleBuilding's Shivering effect (which also shakes the crosshair); without it Simple Mobs brings its own.",
+          "Calm Amulet: iron chain on top, a Dread Link left, right and below, an amethyst shard in the middle. Anywhere in the inventory it makes you immune to Shivering and removes it.",
+          "Potion of Focus: Awkward Potion + Watcher Eye = 3:00 immunity to Shivering; + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions."
+        ]
+      },
+      "de": {
+        "title": "Zitter-Aura, Ruhe-Amulett und Fokus",
+        "summary": "In der Nähe eines Furcht-Mobs zitterst du: dein Zielen wackelt. Zittern I, wenn er dich im Umkreis von 16 Blöcken sieht, II näher als 6. Das Ruhe-Amulett oder der Trank des Fokus machen immun.",
+        "details": [
+          "Jede Sekunde geben Schreckensritter und Hohler Wächter Spielern im Überlebensmodus um sich herum 3 s Zittern: Stufe I im Umkreis von 16 Blöcken, wenn sie dich sehen, Stufe II näher als 6 Blöcke. Milch hilft nur bis zum nächsten Puls.",
+          "Zittern lässt den Blick um dein Ziel pendeln (etwa 0,6 Grad bei I, 1,8 bei II), Bogen und Armbrust werden ungenau. Mit SimpleBuilding ist es dessen Effekt Zittern (der zusätzlich das Fadenkreuz wackeln lässt); ohne bringt Simple Mobs einen eigenen mit.",
+          "Ruhe-Amulett: Eisenkette oben, je ein Schreckens-Kettenglied links, rechts und unten, Amethystscherbe in der Mitte. Irgendwo im Inventar macht es immun gegen Zittern und entfernt es.",
+          "Trank des Fokus: Seltsamer Trank + Wächterauge = 3:00 Immunität gegen Zittern; + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -254,6 +356,44 @@
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_awkward_soulfire_rod.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_awkward_watcher_eye",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_awkward_watcher_eye.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_focus_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_focus_redstone.json",
       "ingredients": [
         "minecraft:lingering_potion"
       ],
@@ -435,6 +575,63 @@
       }
     },
     {
+      "id": "simplemobs:brewing/potion_awkward_watcher_eye",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_awkward_watcher_eye.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_focus_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_focus_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_focus_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_focus_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/potion_high_gravity_gunpowder",
       "type": "minecraft:brewing",
       "category": null,
@@ -482,6 +679,25 @@
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_invisibility_deceiver_cloth.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_long_focus_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_long_focus_gunpowder.json",
       "ingredients": [
         "minecraft:potion"
       ],
@@ -701,6 +917,63 @@
       }
     },
     {
+      "id": "simplemobs:brewing/splash_potion_awkward_watcher_eye",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_awkward_watcher_eye.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_focus_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_focus_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_focus_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_focus_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/splash_potion_high_gravity_dragon_breath",
       "type": "minecraft:brewing",
       "category": null,
@@ -748,6 +1021,25 @@
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_invisibility_deceiver_cloth.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_long_focus_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_long_focus_dragon_breath.json",
       "ingredients": [
         "minecraft:splash_potion"
       ],
@@ -906,6 +1198,55 @@
       "slots": {
         "input": [
           "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:calm_amulet",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplemobs:calm_amulet",
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/calm_amulet.json",
+      "ingredients": [
+        "minecraft:amethyst_shard",
+        "minecraft:iron_chain",
+        "simplemobs:dread_link"
+      ],
+      "pattern": [
+        " C ",
+        "LAL",
+        " L "
+      ],
+      "key": {
+        "C": [
+          "minecraft:iron_chain"
+        ],
+        "L": [
+          "simplemobs:dread_link"
+        ],
+        "A": [
+          "minecraft:amethyst_shard"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplemobs:dread_link",
+            "count": 3
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1.222
+          },
+          {
+            "id": "minecraft:amethyst_shard",
+            "count": 1
+          }
         ]
       }
     },
@@ -1106,6 +1447,22 @@
       "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/deceiver_armor_bonus.json"
     },
     {
+      "id": "simplemobs:entities/dread",
+      "kind": "entities",
+      "type": "minecraft:entity",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobs:dread_link"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/dread.json"
+    },
+    {
       "id": "simplemobs:entities/hollow_howler",
       "kind": "entities",
       "type": "minecraft:entity",
@@ -1134,6 +1491,22 @@
         }
       ],
       "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/hollow_howler.json"
+    },
+    {
+      "id": "simplemobs:entities/hollow_watcher",
+      "kind": "entities",
+      "type": "minecraft:entity",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobs:watcher_eye"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/hollow_watcher.json"
     },
     {
       "id": "simplemobs:entities/shellker",
@@ -1292,6 +1665,50 @@
   "enchantments": [],
   "items": [
     {
+      "id": "simplemobs:calm_amulet",
+      "name": {
+        "en_us": "Calm Amulet",
+        "de_de": "Ruhe-Amulett"
+      },
+      "note": {
+        "en": {
+          "summary": "Anywhere in the inventory: immune to Shivering. Crafted from three Dread Links, an iron chain and an amethyst shard."
+        },
+        "de": {
+          "summary": "Irgendwo im Inventar: immun gegen Zittern. Aus drei Schreckens-Kettengliedern, Eisenkette und Amethystscherbe."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/calm_amulet.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A small weight of iron and amethyst that keeps the hands steady."
+          ],
+          "use": [
+            "Carry it anywhere in your inventory: you are immune to Shivering, from the Dread's and the Hollow Watcher's aura, the Watcher's scream and potions alike. Craft: iron chain on top, Dread Links left, right and below, an amethyst shard in the middle."
+          ],
+          "secret": [
+            "It also removes Shivering you already have the moment it enters your inventory."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kleines Gewicht aus Eisen und Amethyst, das die Hände ruhig hält."
+          ],
+          "use": [
+            "Irgendwo im Inventar getragen macht es immun gegen Zittern, ob von der Aura des Schreckensritters oder des Hohlen Wächters, vom Schrei des Wächters oder aus Tränken. Rezept: Eisenkette oben, Schreckens-Kettenglieder links, rechts und unten, Amethystscherbe in der Mitte."
+          ],
+          "secret": [
+            "Vorhandenes Zittern verschwindet, sobald es ins Inventar kommt."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplemobs:calm_amulet"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplemobs:deceiver_cloak",
       "name": {
         "en_us": "Cloak of Deception",
@@ -1423,6 +1840,92 @@
       "usedIn": []
     },
     {
+      "id": "simplemobs:dread_link",
+      "name": {
+        "en_us": "Dread Link",
+        "de_de": "Schreckens-Kettenglied"
+      },
+      "note": {
+        "en": {
+          "summary": "Dropped by the Dread (2-4, Looting +1). Three make the Calm Amulet with an iron chain and an amethyst shard."
+        },
+        "de": {
+          "summary": "Lässt der Schreckensritter fallen (2–4, Plünderung +1). Drei ergeben mit Eisenkette und Amethystscherbe das Ruhe-Amulett."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/dread_link.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A link of a chain that dragged a mace through a hundred battles. It is cold and never stops trembling."
+          ],
+          "use": [
+            "Dropped by the Dread, 2 to 4 (more with Looting), only when a player lands the last hit. Three links, an iron chain and an amethyst shard make the Calm Amulet."
+          ],
+          "secret": [
+            "The Dread never spawns on its own: whoever wants links has to build one first."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Glied der Kette, an der eine Keule durch hundert Schlachten schleifte. Es ist kalt und hört nie auf zu zittern."
+          ],
+          "use": [
+            "Lässt der Schreckensritter fallen, 2 bis 4 (mehr mit Plünderung), nur wenn ein Spieler den letzten Treffer setzt. Drei Glieder, eine Eisenkette und eine Amethystscherbe ergeben das Ruhe-Amulett."
+          ],
+          "secret": [
+            "Der Schreckensritter erscheint nie von selbst: Wer Glieder will, muss ihn erst bauen."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simplemobs:calm_amulet"
+      ]
+    },
+    {
+      "id": "simplemobs:dread_spawn_egg",
+      "name": {
+        "en_us": "Dread Spawn Egg",
+        "de_de": "Schreckensritter-Spawn-Ei"
+      },
+      "note": {
+        "en": {
+          "summary": "Creative only. In survival the Dread is built: an Iron Golem T with an anvil in the middle, a skeleton skull on top, then an Iron Helmet put on the skull."
+        },
+        "de": {
+          "summary": "Nur kreativ. Im Überleben wird der Schreckensritter gebaut: Eisengolem-T mit Amboss in der Mitte, Skelettschädel obendrauf, dann einen Eisenhelm auf den Schädel setzen."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/dread_spawn_egg.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "An egg as heavy as an anvil."
+          ],
+          "use": [
+            "Spawns a Dread in creative. In survival you build it like an Iron Golem, with an anvil in the middle of the crossbar and a skeleton skull as the head - then put an Iron Helmet on the skull with a right-click."
+          ],
+          "secret": [
+            "Bright light weakens it: at light 12 and more its blows deal half damage and its aura only gives Shivering I."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Ei, schwer wie ein Amboss."
+          ],
+          "use": [
+            "Erzeugt im Kreativmodus einen Schreckensritter. Im Überleben baust du ihn wie einen Eisengolem, mit einem Amboss in der Mitte der Querreihe und einem Skelettschädel als Kopf – dann setzt du dem Schädel per Rechtsklick einen Eisenhelm auf."
+          ],
+          "secret": [
+            "Helles Licht schwächt ihn: ab Licht 12 machen seine Schläge nur halben Schaden und seine Aura gibt nur Zittern I."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplemobs:echo_core",
       "name": {
         "en_us": "Echo Core",
@@ -1500,6 +2003,48 @@
           ],
           "secret": [
             "Der Heuler ruft nie Verstärkung, jagt aber alles, was er hört."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobs:hollow_watcher_spawn_egg",
+      "name": {
+        "en_us": "Hollow Watcher Spawn Egg",
+        "de_de": "Hohler-Wächter-Spawn-Ei"
+      },
+      "note": {
+        "en": {
+          "summary": "Creative only. In survival the Hollow Watcher appears rarely on the outer End islands."
+        },
+        "de": {
+          "summary": "Nur kreativ. Im Überleben erscheint der Hohle Wächter selten auf den äußeren End-Inseln."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/hollow_watcher_spawn_egg.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "An egg that is never where you last saw it."
+          ],
+          "use": [
+            "Spawns a Hollow Watcher in creative. In survival it appears rarely on the outer End islands, far from the dragon's island."
+          ],
+          "secret": [
+            "It only moves while nobody looks at it. A look through a spyglass freezes it for 3 seconds - but stare too long and it screams."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Ei, das nie dort ist, wo du es zuletzt gesehen hast."
+          ],
+          "use": [
+            "Erzeugt im Kreativmodus einen Hohlen Wächter. Im Überleben erscheint er selten auf den äußeren End-Inseln, weit weg von der Dracheninsel."
+          ],
+          "secret": [
+            "Er bewegt sich nur, solange ihn niemand ansieht. Ein Blick durchs Fernrohr friert ihn 3 Sekunden ein – aber wer ihn zu lange anstarrt, bringt ihn zum Schreien."
           ]
         }
       },
@@ -1805,6 +2350,48 @@
         "simplemobs:trick_mirror"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simplemobs:watcher_eye",
+      "name": {
+        "en_us": "Watcher Eye",
+        "de_de": "Wächterauge"
+      },
+      "note": {
+        "en": {
+          "summary": "Dropped by the Hollow Watcher. Awkward Potion + Watcher Eye brews the Potion of Focus (3:00 immune to Shivering, redstone 8:00)."
+        },
+        "de": {
+          "summary": "Lässt der Hohle Wächter fallen. Seltsamer Trank + Wächterauge ergibt den Trank des Fokus (3:00 immun gegen Zittern, Redstone 8:00)."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/watcher_eye.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "An eye that keeps looking at whoever holds it. Do not look back for too long."
+          ],
+          "use": [
+            "Dropped by the Hollow Watcher on the outer End islands. Awkward Potion plus Watcher Eye brews the Potion of Focus: 3:00 immune to Shivering (8:00 with redstone), splash and lingering as usual."
+          ],
+          "secret": [
+            "Focus keeps the aim steady even in a Watcher's scream, but not the eyes: the scream still blinds."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Auge, das jeden ansieht, der es hält. Schau nicht zu lange zurück."
+          ],
+          "use": [
+            "Lässt der Hohle Wächter auf den äußeren End-Inseln fallen. Seltsamer Trank plus Wächterauge ergibt den Trank des Fokus: 3:00 immun gegen Zittern (8:00 mit Redstone), Wurf- und Verweiltrank wie üblich."
+          ],
+          "secret": [
+            "Fokus hält das Zielen ruhig, auch beim Schrei eines Wächters – blind macht der Schrei trotzdem."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
     }
   ],
   "blocks": [],
@@ -1822,13 +2409,13 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 6,
-    "recipes": 40,
-    "lootTables": 6,
+    "features": 9,
+    "recipes": 51,
+    "lootTables": 8,
     "tags": 5,
     "advancements": 0,
     "enchantments": 0,
-    "items": 12,
+    "items": 17,
     "blocks": 0,
     "trades": 0,
     "config": 0,

@@ -421,10 +421,11 @@ public class OctantScreen extends Screen {
 
     @Override
     public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
-        // Vanillas Popup-Hintergrund (nine-slice, wie PopupScreen) statt des lila Tooltip-Nachbaus.
-        context.blitSprite(RenderPipelines.GUI_TEXTURED, PANEL_SPRITE, panelX, panelY, panelWidth, panelHeight);
-        // Titel wie bei Container-Bildschirmen: links, dunkelgrau, ohne Schatten.
-        context.text(font, this.title, panelX + PANEL_PADDING, panelY + 7, LABEL_COLOR, false);
+        // N43: Kasten im Container-Stil (Messing des Oktanten, 26.3); sonst Vanillas Popup-Hintergrund (nine-slice).
+        boolean styled = ModScreenStyle.panel(context, ModScreenLayout.OCTANT_FILL, panelX, panelY, panelWidth, panelHeight);
+        if (!styled) context.blitSprite(RenderPipelines.GUI_TEXTURED, PANEL_SPRITE, panelX, panelY, panelWidth, panelHeight);
+        // Titel wie bei Container-Bildschirmen: links, ohne Schatten (Container-Titelzeile y 6 im Stil).
+        context.text(font, this.title, panelX + PANEL_PADDING, panelY + (styled ? 6 : 7), labelColor(), false);
 
         if (currentPage == MenuPage.SELECTION) {
             drawInputLabels(context);
@@ -438,14 +439,24 @@ public class OctantScreen extends Screen {
     private void drawInputLabels(GuiGraphicsExtractor context) {
         int textDy = (WIDGET_HEIGHT - 8) / 2;
         int labelX = panelX + PANEL_PADDING;
-        context.text(font, Component.translatable("simplebuilding.gui.label.pos1"), labelX, startY + textDy, LABEL_COLOR, false);
-        context.text(font, Component.translatable("simplebuilding.gui.label.pos2"), labelX, startY + ROW_STEP + textDy, LABEL_COLOR, false);
-        context.text(font, Component.translatable("simplebuilding.gui.label.size"), labelX, startY + ROW_STEP * 2 + textDy, LABEL_COLOR, false);
+        int color = labelColor();
+        context.text(font, Component.translatable("simplebuilding.gui.label.pos1"), labelX, startY + textDy, color, false);
+        context.text(font, Component.translatable("simplebuilding.gui.label.pos2"), labelX, startY + ROW_STEP + textDy, color, false);
+        context.text(font, Component.translatable("simplebuilding.gui.label.size"), labelX, startY + ROW_STEP * 2 + textDy, color, false);
+    }
+
+    /** Label colour on the panel: the palette's (light on the brass box) or Vanilla's dark grey on the popup. */
+    private static int labelColor() {
+        return ModScreenStyle.label(ModScreenLayout.OCTANT_FILL, LABEL_COLOR);
     }
 
     private void drawInlineHudSummary(GuiGraphicsExtractor context) {
         int boxX = panelX + PANEL_PADDING;
         int boxY = hudSummaryY;
+        // N43: die Zusammenfassung liegt im Stil in einem hellen, eingelassenen Feld (dunkle Schrift wie im Inventar).
+        if (ModScreenStyle.field(context, ModScreenLayout.OCTANT_FILL, boxX, boxY - 3, CONTENT_WIDTH - 1, SUMMARY_HEIGHT - 2)) {
+            boxX += 4;
+        }
 
         BlockPos p1 = new BlockPos(parse(x1Field), parse(y1Field), parse(z1Field));
         BlockPos p2 = new BlockPos(parse(x2Field), parse(y2Field), parse(z2Field));

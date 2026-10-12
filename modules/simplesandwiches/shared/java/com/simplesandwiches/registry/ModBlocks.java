@@ -24,6 +24,8 @@ public final class ModBlocks {
     /** Owner decision F9 = B: one board per Vanilla wood type. */
     public static final List<String> WOODS = List.of("oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove",
             "cherry", "pale_oak", "poplar", "bamboo", "crimson", "warped");
+    /** Simple End's woods: boards only while Simple End is loaded ({@link Sandwiches#simpleEnd}). */
+    public static final List<String> END_WOODS = List.of("ashwood", "duskwood");
     /** Butter block friction (owner decision F7 = B; normal 0.6, ice 0.98). */
     public static final float BUTTER_FRICTION = 0.9F;
     /** Cheese is springy like a bed (owner 2026-10-05): Vanilla bed bounce restitution and fall distance reduction. */
@@ -34,15 +36,21 @@ public final class ModBlocks {
     public static MilkCauldronBlock MILK_CAULDRON;
 
     public static void register() {
-        for (String wood : WOODS) {
-            Block planks = BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(wood + "_planks"));
+        List<String> woods = Sandwiches.simpleEnd ? java.util.stream.Stream.concat(WOODS.stream(), END_WOODS.stream()).toList() : WOODS;
+        for (String wood : woods) {
+            // Simple End's planks may not be registered yet (no load order between mods): their map colour is fixed here.
+            MapColor color = switch (wood) {
+                case "ashwood" -> MapColor.COLOR_LIGHT_GRAY;
+                case "duskwood" -> MapColor.TERRACOTTA_LIGHT_GRAY;
+                default -> BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(wood + "_planks")).defaultMapColor();
+            };
             SoundType sound = switch (wood) {
                 case "bamboo" -> SoundType.BAMBOO_WOOD;
                 case "cherry" -> SoundType.CHERRY_WOOD;
                 case "crimson", "warped" -> SoundType.NETHER_WOOD;
                 default -> SoundType.WOOD;
             };
-            BlockBehaviour.Properties p = BlockBehaviour.Properties.of().mapColor(planks.defaultMapColor()).strength(0.8F)
+            BlockBehaviour.Properties p = BlockBehaviour.Properties.of().mapColor(color).strength(0.8F)
                     .sound(sound).noOcclusion().instrument(NoteBlockInstrument.BASS).pushReaction(PushReaction.POPPED);
             if (!wood.equals("crimson") && !wood.equals("warped")) p = p.ignitedByLava();
             String name = wood + "_cutting_board";
