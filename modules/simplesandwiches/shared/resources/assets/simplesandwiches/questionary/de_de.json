@@ -1,0 +1,115 @@
+{
+  "sandwich": {
+    "lore": [
+      "Brot, das ein Eigenleben bekam, und dann eine Füllung."
+    ],
+    "use": [
+      "Auf dem Schneidebrett gebaut: ein Brot plus bis zu fünf Zutaten, zuerst Butter für +10 %. Hunger und Sättigung addieren sich; Essen dauert 1,6 s plus 0,2 s je Zutat. Gleiche stapeln bis 16."
+    ],
+    "secret": [
+      "Effekte gleicher Zutaten verschmelzen: höchste Stufe, summierte Dauer. Butter verlängert sie, begrenzt auf das Doppelte der längsten."
+    ]
+  },
+  "knife": {
+    "lore": [
+      "Ein Messer, das nur schneidet, was geschnitten werden soll."
+    ],
+    "use": [
+      "Einen Stock und vier Eisennuggets herstellen. 250 Haltbarkeit, Schaden 2, Tempo 2,0, am Amboss mit Eisennuggets reparierbar. Öffnet Brot auf dem Schneidebrett und schneidet Käse, Butter, Melonen und Kuchen."
+    ],
+    "secret": [
+      "Mit Butter in der anderen Hand streicht es offenes Brot, bevor die Beläge darauf kommen."
+    ]
+  },
+  "butter_block": {
+    "lore": [
+      "Ein Block, der sich noch an die Milch erinnert."
+    ],
+    "use": [
+      "Reift aus Milch im Kessel nach etwa 2,5 Minuten; mit leerer Hand ernten. Er fasst 16 Scheiben, die einzeln mit dem Messer geschnitten werden. Butter verdirbt nie."
+    ],
+    "secret": [
+      "Eine passende Scheibe stellt eine Lage wieder her. Seine Reibung ist 0,9, er ist also rutschig."
+    ]
+  },
+  "butter_slice": {
+    "lore": [
+      "Eine dünne Scheibe goldener Ruhe."
+    ],
+    "use": [
+      "Nicht essbar. Messer in der einen, Scheibe in der anderen Hand: Das offene Brot wird gestrichen, standardmäßig +10 % Hunger, Sättigung und Effektdauer, eine Scheibe wird verbraucht."
+    ],
+    "secret": [
+      "Butter ist die einzige Zutat, die Effekte verlängert, höchstens auf das Doppelte der längsten."
+    ]
+  },
+  "cheese_block": {
+    "lore": [
+      "Ein Rad aus Geduld."
+    ],
+    "use": [
+      "Ein fermentiertes Spinnenauge in Milch im Kessel geben; nach etwa 7,5 Minuten den Käse mit leerer Hand ernten. Er fasst 16 Scheiben und federt wie ein Bett."
+    ],
+    "secret": [
+      "Sei schnell: Käse verdirbt 1,5 Minuten nach der Reife und gibt dann nichts."
+    ]
+  },
+  "cheese_slice": {
+    "lore": [
+      "Eine Scheibe mit Löchern, und jedes Loch eine Geschichte."
+    ],
+    "use": [
+      "Mit dem Messer von einem Käseblock geschnitten. Stellt 2 Hunger und 1,2 Sättigung wieder her und ist eine Sandwichzutat."
+    ],
+    "secret": [
+      "Scheiben lösen sich nur mit dem Messer; ein angeschnittener Block behält seinen Zustand im Item."
+    ]
+  },
+  "cake_slice": {
+    "lore": [
+      "Ein Stück Feier, klein genug zum Mitnehmen."
+    ],
+    "use": [
+      "Ein Stück Kuchen. Zählt als Sandwichzutat."
+    ],
+    "secret": [
+      "Ja, ein Kuchensandwich ist erlaubt."
+    ]
+  },
+  "milk_cauldron": {
+    "lore": [
+      "Ein Kessel voller Geduld."
+    ],
+    "use": [
+      "Ein leerer Kessel, mit einem Milcheimer gefüllt. Nach vier Stufen wird Butter daraus; vorher holt ein leerer Eimer die Milch zurück. Mit SimpleLib ist es ein verstärkter Milchkessel."
+    ],
+    "secret": [
+      "Ein fermentiertes Spinnenauge macht stattdessen Käse aus der Milch."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "Ein Buch, das erzählt, wie man ein Mittagessen richtig stapelt."
+    ],
+    "use": [
+      "Das Simple-Sandwiches-Handbuch erklärt Schneidebretter, Butter, Käse und Sandwiches. Formlos aus einem Buch und einer Werkbank herstellbar."
+    ],
+    "secret": [
+      "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+    ]
+  },
+  "family:cutting_board": {
+    "lore": [
+      "{name}: ein Brett mit Aufgabe, gezeichnet von jedem Messer vor ihm."
+    ],
+    "use": [
+      "Auf einen Block stellen, Brot darauflegen und den Laib mit dem Messer öffnen; Beläge hinzufügen, dann schließen und das Sandwich mit leerer Hand abholen."
+    ],
+    "secret": [
+      "Ein Klick aufs Brett wirkt immer auf das Brett, solange du Brot, Essen, Butter oder ein Messer hältst. Mit Schleichen isst du stattdessen."
+    ],
+    "items": [
+      "regex:.*_cutting_board"
+    ]
+  }
+}

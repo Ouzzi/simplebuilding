@@ -1,0 +1,115 @@
+{
+  "sandwich": {
+    "lore": [
+      "Bread that took on a life of its own, and then a filling."
+    ],
+    "use": [
+      "Built on a cutting board: one bread plus up to five ingredients, butter first for +10%. Hunger and saturation add up; eating takes 1.6 s plus 0.2 s per ingredient. Equal ones stack to 16."
+    ],
+    "secret": [
+      "Effects of equal ingredients merge: strongest level, summed duration. Butter lengthens them, capped at twice the longest."
+    ]
+  },
+  "knife": {
+    "lore": [
+      "A knife that cuts only what is meant to be cut."
+    ],
+    "use": [
+      "Craft one stick and four iron nuggets. 250 durability, damage 2, speed 2.0, anvil repair with iron nuggets. It opens bread on a cutting board and cuts cheese, butter, melons and cakes."
+    ],
+    "secret": [
+      "With butter in the other hand it butters opened bread before the toppings go on."
+    ]
+  },
+  "butter_block": {
+    "lore": [
+      "A block that remembers being milk."
+    ],
+    "use": [
+      "Ripens from milk in a cauldron after about 2.5 minutes; harvest it with an empty hand. It holds 16 slices, cut one by one with a knife. Butter never spoils."
+    ],
+    "secret": [
+      "A matching slice restores a cut layer. Its friction is 0.9, so it is slippery underfoot."
+    ]
+  },
+  "butter_slice": {
+    "lore": [
+      "A thin slice of golden calm."
+    ],
+    "use": [
+      "Not edible. Hold a knife in one hand and the slice in the other to butter opened bread: +10% hunger, saturation and effect duration by default, one slice used."
+    ],
+    "secret": [
+      "Butter is the only ingredient that lengthens effects, up to twice the longest."
+    ]
+  },
+  "cheese_block": {
+    "lore": [
+      "A wheel of patience."
+    ],
+    "use": [
+      "Add a fermented spider eye to milk in a cauldron; after about 7.5 minutes harvest the cheese with an empty hand. It holds 16 slices and bounces like a bed."
+    ],
+    "secret": [
+      "Be quick: cheese spoils 1.5 minutes after it is ripe and gives nothing."
+    ]
+  },
+  "cheese_slice": {
+    "lore": [
+      "A slice with holes, and each hole a story."
+    ],
+    "use": [
+      "Cut with a knife from a cheese block. Restores 2 hunger and 1.2 saturation, and is a sandwich ingredient."
+    ],
+    "secret": [
+      "Slices only come off with a knife; breaking a cut block keeps its state in the item."
+    ]
+  },
+  "cake_slice": {
+    "lore": [
+      "A slice of celebration, small enough to carry."
+    ],
+    "use": [
+      "A slice of cake. It counts as a sandwich ingredient."
+    ],
+    "secret": [
+      "Yes, a cake sandwich is legal."
+    ]
+  },
+  "milk_cauldron": {
+    "lore": [
+      "A cauldron full of patience."
+    ],
+    "use": [
+      "An empty cauldron filled with a milk bucket. After four stages it becomes butter; an empty bucket gets the milk back before that. With SimpleLib it is a reinforced milk cauldron."
+    ],
+    "secret": [
+      "A fermented spider eye turns the milk to cheese instead."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "A book that tells how to stack a lunch properly."
+    ],
+    "use": [
+      "The Simple Sandwiches Guide explains cutting boards, butter, cheese and sandwiches. Craft it shapeless from a book and a crafting table."
+    ],
+    "secret": [
+      "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+    ]
+  },
+  "family:cutting_board": {
+    "lore": [
+      "{name}: a plank with a purpose, scored by every knife that came before."
+    ],
+    "use": [
+      "Place it on a block, put bread on it and open the loaf with a knife; add toppings, then close it and collect the sandwich with an empty hand."
+    ],
+    "secret": [
+      "A click on the board always acts on the board while you hold bread, food, butter or a knife. Sneak to eat instead."
+    ],
+    "items": [
+      "regex:.*_cutting_board"
+    ]
+  }
+}
