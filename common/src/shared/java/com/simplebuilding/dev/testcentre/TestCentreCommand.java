@@ -47,7 +47,7 @@ import net.minecraft.world.phys.Vec3;
  *   <li>{@code give <station> [Spieler]} - das Kit einer Station ({@link TestCentreKits}): ersetzt das
  *       Inventar, Haupt-/Nebenhand fuer die Interaktionstests, dazu alles, was die Station zeigt. So ruft
  *       der Ausgabe-Knopf vorn an jeder Station.</li>
- *   <li>{@code tp} - zum Eingang; {@code coverage} - was noch keinen Abschnitt hat.</li>
+ *   <li>{@code tp} - zum Eingang, {@code tp <anker>} zu einem benannten Platz (z. B. {@code mob/simplemobs/shellker}); {@code coverage} - was noch keinen Abschnitt hat.</li>
  * </ul>
  * Ursprung und Fingerabdruck der Planung ({@link TestCentreLayout.Plan#fingerprint}) stehen in
  * {@code simplebuilding_testcentre.txt} im Weltordner ({@code x y z fingerabdruck}).
@@ -95,7 +95,11 @@ public final class TestCentreCommand {
                             BlockPos entrance = plan(ctx.getSource().getLevel(), savedOrDefaultOrigin(ctx.getSource().getLevel())).entrance();
                             player.teleportTo(entrance.getX() + 0.5, entrance.getY(), entrance.getZ() + 0.5);
                             return 1;
-                        }))
+                        })
+                        .then(Commands.argument("anchor", StringArgumentType.greedyString())
+                                .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(
+                                        plan(ctx.getSource().getLevel(), BlockPos.ZERO).anchors().keySet(), builder))
+                                .executes(TestCentreCommand::tpAnchor)))
                 .then(Commands.literal("coverage")
                         .executes(ctx -> {
                             TestCentreLayout.Plan plan = plan(ctx.getSource().getLevel(), BlockPos.ZERO);
@@ -106,6 +110,19 @@ public final class TestCentreCommand {
                                     : TcText.t("command.coverage.missing", "Not in any section yet: %s", String.join(", ", names)).withStyle(ChatFormatting.RED), false);
                             return names.size();
                         })));
+    }
+
+    /** {@code tp <anchor>}: to a named place of the plan (e.g. a mob cell {@code mob/simplemobs/shellker}), facing south into it. */
+    private static int tpAnchor(CommandContext<CommandSourceStack> ctx) {
+        String name = StringArgumentType.getString(ctx, "anchor");
+        BlockPos at = plan(ctx.getSource().getLevel(), savedOrDefaultOrigin(ctx.getSource().getLevel())).anchors().get(name);
+        if (at == null) {
+            ctx.getSource().sendFailure(TcText.t("command.unknown_anchor", "Unknown place %s", name));
+            return 0;
+        }
+        ctx.getSource().getServer().getCommands().performPrefixedCommand(ctx.getSource(),
+                "tp @s " + (at.getX() + 0.5) + " " + at.getY() + " " + (at.getZ() + 0.5) + " 0 10");
+        return 1;
     }
 
     public static TestCentreLayout.Plan plan(ServerLevel level, BlockPos origin) {

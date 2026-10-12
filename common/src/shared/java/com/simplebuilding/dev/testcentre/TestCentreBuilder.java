@@ -145,7 +145,7 @@ public final class TestCentreBuilder {
     }
 
     /** Fuehrt Schritte aus; liefert {Schritte, Entities}. */
-    static int[] apply(ServerLevel level, List<TcOp> ops) {
+    public static int[] apply(ServerLevel level, List<TcOp> ops) {
         int count = 0;
         int entities = 0;
         for (TcOp op : ops) {

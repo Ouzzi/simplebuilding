@@ -80,6 +80,44 @@ final class EndNetherTests {
             h.assertFalse(EndNetherLogic.maySoulSpawn(false, true, true, 0, 0.0f, 0.2f), "config off");
             h.succeed();
         });
+        // Owner N45: gravity 30 s / 1 min when already heavy, 1.2x fire rate, first shot right after opening,
+        // bullets cannot be hit away or shot down during their first 2 s.
+        add.accept("shellker_n45", h -> {
+            ServerLevel l = h.getLevel();
+            h.assertTrue(EndNetherLogic.bulletEffectTicks(false) == 600 && EndNetherLogic.bulletEffectTicks(true) == 1200, "gravity 30 s, 1 min when already heavy");
+            for (int roll = 0; roll < 10; roll++) {
+                int vanilla = 20 + roll * 10;
+                h.assertTrue(Math.abs(EndNetherLogic.shotDelay(roll) * 1.2 - vanilla) < 1.0, "1.2x fire rate at roll " + roll + ": " + EndNetherLogic.shotDelay(roll));
+            }
+            h.assertTrue(EndNetherLogic.FIRST_SHOT_TICKS <= 2, "shoots almost at once after opening");
+            floor(h, 0, 0, 6, 6);
+            ShellkerEntity s = h.spawn(EndNetherMobs.SHELLKER, 1, 2, 1);
+            var pig = h.spawn(EntityTypes.PIG, 5, 2, 5);
+            pig.setNoAi(true);
+            ShellkerBullet bullet = new ShellkerBullet(l, s, pig, Direction.Axis.Y);
+            l.addFreshEntity(bullet);
+            h.assertFalse(bullet.hurtServer(l, l.damageSources().generic(), 1.0f), "a young bullet cannot be shot down");
+            h.assertTrue(bullet.isAlive(), "the young bullet survives the hit");
+            bullet.tickCount = EndNetherLogic.BULLET_SHIELD_TICKS;
+            h.assertTrue(bullet.hurtServer(l, l.damageSources().generic(), 1.0f) && !bullet.isAlive(), "after 2 s it can be shot down");
+            ShellkerBullet first = new ShellkerBullet(l, s, pig, Direction.Axis.Y);
+            first.onHitEntity(new net.minecraft.world.phys.EntityHitResult(pig));
+            var effect = pig.getEffect(EndNetherMobs.gravity());
+            h.assertTrue(effect != null && effect.getDuration() == 600, "first hit: 30 s gravity, got " + (effect == null ? 0 : effect.getDuration()));
+            pig.setInvulnerableTime(0);
+            pig.damageCooldownTime = 0;
+            ShellkerBullet second = new ShellkerBullet(l, s, pig, Direction.Axis.Y);
+            second.onHitEntity(new net.minecraft.world.phys.EntityHitResult(pig));
+            effect = pig.getEffect(EndNetherMobs.gravity());
+            h.assertTrue(effect != null && effect.getDuration() == 1200, "hit while heavy: 1 min gravity, got " + (effect == null ? 0 : effect.getDuration()));
+            l.getEntities(EndNetherMobs.SHELLKER_BULLET, e -> true).forEach(e -> e.discard());
+            s.setTarget(pig);
+            h.runAfterDelay(8, () -> {
+                h.assertFalse(s.isShut(), "opens for its target");
+                h.assertTrue(!l.getEntities(EndNetherMobs.SHELLKER_BULLET, e -> e.distanceToSqr(s) < 64).isEmpty(), "first bullet within 8 ticks of opening");
+                h.succeed();
+            });
+        });
         add.accept("shellker_shell", h -> {
             ServerLevel l = h.getLevel();
             floor(h, 0, 0, 4, 4);
