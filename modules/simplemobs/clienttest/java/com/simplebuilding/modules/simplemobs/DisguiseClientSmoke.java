@@ -52,20 +52,20 @@ public final class DisguiseClientSmoke implements FabricClientGameTest {
             context.runOnClient(mc -> mc.options.setCameraType(CameraType.FIRST_PERSON));
             context.waitTicks(10);
             context.takeScreenshot("simplemobs-disguise-hand-player");
-            context.runOnClient(mc -> mc.setScreen(new InventoryScreen(mc.player)));
+            context.runOnClient(mc -> mc.setScreenAndShow(new InventoryScreen(mc.player)));
             context.waitTicks(10);
             context.takeScreenshot("simplemobs-disguise-inventory-player");
-            context.runOnClient(mc -> mc.setScreen(null));
+            context.runOnClient(mc -> mc.setScreenAndShow(null));
             world.getServer().runOnServer(server -> {
                 ServerPlayer p = server.getPlayerList().getPlayers().getFirst();
                 Disguise.apply(p, "minecraft:zombie", new ItemStack[] {ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY});
             });
             context.waitTicks(20);
             context.takeScreenshot("simplemobs-disguise-hand-zombie");
-            context.runOnClient(mc -> mc.setScreen(new InventoryScreen(mc.player)));
+            context.runOnClient(mc -> mc.setScreenAndShow(new InventoryScreen(mc.player)));
             context.waitTicks(10);
             context.takeScreenshot("simplemobs-disguise-inventory-zombie");
-            context.runOnClient(mc -> mc.setScreen(null));
+            context.runOnClient(mc -> mc.setScreenAndShow(null));
             context.runOnClient(mc -> mc.options.setCameraType(CameraType.THIRD_PERSON_FRONT));
             world.getServer().runOnServer(server -> {
                 ServerPlayer p = server.getPlayerList().getPlayers().getFirst();
