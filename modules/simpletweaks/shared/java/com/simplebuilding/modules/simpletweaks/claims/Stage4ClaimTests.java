@@ -411,7 +411,7 @@ final class Stage4ClaimTests {
     });}
     static void boats(GameTestHelper h){modes(h,(f,enabled)->{
         var water=f.edge.east(3);f.set(water.below(),Blocks.STONE);f.set(water,Blocks.WATER);
-        var stranger=player(h,water.above(2));f.entities.add(stranger);
+        var stranger=player(h,f.edge.west(8));f.entities.add(stranger);f.owner.setPos(Vec3.atBottomCenterOf(f.edge.west(8)));
         for(var actor:List.of(stranger,f.owner)){
             actor.setPos(Vec3.atBottomCenterOf(water.above(2)));actor.setXRot(90);actor.setYRot(0);
             actor.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.OAK_BOAT));
@@ -419,7 +419,7 @@ final class Stage4ClaimTests {
             var boats=f.l.getEntitiesOfClass(net.minecraft.world.entity.vehicle.boat.AbstractBoat.class,new AABB(water).inflate(3));
             boolean allowed=!enabled||actor==f.owner;
             yes(h,boats.isEmpty()!=allowed&&actor.getMainHandItem().isEmpty()==allowed,"Actual boat placement respects claims: owner="+(actor==f.owner)+" enabled="+enabled);
-            boats.forEach(Entity::discard);
+            boats.forEach(Entity::discard);actor.setPos(Vec3.atBottomCenterOf(f.edge.west(8)));// never block the next actor's view
         }
     });}
     @SuppressWarnings({"rawtypes","unchecked"})
