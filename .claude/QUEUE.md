@@ -295,7 +295,7 @@ Audit 2026-10-09 (claude-q-audit): offene Punkte gegen claude-wave1 9c7929ff4 ge
 ## Besitzer 2026-10-04 (claude-texprop)
 - [x] Astral-/Nihil-Kolben: Variante C eingebaut (previews/kolben-C-eingebaut.png).
 - [x] Texfix-Rücksetzung: spawn_elytra, brick_snowball, alle 7 Simple-Money-Items und die 19 Mod-Verzauberungsbücher wieder auf die Fassung vor dem Textur-Audit (vanilla_style_2026_10_02.py „keep“, generate_textures.py liest hand/q1/books); Vorschau previews/texfix-ruecksetzung.png (inkl. farbreduzierter Vorschläge).
-- [ ] Texfix-Entscheidung Besitzer: 52 noch aktive Texfix-Texturen (raw_enderite, Pads, Teleporter, Chunk-Loader, Launchpads, Kupferplatten) – previews/texfix-revert-uebersicht.png, Nummern nennen; Liste: tools/textures/texfix_audit_2026_10_04.py.
+- [x] (Besitzer 12.10.: ALLE 52 bleiben wie jetzt) Texfix-Entscheidung Besitzer: 52 noch aktive Texfix-Texturen (raw_enderite, Pads, Teleporter, Chunk-Loader, Launchpads, Kupferplatten) – previews/texfix-revert-uebersicht.png, Nummern nennen; Liste: tools/textures/texfix_audit_2026_10_04.py.
 - [x] Hufeisen-Vorlage: 10 Vorschläge (previews/hufeisen-vorlage-10-vorschau.png) – Besitzer wählt. → Runde 3 (kleiner, previews/hufeisen-vorlage-runde3-vorschau.png, Branch claude-horseshoe2 aff11c2d) wartet auf Besitzerwahl. (Audit 09.10.: claude-horseshoe2: Motiv H eingebaut 24546fe2e/04a9e1e54)
 - [x] Simple-Riding-Bücher (Leaping, Tailwind): Vorschläge aus den alten SB-Büchern (previews/simpleriding-buecher-vorschau.png) – Besitzer wählt; Einbau braucht ein eigenes Buchmodell-Mapping im Modul.
 - [x] NEUES MODUL „Simple Sandwiches“ (Konzept + Fragebogen zuerst):
