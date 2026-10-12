@@ -822,6 +822,12 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt.
 - [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
 
+## Nachtrag 42 (2026-10-12, Besitzer)
+- [ ] End-Gras: wie totes Gras/tote Büsche (Vanilla dead bush / short dry grass), Farbe wie Endstein; wächst/platzierbar auf Endstein, Weltgenerierung auf den End-Inseln.
+- [ ] Death Vault: nach dem Tod 3–5 zufällige Items des letzten Todes gegen Bezahlung zurückholbar; gegen Duping gesichert (nur Items, die beim Tod verloren gingen und nicht aufgehoben wurden; einmalig je Tod, serverseitig).
+- [ ] Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst.
+- [ ] Simple Creatures umbenennen (z. B. „Simple Mob Interactions“) – Namensvorschläge vorlegen, mit Namespace-Migration.
+
 ## Nachtrag 41 (2026-10-12, Besitzer)
 - [x] Wollknäuel (ball of yarn) craftbar aus Wollblock: 1 Wolle → 2 Knäuel. (claude-n41-fix: Rezept `yarn_ball_from_wool` gab es auf 26.3 schon, #wool, alle 16 Farben; Gametest `recipes_use_any_wool_and_eight_yarn`)
 - [x] Sculk Jaw: Zähne offen dezenter; Darkness statt Blindness. (claude-n41-fix: offene Zähne kleiner, Oberseite blass; Dunkelheit mit der exponentiellen Dauer, keine Blindheit)
