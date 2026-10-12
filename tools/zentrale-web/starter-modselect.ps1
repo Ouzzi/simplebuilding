@@ -23,7 +23,7 @@ function Invoke-ModSelection {
     if (-not $py) { Write-Host "[modselect] no Python found, starting with all mods"; return }
     $pyArgs = @()
     if ($py.Name -eq 'py.exe') { $pyArgs += '-3' }
-    $pyArgs += @($script, 'apply', '--repo', $Repo, '--off', $off)
+    $pyArgs += @($script, 'apply', '--repo', $Repo, "--off=$off")  # one token: PowerShell 5.1 drops empty arguments
     $out = & $py.Source @pyArgs 2>&1
     Write-Host "[modselect] $out"
     if ($LASTEXITCODE -ne 0) { Write-Host "[modselect] failed (exit $LASTEXITCODE), starting with the previous selection" }
