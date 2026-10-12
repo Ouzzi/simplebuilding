@@ -2537,8 +2537,8 @@ PAD_STYLE_BASE = {
     "launchpad": "iron", "netherite_launchpad": "iron", "enderite_launchpad": "iron",
     "flypad_ender": "enderite", "reinforced_flypad_ender": "enderite", "stellar_flypad_ender": "enderite",
     "netherite_flypad": "netherite",
-    # Besitzer 2026-10-12: die vier Kupfer-Druckplatten (+ _active) zurueck auf die Fassung vor dem Texfix
-    # (hand/pad_res unveraendert, kein Vanilla-Stil); chunk_loader bleibt in der Rampe "copper".
+    "copper_pressure_plate": "copper", "exposed_copper_pressure_plate": "exposed_copper",
+    "weathered_copper_pressure_plate": "weathered_copper", "oxidized_copper_pressure_plate": "oxidized_copper",
 }
 
 
@@ -2558,11 +2558,6 @@ def pad_vanilla_style(tex):
             out[rel] = vanilla_style.restyle_block(src, vanilla_style.RAMPS[ramp], extra=PAD_STYLE_EXTRA)
             MAIN_TREE_ONLY.add(rel)
     return out
-
-
-# Besitzer 2026-10-12: Kupfer-Druckplatten wieder die unveraenderte Vorlage (hand/pad_res), nicht im Vanilla-Stil.
-PAD_PLATES_RESTORED = ("copper_pressure_plate", "exposed_copper_pressure_plate",
-                       "weathered_copper_pressure_plate", "oxidized_copper_pressure_plate")
 
 
 # Familien fuer die Vorschau (alle Stufen in einer Reihe, dazu die Grundplatte)
@@ -3236,9 +3231,6 @@ def build():
     tex.update(gauge_textures())
     tex.update(mod_book_textures())
     tex.update(pad_vanilla_style(tex))  # zuletzt: braucht alle Pad-Bilder
-    for name in PAD_PLATES_RESTORED:
-        tex[f"block/{name}.png"] = res_pad(name)
-        MAIN_TREE_ONLY.add(f"block/{name}.png")
     return tex
 
 

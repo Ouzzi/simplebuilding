@@ -56,7 +56,7 @@ SPECS = {
     f"{MONEY}/money_bill.png": ("keep", "money_bill.png", None),
     f"{MONEY}/raw_bill.png": ("keep", "raw_bill.png", None),
     f"{FUN}/brick_snowball.png": ("keep", "brick_snowball.png", None),
-    f"{SB}/raw_enderite.png": ("keep", "raw_enderite.png", None),  # Besitzer 2026-10-12: zurueck
+    f"{SB}/raw_enderite.png": ("restyle", "raw_enderite.png", ([R["enderite"][:9]], 0, None)),
     f"{SB}/spawn_elytra.png": ("keep", "spawn_elytra.png", None),
 }
 # Die Vanilla-Stil-Fassungen der Ruecksetzungen (Auswahl fuer eine spaetere farbreduzierte Variante):
