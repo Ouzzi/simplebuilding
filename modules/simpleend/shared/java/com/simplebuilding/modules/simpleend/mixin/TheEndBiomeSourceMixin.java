@@ -35,11 +35,13 @@ public abstract class TheEndBiomeSourceMixin {
      * a source built on the create-world screen sees a temporary registry whose holders have no network id on the
      * server (chunk packets would carry biome id -1).
      */
+    @Unique private Object simpleend$from;
+
     @Unique
     private void simpleend$resolve() {
-        if (simpleend$ash != null && simpleend$dawn != null) return;
         net.minecraft.core.Registry<Biome> biomes = EndBiomes.serverBiomes;
-        if (biomes == null) return;
+        if (biomes == null || biomes == simpleend$from) return;
+        simpleend$from = biomes;
         simpleend$ash = biomes.get(EndBiomes.ASH_VALLEY).orElse(null);
         simpleend$dawn = biomes.get(EndBiomes.DAWNLANDS).orElse(null);
     }
