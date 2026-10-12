@@ -34,7 +34,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 | Simple Loot (`simpleloot`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
 | Simple Creatures (`simplecreatures`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
 | Simple Farming (`simplefarming`) | Cloth Config | SimpleBuilding, Simple QoL (Schalter), ModMenu | – |
-| Simple Tools (`simpletools`) | Cloth Config | SimpleBuilding, Simple QoL (Schalter), ModMenu | – |
+| Simple Tools (`simpletools`) | Cloth Config | SimpleBuilding, Simple QoL (Schalter), ModMenu, Simple Money (Geldscheine als Opfer, optionaler Tag) | – |
 | Simple Movement (`simplemovement`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
 | Simple Riding (`simpleriding`) | Cloth Config | SimpleBuilding (Enderit-Hufeisen), ModMenu | simplelib |
 | Simple Sandwiches (`simplesandwiches`) | – | SimpleBuilding | simplelib |
@@ -100,6 +100,7 @@ Je eigene Config `config/<id>.json` (alte `qOL.*`-Werte werden beim ersten Start
 - **Simple Farming:** Federfall schützt Acker, Schärfe schneidet Pflanzen, Ernten mit Hacke.
 - **Simple Tools:** Haltbarkeitsbonus, Sparsamkeit-Verzauberung (ID bleibt `simplequalityoflife:thrift`), Reparatur hält
   Ambosskosten, Ofen mit Lava füllen.
+  Seit 2026-10-12: **Seelengebunden** (`simpletools:soulbound`, nur Buch: fahrender Händler 5 % für 24–32 Diamanten, End-City-Schatz 2 %; Amboss immer 35 Level, Schleifstein entfernt; bleibt beim Tod im selben Platz, Haltbarkeit danach min(aktuell, 50)) und **Todesgewölbe** (`simpletools:death_vault`, Block mit GUI: Todes-Buchführung aller Tode, nur despawnte/verbrannte/explodierte/ins Leere gefallene Todes-Drops rückkaufbar, Opfer 4 Diamanten je Rückgabe, gewichtet nach Aktualität und Wert). Plan: `docs/ai/PLAN-SOULBOUND-DEATHVAULT-2026-10-12.md`.
 - **Simple Movement:** Kriechen (`/crawl`), Autowalk, schnelles Leiterklettern/-rutschen, Frostläufer auf Pulverschnee;
   alte QoL-Tastenbelegungen werden übernommen.
 - **Simple Interfaces** übernimmt verknüpfte Behälter (Vormerken) und Shulkerkisten/Endertruhen aus dem Inventar
