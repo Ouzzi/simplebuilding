@@ -15,6 +15,8 @@ Stand claude-wave1, 26.3/shared. Nur **CrucibleScreen** (simplelib) folgt dem N1
 | QoL | LinkedPanel (Zusatzpanel an jedem Container) | generic_54.png + Fills | Scrollbalken | nein |
 
 ## Andere Screens
+Stand 2026-10-12 (claude-ui-concepts, PLAN-UI-KONZEPTE-2026-10-12.md): Oktant, Bauzauberstab, Trim-Referenz und beide Modell-Browser im Kasten-Stil; Blaupause (Papier), Guide (Buch), Config, Kreativinventar bleiben.
+
 GuideBookScreen (PNG book.png, Tabs), BlueprintScreen (Code, Papier-Optik, Code-Feld, 3D-Vorschau), OctantScreen (popup/background, viele Buttons), BuildingWandScreen (Vanilla-Buttons), TrimReferenceScreen (Scrollliste), simplemodels ModelBrowser (dunkles Code-Theme), simplevisuals ModelBrowser (Vanilla), Config-Screens (Cloth Config / AutoConfig).
 
 ## HUD/Overlays
