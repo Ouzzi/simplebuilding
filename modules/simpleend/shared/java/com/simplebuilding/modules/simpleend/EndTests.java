@@ -82,7 +82,7 @@ public final class EndTests {
             var recipes = h.getLevel().recipeAccess();
             for (EndWood w : EndWood.ALL) {
                 h.assertTrue(w.planks.defaultBlockState().is(BlockTags.PLANKS), "planks tag");
-                h.assertTrue(w.log.defaultBlockState().is(BlockTags.LOGS_THAT_BURN) && w.log.defaultBlockState().is(BlockTags.LOGS), "logs tags");
+                h.assertTrue(w.log.defaultBlockState().is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK, net.minecraft.resources.Identifier.withDefaultNamespace("logs_that_burn"))) && w.log.defaultBlockState().is(BlockTags.LOGS), "logs tags");
                 h.assertTrue(w.leaves.defaultBlockState().is(BlockTags.LEAVES), "leaves tag");
                 h.assertTrue(new ItemStack(w.boat).is(ItemTags.BOATS) && new ItemStack(w.chestBoat).is(ItemTags.CHEST_BOATS), "boat tags");
                 h.assertTrue(new ItemStack(w.itemIds.get(w.id("W_sign"))).is(ItemTags.SIGNS), "sign tag");

@@ -141,7 +141,7 @@ public final class EndWood {
                 wallOf(hangingSign).mapColor(barkColor).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).ignitedByLava());
         leaves = block(id("W_leaves"), p -> new TintedParticleLeavesBlock(0.01F, p),
                 Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion()
-                        .isValidSpawn((s, g, p2, e) -> false).isSuffocating((s, g, p2) -> false).isViewBlocking((s, g, p2) -> false)
+                        .isValidSpawn((s, g, p2, e) -> false).isSuffocating((s, g, p2) -> false)
                         .ignitedByLava().pushReaction(PushReaction.POPPED).isRedstoneConductor((s, g, p2) -> false));
         bud = block(budName, p -> new EndBudBlock(name, p),
                 Properties.of().mapColor(MapColor.COLOR_PURPLE).noCollision().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.POPPED));
