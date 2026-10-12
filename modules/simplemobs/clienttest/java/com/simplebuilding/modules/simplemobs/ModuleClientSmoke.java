@@ -83,7 +83,10 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             // Shellker closed (bedrock disguise) next to an open one with its slit and eye, a real bedrock block for comparison
             world.getServer().runOnServer(server -> {
                 var level = server.getLevel(net.minecraft.world.level.Level.OVERWORLD);
-                level.getEntities(MobsRegistry.HOLLOW_HOWLER, e -> true).forEach(e -> e.discard());
+                // Clear every earlier mob (the Deceiver, anything the shriek hurt) so no tinted body sits in the shot
+                var others = new java.util.ArrayList<net.minecraft.world.entity.Entity>();
+                level.getAllEntities().forEach(e -> { if (!(e instanceof net.minecraft.world.entity.player.Player)) others.add(e); });
+                others.forEach(net.minecraft.world.entity.Entity::discard);
                 var p = server.getPlayerList().getPlayers().getFirst();
                 var at = p.blockPosition().offset(0, 0, 3);
                 for (int dx = -2; dx <= 2; dx++) level.setBlockAndUpdate(at.offset(dx, 0, 0), net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
