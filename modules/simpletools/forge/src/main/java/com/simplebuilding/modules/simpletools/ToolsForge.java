@@ -10,6 +10,17 @@ public final class ToolsForge {
     public ToolsForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simpletools.forge.ModuleForgeTests.register(context.getModBusGroup());
         SimpleTools.configDir = net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get();
         SimpleTools.load();
+        net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(e -> {
+            var key = e.getRegistryKey();
+            if (key.equals(net.minecraft.core.registries.Registries.BLOCK)) ToolsRegistry.registerBlocks();
+            if (key.equals(net.minecraft.core.registries.Registries.ITEM)) ToolsRegistry.registerItems();
+            if (key.equals(net.minecraft.core.registries.Registries.MENU)) ToolsRegistry.registerMenus();
+        });
+        net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
+            if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS))
+                ToolsRegistry.tabStacks().forEach(st -> e.getEntries().put(st, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        });
+        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) ToolsForgeClient.init(context);
         net.minecraftforge.event.RegisterCommandsEvent.BUS.addListener(e -> ToolsCommands.register(e.getDispatcher()));
         InteractionGuard.permission = (p, pos) -> {
             var event = new net.minecraftforge.event.level.BlockEvent.BreakEvent(p.level(), pos, p.level().getBlockState(pos), p, net.minecraftforge.common.util.Result.DEFAULT);

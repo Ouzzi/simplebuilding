@@ -15,5 +15,19 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void furnaceLava(GameTestHelper h){ToolsTests.furnaceLava(h);}
  @GameTest(maxTicks=100) public void permissionsSpam(GameTestHelper h){ToolsTests.permissionsSpam(h);}
  @GameTest(maxTicks=100) public void crossMod(GameTestHelper h){ToolsTests.crossMod(h);}
+ @GameTest(maxTicks=100) public void soulboundRegistered(GameTestHelper h){DeathTests.soulboundRegistered(h);}
+ @GameTest(maxTicks=100) public void soulboundDeath(GameTestHelper h){DeathTests.soulboundDeath(h);}
+ @GameTest(maxTicks=100) public void soulboundSwitch(GameTestHelper h){DeathTests.soulboundSwitch(h);}
+ @GameTest(maxTicks=100) public void durabilityCap(GameTestHelper h){DeathTests.durabilityCap(h);}
+ @GameTest(maxTicks=100) public void soulboundAnvil(GameTestHelper h){DeathTests.soulboundAnvil(h);}
+ @GameTest(maxTicks=100) public void soulboundGrindstone(GameTestHelper h){DeathTests.soulboundGrindstone(h);}
+ @GameTest(maxTicks=100) public void soulboundSources(GameTestHelper h){DeathTests.soulboundSources(h);}
+ @GameTest(maxTicks=100) public void vaultLying(GameTestHelper h){DeathTests.vaultLying(h);}
+ @GameTest(maxTicks=100) public void vaultLost(GameTestHelper h){DeathTests.vaultLost(h);}
+ @GameTest(maxTicks=100) public void vaultTaken(GameTestHelper h){DeathTests.vaultTaken(h);}
+ @GameTest(maxTicks=100) public void vaultPvp(GameTestHelper h){DeathTests.vaultPvp(h);}
+ @GameTest(maxTicks=100) public void vaultWeights(GameTestHelper h){DeathTests.vaultWeights(h);}
+ @GameTest(maxTicks=100) public void vaultDupe(GameTestHelper h){DeathTests.vaultDupe(h);}
+ @GameTest(maxTicks=100) public void vaultPersistence(GameTestHelper h){DeathTests.vaultPersistence(h);}
  // CAT-END
 }

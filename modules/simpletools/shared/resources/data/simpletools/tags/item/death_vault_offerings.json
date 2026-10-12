@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:diamond",
+    {
+      "id": "simplemoney:money_bill",
+      "required": false
+    }
+  ]
+}

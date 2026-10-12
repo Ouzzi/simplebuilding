@@ -4,7 +4,8 @@
   "package": "com.simplebuilding.modules.simpletools.forge.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "RegistryLoadTaskMixin"
+    "RegistryLoadTaskMixin",
+    "ReloadableServerRegistriesMixin"
   ],
   "injectors": {
     "defaultRequire": 1

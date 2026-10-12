@@ -8,6 +8,18 @@ public final class ToolsNeoForge {
         SimpleTools.configDir = net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get();
         SimpleTools.load();
         ModuleNeoTests.register(bus);
+        bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e) -> {
+            var key = e.getRegistryKey();
+            if (key.equals(net.minecraft.core.registries.Registries.BLOCK)) ToolsRegistry.registerBlocks();
+            if (key.equals(net.minecraft.core.registries.Registries.ITEM)) ToolsRegistry.registerItems();
+            if (key.equals(net.minecraft.core.registries.Registries.MENU)) ToolsRegistry.registerMenus();
+        });
+        bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e) -> {
+            if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS))
+                ToolsRegistry.tabStacks().forEach(st -> e.accept(st, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        });
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.LootTableLoadEvent e) -> ToolsLoot.apply(
+                net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, e.getName()), pool -> e.getTable().addPool(pool.build()), e.getRegistries()));
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.RegisterCommandsEvent e) -> ToolsCommands.register(e.getDispatcher()));
         var game = net.neoforged.neoforge.common.NeoForge.EVENT_BUS;
         InteractionGuard.permission = (p, pos) -> !game.post(new net.neoforged.neoforge.event.level.block.BreakBlockEvent(p.level(), pos, p.level().getBlockState(pos), p)).isCanceled();

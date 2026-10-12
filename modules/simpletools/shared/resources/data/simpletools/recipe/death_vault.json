@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "O": "minecraft:obsidian",
+    "E": "minecraft:ender_eye",
+    "S": "#minecraft:soul_fire_base_blocks",
+    "C": "minecraft:chest"
+  },
+  "pattern": [
+    "OEO",
+    "SCS",
+    "OOO"
+  ],
+  "result": {
+    "id": "simpletools:death_vault"
+  }
+}
