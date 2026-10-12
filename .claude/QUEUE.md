@@ -814,7 +814,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 44 (2026-10-12, Besitzer)
 - [ ] Astral- und Nihilith-Lampen: neue Texturen fast wie Kupferlampe, aber End-Version (Referenz docs/ai/refs/n44/end_lamp_ref.png). Hinweis: Lampen wurden in Nachtrag 36 entfernt → wieder einführen als Lampe ihrer Redstone-Linie (an/aus wie Kupferlampe), Migration der Alt-Ids anpassen. Erst 3 Textur-Vorschläge.
-- [ ] Neue End-Holzart (grau, leicht braun, blass), alle Holzblöcke (Stamm, entrindet, Holz, Bretter, Treppe, Stufe, Zaun, Tor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Boot/Kistenboot, Blätter?), eigenes End-Design. Quelle: neue Blume (Knospe), mit Knochenmehl auf Endstein, braucht Licht: hell → mächtiger großer End-Baum; dunkel → schmales hohes End-Gestrüpp (Stöcke als Holz). Wächst im End. Erst Textur-Vorschläge + Baumformen. Im End natürlich schmal, chorusartig; neues Biom (Chorus, End-Gras/Büsche, Knospen), Tint grau-braun. Konzept: docs/ai/KONZEPT-ENDHOLZ-BIOM-2026-10-12.md (Lücken offen).
+- [x] (claude-simple-end: Aschholz/Dämmerholz, Knospen, Bäume, Biome Aschental/Dämmerlande, Modul simpleend) Neue End-Holzart (grau, leicht braun, blass), alle Holzblöcke (Stamm, entrindet, Holz, Bretter, Treppe, Stufe, Zaun, Tor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Boot/Kistenboot, Blätter?), eigenes End-Design. Quelle: neue Blume (Knospe), mit Knochenmehl auf Endstein, braucht Licht: hell → mächtiger großer End-Baum; dunkel → schmales hohes End-Gestrüpp (Stöcke als Holz). Wächst im End. Erst Textur-Vorschläge + Baumformen. Im End natürlich schmal, chorusartig; neues Biom (Chorus, End-Gras/Büsche, Knospen), Tint grau-braun. Konzept: docs/ai/KONZEPT-ENDHOLZ-BIOM-2026-10-12.md (Lücken offen).
 
 ## Nachtrag 43 (2026-10-12, Besitzer)
 - [ ] Testzentrale: alle Mods-Mobs testbar (Spawner/Spawn-Eier + passende Umgebung je Mob); Shellker mit End-Gateway-Struktur an einer Stelle. (claude-testcenter-mobs)
@@ -824,7 +824,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Shellker: Besitzer hat ihn noch nicht gesehen → Screenshot nach Testzentrale-Umbau.
 
 ## Nachtrag 42 (2026-10-12, Besitzer)
-- [ ] End-Gras: wie totes Gras/tote Büsche (Vanilla dead bush / short dry grass), Farbe wie Endstein; wächst/platzierbar auf Endstein, Weltgenerierung auf den End-Inseln.
+- [x] (claude-simple-end: end_grass/end_bush in simpleend, Biom-Tint) End-Gras: wie totes Gras/tote Büsche (Vanilla dead bush / short dry grass), Farbe wie Endstein; wächst/platzierbar auf Endstein, Weltgenerierung auf den End-Inseln.
 - [ ] Death Vault (NUR KONZEPT, nicht umsetzen): nach dem Tod 3–5 zufällige Items des letzten Todes gegen Bezahlung zurückholbar; gegen Duping gesichert (nur Items, die beim Tod verloren gingen und nicht aufgehoben wurden; einmalig je Tod, serverseitig).
 - [ ] Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst.
 - [ ] Simple Creatures umbenennen in „Simple Mob Manners“ (Besitzer-Wahl 12.10.), Id simplemobmanners, mit Namespace-/Config-Migration (simplecreatures → simplemobmanners), Zentrale/Wiki/Lang anpassen.

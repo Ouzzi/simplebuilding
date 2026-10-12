@@ -34,7 +34,7 @@ public abstract class BlockTransformerMixin {
         BlockState stripped = EndRegistry.stripped(level.getBlockState(pos));
         if (stripped == null) return;
         Player player = context.getPlayer();
-        level.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.playSound(player, pos, SoundEvents.AXE_STRIP.value(), SoundSource.BLOCKS, 1.0F, 1.0F);
         level.setBlock(pos, stripped, 11);
         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, stripped));
         if (player != null) stack.hurtAndBreak(1, player, context.getHand().asEquipmentSlot());
