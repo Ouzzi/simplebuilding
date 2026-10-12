@@ -800,7 +800,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
 
 ## Nachtrag 46 (2026-10-12, Besitzer; Screenshot docs/ai/refs/n44/n46_inventar.png)
-- [ ] Hollow Howler (Tiefenheuler): etwas stärker als der Warden, hält den Spieler auf Trab (mehr Druck/Abwechslung im Kampf).
+- [x] Hollow Howler (Tiefenheuler): etwas stärker als der Warden, hält den Spieler auf Trab (mehr Druck/Abwechslung im Kampf). (claude-howler4: 550 HP/8 Rüstung, Schockwelle/Ansturm/Ranken mit Ankündigung)
 - [ ] Farbkasten: nur die Basis-Stufe hat die neue Textur (B4) → verstärkt/Netherit/Enderit im gleichen Stil angleichen.
 - [ ] Fragentisch (questionary table): wirkt zu „modded“ → Vorschläge, vanillanäher.
 - [ ] Astral- und Nihil-Gewölbe (vault): wirken gar nicht Vanilla → an Vanilla-Vault/Trial-Stil angleichen (Vorschläge).
