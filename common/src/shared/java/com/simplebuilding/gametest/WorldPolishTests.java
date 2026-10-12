@@ -185,8 +185,9 @@ public final class WorldPolishTests {
     }
 
     /**
-     * Who stands on a tier chest boat stays on its deck ({@code TieredChestBoat#keepDeckStandersOnTop}): an armor stand
-     * sunk a little into the boat's top is lifted back onto it and keeps the ground; a riding passenger is left alone.
+     * A tier chest boat floating in still water keeps its height on the 1/4096 grid of the move packets
+     * ({@code TieredChestBoat#tick}), so the client's deck lies exactly where the server's does and a player standing on it
+     * is not set back by the server.
      */
     public static void standersStayOnTheChestBoatDeck(GameTestHelper helper) {
         if (!McVersion.TIERED_VEHICLES || com.simplebuilding.entity.ModEntities.ENDERITE_CHEST_BOAT == null) {
@@ -195,22 +196,20 @@ public final class WorldPolishTests {
         }
         for (int x = 0; x < 5; x++) {
             for (int z = 0; z < 5; z++) {
-                helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
+                helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
+                helper.setBlock(new BlockPos(x, 1, z), Blocks.WATER);
+                helper.setBlock(new BlockPos(x, 2, z), Blocks.WATER);
             }
         }
         ServerLevel level = helper.getLevel();
         var boat = com.simplebuilding.entity.ModEntities.ENDERITE_CHEST_BOAT.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
-        Vec3 at = helper.absoluteVec(new Vec3(2.5, 2.0, 2.5));
+        Vec3 at = helper.absoluteVec(new Vec3(2.5, 2.6123, 2.5));
         boat.setPos(at.x, at.y, at.z);
         level.addFreshEntity(boat);
-        double deck = boat.getBoundingBox().maxY;
-        var stand = new net.minecraft.world.entity.decoration.ArmorStand(level, at.x, deck - 0.06, at.z);
-        level.addFreshEntity(stand);
-        helper.runAfterDelay(5, () -> {
-            double top = boat.getBoundingBox().maxY;
-            helper.assertTrue(Math.abs(stand.getY() - top) < 1.0E-6,
-                    "the armor stand is not on the deck: y " + stand.getY() + ", deck " + top);
-            helper.assertTrue(stand.onGround(), "the armor stand on the deck has no ground");
+        helper.runAfterDelay(40, () -> {
+            double grid = boat.getY() * com.simplebuilding.entity.vehicle.TieredChestBoat.PACKET_GRID;
+            helper.assertTrue(boat.isInWater() || boat.getY() > at.y - 1.0, "the boat sank: " + boat.getY());
+            helper.assertTrue(grid == Math.rint(grid), "the boat height " + boat.getY() + " is off the packet grid");
             helper.succeed();
         });
     }
