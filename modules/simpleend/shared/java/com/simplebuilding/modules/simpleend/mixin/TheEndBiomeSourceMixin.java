@@ -45,8 +45,19 @@ public abstract class TheEndBiomeSourceMixin {
         }
     }
 
+    /** A preset-built source (new world) has no registry behind its holders: take the running server's. */
+    @Unique
+    private void simpleend$resolve() {
+        if (simpleend$ash != null && simpleend$dawn != null) return;
+        net.minecraft.core.Registry<Biome> biomes = EndBiomes.serverBiomes;
+        if (biomes == null) return;
+        simpleend$ash = biomes.get(EndBiomes.ASH_VALLEY).orElse(null);
+        simpleend$dawn = biomes.get(EndBiomes.DAWNLANDS).orElse(null);
+    }
+
     @Inject(method = "collectPossibleBiomes", at = @At("RETURN"), cancellable = true)
     private void simpleend$possible(CallbackInfoReturnable<Stream<Holder<Biome>>> cir) {
+        simpleend$resolve();
         if (simpleend$ash == null && simpleend$dawn == null) return;
         cir.setReturnValue(Stream.concat(cir.getReturnValue(), Stream.of(simpleend$ash, simpleend$dawn).filter(Objects::nonNull)));
     }
@@ -55,6 +66,7 @@ public abstract class TheEndBiomeSourceMixin {
     private void simpleend$patches(int quartX, int quartY, int quartZ, Climate.Sampler sampler, CallbackInfoReturnable<Holder<Biome>> cir) {
         Holder<Biome> result = cir.getReturnValue();
         if (result != highlands && result != midlands) return;
+        simpleend$resolve();
         if (simpleend$ash == null || simpleend$dawn == null || !SimpleEndConfig.biomes || !SimpleEnd.on()) return;
         int chunkX = SectionPos.blockToSectionCoord(QuartPos.toBlock(quartX));
         int chunkZ = SectionPos.blockToSectionCoord(QuartPos.toBlock(quartZ));

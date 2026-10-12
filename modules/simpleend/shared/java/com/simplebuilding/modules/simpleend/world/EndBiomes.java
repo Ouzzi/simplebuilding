@@ -25,7 +25,14 @@ public final class EndBiomes {
         double at(int blockX, int blockZ);
     }
 
+    /** Biome registry of the running server, set when it starts (before levels are created). */
+    public static volatile net.minecraft.core.Registry<Biome> serverBiomes;
+
     private EndBiomes() {}
+
+    public static void serverStarting(net.minecraft.server.MinecraftServer server) {
+        serverBiomes = server.registryAccess().lookupOrThrow(Registries.BIOME);
+    }
 
     public static int pick(int chunkX, int chunkZ, Noise noise, double chance) {
         int cellX = Math.floorDiv(chunkX, CELL), cellZ = Math.floorDiv(chunkZ, CELL);
