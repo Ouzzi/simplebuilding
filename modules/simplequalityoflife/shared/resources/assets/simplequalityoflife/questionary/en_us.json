@@ -1,0 +1,13 @@
+{
+  "guide_book": {
+    "lore": [
+      "A short book that knows the small comfort features of the QoL sub-mods."
+    ],
+    "use": [
+      "The Simple Quality of Life Guide explains the small comfort features of the QoL sub-mods. Craft it shapeless from a book and a crafting table."
+    ],
+    "secret": [
+      "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+    ]
+  }
+}
