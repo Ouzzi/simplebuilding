@@ -20,6 +20,7 @@ public final class SimpleEndFabric implements ModInitializer {
         EndRegistry.sounds();
         EndRegistry.tab();
         EndRegistry.common();
+        net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry.register(EndRegistry.NIBBLEMITE, com.simplebuilding.modules.simpleend.entity.Nibblemite.createAttributes());
         if (FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplebuilding.modules.simpleend.guide.EndGuide.installQuests(FabricLoader.getInstance().getConfigDir());
         ServerLifecycleEvents.SERVER_STARTING.register(server -> { SimpleEnd.applySubSwitches(); com.simplebuilding.modules.simpleend.world.EndBiomes.serverStarting(server); });
         // Nachtrag 42: sparse End grass on the Vanilla outer islands too (NeoForge/Forge: biome_modifier JSON).

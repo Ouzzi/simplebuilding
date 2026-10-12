@@ -44,7 +44,9 @@ public final class EndRegistry {
     public static final TagKey<Item> VOID_SAFE = TagKey.create(Registries.ITEM, SimpleEnd.id("void_safe"));
     public static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, SimpleEnd.id("main"));
 
-    public static Block END_GRASS, END_BUSH;
+    public static Block END_GRASS, END_BUSH, BURROWED_END_STONE;
+    public static net.minecraft.world.entity.EntityType<com.simplebuilding.modules.simpleend.entity.Nibblemite> NIBBLEMITE;
+    public static Item NIBBLEMITE_EGG, BURROWED_END_STONE_ITEM;
     public static Item END_GRASS_ITEM, END_BUSH_ITEM, DRIFT_FRUIT;
     public static SoundEvent MUSIC_ASH_VALLEY, MUSIC_DAWNLANDS;
     /** Log -> stripped log (axe), filled in {@link #common()}. */
@@ -68,7 +70,20 @@ public final class EndRegistry {
         END_GRASS = block("end_grass", p -> new EndPlantBlock(false, p), plant);
         END_BUSH = block("end_bush", p -> new EndPlantBlock(true, p), Properties.of().mapColor(MapColor.WOOD).replaceable().noCollision()
                 .instabreak().sound(SoundType.GRASS).ignitedByLava().pushReaction(PushReaction.POPPED));
+        BURROWED_END_STONE = block("burrowed_end_stone", com.simplebuilding.modules.simpleend.block.BurrowedEndStoneBlock::new,
+                Properties.of().mapColor(MapColor.SAND).instrument(net.minecraft.world.level.block.state.properties.NoteBlockInstrument.BASEDRUM)
+                        .requiresCorrectToolForDrops().strength(3.0F, 9.0F).randomTicks());
         EndWood.ALL.forEach(EndWood::blocks);
+    }
+
+    public static net.minecraft.world.entity.EntityType<com.simplebuilding.modules.simpleend.entity.Nibblemite> nibblemite() {
+        if (NIBBLEMITE == null) {
+            NIBBLEMITE = net.minecraft.world.entity.EntityType.Builder.<com.simplebuilding.modules.simpleend.entity.Nibblemite>of(
+                            com.simplebuilding.modules.simpleend.entity.Nibblemite::new, net.minecraft.world.entity.MobCategory.CREATURE)
+                    .sized(0.32F, 0.24F).eyeHeight(0.1F).clientTrackingRange(8)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, SimpleEnd.id("nibblemite")));
+        }
+        return NIBBLEMITE;
     }
 
     public static void items() {
@@ -77,6 +92,8 @@ public final class EndRegistry {
         END_BUSH_ITEM = item("end_bush", p -> new BlockItem(END_BUSH, p), new Item.Properties().useBlockDescriptionPrefix()
                 .cookingFuel(ContextIntProviders.COOKING_TIME_DRY_PLANTS));
         EndWood.ALL.forEach(EndWood::items);
+        BURROWED_END_STONE_ITEM = item("burrowed_end_stone", p -> new BlockItem(BURROWED_END_STONE, p), new Item.Properties().useBlockDescriptionPrefix());
+        NIBBLEMITE_EGG = item("nibblemite_spawn_egg", p -> new net.minecraft.world.item.SpawnEggItem(p), new Item.Properties().spawnEgg(nibblemite()));
         com.simplebuilding.modules.simpleend.guide.EndGuide.register();
         // Schwebfrucht: 4 s Slow Falling plus a small hop (DriftFruitItem), always edible like chorus fruit.
         DRIFT_FRUIT = item("drift_fruit", DriftFruitItem::new, new Item.Properties().food(
@@ -88,6 +105,7 @@ public final class EndRegistry {
 
     public static void entities() {
         EndWood.ALL.forEach(EndWood::entities);
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, SimpleEnd.id("nibblemite"), nibblemite());
     }
 
     public static void featureTypes() {
@@ -117,6 +135,8 @@ public final class EndRegistry {
         out.add(new ItemStack(END_GRASS_ITEM));
         out.add(new ItemStack(END_BUSH_ITEM));
         out.add(new ItemStack(DRIFT_FRUIT));
+        out.add(new ItemStack(BURROWED_END_STONE_ITEM));
+        out.add(new ItemStack(NIBBLEMITE_EGG));
         if (com.simplebuilding.modules.simpleend.guide.EndGuide.book() != null) out.add(com.simplebuilding.modules.simpleend.guide.EndGuide.stack());
         return out;
     }

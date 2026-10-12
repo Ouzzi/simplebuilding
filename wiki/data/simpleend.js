@@ -153,7 +153,7 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "summary": "Two End biomes on the outer islands (never on the dragon island): round patches 3-6 chunks across replace parts of the End highlands/midlands. Ash Valley grows Ashwood, Dawnlands Duskwood.",
         "details": [
           "Each holds narrow chorus-like natural trees, grown big trees, stick scrub, End grass, bushes and buds; chorus is rarer than the scrub. Return gateways and End cities still appear.",
-          "Own fog and sky colour, ash (Ash Valley) or drifting spores (Dawnlands) and their own music; no mobs spawn there yet.",
+          "Own fog and sky colour, ash (Ash Valley) or drifting spores (Dawnlands) and their own music; the only mob is the passive Nibblemite.",
           "Config biomes switches the patches off for new chunks, biomeChance sets how many 12x12-chunk areas hold a patch (default 0.4)."
         ]
       },
@@ -162,8 +162,35 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "summary": "Zwei End-Biome auf den äußeren Inseln (nie auf der Dracheninsel): runde Flecken mit 3-6 Chunks Durchmesser ersetzen Teile der End-Highlands/-Midlands. Im Aschental wächst Aschholz, in den Dämmerlanden Dämmerholz.",
         "details": [
           "Darin stehen schmale chorusartige Naturbäume, ausgewachsene große Bäume, Stöcke-Gestrüpp, End-Gras, Büsche und Knospen; Chorus ist seltener als das Gestrüpp. Rückkehr-Portale und End-Städte erscheinen weiterhin.",
-          "Eigene Nebel- und Himmelsfarbe, Asche (Aschental) bzw. schwebende Sporen (Dämmerlande) und eigene Musik; Mobs spawnen dort noch keine.",
+          "Eigene Nebel- und Himmelsfarbe, Asche (Aschental) bzw. schwebende Sporen (Dämmerlande) und eigene Musik; einziger Mob ist die friedliche Knabbermilbe.",
           "Config biomes schaltet die Flecken für neue Chunks ab, biomeChance legt fest, wie viele 12x12-Chunk-Felder einen Fleck haben (Standard 0,4)."
+        ]
+      }
+    },
+    {
+      "id": "nibblemite",
+      "sources": [
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/entity/Nibblemite.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/block/BurrowedEndStoneBlock.java"
+      ],
+      "en": {
+        "title": "Nibblemite",
+        "summary": "A small, passive Endermite kin that lives in Ash Valley and Dawnlands in groups of 2-4, coloured after its biome (pale grey with lavender, taupe with rose). It nibbles End stone like sheep graze: the block under it becomes Burrowed End Stone, which turns back into End stone after a few minutes.",
+        "details": [
+          "Never hurts players, flees when hit; it is no Endermite, so Endermen leave it alone.",
+          "Chorus fruit (also popped) tempts it and breeds two; the young keep a parent's colouring and grow faster while nibbling.",
+          "Drops 0-1 chorus fruit (more with Looting). Burrowed End Stone mines and drops like End stone.",
+          "The only mob of the two biomes for now; it spawns there like Vanilla animals when the chunks are created."
+        ]
+      },
+      "de": {
+        "title": "Knabbermilbe",
+        "summary": "Eine kleine, friedliche Verwandte der Endermilbe, die in Gruppen von 2-4 im Aschental und in den Dämmerlanden lebt, gefärbt nach ihrem Biom (blassgrau mit Lavendel, taupe mit Rosa). Sie knabbert Endstein an wie Schafe Gras: der Block unter ihr wird zu durchwühltem Endstein, der nach einigen Minuten wieder zu Endstein wird.",
+        "details": [
+          "Greift Spieler nie an und flieht, wenn sie getroffen wird; sie ist keine Endermilbe, Endermen lassen sie in Ruhe.",
+          "Chorusfrucht (auch geplatzte) lockt sie an und lässt zwei Junge zeugen; Junge behalten die Färbung eines Elternteils und wachsen beim Knabbern schneller.",
+          "Droppt 0-1 Chorusfrucht (mehr mit Plünderung). Durchwühlter Endstein wird abgebaut und droppt wie Endstein.",
+          "Vorerst der einzige Mob der beiden Biome; er erscheint dort wie Vanilla-Tiere beim Erzeugen der Chunks."
         ]
       }
     },
@@ -1588,6 +1615,22 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_wood.json"
     },
     {
+      "id": "simpleend:blocks/burrowed_end_stone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:end_stone"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/burrowed_end_stone.json"
+    },
+    {
       "id": "simpleend:blocks/dusk_bud",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -2004,6 +2047,22 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         }
       ],
       "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/stripped_duskwood_wood.json"
+    },
+    {
+      "id": "simpleend:entities/nibblemite",
+      "kind": "entities",
+      "type": "minecraft:entity",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:chorus_fruit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/entities/nibblemite.json"
     }
   ],
   "tags": [
@@ -2036,6 +2095,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       "values": [
         {
           "id": "minecraft:end_stone",
+          "required": true
+        },
+        {
+          "id": "simpleend:burrowed_end_stone",
           "required": true
         },
         {
@@ -2074,6 +2137,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       "values": [
         {
           "id": "minecraft:end_stone",
+          "required": true
+        },
+        {
+          "id": "simpleend:burrowed_end_stone",
           "required": true
         },
         {
@@ -2398,16 +2465,58 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "modules/simpleend/shared/resources/data/simpleend/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + chorus fruit. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End\" gives one for free."
+          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + chorus fruit. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Chorusfrucht. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End\" eins."
+          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Chorusfrucht. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End\" eins."
         }
       },
       "texture": "assets/textures/simpleend/item/guide_book.png",
       "craftedBy": [
         "simpleend:guide_book"
       ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:nibblemite_spawn_egg",
+      "name": {
+        "en_us": "Nibblemite Spawn Egg",
+        "de_de": "Knabbermilben-Spawn-Ei"
+      },
+      "note": {
+        "en": {
+          "summary": "Spawns a Nibblemite, the passive End-stone nibbler of Ash Valley and Dawnlands."
+        },
+        "de": {
+          "summary": "Erzeugt eine Knabbermilbe, die friedliche Endstein-Knabberin von Aschental und Dämmerlande."
+        }
+      },
+      "texture": "assets/textures/simpleend/item/nibblemite_spawn_egg.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Nibblemites live in small groups in Ash Valley and the Dawnlands and wear the colours of their biome."
+          ],
+          "use": [
+            "They nibble End stone like sheep graze; the stone recovers by itself. Chorus fruit tempts and breeds them."
+          ],
+          "secret": [
+            "Endermen ignore them - a Nibblemite is no Endermite."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Knabbermilben leben in kleinen Gruppen im Aschental und in den Dämmerlanden und tragen die Farben ihres Bioms."
+          ],
+          "use": [
+            "Sie knabbern Endstein an wie Schafe Gras; der Stein erholt sich von selbst. Chorusfrucht lockt sie an und lässt sie Junge bekommen."
+          ],
+          "secret": [
+            "Endermen ignorieren sie - eine Knabbermilbe ist keine Endermilbe."
+          ]
+        }
+      },
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -2663,6 +2772,41 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       "craftedBy": [
         "simpleend:ashwood_wood"
       ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:burrowed_end_stone",
+      "name": {
+        "en_us": "Burrowed End Stone",
+        "de_de": "Durchwühlter Endstein"
+      },
+      "note": {
+        "en": {
+          "summary": "End stone nibbled by a Nibblemite; turns back into End stone after a few minutes."
+        },
+        "de": {
+          "summary": "Von einer Knabbermilbe angeknabberter Endstein; wird nach einigen Minuten wieder zu Endstein."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "End stone with a Nibblemite's tracks on top."
+          ],
+          "use": [
+            "Mines and drops like End stone; left alone it turns back into End stone after a few minutes."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Endstein mit den Spuren einer Knabbermilbe."
+          ],
+          "use": [
+            "Wird abgebaut und droppt wie Endstein; in Ruhe gelassen wird er nach einigen Minuten wieder zu Endstein."
+          ]
+        }
+      },
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -3116,14 +3260,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
   ],
   "incompleteProse": {},
   "counts": {
-    "features": 7,
+    "features": 8,
     "recipes": 33,
-    "lootTables": 40,
+    "lootTables": 42,
     "tags": 7,
     "advancements": 0,
     "enchantments": 0,
-    "items": 6,
-    "blocks": 44,
+    "items": 7,
+    "blocks": 45,
     "trades": 0,
     "config": 0,
     "quests": 0,

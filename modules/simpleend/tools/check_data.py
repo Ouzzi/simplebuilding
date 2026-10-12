@@ -54,3 +54,9 @@ for f in manual['features']:
 for biome in ('ash_valley', 'dawnlands'):
     assert find(f'data/{NS}/worldgen/biome/{biome}.json'), biome
 print(f'{NS}: {len(items)} item models, textures, lang EN/DE, config and wiki valid')
+for biome in ('ash_valley', 'dawnlands'):
+    data = json.loads((MODULE / f'generated/resources/data/{NS}/worldgen/biome/{biome}.json').read_text(encoding='utf-8'))
+    creatures = data['attributes']['minecraft:gameplay/natural_mob_spawns']['argument']['spawns_by_category']['creature']
+    assert [c['type'] for c in creatures] == [f'{NS}:nibblemite'], (biome, creatures)
+assert find(f'data/{NS}/loot_table/entities/nibblemite.json') and find(f'assets/{NS}/textures/entity/nibblemite/ash.png')
+print(f'{NS}: Nibblemite spawns in both biomes')

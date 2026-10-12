@@ -905,6 +905,11 @@ public final class FeatureStations {
         chest.add(new ItemStack(Items.BONE_MEAL, 64));
         chest.add(new ItemStack(Items.IRON_AXE));
         chest.add(new ItemStack(Items.SHEARS));
+        for (String id : new String[] {"nibblemite_spawn_egg", "burrowed_end_stone"}) {
+            Item it = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", id));
+            if (it != Items.AIR) chest.add(new ItemStack(it, 16));
+        }
+        chest.add(new ItemStack(Items.CHORUS_FRUIT, 32));
         c.place(21, 0, 9, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
         c.contents(21, 0, 9, chest);
         c.title(0, 3, wallZ, TcText.t("section.simpleend", "Simple End"),

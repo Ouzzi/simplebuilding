@@ -449,6 +449,87 @@ def boat_entity(mask, s, chest):
     return out
 
 
+# ---------------------------------------------------------------- stage 9: Nibblemite and Burrowed End Stone
+
+STONE = ramp('8f8c5f', 'b4b27a', 'cfcd91', 'dddca1', 'e9e8b4')
+
+
+def burrowed_top():
+    """End stone nibbled from above: pale end-stone grain, winding dark grooves and pale crumbs."""
+    im = new()
+    for y in range(16):
+        for x in range(16):
+            t = 0.55 + 0.35 * vnoise(x, y, 4, 71) + (0.12 if hsh(x, y, 72) > 0.85 else 0)
+            put(im, x, y, STONE[min(4, max(1, int(t * 5)))])
+    grooves = [[(1, 3), (2, 3), (3, 4), (4, 4), (5, 5), (6, 5), (7, 5), (8, 6)],
+               [(9, 2), (10, 3), (10, 4), (11, 5), (12, 5), (13, 6)],
+               [(2, 9), (3, 10), (4, 10), (5, 11), (6, 11), (7, 12), (8, 12), (9, 12)],
+               [(11, 9), (12, 10), (12, 11), (13, 12), (13, 13)]]
+    for g in grooves:
+        for x, y in g:
+            put(im, x, y, STONE[0])
+            put(im, x, y + 1, STONE[1])
+    for x, y in ((6, 8), (10, 7), (4, 14), (14, 3), (8, 14), (1, 12)):
+        put(im, x, y, STONE[4])
+    return im
+
+
+NIBBLE_COLOURS = {
+    'ash': (ramp('5f5a55', '7d7770', '9c958c', 'bdb5aa', 'd9d2c8'), H('b9a3cc')),
+    'dusk': (ramp('4e4038', '6b5a4d', '897565', 'a8927f', 'c4ad98'), H('d6a5b8')),
+}
+# texOffs and box sizes (w, h, d) of client/NibblemiteModel: four segments and two feelers
+NIBBLE_BOXES = [((0, 0), (4, 3, 3)), ((0, 6), (6, 4, 5)), ((0, 15), (4, 3, 2)), ((0, 20), (2, 2, 1)),
+                ((24, 0), (1, 3, 1)), ((28, 0), (1, 3, 1))]
+
+
+def nibblemite(kind):
+    body, spot = NIBBLE_COLOURS[kind]
+    im = Image.new('RGBA', (64, 32), CLEAR)
+    for i, ((u, v), (w, h, d)) in enumerate(NIBBLE_BOXES):
+        for y in range(v, v + d + h):
+            for x in range(u, u + 2 * (w + d)):
+                if y < v + d and not (u + d <= x < u + d + 2 * w):
+                    continue
+                top = y < v + d
+                shade = 3 if top else (2 if (x - u) % (w + d) < d else 1)
+                if i >= 4:
+                    shade = 3 if y == v else 2
+                c = body[shade]
+                if hsh(x, y, 80 + i) > 0.86 and i < 4:
+                    c = spot
+                im.putpixel((x, y), c)
+    # head front face (north) of segment 0: two big shiny eyes and a tiny smile
+    fx, fy = 0 + 3, 0 + 3
+    for ex in (fx, fx + 3):
+        im.putpixel((ex, fy), (24, 20, 28, 255))
+        im.putpixel((ex, fy + 1), (24, 20, 28, 255))
+    im.putpixel((fx, fy), (240, 240, 250, 255))
+    im.putpixel((fx + 3, fy), (240, 240, 250, 255))
+    im.putpixel((fx + 1, fy + 2), body[0])
+    im.putpixel((fx + 2, fy + 2), body[0])
+    # feeler tips glow in the spot colour
+    for u in (24, 28):
+        im.putpixel((u + 1, 1), spot)
+    return im
+
+
+def nibble_egg():
+    im = new()
+    base, spot = NIBBLE_COLOURS['ash']
+    for y in range(3, 15):
+        for x in range(4, 12):
+            dx, dy = (x - 7.5) / 3.6, (y - 9.0) / (5.2 if y < 9 else 5.6)
+            if dx * dx + dy * dy <= 1.0:
+                c = base[3] if dx * dx + dy * dy < 0.5 else base[2]
+                if (x + 2 * y) % 5 == 0:
+                    c = H('d6a5b8') if y > 9 else spot
+                put(im, x, y, c)
+    for x, y in ((6, 5), (6, 6), (5, 7)):
+        put(im, x, y, base[4])
+    return im
+
+
 def write(img, path, written):
     path.parent.mkdir(parents=True, exist_ok=True)
     img.save(path)
@@ -492,6 +573,10 @@ def main(argv=None):
     write(end_grass(), TEX / 'block/end_grass.png', out)
     write(end_bush(), TEX / 'block/end_bush.png', out)
     write(drift_fruit(), TEX / 'item/drift_fruit.png', out)
+    write(burrowed_top(), TEX / 'block/burrowed_end_stone_top.png', out)
+    write(nibblemite('ash'), TEX / 'entity/nibblemite/ash.png', out)
+    write(nibblemite('dusk'), TEX / 'entity/nibblemite/dusk.png', out)
+    write(nibble_egg(), TEX / 'item/nibblemite_spawn_egg.png', out)
     import guide_book_textures as books  # the shared module-guide form, cover in Ashwood bark colours
     books.COVERS['simpleend'] = ('#2b2724', '#423c37', '#aaa096', '#8e857b', '#5a534c')
     books.MEGA_GEM['simpleend'] = '#b9a3cc'
@@ -532,8 +617,18 @@ def preview(dest):
             sheet.alpha_composite(im.resize((128, 128), Image.NEAREST), (i * 136 + 4, 4))
         sheet.save(dest / f'{n}_textures.png')
         for k in ('boat', 'chest_boat'):
+            pass
+        for k in ('boat', 'chest_boat'):
             im = Image.open(TEX / f'entity/{k}/{n}.png')
             im.resize((im.width * 4, im.height * 4), Image.NEAREST).save(dest / f'{n}_{k}_entity.png')
+    sheet = Image.new('RGBA', (64 * 8 * 2 + 16 * 8 * 2 + 40, 32 * 8), (40, 36, 44, 255))
+    for i, k in enumerate(('ash', 'dusk')):
+        im = Image.open(TEX / f'entity/nibblemite/{k}.png').convert('RGBA')
+        sheet.alpha_composite(im.resize((512, 256), Image.NEAREST), (i * 520, 0))
+    for i, k in enumerate(('block/burrowed_end_stone_top', 'item/nibblemite_spawn_egg')):
+        im = Image.open(TEX / f'{k}.png').convert('RGBA')
+        sheet.alpha_composite(im.resize((128, 128), Image.NEAREST), (1040 + i * 136, 0))
+    sheet.save(dest / 'nibblemite_textures.png')
 
 
 if __name__ == '__main__':

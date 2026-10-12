@@ -19,6 +19,25 @@
       ],
       "modifier": "append"
     },
+    "minecraft:gameplay/natural_mob_spawns": {
+      "argument": {
+        "spawn_costs": {},
+        "spawns_by_category": {
+          "creature": [
+            {
+              "type": "simpleend:nibblemite",
+              "count": {
+                "type": "minecraft:uniform",
+                "min_inclusive": 2,
+                "max_inclusive": 4
+              },
+              "weight": 10
+            }
+          ]
+        }
+      },
+      "modifier": "overlay"
+    },
     "minecraft:visual/fog_color": "#4a3a40",
     "minecraft:visual/sky_color": "#33262c"
   },

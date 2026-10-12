@@ -75,5 +75,24 @@
     "use": [
       "Mit der Schere aufsammeln; sonst droppt er ein paar Stöcke."
     ]
+  },
+  "nibblemite_spawn_egg": {
+    "lore": [
+      "Knabbermilben leben in kleinen Gruppen im Aschental und in den Dämmerlanden und tragen die Farben ihres Bioms."
+    ],
+    "use": [
+      "Sie knabbern Endstein an wie Schafe Gras; der Stein erholt sich von selbst. Chorusfrucht lockt sie an und lässt sie Junge bekommen."
+    ],
+    "secret": [
+      "Endermen ignorieren sie - eine Knabbermilbe ist keine Endermilbe."
+    ]
+  },
+  "burrowed_end_stone": {
+    "lore": [
+      "Endstein mit den Spuren einer Knabbermilbe."
+    ],
+    "use": [
+      "Wird abgebaut und droppt wie Endstein; in Ruhe gelassen wird er nach einigen Minuten wieder zu Endstein."
+    ]
   }
 }

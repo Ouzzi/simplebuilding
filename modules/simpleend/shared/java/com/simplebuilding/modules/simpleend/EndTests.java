@@ -255,6 +255,42 @@ public final class EndTests {
             h.assertTrue(SimpleEndConfig.KEYS.size() == 7, "config keys");
             h.succeed();
         });
+        add("nibblemite_nibbles_end_stone", h -> {
+            BlockPos at = new BlockPos(6, 2, 6);
+            h.setBlock(at.below(), Blocks.END_STONE);
+            var mite = EndRegistry.NIBBLEMITE.create(h.getLevel(), net.minecraft.world.entity.EntitySpawnReason.SPAWN_ITEM_USE);
+            h.assertTrue(mite != null, "nibblemite entity");
+            BlockPos abs = h.absolutePos(at);
+            mite.snapTo(abs.getX() + 0.5, abs.getY(), abs.getZ() + 0.5, 0f, 0f);
+            mite.setNoAi(true);
+            h.getLevel().addFreshEntity(mite);
+            h.assertTrue(mite.nibble(), "nibbles the End stone below");
+            h.assertTrue(h.getBlockState(at.below()).is(EndRegistry.BURROWED_END_STONE), "End stone became Burrowed End Stone");
+            h.assertTrue(!mite.nibble(), "burrowed stone is not nibbled again");
+            h.assertTrue(com.simplebuilding.modules.simpleend.entity.Nibblemite.isEndGround(h.getBlockState(at.below())), "burrowed stone still counts as End ground");
+            mite.discard();
+            h.succeed();
+        });
+        add("burrowed_end_stone_recovers", h -> {
+            BlockPos at = new BlockPos(7, 2, 7);
+            h.setBlock(at, EndRegistry.BURROWED_END_STONE);
+            for (int i = 0; i < 200 && h.getBlockState(at).is(EndRegistry.BURROWED_END_STONE); i++)
+                h.getBlockState(at).randomTick(h.getLevel(), h.absolutePos(at), h.getLevel().getRandom());
+            h.assertTrue(h.getBlockState(at).is(Blocks.END_STONE), "Burrowed End Stone recovers to End stone");
+            h.assertTrue(EndRegistry.BURROWED_END_STONE.defaultBlockState().isRandomlyTicking(), "recovers on random ticks");
+            h.succeed();
+        });
+        add("nibblemite_is_passive", h -> {
+            var mite = EndRegistry.NIBBLEMITE.create(h.getLevel(), net.minecraft.world.entity.EntitySpawnReason.SPAWN_ITEM_USE);
+            h.assertTrue(mite != null, "nibblemite entity");
+            h.assertTrue(!(mite instanceof net.minecraft.world.entity.monster.Enemy), "not an enemy");
+            h.assertTrue(!(mite instanceof net.minecraft.world.entity.monster.Endermite), "not an Endermite (Endermen ignore it)");
+            h.assertTrue(EndRegistry.NIBBLEMITE.getCategory() == net.minecraft.world.entity.MobCategory.CREATURE, "creature category");
+            h.assertTrue(mite.isFood(new ItemStack(Items.CHORUS_FRUIT)) && !mite.isFood(new ItemStack(Items.WHEAT)), "fed with chorus fruit");
+            h.assertTrue(mite.getAttributes().getValue(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE) == 0.0
+                    || !mite.getAttributes().hasAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE), "no attack damage");
+            h.succeed();
+        });
         add("end_grass_on_end_stone", h -> {
             BlockPos at = new BlockPos(8, 2, 8);
             h.setBlock(at.below(), Blocks.END_STONE);

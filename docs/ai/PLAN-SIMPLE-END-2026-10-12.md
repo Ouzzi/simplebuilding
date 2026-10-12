@@ -70,3 +70,11 @@ Läufe nur über `/root/sbt`: Compile 3 Loader, `module-simpleend-*-263`, Standa
 ## Risiken
 Biom-Mixin neben Fabric-API-Mixin auf derselben Klasse (beide `RETURN`, verträglich); Feature-Sortierung (gleiche
 Reihenfolge in beiden Biomen und den Vanilla-End-Biomen); NeoForge/Forge-Patches an `AxeItem`/Schild-Screen.
+
+## Stufe 9 (Besitzer-Nachtrag 12.10.): Knabbermilbe
+- `simpleend:nibblemite` (EN Nibblemite, DE Knabbermilbe), `Animal`, Kategorie CREATURE, kein `Endermite` (keine
+  Enderman-Aggro), kein Angriff. Varianten 0/1 nach Spawn-Biom (Aschental blassgrau/Lavendel, Dämmerlande taupe/Rosa),
+  Junge erben. Spawn: Biom-Attribut `natural_mob_spawns` creature, Gruppen 2-4, nur auf Endstein (`checkSpawnRules`).
+- Knabbern (Goal wie Schaf-Grasen, ~1/600 je Tick): Endstein darunter → `burrowed_end_stone` (Oberseite eigene Textur,
+  Seiten Vanilla-Endstein), erholt sich per Zufallstick (1/4 → ~4-5 min). Futter/Zucht: Chorusfrucht; Drop 0-1 Chorusfrucht.
+- Tests: Knabbern → Block, Erholung, passiv (kein Enemy/Endermite, CREATURE, Chorus-Futter).

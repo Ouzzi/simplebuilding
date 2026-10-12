@@ -23,6 +23,7 @@ public final class SimpleEndForge {
             if (key.equals(Registries.SOUND_EVENT)) EndRegistry.sounds();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) EndRegistry.tab();
         });
+        net.minecraftforge.event.entity.EntityAttributeCreationEvent.BUS.addListener(event -> event.put(EndRegistry.NIBBLEMITE, com.simplebuilding.modules.simpleend.entity.Nibblemite.createAttributes().build()));
         FMLCommonSetupEvent.getBus(bus).addListener(event -> event.enqueueWork(EndRegistry::common));
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplebuilding.modules.simpleend.guide.EndGuide.installQuests(FMLPaths.CONFIGDIR.get());
         net.minecraftforge.event.server.ServerAboutToStartEvent.BUS.addListener(event -> { SimpleEnd.applySubSwitches(); com.simplebuilding.modules.simpleend.world.EndBiomes.serverStarting(event.getServer()); });

@@ -26,6 +26,7 @@ public final class SimpleEndNeoForge {
             if (key.equals(Registries.SOUND_EVENT)) EndRegistry.sounds();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) EndRegistry.tab();
         });
+        bus.addListener((net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) -> event.put(EndRegistry.NIBBLEMITE, com.simplebuilding.modules.simpleend.entity.Nibblemite.createAttributes().build()));
         bus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(EndRegistry::common));
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplebuilding.modules.simpleend.guide.EndGuide.installQuests(FMLPaths.CONFIGDIR.get());
         NeoForge.EVENT_BUS.addListener((ServerAboutToStartEvent event) -> { SimpleEnd.applySubSwitches(); com.simplebuilding.modules.simpleend.world.EndBiomes.serverStarting(event.getServer()); });

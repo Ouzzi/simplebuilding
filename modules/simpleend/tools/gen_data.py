@@ -91,7 +91,8 @@ def templates(jar):
                 (OUT / m.group(1) / NS / m.group(2) / f'{name}.json').parent.mkdir(parents=True, exist_ok=True)
                 (OUT / m.group(1) / NS / m.group(2) / f'{name}.json').write_text(convert(raw, w), encoding='utf-8')
                 count += 1
-        loot = {n: z.read(f'data/minecraft/loot_table/blocks/{n}.json').decode('utf-8') for n in ('short_dry_grass', 'dead_bush', 'oak_planks')}
+        loot = {n: z.read(f'data/minecraft/loot_table/blocks/{n}.json').decode('utf-8') for n in ('short_dry_grass', 'dead_bush', 'oak_planks', 'end_stone')}
+        loot['squid'] = z.read('data/minecraft/loot_table/entities/squid.json').decode('utf-8')
         tags = {}
         for entry in z.namelist():
             m = re.match(r'^data/minecraft/tags/(block|item|entity_type)/([a-z_/]+)\.json$', entry)
@@ -127,8 +128,10 @@ def own_tags():
         logs = [f'{NS}:{n}_log', f'{NS}:{n}_wood', f'{NS}:stripped_{n}_log', f'{NS}:stripped_{n}_wood']
         dump(OUT / f'data/{NS}/tags/block/{n}_logs.json', {'values': logs})
         dump(OUT / f'data/{NS}/tags/item/{n}_logs.json', {'values': logs})
-    dump(OUT / f'data/{NS}/tags/block/end_plants_may_place_on.json', {'values': ['minecraft:end_stone', '#minecraft:dirt']})
-    dump(OUT / f'data/{NS}/tags/block/bud_may_place_on.json', {'values': ['minecraft:end_stone', '#minecraft:dirt']})
+    ground = ['minecraft:end_stone', f'{NS}:burrowed_end_stone', '#minecraft:dirt']
+    dump(OUT / f'data/{NS}/tags/block/end_plants_may_place_on.json', {'values': ground})
+    dump(OUT / f'data/{NS}/tags/block/bud_may_place_on.json', {'values': ground})
+    dump(OUT / 'data/minecraft/tags/block/mineable/pickaxe.json', {'values': [f'{NS}:burrowed_end_stone']})
     dump(OUT / 'data/minecraft/tags/block/mineable/axe.json', {'values': [f'{NS}:{w["name"]}_sticks' for w in WOODS]})
     dump(OUT / 'data/minecraft/tags/block/replaceable_by_trees.json', {'values': [f'{NS}:end_grass', f'{NS}:end_bush']})
     dump(OUT / 'data/minecraft/tags/block/flower_pots.json', {'values': [f'{NS}:potted_{w["bud"]}' for w in WOODS]})
@@ -175,6 +178,23 @@ def sticks(loot):
                                                              'ingredients': [f'{NS}:{n}'], 'result': {'count': 3, 'id': 'minecraft:stick'}})
 
 
+def nibblemite(loot):
+    """Stage 9: Burrowed End Stone (drops End stone) and the Nibblemite (drops 0-1 chorus fruit, more with Looting)."""
+    b = 'burrowed_end_stone'
+    dump(OUT / f'assets/{NS}/blockstates/{b}.json', {'variants': {'': {'model': f'{NS}:block/{b}'}}})
+    dump(OUT / f'assets/{NS}/models/block/{b}.json', {'parent': 'minecraft:block/cube_bottom_top', 'textures': {
+        'top': f'{NS}:block/{b}_top', 'side': 'minecraft:block/end_stone', 'bottom': 'minecraft:block/end_stone'}})
+    dump(OUT / f'assets/{NS}/items/{b}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{b}'}})
+    (OUT / f'data/{NS}/loot_table/blocks/{b}.json').write_text(
+        loot['end_stone'].replace('minecraft:blocks/end_stone', f'{NS}:blocks/{b}'), encoding='utf-8')
+    (OUT / f'data/{NS}/loot_table/entities').mkdir(parents=True, exist_ok=True)
+    (OUT / f'data/{NS}/loot_table/entities/nibblemite.json').write_text(
+        loot['squid'].replace('"max": 3,', '"max": 1,').replace('"min": 1\n', '"min": 0\n').replace('minecraft:ink_sac', 'minecraft:chorus_fruit')
+        .replace('minecraft:entities/squid', f'{NS}:entities/nibblemite'), encoding='utf-8')
+    dump(OUT / f'assets/{NS}/models/item/nibblemite_spawn_egg.json', {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'{NS}:item/nibblemite_spawn_egg'}})
+    dump(OUT / f'assets/{NS}/items/nibblemite_spawn_egg.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/nibblemite_spawn_egg'}})
+
+
 BIOMES = {
     'ash_valley': dict(wood='ashwood', sky='#2b2522', fog='#3a332e', dry='#a89c8a', foliage='#9a8f80', grass='#a39886',
                        particle='minecraft:white_ash', p=0.012, music='music.ash_valley'),
@@ -211,6 +231,9 @@ def worldgen():
                 'minecraft:audio/background_music': {'default': {'max_delay': 24000, 'min_delay': 6000, 'replace_current_music': False,
                                                                  'sound': f'{NS}:{b["music"]}'}},
                 'minecraft:visual/ambient_particles': {'argument': [{'particle': {'type': b['particle']}, 'probability': b['p']}], 'modifier': 'append'},
+                'minecraft:gameplay/natural_mob_spawns': {'argument': {'spawn_costs': {}, 'spawns_by_category': {'creature': [
+                    {'type': f'{NS}:nibblemite', 'count': {'type': 'minecraft:uniform', 'min_inclusive': 2, 'max_inclusive': 4}, 'weight': 10}]}},
+                    'modifier': 'overlay'},
                 'minecraft:visual/fog_color': b['fog'],
                 'minecraft:visual/sky_color': b['sky'],
             },
@@ -264,7 +287,10 @@ def lang():
     for k, e, d in (('block.simpleend.end_grass', 'End Grass', 'End-Gras'), ('block.simpleend.end_bush', 'End Bush', 'End-Busch'),
                     ('item.simpleend.drift_fruit', 'Drift Fruit', 'Schwebfrucht'), ('itemgroup.simpleend.main', 'Simple End', 'Simple End'),
                     ('biome.simpleend.ash_valley', 'Ash Valley', 'Aschental'), ('biome.simpleend.dawnlands', 'Dawnlands', 'Dämmerlande'),
-                    ('subtitles.simpleend.music', 'End music plays', 'End-Musik spielt')):
+                    ('subtitles.simpleend.music', 'End music plays', 'End-Musik spielt'),
+                    ('entity.simpleend.nibblemite', 'Nibblemite', 'Knabbermilbe'),
+                    ('item.simpleend.nibblemite_spawn_egg', 'Nibblemite Spawn Egg', 'Knabbermilben-Spawn-Ei'),
+                    ('block.simpleend.burrowed_end_stone', 'Burrowed End Stone', 'Durchwühlter Endstein')):
         en[k], de[k] = e, d
     for key, (e, d, et, dt) in CONFIG.items():
         en[f'config.{NS}.{key}'], de[f'config.{NS}.{key}'] = e, d
@@ -289,6 +315,7 @@ def main(argv=None):
     own_tags()
     plants(loot)
     sticks(loot)
+    nibblemite(loot)
     worldgen()
     lang()
     files = sum(1 for _ in OUT.rglob('*.json'))
