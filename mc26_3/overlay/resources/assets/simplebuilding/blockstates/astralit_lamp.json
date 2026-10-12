@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "simplebuilding:block/astralit_lamp"
+    },
+    "lit=true": {
+      "model": "simplebuilding:block/astralit_lamp_on"
+    }
+  }
+}

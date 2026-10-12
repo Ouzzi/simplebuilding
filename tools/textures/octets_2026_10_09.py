@@ -120,13 +120,21 @@ def multipart(model):
 GROUPS = [  # (group, label) in creative-tab order
     ('stone', 'Stone'), ('sandstone', 'Sandstone'), ('bricks', 'Bricks'), ('deepslate', 'Deepslate and blackstone'),
     ('tuff', 'Tuff'), ('prismarine', 'Prismarine'), ('quartz', 'Quartz and purpur'), ('copper', 'Copper'),
-    ('wool', 'Wool'), ('concrete', 'Concrete'), ('mod', 'SimpleBuilding'), ('other', 'Other')]
+    ('metal', 'Metal and mineral blocks'), ('log', 'Logs and stems'), ('wool', 'Wool'), ('concrete', 'Concrete'),
+    ('terracotta', 'Terracotta'), ('mod', 'SimpleBuilding'), ('other', 'Other')]
 DYES = ['white', 'light_gray', 'gray', 'black', 'brown', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'light_blue',
         'blue', 'purple', 'magenta', 'pink']
 # ids of the chess octets (ChessColor); a material with the same name gets '_block' in its id and name
 CHESS_IDS = {'quartz', 'purpur', 'lapis', 'blackstone', 'resin', 'nether_brick', 'red_nether_brick', 'nihilith', 'astralit',
              'ender_quartz', 'polished_astralit', 'polished_nihilith', 'polished_ender_quartz'}
-COPPER_ORDER = ['cut_copper', 'exposed_cut_copper', 'weathered_cut_copper', 'oxidized_cut_copper']
+COPPER_ORDER = ['copper_block', 'exposed_copper', 'weathered_copper', 'oxidized_copper', 'cut_copper', 'exposed_cut_copper', 'weathered_cut_copper', 'oxidized_cut_copper']
+
+# Queue "Mehr 0,125er-Bloecke" (docs/ai/PLAN-OCTETS-MORE-2026-10-12.md): building colours without stairs. Vanilla only, full
+# opaque cubes, no block entities or functions. Logs/stems are found by name in scan().
+EXTRA_BASES = (['terracotta'] + [d + '_terracotta' for d in DYES]
+               + ['copper_block', 'exposed_copper', 'weathered_copper', 'oxidized_copper', 'iron_block', 'gold_block',
+                  'diamond_block', 'emerald_block', 'lapis_block', 'coal_block', 'netherite_block',
+                  'calcite', 'smooth_basalt', 'end_stone', 'netherrack', 'obsidian', 'bone_block'])
 
 
 def group_of(ns, base):
@@ -134,6 +142,14 @@ def group_of(ns, base):
         return 'mod'
     if 'copper' in base:
         return 'copper'
+    if base.endswith('_log') or base.endswith(('crimson_stem', 'warped_stem')):
+        return 'log'
+    if base.endswith('terracotta'):
+        return 'terracotta'
+    if base in ('iron_block', 'gold_block', 'diamond_block', 'emerald_block', 'lapis_block', 'coal_block', 'netherite_block'):
+        return 'metal'
+    if base in ('calcite', 'smooth_basalt', 'end_stone', 'netherrack', 'obsidian'):
+        return 'stone'
     if base.endswith('_wool'):
         return 'wool'
     if base.endswith('_concrete'):
@@ -161,8 +177,10 @@ def sort_key(m):
     if m['group'] == 'copper':
         plain = b.replace('waxed_', '')
         return (gi, b.startswith('waxed_'), COPPER_ORDER.index(plain) if plain in COPPER_ORDER else 9, b)
-    if m['group'] in ('wool', 'concrete'):
-        return (gi, False, DYES.index(b.rsplit('_', 1)[0]), b)
+    if m['group'] in ('wool', 'concrete', 'terracotta'):
+        return (gi, False, DYES.index(b.rsplit('_', 1)[0]) if b != 'terracotta' else -1, b)
+    if m['group'] == 'log':
+        return (gi, b.startswith('stripped_'), 0, b)
     return (gi, False, 0, b)
 
 
@@ -221,6 +239,27 @@ def scan():
                 tex = {'up': t['top'], 'down': t['bottom'], 'side': t['side']}
             key = base + '_block' if base in CHESS_IDS else base
             out.append({'ns': ns, 'base': base, 'key': key, 'group': group_of(ns, base), 'tex': tex, 'en': en, 'de': de})
+    logs = sorted(n for n in van if n.endswith('_log') or n.replace('stripped_', '') in ('crimson_stem', 'warped_stem'))
+    for base in EXTRA_BASES + logs:
+        if base not in van or any(m['base'] == base for m in out):
+            print('SKIP (extra missing/duplicate): ' + base, file=sys.stderr)
+            continue
+        state = json.loads(z.read(f'assets/minecraft/blockstates/{base}.json'))
+        ref = state['variants'].get('axis=y') or next(iter(state['variants'].values()))
+        ref = (ref[0] if isinstance(ref, list) else ref)['model'].split(':')[-1]
+        t = json.loads(z.read(f'assets/minecraft/models/{ref}.json')).get('textures', {})
+        en, de = en_van.get(f'block.minecraft.{base}'), de_van.get(f'block.minecraft.{base}')
+        if 'all' in t:
+            tex = {'all': t['all']}
+        elif {'end', 'side'} <= set(t):
+            tex = {'up': t['end'], 'down': t['end'], 'side': t['side']}
+        else:
+            print('SKIP (extra textures): ' + base, file=sys.stderr)
+            continue
+        if not (en and de):
+            print('SKIP (extra name): ' + base, file=sys.stderr)
+            continue
+        out.append({'ns': 'minecraft', 'base': base, 'key': base, 'group': group_of('minecraft', base), 'tex': tex, 'en': en, 'de': de})
     out.sort(key=sort_key)
     with open(MATERIALS_JSON, 'w', encoding='utf-8') as f:
         f.write(json.dumps(out, indent=1, ensure_ascii=False) + '\n')

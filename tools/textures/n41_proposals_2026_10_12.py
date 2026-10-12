@@ -515,7 +515,7 @@ PAINTS = [H('c8302a'), H('e8862a'), H('f2d23c'), H('5aa83a'), H('3a78c8'), H('7a
 BOXWOOD = ramp('3a2410', '5c3a18', '80561e', 'a47228', 'c4923c', 'deb458')
 
 
-def paint_box(v):
+def paint_box(v, tier=None):
     im = new()
     if v == 0:      # open wooden case, two rows of round pans, brass latch
         rect(im, 1, 4, 14, 13, BOXWOOD[3])
@@ -561,20 +561,30 @@ def paint_box(v):
             put(im, x, 11, BOXWOOD[4] if x < 10 else (IRON[4] if x < 11 else PAINTS[0]))
         outline(im, H('15161a'))
     elif v == 3:    # leather-bound case, rainbow strip window, brass corners
-        rect(im, 1, 3, 14, 13, LEATHER[3])
-        rect(im, 1, 3, 14, 3, LEATHER[5])
-        rect(im, 1, 13, 14, 13, LEATHER[1])
+        # tier (N46): {'body': 7-ramp, 'frame': (top, bottom, corner) or None, 'latch': 6-ramp, 'outline', 'specks'}
+        t = tier or {}
+        L, G = t.get('body', LEATHER), t.get('latch', GOLD)
+        top_c, bot_c, corner = t.get('frame') or (L[5], L[1], G[3])
+        rect(im, 1, 3, 14, 13, L[3])
+        rect(im, 1, 3, 14, 3, top_c)
+        rect(im, 1, 13, 14, 13, bot_c)
         for x in range(3, 13):
             for y in range(6, 10):
                 c = PAINTS[(x - 3) * 6 // 10]
                 put(im, x, y, mix(c, H('ffffff'), 0.3) if y == 6 else (mix(c, H('000000'), 0.25) if y == 9 else c))
-        rect(im, 2, 5, 13, 5, LEATHER[1])
-        rect(im, 2, 10, 13, 10, LEATHER[1])
+        rect(im, 2, 5, 13, 5, L[1])
+        rect(im, 2, 10, 13, 10, L[1])
+        if t.get('frame'):      # material frame: the side edges carry the tier material as well
+            for y in range(4, 13):
+                put(im, 1, y, mix(top_c, bot_c, (y - 3) / 10))
+                put(im, 14, y, mix(top_c, bot_c, (y - 3) / 10 + 0.3) if y < 10 else bot_c)
         for (x, y) in ((1, 3), (14, 3), (1, 13), (14, 13)):
-            put(im, x, y, GOLD[3])
-        rect(im, 6, 11, 9, 12, GOLD[2])
-        put(im, 6, 11, GOLD[4])
-        outline(im, H('22100a'))
+            put(im, x, y, corner)
+        rect(im, 6, 11, 9, 12, G[2])
+        put(im, 6, 11, G[4])
+        for (x, y), c in t.get('specks', ()):
+            put(im, x, y, c)
+        outline(im, t.get('outline', H('22100a')))
     else:           # wooden palette tray: kidney shape with paint dabs and thumb hole
         for y in range(16):
             for x in range(16):

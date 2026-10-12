@@ -48,6 +48,8 @@ import obtain_sources  # noqa: E402  (loot chests, fishing, vaults, mob drops)
 import base_materials  # noqa: E402  (raw materials of a recipe in total)
 import trade_sources  # noqa: E402
 import config_metadata  # noqa: E402
+sys.path.append(str(Path(__file__).resolve().parents[1] / "tools" / "textures"))
+import vanilla_derived  # noqa: E402  (Vanilla-derived textures: built from the client jar, never committed)
 
 REPO = Path(__file__).resolve().parent.parent
 WIKI = REPO / "wiki"
@@ -163,6 +165,11 @@ def merge_overlay_lines() -> None:
         for path in sorted((REPO / "mc26_3/overlay/resources").rglob("*")):
             if path.is_file():
                 chosen[path.relative_to(REPO / "mc26_3/overlay/resources").as_posix()] = path
+        # Vanilla-derived textures are never committed (tools/textures/vanilla_derived.py): drawn from the
+        # client jar when it is there, labelled placeholders of the same size otherwise (CI).
+        derived, _ = vanilla_derived.ensure_local()
+        for path in sorted(derived.rglob("*.png")):
+            chosen[path.relative_to(derived).as_posix()] = path
         for relpath, path in chosen.items():
             target = into / relpath
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -627,6 +634,11 @@ class Icons:
         if item_id in self.cache:
             return self.cache[item_id]
         relpath = f"{RENDER_DIR}/{short(item_id)}.png"
+        size = vanilla_derived.WIKI_RENDERS.get(short(item_id)) if is_ours(item_id) else None
+        if size and not self.active and not (WIKI / relpath).exists():
+            # Its render shows a Vanilla-derived texture (not committed): a placeholder without the renderer.
+            (WIKI / relpath).parent.mkdir(parents=True, exist_ok=True)
+            (WIKI / relpath).write_bytes(vanilla_derived.placeholder_png(relpath, size, size))
         if self.active and item_definition(self.roots, item_id) is not None:
             image = self.renderer.render_item(item_id)
             if image is not None:

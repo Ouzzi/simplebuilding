@@ -1332,7 +1332,8 @@ public final class TestCentreSections {
     public static TcCanvas devices(TcContext ctx) {
         TcCanvas c = new TcCanvas();
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
-            // Redstone-Linien (2026-10-11): Hebel (aus) - 15 Pulver - Redstone-Lampe je Linie; die dritte Spur
+            // Redstone-Linien (2026-10-11): Hebel (aus) - 15 Pulver - Lampe der Linie (N44: Nihilith-/Astral-Lampe,
+            // schaltet wie eine Kupferlampe bei jedem Puls um); die dritte Spur
             // fuehrt Redstone ueber Bruecken-Redstone in Astral-Redstone.
             BlockState lever = Blocks.LEVER.defaultBlockState()
                     .setValue(net.minecraft.world.level.block.LeverBlock.FACE, net.minecraft.world.level.block.state.properties.AttachFace.FLOOR);
@@ -1344,7 +1345,7 @@ public final class TestCentreSections {
                     c.place(x, 0, z, lane == 0 ? ModBlocks.NIHIL_REDSTONE : lane == 1 ? ModBlocks.ASTRAL_REDSTONE
                             : x <= 5 ? Blocks.REDSTONE_WIRE : x <= 10 ? ModBlocks.BRIDGE_REDSTONE : ModBlocks.ASTRAL_REDSTONE);
                 }
-                c.place(16, 0, z, Blocks.REDSTONE_LAMP);
+                c.place(16, 0, z, lane == 0 ? ModBlocks.NIHILITH_LAMP : ModBlocks.ASTRALIT_LAMP);
             }
             // Astral-/Nihil-Kolben (2026-10-03): Hebel (aus) - Pulver - Kolben auf Obsidian (unbeweglich),
             // Sandstein drumherum: Astral drueckt die anliegenden weg, Nihil holt die mit einem Feld Luecke heran.
