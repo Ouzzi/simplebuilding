@@ -525,5 +525,20 @@ window.WIKI_MODULES = [
     "requires": [],
     "optional": [],
     "dataHash": "8e7329c39870"
+  },
+  {
+    "id": "simplerespawn",
+    "displayName": "Simple Respawn",
+    "description": "Downed instead of dead: a teammate can revive you within the bleed-out time (then 3 hearts, no food); own downed screen with spectate, inventory view and give up.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "1dad6da6c5ce"
   }
 ];

@@ -42,7 +42,7 @@ public final class TestCentreLayout {
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
     public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "states", "storage", "food",
             "materials", "placeables", "arrows", "archery", "music", "crucible", "chess", "astral", "woodwork", "vehicles", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
-            "mining", "enchants", "sinkdamper", "tweaks", "devices",
+            "mining", "enchants", "sinkdamper", "tweaks", "respawn", "devices",
             // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
             "tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads", "tab_arrows",
             "gallery", "unsorted");
@@ -233,6 +233,8 @@ public final class TestCentreLayout {
         builders.put("enchants", FeatureStations::enchants);
         builders.put("sinkdamper", FeatureStations::sinkDamper);
         builders.put("tweaks", TweaksStation::build);
+        // Simple Respawn (Sub-Mod); leer ohne das Modul.
+        builders.put("respawn", FeatureStations::respawn);
         builders.put("devices", TestCentreSections::devices);
 
         Map<String, TcCanvas> canvases = new LinkedHashMap<>();
