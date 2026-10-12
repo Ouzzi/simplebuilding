@@ -258,9 +258,12 @@ def textures():
         'block/warped_blazewood_planks': n41.planks('warped', 2),
         'block/crimson_blazewood_bookshelf': n41.bookshelf('crimson', 2),
         'block/warped_blazewood_bookshelf': n41.bookshelf('warped', 2),
-        'block/blazing_obsidian': n41.blazing_obsidian(2),
-        # Owner pick N41 round 3: D9 (Vanilla written-book layout read from the 26.3 client jar, blaze cover, rods).
-        'item/blaze_book': __import__('n41_round3_2026_10_12').blaze_book(2),
+        # N45 addendum (2026-10-12): animated top and sides, nebula under the cloth.
+        **__import__('n45_astral_2026_10_12').textures(),
+        # N45 (2026-10-12): B1 animated and seamless (veins run over the tile edges), 8 frames.
+        'block/blazing_obsidian': __import__('n45_obsidian_2026_10_12').blazing_strip(),
+        # item/blaze_book (owner pick N41 round 3, D9) is drawn on the Vanilla written-book layout read from the
+        # client jar: built at build time only, see tools/textures/vanilla_derived.py (never committed).
     }
 
 
@@ -278,6 +281,11 @@ def textures_before_n41():
     }
 
 
+def animations():
+    a, b = __import__('n45_obsidian_2026_10_12').ANIMATION, __import__('n45_astral_2026_10_12').ANIMATION
+    return {'block/blazing_obsidian': a, 'block/astral_enchanting_table_top': b, 'block/astral_enchanting_table_side': b}
+
+
 VANILLA_TWIN = {
     'block/astral_enchanting_table_top': 'block/enchanting_table_top',
     'block/astral_enchanting_table_side': 'block/enchanting_table_side',
@@ -287,7 +295,6 @@ VANILLA_TWIN = {
     'block/crimson_blazewood_bookshelf': 'block/bookshelf',
     'block/warped_blazewood_bookshelf': 'block/bookshelf',
     'block/blazing_obsidian': 'block/crying_obsidian',
-    'item/blaze_book': 'item/book',
 }
 
 
@@ -302,6 +309,19 @@ def main():
         else:
             os.makedirs(os.path.dirname(path), exist_ok=True)
             im.save(path)
+    import json
+    for name, anim in animations().items():
+        path = os.path.join(ROOT, name + '.png.mcmeta')
+        if CHECK:
+            try:
+                same = json.load(open(path, encoding='utf-8')) == {'animation': anim}
+            except (OSError, ValueError):
+                same = False
+            if not same:
+                stale.append(path)
+        else:
+            with open(path, 'w', encoding='utf-8', newline='\n') as f:
+                f.write(json.dumps({'animation': anim}, indent=2) + '\n')
     if PREVIEW:
         s = 12
         n = len(tex)
@@ -314,6 +334,7 @@ def main():
             x = 20 + i * (16 * s + 12)
             d.text((x, 34), name.split('/')[1], fill='#cbd5e1')
             row = 0
+            im = im.crop((0, 0, 16, 16))
             if VANILLA:
                 v = Image.open(os.path.join(VANILLA, VANILLA_TWIN[name] + '.png')).convert('RGBA').crop((0, 0, 16, 16))
                 canvas.paste(v.resize((16 * s, 16 * s), Image.NEAREST), (x, 50))

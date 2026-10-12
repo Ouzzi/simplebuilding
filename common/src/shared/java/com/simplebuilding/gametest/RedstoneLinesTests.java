@@ -1,6 +1,7 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.blocks.custom.EndSignalLampBlock;
 import com.simplebuilding.blocks.custom.SignalDustBlock;
 import com.simplebuilding.datafix.LegacyItemIds;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.LeverBlock;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
@@ -240,33 +242,90 @@ public final class RedstoneLinesTests {
         });
     }
 
-    /** The removed Astral/Nihil switches and lamps load as lever and redstone lamp: items, blocks, ids. */
-    public static void removedSwitchesAndLampsBecomeVanilla(GameTestHelper helper) {
+    /**
+     * The removed Astral/Nihil switches load as levers; the lamps are back (Nachtrag 44) under their old ids, so old
+     * stacks and placed lamps load as the new Astral/Nihilith Lamp - a saved pre-Nachtrag-36 state keeps its power.
+     */
+    public static void oldSwitchesBecomeLeversLampsReturn(GameTestHelper helper) {
         if (!active(helper)) return;
         var items = BuiltInRegistries.ITEM;
         var blocks = BuiltInRegistries.BLOCK;
-        for (var entry : java.util.Map.of("astralit_switch", Blocks.LEVER, "nihilith_switch", Blocks.LEVER,
-                "astralit_lamp", Blocks.REDSTONE_LAMP, "nihilith_lamp", Blocks.REDSTONE_LAMP).entrySet()) {
-            Identifier old = Identifier.fromNamespaceAndPath("simplebuilding", entry.getKey());
-            helper.assertTrue(blocks.getValue(old) == entry.getValue() && blocks.get(old).orElseThrow().value() == entry.getValue(),
-                    "old block " + old + " does not load as " + entry.getValue());
-            helper.assertTrue(items.getValue(old) == entry.getValue().asItem() && items.containsKey(old),
-                    "old item " + old + " does not load as " + entry.getValue().asItem());
-            helper.assertTrue(BuiltInRegistries.BLOCK.getKey(blocks.getValue(old)).getNamespace().equals("minecraft"),
-                    "alias became a simplebuilding id: " + old);
+        for (String sw : List.of("astralit_switch", "nihilith_switch")) {
+            Identifier old = Identifier.fromNamespaceAndPath("simplebuilding", sw);
+            helper.assertTrue(blocks.getValue(old) == Blocks.LEVER && blocks.get(old).orElseThrow().value() == Blocks.LEVER,
+                    "old block " + old + " does not load as a lever");
+            helper.assertTrue(items.getValue(old) == Items.LEVER && items.containsKey(old), "old item " + old + " does not load as a lever");
             helper.assertTrue(LegacyItemIds.renamedTo(old) != null, "no item alias for " + old);
         }
-        // A saved old lamp state decodes to a redstone lamp without crashing: encode a lit lamp in this version's
-        // format, then point its id at the old block.
+        for (var entry : java.util.Map.of("astralit_lamp", ModBlocks.ASTRALIT_LAMP, "nihilith_lamp", ModBlocks.NIHILITH_LAMP).entrySet()) {
+            Identifier id = Identifier.fromNamespaceAndPath("simplebuilding", entry.getKey());
+            helper.assertTrue(blocks.getValue(id) == entry.getValue() && BuiltInRegistries.BLOCK.getKey(entry.getValue()).equals(id),
+                    id + " is not the lamp block again: " + blocks.getValue(id));
+            helper.assertTrue(items.getValue(id) == entry.getValue().asItem() && entry.getValue().asItem() != Items.AIR,
+                    id + " is not the lamp item again: " + items.getValue(id));
+            helper.assertTrue(LegacyItemIds.renamedTo(id) == null, "a stale alias still moves " + id);
+            helper.assertTrue(LegacyItemIds.renamedIn(BuiltInRegistries.BLOCK, id) == null, "a stale block alias still moves " + id);
+        }
+        // An old saved lamp state (only the property power, like before Nachtrag 36) decodes to the new lamp, unlit.
         var tag = (net.minecraft.nbt.CompoundTag) BlockState.CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE,
-                Blocks.REDSTONE_LAMP.defaultBlockState().setValue(RedstoneLampBlock.LIT, true)).getOrThrow();
+                ModBlocks.ASTRALIT_LAMP.defaultBlockState().setValue(EndSignalLampBlock.POWER, 7)).getOrThrow();
         for (String key : List.copyOf(tag.keySet())) {
-            if (tag.get(key) instanceof net.minecraft.nbt.StringTag && "minecraft:redstone_lamp".equals(tag.getStringOr(key, ""))) {
-                tag.putString(key, "simplebuilding:astralit_lamp");
-            }
+            if (tag.get(key) instanceof net.minecraft.nbt.CompoundTag props) props.remove("lit");
         }
         BlockState decoded = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag).result().orElse(null);
-        helper.assertTrue(decoded != null && decoded.is(Blocks.REDSTONE_LAMP), "saved astralit_lamp state " + tag + " decoded as " + decoded);
+        helper.assertTrue(decoded != null && decoded.is(ModBlocks.ASTRALIT_LAMP) && decoded.getValue(EndSignalLampBlock.POWER) == 7
+                && !decoded.getValue(EndSignalLampBlock.LIT), "saved old astralit_lamp state " + tag + " decoded as " + decoded);
         helper.succeed();
+    }
+
+    /**
+     * The Astral/Nihilith Lamp listens only to its own line (or Bridge Redstone) and toggles like a copper bulb: the
+     * first pulse lights it, it stays lit when the signal goes, the next pulse switches it off. Other lines, redstone
+     * dust and a powered lever right beside the lamp do nothing.
+     */
+    public static void lampsToggleOnlyOnTheirOwnLine(GameTestHelper helper) {
+        if (!active(helper)) return;
+        floor(helper);
+        // {y, z, dust or null for a lever beside the lamp, lamp, should toggle}
+        Object[][] lanes = {
+                {1, 0, ModBlocks.ASTRAL_REDSTONE, ModBlocks.ASTRALIT_LAMP, true},
+                {1, 2, ModBlocks.NIHIL_REDSTONE, ModBlocks.NIHILITH_LAMP, true},
+                {1, 4, ModBlocks.NIHIL_REDSTONE, ModBlocks.ASTRALIT_LAMP, false},
+                {1, 6, Blocks.REDSTONE_WIRE, ModBlocks.ASTRALIT_LAMP, false},
+                {4, 0, ModBlocks.BRIDGE_REDSTONE, ModBlocks.NIHILITH_LAMP, true},
+                {4, 3, ModBlocks.ASTRAL_REDSTONE, ModBlocks.NIHILITH_LAMP, false},
+                {4, 6, null, ModBlocks.ASTRALIT_LAMP, false}};
+        BlockState off = Blocks.LEVER.defaultBlockState().setValue(LeverBlock.FACE, AttachFace.FLOOR);
+        for (Object[] lane : lanes) {
+            int y = (int) lane[0], z = (int) lane[1];
+            helper.setBlock(new BlockPos(lane[2] == null ? 3 : 0, y, z), off);
+            if (lane[2] != null) for (int x = 1; x <= 3; x++) helper.setBlock(new BlockPos(x, y, z), (Block) lane[2]);
+            helper.setBlock(new BlockPos(4, y, z), (Block) lane[3]);
+        }
+        reshape(helper);
+        Runnable[] flip = {null};
+        boolean[] on = {false};
+        flip[0] = () -> {
+            on[0] = !on[0];
+            for (Object[] lane : lanes) {
+                helper.setBlock(new BlockPos(lane[2] == null ? 3 : 0, (int) lane[0], (int) lane[1]), off.setValue(LeverBlock.POWERED, on[0]));
+            }
+        };
+        java.util.function.Consumer<Boolean> expectLit = lit -> {
+            for (Object[] lane : lanes) {
+                BlockPos lamp = new BlockPos(4, (int) lane[0], (int) lane[1]);
+                boolean want = (boolean) lane[4] && lit;
+                String what = (lane[2] == null ? "lever" : name((Block) lane[2])) + " -> " + name((Block) lane[3]);
+                helper.assertTrue(helper.getBlockState(lamp).is((Block) lane[3]), what + ": lamp missing");
+                helper.assertTrue(helper.getBlockState(lamp).getValue(EndSignalLampBlock.LIT) == want,
+                        what + ": lit should be " + want + " but is " + helper.getBlockState(lamp).getValue(EndSignalLampBlock.LIT));
+            }
+        };
+        helper.startSequence().thenIdle(4)
+                .thenExecute(() -> expectLit.accept(false))
+                .thenExecute(flip[0]).thenIdle(4).thenExecute(() -> expectLit.accept(true))
+                .thenExecute(flip[0]).thenIdle(4).thenExecute(() -> expectLit.accept(true))
+                .thenExecute(flip[0]).thenIdle(4).thenExecute(() -> expectLit.accept(false))
+                .thenSucceed();
     }
 }

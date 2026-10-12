@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:lapis_block_octet",
+    "simplebuilding:lapis_block_octet",
+    "simplebuilding:lapis_block_octet",
+    "simplebuilding:lapis_block_octet",
+    "simplebuilding:lapis_block_octet",
+    "simplebuilding:lapis_block_octet",
+    "simplebuilding:lapis_block_octet",
+    "simplebuilding:lapis_block_octet"
+  ],
+  "result": {
+    "id": "minecraft:lapis_block"
+  }
+}

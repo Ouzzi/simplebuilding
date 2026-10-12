@@ -368,6 +368,33 @@ SPECKS = {
 }
 
 
+# N46: B4 tier looks. body = leather ramp (dark -> light), frame = (top edge, bottom edge, corner), latch ramp.
+B4_TIERS = {
+    "paint_box": None,  # B4 as picked: leather, brass corners and latch
+    "reinforced_paint_box": {"body": None, "frame": ("e4e4e4", "7a7a7a", "c8c8c8"),
+                             "latch": ("0e4a42", "16786c", "2bc7ac", "8cf4e2", "c8fff4", "f0fffc")},
+    "netherite_paint_box": {"body": ("1c151a", "2a222d", "2f2633", "392e3e", "3e3143", "4b3a51", "5a4862"),
+                            "frame": ("8a7f8c", "1f1a22", "9a8c9e"),
+                            "latch": ("4a2e48", "6a4468", "9a6899", "c194b9", "e0c2da", "f4e4f0"), "outline": "141215"},
+    "enderite_paint_box": {"body": ("1f1524", "30213a", "3a2941", "412f48", "493451", "56405f", "65506f"),
+                           "frame": ("8a64c0", "2a1c33", "8a5bc9"),
+                           "latch": ("3a1f5e", "5e3a8e", "8a5bc9", "c77dff", "f4d2ff", "fff0ff"), "outline": "141215",
+                           "specks": (((3, 4), "a67aef"), ((12, 4), "8458a3"), ((2, 11), "8858a8"), ((12, 12), "a67aef"))},
+}
+
+
+def n41_tier(n41, tier):
+    if tier is None:
+        return None
+    out = {"frame": tuple(n41.H(c) for c in tier["frame"]), "latch": [n41.H(c) for c in tier["latch"]]}
+    if tier["body"]:
+        out["body"] = [n41.H(c) for c in tier["body"]]
+    if "outline" in tier:
+        out["outline"] = n41.H(tier["outline"])
+    out["specks"] = [(xy, n41.H(c)) for xy, c in tier.get("specks", ())]
+    return out
+
+
 def rows_of(design: str) -> list[str]:
     return colour_wheel() if design == "H" else DESIGNS[design]
 
@@ -398,8 +425,10 @@ def build(design: str = CHOSEN) -> dict[str, Image.Image]:
                 img.putpixel((x, y), rgb + (255,))
         images[name] = img
     # Owner pick N41 (2026-10-12): the plain paint box becomes proposal B4 (leather case, rainbow window).
+    # N46 (2026-10-12): the higher tiers follow B4 too - same shape, tier material on the frame, corners and latch.
     import n41_proposals_2026_10_12 as n41
-    images["paint_box"] = n41.paint_box(3)
+    for name, tier in B4_TIERS.items():
+        images[name] = n41.paint_box(3, n41_tier(n41, tier))
     return images
 
 

@@ -463,7 +463,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] **Schrittweiser Umbau je Schlag (universell):** Jeder Schlag verändert sichtbar Richtung Ziel. Fass am Tiegel: bei jedem Schlag ein Stück näher am fertigen angedockten Fass (Zwischenmodelle). Gleiches Modell → Textur-Overlay der Zieltextur, Stück für Stück in einem Anbau-Muster aufgedeckt. Verändertes Modell → je Schlag ein Zwischenmodell oder Keyframes über mehrere Schläge, aber jeder Schlag bringt eine Veränderung. Als universelles System in simplelib für alle In-World-Umwandlungen. (teilweise: Ergebnis-Items je Schlag 9c49fc10f; Zwischenmodelle/Overlay-Aufdeckung fehlen) (erledigt: Branch `claude-q-inworld`, aufwachsende BlockDisplay-Vorschau je Schlag in Lib-Tiegel/Fass/Aufwertungen und SB-Maschinenaufwertungen; Client-Sicht offen; Besatz-Vorlage ohne Block-Vorschau)
 - [x] **Schach:** 0,125er Schachfiguren (0,5×0,5×0,5) rendern nicht bzw. falsch. Checker-Treppen und -Stufen haben im Inventar das falsche Blockmodell (vermutlich Seiten vertauscht). (teilweise: Checker-Treppen/-Stufen gespiegelt e27188645; Achtel-Figuren rendern weiter falsch (Screenshot 08.10.))
   Erledigt auf `claude-q-chess`: Ursache im `ChessPiecesRenderer` (doppelter Halbblock-Abzug gegenüber dem Item-Transform → Figuren einen halben Block tief und neben dem Feld); Client-Test `chess-pieces` prüft jede Figur auf ihrem Viertel, Datenprüfung `tools/check_chess_assets.py`. Vorher/Nachher previews/chess/.
-- [ ] (Besitzer 12.10.: nur notwendige und ästhetisch sinnvolle, claude-octets-more) **Mehr 0,125er Blöcke** als Erweiterung der Farbpalette: Teile von Vanilla-Blöcken.
+- [x] (Besitzer 12.10.: nur notwendige und ästhetisch sinnvolle, claude-octets-more) **Mehr 0,125er Blöcke** als Erweiterung der Farbpalette: Teile von Vanilla-Blöcken. (erledigt: Branch `claude-octets-more`, 58 neue Achtel: Keramik 17, Metall 7, Kupferblöcke 4, Stämme 24, Stein 5, Knochen 1; Plan `docs/ai/PLAN-OCTETS-MORE-2026-10-12.md`)
 - [x] **Enderit-Tiegel Stapelgröße:** zeigt 64 statt 128 an. Modifizierte Stapelgrößen als gemeinsame Lösung in simplelib (Anzeige, Slot-Limit, Transfer automatisch konsistent). (teilweise: Tiegel + angedocktes Fass über simplelib StackLimits 0a84dab08; loses Enderit-Fass, Trichter-Transfers und TieredChests noch auf 64) (claude-q-storage: loses Fass mit eigenem BarrelMenu, generischer Trichter-Mixin in simplelib, LimitedSlot; TieredChests hatten x2/x4 bereits)
 - [x] **Fass erbt Stapelgröße:** Hat ein Tiegel modifizierte Stapelgröße, hat das angedockte Fass dieselbe. (Audit 09.10.: 0a84dab08)
 
@@ -802,12 +802,12 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 46 (2026-10-12, Besitzer; Screenshot docs/ai/refs/n44/n46_inventar.png)
 - [ ] Hollow Howler (Tiefenheuler): etwas stärker als der Warden, hält den Spieler auf Trab (mehr Druck/Abwechslung im Kampf).
-- [ ] Farbkasten: nur die Basis-Stufe hat die neue Textur (B4) → verstärkt/Netherit/Enderit im gleichen Stil angleichen.
-- [ ] Fragentisch (questionary table): wirkt zu „modded“ → Vorschläge, vanillanäher.
-- [ ] Astral- und Nihil-Gewölbe (vault): wirken gar nicht Vanilla → an Vanilla-Vault/Trial-Stil angleichen (Vorschläge).
+- [x] Farbkasten: nur die Basis-Stufe hat die neue Textur (B4) → verstärkt/Netherit/Enderit im gleichen Stil angleichen. (claude-n46-tex: Stufen im B4-Stil eingebaut)
+- [x] Fragentisch (questionary table): wirkt zu „modded“ → Vorschläge, vanillanäher. (claude-n46-tex: R3 eingebaut, Bücherreihe an den Seiten, niedrige Lapis-Kante)
+- [x] Astral- und Nihil-Gewölbe (vault): Endertruhen-Stil, bleibt Truhe. (claude-n46-tex: A2 + Gold, N2 + Silber eingebaut; Vanilla-ender.png zur Generierungszeit aus dem Client-Jar wie D9)
 
 ## Nachtrag 45 (2026-10-12, Besitzer)
-- [ ] Lohen-Obsidian (blazing_obsidian) verbessern: soll klar wie Variante von Crying Obsidian aussehen. (claude-n45-tex: Vorschläge B1–B3 in docs/ai/previews/n45, Besitzer-Wahl offen)
+- [x] Lohen-Obsidian (blazing_obsidian): B1 animiert + nahtlos (claude-n45-obsidian); Astral-Tisch Oberseite/Seiten animiert, Nebel unter dem Tuch.
 - [x] Astral-Verzauberer: Modell kleiner als Textur → oben abgeschnitten; Textur an Modellmaße anpassen. (claude-n45-tex: Seite für 16x12-Modell, Motiv in Zeilen 4–15)
 - [ ] Shellker: Gravity-Effekt 30 s (hat man ihn schon: 1 min); schießt ~1,2× schneller; Projektil die ersten 2 s unzerstörbar; nach dem Öffnen der Schale schießt er fast sofort (Schlag-Spam bis zum Tod verhindern).
 - [x] End-Holz/Biom-Antworten komplett (Konzept docs/ai/KONZEPT-ENDHOLZ-BIOM-2026-10-12.md, Abschnitt Besitzer-Antworten). Umsetzung: claude-simple-end.
@@ -825,8 +825,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 42 (2026-10-12, Besitzer)
 - [ ] End-Gras: wie totes Gras/tote Büsche (Vanilla dead bush / short dry grass), Farbe wie Endstein; wächst/platzierbar auf Endstein, Weltgenerierung auf den End-Inseln.
-- [ ] Death Vault (NUR KONZEPT, nicht umsetzen): nach dem Tod 3–5 zufällige Items des letzten Todes gegen Bezahlung zurückholbar; gegen Duping gesichert (nur Items, die beim Tod verloren gingen und nicht aufgehoben wurden; einmalig je Tod, serverseitig).
-- [ ] Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst.
+- [ ] Death Vault (NUR KONZEPT, nicht umsetzen): nach dem Tod 3–5 zufällige Items des letzten Todes gegen Bezahlung zurückholbar; gegen Duping gesichert (nur Items, die beim Tod verloren gingen und nicht aufgehoben wurden; einmalig je Tod, serverseitig). Konzept: `docs/ai/KONZEPT-DEATH-VAULT-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort.
+- [ ] Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst. Konzept: `docs/ai/KONZEPT-SOULBOUND-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort.
 - [ ] Simple Creatures umbenennen in „Simple Mob Manners“ (Besitzer-Wahl 12.10.), Id simplemobmanners, mit Namespace-/Config-Migration (simplecreatures → simplemobmanners), Zentrale/Wiki/Lang anpassen.
 
 ## Nachtrag 41 (2026-10-12, Besitzer)

@@ -12,6 +12,17 @@
  },
  {
   "ns": "minecraft",
+  "base": "calcite",
+  "key": "calcite",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/calcite"
+  },
+  "en": "Calcite",
+  "de": "Kalzit"
+ },
+ {
+  "ns": "minecraft",
   "base": "cobblestone",
   "key": "cobblestone",
   "group": "stone",
@@ -34,6 +45,17 @@
  },
  {
   "ns": "minecraft",
+  "base": "end_stone",
+  "key": "end_stone",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/end_stone"
+  },
+  "en": "End Stone",
+  "de": "Endstein"
+ },
+ {
+  "ns": "minecraft",
   "base": "granite",
   "key": "granite",
   "group": "stone",
@@ -53,6 +75,28 @@
   },
   "en": "Mossy Cobblestone",
   "de": "Bemooster Bruchstein"
+ },
+ {
+  "ns": "minecraft",
+  "base": "netherrack",
+  "key": "netherrack",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/netherrack"
+  },
+  "en": "Netherrack",
+  "de": "Netherrack"
+ },
+ {
+  "ns": "minecraft",
+  "base": "obsidian",
+  "key": "obsidian",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/obsidian"
+  },
+  "en": "Obsidian",
+  "de": "Obsidian"
  },
  {
   "ns": "minecraft",
@@ -86,6 +130,17 @@
   },
   "en": "Polished Granite",
   "de": "Polierter Granit"
+ },
+ {
+  "ns": "minecraft",
+  "base": "smooth_basalt",
+  "key": "smooth_basalt",
+  "group": "stone",
+  "tex": {
+   "all": "minecraft:block/smooth_basalt"
+  },
+  "en": "Smooth Basalt",
+  "de": "Glatter Basalt"
  },
  {
   "ns": "minecraft",
@@ -449,6 +504,50 @@
  },
  {
   "ns": "minecraft",
+  "base": "copper_block",
+  "key": "copper_block",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/copper_block"
+  },
+  "en": "Block of Copper",
+  "de": "Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "exposed_copper",
+  "key": "exposed_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/exposed_copper"
+  },
+  "en": "Exposed Copper",
+  "de": "Angelaufener Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "weathered_copper",
+  "key": "weathered_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/weathered_copper"
+  },
+  "en": "Weathered Copper",
+  "de": "Verwitterter Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "oxidized_copper",
+  "key": "oxidized_copper",
+  "group": "copper",
+  "tex": {
+   "all": "minecraft:block/oxidized_copper"
+  },
+  "en": "Oxidized Copper",
+  "de": "Oxidierter Kupferblock"
+ },
+ {
+  "ns": "minecraft",
   "base": "cut_copper",
   "key": "cut_copper",
   "group": "copper",
@@ -534,6 +633,395 @@
   },
   "en": "Waxed Oxidized Cut Copper",
   "de": "Gewachster oxidierter geschnittener Kupferblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "coal_block",
+  "key": "coal_block",
+  "group": "metal",
+  "tex": {
+   "all": "minecraft:block/coal_block"
+  },
+  "en": "Block of Coal",
+  "de": "Kohleblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "diamond_block",
+  "key": "diamond_block",
+  "group": "metal",
+  "tex": {
+   "all": "minecraft:block/diamond_block"
+  },
+  "en": "Block of Diamond",
+  "de": "Diamantblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "emerald_block",
+  "key": "emerald_block",
+  "group": "metal",
+  "tex": {
+   "all": "minecraft:block/emerald_block"
+  },
+  "en": "Block of Emerald",
+  "de": "Smaragdblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "gold_block",
+  "key": "gold_block",
+  "group": "metal",
+  "tex": {
+   "all": "minecraft:block/gold_block"
+  },
+  "en": "Block of Gold",
+  "de": "Goldblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "iron_block",
+  "key": "iron_block",
+  "group": "metal",
+  "tex": {
+   "all": "minecraft:block/iron_block"
+  },
+  "en": "Block of Iron",
+  "de": "Eisenblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "lapis_block",
+  "key": "lapis_block",
+  "group": "metal",
+  "tex": {
+   "all": "minecraft:block/lapis_block"
+  },
+  "en": "Block of Lapis Lazuli",
+  "de": "Lapislazuliblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "netherite_block",
+  "key": "netherite_block",
+  "group": "metal",
+  "tex": {
+   "all": "minecraft:block/netherite_block"
+  },
+  "en": "Block of Netherite",
+  "de": "Netheritblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "acacia_log",
+  "key": "acacia_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/acacia_log_top",
+   "down": "minecraft:block/acacia_log_top",
+   "side": "minecraft:block/acacia_log"
+  },
+  "en": "Acacia Log",
+  "de": "Akazienstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "birch_log",
+  "key": "birch_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/birch_log_top",
+   "down": "minecraft:block/birch_log_top",
+   "side": "minecraft:block/birch_log"
+  },
+  "en": "Birch Log",
+  "de": "Birkenstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "cherry_log",
+  "key": "cherry_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/cherry_log_top",
+   "down": "minecraft:block/cherry_log_top",
+   "side": "minecraft:block/cherry_log"
+  },
+  "en": "Cherry Log",
+  "de": "Kirschstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "crimson_stem",
+  "key": "crimson_stem",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/crimson_stem_top",
+   "down": "minecraft:block/crimson_stem_top",
+   "side": "minecraft:block/crimson_stem"
+  },
+  "en": "Crimson Stem",
+  "de": "Karmesinstiel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "dark_oak_log",
+  "key": "dark_oak_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/dark_oak_log_top",
+   "down": "minecraft:block/dark_oak_log_top",
+   "side": "minecraft:block/dark_oak_log"
+  },
+  "en": "Dark Oak Log",
+  "de": "Schwarzeichenstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "jungle_log",
+  "key": "jungle_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/jungle_log_top",
+   "down": "minecraft:block/jungle_log_top",
+   "side": "minecraft:block/jungle_log"
+  },
+  "en": "Jungle Log",
+  "de": "Tropenbaumstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "mangrove_log",
+  "key": "mangrove_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/mangrove_log_top",
+   "down": "minecraft:block/mangrove_log_top",
+   "side": "minecraft:block/mangrove_log"
+  },
+  "en": "Mangrove Log",
+  "de": "Mangrovenstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "oak_log",
+  "key": "oak_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/oak_log_top",
+   "down": "minecraft:block/oak_log_top",
+   "side": "minecraft:block/oak_log"
+  },
+  "en": "Oak Log",
+  "de": "Eichenstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "pale_oak_log",
+  "key": "pale_oak_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/pale_oak_log_top",
+   "down": "minecraft:block/pale_oak_log_top",
+   "side": "minecraft:block/pale_oak_log"
+  },
+  "en": "Pale Oak Log",
+  "de": "Blasseichenstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "poplar_log",
+  "key": "poplar_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/poplar_log_top",
+   "down": "minecraft:block/poplar_log_top",
+   "side": "minecraft:block/poplar_log"
+  },
+  "en": "Poplar Log",
+  "de": "Pappelstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "spruce_log",
+  "key": "spruce_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/spruce_log_top",
+   "down": "minecraft:block/spruce_log_top",
+   "side": "minecraft:block/spruce_log"
+  },
+  "en": "Spruce Log",
+  "de": "Fichtenstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "warped_stem",
+  "key": "warped_stem",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/warped_stem_top",
+   "down": "minecraft:block/warped_stem_top",
+   "side": "minecraft:block/warped_stem"
+  },
+  "en": "Warped Stem",
+  "de": "Wirrstiel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stripped_acacia_log",
+  "key": "stripped_acacia_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/stripped_acacia_log_top",
+   "down": "minecraft:block/stripped_acacia_log_top",
+   "side": "minecraft:block/stripped_acacia_log"
+  },
+  "en": "Stripped Acacia Log",
+  "de": "Entrindeter Akazienstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stripped_birch_log",
+  "key": "stripped_birch_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/stripped_birch_log_top",
+   "down": "minecraft:block/stripped_birch_log_top",
+   "side": "minecraft:block/stripped_birch_log"
+  },
+  "en": "Stripped Birch Log",
+  "de": "Entrindeter Birkenstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stripped_cherry_log",
+  "key": "stripped_cherry_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/stripped_cherry_log_top",
+   "down": "minecraft:block/stripped_cherry_log_top",
+   "side": "minecraft:block/stripped_cherry_log"
+  },
+  "en": "Stripped Cherry Log",
+  "de": "Entrindeter Kirschstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stripped_crimson_stem",
+  "key": "stripped_crimson_stem",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/stripped_crimson_stem_top",
+   "down": "minecraft:block/stripped_crimson_stem_top",
+   "side": "minecraft:block/stripped_crimson_stem"
+  },
+  "en": "Stripped Crimson Stem",
+  "de": "Geschälter Karmesinstiel"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stripped_dark_oak_log",
+  "key": "stripped_dark_oak_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/stripped_dark_oak_log_top",
+   "down": "minecraft:block/stripped_dark_oak_log_top",
+   "side": "minecraft:block/stripped_dark_oak_log"
+  },
+  "en": "Stripped Dark Oak Log",
+  "de": "Entrindeter Schwarzeichenstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stripped_jungle_log",
+  "key": "stripped_jungle_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/stripped_jungle_log_top",
+   "down": "minecraft:block/stripped_jungle_log_top",
+   "side": "minecraft:block/stripped_jungle_log"
+  },
+  "en": "Stripped Jungle Log",
+  "de": "Entrindeter Tropenbaumstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stripped_mangrove_log",
+  "key": "stripped_mangrove_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/stripped_mangrove_log_top",
+   "down": "minecraft:block/stripped_mangrove_log_top",
+   "side": "minecraft:block/stripped_mangrove_log"
+  },
+  "en": "Stripped Mangrove Log",
+  "de": "Entrindeter Mangrovenstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stripped_oak_log",
+  "key": "stripped_oak_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/stripped_oak_log_top",
+   "down": "minecraft:block/stripped_oak_log_top",
+   "side": "minecraft:block/stripped_oak_log"
+  },
+  "en": "Stripped Oak Log",
+  "de": "Entrindeter Eichenstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stripped_pale_oak_log",
+  "key": "stripped_pale_oak_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/stripped_pale_oak_log_top",
+   "down": "minecraft:block/stripped_pale_oak_log_top",
+   "side": "minecraft:block/stripped_pale_oak_log"
+  },
+  "en": "Stripped Pale Oak Log",
+  "de": "Entrindeter Blasseichenstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stripped_poplar_log",
+  "key": "stripped_poplar_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/stripped_poplar_log_top",
+   "down": "minecraft:block/stripped_poplar_log_top",
+   "side": "minecraft:block/stripped_poplar_log"
+  },
+  "en": "Stripped Poplar Log",
+  "de": "Entrindeter Pappelstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stripped_spruce_log",
+  "key": "stripped_spruce_log",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/stripped_spruce_log_top",
+   "down": "minecraft:block/stripped_spruce_log_top",
+   "side": "minecraft:block/stripped_spruce_log"
+  },
+  "en": "Stripped Spruce Log",
+  "de": "Entrindeter Fichtenstamm"
+ },
+ {
+  "ns": "minecraft",
+  "base": "stripped_warped_stem",
+  "key": "stripped_warped_stem",
+  "group": "log",
+  "tex": {
+   "up": "minecraft:block/stripped_warped_stem_top",
+   "down": "minecraft:block/stripped_warped_stem_top",
+   "side": "minecraft:block/stripped_warped_stem"
+  },
+  "en": "Stripped Warped Stem",
+  "de": "Geschälter Wirrstiel"
  },
  {
   "ns": "minecraft",
@@ -888,6 +1376,193 @@
   "de": "Rosa Beton"
  },
  {
+  "ns": "minecraft",
+  "base": "terracotta",
+  "key": "terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/terracotta"
+  },
+  "en": "Terracotta",
+  "de": "Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "white_terracotta",
+  "key": "white_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/white_terracotta"
+  },
+  "en": "White Terracotta",
+  "de": "Weiße Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "light_gray_terracotta",
+  "key": "light_gray_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/light_gray_terracotta"
+  },
+  "en": "Light Gray Terracotta",
+  "de": "Hellgraue Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "gray_terracotta",
+  "key": "gray_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/gray_terracotta"
+  },
+  "en": "Gray Terracotta",
+  "de": "Graue Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "black_terracotta",
+  "key": "black_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/black_terracotta"
+  },
+  "en": "Black Terracotta",
+  "de": "Schwarze Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "brown_terracotta",
+  "key": "brown_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/brown_terracotta"
+  },
+  "en": "Brown Terracotta",
+  "de": "Braune Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "red_terracotta",
+  "key": "red_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/red_terracotta"
+  },
+  "en": "Red Terracotta",
+  "de": "Rote Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "orange_terracotta",
+  "key": "orange_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/orange_terracotta"
+  },
+  "en": "Orange Terracotta",
+  "de": "Orange Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "yellow_terracotta",
+  "key": "yellow_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/yellow_terracotta"
+  },
+  "en": "Yellow Terracotta",
+  "de": "Gelbe Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "lime_terracotta",
+  "key": "lime_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/lime_terracotta"
+  },
+  "en": "Lime Terracotta",
+  "de": "Hellgrüne Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "green_terracotta",
+  "key": "green_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/green_terracotta"
+  },
+  "en": "Green Terracotta",
+  "de": "Grüne Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "cyan_terracotta",
+  "key": "cyan_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/cyan_terracotta"
+  },
+  "en": "Cyan Terracotta",
+  "de": "Türkise Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "light_blue_terracotta",
+  "key": "light_blue_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/light_blue_terracotta"
+  },
+  "en": "Light Blue Terracotta",
+  "de": "Hellblaue Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "blue_terracotta",
+  "key": "blue_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/blue_terracotta"
+  },
+  "en": "Blue Terracotta",
+  "de": "Blaue Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "purple_terracotta",
+  "key": "purple_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/purple_terracotta"
+  },
+  "en": "Purple Terracotta",
+  "de": "Violette Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "magenta_terracotta",
+  "key": "magenta_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/magenta_terracotta"
+  },
+  "en": "Magenta Terracotta",
+  "de": "Magenta Keramik"
+ },
+ {
+  "ns": "minecraft",
+  "base": "pink_terracotta",
+  "key": "pink_terracotta",
+  "group": "terracotta",
+  "tex": {
+   "all": "minecraft:block/pink_terracotta"
+  },
+  "en": "Pink Terracotta",
+  "de": "Rosa Keramik"
+ },
+ {
   "ns": "simplebuilding",
   "base": "astralit_bricks",
   "key": "astralit_bricks",
@@ -963,6 +1638,19 @@
   },
   "en": "Polished Nihilit",
   "de": "Polierter Nihilit"
+ },
+ {
+  "ns": "minecraft",
+  "base": "bone_block",
+  "key": "bone_block",
+  "group": "other",
+  "tex": {
+   "up": "minecraft:block/bone_block_top",
+   "down": "minecraft:block/bone_block_top",
+   "side": "minecraft:block/bone_block_side"
+  },
+  "en": "Bone Block",
+  "de": "Knochenblock"
  },
  {
   "ns": "minecraft",
