@@ -397,6 +397,9 @@ def build(design: str = CHOSEN) -> dict[str, Image.Image]:
             for (x, y), rgb in specks(design):
                 img.putpixel((x, y), rgb + (255,))
         images[name] = img
+    # Owner pick N41 (2026-10-12): the plain paint box becomes proposal B4 (leather case, rainbow window).
+    import n41_proposals_2026_10_12 as n41
+    images["paint_box"] = n41.paint_box(3)
     return images
 
 

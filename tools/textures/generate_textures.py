@@ -2162,7 +2162,9 @@ def end_palette_textures():
         tex[f"block/{mat}_pillar.png"] = end_palette_pillar_side(mat)
         tex[f"block/{mat}_pillar_top.png"] = end_palette_pillar_top(mat)
         tex[f"block/chiseled_{mat}_bricks.png"] = end_palette_chiseled(mat)
-    tex["item/ender_quartz.png"] = render("ender_quartz", ENDER_QUARTZ_ITEM, ENDER_QUARTZ_ITEM_PAL, False)
+    # Owner pick N41 (2026-10-12): same shape, proposal C2 colours (milky lavender quartz).
+    import n41_proposals_2026_10_12 as n41
+    tex["item/ender_quartz.png"] = n41.ender_quartz(1, render("ender_quartz", ENDER_QUARTZ_ITEM, ENDER_QUARTZ_ITEM_PAL, False))
     tex["block/enderite_block.png"] = render("enderite_block", ENDERITE_BLOCK, ENDERITE_BLOCK_PAL, True)
     tex["block/enderite_pressure_plate.png"] = tex["block/enderite_block.png"].copy()
     tex["item/amethyst_lens.png"] = render("amethyst_lens", LASER_POINTER, LASER_POINTER_PAL, False)
