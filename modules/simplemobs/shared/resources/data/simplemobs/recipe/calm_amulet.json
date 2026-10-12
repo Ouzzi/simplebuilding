@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "minecraft:iron_chain",
+    "L": "simplemobs:dread_link",
+    "A": "minecraft:amethyst_shard"
+  },
+  "pattern": [
+    " C ",
+    "LAL",
+    " L "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplemobs:calm_amulet"
+  }
+}

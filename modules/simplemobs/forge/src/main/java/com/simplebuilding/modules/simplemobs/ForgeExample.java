@@ -82,6 +82,29 @@ public final class ForgeExample {
             if (e.getTabKey().equals(CreativeModeTabs.COMBAT)) putAfter(e, new ItemStack(Items.TURTLE_HELMET), new ItemStack(EndNetherMobs.HELMET));
         });
         net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> EndNetherServer.tick(e.server()));
+        FearMobs.simplebuildingPresent = net.minecraftforge.fml.ModList.get().isLoaded("simplebuilding");
+        RegisterEvent.getBus(bus).addListener(event -> {
+            event.register(Registries.ENTITY_TYPE, r -> FearMobs.entityTypes(r::register));
+            event.register(Registries.ITEM, r -> FearMobs.items(r::register));
+            event.register(Registries.MOB_EFFECT, r -> FearMobs.effects(r::register));
+            event.register(Registries.POTION, r -> FearMobs.potions(r::register));
+        });
+        EntityAttributeCreationEvent.BUS.addListener(event -> {
+            event.put(FearMobs.DREAD, DreadEntity.createAttributes().build());
+            event.put(FearMobs.WATCHER, HollowWatcherEntity.createAttributes().build());
+        });
+        BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
+            if (e.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
+                putAfter(e, new ItemStack(Items.WITHER_SKELETON_SPAWN_EGG), new ItemStack(FearMobs.DREAD_EGG));
+                putAfter(e, new ItemStack(Items.ENDERMAN_SPAWN_EGG), new ItemStack(FearMobs.WATCHER_EGG));
+            }
+            if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
+                putAfter(e, new ItemStack(Items.ENDER_EYE), new ItemStack(FearMobs.EYE));
+                putAfter(e, new ItemStack(Items.ENDER_EYE), new ItemStack(FearMobs.LINK));
+            }
+            if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) e.accept(FearMobs.AMULET);
+        });
+        net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> FearServer.tick(e.server()));
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == Dist.CLIENT) ForgeClientExample.init();
     }
 

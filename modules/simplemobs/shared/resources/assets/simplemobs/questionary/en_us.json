@@ -130,5 +130,60 @@
     "secret": [
       "Its copies are always fakes and vanish with it."
     ]
+  },
+  "dread_link": {
+    "lore": [
+      "A link of a chain that dragged a mace through a hundred battles. It is cold and never stops trembling."
+    ],
+    "use": [
+      "Dropped by the Dread, 2 to 4 (more with Looting), only when a player lands the last hit. Three links, an iron chain and an amethyst shard make the Calm Amulet."
+    ],
+    "secret": [
+      "The Dread never spawns on its own: whoever wants links has to build one first."
+    ]
+  },
+  "calm_amulet": {
+    "lore": [
+      "A small weight of iron and amethyst that keeps the hands steady."
+    ],
+    "use": [
+      "Carry it anywhere in your inventory: you are immune to Shivering, from the Dread's and the Hollow Watcher's aura, the Watcher's scream and potions alike. Craft: iron chain on top, Dread Links left, right and below, an amethyst shard in the middle."
+    ],
+    "secret": [
+      "It also removes Shivering you already have the moment it enters your inventory."
+    ]
+  },
+  "watcher_eye": {
+    "lore": [
+      "An eye that keeps looking at whoever holds it. Do not look back for too long."
+    ],
+    "use": [
+      "Dropped by the Hollow Watcher on the outer End islands. Awkward Potion plus Watcher Eye brews the Potion of Focus: 3:00 immune to Shivering (8:00 with redstone), splash and lingering as usual."
+    ],
+    "secret": [
+      "Focus keeps the aim steady even in a Watcher's scream, but not the eyes: the scream still blinds."
+    ]
+  },
+  "dread_spawn_egg": {
+    "lore": [
+      "An egg as heavy as an anvil."
+    ],
+    "use": [
+      "Spawns a Dread in creative. In survival you build it: a block of iron, an anvil on it, a chain on either side of the anvil and a wither skeleton skull on top - placed last."
+    ],
+    "secret": [
+      "Bright light weakens it: at light 12 and more its blows deal half damage and its aura only gives Shivering I."
+    ]
+  },
+  "hollow_watcher_spawn_egg": {
+    "lore": [
+      "An egg that is never where you last saw it."
+    ],
+    "use": [
+      "Spawns a Hollow Watcher in creative. In survival it appears rarely on the outer End islands, far from the dragon's island."
+    ],
+    "secret": [
+      "It only moves while nobody looks at it. A look through a spyglass freezes it for 3 seconds - but stare too long and it screams."
+    ]
   }
 }

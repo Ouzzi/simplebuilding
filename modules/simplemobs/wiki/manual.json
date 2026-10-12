@@ -188,6 +188,108 @@
           "(Mit SimpleBuilding) Trugbild-Tränke aus dem Trugsplitter: Seltsamer Trank + Trugsplitter = Trank des Trugbilds (\"feindlich\": friedliche Mobs wirken feindlich); + Fermentiertes Spinnenauge = Trank des umgekehrten Trugbilds (\"friedlich\": feindliche Mobs wirken friedlich); Redstone verlängert beide auf 8:00, Schwarzpulver / Drachenatem ergeben Wurf- und Verweiltränke. Keine stärkere Stufe: der Effekt hat keine Stärke."
         ]
       }
+    },
+    {
+      "id": "dread",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/DreadEntity.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/DreadPattern.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearAura.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/WitherSkullDreadMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Dread",
+        "summary": "A fear mob you build yourself: a 2.6 block knight of rusted armor with soul flames in its empty helmet and a chain mace. Its Shivering aura makes your aim waver; bright light weakens it.",
+        "details": [
+          "Figure, front view: a Block of Iron at the bottom, an anvil on it (any damage), a chain (any) left and right of the anvil, a Wither Skeleton Skull on top - placed last. The blocks beside the iron block and beside the skull must be air. About 40 iron ingots and the skull. Not on Peaceful; server config simplemobs-server.json: dreadSummonEnabled. It never spawns naturally.",
+          "It rises from the ground for 3 seconds (invulnerable), then hunts survival players. 260 health, armor 14, toughness 4, no knockback, slow. 60 XP.",
+          "Mace swing, announced by the raised mace and a chain rattle for 0.7 s: 18 damage (Hard 27) and a heavy push. A shield that blocks it is disabled for 10 s (an axe: 5 s).",
+          "Ground stomp, announced for 1.2 s by both arms lifting the mace, a roar and a ring of soul particles (radius 6): everyone on the ground in the ring takes 10 damage and is thrown out. Jump to dodge it. Cooldown 8 s.",
+          "Weakness: light (block and sky) of 12 or more where it stands halves the damage of all its attacks and caps its aura at Shivering I; its soul flames burn low and smoke.",
+          "Drops 2-4 Dread Links when a player lands the last hit (Looting +1)."
+        ]
+      },
+      "de": {
+        "title": "Schreckensritter",
+        "summary": "Ein Furcht-Mob, den du selbst baust: ein 2,6 Blöcke großer Ritter in verrosteter Rüstung, Seelenflammen im leeren Helm und eine Kettenkeule. Seine Zitter-Aura lässt das Zielen wackeln; helles Licht schwächt ihn.",
+        "details": [
+          "Figur von vorn: unten ein Eisenblock, darauf ein Amboss (beliebig beschädigt), links und rechts vom Amboss je eine Kette (beliebig), obendrauf ein Witherskelettschädel – zuletzt gesetzt. Neben dem Eisenblock und neben dem Schädel muss Luft sein. Etwa 40 Eisenbarren und der Schädel. Nicht auf Friedlich; Server-Config simplemobs-server.json: dreadSummonEnabled. Er erscheint nie von selbst.",
+          "Er steigt 3 Sekunden lang aus dem Boden (unverwundbar) und jagt dann Spieler im Überlebensmodus. 260 Leben, Rüstung 14, Härte 4, kein Rückstoß, langsam. 60 EP.",
+          "Keulenschlag, 0,7 s angekündigt durch die erhobene Keule und Kettenrasseln: 18 Schaden (Schwer 27) und starker Stoß. Ein Schild, der ihn blockt, ist 10 s gesperrt (Axt: 5 s).",
+          "Bodenstampfer, 1,2 s angekündigt durch beide erhobenen Arme, ein Brüllen und einen Ring aus Seelenpartikeln (Radius 6): Wer im Ring am Boden steht, nimmt 10 Schaden und wird weggeschleudert. Springen weicht aus. Abklingzeit 8 s.",
+          "Schwäche: Licht (Block und Himmel) ab 12 an seinem Standort halbiert den Schaden aller Angriffe und begrenzt die Aura auf Zittern I; seine Seelenflammen werden schwach und rauchen.",
+          "Lässt 2–4 Schreckens-Kettenglieder fallen, wenn ein Spieler den letzten Treffer setzt (Plünderung +1)."
+        ]
+      }
+    },
+    {
+      "id": "hollow_watcher",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/HollowWatcherEntity.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearServer.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearAura.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Hollow Watcher",
+        "summary": "A 4 block shadow with many eyes on the outer End islands. It moves only while nobody looks at it; a spyglass look freezes it. Unwatched it teleports behind you and grips you.",
+        "details": [
+          "Spawning: rarely, only in the End farther than 1000 blocks from the origin, on End stone with room for its height, at most one within 128 blocks, not on Peaceful. Server config: hollowWatcherSpawns, hollowWatcherChance (per 30 s roll per player, default 0.04).",
+          "200 health, armor 8. 50 XP. While any player looks at it (in view, line of sight, not blinded) it stands still and starts no attack; a grip or scream already running goes on.",
+          "Looking at it through a spyglass freezes it for 3 seconds: no movement, no attack, a running grip lets go.",
+          "Teleport: unwatched and more than 8 blocks away, portal particles mark a spot 2.5 blocks behind its target for 0.6 s, then it appears there. If someone looks at it meanwhile, the jump is cancelled. Cooldown 6 s.",
+          "Grip, announced by reaching arms for 0.5 s: 6 damage and held in place for 2 s, then 4 damage and thrown away. Cooldown 10 s. Claw: 10 damage after 0.3 s.",
+          "Scream, announced for 1 s (head thrown back, low Enderman scream): Shivering II for 10 s and Blindness for 3 s to everyone within 12 blocks. It screams when its target stares at it for 5 s in a row, or unwatched every 20 s when its target is within 12 blocks in sight.",
+          "Drops 1 Watcher Eye when a player lands the last hit (Looting +1)."
+        ]
+      },
+      "de": {
+        "title": "Hohler Wächter",
+        "summary": "Ein 4 Blöcke großer Schatten mit vielen Augen auf den äußeren End-Inseln. Er bewegt sich nur, solange ihn niemand ansieht; ein Blick durchs Fernrohr friert ihn ein. Unbeobachtet springt er hinter dich und packt zu.",
+        "details": [
+          "Erscheinen: selten, nur im End weiter als 1000 Blöcke vom Ursprung, auf Endstein mit Platz für seine Höhe, höchstens einer im Umkreis von 128 Blöcken, nicht auf Friedlich. Server-Config: hollowWatcherSpawns, hollowWatcherChance (je 30-s-Wurf und Spieler, Standard 0,04).",
+          "200 Leben, Rüstung 8. 50 EP. Solange ein Spieler ihn ansieht (im Blickfeld, Sichtlinie, nicht blind), steht er still und beginnt keinen Angriff; ein laufender Griff oder Schrei geht weiter.",
+          "Ein Blick durchs Fernrohr friert ihn 3 Sekunden ein: keine Bewegung, kein Angriff, ein laufender Griff löst sich.",
+          "Teleport: unbeobachtet und weiter als 8 Blöcke entfernt markieren Portalpartikel 0,6 s lang eine Stelle 2,5 Blöcke hinter seinem Ziel, dann erscheint er dort. Sieht ihn währenddessen jemand an, bricht der Sprung ab. Abklingzeit 6 s.",
+          "Griff, 0,5 s angekündigt durch ausgestreckte Arme: 6 Schaden und 2 s festgehalten, dann 4 Schaden und weggeschleudert. Abklingzeit 10 s. Kralle: 10 Schaden nach 0,3 s.",
+          "Schrei, 1 s angekündigt (Kopf zurück, tiefer Enderman-Schrei): Zittern II für 10 s und Blindheit für 3 s für alle im Umkreis von 12 Blöcken. Er schreit, wenn sein Ziel ihn 5 s am Stück anstarrt, oder unbeobachtet alle 20 s, wenn sein Ziel in Sichtweite innerhalb von 12 Blöcken ist.",
+          "Lässt 1 Wächterauge fallen, wenn ein Spieler den letzten Treffer setzt (Plünderung +1)."
+        ]
+      }
+    },
+    {
+      "id": "shivering_aura",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearAura.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearMobs.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearServer.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/client/AimSway.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/AimSwayMixin.java"
+      ],
+      "en": {
+        "title": "Shivering aura, Calm Amulet and Focus",
+        "summary": "Near a fear mob you shiver: your aim wavers. Shivering I when it sees you within 16 blocks, II closer than 6. The Calm Amulet or the Potion of Focus makes you immune.",
+        "details": [
+          "Every second the Dread and the Hollow Watcher give Shivering for 3 s to survival players around them: level I within 16 blocks if they can see you, level II closer than 6 blocks. Milk helps only until the next pulse.",
+          "Shivering makes the view waver around your aim (about 0.6 degrees at I, 1.8 at II), so bows and crossbows lose precision. With SimpleBuilding it is SimpleBuilding's Shivering effect (which also shakes the crosshair); without it Simple Mobs brings its own.",
+          "Calm Amulet: iron chain on top, a Dread Link left, right and below, an amethyst shard in the middle. Anywhere in the inventory it makes you immune to Shivering and removes it.",
+          "Potion of Focus: Awkward Potion + Watcher Eye = 3:00 immunity to Shivering; + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions."
+        ]
+      },
+      "de": {
+        "title": "Zitter-Aura, Ruhe-Amulett und Fokus",
+        "summary": "In der Nähe eines Furcht-Mobs zitterst du: dein Zielen wackelt. Zittern I, wenn er dich im Umkreis von 16 Blöcken sieht, II näher als 6. Das Ruhe-Amulett oder der Trank des Fokus machen immun.",
+        "details": [
+          "Jede Sekunde geben Schreckensritter und Hohler Wächter Spielern im Überlebensmodus um sich herum 3 s Zittern: Stufe I im Umkreis von 16 Blöcken, wenn sie dich sehen, Stufe II näher als 6 Blöcke. Milch hilft nur bis zum nächsten Puls.",
+          "Zittern lässt den Blick um dein Ziel pendeln (etwa 0,6 Grad bei I, 1,8 bei II), Bogen und Armbrust werden ungenau. Mit SimpleBuilding ist es dessen Effekt Zittern (der zusätzlich das Fadenkreuz wackeln lässt); ohne bringt Simple Mobs einen eigenen mit.",
+          "Ruhe-Amulett: Eisenkette oben, je ein Schreckens-Kettenglied links, rechts und unten, Amethystscherbe in der Mitte. Irgendwo im Inventar macht es immun gegen Zittern und entfernt es.",
+          "Trank des Fokus: Seltsamer Trank + Wächterauge = 3:00 Immunität gegen Zittern; + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank."
+        ]
+      }
     }
   ],
   "notes": {
@@ -285,6 +387,46 @@
       },
       "de": {
         "summary": "Zweiter Drop des Deceivers (1-2, mit Brustplatte doppelt so viele). (Mit SimpleBuilding) Seltsamer Trank + Trugsplitter = Trank des Trugbilds."
+      }
+    },
+    "simplemobs:dread_link": {
+      "en": {
+        "summary": "Dropped by the Dread (2-4, Looting +1). Three make the Calm Amulet with an iron chain and an amethyst shard."
+      },
+      "de": {
+        "summary": "Lässt der Schreckensritter fallen (2–4, Plünderung +1). Drei ergeben mit Eisenkette und Amethystscherbe das Ruhe-Amulett."
+      }
+    },
+    "simplemobs:calm_amulet": {
+      "en": {
+        "summary": "Anywhere in the inventory: immune to Shivering. Crafted from three Dread Links, an iron chain and an amethyst shard."
+      },
+      "de": {
+        "summary": "Irgendwo im Inventar: immun gegen Zittern. Aus drei Schreckens-Kettengliedern, Eisenkette und Amethystscherbe."
+      }
+    },
+    "simplemobs:watcher_eye": {
+      "en": {
+        "summary": "Dropped by the Hollow Watcher. Awkward Potion + Watcher Eye brews the Potion of Focus (3:00 immune to Shivering, redstone 8:00)."
+      },
+      "de": {
+        "summary": "Lässt der Hohle Wächter fallen. Seltsamer Trank + Wächterauge ergibt den Trank des Fokus (3:00 immun gegen Zittern, Redstone 8:00)."
+      }
+    },
+    "simplemobs:dread_spawn_egg": {
+      "en": {
+        "summary": "Creative only. In survival the Dread is built: iron block, anvil, two chains, wither skeleton skull."
+      },
+      "de": {
+        "summary": "Nur kreativ. Im Überleben wird der Schreckensritter gebaut: Eisenblock, Amboss, zwei Ketten, Witherskelettschädel."
+      }
+    },
+    "simplemobs:hollow_watcher_spawn_egg": {
+      "en": {
+        "summary": "Creative only. In survival the Hollow Watcher appears rarely on the outer End islands."
+      },
+      "de": {
+        "summary": "Nur kreativ. Im Überleben erscheint der Hohle Wächter selten auf den äußeren End-Inseln."
       }
     }
   }

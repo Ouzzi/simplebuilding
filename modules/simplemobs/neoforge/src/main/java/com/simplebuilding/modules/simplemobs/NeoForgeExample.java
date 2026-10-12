@@ -84,6 +84,29 @@ public final class NeoForgeExample {
             if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) insertAfter(event, new ItemStack(Items.TURTLE_HELMET), new ItemStack(EndNetherMobs.HELMET));
         });
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> EndNetherServer.tick(event.getServer()));
+        FearMobs.simplebuildingPresent = net.neoforged.fml.ModList.get().isLoaded("simplebuilding");
+        bus.addListener((RegisterEvent event) -> {
+            event.register(Registries.ENTITY_TYPE, h -> FearMobs.entityTypes(h::register));
+            event.register(Registries.ITEM, h -> FearMobs.items(h::register));
+            event.register(Registries.MOB_EFFECT, h -> FearMobs.effects(h::register));
+            event.register(Registries.POTION, h -> FearMobs.potions(h::register));
+        });
+        bus.addListener((EntityAttributeCreationEvent event) -> {
+            event.put(FearMobs.DREAD, DreadEntity.createAttributes().build());
+            event.put(FearMobs.WATCHER, HollowWatcherEntity.createAttributes().build());
+        });
+        bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
+            if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
+                insertAfter(event, new ItemStack(Items.WITHER_SKELETON_SPAWN_EGG), new ItemStack(FearMobs.DREAD_EGG));
+                insertAfter(event, new ItemStack(Items.ENDERMAN_SPAWN_EGG), new ItemStack(FearMobs.WATCHER_EGG));
+            }
+            if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
+                insertAfter(event, new ItemStack(Items.ENDER_EYE), new ItemStack(FearMobs.EYE));
+                insertAfter(event, new ItemStack(Items.ENDER_EYE), new ItemStack(FearMobs.LINK));
+            }
+            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) event.accept(FearMobs.AMULET);
+        });
+        NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> FearServer.tick(event.getServer()));
         if (dist == Dist.CLIENT) NeoForgeClientExample.init(bus);
     }
 
