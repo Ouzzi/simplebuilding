@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "simpletools:block/death_vault_top",
+    "side": "simpletools:block/death_vault_side",
+    "bottom": "simpletools:block/death_vault_bottom"
+  }
+}

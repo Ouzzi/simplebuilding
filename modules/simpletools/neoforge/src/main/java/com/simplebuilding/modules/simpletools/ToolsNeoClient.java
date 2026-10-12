@@ -9,6 +9,10 @@ public final class ToolsNeoClient {
                 net.neoforged.neoforge.client.gui.IConfigScreenFactory.class, (container, parent) -> ToolsScreen.create(parent));
     }
     @net.neoforged.bus.api.SubscribeEvent
+    public static void screens(net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event) {
+        event.register(ToolsRegistry.DEATH_VAULT_MENU, com.simplebuilding.modules.simpletools.client.DeathVaultScreen::new);
+    }
+    @net.neoforged.bus.api.SubscribeEvent
     public static void logout(net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent.LoggingOut event) {
         SimpleTools.clearSync();
     }

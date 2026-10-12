@@ -7,6 +7,12 @@ public final class ToolsFabric implements ModInitializer {
     public void onInitialize() {
         SimpleTools.configDir = net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir();
         SimpleTools.load();
+        ToolsRegistry.registerBlocks();
+        ToolsRegistry.registerItems();
+        ToolsRegistry.registerMenus();
+        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS).register(out ->
+                out.insertAfter(net.minecraft.world.item.Items.LODESTONE, ToolsRegistry.tabStacks(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, table, source, registries) -> ToolsLoot.apply(key, table::withPool, registries));
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d, r, e) -> ToolsCommands.register(d));
         InteractionGuard.permission = (p, pos) -> net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.invoker()
                 .beforeBlockBreak(p.level(), p, pos, p.level().getBlockState(pos), p.level().getBlockEntity(pos));

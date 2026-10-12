@@ -15,6 +15,24 @@ public final class ToolsConfig {
     public boolean anvilRepairKeepsCost = true;
     /** Right click a furnace with a lava bucket fills its fuel slot. */
     public boolean enableFurnaceLavaFill = true;
+    /** Soulbound items stay in their slot on death (owner 2026-10-12). */
+    public boolean enableSoulbound = true;
+    /** Death Vault block: lost death drops that despawned or burned can be bought back. */
+    public boolean enableDeathVault = true;
+    /** Soulbound items and Death Vault returns keep at most this much durability, 1-2031. */
+    public int deathDurabilityCap = 50;
+    /** Anvil levels for every combination that applies Soulbound, 1-39 (Vanilla refuses 40+). */
+    public int soulboundAnvilCost = 35;
+    /** Chance that a wandering trader offers a Soulbound book, 0-1. */
+    public double soulboundTraderChance = 0.05;
+    /** Chance of a Soulbound book in an End City treasure chest, 0-1 (applied on data reload). */
+    public double soulboundEndCityChance = 0.02;
+    /** Offering points (diamonds, Simple Money bills) per returned item, 1-64. */
+    public int deathVaultCostPerItem = 4;
+    /** Items returned by one offering at most, 1-27. */
+    public int deathVaultMaxPerOffering = 3;
+    /** Deaths kept per player, 1-100 (the oldest are forgotten). */
+    public int deathVaultMaxDeaths = 20;
 
     public static double bounded(double v, double min, double max, double fallback) {
         return Double.isFinite(v) ? Math.clamp(v, min, max) : fallback;
@@ -23,6 +41,13 @@ public final class ToolsConfig {
     public void normalizeNumbers() {
         fullDurabilityThreshold = bounded(fullDurabilityThreshold, 0.8, 1, DEFAULT_DURABILITY_THRESHOLD);
         fullDurabilityBonusMultiplier = bounded(fullDurabilityBonusMultiplier, 1, MAX_BONUS, DEFAULT_DURABILITY_BONUS_MULTIPLIER);
+        deathDurabilityCap = Math.clamp(deathDurabilityCap, 1, 2031);
+        soulboundAnvilCost = Math.clamp(soulboundAnvilCost, 1, 39);
+        soulboundTraderChance = bounded(soulboundTraderChance, 0, 1, 0.05);
+        soulboundEndCityChance = bounded(soulboundEndCityChance, 0, 1, 0.02);
+        deathVaultCostPerItem = Math.clamp(deathVaultCostPerItem, 1, 64);
+        deathVaultMaxPerOffering = Math.clamp(deathVaultMaxPerOffering, 1, 27);
+        deathVaultMaxDeaths = Math.clamp(deathVaultMaxDeaths, 1, 100);
     }
 
     public void normalize() {

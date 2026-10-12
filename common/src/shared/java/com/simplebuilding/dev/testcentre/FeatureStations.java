@@ -660,6 +660,45 @@ public final class FeatureStations {
     }
 
     /**
+     * Death-Vault-Station (Simple Tools, 2026-10-12): nur wenn Simple Tools geladen ist (oeffentliche Registry-ID, kein
+     * Klassenimport), sonst leer. Der Block, davor eine Truhe mit Diamanten und Soulbound-Buechern, ein Amboss zum
+     * Auftragen (35 Level) und ein Schleifstein zum Entfernen.
+     */
+    public static TcCanvas deathVault(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        var vault = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletools", "death_vault"));
+        if (vault.isEmpty()) {
+            return c;
+        }
+        int z = 2;
+        int wallZ = 4;
+        c.place(2, 0, z, vault.get());
+        c.place(4, 0, z, Blocks.ANVIL);
+        c.place(6, 0, z, Blocks.GRINDSTONE);
+        c.place(1, 0, 1, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+        List<ItemStack> chest = new ArrayList<>();
+        chest.add(new ItemStack(Items.DIAMOND, 64));
+        ctx.enchantment(ResourceKey.create(net.minecraft.core.registries.Registries.ENCHANTMENT,
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletools", "soulbound")))
+                .ifPresent(soulbound -> {
+                    for (int i = 0; i < 4; i++) chest.add(TcContext.book(soulbound));
+                });
+        chest.add(new ItemStack(Items.DIAMOND_SWORD));
+        chest.add(new ItemStack(Items.EXPERIENCE_BOTTLE, 64));
+        c.contents(1, 0, 1, chest);
+        c.title(0, 2, wallZ, TcText.t("section.deathvault", "Death Vault"), TcText.t("section.deathvault.sub", "Simple Tools"));
+        c.wallSign(2, 1, wallZ, TcText.bold(TcText.t("deathvault.vault", "Death Vault")),
+                TcText.t("deathvault.vault.sub", "lost items back"), TcText.t("deathvault.vault.sub2", "4 diamonds each"));
+        c.wallSign(4, 1, wallZ, TcText.bold(TcText.t("deathvault.anvil", "Soulbound")),
+                TcText.t("deathvault.anvil.sub", "book on anvil"), TcText.t("deathvault.anvil.sub2", "always 35 levels"));
+        c.wallSign(6, 1, wallZ, TcText.bold(TcText.t("deathvault.grind", "Grindstone")),
+                TcText.t("deathvault.grind.sub", "removes Soulbound"));
+        c.backWall(0, 7, wallZ, 4);
+        return c;
+    }
+
+    /**
      * Astral-Verzauberungs-Station (Queue N27, McVersion.ASTRAL_ENCHANTING): links ein fertiger Astral-Tisch der Stufe 50
      * (5x5 Lohen-Obsidian, 15 Lohen-Regale im Ring, vorn mittig frei, Lapis und Lohenstaub gelagert), rechts ein
      * Vanilla-Verzauberungstisch zum Haemmern; die Truhe haelt Netherit-Hammer, Enderit-Nuggets und die Lohen-Familie.

@@ -1,0 +1,13 @@
+{
+  "death_vault": {
+    "lore": [
+      "Manche sagen, die Toten führen Buch. Dieser Schrein ist der Ort, an dem es liegt, und seine Seelenflamme vergisst keinen Namen."
+    ],
+    "use": [
+      "Öffne ihn, um zu sehen, was dich deine Tode gekostet haben. Was noch in der Welt liegt, bleibt dunkel; was verschwunden, verbrannt, explodiert oder ins Leere gefallen ist, lässt sich zurückkaufen. Je 4 Diamanten kommt ein zufälliger verlorener Gegenstand zurück, höchstens 3 je Opfer."
+    ],
+    "secret": [
+      "Neuere Tode und wertvollere Gegenstände kommen öfter zurück. Was irgendwer aufgehoben hat, wird gestrichen, und seelengebundene Gegenstände stehen nie darin: Sie haben dich nie verlassen."
+    ]
+  }
+}
