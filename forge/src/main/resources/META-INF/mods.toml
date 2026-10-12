@@ -139,3 +139,9 @@ mandatory=false
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
+[[dependencies.${modId}]]
+modId="simpleenddragonfight"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

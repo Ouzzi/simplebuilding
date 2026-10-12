@@ -602,6 +602,10 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simpleenddragonfight/dragon_chitin",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplefun/pig_head",
       "required": false
     },

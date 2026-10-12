@@ -251,6 +251,7 @@ dependencies {
     include project(':modules:simpledimensions:fabric')
     include project(':modules:simpletrims:fabric')
     include project(':modules:simplemobs:fabric')
+    include project(':modules:simpleenddragonfight:fabric')
 }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }

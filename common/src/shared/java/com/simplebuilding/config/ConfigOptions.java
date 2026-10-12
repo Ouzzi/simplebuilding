@@ -108,6 +108,7 @@ public final class ConfigOptions {
             "enableSimpleDimensions",
             "enableSimpleTrims",
             "enableSimpleMobs",
+            "enableSimpleEndDragonFight",
             "server.soulLava.fuelMultiplier",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",

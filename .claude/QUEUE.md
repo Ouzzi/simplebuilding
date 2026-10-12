@@ -840,7 +840,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Rods/Poles: alle Mod-Rods heißen „Pole“ (Iron/Gold/Netherite/Enderite Pole); Diamond Pole (3 Diamanten, 3D wie Blitzableiter) vs. Diamond Rod (Pfeile usw.) trennen.
 
 ## Nachtrag 40 (2026-10-11, Besitzer)
-- [ ] Neues Sub-Modul Simple End Dragon Fight (Konzept + Skalierungs-Vorschläge zuerst): ab halbem Leben alle 30 s Dragonmites (eigene Endermites, nur mit Drache) nahe dem Brunnen; +1 Leben je Spieler, automatische Anpassung, wenn neue Spieler die End-Insel (mit Puffer) betreten; Eintritts-Animation + Partikel je Spieler (Warteschlange, jeder Trigger sichtbar); Drache allgemein schneller.
+- [x] (claude-dragon) Neues Sub-Modul Simple End Dragon Fight (Konzept + Skalierungs-Vorschläge zuerst): ab halbem Leben alle 30 s Dragonmites (eigene Endermites, nur mit Drache) nahe dem Brunnen; +1 Leben je Spieler, automatische Anpassung, wenn neue Spieler die End-Insel (mit Puffer) betreten; Eintritts-Animation + Partikel je Spieler (Warteschlange, jeder Trigger sichtbar); Drache allgemein schneller.
 - [ ] Geschnitztes Holz rundherum (alle Seiten), nicht nur eine Seite.
 - [ ] Blaupause: Ziehen (Drag) rotiert das Modell beim geraden Ziehen weiterhin.
 - [ ] Screenshot buggy_end.webp (n40/): verbuggt aussehende Fläche im End prüfen.,
