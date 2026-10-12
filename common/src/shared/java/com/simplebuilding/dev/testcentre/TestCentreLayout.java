@@ -239,6 +239,7 @@ public final class TestCentreLayout {
         builders.put("tweaks", TweaksStation::build);
         // Death Vault + Soulbound (Simple Tools, 2026-10-12); leer ohne Simple Tools.
         builders.put("deathvault", FeatureStations::deathVault);
+        builders.put("respawn", FeatureStations::respawn);
         builders.put("devices", TestCentreSections::devices);
         builders.put("mobs", MobStations::build);
 
