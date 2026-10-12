@@ -244,7 +244,7 @@ public class HollowWatcherEntity extends Monster {
                 if (!(held instanceof LivingEntity h) || !h.isAlive() || gripAt == null) { releaseGrip(null, false); return; }
                 h.teleportTo(gripAt.x, gripAt.y, gripAt.z);
                 h.setDeltaMovement(Vec3.ZERO);
-                h.hurtMarked = true;
+                h.needsSync = true;
                 if (t <= 0) releaseGrip(h, true);
             }
             case ACT_CLAW -> {
@@ -252,8 +252,7 @@ public class HollowWatcherEntity extends Monster {
                     setAction(ACT_NONE, 0);
                     clawCooldown = FearLogic.CLAW_COOLDOWN;
                     if (target != null && this.distanceTo(target) <= reach(target) + 0.5) {
-                        this.swing(net.minecraft.world.InteractionHand.MAIN_HAND);
-                        target.hurtServer(level, this.damageSources().mobAttack(this), FearLogic.WATCHER_CLAW);
+                                        target.hurtServer(level, this.damageSources().mobAttack(this), FearLogic.WATCHER_CLAW);
                     }
                 }
             }
@@ -286,7 +285,7 @@ public class HollowWatcherEntity extends Monster {
         if (held != null && hurt && this.level() instanceof ServerLevel level) {
             held.hurtServer(level, this.damageSources().mobAttack(this), FearLogic.GRIP_RELEASE_DAMAGE);
             Vec3 away = held.position().subtract(this.position()).multiply(1, 0, 1);
-            if (away.lengthSqr() > 1.0e-4) { away = away.normalize(); held.push(away.x * 1.0, 0.5, away.z * 1.0); held.hurtMarked = true; }
+            if (away.lengthSqr() > 1.0e-4) { away = away.normalize(); held.push(away.x * 1.0, 0.5, away.z * 1.0); }
         }
     }
 

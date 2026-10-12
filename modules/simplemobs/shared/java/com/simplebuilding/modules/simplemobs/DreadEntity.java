@@ -212,14 +212,12 @@ public class DreadEntity extends Monster {
     /** The mace lands: 18 damage (halved in light) if still in reach; a shield blocking it is disabled for 10 s. */
     public boolean swing(ServerLevel level, LivingEntity target) {
         this.playSound(SoundEvents.ANVIL_LAND, 0.8f, 0.6f);
-        this.swing(net.minecraft.world.InteractionHand.MAIN_HAND);
         if (this.distanceTo(target) > reach(target) + 0.5) return false;
         boolean hit = target.hurtServer(level, this.damageSources().mobAttack(this), FearLogic.dreadDamage(FearLogic.DREAD_HIT, light()));
         Vec3 away = target.position().subtract(this.position()).multiply(1, 0, 1);
         if (hit && away.lengthSqr() > 1.0e-4) {
             away = away.normalize();
             target.push(away.x * 1.2, 0.4, away.z * 1.2);
-            target.hurtMarked = true;
         }
         return hit;
     }
@@ -237,7 +235,6 @@ public class DreadEntity extends Monster {
             if (e.hurtServer(level, this.damageSources().mobAttack(this), damage)) hit++;
             away = away.lengthSqr() > 1.0e-4 ? away.normalize() : Vec3.ZERO;
             e.push(away.x * 0.8, 0.6, away.z * 0.8);
-            e.hurtMarked = true;
         }
         return hit;
     }

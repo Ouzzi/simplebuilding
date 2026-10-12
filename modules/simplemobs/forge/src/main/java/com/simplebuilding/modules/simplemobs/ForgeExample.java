@@ -82,7 +82,7 @@ public final class ForgeExample {
             if (e.getTabKey().equals(CreativeModeTabs.COMBAT)) putAfter(e, new ItemStack(Items.TURTLE_HELMET), new ItemStack(EndNetherMobs.HELMET));
         });
         net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> EndNetherServer.tick(e.server()));
-        FearMobs.simplebuildingPresent = net.minecraftforge.fml.ModList.get().isLoaded("simplebuilding");
+        FearMobs.simplebuildingPresent = net.minecraftforge.fml.ModList.isLoaded("simplebuilding");
         RegisterEvent.getBus(bus).addListener(event -> {
             event.register(Registries.ENTITY_TYPE, r -> FearMobs.entityTypes(r::register));
             event.register(Registries.ITEM, r -> FearMobs.items(r::register));
