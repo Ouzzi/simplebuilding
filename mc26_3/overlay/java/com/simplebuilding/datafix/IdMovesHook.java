@@ -12,7 +12,8 @@ import net.minecraft.resources.ResourceKey;
  * 26.3: the renamed ids of {@link LegacyItemIds} go into SimpleLib's {@link IdMoves} (split plan stage 3a), whose
  * mixins and Forge aliases resolve them; the mod's own alias mixins are switched off ({@link AliasMixinPlugin}) and
  * {@code ForgeRegistryBootstrap} adds no aliases of its own. Same tables, same registries as before: items (renamed
- * items, renamed End redstone blocks, renamed stands), blocks (End redstone), entity types (stands). Called from every
+ * items, renamed End redstone blocks, renamed stands, vanilla replacements), blocks (End redstone, vanilla
+ * replacements), entity types (stands). Called from every
  * loader's mod constructor / initializer, before the registry events and before any world loads.
  *
  * <p>Also registers the test namespace {@code simpletest}, which moves to {@code simplebuilding} as a whole: the
@@ -42,6 +43,12 @@ public final class IdMovesHook {
         move(Registries.ITEM, items);
         move(Registries.BLOCK, LegacyItemIds.RENAMED_BLOCKS);
         move(Registries.ENTITY_TYPE, LegacyItemIds.RENAMED_STANDS);
+        // Removed blocks that load as a vanilla block (Nachtrag 36): item and block, target in the minecraft namespace.
+        LegacyItemIds.REPLACED_BY_VANILLA.forEach((oldPath, vanilla) -> {
+            Identifier old = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, oldPath);
+            IdMoves.move(Registries.ITEM, old, vanilla);
+            IdMoves.move(Registries.BLOCK, old, vanilla);
+        });
         IdMoves.moveNamespace(TEST_NAMESPACE, Simplebuilding.MOD_ID);
     }
 

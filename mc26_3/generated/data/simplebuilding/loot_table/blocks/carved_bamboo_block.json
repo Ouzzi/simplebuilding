@@ -12,10 +12,7 @@
             "type": "minecraft:copy_state",
             "block": "simplebuilding:carved_bamboo_block",
             "properties": [
-              "north",
-              "east",
-              "south",
-              "west",
+              "carving",
               "motif"
             ]
           },

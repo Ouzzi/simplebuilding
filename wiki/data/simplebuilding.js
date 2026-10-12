@@ -8311,19 +8311,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -8348,19 +8348,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -8385,19 +8385,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -8422,19 +8422,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -8459,19 +8459,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -8496,19 +8496,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -8533,19 +8533,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -8570,19 +8570,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -8607,19 +8607,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -8644,19 +8644,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -8681,19 +8681,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -8718,19 +8718,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -48533,19 +48533,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -48574,19 +48574,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -48615,19 +48615,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -48656,19 +48656,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -48697,19 +48697,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -48738,19 +48738,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -48779,19 +48779,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -48820,19 +48820,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -48861,19 +48861,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -48902,19 +48902,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -48943,19 +48943,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },
@@ -48984,19 +48984,19 @@ window.WIKI_DATA = {
           "tools/textures/woodwork_2026_10_09.py"
         ],
         "en": {
-          "summary": "Carved logs show the motif of a pottery sherd on one side, in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
+          "summary": "Carved logs are carved all the way round: every side shows the wood's own motif or the motif of a pottery sherd in a darker shade of the wood; there is one per wood type and sherd (23 motifs).",
           "details": [
-            "Made in the world only: a pottery sherd in the off hand, a chisel in the main hand, right-click the side of a standing stripped log. Clicking carved wood with another sherd changes the motif.",
+            "Made in the world only: a chisel in the main hand (a pottery sherd in the off hand for its motif), right-click a side of a standing stripped log - one click carves all four sides. Clicking carved wood with another sherd changes the motif; sneaking with the chisel takes the whole carving off again.",
             "The sherd is not used up; the chisel loses 1 durability and goes on its usual cooldown.",
-            "Breaking drops the carved log with its motif; placed again, the motif faces you."
+            "Breaking drops the carved log with its motif."
           ]
         },
         "de": {
-          "summary": "Geschnitzte Stämme zeigen auf einer Seite das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
+          "summary": "Geschnitzte Stämme sind rundum geschnitzt: jede Seite zeigt das holzeigene Motiv oder das Motiv einer Töpferscherbe in einem dunkleren Ton des Holzes; es gibt sie je Holzart und Scherbe (23 Motive).",
           "details": [
-            "Nur in der Welt: eine Töpferscherbe in die Nebenhand, einen Meißel in die Haupthand und auf die Seite eines stehenden entrindeten Stamms rechtsklicken. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv.",
+            "Nur in der Welt: einen Meißel in die Haupthand (für ihr Motiv eine Töpferscherbe in die Nebenhand) und auf eine Seite eines stehenden entrindeten Stamms rechtsklicken – ein Klick schnitzt alle vier Seiten. Mit einer anderen Scherbe auf geschnitztes Holz geklickt, wechselt das Motiv; Schleichen mit dem Meißel nimmt die ganze Schnitzerei wieder ab.",
             "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
-            "Abgebaut droppt der Stamm mit seinem Motiv; neu gesetzt zeigt das Motiv zu dir."
+            "Abgebaut droppt der Stamm mit seinem Motiv."
           ]
         }
       },

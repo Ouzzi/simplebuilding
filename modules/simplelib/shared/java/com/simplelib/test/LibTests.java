@@ -177,8 +177,8 @@ public final class LibTests {
                         : (outline.minZ == 0 && outline.maxZ == 1 && outline.minX == 1 / 16.0 && outline.maxX == 15 / 16.0),
                         "handles in the outline on the " + (xSides ? "x" : "z") + " sides for " + d + ": " + outline);
                 check(h, outline.maxY == 14 / 16.0 && outline.minY == 0, "outline height 14/16: " + outline);
-                check(h, coll.maxY == 11 / 16.0 && !st.getShape(level, pos).isEmpty() && !st.getInteractionShape(level, pos).isEmpty(),
-                        "collision handles to 11/16, interior shape set: " + coll);
+                check(h, coll.maxY == 9 / 16.0 && !st.getShape(level, pos).isEmpty() && !st.getInteractionShape(level, pos).isEmpty(),
+                        "collision stays 9/16 (handles outline only), interior shape set: " + coll);
             }
             for (int stage = 1; stage <= 5; stage++) {
                 var b = LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(CrucibleBlankBlock.STAGE, stage)

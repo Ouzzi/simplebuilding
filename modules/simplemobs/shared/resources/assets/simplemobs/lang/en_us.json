@@ -29,5 +29,18 @@
   "item.minecraft.potion.effect.high_gravity": "Potion of High Gravity",
   "item.minecraft.splash_potion.effect.high_gravity": "Splash Potion of High Gravity",
   "item.minecraft.lingering_potion.effect.high_gravity": "Lingering Potion of High Gravity",
-  "item.minecraft.tipped_arrow.effect.high_gravity": "Arrow of High Gravity"
+  "item.minecraft.tipped_arrow.effect.high_gravity": "Arrow of High Gravity",
+  "item.simplemobs.deceiver_cloak": "Cloak of Deception",
+  "item.simplemobs.trick_mirror": "Trick Mirror",
+  "item.minecraft.potion.effect.veiled_invisibility": "Potion of Veiled Invisibility",
+  "item.minecraft.splash_potion.effect.veiled_invisibility": "Splash Potion of Veiled Invisibility",
+  "item.minecraft.lingering_potion.effect.veiled_invisibility": "Lingering Potion of Veiled Invisibility",
+  "item.minecraft.tipped_arrow.effect.veiled_invisibility": "Arrow of Veiled Invisibility",
+  "message.simplemobs.disguise.morph": "You now look like %s",
+  "message.simplemobs.disguise.refused": "%s sees through every disguise",
+  "message.simplemobs.disguise.no_room": "No room to take this shape here",
+  "message.simplemobs.disguise.revealed": "Your disguise falls - they have seen you",
+  "message.simplemobs.mirror.found": "The mirror shows %s deceptions",
+  "item.simplemobs.illusion_shard": "Illusion Shard",
+  "entity.simplemobs.disguise_marker": "Disguise Marker"
 }
