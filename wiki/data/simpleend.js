@@ -2867,7 +2867,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Ashwood Shelf",
         "de_de": "Aschholzregal"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Ashwood shelf: holds books and items like the Vanilla shelf (Simple End)."
+        },
+        "de": {
+          "summary": "Aschholz-Regal: hält Bücher und Gegenstände wie das Vanilla-Regal (Simple End)."
+        }
+      },
       "texture": "assets/textures/simpleend/block/ashwood_shelf.png",
       "craftedBy": [
         "simpleend:ashwood_shelf"
@@ -3268,7 +3275,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         "en_us": "Duskwood Shelf",
         "de_de": "Dämmerholzregal"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Duskwood shelf: holds books and items like the Vanilla shelf (Simple End)."
+        },
+        "de": {
+          "summary": "Dämmerholz-Regal: hält Bücher und Gegenstände wie das Vanilla-Regal (Simple End)."
+        }
+      },
       "texture": "assets/textures/simpleend/block/duskwood_shelf.png",
       "craftedBy": [
         "simpleend:duskwood_shelf"
@@ -3626,10 +3640,7 @@ window.WIKI_MODULE_DATA["simpleend"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleend:ashwood_shelf",
-    "simpleend:duskwood_shelf"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 8,
@@ -3644,7 +3655,7 @@ window.WIKI_MODULE_DATA["simpleend"] = {
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 2,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }

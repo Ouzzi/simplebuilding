@@ -621,6 +621,22 @@
       "de": {
         "summary": "Dämmerknospe im Blumentopf; nur Deko, wächst nicht."
       }
+    },
+    "simpleend:ashwood_shelf": {
+      "en": {
+        "summary": "Ashwood shelf: holds books and items like the Vanilla shelf (Simple End)."
+      },
+      "de": {
+        "summary": "Aschholz-Regal: hält Bücher und Gegenstände wie das Vanilla-Regal (Simple End)."
+      }
+    },
+    "simpleend:duskwood_shelf": {
+      "en": {
+        "summary": "Duskwood shelf: holds books and items like the Vanilla shelf (Simple End)."
+      },
+      "de": {
+        "summary": "Dämmerholz-Regal: hält Bücher und Gegenstände wie das Vanilla-Regal (Simple End)."
+      }
     }
   }
 }
