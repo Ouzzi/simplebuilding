@@ -83,7 +83,10 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             // Shellker closed (bedrock disguise) next to an open one with its slit and eye, a real bedrock block for comparison
             world.getServer().runOnServer(server -> {
                 var level = server.getLevel(net.minecraft.world.level.Level.OVERWORLD);
-                level.getEntities(MobsRegistry.HOLLOW_HOWLER, e -> true).forEach(e -> e.discard());
+                // Clear every earlier mob (the Deceiver, anything the shriek hurt) so no tinted body sits in the shot
+                var others = new java.util.ArrayList<net.minecraft.world.entity.Entity>();
+                level.getAllEntities().forEach(e -> { if (!(e instanceof net.minecraft.world.entity.player.Player)) others.add(e); });
+                others.forEach(net.minecraft.world.entity.Entity::discard);
                 var p = server.getPlayerList().getPlayers().getFirst();
                 var at = p.blockPosition().offset(0, 0, 3);
                 for (int dx = -2; dx <= 2; dx++) level.setBlockAndUpdate(at.offset(dx, 0, 0), net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
@@ -128,6 +131,55 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             context.waitTicks(30);
             context.takeScreenshot("simplemobs-soulfire-blaze");
+            if (net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplebuilding")) testCentre(context, world);
         }
+    }
+
+    /**
+     * Queue N43, with SimpleBuilding loaded: its test centre's mob station (one cell per mob of every mod). Builds the
+     * section, then per cell stands at its viewpoint and presses buttons by powering them like a player would (a redstone
+     * block in the button's place): still spawn, the Deceiver armored, the Shellker's four gateway guards.
+     */
+    private static void testCentre(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world) {
+        java.util.function.Consumer<String> run = command -> world.getServer().runOnServer(server -> {
+            server.getCommands().performPrefixedCommand(server.createCommandSourceStack().withSuppressedOutput(), command);
+        });
+        run.accept("kill @e[type=!minecraft:player]");
+        run.accept("gamemode creative @a");
+        run.accept("time set noon");
+        run.accept("weather clear");
+        run.accept("sbtestcentre section mobs");
+        // Cell layout (SimpleBuilding MobStations): viewpoint 4 in front of the buttons; still at x-3, remove x+1, extra x+3.
+        String[][] cells = {{"simplemobs", "deceiver"}, {"simplemobs", "hollow_howler"}, {"simplemobs", "shellker"},
+                {"simplemobs", "soulfire_blaze"}, {"simpleenddragonfight", "dragonmite"}};
+        for (String[] cell : cells) {
+            if (!net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath(cell[0], cell[1]))) continue;
+            String name = cell[1];
+            run.accept("execute as @p at @s run sbtestcentre tp mob/" + cell[0] + "/" + name);
+            context.waitTicks(10);
+            press(context, run, -3);
+            if (name.equals("shellker")) press(context, run, 3);
+            context.waitTicks(10);
+            world.getConnection().waitForChunksRender();
+            context.waitTicks(30);
+            context.takeScreenshot("testcenter-mobs-" + name);
+            if (name.equals("deceiver")) {
+                press(context, run, 1);
+                context.waitTicks(5);
+                press(context, run, 3);
+                context.waitTicks(30);
+                context.takeScreenshot("testcenter-mobs-deceiver-armored");
+            }
+            press(context, run, 1);
+            context.waitTicks(5);
+        }
+    }
+
+    /** Powers the button {@code dx} to the side of the viewpoint (one up, four ahead) for a moment, then puts it back. */
+    private static void press(ClientGameTestContext context, java.util.function.Consumer<String> run, int dx) {
+        run.accept("execute as @p at @s run setblock ~" + dx + " ~1 ~4 minecraft:redstone_block");
+        context.waitTicks(4);
+        run.accept("execute as @p at @s run setblock ~" + dx + " ~1 ~4 minecraft:stone_button[face=wall,facing=north]");
+        context.waitTicks(2);
     }
 }

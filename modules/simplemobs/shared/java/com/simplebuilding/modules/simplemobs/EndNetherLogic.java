@@ -11,8 +11,13 @@ public final class EndNetherLogic {
     public static final double SHELLKER_HEALTH = 120.0;
     /** Shulker bullet speed 0.15 x 1.5. */
     public static final double BULLET_SPEED = 0.225;
-    /** Like Levitation from a Shulker bullet: 10 s. */
-    public static final int BULLET_EFFECT_TICKS = 200;
+    /** High Gravity from a bullet (owner N45): 30 s, 1 min when the target is already under High Gravity. */
+    public static final int BULLET_EFFECT_TICKS = 600, BULLET_EFFECT_REPEAT_TICKS = 1200;
+    /** A bullet cannot be hit away or shot down during its first 2 s (owner N45). */
+    public static final int BULLET_SHIELD_TICKS = 40;
+    /** Fires 1.2x as often as a Shulker (owner N45) and almost at once after opening, so hit-spamming cannot hold it. */
+    public static final double FIRE_RATE = 1.2;
+    public static final int FIRST_SHOT_TICKS = 2;
     public static final int POTION_TICKS = 3600, LONG_POTION_TICKS = 9600;
     /** Upward forces (jump, Levitation, Elytra lift) keep 10 %. */
     public static final double UPWARD_FACTOR = 0.1;
@@ -29,6 +34,21 @@ public final class EndNetherLogic {
     public static final float SOUL_FIREBALL_DAMAGE = 6.0f, SOUL_FIRE_SECONDS = 6.0f;
 
     private EndNetherLogic() {}
+
+    /** Duration of the bullet's High Gravity: longer when the target already has it. */
+    public static int bulletEffectTicks(boolean alreadyHeavy) {
+        return alreadyHeavy ? BULLET_EFFECT_REPEAT_TICKS : BULLET_EFFECT_TICKS;
+    }
+
+    /** True while a bullet of this age ignores hits (no knocking it away, no shooting it down). */
+    public static boolean bulletShielded(int ageTicks) {
+        return ageTicks < BULLET_SHIELD_TICKS;
+    }
+
+    /** Ticks until the next shot: Vanilla Shulker's 20 + roll x 10 (roll 0..9), divided by {@link #FIRE_RATE}. */
+    public static int shotDelay(int roll) {
+        return (int) Math.round((20 + roll * 10) / FIRE_RATE);
+    }
 
     /** The four Shellker places of an End gateway: the open cells next to the portal block, at portal height. */
     public static List<BlockPos> gatewayGuardCells(BlockPos gateway) {

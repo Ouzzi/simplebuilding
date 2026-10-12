@@ -907,6 +907,144 @@ public final class TestCentreTests {
         return score == null ? 0 : score.value();
     }
 
+    // ------------------------------------------------------------------ Mob-Station (Queue N43)
+
+    /**
+     * Mob station: every mob of every loaded mod (no Vanilla, no MISC) has its cell - sign with its name, buttons to
+     * spawn it still and live and to remove it, a viewpoint anchor - and the buttons' commands really spawn it there.
+     * Deceiver: the armored button gives 240 max health. Shellker: a Vanilla End gateway with its bedrock frame, and the
+     * guard button puts four Shellkers on the bedrock cross around the gateway. SimpleBuilding alone has no mod mobs; then
+     * the same cell code runs with a Vanilla pig as stand-in.
+     */
+    public static void everyModMobHasAStationThatSpawnsItInItsHabitat(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        List<net.minecraft.world.entity.EntityType<?>> found = com.simplebuilding.dev.testcentre.MobStations.modMobs();
+        List<net.minecraft.world.entity.EntityType<?>> mobs = found.isEmpty()
+                ? List.of(net.minecraft.world.entity.EntityTypes.PIG) : found;
+        if (!found.isEmpty()) {
+            TestCentreLayout.Plan plan = TestCentreLayout.plan(level.registryAccess(), new BlockPos(0, 64, 0));
+            for (var type : found) {
+                helper.assertTrue(plan.anchors().containsKey(com.simplebuilding.dev.testcentre.MobStations.anchorName(
+                        BuiltInRegistries.ENTITY_TYPE.getKey(type))), "the plan has no mob cell for " + BuiltInRegistries.ENTITY_TYPE.getKey(type));
+            }
+        }
+        BlockPos origin = new BlockPos(30000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 30000);
+        com.simplebuilding.dev.testcentre.TcCanvas canvas = com.simplebuilding.dev.testcentre.MobStations.build(mobs);
+        List<TcOp> ops = new ArrayList<>();
+        canvas.ops().forEach(op -> ops.add(op.moved(origin)));
+        BoundingBox box = new BoundingBox(origin.getX(), origin.getY() - 1, origin.getZ() - 1,
+                origin.getX() + canvas.width() + 1, origin.getY() + canvas.height() + 2, origin.getZ() + canvas.depth() + 1);
+        AABB area = AABB.of(box);
+
+        // Planning: per mob a sign with its name, still/live spawn and a remove button.
+        Map<String, Integer> expected = new LinkedHashMap<>();
+        List<String> problems = new ArrayList<>();
+        for (var type : mobs) {
+            Identifier id = BuiltInRegistries.ENTITY_TYPE.getKey(type);
+            long summons = ops.stream().filter(op -> op instanceof TcOp.Command c && c.command().contains("summon " + id + " ")).count();
+            boolean remove = ops.stream().anyMatch(op -> op instanceof TcOp.Command c && c.command().startsWith("kill @e[type=" + id + ","));
+            boolean sign = ops.stream().anyMatch(op -> op instanceof TcOp.Sign sg && sg.lines().stream()
+                    .anyMatch(line -> line.getString().equals(type.getDescription().getString())));
+            if (summons < 2 || !remove || !sign) {
+                problems.add(id + ": " + summons + " spawn button(s), remove " + remove + ", sign " + sign);
+            }
+            int count = 2;
+            if (id.toString().equals("simplemobs:deceiver")) count += 1;
+            if (id.toString().equals("simplemobs:shellker")) count += 4;
+            expected.put(id.toString(), count);
+        }
+        helper.assertTrue(problems.isEmpty(), "mob cells: " + String.join("; ", problems));
+
+        List<int[]> forced = new ArrayList<>();
+        for (int cx = box.minX() >> 4; cx <= box.maxX() >> 4; cx++) {
+            for (int cz = box.minZ() >> 4; cz <= box.maxZ() >> 4; cz++) {
+                if (level.setChunkForced(cx, cz, true)) {
+                    forced.add(new int[]{cx, cz});
+                }
+                level.getChunk(cx, cz);
+            }
+        }
+        Runnable cleanup = () -> {
+            TestCentreBuilder.clear(level, box);
+            for (int[] chunk : forced) {
+                level.setChunkForced(chunk[0], chunk[1], false);
+            }
+        };
+        helper.runBeforeTestEnd(cleanup);
+        java.util.function.Function<String, Integer> count = id -> level.getEntities(
+                (net.minecraft.world.entity.Entity) null, area.inflate(2.0),
+                e -> BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).toString().equals(id)).size();
+        java.util.function.Consumer<String> run = command -> level.getServer().getCommands().performPrefixedCommand(
+                level.getServer().createCommandSourceStack().withLevel(level).withSuppressedOutput()
+                        .withPosition(net.minecraft.world.phys.Vec3.atCenterOf(ops.stream()
+                                .filter(op -> op instanceof TcOp.Command c && c.command().equals(command))
+                                .findFirst().orElseThrow().pos())), command);
+        helper.startSequence().thenWaitUntil(() -> {
+            for (int[] chunk : forced) {
+                helper.assertTrue(level.shouldTickBlocksAt(new net.minecraft.world.level.ChunkPos(chunk[0], chunk[1]).pack()),
+                        "mob station forced ticket is not active");
+            }
+        }).thenExecute(cleanupOnFailure(cleanup, () -> {
+            TestCentreBuilder.clear(level, box);
+            TestCentreBuilder.apply(level, ops);
+            for (TcOp op : ops) {
+                if (op instanceof TcOp.Command c) {
+                    helper.assertTrue(level.getBlockEntity(c.pos()) instanceof CommandBlockEntity entity
+                            && entity.getCommandBlock().getCommand().equals(c.command()), "no command block for '" + c.command() + "'");
+                    if (c.command().contains(" summon ")) {
+                        run.accept(c.command());
+                    }
+                }
+            }
+        })).thenWaitUntil(() -> {
+            for (Map.Entry<String, Integer> entry : expected.entrySet()) {
+                helper.assertTrue(count.apply(entry.getKey()) == entry.getValue(),
+                        entry.getKey() + ": " + count.apply(entry.getKey()) + " spawned, expected " + entry.getValue());
+            }
+        }).thenExecute(cleanupOnFailure(cleanup, () -> {
+            List<net.minecraft.world.entity.Entity> spawned = level.getEntities((net.minecraft.world.entity.Entity) null, area.inflate(2.0),
+                    e -> expected.containsKey(BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).toString()));
+            helper.assertTrue(spawned.stream().anyMatch(e -> e instanceof net.minecraft.world.entity.Mob mob && mob.isNoAi()),
+                    "the still button should spawn a mob without AI");
+            if (expected.containsKey("simplemobs:deceiver")) {
+                helper.assertTrue(spawned.stream().anyMatch(e -> BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).toString().equals("simplemobs:deceiver")
+                        && e instanceof net.minecraft.world.entity.LivingEntity living && living.getMaxHealth() >= 240.0F),
+                        "the armored Deceiver should have 240 max health");
+            }
+            if (expected.containsKey("simplemobs:shellker")) {
+                BlockPos gateway = null;
+                for (TcOp op : ops) {
+                    if (op instanceof TcOp.Place place && place.state().is(Blocks.END_GATEWAY)) {
+                        gateway = place.pos();
+                    }
+                }
+                helper.assertTrue(gateway != null && level.getBlockState(gateway).is(Blocks.END_GATEWAY), "the Shellker cell has no End gateway");
+                int bedrock = 0;
+                for (BlockPos pos : BlockPos.betweenClosed(gateway.offset(-1, -2, -1), gateway.offset(1, 2, 1))) {
+                    if (level.getBlockState(pos).is(Blocks.BEDROCK)) bedrock++;
+                }
+                helper.assertTrue(bedrock == 12, "the End gateway frame should hold 12 bedrock like Vanilla's, found " + bedrock);
+                int guards = 0;
+                for (Direction d : Direction.Plane.HORIZONTAL) {
+                    BlockPos cell = gateway.relative(d);
+                    guards += level.getEntities((net.minecraft.world.entity.Entity) null, new AABB(cell),
+                            e -> BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).toString().equals("simplemobs:shellker")
+                                    && e.blockPosition().equals(cell) && level.getBlockState(cell.below()).is(Blocks.BEDROCK)).size();
+                }
+                helper.assertTrue(guards == 4, "four Shellker guards should sit on the bedrock around the gateway, found " + guards);
+            }
+            for (TcOp op : ops) {
+                if (op instanceof TcOp.Command c && c.command().startsWith("kill @e[type=")) {
+                    run.accept(c.command());
+                }
+            }
+        })).thenWaitUntil(() -> {
+            for (String id : expected.keySet()) {
+                helper.assertTrue(count.apply(id) == 0, "the remove button left " + count.apply(id) + " " + id);
+            }
+        }).thenExecute(cleanup).thenSucceed();
+    }
+
     private static Runnable cleanupOnFailure(Runnable cleanup, Runnable action) {
         return () -> {
             try {

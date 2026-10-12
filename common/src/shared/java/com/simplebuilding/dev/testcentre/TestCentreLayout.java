@@ -43,6 +43,8 @@ public final class TestCentreLayout {
     public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "states", "storage", "food",
             "materials", "placeables", "arrows", "archery", "music", "crucible", "chess", "astral", "woodwork", "vehicles", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
             "mining", "enchants", "sinkdamper", "tweaks", "devices",
+            // Mobs of every loaded mod (Queue N43); empty without such mods.
+            "mobs",
             // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
             "tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads", "tab_arrows",
             "gallery", "unsorted");
@@ -234,6 +236,7 @@ public final class TestCentreLayout {
         builders.put("sinkdamper", FeatureStations::sinkDamper);
         builders.put("tweaks", TweaksStation::build);
         builders.put("devices", TestCentreSections::devices);
+        builders.put("mobs", MobStations::build);
 
         Map<String, TcCanvas> canvases = new LinkedHashMap<>();
         for (Map.Entry<String, Function<TcContext, TcCanvas>> entry : builders.entrySet()) {
