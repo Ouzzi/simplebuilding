@@ -65,11 +65,26 @@ public final class EndClientSmoke implements FabricClientGameTest {
                     BlockPos g = base.offset(r.nextInt(28), 0, r.nextInt(18));
                     if (level.getBlockState(g).isAir()) level.setBlockAndUpdate(g, (i % 5 == 0 ? EndRegistry.END_BUSH : EndRegistry.END_GRASS).defaultBlockState());
                 }
+                for (int i = 0; i < 6; i++) {
+                    var mite = EndRegistry.NIBBLEMITE.create(level, net.minecraft.world.entity.EntitySpawnReason.SPAWN_ITEM_USE);
+                    mite.setVariant(i % 2);
+                    mite.snapTo(base.getX() + 12 + i, base.getY(), base.getZ() + 1 + (i % 3), 180f, 0f);
+                    mite.setNoAi(true);
+                    level.addFreshEntity(mite);
+                    level.setBlockAndUpdate(base.offset(12 + i, -1, 2 + (i % 2)), EndRegistry.BURROWED_END_STONE.defaultBlockState());
+                }
                 cmd(server, "tp @a " + (base.getX() + 14) + " " + (base.getY() + 9) + " " + (base.getZ() - 14) + " 0 25");
             });
             context.waitTicks(60);
             world.getConnection().waitForChunksRender();
             context.takeScreenshot("simpleend-garden");
+            world.getServer().runOnServer(server -> {
+                ServerPlayer p = server.getPlayerList().getPlayers().getFirst();
+                var mite = server.getLevel(Level.OVERWORLD).getEntities(EndRegistry.NIBBLEMITE, e -> true).getFirst();
+                cmd(server, "tp @a " + mite.getX() + " " + (mite.getY() + 1.6) + " " + (mite.getZ() - 3.2) + " 0 30");
+            });
+            context.waitTicks(30);
+            context.takeScreenshot("simpleend-nibblemite");
             for (var biome : new net.minecraft.resources.ResourceKey[] {EndBiomes.ASH_VALLEY, EndBiomes.DAWNLANDS}) {
                 @SuppressWarnings("unchecked") var key = (net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>) biome;
                 BlockPos[] spot = new BlockPos[1];
