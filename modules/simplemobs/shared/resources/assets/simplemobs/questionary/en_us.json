@@ -169,7 +169,7 @@
       "An egg as heavy as an anvil."
     ],
     "use": [
-      "Spawns a Dread in creative. In survival you build it: a block of iron, an anvil on it, a chain on either side of the anvil and a wither skeleton skull on top - placed last."
+      "Spawns a Dread in creative. In survival you build it like an Iron Golem, with an anvil in the middle of the crossbar and a skeleton skull as the head - then put an Iron Helmet on the skull with a right-click."
     ],
     "secret": [
       "Bright light weakens it: at light 12 and more its blows deal half damage and its aura only gives Shivering I."

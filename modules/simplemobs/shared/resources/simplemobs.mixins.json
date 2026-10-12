@@ -13,7 +13,7 @@
     "TargetingConditionsCloakMixin",
     "LivingEntityGravityMixin",
     "EndGatewayFeatureMixin",
-    "WitherSkullDreadMixin"
+    "ItemHelmetDreadMixin"
   ],
   "client": [
     "DeceiverLookMixin",

@@ -23,7 +23,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LightBlock;
-import net.minecraft.world.level.block.WitherSkullBlock;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -85,20 +84,24 @@ final class FearTests {
             if (old == Difficulty.PEACEFUL) level.getServer().setDifficulty(Difficulty.NORMAL, true);
             try {
                 floor(h, 0, 0, 7, 4);
-                // incomplete figure (iron block instead of the anvil): nothing happens, the skull stays
+                var player = h.makeMockServerPlayerInLevel();
+                player.getAbilities().instabuild = false;
+                // incomplete figure (iron block instead of the anvil, the Iron Golem's T): smoke, the helmet stays
                 build(h, 6, Blocks.IRON_BLOCK.defaultBlockState());
-                WitherSkullBlock.checkSpawn(level, h.absolutePos(new BlockPos(6, 4, 2)));
+                h.assertTrue(helmetOn(h, player, new BlockPos(6, 4, 2)), "the click is used");
                 h.assertTrue(h.getEntities(FearMobs.DREAD).isEmpty(), "no Dread without the anvil");
-                h.assertTrue(level.getBlockState(h.absolutePos(new BlockPos(6, 4, 2))).is(Blocks.WITHER_SKELETON_SKULL), "skull stays");
-                // complete figure
+                h.assertTrue(player.getMainHandItem().is(Items.IRON_HELMET), "helmet kept on a wrong figure");
+                h.assertTrue(level.getBlockState(h.absolutePos(new BlockPos(6, 4, 2))).is(Blocks.SKELETON_SKULL), "skull stays");
+                // complete figure: the helmet goes on the skull and the Dread rises
                 build(h, 2, Blocks.CHIPPED_ANVIL.defaultBlockState());
-                WitherSkullBlock.checkSpawn(level, h.absolutePos(new BlockPos(2, 4, 2)));
+                helmetOn(h, player, new BlockPos(2, 4, 2));
                 var dreads = h.getEntities(FearMobs.DREAD);
                 h.assertTrue(dreads.size() == 1, "one Dread rises: " + dreads.size());
                 h.assertTrue(dreads.getFirst().rising() && dreads.getFirst().isPersistenceRequired(), "it rises and stays");
+                h.assertTrue(player.getMainHandItem().isEmpty(), "the helmet is used up");
                 for (BlockPos p : java.util.List.of(new BlockPos(2, 2, 2), new BlockPos(2, 3, 2), new BlockPos(1, 3, 2), new BlockPos(3, 3, 2), new BlockPos(2, 4, 2)))
                     h.assertTrue(level.getBlockState(h.absolutePos(p)).isAir(), "figure used up at " + p);
-                h.assertTrue(h.getEntities(EntityTypes.WITHER).isEmpty(), "no Wither");
+                h.assertTrue(h.getEntities(EntityTypes.IRON_GOLEM).isEmpty(), "no Iron Golem");
                 boolean on = MobsConfig.dreadSummonEnabled;
                 MobsConfig.dreadSummonEnabled = false;
                 build(h, 6, Blocks.ANVIL.defaultBlockState());
@@ -327,8 +330,16 @@ final class FearTests {
         ServerLevel level = h.getLevel();
         level.setBlock(h.absolutePos(new BlockPos(x, 2, 2)), Blocks.IRON_BLOCK.defaultBlockState(), 3);
         level.setBlock(h.absolutePos(new BlockPos(x, 3, 2)), center, 3);
-        level.setBlock(h.absolutePos(new BlockPos(x - 1, 3, 2)), Blocks.IRON_CHAIN.defaultBlockState(), 3);
-        level.setBlock(h.absolutePos(new BlockPos(x + 1, 3, 2)), Blocks.IRON_CHAIN.defaultBlockState(), 3);
-        level.setBlock(h.absolutePos(new BlockPos(x, 4, 2)), Blocks.WITHER_SKELETON_SKULL.defaultBlockState(), 3);
+        level.setBlock(h.absolutePos(new BlockPos(x - 1, 3, 2)), Blocks.IRON_BLOCK.defaultBlockState(), 3);
+        level.setBlock(h.absolutePos(new BlockPos(x + 1, 3, 2)), Blocks.IRON_BLOCK.defaultBlockState(), 3);
+        level.setBlock(h.absolutePos(new BlockPos(x, 4, 2)), Blocks.SKELETON_SKULL.defaultBlockState(), 3);
+    }
+
+    /** The player right-clicks the skull at {@code rel} with an Iron Helmet; true if the click was used. */
+    private static boolean helmetOn(GameTestHelper h, net.minecraft.world.entity.player.Player player, BlockPos rel) {
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_HELMET));
+        BlockPos abs = h.absolutePos(rel);
+        var hit = new net.minecraft.world.phys.BlockHitResult(Vec3.atCenterOf(abs), net.minecraft.core.Direction.UP, abs, false);
+        return Items.IRON_HELMET.useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND, hit)).consumesAction();
     }
 }

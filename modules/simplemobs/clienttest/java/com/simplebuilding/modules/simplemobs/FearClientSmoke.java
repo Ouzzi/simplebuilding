@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
-/** Fear mobs on screen: the Dread figure, the Dread rising, idle, swinging and stomping; the Hollow Watcher idle, reaching, screaming, frozen; the items. */
+/** Fear mobs on screen: the Dread figure (iron T, anvil, skeleton skull), the helmet put on and the Dread rising, idle, swinging and stomping; the Hollow Watcher idle, reaching, screaming, frozen; the items. */
 public final class FearClientSmoke implements FabricClientGameTest {
     private static ServerLevel level(MinecraftServer server) { return server.getLevel(Level.OVERWORLD); }
 
@@ -51,16 +51,19 @@ public final class FearClientSmoke implements FabricClientGameTest {
                 for (int dx = -2; dx <= 2; dx++) l.setBlockAndUpdate(at.offset(dx, -1, 0), Blocks.POLISHED_DEEPSLATE.defaultBlockState());
                 l.setBlockAndUpdate(at, Blocks.IRON_BLOCK.defaultBlockState());
                 l.setBlockAndUpdate(at.above(), Blocks.ANVIL.defaultBlockState());
-                l.setBlockAndUpdate(at.offset(-1, 1, 0), Blocks.IRON_CHAIN.defaultBlockState());
-                l.setBlockAndUpdate(at.offset(1, 1, 0), Blocks.IRON_CHAIN.defaultBlockState());
+                l.setBlockAndUpdate(at.offset(-1, 1, 0), Blocks.IRON_BLOCK.defaultBlockState());
+                l.setBlockAndUpdate(at.offset(1, 1, 0), Blocks.IRON_BLOCK.defaultBlockState());
+                l.setBlockAndUpdate(at.above(2), Blocks.SKELETON_SKULL.defaultBlockState());
             });
             context.waitTicks(20);
             context.takeScreenshot("simplemobs-fear-dread-figure");
             world.getServer().runOnServer(server -> {
                 var l = level(server);
                 var head = front(server, 6).above(2);
-                l.setBlockAndUpdate(head, Blocks.WITHER_SKELETON_SKULL.defaultBlockState());
-                net.minecraft.world.level.block.WitherSkullBlock.checkSpawn(l, head);
+                var p = server.getPlayerList().getPlayers().getFirst();
+                p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(net.minecraft.world.item.Items.IRON_HELMET));
+                var hit = new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(head), net.minecraft.core.Direction.SOUTH, head, false);
+                net.minecraft.world.item.Items.IRON_HELMET.useOn(new net.minecraft.world.item.context.UseOnContext(p, net.minecraft.world.InteractionHand.MAIN_HAND, hit));
                 if (l.getEntities(FearMobs.DREAD, e -> true).isEmpty()) throw new AssertionError("the figure did not summon a Dread");
             });
             context.waitTicks(25);

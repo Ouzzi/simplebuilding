@@ -78,6 +78,12 @@ Detailfragen hat der Agent selbst entschieden (Leitlinie: fair, angekündigte An
 - Mock-Spieler sind kreativ → Tests schalten auf Überleben.
 - Testzentralen-Merge bringt fremde Commits mit (`claude-testcenter-mobs`, ohnehin für wave1 vorgesehen).
 
+## Änderung Besitzer 12.10. abends (umgesetzt)
+Figur ohne Ketten: Eisengolem-T (unten 1 Eisenblock, darüber 3 quer, der mittlere ist ein Amboss), obendrauf ein normaler
+Skelettschädel. Ausgelöst durch Rechtsklick mit Eisenhelm auf den Schädel (E: intuitiver als ein eigenes Schädel-Item –
+man sieht das Ergebnis sofort; falsche Figur: Rauch, Helm bleibt). Mixin `ItemHelmetDreadMixin` (Item#useOn) statt
+`WitherSkullDreadMixin`. Kosten ≈ 63 Eisenbarren + Schädel.
+
 ## Umsetzung/Abweichungen
 - Umgesetzt wie geplant. Abweichungen: kein eigener Fadenkreuz-Versatz in Simple Mobs (das Zielen selbst pendelt; mit SB
   kommt dessen Fadenkreuz-Zittern dazu). Test-Haken `FearAura.TEST_TAG` gilt auch für Mock-Spieler (die sind immer kreativ).

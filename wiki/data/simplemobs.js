@@ -212,14 +212,14 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/DreadPattern.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearLogic.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/FearAura.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/WitherSkullDreadMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/ItemHelmetDreadMixin.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
       ],
       "en": {
         "title": "Dread",
         "summary": "A fear mob you build yourself: a 2.6 block knight of rusted armor with soul flames in its empty helmet and a chain mace. Its Shivering aura makes your aim waver; bright light weakens it.",
         "details": [
-          "Figure, front view: a Block of Iron at the bottom, an anvil on it (any damage), a chain (any) left and right of the anvil, a Wither Skeleton Skull on top - placed last. The blocks beside the iron block and beside the skull must be air. About 40 iron ingots and the skull. Not on Peaceful; server config simplemobs-server.json: dreadSummonEnabled. It never spawns naturally.",
+          "Figure, front view: the Iron Golem's T - a Block of Iron at the bottom, three across above it, but the middle one is an anvil (any damage) - and a Skeleton Skull on top. The blocks beside the bottom block and beside the skull must be air. Then right-click the skull with an Iron Helmet: the helmet goes on and the Dread wakes (the helmet, skull and blocks are used up). On a wrong figure smoke rises and you keep the helmet. About 63 iron ingots. Not on Peaceful; server config simplemobs-server.json: dreadSummonEnabled. It never spawns naturally.",
           "It rises from the ground for 3 seconds (invulnerable), then hunts survival players. 260 health, armor 14, toughness 4, no knockback, slow. 60 XP.",
           "Mace swing, announced by the raised mace and a chain rattle for 0.7 s: 18 damage (Hard 27) and a heavy push. A shield that blocks it is disabled for 10 s (an axe: 5 s).",
           "Ground stomp, announced for 1.2 s by both arms lifting the mace, a roar and a ring of soul particles (radius 6): everyone on the ground in the ring takes 10 damage and is thrown out. Jump to dodge it. Cooldown 8 s.",
@@ -231,7 +231,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "title": "Schreckensritter",
         "summary": "Ein Furcht-Mob, den du selbst baust: ein 2,6 Blöcke großer Ritter in verrosteter Rüstung, Seelenflammen im leeren Helm und eine Kettenkeule. Seine Zitter-Aura lässt das Zielen wackeln; helles Licht schwächt ihn.",
         "details": [
-          "Figur von vorn: unten ein Eisenblock, darauf ein Amboss (beliebig beschädigt), links und rechts vom Amboss je eine Kette (beliebig), obendrauf ein Witherskelettschädel – zuletzt gesetzt. Neben dem Eisenblock und neben dem Schädel muss Luft sein. Etwa 40 Eisenbarren und der Schädel. Nicht auf Friedlich; Server-Config simplemobs-server.json: dreadSummonEnabled. Er erscheint nie von selbst.",
+          "Figur von vorn: das T des Eisengolems – unten ein Eisenblock, darüber drei quer, aber der mittlere ist ein Amboss (beliebig beschädigt) – und obendrauf ein Skelettschädel. Neben dem unteren Block und neben dem Schädel muss Luft sein. Dann mit einem Eisenhelm auf den Schädel rechtsklicken: Der Helm wird aufgesetzt und der Schreckensritter erwacht (Helm, Schädel und Blöcke werden verbraucht). Bei falscher Figur steigt Rauch auf und der Helm bleibt in der Hand. Etwa 63 Eisenbarren. Nicht auf Friedlich; Server-Config simplemobs-server.json: dreadSummonEnabled. Er erscheint nie von selbst.",
           "Er steigt 3 Sekunden lang aus dem Boden (unverwundbar) und jagt dann Spieler im Überlebensmodus. 260 Leben, Rüstung 14, Härte 4, kein Rückstoß, langsam. 60 EP.",
           "Keulenschlag, 0,7 s angekündigt durch die erhobene Keule und Kettenrasseln: 18 Schaden (Schwer 27) und starker Stoß. Ein Schild, der ihn blockt, ist 10 s gesperrt (Axt: 5 s).",
           "Bodenstampfer, 1,2 s angekündigt durch beide erhobenen Arme, ein Brüllen und einen Ring aus Seelenpartikeln (Radius 6): Wer im Ring am Boden steht, nimmt 10 Schaden und wird weggeschleudert. Springen weicht aus. Abklingzeit 8 s.",
@@ -1892,10 +1892,10 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       },
       "note": {
         "en": {
-          "summary": "Creative only. In survival the Dread is built: iron block, anvil, two chains, wither skeleton skull."
+          "summary": "Creative only. In survival the Dread is built: an Iron Golem T with an anvil in the middle, a skeleton skull on top, then an Iron Helmet put on the skull."
         },
         "de": {
-          "summary": "Nur kreativ. Im Überleben wird der Schreckensritter gebaut: Eisenblock, Amboss, zwei Ketten, Witherskelettschädel."
+          "summary": "Nur kreativ. Im Überleben wird der Schreckensritter gebaut: Eisengolem-T mit Amboss in der Mitte, Skelettschädel obendrauf, dann einen Eisenhelm auf den Schädel setzen."
         }
       },
       "texture": "assets/textures/simplemobs/item/dread_spawn_egg.png",
@@ -1905,7 +1905,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "An egg as heavy as an anvil."
           ],
           "use": [
-            "Spawns a Dread in creative. In survival you build it: a block of iron, an anvil on it, a chain on either side of the anvil and a wither skeleton skull on top - placed last."
+            "Spawns a Dread in creative. In survival you build it like an Iron Golem, with an anvil in the middle of the crossbar and a skeleton skull as the head - then put an Iron Helmet on the skull with a right-click."
           ],
           "secret": [
             "Bright light weakens it: at light 12 and more its blows deal half damage and its aura only gives Shivering I."
@@ -1916,7 +1916,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "Ein Ei, schwer wie ein Amboss."
           ],
           "use": [
-            "Erzeugt im Kreativmodus einen Schreckensritter. Im Überleben baust du ihn: ein Eisenblock, darauf ein Amboss, links und rechts vom Amboss je eine Kette und obendrauf ein Witherskelettschädel – zuletzt gesetzt."
+            "Erzeugt im Kreativmodus einen Schreckensritter. Im Überleben baust du ihn wie einen Eisengolem, mit einem Amboss in der Mitte der Querreihe und einem Skelettschädel als Kopf – dann setzt du dem Schädel per Rechtsklick einen Eisenhelm auf."
           ],
           "secret": [
             "Helles Licht schwächt ihn: ab Licht 12 machen seine Schläge nur halben Schaden und seine Aura gibt nur Zittern I."

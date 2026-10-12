@@ -220,13 +220,15 @@ public final class MobStations {
             }
             case MEADOW -> floor(c, x0, Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.MOSS_BLOCK.defaultBlockState());
             case DREAD_FIGURE -> {
-                // Simple Mobs' Dread figure without its head: place the wither skeleton skull from the frame on the anvil
+                // Simple Mobs' Dread figure: iron T with an anvil in the middle and a skeleton skull on top; right-click
+                // the skull with the Iron Helmet from the frame to wake it
                 floor(c, x0, Blocks.POLISHED_DEEPSLATE.defaultBlockState(), Blocks.DEEPSLATE_TILES.defaultBlockState());
                 c.place(x0 + 7, 0, 6, Blocks.IRON_BLOCK);
                 c.place(x0 + 7, 1, 6, Blocks.ANVIL);
-                c.place(x0 + 6, 1, 6, Blocks.IRON_CHAIN);
-                c.place(x0 + 8, 1, 6, Blocks.IRON_CHAIN);
-                c.wallFrame(x0 + 7, 3, WALL_Z, new ItemStack(net.minecraft.world.item.Items.WITHER_SKELETON_SKULL));
+                c.place(x0 + 6, 1, 6, Blocks.IRON_BLOCK);
+                c.place(x0 + 8, 1, 6, Blocks.IRON_BLOCK);
+                c.place(x0 + 7, 2, 6, Blocks.SKELETON_SKULL);
+                c.wallFrame(x0 + 5, 2, WALL_Z, new ItemStack(net.minecraft.world.item.Items.IRON_HELMET));
             }
         }
     }
