@@ -27,7 +27,8 @@
     "simplefarming",
     "simpletools",
     "simplemovement",
-    "simpleend"
+    "simpleend",
+    "simplerespawn"
   ],
   "devMods": [
     "jei",

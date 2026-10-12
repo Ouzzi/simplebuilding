@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "simplerespawn",
+  "version": "${version}",
+  "name": "Simple Respawn",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplerespawn.RespawnFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplerespawn.RespawnFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplerespawn.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25"
+  },
+  "mixins": [
+    "simplerespawn.mixins.json"
+  ],
+  "description": "Downed instead of dead: a teammate can revive you before you bleed out (then 3 hearts, no food)."
+}

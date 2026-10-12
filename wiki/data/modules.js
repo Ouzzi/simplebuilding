@@ -206,7 +206,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "c5d281ab8ea7"
+    "dataHash": "e956175e3dd5"
   },
   {
     "id": "simpletweaks",
@@ -224,7 +224,7 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding"
     ],
-    "dataHash": "90a77fb5e054"
+    "dataHash": "60ec5a90e0d7"
   },
   {
     "id": "simpledimensions",
@@ -351,7 +351,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "4670a9cc2936"
+    "dataHash": "76e76329444c"
   },
   {
     "id": "simpleweather",
@@ -396,7 +396,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpletools",
     "displayName": "Simple Tools",
-    "description": "Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
+    "description": "Full-durability bonus, the Thrift enchantment, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -412,7 +412,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "c67babb79d08"
+    "dataHash": "fc848f7a3f09"
   },
   {
     "id": "simplefarming",
@@ -541,6 +541,21 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "6024b8b8c7ce"
+    "dataHash": "d5b2f6125af8"
+  },
+  {
+    "id": "simplerespawn",
+    "displayName": "Simple Respawn",
+    "description": "Downed instead of dead: a teammate can revive you within the bleed-out time (then 3 hearts, no food); own downed screen with spectate, inventory view and give up.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "1dad6da6c5ce"
   }
 ];

@@ -41,7 +41,8 @@
         "simpledimensions",
         "simpletrims",
         "simplemobs",
-        "simpleend"
+        "simpleend",
+        "simplerespawn"
       ],
       "paths": {
         "root": ".",
@@ -2498,6 +2499,93 @@
         "fabric": ":modules:simpleend:fabric",
         "neoforge": ":modules:simpleend:neoforge",
         "forge": ":modules:simpleend:forge"
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
+    },
+    {
+      "id": "simplerespawn",
+      "name": "Simple Respawn",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Respawn",
+      "description": "Downed instead of dead: a teammate can revive you within the bleed-out time (then 3 hearts, no food); own downed screen with spectate, inventory view and give up.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [],
+      "optional": [],
+      "checks": [
+        "modules/simplerespawn/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplerespawn",
+        "catalogues": [
+          "modules/simplerespawn/fabric/src/main/java/com/simplebuilding/modules/simplerespawn/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplerespawn"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplerespawnGameTest",
+            "report": "integration/build/simplerespawn-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplerespawn:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplerespawn/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplerespawn:forge:runGameTestServer",
+            "report": "modules/simplerespawn/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplerespawnStandaloneGameTest",
+              "report": "integration/build/standalone/simplerespawn-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplerespawn:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplerespawn/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplerespawn.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplerespawn/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplerespawn",
+        "shared": "modules/simplerespawn/shared",
+        "fabric": "modules/simplerespawn/fabric",
+        "neoforge": "modules/simplerespawn/neoforge",
+        "forge": "modules/simplerespawn/forge",
+        "generated": "modules/simplerespawn/generated/resources",
+        "lang": "modules/simplerespawn/shared/resources/assets/simplerespawn/lang",
+        "wikiManual": "modules/simplerespawn/wiki/manual.json",
+        "balanceDir": "balance/simplerespawn"
+      },
+      "projects": {
+        "fabric": ":modules:simplerespawn:fabric",
+        "neoforge": ":modules:simplerespawn:neoforge",
+        "forge": ":modules:simplerespawn:forge"
       },
       "parent": "simplebuilding",
       "bundle": "optional"

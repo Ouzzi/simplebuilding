@@ -42,7 +42,7 @@ public final class TestCentreLayout {
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
     public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "states", "storage", "food",
             "materials", "placeables", "arrows", "archery", "music", "crucible", "chess", "astral", "woodwork", "simpleend", "vehicles", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
-            "mining", "enchants", "sinkdamper", "tweaks", "deathvault", "devices",
+            "mining", "enchants", "sinkdamper", "tweaks", "deathvault", "respawn", "devices",
             // Mobs of every loaded mod (Queue N43); empty without such mods.
             "mobs",
             // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.

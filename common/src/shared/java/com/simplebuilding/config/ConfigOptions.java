@@ -109,6 +109,7 @@ public final class ConfigOptions {
             "enableSimpleTrims",
             "enableSimpleMobs",
             "enableSimpleEnd",
+            "enableSimpleRespawn",
             "server.soulLava.fuelMultiplier",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
