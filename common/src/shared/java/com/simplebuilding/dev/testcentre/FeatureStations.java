@@ -917,6 +917,8 @@ public final class FeatureStations {
             Block hanging = endBlock(w + "_hanging_sign");
             if (hanging != null) c.place(17, 1, z, hanging);
             c.place(17, 0, z, endBlock(w + "_planks"));
+            Block shelf = endBlock(w + "_shelf");
+            if (shelf != null) c.place(18, 0, z, shelf);
             Block bud = endBlock(woods[row][1]);
             int bx = 2 + row * 10;
             // Licht: eine Knospe neben Leuchtstein waechst von selbst/mit Knochenmehl zum grossen Baum.
