@@ -283,8 +283,8 @@ public final class EndTests {
         add("nibblemite_is_passive", h -> {
             var mite = EndRegistry.NIBBLEMITE.create(h.getLevel(), net.minecraft.world.entity.EntitySpawnReason.SPAWN_ITEM_USE);
             h.assertTrue(mite != null, "nibblemite entity");
-            h.assertTrue(!(mite instanceof net.minecraft.world.entity.monster.Enemy), "not an enemy");
-            h.assertTrue(!(mite instanceof net.minecraft.world.entity.monster.Endermite), "not an Endermite (Endermen ignore it)");
+            h.assertTrue(!((Object) mite instanceof net.minecraft.world.entity.monster.Enemy), "not an enemy");
+            h.assertTrue(!((Object) mite instanceof net.minecraft.world.entity.monster.Endermite), "not an Endermite (Endermen ignore it)");
             h.assertTrue(EndRegistry.NIBBLEMITE.getCategory() == net.minecraft.world.entity.MobCategory.CREATURE, "creature category");
             h.assertTrue(mite.isFood(new ItemStack(Items.CHORUS_FRUIT)) && !mite.isFood(new ItemStack(Items.WHEAT)), "fed with chorus fruit");
             h.assertTrue(mite.getAttributes().getValue(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE) == 0.0
