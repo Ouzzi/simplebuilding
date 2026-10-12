@@ -182,8 +182,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
                                     .setRolls(com.simplebuilding.version.LootNumbers.exactly(1))
                                     .add(net.minecraft.world.level.storage.loot.entries.LootItem.lootTableItem(block)
                                             .apply(net.minecraft.world.level.storage.loot.functions.CopyBlockState.copyState(block)
-                                                    .copy(com.simplebuilding.woodwork.CarvedLogBlock.NORTH).copy(com.simplebuilding.woodwork.CarvedLogBlock.EAST)
-                                                    .copy(com.simplebuilding.woodwork.CarvedLogBlock.SOUTH).copy(com.simplebuilding.woodwork.CarvedLogBlock.WEST)
+                                                    .copy(com.simplebuilding.woodwork.CarvedLogBlock.CARVING)
                                                     .copy(com.simplebuilding.woodwork.CarvedLogBlock.MOTIF))))));
                 } else {
                     dropSelf(block);

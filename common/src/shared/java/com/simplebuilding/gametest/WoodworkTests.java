@@ -391,34 +391,25 @@ public final class WoodworkTests {
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.ANGLER_POTTERY_SHERD));
         chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, rel, Direction.EAST)));
         BlockState carved = helper.getBlockState(rel);
-        check(carved.is(oak().carved()) && CarvedLogBlock.carving(carved, Direction.EAST) == CarvedLogBlock.Carving.SHERD
-                && carved.getValue(CarvedLogBlock.MOTIF) == SherdMotif.ANGLER, fails, "angler carved east (" + carved + ")");
-        check(CarvedLogBlock.carving(carved, Direction.NORTH) == CarvedLogBlock.Carving.NONE
-                && CarvedLogBlock.carving(carved, Direction.WEST) == CarvedLogBlock.Carving.NONE, fails, "the other sides stay plain (" + carved + ")");
+        // N40: one click carves the whole block all round
+        check(carved.is(oak().carved()) && CarvedLogBlock.carving(carved) == CarvedLogBlock.Carving.SHERD
+                && carved.getValue(CarvedLogBlock.MOTIF) == SherdMotif.ANGLER, fails, "angler carved all round (" + carved + ")");
         check(player.getOffhandItem().is(Items.ANGLER_POTTERY_SHERD), fails, "the sherd stays");
-        // every side on its own: a second sherd on the west side, then the wood's own motif (no sherd) on the north side
+        // another sherd on another side changes the motif of the whole block
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.HEART_POTTERY_SHERD));
         chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, rel, Direction.WEST)));
         BlockState two = helper.getBlockState(rel);
-        check(CarvedLogBlock.carving(two, Direction.EAST) == CarvedLogBlock.Carving.SHERD
-                && CarvedLogBlock.carving(two, Direction.WEST) == CarvedLogBlock.Carving.SHERD
-                && two.getValue(CarvedLogBlock.MOTIF) == SherdMotif.HEART, fails, "a second sherd side shares the newest motif (" + two + ")");
+        check(CarvedLogBlock.carving(two) == CarvedLogBlock.Carving.SHERD && two.getValue(CarvedLogBlock.MOTIF) == SherdMotif.HEART,
+                fails, "a second sherd re-carves the whole block with its motif (" + two + ")");
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-        chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, rel, Direction.NORTH)));
-        BlockState three = helper.getBlockState(rel);
-        check(CarvedLogBlock.carving(three, Direction.NORTH) == CarvedLogBlock.Carving.WOOD
-                && CarvedLogBlock.carving(three, Direction.SOUTH) == CarvedLogBlock.Carving.NONE, fails,
-                "without a sherd a side gets the wood's own motif, the others are untouched (" + three + ")");
         chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, plain, Direction.NORTH)));
-        check(helper.getBlockState(plain).is(oak().carved()) && CarvedLogBlock.carving(helper.getBlockState(plain), Direction.NORTH) == CarvedLogBlock.Carving.WOOD,
-                fails, "a plain stripped log carved without a sherd shows the wood motif on that side only (" + helper.getBlockState(plain) + ")");
-        // sneaking takes carvings off; the last one gives the stripped log back
+        check(helper.getBlockState(plain).is(oak().carved()) && CarvedLogBlock.carving(helper.getBlockState(plain)) == CarvedLogBlock.Carving.WOOD,
+                fails, "a plain stripped log carved without a sherd shows the wood motif all round (" + helper.getBlockState(plain) + ")");
+        // sneaking takes the whole carving off at once
         player.setShiftKeyDown(true);
-        chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, plain, Direction.NORTH)));
-        check(helper.getBlockState(plain).is(Blocks.STRIPPED_OAK_LOG), fails, "sneaking takes the last carving off (" + helper.getBlockState(plain) + ")");
-        chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, rel, Direction.WEST)));
-        check(CarvedLogBlock.carving(helper.getBlockState(rel), Direction.WEST) == CarvedLogBlock.Carving.NONE
-                && CarvedLogBlock.carving(helper.getBlockState(rel), Direction.EAST) == CarvedLogBlock.Carving.SHERD, fails, "sneaking clears only the clicked side");
+        chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, plain, Direction.SOUTH)));
+        check(helper.getBlockState(plain).is(Blocks.STRIPPED_OAK_LOG), fails, "sneaking takes the carving off the whole block ("
+                + helper.getBlockState(plain) + ")");
         player.setShiftKeyDown(false);
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.ANGLER_POTTERY_SHERD));
         chisel.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, plain, Direction.UP)));
@@ -430,8 +421,34 @@ public final class WoodworkTests {
         List<ItemStack> drops = Block.getDrops(helper.getBlockState(rel), helper.getLevel(), helper.absolutePos(rel), null);
         var props = drops.size() == 1 && drops.get(0).has(DataComponents.BLOCK_STATE) ? drops.get(0).get(DataComponents.BLOCK_STATE).properties() : null;
         boolean keepsCarving = props != null && drops.get(0).is(oak().carved().asItem()) && "heart".equals(props.get("motif"))
-                && "sherd".equals(props.get("east")) && "wood".equals(props.get("north")) && "none".equals(props.get("west"));
-        check(keepsCarving, fails, "carved wood drops with all its sides and its motif (" + drops + ")");
+                && "sherd".equals(props.get("carving"));
+        check(keepsCarving, fails, "carved wood drops with its carving and motif (" + drops + ")");
+        // pre-N40 states (one carving per side) migrate: any sherd side -> sherd all round, else wood; side keys go
+        net.minecraft.nbt.CompoundTag oldSherd = new net.minecraft.nbt.CompoundTag();
+        oldSherd.putString("north", "none");
+        oldSherd.putString("east", "sherd");
+        oldSherd.putString("south", "wood");
+        oldSherd.putString("west", "none");
+        oldSherd.putString("motif", "skull");
+        check(CarvedLogBlock.migrate(oldSherd) && "sherd".equals(oldSherd.getStringOr("carving", "")) && "skull".equals(oldSherd.getStringOr("motif", ""))
+                && !oldSherd.contains("north") && !oldSherd.contains("east"), fails, "an old sherd-carved state migrates (" + oldSherd + ")");
+        net.minecraft.nbt.CompoundTag oldWood = new net.minecraft.nbt.CompoundTag();
+        oldWood.putString("north", "wood");
+        oldWood.putString("east", "none");
+        oldWood.putString("south", "none");
+        oldWood.putString("west", "none");
+        oldWood.putString("motif", "angler");
+        check(CarvedLogBlock.migrate(oldWood) && "wood".equals(oldWood.getStringOr("carving", "")), fails, "an old wood-carved state migrates (" + oldWood + ")");
+        check(!CarvedLogBlock.migrate(oldWood), fails, "a migrated state is left alone");
+        net.minecraft.nbt.CompoundTag palette = new net.minecraft.nbt.CompoundTag();
+        palette.putString("east", "sherd");
+        palette.putString("motif", "heart");
+        net.minecraft.nbt.CompoundTag entry = new net.minecraft.nbt.CompoundTag();
+        entry.putString("id", "simplebuilding:carved_oak_log");
+        entry.put("properties", palette);
+        com.simplebuilding.datafix.ModDataFixer.walk(null, entry, 1, 1);
+        check("sherd".equals(entry.getCompound("properties").map(t -> t.getStringOr("carving", "")).orElse("")), fails,
+                "the data fixer walk migrates a saved palette entry (" + entry + ")");
         for (SherdMotif motif : SherdMotif.values()) {
             check(SherdMotif.of(new ItemStack(motif.sherd())) == motif, fails, "sherd for " + motif.getSerializedName());
         }

@@ -57,6 +57,14 @@ public final class UiFlames {
         return calm == LIVELY ? 110 : calm == MEDIUM ? 190 : 280;
     }
 
+    static double lerp(double a, double b, double m) { return a + (b - a) * m; }
+
+    /** 0 = pointed, 1 = broad: the shape of tongue {@code j} at flame time {@code t}. */
+    static double morph(int j, double t, int calm) {
+        double s = Math.sin(t * (calm == LIVELY ? 2.4 : 1.5) + j * 2.7);
+        return 0.5 + 0.5 * Math.signum(s) * Math.pow(Math.abs(s), 0.7);
+    }
+
     /** Flame height in px of column {@code c} at time {@code millis}: a low band plus the highest tongue over it. */
     static int height(int c, long millis, int target, int calm) {
         double t = millis / 1000.0 * (calm == LIVELY ? 1.0 : calm == MEDIUM ? 0.55 : 0.35);
@@ -67,7 +75,10 @@ public final class UiFlames {
         int first = Math.floorDiv(c, spacing) - 1;
         for (int j = first; j <= first + 2; j++) {
             double center = j * spacing + spacing / 2 + 1.5 * Math.sin(t * 1.7 + j * 2.1);
-            double half = shape.half + (hash(j, 5) & 3) * shape.halfStep;
+            // Anime-fire rhythm: every tongue swings between POINTED (m = 0) and BROAD (m = 1) on its own phase;
+            // the sharpened sine lingers near the two shapes and passes the blunt middle quickly.
+            double m = morph(j, t, calm);
+            double half = lerp(Shape.POINTED.half, Shape.BROAD.half, m) + (hash(j, 5) & 3) * lerp(Shape.POINTED.halfStep, Shape.BROAD.halfStep, m);
             // Leaning tongues: one side steeper (image 1).
             double skew = (hash(j, 3) & 1) == 0 ? 0.3 : -0.3;
             double off = c + 0.5 - center;
@@ -76,10 +87,11 @@ public final class UiFlames {
             double amp = calm == LIVELY
                     ? 0.78 + 0.3 * Math.sin(t * 2.3 + j * 1.7) + 0.14 * Math.sin(t * 5.1 + j * 0.9) + (hash(j, 9) & 3) * 0.06
                     : 0.8 + 0.12 * Math.sin(t * 2.3 + j * 1.7) + (hash(j, 9) & 3) * 0.04;
-            best = Math.max(best, amp * Math.pow(1 - d, shape.exponent));
+            best = Math.max(best, lerp(Shape.POINTED.scale, Shape.BROAD.scale, m) * amp
+                    * Math.pow(1 - d, lerp(Shape.POINTED.exponent, Shape.BROAD.exponent, m)));
         }
         int jitter = calm == LIVELY && (hash(c, flick) & 3) == 0 ? 1 : 0;
-        int h = (int) Math.round(target * (shape.band + shape.scale * best)) + jitter;
+        int h = (int) Math.round(target * (shape.band + best)) + jitter;
         return Math.max(2, Math.min(target * shape.cap / 5, h));
     }
 

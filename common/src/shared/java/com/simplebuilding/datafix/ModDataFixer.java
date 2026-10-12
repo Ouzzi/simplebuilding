@@ -83,7 +83,7 @@ public final class ModDataFixer {
     }
 
     /** Walks a tree, fixing mod data in place where possible; returns the replacement for {@code tag}. */
-    static Tag walk(DataFixer fixer, Tag tag, int from, int to) {
+    public static Tag walk(DataFixer fixer, Tag tag, int from, int to) {
         if (tag instanceof ListTag list) {
             for (int i = 0; i < list.size(); i++) {
                 Tag child = list.get(i);
@@ -98,6 +98,7 @@ public final class ModDataFixer {
             return tag;
         }
         migrateGuide(compound);
+        com.simplebuilding.woodwork.CarvedLogBlock.migrate(compound);
         CompoundTag current = from < to ? fixOwnShape(fixer, compound, from, to) : compound;
         for (String key : current.keySet().toArray(new String[0])) {
             Tag child = current.get(key);

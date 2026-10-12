@@ -24,12 +24,12 @@ public final class CrucibleFlames {
 
     /** Typical tongue height in px over a crucible box {@code section} px high (0 = none). */
     public static int targetPixels(HeatLevel heat, boolean glowing, int section) {
-        if (glowing) return heat == HeatLevel.NONE ? 0 : Math.max(3, (int) Math.round(section / 16.0));
+        if (glowing) return heat == HeatLevel.NONE ? 0 : Math.max(3, (int) Math.round(section / 12.0));
         double part = switch (heat) {
             case NONE -> 0.0;
-            case MEDIUM -> 1.0 / 6.5;
-            case HIGH -> 1.0 / 3.0;
-            case EXTREME -> 1.1 / 3.0;
+            case MEDIUM -> 1.0 / 4.8;
+            case HIGH -> 1.0 / 2.7;
+            case EXTREME -> 1.0 / 2.4;
         };
         return (int) Math.round(section * part);
     }
