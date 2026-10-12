@@ -1,5 +1,7 @@
 # SimpleMods: set up a Windows PC once for the "Laptop-Start" buttons of the Zentrale (simplemods:// links).
 #   powershell -NoProfile -ExecutionPolicy Bypass -File install.ps1 [-Zentrale https://<zentrale>] [-DevDir <folder>]
+# or, as the Zentrale page does it with the browser download (a .txt: no browser warning, no execution policy):
+#   & ([scriptblock]::Create((Get-Content -Raw simplemods-install.txt))) -Zentrale https://<zentrale>
 # Installs with winget what is missing (Git, Eclipse Temurin JDK 25, Python 3 + Pillow/numpy for the texture build,
 # cloudflared for the login to the Zentrale), copies starter.ps1 to ~\.simplemods, registers simplemods:// for this
 # user (HKCU, no admin), clones the public repo into the dev folder and fetches the working state once.
@@ -172,8 +174,8 @@ function Main([string]$Zentrale, [string]$DevDir) {
     $cfg = [ordered]@{ zentrale = $Zentrale; devDir = $DevDir; javaHome = $java; python = $python; cloudflared = $cf; installed = (Get-Date).ToString('s') }
     $cfg | ConvertTo-Json | Set-Content -LiteralPath $cfgFile -Encoding UTF8
     $starter = Join-Path $Home2 'starter.ps1'
-    $local = Join-Path $PSScriptRoot 'starter.ps1'
-    if ($PSScriptRoot -and (Test-Path -LiteralPath $local)) {
+    $local = if ($PSScriptRoot) { Join-Path $PSScriptRoot 'starter.ps1' } else { '' }
+    if ($local -and (Test-Path -LiteralPath $local)) {
         Copy-Item -LiteralPath $local -Destination $starter -Force
         Write-Note "Starter aus $local"
     } elseif ($Zentrale) {
@@ -208,5 +210,5 @@ catch {
     try { Add-Content -LiteralPath $LogFile -Value "FEHLER: $msg" -Encoding UTF8 } catch { }
     Write-Host "FEHLER: $msg" -ForegroundColor Red
     Show-Popup "$msg`n`nLog: $LogFile"
-    exit 1
+    if ($PSCommandPath) { exit 1 }  # as a script block in the user's console: do not close it
 }

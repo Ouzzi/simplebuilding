@@ -69,8 +69,9 @@ unter `/downloads/` aus (hinter demselben Zugangsschutz). Die Hosts stehen nur i
 `--no-downloads --api-fail` zeigt Leer- und Fehlerzustände.
 
 ## Neuer PC (Windows-Starter)
-Reiter Laptop-Start ▸ „Neuen PC einrichten“: `install.ps1` herunterladen (`/setup/install.ps1`) und den angezeigten Befehl in
-PowerShell einfügen (er übergibt die Adresse der Zentrale). Der Installer holt per winget, was fehlt (Git, Eclipse Temurin
+Reiter Laptop-Start ▸ „Neuen PC einrichten“: `install.ps1` herunterladen (`/setup/install.ps1`, gespeichert als
+`simplemods-install.txt` – keine Browser-Warnung, keine Ausführungsrichtlinie) und den angezeigten Befehl in PowerShell
+einfügen (führt die Datei als Scriptblock aus und übergibt die Adresse der Zentrale). Der Installer holt per winget, was fehlt (Git, Eclipse Temurin
 JDK 25, Python 3.12 + Pillow/numpy – der Textur-Build `generateVanillaDerived` und `modselect.py` brauchen es; ohne nimmt der
 Build Platzhalter –, cloudflared), schreibt `~\.simplemods\config.json`, legt `starter.ps1` dorthin, registriert
 `simplemods://` unter `HKCU\Software\Classes` (ohne Admin) und holt den Code einmal. Erneut ausführen = reparieren.

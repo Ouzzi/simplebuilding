@@ -108,6 +108,18 @@ class PowerShellTest(unittest.TestCase):
                           "$r | ForEach-Object { '{0}:{1} {2} {3}' -f $_.ScriptName,$_.Line,$_.RuleName,$_.Message }; exit @($r).Count")
             self.assertEqual(r.returncode, 0, f'{f.name}:\n{r.stdout}{r.stderr}')
 
+    def test_installer_as_script_block_reports_errors_without_closing_the_console(self):
+        # the page runs the downloaded .txt as a script block in the user's PowerShell: errors must not "exit"
+        home = Path(tempfile.mkdtemp())
+        try:
+            r = self.pwsh(f"& ([scriptblock]::Create((Get-Content -Raw '{INSTALL}'))) -Zentrale 'http://not-https.example'; 'STILL_HERE'",
+                          env={'USERPROFILE': str(home)})
+            self.assertIn('keine https-Adresse', r.stdout)
+            self.assertIn('STILL_HERE', r.stdout)
+            self.assertIn('FEHLER', (home / '.simplemods' / 'install.log').read_text(encoding='utf-8-sig'))
+        finally:
+            shutil.rmtree(home, ignore_errors=True)
+
     def test_starter_syncs_master_and_working_state(self):
         base = WaveBundleTest('test_bundle_holds_only_commits_on_top_of_master')
         base.setUp()
